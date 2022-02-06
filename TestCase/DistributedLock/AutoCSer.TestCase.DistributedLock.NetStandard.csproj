@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.DistributedLock</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.DistributedLock</RootNamespace>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\DistributedLock\AutoCSer.CommandService.DistributedLock.NetStandard.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

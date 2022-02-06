@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>AutoCSer.Example.CommandServer</AssemblyName>
+    <RootNamespace>AutoCSer.Example.CommandServer</RootNamespace>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Client\AsyncTaskQueue\IKeepCallbackController.cs" />
+    <Compile Include="Client\AsyncTaskQueue\ISendOnlyController.cs" />
+    <Compile Include="Client\AsyncTaskQueue\ISynchronousController.cs" />
+    <Compile Include="Client\AsyncTask\IKeepCallbackController.cs" />
+    <Compile Include="Client\AsyncTask\ISendOnlyController.cs" />
+    <Compile Include="Client\AsyncTask\ISynchronousController.cs" />
+    <Compile Include="Client\Client.cs" />
+    <Compile Include="Client\CommandClientConfig.cs" />
+    <Compile Include="Client\CommandClientSocketEvent.cs" />
+    <Compile Include="Client\IVerifyController.cs" />
+    <Compile Include="Client\Queue\ICallbackController.cs" />
+    <Compile Include="Client\Queue\IKeepCallbackController.cs" />
+    <Compile Include="Client\Queue\ISendOnlyController.cs" />
+    <Compile Include="Client\Queue\ISynchronousController.cs" />
+    <Compile Include="Client\Synchronous\ICallbackController.cs" />
+    <Compile Include="Client\Synchronous\IKeepCallbackController.cs" />
+    <Compile Include="Client\Synchronous\ISendOnlyController.cs" />
+    <Compile Include="Client\Synchronous\ISynchronousController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Server\AsyncTaskQueue\IKeepCallbackController.cs" />
+    <Compile Include="Server\AsyncTaskQueue\ISendOnlyController.cs" />
+    <Compile Include="Server\AsyncTaskQueue\ISynchronousController.cs" />
+    <Compile Include="Server\AsyncTask\IKeepCallbackController.cs" />
+    <Compile Include="Server\AsyncTask\ISendOnlyController.cs" />
+    <Compile Include="Server\AsyncTask\ISynchronousController.cs" />
+    <Compile Include="Server\IVerifyController.cs" />
+    <Compile Include="Server\Listener.cs" />
+    <Compile Include="Server\Queue\ICallbackController.cs" />
+    <Compile Include="Server\Queue\IKeepCallbackController.cs" />
+    <Compile Include="Server\Queue\ISendOnlyController.cs" />
+    <Compile Include="Server\Queue\ISynchronousController.cs" />
+    <Compile Include="Server\Synchronous\ICallbackController.cs" />
+    <Compile Include="Server\Synchronous\IKeepCallbackController.cs" />
+    <Compile Include="Server\Synchronous\ISendOnlyController.cs" />
+    <Compile Include="Server\Synchronous\ISynchronousController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+  </ItemGroup>
+
+</Project>

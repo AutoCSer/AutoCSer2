@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.ServiceRegistry</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.ServiceRegistry</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ServiceRegistryCommandClientServiceRegistrar.cs" />
+    <Compile Include="ServiceRegistryCommandServerConfig.cs" />
+    <Compile Include="ServiceRegistryCommandServiceRegistrar.cs" />
+    <Compile Include="IServiceRegistry.cs" />
+    <Compile Include="IServiceRegistryClient.cs" />
+    <Compile Include="ServiceRegisterLog.cs" />
+    <Compile Include="ServiceRegisterLogAssembler.cs" />
+    <Compile Include="ServiceRegisterLogAssemblerQueueNode.cs" />
+    <Compile Include="ServiceRegisterLogClientAssembler.cs" />
+    <Compile Include="ServiceRegisterLogClientChangedType.cs" />
+    <Compile Include="ServiceRegisterOperationType.cs" />
+    <Compile Include="ServiceRegisterResponse.cs" />
+    <Compile Include="ServiceRegisterState.cs" />
+    <Compile Include="ServiceRegistry.cs" />
+    <Compile Include="ServiceRegistryClient.cs" />
+    <Compile Include="ServiceRegistryCommandClientConfig.cs" />
+    <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
+    <Compile Include="ServiceRegistrySession.cs" />
+    <Compile Include="ServiceRegistrySessionCallback.cs" />
+    <Compile Include="ServiceRegistrySessionLog.cs" />
+    <Compile Include="ServiceRegistryWaitServerEndPointTask.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

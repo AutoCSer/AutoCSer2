@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.DatabaseBackup</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.DatabaseBackup</RootNamespace>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ConfigFile.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="DatabaseBackuper.cs" />
+    <Compile Include="DatabaseBackupService.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+  
+</Project>

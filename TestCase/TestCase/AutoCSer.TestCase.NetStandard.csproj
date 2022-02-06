@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase</RootNamespace>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BinarySerialize.cs" />
+    <Compile Include="CommandServer.cs" />
+    <Compile Include="CommandServer\CommandClientConfig.cs" />
+    <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
+    <Compile Include="CommandServer\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\IClientKeepCallbackController.cs" />
+    <Compile Include="CommandServer\IClientKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IClientQueueController.cs" />
+    <Compile Include="CommandServer\IClientSendOnlyController.cs" />
+    <Compile Include="CommandServer\IClientSynchronousController.cs" />
+    <Compile Include="CommandServer\IClientTaskController.cs" />
+    <Compile Include="CommandServer\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\IServerKeepCallbackController.cs" />
+    <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IServerQueueController.cs" />
+    <Compile Include="CommandServer\IServerSendOnlyController.cs" />
+    <Compile Include="CommandServer\IServerSynchronousController.cs" />
+    <Compile Include="CommandServer\IServerTaskController.cs" />
+    <Compile Include="CommandServer\CommandServerSessionObject.cs" />
+    <Compile Include="Data\Enum\ByteEnum.cs" />
+    <Compile Include="Data\Enum\ByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\IntEnum.cs" />
+    <Compile Include="Data\Enum\IntFlagEnum.cs" />
+    <Compile Include="Data\Enum\LongEnum.cs" />
+    <Compile Include="Data\Enum\LongFlagEnum.cs" />
+    <Compile Include="Data\Enum\SByteEnum.cs" />
+    <Compile Include="Data\Enum\SByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\ShortEnum.cs" />
+    <Compile Include="Data\Enum\ShortFlagEnum.cs" />
+    <Compile Include="Data\Enum\UIntEnum.cs" />
+    <Compile Include="Data\Enum\UIntFlagEnum.cs" />
+    <Compile Include="Data\Enum\ULongEnum.cs" />
+    <Compile Include="Data\Enum\ULongFlagEnum.cs" />
+    <Compile Include="Data\Enum\UShortEnum.cs" />
+    <Compile Include="Data\Enum\UShortFlagEnum.cs" />
+    <Compile Include="Data\Field.cs" />
+    <Compile Include="Data\Float.cs" />
+    <Compile Include="Data\InheritProperty.cs" />
+    <Compile Include="Data\MemberClass.cs" />
+    <Compile Include="Data\NoMemberClass.cs" />
+    <Compile Include="Data\Property.cs" />
+    <Compile Include="Data\StructField.cs" />
+    <Compile Include="Data\StructProperty.cs" />
+    <Compile Include="Json.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.NetStandard.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NetStandard.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

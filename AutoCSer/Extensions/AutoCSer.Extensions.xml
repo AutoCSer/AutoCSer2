@@ -1,0 +1,2243 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.Extensions</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.ArrayHeap`2">
+            <summary>
+            数组模拟最小堆
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.ArrayHeap`2.defaultArrayLength">
+            <summary>
+            默认数组长度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ArrayHeap`2.Array">
+            <summary>
+            数据数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ArrayHeap`2.Heap">
+            <summary>
+            最小堆索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ArrayHeap`2.isStaticUnmanaged">
+            <summary>
+            是否固定内存申请
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ArrayHeap`2.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.#ctor">
+            <summary>
+            数组模拟最小堆
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.#ctor(System.Boolean)">
+            <summary>
+            数组模拟最小堆
+            </summary>
+            <param name="isStaticUnmanaged">是否固定内存申请</param>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.Finalize">
+            <summary>
+             析构释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.Push(`0,`1@)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据值</param>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.create">
+            <summary>
+            重建数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.getPushIndex(`0,System.Int32)">
+            <summary>
+            获取添加数据位置
+            </summary>
+            <param name="key"></param>
+            <param name="heapIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.RemoveTop">
+            <summary>
+            删除堆顶数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ArrayHeap`2.reset(System.Int32*)">
+            <summary>
+            初始化索引
+            </summary>
+            <param name="heapFixed"></param>
+        </member>
+        <member name="T:AutoCSer.Extensions.Date">
+            <summary>
+            日期相关操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Date.TimestampPerMillisecond">
+            <summary>
+            每毫秒时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Date.MillisecondTimestampDifferencePerSecond">
+            <summary>
+            每秒 毫秒时间戳误差
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Date.timestampToMilliseconds">
+            <summary>
+            时间戳转毫秒数乘数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Date.GetMillisecondsByTimestamp(System.Int64)">
+            <summary>
+            时间戳转毫秒数
+            </summary>
+            <param name="timestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.SemaphoreSlimLock">
+            <summary>
+            异步锁扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+            <summary>
+            异步锁重入计数，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效（非线程安全，不支持多线程并发操作同一个异步上下文）
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.ReentrantExit(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            释放异步锁重入计数（非线程安全，不支持多线程并发操作同一个异步上下文）
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator">
+            <summary>
+            毫秒ID生成器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.startTime">
+            <summary>
+            开始计数时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.startTimestamp">
+            <summary>
+            初始化时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.mask">
+            <summary>
+            毫秒内计数掩码
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.maxTimestamp">
+            <summary>
+            当前最大时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.currentIdentity">
+            <summary>
+            当前ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.IdentityLock">
+            <summary>
+            ID生成访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.timestampCount">
+            <summary>
+            允许连续时间戳数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.bits">
+            <summary>
+            毫秒内计数 2 进制位数 + 分布式编号 2 进制位数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.distributedBits">
+            <summary>
+            分布式编号 2 进制位数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.#ctor(System.Int64,System.Byte,System.Byte)">
+            <summary>
+            毫秒ID生成器
+            </summary>
+            <param name="mask">毫秒内计数掩码</param>
+            <param name="bits">毫秒内计数 2 进制位数 + 分布式编号 2 进制位数</param>
+            <param name="distributedBits">分布式编号 2 进制位数</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.GetTime(System.Int64)">
+            <summary>
+            根据 ID 获取时间
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator.GetLocalTime(System.Int64)">
+            <summary>
+            根据 ID 获取时间
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.Threading.ReentrantSemaphoreSlimLockCount">
+            <summary>
+            异步锁重入计数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.ReentrantSemaphoreSlimLockCount.semaphoreSlim">
+            <summary>
+            异步锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.ReentrantSemaphoreSlimLockCount.count">
+            <summary>
+            重入计数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.ReentrantSemaphoreSlimLockCount.#ctor(System.Threading.SemaphoreSlim)">
+            <summary>
+            异步锁重入计数
+            </summary>
+            <param name="semaphoreSlim"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.ReentrantSemaphoreSlimLockCount.Enter(System.Threading.SemaphoreSlim)">
+            <summary>
+            申请锁计数
+            </summary>
+            <param name="semaphoreSlim"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.ReentrantSemaphoreSlimLockCount.Exit(System.Threading.SemaphoreSlim)">
+            <summary>
+            释放锁计数
+            </summary>
+            <param name="semaphoreSlim"></param>
+            <returns>-1 表示不匹配</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.Threading.TaskRunTimer">
+            <summary>
+            定时任务运行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.TaskRunTimer.RunTime">
+            <summary>
+            下一次运行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.TaskRunTimer.IntervalSeconds">
+            <summary>
+            运行间隔秒数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.TaskRunTimer.#ctor(System.Double)">
+            <summary>
+            定时任务运行时间
+            </summary>
+            <param name="IntervalSeconds">运行间隔秒数</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.TaskRunTimer.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
+            <summary>
+            按天运行的定时任务运行时间
+            </summary>
+            <param name="Hour">开始执行小时</param>
+            <param name="Minute">开始执行分钟</param>
+            <param name="Second">开始执行秒数</param>
+            <param name="IntervalSeconds">间隔执行秒数</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.TaskRunTimer.Delay">
+            <summary>
+            等待运行时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Deploy.SwitchProcess">
+            <summary>
+            切换进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.CloseSwitchProcessArgument">
+            <summary>
+            切换进程进关闭参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.exitLock">
+            <summary>
+            切换服务锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.isInitialize">
+            <summary>
+            是否需要初始化处理
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.switchWait">
+            <summary>
+            切换进程等待关闭处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.#ctor(System.String[])">
+            <summary>
+            切换进程（默认规则）
+            </summary>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.#ctor(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            切换进程
+            </summary>
+            <param name="arguments"></param>
+            <param name="isOnlySet"></param>
+            <param name="deployServerFileName"></param>
+            <param name="switchDirectoryName"></param>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.initialize">
+            <summary>
+            初始化操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.switchExit">
+            <summary>
+            切换进程等待关闭处理退出
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.Start">
+            <summary>
+            开始运行
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.onStart">
+            <summary>
+            开始运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.onExit">
+            <summary>
+            退出运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.removeGuard">
+            <summary>
+            删除被守护进程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.StartProcessDirectory(System.IO.FileInfo,System.String)">
+            <summary>
+            在文件当前目录启动进程
+            </summary>
+            <param name="file">文件信息</param>
+            <param name="arguments">执行参数</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.startProcessDirectory(System.IO.FileInfo,System.String)">
+            <summary>
+            在文件当前目录启动进程
+            </summary>
+            <param name="file">文件信息</param>
+            <param name="arguments">执行参数</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.GetSwitchFile(System.String,System.String)">
+            <summary>
+            初始化时获取切换服务文件
+            </summary>
+            <param name="deployServerFileName">发布服务文件名称</param>
+            <param name="switchDirectoryName">切换服务相对目录名称</param>
+            <returns>切换服务文件</returns>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.DefaultSwitchDirectoryName">
+            <summary>
+            默认切换服务相对目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.ApplicationPath">
+            <summary>
+            程序执行主目录(小写字母)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.Separator">
+            <summary>
+            目录分隔符
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.toLowerNotEmpty(System.String)">
+            <summary>
+            大写转小写
+            </summary>
+            <param name="value">大写字符串</param>
+            <returns>小写字符串(原引用)</returns>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchProcess.ToLower(System.Char*,System.Char*)">
+            <summary>
+            大写转小写
+            </summary>
+            <param name="start"></param>
+            <param name="end">长度必须大于0</param>
+        </member>
+        <member name="T:AutoCSer.Deploy.SwitchWait">
+            <summary>
+            切换进程等待关闭处理
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchWait.WaitHandle">
+            <summary>
+            等待事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Deploy.SwitchWait.Exit">
+            <summary>
+            关闭处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchWait.#ctor(System.Action)">
+            <summary>
+            切换进程等待关闭处理
+            </summary>
+            <param name="exit">关闭处理</param>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchWait.wait">
+            <summary>
+            等待关闭处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Deploy.SwitchWait.Set">
+            <summary>
+            设置切换进程等待关闭处理
+            </summary>
+        </member>
+        <member name="T:AutoCSer.FifoPriorityQueue`2">
+            <summary>
+            先进先出优先队列
+            </summary>
+            <typeparam name="KT">键值类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="T:AutoCSer.FifoPriorityQueue`2.Node">
+            <summary>
+            数据节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FifoPriorityQueue`2.Node.Previous">
+            <summary>
+            前一个节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FifoPriorityQueue`2.Node.Next">
+            <summary>
+            后一个节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FifoPriorityQueue`2.Node.Key">
+            <summary>
+            键值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FifoPriorityQueue`2.Node.Value">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FifoPriorityQueue`2.dictionary">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FifoPriorityQueue`2.Keys">
+            <summary>
+            获取所有关键字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FifoPriorityQueue`2.Values">
+            <summary>
+            获取所有数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FifoPriorityQueue`2.KeyValues">
+            <summary>
+            获取所有数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FifoPriorityQueue`2.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FifoPriorityQueue`2.header">
+            <summary>
+            头节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FifoPriorityQueue`2.end">
+            <summary>
+            尾节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FifoPriorityQueue`2.Item(`0)">
+            <summary>
+            数据对象
+            </summary>
+            <param name="key">查询键值</param>
+            <returns>数据对象</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            先进先出优先队列
+            </summary>
+            <param name="dictionaryCapacity">字典初始化容器尺寸</param>
+            <param name="isClear">是否需要清除数据</param>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Empty">
+            <summary>
+            长度设为0（注意：对于引用类型没有置 0 可能导致内存泄露）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Get(`0@,`1)">
+            <summary>
+            获取数据
+            </summary>
+            <param name="key">键值</param>
+            <param name="nullValue">失败空值</param>
+            <returns>数据对象</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.TryGetValue(`0@,`1@)">
+            <summary>
+            获取数据
+            </summary>
+            <param name="key">键值</param>
+            <param name="value">目标数据对象</param>
+            <returns>是否获取成功</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.getNode(`0@)">
+            <summary>
+            获取数据
+            </summary>
+            <param name="key">键值</param>
+            <returns>数据对象</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.TryGetOnly(`0,`1@)">
+            <summary>
+            获取数据(不调整位置)
+            </summary>
+            <param name="key">键值</param>
+            <param name="value"></param>
+            <returns>数据对象</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Set(`0@,`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">键值</param>
+            <param name="value">数据对象</param>
+            <returns>被替换的数据对象,没有返回default(VT)</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.SetOnly(`0,`1)">
+            <summary>
+            设置数据(不调整位置)
+            </summary>
+            <param name="key">键值</param>
+            <param name="value">数据对象</param>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.UnsafeAdd(`0@,`1)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.UnsafePopNode">
+            <summary>
+            弹出一个节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Pop">
+            <summary>
+            弹出一个值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.TryPopValue(`1@)">
+            <summary>
+            弹出一个值
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.UnsafePopValue">
+            <summary>
+            弹出一个值
+            </summary>
+            <returns>值</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Remove(`0@,`1@)">
+            <summary>
+            删除一个数据
+            </summary>
+            <param name="key">键值</param>
+            <param name="value">被删除数据对象</param>
+            <returns>是否删除了数据对象</returns>
+        </member>
+        <member name="M:AutoCSer.FifoPriorityQueue`2.TryGetHeader(`1@)">
+            <summary>
+            尝试获取第一个节点数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.FragmentDictionary256`2">
+            <summary>
+            256 基分片 字典
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.FragmentDictionary256`2.dictionarys">
+            <summary>
+            字典
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentDictionary256`2.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentDictionary256`2.Item(`0)">
+            <summary>
+            获取或者设置数据
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.FragmentDictionary256`2.KeyValues">
+            <summary>
+            键值对集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentDictionary256`2.Keys">
+            <summary>
+            关键字集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentDictionary256`2.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.ClearArray">
+            <summary>
+            清除数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.Add(`0,`1)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.GetOrCreateDictionary(`0)">
+            <summary>
+            根据关键字获取字典，不存在时创建字典
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.TryAdd(`0,`1)">
+            <summary>
+            如果关键字不存在则添加数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.Set(`0,`1,`1@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="removeValue">被删除数据</param>
+            <returns>是否存在替换的被删除数据</returns>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.ContainsKey(`0)">
+            <summary>
+            判断关键字是否存在
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.Remove(`0)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.Remove(`0,`1@)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.TryGetValue(`0,`1@)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentDictionary256`2.TryGetValue(`0,`1@,System.Collections.Generic.Dictionary{`0,`1}@)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="dictionary"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.FragmentHashSet256`1">
+            <summary>
+            256 基分片 哈希表
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.FragmentHashSet256`1.hashSets">
+            <summary>
+            哈希表
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentHashSet256`1.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentHashSet256`1.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.GetOrCreateHashSet(`0)">
+            <summary>
+            根据数据获取哈希表，不存在时创建哈希表
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Contains(`0)">
+            <summary>
+            判断数据是否存在
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Remove(`0)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="T:AutoCSer.Net.TimestampVerify">
+            <summary>
+            基于递增登录时间戳验证的服务认证辅助函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.TimestampVerify.Md5(System.Security.Cryptography.MD5CryptoServiceProvider,System.String,System.UInt64,System.Int64)">
+            <summary>
+            MD5 加密
+            </summary>
+            <param name="md5"></param>
+            <param name="verifyString">验证字符串</param>
+            <param name="randomPrefix">随机前缀</param>
+            <param name="timestamp">待验证时间戳</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.TimestampVerify.Md5Equals(System.Byte[],System.Byte[])">
+            <summary>
+            判断 MD5 值是否相等
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ObjectReference">
+            <summary>
+            对象引用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ObjectReference.value">
+            <summary>
+            对象数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ObjectReference.HashCode">
+            <summary>
+            哈希值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ObjectReference.#ctor(System.Object)">
+            <summary>
+            对象引用
+            </summary>
+            <param name="value">对象数据</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ObjectReference.Equals(AutoCSer.ObjectRoot.ObjectReference)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ObjectReference.GetHashCode">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ObjectReference.Equals(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ObjectType">
+            <summary>
+            对象类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ObjectType.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ObjectRoot.ObjectType.IsArray">
+            <summary>
+            是否数组（包括 string）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ObjectType.RootFields">
+            <summary>
+            对象根静态字段集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ObjectRoot.ObjectType.IsScan">
+            <summary>
+            是否需要扫描（仅统计 数组与可循环引用对象）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ObjectRoot.ObjectType.RootFieldList">
+            <summary>
+            对象根静态字段集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ObjectType.#ctor(System.Type)">
+            <summary>
+            对象类型
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ObjectType.Add(System.Reflection.FieldInfo,AutoCSer.ObjectRoot.TypeScanner)">
+            <summary>
+            添加根静态字段（仅统计 数组与可循环引用对象）
+            </summary>
+            <param name="fieldInfo">对象根静态字段</param>
+            <param name="scanner">类型扫描</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ObjectType.IsScanDerived(System.Type)">
+            <summary>
+            是否需要扫描派生类型
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ReflectionArrayScanner">
+            <summary>
+            反射模式数组扫描
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionArrayScanner.enumerator">
+            <summary>
+            数组枚举器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionArrayScanner.objectType">
+            <summary>
+            对象类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayScanner.#ctor(System.Object,AutoCSer.ObjectRoot.ReflectionType)">
+            <summary>
+            反射模式数组扫描
+            </summary>
+            <param name="value">数组对象</param>
+            <param name="objectType">对象类型</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayScanner.Next(AutoCSer.ObjectRoot.ReflectionScanner@)">
+            <summary>
+            读取下一个数据
+            </summary>
+            <param name="scanner"></param>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ReflectionArrayType">
+            <summary>
+            反射模式数组类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ObjectRoot.ReflectionArrayType.IsArray">
+            <summary>
+            是否数组（包括 string）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionArrayType.ElementType">
+            <summary>
+            数组元素类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ObjectRoot.ReflectionArrayType.ElementCount">
+            <summary>
+            数组元素统计数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.#ctor">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.#ctor(System.Type)">
+            <summary>
+            数组类型
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.GetElementType(AutoCSer.ObjectRoot.ReflectionTypeScanner)">
+            <summary>
+            获取数组元素类型
+            </summary>
+            <param name="scanner"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.Append(AutoCSer.ObjectRoot.ReflectionScanner@,System.Object,System.Boolean)">
+            <summary>
+            添加扫描对象
+            </summary>
+            <param name="scanner"></param>
+            <param name="value"></param>
+            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
+            <returns>添加对象类型</returns>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ReflectionObjectScanner">
+            <summary>
+            反射模式对象扫描
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.value">
+            <summary>
+            扫描的对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.objectType">
+            <summary>
+            对象类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.index">
+            <summary>
+            当前读取字段索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.isArray">
+            <summary>
+            对象是否数组元素，数组元素不统计根静态字段
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectScanner.#ctor(System.Object,AutoCSer.ObjectRoot.ReflectionObjectType,System.Boolean)">
+            <summary>
+            反射模式对象扫描
+            </summary>
+            <param name="value">扫描的对象</param>
+            <param name="objectType">对象类型</param>
+            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectScanner.Next(AutoCSer.ObjectRoot.ReflectionScanner@)">
+            <summary>
+            读取下一个数据
+            </summary>
+            <param name="scanner"></param>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ReflectionObjectType">
+            <summary>
+            反射模式对象类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.BaseType">
+            <summary>
+            父类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.ScanFields">
+            <summary>
+            需要扫描的字段集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.#ctor">
+            <summary>
+            空对象类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.#ctor(AutoCSer.ObjectRoot.ReflectionObjectType)">
+            <summary>
+            接口类型
+            </summary>
+            <param name="baseType"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.#ctor(System.Type)">
+            <summary>
+            对象类型
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.CreateScanFiled(AutoCSer.ObjectRoot.ReflectionTypeScanner)">
+            <summary>
+            初始化需要扫描的字段集合
+            </summary>
+            <param name="scanner">对象扫描</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.Append(AutoCSer.ObjectRoot.ReflectionScanner@,System.Object,System.Boolean)">
+            <summary>
+            添加扫描对象
+            </summary>
+            <param name="scanner"></param>
+            <param name="value"></param>
+            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
+            <returns>添加对象类型</returns>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.NullType">
+            <summary>
+            空对象类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.InterfaceType">
+            <summary>
+            接口对象类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ReflectionScanner">
+            <summary>
+            反射模式对象扫描
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.Scanner">
+            <summary>
+            类型扫描
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.FieldInfo">
+            <summary>
+            当前扫描静态字段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.objectReferences">
+            <summary>
+            对象集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.Arrays">
+            <summary>
+            扫描数组集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.Objects">
+            <summary>
+            扫描对象集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.IsLimitExceeded">
+            <summary>
+            统计对象数量是否超出限制
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.#ctor(AutoCSer.ObjectRoot.ReflectionTypeScanner,System.Reflection.FieldInfo)">
+            <summary>
+            反射模式对象扫描
+            </summary>
+            <param name="scanner">类型扫描</param>
+            <param name="fieldInfo">当前扫描静态字段</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.ScanObject(System.Object,AutoCSer.ObjectRoot.ReflectionType)">
+            <summary>
+            对象扫描
+            </summary>
+            <param name="value"></param>
+            <param name="objectType"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.Scan(System.Object,AutoCSer.ObjectRoot.ReflectionType)">
+            <summary>
+            对象扫描
+            </summary>
+            <param name="value"></param>
+            <param name="objectType"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.scan">
+            <summary>
+            对象扫描
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.Append(AutoCSer.ObjectRoot.ReflectionObjectScanner)">
+            <summary>
+            添加对象扫描
+            </summary>
+            <param name="objectScanner"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.Append(AutoCSer.ObjectRoot.ReflectionArrayScanner)">
+            <summary>
+            添加数组扫描
+            </summary>
+            <param name="arrayScanner"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.AddObject(System.Object)">
+            <summary>
+            添加统计对象
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ReflectionType">
+            <summary>
+            反射模式对象类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionType.#ctor(System.Type)">
+            <summary>
+            反射模式对象类型
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionType.Append(AutoCSer.ObjectRoot.ReflectionScanner@,System.Object,System.Boolean)">
+            <summary>
+            添加扫描对象
+            </summary>
+            <param name="scanner"></param>
+            <param name="value"></param>
+            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
+            <returns>添加对象类型</returns>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.ReflectionTypeScanner">
+            <summary>
+            反射模式类型扫描（非线程安全）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.ReflectionTypeScanner.ObjectTypeCache">
+            <summary>
+            类型统计数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ObjectRoot.ReflectionTypeScanner.ArrayTypes">
+            <summary>
+            获取统计数组类型集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ObjectRoot.ReflectionTypeScanner.ObjectTypes">
+            <summary>
+            获取统计数组类型集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionTypeScanner.#ctor(System.Int32,System.Int32)">
+            <summary>
+            反射模式对象扫描（非线程安全）
+            </summary>
+            <param name="maxObjectCount">每个静态根对象最大统计对象数量</param>
+            <param name="maxRootFieldCount">静态根对象最大统计数量，超出部分淘汰数量最小的静态根对象</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionTypeScanner.GetObjectType(System.Type)">
+            <summary>
+            获取对象类型
+            </summary>
+            <param name="type"></param>
+            <returns>对象类型</returns>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.ReflectionTypeScanner.scanRoot(System.Reflection.FieldInfo,System.Object)">
+            <summary>
+            扫描根对象
+            </summary>
+            <param name="fieldInfo">根对象静态字段</param>
+            <param name="value">根对象</param>
+        </member>
+        <member name="T:AutoCSer.ObjectRoot.TypeScanner">
+            <summary>
+            类型扫描（非线程安全）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.TypeScanner.ScanAssemblys">
+            <summary>
+            已添加扫描程序集
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.TypeScanner.ScanTypes">
+            <summary>
+            已添加扫描的类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.TypeScanner.MaxObjectCount">
+            <summary>
+            每个静态根对象最大统计对象数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ObjectRoot.TypeScanner.MaxRootFieldCount">
+            <summary>
+            静态根对象最大统计数量，超出部分淘汰数量最小的静态根对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.#ctor(System.Int32,System.Int32)">
+            <summary>
+            对象扫描（非线程安全）
+            </summary>
+            <param name="maxObjectCount">每个静态根对象最大统计对象数量</param>
+            <param name="maxRootFieldCount">静态根对象最大统计数量，超出部分淘汰数量最小的静态根对象</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.check(System.Reflection.Assembly)">
+            <summary>
+            检测程序集是否需要扫描
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.Scan(System.Reflection.Assembly)">
+            <summary>
+            添加程序集扫描类型
+            </summary>
+            <param name="assembly"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.onException(System.Reflection.Assembly,System.Exception)">
+            <summary>
+            程序集获取类型异常处理
+            </summary>
+            <param name="assembly"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.ScanCurrentDomain(System.Boolean)">
+            <summary>
+            扫描当前应用程序集已加载程序集
+            </summary>
+            <param name="isSystem">是否扫描系统程序集，比如 System. 开始的</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.isSystemAssembly(System.Reflection.Assembly)">
+            <summary>
+            判断是否系统程序集，比如 System. 开始的
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.check(System.Type)">
+            <summary>
+            检测类型是否需要扫描
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.Scan(System.Type)">
+            <summary>
+            添加类型扫描静态字段
+            </summary>
+            <param name="type">必须是 struct 或者 class，可以是泛型，但是不能是泛型定义类型</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.check(System.Reflection.FieldInfo)">
+            <summary>
+            检测字段是否需要扫描
+            </summary>
+            <param name="fieldInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.scan(System.Type)">
+            <summary>
+            扫描静态字段
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.onException(System.Reflection.FieldInfo,System.Exception)">
+            <summary>
+            扫描静态字段异常处理
+            </summary>
+            <param name="fieldInfo"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.scanRoot(System.Reflection.FieldInfo,System.Object)">
+            <summary>
+            扫描根对象
+            </summary>
+            <param name="fieldInfo">根对象静态字段</param>
+            <param name="value">根对象</param>
+        </member>
+        <member name="M:AutoCSer.ObjectRoot.TypeScanner.OnLimitExceeded(System.Reflection.FieldInfo)">
+            <summary>
+            统计对象数量超出限制
+            </summary>
+            <param name="fieldInfo"></param>
+        </member>
+        <member name="T:AutoCSer.SearchTree.Dictionary`2">
+            <summary>
+            二叉搜索树字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="T:AutoCSer.SearchTree.Dictionary`2.Node">
+            <summary>
+            二叉搜索树字典节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.Dictionary`2.Node.Value">
+            <summary>
+            节点数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Node.KeyValue">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Node.KeyValues">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Get(`0@)">
+            <summary>
+            根据关键字获取二叉树节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>匹配节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.At(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.at(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.changeKeyValue(`0@,`1@)">
+            <summary>
+            交换节点数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.checkLeft">
+            <summary>
+            检测左节点数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.checkRight">
+            <summary>
+            检测右节点数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.TryAdd(AutoCSer.KeyValue{`0,`1}@)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="keyValue"></param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Set(AutoCSer.KeyValue{`0,`1}@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="keyValue">数据</param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Remove(`0@)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>被删除节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Remove">
+            <summary>
+            删除当前节点
+            </summary>
+            <returns>用户替换当前节点的节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.removeMin">
+            <summary>
+            删除最小节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.GetArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.getArray(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.GetArraySkip``1(AutoCSer.SearchTree.PageArray{`1,``0}@)">
+            <summary>
+            获取数组
+            </summary>
+            <typeparam name="AT"></typeparam>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.getArray``1(AutoCSer.SearchTree.PageArray{`1,``0}@)">
+            <summary>
+            获取数组
+            </summary>
+            <typeparam name="arrayType"></typeparam>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.GetDescArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.getDescArray(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.GetFind(AutoCSer.SearchTree.FindArray{`1}@)">
+            <summary>
+            查找数据
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="F:AutoCSer.SearchTree.Dictionary`2.Boot">
+            <summary>
+            根节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Count">
+            <summary>
+            节点数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Height">
+            <summary>
+            获取树高度，需要 O(n)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.KeyValues">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Version">
+            <summary>
+            二叉树更新版本
+            </summary>
+        </member>
+        <member name="E:AutoCSer.SearchTree.Dictionary`2.OnResetVersion">
+            <summary>
+            更新版本重置事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Item(`0)">
+            <summary>
+            根据关键字获取或者设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>数据,获取失败KeyNotFoundException</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.#ctor">
+            <summary>
+            二叉树字典
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.nextVersion">
+            <summary>
+            更新二叉树版本
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Set(`0,`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据</param>
+            <returns>是否添加了关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Set(`0@,`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据</param>
+            <returns>是否添加了关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.TryAdd(`0,`1)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据</param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.TryAdd(`0@,`1)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据</param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Remove(`0)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Remove(`0@)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Remove(`0@,`1@)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">被删除数据</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.ContainsKey(`0)">
+            <summary>
+            判断是否包含关键字
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否包含关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.ContainsKey(`0@)">
+            <summary>
+            判断是否包含关键字
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否包含关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">目标数据</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.TryGetValue(`0@,`1@)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">目标数据</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.IndexOf(`0)">
+            <summary>
+            根据关键字获取一个匹配节点位置
+            </summary>
+            <param name="key">关键字</param>
+            <returns>一个匹配节点位置,失败返回-1</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.IndexOf(`0@)">
+            <summary>
+            根据关键字获取一个匹配节点位置
+            </summary>
+            <param name="key">关键字</param>
+            <returns>一个匹配节点位置,失败返回-1</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.CountLess(`0@)">
+            <summary>
+            根据关键字比它小的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.CountThan(`0@)">
+            <summary>
+            根据关键字比它大的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.At(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.TryGetValueByIndex(System.Int32,`1@)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetPage(System.Int32,System.Int32)">
+            <summary>
+            获取分页数据
+            </summary>
+            <param name="pageSize">分页大小</param>
+            <param name="page">分页号,从 1 开始</param>
+            <returns>分页数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetPage``1(System.Int32,System.Int32,System.Func{`1,``0})">
+            <summary>
+            获取分页数据
+            </summary>
+            <param name="pageSize">分页大小</param>
+            <param name="page">分页号,从 1 开始</param>
+            <param name="getValue">获取数据委托</param>
+            <returns>分页数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetPageDesc(System.Int32,System.Int32)">
+            <summary>
+            获取逆序分页数据
+            </summary>
+            <param name="pageSize">分页大小</param>
+            <param name="page">分页号,从 1 开始</param>
+            <returns>分页数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetRange(System.Int32,System.Int32)">
+            <summary>
+            获取范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetRangeDesc(System.Int32,System.Int32)">
+            <summary>
+            获取逆序范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetFind(System.Func{`1,System.Boolean})">
+            <summary>
+            查找数据
+            </summary>
+            <param name="isValue">数据匹配委托</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.SearchTree.FindArray`1">
+            <summary>
+            查找数据
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.FindArray`1.IsValue">
+            <summary>
+            数据匹配委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.FindArray`1.Array">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.FindArray`1.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.SearchTree.Node`2">
+            <summary>
+            二叉字典树节点
+            </summary>
+            <typeparam name="NT">二叉树节点类型</typeparam>
+            <typeparam name="KT">关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.Node`2.Left">
+            <summary>
+            左节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.Node`2.Right">
+            <summary>
+            右节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.Node`2.Key">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.Node`2.Count">
+            <summary>
+            节点数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Node`2.Height">
+            <summary>
+            节点高度
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Node`2.isLeftAndRight">
+            <summary>
+            是否同时存在左右节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Node`2.leftRightDifferenceCount">
+            <summary>
+            左右节点数据量差
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.set(`0,`0,System.Int32)">
+            <summary>
+            设置节点信息
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.set(`0,System.Int32)">
+            <summary>
+            设置节点信息
+            </summary>
+            <param name="left"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.IndexOf(`1@)">
+            <summary>
+            根据关键字获取一个匹配节点位置
+            </summary>
+            <param name="key">关键字</param>
+            <returns>一个匹配节点位置,失败返回-1</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.CountLess(`1@)">
+            <summary>
+            根据关键字比它小的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.CountThan(`1@)">
+            <summary>
+            根据关键字比它大的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.checkRemoveCount1(`0)">
+            <summary>
+            删除节点计数
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.removeCount1(`0)">
+            <summary>
+            删除节点计数
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.clearLeft">
+            <summary>
+            清除左节点并重置节点数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.removeLeftCount">
+            <summary>
+            删除左节点计数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.rightToLeft">
+            <summary>
+            右节点移动到左节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.rightToLeft(`0)">
+            <summary>
+            右节点移动到左节点
+            </summary>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.checkLeftRight">
+            <summary>
+            检测左节点的右节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.clearRight">
+            <summary>
+            清除左节点并重置节点数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.removeRightCount">
+            <summary>
+            删除左节点计数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.leftToRight">
+            <summary>
+            右节点移动到左节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.leftToRight(`0)">
+            <summary>
+            右节点移动到左节点
+            </summary>
+            <param name="left"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.checkRightLeft">
+            <summary>
+            检测右节点的左节点
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SearchTree.PageArray`1">
+            <summary>
+            分页数组数据
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.PageArray`1.SkipCount">
+            <summary>
+            跳过数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.PageArray`1.Index">
+            <summary>
+            数组位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.PageArray`1.Array">
+            <summary>
+            数组
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.PageArray`1.IsArray">
+            <summary>
+            数组写入是否完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.PageArray`1.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns>数组写入是否完成</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.PageArray`1.AddDesc(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns>数组位置</returns>
+        </member>
+        <member name="T:AutoCSer.SearchTree.PageArray`2">
+            <summary>
+            分页数组数据
+            </summary>
+            <typeparam name="VT"></typeparam>
+            <typeparam name="AT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.PageArray`2.SkipCount">
+            <summary>
+            跳过数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.PageArray`2.Index">
+            <summary>
+            数组位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.PageArray`2.Array">
+            <summary>
+            数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.PageArray`2.GetValue">
+            <summary>
+            获取数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.PageArray`2.IsArray">
+            <summary>
+            数组写入是否完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.PageArray`2.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns>数组写入是否完成</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.PageArray`2.AddDesc(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns>数组位置</returns>
+        </member>
+        <member name="T:AutoCSer.SearchTree.Set`1">
+            <summary>
+            二叉搜索树集合
+            </summary>
+            <typeparam name="T">关键字类型</typeparam>
+        </member>
+        <member name="T:AutoCSer.SearchTree.Set`1.Node">
+            <summary>
+            二叉搜索树集合节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.Get(`0@)">
+            <summary>
+            根据关键字获取二叉树节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>匹配节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.At(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.at(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.Add(`0@)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key"></param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.changeKey(`0@)">
+            <summary>
+            交换节点数据
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.checkLeft">
+            <summary>
+            检测左节点数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.checkRight">
+            <summary>
+            检测右节点数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.Remove(`0@)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>被删除节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.Remove">
+            <summary>
+            删除当前节点
+            </summary>
+            <returns>用户替换当前节点的节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.removeMin">
+            <summary>
+            删除最小节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.SearchTree.Set`1.boot">
+            <summary>
+            根节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Set`1.Count">
+            <summary>
+            节点数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Set`1.Height">
+            <summary>
+            获取树高度，需要 O(n)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.#ctor">
+            <summary>
+            二叉树集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Add(`0@)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Remove(`0)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Remove(`0@)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Contains(`0)">
+            <summary>
+            判断是否包含关键字
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否包含关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Contains(`0@)">
+            <summary>
+            判断是否包含关键字
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否包含关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.IndexOf(`0)">
+            <summary>
+            根据关键字获取一个匹配节点位置
+            </summary>
+            <param name="key">关键字</param>
+            <returns>一个匹配节点位置,失败返回-1</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.IndexOf(`0@)">
+            <summary>
+            根据关键字获取一个匹配节点位置
+            </summary>
+            <param name="key">关键字</param>
+            <returns>一个匹配节点位置,失败返回-1</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.CountLess(`0@)">
+            <summary>
+            根据关键字比它小的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.CountThan(`0@)">
+            <summary>
+            根据关键字比它大的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.At(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="T:AutoCSer.Threading.DistributedMillisecondIdentityGenerator">
+            <summary>
+            分布式毫秒ID生成器（毫秒内超出计算范围时自动移动到下一个毫秒数据）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.DistributedMillisecondIdentityGenerator.distributed">
+            <summary>
+            分布式编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.DistributedMillisecondIdentityGenerator.identityIncrement">
+            <summary>
+            ID 增量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.DistributedMillisecondIdentityGenerator.#ctor(System.Byte,System.Byte,System.Int64)">
+            <summary>
+            分布式毫秒ID生成器
+            </summary>
+            <param name="bits">毫秒内计数 2 进制位数 + 分布式编号 2 进制位数</param>
+            <param name="distributedBits">分布式编号 2 进制位数</param>
+            <param name="identityIncrement">ID 增量</param>
+        </member>
+        <member name="M:AutoCSer.Threading.DistributedMillisecondIdentityGenerator.#ctor(System.UInt16,System.Byte,System.Byte)">
+            <summary>
+            分布式毫秒ID生成器
+            </summary>
+            <param name="distributed">分布式编号</param>
+            <param name="distributedBits">分布式编号 2 进制位数，默认为 10 表示支持 1024 台服务器</param>
+            <param name="identityBits">毫秒内计数 2 进制位数，默认为 10 表示支持每毫秒 1024 个 ID</param>
+        </member>
+        <member name="M:AutoCSer.Threading.DistributedMillisecondIdentityGenerator.GetNext">
+            <summary>
+            获取下一个ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.LocalMillisecondIdentityGenerator">
+            <summary>
+            本地毫秒ID生成器（毫秒内超出计算范围时自动移动到下一个毫秒数据）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.#ctor(System.Byte)">
+            <summary>
+            毫秒ID生成器
+            </summary>
+            <param name="bits">毫秒内计数 2 进制位数，默认为 20 表示支持持续 278 年每秒 10亿 个 ID</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.GetNext">
+            <summary>
+            获取下一个ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager">
+            <summary>
+            可重入异步锁管理（非线程安全，不支持多线程并发操作同一个异步上下文）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Manager">
+            <summary>
+            可重入异步锁管理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Get">
+            <summary>
+            获取可重入异步锁管理，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.locks">
+            <summary>
+            异步锁重入计数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Count">
+            <summary>
+            当前异步上下文锁数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.enter(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            申请锁计数
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+            <summary>
+            申请锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+            <summary>
+            申请锁
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            释放锁计数
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+            <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
+        </member>
+    </members>
+</doc>

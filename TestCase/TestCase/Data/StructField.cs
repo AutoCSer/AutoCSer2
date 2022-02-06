@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+
+#pragma warning disable
+namespace AutoCSer.TestCase.Data
+{
+    /// <summary>
+    /// 字段数据定义(值类型外壳)
+    /// </summary>
+    [AutoCSer.AOT.Preserve(AllMembers = true)]
+    internal struct StructField
+    {
+        public bool Bool;
+        public byte Byte;
+        public sbyte SByte;
+        public short Short;
+        public ushort UShort;
+        public int Int;
+        public uint UInt;
+        public long Long;
+        public ulong ULong;
+        public DateTime DateTime;
+        public float Float;
+        public double Double;
+        public decimal Decimal;
+        public Guid Guid;
+        public char Char;
+        public string String;
+        public bool? BoolNull;
+        public byte? ByteNull;
+        public sbyte? SByteNull;
+        public short? ShortNull;
+        public ushort? UShortNull;
+        public int? IntNull;
+        public uint? UIntNull;
+        public long? LongNull;
+        public ulong? ULongNull;
+        public DateTime? DateTimeNull;
+        public float? FloatNull;
+        public double? DoubleNull;
+        public decimal? DecimalNull;
+        public Guid? GuidNull;
+        public char? CharNull;
+        public int[] Array;
+        public List<int> List;
+        public ByteEnum Enum;
+        public ByteFlagEnum FlagEnum;
+        public MemberClass Class;
+        public Dictionary<string, int> StringDictionary;
+        public Dictionary<int, string> IntDictionary;
+    }
+}
