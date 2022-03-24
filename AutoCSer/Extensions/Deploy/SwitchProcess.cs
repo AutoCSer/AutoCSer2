@@ -141,7 +141,7 @@ namespace AutoCSer.Deploy
         /// <returns>切换服务文件</returns>
         public static FileInfo GetSwitchFile(string deployServerFileName = null, string switchDirectoryName = DefaultSwitchDirectoryName)
         {
-            DirectoryInfo CurrentDirectory = new DirectoryInfo(ApplicationPath), SwitchDirectory;
+            DirectoryInfo CurrentDirectory = new DirectoryInfo(AutoCSer.Common.ApplicationPath), SwitchDirectory;
             if (CurrentDirectory.Name == switchDirectoryName)
             {
                 SwitchDirectory = CurrentDirectory.Parent;
@@ -175,44 +175,5 @@ namespace AutoCSer.Deploy
         /// 默认切换服务相对目录名称
         /// </summary>
         public const string DefaultSwitchDirectoryName = "Switch";
-        /// <summary>
-        /// 程序执行主目录(小写字母)
-        /// </summary>
-        public static readonly string ApplicationPath;
-        /// <summary>
-        /// 目录分隔符
-        /// </summary>
-        public static readonly string Separator = Path.DirectorySeparatorChar.ToString();
-        /// <summary>
-        /// 大写转小写
-        /// </summary>
-        /// <param name="value">大写字符串</param>
-        /// <returns>小写字符串(原引用)</returns>
-        internal unsafe static string toLowerNotEmpty(string value)
-        {
-            fixed (char* valueFixed = value)
-            {
-                ToLower(valueFixed, valueFixed + value.Length);
-            }
-            return value;
-        }
-        /// <summary>
-        /// 大写转小写
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end">长度必须大于0</param>
-        internal unsafe static void ToLower(char* start, char* end)
-        {
-            do
-            {
-                if ((uint)(*start - 'A') < 26) *start |= (char)0x20;
-            }
-            while (++start != end);
-        }
-        static SwitchProcess()
-        {
-            ApplicationPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory ?? Environment.CurrentDirectory).FullName;
-            if (ApplicationPath[ApplicationPath.Length - 1] != Path.DirectorySeparatorChar) ApplicationPath += Separator;
-        }
     }
 }

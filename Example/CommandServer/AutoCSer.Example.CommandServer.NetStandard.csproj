@@ -57,9 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
-    </Reference>
+    <PackageReference Include="AutoCSer2" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

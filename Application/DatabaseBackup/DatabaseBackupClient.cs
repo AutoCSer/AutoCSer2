@@ -10,15 +10,21 @@ namespace AutoCSer.CommandService
     public abstract class DatabaseBackupClient
     {
         /// <summary>
+        /// 命令客户端
+        /// </summary>
+        public readonly CommandClient CommandClient;
+        /// <summary>
         /// 数据库备份客户端套接字事件
         /// </summary>
         public readonly IDatabaseBackupClientSocketEvent Client;
         /// <summary>
         /// 数据库备份客户端
         /// </summary>
+        /// <param name="commandClient">命令客户端</param>
         /// <param name="client">数据库备份客户端套接字事件</param>
-        public DatabaseBackupClient(IDatabaseBackupClientSocketEvent client)
+        public DatabaseBackupClient(CommandClient commandClient, IDatabaseBackupClientSocketEvent client)
         {
+            CommandClient = commandClient;
             Client = client;
         }
 
@@ -55,20 +61,29 @@ namespace AutoCSer.CommandService
             LeftArray<Task> downloadTasks = new LeftArray<Task>(databases.Value.Length);
             foreach (string database in databases.Value)
             {
-                OnMessage($"开始备份数据库 {database}");
-                CommandClientReturnValue<string> backupFullName = await Client.DatabaseBackupClient.BackupAsync(database);
-                if (backupFullName.IsSuccess)
+                if (checkDatabase(database))
                 {
-                    if (backupFullName.Value != null)
+                    OnMessage($"开始备份数据库 {database}");
+                    CommandClientReturnValue<string> backupFullName = await Client.DatabaseBackupClient.BackupAsync(database);
+                    if (backupFullName.IsSuccess)
                     {
-                        downloadTasks.Add(getDatabaseBackupClientDownloader(database, backupFullName.Value).Download());
+                        if (backupFullName.Value != null)
+                        {
+                            downloadTasks.Add(getDatabaseBackupClientDownloader(database, backupFullName.Value).Download());
+                        }
+                        else await OnError($"没有找到数据库 {database}");
                     }
-                    else await OnError($"没有找到数据库 {database}");
+                    else await OnError($"数据库 {database} 备份失败 {backupFullName.ReturnType} {backupFullName.ErrorMessage}");
                 }
-                else await OnError($"数据库 {database} 备份失败 {backupFullName.ReturnType} {backupFullName.ErrorMessage}");
             }
             foreach (Task downloadTask in downloadTasks) await downloadTask;
         }
+        /// <summary>
+        /// 检查数据库是否需要备份
+        /// </summary>
+        /// <param name="database"></param>
+        /// <returns></returns>
+        protected virtual bool checkDatabase(string database) { return true; }
         /// <summary>
         /// 数据库备份客户端文件下载器
         /// </summary>
@@ -94,20 +109,23 @@ namespace AutoCSer.CommandService
             }
             foreach (string database in databases.Value)
             {
-                OnMessage($"开始备份数据库 {database}");
-                CommandClientReturnValue<string[]> tableNames = await Client.DatabaseBackupClient.GetTableNameAsync(database);
-                if (tableNames.IsSuccess)
+                if (checkDatabase(database))
                 {
-                    if (tableNames.Value != null)
+                    OnMessage($"开始备份数据库 {database}");
+                    CommandClientReturnValue<string[]> tableNames = await Client.DatabaseBackupClient.GetTableNameAsync(database);
+                    if (tableNames.IsSuccess)
                     {
-                        foreach(string tableName in tableNames.Value)
+                        if (tableNames.Value != null)
                         {
-                            await getDatabaseBackupClientTable(database, tableName).Backup();
+                            foreach (string tableName in tableNames.Value)
+                            {
+                                await getDatabaseBackupClientTable(database, tableName).Backup();
+                            }
                         }
+                        else await OnError($"数据库 {database} 没有找到可备份表格");
                     }
-                    else await OnError($"数据库 {database} 没有找到可备份表格");
+                    else await OnError($"数据库 {database} 获取备份表格失败 {tableNames.ReturnType} {tableNames.ErrorMessage}");
                 }
-                else await OnError($"数据库 {database} 获取备份表格失败 {tableNames.ReturnType} {tableNames.ErrorMessage}");
             }
         }
         /// <summary>

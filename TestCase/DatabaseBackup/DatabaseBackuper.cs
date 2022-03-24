@@ -38,10 +38,42 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// </summary>
         protected override void backup()
         {
-
             using (SqlConnection dbConnection = new SqlConnection(database.ConnectionString))
             {
                 dbConnection.Open();
+                if (shrinkLogSize > 0)
+                {
+                    LeftArray<string> names = new LeftArray<string>(0);
+                    using (SqlCommand command = new SqlCommand(getLogNameSqlServer(), dbConnection))
+                    {
+                        command.CommandType = CommandType.Text;
+                        using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult))
+                        {
+                            while (reader.Read()) names.Add((string)reader[0]);
+                        }
+                    }
+                    if (names.Count != 0)
+                    {
+                        using (SqlCommand command = new SqlCommand(getRecoverySimpleSqlServer(), dbConnection))
+                        {
+                            command.CommandType = CommandType.Text;
+                            command.ExecuteNonQuery();
+                        }
+                        foreach(string name in names)
+                        {
+                            using (SqlCommand command = new SqlCommand(getShrinkLogSqlServer(name), dbConnection))
+                            {
+                                command.CommandType = CommandType.Text;
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        using (SqlCommand command = new SqlCommand(getRecoveryFullSqlServer(), dbConnection))
+                        {
+                            command.CommandType = CommandType.Text;
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
                 using (SqlCommand command = new SqlCommand(getBackupSqlServer(), dbConnection))
                 {
                     command.CommandType = CommandType.Text;

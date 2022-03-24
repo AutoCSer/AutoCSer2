@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="processInfo">进程信息</param>
         /// <returns>是否添加成功</returns>
-        public virtual bool Guard(CommandServerSocket socket, CommandServerCallQueue queue, ProcessGuardInfo processInfo)
+        public virtual bool Guard(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, ProcessGuardInfo processInfo)
         {
             Process process = Process.GetProcessById(processInfo.ProcessID);
             if (process == null || process.ProcessName != processInfo.ProcessName) return false;
@@ -39,7 +39,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="processId">进程标识</param>
         /// <param name="processName">进程名称</param>
-        public virtual void Remove(CommandServerSocket socket, CommandServerCallQueue queue, int processId, string processName)
+        public virtual void Remove(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, int processId, string processName)
         {
             if (guards.TryGetValue(processId, out GuardProcess guardProcess) && guardProcess.ProcessInfo.ProcessName == processName)
             {
@@ -59,7 +59,7 @@ namespace AutoCSer.CommandService
                 guards.Remove(guardProcess.ProcessInfo.ProcessID);
             }
             if (guardProcess.NewProcess == null) return;
-            if (guardProcess.IsRemove && guards.ContainsKey(guardProcess.NewProcess.Id))
+            if (guardProcess.IsRemove || guards.ContainsKey(guardProcess.NewProcess.Id))
             {
                 guardProcess.NewProcess.Dispose();
                 return;

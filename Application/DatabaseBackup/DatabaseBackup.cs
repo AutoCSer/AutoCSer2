@@ -127,8 +127,8 @@ namespace AutoCSer.CommandService
                         }
                         while (true);
                     }
-                    await callback.CallbackAsync(default(DatabaseBackupDownloadBuffer));
                 }
+                await callback.CallbackAsync(default(DatabaseBackupDownloadBuffer));
                 returnType = CommandClientReturnType.Success;
             }
             catch (Exception error)

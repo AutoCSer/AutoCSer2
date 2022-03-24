@@ -15,7 +15,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="processInfo">进程信息</param>
         /// <returns>是否添加成功</returns>
-        bool Guard(CommandServerSocket socket, CommandServerCallQueue queue, ProcessGuardInfo processInfo);
+        bool Guard(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, ProcessGuardInfo processInfo);
         /// <summary>
         /// 删除被守护进程
         /// </summary>
@@ -23,6 +23,6 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="processId">进程标识</param>
         /// <param name="processName">进程名称</param>
-        void Remove(CommandServerSocket socket, CommandServerCallQueue queue, int processId, string processName);
+        void Remove(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, int processId, string processName);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Extensions;
 using System;
 using System.IO;
 
@@ -45,6 +46,10 @@ namespace AutoCSer.CommandService
         /// 默认为 3600 秒
         /// </summary>
         protected virtual int commandTimeout { get { return 60 * 60; } }
+        /// <summary>
+        /// 收缩日志文件保留大小，小于等于 0 表示不收缩，默认为 1MB（单位为 MB）
+        /// </summary>
+        protected virtual int shrinkLogSize { get { return 1; } }
         /// <summary>
         /// 数据库备份器
         /// </summary>
@@ -138,6 +143,38 @@ namespace AutoCSer.CommandService
         protected string getBackupSqlServer()
         {
             return $"BACKUP DATABASE [{database}] TO DISK='{backupFullName}' WITH FORMAT,INIT,COMPRESSION";
+        }
+        /// <summary>
+        /// 返回 SQL Server 获取日志文件名称 SQL 语句
+        /// </summary>
+        /// <returns></returns>
+        protected string getLogNameSqlServer()
+        {
+            return "SELECT [name] FROM sys.database_files WHERE type=1";
+        }
+        /// <summary>
+        /// 返回 SQL Server 设置简单日志恢复模式 SQL 语句
+        /// </summary>
+        /// <returns></returns>
+        protected string getRecoverySimpleSqlServer()
+        {
+            return $"ALTER DATABASE [{database}] SET RECOVERY SIMPLE";
+        }
+        /// <summary>
+        /// 返回 SQL Server 设置完整日志恢复模式 SQL 语句
+        /// </summary>
+        /// <returns></returns>
+        protected string getRecoveryFullSqlServer()
+        {
+            return $"ALTER DATABASE [{database}] SET RECOVERY FULL";
+        }
+        /// <summary>
+        /// 返回 SQL Server 收缩日志文件 SQL 语句
+        /// </summary>
+        /// <returns></returns>
+        protected string getShrinkLogSqlServer(string logName)
+        {
+            return $"DBCC SHRINKFILE ('{logName}', {shrinkLogSize.toString()}, TRUNCATEONLY)";
         }
         /// <summary>
         /// 数据库备份完成

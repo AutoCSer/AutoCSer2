@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
                 if (commandClientSocket == null) Console.WriteLine("数据库备份服务连接失败");
                 else Console.WriteLine("数据库备份服务连接成功");
                 CommandClientSocketEvent socketEvent = (CommandClientSocketEvent)commandClient.SocketEvent;
-                DatabaseBackupClient databaseBackupClient = new DatabaseBackupClient(socketEvent);
+                DatabaseBackupClient databaseBackupClient = new DatabaseBackupClient(commandClient, socketEvent);
 
                 TaskRunTimer taskRunTimer = ConfigFile.Default.GetTaskRunTimer();
                 do

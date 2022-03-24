@@ -85,7 +85,7 @@
             进程守护服务端接口（服务端需要以管理员身份运行）
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuard.Guard(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.CommandService.ProcessGuardInfo)">
+        <member name="M:AutoCSer.CommandService.IProcessGuard.Guard(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallLowPriorityQueue,AutoCSer.CommandService.ProcessGuardInfo)">
             <summary>
             添加待守护进程
             </summary>
@@ -94,7 +94,7 @@
             <param name="processInfo">进程信息</param>
             <returns>是否添加成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuard.Remove(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int32,System.String)">
+        <member name="M:AutoCSer.CommandService.IProcessGuard.Remove(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallLowPriorityQueue,System.Int32,System.String)">
             <summary>
             删除被守护进程
             </summary>
@@ -175,7 +175,7 @@
             被守护进程集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ProcessGuardManager.Guard(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.CommandService.ProcessGuardInfo)">
+        <member name="M:AutoCSer.CommandService.ProcessGuardManager.Guard(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallLowPriorityQueue,AutoCSer.CommandService.ProcessGuardInfo)">
             <summary>
             添加待守护进程
             </summary>
@@ -184,7 +184,7 @@
             <param name="processInfo">进程信息</param>
             <returns>是否添加成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.ProcessGuardManager.Remove(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int32,System.String)">
+        <member name="M:AutoCSer.CommandService.ProcessGuardManager.Remove(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallLowPriorityQueue,System.Int32,System.String)">
             <summary>
             删除被守护进程
             </summary>

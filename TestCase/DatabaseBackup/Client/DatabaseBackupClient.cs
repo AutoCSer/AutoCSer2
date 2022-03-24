@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.Net;
 using System;
 using System.IO;
 
@@ -12,8 +13,9 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
         /// <summary>
         /// 数据库备份客户端
         /// </summary>
+        /// <param name="commandClient">命令客户端</param>
         /// <param name="client">数据库备份客户端套接字事件</param>
-        public DatabaseBackupClient(IDatabaseBackupClientSocketEvent client) : base(client) { }
+        public DatabaseBackupClient(CommandClient commandClient, IDatabaseBackupClientSocketEvent client) : base(commandClient, client) { }
         /// <summary>
         /// 数据库备份客户端文件下载器
         /// </summary>

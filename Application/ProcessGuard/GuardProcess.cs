@@ -32,7 +32,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 是否重新启动进程
         /// </summary>
-        private bool isReStart;
+        private int isReStart;
         /// <summary>
         /// 是否已经被移除
         /// </summary>
@@ -72,9 +72,8 @@ namespace AutoCSer.CommandService
         /// <param name="e"></param>
         private void guard(object sender, EventArgs e)
         {
-            if (!isReStart)
+            if (System.Threading.Interlocked.CompareExchange(ref isReStart, 1, 0) == 0)
             {
-                isReStart = true;
                 try
                 {
                     if (!IsRemove) NewProcess = ProcessInfo.Start();

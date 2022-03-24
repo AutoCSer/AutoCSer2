@@ -78,15 +78,21 @@
             数据库备份客户端
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.DatabaseBackupClient.CommandClient">
+            <summary>
+            命令客户端
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.DatabaseBackupClient.Client">
             <summary>
             数据库备份客户端套接字事件
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DatabaseBackupClient.#ctor(AutoCSer.CommandService.IDatabaseBackupClientSocketEvent)">
+        <member name="M:AutoCSer.CommandService.DatabaseBackupClient.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.IDatabaseBackupClientSocketEvent)">
             <summary>
             数据库备份客户端
             </summary>
+            <param name="commandClient">命令客户端</param>
             <param name="client">数据库备份客户端套接字事件</param>
         </member>
         <member name="M:AutoCSer.CommandService.DatabaseBackupClient.OnError(System.String)">
@@ -106,6 +112,13 @@
             <summary>
             开始备份数据库
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DatabaseBackupClient.checkDatabase(System.String)">
+            <summary>
+            检查数据库是否需要备份
+            </summary>
+            <param name="database"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DatabaseBackupClient.getDatabaseBackupClientDownloader(System.String,System.String)">
@@ -157,7 +170,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DatabaseBackupClientDownloader.tryErrorCount">
             <summary>
-            错误尝试次数
+            连续错误尝试次数
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DatabaseBackupClientDownloader.#ctor(AutoCSer.CommandService.DatabaseBackupClient,System.String,System.String,System.String,System.Int32)">
@@ -168,7 +181,7 @@
             <param name="database">数据库名称</param>
             <param name="backupFullName">备份文件名称</param>
             <param name="backupFileName">备份文件名称</param>
-            <param name="tryErrorCount">错误尝试次数</param>
+            <param name="tryErrorCount">连续错误尝试次数</param>
         </member>
         <member name="M:AutoCSer.CommandService.DatabaseBackupClientDownloader.Download">
             <summary>
@@ -351,6 +364,11 @@
             默认为 3600 秒
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.DatabaseBackuper.shrinkLogSize">
+            <summary>
+            收缩日志文件保留大小，小于等于 0 表示不收缩，默认为 1MB（单位为 MB）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.DatabaseBackuper.#ctor(AutoCSer.CommandService.DatabaseBackup,AutoCSer.Net.CommandServerCallQueue,System.String,System.String,System.String)">
             <summary>
             数据库备份器
@@ -396,6 +414,30 @@
         <member name="M:AutoCSer.CommandService.DatabaseBackuper.getBackupSqlServer">
             <summary>
             返回 SQL Server 2016 备份数据库 SQL 语句
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DatabaseBackuper.getLogNameSqlServer">
+            <summary>
+            返回 SQL Server 获取日志文件名称 SQL 语句
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DatabaseBackuper.getRecoverySimpleSqlServer">
+            <summary>
+            返回 SQL Server 设置简单日志恢复模式 SQL 语句
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DatabaseBackuper.getRecoveryFullSqlServer">
+            <summary>
+            返回 SQL Server 设置完整日志恢复模式 SQL 语句
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DatabaseBackuper.getShrinkLogSqlServer(System.String)">
+            <summary>
+            返回 SQL Server 收缩日志文件 SQL 语句
             </summary>
             <returns></returns>
         </member>

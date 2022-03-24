@@ -384,30 +384,6 @@
             默认切换服务相对目录名称
             </summary>
         </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.ApplicationPath">
-            <summary>
-            程序执行主目录(小写字母)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.Separator">
-            <summary>
-            目录分隔符
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.toLowerNotEmpty(System.String)">
-            <summary>
-            大写转小写
-            </summary>
-            <param name="value">大写字符串</param>
-            <returns>小写字符串(原引用)</returns>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.ToLower(System.Char*,System.Char*)">
-            <summary>
-            大写转小写
-            </summary>
-            <param name="start"></param>
-            <param name="end">长度必须大于0</param>
-        </member>
         <member name="T:AutoCSer.Deploy.SwitchWait">
             <summary>
             切换进程等待关闭处理
