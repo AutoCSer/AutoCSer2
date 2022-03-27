@@ -45,133 +45,133 @@ namespace AutoCSer.TestCase
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
+            ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskSocket(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallback Callback)
         {
             await ServerTaskController.TaskStart();
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            ServerKeepCallbackController.KeepCallback(Callback);
+            ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn(CommandServerSocket socket, CommandServerKeepCallback<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
+            ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskSocket(CommandServerSocket socket, CommandServerKeepCallback Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(Callback);
+            ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskReturn(int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+            ServerKeepCallbackController.AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTask(int Value, int Ref, CommandServerKeepCallback Callback)
         {
             await ServerTaskController.TaskStart();
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            ServerKeepCallbackController.KeepCallback(Callback);
+            ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskReturn(CommandServerKeepCallback<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
+            ServerKeepCallbackController.AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTask(CommandServerKeepCallback Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(Callback);
+            ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
 
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskSocket(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             await ServerTaskController.TaskStart();
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            await ServerKeepCallbackController.KeepCallback(Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn(CommandServerSocket socket, CommandServerKeepCallbackCount<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskSocket(CommandServerSocket socket, CommandServerKeepCallbackCount Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn(int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTask(int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             await ServerTaskController.TaskStart();
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            await ServerKeepCallbackController.KeepCallback(Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn(CommandServerKeepCallbackCount<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTask(CommandServerKeepCallbackCount Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
 
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskQueueSocketReturn(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
+            ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallback Callback)
         {
             await ServerTaskController.TaskStart();
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            ServerKeepCallbackController.KeepCallback(Callback);
+            ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            ServerKeepCallbackController.KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+            ServerKeepCallbackController.AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackTaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref, CommandServerKeepCallback Callback)
         {
             await ServerTaskController.TaskStart();
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            ServerKeepCallbackController.KeepCallback(Callback);
+            ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
 
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskQueueSocketReturn(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskQueueReturn(CommandServerCallTaskQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
         }
         async Task IServerKeepCallbackTaskController.KeepCallbackCountTaskQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
             await ServerTaskController.TaskStart();
-            await ServerKeepCallbackController.KeepCallback(Callback);
+            await ServerKeepCallbackController.AutoKeepCallback(Callback);
         }
     }
 }

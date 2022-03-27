@@ -70,7 +70,6 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         {
             await Task.Yield();
             for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue; callback.Callback(value++)) ;
-            callback.CancelKeep();
         }
         /// <summary>
         /// 保持回调委托无返回值，返回值类型必须为 void
@@ -85,7 +84,6 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
             await Task.Yield();
             Console.WriteLine(parameter);
             for (int value = 4; value != 0; --value) callback.Callback();
-            callback.CancelKeep();
         }
 
         /// <summary>
@@ -101,7 +99,6 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         async Task IKeepCallbackController.CallbackCountReturn(CommandServerSocket socket, CommandServerCallTaskQueue queue, int queueKey, int parameter1, int parameter2, CommandServerKeepCallbackCount<int> callback)
         {
             for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue; await callback.CallbackAsync(value++)) ;
-            callback.CancelKeep();
         }
         /// <summary>
         /// 保持回调委托无返回值，返回值类型必须为 void
@@ -115,7 +112,6 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         {
             Console.WriteLine(parameter);
             for (int value = 4; value != 0; --value) await callback.CallbackAsync();
-            callback.CancelKeep();
         }
     }
 }

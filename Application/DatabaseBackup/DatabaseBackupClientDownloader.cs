@@ -90,6 +90,7 @@ namespace AutoCSer.CommandService
                     else
                     {
                         await client.OnError($"数据库 {database} 备份文件下载失败，剩余重试次数 {tryErrorCount}");
+                        await Task.Delay(1000);
                         if (await client.CommandClient.GetSocketAsync() == null)
                         {
                             await Task.Delay(1000);

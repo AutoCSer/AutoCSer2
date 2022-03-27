@@ -58,7 +58,6 @@ namespace AutoCSer.Example.CommandServer.Server.Queue
         void IKeepCallbackController.CallbackReturn(CommandServerSocket socket, CommandServerCallQueue queue, int parameter1, int parameter2, CommandServerKeepCallback<int> callback)
         {
             for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue; callback.Callback(value++)) ;
-            callback.CancelKeep();
         }
         /// <summary>
         /// 保持回调委托无返回值，返回值类型必须为 void
@@ -70,7 +69,6 @@ namespace AutoCSer.Example.CommandServer.Server.Queue
         {
             Console.WriteLine(parameter);
             for (int value = 4; value != 0; --value) callback.Callback();
-            callback.CancelKeep();
         }
 
         /// <summary>

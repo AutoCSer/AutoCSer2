@@ -11622,7 +11622,17 @@
             检查接口任务完成状态
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackTaskCheckTaskAutoCancelKeepDelegate">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackTaskCheckCountTaskDelegate">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate">
             <summary>
             检查接口任务完成状态
             </summary>
@@ -12006,7 +12016,17 @@
             检查接口任务完成状态
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackTaskCheckTaskAutoCancelKeepDelegate">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackTaskCheckCountTaskDelegate">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate">
             <summary>
             检查接口任务完成状态
             </summary>
@@ -13990,6 +14010,19 @@
             <param name="offlineCount"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask.onCompletedAutoCancelKeep">
+            <summary>
+            任务完成检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask.setCallTaskAutoCancelKeep(System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            设置接口调用任务
+            </summary>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask.CreateServerKeepCallbackTask(AutoCSer.Net.CommandServerSocket,System.Int32)">
             <summary>
             创建 TCP 服务器端异步回调对象
@@ -13999,6 +14032,14 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask.CheckTask(AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask,System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+            <param name="task"></param>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask.CheckTaskAutoCancelKeep(AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask,System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
             <summary>
             检查接口任务完成状态
             </summary>
@@ -14037,6 +14078,19 @@
             <param name="offlineCount"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask`1.onCompletedAutoCancelKeep">
+            <summary>
+            任务完成检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask`1.setCallTaskAutoCancelKeep(System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            设置接口调用任务
+            </summary>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask`1.CreateServerKeepCallbackTask(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             创建 TCP 服务器端异步回调对象
@@ -14046,6 +14100,14 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask`1.CheckTask(AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask{`0},System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+            <param name="task"></param>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask`1.CheckTaskAutoCancelKeep(AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask{`0},System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
             <summary>
             检查接口任务完成状态
             </summary>
@@ -14082,6 +14144,19 @@
             <param name="offlineCount"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask.onCompletedAutoCancelKeep">
+            <summary>
+            任务完成检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask.setCallTaskAutoCancelKeep(System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            设置接口调用任务
+            </summary>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask.CreateServerKeepCallbackTask(AutoCSer.Net.CommandServerSocket)">
             <summary>
             创建 TCP 服务器端异步回调对象
@@ -14090,6 +14165,14 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask.CheckTask(AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask,System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+            <param name="task"></param>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask.CheckTaskAutoCancelKeep(AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask,System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
             <summary>
             检查接口任务完成状态
             </summary>
@@ -14128,6 +14211,19 @@
             <param name="offlineCount"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask`1.onCompletedAutoCancelKeep">
+            <summary>
+            任务完成检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask`1.setCallTaskAutoCancelKeep(System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            设置接口调用任务
+            </summary>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask`1.CreateServerKeepCallbackTask(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             创建 TCP 服务器端异步回调对象
@@ -14137,6 +14233,14 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask`1.CheckTask(AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask{`0},System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+            <param name="task"></param>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask`1.CheckTaskAutoCancelKeep(AutoCSer.Net.CommandServer.CommandServerKeepCallbackTask{`0},System.Threading.Tasks.Task,AutoCSer.Net.CommandServer.OfflineCount)">
             <summary>
             检查接口任务完成状态
             </summary>
@@ -17303,6 +17407,11 @@
             检查接口任务完成状态
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerKeepCallbackCancelKeep">
+            <summary>
+            取消保持回调命令
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerSocketDeserializeMethod">
             <summary>
             反序列化方法
@@ -17340,6 +17449,11 @@
             <returns></returns>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerSocketMethodTypeParameterTypes">
+            <summary>
+            异步回调类型构造函数参数类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerSocketMethodTypeBoolParameterTypes">
             <summary>
             异步回调类型构造函数参数类型集合
             </summary>
@@ -17409,7 +17523,17 @@
             检查接口任务完成状态
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerKeepCallbackTaskCheckTaskAutoCancelKeepDelegate">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerKeepCallbackTaskCheckCountTaskDelegate">
+            <summary>
+            检查接口任务完成状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate">
             <summary>
             检查接口任务完成状态
             </summary>
@@ -17755,12 +17879,12 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallback">
             <summary>
-            IO 线程同步调用，保持回调返回数据（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
+            IO 线程同步调用，保持回调返回数据，支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackCount">
             <summary>
-            IO 线程同步调用，保持回调计数返回数据（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
+            IO 线程同步调用，保持回调计数返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.Queue">
@@ -17780,12 +17904,12 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackQueue">
             <summary>
-            队列任务调用，保持回调返回数据
+            队列任务调用，保持回调返回数据，支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackCountQueue">
             <summary>
-            队列任务调用，保持回调计数返回数据
+            队列任务调用，保持回调计数返回数据，不支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.Task">
@@ -17800,12 +17924,12 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackTask">
             <summary>
-            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性
+            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性，支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackCountTask">
             <summary>
-            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性
+            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性，支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.TaskQueue">
@@ -17820,12 +17944,12 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackTaskQueue">
             <summary>
-            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性
+            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性，支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackCountTaskQueue">
             <summary>
-            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性
+            .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性，支持自动释放回调
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerOutput">
@@ -20438,6 +20562,11 @@
             服务端方法调用类型
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerCallTaskQueueNode.autoCancelKeep">
+            <summary>
+            是否自动取消回调
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.#ctor">
             <summary>
             TCP 服务器端异步回调
@@ -20713,7 +20842,7 @@
             返回值回调，保持回调计数等待
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount.CancelKeep">
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount.SetCancelKeep">
             <summary>
             取消保持回调命令
             </summary>
@@ -23368,13 +23497,14 @@
             TCP 服务器端异步保持回调
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.OfflineCount,AutoCSer.Net.CommandServer.ServerMethodType)">
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.OfflineCount,AutoCSer.Net.CommandServer.ServerMethodType,System.Boolean)">
             <summary>
             服务端异步调用保持回调队列任务
             </summary>
             <param name="socket"></param>
             <param name="offlineCount"></param>
             <param name="methodType"></param>
+            <param name="autoCancelKeep"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask.onCompleted">
             <summary>
@@ -23492,6 +23622,11 @@
         <member name="F:AutoCSer.Net.CommandServerMethodAttribute.QueueIndex">
             <summary>
             同步队列序号，默认为 0 表示控制器独立队列，否则为当前服务的共享队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerMethodAttribute.AutoCancelKeep">
+            <summary>
+            默认为 true 表示在 API 调用完成时自动取消保持回调，否则需要手动调用 CancelKeep 取消用于异步调用场景
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerMethodAttribute.IsOfflineCount">
@@ -24488,7 +24623,7 @@
             <param name="returnType"></param>
             <param name="exception"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.CancelKeep">
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.SetCancelKeep">
             <summary>
             取消保持回调命令
             </summary>
@@ -24513,6 +24648,12 @@
             </summary>
             <param name="node"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.CancelKeep(AutoCSer.Net.CommandServerKeepCallback)">
+            <summary>
+            取消保持回调命令
+            </summary>
+            <param name="keepCallback"></param>
         </member>
         <member name="T:AutoCSer.Net.CommandServerKeepCallback`1">
             <summary>

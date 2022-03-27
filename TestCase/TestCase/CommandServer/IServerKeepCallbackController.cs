@@ -52,60 +52,76 @@ namespace AutoCSer.TestCase
     internal sealed class ServerKeepCallbackController : IServerKeepCallbackController
     {
         internal const int KeepCallbackCount = 4;
-        internal static void KeepCallback(long value, CommandServerKeepCallback<string> callback)
+        //internal static void KeepCallback(long value, CommandServerKeepCallback<string> callback)
+        //{
+        //    for (long endValue = value + KeepCallbackCount; value != endValue; ++value) callback.Callback(value.ToString());
+        //    callback.CancelKeep();
+        //}
+        internal static void AutoKeepCallback(long value, CommandServerKeepCallback<string> callback)
         {
             for (long endValue = value + KeepCallbackCount; value != endValue; ++value) callback.Callback(value.ToString());
-            callback.CancelKeep();
         }
-        internal static void KeepCallback(CommandServerKeepCallback callback)
+        //internal static void KeepCallback(CommandServerKeepCallback callback)
+        //{
+        //    for (int count = KeepCallbackCount; count != 0; --count) callback.Callback();
+        //    callback.CancelKeep();
+        //}
+        internal static void AutoKeepCallback(CommandServerKeepCallback callback)
         {
             for (int count = KeepCallbackCount; count != 0; --count) callback.Callback();
-            callback.CancelKeep();
         }
         internal static async Task KeepCallback(long value, CommandServerKeepCallbackCount<string> callback)
         {
             for (long endValue = value + KeepCallbackCount; value != endValue; ++value) await callback.CallbackAsync(value.ToString());
             callback.CancelKeep();
         }
+        internal static async Task AutoKeepCallback(long value, CommandServerKeepCallbackCount<string> callback)
+        {
+            for (long endValue = value + KeepCallbackCount; value != endValue; ++value) await callback.CallbackAsync(value.ToString());
+        }
         internal static async Task KeepCallback(CommandServerKeepCallbackCount callback)
         {
             for (int count = KeepCallbackCount; count != 0; --count) await callback.CallbackAsync();
             callback.CancelKeep();
         }
+        internal static async Task AutoKeepCallback(CommandServerKeepCallbackCount callback)
+        {
+            for (int count = KeepCallbackCount; count != 0; --count) await callback.CallbackAsync();
+        }
 
         void IServerKeepCallbackController.KeepCallbackSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
+            AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
         }
         void IServerKeepCallbackController.KeepCallbackSocket(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallback Callback)
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
         void IServerKeepCallbackController.KeepCallbackSocketReturn(CommandServerSocket socket, CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
+            AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
         }
         void IServerKeepCallbackController.KeepCallbackSocket(CommandServerSocket socketf, CommandServerKeepCallback Callback)
         {
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
         void IServerKeepCallbackController.KeepCallbackReturn(int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
         }
         void IServerKeepCallbackController.KeepCallback(int Value, int Ref, CommandServerKeepCallback Callback)
         {
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
         void IServerKeepCallbackController.KeepCallbackReturn(CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
         }
         void IServerKeepCallbackController.KeepCallback(CommandServerKeepCallback Callback)
         {
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
 
         void IServerKeepCallbackController.KeepCallbackCountSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
@@ -145,37 +161,37 @@ namespace AutoCSer.TestCase
 
         void IServerKeepCallbackController.KeepCallbackQueueSocketReturn(CommandServerSocket socket, CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
+            AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueueSocket(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallback Callback)
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueueSocketReturn(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
+            AutoKeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueueSocket(CommandServerSocket socket, CommandServerCallQueue queue, CommandServerKeepCallback Callback)
         {
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueueReturn(CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueue(CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallback Callback)
         {
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueueReturn(CommandServerCallLowPriorityQueue queue, CommandServerKeepCallback<string> Callback)
         {
-            KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueue(CommandServerCallQueue queue, CommandServerKeepCallback Callback)
         {
-            KeepCallback(Callback);
+            AutoKeepCallback(Callback);
         }
 
         void IServerKeepCallbackController.KeepCallbackCountQueueSocketReturn(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
