@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 注册服务命令客户端套接字事件
     /// </summary>
-    internal sealed class ServiceRegistryCommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent
+    public class ServiceRegistryCommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent
     {
         /// <summary>
         /// 注册服务命令客户端配置
@@ -17,7 +17,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 同步接口测试
         /// </summary>
-        public IServiceRegistryClient ServiceRegistryClient { get; private set; }
+        public IServiceRegistryClient ServiceRegistryClient { get; protected set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -32,7 +32,7 @@ namespace AutoCSer.CommandService
         /// 注册服务命令客户端套接字事件
         /// </summary>
         /// <param name="commandClient">命令客户端</param>
-        /// <param name="config"></param>
+        /// <param name="config">注册服务命令客户端配置</param>
         public ServiceRegistryCommandClientSocketEvent(CommandClient commandClient, ServiceRegistryCommandClientConfig config) : base(commandClient)
         {
             this.config = config;

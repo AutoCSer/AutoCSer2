@@ -108,6 +108,15 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
+            await ReleaseAsync();
+        }
+#endif
+        /// <summary>
+        /// 释放锁
+        /// </summary>
+        /// <returns></returns>
+        public async Task ReleaseAsync()
+        {
             long requestID = this.requestID;
             if (requestID != 0)
             {
@@ -116,8 +125,6 @@ namespace AutoCSer.CommandService
                 await client.DistributedLockClient.ReleaseAsync(key, requestID);
             }
         }
-#endif
-
         /// <summary>
         /// 锁客户端状态是否有效
         /// </summary>

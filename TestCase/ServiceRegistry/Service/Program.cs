@@ -1,6 +1,4 @@
-﻿using AutoCSer.CommandService;
-using AutoCSer.Net;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.ServiceRegistry.Service

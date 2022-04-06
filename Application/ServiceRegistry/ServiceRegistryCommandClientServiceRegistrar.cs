@@ -53,7 +53,7 @@ namespace AutoCSer.CommandService
         /// 获取服务注册日志客户端组装
         /// </summary>
         /// <returns></returns>
-        private async Task getAssembler()
+        protected async Task getAssembler()
         {
             Assembler = await serviceRegistryClient.GetAssembler(commandClientConfig.ServiceName);
             Assembler.Append(this);
@@ -65,7 +65,7 @@ namespace AutoCSer.CommandService
         public override async Task<IPEndPoint> GetServerEndPoint()
         {
             ServiceRegisterLog log = Assembler.MainLog;
-            if (log != null) return log.GetIPEndPoint();
+            if (log != null) return log.HostEndPoint.IPEndPoint;
             await (new ServiceRegistryWaitServerEndPointTask(this, Math.Max(waitServerEndPointSeconds, (byte)1))).TryAppendTaskArrayAsync();
             return null;
         }
@@ -79,7 +79,7 @@ namespace AutoCSer.CommandService
             return await client.WaitServerEndPoint();
         }
         /// <summary>
-        /// 触发服务更变回调
+        /// 触发服务更变回调（网络 IO 线程同步回调，不允许阻塞线程）
         /// </summary>
         /// <param name="log"></param>
         /// <param name="changedType"></param>
@@ -87,10 +87,10 @@ namespace AutoCSer.CommandService
         public virtual bool Callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedType changedType)
         {
             if (client.IsDisposed) return false;
-            if (changedType.HasFlag(ServiceRegisterLogClientChangedType.Main))
+            if ((changedType & ServiceRegisterLogClientChangedType.Main) != 0)
             {
                 ServiceRegisterLog mainLog = Assembler.MainLog;
-                if (mainLog != null) client.ServerEndPointChanged(mainLog.GetIPEndPoint());
+                if (mainLog != null) client.ServerEndPointChanged(mainLog.HostEndPoint.IPEndPoint);
             }
             return true;
         }

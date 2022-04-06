@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.CommandService;
+using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace AutoCSer.TestCase.ServiceRegistry.Service
         {
             CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)(30000 + version)), ServiceName = "AutoCSer.TestCase.ServiceRegistry" };
             using (CommandListener commandListener = new CommandListener(commandServerConfig
+                    , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerify)new AutoCSer.CommandService.TimestampVerify(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                     , CommandServerInterfaceControllerCreator.GetCreator<IService>(new Service(version))
                     ))
             {

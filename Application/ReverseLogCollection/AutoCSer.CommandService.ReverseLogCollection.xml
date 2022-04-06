@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.CommandService.ReverseLogCollection</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.CommandService.IReverseLogCollection`1">
+            <summary>
+            反向日志收集服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个服务，家庭带宽电脑上启动客户端，支持多客户端用于异地冗余）
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.IReverseLogCollection`1.LogCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback{`0})">
+            <summary>
+            获取日志
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">获取日志回调委托</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.IReverseLogCollectionClient`1">
+            <summary>
+            反向日志收集服务客户端
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.IReverseLogCollectionClient`1.LogCallback(System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            获取日志
+            </summary>
+            <param name="callback">获取日志回调委托</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollection`1">
+            <summary>
+            反向日志收集服务
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection`1.callbacks">
+            <summary>
+            获取日志回调委托集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection`1.LogCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback{`0})">
+            <summary>
+            获取日志
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">获取日志回调委托</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection`1.Appped(`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection`1.Callback(`0)">
+            <summary>
+            日志回调
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollectionCallback`1">
+            <summary>
+            日志回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollectionCallback`1.controller">
+            <summary>
+            反向日志收集服务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollectionCallback`1.log">
+            <summary>
+            测试日志数据定义
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollectionCallback`1.#ctor(AutoCSer.CommandService.ReverseLogCollection{`0},`0)">
+            <summary>
+            日志回调
+            </summary>
+            <param name="controller"></param>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollectionCallback`1.RunTask">
+            <summary>
+            日志委托回调
+            </summary>
+        </member>
+    </members>
+</doc>

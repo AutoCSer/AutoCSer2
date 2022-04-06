@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.DistributedLock
     /// <summary>
     /// 分布式锁请求超时释放处理
     /// </summary>
-    internal sealed class RequestTimeout : CommandServerCallQueueNode
+    internal sealed class RequestTimeout : CommandServerCallQueueCustomNode
     {
         /// <summary>
         /// 分布式锁请求

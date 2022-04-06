@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 被守护进程信息
     /// </summary>
-    public class GuardProcess : CommandServerCallQueueNode
+    public class GuardProcess : CommandServerCallQueueCustomNode
     {
         /// <summary>
         /// 进程守护服务端管理器

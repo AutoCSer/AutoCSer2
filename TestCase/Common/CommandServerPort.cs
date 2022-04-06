@@ -36,8 +36,12 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         ProcessGuard,
         /// <summary>
-        /// 数据库备份
+        /// 数据库备份端口
         /// </summary>
         DatabaseBackup,
+        /// <summary>
+        /// 反向日志收集端口
+        /// </summary>
+        ReverseLogCollection,
     }
 }

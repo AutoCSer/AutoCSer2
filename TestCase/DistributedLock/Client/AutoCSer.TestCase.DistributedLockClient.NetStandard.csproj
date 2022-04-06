@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\DistributedLock\AutoCSer.CommandService.DistributedLock.NetStandard.csproj" />
+    <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard.csproj" />
     <ProjectReference Include="..\..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
   </ItemGroup>

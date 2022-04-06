@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 服务注册会话对象
     /// </summary>
-    internal class ServiceRegistrySession : AutoCSer.Net.CommandServerCallQueueNode
+    internal class ServiceRegistrySession : AutoCSer.Net.CommandServerCallQueueCustomNode
     {
         /// <summary>
         /// 服务注册

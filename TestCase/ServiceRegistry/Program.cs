@@ -11,6 +11,7 @@ namespace AutoCSer.TestCase.ServiceRegistry
         {
             CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ServiceRegistry) };
             using (CommandListener commandListener = new CommandListener(commandServerConfig
+                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerify)new AutoCSer.CommandService.TimestampVerify(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                 , CommandServerInterfaceControllerCreator.GetCreator(server => (IServiceRegistry)new AutoCSer.CommandService.ServiceRegistry(server))
                 ))
             {

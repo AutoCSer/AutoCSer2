@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 数据库备份器
     /// </summary>
-    public abstract class DatabaseBackuper : CommandServerCallQueueNode
+    public abstract class DatabaseBackuper : CommandServerCallQueueCustomNode
     {
         /// <summary>
         /// 数据库备份服务

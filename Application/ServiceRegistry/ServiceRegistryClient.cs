@@ -169,6 +169,24 @@ namespace AutoCSer.CommandService
             finally { Monitor.Exit(clients); }
             return client;
         }
+        ///// <summary>
+        ///// 获取服务注册客户端
+        ///// </summary>
+        ///// <param name="host"></param>
+        ///// <param name="port"></param>
+        ///// <returns></returns>
+        //public static ServiceRegistryClient Get(string host, ushort port)
+        //{
+        //    HostEndPoint hostEndPoint = new HostEndPoint(port, host);
+        //    ServiceRegistryClient client;
+        //    Monitor.Enter(clients);
+        //    try
+        //    {
+        //        if (!clients.TryGetValue(hostEndPoint, out client)) clients.Add(hostEndPoint, client = new ServiceRegistryClient(new ServiceRegistryCommandClientConfig { Host = hostEndPoint }));
+        //    }
+        //    finally { Monitor.Exit(clients); }
+        //    return client;
+        //}
         /// <summary>
         /// 获取服务注册客户端
         /// </summary>

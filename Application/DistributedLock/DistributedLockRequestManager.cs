@@ -8,12 +8,14 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 锁请求链表管理，用于断线重连
     /// </summary>
-    public sealed class DistributedLockRequestManager
+    /// <typeparam name="T"></typeparam>
+    public sealed class DistributedLockRequestManager<T>
+        where T : IEquatable<T>
     {
         /// <summary>
         /// 分布式锁客户端套接字事件
         /// </summary>
-        private readonly IDistributedLockClientSocketEvent<int> client;
+        private readonly IDistributedLockClientSocketEvent<T> client;
         /// <summary>
         /// 锁请求链表访问锁
         /// </summary>
@@ -30,7 +32,7 @@ namespace AutoCSer.CommandService
         /// 锁请求队列管理
         /// </summary>
         /// <param name="client">分布式锁客户端套接字事件</param>
-        public DistributedLockRequestManager(IDistributedLockClientSocketEvent<int> client)
+        public DistributedLockRequestManager(IDistributedLockClientSocketEvent<T> client)
         {
             this.client = client;
         }

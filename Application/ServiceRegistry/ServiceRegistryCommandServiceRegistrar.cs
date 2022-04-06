@@ -34,7 +34,8 @@ namespace AutoCSer.CommandService
         /// <param name="server">命令服务</param>
         /// <param name="client"></param>
         /// <param name="config"></param>
-        protected ServiceRegistryCommandServiceRegistrar(CommandListener server, ServiceRegistryClient client, ServiceRegistryCommandServerConfig config) : base(server)
+        protected ServiceRegistryCommandServiceRegistrar(CommandListener server, ServiceRegistryClient client, ServiceRegistryCommandServerConfig config) 
+            : base(server)
         {
             serviceRegistryClient = client;
             commandServerConfig = config;

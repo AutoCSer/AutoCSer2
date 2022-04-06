@@ -31,6 +31,13 @@ namespace AutoCSer.CommandService
         /// </summary>
         public ushort Port { get; internal set; }
         /// <summary>
+        /// 服务主机与端口信息
+        /// </summary>
+        public AutoCSer.Net.HostEndPoint HostEndPoint
+        {
+            get { return new AutoCSer.Net.HostEndPoint(Port, Host); }
+        }
+        /// <summary>
         /// 服务注册日志操作类型
         /// </summary>
         public ServiceRegisterOperationType OperationType { get; internal set; }
@@ -102,13 +109,14 @@ namespace AutoCSer.CommandService
             };
         }
         /// <summary>
-        /// 获取服务监听地址
+        /// 检查服务主机与端口信息是否匹配
         /// </summary>
+        /// <param name="log"></param>
         /// <returns></returns>
         [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
-        public IPEndPoint GetIPEndPoint()
+        public bool CheckHostPort(ServiceRegisterLog log)
         {
-            return new AutoCSer.Net.HostEndPoint(Port, Host).IPEndPoint;
+            return Port == log.Port && Host == log.Host;
         }
     }
 }

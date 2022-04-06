@@ -20020,6 +20020,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CommandServerCallQueueCustomNode">
+            <summary>
+            服务端执行队列任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallQueueCustomNode.isQueue">
+            <summary>
+            是否已经添加到队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallQueueCustomNode.CheckQueue">
+            <summary>
+            检查是否已经添加到队列
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerCallTaskQueueCustomTaskNode">
             <summary>
             服务端异步调用队列任务
@@ -22956,14 +22972,14 @@
             <param name="offlineCount">服务端下线计数对象</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerController.AddQueue(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerController.AddQueue(AutoCSer.Net.CommandServerCallQueueCustomNode)">
             <summary>
             添加同步调用队列任务
             </summary>
             <param name="node"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerController.AddQueueLowPriority(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerController.AddQueueLowPriority(AutoCSer.Net.CommandServerCallQueueCustomNode)">
             <summary>
             添加同步调用队列低优先级任务
             </summary>
@@ -23213,7 +23229,7 @@
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandListener.AddQueue(System.Byte,AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandListener.AddQueue(System.Byte,AutoCSer.Net.CommandServerCallQueueCustomNode)">
             <summary>
             添加同步调用队列任务
             </summary>
@@ -23229,7 +23245,7 @@
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandListener.AddQueueLowPriority(System.Byte,AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandListener.AddQueueLowPriority(System.Byte,AutoCSer.Net.CommandServerCallQueueCustomNode)">
             <summary>
             添加同步调用队列任务（低优先级）
             </summary>
@@ -23924,7 +23940,7 @@
             </summary>
             <param name="queue">任务队列</param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallLowPriorityQueue.Add(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerCallLowPriorityQueue.Add(AutoCSer.Net.CommandServerCallQueueCustomNode)">
             <summary>
             添加任务
             </summary>
@@ -25551,7 +25567,7 @@
             关闭执行队列
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueue.Add(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerCallQueue.Add(AutoCSer.Net.CommandServerCallQueueCustomNode)">
             <summary>
             添加任务
             </summary>
@@ -25612,11 +25628,6 @@
             服务端方法调用类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerCallQueueNode.isQueue">
-            <summary>
-            是否已经添加到队列
-            </summary>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerCallQueueNode.#ctor">
             <summary>
             TCP 服务器端异步回调
@@ -25629,12 +25640,6 @@
             <param name="socket"></param>
             <param name="offlineCount"></param>
             <param name="methodType"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.CheckQueue">
-            <summary>
-            检查是否已经添加到队列
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallQueueNode.RunTask">
             <summary>

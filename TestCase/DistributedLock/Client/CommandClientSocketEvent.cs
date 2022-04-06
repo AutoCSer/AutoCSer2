@@ -9,12 +9,13 @@ namespace AutoCSer.TestCase.DistributedLockClient
     /// <summary>
     /// 命令客户端套接字事件
     /// </summary>
-    internal sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent, IDistributedLockClientSocketEvent<int>
+    /// <typeparam name="T"></typeparam>
+    internal sealed class CommandClientSocketEvent : TimestampVerifyCommandClientSocketEvent, IDistributedLockClientSocketEvent<int>
     {
         /// <summary>
         /// 锁请求队列管理
         /// </summary>
-        private readonly DistributedLockRequestManager distributedLockRequestManager;
+        private readonly DistributedLockRequestManager<int> distributedLockRequestManager;
         /// <summary>
         /// 分布式锁客户端接口
         /// </summary>
@@ -26,6 +27,7 @@ namespace AutoCSer.TestCase.DistributedLockClient
         {
             get
             {
+                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerify), typeof(ITimestampVerifyClient));
                 yield return new CommandClientControllerCreatorParameter(typeof(IDistributedLock<int>), typeof(IDistributedLockClient<int>));
             }
         }
@@ -33,9 +35,9 @@ namespace AutoCSer.TestCase.DistributedLockClient
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public CommandClientSocketEvent(CommandClient client) : base(client)
+        public CommandClientSocketEvent(CommandClient client) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
         {
-            distributedLockRequestManager = new DistributedLockRequestManager(this);
+            distributedLockRequestManager = new DistributedLockRequestManager<int>(this);
         }
 
         /// <summary>

@@ -46,12 +46,20 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
+            await ReleaseAsync();
+        }
+#endif
+        /// <summary>
+        /// 释放锁
+        /// </summary>
+        /// <returns></returns>
+        public async Task ReleaseAsync()
+        {
             if (!isRelease)
             {
                 isRelease = true;
                 await reentrantLockCount.ReleaseAsync();
             }
         }
-#endif
     }
 }

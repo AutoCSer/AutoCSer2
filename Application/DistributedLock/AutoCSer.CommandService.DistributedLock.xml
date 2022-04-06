@@ -579,6 +579,12 @@
             释放锁
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DistributedLockAsynchronousReentrant.ReleaseAsync">
+            <summary>
+            释放锁
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.DistributedLockAsynchronousReentrantClient`1">
             <summary>
             异步可重入锁客户端（非线程安全，不支持多线程并发操作同一个异步上下文）
@@ -876,6 +882,12 @@
             释放锁
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DistributedLockKeepRequest`1.ReleaseAsync">
+            <summary>
+            释放锁
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:AutoCSer.CommandService.DistributedLockKeepRequest`1.IsLock">
             <summary>
             锁客户端状态是否有效
@@ -1113,6 +1125,12 @@
             释放锁
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DistributedLockRequest`1.ReleaseAsync">
+            <summary>
+            释放锁
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.DistributedLockRequest`1.TryKeep">
             <summary>
             保持心跳延长锁自动超时（仅通知服务端）
@@ -1180,55 +1198,56 @@
             </summary>
             <param name="returnValue"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.DistributedLockRequestManager">
+        <member name="T:AutoCSer.CommandService.DistributedLockRequestManager`1">
             <summary>
             锁请求链表管理，用于断线重连
             </summary>
+            <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager.client">
+        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager`1.client">
             <summary>
             分布式锁客户端套接字事件
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager.linkLock">
+        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager`1.linkLock">
             <summary>
             锁请求链表访问锁
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager.linkEnd">
+        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager`1.linkEnd">
             <summary>
             锁请求链表尾节点
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager.count">
+        <member name="F:AutoCSer.CommandService.DistributedLockRequestManager`1.count">
             <summary>
             锁请求数量
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager.#ctor(AutoCSer.CommandService.IDistributedLockClientSocketEvent{System.Int32})">
+        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager`1.#ctor(AutoCSer.CommandService.IDistributedLockClientSocketEvent{`0})">
             <summary>
             锁请求队列管理
             </summary>
             <param name="client">分布式锁客户端套接字事件</param>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager.Append(AutoCSer.CommandService.IDistributedLockRequest)">
+        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager`1.Append(AutoCSer.CommandService.IDistributedLockRequest)">
             <summary>
             添加锁请求
             </summary>
             <param name="request"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager.Remove(AutoCSer.CommandService.IDistributedLockRequest)">
+        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager`1.Remove(AutoCSer.CommandService.IDistributedLockRequest)">
             <summary>
             删除锁请求
             </summary>
             <param name="request"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager.EnterAgain">
+        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager`1.EnterAgain">
             <summary>
             断线重新申请
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager.enterAgain(AutoCSer.LeftArray{AutoCSer.CommandService.IDistributedLockRequest})">
+        <member name="M:AutoCSer.CommandService.DistributedLockRequestManager`1.enterAgain(AutoCSer.LeftArray{AutoCSer.CommandService.IDistributedLockRequest})">
             <summary>
             断线重新申请
             </summary>
@@ -1595,44 +1614,6 @@
         <member name="M:AutoCSer.CommandService.IDistributedLockRequest.EnterAgain">
             <summary>
             短线重连
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.TestCase.DistributedLockClient.LockClient">
-            <summary>
-            分布式锁测试客户端
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.DistributedLockClient.LockClient.lockKey">
-            <summary>
-            分布式锁测试关键字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.DistributedLockClient.LockClient.checkLock">
-            <summary>
-            分布式锁并发错误检查
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.DistributedLockClient.LockClient.client">
-            <summary>
-            分布式锁客户端
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.DistributedLockClient.LockClient.clientID">
-            <summary>
-            客户端编号
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.DistributedLockClient.LockClient.#ctor(AutoCSer.CommandService.IDistributedLockClientSocketEvent{System.Int32},System.Int32)">
-            <summary>
-            分布式锁测试客户端
-            </summary>
-            <param name="client">分布式锁客户端套接字事件</param>
-            <param name="clientID">客户端编号</param>
-        </member>
-        <member name="M:AutoCSer.TestCase.DistributedLockClient.LockClient.Start">
-            <summary>
-            开始获取锁
             </summary>
             <returns></returns>
         </member>

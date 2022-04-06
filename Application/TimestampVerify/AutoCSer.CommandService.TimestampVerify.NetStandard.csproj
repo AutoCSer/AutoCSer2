@@ -28,6 +28,7 @@
     <Compile Include="ITimestampVerifySession.cs" />
     <Compile Include="TimestampVerify.cs" />
     <Compile Include="TimestampVerifyChecker.cs" />
+    <Compile Include="TimestampVerifyCommandClientSocketEvent.cs" />
     <Compile Include="TimestampVerifySession.cs" />
   </ItemGroup>
 

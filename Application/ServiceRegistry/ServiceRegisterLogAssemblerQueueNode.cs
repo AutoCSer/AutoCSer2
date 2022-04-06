@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 单例服务器超时强制下线任务节点
     /// </summary>
-    internal sealed class ServiceRegisterLogAssemblerQueueNode : AutoCSer.Net.CommandServerCallQueueNode
+    internal sealed class ServiceRegisterLogAssemblerQueueNode : AutoCSer.Net.CommandServerCallQueueCustomNode
     {
         /// <summary>
         /// 服务注册日志组装

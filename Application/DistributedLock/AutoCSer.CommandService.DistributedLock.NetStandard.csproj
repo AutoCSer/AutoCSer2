@@ -39,7 +39,6 @@
     <Compile Include="IDistributedLockClientSocketEvent.cs" />
     <Compile Include="IDistributedLockManager.cs" />
     <Compile Include="IDistributedLockRequest.cs" />
-    <Compile Include="LockClient.cs" />
     <Compile Include="ReentrantKey.cs" />
     <Compile Include="AsynchronousReentrantLockManager.cs" />
     <Compile Include="Request.cs" />

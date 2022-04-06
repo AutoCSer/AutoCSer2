@@ -66,6 +66,15 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         async ValueTask IAsyncDisposable.DisposeAsync()
         {
+            await ReleaseAsync();
+        }
+#endif
+        /// <summary>
+        /// 释放锁
+        /// </summary>
+        /// <returns></returns>
+        public async Task ReleaseAsync()
+        {
             long requestID = this.requestID;
             if (requestID != 0)
             {
@@ -74,7 +83,6 @@ namespace AutoCSer.CommandService
                 await client.DistributedLockClient.ReleaseAsync(key, requestID);
             }
         }
-#endif
         /// <summary>
         /// 保持心跳延长锁自动超时（仅通知服务端）
         /// </summary>

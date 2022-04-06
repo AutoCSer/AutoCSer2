@@ -11,6 +11,7 @@ namespace AutoCSer.TestCase.DistributedLock
         {
             CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.DistributedLock) };
             using (CommandListener commandListener = new CommandListener(commandServerConfig
+                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerify)new AutoCSer.CommandService.TimestampVerify(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                 , CommandServerInterfaceControllerCreator.GetCreator(server => (IDistributedLock<int>)new AutoCSer.CommandService.DistributedLock<int>())
                 ))
             {

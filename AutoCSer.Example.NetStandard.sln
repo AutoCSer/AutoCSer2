@@ -83,6 +83,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.DatabaseB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.DatabaseBackupClient.NetStandard", "TestCase\DatabaseBackup\Client\AutoCSer.TestCase.DatabaseBackupClient.NetStandard.csproj", "{37000725-9558-461C-B0A6-51D5352CEDF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReverseLogCollection", "ReverseLogCollection", "{BA0B97EC-A1E5-4608-A7E5-94279799A494}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestCase", "TestCase", "{EAFB90E1-4835-4760-869C-4F3880E9FCAE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.ReverseLogCollection.NetStandard", "Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.NetStandard.csproj", "{AF22DB72-0EA7-4CF3-A84F-48F21CC3E5C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.ReverseLogCollection.NetStandard", "TestCase\ReverseLogCollection\AutoCSer.TestCase.ReverseLogCollection.NetStandard.csproj", "{8F8A8253-2C08-4A97-A27D-C9730A85B9FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.ReverseLogCollectionCommon.NetStandard", "TestCase\ReverseLogCollection\Common\AutoCSer.TestCase.ReverseLogCollectionCommon.NetStandard.csproj", "{E8C07822-A0B6-46A6-9755-5BCDE9118559}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.ReverseLogCollectionClient.NetStandard", "TestCase\ReverseLogCollection\Client\AutoCSer.TestCase.ReverseLogCollectionClient.NetStandard.csproj", "{5C977428-A027-4336-99DC-D158BDD38213}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -189,6 +201,22 @@ Global
 		{37000725-9558-461C-B0A6-51D5352CEDF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37000725-9558-461C-B0A6-51D5352CEDF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37000725-9558-461C-B0A6-51D5352CEDF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF22DB72-0EA7-4CF3-A84F-48F21CC3E5C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF22DB72-0EA7-4CF3-A84F-48F21CC3E5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF22DB72-0EA7-4CF3-A84F-48F21CC3E5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF22DB72-0EA7-4CF3-A84F-48F21CC3E5C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F8A8253-2C08-4A97-A27D-C9730A85B9FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F8A8253-2C08-4A97-A27D-C9730A85B9FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F8A8253-2C08-4A97-A27D-C9730A85B9FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F8A8253-2C08-4A97-A27D-C9730A85B9FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8C07822-A0B6-46A6-9755-5BCDE9118559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C07822-A0B6-46A6-9755-5BCDE9118559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C07822-A0B6-46A6-9755-5BCDE9118559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C07822-A0B6-46A6-9755-5BCDE9118559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C977428-A027-4336-99DC-D158BDD38213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C977428-A027-4336-99DC-D158BDD38213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C977428-A027-4336-99DC-D158BDD38213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C977428-A027-4336-99DC-D158BDD38213}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -230,6 +258,12 @@ Global
 		{0F2CEE98-31CC-4104-B45D-1917C664C957} = {366914D9-34DD-45BA-B2DA-9C589D64CD73}
 		{061EB5DE-4645-4792-8954-25A53F1BCF12} = {0F2CEE98-31CC-4104-B45D-1917C664C957}
 		{37000725-9558-461C-B0A6-51D5352CEDF1} = {0F2CEE98-31CC-4104-B45D-1917C664C957}
+		{BA0B97EC-A1E5-4608-A7E5-94279799A494} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
+		{EAFB90E1-4835-4760-869C-4F3880E9FCAE} = {BA0B97EC-A1E5-4608-A7E5-94279799A494}
+		{AF22DB72-0EA7-4CF3-A84F-48F21CC3E5C1} = {BA0B97EC-A1E5-4608-A7E5-94279799A494}
+		{8F8A8253-2C08-4A97-A27D-C9730A85B9FD} = {EAFB90E1-4835-4760-869C-4F3880E9FCAE}
+		{E8C07822-A0B6-46A6-9755-5BCDE9118559} = {EAFB90E1-4835-4760-869C-4F3880E9FCAE}
+		{5C977428-A027-4336-99DC-D158BDD38213} = {EAFB90E1-4835-4760-869C-4F3880E9FCAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420CDCCC-1C76-406B-BBCD-D473EAC1DB95}

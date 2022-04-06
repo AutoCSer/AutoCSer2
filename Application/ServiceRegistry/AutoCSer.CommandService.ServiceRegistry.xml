@@ -67,7 +67,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientServiceRegistrar.Callback(AutoCSer.CommandService.ServiceRegisterLog,AutoCSer.CommandService.ServiceRegisterLogClientChangedType)">
             <summary>
-            触发服务更变回调
+            触发服务更变回调（网络 IO 线程同步回调，不允许阻塞线程）
             </summary>
             <param name="log"></param>
             <param name="changedType"></param>
@@ -259,6 +259,11 @@
             端口号
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.ServiceRegisterLog.HostEndPoint">
+            <summary>
+            服务主机与端口信息
+            </summary>
+        </member>
         <member name="P:AutoCSer.CommandService.ServiceRegisterLog.OperationType">
             <summary>
             服务注册日志操作类型
@@ -302,10 +307,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterLog.GetIPEndPoint">
+        <member name="M:AutoCSer.CommandService.ServiceRegisterLog.CheckHostPort(AutoCSer.CommandService.ServiceRegisterLog)">
             <summary>
-            获取服务监听地址
+            检查服务主机与端口信息是否匹配
             </summary>
+            <param name="log"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.ServiceRegisterLogAssembler">
@@ -1016,7 +1022,7 @@
             注册服务命令客户端套接字事件
             </summary>
             <param name="commandClient">命令客户端</param>
-            <param name="config"></param>
+            <param name="config">注册服务命令客户端配置</param>
         </member>
         <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientSocketEvent.onMethodVerified">
             <summary>

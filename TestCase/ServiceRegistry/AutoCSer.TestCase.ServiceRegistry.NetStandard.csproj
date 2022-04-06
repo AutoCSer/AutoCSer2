@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
   </ItemGroup>
 
