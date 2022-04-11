@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandClientConfig.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 

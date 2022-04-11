@@ -10,7 +10,7 @@ namespace AutoCSer.TestCase.ProcessGuardClient
     {
         static async Task Main(string[] args)
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ProcessGuard) };
+            CommandClientConfig commandClientConfig = new ProcessGuardCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ProcessGuard) };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
                 await commandClient.GetSocketAsync();

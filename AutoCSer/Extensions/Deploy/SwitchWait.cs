@@ -31,7 +31,8 @@ namespace AutoCSer.Deploy
         /// </summary>
         private void wait()
         {
-            WaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, Assembly.GetEntryAssembly().FullName, out bool createdProcessWait);
+            bool createdProcessWait;
+            WaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, Assembly.GetEntryAssembly().FullName, out createdProcessWait);
             if (!createdProcessWait)
             {
                 WaitHandle.Set();

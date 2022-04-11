@@ -138,7 +138,8 @@ namespace AutoCSer.CommandService
         /// <returns>服务注册结果</returns>
         public ServiceRegisterResponse Append(CommandServerSocket socket, CommandServerCallQueue queue, ServiceRegisterLog log)
         {
-            ServiceRegisterResponse response = getAssembler(log.ServiceName, out ServiceRegisterLogAssembler assembler);
+            ServiceRegisterLogAssembler assembler;
+            ServiceRegisterResponse response = getAssembler(log.ServiceName, out assembler);
             return response.State == ServiceRegisterState.Success ? assembler.Append(socket, log) : response;
         }
         /// <summary>
@@ -152,7 +153,8 @@ namespace AutoCSer.CommandService
         {
             if (serviceName != null)
             {
-                ServiceRegisterResponse response = getAssembler(serviceName, out ServiceRegisterLogAssembler assembler);
+                ServiceRegisterLogAssembler assembler;
+                ServiceRegisterResponse response = getAssembler(serviceName, out assembler);
                 if (response.State != ServiceRegisterState.Success)
                 {
                     callback.CancelKeep(CommandServerCall.GetCustom((byte)response.State));
@@ -176,7 +178,8 @@ namespace AutoCSer.CommandService
             }
             ServiceRegistrySession session = GetSession(socket);
             long sessionID = session.SessionID;
-            callbacks.TryGetValue(sessionID, out ServiceRegistrySessionCallback sessionCallback);
+            ServiceRegistrySessionCallback sessionCallback;
+            callbacks.TryGetValue(sessionID, out sessionCallback);
             callbacks[sessionID] = new ServiceRegistrySessionCallback(session, callback);
             sessionCallback.CancelKeep(ServiceRegisterState.NewLogCallback);
         }

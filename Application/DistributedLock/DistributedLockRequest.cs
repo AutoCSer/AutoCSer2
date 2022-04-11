@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class DistributedLockRequest<T> : IDisposable, IDistributedLockRequest
-#if !NetStandard2
+#if !DotNet45 && !NetStandard2
         , IAsyncDisposable
 #endif
         where T : IEquatable<T>
@@ -59,7 +59,7 @@ namespace AutoCSer.CommandService
                 client.DistributedLockClient.Release(key, requestID);
             }
         }
-#if !NetStandard2
+#if !DotNet45 && !NetStandard2
         /// <summary>
         /// 释放锁
         /// </summary>

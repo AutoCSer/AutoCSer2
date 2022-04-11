@@ -38,7 +38,8 @@ namespace AutoCSer.CommandService.DistributedLock
         /// <returns></returns>
         private DistributedLockManager<T> get(T key)
         {
-            if (!TryGetValue(key, out DistributedLockManager<T> lockManager)) Add(key, lockManager = createManager(key));
+            DistributedLockManager<T> lockManager;
+            if (!TryGetValue(key, out lockManager)) Add(key, lockManager = createManager(key));
             return lockManager;
         }
         /// <summary>
@@ -99,7 +100,8 @@ namespace AutoCSer.CommandService.DistributedLock
         /// <returns>失败表示锁已经被释放</returns>
         public virtual bool Keep(T key, long requestID)
         {
-            return TryGetValue(key, out DistributedLockManager<T> lockManager) && lockManager.Keep(requestID);
+            DistributedLockManager<T> lockManager;
+            return TryGetValue(key, out lockManager) && lockManager.Keep(requestID);
         }
         /// <summary>
         /// 释放锁
@@ -108,7 +110,8 @@ namespace AutoCSer.CommandService.DistributedLock
         /// <param name="requestID">锁请求标识</param>
         public virtual void Release(T key, long requestID)
         {
-            if (TryGetValue(key, out DistributedLockManager<T> lockManager)) lockManager.Release(requestID);
+            DistributedLockManager<T> lockManager;
+            if (TryGetValue(key, out lockManager)) lockManager.Release(requestID);
         }
     }
 }

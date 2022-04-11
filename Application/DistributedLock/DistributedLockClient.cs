@@ -277,6 +277,7 @@ namespace AutoCSer.CommandService
             return null;
         }
 
+#if !DotNet45
         /// <summary>
         /// 获取异步可重入锁客户端，注意调用点要在第一次申请锁之前的异步上下文，不允许向外层异步上下文传递此参数
         /// </summary>
@@ -285,5 +286,6 @@ namespace AutoCSer.CommandService
         {
             return new DistributedLockAsynchronousReentrantClient<T>(this);
         }
+#endif
     }
 }

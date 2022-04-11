@@ -165,6 +165,18 @@
             分布式锁客户端接口
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.ProcessGuardCommandClientConfig">
+            <summary>
+            命令客户端配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardCommandClientConfig.GetSocketEvent(AutoCSer.Net.CommandClient)">
+            <summary>
+            获取命令客户端套接字事件（初始化时一次性调用）
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.ProcessGuardManager">
             <summary>
             进程守护服务端管理器
@@ -331,6 +343,52 @@
         <member name="M:AutoCSer.CommandService.ProcessGuardInfo.Start">
             <summary>
             启动新进程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.ProcessGuardSwitchProcess">
+            <summary>
+            切换进程
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.#ctor(System.String[])">
+            <summary>
+            切换进程
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.onStart">
+            <summary>
+            开始运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.ProcessGuardSwitchProcess.processGuardClient">
+            <summary>
+            进程守护调用客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.getCommandClientConfig">
+            <summary>
+            获取守护进程客户端配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.processGuardCommandClient">
+            <summary>
+            启动守护
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.onProcessGuardClient">
+            <summary>
+            创建守护进程客户端后续处理
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.onExit">
+            <summary>
+            退出运行
             </summary>
             <returns></returns>
         </member>

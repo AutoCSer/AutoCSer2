@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService
     /// 异步可重入锁释放对象（非线程安全，不支持多线程并发操作同一个异步上下文）
     /// </summary>
     public sealed class DistributedLockAsynchronousReentrant : IDisposable
-#if !NetStandard2
+#if !DotNet45 && !NetStandard2
         , IAsyncDisposable
 #endif
     {
@@ -39,7 +39,7 @@ namespace AutoCSer.CommandService
                 reentrantLockCount.Release();
             }
         }
-#if !NetStandard2
+#if !DotNet45 && !NetStandard2
         /// <summary>
         /// 释放锁
         /// </summary>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44C345B4-7861-4460-AFD7-F00D2D0E8937}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCSer.CommandService.ServiceRegistry</RootNamespace>
+    <AssemblyName>AutoCSer.CommandService.ServiceRegistry</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.CommandService.ServiceRegistry.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.CommandService.ServiceRegistry.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceRegistryCommandClientServiceRegistrar.cs" />
+    <Compile Include="ServiceRegistryCommandServerConfig.cs" />
+    <Compile Include="ServiceRegistryCommandServiceRegistrar.cs" />
+    <Compile Include="IServiceRegistry.cs" />
+    <Compile Include="IServiceRegistryClient.cs" />
+    <Compile Include="ServiceRegisterLog.cs" />
+    <Compile Include="ServiceRegisterLogAssembler.cs" />
+    <Compile Include="ServiceRegisterLogAssemblerQueueNode.cs" />
+    <Compile Include="ServiceRegisterLogClientAssembler.cs" />
+    <Compile Include="ServiceRegisterLogClientChangedType.cs" />
+    <Compile Include="ServiceRegisterOperationType.cs" />
+    <Compile Include="ServiceRegisterResponse.cs" />
+    <Compile Include="ServiceRegisterState.cs" />
+    <Compile Include="ServiceRegistry.cs" />
+    <Compile Include="ServiceRegistryClient.cs" />
+    <Compile Include="ServiceRegistryCommandClientConfig.cs" />
+    <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
+    <Compile Include="ServiceRegistrySession.cs" />
+    <Compile Include="ServiceRegistrySessionCallback.cs" />
+    <Compile Include="ServiceRegistrySessionLog.cs" />
+    <Compile Include="ServiceRegistryWaitServerEndPointTask.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

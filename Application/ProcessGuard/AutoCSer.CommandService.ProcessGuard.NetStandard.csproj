@@ -27,9 +27,15 @@
     <Compile Include="IProcessGuard.cs" />
     <Compile Include="IProcessGuardClient.cs" />
     <Compile Include="IProcessGuardClientSocketEvent.cs" />
+    <Compile Include="ProcessGuardCommandClientConfig.cs" />
     <Compile Include="ProcessGuardManager.cs" />
     <Compile Include="ProcessGuardClientSocketEvent.cs" />
     <Compile Include="ProcessGuardInfo.cs" />
+    <Compile Include="ProcessGuardSwitchProcess.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
   </ItemGroup>
 
   <ItemGroup>

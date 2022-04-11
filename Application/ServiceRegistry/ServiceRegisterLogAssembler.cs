@@ -119,7 +119,8 @@ namespace AutoCSer.CommandService
                             return new ServiceRegisterResponse(log.ServiceID);
                         default:
                             if (MainLog.Log.OperationType != ServiceRegisterOperationType.Singleton) return new ServiceRegisterResponse(ServiceRegisterState.OperationTypeConflict);
-                            while (logs.TryPop(out ServiceRegistrySessionLog removeLog)) ;
+                            ServiceRegistrySessionLog removeLog;
+                            while (logs.TryPop(out removeLog)) ;
                             session = ServiceRegistry.GetSession(socket);
                             logs.Add(new ServiceRegistrySessionLog(session, log));
                             session.Regiser(this);
@@ -173,7 +174,8 @@ namespace AutoCSer.CommandService
         /// </summary>
         internal void SingletonTimeout()
         {
-            if (!logs.TryPop(out ServiceRegistrySessionLog newMainLog) || newMainLog.Session.CheckDropped()) return;
+            ServiceRegistrySessionLog newMainLog;
+            if (!logs.TryPop(out newMainLog) || newMainLog.Session.CheckDropped()) return;
             MainLog = newMainLog;
             ServiceRegistry.Callback(callbacks, newMainLog.Log);
         }

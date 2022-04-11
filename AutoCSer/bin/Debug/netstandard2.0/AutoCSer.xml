@@ -7255,12 +7255,13 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.FileCopyTo(System.IO.FileInfo,System.String)">
+        <member name="M:AutoCSer.Config.FileCopyTo(System.IO.FileInfo,System.String,System.Boolean)">
             <summary>
             复制文件
             </summary>
             <param name="file"></param>
             <param name="destFileName"></param>
+            <param name="overwrite"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Config.DirectoryExists(System.String)">
@@ -21080,7 +21081,12 @@
             <param name="server"></param>
             <returns></returns>
         </member>
-        <!-- 对于成员“M:AutoCSer.Net.CommandServerConfig.GetBinaryDeserializeConfig”忽略有格式错误的 XML 注释 -->
+        <member name="M:AutoCSer.Net.CommandServerConfig.GetBinaryDeserializeConfig">
+            <summary>
+            获取二进制反序列化配置参数，默认返回 new AutoCSer.BinarySerialize.DeserializeConfig { IsDisposeMemberMap = true, MaxArraySize = BinaryDeserializeMaxArraySize 小于等于 0 ? int.MaxValue : BinaryDeserializeMaxArraySize }，服务初始化时一次性调用
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerConfig.GetTaskQueueTypeSet(AutoCSer.Net.CommandListener)">
             <summary>
             创建异步读写队列管理，默认返回 new AutoCSer.Net.CommandServerCallTaskQueueTypeSet(server)，服务初始化时一次性调用

@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExtensionTools", "ExtensionTools", "{545C1A41-DC07-4804-B289-8E00421FD856}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.Extensions.DotNet4.5", "AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj", "{F62F389D-D5EA-4765-8E78-39A1DD06F731}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{830F2AE5-3CE7-4148-A75D-7140A7310A93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.TimestampVerify.DotNet4.5", "Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.DotNet4.5.csproj", "{33A9605F-4EC2-4D7F-9D38-07965C4A9C51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.ServiceRegistry.DotNet4.5", "Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.DotNet4.5.csproj", "{44C345B4-7861-4460-AFD7-F00D2D0E8937}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.ProcessGuard.DotNet4.5", "Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.DotNet4.5.csproj", "{6E42D097-D7D7-41EF-A72E-EF4D29A94378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.DistributedLock.DotNet4.5", "Application\DistributedLock\AutoCSer.CommandService.DistributedLock.DotNet4.5.csproj", "{B37CDBF0-DB75-48C3-8FC1-122F9652A24D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.DatabaseBackup.DotNet4.5", "Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.DotNet4.5.csproj", "{DE84564E-6E6F-4DA9-BD5F-809D8AA3FA0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.ReverseLogCollection.DotNet4.5", "Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.DotNet4.5.csproj", "{E48E386F-D7C9-4BCE-AA07-DB7DA75815BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F62F389D-D5EA-4765-8E78-39A1DD06F731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F62F389D-D5EA-4765-8E78-39A1DD06F731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F62F389D-D5EA-4765-8E78-39A1DD06F731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F62F389D-D5EA-4765-8E78-39A1DD06F731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A9605F-4EC2-4D7F-9D38-07965C4A9C51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A9605F-4EC2-4D7F-9D38-07965C4A9C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A9605F-4EC2-4D7F-9D38-07965C4A9C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A9605F-4EC2-4D7F-9D38-07965C4A9C51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C345B4-7861-4460-AFD7-F00D2D0E8937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C345B4-7861-4460-AFD7-F00D2D0E8937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C345B4-7861-4460-AFD7-F00D2D0E8937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C345B4-7861-4460-AFD7-F00D2D0E8937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E42D097-D7D7-41EF-A72E-EF4D29A94378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E42D097-D7D7-41EF-A72E-EF4D29A94378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E42D097-D7D7-41EF-A72E-EF4D29A94378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E42D097-D7D7-41EF-A72E-EF4D29A94378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B37CDBF0-DB75-48C3-8FC1-122F9652A24D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B37CDBF0-DB75-48C3-8FC1-122F9652A24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B37CDBF0-DB75-48C3-8FC1-122F9652A24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B37CDBF0-DB75-48C3-8FC1-122F9652A24D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE84564E-6E6F-4DA9-BD5F-809D8AA3FA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE84564E-6E6F-4DA9-BD5F-809D8AA3FA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE84564E-6E6F-4DA9-BD5F-809D8AA3FA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE84564E-6E6F-4DA9-BD5F-809D8AA3FA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E48E386F-D7C9-4BCE-AA07-DB7DA75815BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E48E386F-D7C9-4BCE-AA07-DB7DA75815BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E48E386F-D7C9-4BCE-AA07-DB7DA75815BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E48E386F-D7C9-4BCE-AA07-DB7DA75815BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F62F389D-D5EA-4765-8E78-39A1DD06F731} = {545C1A41-DC07-4804-B289-8E00421FD856}
+		{33A9605F-4EC2-4D7F-9D38-07965C4A9C51} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
+		{44C345B4-7861-4460-AFD7-F00D2D0E8937} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
+		{6E42D097-D7D7-41EF-A72E-EF4D29A94378} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
+		{B37CDBF0-DB75-48C3-8FC1-122F9652A24D} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
+		{DE84564E-6E6F-4DA9-BD5F-809D8AA3FA0E} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
+		{E48E386F-D7C9-4BCE-AA07-DB7DA75815BF} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
+	EndGlobalSection
+EndGlobal

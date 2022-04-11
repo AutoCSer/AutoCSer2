@@ -39,7 +39,8 @@ namespace AutoCSer.CommandService.DistributedLock
             int index = 0;
             foreach (AsynchronousReentrantLockCount count in Locks)
             {
-                DistributedLockAsynchronousReentrant reentrantLock = count.Enter(ref key, out bool isKey);
+                bool isKey;
+                DistributedLockAsynchronousReentrant reentrantLock = count.Enter(ref key, out isKey);
                 if (reentrantLock != null) return reentrantLock;
                 if (isKey)
                 {
