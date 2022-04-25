@@ -18,6 +18,23 @@ namespace AutoCSer.TestCase
         ReturnCommand AsynchronousTask(int Value, int Ref);
         ReturnCommand AsynchronousTask();
 
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTaskReturnSocket))]
+        Task<string> AsynchronousTaskReturnSocketAsync(int Value, int Ref);
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTaskReturnSocket))]
+        Task<string> AsynchronousTaskReturnSocketAsync();
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTaskSocket))]
+        Task AsynchronousTaskSocketAsync(int Value, int Ref);
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTaskSocket))]
+        Task AsynchronousTaskSocketAsync();
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTaskReturn))]
+        Task<string> AsynchronousTaskReturnAsync(int Value, int Ref);
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTaskReturn))]
+        Task<string> AsynchronousTaskReturnAsync();
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTask))]
+        Task AsynchronousTaskAsync(int Value, int Ref);
+        [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTask))]
+        Task AsynchronousTaskAsync();
+
         ReturnQueueCommand<string> TaskQueueReturnSocket(int Value, int Ref);
         ReturnQueueCommand TaskQueueSocket(int Value, int Ref);
         ReturnQueueCommand<string> TaskQueueReturn(int Value, int Ref);
@@ -98,6 +115,70 @@ namespace AutoCSer.TestCase
 
             returnType = await client.ClientTaskController.AsynchronousTask();
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return Program.Breakpoint();
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            returnValue = await client.ClientTaskController.AsynchronousTaskReturnSocketAsync(clientSessionObject.Value, clientSessionObject.Ref);
+            if (!returnValue.IsSuccess
+                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
+                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+            {
+                return Program.Breakpoint();
+            }
+
+            returnValue = await client.ClientTaskController.AsynchronousTaskReturnSocketAsync();
+            if (!returnValue.IsSuccess
+                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
+                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+            {
+                return Program.Breakpoint();
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            await client.ClientTaskController.AsynchronousTaskSocketAsync(clientSessionObject.Value, clientSessionObject.Ref);
+            if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return Program.Breakpoint();
+            }
+
+            await client.ClientTaskController.AsynchronousTaskSocketAsync();
+            if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return Program.Breakpoint();
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            returnValue = await client.ClientTaskController.AsynchronousTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
+            if (!returnValue.IsSuccess
+                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
+                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+            {
+                return Program.Breakpoint();
+            }
+
+            returnValue = await client.ClientTaskController.AsynchronousTaskReturnAsync();
+            if (!returnValue.IsSuccess
+                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
+                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+            {
+                return Program.Breakpoint();
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            await client.ClientTaskController.AsynchronousTaskAsync(clientSessionObject.Value, clientSessionObject.Ref);
+            if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return Program.Breakpoint();
+            }
+
+            await client.ClientTaskController.AsynchronousTaskAsync();
+            if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
                 return Program.Breakpoint();
             }

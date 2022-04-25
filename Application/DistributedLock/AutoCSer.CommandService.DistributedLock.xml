@@ -464,25 +464,25 @@
             等待锁
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.DistributedLock`1">
+        <member name="T:AutoCSer.CommandService.DistributedLockService`1">
             <summary>
             分布式锁服务端
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.DistributedLock`1.manager">
+        <member name="F:AutoCSer.CommandService.DistributedLockService`1.manager">
             <summary>
             分布式锁管理器
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.#ctor(AutoCSer.Threading.DistributedMillisecondIdentityGenerator,AutoCSer.CommandService.IDistributedLockManager{`0})">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.#ctor(AutoCSer.Threading.DistributedMillisecondIdentityGenerator,AutoCSer.CommandService.IDistributedLockManager{`0})">
             <summary>
             分布式锁服务端
             </summary>
             <param name="identityGenerator">请求标识生成器</param>
             <param name="manager">分布式锁管理器</param>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.Enter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.Enter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
             <summary>
             请求锁
             </summary>
@@ -492,7 +492,7 @@
             <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
             <param name="callback">锁请求标识</param>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32)">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32)">
             <summary>
             尝试请求锁
             </summary>
@@ -502,7 +502,7 @@
             <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
             <returns>锁请求标识，失败返回 0</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
             <summary>
             请求锁
             </summary>
@@ -513,7 +513,7 @@
             <param name="timeoutSeconds">请求超时时间</param>
             <param name="callback">锁请求标识，失败返回 0</param>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.EnterAgain(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,`0,System.Int32)">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.EnterAgain(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,`0,System.Int32)">
             <summary>
             锁请求断线重连
             </summary>
@@ -524,7 +524,7 @@
             <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
             <returns>锁请求标识，失败返回 0</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.Keep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.Keep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
             <summary>
             保持心跳延长锁自动超时
             </summary>
@@ -534,7 +534,7 @@
             <param name="requestID">锁请求标识</param>
             <returns>失败表示锁已经被释放</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.AutoCSer#CommandService#IDistributedLock{T}#TryKeep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.AutoCSer#CommandService#IDistributedLockService{T}#TryKeep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
             <summary>
             保持心跳延长锁自动超时
             </summary>
@@ -544,7 +544,7 @@
             <param name="requestID">锁请求标识</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.DistributedLock`1.Release(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
+        <member name="M:AutoCSer.CommandService.DistributedLockService`1.Release(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
             <summary>
             释放锁
             </summary>
@@ -578,6 +578,12 @@
             <summary>
             释放锁
             </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DistributedLockAsynchronousReentrant.DisposeAsync">
+            <summary>
+            释放锁
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DistributedLockAsynchronousReentrant.ReleaseAsync">
             <summary>
@@ -882,6 +888,12 @@
             释放锁
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DistributedLockKeepRequest`1.DisposeAsync">
+            <summary>
+            释放锁
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.DistributedLockKeepRequest`1.ReleaseAsync">
             <summary>
             释放锁
@@ -1125,6 +1137,12 @@
             释放锁
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DistributedLockRequest`1.System#IAsyncDisposable#DisposeAsync">
+            <summary>
+            释放锁
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.DistributedLockRequest`1.ReleaseAsync">
             <summary>
             释放锁
@@ -1254,13 +1272,13 @@
             <param name="requests"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.IDistributedLock`1">
+        <member name="T:AutoCSer.CommandService.IDistributedLockService`1">
             <summary>
             分布式锁服务端接口
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:AutoCSer.CommandService.IDistributedLock`1.Enter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
+        <member name="M:AutoCSer.CommandService.IDistributedLockService`1.Enter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
             <summary>
             请求锁
             </summary>
@@ -1270,7 +1288,7 @@
             <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
             <param name="callback">锁请求标识</param>
         </member>
-        <member name="M:AutoCSer.CommandService.IDistributedLock`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32)">
+        <member name="M:AutoCSer.CommandService.IDistributedLockService`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32)">
             <summary>
             尝试请求锁
             </summary>
@@ -1280,7 +1298,7 @@
             <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
             <returns>锁请求标识，失败返回 0</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IDistributedLock`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
+        <member name="M:AutoCSer.CommandService.IDistributedLockService`1.TryEnter(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int32,System.Int32,AutoCSer.Net.CommandServerCallback{System.Int64})">
             <summary>
             请求锁
             </summary>
@@ -1291,7 +1309,7 @@
             <param name="timeoutSeconds">请求超时时间</param>
             <param name="callback">锁请求标识，失败返回 0</param>
         </member>
-        <member name="M:AutoCSer.CommandService.IDistributedLock`1.EnterAgain(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,`0,System.Int32)">
+        <member name="M:AutoCSer.CommandService.IDistributedLockService`1.EnterAgain(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,`0,System.Int32)">
             <summary>
             锁请求断线重连
             </summary>
@@ -1302,7 +1320,7 @@
             <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
             <returns>锁请求标识，失败返回 0</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IDistributedLock`1.Keep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
+        <member name="M:AutoCSer.CommandService.IDistributedLockService`1.Keep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
             <summary>
             保持心跳延长锁自动超时
             </summary>
@@ -1312,7 +1330,7 @@
             <param name="requestID">锁请求标识</param>
             <returns>失败表示锁已经被释放</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IDistributedLock`1.TryKeep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
+        <member name="M:AutoCSer.CommandService.IDistributedLockService`1.TryKeep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
             <summary>
             保持心跳延长锁自动超时
             </summary>
@@ -1322,7 +1340,7 @@
             <param name="requestID">锁请求标识</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IDistributedLock`1.Release(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
+        <member name="M:AutoCSer.CommandService.IDistributedLockService`1.Release(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0,System.Int64)">
             <summary>
             释放锁
             </summary>

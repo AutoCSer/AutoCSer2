@@ -188,5 +188,103 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTask
         /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
         /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
         KeepCallbackCommand CallbackCountCall(int parameter, CommandClientKeepCallbackQueue callback);
+
+        /// <summary>
+        /// await 等待保持回调
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <returns></returns>
+        EnumeratorCommand<int> EnumerableCallbackCount(int parameter1, int parameter2);
+        /// <summary>
+        /// await 等待保持回调
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <returns></returns>
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.EnumerableCallbackCount))]
+        EnumeratorQueueCommand<int> EnumerableCallbackCountQueue(int parameter1, int parameter2);
+        /// <summary>
+        /// 保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand EnumerableCallbackCount(int parameter1, int parameter2, Action<CommandClientReturnValue<int>, KeepCallbackCommand> callback);
+        /// <summary>
+        /// 保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand EnumerableCallbackCount(int parameter1, int parameter2, CommandClientKeepCallback<int> callback);
+        /// <summary>
+        /// 同步队列任务保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand EnumerableCallbackCount(int parameter1, int parameter2, Action<CommandClientReturnValue<int>, CommandClientCallQueue, KeepCallbackCommand> callback);
+        /// <summary>
+        /// 同步队列任务保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand EnumerableCallbackCount(int parameter1, int parameter2, CommandClientKeepCallbackQueue<int> callback);
+
+#if !DotNet45 && !NetStandard2
+        /// <summary>
+        /// await 等待保持回调
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <returns></returns>
+        EnumeratorCommand<int> AsyncEnumerable(int parameter1, int parameter2);
+        /// <summary>
+        /// await 等待保持回调
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <returns></returns>
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.AsyncEnumerable))]
+        EnumeratorQueueCommand<int> AsyncEnumerableQueue(int parameter1, int parameter2);
+        /// <summary>
+        /// 保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand AsyncEnumerable(int parameter1, int parameter2, Action<CommandClientReturnValue<int>, KeepCallbackCommand> callback);
+        /// <summary>
+        /// 保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand AsyncEnumerable(int parameter1, int parameter2, CommandClientKeepCallback<int> callback);
+        /// <summary>
+        /// 同步队列任务保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand AsyncEnumerable(int parameter1, int parameter2, Action<CommandClientReturnValue<int>, CommandClientCallQueue, KeepCallbackCommand> callback);
+        /// <summary>
+        /// 同步队列任务保持回调委托返回数据
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
+        /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
+        KeepCallbackCommand AsyncEnumerable(int parameter1, int parameter2, CommandClientKeepCallbackQueue<int> callback);
+#endif
     }
 }

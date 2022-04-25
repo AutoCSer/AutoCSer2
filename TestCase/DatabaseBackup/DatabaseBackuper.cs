@@ -25,7 +25,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// <param name="databaseBackup"></param>
         /// <param name="queue"></param>
         /// <param name="database"></param>
-        public DatabaseBackuper(AutoCSer.CommandService.DatabaseBackup databaseBackup, CommandServerCallQueue queue, Database database)
+        public DatabaseBackuper(AutoCSer.CommandService.DatabaseBackupService databaseBackup, CommandServerCallQueue queue, Database database)
             : base(databaseBackup, queue, database.Name
                   , Path.Combine(ConfigFile.Default.BackupPath, database.Name, $@"{database.Name}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.bak")
                   //, Path.Combine(ConfigFile.Default.BackupPath, database.Name, $@"{database.Name}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.7z")

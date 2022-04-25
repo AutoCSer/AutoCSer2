@@ -6489,6 +6489,11 @@
             当前写入位置
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.SerializeArrayMap.end">
+            <summary>
+            写入结束位置
+            </summary>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeArrayMap.#ctor(AutoCSer.Memory.UnmanagedStream,System.Int32)">
             <summary>
             数组位图
@@ -6529,6 +6534,11 @@
         <member name="M:AutoCSer.BinarySerialize.SerializeArrayMap.End">
             <summary>
             位图写入结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeArrayMap.debugCheck">
+            <summary>
+            检查数据
             </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.SerializeDelegate">
@@ -7032,6 +7042,11 @@
             </summary>
             <typeparam name="T"></typeparam>
             <returns>委托返回值的 T 类型对象不允许为 null</returns>
+        </member>
+        <member name="F:AutoCSer.Config.LockTimeoutSeconds">
+            <summary>
+            锁超时检查时间戳，默认为 60s
+            </summary>
         </member>
         <member name="M:AutoCSer.Config.GetArray``1(System.Int32)">
             <summary>
@@ -7659,6 +7674,15 @@
             <param name="join">字符连接</param>
             <returns>连接后的字符串</returns>
         </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtension.debugCheckRange``1(``0[],System.Int32,System.Int32)">
+            <summary>
+            检查数组范围
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
+        </member>
         <member name="T:AutoCSer.Extensions.CollectionExtension">
             <summary>
             集合相关扩展
@@ -8133,6 +8157,14 @@
             字符串相关操作
             </summary>
         </member>
+        <member name="M:AutoCSer.Extensions.StringExtension.DebugCheckSize(System.String,System.Int32,System.Int32)">
+            <summary>
+            检查字符串长度
+            </summary>
+            <param name="source"></param>
+            <param name="index"></param>
+            <param name="count"></param>
+        </member>
         <member name="M:AutoCSer.Extensions.StringExtension.toLower(System.String)">
             <summary>
             大写转小写
@@ -8556,6 +8588,11 @@
         <member name="M:AutoCSer.Memory.ByteArrayPool.free">
             <summary>
             清理缓存
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.ByteArrayPool.checkBufferCount">
+            <summary>
+            检查已经创建的缓存区数量
             </summary>
         </member>
         <member name="F:AutoCSer.Memory.ByteArrayPool.minSizeBits">
@@ -9482,6 +9519,23 @@
             转换成字符串
             </summary>
             <returns>字符串</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.DebugCheck">
+            <summary>
+            检查数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.debugCheckWriteSize(System.Int32)">
+            <summary>
+            检测写入数据长度
+            </summary>
+            <param name="size"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.debugCheckCurrentIndex(System.Int32)">
+            <summary>
+            检测设置当前写入位置
+            </summary>
+            <param name="newIndex"></param>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.SerializeWriteNullable(System.Int64)">
             <summary>
@@ -11524,6 +11578,36 @@
             创建 TCP 服务器端异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CreateServerEnumerableKeepCallbackCountTaskDelegate">
+            <summary>
+            创建 TCP 服务器端异步回调对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CreateServerAsyncEnumerableTaskDelegate">
+            <summary>
+            创建 TCP 服务器端异步回调对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerAsyncEnumerableQueueTaskCheckCallTaskDelegate">
+            <summary>
+            获取接口任务以后检查是否完成
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerAsyncEnumerableQueueTaskGetSocketDelegate">
+            <summary>
+            获取命令服务套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerAsyncEnumerableQueueTaskType">
+            <summary>
+            服务端异步调用队列任务类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientEnumeratorCommandGetAsyncEnumerableDelegate">
+            <summary>
+            获取 IAsyncEnumerable
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerKeepCallbackTaskQueueDelegate">
             <summary>
             创建 TCP 服务器端异步回调对象
@@ -11550,6 +11634,11 @@
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.CommandServerCallTaskQueueTaskType">
+            <summary>
+            服务端异步调用队列任务类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackQueueTaskType">
             <summary>
             服务端异步调用队列任务类型
             </summary>
@@ -11582,6 +11671,16 @@
         <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate">
             <summary>
             检查接口任务完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackQueueTaskGetSocketDelegate">
+            <summary>
+            获取命令服务套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackQueueTaskCheckCallTaskDelegate">
+            <summary>
+            获取接口任务以后检查是否完成
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.GetCommandServerReturnValueDelegate">
@@ -11622,6 +11721,11 @@
         <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerReturnValueDelegate">
             <summary>
             命令客户端返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientReturnCommandGetTaskDelegate">
+            <summary>
+            获取 Task 委托
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerReturnValueQueueDelegate">
@@ -11918,6 +12022,36 @@
             创建 TCP 服务器端异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CreateServerEnumerableKeepCallbackCountTaskDelegate">
+            <summary>
+            创建 TCP 服务器端异步回调对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CreateServerAsyncEnumerableTaskDelegate">
+            <summary>
+            创建 TCP 服务器端异步回调对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerAsyncEnumerableQueueTaskCheckCallTaskDelegate">
+            <summary>
+            获取接口任务以后检查是否完成
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerAsyncEnumerableQueueTaskGetSocketDelegate">
+            <summary>
+            获取命令服务套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerAsyncEnumerableQueueTaskType">
+            <summary>
+            服务端异步调用队列任务类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientEnumeratorCommandGetAsyncEnumerableDelegate">
+            <summary>
+            获取 IAsyncEnumerable
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerKeepCallbackTaskQueueDelegate">
             <summary>
             创建 TCP 服务器端异步回调对象
@@ -11944,6 +12078,11 @@
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerCallTaskQueueTaskType">
+            <summary>
+            服务端异步调用队列任务类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackQueueTaskType">
             <summary>
             服务端异步调用队列任务类型
             </summary>
@@ -11976,6 +12115,16 @@
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate">
             <summary>
             检查接口任务完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackQueueTaskGetSocketDelegate">
+            <summary>
+            获取命令服务套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackQueueTaskCheckCallTaskDelegate">
+            <summary>
+            获取接口任务以后检查是否完成
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandServerReturnValueDelegate">
@@ -12016,6 +12165,11 @@
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerReturnValueDelegate">
             <summary>
             命令客户端返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientReturnCommandGetTaskDelegate">
+            <summary>
+            获取 Task 委托
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerReturnValueQueueDelegate">
@@ -13103,6 +13257,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Metadata.MemberMap.debugCheck(System.Int32)">
+            <summary>
+            检查成员索引
+            </summary>
+            <param name="memberIndex"></param>
+        </member>
         <member name="T:AutoCSer.Metadata.MemberMap`1">
             <summary>
             成员位图
@@ -13654,6 +13814,11 @@
             返回值
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.ReturnCommandGetTask">
+            <summary>
+            获取 Task
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerReturnTypeQueue">
             <summary>
             队列返回值
@@ -13827,7 +13992,7 @@
             控制器构造函数
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`2.controllerConstructorException">
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`2.ControllerConstructorException">
             <summary>
             控制器构造错误
             </summary>
@@ -13920,6 +14085,86 @@
             <summary>
             无等待，直接执行当前任务
             </summary>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.CommandServerAsyncEnumerableTask`1">
+            <summary>
+            TCP 服务器端异步保持回调
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandServerAsyncEnumerableTask`1.callTask">
+            <summary>
+            回调任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerAsyncEnumerableTask`1.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod,System.Collections.Generic.IAsyncEnumerator{`0},AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP 服务器端异步回调
+            </summary>
+            <param name="socket"></param>
+            <param name="method"></param>
+            <param name="asyncEnumerator"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerAsyncEnumerableTask`1.onCompleted">
+            <summary>
+            任务完成检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerAsyncEnumerableTask`1.CreateServerKeepCallbackTask(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod,System.Collections.Generic.IAsyncEnumerable{`0},AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            创建 TCP 服务器端异步回调对象
+            </summary>
+            <param name="socket"></param>
+            <param name="method"></param>
+            <param name="asyncEnumerable"></param>
+            <param name="offlineCount"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1">
+            <summary>
+            TCP 服务器端异步保持回调
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1.callTask">
+            <summary>
+            接口调用任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1.callbackTask">
+            <summary>
+            回调任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod,System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{`0}},AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP 服务器端异步回调
+            </summary>
+            <param name="socket"></param>
+            <param name="method"></param>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1.onCallCompleted">
+            <summary>
+            接口调用完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1.onCompleted">
+            <summary>
+            任务完成检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1.CreateServerKeepCallbackTask(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod,System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{`0}},AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            创建 TCP 服务器端异步回调对象
+            </summary>
+            <param name="socket"></param>
+            <param name="method"></param>
+            <param name="callTask"></param>
+            <param name="offlineCount"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.CommandServerKeepCallbackCountTask">
             <summary>
@@ -15145,6 +15390,11 @@
         <member name="F:AutoCSer.Net.CommandServer.KeepCommand.PushState">
             <summary>
             命令添加状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.KeepCommand.ReturnType">
+            <summary>
+            返回值类型
             </summary>
         </member>
         <member name="P:AutoCSer.Net.CommandServer.KeepCommand.IsKeepCallback">
@@ -16631,6 +16881,11 @@
             await 同步调用，默认采用 Task.Run 触发 await 回调
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientMethodType.Task">
+            <summary>
+            替代 ReturnValue
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientMethodType.ReturnValueQueue">
             <summary>
             await 同步调用，队列任务触发 await 回调（注意，由于是队列线程同步触发回调，并不能保证队列执行后续操作，不适合存在阻塞的 await 后续操作）
@@ -16644,6 +16899,11 @@
         <member name="F:AutoCSer.Net.CommandServer.ClientMethodType.EnumeratorQueue">
             <summary>
             .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性（注意，由于是队列线程同步触发回调，并不能保证队列执行后续操作，不适合存在阻塞的 await 后续操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientMethodType.AsyncEnumerable">
+            <summary>
+            await IAsyncEnumerable 调用，需要 .NET Satndard 2.1
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerInterface">
@@ -17273,6 +17533,20 @@
             获取命令服务套接字
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCommandServerKeepCallbackQueueTaskGetSocketDelegate">
+            <summary>
+            获取命令服务套接字
+            </summary>
+            <param name="task"></param>
+            <param name="keepCallback"></param>
+            <param name="queue"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerKeepCallbackQueueTaskGetSocket">
+            <summary>
+            获取命令服务套接字
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCallTaskQueueTaskCheckCallTask">
             <summary>
             获取接口任务以后检查是否完成
@@ -17487,11 +17761,6 @@
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CreateCommandServerKeepCallbackCountTaskQueueDelegate">
             <summary>
             保持异步回调类型构造函数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerKeepCallbackQueueTaskSet">
-            <summary>
-            设置 TCP 服务器端异步保持回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallQueueNodeConstructor">
@@ -17873,6 +18142,11 @@
             .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性，支持自动释放回调
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.EnumerableKeepCallbackCountTask">
+            <summary>
+            .NET Satndard 2.0 中集合自动转 KeepCallbackCountTask
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.TaskQueue">
             <summary>
             await Task 队列调用
@@ -17891,6 +18165,21 @@
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.KeepCallbackCountTaskQueue">
             <summary>
             .NET Satndard 2.0 中替代 IAsyncEnumerable，具有跨平台兼容性，支持自动释放回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.EnumerableKeepCallbackCountTaskQueue">
+            <summary>
+            .NET Satndard 2.0 中集合自动转 KeepCallbackCountTaskQueue
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.AsyncEnumerableTask">
+            <summary>
+            await IAsyncEnumerable 调用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodType.AsyncEnumerableTaskQueue">
+            <summary>
+            await IAsyncEnumerable 调用
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerOutput">
@@ -19082,6 +19371,11 @@
             控制器名称
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandClientInterfaceControllerCreator.ControllerConstructorException">
+            <summary>
+            控制器构造错误
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.#ctor(System.String)">
             <summary>
             控制器创建器
@@ -19112,6 +19406,11 @@
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="ST"></typeparam>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.ControllerConstructorException">
+            <summary>
+            控制器构造错误
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.#ctor(System.String)">
             <summary>
@@ -19672,6 +19971,72 @@
             </summary>
             <param name="controller"></param>
         </member>
+        <member name="T:AutoCSer.Net.AsyncEnumerableQueueTask`1">
+            <summary>
+            服务端异步调用队列保持回调任务
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.AsyncEnumerableQueueTask`1.keepCallback">
+            <summary>
+            TCP 服务器端异步保持回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.AsyncEnumerableQueueTask`1.callTask">
+            <summary>
+            回调任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.AsyncEnumerableQueueTask`1.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            服务端异步调用保持回调队列任务
+            </summary>
+            <param name="socket"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.AsyncEnumerableQueueTask`1.onCompleted">
+            <summary>
+            任务完成发送数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.AsyncEnumerableQueueTask`1.queueOnCompleted">
+            <summary>
+            任务完成发送数据后调用下一个队列任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.AsyncEnumerableQueueTask`1.checkCallTask(System.Collections.Generic.IAsyncEnumerator{`0})">
+            <summary>
+            获取接口任务以后检查是否完成
+            </summary>
+            <param name="asyncEnumerator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.AsyncEnumerableQueueTask`1.CheckCallTask(AutoCSer.Net.AsyncEnumerableQueueTask{`0},System.Collections.Generic.IAsyncEnumerable{`0})">
+            <summary>
+            获取接口任务以后检查是否完成
+            </summary>
+            <param name="node"></param>
+            <param name="asyncEnumerable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.AsyncEnumerableQueueTask`1.GetSocket(AutoCSer.Net.AsyncEnumerableQueueTask{`0},AutoCSer.Net.CommandServer.ServerInterfaceMethod,AutoCSer.Net.CommandServerCallTaskQueue@)">
+            <summary>
+            获取命令服务套接字
+            </summary>
+            <param name="task"></param>
+            <param name="method"></param>
+            <param name="queue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.AsyncEnumerableQueueTask`1.GetSocketDelegate">
+            <summary>
+            获取命令服务套接字
+            </summary>
+            <param name="task"></param>
+            <param name="method"></param>
+            <param name="queue"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerCallSendOnlyTask">
             <summary>
             异步任务完成回调
@@ -19924,7 +20289,7 @@
             <param name="queueSet"></param>
             <param name="isReside"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue.EnterContext">
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue.EnterContext(System.String,System.String,System.Int32)">
             <summary>
             进入队列上下文异步锁（用于多个读取任务并发操作 ContextObject 的情况）
             </summary>
@@ -20581,7 +20946,7 @@
             <param name="seconds"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.getSocket(AutoCSer.Net.CommandServerCallTaskQueue@)">
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.GetSocket(AutoCSer.Net.CommandServerCallTaskQueue@)">
             <summary>
             获取命令服务套接字
             </summary>
@@ -20897,7 +21262,21 @@
             </summary>
             <param name="values"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.EnumerableCallbackAsync(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            返回数据集合以后关闭保持回调，保持回调计数等待
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.CallbackAsync(AutoCSer.IEnumeratorTask{`0})">
+            <summary>
+            返回数据集合以后关闭保持回调，保持回调计数等待
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.CallbackAsync(System.Collections.Generic.IAsyncEnumerator{`0})">
             <summary>
             返回数据集合以后关闭保持回调，保持回调计数等待
             </summary>
@@ -21189,6 +21568,18 @@
             </summary>
             <param name="callbackIdentity"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandKeepCallback.CancelAsync(System.Boolean)">
+            <summary>
+            取消回调
+            </summary>
+            <param name="isTimerTask"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandKeepCallback.appendTaskAsync(AutoCSer.Net.CommandServer.CallbackIdentity)">
+            <summary>
+            添加到任务处理
+            </summary>
+            <param name="callbackIdentity"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandKeepCallback.Set(System.Int32,System.UInt32)">
             <summary>
             设置会话回调标识
@@ -21274,10 +21665,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.EnumeratorCommand.Close">
+        <member name="M:AutoCSer.Net.EnumeratorCommand.Close(AutoCSer.Net.CommandClientReturnType)">
             <summary>
             关闭回调
             </summary>
+            <param name="returnType"></param>
         </member>
         <member name="T:AutoCSer.Net.EnumeratorCommand`1">
             <summary>
@@ -21338,6 +21730,12 @@
             释放资源
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.EnumeratorCommand`1.System#IAsyncDisposable#DisposeAsync">
+            <summary>
+            释放资源
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.EnumeratorCommand`1.Wait">
             <summary>
             等待添加输出队列
@@ -21362,10 +21760,24 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.EnumeratorCommand`1.Close">
+        <member name="M:AutoCSer.Net.EnumeratorCommand`1.Close(AutoCSer.Net.CommandClientReturnType)">
             <summary>
             关闭回调
             </summary>
+            <param name="returnType"></param>
+        </member>
+        <member name="M:AutoCSer.Net.EnumeratorCommand`1.System#Collections#Generic#IAsyncEnumerator{T}#MoveNextAsync">
+            <summary>
+            判断是否存在下一个数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.EnumeratorCommand`1.GetAsyncEnumerable(AutoCSer.Net.EnumeratorCommand{`0})">
+            <summary>
+            获取 IAsyncEnumerable
+            </summary>
+            <param name="enumeratorCommand"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.EnumeratorQueueCommand">
             <summary>
@@ -21439,7 +21851,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.EnumeratorQueueCommand.Close">
+        <member name="M:AutoCSer.Net.EnumeratorQueueCommand.Close(AutoCSer.Net.CommandClientReturnType)">
             <summary>
             关闭回调
             </summary>
@@ -21503,6 +21915,12 @@
             释放资源
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.System#IAsyncDisposable#DisposeAsync">
+            <summary>
+            释放资源
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.Wait">
             <summary>
             等待添加输出队列
@@ -21527,7 +21945,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.Close">
+        <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.System#Collections#Generic#IAsyncEnumerator{T}#MoveNextAsync">
+            <summary>
+            判断是否存在下一个数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.Close(AutoCSer.Net.CommandClientReturnType)">
             <summary>
             取消回调
             </summary>
@@ -21706,6 +22130,13 @@
             <param name="returnType"></param>
             <param name="errorMessage"></param>
         </member>
+        <member name="M:AutoCSer.Net.ReturnCommand.GetTask(AutoCSer.Net.ReturnCommand)">
+            <summary>
+            获取 Task
+            </summary>
+            <param name="returnCommand"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.ReturnCommand`1">
             <summary>
             返回值命令
@@ -21806,6 +22237,13 @@
             </summary>
             <param name="returnType"></param>
             <param name="errorMessage"></param>
+        </member>
+        <member name="M:AutoCSer.Net.ReturnCommand`1.GetTask(AutoCSer.Net.ReturnCommand{`0})">
+            <summary>
+            获取 Task
+            </summary>
+            <param name="returnCommand"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.ReturnQueueCommand">
             <summary>
@@ -23493,12 +23931,90 @@
             <param name="callTask"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask.SetKeepCallback(AutoCSer.Net.CommandServerKeepCallbackQueueTask,AutoCSer.Net.CommandServerKeepCallback)">
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask.GetSocket(AutoCSer.Net.CommandServerKeepCallbackQueueTask,AutoCSer.Net.CommandServerKeepCallback,AutoCSer.Net.CommandServerCallTaskQueue@)">
             <summary>
-            设置 TCP 服务器端异步保持回调
+            获取命令服务套接字
             </summary>
             <param name="task"></param>
             <param name="keepCallback"></param>
+            <param name="queue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1">
+            <summary>
+            服务端异步调用队列保持回调任务
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.callTask">
+            <summary>
+            接口返回返回任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.keepCallback">
+            <summary>
+            TCP 服务器端异步保持回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.callbackTask">
+            <summary>
+            回调任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            服务端异步调用保持回调队列任务
+            </summary>
+            <param name="socket"></param>
+            <param name="offlineCount"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.onCompleted">
+            <summary>
+            任务完成发送数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.queueOnCompleted">
+            <summary>
+            任务完成发送数据后调用下一个队列任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.onCallCompleted">
+            <summary>
+            调用接口完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.checkCallTask(System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{`0}})">
+            <summary>
+            获取接口任务以后检查是否完成
+            </summary>
+            <param name="callTask"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.CheckCallTask(AutoCSer.Net.CommandServerKeepCallbackQueueTask{`0},System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{`0}})">
+            <summary>
+            获取接口任务以后检查是否完成
+            </summary>
+            <param name="node"></param>
+            <param name="callTask"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.GetSocket(AutoCSer.Net.CommandServerKeepCallbackQueueTask{`0},AutoCSer.Net.CommandServer.ServerInterfaceMethod,AutoCSer.Net.CommandServerCallTaskQueue@)">
+            <summary>
+            获取命令服务套接字
+            </summary>
+            <param name="task"></param>
+            <param name="method"></param>
+            <param name="queue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.GetSocketDelegate">
+            <summary>
+            获取命令服务套接字
+            </summary>
+            <param name="task"></param>
+            <param name="method"></param>
+            <param name="queue"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServerInterfaceControllerCreator">
             <summary>
@@ -23802,6 +24318,11 @@
         <member name="F:AutoCSer.Net.CommandClientReturnType.NotSupportTaskQueueKey">
             <summary>
             不支持的队列关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnType.KeepCallbackDisposed">
+            <summary>
+            已释放回调
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServerCallback">
@@ -24667,7 +25188,14 @@
             </summary>
             <param name="values"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(AutoCSer.IEnumeratorTask{`0})">
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackAsync(AutoCSer.IEnumeratorTask{`0})">
+            <summary>
+            返回数据集合以后关闭保持回调
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackAsync(System.Collections.Generic.IAsyncEnumerator{`0})">
             <summary>
             返回数据集合以后关闭保持回调
             </summary>
@@ -34584,6 +35112,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.SubArray`1.DebugCheckFixed">
+            <summary>
+            fixed 之前检查数据
+            </summary>
+        </member>
         <member name="T:AutoCSer.Threading.CpuCachePad">
             <summary>
             CPU 高速缓存填充数据块，默认为 64b 应用，填充 7 * 8 = 56b
@@ -34626,6 +35159,98 @@
             结束等待
             </summary>
         </member>
+        <member name="T:AutoCSer.Threading.LockCaller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.timeoutTimestamp">
+            <summary>
+            锁超时时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.timeoutCount">
+            <summary>
+            超时检查次数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.callerLineNumber">
+            <summary>
+            锁调用行数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.callerMemberName">
+            <summary>
+             锁调用成员
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.callerFilePath">
+            <summary>
+            锁调用文件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Set(System.String,System.String,System.Int32)">
+            <summary>
+            锁调用信息
+            </summary>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.CheckTimeout(System.String)">
+            <summary>
+            锁超时检查
+            </summary>
+            <param name="callerMemberName"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Enter(System.Object,System.String,System.String,System.Int32)">
+            <summary>
+            锁申请
+            </summary>
+            <param name="lockObject">锁对象</param>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Enter(System.Threading.SemaphoreSlim,System.String,System.String,System.Int32)">
+            <summary>
+            锁申请
+            </summary>
+            <param name="lockObject">锁对象</param>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.EnterAsync(System.Threading.SemaphoreSlim,System.String,System.String,System.Int32)">
+            <summary>
+            锁申请
+            </summary>
+            <param name="lockObject">锁对象</param>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Exit">
+            <summary>
+            释放锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.lockTimeout">
+            <summary>
+            锁超时检查时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.lockTimeoutTimestamp">
+            <summary>
+            锁超时检查时间戳
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.getLockTimeoutTimestamp">
+            <summary>
+            获取锁超时检查时间戳
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Threading.LockObject">
             <summary>
             锁对象
@@ -34636,13 +35261,18 @@
             锁对象
             </summary>
         </member>
+        <member name="F:AutoCSer.Threading.LockObject.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
         <member name="M:AutoCSer.Threading.LockObject.#ctor(System.Object)">
             <summary>
             锁对象
             </summary>
             <param name="lockObject"></param>
         </member>
-        <member name="M:AutoCSer.Threading.LockObject.Enter">
+        <member name="M:AutoCSer.Threading.LockObject.Enter(System.String,System.String,System.Int32)">
             <summary>
             等待锁
             </summary>
@@ -36060,6 +36690,11 @@
             锁对象
             </summary>
         </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimLock.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
         <member name="M:AutoCSer.Threading.SemaphoreSlimLock.#ctor(System.Int32,System.Int32)">
             <summary>
             异步锁（不支持重入，重入则死锁）
@@ -36067,12 +36702,12 @@
             <param name="initialCount">初始允许并发数量，默认应该传 1</param>
             <param name="maxCount">最大并发数量</param>
         </member>
-        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.Enter">
+        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.Enter(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.EnterAsync">
+        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.EnterAsync(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
@@ -36104,33 +36739,38 @@
             休眠标志
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.TryEnter">
+        <member name="F:AutoCSer.Threading.SleepFlagSpinLock.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.TryEnter(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.Enter">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.Enter(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enter">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enter(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterSleepFlag">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterSleepFlag(System.String,System.String,System.Int32)">
             <summary>
             申请锁并设置休眠标志，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterNotCheckSleepFlag">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterNotCheckSleepFlag(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频高冲突场景（不检测休眠标识，和 SpinLock.Enter4 效果一样）
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enterNotCheckSleepFlag">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enterNotCheckSleepFlag(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频高冲突场景（不检测休眠标识，和 SpinLock.Enter4 效果一样）
             </summary>
@@ -36160,23 +36800,28 @@
             保留
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.TryEnter">
+        <member name="F:AutoCSer.Threading.SpinLock.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SpinLock.TryEnter(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.EnterYield">
+        <member name="M:AutoCSer.Threading.SpinLock.EnterYield(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.enterYield">
+        <member name="M:AutoCSer.Threading.SpinLock.enterYield(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.EnterSleep">
+        <member name="M:AutoCSer.Threading.SpinLock.EnterSleep(System.String,System.String,System.Int32)">
             <summary>
             申请锁，一直调用 Thread.Sleep(0)，用于低频场景
             </summary>

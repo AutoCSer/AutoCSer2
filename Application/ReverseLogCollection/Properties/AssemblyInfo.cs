@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("AutoCSer.CommandService.ReverseLogCollection")]
-[assembly: AssemblyDescription("AutoCSer2.CommandService.ReverseLogCollection 是一个反向日志收集服务。")]
+[assembly: AssemblyDescription("AutoCSer.CommandService.ReverseLogCollection 是一个反向日志收集服务。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AutoCSer.CommandService.ReverseLogCollection")]

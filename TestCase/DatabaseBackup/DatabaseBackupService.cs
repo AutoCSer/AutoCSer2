@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
     /// <summary>
     /// 数据库备份服务
     /// </summary>
-    internal sealed class DatabaseBackupService : AutoCSer.CommandService.DatabaseBackup
+    internal sealed class DatabaseBackupService : AutoCSer.CommandService.DatabaseBackupService
     {
         /// <summary>
         /// 数据库备份服务

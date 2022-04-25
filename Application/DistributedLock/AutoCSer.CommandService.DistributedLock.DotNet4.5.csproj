@@ -38,8 +38,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DistributedLockService.cs" />
+    <Compile Include="IDistributedLockService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DistributedLock.cs" />
     <Compile Include="DistributedLockClient.cs" />
     <Compile Include="DistributedLockController.cs" />
     <Compile Include="DistributedLockKeepRequest.cs" />
@@ -47,7 +48,6 @@
     <Compile Include="DistributedLockRequest.cs" />
     <Compile Include="DistributedLockRequestManager.cs" />
     <Compile Include="FragmentDictionaryManager.cs" />
-    <Compile Include="IDistributedLock.cs" />
     <Compile Include="IDistributedLockClient.cs" />
     <Compile Include="IDistributedLockClientSocketEvent.cs" />
     <Compile Include="IDistributedLockManager.cs" />

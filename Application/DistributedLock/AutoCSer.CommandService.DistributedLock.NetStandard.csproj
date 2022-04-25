@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\DistributedLock\AutoCSer.CommandService.DistributedLock.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\DistributedLock\AutoCSer.CommandService.DistributedLock2.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\DistributedLock\AutoCSer.CommandService.DistributedLock.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\DistributedLock\AutoCSer.CommandService.DistributedLock2.xml</DocumentationFile>
     <DefineConstants>TRACE;NetStandard2</DefineConstants>
   </PropertyGroup>
 
@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <Compile Include="AsynchronousReentrantLockCount.cs" />
-    <Compile Include="DistributedLock.cs" />
+    <Compile Include="DistributedLockService.cs" />
     <Compile Include="DistributedLockAsynchronousReentrant.cs" />
     <Compile Include="DistributedLockAsynchronousReentrantClient.cs" />
     <Compile Include="DistributedLockClient.cs" />
@@ -34,7 +34,7 @@
     <Compile Include="DistributedLockRequest.cs" />
     <Compile Include="DistributedLockRequestManager.cs" />
     <Compile Include="FragmentDictionaryManager.cs" />
-    <Compile Include="IDistributedLock.cs" />
+    <Compile Include="IDistributedLockService.cs" />
     <Compile Include="IDistributedLockClient.cs" />
     <Compile Include="IDistributedLockClientSocketEvent.cs" />
     <Compile Include="IDistributedLockManager.cs" />

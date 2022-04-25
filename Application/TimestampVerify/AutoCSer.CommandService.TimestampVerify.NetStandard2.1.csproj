@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.TimestampVerify</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.TimestampVerify</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.xml</DocumentationFile>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ITimestampVerifyService.cs" />
+    <Compile Include="ITimestampVerifyClient.cs" />
+    <Compile Include="ITimestampVerifySession.cs" />
+    <Compile Include="TimestampVerifyService.cs" />
+    <Compile Include="TimestampVerifyChecker.cs" />
+    <Compile Include="TimestampVerifyCommandClientSocketEvent.cs" />
+    <Compile Include="TimestampVerifySession.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

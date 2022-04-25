@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.ReverseLogCollectionCommon</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.ReverseLogCollectionCommon</RootNamespace>
   </PropertyGroup>
@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Reference Include="AutoCSer">
-      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
   

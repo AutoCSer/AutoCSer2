@@ -38,11 +38,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IReverseLogCollectionService.cs" />
+    <Compile Include="LogCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IReverseLogCollection.cs" />
     <Compile Include="IReverseLogCollectionClient.cs" />
-    <Compile Include="ReverseLogCollection.cs" />
-    <Compile Include="ReverseLogCollectionCallback.cs" />
+    <Compile Include="ReverseLogCollectionService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

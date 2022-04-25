@@ -29,7 +29,7 @@ namespace AutoCSer.CommandService
         public virtual CommandClient CreateCommandClient()
         {
             return new CommandClient(this
-                , CommandClientInterfaceControllerCreator.GetCreator<IServiceRegistryClient, IServiceRegistry>()
+                , CommandClientInterfaceControllerCreator.GetCreator<IServiceRegistryClient, IServiceRegistryService>()
                 );
         }
         /// <summary>

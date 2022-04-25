@@ -16,7 +16,15 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTask
         /// <param name="parameter2">参数</param>
         /// <returns></returns>
         [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.ISynchronousController.SynchronousReturn))]
-        ReturnCommand<int> SynchronousReturnAsync(int parameter1, int parameter2);
+        ReturnCommand<int> SynchronousReturnAwait(int parameter1, int parameter2);
+        /// <summary>
+        /// 客户端 await 等待
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <returns></returns>
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.ISynchronousController.SynchronousReturn))]
+        Task<int> SynchronousReturnAsync(int parameter1, int parameter2);
         /// <summary>
         /// 客户端同步队列任务触发 await 等待返回数据
         /// </summary>
@@ -72,7 +80,15 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTask
         /// <param name="parameter2">参数</param>
         /// <returns></returns>
         [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.ISynchronousController.SynchronousCall))]
-        ReturnCommand SynchronousCallAsync(int parameter1, int parameter2);
+        ReturnCommand SynchronousCallAwait(int parameter1, int parameter2);
+        /// <summary>
+        /// 客户端 await 等待
+        /// </summary>
+        /// <param name="parameter1">参数</param>
+        /// <param name="parameter2">参数</param>
+        /// <returns></returns>
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.ISynchronousController.SynchronousCall))]
+        Task SynchronousCallAsync(int parameter1, int parameter2);
         /// <summary>
         /// 客户端同步队列任务触发 await 等待返回数据
         /// </summary>

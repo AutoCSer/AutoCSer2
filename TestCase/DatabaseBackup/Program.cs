@@ -21,8 +21,8 @@ namespace AutoCSer.TestCase.DatabaseBackup
                 Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost)
             };
             using (CommandListener commandListener = new CommandListener(commandServerConfig
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerify)new AutoCSer.CommandService.TimestampVerify(configFile.VerifyString))
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (IDatabaseBackup)new DatabaseBackupService())
+                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerifyService)new AutoCSer.CommandService.TimestampVerifyService(configFile.VerifyString))
+                , CommandServerInterfaceControllerCreator.GetCreator(server => (IDatabaseBackupService)new DatabaseBackupService())
                 ))
             {
                 if (await commandListener.Start())

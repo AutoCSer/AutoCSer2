@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.DistributedLock</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.DistributedLock</RootNamespace>
     <LangVersion>7.1</LangVersion>
@@ -27,15 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\DistributedLock\AutoCSer.CommandService.DistributedLock.NetStandard.csproj" />
-    <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard.csproj" />
-    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Application\DistributedLock\AutoCSer.CommandService.DistributedLock.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
   

@@ -13,7 +13,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 数据库备份服务
         /// </summary>
-        protected readonly DatabaseBackup databaseBackup;
+        protected readonly DatabaseBackupService databaseBackup;
         /// <summary>
         /// 服务端执行队列
         /// </summary>
@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService
         /// <param name="database">数据库名称</param>
         /// <param name="backupFullName">数据库备份文件名称</param>
         /// <param name="compressionFullName">压缩数据库备份文件名称</param>
-        public DatabaseBackuper(DatabaseBackup databaseBackup, CommandServerCallQueue queue, string database, string backupFullName, string compressionFullName = null)
+        public DatabaseBackuper(DatabaseBackupService databaseBackup, CommandServerCallQueue queue, string database, string backupFullName, string compressionFullName = null)
         {
             this.databaseBackup = databaseBackup;
             this.queue = queue;
@@ -124,6 +124,7 @@ namespace AutoCSer.CommandService
             finally
             {
                 completed(exception);
+                isCompleted = true;
                 if (exception == null) databaseBackup.OnMessage($"数据库 {database} 备份完毕 {compressionFullName}");
                 else databaseBackup.OnMessage($"数据库 {database} 备份失败");
             }

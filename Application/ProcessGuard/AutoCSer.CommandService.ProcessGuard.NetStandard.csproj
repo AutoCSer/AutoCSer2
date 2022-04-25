@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard2.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard2.xml</DocumentationFile>
     <DefineConstants>TRACE;NetStandard2</DefineConstants>
   </PropertyGroup>
 
@@ -24,11 +24,11 @@
 
   <ItemGroup>
     <Compile Include="GuardProcess.cs" />
-    <Compile Include="IProcessGuard.cs" />
+    <Compile Include="IProcessGuardService.cs" />
     <Compile Include="IProcessGuardClient.cs" />
     <Compile Include="IProcessGuardClientSocketEvent.cs" />
     <Compile Include="ProcessGuardCommandClientConfig.cs" />
-    <Compile Include="ProcessGuardManager.cs" />
+    <Compile Include="ProcessGuardService.cs" />
     <Compile Include="ProcessGuardClientSocketEvent.cs" />
     <Compile Include="ProcessGuardInfo.cs" />
     <Compile Include="ProcessGuardSwitchProcess.cs" />

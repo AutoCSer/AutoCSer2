@@ -7,14 +7,16 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup2.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup2.xml</DocumentationFile>
     <DefineConstants>TRACE;NetStandard2</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -26,13 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="DatabaseBackup.cs" />
+    <Compile Include="DatabaseBackupService.cs" />
     <Compile Include="DatabaseBackupClient.cs" />
     <Compile Include="DatabaseBackupClientDownloader.cs" />
     <Compile Include="DatabaseBackupClientTable.cs" />
     <Compile Include="DatabaseBackupDownloadBuffer.cs" />
     <Compile Include="DatabaseBackuper.cs" />
-    <Compile Include="IDatabaseBackup.cs" />
+    <Compile Include="IDatabaseBackupService.cs" />
     <Compile Include="IDatabaseBackupClient.cs" />
     <Compile Include="IDatabaseBackupClientSocketEvent.cs" />
   </ItemGroup>

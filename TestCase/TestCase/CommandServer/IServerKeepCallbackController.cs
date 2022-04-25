@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase
@@ -60,6 +61,14 @@ namespace AutoCSer.TestCase
         internal static void AutoKeepCallback(long value, CommandServerKeepCallback<string> callback)
         {
             for (long endValue = value + KeepCallbackCount; value != endValue; ++value) callback.Callback(value.ToString());
+        }
+        internal static IEnumerable<string> KeepCallbackEnumerable(long value)
+        {
+            for (long endValue = value + KeepCallbackCount; value != endValue; ++value) yield return value.ToString();
+        }
+        internal static async IAsyncEnumerable<string> AsyncEnumerable(long value)
+        {
+            for (long endValue = value + KeepCallbackCount; value != endValue; ++value) yield return value.ToString();
         }
         //internal static void KeepCallback(CommandServerKeepCallback callback)
         //{

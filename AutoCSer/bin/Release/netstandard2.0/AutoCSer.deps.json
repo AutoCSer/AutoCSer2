@@ -1,13 +1,13 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "6351e6466e887866cd770bd982715ea70849e69d"
+    "signature": ""
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "AutoCSer/2.0.1": {
+      "AutoCSer/2.0.3": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "System.Reflection.Emit": "4.7.0",
@@ -29,12 +29,18 @@
           "System.Reflection.Emit.ILGeneration": "4.7.0"
         },
         "runtime": {
-          "lib/netstandard2.0/System.Reflection.Emit.dll": {}
+          "lib/netstandard2.0/System.Reflection.Emit.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.700.19.56404"
+          }
         }
       },
       "System.Reflection.Emit.ILGeneration/4.7.0": {
         "runtime": {
-          "lib/netstandard2.0/System.Reflection.Emit.ILGeneration.dll": {}
+          "lib/netstandard2.0/System.Reflection.Emit.ILGeneration.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.700.19.56404"
+          }
         }
       },
       "System.Reflection.Emit.Lightweight/4.7.0": {
@@ -42,12 +48,18 @@
           "System.Reflection.Emit.ILGeneration": "4.7.0"
         },
         "runtime": {
-          "lib/netstandard2.0/System.Reflection.Emit.Lightweight.dll": {}
+          "lib/netstandard2.0/System.Reflection.Emit.Lightweight.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.700.19.56404"
+          }
         }
       },
       "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "runtime": {
-          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
         }
       },
       "System.Text.Encoding.CodePages/5.0.0": {
@@ -55,13 +67,16 @@
           "System.Runtime.CompilerServices.Unsafe": "5.0.0"
         },
         "runtime": {
-          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
+          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
         }
       }
     }
   },
   "libraries": {
-    "AutoCSer/2.0.1": {
+    "AutoCSer/2.0.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

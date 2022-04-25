@@ -24,8 +24,8 @@ namespace AutoCSer.TestCase.ReverseLogCollection
         public override CommandClient CreateCommandClient()
         {
             return new CommandClient(this
-                , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerify>()
-                , CommandClientInterfaceControllerCreator.GetCreator<IServiceRegistryClient, IServiceRegistry>()
+                , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerifyService>()
+                , CommandClientInterfaceControllerCreator.GetCreator<IServiceRegistryClient, IServiceRegistryService>()
                 );
         }
         /// <summary>

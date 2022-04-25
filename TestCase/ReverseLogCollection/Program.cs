@@ -10,11 +10,11 @@ namespace AutoCSer.TestCase.ReverseLogCollection
     {
         static async Task Main(string[] args)
         {
-            ReverseLogCollection<LogInfo> controller = new ReverseLogCollection<LogInfo>();
+            ReverseLogCollectionService<LogInfo> controller = new ReverseLogCollectionService<LogInfo>();
             CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ReverseLogCollection), ServiceName = LogInfo.ServiceName };
             using (CommandListener commandListener = new CommandListener(commandServerConfig
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerify)new AutoCSer.CommandService.TimestampVerify(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (IReverseLogCollection<LogInfo>)controller)
+                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerifyService)new AutoCSer.CommandService.TimestampVerifyService(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
+                , CommandServerInterfaceControllerCreator.GetCreator(server => (IReverseLogCollectionService<LogInfo>)controller)
                 ))
             {
                 if (await commandListener.Start())
@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.ReverseLogCollection
         /// 测试
         /// </summary>
         /// <param name="controller"></param>
-        private static void Test(ReverseLogCollection<LogInfo> controller)
+        private static void Test(ReverseLogCollectionService<LogInfo> controller)
         {
             long MessageCount = 0;
             do

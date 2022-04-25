@@ -25,7 +25,7 @@ namespace AutoCSer.CommandService
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(IServiceRegistry), typeof(IServiceRegistryClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServiceRegistryService), typeof(IServiceRegistryClient));
             }
         }
         /// <summary>

@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase</AssemblyName>
     <RootNamespace>AutoCSer.TestCase</RootNamespace>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -74,7 +74,7 @@
 
   <ItemGroup>
     <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
   

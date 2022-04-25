@@ -26,8 +26,8 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerify), typeof(ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IDatabaseBackup), typeof(IDatabaseBackupClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IDatabaseBackupService), typeof(IDatabaseBackupClient));
             }
         }
         /// <summary>

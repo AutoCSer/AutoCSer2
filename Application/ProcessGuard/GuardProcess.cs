@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 进程守护服务端管理器
         /// </summary>
-        protected readonly ProcessGuardManager guardManager;
+        protected readonly ProcessGuardService guardManager;
         /// <summary>
         /// 被守护进程信息
         /// </summary>
@@ -43,7 +43,7 @@ namespace AutoCSer.CommandService
         /// <param name="guardManager"></param>
         /// <param name="processInfo"></param>
         /// <param name="process"></param>
-        internal GuardProcess(ProcessGuardManager guardManager, ProcessGuardInfo processInfo, Process process)
+        internal GuardProcess(ProcessGuardService guardManager, ProcessGuardInfo processInfo, Process process)
         {
             this.guardManager = guardManager;
             this.ProcessInfo = processInfo;

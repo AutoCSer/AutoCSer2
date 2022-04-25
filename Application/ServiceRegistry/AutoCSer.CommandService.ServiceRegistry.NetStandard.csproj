@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry2.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry2.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,23 +25,23 @@
     <Compile Include="ServiceRegistryCommandClientServiceRegistrar.cs" />
     <Compile Include="ServiceRegistryCommandServerConfig.cs" />
     <Compile Include="ServiceRegistryCommandServiceRegistrar.cs" />
-    <Compile Include="IServiceRegistry.cs" />
+    <Compile Include="IServiceRegistryService.cs" />
     <Compile Include="IServiceRegistryClient.cs" />
     <Compile Include="ServiceRegisterLog.cs" />
-    <Compile Include="ServiceRegisterLogAssembler.cs" />
-    <Compile Include="ServiceRegisterLogAssemblerQueueNode.cs" />
+    <Compile Include="LogAssembler.cs" />
+    <Compile Include="LogAssemblerQueueNode.cs" />
     <Compile Include="ServiceRegisterLogClientAssembler.cs" />
     <Compile Include="ServiceRegisterLogClientChangedType.cs" />
     <Compile Include="ServiceRegisterOperationType.cs" />
     <Compile Include="ServiceRegisterResponse.cs" />
     <Compile Include="ServiceRegisterState.cs" />
-    <Compile Include="ServiceRegistry.cs" />
+    <Compile Include="ServiceRegistryService.cs" />
     <Compile Include="ServiceRegistryClient.cs" />
     <Compile Include="ServiceRegistryCommandClientConfig.cs" />
     <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
-    <Compile Include="ServiceRegistrySession.cs" />
-    <Compile Include="ServiceRegistrySessionCallback.cs" />
-    <Compile Include="ServiceRegistrySessionLog.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="SessionCallback.cs" />
+    <Compile Include="SessionLog.cs" />
     <Compile Include="ServiceRegistryWaitServerEndPointTask.cs" />
   </ItemGroup>
 

@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerify), typeof(ITimestampVerifyClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
                 yield return new CommandClientControllerCreatorParameter(typeof(Service.IService), typeof(IClient));
             }
         }

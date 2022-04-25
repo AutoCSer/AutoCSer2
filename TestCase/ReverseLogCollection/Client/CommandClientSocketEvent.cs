@@ -28,8 +28,8 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerify), typeof(ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IReverseLogCollection<LogInfo>), typeof(IReverseLogCollectionClient<LogInfo>));
+                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IReverseLogCollectionService<LogInfo>), typeof(IReverseLogCollectionClient<LogInfo>));
             }
         }
         /// <summary>

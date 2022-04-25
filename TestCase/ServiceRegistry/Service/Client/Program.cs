@@ -12,7 +12,7 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
         {
             CommandClientConfig commandClientConfig = new CommandClientConfig { Host = new HostEndPoint(0), ServiceName = "AutoCSer.TestCase.ServiceRegistry" };
             using (CommandClient commandClient = new CommandClient(commandClientConfig
-                , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerify>()
+                , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerifyService>()
                 , CommandClientInterfaceControllerCreator.GetCreator<IClient, IService>()
                 ))
             {

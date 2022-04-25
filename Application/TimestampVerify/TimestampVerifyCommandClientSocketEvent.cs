@@ -25,7 +25,7 @@ namespace AutoCSer.CommandService
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerify), typeof(ITimestampVerifyClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
             }
         }
         /// <summary>

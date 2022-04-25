@@ -48,8 +48,8 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         internal void Start()
         {
             commandClient = new CommandClient(commandClientConfig
-                , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerify>()
-                , CommandClientInterfaceControllerCreator.GetCreator<IReverseLogCollectionClient<LogInfo>, IReverseLogCollection<LogInfo>>()
+                , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerifyService>()
+                , CommandClientInterfaceControllerCreator.GetCreator<IReverseLogCollectionClient<LogInfo>, IReverseLogCollectionService<LogInfo>>()
                 );
         }
         /// <summary>

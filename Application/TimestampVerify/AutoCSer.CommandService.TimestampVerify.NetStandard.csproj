@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify2.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify2.xml</DocumentationFile>
     <DefineConstants>TRACE;NetStandard2</DefineConstants>
   </PropertyGroup>
 
@@ -23,10 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="ITimestampVerify.cs" />
+    <Compile Include="ITimestampVerifyService.cs" />
     <Compile Include="ITimestampVerifyClient.cs" />
     <Compile Include="ITimestampVerifySession.cs" />
-    <Compile Include="TimestampVerify.cs" />
+    <Compile Include="TimestampVerifyService.cs" />
     <Compile Include="TimestampVerifyChecker.cs" />
     <Compile Include="TimestampVerifyCommandClientSocketEvent.cs" />
     <Compile Include="TimestampVerifySession.cs" />

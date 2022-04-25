@@ -30,7 +30,7 @@ namespace AutoCSer.CommandService
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(IProcessGuard), typeof(IProcessGuardClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IProcessGuardService), typeof(IProcessGuardClient));
             }
         }
         /// <summary>

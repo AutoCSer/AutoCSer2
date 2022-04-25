@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection2.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection2.xml</DocumentationFile>
     <DefineConstants>TRACE;NetStandard2</DefineConstants>
   </PropertyGroup>
 
@@ -23,14 +23,10 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Include="IReverseLogCollection.cs" />
+    <Compile Include="IReverseLogCollectionService.cs" />
     <Compile Include="IReverseLogCollectionClient.cs" />
-    <Compile Include="ReverseLogCollection.cs" />
-    <Compile Include="ReverseLogCollectionCallback.cs" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NetStandard.csproj" />
+    <Compile Include="ReverseLogCollectionService.cs" />
+    <Compile Include="LogCallback.cs" />
   </ItemGroup>
 
   <ItemGroup>

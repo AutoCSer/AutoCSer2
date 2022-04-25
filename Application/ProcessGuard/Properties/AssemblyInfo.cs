@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("AutoCSer.CommandService.ProcessGuard")]
-[assembly: AssemblyDescription("AutoCSer2.CommandService.ProcessGuard 是一个守护进程服务。")]
+[assembly: AssemblyDescription("AutoCSer.CommandService.ProcessGuard 是一个守护进程服务。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AutoCSer.CommandService.ProcessGuard")]

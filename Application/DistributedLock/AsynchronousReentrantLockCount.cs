@@ -134,7 +134,7 @@ namespace AutoCSer.CommandService.DistributedLock
         /// <returns></returns>
         protected override async Task releaseAsync()
         {
-#if NetStandard2
+#if DotNet45 || NetStandard2
             request.Dispose();
 #else
             await request.DisposeAsync();

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AutoCSer.FieldEquals</AssemblyName>
     <RootNamespace>AutoCSer.FieldEquals</RootNamespace>
   </PropertyGroup>
@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <Reference Include="AutoCSer">
-      <HintPath>..\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+      <HintPath>..\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\netcoreapp2.0\AutoCSer.CodeGenerator.dll&quot; dotnet &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\netcoreapp2.0\AutoCSer.CodeGenerator.dll&quot; &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
   </Target>
 
 </Project>

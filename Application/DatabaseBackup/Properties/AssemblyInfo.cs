@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("AutoCSer.CommandService.DatabaseBackup")]
-[assembly: AssemblyDescription("AutoCSer2.CommandService.DatabaseBackup 是一个数据库备份服务。")]
+[assembly: AssemblyDescription("AutoCSer.CommandService.DatabaseBackup 是一个数据库备份服务。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AutoCSer.CommandService.DatabaseBackup")]

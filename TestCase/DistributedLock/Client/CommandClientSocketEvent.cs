@@ -27,8 +27,8 @@ namespace AutoCSer.TestCase.DistributedLockClient
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerify), typeof(ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IDistributedLock<int>), typeof(IDistributedLockClient<int>));
+                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IDistributedLockService<int>), typeof(IDistributedLockClient<int>));
             }
         }
         /// <summary>
