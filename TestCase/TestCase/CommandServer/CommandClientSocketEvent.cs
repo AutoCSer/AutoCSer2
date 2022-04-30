@@ -35,6 +35,10 @@ namespace AutoCSer.TestCase
         /// </summary>
         public IClientTaskController ClientTaskController { get; private set; }
         /// <summary>
+        /// 控制器异步队列接口测试
+        /// </summary>
+        public IClientTaskQueueController ClientTaskQueueController { get; private set; }
+        /// <summary>
         /// 保持回调异步任务接口测试
         /// </summary>
         public IClientKeepCallbackTaskController ClientKeepCallbackTaskController { get; private set; }
@@ -52,6 +56,7 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackController), typeof(IClientKeepCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskController), typeof(IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackTaskController), typeof(IClientKeepCallbackTaskController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueController), typeof(IClientTaskQueueController));
             }
         }
         /// <summary>

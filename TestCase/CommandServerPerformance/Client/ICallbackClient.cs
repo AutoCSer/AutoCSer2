@@ -49,13 +49,22 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        CallbackCommand TaskQueue(int left, int right, Action<CommandClientReturnValue<int>> callback);
+        /// <summary>
+        /// 服务端 async 任务动态队列返回返回结果
+        /// </summary>
         /// <param name="queueKey">队列关键字</param>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
-        CallbackCommand TaskQueue(int queueKey, int left, int right, Action<CommandClientReturnValue<int>> callback);
+        CallbackCommand TaskQueueKey(int queueKey, int left, int right, Action<CommandClientReturnValue<int>> callback);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
@@ -126,8 +135,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Task));
 
                 Reset(commandClient);
-                for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(0, Left, --right, CheckSynchronousHandle)) ;
+                for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueue));
+
+                Reset(commandClient);
+                for (int right = testCount; right != 0; await client.InterfaceController.TaskQueueKey(0, Left, --right, CheckSynchronousHandle)) ;
+                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueueKey));
 
                 Reset(commandClient);
                 using (CommandKeepCallback commandKeepCallback = await client.InterfaceController.KeepCallback(CheckSynchronousKeepCallbackHandle))

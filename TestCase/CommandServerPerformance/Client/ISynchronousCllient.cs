@@ -45,12 +45,20 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [CommandClientMethod(IsInitobj = false)]
+        CommandClientReturnValue<int> TaskQueue(int left, int right);
+        /// <summary>
+        /// 服务端 async 任务动态队列返回返回结果
+        /// </summary>
         /// <param name="queueKey">队列关键字</param>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [CommandClientMethod(IsInitobj = false)]
-        CommandClientReturnValue<int> TaskQueue(int queueKey, int left, int right);
+        CommandClientReturnValue<int> TaskQueueKey(int queueKey, int left, int right);
     }
     /// <summary>
     /// 客户端同步返回结果
@@ -83,6 +91,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new SynchronousCllient(commandClient, nameof(Queue)).Wait();
                 await new SynchronousCllient(commandClient, nameof(Task)).Wait();
                 await new SynchronousCllient(commandClient, nameof(TaskQueue)).Wait();
+                await new SynchronousCllient(commandClient, nameof(TaskQueueKey)).Wait();
             }
         }
 
@@ -114,6 +123,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 case nameof(Queue): task = Queue; break;
                 case nameof(Task): task = Task; break;
                 case nameof(TaskQueue): task = TaskQueue; break;
+                case nameof(TaskQueueKey): task = TaskQueueKey; break;
             }
             this.client = (CommandClientSocketEvent<ISynchronousCllient>)commandClient.SocketEvent;
             this.serverMethodName = serverMethodName;
@@ -188,7 +198,20 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(client.InterfaceController.TaskQueue(0, Left, right));
+                if (right >= 0) CheckLock(client.InterfaceController.TaskQueue(Left, right));
+                else return;
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端 async 任务动态队列返回返回结果
+        /// </summary>
+        private void TaskQueueKey()
+        {
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0) CheckLock(client.InterfaceController.TaskQueueKey(0, Left, right));
                 else return;
             }
             while (true);

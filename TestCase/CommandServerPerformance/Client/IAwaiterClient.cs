@@ -45,12 +45,20 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        ReturnCommand<int> TaskQueue(int left, int right);
+        /// <summary>
+        /// 服务端 async 任务动态队列返回返回结果
+        /// </summary>
         /// <param name="queueKey">队列关键字</param>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
-        ReturnCommand<int> TaskQueue(int queueKey, int left, int right);
+        ReturnCommand<int> TaskQueueKey(int queueKey, int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
@@ -106,6 +114,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new AwaiterClient(commandClient, nameof(Queue)).Wait();
                 await new AwaiterClient(commandClient, nameof(Task)).Wait();
                 await new AwaiterClient(commandClient, nameof(TaskQueue)).Wait();
+                await new AwaiterClient(commandClient, nameof(TaskQueueKey)).Wait();
 
                 CommandClientSocketEvent<IAwaiterClient> client = (CommandClientSocketEvent<IAwaiterClient>)commandClient.SocketEvent;
 
@@ -171,6 +180,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     break;
                 case nameof(TaskQueue):
                     while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(TaskQueue());
+                    break;
+                case nameof(TaskQueueKey):
+                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(TaskQueueKey());
                     break;
             }
         }
@@ -247,7 +259,21 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(await client.InterfaceController.TaskQueue(0, Left, right));
+                if (right >= 0) CheckLock(await client.InterfaceController.TaskQueue(Left, right));
+                else return;
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端 async 任务动态队列返回返回结果
+        /// </summary>
+        private async Task TaskQueueKey()
+        {
+            await System.Threading.Tasks.Task.Yield();
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0) CheckLock(await client.InterfaceController.TaskQueueKey(0, Left, right));
                 else return;
             }
             while (true);

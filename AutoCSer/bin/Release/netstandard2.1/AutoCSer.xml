@@ -14061,6 +14061,32 @@
             <param name="offlineCount"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.CommandServerControllerCallTaskQueue">
+            <summary>
+            服务端控制器异步调用队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandServerControllerCallTaskQueue.controller">
+            <summary>
+            命令服务控制器
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.CommandServerControllerCallTaskQueue.KeyString">
+            <summary>
+            控制器名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerControllerCallTaskQueue.#ctor(AutoCSer.Net.CommandServerController)">
+            <summary>
+            服务端执行队列
+            </summary>
+            <param name="controller"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerControllerCallTaskQueue.appendRemove">
+            <summary>
+            添加到删除队列
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.CommandServerEnumerableKeepCallbackCountTask`1">
             <summary>
             TCP 服务器端异步保持回调
@@ -16278,6 +16304,16 @@
             默认为 true 表示输出参数支持简单序列化操作
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandControllerAttribute.TaskQueueMaxConcurrent">
+            <summary>
+            异步读写队列最大读操作并发任务数量，默认为 0 表示不启用控制器队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandControllerAttribute.TaskQueueWaitCount">
+            <summary>
+            异步读写队列写操作等待读取操作任务数量，默认为 16，最小值为 1，等待读取操作任务数量不宜过大避免造成写操作等待时间过长
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.CommandControllerOutputData">
             <summary>
             命令控制器查询输出数据
@@ -17567,6 +17603,16 @@
             取消保持回调命令
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerControllerAddTaskQueue">
+            <summary>
+            添加队列任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerControllerAddTaskQueueLowPriority">
+            <summary>
+            添加队列任务
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerSocketDeserializeMethod">
             <summary>
             反序列化方法
@@ -17751,6 +17797,17 @@
             <param name="server"></param>
             <param name="controllerName"></param>
             <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController`1.controllerAttribute">
+            <summary>
+            命令控制器配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceController`1.GetAttribute">
+            <summary>
+            获取命令控制器配置
+            </summary>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController`1.methods">
@@ -20118,6 +20175,12 @@
             <param name="queueSet"></param>
             <param name="isReside"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallTaskLowPriorityQueue.#ctor(AutoCSer.Net.CommandServerController)">
+            <summary>
+            服务端执行队列
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskLowPriorityQueue.run">
             <summary>
             开始执行任务
@@ -20186,6 +20249,12 @@
             </summary>
             <param name="queueSet"></param>
             <param name="isReside"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue.#ctor(AutoCSer.Net.CommandServerController)">
+            <summary>
+            服务端执行队列
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueue.EnterContext">
             <summary>
@@ -23226,6 +23295,11 @@
             控制器名称
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerController.Attribute">
+            <summary>
+            命令控制器配置
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerController.Methods">
             <summary>
             服务端接口方法信息集合
@@ -23251,6 +23325,11 @@
             同步调用低优先级队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerController.CallTaskQueue">
+            <summary>
+            服务端异步调用队列
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerController.CommandStartIndex">
             <summary>
             起始命令序号
@@ -23261,15 +23340,21 @@
             结束命令序号
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerController.#ctor(AutoCSer.Net.CommandListener,System.String,AutoCSer.Net.CommandServer.ServerInterfaceMethod[],System.Int32,System.Byte)">
+        <member name="M:AutoCSer.Net.CommandServerController.#ctor(AutoCSer.Net.CommandListener,System.String,AutoCSer.Net.CommandServer.CommandControllerAttribute,AutoCSer.Net.CommandServer.ServerInterfaceMethod[],System.Int32,System.Byte)">
             <summary>
             命令服务控制器
             </summary>
             <param name="server">命令服务</param>
             <param name="controllerName">控制器名称</param>
+            <param name="attribute"></param>
             <param name="methods"></param>
             <param name="verifyMethodIndex"></param>
             <param name="controllerQueue">控制器同步队列标记</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.Close">
+            <summary>
+            关闭控制器
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerController.SetCommandStartIndex(System.Int32)">
             <summary>
@@ -23327,6 +23412,180 @@
             </summary>
             <param name="node"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.Add(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task})">
+            <summary>
+            添加队列任务
+            </summary>
+            <param name="getTask"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddTask(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddExceptionTask(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddTask``1(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddExceptionTask``1(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.Add(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            添加队列任务
+            </summary>
+            <param name="getTask"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddTask(System.Func{System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddExceptionTask(System.Func{System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddTask``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddExceptionTask``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriority(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task})">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <param name="getTask"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityTask(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityExceptionTask(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityTask``1(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityExceptionTask``1(System.Func{AutoCSer.Net.CommandServerCallTaskQueue,System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriority(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <param name="getTask"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityTask(System.Func{System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityExceptionTask(System.Func{System.Threading.Tasks.Task},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityTask``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddLowPriorityExceptionTask``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="getTask"></param>
+            <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
+            <returns>可 await 任务对象</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddTaskQueue(AutoCSer.Net.CommandServerController,AutoCSer.Net.CommandServerCallTaskQueueNode)">
+            <summary>
+            添加队列任务
+            </summary>
+            <param name="controller"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerController.AddTaskQueueLowPriority(AutoCSer.Net.CommandServerController,AutoCSer.Net.CommandServerCallTaskQueueNode)">
+            <summary>
+            添加队列任务（低优先级）
+            </summary>
+            <param name="controller"></param>
+            <param name="value"></param>
         </member>
         <member name="T:AutoCSer.Net.CommandListener">
             <summary>
@@ -23611,7 +23870,7 @@
             <param name="server"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandListener.QueueController(AutoCSer.Net.CommandServerSocket)">
+        <member name="M:AutoCSer.Net.CommandListener.QueryController(AutoCSer.Net.CommandServerSocket)">
             <summary>
             获取控制器信息
             </summary>
@@ -23998,6 +24257,11 @@
         <member name="F:AutoCSer.Net.CommandServerMethodAttribute.QueueIndex">
             <summary>
             同步队列序号，默认为 0 表示控制器独立队列，否则为当前服务的共享队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerMethodAttribute.IsControllerTaskQueue">
+            <summary>
+            默认为 true 表示采用控制器异步任务队列，否则需要准备队列关键字参数
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerMethodAttribute.AutoCancelKeep">

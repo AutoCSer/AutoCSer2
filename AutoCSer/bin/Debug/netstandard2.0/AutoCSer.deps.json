@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "AutoCSer/2.0.2": {
+      "AutoCSer/2.0.4": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "System.Reflection.Emit": "4.7.0",
@@ -61,7 +61,7 @@
     }
   },
   "libraries": {
-    "AutoCSer/2.0.2": {
+    "AutoCSer/2.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

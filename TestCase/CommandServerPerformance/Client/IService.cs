@@ -7,6 +7,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
     /// <summary>
     /// 命令服务性能测试服务端接口
     /// </summary>
+    [AutoCSer.Net.CommandServer.CommandController(TaskQueueMaxConcurrent = 1024)]
     public interface IService
     {
         /// <summary>
@@ -46,12 +47,21 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
         /// <param name="queue"></param>
-        /// <param name="queueKey">队列关键字</param>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [CommandServerMethod(IsOutputPool = true, IsInitobj = false)]
-        Task<int> TaskQueue(CommandServerCallTaskQueue queue, int queueKey, int left, int right);
+        Task<int> TaskQueue(CommandServerCallTaskQueue queue, int left, int right);
+        /// <summary>
+        /// 服务端 async 任务动态队列返回返回结果
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="queueKey">队列关键字</param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [CommandServerMethod(IsOutputPool = true, IsInitobj = false, IsControllerTaskQueue = false)]
+        Task<int> TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
@@ -122,11 +132,19 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
         /// <param name="queue"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        async Task<int> IService.TaskQueue(CommandServerCallTaskQueue queue, int left, int right) { return left + right; }
+        /// <summary>
+        /// 服务端 async 任务动态队列返回返回结果
+        /// </summary>
+        /// <param name="queue"></param>
         /// <param name="queueKey">队列关键字</param>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        async Task<int> IService.TaskQueue(CommandServerCallTaskQueue queue, int queueKey, int left, int right) { return left + right; }
+        async Task<int> IService.TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right) { return left + right; }
 
         /// <summary>
         /// 当前保持回调
