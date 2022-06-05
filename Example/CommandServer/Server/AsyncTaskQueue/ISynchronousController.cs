@@ -7,7 +7,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
     /// <summary>
     /// 服务端控制器 async Task 读写队列调用 同步返回数据 示例接口
     /// </summary>
-    [AutoCSer.Net.CommandServer.CommandController(TaskQueueMaxConcurrent = 16)]
+    [AutoCSer.Net.CommandServerController(TaskQueueMaxConcurrent = 16)]
     public interface ISynchronousController
     {
         /// <summary>

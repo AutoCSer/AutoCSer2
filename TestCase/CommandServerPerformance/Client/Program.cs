@@ -9,8 +9,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         {
             do
             {
-                //await CallbackClient.Test();
                 await AwaiterClient.Test();
+                Console.WriteLine();
+                await CallbackClient.Test();
+                Console.WriteLine();
                 await SynchronousCllient.Test();
 
                 Console.WriteLine("Press quit to exit.");

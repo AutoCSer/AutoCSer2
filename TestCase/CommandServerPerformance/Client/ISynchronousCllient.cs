@@ -89,9 +89,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new SynchronousCllient(commandClient, nameof(Synchronous)).Wait();
                 await new SynchronousCllient(commandClient, nameof(Callback)).Wait();
                 await new SynchronousCllient(commandClient, nameof(Queue)).Wait();
-                await new SynchronousCllient(commandClient, nameof(Task)).Wait();
                 await new SynchronousCllient(commandClient, nameof(TaskQueue)).Wait();
                 await new SynchronousCllient(commandClient, nameof(TaskQueueKey)).Wait();
+                await new SynchronousCllient(commandClient, nameof(Task)).Wait();
             }
         }
 
@@ -127,7 +127,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             }
             this.client = (CommandClientSocketEvent<ISynchronousCllient>)commandClient.SocketEvent;
             this.serverMethodName = serverMethodName;
-            right = Reset(commandClient, 1 << 23, threadCount);
+            right = Reset(commandClient, maxTestCount >> 3, threadCount);
             while (--threadCount >= 0) AutoCSer.Threading.ThreadPool.TinyBackground.Start(task);
         }
         /// <summary>

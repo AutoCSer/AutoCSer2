@@ -4,7 +4,7 @@
 namespace AutoCSer.TestCase.SerializePerformance
 {
     /// <summary>
-    /// 属性测试数据
+    /// JSON 序列化属性测试数据
     /// </summary>
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
     class FloatPropertyData : PropertyData

@@ -11,6 +11,7 @@ namespace AutoCSer.TestCase.SerializePerformance
             int count = 100 * 10000;
             bool isJson = true, isJsonThreadStatic = true, isXml = true, isBinary = true;
             AutoCSer.RandomObject.Config randomConfig = new AutoCSer.RandomObject.Config { IsSecondDateTime = true, IsParseFloat = true };
+            AutoCSer.BinarySerializeConfig PropertySerializeConfig = new BinarySerializeConfig { };
             do
             {
                 //AOT（NoJIT）模式应该尽量使用属性而非字段
@@ -42,6 +43,10 @@ namespace AutoCSer.TestCase.SerializePerformance
                 {
                     binary(floatFiledData, count);
                     binarThreadStatic(floatFiledData, count);
+
+                    BinaryPropertyData binaryPropertyData = AutoCSer.RandomObject.Creator<BinaryPropertyData>.CreateNotNull();
+                    binary(binaryPropertyData, count);
+                    binarThreadStatic(binaryPropertyData, count);
                 }
 
                 Console.WriteLine(@"Sleep 3000ms

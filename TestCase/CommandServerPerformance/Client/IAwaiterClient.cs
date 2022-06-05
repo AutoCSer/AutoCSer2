@@ -112,19 +112,19 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new AwaiterClient(commandClient, nameof(Synchronous)).Wait();
                 await new AwaiterClient(commandClient, nameof(Callback)).Wait();
                 await new AwaiterClient(commandClient, nameof(Queue)).Wait();
-                await new AwaiterClient(commandClient, nameof(Task)).Wait();
                 await new AwaiterClient(commandClient, nameof(TaskQueue)).Wait();
                 await new AwaiterClient(commandClient, nameof(TaskQueueKey)).Wait();
+                await new AwaiterClient(commandClient, nameof(Task)).Wait();
 
                 CommandClientSocketEvent<IAwaiterClient> client = (CommandClientSocketEvent<IAwaiterClient>)commandClient.SocketEvent;
 
-                int testCount = Reset(commandClient);
+                int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
                 AutoCSer.Threading.CatchTask.AddIgnoreException(checkEnumeratorCommand(enumeratorCommand));
                 for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(Left, --right)) ;
                 await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallback));
 
-                Reset(commandClient);
+                Reset(commandClient, maxTestCount);
                 enumeratorCommand = await client.InterfaceController.KeepCallbackCount();
                 AutoCSer.Threading.CatchTask.AddIgnoreException(checkEnumeratorCommand(enumeratorCommand));
                 for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(Left, --right)) ;
@@ -163,26 +163,31 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         {
             this.client = (CommandClientSocketEvent<IAwaiterClient>)commandClient.SocketEvent;
             this.serverMethodName = serverMethodName;
-            right = Reset(commandClient, maxTestCount, taskCount);
             switch (serverMethodName)
             {
                 case nameof(Synchronous):
+                    right = Reset(commandClient, maxTestCount, taskCount);
                     while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Synchronous());
                     break;
                 case nameof(Callback):
+                    right = Reset(commandClient, maxTestCount, taskCount);
                     while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Callback());
                     break;
                 case nameof(Queue):
+                    right = Reset(commandClient, maxTestCount, taskCount);
                     while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Queue());
                     break;
-                case nameof(Task):
-                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Task());
-                    break;
                 case nameof(TaskQueue):
+                    right = Reset(commandClient, maxTestCount >> 1, taskCount);
                     while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(TaskQueue());
                     break;
                 case nameof(TaskQueueKey):
+                    right = Reset(commandClient, maxTestCount >> 2, taskCount);
                     while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(TaskQueueKey());
+                    break;
+                case nameof(Task):
+                    right = Reset(commandClient, maxTestCount >> 3, taskCount);
+                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Task());
                     break;
             }
         }

@@ -24,7 +24,7 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueue
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns></returns>
-        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.CallbackReturn))]
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTaskQueue.IKeepCallbackController.CallbackReturn))]
         EnumeratorQueueCommand<int> CallbackReturnQueue(int queueKey, int parameter1, int parameter2);
         /// <summary>
         /// 保持回调委托返回数据
@@ -76,7 +76,7 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueue
         /// <param name="queueKey">默认第一个数据参数为队列关键字</param>
         /// <param name="parameter">参数</param>
         /// <returns></returns>
-        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.CallbackCall))]
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTaskQueue.IKeepCallbackController.CallbackCall))]
         EnumeratorQueueCommand CallbackCallQueue(int queueKey, int parameter);
         /// <summary>
         /// 保持回调委托返回数据
@@ -126,7 +126,7 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueue
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns></returns>
-        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.CallbackCountReturn))]
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTaskQueue.IKeepCallbackController.CallbackCountReturn))]
         EnumeratorQueueCommand<int> CallbackCountReturnQueue(int queueKey, int parameter1, int parameter2);
         /// <summary>
         /// 保持回调委托返回数据
@@ -178,7 +178,7 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueue
         /// <param name="queueKey">默认第一个数据参数为队列关键字</param>
         /// <param name="parameter">参数</param>
         /// <returns></returns>
-        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.CallbackCountCall))]
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTaskQueue.IKeepCallbackController.CallbackCountCall))]
         EnumeratorQueueCommand CallbackCountCallQueue(int queueKey, int parameter);
         /// <summary>
         /// 保持回调委托返回数据
@@ -227,7 +227,7 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueue
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns></returns>
-        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.EnumerableCallbackCount))]
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTaskQueue.IKeepCallbackController.EnumerableCallbackCount))]
         EnumeratorQueueCommand<int> EnumerableCallbackCountQueue(int parameter1, int parameter2);
         /// <summary>
         /// 保持回调委托返回数据
@@ -276,7 +276,7 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueue
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns></returns>
-        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTask.IKeepCallbackController.AsyncEnumerable))]
+        [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.AsyncTaskQueue.IKeepCallbackController.AsyncEnumerable))]
         EnumeratorQueueCommand<int> AsyncEnumerableQueue(int parameter1, int parameter2);
         /// <summary>
         /// 保持回调委托返回数据

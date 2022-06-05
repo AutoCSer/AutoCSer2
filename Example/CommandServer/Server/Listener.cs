@@ -44,6 +44,10 @@ namespace AutoCSer.Example.CommandServer.Server
                     , CommandServerInterfaceControllerCreator.GetCreator<AsyncTaskQueue.ISynchronousKeyController>(new AsyncTaskQueue.SynchronousKeyController())
                     , CommandServerInterfaceControllerCreator.GetCreator<AsyncTaskQueue.ISendOnlyController>(new AsyncTaskQueue.SendOnlyController())
                     , CommandServerInterfaceControllerCreator.GetCreator<AsyncTaskQueue.IKeepCallbackController>(new AsyncTaskQueue.KeepCallbackController())
+
+                    , CommandServerInterfaceControllerCreator.GetCreator<AsyncTaskQueueContext.ISynchronousKeyController, int>((task, key) => new AsyncTaskQueueContext.SynchronousKeyController(task, key))
+                    , CommandServerInterfaceControllerCreator.GetCreator<AsyncTaskQueueContext.ISendOnlyController, int>((task, key) => new AsyncTaskQueueContext.SendOnlyController(task, key))
+                    , CommandServerInterfaceControllerCreator.GetCreator<AsyncTaskQueueContext.IKeepCallbackController, int>((task, key) => new AsyncTaskQueueContext.KeepCallbackController(task, key))
                     );
                 if (!await commandListener.Start()) return null;
             }

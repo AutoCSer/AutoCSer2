@@ -1,67 +1,27 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>AutoCSer.TestCase.Common</name>
+        <name>AutoCSer.TestCase.ReverseLogCollectionCommon</name>
     </assembly>
     <members>
-        <member name="T:AutoCSer.TestCase.Common.CommandServerPort">
+        <member name="T:AutoCSer.TestCase.ReverseLogCollectionCommon.LogInfo">
             <summary>
-            命令服务端口
+            测试日志数据定义
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.Example">
+        <member name="F:AutoCSer.TestCase.ReverseLogCollectionCommon.LogInfo.LogTime">
             <summary>
-            示例端口
+            日志发生时间
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.TestCase">
+        <member name="F:AutoCSer.TestCase.ReverseLogCollectionCommon.LogInfo.Message">
             <summary>
-            测试用例端口
+            错误消息
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.Performance">
+        <member name="F:AutoCSer.TestCase.ReverseLogCollectionCommon.LogInfo.ServiceName">
             <summary>
-            性能测试端口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.ServiceRegistry">
-            <summary>
-            服务注册测试端口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.TimestampVerify">
-            <summary>
-            基于递增登录时间戳验证的服务认证测试端口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.DistributedLock">
-            <summary>
-            分布式锁测试端口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.ProcessGuard">
-            <summary>
-            守护进程测试端口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.DatabaseBackup">
-            <summary>
-            数据库备份端口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.Common.CommandServerPort.ReverseLogCollection">
-            <summary>
-            反向日志收集端口
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.Common.Config">
-            <summary>
-            测试配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.Common.Config.TimestampVerifyString">
-            <summary>
-            服务认证验证字符串
+            反向日志收集服务名称
             </summary>
         </member>
     </members>

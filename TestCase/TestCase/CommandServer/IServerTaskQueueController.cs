@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端测试接口
     /// </summary>
-    [AutoCSer.Net.CommandServer.CommandController(TaskQueueMaxConcurrent = 16)]
+    [AutoCSer.Net.CommandServerController(TaskQueueMaxConcurrent = 1)]
     public interface IServerTaskQueueController
     {
         Task<string> TaskQueueReturnSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue);

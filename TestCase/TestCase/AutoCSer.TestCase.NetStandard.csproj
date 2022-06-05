@@ -29,6 +29,7 @@
     <Compile Include="CommandServer\IClientQueueController.cs" />
     <Compile Include="CommandServer\IClientSendOnlyController.cs" />
     <Compile Include="CommandServer\IClientSynchronousController.cs" />
+    <Compile Include="CommandServer\IClientTaskQueueContextController.cs" />
     <Compile Include="CommandServer\IClientTaskQueueController.cs" />
     <Compile Include="CommandServer\IClientTaskController.cs" />
     <Compile Include="CommandServer\IServerCallbackController.cs" />
@@ -37,6 +38,7 @@
     <Compile Include="CommandServer\IServerQueueController.cs" />
     <Compile Include="CommandServer\IServerSendOnlyController.cs" />
     <Compile Include="CommandServer\IServerSynchronousController.cs" />
+    <Compile Include="CommandServer\IServerTaskQueueContextController.cs" />
     <Compile Include="CommandServer\IServerTaskQueueController.cs" />
     <Compile Include="CommandServer\IServerTaskController.cs" />
     <Compile Include="CommandServer\CommandServerSessionObject.cs" />

@@ -53,9 +53,13 @@ namespace AutoCSer.Deploy
                 StartProcessDirectory(SwitchFile, arguments);
                 return;
             }
-            if (isOnlySet) SwitchWait.Set();
+            if (isOnlySet) SwitchWait.Set(switchWaitPrefix);
             else isInitialize = true;
         }
+        /// <summary>
+        /// 切换进程名称前缀，可用于区分环境版本
+        /// </summary>
+        protected virtual string switchWaitPrefix { get { return null; } }
         /// <summary>
         /// 初始化操作
         /// </summary>
@@ -78,7 +82,7 @@ namespace AutoCSer.Deploy
                 isInitialize = false;
                 await initialize();
                 exitLock = new Threading.SemaphoreSlimLock(0);
-                switchWait = new SwitchWait(switchExit);
+                switchWait = new SwitchWait(switchExit, switchWaitPrefix);
 #if !MONO
                 //Win32.Kernel32.SetErrorMode(Win32.ErrorMode.SEM_NOGPFAULTERRORBOX | Win32.ErrorMode.SEM_NOOPENFILEERRORBOX);
 #endif
@@ -114,7 +118,13 @@ namespace AutoCSer.Deploy
         /// <returns>是否成功</returns>
         public static bool StartProcessDirectory(FileInfo file, string arguments = null)
         {
-            return startProcessDirectory(file, arguments) != null;
+            System.Diagnostics.Process process = GetStartProcessDirectory(file, arguments);
+            if (process != null)
+            {
+                process.Dispose();
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 在文件当前目录启动进程
@@ -122,15 +132,49 @@ namespace AutoCSer.Deploy
         /// <param name="file">文件信息</param>
         /// <param name="arguments">执行参数</param>
         /// <returns>是否成功</returns>
-        private static System.Diagnostics.Process startProcessDirectory(FileInfo file, string arguments = null)
+        public static System.Diagnostics.Process GetStartProcessDirectory(FileInfo file, string arguments = null)
         {
-            if (file != null && file.Exists)
+            if (file != null && file.Exists) return getStartProcessDirectory(file, arguments);
+            return null;
+        }
+        /// <summary>
+        /// 在文件当前目录启动进程
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="arguments"></param>
+        /// <returns></returns>
+        private static System.Diagnostics.Process getStartProcessDirectory(FileInfo file, string arguments)
+        {
+            System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(file.FullName, arguments);
+            info.UseShellExecute = true;
+            info.WorkingDirectory = file.DirectoryName;
+            return System.Diagnostics.Process.Start(info);
+        }
+        /// <summary>
+        /// 在文件当前目录启动进程
+        /// </summary>
+        /// <param name="file">文件信息</param>
+        /// <param name="arguments">执行参数</param>
+        /// <returns>是否成功</returns>
+        public static async Task<bool> StartProcessDirectoryAsync(FileInfo file, string arguments = null)
+        {
+            System.Diagnostics.Process process = await GetStartProcessDirectoryAsync(file, arguments);
+            if (process != null)
             {
-                System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(file.FullName, arguments);
-                info.UseShellExecute = true;
-                info.WorkingDirectory = file.DirectoryName;
-                return System.Diagnostics.Process.Start(info);
+                process.Dispose();
+                return true;
             }
+            return false;
+        }
+        /// <summary>
+        /// 在文件当前目录启动进程
+        /// </summary>
+        /// <param name="file">文件信息</param>
+        /// <param name="arguments">执行参数</param>
+        /// <returns>是否成功</returns>
+        public static async Task<System.Diagnostics.Process> GetStartProcessDirectoryAsync(FileInfo file, string arguments = null)
+        {
+            if (file != null && await AutoCSer.Common.Config.FileExists(file)) return getStartProcessDirectory(file, arguments);
             return null;
         }
         /// <summary>

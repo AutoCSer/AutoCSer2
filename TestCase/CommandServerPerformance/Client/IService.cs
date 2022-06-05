@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
     /// <summary>
     /// 命令服务性能测试服务端接口
     /// </summary>
-    [AutoCSer.Net.CommandServer.CommandController(TaskQueueMaxConcurrent = 1024)]
+    [AutoCSer.Net.CommandServerController(TaskQueueMaxConcurrent = 16)]
     public interface IService
     {
         /// <summary>
@@ -16,7 +16,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false)]
+        //[CommandServerMethod(IsInitobj = false)]
         int Synchronous(int left, int right);
         /// <summary>
         /// 服务端回调返回结果
@@ -24,7 +24,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <param name="callback"></param>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false)]
+        //[CommandServerMethod(IsInitobj = false)]
         void Callback(int left, int right, CommandServerCallback<int> callback);
         /// <summary>
         /// 服务端配置队列执行返回结果
@@ -33,7 +33,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false)]
+        //[CommandServerMethod(IsInitobj = false)]
         int Queue(CommandServerCallQueue queue, int left, int right);
         /// <summary>
         /// 服务端 async 任务返回返回结果
@@ -41,7 +41,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false)]
+        //[CommandServerMethod(IsInitobj = false)]
         Task<int> Task(int left, int right);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -50,7 +50,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false)]
+        //[CommandServerMethod(IsInitobj = false)]
         Task<int> TaskQueue(CommandServerCallTaskQueue queue, int left, int right);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -60,14 +60,16 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false, IsControllerTaskQueue = false)]
+        //[CommandServerMethod(IsInitobj = false, IsControllerTaskQueue = false)]
+        [CommandServerMethod(IsControllerTaskQueue = false)]
         Task<int> TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
         /// </summary>
         /// <param name="callback"></param>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false, AutoCancelKeep = false)]
+        //[CommandServerMethod(IsInitobj = false, AutoCancelKeep = false)]
+        [CommandServerMethod(AutoCancelKeep = false)]
         void KeepCallback(CommandServerKeepCallback<int> callback);
         /// <summary>
         /// 服务端配合 KeepCallback 应答处理
@@ -75,14 +77,15 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandServerMethod(IsInitobj = false)]
+        //[CommandServerMethod(IsInitobj = false)]
         CommandServerSendOnly SendOnly(int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnlyTask 应答处理
         /// </summary>
         /// <param name="callback"></param>
-        [CommandServerMethod(IsOutputPool = true, IsInitobj = false, KeepCallbackOutputCount = 1 << 12, AutoCancelKeep = false)]
+        //[CommandServerMethod(IsInitobj = false, KeepCallbackOutputCount = 1 << 12, AutoCancelKeep = false)]
+        [CommandServerMethod(KeepCallbackOutputCount = 1 << 12, AutoCancelKeep = false)]
         void KeepCallbackCount(CommandServerKeepCallbackCount<int> callback);
         /// <summary>
         /// 服务端配合 KeepCallbackCount 应答处理
@@ -90,7 +93,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandServerMethod(IsInitobj = false)]
+        //[CommandServerMethod(IsInitobj = false)]
         Task<CommandServerSendOnly> SendOnlyTask(int left, int right);
     }
     /// <summary>
@@ -127,7 +130,11 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        async Task<int> IService.Task(int left, int right) { return left + right; }
+        async Task<int> IService.Task(int left, int right)
+        {
+            await Task.Yield();
+            return left + right;
+        }
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
@@ -135,7 +142,11 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        async Task<int> IService.TaskQueue(CommandServerCallTaskQueue queue, int left, int right) { return left + right; }
+        async Task<int> IService.TaskQueue(CommandServerCallTaskQueue queue, int left, int right)
+        {
+            await Task.Yield();
+            return left + right; 
+        }
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
@@ -144,7 +155,11 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        async Task<int> IService.TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right) { return left + right; }
+        async Task<int> IService.TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right)
+        {
+            await Task.Yield();
+            return left + right;
+        }
 
         /// <summary>
         /// 当前保持回调

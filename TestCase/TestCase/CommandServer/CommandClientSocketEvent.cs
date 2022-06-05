@@ -43,6 +43,10 @@ namespace AutoCSer.TestCase
         /// </summary>
         public IClientKeepCallbackTaskController ClientKeepCallbackTaskController { get; private set; }
         /// <summary>
+        /// 服务端 Task 队列客户端
+        /// </summary>
+        public CommandClientController<IClientTaskQueueContextController, int> ClientTaskQueueContextController { get; private set; }
+        /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
         public override IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters
@@ -57,6 +61,7 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskController), typeof(IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackTaskController), typeof(IClientKeepCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueController), typeof(IClientTaskQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueContextController), typeof(int), typeof(IClientTaskQueueContextController));
             }
         }
         /// <summary>

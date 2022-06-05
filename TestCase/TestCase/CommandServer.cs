@@ -27,6 +27,7 @@ namespace AutoCSer.TestCase
                     , CommandServerInterfaceControllerCreator.GetCreator<IServerTaskController>(new ServerTaskController())
                     , CommandServerInterfaceControllerCreator.GetCreator<IServerKeepCallbackTaskController>(new ServerKeepCallbackTaskController())
                     , CommandServerInterfaceControllerCreator.GetCreator<IServerTaskQueueController>(new ServerTaskQueueController())
+                    , CommandServerInterfaceControllerCreator.GetCreator<IServerTaskQueueContextController, int>((task, key) => new ServerTaskQueueContextController(task, key))
                     ))
                 {
                     if (!await commandListener.Start())
@@ -72,6 +73,10 @@ namespace AutoCSer.TestCase
                             return Program.Breakpoint();
                         }
                         if (!await ClientTaskQueueController.TestCase(client, clientSessionObject))
+                        {
+                            return Program.Breakpoint();
+                        }
+                        if (!await ClientTaskQueueContextController.TestCase(client, clientSessionObject))
                         {
                             return Program.Breakpoint();
                         }

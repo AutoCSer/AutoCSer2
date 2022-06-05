@@ -25,6 +25,8 @@ namespace AutoCSer.Example.CommandServer.Client
                 }
                 CommandClientSocketEvent socketEvent = (CommandClientSocketEvent)commandClient.SocketEvent;
                 await Synchronous.SynchronousController.Call(socketEvent);
+                await AsyncTaskQueueContext.SynchronousKeyController.Call(socketEvent);
+
                 Console.WriteLine("OVER");
             }
         }

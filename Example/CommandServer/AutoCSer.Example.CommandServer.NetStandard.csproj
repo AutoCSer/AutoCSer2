@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Client\AsyncTaskQueueContext\IKeepCallbackController.cs" />
+    <Compile Include="Client\AsyncTaskQueueContext\ISendOnlyController.cs" />
+    <Compile Include="Client\AsyncTaskQueueContext\ISynchronousKeyController.cs" />
     <Compile Include="Client\AsyncTaskQueue\IKeepCallbackController.cs" />
     <Compile Include="Client\AsyncTaskQueue\ISendOnlyController.cs" />
     <Compile Include="Client\AsyncTaskQueue\ISynchronousKeyController.cs" />
@@ -42,7 +45,11 @@
     <Compile Include="Client\Synchronous\IKeepCallbackController.cs" />
     <Compile Include="Client\Synchronous\ISendOnlyController.cs" />
     <Compile Include="Client\Synchronous\ISynchronousController.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Server\AsyncTaskQueueContext\IKeepCallbackController.cs" />
+    <Compile Include="Server\AsyncTaskQueueContext\ISendOnlyController.cs" />
+    <Compile Include="Server\AsyncTaskQueueContext\ISynchronousKeyController.cs" />
     <Compile Include="Server\AsyncTaskQueue\IKeepCallbackController.cs" />
     <Compile Include="Server\AsyncTaskQueue\ISendOnlyController.cs" />
     <Compile Include="Server\AsyncTaskQueue\ISynchronousKeyController.cs" />
@@ -63,7 +70,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoCSer2" Version="2.0.4" />
+    <PackageReference Include="AutoCSer2" Version="2.0.6" />
   </ItemGroup>
 
   <ItemGroup>

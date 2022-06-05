@@ -13,7 +13,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     internal abstract class Client
     {
         /// <summary>
-        /// 最大测试请求次数
+        /// 服务端同步最大测试请求次数
         /// </summary>
         protected const int maxTestCount = 1 << 26;
         /// <summary>
@@ -59,7 +59,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="testCount"></param>
         /// <param name="concurrent"></param>
         /// <returns></returns>
-        internal static int Reset(CommandClient commandClient, int testCount = maxTestCount, int concurrent = 1)
+        internal static int Reset(CommandClient commandClient, int testCount, int concurrent = 1)
         {
             Client.commandClient = commandClient;
             Client.testCount = Math.Min(testCount, maxTestCount);
