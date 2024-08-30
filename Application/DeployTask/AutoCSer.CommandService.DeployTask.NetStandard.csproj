@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.DeployTask</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.DeployTask</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DeployTask\AutoCSer.CommandService.DeployTask.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DeployTask\AutoCSer.CommandService.DeployTask.xml</DocumentationFile>
+    <DefineConstants>TRACE;NetStandard2</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CopyFileTask.cs" />
+    <Compile Include="CustomDeployTask.cs" />
+    <Compile Include="DeployTaskBuilder.cs" />
+    <Compile Include="DeployTaskClient.cs" />
+    <Compile Include="DeployTaskClientBuilder.cs" />
+    <Compile Include="DeployTaskOperationTypeEnum.cs" />
+    <Compile Include="DeployTaskService.cs" />
+    <Compile Include="FileTime.cs" />
+    <Compile Include="DeployTaskAppendResult.cs" />
+    <Compile Include="IDeployTask.cs" />
+    <Compile Include="IDeployTaskClientSocketEvent.cs" />
+    <Compile Include="IDeployTaskService.cs" />
+    <Compile Include="IDeployTaskClient.cs" />
+    <Compile Include="DeployTaskAppendStateEnum.cs" />
+    <Compile Include="DeployTaskConfig.cs" />
+    <Compile Include="DeployTaskLog.cs" />
+    <Compile Include="DeployTaskOperationStateEnum.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartProcessTask.cs" />
+    <Compile Include="TaskFileStream.cs" />
+    <Compile Include="DeployTaskUploadFileResult.cs" />
+    <Compile Include="DeployTaskUploadFileStateEnum.cs" />
+    <Compile Include="UploadFileBuffer.cs" />
+    <Compile Include="CreateUploadFileResult.cs" />
+    <Compile Include="UploadFileClient.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

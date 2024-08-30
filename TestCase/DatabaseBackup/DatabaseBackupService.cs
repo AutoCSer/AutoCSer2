@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// </summary>
         internal DatabaseBackupService()
         {
-            CatchTask.Add(DeleteFile());
+            DeleteFile().NotWait();
         }
         /// <summary>
         /// 删除历史文件
@@ -46,21 +46,21 @@ namespace AutoCSer.TestCase.DatabaseBackup
                                 {
                                     try
                                     {
-                                        await AutoCSer.Common.Config.DeleteFile(fileInfo.FullName);
+                                        await AutoCSer.Common.Config.TryDeleteFile(fileInfo.FullName);
                                     }
-                                    catch (Exception error)
+                                    catch (Exception exception)
                                     {
-                                        Console.WriteLine($"备份文件 {fileInfo.FullName} 删除失败 {error.Message}");
+                                        ConsoleWriteQueue.WriteLine($"备份文件 {fileInfo.FullName} 删除失败 {exception.Message}", ConsoleColor.Red);
                                     }
                                 }
                             }
                         }
                     }
                 }
-                catch (Exception error)
+                catch (Exception exception)
                 {
-                    Console.WriteLine(error.Message);
-                    await AutoCSer.LogHelper.Exception(error);
+                    ConsoleWriteQueue.WriteLine(exception.Message, ConsoleColor.Red);
+                    await AutoCSer.LogHelper.Exception(exception);
                 }
             }
             while (true);

@@ -15,7 +15,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         private readonly ServiceRegistryCommandClientConfig config;
         /// <summary>
-        /// 同步接口测试
+        /// 注册服务命令接口测试
         /// </summary>
         public IServiceRegistryClient ServiceRegistryClient { get; protected set; }
         /// <summary>
@@ -40,8 +40,9 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 当前套接字通过验证方法，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
         /// </summary>
+        /// <param name="socket"></param>
         /// <returns></returns>
-        protected override async Task onMethodVerified()
+        protected internal override async Task onMethodVerified(CommandClientSocket socket)
         {
             await config.OnMethodVerified(ServiceRegistryClient);
         }

@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CommandClientSocketEventTaskClient.cs" />
+    <Compile Include="PerformanceClient.cs" />
+    <Compile Include="PerformanceMessageNode.cs" />
+    <Compile Include="PerformanceSearchTreeDictionaryNode.cs" />
+    <Compile Include="PerformanceDictionaryNode.cs" />
+    <Compile Include="ServerBinaryMessageConsumer.cs" />
+    <Compile Include="SearchTreeDictionaryNode.cs" />
+    <Compile Include="BinaryMessageConsumer.cs" />
+    <Compile Include="ServerJsonBinaryMessageConsumer.cs" />
+    <Compile Include="SortedListNode.cs" />
+    <Compile Include="SortedDictionaryNode.cs" />
+    <Compile Include="SearchTreeSetNode.cs" />
+    <Compile Include="SortedSetNode.cs" />
+    <Compile Include="ServerJsonMessageConsumer.cs" />
+    <Compile Include="StringMessageConsumer.cs" />
+    <Compile Include="StackNode.cs" />
+    <Compile Include="QueueNode.cs" />
+    <Compile Include="LeftArrayNode.cs" />
+    <Compile Include="BitmapNode.cs" />
+    <Compile Include="CallbackNode.cs" />
+    <Compile Include="CommandClientSocketEvent.cs" />
+    <Compile Include="ArrayNode.cs" />
+    <Compile Include="HashSetNode.cs" />
+    <Compile Include="FragmentHashSetNode.cs" />
+    <Compile Include="FragmentDictionaryNode.cs" />
+    <Compile Include="DictionaryNode.cs" />
+    <Compile Include="HashStringFragmentDictionaryNode.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\RepairMethod\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseRepairMethod.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

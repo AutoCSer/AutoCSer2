@@ -60,17 +60,24 @@ namespace AutoCSer.TestCase
         {
             if (Value != clientSessionObject.Value)
             {
-                return Program.Breakpoint();
+                return false;
             }
             if (Ref != clientSessionObject.Ref)
             {
-                return Program.Breakpoint();
+                return false;
             }
             if (Out != clientSessionObject.Out)
             {
-                return Program.Breakpoint();
+                return false;
             }
             return true;
+        }
+
+        internal Data.ORM.BusinessModel Model;
+        internal bool Check(Data.ORM.ModelGeneric value)
+        {
+            if (value == null) return Model == null;
+            return Model != null && BinarySerialize.ModelComparor(value, Model);
         }
     }
 }

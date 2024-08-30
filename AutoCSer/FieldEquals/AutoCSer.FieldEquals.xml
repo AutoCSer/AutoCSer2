@@ -54,6 +54,14 @@
             <param name="right"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Object,System.Object)">
+            <summary>
+            对象比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Single,System.Single)">
             <summary>
             浮点数比较
@@ -70,7 +78,7 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Equals``1(``0,``0)">
+        <member name="M:AutoCSer.FieldEquals.Comparor.EquatableEquals``1(``0,``0)">
             <summary>
             对象比较
             </summary>
@@ -127,14 +135,60 @@
             <param name="rightArray"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.check(System.Boolean,System.String,System.String,System.Int32)">
+        <member name="F:AutoCSer.FieldEquals.Comparor.IsBreakpoint">
+            <summary>
+            测试断点信息添加到输出队列（DEBUG 有效）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint(System.Type,System.String,System.String,System.Int32)">
             <summary>
             检查返回数据
             </summary>
-            <param name="result"></param>
-            <param name="callerMemberName"></param>
-            <param name="callerFilePath"></param>
-            <param name="callerLineNumber"></param>
+            <param name="type">比较类型</param>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerFilePath">调用源代码文件路径</param>
+            <param name="callerLineNumber">调用源代码行号</param>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(``0,``0,System.String,System.String,System.Int32)">
+            <summary>
+            测试断点信息添加到输出队列
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerFilePath">调用源代码文件路径</param>
+            <param name="callerLineNumber">调用源代码行号</param>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(System.Type,``0,``0,System.String,System.String,System.Int32)">
+            <summary>
+            测试断点信息添加到输出队列
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="type">比较类型</param>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerFilePath">调用源代码文件路径</param>
+            <param name="callerLineNumber">调用源代码行号</param>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals``1(``0,``0)">
+            <summary>
+            对象对比
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals``1(``0,``0,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象对比
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="memberMap"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.EnumLong``1(``0,``0)">
@@ -199,17 +253,17 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.FieldEquals.Comparor`1.Equals">
+        <member name="F:AutoCSer.FieldEquals.Comparor`1.EqualsComparor">
             <summary>
             对象对比委托
             </summary>
         </member>
-        <member name="F:AutoCSer.FieldEquals.Comparor`1.MemberMapEquals">
+        <member name="F:AutoCSer.FieldEquals.Comparor`1.MemberMapEqualsComparor">
             <summary>
             对象对比委托
             </summary>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor`1.memberMapEquals(`0,`0,AutoCSer.Metadata.MemberMap)">
+        <member name="M:AutoCSer.FieldEquals.Comparor`1.MemberMapEquals(`0,`0,AutoCSer.Metadata.MemberMap{`0})">
             <summary>
             对象对比
             </summary>
@@ -232,6 +286,11 @@
             </summary>
             <returns>对象比较委托</returns>
         </member>
+        <member name="T:AutoCSer.FieldEquals.IgnoreAttribute">
+            <summary>
+            忽略成员配置
+            </summary>
+        </member>
         <member name="T:AutoCSer.FieldEquals.MemberDynamicMethod">
             <summary>
             动态函数
@@ -240,6 +299,11 @@
         <member name="F:AutoCSer.FieldEquals.MemberDynamicMethod.objectReferenceEqualsMethod">
             <summary>
             引用比较函数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.FieldEquals.MemberDynamicMethod.genericType">
+            <summary>
+            泛型类型元数据
             </summary>
         </member>
         <member name="F:AutoCSer.FieldEquals.MemberDynamicMethod.dynamicMethod">
@@ -267,11 +331,11 @@
             
             </summary>
         </member>
-        <member name="M:AutoCSer.FieldEquals.MemberDynamicMethod.#ctor(System.Type,System.Boolean)">
+        <member name="M:AutoCSer.FieldEquals.MemberDynamicMethod.#ctor(AutoCSer.Metadata.GenericType,System.Boolean)">
             <summary>
             动态函数
             </summary>
-            <param name="type"></param>
+            <param name="genericType"></param>
             <param name="isMemberMap"></param>
         </member>
         <member name="M:AutoCSer.FieldEquals.MemberDynamicMethod.Push(System.Reflection.FieldInfo)">
@@ -292,10 +356,11 @@
             基类调用
             </summary>
         </member>
-        <member name="M:AutoCSer.FieldEquals.MemberDynamicMethod.Create``1">
+        <member name="M:AutoCSer.FieldEquals.MemberDynamicMethod.Create(System.Type)">
             <summary>
             创建委托
             </summary>
+            <param name="type">委托类型</param>
             <returns>委托</returns>
         </member>
         <member name="T:AutoCSer.FieldEquals.Metadata.CollectionGenericType">
@@ -448,7 +513,7 @@
             泛型类型元数据
             </summary>
         </member>
-        <member name="P:AutoCSer.FieldEquals.Metadata.EquatableGenericType.EqualsDelegate">
+        <member name="P:AutoCSer.FieldEquals.Metadata.EquatableGenericType.EquatableEqualsDelegate">
             <summary>
             对象对比委托
             </summary>
@@ -488,7 +553,7 @@
             获取当前泛型类型
             </summary>
         </member>
-        <member name="P:AutoCSer.FieldEquals.Metadata.EquatableGenericType`1.EqualsDelegate">
+        <member name="P:AutoCSer.FieldEquals.Metadata.EquatableGenericType`1.EquatableEqualsDelegate">
             <summary>
             对象对比委托
             </summary>

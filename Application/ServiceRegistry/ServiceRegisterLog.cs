@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册日志操作类型
         /// </summary>
-        public ServiceRegisterOperationType OperationType { get; internal set; }
+        public ServiceRegisterOperationTypeEnum OperationType { get; internal set; }
         /// <summary>
         /// 单例服务强制上线等待秒数
         /// </summary>
@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService
         /// <param name="operationType">服务注册日志操作类型</param>
         /// <param name="timeoutSeconds">单例服务强制上线等待秒数</param>
         /// <param name="version">服务版本号，高版本上线将踢掉所有低版本节点</param>
-        public ServiceRegisterLog(AutoCSer.Net.CommandServerConfig config, IPEndPoint endPoint, ServiceRegisterOperationType operationType = ServiceRegisterOperationType.ClusterMain, byte timeoutSeconds = 0, uint version = 0)
+        public ServiceRegisterLog(AutoCSer.Net.CommandServerConfig config, IPEndPoint endPoint, ServiceRegisterOperationTypeEnum operationType = ServiceRegisterOperationTypeEnum.ClusterMain, byte timeoutSeconds = 0, uint version = 0)
         {
             ServiceName = config.ServiceName;
             Host = endPoint.Address.ToString();
@@ -70,42 +70,42 @@ namespace AutoCSer.CommandService
         /// 创建服务注销日志
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ServiceRegisterLog CreateLogout()
         {
             return new ServiceRegisterLog
             {
                 ServiceID = ServiceID,
                 ServiceName = ServiceName,
-                OperationType = ServiceRegisterOperationType.Logout
+                OperationType = ServiceRegisterOperationTypeEnum.Logout
             };
         }
         /// <summary>
         /// 创建失联服务日志
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal ServiceRegisterLog CreateLostContact()
         {
             return new ServiceRegisterLog
             {
                 ServiceID = ServiceID,
                 ServiceName = ServiceName,
-                OperationType = ServiceRegisterOperationType.LostContact
+                OperationType = ServiceRegisterOperationTypeEnum.LostContact
             };
         }
         /// <summary>
         /// 创建通知单例服务下线日志
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal ServiceRegisterLog CreateOffline()
         {
             return new ServiceRegisterLog
             {
                 ServiceID = ServiceID,
                 ServiceName = ServiceName,
-                OperationType = ServiceRegisterOperationType.Offline
+                OperationType = ServiceRegisterOperationTypeEnum.Offline
             };
         }
         /// <summary>
@@ -113,7 +113,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="log"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool CheckHostPort(ServiceRegisterLog log)
         {
             return Port == log.Port && Host == log.Host;

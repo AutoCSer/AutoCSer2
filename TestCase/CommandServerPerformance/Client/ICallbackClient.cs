@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="right"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         CallbackCommand Synchronous(int left, int right, Action<CommandClientReturnValue<int>> callback);
         /// <summary>
         /// 服务端回调返回结果
@@ -26,7 +26,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="right"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         CallbackCommand Callback(int left, int right, Action<CommandClientReturnValue<int>> callback);
         /// <summary>
         /// 服务端配置队列执行返回结果
@@ -35,7 +35,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="right"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         CallbackCommand Queue(int left, int right, Action<CommandClientReturnValue<int>> callback);
         /// <summary>
         /// 服务端 async 任务返回返回结果
@@ -44,7 +44,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="right"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         CallbackCommand Task(int left, int right, Action<CommandClientReturnValue<int>> callback);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -53,7 +53,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="right"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         CallbackCommand TaskQueue(int left, int right, Action<CommandClientReturnValue<int>> callback);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -63,14 +63,14 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="right"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         CallbackCommand TaskQueueKey(int queueKey, int left, int right, Action<CommandClientReturnValue<int>> callback);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
         /// </summary>
         /// <param name="callback"></param>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         KeepCallbackCommand KeepCallback(Action<CommandClientReturnValue<int>, KeepCallbackCommand> callback);
         /// <summary>
         /// 服务端配合 KeepCallback 应答处理
@@ -78,14 +78,13 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
         SendOnlyCommand SendOnly(int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnlyTask 应答处理
         /// </summary>
         /// <param name="callback"></param>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         KeepCallbackCommand KeepCallbackCount(Action<CommandClientReturnValue<int>, KeepCallbackCommand> callback);
         /// <summary>
         /// 服务端配合 KeepCallbackCount 应答处理
@@ -93,7 +92,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
         SendOnlyCommand SendOnlyTask(int left, int right);
     }
     /// <summary>
@@ -107,12 +105,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task Test()
         {
-            CommandClientConfig<ICallbackClient> commandClientConfig = new CommandClientConfig<ICallbackClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.Performance), CommandPoolBits = 16, CheckSeconds = 0 };
+            CommandClientConfig<ICallbackClient> commandClientConfig = new CommandClientConfig<ICallbackClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<ICallbackClient, IService>()))
             {
                 if (await commandClient.GetSocketAsync() == null)
                 {
-                    Console.WriteLine("ERROR");
+                    ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
                 CommandClientSocketEvent<ICallbackClient> client = (CommandClientSocketEvent<ICallbackClient>)commandClient.SocketEvent;
@@ -130,15 +128,15 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 for (int right = testCount; right != 0; await client.InterfaceController.Queue(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Queue));
 
-                testCount = Reset(commandClient, maxTestCount >> 5);
+                testCount = Reset(commandClient, maxTestCount >> 3);
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueue));
 
-                testCount = Reset(commandClient, maxTestCount >> 5);
+                testCount = Reset(commandClient, maxTestCount >> 3);
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueueKey(0, Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueueKey));
 
-                testCount = Reset(commandClient, maxTestCount);
+                testCount = Reset(commandClient, maxTestCount >> 1);
                 for (int right = testCount; right != 0; await client.InterfaceController.Task(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Task));
 

@@ -141,7 +141,7 @@ namespace AutoCSer
         /// <param name="key"></param>
         /// <param name="heapIndex"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private int getPushIndex(KT key, int heapIndex)
         {
             int* heapFixed = Heap.Int;
@@ -194,7 +194,7 @@ namespace AutoCSer
         /// 初始化索引
         /// </summary>
         /// <param name="heapFixed"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void reset(int* heapFixed)
         {
             for (int index = defaultArrayLength; index != 0; heapFixed[index] = index) --index;

@@ -10,12 +10,16 @@ namespace AutoCSer.TestCase.TimestampVerifyClient
     {
         static async Task Main(string[] args)
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.TimestampVerify) };
+            CommandClientConfig commandClientConfig = new CommandClientConfig
+            {
+                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TimestampVerify),
+                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
+            };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
                 if (await commandClient.GetSocketAsync() == null)
                 {
-                    Console.WriteLine("ERROR");
+                    ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     Console.ReadKey();
                     return;
                 }

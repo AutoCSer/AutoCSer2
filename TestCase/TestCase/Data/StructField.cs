@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.TestCase.Common.Data;
+using System;
 using System.Collections.Generic;
 
 #pragma warning disable
@@ -20,6 +21,7 @@ namespace AutoCSer.TestCase.Data
         public long Long;
         public ulong ULong;
         public DateTime DateTime;
+        public TimeSpan TimeSpan;
         public float Float;
         public double Double;
         public decimal Decimal;
@@ -36,6 +38,7 @@ namespace AutoCSer.TestCase.Data
         public long? LongNull;
         public ulong? ULongNull;
         public DateTime? DateTimeNull;
+        public TimeSpan? TimeSpanNull;
         public float? FloatNull;
         public double? DoubleNull;
         public decimal? DecimalNull;

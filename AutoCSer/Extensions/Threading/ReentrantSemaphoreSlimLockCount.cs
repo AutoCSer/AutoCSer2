@@ -8,6 +8,7 @@ namespace AutoCSer.Extensions.Threading
     /// <summary>
     /// 异步锁重入计数
     /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct ReentrantSemaphoreSlimLockCount
     {
         /// <summary>
@@ -32,7 +33,7 @@ namespace AutoCSer.Extensions.Threading
         /// </summary>
         /// <param name="semaphoreSlim"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool Enter(SemaphoreSlim semaphoreSlim)
         {
             if (object.ReferenceEquals(this.semaphoreSlim, semaphoreSlim))
@@ -47,7 +48,7 @@ namespace AutoCSer.Extensions.Threading
         /// </summary>
         /// <param name="semaphoreSlim"></param>
         /// <returns>-1 表示不匹配</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal int Exit(SemaphoreSlim semaphoreSlim)
         {
             if (object.ReferenceEquals(this.semaphoreSlim, semaphoreSlim)) return --count;

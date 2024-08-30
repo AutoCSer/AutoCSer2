@@ -32,7 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NetStandard.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

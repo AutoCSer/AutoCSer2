@@ -17,6 +17,10 @@ namespace AutoCSer.FieldEquals
         /// </summary>
         private static readonly MethodInfo objectReferenceEqualsMethod = ((Func<object, object, bool>)object.ReferenceEquals).Method;
         /// <summary>
+        /// 泛型类型元数据
+        /// </summary>
+        private readonly AutoCSer.Metadata.GenericType genericType;
+        /// <summary>
         /// 动态函数
         /// </summary>
         private DynamicMethod dynamicMethod;
@@ -39,13 +43,14 @@ namespace AutoCSer.FieldEquals
         /// <summary>
         /// 动态函数
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="genericType"></param>
         /// <param name="isMemberMap"></param>
-        public MemberDynamicMethod(Type type, bool isMemberMap)
+        public MemberDynamicMethod(AutoCSer.Metadata.GenericType genericType, bool isMemberMap)
         {
-            this.type = type;
-            if (this.isMemberMap = isMemberMap) dynamicMethod = new DynamicMethod("MemberMapEquals", typeof(bool), new Type[] { type, type, typeof(AutoCSer.Metadata.MemberMap) }, type, true);
-            else dynamicMethod = new DynamicMethod("FieldEquals", typeof(bool), new Type[] { type, type }, type, true);
+            this.genericType = genericType;
+            this.type = genericType.CurrentType;
+            if (this.isMemberMap = isMemberMap) dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "MemberMapEquals", typeof(bool), new Type[] { type, type, genericType.GetMemberMapType }, type, true);
+            else dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "FieldEquals", typeof(bool), new Type[] { type, type }, type, true);
             generator = dynamicMethod.GetILGenerator();
             if (isValueType = type.IsValueType) return;
 
@@ -85,7 +90,7 @@ namespace AutoCSer.FieldEquals
         public void Push(FieldInfo field, int memberIndex)
         {
             Label next = generator.DefineLabel();
-            generator.memberMapIsMember(OpCodes.Ldarg_2, memberIndex);
+            generator.memberMapObjectIsMember(OpCodes.Ldarg_2, memberIndex, genericType);
             generator.Emit(OpCodes.Brfalse_S, next);
             Push(field);
             generator.MarkLabel(next);
@@ -107,15 +112,16 @@ namespace AutoCSer.FieldEquals
         /// <summary>
         /// 创建委托
         /// </summary>
+        /// <param name="type">委托类型</param>
         /// <returns>委托</returns>
-        public Delegate Create<delegateType>()
+        public Delegate Create(Type type)
         {
             if (isMemberMap)
             {
                 generator.Emit(OpCodes.Ldc_I4_1);
                 generator.Emit(OpCodes.Ret);
             }
-            return dynamicMethod.CreateDelegate(typeof(delegateType));
+            return dynamicMethod.CreateDelegate(type);
         }
     }
 }

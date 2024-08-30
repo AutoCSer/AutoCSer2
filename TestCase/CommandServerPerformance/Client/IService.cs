@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
     /// <summary>
     /// 命令服务性能测试服务端接口
     /// </summary>
-    [AutoCSer.Net.CommandServerController(TaskQueueMaxConcurrent = 16)]
+    [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 16)]
     public interface IService
     {
         /// <summary>
@@ -101,7 +101,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
     /// </summary>
     internal sealed class Service : IService
     {
-        private static CommandServerSocket socket;
+        //private static CommandServerSocket socket;
         /// <summary>
         /// 服务端同步返回结果
         /// </summary>
@@ -130,10 +130,9 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        async Task<int> IService.Task(int left, int right)
+        Task<int> IService.Task(int left, int right)
         {
-            await Task.Yield();
-            return left + right;
+            return Task.FromResult(left + right);
         }
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -142,10 +141,9 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        async Task<int> IService.TaskQueue(CommandServerCallTaskQueue queue, int left, int right)
+        Task<int> IService.TaskQueue(CommandServerCallTaskQueue queue, int left, int right)
         {
-            await Task.Yield();
-            return left + right; 
+            return Task.FromResult(left + right); 
         }
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -155,10 +153,9 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        async Task<int> IService.TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right)
+        Task<int> IService.TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right)
         {
-            await Task.Yield();
-            return left + right;
+            return Task.FromResult(left + right);
         }
 
         /// <summary>

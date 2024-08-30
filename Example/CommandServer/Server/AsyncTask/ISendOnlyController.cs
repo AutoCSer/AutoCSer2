@@ -36,22 +36,20 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>返回值类型必须为 AutoCSer.Net.CommandServerSendOnly</returns>
-        async Task<CommandServerSendOnly> ISendOnlyController.SendOnly(CommandServerSocket socket, int parameter1, int parameter2)
+        Task<CommandServerSendOnly> ISendOnlyController.SendOnly(CommandServerSocket socket, int parameter1, int parameter2)
         {
-            await Task.Yield();
             Console.WriteLine(parameter1 + parameter2);
-            return null;
+            return Task.FromResult((CommandServerSendOnly)null);
         }
         /// <summary>
         /// 不返回数据（不应答客户端）
         /// </summary>
         /// <param name="parameter">参数</param>
         /// <returns>返回值类型必须为 AutoCSer.Net.CommandServerSendOnly</returns>
-        async Task<CommandServerSendOnly> ISendOnlyController.SendOnly(int parameter)
+        Task<CommandServerSendOnly> ISendOnlyController.SendOnly(int parameter)
         {
-            await Task.Yield();
             Console.WriteLine(parameter);
-            return null;
+            return Task.FromResult((CommandServerSendOnly)null);
         }
     }
 }

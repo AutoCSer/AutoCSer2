@@ -49,7 +49,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
                         command.CommandType = CommandType.Text;
                         using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleResult))
                         {
-                            while (reader.Read()) names.Add((string)reader[0]);
+                            while (reader.Read()) names.Add(reader.GetString(0));
                         }
                     }
                     if (names.Count != 0)

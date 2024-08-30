@@ -34,7 +34,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组写入是否完成</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool Add(T value)
         {
             Array[Index++] = value;
@@ -45,7 +45,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组位置</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal int AddDesc(T value)
         {
             Array[--Index] = value;
@@ -88,7 +88,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组写入是否完成</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool Add(VT value)
         {
             Array[Index++] = GetValue(value);
@@ -99,7 +99,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组位置</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal int AddDesc(VT value)
         {
             Array[--Index] = GetValue(value);

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>
@@ -88,7 +89,7 @@ namespace AutoCSer.TestCase
     /// </summary>
     internal static class ClientKeepCallbackTaskController
     {
-        private static async Task<bool> callback(EnumeratorCommand<string> enumeratorCommand, CommandServerSessionObject clientSessionObject)
+        internal static async Task<bool> Callback(EnumeratorCommand<string> enumeratorCommand, CommandServerSessionObject clientSessionObject)
         {
             int index = 0;
             while (await enumeratorCommand.MoveNext())
@@ -96,59 +97,59 @@ namespace AutoCSer.TestCase
                 string value = enumeratorCommand.Current;
                 if (index == 0 && !ServerSynchronousController.SessionObject.Check(clientSessionObject))
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 if (value != (ServerSynchronousController.SessionObject.Xor() + index).ToString())
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 ++index;
             }
-            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnType.Success)
+            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnTypeEnum.Success)
             {
-                return Program.Breakpoint();
+                return false;
             }
             return true;
         }
-        private static async Task<bool> callback(IAsyncEnumerable<string> asyncEnumerable, CommandServerSessionObject clientSessionObject)
+        internal static async Task<bool> Callback(IAsyncEnumerable<string> asyncEnumerable, CommandServerSessionObject clientSessionObject)
         {
             int index = 0;
             await foreach(string value in asyncEnumerable)
             {
                 if (index == 0 && !ServerSynchronousController.SessionObject.Check(clientSessionObject))
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 if (value != (ServerSynchronousController.SessionObject.Xor() + index).ToString())
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 ++index;
             }
             if (index != ServerKeepCallbackController.KeepCallbackCount)
             {
-                return Program.Breakpoint();
+                return false;
             }
             return true;
         }
-        private static async Task<bool> callback(EnumeratorCommand enumeratorCommand, CommandServerSessionObject clientSessionObject)
+        internal static async Task<bool> Callback(EnumeratorCommand enumeratorCommand, CommandServerSessionObject clientSessionObject)
         {
             int index = 0;
             while (await enumeratorCommand.MoveNext())
             {
                 if (index == 0 && !ServerSynchronousController.SessionObject.Check(clientSessionObject))
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 ++index;
             }
-            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnType.Success)
+            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnTypeEnum.Success)
             {
-                return Program.Breakpoint();
+                return false;
             }
             return true;
         }
-        private static async Task<bool> callback(EnumeratorQueueCommand<string> enumeratorCommand, CommandServerSessionObject clientSessionObject)
+        internal static async Task<bool> Callback(EnumeratorQueueCommand<string> enumeratorCommand, CommandServerSessionObject clientSessionObject)
         {
             int index = 0;
             while (await enumeratorCommand.MoveNext())
@@ -156,34 +157,34 @@ namespace AutoCSer.TestCase
                 string value = enumeratorCommand.Current;
                 if (index == 0 && !ServerSynchronousController.SessionObject.Check(clientSessionObject))
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 if (value != (ServerSynchronousController.SessionObject.Xor() + index).ToString())
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 ++index;
             }
-            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnType.Success)
+            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnTypeEnum.Success)
             {
-                return Program.Breakpoint();
+                return false;
             }
             return true;
         }
-        private static async Task<bool> callback(EnumeratorQueueCommand enumeratorCommand, CommandServerSessionObject clientSessionObject)
+        internal static async Task<bool> Callback(EnumeratorQueueCommand enumeratorCommand, CommandServerSessionObject clientSessionObject)
         {
             int index = 0;
             while (await enumeratorCommand.MoveNext())
             {
                 if (index == 0 && !ServerSynchronousController.SessionObject.Check(clientSessionObject))
                 {
-                    return Program.Breakpoint();
+                    return false;
                 }
                 ++index;
             }
-            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnType.Success)
+            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnTypeEnum.Success)
             {
-                return Program.Breakpoint();
+                return false;
             }
             return true;
         }
@@ -199,353 +200,353 @@ namespace AutoCSer.TestCase
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             EnumeratorCommand<string> enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             EnumeratorCommand enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackTaskSocket(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackTaskSocket();
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackTask(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackTask();
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskSocket(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskSocket();
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackCountTask(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommand = await client.ClientKeepCallbackTaskController.KeepCallbackCountTask();
-            if (!await callback(enumeratorCommand, clientSessionObject))
+            if (!await Callback(enumeratorCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
 #if !DotNet45 && !NetStandard2
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             IAsyncEnumerable<string> asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturnAsync();
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackTaskReturnAsync();
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackCountTaskSocketReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackCountTaskSocketReturnAsync();
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackCountTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackCountTaskReturnAsync();
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             asyncEnumerable = client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             asyncEnumerable = client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturnAsync();
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             asyncEnumerable = client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             asyncEnumerable = client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturnAsync();
-            if (!await callback(asyncEnumerable, clientSessionObject))
+            if (!await Callback(asyncEnumerable, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 #endif
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             EnumeratorQueueCommand<string> enumeratorQueueCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             EnumeratorQueueCommand enumeratorQueueCommand = await client.ClientKeepCallbackTaskController.KeepCallbackTaskQueueSocket(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommand, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorQueueCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorQueueCommand = await client.ClientKeepCallbackTaskController.KeepCallbackTaskQueue(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommand, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorQueueCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorQueueCommand = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskQueueSocket(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommand, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorQueueCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorQueueCommand = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskQueue(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorQueueCommand, clientSessionObject))
+            if (!await Callback(enumeratorQueueCommand, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
 #if !DotNet45 && !NetStandard2
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableSocketReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableReturn();
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
-            if (!await callback(enumeratorCommandReturn, clientSessionObject))
+            if (!await Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 #endif
             return true;

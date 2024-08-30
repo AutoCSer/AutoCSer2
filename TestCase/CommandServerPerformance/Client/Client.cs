@@ -33,9 +33,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private static int callbackCount;
         /// <summary>
-        /// 测试计时器
+        /// 计时开始时间错
         /// </summary>
-        private static readonly Stopwatch time = new Stopwatch();
+        private static long startTimestamp;
         /// <summary>
         /// 测试完毕等待锁
         /// </summary>
@@ -67,7 +67,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             Array.Clear(checkMap, 0, checkMap.Length);
             errorCount = 0;
             callbackCount = testCount;
-            time.Restart();
+            startTimestamp = Stopwatch.GetTimestamp();
             return Client.testCount;
         }
         /// <summary>
@@ -119,10 +119,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// 测试回调验证委托
         /// </summary>
         internal static readonly Action<CommandClientReturnValue<int>, KeepCallbackCommand> CheckSynchronousKeepCallbackHandle = checkSynchronous;
-        /// <summary>
-        /// 测试随机回调验证锁
-        /// </summary>
-        private static AutoCSer.Threading.SpinLock checkLock;
+        ///// <summary>
+        ///// 测试随机回调验证锁
+        ///// </summary>
+        //private static AutoCSer.Threading.SpinLock checkLock;
         /// <summary>
         /// 测试随机回调验证
         /// </summary>
@@ -158,7 +158,8 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task LoopCompleted(string clientTypeName, string serverMethodName)
         {
-            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName} Loop Completed {time.ElapsedMilliseconds.toString()}ms");
+            long milliseconds = AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp);
+            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName} Loop Completed {milliseconds.toString()}ms");
             await Wait(clientTypeName, serverMethodName);
         }
         /// <summary>
@@ -170,9 +171,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         internal static async Task Wait(string clientTypeName, string serverMethodName)
         {
             await waitLock.WaitAsync();
+            long milliseconds = AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp);
             string concurrentMessasge = concurrent == 1 ? null : $" {concurrent.toString()} Concurrent";
-            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName}{concurrentMessasge} Completed {time.ElapsedMilliseconds.toString()}ms {(testCount / time.ElapsedMilliseconds).toString()}/ms");
-            if (errorCount != 0) Console.WriteLine($"ERROR {errorCount}");
+            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName}{concurrentMessasge} Completed {milliseconds.toString()}ms {(testCount / milliseconds).toString()}/ms");
+            if (errorCount != 0) ConsoleWriteQueue.WriteLine($"ERROR {errorCount}", ConsoleColor.Red);
             await Task.Delay(1000);
         }
     }

@@ -12,7 +12,6 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
         /// 获取当前服务测试版本
         /// </summary>
         /// <returns>服务测试版本</returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
-        ReturnCommand<int> GetVersion();
+        ReturnCommand<uint> GetVersion();
     }
 }

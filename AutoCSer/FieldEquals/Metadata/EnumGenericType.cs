@@ -19,7 +19,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="UT"></typeparam>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static EnumGenericType create<T, UT>()
             where T : struct, IConvertible
@@ -67,14 +67,14 @@ namespace AutoCSer.FieldEquals.Metadata
             {
                 switch (AutoCSer.Metadata.EnumGenericType<T, UT>.UnderlyingType)
                 {
-                    case AutoCSer.Metadata.UnderlyingType.Int: return (Func<T, T, bool>)Comparor.EnumInt<T>;
-                    case AutoCSer.Metadata.UnderlyingType.UInt: return (Func<T, T, bool>)Comparor.EnumUInt<T>;
-                    case AutoCSer.Metadata.UnderlyingType.Byte: return (Func<T, T, bool>)Comparor.EnumByte<T>;
-                    case AutoCSer.Metadata.UnderlyingType.ULong: return (Func<T, T, bool>)Comparor.EnumULong<T>;
-                    case AutoCSer.Metadata.UnderlyingType.UShort: return (Func<T, T, bool>)Comparor.EnumUShort<T>;
-                    case AutoCSer.Metadata.UnderlyingType.Long: return (Func<T, T, bool>)Comparor.EnumLong<T>;
-                    case AutoCSer.Metadata.UnderlyingType.Short: return (Func<T, T, bool>)Comparor.EnumShort<T>;
-                    case AutoCSer.Metadata.UnderlyingType.SByte: return (Func<T, T, bool>)Comparor.EnumSByte<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Int: return (Func<T, T, bool>)Comparor.EnumInt<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UInt: return (Func<T, T, bool>)Comparor.EnumUInt<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Byte: return (Func<T, T, bool>)Comparor.EnumByte<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.ULong: return (Func<T, T, bool>)Comparor.EnumULong<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UShort: return (Func<T, T, bool>)Comparor.EnumUShort<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Long: return (Func<T, T, bool>)Comparor.EnumLong<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Short: return (Func<T, T, bool>)Comparor.EnumShort<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.SByte: return (Func<T, T, bool>)Comparor.EnumSByte<T>;
                     default: return (Func<T, T, bool>)Comparor.EnumInt<T>;
                 }
             }

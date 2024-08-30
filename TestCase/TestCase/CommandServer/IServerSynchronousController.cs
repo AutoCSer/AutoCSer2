@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>
@@ -19,7 +20,7 @@ namespace AutoCSer.TestCase
         void SynchronousSocket(CommandServerSocket socket, int Value, ref int Ref, out long Out);
         void SynchronousSocket(CommandServerSocket socket, int Value, ref int Ref);
         void SynchronousSocket(CommandServerSocket socket, int Value, out long Out);
-        CommandServerVerifyState SynchronousSocket(CommandServerSocket socket, int Value);
+        CommandServerVerifyStateEnum SynchronousSocket(CommandServerSocket socket, int Value);
         void SynchronousSocket(CommandServerSocket socket, ref int Ref, out long Out);
         void SynchronousSocket(CommandServerSocket socket, ref int Ref);
         void SynchronousSocket(CommandServerSocket socket, out long Out);
@@ -91,11 +92,11 @@ namespace AutoCSer.TestCase
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, out Out);
         }
-        CommandServerVerifyState IServerSynchronousController.SynchronousSocket(CommandServerSocket socket, int Value)
+        CommandServerVerifyStateEnum IServerSynchronousController.SynchronousSocket(CommandServerSocket socket, int Value)
         {
             socket.SessionObject = SessionObject = new CommandServerSessionObject();
             SessionObject.Xor(Value);
-            return CommandServerVerifyState.Success;
+            return CommandServerVerifyStateEnum.Success;
         }
         void IServerSynchronousController.SynchronousSocket(CommandServerSocket socket, ref int Ref, out long Out)
         {

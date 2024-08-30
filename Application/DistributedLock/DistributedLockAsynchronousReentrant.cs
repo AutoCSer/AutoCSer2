@@ -1,16 +1,16 @@
 ﻿using AutoCSer.CommandService.DistributedLock;
 using System;
 using System.Threading.Tasks;
+#if DotNet45 || NetStandard2
+using ValueTask = System.Threading.Tasks.Task;
+#endif
 
 namespace AutoCSer.CommandService
 {
     /// <summary>
     /// 异步可重入锁释放对象（非线程安全，不支持多线程并发操作同一个异步上下文）
     /// </summary>
-    public sealed class DistributedLockAsynchronousReentrant : IDisposable
-#if !DotNet45 && !NetStandard2
-        , IAsyncDisposable
-#endif
+    public sealed class DistributedLockAsynchronousReentrant : IDisposable, IAsyncDisposable
     {
         /// <summary>
         /// 异步可重入锁计数
@@ -39,21 +39,11 @@ namespace AutoCSer.CommandService
                 reentrantLockCount.Release();
             }
         }
-#if !DotNet45 && !NetStandard2
         /// <summary>
         /// 释放锁
         /// </summary>
         /// <returns></returns>
         public async ValueTask DisposeAsync()
-        {
-            await ReleaseAsync();
-        }
-#endif
-        /// <summary>
-        /// 释放锁
-        /// </summary>
-        /// <returns></returns>
-        public async Task ReleaseAsync()
         {
             if (!isRelease)
             {

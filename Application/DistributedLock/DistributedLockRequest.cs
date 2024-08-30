@@ -2,6 +2,9 @@
 using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;
+#if DotNet45 || NetStandard2
+using ValueTask = System.Threading.Tasks.Task;
+#endif
 
 namespace AutoCSer.CommandService
 {
@@ -9,10 +12,7 @@ namespace AutoCSer.CommandService
     /// 锁请求对象
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class DistributedLockRequest<T> : IDisposable, IDistributedLockRequest
-#if !DotNet45 && !NetStandard2
-        , IAsyncDisposable
-#endif
+    public sealed class DistributedLockRequest<T> : IDisposable, IAsyncDisposable, IDistributedLockRequest
         where T : IEquatable<T>
     {
         /// <summary>
@@ -56,31 +56,21 @@ namespace AutoCSer.CommandService
             {
                 this.requestID = 0;
                 client.RemoveRequest(this);
-                client.DistributedLockClient.Release(key, requestID);
+                client.DistributedLockClient.Release(key, requestID, null);
             }
         }
-#if !DotNet45 && !NetStandard2
         /// <summary>
         /// 释放锁
         /// </summary>
         /// <returns></returns>
         async ValueTask IAsyncDisposable.DisposeAsync()
         {
-            await ReleaseAsync();
-        }
-#endif
-        /// <summary>
-        /// 释放锁
-        /// </summary>
-        /// <returns></returns>
-        public async Task ReleaseAsync()
-        {
             long requestID = this.requestID;
             if (requestID != 0)
             {
                 this.requestID = 0;
                 client.RemoveRequest(this);
-                await client.DistributedLockClient.ReleaseAsync(key, requestID);
+                await client.DistributedLockClient.Release(key, requestID);
             }
         }
         /// <summary>
@@ -95,20 +85,10 @@ namespace AutoCSer.CommandService
         /// 保持心跳延长锁自动超时
         /// </summary>
         /// <returns>失败表示锁已经被释放</returns>
-        public async Task<CommandClientReturnValue<bool>> KeepAsync()
+        public async Task<CommandClientReturnValue<bool>> Keep()
         {
             long requestID = this.requestID;
-            if (requestID != 0) return await client.DistributedLockClient.KeepAsync(key, requestID);
-            return false;
-        }
-        /// <summary>
-        /// 保持心跳延长锁自动超时
-        /// </summary>
-        /// <returns>失败表示锁已经被释放</returns>
-        public CommandClientReturnValue<bool> Keep()
-        {
-            long requestID = this.requestID;
-            if (requestID != 0) return client.DistributedLockClient.Keep(key, requestID);
+            if (requestID != 0) return await client.DistributedLockClient.Keep(key, requestID);
             return false;
         }
 

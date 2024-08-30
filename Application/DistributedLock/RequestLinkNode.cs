@@ -5,6 +5,7 @@ namespace AutoCSer.CommandService.DistributedLock
     /// <summary>
     /// 锁请求链表节点
     /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct RequestLinkNode
     {
         /// <summary>

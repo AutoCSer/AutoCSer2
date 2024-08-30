@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using AutoCSer;
 
 namespace AutoCSer.RandomObject
@@ -9,6 +10,22 @@ namespace AutoCSer.RandomObject
     /// </summary>
     public class Config
     {
+        /// <summary>
+        /// 最小时间值
+        /// </summary>
+        public DateTime MinDateTime = DateTime.MinValue;
+        /// <summary>
+        /// 最大时间值
+        /// </summary>
+        public DateTime MaxDateTime = DateTime.MaxValue;
+        /// <summary>
+        /// 最小数字
+        /// </summary>
+        public decimal MinDecimal = decimal.MinValue;
+        /// <summary>
+        /// 最大数字
+        /// </summary>
+        public decimal MaxDecimal = decimal.MaxValue;
         /// <summary>
         /// 数组最大容量，默认为 15
         /// </summary>
@@ -22,6 +39,10 @@ namespace AutoCSer.RandomObject
         /// </summary>
         public bool IsParseFloat;
         /// <summary>
+        /// 字符是否ASCII
+        /// </summary>
+        public bool IsAscii;
+        /// <summary>
         /// 是否生成字符0
         /// </summary>
         public bool IsNullChar = true;
@@ -29,6 +50,15 @@ namespace AutoCSer.RandomObject
         /// 是否保存历史对象
         /// </summary>
         public bool IsHistory = true;
+        /// <summary>
+        /// 获取自定义生成委托
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public virtual Delegate GetCustomCreator(Type type)
+        {
+            return null;
+        }
         /// <summary>
         /// 创建不支持对象
         /// </summary>
@@ -41,7 +71,7 @@ namespace AutoCSer.RandomObject
         /// <summary>
         /// 历史对象集合
         /// </summary>
-        private Dictionary<HashType, ListArray<object>> history;
+        private Dictionary<HashObject<System.Type>, ListArray<object>> history;
         /// <summary>
         /// 获取历史对象
         /// </summary>
@@ -65,7 +95,7 @@ namespace AutoCSer.RandomObject
         {
             if (!IsHistory || value == null) return;
             ListArray<object> objects;
-            if (history == null) history = DictionaryCreator.CreateHashType<ListArray<object>>();
+            if (history == null) history = DictionaryCreator.CreateHashObject<System.Type, ListArray<object>>();
             if (!history.TryGetValue(type, out objects)) history.Add(type, objects = new ListArray<object>());
             objects.Add(value);
         }
@@ -74,7 +104,32 @@ namespace AutoCSer.RandomObject
         /// </summary>
         internal void ClearHistory()
         {
-            if (history?.Count > 0) history = DictionaryCreator.CreateHashType<ListArray<object>>();
+            if (history?.Count > 0) history = DictionaryCreator.CreateHashObject<System.Type, ListArray<object>>();
+        }
+
+        /// <summary>
+        /// 创建字符串
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public string CreateString(char start, char end)
+        {
+            int length = Math.Abs(AutoCSer.Random.Default.Next(MaxArraySize)) + 1;
+            char[] charArray = new char[length];
+            int mod = end - start + 1;
+            if (mod <= 0) mod += char.MaxValue + 1;
+            while (length != 0) charArray[--length] = (char)(AutoCSer.Random.Default.NextUShort() % mod + start);
+            return new string(charArray);
+        }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public DateTime CreateDateTime()
+        {
+            return Creator.CreateDateTime(this);
         }
     }
 }

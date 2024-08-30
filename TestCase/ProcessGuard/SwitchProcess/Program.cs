@@ -16,9 +16,9 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
             {
                 await new Program(args).Start();
             }
-            catch (Exception error)
+            catch (Exception exception)
             {
-                Console.WriteLine(error.ToString());
+                ConsoleWriteQueue.WriteLine(exception.ToString(), ConsoleColor.Red);
                 Console.ReadLine();
             }
         }
@@ -35,20 +35,21 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
         /// 获取守护进程客户端配置
         /// </summary>
         /// <returns></returns>
-        protected override ProcessGuardCommandClientConfig getCommandClientConfig()
+        protected override CommandClientConfig getCommandClientConfig()
         {
-            return new ProcessGuardCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ProcessGuard) };
+            return new ProcessGuardCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ProcessGuard) };
         }
         /// <summary>
         /// 创建守护进程客户端后续处理
         /// </summary>
         /// <returns></returns>
-        protected override async Task onProcessGuardClient()
+        protected override Task onProcessGuardClient()
         {
             AutoCSer.Threading.CatchTask.AddIgnoreException(startSwitch());
             Console.WriteLine("Press quit to exit.");
             while (Console.ReadLine() != "quit") ;
             exitLock.Exit();
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 模拟发布启动切换进程
@@ -57,12 +58,12 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
         private async Task startSwitch()
         {
             await Task.Yield();
-            DirectoryInfo directory = new DirectoryInfo(AutoCSer.Common.ApplicationPath);
+            DirectoryInfo directory = AutoCSer.Common.ApplicationDirectory;
             if (directory.Name == SwitchProcess.DefaultSwitchDirectoryName) directory = directory.Parent;
             else
             {
                 DirectoryInfo switchDirectory = new DirectoryInfo(Path.Combine(directory.FullName, SwitchProcess.DefaultSwitchDirectoryName));
-                if (!await AutoCSer.Common.Config.DirectoryExists(switchDirectory)) await AutoCSer.Common.Config.CreateDirectory(switchDirectory);
+                if (!await AutoCSer.Common.Config.DirectoryExists(switchDirectory)) await AutoCSer.Common.Config.TryCreateDirectory(switchDirectory);
                 foreach(FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(directory))
                 {
                     try
@@ -77,7 +78,7 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
             Console.WriteLine(switchFile);
             if (!await AutoCSer.Common.Config.FileExists(switchFile))
             {
-                Console.WriteLine("没有找到切换进程文件");
+                ConsoleWriteQueue.WriteLine("没有找到切换进程文件", ConsoleColor.Red);
                 return;
             }
             for (int count = 10; count != 0;)

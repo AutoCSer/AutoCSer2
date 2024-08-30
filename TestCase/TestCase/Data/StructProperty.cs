@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.TestCase.Common.Data;
+using System;
 using System.Collections.Generic;
 
 namespace AutoCSer.TestCase.Data
@@ -19,6 +20,7 @@ namespace AutoCSer.TestCase.Data
         public long Long { get; set; }
         public ulong ULong { get; set; }
         public DateTime DateTime { get; set; }
+        public TimeSpan TimeSpan { get; set; }
         public float Float { get; set; }
         public double Double { get; set; }
         public decimal Decimal { get; set; }
@@ -35,6 +37,7 @@ namespace AutoCSer.TestCase.Data
         public long? LongNull { get; set; }
         public ulong? ULongNull { get; set; }
         public DateTime? DateTimeNull { get; set; }
+        public TimeSpan? TimeSpanNull { get; set; }
         public float? FloatNull { get; set; }
         public double? DoubleNull { get; set; }
         public decimal? DecimalNull { get; set; }

@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>AutoCSer.Search</AssemblyName>
+    <RootNamespace>AutoCSer.Search</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\Search\AutoCSer.Search.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\Search\AutoCSer.Search.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ArrayPool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchResult.cs" />
+    <Compile Include="SearchCharResult.cs" />
+    <Compile Include="WordCountIndexs\SearchResult.cs" />
+    <Compile Include="WordIndexs\QueueContext.cs" />
+    <Compile Include="Memory\Unmanaged.cs" />
+    <Compile Include="ResultIndexs.cs" />
+    <Compile Include="SegmenterWordTextTypeEnum.cs" />
+    <Compile Include="Simplified.cs" />
+    <Compile Include="StaticSearcher.cs" />
+    <Compile Include="StaticSearcherQueueContext.cs" />
+    <Compile Include="StaticStringTrieGraph.cs" />
+    <Compile Include="StaticStringTrieGraphBuilder.cs" />
+    <Compile Include="StaticTrieGraph.cs" />
+    <Compile Include="StaticTrieGraphNode.cs" />
+    <Compile Include="StringTrieGraph.cs" />
+    <Compile Include="TrieGraph.cs" />
+    <Compile Include="TrieGraphBuilder.cs" />
+    <Compile Include="TrieGraphBuilderThread.cs" />
+    <Compile Include="TrieGraphNode.cs" />
+    <Compile Include="WordIndexs\SearchResult.cs" />
+    <Compile Include="WordIndexs\StaticSearcher.cs" />
+    <Compile Include="WordCountIndexs\QueueContext.cs" />
+    <Compile Include="WordCountIndexs\StaticSearcher.cs" />
+    <Compile Include="WordCountIndexs\WordCounter.cs" />
+    <Compile Include="WordTypeEnum.cs" />
+    <Compile Include="WordTypePoolIndex.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

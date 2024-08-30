@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>
@@ -44,156 +45,156 @@ namespace AutoCSer.TestCase
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnlySocket(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             if (!await client.ClientSendOnlyController.SendOnlySocket())
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnly(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             if (!await client.ClientSendOnlyController.SendOnly())
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnlyQueueSocket(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             if (!await client.ClientSendOnlyController.SendOnlyQueueSocket())
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnlyQueue(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             if (!await client.ClientSendOnlyController.SendOnlyQueue())
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnlyTaskSocket(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             if (!await client.ClientSendOnlyController.SendOnlyTaskSocket())
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnlyTask(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             if (!await client.ClientSendOnlyController.SendOnlyTask())
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnlyTaskQueueSocket(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ClientSendOnlyController.SendOnlyTaskQueue(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return Program.Breakpoint();
+                return false;
             }
             await ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             return true;

@@ -22,7 +22,7 @@ namespace AutoCSer.SearchTree
         /// 添加数据
         /// </summary>
         /// <param name="value"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Add(T value)
         {
             if (IsValue(value)) Array.Add(value);

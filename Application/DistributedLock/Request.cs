@@ -52,7 +52,7 @@ namespace AutoCSer.CommandService.DistributedLock
         /// <param name="lockManager">分布式锁管理器</param>
         /// <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
         public Request(DistributedLockController controller, DistributedLockManager lockManager, int releaseSeconds)
-            : base(AutoCSer.Threading.SecondTimer.TaskArray, SecondTimerTaskThreadMode.Synchronous, SecondTimerKeepMode.After)
+            : base(AutoCSer.Threading.SecondTimer.TaskArray, SecondTimerTaskThreadModeEnum.Synchronous, SecondTimerKeepModeEnum.After)
         {
             this.controller = controller;
             this.LockManager = lockManager;
@@ -116,27 +116,27 @@ namespace AutoCSer.CommandService.DistributedLock
         /// <summary>
         /// 释放锁
         /// </summary>
-        protected override void OnTimer()
+        protected internal override void OnTimer()
         {
-            if (keepTimeoutSeconds == 0) controller.Controller.AddQueue(new RequestTimeout(this, RequestTimeoutType.Release));
+            if (keepTimeoutSeconds == 0) controller.Controller.CallQueue.AddOnly(new RequestTimeout(this, RequestTimeoutTypeEnum.Release));
         }
         /// <summary>
         /// 等待超时处理
         /// </summary>
         internal void WaitTimeout()
         {
-            if (!isLock) controller.Controller.AddQueue(new RequestTimeout(this, RequestTimeoutType.Wait));
+            if (!isLock) controller.Controller.CallQueue.AddOnly(new RequestTimeout(this, RequestTimeoutTypeEnum.Wait));
         }
         /// <summary>
         /// 超时处理
         /// </summary>
         /// <param name="type">请求超时处理类型</param>
-        internal void Timeout(RequestTimeoutType type)
+        internal void Timeout(RequestTimeoutTypeEnum type)
         {
             switch (type)
             {
-                case RequestTimeoutType.Release: LockManager.Release(this); break;
-                case RequestTimeoutType.Wait:
+                case RequestTimeoutTypeEnum.Release: LockManager.Release(this); break;
+                case RequestTimeoutTypeEnum.Wait:
                     if (!isLock)
                     {
                         isTimeout = true;

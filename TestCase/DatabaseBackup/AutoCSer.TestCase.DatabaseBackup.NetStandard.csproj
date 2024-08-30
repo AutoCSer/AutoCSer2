@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.DatabaseBackup</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.DatabaseBackup</RootNamespace>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -34,6 +34,7 @@
     <ProjectReference Include="..\..\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

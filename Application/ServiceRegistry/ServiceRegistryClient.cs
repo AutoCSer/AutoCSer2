@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService
         private ServiceRegistryClient(ServiceRegistryCommandClientConfig commandClientConfig)
         {
             commandClientConfig.Client = this;
-            CommandClient = commandClientConfig.CreateCommandClient();
+            CommandClient = new CommandClient(commandClientConfig);
         }
         /// <summary>
         /// 连接初始化
@@ -98,7 +98,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual async Task ServiceRestierAgainLogCallbackFail(string serviceName)
         {
-            await CommandClient.Log.Error($"服务注册客户端重连获取服务 {serviceName} 注册日志失败", LogLevel.AutoCSer | LogLevel.Fatal | LogLevel.Error);
+            await CommandClient.Log.Error($"服务注册客户端重连获取服务 {serviceName} 注册日志失败", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
         }
         /// <summary>
         /// 服务注册客户端重连注册服务失败
@@ -108,7 +108,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual async Task ServiceRestierAgainFail(string serviceName, CommandClientReturnValue returnValue)
         {
-            await CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {returnValue.IsSuccess} {returnValue.ErrorMessage}", LogLevel.AutoCSer | LogLevel.Fatal | LogLevel.Error);
+            await CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {returnValue.IsSuccess} {returnValue.ErrorMessage}", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
         }
         /// <summary>
         /// 服务注册客户端重连注册服务失败
@@ -116,9 +116,9 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        public virtual async Task ServiceRestierAgainFail(string serviceName, ServiceRegisterState state)
+        public virtual async Task ServiceRestierAgainFail(string serviceName, ServiceRegisterStateEnum state)
         {
-            await CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {state}", LogLevel.AutoCSer | LogLevel.Fatal | LogLevel.Error);
+            await CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {state}", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
         }
         /// <summary>
         /// 不可识别服务注册日志操作类型
@@ -126,7 +126,7 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         public virtual void UnrecognizableOperationType(ServiceRegisterLog log)
         {
-            CatchTask.AddIgnoreException(CommandClient.Log.Error($"不可识别服务 {log.ServiceName} 注册日志操作类型 {log.OperationType}", LogLevel.AutoCSer | LogLevel.Fatal | LogLevel.Error));
+            CommandClient.Log.ErrorIgnoreException($"不可识别服务 {log.ServiceName} 注册日志操作类型 {log.OperationType}", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
         }
         /// <summary>
         /// 服务注册客户端重连注册服务失败
@@ -136,7 +136,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual async Task ServiceRestierLogoutFail(string serviceName, CommandClientReturnValue returnValue)
         {
-            await CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {returnValue.ReturnType} {returnValue.ErrorMessage}", LogLevel.AutoCSer | LogLevel.Debug | LogLevel.Warn | LogLevel.Info);
+            await CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {returnValue.ReturnType} {returnValue.ErrorMessage}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn | LogLevelEnum.Info);
         }
         /// <summary>
         /// 服务注册客户端重连注册服务失败
@@ -144,15 +144,15 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        public virtual async Task ServiceRestierLogoutFail(string serviceName, ServiceRegisterState state)
+        public virtual async Task ServiceRestierLogoutFail(string serviceName, ServiceRegisterStateEnum state)
         {
-            await CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {state}", LogLevel.AutoCSer | LogLevel.Debug | LogLevel.Warn | LogLevel.Info);
+            await CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {state}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn | LogLevelEnum.Info);
         }
 
         /// <summary>
         /// 服务注册客户端集合
         /// </summary>
-        private static readonly Dictionary<HostEndPoint, ServiceRegistryClient> clients = DictionaryCreator.CreateEndPoint<ServiceRegistryClient>();
+        private static readonly Dictionary<HostEndPoint, ServiceRegistryClient> clients = AutoCSer.Extensions.DictionaryCreator.CreateEndPoint<ServiceRegistryClient>();
         /// <summary>
         /// 获取服务注册客户端
         /// </summary>
@@ -162,9 +162,14 @@ namespace AutoCSer.CommandService
         {
             ServiceRegistryClient client;
             Monitor.Enter(clients);
+            if (clients.TryGetValue(commandClientConfig.Host, out client))
+            {
+                Monitor.Exit(clients);
+                return client;
+            }
             try
             {
-                if (!clients.TryGetValue(commandClientConfig.Host, out client)) clients.Add(commandClientConfig.Host, client = new ServiceRegistryClient(commandClientConfig));
+                clients.Add(commandClientConfig.Host, client = new ServiceRegistryClient(commandClientConfig));
             }
             finally { Monitor.Exit(clients); }
             return client;
@@ -197,7 +202,7 @@ namespace AutoCSer.CommandService
         {
             ServiceRegistryClient client = Get(commandClientConfig);
             CommandClientSocket socket = await client.CommandClient.GetSocketAsync();
-            if (socket == null) await logConfig.Log.Error($"服务注册客户端初始化失败 {commandClientConfig.Host.Host}:{commandClientConfig.Host.Port}", LogLevel.AutoCSer | LogLevel.Error | LogLevel.Fatal);
+            if (socket == null) await logConfig.Log.Error($"服务注册客户端初始化失败 {commandClientConfig.Host.Host}:{commandClientConfig.Host.Port}", LogLevelEnum.AutoCSer | LogLevelEnum.Error | LogLevelEnum.Fatal);
             return client;
         }
     }

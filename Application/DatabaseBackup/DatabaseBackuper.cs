@@ -115,9 +115,9 @@ namespace AutoCSer.CommandService
                     compression();
                 }
             }
-            catch (Exception error)
+            catch (Exception catchException)
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(databaseBackup.OnException(exception = error));
+                AutoCSer.Threading.CatchTask.AddIgnoreException(databaseBackup.OnException(exception = catchException));
                 if (File.Exists(backupFullName)) File.Delete(backupFullName);
                 if (File.Exists(compressionFullName)) File.Delete(compressionFullName);
             }
@@ -204,7 +204,7 @@ namespace AutoCSer.CommandService
         private void callback(CommandServerCallback<string> callback)
         {
             if (exception == null) callback.Callback(compressionFullName);
-            else callback.Callback(CommandClientReturnType.ServerException, exception);
+            else callback.Callback(CommandClientReturnTypeEnum.ServerException, exception);
         }
     }
 }

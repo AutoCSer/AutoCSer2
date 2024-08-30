@@ -27,7 +27,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueueContext
     /// <summary>
     /// 服务端 async Task 读写队列调用上下文 不返回数据（不应答客户端） 示例接口实例
     /// </summary>
-    internal sealed class SendOnlyController : CommandServerTaskQueue<int>, ISendOnlyController
+    internal sealed class SendOnlyController : CommandServerTaskQueueService<int>, ISendOnlyController
     {
         /// <summary>
         /// 命令服务 Task 队列
@@ -41,22 +41,20 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueueContext
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task<CommandServerSendOnly> ISendOnlyController.SendOnly(int parameter1, int parameter2)
+        Task<CommandServerSendOnly> ISendOnlyController.SendOnly(int parameter1, int parameter2)
         {
-            await Task.Yield();
             Console.WriteLine(parameter1 + parameter2);
-            return null;
+            return Task.FromResult((CommandServerSendOnly)null);
         }
         /// <summary>
         /// 不返回数据（不应答客户端）
         /// </summary>
         /// <param name="parameter">参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task<CommandServerSendOnly> ISendOnlyController.SendOnly(int parameter)
+        Task<CommandServerSendOnly> ISendOnlyController.SendOnly(int parameter)
         {
-            await Task.Yield();
             Console.WriteLine(parameter);
-            return null;
+            return Task.FromResult((CommandServerSendOnly)null);
         }
     }
 }

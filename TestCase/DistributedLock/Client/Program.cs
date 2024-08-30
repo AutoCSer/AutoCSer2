@@ -1,7 +1,8 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
-using AutoCSer.Threading;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.DistributedLockClient
@@ -10,20 +11,26 @@ namespace AutoCSer.TestCase.DistributedLockClient
     {
         static async Task Main(string[] args)
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.DistributedLock) };
+            CommandClientConfig commandClientConfig = new CommandClientConfig
+            {
+                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DistributedLock),
+                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                GetSocketEventDelegate = (client) => new CommandClientSocketEventTaskClient(client)
+                //GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)//IO 线程回调 await 后续操作，可以避免线程调度开销，适合后续无阻塞场景
+            };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
                 if (await commandClient.GetSocketAsync() == null)
                 {
-                    Console.WriteLine("ERROR");
+                    ConsoleWriteQueue.Breakpoint("ERROR");
                     Console.ReadKey();
                     return;
                 }
 
-                IDistributedLockClientSocketEvent<int> client = (CommandClientSocketEvent)commandClient.SocketEvent;
+                IDistributedLockClientSocketEvent<int> client = (IDistributedLockClientSocketEvent<int>)commandClient.SocketEvent;
                 for (int clientID = 0; clientID != 10; ++clientID)
                 {
-                    CatchTask.AddIgnoreException(new LockClient(client, clientID).Start());
+                    new LockClient(client, clientID).Start().NotWait();
                 }
 
                 Console.WriteLine("Press quit to exit.");

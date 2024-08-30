@@ -10,6 +10,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +22,6 @@
   <ItemGroup>
     <Compile Include="BinarySerialize.cs" />
     <Compile Include="CommandServer.cs" />
-    <Compile Include="CommandServer\CommandClientConfig.cs" />
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
     <Compile Include="CommandServer\IClientCallbackController.cs" />
     <Compile Include="CommandServer\IClientKeepCallbackController.cs" />
@@ -32,6 +32,9 @@
     <Compile Include="CommandServer\IClientTaskQueueContextController.cs" />
     <Compile Include="CommandServer\IClientTaskQueueController.cs" />
     <Compile Include="CommandServer\IClientTaskController.cs" />
+    <Compile Include="CommandServer\IDefinedDissymmetryClientController.cs" />
+    <Compile Include="CommandServer\IDefinedDissymmetryServerController.cs" />
+    <Compile Include="CommandServer\IDefinedSymmetryController.cs" />
     <Compile Include="CommandServer\IServerCallbackController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
@@ -42,38 +45,48 @@
     <Compile Include="CommandServer\IServerTaskQueueController.cs" />
     <Compile Include="CommandServer\IServerTaskController.cs" />
     <Compile Include="CommandServer\CommandServerSessionObject.cs" />
-    <Compile Include="Data\Enum\ByteEnum.cs" />
-    <Compile Include="Data\Enum\ByteFlagEnum.cs" />
-    <Compile Include="Data\Enum\IntEnum.cs" />
-    <Compile Include="Data\Enum\IntFlagEnum.cs" />
-    <Compile Include="Data\Enum\LongEnum.cs" />
-    <Compile Include="Data\Enum\LongFlagEnum.cs" />
-    <Compile Include="Data\Enum\SByteEnum.cs" />
-    <Compile Include="Data\Enum\SByteFlagEnum.cs" />
-    <Compile Include="Data\Enum\ShortEnum.cs" />
-    <Compile Include="Data\Enum\ShortFlagEnum.cs" />
-    <Compile Include="Data\Enum\UIntEnum.cs" />
-    <Compile Include="Data\Enum\UIntFlagEnum.cs" />
-    <Compile Include="Data\Enum\ULongEnum.cs" />
-    <Compile Include="Data\Enum\ULongFlagEnum.cs" />
-    <Compile Include="Data\Enum\UShortEnum.cs" />
-    <Compile Include="Data\Enum\UShortFlagEnum.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryClientController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryServerController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientKeepCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientSendOnlyController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientSynchronousController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientTaskQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerSendOnlyController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerSynchronousController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerTaskQueueController.cs" />
     <Compile Include="Data\Field.cs" />
     <Compile Include="Data\Float.cs" />
     <Compile Include="Data\InheritProperty.cs" />
     <Compile Include="Data\MemberClass.cs" />
     <Compile Include="Data\NoMemberClass.cs" />
+    <Compile Include="Data\ORM\BusinessModel.cs" />
+    <Compile Include="Data\ORM\BusinessModelAssociated.cs" />
+    <Compile Include="Data\ORM\CommonModel.cs" />
+    <Compile Include="Data\ORM\ModelAssociated.cs" />
+    <Compile Include="Data\ORM\ModelGeneric.cs" />
     <Compile Include="Data\Property.cs" />
     <Compile Include="Data\StructField.cs" />
     <Compile Include="Data\StructProperty.cs" />
+    <Compile Include="Xml.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="{AutoCSer.TestCase}.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.NetStandard.csproj" />
-    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NetStandard.csproj" />
-    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NetStandard2.1.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,5 +94,9 @@
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
   
 </Project>

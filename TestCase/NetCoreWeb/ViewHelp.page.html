@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>数据视图帮助文档示例 - AutoCSer 高性能 C# 互联网应用开发框架</title>
+    <script language="javascript" type="text/javascript" src="/__JAVASCRIPTPATH__/load.js?__VERSIONQUERYNAME__=__VERSION__#__LOADPARAMETER__"></script>
+</head>
+<body>
+    <!--IF:#Query.type==1&&!Controller--><p>没有找到控制器类型 {{#Query.controllerTypeFullName}}</p><!--IF:#Query.type==1&&!Controller-->
+    <!--IF:#Query.type==2&&!Type--><p>没有找到类型 {{#Query.typeFullName}}</p><!--IF:#Query.type==2&&!Type-->
+    <!--IF:Controllers-->
+    <div>
+        <p>控制器列表：</p>
+        <!--LOOP:Controllers-->
+        <p><a href="{{#GetQueryUrl()}}#type:i=1&controllerTypeFullName={{Type.FullName$&}}">{{Type.FullName$&}}</a> {{Type.Summary$&}}</p>
+        <!--LOOP:Controllers-->
+    </div>
+    <!--IF:Controllers-->
+    <!--PUSH:Controller-->
+    <div>
+        <p>{{Type.FullName$&}} {{Type.Summary$&}} API 列表：</p>
+        <!--LOOP:Methods-->
+        <p>{{RoutePath}} {{Summary$&}}</p>
+        <p><!--PUSH:ReturnType--><!--include:ViewHelpType--><!--PUSH:ReturnType--> {{ReturnSummary$&}}</p>
+        <div>
+            <!--LOOP:Parameters-->
+            <p><!--PUSH:Type--><!--include:ViewHelpType--><!--PUSH:Type--> {{Name}} {{Summary$&}}</p>
+            <!--LOOP:Parameters-->
+        </div>
+        <!--LOOP:Methods-->
+    </div>
+    <!--PUSH:Controller-->
+    <!--IF:Views-->
+    <div>
+        <p>数据视图列表：</p>
+        <!--LOOP:Views-->
+        <p>{{RequestPath}} <!--PUSH:Type--><!--include:ViewHelpType--> {{Summary$&}}<!--PUSH:Type--></p>
+        <!--LOOP:Parameters-->
+        <p><!--PUSH:Type--><!--include:ViewHelpType--><!--PUSH:Type--> {{Name}} {{Summary$&}}</p>
+        <!--LOOP:Parameters-->
+        <!--LOOP:Views-->
+    </div>
+    <!--IF:Views-->
+    <!--PUSH:Type-->
+    <div>
+        <!--IF:IsEnum-->
+        <p><b>enum</b> {{FullName$&}} {{Summary$&}}</p>
+        <!--LOOP:Enums-->
+        <p>{{Name}} = {{Value}}<!--IF:Value>9--> = 0x{{Value$toString(16)}}<!--IF:Value>9--></p>
+        <!--LOOP:Enums-->
+        <!--IF:IsEnum-->
+        <!--NOT:IsEnum-->
+        <p>{{FullName$&}} {{Summary$&}} 成员列表：</p>
+        <!--LOOP:Members-->
+        <p><!--PUSH#0:Type--><!--include:ViewHelpType--><!--PUSH#0:Type--> {{Name}} {{Summary$&}}<!--NOT:CanRead-->【不可读】<!--NOT:CanRead--><!--NOT:CanWrite-->【不可写】<!--NOT:CanWrite--></p>
+        <!--LOOP:Members-->
+        <!--NOT:IsEnum-->
+    </div>
+    <!--PUSH:Type-->
+    <!--include:\Include\BaiduFoot-->
+</body>
+</html>

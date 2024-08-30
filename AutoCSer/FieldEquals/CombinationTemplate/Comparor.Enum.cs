@@ -6,7 +6,7 @@ namespace AutoCSer.FieldEquals
     /// <summary>
     /// 对象对比
     /// </summary>
-    internal static partial class Comparor
+    public static partial class Comparor
     {
         /// <summary>
         /// 枚举值比较
@@ -14,10 +14,12 @@ namespace AutoCSer.FieldEquals
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [System.Runtime.CompilerServices.MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static bool EnumULong<T>(T left, T right) where T : struct, IConvertible
         {
-            return check(AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(left) == AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(right));
+            if (AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(left) == AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(right)) return true;
+            Breakpoint(left, right);
+            return false;
         }
     }
 }

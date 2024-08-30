@@ -50,9 +50,9 @@ namespace AutoCSer.CommandService
         /// 开始备份数据库
         /// </summary>
         /// <returns></returns>
-        public async Task StartAsync()
+        public async Task Start()
         {
-            CommandClientReturnValue<string[]> databases = await Client.DatabaseBackupClient.GetDatabaseAsync();
+            CommandClientReturnValue<string[]> databases = await Client.DatabaseBackupClient.GetDatabase();
             if (!databases.IsSuccess)
             {
                 await OnError($"数据库名称获取失败 {databases.ReturnType} {databases.ErrorMessage}");
@@ -64,7 +64,7 @@ namespace AutoCSer.CommandService
                 if (checkDatabase(database))
                 {
                     OnMessage($"开始备份数据库 {database}");
-                    CommandClientReturnValue<string> backupFullName = await Client.DatabaseBackupClient.BackupAsync(database);
+                    CommandClientReturnValue<string> backupFullName = await Client.DatabaseBackupClient.Backup(database);
                     if (backupFullName.IsSuccess)
                     {
                         if (backupFullName.Value != null)
@@ -99,9 +99,9 @@ namespace AutoCSer.CommandService
         /// 开始备份数据库表格
         /// </summary>
         /// <returns></returns>
-        public async Task BackupTableAsync()
+        public async Task BackupTable()
         {
-            CommandClientReturnValue<string[]> databases = await Client.DatabaseBackupClient.GetDatabaseAsync();
+            CommandClientReturnValue<string[]> databases = await Client.DatabaseBackupClient.GetDatabase();
             if (!databases.IsSuccess)
             {
                 await OnError($"数据库名称获取失败 {databases.ReturnType} {databases.ErrorMessage}");
@@ -112,7 +112,7 @@ namespace AutoCSer.CommandService
                 if (checkDatabase(database))
                 {
                     OnMessage($"开始备份数据库 {database}");
-                    CommandClientReturnValue<string[]> tableNames = await Client.DatabaseBackupClient.GetTableNameAsync(database);
+                    CommandClientReturnValue<string[]> tableNames = await Client.DatabaseBackupClient.GetTableName(database);
                     if (tableNames.IsSuccess)
                     {
                         if (tableNames.Value != null)

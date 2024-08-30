@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService;
-using AutoCSer.Net;
+﻿using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;
 
@@ -9,11 +8,16 @@ namespace AutoCSer.TestCase.ServiceRegistry
     {
         static async Task Main(string[] args)
         {
-            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ServiceRegistry) };
-            using (CommandListener commandListener = new CommandListener(commandServerConfig
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerifyService)new AutoCSer.CommandService.TimestampVerifyService(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (IServiceRegistryService)new AutoCSer.CommandService.ServiceRegistryService(server))
-                ))
+            CommandServerConfig commandServerConfig = new CommandServerConfig
+            {
+                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry),
+                SessionObject = new CommandServerSocketSessionObject()
+            };
+            await using (CommandListener commandListener = new CommandListenerBuilder(0)
+                .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
+                .Append(server => new AutoCSer.CommandService.PortRegistryService(60000, 0))
+                .Append(server => new AutoCSer.CommandService.ServiceRegistryService(server))
+                .CreateCommandListener(commandServerConfig))
             {
                 if (await commandListener.Start())
                 {

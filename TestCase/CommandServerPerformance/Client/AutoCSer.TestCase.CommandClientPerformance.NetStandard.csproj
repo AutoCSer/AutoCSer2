@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

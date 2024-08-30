@@ -76,6 +76,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         {
             isDispose = true;
             commandClient?.Dispose();
+            logCallbackKeepCallbackCommand?.Dispose();
         }
     }
 }

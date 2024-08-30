@@ -2,6 +2,9 @@
 using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;
+#if DotNet45 || NetStandard2
+using ValueTask = System.Threading.Tasks.Task;
+#endif
 
 namespace AutoCSer.CommandService
 {
@@ -9,10 +12,7 @@ namespace AutoCSer.CommandService
     /// 锁请求保持心跳对象
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class DistributedLockKeepRequest<T> : AutoCSer.Threading.SecondTimerTaskArrayNode, IDisposable, IDistributedLockRequest
-#if !DotNet45 && !NetStandard2
-        , IAsyncDisposable
-#endif
+    public sealed class DistributedLockKeepRequest<T> : AutoCSer.Threading.SecondTimerTaskArrayNode, IDisposable, IAsyncDisposable, IDistributedLockRequest
         where T : IEquatable<T>
     {
         /// <summary>
@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService
         /// <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
         /// <param name="keepSeconds">心跳间隔秒数</param>
         internal DistributedLockKeepRequest(IDistributedLockClientSocketEvent<T> client, T key, long requestID, int releaseSeconds, int keepSeconds)
-            : base(AutoCSer.Threading.SecondTimer.TaskArray, Math.Max(keepSeconds, 1), AutoCSer.Threading.SecondTimerTaskThreadMode.AddCatchTask, AutoCSer.Threading.SecondTimerKeepMode.Before, Math.Max(keepSeconds, 1))
+            : base(AutoCSer.Threading.SecondTimer.TaskArray, Math.Max(keepSeconds, 1), AutoCSer.Threading.SecondTimerTaskThreadModeEnum.AddCatchTask, AutoCSer.Threading.SecondTimerKeepModeEnum.Before, Math.Max(keepSeconds, 1))
         {
             this.client = client;
             this.key = key;
@@ -52,16 +52,9 @@ namespace AutoCSer.CommandService
         /// 启动心跳
         /// </summary>
         /// <returns></returns>
-        internal async Task StartKeepAsync()
+        internal async Task StartKeep()
         {
             await TryAppendTaskArrayAsync();
-        }
-        /// <summary>
-        /// 启动心跳
-        /// </summary>
-        internal void StartKeep()
-        {
-            TryAppendTaskArray(KeepSeconds);
         }
         /// <summary>
         /// 获取下一个超时秒计数
@@ -75,12 +68,12 @@ namespace AutoCSer.CommandService
         /// 定时心跳
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnTimerAsync()
+        protected internal override async Task OnTimerAsync()
         {
             long requestID = this.requestID;
             if (requestID != 0)
             {
-                CommandClientReturnValue<bool> result = await client.DistributedLockClient.KeepAsync(key, requestID);
+                CommandClientReturnValue<bool> result = await client.DistributedLockClient.Keep(key, requestID);
                 if (result.IsSuccess && !result.Value)
                 {
                     this.requestID = 0;
@@ -98,31 +91,21 @@ namespace AutoCSer.CommandService
             {
                 this.requestID = 0;
                 client.RemoveRequest(this);
-                client.DistributedLockClient.Release(key, requestID);
+                client.DistributedLockClient.Release(key, requestID, null);
             }
         }
-#if !DotNet45 && !NetStandard2
         /// <summary>
         /// 释放锁
         /// </summary>
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
-            await ReleaseAsync();
-        }
-#endif
-        /// <summary>
-        /// 释放锁
-        /// </summary>
-        /// <returns></returns>
-        public async Task ReleaseAsync()
-        {
             long requestID = this.requestID;
             if (requestID != 0)
             {
                 this.requestID = 0;
                 client.RemoveRequest(this);
-                await client.DistributedLockClient.ReleaseAsync(key, requestID);
+                await client.DistributedLockClient.Release(key, requestID);
             }
         }
         /// <summary>

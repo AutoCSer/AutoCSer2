@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.SearchTree
@@ -15,6 +16,44 @@ namespace AutoCSer.SearchTree
         private sealed class Node : Node<Node, T>
         {
             /// <summary>
+            /// 数据集合
+            /// </summary>
+            internal IEnumerable<T> Values
+            {
+                get
+                {
+                    if (Left != null)
+                    {
+                        foreach (T value in Left.Values) yield return value;
+                    }
+                    yield return Key;
+                    if (Right != null)
+                    {
+                        foreach (T value in Right.Values) yield return value;
+                    }
+                }
+            }
+            /// <summary>
+            /// 获取第一组数据
+            /// </summary>
+            internal T Frist
+            {
+                get
+                {
+                    return Left != null ? Left.Frist : Key;
+                }
+            }
+            /// <summary>
+            /// 获取最后一组数据
+            /// </summary>
+            internal T Last
+            {
+                get
+                {
+                    return Right != null ? Right.Last : Key;
+                }
+            }
+            /// <summary>
             /// 根据关键字获取二叉树节点
             /// </summary>
             /// <param name="key">关键字</param>
@@ -30,7 +69,7 @@ namespace AutoCSer.SearchTree
             /// </summary>
             /// <param name="index">节点位置</param>
             /// <returns>数据</returns>
-            [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             internal Node At(int index)
             {
                 if ((uint)index < Count) return at(index);
@@ -93,7 +132,7 @@ namespace AutoCSer.SearchTree
             /// 交换节点数据
             /// </summary>
             /// <param name="key"></param>
-            [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             private void changeKey(ref T key)
             {
                 T tempKey = key;
@@ -211,7 +250,7 @@ namespace AutoCSer.SearchTree
             /// 删除当前节点
             /// </summary>
             /// <returns>用户替换当前节点的节点</returns>
-            [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             internal Node Remove()
             {
                 if (Right != null)
@@ -256,7 +295,7 @@ namespace AutoCSer.SearchTree
             get { return boot != null ? boot.Count : 0; }
         }
         /// <summary>
-        /// 获取树高度，需要 O(n)
+        /// 获取树高度，时间复杂度 O(n)
         /// </summary>
         public int Height
         {
@@ -266,13 +305,45 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
+        /// 数据集合
+        /// </summary>
+        internal IEnumerable<T> Values
+        {
+            get
+            {
+                return Count != 0 ? boot.Values : EmptyArray<T>.Array;
+            }
+        }
+        /// <summary>
+        /// 获取第一组数据
+        /// </summary>
+        public T Frist
+        {
+            get
+            {
+                if (boot != null) return boot.Frist;
+                throw new IndexOutOfRangeException();
+            }
+        }
+        /// <summary>
+        /// 获取最后一组数据
+        /// </summary>
+        public T Last
+        {
+            get
+            {
+                if (boot != null) return boot.Last;
+                throw new IndexOutOfRangeException();
+            }
+        }
+        /// <summary>
         /// 二叉树集合
         /// </summary>
         public Set() { }
         /// <summary>
         /// 清除数据
         /// </summary>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
             boot = null;
@@ -282,7 +353,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否添加了数据</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Add(T key)
         {
             return Add(ref key);
@@ -292,7 +363,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否添加了数据</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Add(ref T key)
         {
             if (boot == null)
@@ -307,7 +378,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否存在关键字</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(T key)
         {
             return Remove(ref key);
@@ -335,7 +406,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否包含关键字</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(T key)
         {
             return boot != null && boot.Get(ref key) != null;
@@ -345,7 +416,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否包含关键字</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(ref T key)
         {
             return boot != null && boot.Get(ref key) != null;
@@ -355,7 +426,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>一个匹配节点位置,失败返回-1</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(T key)
         {
             return boot != null ? boot.IndexOf(ref key) : -1;
@@ -365,7 +436,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>一个匹配节点位置,失败返回-1</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(ref T key)
         {
             return boot != null ? boot.IndexOf(ref key) : -1;
@@ -375,7 +446,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountLess(ref T key)
         {
             return boot != null ? boot.CountLess(ref key) : 0;
@@ -385,7 +456,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountThan(ref T key)
         {
             return boot != null ? boot.CountThan(ref key) : 0;
@@ -395,7 +466,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="index">节点位置</param>
         /// <returns>数据</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T At(int index)
         {
             if (boot != null) return boot.At(index).Key;

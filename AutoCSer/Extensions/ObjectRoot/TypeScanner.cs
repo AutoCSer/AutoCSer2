@@ -1,3 +1,4 @@
+using AutoCSer.Extensions;
 using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
@@ -73,7 +74,7 @@ namespace AutoCSer.ObjectRoot
         /// <param name="exception"></param>
         protected virtual void onException(Assembly assembly, Exception exception)
         {
-            CatchTask.AddIgnoreException(AutoCSer.LogHelper.Exception(exception, $"{assembly.FullName} 加载类型失败", LogLevel.Exception | LogLevel.AutoCSer));
+            AutoCSer.LogHelper.ExceptionIgnoreException(exception, $"{assembly.FullName} 加载类型失败", LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
         }
         /// <summary>
         /// 扫描当前应用程序集已加载程序集
@@ -127,8 +128,7 @@ namespace AutoCSer.ObjectRoot
             }
             else if (type.IsValueType)
             {
-                if (!type.IsEnum && !type.IsPrimitive && !type.IsPointer && !type.IsInterface && !type.IsGenericTypeDefinition
-                    && (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Nullable<>)))
+                if (!type.IsEnum && !type.IsPrimitive && !type.IsPointer && !type.IsInterface && !type.IsGenericTypeDefinition && !type.isValueTypeNullable())
                 {
                     if (check(type) && ScanTypes.Add(type)) scan(type);
                 }
@@ -173,7 +173,7 @@ namespace AutoCSer.ObjectRoot
         /// <param name="exception"></param>
         protected virtual void onException(FieldInfo fieldInfo, Exception exception)
         {
-            CatchTask.AddIgnoreException(AutoCSer.LogHelper.Exception(exception, $"{fieldInfo.DeclaringType.FullName}.{fieldInfo.Name} 扫描失败", LogLevel.Exception | LogLevel.AutoCSer));
+            AutoCSer.LogHelper.ExceptionIgnoreException(exception, $"{fieldInfo.DeclaringType.FullName}.{fieldInfo.Name} 扫描失败", LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
         }
         /// <summary>
         /// 扫描根对象

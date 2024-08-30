@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>AutoCSer.Drawing</AssemblyName>
+    <RootNamespace>AutoCSer.Drawing</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\Drawing\AutoCSer.Drawing.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\Drawing\AutoCSer.Drawing.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;NetStandard2</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CharMap.cs" />
+    <Compile Include="CharMapBuilder.cs" />
+    <Compile Include="Gif\Application.cs" />
+    <Compile Include="Gif\Comment.cs" />
+    <Compile Include="Gif\CopyScreen.cs" />
+    <Compile Include="Gif\DataBlock.cs" />
+    <Compile Include="Gif\DataTypeEnum.cs" />
+    <Compile Include="Gif\Decoder.cs" />
+    <Compile Include="Gif\FileData.cs" />
+    <Compile Include="Gif\Image.cs" />
+    <Compile Include="Gif\FillBitmap.cs" />
+    <Compile Include="Gif\PlainText.cs" />
+    <Compile Include="Gif\GraphicControl.cs" />
+    <Compile Include="Gif\GraphicControlMethodTypeEnum.cs" />
+    <Compile Include="Gif\TimerWriter.cs" />
+    <Compile Include="Gif\Writer.cs" />
+    <Compile Include="LockBitmap.cs" />
+    <Compile Include="LockBitmapColor.cs" />
+    <Compile Include="LockBitmapColorPoint.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

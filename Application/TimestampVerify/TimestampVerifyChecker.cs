@@ -47,19 +47,19 @@ namespace AutoCSer.CommandService
         /// <param name="timestamp">客户端请求的时间戳</param>
         /// <param name="serverTimestamp">服务端分配的时间戳</param>
         /// <returns>时间戳是否验证成功</returns>
-        public CommandServerVerifyState Check(ref long timestamp, ref long serverTimestamp)
+        public CommandServerVerifyStateEnum Check(ref long timestamp, ref long serverTimestamp)
         {
-            if (serverTimestamp != 0) return timestamp == serverTimestamp ? CommandServerVerifyState.Success : CommandServerVerifyState.Fail;
+            if (serverTimestamp != 0) return timestamp == serverTimestamp ? CommandServerVerifyStateEnum.Success : CommandServerVerifyStateEnum.Fail;
             if (timestamp > lastTimestamp && timestamp < CurrentTimestamp + maxTimestampDifference)
             {
                 serverTimestamp = timestamp;
-                return CommandServerVerifyState.Success;
+                return CommandServerVerifyStateEnum.Success;
             }
             timestampLock.EnterYield();
             serverTimestamp = ++lastTimestamp;
             timestampLock.Exit();
             timestamp = serverTimestamp;
-            return CommandServerVerifyState.Retry;
+            return CommandServerVerifyStateEnum.Retry;
         }
         /// <summary>
         /// 设置最后一次验证时间戳
@@ -81,7 +81,7 @@ namespace AutoCSer.CommandService
         /// <param name="controller"></param>
         /// <param name="verifyString">验证字符串</param>
         /// <returns></returns>
-        public static CommandClientReturnValue<CommandServerVerifyState> Verify(CommandClientController controller, string verifyString)
+        public static CommandClientReturnValue<CommandServerVerifyStateEnum> Verify(CommandClientController controller, string verifyString)
         {
             ITimestampVerifyClient client = (ITimestampVerifyClient)controller;
             long timestamp = TimestampVerifyChecker.CurrentTimestamp;
@@ -92,8 +92,8 @@ namespace AutoCSer.CommandService
                 {
                     ulong randomPrefix = Random.Default.SecureNextULongNotZero();
                     long lastTimestamp = timestamp;
-                    CommandClientReturnValue<CommandServerVerifyState> verifyState = client.Verify(randomPrefix, AutoCSer.Net.TimestampVerify.Md5(md5, verifyString, randomPrefix, timestamp), ref timestamp);
-                    if (verifyState.Value != CommandServerVerifyState.Retry
+                    CommandClientReturnValue<CommandServerVerifyStateEnum> verifyState = client.Verify(randomPrefix, AutoCSer.Net.TimestampVerify.Md5(md5, verifyString, randomPrefix, timestamp), ref timestamp);
+                    if (verifyState.Value != CommandServerVerifyStateEnum.Retry
                         || !verifyState.IsSuccess || isRetry) return verifyState;
                     isRetry = true;
                 }

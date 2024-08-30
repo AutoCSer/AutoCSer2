@@ -15,11 +15,15 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
                 Console.ReadKey();
                 return;
             }
-            CommandClientConfig commandClientConfig = new CommandClientConfig { MinCompressSize = 1024, Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost) };
+            CommandClientConfig commandClientConfig = new CommandClientConfig
+            {
+                MinCompressSize = 1024, Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost),
+                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
+            };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
                 CommandClientSocket commandClientSocket = await commandClient.GetSocketAsync();
-                if (commandClientSocket == null) Console.WriteLine("数据库备份服务连接失败");
+                if (commandClientSocket == null) ConsoleWriteQueue.WriteLine("数据库备份服务连接失败", ConsoleColor.Red);
                 else Console.WriteLine("数据库备份服务连接成功");
                 CommandClientSocketEvent socketEvent = (CommandClientSocketEvent)commandClient.SocketEvent;
                 DatabaseBackupClient databaseBackupClient = new DatabaseBackupClient(commandClient, socketEvent);
@@ -30,12 +34,12 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
                     await taskRunTimer.Delay();
                     try
                     {
-                        await databaseBackupClient.StartAsync();
+                        await databaseBackupClient.Start();
                     }
-                    catch (Exception error)
+                    catch (Exception exception)
                     {
-                        Console.WriteLine(error.Message);
-                        await AutoCSer.LogHelper.Exception(error);
+                        ConsoleWriteQueue.WriteLine(exception.Message, ConsoleColor.Red);
+                        await AutoCSer.LogHelper.Exception(exception);
                     }
                 }
                 while (true);

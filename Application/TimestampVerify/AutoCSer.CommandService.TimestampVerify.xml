@@ -4,6 +4,30 @@
         <name>AutoCSer.CommandService.TimestampVerify</name>
     </assembly>
     <members>
+        <member name="T:AutoCSer.CommandService.TimestampVerify.CommandServerSocketSessionObject">
+            <summary>
+            基于递增登录时间戳验证的服务认证会话对象操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#TimestampVerifySession}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            尝试从命令服务套接字自定义会话对象获取指定会话对象
+            </summary>
+            <param name="socket"></param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#TimestampVerifySession}#CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            创建会话对象
+            </summary>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.CommandServerSocketSessionObject.Default">
+            <summary>
+            默认基于递增登录时间戳验证的服务认证会话对象操作
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.ITimestampVerifyService">
             <summary>
             基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
@@ -34,19 +58,14 @@
             <param name="timestamp">待验证时间戳</param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.ITimestampVerifySession">
-            <summary>
-            基于递增登录时间戳验证的服务认证会话对象接口
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.ITimestampVerifySession.ServerTimestamp">
-            <summary>
-            服务端分配的时间戳
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.TimestampVerifyService">
             <summary>
             基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyService.socketSessionObject">
+            <summary>
+            会话对象操作接口
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.TimestampVerifyService.timestampChecker">
@@ -64,10 +83,11 @@
             MD5 加密
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyService.#ctor(System.String,System.Byte)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyService.#ctor(AutoCSer.Net.CommandListener,System.String,System.Byte)">
             <summary>
             基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
             </summary>
+            <param name="listener"></param>
             <param name="verifyString">服务认证验证字符串</param>
             <param name="maxSecondsDifference">最大时间差秒数，默认为 5</param>
         </member>
@@ -75,20 +95,6 @@
             <summary>
             释放资源
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyService.tryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            尝试获取会话对象
-            </summary>
-            <param name="socket"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyService.createSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象
-            </summary>
-            <param name="socket"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.TimestampVerifyService.Verify(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.UInt64,System.Byte[],System.Int64@)">
             <summary>
@@ -198,7 +204,7 @@
             基于递增登录时间戳验证的服务认证会话对象
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.TimestampVerifySession.ServerTimestamp">
+        <member name="F:AutoCSer.CommandService.TimestampVerifySession.ServerTimestamp">
             <summary>
             服务端分配的时间戳
             </summary>

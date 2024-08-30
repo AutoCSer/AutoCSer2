@@ -76,11 +76,7 @@ namespace AutoCSer.CommandService.DistributedLock
             }
             finally
             {
-#if NetStandard2
-                if (!isLock) request.Dispose();
-#else
                 if (!isLock) await request.DisposeAsync();
-#endif
             }
         }
     }

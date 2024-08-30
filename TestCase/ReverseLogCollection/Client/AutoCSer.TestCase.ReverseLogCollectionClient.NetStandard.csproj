@@ -36,7 +36,7 @@
     <ProjectReference Include="..\..\..\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\..\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.ReverseLogCollectionCommon.NetStandard.csproj" />
   </ItemGroup>
 

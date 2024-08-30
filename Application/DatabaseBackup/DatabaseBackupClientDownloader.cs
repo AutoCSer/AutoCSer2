@@ -60,11 +60,15 @@ namespace AutoCSer.CommandService
             try
             {
                 int tryErrorCount = this.tryErrorCount;
-                await AutoCSer.Common.Config.CreateDirectory(new FileInfo(backupFileName).Directory);
+                await AutoCSer.Common.Config.TryCreateDirectory(new FileInfo(backupFileName).Directory);
                 do
                 {
                     int lastBufferSize = 0;
-                    using (FileStream fileStream = new FileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
+#if DotNet45 || NetStandard2
+                    using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
+#else
+                    await using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
+#endif
                     {
                         await AutoCSer.Common.Config.Seek(fileStream, 0, SeekOrigin.End);
 
@@ -113,22 +117,22 @@ namespace AutoCSer.CommandService
             {
                 try
                 {
-                    await AutoCSer.Common.Config.DeleteFile(backupFileName);
+                    await AutoCSer.Common.Config.TryDeleteFile(backupFileName);
                 }
-                catch (Exception error)
+                catch (Exception exception)
                 {
-                    await client.OnError($"备份文件 {backupFileName} 删除失败 {error.Message}");
+                    await client.OnError($"备份文件 {backupFileName} 删除失败 {exception.Message}");
                 }
             }
             foreach (FileInfo FileInfo in new FileInfo(backupFileName).Directory.GetFiles("*.bak").OrderByDescending(p => p.CreationTime).Skip(2))
             {
                 try
                 {
-                    await AutoCSer.Common.Config.DeleteFile(FileInfo.FullName);
+                    await AutoCSer.Common.Config.TryDeleteFile(FileInfo.FullName);
                 }
-                catch (Exception error)
+                catch (Exception exception)
                 {
-                    await client.OnError($"备份文件 {FileInfo.FullName} 删除失败 {error.Message}");
+                    await client.OnError($"备份文件 {FileInfo.FullName} 删除失败 {exception.Message}");
                 }
             }
         }

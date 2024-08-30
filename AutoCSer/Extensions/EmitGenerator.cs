@@ -12,6 +12,16 @@ namespace AutoCSer.Extensions
     internal static class EmitGenerator
     {
         /// <summary>
+        /// 加载 1/0
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void int32(this ILGenerator generator, bool value)
+        {
+            generator.Emit(value ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
+        }
+        /// <summary>
         /// 加载Int32数据
         /// </summary>
         /// <param name="generator"></param>
@@ -34,6 +44,16 @@ namespace AutoCSer.Extensions
             else generator.Emit((uint)value <= sbyte.MaxValue ? OpCodes.Ldc_I4_S : OpCodes.Ldc_I4, value);
         }
         /// <summary>
+        /// 加载字符串
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void ldstr(this ILGenerator generator, string value)
+        {
+            generator.Emit(OpCodes.Ldstr, value);
+        }
+        /// <summary>
         /// 加载参数
         /// </summary>
         /// <param name="generator"></param>
@@ -54,7 +74,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="method"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void call(this ILGenerator generator, MethodInfo method)
         {
             generator.Emit(method.IsFinal || !method.IsVirtual ? OpCodes.Call : OpCodes.Callvirt, method);
@@ -67,7 +87,7 @@ namespace AutoCSer.Extensions
         /// <param name="local"></param>
         public static void initobjShort(this ILGenerator generator, Type type, LocalBuilder local)
         {
-            if (type.isInitobj())
+            if (DynamicArray.IsClearArray(type))
             {
                 if (type.IsValueType)
                 {
@@ -89,7 +109,7 @@ namespace AutoCSer.Extensions
         /// <param name="local"></param>
         public static void initobj(this ILGenerator generator, Type type, LocalBuilder local)
         {
-            if (type.isInitobj())
+            if (DynamicArray.IsClearArray(type))
             {
                 if (type.IsValueType)
                 {
@@ -107,36 +127,64 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 判断成员位图是否匹配成员索引
         /// </summary>
-        private static readonly MethodInfo memberMapIsMemberMethod = ((Func<MemberMap, int, bool>)MemberMap.IsMember).Method;
-        /// <summary>
-        /// 判断成员位图是否匹配成员索引
-        /// </summary>
         /// <param name="generator"></param>
         /// <param name="target"></param>
         /// <param name="value"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
-        public static void memberMapIsMember(this ILGenerator generator, OpCode target, int value)
+        /// <param name="genericType"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void memberMapObjectIsMember(this ILGenerator generator, OpCode target, int value, GenericType genericType)
         {
             generator.Emit(target);
             generator.int32(value);
-            generator.call(memberMapIsMemberMethod);
+            generator.call(genericType.GetMemberMapIsMemberDelegate.Method);
         }
-        /// <summary>
-        /// 设置成员索引
-        /// </summary>
-        internal static readonly MethodInfo memberMapSetMemberMethod = ((Action<MemberMap, int>)MemberMap.SetMember).Method;
         /// <summary>
         /// 设置成员索引
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="target"></param>
         /// <param name="value"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
-        public static void memberMapSetMember(this ILGenerator generator, OpCode target, int value)
+        /// <param name="genericType"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void memberMapObjectSetMember(this ILGenerator generator, OpCode target, int value, GenericType genericType)
         {
             generator.Emit(target);
             generator.int32(value);
-            generator.call(memberMapSetMemberMethod);
+            generator.call(genericType.GetMemberMapSetMemberDelegate.Method);
         }
+        ///// <summary>
+        ///// 判断成员位图是否匹配成员索引
+        ///// </summary>
+        //private static readonly MethodInfo memberMapIsMemberMethod = ((Func<MemberMap, int, bool>)MemberMap.IsMember).Method;
+        ///// <summary>
+        ///// 判断成员位图是否匹配成员索引
+        ///// </summary>
+        ///// <param name="generator"></param>
+        ///// <param name="target"></param>
+        ///// <param name="value"></param>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public static void memberMapIsMember(this ILGenerator generator, OpCode target, int value)
+        //{
+        //    generator.Emit(target);
+        //    generator.int32(value);
+        //    generator.call(memberMapIsMemberMethod);
+        //}
+        ///// <summary>
+        ///// 设置成员索引
+        ///// </summary>
+        //internal static readonly MethodInfo memberMapSetMemberMethod = ((Action<MemberMap, int>)MemberMap.SetMember).Method;
+        ///// <summary>
+        ///// 设置成员索引
+        ///// </summary>
+        ///// <param name="generator"></param>
+        ///// <param name="target"></param>
+        ///// <param name="value"></param>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public static void memberMapSetMember(this ILGenerator generator, OpCode target, int value)
+        //{
+        //    generator.Emit(target);
+        //    generator.int32(value);
+        //    generator.call(memberMapSetMemberMethod);
+        //}
     }
 }

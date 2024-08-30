@@ -45,6 +45,26 @@ namespace AutoCSer.SearchTree
                     }
                 }
             }
+            /// <summary>
+            /// 获取第一组数据
+            /// </summary>
+            internal KeyValue<KT, VT> FristKeyValue
+            {
+                get
+                {
+                    return Left != null ? Left.FristKeyValue : new KeyValue<KT, VT>(Key, Value);
+                }
+            }
+            /// <summary>
+            /// 获取最后一组数据
+            /// </summary>
+            internal KeyValue<KT, VT> LastKeyValue
+            {
+                get
+                {
+                    return Right != null ? Right.LastKeyValue : new KeyValue<KT, VT>(Key, Value);
+                }
+            }
 
             /// <summary>
             /// 根据关键字获取二叉树节点
@@ -62,7 +82,7 @@ namespace AutoCSer.SearchTree
             /// </summary>
             /// <param name="index">节点位置</param>
             /// <returns>数据</returns>
-            [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             internal Node At(int index)
             {
                 if ((uint)index < Count) return at(index);
@@ -89,7 +109,7 @@ namespace AutoCSer.SearchTree
             /// </summary>
             /// <param name="key"></param>
             /// <param name="value"></param>
-            [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             private void changeKeyValue(ref KT key, ref VT value)
             {
                 KT tempKey = key;
@@ -288,7 +308,7 @@ namespace AutoCSer.SearchTree
             /// 删除当前节点
             /// </summary>
             /// <returns>用户替换当前节点的节点</returns>
-            [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             internal Node Remove()
             {
                 if (Right != null)
@@ -322,6 +342,67 @@ namespace AutoCSer.SearchTree
             }
 
             /// <summary>
+            /// 获取数据集合
+            /// </summary>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            internal IEnumerable<VT> Enumerable(EnumerableCount count)
+            {
+                do
+                {
+                    if (Left != null)
+                    {
+                        int leftCount = Left.Count;
+                        if (leftCount > count.SkipCount)
+                        {
+                            foreach (VT value in Left.Enumerable(count)) yield return value;
+                            if (count.GetCount == 0) break;
+                            yield return Value;
+                            if (--count.GetCount == 0) break;
+                            foreach (VT value in Right.enumerable(count)) yield return value;
+                            break;
+                        }
+                        count.SkipCount -= leftCount;
+                    }
+                    if (count.SkipCount == 0)
+                    {
+                        yield return Value;
+                        if (--count.GetCount == 0 || Right == null) break;
+                        foreach (VT value in Right.enumerable(count)) yield return value;
+                        break;
+                    }
+                    --count.SkipCount;
+                    if (Right != null)
+                    {
+                        foreach (VT value in Right.Enumerable(count)) yield return value;
+                    }
+                }
+                while (false);
+            }
+            /// <summary>
+            /// 获取数据集合
+            /// </summary>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            private IEnumerable<VT> enumerable(EnumerableCount count)
+            {
+                do
+                {
+                    if (Left != null)
+                    {
+                        foreach (VT value in Left.enumerable(count)) yield return value;
+                        if (count.GetCount == 0) break;
+                    }
+                    yield return Value;
+                    if (--count.GetCount != 0 && Right != null)
+                    {
+                        foreach (VT value in Right.enumerable(count)) yield return value;
+                    }
+                }
+                while (false);
+            }
+
+            /// <summary>
             /// 获取数组
             /// </summary>
             /// <param name="array"></param>
@@ -340,11 +421,11 @@ namespace AutoCSer.SearchTree
                 }
                 if (array.SkipCount == 0)
                 {
-                    if (!array.Add(Value)) Right.getArray(ref array);
+                    if (!array.Add(Value)) Right?.getArray(ref array);
                     return;
                 }
                 --array.SkipCount;
-                Right.GetArraySkip(ref array);
+                Right?.GetArraySkip(ref array);
             }
             /// <summary>
             /// 获取数组
@@ -357,7 +438,7 @@ namespace AutoCSer.SearchTree
                     Left.getArray(ref array);
                     if (array.IsArray) return;
                 }
-                if (!array.Add(Value)) Right.getArray(ref array);
+                if (!array.Add(Value)) Right?.getArray(ref array);
             }
 
             /// <summary>
@@ -380,11 +461,11 @@ namespace AutoCSer.SearchTree
                 }
                 if (array.SkipCount == 0)
                 {
-                    if (!array.Add(Value)) Right.getArray(ref array);
+                    if (!array.Add(Value)) Right?.getArray(ref array);
                     return;
                 }
                 --array.SkipCount;
-                Right.GetArraySkip(ref array);
+                Right?.GetArraySkip(ref array);
             }
             /// <summary>
             /// 获取数组
@@ -398,7 +479,7 @@ namespace AutoCSer.SearchTree
                     Left.getArray(ref array);
                     if (array.IsArray) return;
                 }
-                if (!array.Add(Value)) Right.getArray(ref array);
+                if (!array.Add(Value)) Right?.getArray(ref array);
             }
 
             /// <summary>
@@ -420,11 +501,11 @@ namespace AutoCSer.SearchTree
                 }
                 if (array.SkipCount == 0)
                 {
-                    if (array.AddDesc(Value) != 0) Right.getDescArray(ref array);
+                    if (array.AddDesc(Value) != 0) Right?.getDescArray(ref array);
                     return;
                 }
                 --array.SkipCount;
-                Right.GetDescArraySkip(ref array);
+                Right?.GetDescArraySkip(ref array);
             }
             /// <summary>
             /// 获取数组
@@ -437,7 +518,7 @@ namespace AutoCSer.SearchTree
                     Left.getDescArray(ref array);
                     if (array.Index == 0) return;
                 }
-                if (array.AddDesc(Value) != 0) Right.getDescArray(ref array);
+                if (array.AddDesc(Value) != 0) Right?.getDescArray(ref array);
             }
             /// <summary>
             /// 查找数据
@@ -462,7 +543,7 @@ namespace AutoCSer.SearchTree
             get { return Boot != null ? Boot.Count : 0; }
         }
         /// <summary>
-        /// 获取树高度，需要 O(n)
+        /// 获取树高度，时间复杂度 O(n)
         /// </summary>
         public int Height
         {
@@ -482,13 +563,27 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 二叉树更新版本
+        /// 获取第一组数据
         /// </summary>
-        public int Version { get; private set; }
+        public KeyValue<KT, VT> FristKeyValue
+        {
+            get
+            {
+                if (Boot != null) return Boot.FristKeyValue;
+                throw new IndexOutOfRangeException();
+            }
+        }
         /// <summary>
-        /// 更新版本重置事件
+        /// 获取最后一组数据
         /// </summary>
-        internal event Action OnResetVersion;
+        public KeyValue<KT, VT> LastKeyValue
+        {
+            get
+            {
+                if (Boot != null) return Boot.LastKeyValue;
+                throw new IndexOutOfRangeException();
+            }
+        }
         /// <summary>
         /// 根据关键字获取或者设置数据
         /// </summary>
@@ -510,27 +605,14 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 二叉树字典
         /// </summary>
-        public Dictionary() { Version = 1; }
-        /// <summary>
-        /// 更新二叉树版本
-        /// </summary>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
-        private void nextVersion()
-        {
-            if (++Version == 0)
-            {
-                Version = 1;
-                if (OnResetVersion != null) OnResetVersion();
-            }
-        }
+        public Dictionary() { }
         /// <summary>
         /// 清除数据
         /// </summary>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
             Boot = null;
-            nextVersion();
         }
         /// <summary>
         /// 设置数据
@@ -538,7 +620,7 @@ namespace AutoCSer.SearchTree
         /// <param name="key">关键字</param>
         /// <param name="value">数据</param>
         /// <returns>是否添加了关键字</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Set(KT key, VT value)
         {
             return Set(ref key, value);
@@ -554,16 +636,10 @@ namespace AutoCSer.SearchTree
             if (Boot == null)
             {
                 Boot = new Node { Key = key, Value = value, Count = 1 };
-                nextVersion();
                 return true;
             }
             KeyValue<KT, VT> keyValue = new KeyValue<KT, VT>(ref key, value);
-            if (Boot.Set(ref keyValue))
-            {
-                nextVersion();
-                return true;
-            }
-            return false;
+            return Boot.Set(ref keyValue);
         }
         /// <summary>
         /// 添加数据
@@ -571,7 +647,7 @@ namespace AutoCSer.SearchTree
         /// <param name="key">关键字</param>
         /// <param name="value">数据</param>
         /// <returns>是否添加了数据</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool TryAdd(KT key, VT value)
         {
             return TryAdd(ref key, value);
@@ -587,23 +663,17 @@ namespace AutoCSer.SearchTree
             if (Boot == null)
             {
                 Boot = new Node { Key = key, Value = value, Count = 1 };
-                nextVersion();
                 return true;
             }
             KeyValue<KT, VT> keyValue = new KeyValue<KT, VT>(ref key, value);
-            if (Boot.TryAdd(ref keyValue))
-            {
-                nextVersion();
-                return true;
-            }
-            return false;
+            return Boot.TryAdd(ref keyValue);
         }
         /// <summary>
         /// 根据关键字删除节点
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否存在关键字</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(KT key)
         {
             return Remove(ref key);
@@ -621,7 +691,6 @@ namespace AutoCSer.SearchTree
                 if (node != null)
                 {
                     if (node == Boot) Boot = node.Remove();
-                    nextVersion();
                     return true;
                 }
             }
@@ -642,7 +711,6 @@ namespace AutoCSer.SearchTree
                 {
                     if (node == Boot) Boot = node.Remove();
                     value = node.Value;
-                    nextVersion();
                     return true;
                 }
             }
@@ -654,7 +722,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否包含关键字</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool ContainsKey(KT key)
         {
             return Boot != null && Boot.Get(ref key) != null;
@@ -664,7 +732,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否包含关键字</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool ContainsKey(ref KT key)
         {
             return Boot != null && Boot.Get(ref key) != null;
@@ -675,7 +743,7 @@ namespace AutoCSer.SearchTree
         /// <param name="key">关键字</param>
         /// <param name="value">目标数据</param>
         /// <returns>是否成功</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool TryGetValue(KT key, out VT value)
         {
             return TryGetValue(ref key, out value);
@@ -705,7 +773,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>一个匹配节点位置,失败返回-1</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(KT key)
         {
             return Boot != null ? Boot.IndexOf(ref key) : -1;
@@ -715,7 +783,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>一个匹配节点位置,失败返回-1</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(ref KT key)
         {
             return Boot != null ? Boot.IndexOf(ref key) : -1;
@@ -725,7 +793,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountLess(ref KT key)
         {
             return Boot != null ? Boot.CountLess(ref key) : 0;
@@ -735,7 +803,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountThan(ref KT key)
         {
             return Boot != null ? Boot.CountThan(ref key) : 0;
@@ -745,7 +813,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="index">节点位置</param>
         /// <returns>数据</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public KeyValue<KT, VT> At(int index)
         {
             if (Boot != null) return Boot.At(index).KeyValue;
@@ -876,6 +944,25 @@ namespace AutoCSer.SearchTree
                 return array.Array;
             }
             return new LeftArray<VT>(0);
+        }
+        /// <summary>
+        /// 获取范围数据集合
+        /// </summary>
+        /// <param name="skipCount">跳过记录数</param>
+        /// <param name="getCount">获取记录数</param>
+        /// <returns></returns>
+        internal IEnumerable<VT> GetValues(int skipCount, int getCount)
+        {
+            if (Boot != null)
+            {
+                if (skipCount < 0)
+                {
+                    getCount += skipCount;
+                    skipCount = 0;
+                }
+                if (skipCount < Boot.Count && skipCount >= 0 && getCount > 0) return Boot.Enumerable(new EnumerableCount(skipCount, getCount));
+            }
+            return EmptyArray<VT>.Array;
         }
     }
 }

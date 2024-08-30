@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C37BEE64-BB8B-4D37-949F-20E081358B8B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCSer.ORM</RootNamespace>
+    <AssemblyName>AutoCSer.ORM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.ORM.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.ORM.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssociatedTable.cs" />
+    <Compile Include="AutoIdentityTableWriter.cs" />
+    <Compile Include="Business\BusinessQuery.cs" />
+    <Compile Include="Business\BusinessTableEvent.cs" />
+    <Compile Include="Business\BusinessWriter.cs" />
+    <Compile Include="Business\BusinessPersistence.cs" />
+    <Compile Include="Cache\CacheTableEvent.cs" />
+    <Compile Include="Cache\DictionaryEventCache.cs" />
+    <Compile Include="Cache\EventCache.cs" />
+    <Compile Include="Cache\FifoPriorityQueueCache.cs" />
+    <Compile Include="Cache\FragmentDictionaryEventCache.cs" />
+    <Compile Include="Cache\ICacheEvent.cs" />
+    <Compile Include="Cache\ICachePersistence.cs" />
+    <Compile Include="Cache\Synchronous\CallbackFlow.cs" />
+    <Compile Include="Cache\Synchronous\CallbackValue.cs" />
+    <Compile Include="Cache\Synchronous\CallbackValueLinkNode.cs" />
+    <Compile Include="Cache\Synchronous\Client\CacheClient.cs" />
+    <Compile Include="Cache\Synchronous\Client\DictionaryCache.cs" />
+    <Compile Include="Cache\Synchronous\OperationTypeEnum.cs" />
+    <Compile Include="CombinationTemplateConfig.cs" />
+    <Compile Include="CombinationTemplate\ConditionExpressionCalculator.cs" />
+    <Compile Include="CombinationTemplate\ConditionExpressionComparator.cs" />
+    <Compile Include="CombinationTemplate\ConditionExpressionFloatCalculator.cs" />
+    <Compile Include="CombinationTemplate\ConditionExpressionNegateCalculator.cs" />
+    <Compile Include="CombinationTemplate\ConditionExpressionNotCalculator.cs" />
+    <Compile Include="CombinationTemplate\Member.Read.cs" />
+    <Compile Include="CombinationTemplate\RemoteProxy.DataValue.Read.cs" />
+    <Compile Include="CustomColumn\CustomColumnType\Date.cs" />
+    <Compile Include="Excel\ConnectionInfo.cs" />
+    <Compile Include="Excel\IntermixedEnum.cs" />
+    <Compile Include="Excel\ProviderEnum.cs" />
+    <Compile Include="MemberAttribute\AutoIdentity.cs" />
+    <Compile Include="MemberAttribute\PrimaryKeyTypeEnum.cs" />
+    <Compile Include="Metadata\GenericType\BaseGenericType.cs" />
+    <Compile Include="MSSQL\ConnectionCreator2000.cs" />
+    <Compile Include="Query\Condition\AssociatedTableExistsCondition.cs" />
+    <Compile Include="Query\Condition\ExpressionCondition.cs" />
+    <Compile Include="Query\Condition\ICondition.cs" />
+    <Compile Include="MSSQL\TableIndex.cs" />
+    <Compile Include="Query\OnJoinQuery.cs" />
+    <Compile Include="RandomKey.cs" />
+    <Compile Include="RemoteProxy\Bit128.cs" />
+    <Compile Include="RemoteProxy\Column.cs" />
+    <Compile Include="RemoteProxy\CustomColumnReader.cs" />
+    <Compile Include="RemoteProxy\DataRow.cs" />
+    <Compile Include="RemoteProxy\DataValue.cs" />
+    <Compile Include="RemoteProxy\DataType.cs" />
+    <Compile Include="RemoteProxy\ModelReader.cs" />
+    <Compile Include="RemoteProxy\ModelSelectEnumerator.cs" />
+    <Compile Include="TablePersistence.cs" />
+    <Compile Include="ValueResult.cs" />
+    <Compile Include="CustomColumn\CustomColumnName.cs" />
+    <Compile Include="CustomColumn\ModelReader.cs" />
+    <Compile Include="IVerify.cs" />
+    <Compile Include="Query\IQueryBuilder.cs" />
+    <Compile Include="MemberAttribute\DateTimeAttribute.cs" />
+    <Compile Include="MemberAttribute\DateTimeTypeEnum.cs" />
+    <Compile Include="MemberAttribute\DecimalAttribute.cs" />
+    <Compile Include="MemberAttribute\MoneyAttribute.cs" />
+    <Compile Include="MemberAttribute\StringAttribute.cs" />
+    <Compile Include="MemberColumnIndex.cs" />
+    <Compile Include="CustomColumn\ToArray.cs" />
+    <Compile Include="ExpressionConverter.cs" />
+    <Compile Include="Extensions\TypeExtension.cs" />
+    <Compile Include="Metadata\GenericType\EnumGenericType.cs" />
+    <Compile Include="ModelReader.cs" />
+    <Compile Include="ModelSelectEnumerator.cs" />
+    <Compile Include="MSSQL\DecimalDigits.cs" />
+    <Compile Include="MSSQL\TableColumn.cs" />
+    <Compile Include="MSSQL\TableColumnDbTypeEnum.cs" />
+    <Compile Include="MSSQL\TableIndexColumn.cs" />
+    <Compile Include="MSSQL\TableIndexStateEnum.cs" />
+    <Compile Include="PageResult.cs" />
+    <Compile Include="Query\ExtensionQueryBuilder.cs" />
+    <Compile Include="Query\ExtensionQueryData.cs" />
+    <Compile Include="Query\Condition\QueryCondition.cs" />
+    <Compile Include="Query\QueryParameter\FieldParameter.cs" />
+    <Compile Include="Query\QueryParameter\MemberParameter.cs" />
+    <Compile Include="Query\QueryParameter\QueryMatchTypeEnum.cs" />
+    <Compile Include="Query\QueryParameter\QueryParameterAttribute.cs" />
+    <Compile Include="Query\WithLockTypeEnum.cs" />
+    <Compile Include="SQLExpression.cs" />
+    <Compile Include="ConditionExpression\ConditionExpressionConverter.cs" />
+    <Compile Include="ConditionExpression\ConvertTypeEnum.cs" />
+    <Compile Include="ConditionExpression\ExceptionTypeEnum.cs" />
+    <Compile Include="ConditionExpression\LogicTypeEnum.cs" />
+    <Compile Include="CustomColumn\CustomColumnAttribute.cs" />
+    <Compile Include="ConnectionCreator.cs" />
+    <Compile Include="ConnectionPool.cs" />
+    <Compile Include="CustomColumn\CustomColumnNameConcatTypeEnum.cs" />
+    <Compile Include="CustomColumn\ModelMetadata.cs" />
+    <Compile Include="CustomColumn\TableModel.cs" />
+    <Compile Include="ExpressionCallDateDiffType.cs" />
+    <Compile Include="Extensions\ExpressionExtension.cs" />
+    <Compile Include="Member.cs" />
+    <Compile Include="MemberAttribute\MemberAttribute.cs" />
+    <Compile Include="Metadata\GenericType\GenericType.cs" />
+    <Compile Include="Metadata\GenericType\StructGenericType.cs" />
+    <Compile Include="ModelAttribute.cs" />
+    <Compile Include="TableEvent.cs" />
+    <Compile Include="TableEventTypeEnum.cs" />
+    <Compile Include="TableModel.cs" />
+    <Compile Include="MSSQL\ConnectionCreator.cs" />
+    <Compile Include="Query\OrderItem.cs" />
+    <Compile Include="Query\Condition\PrimaryKeyCondition.cs" />
+    <Compile Include="Query\QueryBuilder.cs" />
+    <Compile Include="ReaderDataTypeEnum.cs" />
+    <Compile Include="SelectEnumerator.cs" />
+    <Compile Include="Reflection\Emit\Field.cs" />
+    <Compile Include="Reflection\Emit\Property.cs" />
+    <Compile Include="Query\Query.cs" />
+    <Compile Include="TableQuery.cs" />
+    <Compile Include="TableWriter.cs" />
+    <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionCommited.cs" />
+    <Compile Include="{AutoCSer.ORM}.CombinationTemplate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>
+  </PropertyGroup>
+</Project>

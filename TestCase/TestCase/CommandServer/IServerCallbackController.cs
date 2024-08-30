@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>

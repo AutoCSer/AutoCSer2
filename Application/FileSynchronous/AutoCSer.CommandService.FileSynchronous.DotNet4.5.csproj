@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{58911B7D-91AB-4DEC-9991-9019EE20447D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCSer.CommandService.FileSynchronous</RootNamespace>
+    <AssemblyName>AutoCSer.CommandService.FileSynchronous</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.CommandService.FileSynchronous.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.CommandService.FileSynchronous.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileSynchronousClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SynchronousFileInfo.cs" />
+    <Compile Include="SynchronousFile.cs" />
+    <Compile Include="UploadFile\CommandServerSocketSessionObject.cs" />
+    <Compile Include="UploadFile\IUploadFileClientSocketEvent.cs" />
+    <Compile Include="UploadFile\FileUploader.cs" />
+    <Compile Include="UploadFile\IUploadFileClient.cs" />
+    <Compile Include="UploadFile\IUploadFileService.cs" />
+    <Compile Include="UploadFile\UploaderIdentity.cs" />
+    <Compile Include="UploadFile\UploaderInfo.cs" />
+    <Compile Include="UploadFile\UploadFile.cs" />
+    <Compile Include="UploadFile\UploadFileBuffer.cs" />
+    <Compile Include="UploadFile\UploadFileClient.cs" />
+    <Compile Include="UploadFile\UploadFileIdentity.cs" />
+    <Compile Include="UploadFile\UploadFileIndex.cs" />
+    <Compile Include="UploadFile\UploadFileService.cs" />
+    <Compile Include="UploadFile\UploadFileConfig.cs" />
+    <Compile Include="UploadFile\UploadFileServiceConfig.cs" />
+    <Compile Include="UploadFile\UploadFileStateEnum.cs" />
+    <Compile Include="DirectoryName.cs" />
+    <Compile Include="UploadFile\UploadFileInfo.cs" />
+    <Compile Include="PullFile\PullFileStateEnum.cs" />
+    <Compile Include="PullFile\PullFileService.cs" />
+    <Compile Include="PullFile\PullFile.cs" />
+    <Compile Include="PullFile\IPullFileClient.cs" />
+    <Compile Include="PullFile\IPullFileClientSocketEvent.cs" />
+    <Compile Include="PullFile\IPullFileService.cs" />
+    <Compile Include="PullFile\PullFileClient.cs" />
+    <Compile Include="PullFile\PullFileBuffer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>
+  </PropertyGroup>
+</Project>

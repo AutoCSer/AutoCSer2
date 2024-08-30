@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.TestCase.Common.Data;
+using System;
 using System.Collections.Generic;
 
 #pragma warning disable
@@ -20,6 +21,7 @@ namespace AutoCSer.TestCase.Data
         public long Long;
         public ulong ULong;
         public DateTime DateTime;
+        public TimeSpan TimeSpan;
         public float Float;
         public double Double;
         public decimal Decimal;
@@ -54,6 +56,7 @@ namespace AutoCSer.TestCase.Data
         public long? LongNull;
         public ulong? ULongNull;
         public DateTime? DateTimeNull;
+        public TimeSpan? TimeSpanNull;
         public float? FloatNull;
         public double? DoubleNull;
         public decimal? DecimalNull;
@@ -98,6 +101,7 @@ namespace AutoCSer.TestCase.Data
         public long[] LongArray;
         public ulong[] ULongArray;
         public DateTime[] DateTimeArray;
+        public TimeSpan[] TimeSpanArray;
         public float[] FloatArray;
         public double[] DoubleArray;
         public decimal[] DecimalArray;
@@ -132,6 +136,7 @@ namespace AutoCSer.TestCase.Data
         public long?[] LongNullArray;
         public ulong?[] ULongNullArray;
         public DateTime?[] DateTimeNullArray;
+        public TimeSpan?[] TimeSpanNullArray;
         public float?[] FloatNullArray;
         public double?[] DoubleNullArray;
         public decimal?[] DecimalNullArray;
@@ -245,6 +250,7 @@ namespace AutoCSer.TestCase.Data
         public List<long> LongList;
         public List<ulong> ULongList;
         public List<DateTime> DateTimeList;
+        public List<TimeSpan> TimeSpanList;
         public List<float> FloatList;
         public List<double> DoubleList;
         public List<decimal> DecimalList;
@@ -313,6 +319,7 @@ namespace AutoCSer.TestCase.Data
         public List<long?> LongNullList;
         public List<ulong?> ULongNullList;
         public List<DateTime?> DateTimeNullList;
+        public List<TimeSpan?> TimeSpanNullList;
         public List<float?> FloatNullList;
         public List<double?> DoubleNullList;
         public List<decimal?> DecimalNullList;
@@ -357,6 +364,7 @@ namespace AutoCSer.TestCase.Data
         public ListArray<long> LongListArray;
         public ListArray<ulong> ULongListArray;
         public ListArray<DateTime> DateTimeListArray;
+        public ListArray<TimeSpan> TimeSpanListArray;
         public ListArray<float> FloatListArray;
         public ListArray<double> DoubleListArray;
         public ListArray<decimal> DecimalListArray;
@@ -425,6 +433,7 @@ namespace AutoCSer.TestCase.Data
         public ListArray<long?> LongNullListArray;
         public ListArray<ulong?> ULongNullListArray;
         public ListArray<DateTime?> DateTimeNullListArray;
+        public ListArray<TimeSpan?> TimeSpanNullListArray;
         public ListArray<float?> FloatNullListArray;
         public ListArray<double?> DoubleNullListArray;
         public ListArray<decimal?> DecimalNullListArray;
@@ -469,6 +478,7 @@ namespace AutoCSer.TestCase.Data
         public LeftArray<long> LongLeftArray;
         public LeftArray<ulong> ULongLeftArray;
         public LeftArray<DateTime> DateTimeLeftArray;
+        public LeftArray<TimeSpan> TimeSpanLeftArray;
         public LeftArray<float> FloatLeftArray;
         public LeftArray<double> DoubleLeftArray;
         public LeftArray<decimal> DecimalLeftArray;
@@ -503,6 +513,7 @@ namespace AutoCSer.TestCase.Data
         public LeftArray<long?> LongNullLeftArray;
         public LeftArray<ulong?> ULongNullLeftArray;
         public LeftArray<DateTime?> DateTimeNullLeftArray;
+        public LeftArray<TimeSpan?> TimeSpanNullLeftArray;
         public LeftArray<float?> FloatNullLeftArray;
         public LeftArray<double?> DoubleNullLeftArray;
         public LeftArray<decimal?> DecimalNullLeftArray;

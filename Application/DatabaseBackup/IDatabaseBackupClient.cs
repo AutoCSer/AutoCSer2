@@ -18,13 +18,7 @@ namespace AutoCSer.CommandService
         /// 获取可备份数据库名称集合
         /// </summary>
         /// <returns></returns>
-        [CommandClientMethod(MatchMethodName = nameof(GetDatabase))]
-        ReturnCommand<string[]> GetDatabaseAsync();
-        /// <summary>
-        /// 获取可备份数据库名称集合
-        /// </summary>
-        /// <returns></returns>
-        CommandClientReturnValue<string[]> GetDatabase();
+        ReturnCommand<string[]> GetDatabase();
 
         /// <summary>
         /// 备份数据库并返回文件名称
@@ -37,14 +31,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="database">数据库名称</param>
         /// <returns>备份文件名称</returns>
-        [CommandClientMethod(MatchMethodName = nameof(Backup))]
-        ReturnCommand<string> BackupAsync(string database);
-        /// <summary>
-        /// 备份数据库并返回文件名称
-        /// </summary>
-        /// <param name="database">数据库名称</param>
-        /// <returns>备份文件名称</returns>
-        CommandClientReturnValue<string> Backup(string database);
+        ReturnCommand<string> Backup(string database);
 
         /// <summary>
         /// 下载备份文件
@@ -74,13 +61,6 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="database">数据库名称</param>
         /// <returns></returns>
-        [CommandClientMethod(MatchMethodName = nameof(GetTableName))]
-        ReturnCommand<string[]> GetTableNameAsync(string database);
-        /// <summary>
-        /// 获取可备份数据库表格名称集合
-        /// </summary>
-        /// <param name="database">数据库名称</param>
-        /// <returns></returns>
-        CommandClientReturnValue<string[]> GetTableName(string database);
+        ReturnCommand<string[]> GetTableName(string database);
     }
 }

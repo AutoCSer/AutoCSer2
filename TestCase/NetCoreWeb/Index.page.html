@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AutoCSer 高性能 C# 互联网应用开发框架</title>
+    <!--include:Include\Style-->
+</head>
+<body>
+    <div>
+        <p><b class="AutoCSerClass" id="AutoCSerId" name="AutoCSerName" type="AutoCSerType">AutoCSer</b> 是一个以高效率为目标向导的互联网应用<a href="/Global.html">开发框架</a>，主要包括<a href="/TcpServer.html">高性能服务端通讯 RPC 组件</a>与 <a href="/WebView.html">WEB 数据视图模板组件</a>。</p>
+        <p>
+            <b>1. 开发效率</b>
+            <br />. 采用自动化编码方案，结合静态代码生成技术与运行时代码生成技术 Emit，在应用层消除业务逻辑无关代码。
+            <br />. <a href="/WebView.html">WEB 组件</a>架构采用前后端一体数据视图模型，目标是在高性能的基础上实现<a href="/Global.html"><b>统一规划全局数据定义</b></a>，从根本上消除服务端冗余的数据定义与逻辑。
+            <br />. <a href="/WebView.html">WEB 组件</a>前端模块集成支持声明组件模式，目标是采用组件自举模式消除前端非业务代码。
+        </p>
+        <p>
+            <b>2. 运行效率</b>
+            <br />提供高性能的基础组件，主要包括以下组件：
+            <!--include:Include\HighPerformance-->
+            <br />以上测试环境为 Win10 + i5 6400 + 8GB ，<b>不是在 VS 里调试运行</b>。
+        </p>
+        <p>基础类库支持 .NET Standard / Core 2.0 ，Web 数据视图框架支持 .NET Core 3.1</p>
+        <p>Windows 支持 .NET Framework 4.5</p>
+    </div>
+
+    <div><h1>下载 Download</h1></div>
+    <div> <a href="https://github.com/AutoCSer/AutoCSer2" target="_blank">GitHub</a></div>
+    <div>
+        <p>. <b>AutoCSer</b> 项目是核心程序集，主要包括 <a href="/TcpServer.html">RPC 组件</a> 与 <a href="/Binary.html">二进制</a> / <a href="/Json.html">JSON</a> 数据序列化组件。</p>
+        <p>. <b>AutoCSer.CodeGenerator</b> 项目用于<a href="/CodeGenerator.html">静态代码生成</a>，<a href="/WebView.html">WEB 组件</a>数据视图模型、<a href="/StreamPersistenceMemoryDatabase.html">可靠持久化内存数据库组件</a> 都需要使用它生成部分代码。</p>
+        <p>. <b>ExtensionTools\AutoCSer.Extensions</b> 项目包括一些非核心常用模块，比如 <a href="/Xml.html">XML 数据序列化</a>、.NET 程序集 XML 文档解析、字符串表达式解析、常用异步回调包装操作、静态变量内存监控扫描、二叉平衡树、字节匹配状态机等，大多数扩展应用组件都依赖该项目。</p>
+        <p>. <b>ExtensionTools\AutoCSer.NetCoreWeb</b> 项目支持前后端一体数据视图模型的<a href="/WebView.html">WEB 组件</a>，.html 与 .js 支持 include 嵌入子文件操作，支持 JSON API 控制器的调用监控、鉴权、参数约束、日志等操作。</p>
+        <p>. <b>ExtensionTools\AutoCSer.ORM</b> 项目是基于单表格操作的 ORM 组件，支持自定义业务数据类型约束，支持 Lambda 表达式查询操作，支持读写引用隔离以便于查找写操作用于排查错误，支持远程代理读取数据操作用于提升网络吞吐性能与降低数据库连接数。</p>
+        <p>. <b>Application\AutoCSer.CommandService.StreamPersistenceMemoryDatabase</b> 项目是<a href="/StreamPersistenceMemoryDatabase.html">基于文件流可靠持久化的高性能内存数据库存组件</a>，支持自定义任意数据结构，支持 API 级别事务，支持异地实时备份，支持动态加载程序集修复或者新增 API 避免不必要的冷启动操作。非持久化模式则相当于缓存服务组件，该组件中集成内置有消息组件。</p>
+        <p>. <b>Application\AutoCSer.CommandService.TimestampVerify</b> 项目是基于时间戳与 MD5 的验证组件，可以保证每一个验证数据仅能使用一次，避免验证网络数据被窃听。</p>
+        <p>. <b>Application\AutoCSer.CommandService.ServiceRegistry</b> 项目是动态服务注册组件，该组件实时推送服务变更信息，用于服务发现与服务集群功能，其中的本地端口注册组件是服务器的必备组件。</p>
+        <p>. <b>Application\AutoCSer.CommandService.ProcessGuard</b> 项目是应用进程守护组件，用于应用进程意外关闭自动重启支持，是服务器的必备组件。</p>
+        <p>. <b>Application\AutoCSer.CommandService.DeployTask</b> 项目是项目发布工具组件，是服务器的必备组件。</p>
+        <p>. <b>Application\AutoCSer.CommandService.DiskBlock</b> 项目是磁盘块对象储存组件，用于持久化对象的读写操作，对于热点缓存数据具有去重功能，配合使用可以降低内存数据库存组件的内存使用量以提升数据量上限。</p>
+        <p>. <b>Application\AutoCSer.CommandService.FileSynchronous</b> 项目是基于文件更新时间标识的文件上传下载组件。</p>
+        <p>. <b>Application\AutoCSer.CommandService.DistributedLock</b> 项目是分布式锁组件。</p>
+        <p>. <b>Application\AutoCSer.CommandService.ReverseLogCollection</b> 项目是反向日志收集组件，用于利用家庭带宽收集服务日志。</p>
+        <p>. <b>Application\AutoCSer.CommandService.DatabaseBackup</b> 项目是简单的 MSSQL 数据库文件备份组件。</p>
+        <p>. <b>TestCase\ExtensionTools\AutoCSer.RandomObject</b> 项目用于生成随机对象，用于生成测试数据。</p>
+        <p>. <b>TestCase\ExtensionTools\AutoCSer.FieldEquals</b> 项目用于对象深度对比，用于检查测试数据的匹配状态。</p>
+        <p>有问题或建议可以在 <a href="http://jq.qq.com/?_wv=1027&k=2HbDxVX" target="_blank">QQ 群 275679001</a>（旧群 4777880 暂时无法加人）或者 <a href="http://wpa.qq.com/msgrd?v=3&uin=472179624&site=qq&menu=yes" target="_blank">QQ</a> 上联系我。</p>
+    </div>
+    <!--include:Include\51Nod-->
+    <div>
+        <center><a href="http://beian.miit.gov.cn/" target="_blank">湘ICP备17011343号-1</a></center>
+    </div>
+    <div style="width:300px;margin:0 auto; padding:20px 0;">
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43092102000124" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img SRC="//f.autocser.com/Beian.png" alt="备案图标" style="float:left;" /><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">湘公网安备 43092102000124号</p></a>
+    </div>
+    <!--include:Include\BaiduFoot-->
+</body>
+</html>

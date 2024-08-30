@@ -22,11 +22,15 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
                 {
                     if (client.ServiceRegistryClient != null)
                     {
-                        AutoCSer.Net.CommandClientReturnValue<int> version = await client.ServiceRegistryClient.GetVersion();
-                        if (version.IsSuccess) Console.Write((char)(version.Value + '0'));
-                        else Console.Write($"*{version.ReturnType}*");
+                        AutoCSer.Net.CommandClientReturnValue<uint> version = await client.ServiceRegistryClient.GetVersion();
+                        if (version.IsSuccess)
+                        {
+                            Console.Write(version.Value);
+                            Console.Write('.');
+                        }
+                        else ConsoleWriteQueue.WriteLine($"*{version.ReturnType}*", ConsoleColor.Red);
                     }
-                    else Console.Write('.');
+                    else Console.Write('*');
                     await Task.Delay(100);
                 }
                 while (true);

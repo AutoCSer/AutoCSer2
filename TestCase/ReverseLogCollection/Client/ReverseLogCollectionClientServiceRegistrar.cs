@@ -32,7 +32,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         /// <param name="log"></param>
         /// <param name="changedType"></param>
         /// <returns></returns>
-        public override bool Callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedType changedType)
+        public override bool Callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
         {
             if(log == null)
             {
@@ -49,10 +49,10 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         /// <param name="log"></param>
         /// <param name="changedType"></param>
         /// <returns></returns>
-        private void callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedType changedType)
+        private void callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
         {
             Console.WriteLine($"{changedType} {log.Host}:{log.Port}");
-            if ((changedType & (ServiceRegisterLogClientChangedType.Main | ServiceRegisterLogClientChangedType.Append)) != 0)
+            if ((changedType & (ServiceRegisterLogClientChangedTypeEnum.Main | ServiceRegisterLogClientChangedTypeEnum.Append)) != 0)
             {
                 HostEndPoint hostEndPoint = log.HostEndPoint;
                 if (!clients.ContainsKey(hostEndPoint))
@@ -62,7 +62,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
                     client.Start();
                 }
             }
-            else if ((changedType & ServiceRegisterLogClientChangedType.Delete) != 0)
+            else if ((changedType & ServiceRegisterLogClientChangedTypeEnum.Delete) != 0)
             {
                 HostEndPoint hostEndPoint = log.HostEndPoint;
                 if (!clients.TryGetValue(hostEndPoint, out ReverseLogCollectionClient client))

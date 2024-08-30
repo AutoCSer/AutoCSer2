@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\AutoCSer\Extensions\AutoCSer.Extensions.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
@@ -18,8 +17,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandServerPort.cs" />
+    <Compile Include="CommandServerPortEnum.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Data\Enum\ByteEnum.cs" />
+    <Compile Include="Data\Enum\ByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\IntEnum.cs" />
+    <Compile Include="Data\Enum\IntFlagEnum.cs" />
+    <Compile Include="Data\Enum\LongEnum.cs" />
+    <Compile Include="Data\Enum\LongFlagEnum.cs" />
+    <Compile Include="Data\Enum\SByteEnum.cs" />
+    <Compile Include="Data\Enum\SByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\ShortEnum.cs" />
+    <Compile Include="Data\Enum\ShortFlagEnum.cs" />
+    <Compile Include="Data\Enum\UIntEnum.cs" />
+    <Compile Include="Data\Enum\UIntFlagEnum.cs" />
+    <Compile Include="Data\Enum\ULongEnum.cs" />
+    <Compile Include="Data\Enum\ULongFlagEnum.cs" />
+    <Compile Include="Data\Enum\UShortEnum.cs" />
+    <Compile Include="Data\Enum\UShortFlagEnum.cs" />
+    <Compile Include="ProcessGuard\CommandServiceSwitchProcess.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardClientSocketEvent.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardCommandClientConfig.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardSwitchProcess.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.NetStandard.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="AutoCSer">
+			<HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+		</Reference>
+	</ItemGroup>
   
 </Project>

@@ -136,13 +136,13 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueueContext
             ISynchronousKeyController controller = socketEvent.AsyncTaskQueueContext_SynchronousKeyController.CreateQueueController(1);
 
             CommandClientReturnValue returnType = await controller.SynchronousCallAsync(7, 5);
-            if (!returnType.IsSuccess) Program.Breakpoint();
+            AutoCSer.ConsoleWriteQueue.Breakpoint(returnType);
 
             returnType = await controller.SynchronousCallQueueAsync(8, 5);
-            if (!returnType.IsSuccess) Program.Breakpoint();
+            AutoCSer.ConsoleWriteQueue.Breakpoint(returnType);
 
             returnType = controller.SynchronousCall(9, 5);
-            if (!returnType.IsSuccess) Program.Breakpoint();
+            AutoCSer.ConsoleWriteQueue.Breakpoint(returnType);
         }
     }
 }

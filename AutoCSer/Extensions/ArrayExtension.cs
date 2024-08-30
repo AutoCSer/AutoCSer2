@@ -14,7 +14,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="array">数组数据</param>
         /// <returns>数组是否为空或者长度为0</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static bool isEmpty<T>(this T[] array)
         {
             return array == null || array.Length == 0;
@@ -25,7 +25,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="array">数组数据</param>
         /// <returns>非空数组</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static T[] notNull<T>(this T[] array)
         {
             return array != null ? array : EmptyArray<T>.Array;
@@ -36,11 +36,11 @@ namespace AutoCSer.Extensions
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="array">待复制数组</param>
         /// <returns>复制后的新数组</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static T[] copy<T>(this T[] array)
         {
             if (array.isEmpty()) return EmptyArray<T>.Array;
-            return AutoCSer.Common.Config.GetArray(array, array.Length);
+            return AutoCSer.Common.Config.GetCopyArray(array, array.Length);
         }
         /// <summary>
         /// 连接数组
@@ -69,7 +69,7 @@ namespace AutoCSer.Extensions
             }
             if (length != 0)
             {
-                T[] newValues = AutoCSer.Common.Config.GetArray<T>(length);
+                T[] newValues = new T[length];
                 length = 0;
                 foreach (T[] value in array)
                 {
@@ -94,7 +94,7 @@ namespace AutoCSer.Extensions
         {
             if (addArray.Length == 0) return array;
             if (array.Length == 0) return addArray;
-            T[] newArray = AutoCSer.Common.Config.GetArray(array, array.Length + addArray.Length);
+            T[] newArray = AutoCSer.Common.Config.GetCopyArray(array, array.Length + addArray.Length);
             AutoCSer.Common.Config.CopyTo(addArray, newArray, array.Length);
             return newArray;
         }
@@ -104,7 +104,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="T">数据类型</typeparam>
         /// <param name="array">数组集合</param>
         /// <returns>连接后的数组</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static T[] concat<T>(params T[][] array)
         {
             return array.getArray();
@@ -123,7 +123,7 @@ namespace AutoCSer.Extensions
                 int length = array.Length;
                 if (length != 0)
                 {
-                    T[] newValues = AutoCSer.Common.Config.GetArray<T>(array.Length < sizeof(int) ? sizeof(int) : length);
+                    T[] newValues = new T[array.Length < sizeof(int) ? sizeof(int) : length];
                     length = 0;
                     foreach (T value in array)
                     {
@@ -142,7 +142,7 @@ namespace AutoCSer.Extensions
         /// <param name="array">待排序数组</param>
         /// <param name="comparer">比较器</param>
         /// <returns>排序后的数组</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static T[] sort<T>(this T[] array, Func<T, T, int> comparer)
         {
             AutoCSer.Algorithm.QuickSort.Sort(array, comparer);
@@ -157,7 +157,7 @@ namespace AutoCSer.Extensions
         /// <param name="toString">字符串转换器</param>
         /// <param name="join">连接字符</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string joinString<T>(this T[] array, char join, Func<T, string> toString)
         {
             if (array.Length == 0) return string.Empty;

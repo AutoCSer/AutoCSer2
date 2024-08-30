@@ -7,7 +7,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
     /// <summary>
     /// 服务端控制器 async Task 读写队列调用 同步返回数据 示例接口
     /// </summary>
-    [AutoCSer.Net.CommandServerController(TaskQueueMaxConcurrent = 16)]
+    [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 16)]
     public interface ISynchronousController
     {
         /// <summary>
@@ -41,10 +41,9 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task<int> ISynchronousController.SynchronousReturn(CommandServerSocket socket, CommandServerCallTaskQueue queue, int parameter1, int parameter2)
+        Task<int> ISynchronousController.SynchronousReturn(CommandServerSocket socket, CommandServerCallTaskQueue queue, int parameter1, int parameter2)
         {
-            await Task.Yield();
-            return parameter1 + parameter2;
+            return Task.FromResult(parameter1 + parameter2);
         }
         /// <summary>
         /// 无返回值同步调用
@@ -52,10 +51,10 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         /// <param name="queue">当前执行队列上下文，必须定义在所有数据参数之前</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
-        async Task ISynchronousController.SynchronousCall(CommandServerCallTaskLowPriorityQueue queue, int parameter1, int parameter2)
+        Task ISynchronousController.SynchronousCall(CommandServerCallTaskLowPriorityQueue queue, int parameter1, int parameter2)
         {
-            await Task.Yield();
             Console.WriteLine(parameter1 + parameter2);
+            return AutoCSer.Common.CompletedTask;
         }
     }
 }

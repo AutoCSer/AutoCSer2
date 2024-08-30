@@ -27,7 +27,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="timestamp"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static long GetMillisecondsByTimestamp(long timestamp)
         {
             if (Stopwatch.IsHighResolution) return (long)(timestamp * timestampToMilliseconds);

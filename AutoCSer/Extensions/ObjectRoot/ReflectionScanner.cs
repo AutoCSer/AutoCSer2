@@ -104,7 +104,7 @@ namespace AutoCSer.ObjectRoot
         /// 添加对象扫描
         /// </summary>
         /// <param name="objectScanner"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Append(ReflectionObjectScanner objectScanner)
         {
             Objects.Add(objectScanner);
@@ -113,7 +113,7 @@ namespace AutoCSer.ObjectRoot
         /// 添加数组扫描
         /// </summary>
         /// <param name="arrayScanner"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Append(ReflectionArrayScanner arrayScanner)
         {
             Arrays.Add(arrayScanner);

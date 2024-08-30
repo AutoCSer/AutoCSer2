@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>
@@ -41,7 +42,7 @@ namespace AutoCSer.TestCase
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
                 || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             returnValue = await controller.TaskQueueReturn();
@@ -49,7 +50,7 @@ namespace AutoCSer.TestCase
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
                 || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -57,13 +58,13 @@ namespace AutoCSer.TestCase
             CommandClientReturnValue returnType = await controller.TaskQueue(clientSessionObject.Value, clientSessionObject.Ref);
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             returnType = await controller.TaskQueue();
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -73,7 +74,7 @@ namespace AutoCSer.TestCase
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
                 || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             returnValue = await controller.TaskQueueLowPriorityReturn();
@@ -81,7 +82,7 @@ namespace AutoCSer.TestCase
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
                 || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -89,13 +90,13 @@ namespace AutoCSer.TestCase
             returnType = await controller.TaskQueueLowPriority(clientSessionObject.Value, clientSessionObject.Ref);
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             returnType = await controller.TaskQueueLowPriority();
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             return true;

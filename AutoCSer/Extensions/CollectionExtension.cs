@@ -15,7 +15,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数据集合</param>
         /// <returns>泛型数据集合</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static ICollection<T> toGeneric<T>(this ICollection value)
         {
             return new ToGenericCollection<T>(value);
@@ -27,7 +27,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value">数据集合</param>
         /// <returns>null为0</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static int count<T>(this ICollection<T> value)
         {
             return value != null ? value.Count : 0;
@@ -41,7 +41,7 @@ namespace AutoCSer.Extensions
         public static T[] getArray<T>(this ICollection<T> values)
         {
             if (values.Count == 0) return EmptyArray<T>.Array;
-            T[] array = AutoCSer.Common.Config.GetArray<T>(values.Count);
+            T[] array = new T[values.Count];
             int index = 0;
             foreach (T value in values) array[index++] = value;
             if (index != array.Length) System.Array.Resize(ref array, index);
@@ -55,13 +55,38 @@ namespace AutoCSer.Extensions
         /// <param name="values">值集合</param>
         /// <param name="getValue">获取数组值的委托</param>
         /// <returns>数组</returns>
+        public static LeftArray<VT> getLeftArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
+        {
+            if (values.Count == 0) return new LeftArray<VT>(0);
+            LeftArray<VT> array = new LeftArray<VT>(values.Count);
+            foreach (T value in values) array.Add(getValue(value));
+            return array;
+        }
+        /// <summary>
+        /// 根据集合内容返回数组
+        /// </summary>
+        /// <typeparam name="T">枚举值类型</typeparam>
+        /// <typeparam name="VT">返回数组类型</typeparam>
+        /// <param name="values">值集合</param>
+        /// <param name="getValue">获取数组值的委托</param>
+        /// <returns>数组</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static VT[] getArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
         {
-            if (values.Count == 0) return EmptyArray<VT>.Array;
-            VT[] array = AutoCSer.Common.Config.GetArray<VT>(values.Count);
-            int index = 0;
-            foreach (T value in values) array[index++] = getValue(value);
-            return array;
+            return getLeftArray<T, VT>(values, getValue).ToArray();
+        }
+        /// <summary>
+        /// 根据集合内容返回单向动态数组
+        /// </summary>
+        /// <typeparam name="T">枚举值类型</typeparam>
+        /// <typeparam name="VT">返回数组类型</typeparam>
+        /// <param name="values">值集合</param>
+        /// <param name="getValue">获取数组值的委托</param>
+        /// <returns>单向动态数组</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static ListArray<VT> getListArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
+        {
+            return new ListArray<VT>(getLeftArray<T, VT>(values, getValue));
         }
 
         /// <summary>
@@ -84,7 +109,7 @@ namespace AutoCSer.Extensions
                 }
                 if (index != 0)
                 {
-                    VT[] newValues = AutoCSer.Common.Config.GetArray<VT>(index);
+                    VT[] newValues = new VT[index];
                     index = 0;
                     foreach (T value in values)
                     {

@@ -1,0 +1,3134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.NetCoreWeb</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.NetCoreWeb.AccessControlMiddleware">
+            <summary>
+            跨域访问支持中间件（应该放在应用中间件的最前面）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.AccessControlMiddleware.accessOrigin">
+            <summary>
+            跨域请求头部参数 Access-Control-Allow-Origin
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.AccessControlMiddleware.accessMethods">
+            <summary>
+            跨域响应头部参数 Access-Control-Allow-Methods
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.AccessControlMiddleware.accessHeaders">
+            <summary>
+            跨域响应头部参数 Access-Control-Allow-Headers
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.AccessControlMiddleware.accessMaxAge">
+            <summary>
+            跨域响应头部参数 Access-Control-Max-Age
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.AccessControlMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            跨域访问支持中间件
+            </summary>
+            <param name="nextRequest"></param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.AccessControlMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            跨域访问处理
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.CombinationTemplateConfig">
+            <summary>
+            自定义简单组合模板参数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.CombinationTemplateConfig.TemplatePath">
+            <summary>
+            自定义模板相对项目路径
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.RouteParameter">
+            <summary>
+            路由参数解析
+            </summary>
+            <summary>
+            路由参数解析
+            </summary>
+            <summary>
+            路由参数解析
+            </summary>
+            <summary>
+            路由参数解析
+            </summary>
+            <summary>
+            路由参数解析
+            </summary>
+            <summary>
+            路由参数解析
+            </summary>
+            <summary>
+            路由参数解析
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.DateTime@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.RouteParameter.requestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.RouteParameter.startIndex">
+            <summary>
+            开始解析位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.RouteParameter.isEnd">
+            <summary>
+            是否解析结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.RouteParameter.message">
+            <summary>
+            路由参数解析错误信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.#ctor(System.String,System.Int32)">
+            <summary>
+            路由参数解析
+            </summary>
+            <param name="requestPath">请求路径</param>
+            <param name="startIndex">开始解析位置</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Boolean@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.SByte@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Byte@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Int16@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.UInt16@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Int32@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.UInt32@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Int64@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.UInt64@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,AutoCSer.SubString@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.String@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get``1(System.String,``0@)">
+            <summary>
+            JSON 参数解析
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.get``1(System.String,``0@,System.Int32)">
+            <summary>
+            参数 JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="nextIndex"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.End">
+            <summary>
+            解析结束检查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Single@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Double@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Decimal@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.TimeSpan@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.RouteParameter.Get(System.String,System.Guid@)">
+            <summary>
+            参数解析
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.EnumHelpView">
+            <summary>
+            枚举值类型帮助文档视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.EnumHelpView.Name">
+            <summary>
+            枚举值名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.EnumHelpView.Value">
+            <summary>
+            枚举值数值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.EnumHelpView.#ctor(System.Reflection.FieldInfo)">
+            <summary>
+            枚举值类型帮助文档视图数据
+            </summary>
+            <param name="field">枚举字段信息</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.HttpMethodParameter">
+            <summary>
+            控制器方法参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.HttpMethodParameter.Parameter">
+            <summary>
+            控制器方法参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.HttpMethodParameter.attribute">
+            <summary>
+            代理控制器方法参数约束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.HttpMethodParameter.ConstraintType">
+            <summary>
+            代理控制器方法参数约束类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.HttpMethodParameter.IsTemplateParameter">
+            <summary>
+            是否模板参数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.HttpMethodParameter.#ctor(System.Reflection.ParameterInfo,System.Boolean,System.Boolean)">
+            <summary>
+            控制器方法参数信息
+            </summary>
+            <param name="parameter"></param>
+            <param name="isDefaultParameterConstraint"></param>
+            <param name="isTemplateParameter">是否模板参数</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiControllerHelpView">
+            <summary>
+            JSON API 控制器帮助文档视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.ViewMiddleware">
+            <summary>
+            数据视图中间件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.controllerType">
+            <summary>
+            控制器类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.type">
+            <summary>
+            控制器类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.Type">
+            <summary>
+            控制器类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.apiMethods">
+            <summary>
+            API 方法集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.methods">
+            <summary>
+            API 方法集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.Methods">
+            <summary>
+            API 方法集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.Type,AutoCSer.LeftArray{AutoCSer.NetCoreWeb.JsonApiMethod}@)">
+            <summary>
+            JSON API 控制器帮助文档视图数据
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="controllerType">控制器类型</param>
+            <param name="methods">API 方法集合</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiControllerHelpView.LoadTypeView">
+            <summary>
+            加载类型视图数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiFlags">
+            <summary>
+            JSON API 方法信息标记
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiFlags.IsCheckRequest">
+            <summary>
+            是否检查 WEB API 调用，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiFlags.IsCheckParameter">
+            <summary>
+            是否需要检查参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiFlags.IsAccessTokenParameter">
+            <summary>
+            是否参数鉴权
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiFlags.IsPostParameter">
+            <summary>
+            是否存在 POST 参数
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ClientMessage">
+            <summary>
+            客户端错误信息定义
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ClientMessage.AppName">
+            <summary>
+            浏览器名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ClientMessage.AppVersion">
+            <summary>
+            浏览器的平台和版本信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ClientMessage.Location">
+            <summary>
+            当前访问 URL
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ClientMessage.FileName">
+            <summary>
+            出错文件名称（如果出错文件为 Location 则不传递该参数）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ClientMessage.LineNo">
+            <summary>
+            出错行号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ClientMessage.ColNo">
+            <summary>
+            出错列号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ClientMessage.Message">
+            <summary>
+            具体错误信息
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiAttribute">
+            <summary>
+            JSON API 自定义配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.Template">
+            <summary>
+            路由模板字符串，默认为 null 表示方法名称（一般用于 POST 请求），设置为空字符串则表示 GET 请求所有参数，/ 开始表示忽略代理控制器路由，非模板参数路由不允许包含 {} 这两个符号，模板参数必须放在最后，可以表示为 /{参数名称} 或者 {参数名称}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.SingletonEnum">
+            <summary>
+            单例实例配置，默认由控制器配置 JsonApiControllerAttribute.IsSingleton 决定
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.CheckRequestEnum">
+            <summary>
+            调用请求检查配置，默认由控制器配置 AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsCheckRequest 决定
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.OnlyPost">
+            <summary>
+            默认为 false 表示支持 GET 请求，否则仅支持 POST 请求
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.IsResponseJavaScript">
+            <summary>
+            默认为 false 表示输出 JSON，设置为 true 表示数据视图客户端请求返回 JavaScript 代码可以降低序列化开销
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.CheckReferer">
+            <summary>
+            默认为 true 表示检查来源页面，用于跨域验证
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.IsLog">
+            <summary>
+            默认为 false 表示不记录请求信息日志，设置为 true 则记录请求信息日志（比如写操作接口可能需要记录日志）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.IsHelp">
+            <summary>
+            默认为 true 表示生成帮助文档视图数据信息，控制器生成帮助文档视图数据信息时有效
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.IsStaticVersion">
+            <summary>
+            默认为 false 表示不缓存 GET 返回数据，设置为 true 则根据静态版本信息检查结果缓存 GET 返回数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.MaxContentLength">
+            <summary>
+            最大 POST 字节数，默认为 1MB
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiAttribute.#ctor(System.String,AutoCSer.NetCoreWeb.JsonApiSingletonEnum,AutoCSer.NetCoreWeb.JsonApiCheckRequestEnum,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            JSON API 自定义配置
+            </summary>
+            <param name="template">路由模板字符串，默认为 null 表示方法名称（一般用于 POST 请求），设置为空字符串则表示 GET 请求所有参数，/ 开始表示忽略代理控制器路由，非模板参数路由不允许包含 {} 这两个符号，模板参数必须放在最后，可以表示为 /{参数名称} 或者 {参数名称}</param>
+            <param name="singletonEnum">单例实例配置，默认由控制器配置 JsonApiControllerAttribute.IsSingleton 决定</param>
+            <param name="checkRequestEnum">调用请求检查配置，默认由控制器配置 AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsCheckRequest 决定</param>
+            <param name="onlyPost">默认为 false 表示支持 GET 请求，否则仅支持 POST 请求</param>
+            <param name="isResponseJavaScript">默认为 false 表示输出 JSON，设置为 true 表示数据视图客户端请求返回 JavaScript 代码可以降低序列化开销</param>
+            <param name="checkReferer">默认为 true 表示检查来源页面，用于跨域验证</param>
+            <param name="isLog">默认为 false 表示不记录请求信息日志，设置为 true 则记录请求信息日志（比如写操作接口可能需要记录日志）</param>
+            <param name="isStaticVersion">默认为 false 表示不缓存 GET 返回数据，设置为 true 则根据静态版本信息检查结果缓存 GET 返回数据</param>
+            <param name="isHelp">默认为 true 表示生成帮助文档视图数据信息，控制器生成帮助文档视图数据信息时有效</param>
+            <param name="maxContentLength">最大 POST 字节数，默认为 1MB</param>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.Default">
+            <summary>
+            默认 JSON API 自定义配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiCheckRequestEnum">
+            <summary>
+            JSON API 是否检查 API 方法调用，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiCheckRequestEnum.Controller">
+            <summary>
+            由控制器配置 AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsCheckRequest 决定
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiCheckRequestEnum.NotCheck">
+            <summary>
+            不检查 API 方法调用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiCheckRequestEnum.Check">
+            <summary>
+            检查 API 方法调用，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiController">
+            <summary>
+            JSON API 控制器基类
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiHelpView">
+            <summary>
+            JSON API 帮助文档视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiHelpView.Controller">
+            <summary>
+            JSON API 控制器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiHelpView.Method">
+            <summary>
+            JSON API 方法信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiHelpView.MethodName">
+            <summary>
+            方法名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiHelpView.RoutePath">
+            <summary>
+            请求路由路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiHelpView.Summary">
+            <summary>
+            API 方法文档描述
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiHelpView.ReturnType">
+            <summary>
+            返回值数据类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiHelpView.ReturnSummary">
+            <summary>
+            返回值文档描述
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiHelpView.Parameters">
+            <summary>
+            参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiHelpView.#ctor(AutoCSer.NetCoreWeb.JsonApiControllerHelpView,AutoCSer.NetCoreWeb.JsonApiMethod)">
+            <summary>
+            JSON API 帮助文档视图数据
+            </summary>
+            <param name="controller">JSON API 控制器</param>
+            <param name="method">JSON API 方法信息</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiHelpView.LoadTypeView">
+            <summary>
+            加载类型视图数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiMethod">
+            <summary>
+            JSON API 方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.Method">
+            <summary>
+            方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.Attribute">
+            <summary>
+            JSON API 自定义配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.resultType">
+            <summary>
+            ResponseResult{T} 返回值类型 T
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.Parameters">
+            <summary>
+            参数信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.HttpMethodParameters">
+            <summary>
+            控制器方法参数信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiMethod.ParentType">
+            <summary>
+            JSON API 请求实例父类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiMethod.HelpReturnType">
+            <summary>
+            帮助文档返回值类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.RoutePath">
+            <summary>
+            请求路由路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.IsApi">
+            <summary>
+            是否生成 API 调用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethod.type">
+            <summary>
+            JSON API 方法类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiMethod.#ctor(System.Reflection.MethodInfo,AutoCSer.NetCoreWeb.JsonApiAttribute,System.Reflection.ParameterInfo[],AutoCSer.NetCoreWeb.JsonApiMethodTypeEnum)">
+            <summary>
+            JSON API 方法信息
+            </summary>
+            <param name="method">方法信息</param>
+            <param name="attribute">JSON API 自定义配置</param>
+            <param name="parameters">参数信息集合</param>
+            <param name="type">JSON API 方法类型</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiMethod.#ctor(System.Reflection.MethodInfo,AutoCSer.NetCoreWeb.JsonApiAttribute,System.Reflection.ParameterInfo[],System.Type)">
+            <summary>
+            JSON API 方法信息
+            </summary>
+            <param name="method">方法信息</param>
+            <param name="attribute">JSON API 自定义配置</param>
+            <param name="parameters">参数信息集合</param>
+            <param name="resultType">ResponseResult{T} 返回值类型 T</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiMethodTypeEnum">
+            <summary>
+            JSON API 方法类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethodTypeEnum.ResponseResult">
+            <summary>
+            返回值类型为 ResponseResult{T}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiMethodTypeEnum.ResponseState">
+            <summary>
+            返回值类型为 ResponseResult
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiParameterHelpView">
+            <summary>
+            JSON API 参数帮助文档视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.Method">
+            <summary>
+            API 方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.parameter">
+            <summary>
+            参数信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.Name">
+            <summary>
+            参数名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.ConstraintType">
+            <summary>
+            代理控制器方法参数约束类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.IsTemplateParameter">
+            <summary>
+            是否模板参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.Summary">
+            <summary>
+            参数文档描述
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.Type">
+            <summary>
+            参数类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiParameterHelpView.#ctor(AutoCSer.NetCoreWeb.JsonApiHelpView,AutoCSer.NetCoreWeb.HttpMethodParameter)">
+            <summary>
+            JSON API 参数帮助文档视图数据
+            </summary>
+            <param name="method">API 方法信息</param>
+            <param name="parameter">参数信息</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiRequest">
+            <summary>
+            JSON API 请求实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.ControllerType">
+            <summary>
+            JSON API 代理控制器类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.MethodName">
+            <summary>
+            JSON API 方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.Attribute">
+            <summary>
+            JSON API 自定义配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.Flags">
+            <summary>
+            JSON API 方法信息标记
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.controller">
+            <summary>
+            JSON API 单例代理控制器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.createController">
+            <summary>
+            创建 JSON API 代理控制器委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiRequest.RequestInfo">
+            <summary>
+            请求信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.Func{AutoCSer.NetCoreWeb.JsonApiController},System.Reflection.MethodInfo,AutoCSer.NetCoreWeb.JsonApiControllerAttribute,AutoCSer.NetCoreWeb.JsonApiAttribute,AutoCSer.NetCoreWeb.JsonApiFlags)">
+            <summary>
+            JSON API 请求实例
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="createController">创建 JSON API 代理控制器委托</param>
+            <param name="method">JSON API 方法信息</param>
+            <param name="controllerAttribute">JSON API 代理控制器自定义配置</param>
+            <param name="attribute">JSON API 自定义配置</param>
+            <param name="flags">JSON API 方法信息标记</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.Request(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequestTypeEnum)">
+            <summary>
+            加载请求
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="type">数据视图请求类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.JsonDeserialize(AutoCSer.Memory.ByteArrayBuffer@)">
+            <summary>
+            JSON 反序列化参数
+            </summary>
+            <param name="postBuffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.CheckParameter(AutoCSer.NetCoreWeb.ParameterChecker@)">
+            <summary>
+            检查传参
+            </summary>
+            <param name="checker"></param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.CheckAccessTokenParameter">
+            <summary>
+            参数鉴权
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.call(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.JsonApiController,System.Boolean)">
+            <summary>
+            API 调用
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="controller"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.Request(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Int32)">
+            <summary>
+            加载请求
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="requestPath">请求路径</param>
+            <param name="startIndex">模板解析开始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.GetRouteParameter(AutoCSer.NetCoreWeb.RouteParameter@)">
+            <summary>
+            获取路由参数
+            </summary>
+            <param name="routeParameter">路由参数解析</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.GetPostString(AutoCSer.Memory.ByteArrayBuffer@)">
+            <summary>
+            获取 POST 字符串
+            </summary>
+            <param name="postBuffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest.JsonDeserializeParameter``1(AutoCSer.Memory.ByteArrayBuffer@,``0@)">
+            <summary>
+            JSON 反序列化参数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="postBuffer"></param>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiRequest`1">
+            <summary>
+            JSON API 请求实例
+            </summary>
+            <typeparam name="T">API 方法返回值类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest`1.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.Func{AutoCSer.NetCoreWeb.JsonApiController},System.Reflection.MethodInfo,AutoCSer.NetCoreWeb.JsonApiControllerAttribute,AutoCSer.NetCoreWeb.JsonApiAttribute,AutoCSer.NetCoreWeb.JsonApiFlags)">
+            <summary>
+            JSON API 请求实例
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="createController">创建 JSON API 代理控制器委托</param>
+            <param name="method">JSON API 方法信息</param>
+            <param name="controllerAttribute">JSON API 代理控制器自定义配置</param>
+            <param name="attribute">JSON API 自定义配置</param>
+            <param name="flags">JSON API 方法信息标记</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRequest`1.Call(AutoCSer.NetCoreWeb.JsonApiController)">
+            <summary>
+            API 调用
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiResultRequest">
+            <summary>
+            JSON API 请求实例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiResultRequest.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.Func{AutoCSer.NetCoreWeb.JsonApiController},System.Reflection.MethodInfo,AutoCSer.NetCoreWeb.JsonApiControllerAttribute,AutoCSer.NetCoreWeb.JsonApiAttribute,AutoCSer.NetCoreWeb.JsonApiFlags)">
+            <summary>
+            JSON API 请求实例
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="createController">创建 JSON API 代理控制器委托</param>
+            <param name="method">JSON API 方法信息</param>
+            <param name="controllerAttribute">JSON API 代理控制器自定义配置</param>
+            <param name="attribute">JSON API 自定义配置</param>
+            <param name="flags">JSON API 方法信息标记</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiResultRequest.call(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.JsonApiController,System.Boolean)">
+            <summary>
+            API 调用
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="controller"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiResultRequest`1">
+            <summary>
+            JSON API 请求实例
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiResultRequest`1.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.Func{AutoCSer.NetCoreWeb.JsonApiController},System.Reflection.MethodInfo,AutoCSer.NetCoreWeb.JsonApiControllerAttribute,AutoCSer.NetCoreWeb.JsonApiAttribute,AutoCSer.NetCoreWeb.JsonApiFlags)">
+            <summary>
+            JSON API 请求实例
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="createController">创建 JSON API 代理控制器委托</param>
+            <param name="method">JSON API 方法信息</param>
+            <param name="controllerAttribute">JSON API 代理控制器自定义配置</param>
+            <param name="attribute">JSON API 自定义配置</param>
+            <param name="flags">JSON API 方法信息标记</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiResultRequest`1.call(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.JsonApiController,System.Boolean)">
+            <summary>
+            API 调用
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="controller"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiRouteNode">
+            <summary>
+            JSON API 路由节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRouteNode.parent">
+            <summary>
+            父节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRouteNode.pathIndex">
+            <summary>
+            模板解析开始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRouteNode.Nodes">
+            <summary>
+            子节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiRouteNode.Request">
+            <summary>
+            JSON API 请求实例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRouteNode.#ctor(AutoCSer.NetCoreWeb.JsonApiRouteNode,System.Int32)">
+            <summary>
+            JSON API 路由节点
+            </summary>
+            <param name="parent">父节点</param>
+            <param name="pathIndex">模板解析开始位置</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRouteNode.AppendNode(AutoCSer.SubString)">
+            <summary>
+            尝试添加子节点
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiRouteNode.LoadRequest(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            JSON API 请求
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="requestPath">请求地址</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiSingletonEnum">
+            <summary>
+            JSON API 是否单例实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiSingletonEnum.Controller">
+            <summary>
+            由控制器配置 AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsSingleton 决定
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiSingletonEnum.New">
+            <summary>
+            每一个请求使用不同实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiSingletonEnum.Singleton">
+            <summary>
+            单例模式
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.MemberHelpView">
+            <summary>
+            帮助文档类型成员信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.MemberHelpView.DeclaringType">
+            <summary>
+            成员来源定义类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.MemberHelpView.member">
+            <summary>
+            成员信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.MemberHelpView.type">
+            <summary>
+            成员类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.MemberHelpView.Type">
+            <summary>
+            成员类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.MemberHelpView.Name">
+            <summary>
+            成员名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.MemberHelpView.summary">
+            <summary>
+            成员文档描述
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.MemberHelpView.Summary">
+            <summary>
+            成员文档描述
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.MemberHelpView.CanRead">
+            <summary>
+            是否可读
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.MemberHelpView.CanWrite">
+            <summary>
+            是否可写
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.MemberHelpView.#ctor(AutoCSer.NetCoreWeb.TypeHelpView,System.Reflection.FieldInfo)">
+            <summary>
+            帮助文档类型成员信息
+            </summary>
+            <param name="type">帮助文档类型信息</param>
+            <param name="member">成员信息</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.MemberHelpView.#ctor(AutoCSer.NetCoreWeb.TypeHelpView,System.Reflection.PropertyInfo,System.Boolean,System.Boolean)">
+            <summary>
+            帮助文档类型成员信息
+            </summary>
+            <param name="type">帮助文档类型信息</param>
+            <param name="member">成员信息</param>
+            <param name="canRead">是否可读</param>
+            <param name="canWrite">是否可写</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.ClassGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.ClassGenericType.ParameterCheckerCheckNullDelegate">
+            <summary>
+            检查参数不允许为 null
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.ClassGenericType.create``1">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.Metadata.ClassGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.ClassGenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.ClassGenericType`1">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.ClassGenericType`1.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.ClassGenericType`1.parameterCheckerCheckNullDelegate">
+            <summary>
+            检查参数不允许为 null
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.ClassGenericType`1.ParameterCheckerCheckNullDelegate">
+            <summary>
+            检查参数不允许为 null
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType.ParameterCheckerCheckCollectionDelegate">
+            <summary>
+            检查参数不允许为默认值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType.create``1">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType`1">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType`1.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType`1.parameterCheckerCheckCollectionDelegate">
+            <summary>
+            检查参数不允许为默认值
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.CollectionGenericType`1.ParameterCheckerCheckCollectionDelegate">
+            <summary>
+            检查参数不允许为默认值
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType.ParameterCheckerCheckConstraintDelegate">
+            <summary>
+            自定义约束参数检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType.create``1">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType`1">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType`1.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType`1.parameterCheckerCheckConstraintDelegate">
+            <summary>
+            自定义约束参数检查
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.ParameterConstraintGenericType`1.ParameterCheckerCheckConstraintDelegate">
+            <summary>
+            自定义约束参数检查
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType.ParameterCheckerCheckEquatableDelegate">
+            <summary>
+            检查参数不允许为默认值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType.create``1">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType`1">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType`1.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType`1.parameterCheckerCheckEquatableDelegate">
+            <summary>
+            检查参数不允许为默认值
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.EquatableGenericType`1.ParameterCheckerCheckEquatableDelegate">
+            <summary>
+            检查参数不允许为默认值
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.GenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.GenericType.CheckAccessTokenParameterDelegate">
+            <summary>
+            参数鉴权
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.GenericType.create``1">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.Metadata.GenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Metadata.GenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Metadata.GenericType`1">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.GenericType`1.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.Metadata.GenericType`1.CheckAccessTokenParameterDelegate">
+            <summary>
+            参数鉴权
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum">
+            <summary>
+            参数约束类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum.None">
+            <summary>
+            无约束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum.ParameterConstraint">
+            <summary>
+            自定义接口约束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum.NotEmptyString">
+            <summary>
+            非空字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum.NotEmptyCollection">
+            <summary>
+            非空集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum.NotDefault">
+            <summary>
+            非默认值 IEquatable{T}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum.NotNull">
+            <summary>
+            非 null 值
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ResponseContentType">
+            <summary>
+            输出类型字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseContentType.encodingCodePage">
+            <summary>
+            输出文本编码编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseContentType.contentType">
+            <summary>
+            输出类型字符串
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseContentType.#ctor(System.Text.Encoding,System.String)">
+            <summary>
+            输出类型字符串
+            </summary>
+            <param name="encoding">输出文本编码</param>
+            <param name="contentType">输出类型字符串</param>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseContentType.javascriptString">
+            <summary>
+            JavaScript 输出类型字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseContentType.javascript">
+            <summary>
+            JavaScript 输出类型字符串
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseContentType.GetJavaScript(System.Text.Encoding)">
+            <summary>
+            获取 JavaScript 输出类型字符串
+            </summary>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseContentType.htmlString">
+            <summary>
+            HTML 输出类型字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseContentType.html">
+            <summary>
+            HTML 输出类型字符串
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseContentType.GetHtml(System.Text.Encoding)">
+            <summary>
+            获取 HTML 输出类型字符串
+            </summary>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.TypeHelpView">
+            <summary>
+            类型帮助文档视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.ViewMiddleware">
+            <summary>
+            数据视图中间件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.viewShowType">
+            <summary>
+            数据视图显示类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.ViewShowType">
+            <summary>
+            数据视图显示类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.Name">
+            <summary>
+            类型名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.IsEnum">
+            <summary>
+            是否 enum 枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.fullName">
+            <summary>
+            类型全名（帮助文档识别标识）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.FullName">
+            <summary>
+            类型全名（帮助文档识别标识）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.summary">
+            <summary>
+            类型文档描述
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.Summary">
+            <summary>
+            类型文档描述
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.members">
+            <summary>
+            成员集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.Members">
+            <summary>
+            成员集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.enums">
+            <summary>
+            枚举值集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.Enums">
+            <summary>
+            枚举值集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.isEnumFlags">
+            <summary>
+            是否位标记枚举类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.IsEnumFlags">
+            <summary>
+            是否位标记枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.IsEnumerableType">
+            <summary>
+            是否客户端数组类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.IsNullableType">
+            <summary>
+            是否可空类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.IsHelp">
+            <summary>
+            是否支持类型帮助文档
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.isLoad">
+            <summary>
+            是否已经触发加载类型视图数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.TypeHelpView.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.Type)">
+            <summary>
+            帮助文档类型信息
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.TypeHelpView.LoadTypeView">
+            <summary>
+            加载类型视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.TypeHelpView.nullType">
+            <summary>
+            空类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.TypeHelpView.GetAwaitResultType(System.Type)">
+            <summary>
+            获取 await 结果类型
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewClientTypeAttribute">
+            <summary>
+            数据视图绑定客户端类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewClientTypeAttribute.Name">
+            <summary>
+            客户端视图绑定类型名称，输出 new Name({x})
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewClientTypeAttribute.PrimaryKeyMemberName">
+            <summary>
+            绑定关键字成员名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewClientTypeAttribute.Null">
+            <summary>
+            空数据视图绑定客户端类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView">
+            <summary>
+            数据视图初始化加载数据方法 LoadView 参数视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.view">
+            <summary>
+            数据视图请求信息帮助类视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.parameter">
+            <summary>
+            参数信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.Name">
+            <summary>
+            参数名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.summary">
+            <summary>
+            参数文档描述
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.Summary">
+            <summary>
+            参数文档描述
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.type">
+            <summary>
+            参数类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.Type">
+            <summary>
+            参数类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewLoadParameterHelpView.#ctor(AutoCSer.NetCoreWeb.ViewHelpView,System.Reflection.ParameterInfo)">
+            <summary>
+            数据视图初始化加载数据方法 LoadView 参数视图数据
+            </summary>
+            <param name="view">数据视图请求信息帮助类视图数据</param>
+            <param name="parameter">参数信息</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewMemberAttribute">
+            <summary>
+            数据视图成员自定义属性
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMemberAttribute.BindingName">
+            <summary>
+            绑定输出成员名称（客户端存在依赖逻辑）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMemberAttribute.IsAuto">
+            <summary>
+            默认为 true 表示自动输出当前成员
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMemberAttribute.IsIgnoreDefault">
+            <summary>
+            默认为 false 表示不忽略默认值输出，基于 IEquatable{T}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMemberAttribute.IsAllMember">
+            <summary>
+            默认为 false 表示仅输出当前成员，否则输出所有子级成员
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMemberAttribute.Default">
+            <summary>
+            默认数据视图成员自定义属性
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewMiddlewareRequest">
+            <summary>
+            数据视图中间件请求实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddlewareRequest.ViewMiddleware">
+            <summary>
+            数据视图中间件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddlewareRequest.RequestInfo">
+            <summary>
+            请求信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddlewareRequest.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware)">
+            <summary>
+            数据视图信息
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddlewareRequest.Request(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequestTypeEnum)">
+            <summary>
+            加载请求
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="type">数据视图请求类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddlewareRequest.GetViewMiddleware(AutoCSer.NetCoreWeb.ViewMiddlewareRequest)">
+            <summary>
+            获取数据视图中间件
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewRequestTypeEnum">
+            <summary>
+            数据视图请求类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequestTypeEnum.Html">
+            <summary>
+            HTML 模板文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequestTypeEnum.JavaScript">
+            <summary>
+            JavaScript 脚本文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequestTypeEnum.ViewData">
+            <summary>
+            视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequestTypeEnum.JsonApi">
+            <summary>
+            JSON API
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewHelpView">
+            <summary>
+            数据视图请求信息帮助类视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewHelpView.Request">
+            <summary>
+            数据视图请求实例
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewHelpView.RequestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewHelpView.type">
+            <summary>
+            数据视图类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewHelpView.Type">
+            <summary>
+            数据视图类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewHelpView.Method">
+            <summary>
+            初始化加载数据 LoadView 方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewHelpView.parameters">
+            <summary>
+            初始化加载数据方法 LoadView 参数集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewHelpView.Parameters">
+            <summary>
+            初始化加载数据方法 LoadView 参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewHelpView.#ctor(AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            数据视图请求信息帮助类视图数据
+            </summary>
+            <param name="request">数据视图请求实例</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewHelpView.LoadTypeView">
+            <summary>
+            加载类型视图数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewResponse">
+            <summary>
+            视图数据输出
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewResponse.view">
+            <summary>
+            视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewResponse.JsonSerializer">
+            <summary>
+            JSON 序列化
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewResponse.isFree">
+            <summary>
+            是否已经释放输出
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewResponse.isCallback">
+            <summary>
+            是否存在回调函数输出
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewResponse.#ctor(AutoCSer.NetCoreWeb.View)">
+            <summary>
+            视图数据输出
+            </summary>
+            <param name="view">视图数据</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewResponse.Free">
+            <summary>
+            释放输出
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewResponse.Error(AutoCSer.NetCoreWeb.ResponseResult@,System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            输出错误状态
+            </summary>
+            <param name="result">错误状态</param>
+            <param name="callback">回调函数名称</param>
+            <param name="encoding">输出编码</param>
+            <param name="isResponseJavaScript"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewResponse.Success(System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            输出成功状态
+            </summary>
+            <param name="callback"></param>
+            <param name="encoding"></param>
+            <param name="isResponseJavaScript"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewResponse.getBuffer(System.Text.Encoding)">
+            <summary>
+            获取输出缓冲区
+            </summary>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewResponse.Start(System.String,System.Boolean)">
+            <summary>
+            开始输出
+            </summary>
+            <param name="callback">回调函数名称</param>
+            <param name="isResponseJavaScript"></param>
+            <returns>输出流</returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewResponse.End(System.Text.Encoding)">
+            <summary>
+            结束输出
+            </summary>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Middleware">
+            <summary>
+            中间件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.Middleware.nextRequest">
+            <summary>
+            获取下一个请求
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Middleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            获取 POST 字符串中间件
+            </summary>
+            <param name="nextRequest"></param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ParameterChecker">
+            <summary>
+            代理控制器方法调用参数检查
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterChecker.Message">
+            <summary>
+            参数检查错误信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ParameterChecker.ErrorResult">
+            <summary>
+            错误返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ParameterChecker.CheckNull``1(``0,System.String,System.String,AutoCSer.NetCoreWeb.ParameterChecker@)">
+            <summary>
+            检查参数不允许为 null
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ParameterChecker.CheckEquatable``1(``0,System.String,System.String,AutoCSer.NetCoreWeb.ParameterChecker@)">
+            <summary>
+            检查参数不允许为默认值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ParameterChecker.CheckCollection``1(``0,System.String,System.String,AutoCSer.NetCoreWeb.ParameterChecker@)">
+            <summary>
+            检查参数不允许为空集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ParameterChecker.CheckString(System.String,System.String,System.String,AutoCSer.NetCoreWeb.ParameterChecker@)">
+            <summary>
+            检查参数不允许为空字符串
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ParameterChecker.CheckConstraint``1(``0,System.String,System.String,AutoCSer.NetCoreWeb.ParameterChecker@)">
+            <summary>
+            自定义约束参数检查
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.IParameterConstraint">
+            <summary>
+            代理控制器方法参数自定义约束接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.IParameterConstraint.Check(System.String,System.String)">
+            <summary>
+            检查参数数据
+            </summary>
+            <param name="name">参数名称</param>
+            <param name="summary">参数描述</param>
+            <returns>错误信息，返回 null 表示参数正常</returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ParameterConstraintAttribute">
+            <summary>
+            代理控制器方法参数约束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintAttribute.IsDefault">
+            <summary>
+            默认为 false 表示不允许默认值，接口实现 IEquatable{T} 优先于引用类型的 null 值判断
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintAttribute.IsEmpty">
+            <summary>
+            默认为 false 表示不允许空集合，仅支持 string / ICollection
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ParameterConstraintAttribute.IsParameterConstraint">
+            <summary>
+            默认为 true 表示检查接口约束 AutoCSer.NetCoreWeb.IParameterConstraint
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.JsonApiControllerAttribute">
+            <summary>
+            JSON API 代理控制器自定义配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.Route">
+            <summary>
+            控制器路由，默认为 null 表示 命名空间+类型名称，设置为空字符串则表示无控制器路由
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsDefaultParameterConstraint">
+            <summary>
+            默认为 true 表示当参数没有配置 AutoCSer.NetCoreWeb.ParameterConstraintAttribute 时按照默认约束处理（IsParameterConstraint / IsEmpty / IsDefault），设置为 false 则仅检查 AutoCSer.NetCoreWeb.IParameterConstraint 约束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsSingleton">
+            <summary>
+            默认为 false 表示每一个请求使用不同实例，设置为 true 则同一个 API 的所有请求使用同一个单例实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsCheckRequest">
+            <summary>
+            是否检查代理控制器 API 方法调用，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsMethodAttribute">
+            <summary>
+            默认为 false 表示 API 不需要指定方法配置，设置为 true 则需要配置 [AutoCSer.NetCoreWeb.JsonApiAttribute]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.IsHelp">
+            <summary>
+            默认为 true 表示生成帮助文档视图数据信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.#ctor(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            JSON API 代理控制器自定义配置
+            </summary>
+            <param name="route">控制器路由，默认为 null 表示 命名空间+类型名称，设置为空字符串则表示无控制器路由</param>
+            <param name="isDefaultParameterConstraint">默认为 true 表示当参数没有配置 AutoCSer.NetCoreWeb.ParameterConstraintAttribute 时按照默认约束处理（IsParameterConstraint / IsEmpty / IsDefault），设置为 false 则仅检查 AutoCSer.NetCoreWeb.IParameterConstraint 约束</param>
+            <param name="isSingleton">默认为 false 表示每一个请求使用不同实例，设置为 true 则同一个 API 的所有请求使用同一个单例实例</param>
+            <param name="isCheckRequest">是否检查代理控制器 API 方法调用，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权</param>
+            <param name="isMethodAttribute">默认为 false 表示 API 不需要指定方法配置，设置为 true 则需要配置 [AutoCSer.NetCoreWeb.JsonApiAttribute]</param>
+            <param name="isHelp">默认为 true 表示生成帮助文档视图数据信息</param>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiControllerAttribute.Default">
+            <summary>
+            JSON API 代理控制器自定义配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.PostTypeEnum">
+            <summary>
+            POST 数据类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.PostTypeEnum.None">
+            <summary>
+            未指定
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.PostTypeEnum.Json">
+            <summary>
+            text/json ; application/json
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.PostTypeEnum.Xml">
+            <summary>
+            text/xml ; application/xml
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.PostTypeEnum.Form">
+            <summary>
+            application/x-www-form-urlencoded
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.PostTypeEnum.FormData">
+            <summary>
+            multipart/form-data
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.PostTypeEnum.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ResponseResult">
+            <summary>
+            API 接口返回状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseResult.State">
+            <summary>
+            返回值状态，1 / Success 表示成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseResult.Message">
+            <summary>
+            附加错误信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ResponseResult.IsSuccess">
+            <summary>
+            返回状态是否成功
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult.#ctor(AutoCSer.NetCoreWeb.ResponseStateEnum,System.String)">
+            <summary>
+            返回 JSON 值
+            </summary>
+            <param name="state">返回状态</param>
+            <param name="message">附加错误信息</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult.op_Implicit(AutoCSer.NetCoreWeb.ResponseStateEnum)~AutoCSer.NetCoreWeb.ResponseResult">
+            <summary>
+            状态转换
+            </summary>
+            <param name="state">返回状态</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult.op_Implicit(System.String)~AutoCSer.NetCoreWeb.ResponseResult">
+            <summary>
+            错误状态转换
+            </summary>
+            <param name="message">附加错误信息</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ResponseResult`1">
+            <summary>
+            API 接口返回值
+            </summary>
+            <typeparam name="T">返回值数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseResult`1.State">
+            <summary>
+            返回值状态，1 / Success 表示成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseResult`1.Result">
+            <summary>
+            返回结果
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseResult`1.Message">
+            <summary>
+            附加错误信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ResponseResult`1.IsSuccess">
+            <summary>
+            返回状态是否成功
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult`1.#ctor(`0)">
+            <summary>
+            成功返回值
+            </summary>
+            <param name="result">返回值</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult`1.#ctor(AutoCSer.NetCoreWeb.ResponseStateEnum,System.String)">
+            <summary>
+            错误状态
+            </summary>
+            <param name="state">错误状态</param>
+            <param name="message">附加错误信息</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult`1.#ctor(AutoCSer.NetCoreWeb.ResponseResult)">
+            <summary>
+            错误状态
+            </summary>
+            <param name="result">返回值</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult`1.op_Implicit(`0)~AutoCSer.NetCoreWeb.ResponseResult{`0}">
+            <summary>
+            成功返回值转换
+            </summary>
+            <param name="result">返回值</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult`1.op_Implicit(AutoCSer.NetCoreWeb.ResponseStateEnum)~AutoCSer.NetCoreWeb.ResponseResult{`0}">
+            <summary>
+            错误状态转换
+            </summary>
+            <param name="state">错误状态</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult`1.op_Implicit(AutoCSer.NetCoreWeb.ResponseResult)~AutoCSer.NetCoreWeb.ResponseResult{`0}">
+            <summary>
+            错误状态转换
+            </summary>
+            <param name="result">错误状态</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ResponseResult`1.op_Implicit(AutoCSer.NetCoreWeb.ResponseResult{`0})~AutoCSer.NetCoreWeb.ResponseResult">
+            <summary>
+            错误状态转换
+            </summary>
+            <param name="result">错误状态</param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ResponseStateEnum">
+            <summary>
+            返回值状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.Unknown">
+            <summary>
+            未知错误或者异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.Exception">
+            <summary>
+            异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.RouteParameterFail">
+            <summary>
+            模板路由参数解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.RefererNotMatch">
+            <summary>
+            来源页面检测失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.ParameterConstraint">
+            <summary>
+            请求参数不符合约束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.EmptyRequestBody">
+            <summary>
+            没有读取到参数数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.JsonDeserializeFail">
+            <summary>
+            请求参数 JSON 反序列化失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.ContentLengthOutOfRange">
+            <summary>
+            POST 数据长度超出限制范围
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.ReadBodySizeError">
+            <summary>
+            读取 POST 数据字节数不足 ContentLength
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.XmlDeserializeFail">
+            <summary>
+            XML 反序列化失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.AccessTokenFail">
+            <summary>
+            HTTP 头部鉴权失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.AccessTokenParameterFail">
+            <summary>
+            鉴权参数没有通过检查
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.OnlyPost">
+            <summary>
+            仅支持 POST 请求
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.NotSupportPostType">
+            <summary>
+            不支持的 POST 请求数据类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ResponseStateEnum.ClientFail">
+            <summary>
+            客户端请求失败
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Startup">
+            <summary>
+            默认启动配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            服务添加到容器
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.Startup`1">
+            <summary>
+            默认启动配置
+            </summary>
+            <typeparam name="T">数据视图中间件类型，定义类型需要和 Controller 在同一个程序集中</typeparam>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Startup`1.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            配置 HTTP 请求管道
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Startup`1.CreateHostBuilder(System.String[])">
+            <summary>
+            运行默认启动配置
+            </summary>
+            <param name="args">Main 函数参数</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewAttribute">
+            <summary>
+            数据视图自定义属性
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.IsHelp">
+            <summary>
+            默认为 true 表示生成帮助文档视图数据信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.IsSingleton">
+            <summary>
+            默认为 false 表示每一个请求使用不同实例，设置为 true 则所有请求使用同一个单例实例（单例实例仅适合无参静态数据视图）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.IsStaticVersion">
+            <summary>
+            默认为 false 表示不缓存返回数据，设置为 true 则根据静态版本信息检查结果缓存返回数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.Default">
+            <summary>
+            默认数据视图自定义属性
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewRequest">
+            <summary>
+            数据视图请求实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequest.Type">
+            <summary>
+            数据视图类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewRequest.RequestInfo">
+            <summary>
+            请求信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequest.getView">
+            <summary>
+            获取数据视图实例委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequest.Attribute">
+            <summary>
+            数据视图自定义属性
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequest.view">
+            <summary>
+            单例数据视图实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewRequest.IsAccessTokenParameter">
+            <summary>
+            是否参数鉴权
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewRequest.View">
+            <summary>
+            获取数据视图实例
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewRequest.RequestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewRequest.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.Type,System.Func{AutoCSer.NetCoreWeb.View},System.Type,System.String)">
+            <summary>
+            数据视图信息
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="type">数据视图类型</param>
+            <param name="getView">获取数据视图实例委托</param>
+            <param name="parameterType">调用方法第一个参数类型</param>
+            <param name="parameterName">调用方法第一个参数名称</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewRequest.Request(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequestTypeEnum)">
+            <summary>
+            加载请求
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="type">数据视图请求类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewMiddleware">
+            <summary>
+            数据视图中间件，用于支持 统一规划全局视图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.JavaScriptFileExtension">
+            <summary>
+            JavaScript 文件扩展名
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.HtmlFileExtension">
+            <summary>
+            HTML 文件扩展名
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.controllerTypeSuffix">
+            <summary>
+            控制器类型后缀
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.JavaScriptSerializeConfig">
+            <summary>
+            JavaScript 序列化参数配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiMethodIndex">
+            <summary>
+            JSON API 方法编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiConstructorTypes">
+            <summary>
+            JSON API 方法类型构造函数参数类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiRequestConstructorTypes">
+            <summary>
+            JSON API 方法父类型构造函数参数类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiRequestJsonDeserializeParameterTypes">
+            <summary>
+            JSON 反序列化参数类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiRequestJsonDeserializeParameterMethod">
+            <summary>
+            JSON 反序列化方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiRequestCheckParameterTypes">
+            <summary>
+            JSON API 检查传参类型集合
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewMiddleware.parameterCheckerCheckStringDelegate">
+            <summary>
+            检查参数不允许为空字符串
+            </summary>
+            <param name="value"></param>
+            <param name="name"></param>
+            <param name="summary"></param>
+            <param name="checker"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiRequestGetRouteParameterTypes">
+            <summary>
+            JSON API 获取路由参数类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.jsonApiRequestCallTypes">
+            <summary>
+            JSON API 调用类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.routeParameterMethods">
+            <summary>
+            路由参数解析方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.routeParameterMethod">
+            <summary>
+            路由参数泛型解析方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.getRequestViewMiddleware">
+            <summary>
+            获取数据视图中间件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.viewNamespace">
+            <summary>
+            命名空间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.StaticFilePath">
+            <summary>
+            服务端静态文件目录
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.staticFilePath">
+            <summary>
+            服务端静态文件目录，默认根据中间件命名空间搜索目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.StaticFileCacheControl">
+            <summary>
+            静态文件缓存秒数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.staticFileCacheControl">
+            <summary>
+            静态文件缓存秒数，默认为 13 天
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.LoadLock">
+            <summary>
+            初始化加载访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.ResponseEncoding">
+            <summary>
+            输出文本编码，默认为 UTF-8
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.responseEncoding">
+            <summary>
+            输出文本编码，默认为 UTF-8
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.MinCompressSize">
+            <summary>
+            压缩启用最低字节数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.minCompressSize">
+            <summary>
+            压缩启用最低字节数量，默认为 256B
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.MinResponseLogSize">
+            <summary>
+            输出警告日志最小输出数据字节数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.minResponseLogSize">
+            <summary>
+            输出警告日志最小输出数据字节数，默认为 256KB
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.CompressionLevel">
+            <summary>
+            压缩等级
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.compressionLevel">
+            <summary>
+            压缩等级，默认为 Fastest
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.VersionQueryName">
+            <summary>
+            URL 资源版本查询名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.versionQueryName">
+            <summary>
+            URL 资源版本查询名称，仅支持英文字母与数字不支持符号，默认为 v，在代码生成中替换标记字符串 __VERSIONQUERYNAME__
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.CallbackQueryName">
+            <summary>
+            GET 查询回调函数参数名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.callbackQueryName">
+            <summary>
+            GET 查询回调函数参数名称，仅支持英文字母与数字不支持符号，默认为 c，在代码生成中替换标记字符串 __CALLBACKQUERYNAME__
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.JsonQueryName">
+            <summary>
+            GET 查询 JSON 参数名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.jsonQueryName">
+            <summary>
+            GET 查询 JSON 参数名称，仅支持英文字母与数字不支持符号，默认为 j，在代码生成中替换标记字符串 __JSONQUERYNAME__
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.isLoad">
+            <summary>
+            是否已经触发加载静态文件与控制器 API
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.ScriptType">
+            <summary>
+            数据视图脚本类型，用于代码生成
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.IsStaticVersion">
+            <summary>
+            默认为 false 表示非静态网站（动态请求不添加随机参数），用于代码生成
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.FileNameIgnoreCase">
+            <summary>
+            默认为 false 表示文件名称不区分大小写，用于代码生成
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.AutoCSerScriptPath">
+            <summary>
+            AutoCSer TypeScript / JavaScript 目录相对项目路径，仅支持英文字母与数字不支持符号，默认为 AutoCSerScript，在代码生成中替换标记字符串 __JAVASCRIPTPATH__
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.ViewOverId">
+            <summary>
+            页面初始化等待的默认遮罩层控件 id，默认为 AutoCSerViewOver，仅支持英文字母与数字不支持符号，在代码生成中替换标记字符串 __VIEWOVERID__
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.ErrorRequestPath">
+            <summary>
+            收集客户端错误信息的请求地址，默认为 null 表示不采集客户端错误，在代码生成中替换标记字符串 __ERRORPATH__
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.IsHtmlLinkVersion">
+            <summary>
+            本地 HTML 文件链接是否添加版本号，默认为 false
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.VersionFileName">
+            <summary>
+            保存当前版本的文件名称，默认为 AutoCSer.WebViewVersion.txt
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.requests">
+            <summary>
+            请求实例集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.viewHelpTypes">
+            <summary>
+            数据视图帮助文档类型集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.ViewHelpTypes">
+            <summary>
+            数据视图帮助文档类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.routeNode">
+            <summary>
+            JSON API 路由节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.controllerHelpViews">
+            <summary>
+            JSON API 控制器帮助文档视图数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.ControllerHelpViews">
+            <summary>
+            JSON API 控制器帮助文档视图数据集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.typeHelpViews">
+            <summary>
+            帮助文档类型信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.typeHelpViewNames">
+            <summary>
+            帮助文档类型信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewMiddleware.helpLock">
+            <summary>
+            帮助信息访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.#ctor">
+            <summary>
+            无参构造（避免 WEB 项目错误提示）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            数据视图中间件
+            </summary>
+            <param name="nextRequest"></param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.appendView(AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            添加数据视图
+            </summary>
+            <param name="view"></param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.load">
+            <summary>
+            初始化加载静态文件与控制器 API
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.loadTypeView">
+            <summary>
+            加载类型视图数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.appendStaticFile(System.IO.FileInfo,System.Int32,AutoCSer.NetCoreWeb.ViewRequestTypeEnum)">
+            <summary>
+            添加静态文件请求实例
+            </summary>
+            <param name="file"></param>
+            <param name="directoryNameLength"></param>
+            <param name="type"></param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.checkRef(System.Reflection.ParameterInfo[])">
+            <summary>
+            ref / out 参数检查
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.getControllerTypeRoute(System.Type)">
+            <summary>
+            根据控制器名称获取路由，默认操作为删除 Controller 后缀
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.getRouteNode(System.Type,AutoCSer.NetCoreWeb.JsonApiControllerAttribute,AutoCSer.LeftArray{AutoCSer.SubString}@)">
+            <summary>
+            获取 JSON API 代理控制器路由节点
+            </summary>
+            <param name="controllerType"></param>
+            <param name="controllerAttribute"></param>
+            <param name="controllerRoutePaths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            数据视图处理
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetPostType(Microsoft.AspNetCore.Http.HttpContext,System.Text.Encoding@)">
+            <summary>
+            获取 POST 数据类型
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="contentTypeEncoding">POST 数据文本编码类型</param>
+            <returns>POST 数据类型</returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.Response(Microsoft.AspNetCore.Http.HttpContext,System.Byte[],System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            输出数据
+            </summary>
+            <param name="httpContext"></param>
+            <param name="data"></param>
+            <param name="startIndex"></param>
+            <param name="length"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.ResponseError(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ResponseResult,System.Boolean,System.Boolean)">
+            <summary>
+            输出错误数据
+            </summary>
+            <param name="httpContext"></param>
+            <param name="result"></param>
+            <param name="isResponseJavaScript"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.ResponseSuccess(Microsoft.AspNetCore.Http.HttpContext,System.Boolean,System.Boolean)">
+            <summary>
+            输出成功状态
+            </summary>
+            <param name="httpContext"></param>
+            <param name="isResponseJavaScript"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.ResponseSuccess``1(Microsoft.AspNetCore.Http.HttpContext,``0,System.Boolean,System.Boolean)">
+            <summary>
+            输出成功数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="httpContext"></param>
+            <param name="result"></param>
+            <param name="isResponseJavaScript"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.responseSizeLog(Microsoft.AspNetCore.Http.HttpContext,System.Int32)">
+            <summary>
+            输出大小超出警告阈值日志
+            </summary>
+            <param name="httpContext"></param>
+            <param name="size">输出数据字节数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.CheckReferer(System.String)">
+            <summary>
+            检查来源页面，用于跨域验证，默认返回 false
+            </summary>
+            <param name="referer">来源页面</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.IsAccessTokenParameter(System.Type,System.String)">
+            <summary>
+            判断参数是否鉴权参数
+            </summary>
+            <param name="type">调用方法第一个参数类型</param>
+            <param name="name">调用方法第一个参数名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.IsAccessTokenParameter(System.Reflection.ParameterInfo)">
+            <summary>
+            判断参数是否鉴权参数
+            </summary>
+            <param name="parameter">调用方法第一个参数信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.Check(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.View)">
+            <summary>
+            检查数据视图，一般用于 HTTP 头部参数鉴权
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="view">数据视图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.Check(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.JsonApiRequest)">
+            <summary>
+            检查 JSON API，一般用于 HTTP 头部参数鉴权
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="request">JSON API 请求实例</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.CheckAccessTokenParameter``1(``0)">
+            <summary>
+            参数鉴权
+            </summary>
+            <typeparam name="T">鉴权参数类型</typeparam>
+            <param name="parameter">鉴权参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.CheckAccessTokenParameter``1(AutoCSer.NetCoreWeb.ViewMiddleware,``0)">
+            <summary>
+            参数鉴权
+            </summary>
+            <typeparam name="T">鉴权参数类型</typeparam>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="parameter">鉴权参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetCallIdentity(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.View)">
+            <summary>
+            获取调用监视标识
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="view">数据视图</param>
+            <returns>调用监视标识，long.MinValue 表示不监视</returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetCallIdentity(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.JsonApiRequest)">
+            <summary>
+            获取调用监视标识
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="request">JSON API 请求实例</param>
+            <returns>调用监视标识，long.MinValue 表示不监视</returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.OnCalled(System.Int64)">
+            <summary>
+            调用完成
+            </summary>
+            <param name="callIdentity">调用监视标识</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetRequestPath(System.Type)">
+            <summary>
+            获取请求路径，用于代码生成
+            </summary>
+            <param name="viewType">数据视图类型名称</param>
+            <returns>请求路径</returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetNamespaceTemplateFilePath(System.Type)">
+            <summary>
+            获取命名空间模板文件路径，用于代码生成
+            </summary>
+            <param name="viewType">数据视图类型名称</param>
+            <returns>命名空间模板文件路径</returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.CodeGeneratorJavaScriptCode(System.String)">
+            <summary>
+            代码生成 JavaScript 代码转换处理，一般用于替换文件域名标记操作，默认为不处理直接返回原内容
+            </summary>
+            <param name="javaScriptCode">JavaScript 代码</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.CodeGeneratorHtmlCode(System.String)">
+            <summary>
+            代码生成 HTML 代码转换处理，一般用于替换文件域名标记操作，默认为不处理直接返回原内容
+            </summary>
+            <param name="htmlCode">HTML 代码</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.CodeGeneratorCssCode(System.String)">
+            <summary>
+            代码生成 css 代码生成转换处理，一般用于替换文件域名标记操作，默认为不处理直接返回原内容
+            </summary>
+            <param name="cssCode">css 代码</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetTypeHelpView(System.Type)">
+            <summary>
+            获取帮助文档类型信息
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetTypeHelpView(System.String)">
+            <summary>
+            获取帮助文档类型信息
+            </summary>
+            <param name="typeFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.IsHelp(System.Type)">
+            <summary>
+            判断类型是否支持类型帮助文档
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetControllerHelpView(System.String)">
+            <summary>
+            获取 JSON API 控制器帮助文档视图数据
+            </summary>
+            <param name="controllerTypeFullName">控制器类型名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.getEncoding(System.String,System.Int32)">
+            <summary>
+            获取 POST 数据编码类型
+            </summary>
+            <param name="contentType"></param>
+            <param name="startIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetPostString(AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.Memory.ByteArrayBuffer@,System.Text.Encoding)">
+            <summary>
+            POST 数据转换字符串
+            </summary>
+            <param name="buffer"></param>
+            <param name="stringBuffer"></param>
+            <param name="contentTypeEncoding"></param>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.View">
+            <summary>
+            数据视图，用于支持 统一规划全局视图，实例类型必须使用 partial 修饰符用于生成静态代码，数据初始化需要定义 Task{AutoCSer.NetCoreWeb.ResponseResult} LoadView 方法，参数定义则对应查询参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.View.SuccessResponseResultTask">
+            <summary>
+            成功返回值状态任务
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.defaultRequestPath">
+            <summary>
+            获取请求路径，默认为 类型命令空间+类型名称，用于代码生成，不允许重写该实现
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.requestPath">
+            <summary>
+            获取请求路径，默认为 类型命令空间+类型名称，用于代码生成
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.RequestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.queryName">
+            <summary>
+            默认为 null 表示不生成参数成员，仅支持英文字母与数字不支持符号，用于代码生成
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.QueryName">
+            <summary>
+            生成参数成员名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.maxContentLength">
+            <summary>
+            最大 POST 字节数，默认为 1MB
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.responseEncoding">
+            <summary>
+            输出文本编码，默认为 null 表示采用中间件编码 AutoCSer.NetCoreWeb.ViewMiddleware.ResponseEncoding
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.ResponseEncoding">
+            <summary>
+            输出文本编码
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.isCheckView">
+            <summary>
+            是否检查数据视图，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.isDefaultParameterConstraint">
+            <summary>
+            默认为 true 表示当参数没有配置 AutoCSer.NetCoreWeb.ParameterConstraintAttribute 时按照默认约束处理（IsParameterConstraint / IsEmpty / IsDefault），设置为 false 则仅检查 AutoCSer.NetCoreWeb.IParameterConstraint 约束
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.IsDefaultParameterConstraint">
+            <summary>
+            参数约束配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.Load(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            初始化加载数据
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewInfo">数据视图信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.load(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            初始化加载数据（基本操作用代码生成组件处理）
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewInfo">数据视图信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.checkView(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            检查数据视图，一般用于 HTTP 头部参数鉴权
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewInfo">数据视图信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.getResponse">
+            <summary>
+            获取视图数据输出
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.responseError(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest,AutoCSer.NetCoreWeb.ResponseResult,System.Boolean)">
+            <summary>
+            输出错误状态
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewInfo">数据视图信息</param>
+            <param name="result">错误状态</param>
+            <param name="checkVersion">是否检查静态版本信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.responseStart(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest,AutoCSer.NetCoreWeb.ViewResponse@)">
+            <summary>
+            开始输出
+            </summary>
+            <param name="httpContext"></param>
+            <param name="viewInfo">数据视图信息</param>
+            <param name="response"></param>
+            <returns>输出流</returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.responseEnd(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest,AutoCSer.NetCoreWeb.ViewResponse)">
+            <summary>
+            结束输出
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewInfo">数据视图信息</param>
+            <param name="response">视图数据输出</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.getParameter``1(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            获取查询参数对象
+            </summary>
+            <typeparam name="T">查询参数对象类型</typeparam>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewInfo">数据视图信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.getPostParameter``1(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.PostTypeEnum,System.Text.Encoding)">
+            <summary>
+            获取查询参数对象
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="postType">POST 数据类型</param>
+            <param name="contentTypeEncoding">POST 数据文本编码类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.getBoundary(System.String,System.Int32)">
+            <summary>
+            获取数据分割符字符串
+            </summary>
+            <param name="contentType"></param>
+            <param name="startIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.jsonDeserialize``1(AutoCSer.Memory.ByteArrayBuffer@)">
+            <summary>
+            JSON 反序列化查询参数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="stringBuffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.xmlDeserialize``1(AutoCSer.Memory.ByteArrayBuffer@)">
+            <summary>
+            XML 反序列化查询参数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="stringBuffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.View.GetLoadMethod(System.Type)">
+            <summary>
+            获取数据视图初始化加载方法信息
+            </summary>
+            <param name="type">数据视图类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewScriptTypeEnum">
+            <summary>
+            数据视图脚本类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewScriptTypeEnum.TypeScript">
+            <summary>
+            TypeScript
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewScriptTypeEnum.JavaScript">
+            <summary>
+            JavaScript
+            </summary>
+        </member>
+        <member name="T:AutoCSer.NetCoreWeb.ViewStaticFileRequest">
+            <summary>
+            静态文件请求实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewStaticFileRequest.file">
+            <summary>
+            文件信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewStaticFileRequest.RequestInfo">
+            <summary>
+            请求信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewStaticFileRequest.eTag">
+            <summary>
+            ETag 标记
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewStaticFileRequest.code">
+            <summary>
+            HTTP 状态编码
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.ViewStaticFileRequest.fileData">
+            <summary>
+            文件数据内容
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewStaticFileRequest.#ctor(AutoCSer.NetCoreWeb.ViewMiddleware,System.IO.FileInfo)">
+            <summary>
+            静态文件请求实例
+            </summary>
+            <param name="viewMiddleware">数据视图中间件</param>
+            <param name="file">文件信息</param>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewStaticFileRequest.Request(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequestTypeEnum)">
+            <summary>
+            加载请求
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="type">数据视图请求类型</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -8,8 +8,12 @@ namespace AutoCSer.CommandService
     public interface IProcessGuardClientSocketEvent
     {
         /// <summary>
-        /// 分布式锁客户端接口
+        /// 进程守护客户端
         /// </summary>
-        IProcessGuardClient ProcessGuardClient { get; }
+        ProcessGuardClient ProcessGuardClient { get; }
+        /// <summary>
+        /// 进程守护客户端接口
+        /// </summary>
+        IProcessGuardClient IProcessGuardClient { get; }
     }
 }

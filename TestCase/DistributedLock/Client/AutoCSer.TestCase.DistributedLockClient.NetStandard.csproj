@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.DistributedLockClient</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.DistributedLockClient</RootNamespace>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandClientConfig.cs" />
+    <Compile Include="CommandClientSocketEventTaskClient.cs" />
     <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="LockClient.cs" />
     <Compile Include="Program.cs" />
@@ -32,7 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\DistributedLock\AutoCSer.CommandService.DistributedLock.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.TestCase.Common.Data;
+using System;
 using System.Collections.Generic;
 
 namespace AutoCSer.TestCase.Data

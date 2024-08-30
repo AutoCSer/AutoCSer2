@@ -15,12 +15,12 @@ namespace AutoCSer.Example.CommandServer.Client
         /// <returns></returns>
         internal static async Task Start()
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.Example) };
+            CommandClientConfig commandClientConfig = new CommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Example) };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
                 if (await commandClient.GetSocketAsync() == null)
                 {
-                    Console.WriteLine("Client ERROR");
+                    AutoCSer.ConsoleWriteQueue.Breakpoint("Client ERROR");
                     return;
                 }
                 CommandClientSocketEvent socketEvent = (CommandClientSocketEvent)commandClient.SocketEvent;

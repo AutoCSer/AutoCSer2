@@ -59,7 +59,7 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 申请锁
         /// </summary>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Enter(SemaphoreSlimLock semaphoreSlimLock
 #if DEBUG
              , [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
@@ -73,12 +73,23 @@ namespace AutoCSer.Threading
             semaphoreSlimLock.Enter();
 #endif
         }
+#if DEBUG
+        /// <summary>
+        /// 申请锁
+        /// </summary>
+        /// <param name="semaphoreSlimLock"></param>
+        /// <param name="callerMemberName"></param>
+        /// <param name="callerFilePath"></param>
+        /// <param name="callerLineNumber"></param>
+        /// <returns></returns>
+#else
         /// <summary>
         /// 申请锁
         /// </summary>
         /// <param name="semaphoreSlimLock"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public async Task EnterAsync(SemaphoreSlimLock semaphoreSlimLock
 #if DEBUG
              , [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0

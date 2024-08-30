@@ -37,6 +37,7 @@
     <Compile Include="IDatabaseBackupService.cs" />
     <Compile Include="IDatabaseBackupClient.cs" />
     <Compile Include="IDatabaseBackupClientSocketEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>

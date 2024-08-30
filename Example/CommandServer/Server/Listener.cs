@@ -21,10 +21,12 @@ namespace AutoCSer.Example.CommandServer.Server
         {
             if (commandListener == null)
             {
-                CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.Example) };
+                CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Example) };
                 commandListener = new CommandListener(commandServerConfig
                     //服务认证 API 必须定义在服务端主控制器中
                     , CommandServerInterfaceControllerCreator.GetCreator<IVerifyController>(new VerifyController())
+
+                    , CommandServerInterfaceControllerCreator.GetCreator<IDefinedSymmetryController>(new DefinedSymmetryController())
 
                     , CommandServerInterfaceControllerCreator.GetCreator<Synchronous.ISynchronousController>(new Synchronous.SynchronousController())
                     , CommandServerInterfaceControllerCreator.GetCreator<Synchronous.ISendOnlyController>(new Synchronous.SendOnlyController())

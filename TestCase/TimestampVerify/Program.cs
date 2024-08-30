@@ -9,9 +9,9 @@ namespace AutoCSer.TestCase.TimestampVerify
     {
         static async Task Main(string[] args)
         {
-            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.TimestampVerify) };
-            using (CommandListener commandListener = new CommandListener(commandServerConfig
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerify)new TimestampVerify())
+            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TimestampVerify) };
+            await using (CommandListener commandListener = new CommandListener(commandServerConfig
+                , CommandServerInterfaceControllerCreator.GetCreator(server => new TimestampVerify(server))
                 ))
             {
                 if (await commandListener.Start())

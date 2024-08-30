@@ -1,0 +1,924 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.TestCase</name>
+    </assembly>
+    <members>
+        <member name="F:AutoCSer.TestCase.BinarySerialize.serializeConfig">
+            <summary>
+            带成员位图的二进制序列化参数配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.BinarySerialize.TestCase">
+            <summary>
+            二进制序列化测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommandServer.TestCase">
+            <summary>
+            命令服务测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommandClientSocketEvent">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientSynchronousController">
+            <summary>
+            同步接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientSendOnlyController">
+            <summary>
+            仅发送数据接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientQueueController">
+            <summary>
+            队列接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackController">
+            <summary>
+            回调接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackController">
+            <summary>
+            保持回调接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskController">
+            <summary>
+            异步任务接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueController">
+            <summary>
+            控制器异步队列接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackTaskController">
+            <summary>
+            保持回调异步任务接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueContextController">
+            <summary>
+            服务端 Task 队列客户端
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.DefinedSymmetryController">
+            <summary>
+            定义对称接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.DefinedDissymmetryClientController">
+            <summary>
+            客户端定义非对称测试接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSynchronousController">
+            <summary>
+            同步接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSendOnlyController">
+            <summary>
+            仅发送数据接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientQueueController">
+            <summary>
+            队列接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientCallbackController">
+            <summary>
+            回调接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackController">
+            <summary>
+            保持回调接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskController">
+            <summary>
+            异步任务接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientKeepCallbackTaskController">
+            <summary>
+            保持回调异步任务接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueController">
+            <summary>
+            控制器异步队列接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedSymmetryController">
+            <summary>
+            定义对称接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedDissymmetryClientController">
+            <summary>
+            客户端定义非对称测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.CallVerifyMethod(AutoCSer.Net.CommandClientController)">
+            <summary>
+            调用客户端验证函数
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientCallbackController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientCallbackController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientKeepCallbackController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientKeepCallbackController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientKeepCallbackTaskController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientKeepCallbackTaskController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientQueueController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientQueueController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientSendOnlyController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientSendOnlyController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientSynchronousController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientSynchronousController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientTaskQueueContextController">
+            <summary>
+            服务端 Task 队列客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientTaskQueueContextController">
+            <summary>
+            服务端 Task 队列命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskQueueContextController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientTaskQueueController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientTaskQueueController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskQueueController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientTaskController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientTaskController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IDefinedDissymmetryClientController">
+            <summary>
+            客户端定义非对称测试接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.IDefinedDissymmetryClientController.SetSocket(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
+            <summary>
+            
+            </summary>
+            <param name="value">数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IDefinedDissymmetryClientController.GetSocket">
+            <summary>
+            
+            </summary>
+            <returns>数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.DefinedDissymmetryClientController">
+            <summary>
+            命令客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IDefinedDissymmetryServerController">
+            <summary>
+            服务端定义非对称测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.DefinedDissymmetryServerController">
+            <summary>
+            服务端定义非对称测试接口实例
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IDefinedSymmetryController">
+            <summary>
+            定义对称测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.DefinedSymmetryController">
+            <summary>
+            定义对称测试接口实例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerCallbackController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerCallbackController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerKeepCallbackController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerKeepCallbackController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerKeepCallbackTaskController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerKeepCallbackTaskController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerSendOnlyController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerSendOnlyController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerSynchronousController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerSynchronousController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerTaskQueueContextController">
+            <summary>
+            Task 队列上下文服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerTaskQueueContextController">
+            <summary>
+            Task 队列上下文服务端测试接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerTaskQueueContextController.#ctor(AutoCSer.Net.CommandServerCallTaskQueueNode,System.Int32)">
+            <summary>
+            命令服务 Task 队列
+            </summary>
+            <param name="task"></param>
+            <param name="key"></param>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerTaskQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerTaskQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerTaskController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerTaskController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommandServerSessionObject">
+            <summary>
+            自定义会话对象
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryClientController">
+            <summary>
+            客户端定义非对称测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryClientController.SetSocket(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
+            <summary>
+            
+            </summary>
+            <param name="value">数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryClientController.GetSocket">
+            <summary>
+            
+            </summary>
+            <returns>数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryServerController">
+            <summary>
+            服务端定义非对称测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryServerController">
+            <summary>
+            服务端定义非对称测试接口实例（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientCallbackController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientCallbackController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientKeepCallbackController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientKeepCallbackTaskController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientQueueController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientQueueController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientSendOnlyController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientSynchronousController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientTaskController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientTaskController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientTaskQueueController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientTaskQueueController">
+            <summary>
+            命令客户端测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskQueueController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedSymmetryController">
+            <summary>
+            定义对称测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryController">
+            <summary>
+            定义对称测试接口实例（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+            <summary>
+            命令客户端测试
+            </summary>
+            <param name="client"></param>
+            <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerCallbackController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerCallbackController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerKeepCallbackController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerKeepCallbackController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerKeepCallbackTaskController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerKeepCallbackTaskController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerQueueController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerQueueController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerSendOnlyController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerSendOnlyController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerSynchronousController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerSynchronousController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerTaskController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerTaskController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerTaskQueueController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerTaskQueueController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.SetSocket">
+            <summary>
+            [0] 
+            AutoCSer.TestCase.Data.ORM.BusinessModel value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.GetSocket">
+            <summary>
+            [1] 
+            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.SetSocketTask">
+            <summary>
+            [2] 
+            AutoCSer.TestCase.Data.ORM.BusinessModel value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.GetSocketTask">
+            <summary>
+            [3] 
+            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.Field">
+            <summary>
+            字段数据定义(引用类型外壳)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.Float">
+            <summary>
+            浮点数测试
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.InheritProperty">
+            <summary>
+            继承属性数据定义(引用类型外壳)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.MemberClass">
+            <summary>
+            引用类型定义
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.NoMemberClass">
+            <summary>
+            空壳类型定义
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.ORM.BusinessModel">
+            <summary>
+            ORM 业务模型定义
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.ORM.BusinessModelAssociated">
+            <summary>
+            ORM 业务模型定义
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.ORM.CommonModel">
+            <summary>
+            ORM 基本数据模型定义
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.ORM.ModelAssociated">
+            <summary>
+            ORM 基本数据模型定义
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.ORM.ModelGeneric`1">
+            <summary>
+            ORM 关联模型定义
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.ORM.ModelGeneric">
+            <summary>
+            ORM 关联模型定义
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.Property">
+            <summary>
+            属性数据定义(引用类型外壳)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.StructField">
+            <summary>
+            字段数据定义(值类型外壳)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.StructProperty">
+            <summary>
+            属性数据定义(值类型外壳)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.Xml.xmlSerializeConfig">
+            <summary>
+            带成员位图的XML序列化参数配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Xml.TestCase">
+            <summary>
+            XML 序列化测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.Json.RandomConfig">
+            <summary>
+            随机对象生成参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.Json.jsonSerializeConfig">
+            <summary>
+            带成员位图的JSON序列化参数配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.Json.javascriptDateTimeSerializeConfig">
+            <summary>
+            JavaScript 时间值JSON序列化参数配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.Json.thirdPartyDateTimeSerializeConfig">
+            <summary>
+            第三方时间值JSON序列化参数配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.Json.customDateTimeSerializeConfig">
+            <summary>
+            自定义格式时间值JSON序列化参数配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Json.TestCase">
+            <summary>
+            JSON 序列化测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.SetSocket">
+            <summary>
+            [0] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.TestCase.Data.ORM.BusinessModel value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.GetSocket">
+            <summary>
+            [1] 
+            AutoCSer.Net.CommandServerSocket socket 
+            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.SetSocketTask">
+            <summary>
+            [2] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.TestCase.Data.ORM.BusinessModel value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.GetSocketTask">
+            <summary>
+            [3] 
+            AutoCSer.Net.CommandServerSocket socket 
+            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
+            </summary>
+        </member>
+    </members>
+</doc>

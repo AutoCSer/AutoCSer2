@@ -14,7 +14,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="parameter">参数信息</param>
         /// <returns>参数真实类型</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static Type elementType(this ParameterInfo parameter)
         {
             Type type = parameter.ParameterType;

@@ -104,7 +104,7 @@ namespace AutoCSer.CommandService
             bool isCompleted = false;
             try
             {
-                await AutoCSer.Common.Config.CreateDirectory(SavePath);
+                await AutoCSer.Common.Config.TryCreateDirectory(SavePath);
 
                 EnumeratorCommand<T> command = await getCommand(Database, TableName);
                 while (await command.MoveNext())
@@ -140,7 +140,7 @@ namespace AutoCSer.CommandService
             using (MemoryStream dataStream = new MemoryStream(fileSize))
             {
                 dataStream.Seek(sizeof(int), SeekOrigin.Begin);
-                using (DeflateStream compressStream = new DeflateStream(dataStream, CompressionLevel.Fastest, true)) compressStream.Write(data, sizeof(int), dataSize);
+                using (DeflateStream compressStream = new DeflateStream(dataStream, CompressionLevel.Fastest, true)) await compressStream.WriteAsync(data, sizeof(int), dataSize);
                 if (dataStream.Position < fileSize)
                 {
                     data = dataStream.GetBuffer();
@@ -149,7 +149,11 @@ namespace AutoCSer.CommandService
                 }
             }
             setDataSize(data, dataSize);
+#if DotNet45 || NetStandard2
             using (FileStream fileStream = File.Create(Path.Combine(SavePath, $"{(fileIndex++).toString()}.bak")))
+#else
+            await using (FileStream fileStream = File.Create(Path.Combine(SavePath, $"{(fileIndex++).toString()}.bak")))
+#endif
             {
                 await fileStream.WriteAsync(data, 0, fileSize);
             }
@@ -177,11 +181,11 @@ namespace AutoCSer.CommandService
                 {
                     try
                     {
-                        await AutoCSer.Common.Config.DeleteDirectory(DirectoryInfo);
+                        await AutoCSer.Common.Config.TryDeleteDirectory(DirectoryInfo);
                     }
-                    catch (Exception error)
+                    catch (Exception exception)
                     {
-                        await Client.OnError($"备份目录 {SavePath} 删除失败 {error.Message}");
+                        await Client.OnError($"备份目录 {SavePath} 删除失败 {exception.Message}");
                     }
                 }
             }
@@ -190,11 +194,11 @@ namespace AutoCSer.CommandService
                 await Client.OnError($"数据库 {Database} 备份失败");
                 try
                 {
-                    await AutoCSer.Common.Config.DeleteDirectory(SavePath);
+                    await AutoCSer.Common.Config.TryDeleteDirectory(SavePath);
                 }
-                catch (Exception error)
+                catch (Exception exception)
                 {
-                    await Client.OnError($"备份目录 {SavePath} 删除失败 {error.Message}");
+                    await Client.OnError($"备份目录 {SavePath} 删除失败 {exception.Message}");
                 }
             }
         }

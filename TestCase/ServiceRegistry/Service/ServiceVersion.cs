@@ -1,6 +1,6 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
-using AutoCSer.Threading;
 using System;
 using System.Threading.Tasks;
 
@@ -12,15 +12,20 @@ namespace AutoCSer.TestCase.ServiceRegistry.Service
     internal sealed class ServiceVersion
     {
         /// <summary>
+        /// 端口注册客户端
+        /// </summary>
+        private readonly PortRegistryClient portRegistryClient;
+        /// <summary>
         /// 服务版本
         /// </summary>
-        private readonly int version;
+        private readonly uint version;
         /// <summary>
         /// 服务版本测试
         /// </summary>
         /// <param name="version"></param>
-        internal ServiceVersion(int version)
+        internal ServiceVersion(PortRegistryClient portRegistryClient, uint version)
         {
+            this.portRegistryClient = portRegistryClient;
             this.version = version;
         }
         /// <summary>
@@ -29,17 +34,17 @@ namespace AutoCSer.TestCase.ServiceRegistry.Service
         /// <returns></returns>
         internal async Task Start()
         {
-            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)(30000 + version)), ServiceName = "AutoCSer.TestCase.ServiceRegistry" };
-            using (CommandListener commandListener = new CommandListener(commandServerConfig
-                    , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerifyService)new AutoCSer.CommandService.TimestampVerifyService(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                    , CommandServerInterfaceControllerCreator.GetCreator<IService>(new Service(version))
-                    ))
+            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint(0), ServiceName = "AutoCSer.TestCase.ServiceRegistry", PortRegistryClient = portRegistryClient };
+            await using (CommandListener commandListener = new CommandListenerBuilder(0)
+                .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
+                .Append<IService>(new Service(version))
+                .CreateCommandListener(commandServerConfig))
             {
                 if (await commandListener.Start())
                 {
-                    Console.Write(version);
+                    Console.WriteLine($"{commandListener.EndPoint} version {version}");
                     await Task.Delay(5 * 1000);
-                    CatchTask.AddIgnoreException(new ServiceVersion(version == 9 ? 0 : version + 1).Start());
+                    new ServiceVersion(portRegistryClient, version + 1).Start().NotWait();
                     await Task.Delay(1 * 1000);
                 }
             }

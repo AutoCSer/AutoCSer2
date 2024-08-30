@@ -13,14 +13,12 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="callback">服务会话在线检查回调委托</param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
         KeepCallbackCommand CheckCallback(CommandClientKeepCallback callback);
         /// <summary>
         /// 添加服务注册日志
         /// </summary>
         /// <param name="log"></param>
         /// <returns>服务注册结果</returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
         ReturnCommand<ServiceRegisterResponse> Append(ServiceRegisterLog log);
         /// <summary>
         /// 获取服务注册日志
@@ -28,7 +26,6 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName">监视服务名称，null 标识所有服务</param>
         /// <param name="callback">服务注册日志回调委托</param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous)]
         KeepCallbackCommand LogCallback(string serviceName, Action<CommandClientReturnValue<ServiceRegisterLog>, KeepCallbackCommand> callback);
     }
 }

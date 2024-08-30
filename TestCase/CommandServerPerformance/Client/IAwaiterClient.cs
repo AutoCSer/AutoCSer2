@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.TestCase.CommandServerPerformance;
 using System;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> Synchronous(int left, int right);
         /// <summary>
         /// 服务端回调返回结果
@@ -24,7 +25,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> Callback(int left, int right);
         /// <summary>
         /// 服务端配置队列执行返回结果
@@ -32,7 +33,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> Queue(int left, int right);
         /// <summary>
         /// 服务端 async 任务返回返回结果
@@ -40,7 +41,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> Task(int left, int right);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -48,7 +49,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> TaskQueue(int left, int right);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -57,13 +58,13 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> TaskQueueKey(int queueKey, int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
         /// </summary>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         EnumeratorCommand<int> KeepCallback();
         /// <summary>
         /// 服务端配合 KeepCallback 应答处理
@@ -71,13 +72,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
         SendOnlyCommand SendOnly(int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnlyTask 应答处理
         /// </summary>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         EnumeratorCommand<int> KeepCallbackCount();
         /// <summary>
         /// 服务端配合 KeepCallbackCount 应答处理
@@ -85,7 +85,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackType.Synchronous, IsInitobj = false)]
         SendOnlyCommand SendOnlyTask(int left, int right);
     }
     /// <summary>
@@ -99,34 +98,34 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task Test()
         {
-            CommandClientConfig<IAwaiterClient> commandClientConfig = new CommandClientConfig<IAwaiterClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.Performance), CommandPoolBits = 16, CheckSeconds = 0 };
+            CommandClientConfig<IAwaiterClient> commandClientConfig = new CommandClientConfig<IAwaiterClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<IAwaiterClient, IService>()))
             {
                 if (await commandClient.GetSocketAsync() == null)
                 {
-                    Console.WriteLine("ERROR");
+                    ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
                 Left = AutoCSer.Random.Default.Next();
 
-                await new AwaiterClient(commandClient, nameof(Synchronous)).Wait();
-                await new AwaiterClient(commandClient, nameof(Callback)).Wait();
-                await new AwaiterClient(commandClient, nameof(Queue)).Wait();
-                await new AwaiterClient(commandClient, nameof(TaskQueue)).Wait();
-                await new AwaiterClient(commandClient, nameof(TaskQueueKey)).Wait();
-                await new AwaiterClient(commandClient, nameof(Task)).Wait();
+                await new AwaiterClient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
 
                 CommandClientSocketEvent<IAwaiterClient> client = (CommandClientSocketEvent<IAwaiterClient>)commandClient.SocketEvent;
 
                 int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
-                AutoCSer.Threading.CatchTask.AddIgnoreException(checkEnumeratorCommand(enumeratorCommand));
+                checkEnumeratorCommand(enumeratorCommand).NotWait();
                 for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(Left, --right)) ;
                 await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallback));
 
                 Reset(commandClient, maxTestCount);
                 enumeratorCommand = await client.InterfaceController.KeepCallbackCount();
-                AutoCSer.Threading.CatchTask.AddIgnoreException(checkEnumeratorCommand(enumeratorCommand));
+                checkEnumeratorCommand(enumeratorCommand).NotWait();
                 for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(Left, --right)) ;
                 await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallbackCount));
             }
@@ -167,27 +166,27 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             {
                 case nameof(Synchronous):
                     right = Reset(commandClient, maxTestCount, taskCount);
-                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Synchronous());
+                    while (--taskCount >= 0) Synchronous().NotWait();
                     break;
                 case nameof(Callback):
                     right = Reset(commandClient, maxTestCount, taskCount);
-                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Callback());
+                    while (--taskCount >= 0) Callback().NotWait();
                     break;
                 case nameof(Queue):
                     right = Reset(commandClient, maxTestCount, taskCount);
-                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Queue());
+                    while (--taskCount >= 0) Queue().NotWait();
                     break;
                 case nameof(TaskQueue):
                     right = Reset(commandClient, maxTestCount >> 1, taskCount);
-                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(TaskQueue());
+                    while (--taskCount >= 0) TaskQueue().NotWait();
                     break;
                 case nameof(TaskQueueKey):
-                    right = Reset(commandClient, maxTestCount >> 2, taskCount);
-                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(TaskQueueKey());
+                    right = Reset(commandClient, maxTestCount >> 1, taskCount);
+                    while (--taskCount >= 0) TaskQueueKey().NotWait();
                     break;
                 case nameof(Task):
-                    right = Reset(commandClient, maxTestCount >> 3, taskCount);
-                    while (--taskCount >= 0) AutoCSer.Threading.CatchTask.AddIgnoreException(Task());
+                    right = Reset(commandClient, maxTestCount >> 1, taskCount);
+                    while (--taskCount >= 0) Task().NotWait();
                     break;
             }
         }

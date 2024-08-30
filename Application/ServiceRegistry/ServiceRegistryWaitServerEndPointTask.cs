@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService
         /// <param name="serviceRegistrar">服务注册客户端组件</param>
         /// <param name="waitServerEndPointSeconds">等待服务监听地址定时间隔秒数</param>
         internal ServiceRegistryWaitServerEndPointTask(ServiceRegistryCommandClientServiceRegistrar serviceRegistrar, byte waitServerEndPointSeconds)
-            : base(AutoCSer.Threading.SecondTimer.TaskArray, waitServerEndPointSeconds, Threading.SecondTimerTaskThreadMode.WaitTask, Threading.SecondTimerKeepMode.After, waitServerEndPointSeconds)
+            : base(AutoCSer.Threading.SecondTimer.TaskArray, waitServerEndPointSeconds, Threading.SecondTimerTaskThreadModeEnum.WaitTask, Threading.SecondTimerKeepModeEnum.After, waitServerEndPointSeconds)
         {
             this.serviceRegistrar = serviceRegistrar;
         }
@@ -38,9 +38,9 @@ namespace AutoCSer.CommandService
         /// 定时任务
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnTimerAsync()
+        protected internal override async Task OnTimerAsync()
         {
-            if (await serviceRegistrar.WaitServerEndPoint()) isCanceled = true;
+            if (serviceRegistrar.Assembler.MainLog != null || await serviceRegistrar.WaitServerEndPoint()) isCanceled = true;
         }
     }
 }

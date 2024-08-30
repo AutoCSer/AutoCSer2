@@ -24,14 +24,13 @@
     <Compile Include="IClient.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ServiceRegistryCommandClientConfig.cs" />
     <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

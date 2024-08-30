@@ -41,7 +41,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this byte value)
         {
             long chars;
@@ -80,7 +80,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this sbyte value)
         {
             long chars;
@@ -143,7 +143,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this ushort value)
         {
             char* chars = stackalloc char[5 + 3];
@@ -204,7 +204,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this short value)
         {
             char* chars = stackalloc char[6 + 2];
@@ -270,7 +270,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this uint value)
         {
             char* chars = stackalloc char[10 + 2];
@@ -379,7 +379,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this int value)
         {
             char* chars = stackalloc char[12];
@@ -508,7 +508,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="chars">字符串</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private unsafe static void toString8(uint value, char* chars)
         {
             uint value10000 = (uint)((value * Div10000Mul) >> Div10000Shift);
@@ -520,7 +520,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this ulong value)
         {
             char* chars = stackalloc char[20];
@@ -648,7 +648,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <returns>字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this long value)
         {
             char* chars = stackalloc char[22 + 2];
@@ -660,7 +660,7 @@ namespace AutoCSer.Extensions
         /// <param name="value">数值</param>
         /// <param name="chars">字符串</param>
         /// <returns>起始位置+字符串长度</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static int ToString(long value, char* chars)
         {
             if (value >= 0) return ToString((ulong)value, chars);
@@ -672,7 +672,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="chars">字符串</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private unsafe static void toString16(ulong value, char* chars)
         {
             ulong value100000000 = value / 100000000;
@@ -685,7 +685,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void ToString(byte value, CharStream charStream)
         {
             char* start = charStream.GetPrepCharSizeCurrent(3);
@@ -696,7 +696,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void ToString(sbyte value, CharStream charStream)
         {
             char* start = charStream.GetPrepCharSizeCurrent(4);
@@ -707,7 +707,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void ToString(ushort value, CharStream charStream)
         {
             char* start = charStream.GetPrepCharSizeCurrent(5);
@@ -718,7 +718,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void ToString(short value, CharStream charStream)
         {
             char* start = charStream.GetPrepCharSizeCurrent(6);
@@ -729,7 +729,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void ToString(uint value, CharStream charStream)
         {
             char* start = charStream.GetPrepCharSizeCurrent(10 + 3);
@@ -740,7 +740,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void ToString(int value, CharStream charStream)
         {
             char* start = charStream.GetPrepCharSizeCurrent(12 + 3);
@@ -751,7 +751,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void ToString(ulong value, CharStream charStream)
         {
             if (charStream.PrepCharSize(20 + 3)) UnsafeToString(value, charStream);
@@ -761,7 +761,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void UnsafeToString(ulong value, CharStream charStream)
         {
             charStream.Data.Pointer.MoveSize(ToString(value, charStream.CurrentChar) << 1);
@@ -771,7 +771,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void ToString(long value, CharStream charStream)
         {
             if (charStream.PrepCharSize(22 + 3)) UnsafeToString(value, charStream);
@@ -781,14 +781,14 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">数值</param>
         /// <param name="charStream">字符流</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void UnsafeToString(long value, CharStream charStream)
         {
             charStream.Data.Pointer.MoveSize(ToString(value, charStream.CurrentChar) << 1);
         }
 
         /// <summary>
-        /// 转换16位十六进制字符串
+        /// 转换16位十六进制字符串（大写字母）
         /// </summary>
         /// <param name="value">数字值</param>
         /// <returns>16位十六进制字符串</returns>
@@ -799,22 +799,22 @@ namespace AutoCSer.Extensions
             return hexs;
         }
         /// <summary>
-        /// 转换16位十六进制字符串
+        /// 转换16位十六进制字符串（大写字母）
         /// </summary>
         /// <param name="value">数字值</param>
         /// <param name="hexs">16位十六进制字符串</param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void toHex(this ulong value, char* hexs)
         {
             toHex((uint)value, hexs + 8);
             toHex((uint)(value >> 32), hexs);
         }
         /// <summary>
-        /// 转换8位十六进制字符串
+        /// 转换8位十六进制字符串（大写字母）
         /// </summary>
         /// <param name="value">数字值</param>
         /// <returns>8位十六进制字符串</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string toHex(this uint value)
         {
             string hexs = Common.Config.AllocateString(8);
@@ -822,7 +822,7 @@ namespace AutoCSer.Extensions
             return hexs;
         }
         /// <summary>
-        /// 数字值转换为十六进制字符串
+        /// 数字值转换为十六进制字符串（大写字母）
         /// </summary>
         /// <param name="value">数字值</param>
         /// <param name="hexs">十六进制字符串</param>
@@ -838,17 +838,27 @@ namespace AutoCSer.Extensions
             *(hexs + 7) = (char)ToHex(value & 15);
         }
         /// <summary>
-        /// 半字节转十六进制字符
+        /// 半字节转十六进制字符（大写字母）
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static uint ToHex(uint data)
         {
             return data < 10 ? data + '0' : (data + ('0' + 'A' - '9' - 1));
         }
+        ///// <summary>
+        ///// 半字节转十六进制字符（大写字母）
+        ///// </summary>
+        ///// <param name="data">大于等于 10</param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal static uint ToHexLetter(uint data)
+        //{
+        //    return data + ('0' + 'A' - '9' - 1);
+        //}
         /// <summary>
-        /// 16b 数字转换成4个16进制字符串
+        /// 16b 数字转换成4个16进制字符串（大写字母）
         /// </summary>
         /// <param name="value"></param>
         /// <param name="chars"></param>
@@ -860,7 +870,7 @@ namespace AutoCSer.Extensions
             *(chars + 3) = (char)ToHex(value & 15);
         }
         /// <summary>
-        /// 数字转换成16进制字符串
+        /// 数字转换成16进制字符串（大写字母）
         /// </summary>
         /// <param name="value"></param>
         /// <param name="chars"></param>
@@ -888,7 +898,88 @@ namespace AutoCSer.Extensions
             *chars = (char)ToHex(value);
             return chars + 1;
         }
+        /// <summary>
+        /// 十六进制字符串转数字
+        /// </summary>
+        /// <param name="hex"></param>
+        /// <returns>是否返回 uint.MaxValue</returns>
+        private static uint fromHex(char hex)
+        {
+            uint value = (uint)(hex - '0');
+            if (value < 10) return value;
+            value = (value - ('A' - '0')) & 0xffdfU;
+            if (value < 6) return value + 10;
+            return uint.MaxValue;
+        }
+        /// <summary>
+        /// 十六进制字符串转数字
+        /// </summary>
+        /// <param name="chars"></param>
+        /// <returns>失败则高16b不为0</returns>
+        private static uint fromHex4(char* chars)
+        {
+            return (fromHex(chars[0]) << 12) | (fromHex(chars[1]) << 8) | (fromHex(chars[2]) << 4) | fromHex(chars[3]);
+        }
+        /// <summary>
+        /// 十六进制字符串转数字
+        /// </summary>
+        /// <param name="chars"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static bool FromHex(char* chars, out uint value)
+        {
+            uint high = fromHex4(chars), low = fromHex4(chars + 4);
+            if (((high | low) & 0xffff0000U) == 0)
+            {
+                value = low | (high << 16);
+                return true;
+            }
+            value = 0;
+            return false;
+        }
+        /// <summary>
+        /// 十六进制字符串转数字
+        /// </summary>
+        /// <param name="chars"></param>
+        /// <returns>失败则高8b不为0</returns>
+        private static uint fromHex6(char* chars)
+        {
+            return (fromHex(chars[0]) << 20) | (fromHex(chars[1]) << 16) | (fromHex(chars[2]) << 12) | (fromHex(chars[3]) << 8) | (fromHex(chars[4]) << 4) | fromHex(chars[5]);
+        }
+        /// <summary>
+        /// 十六进制字符串转数字
+        /// </summary>
+        /// <param name="chars"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static bool FromHex(char* chars, out ulong value)
+        {
+            uint high = fromHex6(chars), middle = fromHex6(chars + 6), low = fromHex4(chars + 12);
+            if (((high | middle | low) & 0xff000000U) == 0)
+            {
+                value = low | ((ulong)middle << 16) | ((ulong)high << 40);
+                return true;
+            }
+            value = 0;
+            return false;
+        }
 
+        /// <summary>
+        /// 获取二进制1位的个数
+        /// </summary>
+        /// <param name="value">数据</param>
+        /// <returns>二进制1位的个数</returns>
+        public static int bitCount(this ulong value)
+        {
+            value -= ((value >> 1) & 0x5555555555555555UL);//2:2
+            value = (value & 0x3333333333333333UL) + ((value >> 2) & 0x3333333333333333UL);//4:4
+            value += value >> 4;
+            value &= 0x0f0f0f0f0f0f0f0fUL;//8:8
+
+            value += (value >> 8);
+            value += (value >> 16);
+            return (byte)(value + (value >> 32));
+        }
         /// <summary>
         /// 填充第一个有效二进制位后面的空位
         /// </summary>
@@ -907,7 +998,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static uint upToPower2(this uint value)
         {
             return (value & (value - 1)) != 0 ? value.fullBit() + 1 : value;
@@ -944,7 +1035,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 2^n相关32位deBruijn序列集合
         /// </summary>
-        private static AutoCSer.Memory.Pointer deBruijn32;
+        internal static AutoCSer.Memory.Pointer DeBruijn32;
         /// <summary>
         /// 2^n相关32位deBruijn序列
         /// </summary>
@@ -954,15 +1045,16 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static int deBruijnLog2(this uint value)
         {
-            return deBruijn32.Byte[(value * DeBruijn32Number) >> 27];
+            return DeBruijn32.Byte[(value * DeBruijn32Number) >> 27];
         }
+
         static NumberExtension()
         {
-            deBruijn32 = Unmanaged.GetDeBruijn32Number();
-            byte* deBruijn32Data = deBruijn32.Byte;
+            DeBruijn32 = Unmanaged.GetDeBruijn32Number();
+            byte* deBruijn32Data = DeBruijn32.Byte;
             for (byte bit = 0; bit != 32; ++bit) deBruijn32Data[((1U << bit) * DeBruijn32Number) >> 27] = bit;
         }
     }

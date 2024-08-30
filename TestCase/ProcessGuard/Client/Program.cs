@@ -10,7 +10,7 @@ namespace AutoCSer.TestCase.ProcessGuardClient
     {
         static async Task Main(string[] args)
         {
-            CommandClientConfig commandClientConfig = new ProcessGuardCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ProcessGuard) };
+            CommandClientConfig commandClientConfig = new ProcessGuardCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ProcessGuard) };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
                 await commandClient.GetSocketAsync();
@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.ProcessGuardClient
                 Console.WriteLine("Press quit to exit.");
                 CatchTask.AddIgnoreException(check(client));
                 while (Console.ReadLine() != "quit") ;
-                await client.RemoveGuardAsync();
+                await client.ProcessGuardClient.RemoveGuard();
             }
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace AutoCSer.TestCase.ProcessGuardClient
         {
             do
             {
-                CommandClientReturnValue<bool> Result = client.GuardReturnValue;
+                CommandClientReturnValue<bool> Result = client.ProcessGuardClient.GuardReturnValue;
                 if (Result.IsSuccess)
                 {
                     if (Result.Value)

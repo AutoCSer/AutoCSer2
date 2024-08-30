@@ -15,6 +15,10 @@ namespace AutoCSer.Example.CommandServer.Client
         /// </summary>
         public IVerifyController VerifyController { get; private set; }
         /// <summary>
+        /// 客户端与服务端定义一致的 定义对称 示例接口
+        /// </summary>
+        public IDefinedSymmetryController DefinedSymmetryController { get; private set; }
+        /// <summary>
         /// 服务端 IO线程同步调用 同步返回数据 示例接口
         /// </summary>
         public Synchronous.ISynchronousController Synchronous_SynchronousController { get; private set; }
@@ -96,6 +100,8 @@ namespace AutoCSer.Example.CommandServer.Client
                 //服务认证 API 必须定义在客户端主控制器中
                 yield return new CommandClientControllerCreatorParameter(typeof(Server.IVerifyController), typeof(IVerifyController));
 
+                yield return new CommandClientControllerCreatorParameter(typeof(IDefinedSymmetryController), typeof(IDefinedSymmetryController));
+
                 yield return new CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ISynchronousController), typeof(Synchronous.ISynchronousController));
                 yield return new CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ISendOnlyController), typeof(Synchronous.ISendOnlyController));
                 yield return new CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ICallbackController), typeof(Synchronous.ICallbackController));
@@ -131,7 +137,7 @@ namespace AutoCSer.Example.CommandServer.Client
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public override async Task<CommandClientReturnValue<CommandServerVerifyState>> CallVerifyMethod(CommandClientController controller)
+        public override async Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
             return await ((IVerifyController)controller).VerifyAsync(1, 2);
         }

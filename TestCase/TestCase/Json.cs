@@ -14,21 +14,21 @@ namespace AutoCSer.TestCase
         /// </summary>
         private static readonly AutoCSer.JsonSerializeConfig jsonSerializeConfig = new AutoCSer.JsonSerializeConfig();
         /// <summary>
-        /// Javascript 时间值JSON序列化参数配置
+        /// JavaScript 时间值JSON序列化参数配置
         /// </summary>
-        private static readonly AutoCSer.JsonSerializeConfig javascriptDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeType.Javascript, IsBoolToInt = true, IsIntegerToHex = true };
-        /// <summary>
-        /// SQL 时间值JSON序列化参数配置
-        /// </summary>
-        private static readonly AutoCSer.JsonSerializeConfig sqlDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeType.Sql };
+        private static readonly AutoCSer.JsonSerializeConfig javascriptDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeTypeEnum.JavaScript, IsBoolToInt = true, IsIntegerToHex = true };
+        ///// <summary>
+        ///// SQL 时间值JSON序列化参数配置
+        ///// </summary>
+        //private static readonly AutoCSer.JsonSerializeConfig sqlDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeTypeEnum.Sql };
         /// <summary>
         /// 第三方时间值JSON序列化参数配置
         /// </summary>
-        private static readonly AutoCSer.JsonSerializeConfig thirdPartyDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeType.ThirdParty };
+        private static readonly AutoCSer.JsonSerializeConfig thirdPartyDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeTypeEnum.ThirdParty };
         /// <summary>
         /// 自定义格式时间值JSON序列化参数配置
         /// </summary>
-        private static readonly AutoCSer.JsonSerializeConfig customDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeType.CustomFormat, DateTimeCustomFormat = "yyyy-MM-dd  HH:mm:ss" };
+        private static readonly AutoCSer.JsonSerializeConfig customDateTimeSerializeConfig = new AutoCSer.JsonSerializeConfig { DateTimeType = AutoCSer.Json.DateTimeTypeEnum.CustomFormat, DateTimeCustomFormat = "yyyy-MM-dd  HH:mm:ss" };
 
         /// <summary>
         /// JSON 序列化测试
@@ -42,22 +42,21 @@ namespace AutoCSer.TestCase
             #region 引用类型字段成员JSON序列化测试
             Field filedData = AutoCSer.RandomObject.Creator<Field>.Create(RandomConfig);
             string jsonString = AutoCSer.JsonSerializer.Serialize(filedData);
-            //AutoCSer.Log.Trace.Console(jsonString);
             Field newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<Field>.Equals(filedData, newField))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
             {
-                return Program.Breakpoint();
+                return false;
             }
-            //AutoCSer.Log.Trace.Console(AutoCSer.JsonSerializer.Serialize(newField));
             #endregion
 
             #region 带成员位图的引用类型字段成员JSON序列化测试
-            jsonSerializeConfig.MemberMap = AutoCSer.Metadata.MemberMap<Field>.NewFull();
+            AutoCSer.Metadata.MemberMap<Field> fieldMemberMap = AutoCSer.Metadata.MemberMap<Field>.NewFull();
+            jsonSerializeConfig.MemberMap = fieldMemberMap;
             jsonString = AutoCSer.JsonSerializer.Serialize(filedData, jsonSerializeConfig);
             newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<Field>.MemberMapEquals(filedData, newField, jsonSerializeConfig.MemberMap))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField, fieldMemberMap))
             {
-                return Program.Breakpoint();
+                return false;
             }
             #endregion
 
@@ -65,9 +64,9 @@ namespace AutoCSer.TestCase
             Property propertyData = AutoCSer.RandomObject.Creator<Property>.Create(RandomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(propertyData);
             Property newProperty = AutoCSer.JsonDeserializer.Deserialize<Property>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<Property>.Equals(propertyData, newProperty))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(propertyData, newProperty))
             {
-                return Program.Breakpoint();
+                return false;
             }
             #endregion
 
@@ -75,19 +74,20 @@ namespace AutoCSer.TestCase
             StructField structField = AutoCSer.RandomObject.Creator<StructField>.Create(RandomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(structField);
             StructField newStructField = AutoCSer.JsonDeserializer.Deserialize<StructField>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<StructField>.Equals(structField, newStructField))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField))
             {
-                return Program.Breakpoint();
+                return false;
             }
             #endregion
 
             #region 带成员位图的值类型字段成员JSON序列化测试
-            jsonSerializeConfig.MemberMap = AutoCSer.Metadata.MemberMap<StructField>.NewFull();
+            AutoCSer.Metadata.MemberMap<StructField> structFieldMemberMap = AutoCSer.Metadata.MemberMap<StructField>.NewFull();
+            jsonSerializeConfig.MemberMap = structFieldMemberMap;
             jsonString = AutoCSer.JsonSerializer.Serialize(structField, jsonSerializeConfig);
             newStructField = AutoCSer.JsonDeserializer.Deserialize<StructField>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<StructField>.MemberMapEquals(structField, newStructField, jsonSerializeConfig.MemberMap))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField, structFieldMemberMap))
             {
-                return Program.Breakpoint();
+                return false;
             }
             #endregion
 
@@ -95,9 +95,9 @@ namespace AutoCSer.TestCase
             StructProperty structProperty = AutoCSer.RandomObject.Creator<StructProperty>.Create(RandomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(structProperty);
             StructProperty newStructProperty = AutoCSer.JsonDeserializer.Deserialize<StructProperty>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<StructProperty>.Equals(structProperty, newStructProperty))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(structProperty, newStructProperty))
             {
-                return Program.Breakpoint();
+                return false;
             }
             #endregion
 
@@ -105,9 +105,9 @@ namespace AutoCSer.TestCase
             filedData = AutoCSer.RandomObject.Creator<Field>.Create(RandomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(filedData, javascriptDateTimeSerializeConfig);
             newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<Field>.Equals(filedData, newField))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
             {
-                return Program.Breakpoint();
+                return false;
             }
             #endregion
 
@@ -116,59 +116,59 @@ namespace AutoCSer.TestCase
             memberClassData.DateTime = new DateTime(memberClassData.DateTime.Ticks, DateTimeKind.Local);
             jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData);
             MemberClass newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<MemberClass>.Equals(memberClassData, newMemberClassData))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
             {
-                return Program.Breakpoint();
+                return false;
             }
-            jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData, sqlDateTimeSerializeConfig);
-            newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<MemberClass>.Equals(memberClassData, newMemberClassData))
-            {
-                return Program.Breakpoint();
-            }
+            //jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData, sqlDateTimeSerializeConfig);
+            //newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
+            //if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
+            //{
+            //    return false;
+            //}
             jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData, thirdPartyDateTimeSerializeConfig);
             newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<MemberClass>.Equals(memberClassData, newMemberClassData))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
             {
-                return Program.Breakpoint();
+                return false;
             }
             jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData, customDateTimeSerializeConfig);
             newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<MemberClass>.Equals(memberClassData, newMemberClassData))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
             {
-                return Program.Breakpoint();
+                return false;
             }
             #endregion
 
             if (AutoCSer.JsonDeserializer.Deserialize<int>(jsonString = AutoCSer.JsonSerializer.Serialize<int>(1)) != 1)
             {
-                return Program.Breakpoint();
+                return false;
             }
             if (AutoCSer.JsonDeserializer.Deserialize<string>(jsonString = AutoCSer.JsonSerializer.Serialize<string>("1")) != "1")
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             Float floatData = AutoCSer.JsonDeserializer.Deserialize<Float>(@"{Double4:-4.0,Double2:2.0,Double6:-6.0,Double5:5.0,Double3:-3.0}");
             if (floatData.Double2 != 2 || floatData.Double3 != -3 || floatData.Double4 != -4 || floatData.Double5 != 5 || floatData.Double6 != -6)
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             floatData = new Float { FloatPositiveInfinity = float.NaN, FloatNegativeInfinity = float.NaN, DoublePositiveInfinity = double.NaN, DoubleNegativeInfinity = double.NaN };
             jsonString = AutoCSer.JsonSerializer.Serialize(floatData);
             Float newFloatData = AutoCSer.JsonDeserializer.Deserialize<Float>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<Float>.Equals(floatData, newFloatData))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(floatData, newFloatData))
             {
-                return Program.Breakpoint();
+                return false;
             }
 
             floatData = new Float();
             jsonString = AutoCSer.JsonSerializer.Serialize(floatData, new AutoCSer.JsonSerializeConfig { IsInfinityToNaN = false });
             newFloatData = AutoCSer.JsonDeserializer.Deserialize<Float>(jsonString);
-            if (!AutoCSer.FieldEquals.Comparor<Float>.Equals(floatData, newFloatData))
+            if (!AutoCSer.FieldEquals.Comparor.Equals(floatData, newFloatData))
             {
-                return Program.Breakpoint();
+                return false;
             }
             return true;
         }

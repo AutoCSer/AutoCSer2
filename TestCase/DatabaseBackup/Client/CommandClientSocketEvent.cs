@@ -40,9 +40,9 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public override async Task<CommandClientReturnValue<CommandServerVerifyState>> CallVerifyMethod(CommandClientController controller)
+        public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
-            return TimestampVerifyChecker.Verify(controller, ConfigFile.Default.VerifyString);
+            return getCompletedTask(TimestampVerifyChecker.Verify(controller, ConfigFile.Default.VerifyString));
         }
     }
 }

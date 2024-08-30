@@ -20,7 +20,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static CollectionGenericType create<T, VT>()
             where T : ICollection<VT>

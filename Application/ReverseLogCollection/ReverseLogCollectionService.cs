@@ -8,12 +8,13 @@ namespace AutoCSer.CommandService
     /// 反向日志收集服务
     /// </summary>
     /// <typeparam name="T">日志数据类型</typeparam>
+    [CommandServerController(InterfaceType = typeof(IReverseLogCollectionService<>))]
     public class ReverseLogCollectionService<T> : CommandServerBindController, IReverseLogCollectionService<T>
     {
         /// <summary>
         /// 获取日志回调委托集合
         /// </summary>
-        private LeftArray<CommandServerKeepCallback<T>> callbacks = new LeftArray<CommandServerKeepCallback<T>>(0);
+        private CommandServerKeepCallback<T>.Link callbacks;
         /// <summary>
         /// 获取日志
         /// </summary>
@@ -22,7 +23,7 @@ namespace AutoCSer.CommandService
         /// <param name="callback">获取日志回调委托</param>
         public virtual void LogCallback(CommandServerSocket socket, CommandServerCallQueue queue, CommandServerKeepCallback<T> callback)
         {
-            callbacks.Add(callback);
+            callbacks.PushHead(callback);
         }
         /// <summary>
         /// 添加日志
@@ -30,7 +31,7 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         public virtual void Appped(T log)
         {
-            Controller.AddQueue(new LogCallback<T>(this, log));
+            Controller.CallQueue.AddOnly(new LogCallback<T>(this, log));
         }
         /// <summary>
         /// 日志回调
@@ -38,7 +39,7 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         internal virtual void Callback(T log)
         {
-            callbacks.RemoveAllToEnd(p => !p.Callback(log));
+            callbacks.Callback(log);
         }
     }
 }

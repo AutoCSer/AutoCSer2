@@ -37,10 +37,9 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task<int> ISynchronousController.SynchronousReturn(CommandServerSocket socket, int parameter1, int parameter2)
+        Task<int> ISynchronousController.SynchronousReturn(CommandServerSocket socket, int parameter1, int parameter2)
         {
-            await Task.Yield();
-            return parameter1 + parameter2;
+            return Task.FromResult(parameter1 + parameter2);
         }
         /// <summary>
         /// 无返回值同步调用
@@ -48,10 +47,10 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task ISynchronousController.SynchronousCall(int parameter1, int parameter2)
+        Task ISynchronousController.SynchronousCall(int parameter1, int parameter2)
         {
-            await Task.Yield();
             Console.WriteLine(parameter1 + parameter2);
+            return AutoCSer.Common.CompletedTask;
         }
     }
 }

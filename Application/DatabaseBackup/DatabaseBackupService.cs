@@ -68,15 +68,15 @@ namespace AutoCSer.CommandService
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception catchException)
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(OnException(exception = error));
+                AutoCSer.Threading.CatchTask.AddIgnoreException(OnException(exception = catchException));
             }
             finally
             {
                 if (callback != null)
                 {
-                    callback.Callback(CommandClientReturnType.ServerException, exception);
+                    callback.Callback(CommandClientReturnTypeEnum.ServerException, exception);
                     if (backuper != null && backuper.CallbackCount == 0) databaseBackupers.Remove(backuperKey);
                 }
             }
@@ -105,16 +105,20 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual async Task Download(string backupFullName, long startIndex, CommandServerKeepCallbackCount<DatabaseBackupDownloadBuffer> callback)
         {
-            CommandClientReturnType returnType = CommandClientReturnType.Unknown;
+            CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;
             Exception exception = null;
             try
             {
+#if DotNet45 || NetStandard2
                 using (FileStream fileStream = File.OpenRead(backupFullName))
+#else
+                await using (FileStream fileStream = File.OpenRead(backupFullName))
+#endif
                 {
                     if (startIndex != fileStream.Length)
                     {
                         await AutoCSer.Common.Config.Seek(fileStream, startIndex, SeekOrigin.Begin);
-                        byte[][] buffers = new byte[][] { new byte[1 << 20], new byte[1 << 20], new byte[1 << 20] };
+                        byte[][] buffers = new byte[][] { AutoCSer.Common.Config.GetArray(1 << 20), AutoCSer.Common.Config.GetArray(1 << 20), AutoCSer.Common.Config.GetArray(1 << 20) };
                         int bufferIndex = 0;
                         do
                         {
@@ -129,19 +133,19 @@ namespace AutoCSer.CommandService
                     }
                 }
                 await callback.CallbackAsync(default(DatabaseBackupDownloadBuffer));
-                returnType = CommandClientReturnType.Success;
+                returnType = CommandClientReturnTypeEnum.Success;
             }
-            catch (Exception error)
+            catch (Exception catchException)
             {
-                returnType = CommandClientReturnType.ServerException;
-                await OnException(exception = error);
+                returnType = CommandClientReturnTypeEnum.ServerException;
+                await OnException(exception = catchException);
             }
             finally
             {
                 callback.CancelKeep(returnType, exception);
-                if (returnType == CommandClientReturnType.Success)
+                if (returnType == CommandClientReturnTypeEnum.Success)
                 {
-                    await AutoCSer.Common.Config.DeleteFile(backupFullName);
+                    await AutoCSer.Common.Config.TryDeleteFile(backupFullName);
                     OnMessage($"数据库备份文件下载完成并删除 {backupFullName}");
                 }
                 else OnMessage($"数据库备份文件下载失败 {backupFullName}");

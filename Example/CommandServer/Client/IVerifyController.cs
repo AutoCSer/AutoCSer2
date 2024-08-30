@@ -16,13 +16,13 @@ namespace AutoCSer.Example.CommandServer.Client
         /// <param name="parameter2">参数</param>
         /// <returns>返回值类型必须为 AutoCSer.Net.CommandServerVerifyState</returns>
         [AutoCSer.Net.CommandClientMethod(MatchMethodName = nameof(Server.IVerifyController.Verify))]
-        ReturnCommand<CommandServerVerifyState> VerifyAsync(int parameter1, int parameter2);
+        ReturnCommand<CommandServerVerifyStateEnum> VerifyAsync(int parameter1, int parameter2);
         /// <summary>
         /// 服务认证 API（客户端同步等待）
         /// </summary>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>返回值类型必须为 AutoCSer.Net.CommandServerVerifyState</returns>
-        CommandClientReturnValue<CommandServerVerifyState> Verify(int parameter1, int parameter2);
+        CommandClientReturnValue<CommandServerVerifyStateEnum> Verify(int parameter1, int parameter2);
     }
 }

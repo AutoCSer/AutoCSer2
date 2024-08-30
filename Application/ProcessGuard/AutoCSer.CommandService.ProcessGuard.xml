@@ -116,13 +116,6 @@
             <param name="callback">是否添加成功 回调委托</param>
             <returns>await</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuardClient.GuardAsync(AutoCSer.CommandService.ProcessGuardInfo)">
-            <summary>
-            添加待守护进程
-            </summary>
-            <param name="processInfo">进程信息</param>
-            <returns>是否添加成功</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.IProcessGuardClient.Guard(AutoCSer.CommandService.ProcessGuardInfo)">
             <summary>
             添加待守护进程
@@ -139,14 +132,6 @@
             <param name="callback">回调委托</param>
             <returns>await</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuardClient.RemoveAsync(System.Int32,System.String)">
-            <summary>
-            删除被守护进程
-            </summary>
-            <param name="processId">进程标识</param>
-            <param name="processName">进程名称</param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.IProcessGuardClient.Remove(System.Int32,System.String)">
             <summary>
             删除被守护进程
@@ -162,8 +147,68 @@
         </member>
         <member name="P:AutoCSer.CommandService.IProcessGuardClientSocketEvent.ProcessGuardClient">
             <summary>
-            分布式锁客户端接口
+            进程守护客户端
             </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.IProcessGuardClientSocketEvent.IProcessGuardClient">
+            <summary>
+            进程守护客户端接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ProcessGuardClient">
+            <summary>
+            进程守护客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ProcessGuardClient.socketEvent">
+            <summary>
+            进程守护客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ProcessGuardClient.processInfo">
+            <summary>
+            当前进程信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ProcessGuardClient.isRemoveGuard">
+            <summary>
+            是否移除守护
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ProcessGuardClient.GuardReturnValue">
+            <summary>
+            最后一次守护调用返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardClient.#ctor(AutoCSer.CommandService.IProcessGuardClientSocketEvent)">
+            <summary>
+            进程守护客户端
+            </summary>
+            <param name="socketEvent">进程守护客户端套接字事件</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardClient.OnClientMethodVerified">
+            <summary>
+            当前套接字通过验证方法，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardClient.GetRemoveGuardAwaiter">
+            <summary>
+            删除被守护进程
+            </summary>
+            <returns>await</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardClient.RemoveGuard">
+            <summary>
+            删除被守护进程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardClient.RemoveGuard(System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            删除被守护进程
+            </summary>
+            <param name="callback"></param>
         </member>
         <member name="T:AutoCSer.CommandService.ProcessGuardCommandClientConfig">
             <summary>
@@ -223,29 +268,19 @@
             进程守护客户端套接字事件
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ProcessGuardClientSocketEvent.processInfo">
-            <summary>
-            当前进程信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ProcessGuardClientSocketEvent.isRemoveGuard">
-            <summary>
-            是否移除守护
-            </summary>
-        </member>
         <member name="P:AutoCSer.CommandService.ProcessGuardClientSocketEvent.ProcessGuardClient">
             <summary>
-            分布式锁客户端接口
+            进程守护客户端
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.ProcessGuardClientSocketEvent.IProcessGuardClient">
+            <summary>
+            进程守护客户端接口
             </summary>
         </member>
         <member name="P:AutoCSer.CommandService.ProcessGuardClientSocketEvent.ControllerCreatorParameters">
             <summary>
             客户端控制器创建器参数集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ProcessGuardClientSocketEvent.GuardReturnValue">
-            <summary>
-            最后一次守护调用返回值
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.ProcessGuardClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
@@ -254,35 +289,12 @@
             </summary>
             <param name="commandClient">命令客户端</param>
         </member>
-        <member name="M:AutoCSer.CommandService.ProcessGuardClientSocketEvent.onMethodVerified">
+        <member name="M:AutoCSer.CommandService.ProcessGuardClientSocketEvent.onMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
             当前套接字通过验证方法，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
+            <param name="socket"></param>
             <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ProcessGuardClientSocketEvent.GetRemoveGuardAwaiter">
-            <summary>
-            删除被守护进程
-            </summary>
-            <returns>await</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ProcessGuardClientSocketEvent.RemoveGuardAsync">
-            <summary>
-            删除被守护进程
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ProcessGuardClientSocketEvent.RemoveGuard">
-            <summary>
-            删除被守护进程
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ProcessGuardClientSocketEvent.RemoveGuard(System.Action{AutoCSer.Net.CommandClientReturnValue})">
-            <summary>
-            删除被守护进程
-            </summary>
-            <param name="callback"></param>
         </member>
         <member name="T:AutoCSer.CommandService.ProcessGuardInfo">
             <summary>
@@ -363,16 +375,23 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.CommandService.ProcessGuardSwitchProcess.processGuardClient">
-            <summary>
-            进程守护调用客户端
-            </summary>
-        </member>
         <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.getCommandClientConfig">
             <summary>
             获取守护进程客户端配置
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.getProcessGuardClientSocketEvent(AutoCSer.Net.CommandClient)">
+            <summary>
+            进程守护客户端
+            </summary>
+            <param name="commandClient"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.ProcessGuardSwitchProcess.processGuardClient">
+            <summary>
+            进程守护调用客户端
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.ProcessGuardSwitchProcess.processGuardCommandClient">
             <summary>

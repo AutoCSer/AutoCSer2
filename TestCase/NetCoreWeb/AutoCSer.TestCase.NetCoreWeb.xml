@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.TestCase.NetCoreWeb</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ViewHelp">
+            <summary>
+            数据视图 API 帮助文档数据视图
+            </summary>
+            <summary>
+            数据视图 API 帮助文档数据视图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewHelp.Controllers">
+            <summary>
+            JSON API 控制器帮助文档视图数据集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewHelp.Views">
+            <summary>
+            数据视图请求信息帮助类视图数据集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewHelp.Controller">
+            <summary>
+            JSON API 控制器帮助文档视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewHelp.Type">
+            <summary>
+            类型帮助文档视图数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewHelp.LoadView(AutoCSer.NetCoreWeb.ViewMiddleware,AutoCSer.TestCase.NetCoreWeb.ViewHelpTypeEnum,System.String,System.String)">
+            <summary>
+            视图数据初始化方法名称必须为 LoadView，返回值类型必须为 Task{AutoCSer.NetCoreWeb.ResponseResult}，参数则根据具体需求而定，如果不需要初始化过程则不需要定义该方法
+            </summary>
+            <param name="viewMiddleware">数据视图中间件，必须放在所有数据参数之前</param>
+            <param name="type">帮助文档类型</param>
+            <param name="controllerTypeFullName">控制器类型名称</param>
+            <param name="typeFullName">类型名称</param>
+            <returns>返回值状态为 Success 则正常执行返回视图数据操作，否则直接将错误信息返回给客户端</returns>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ViewHelp.defaultRequestPath">
+            <summary>
+            获取请求路径，默认为 类型命令空间+类型名称，用于代码生成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewHelp.load(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            初始化加载数据（基本操作用代码生成组件处理）
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewRequest">数据视图信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ViewHelpTypeEnum">
+            <summary>
+            帮助文档类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewHelpTypeEnum.ControllerList">
+            <summary>
+            加载控制器列表视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewHelpTypeEnum.Controller">
+            <summary>
+            加载指定控制器视图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewHelpTypeEnum.Type">
+            <summary>
+            加载指定类型视图数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ExampleController">
+            <summary>
+            JSON API 控制器示例，必须派生自 AutoCSer.NetCoreWeb.JsonApiController
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleController.CallState">
+            <summary>
+            无参调用示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleController.GetResult(System.Int32,System.Int32)">
+            <summary>
+            GET 请求示例
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleController.OnlyPost(System.Int32,System.Int32)">
+            <summary>
+            仅支持 POST 请求示例，安全敏感操作必选项，避免跨域 GET 调用攻击
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleController.GetPost(System.Int32,System.Int32)">
+            <summary>
+            GET / POST 混合传参示例
+            </summary>
+            <param name="left">GET 传参，POST 传参优先，也就是说 POST 传参可以覆盖 GET 传参</param>
+            <param name="right">POST 传参</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleController.IgnoreControllerRoute(System.Int32,System.Int32)">
+            <summary>
+            忽略控制器路由
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleController.ClientError(AutoCSer.NetCoreWeb.ClientMessage)">
+            <summary>
+            收集客户端错误信息
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ExampleView">
+            <summary>
+            数据视图示例，必须使用 partial 修饰符用于生成静态代码，每一个示例必须对应 类型名称.page.html 页面模板文件
+            </summary>
+            <summary>
+            数据视图示例，必须使用 partial 修饰符用于生成静态代码，每一个示例必须对应 类型名称.page.html 页面模板文件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ExampleView.queryName">
+            <summary>
+            生成 LoadView 方法参数成员名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ExampleView.Sum">
+            <summary>
+            视图数据成员定义必须采用 public 修饰符
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ExampleView.TaskSum">
+            <summary>
+            Task 数据成员，模拟异步调用
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ExampleView.Left10">
+            <summary>
+            System.Collections.Generic.IEnumerable{T} 成员允许 LOOP 指令当成数组处理
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ExampleView.DataList">
+            <summary>
+            对象列表
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleView.LoadView(System.Int32,System.Int32)">
+            <summary>
+            视图数据初始化方法名称必须为 LoadView，返回值类型必须为 Task{AutoCSer.NetCoreWeb.ResponseResult}，参数则根据具体需求而定，如果不需要初始化过程则不需要定义该方法
+            </summary>
+            <param name="left">客户端传参</param>
+            <param name="right">客户端传参</param>
+            <returns>返回值状态为 Success 则正常执行返回视图数据操作，否则直接将错误信息返回给客户端</returns>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ExampleView.defaultRequestPath">
+            <summary>
+            获取请求路径，默认为 类型命令空间+类型名称，用于代码生成
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ExampleView.__QUERYPARAMETER__">
+            <summary>
+            客户端查询传参
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ExampleView.Parameters">
+            <summary>
+            客户端查询传参
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleView.load(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.ViewRequest)">
+            <summary>
+            初始化加载数据（基本操作用代码生成组件处理）
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="viewRequest">数据视图信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ExampleData">
+            <summary>
+            数据视图示例数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ExampleData.IntData">
+            <summary>
+            示例数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ExampleData.StringData">
+            <summary>
+            示例数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ExampleData.NextData">
+            <summary>
+            示例嵌套数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ExampleData.#ctor(System.Int32)">
+            <summary>
+            数据视图示例数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.View">
+            <summary>
+            项目全局数据视图，定义项目共享数据定义，项目中的所有数据视图实例类型都应该派生于该类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware">
+            <summary>
+            数据视图中间件
+            </summary>
+            <summary>
+            数据视图中间件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.DefaultErrorRequestPath">
+            <summary>
+            收集客户端错误信息的请求地址
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.ErrorRequestPath">
+            <summary>
+            收集客户端错误信息的请求地址，默认为 null 表示不采集客户端错误，在代码生成中替换标记字符串 __ERRORPATH__
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.CheckReferer(System.String)">
+            <summary>
+            检查来源页面，用于跨域验证
+            </summary>
+            <param name="referer">来源页面</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.#ctor">
+            <summary>
+            用于代码生成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            数据视图中间件
+            </summary>
+            <param name="nextRequest"></param>
+        </member>
+    </members>
+</doc>

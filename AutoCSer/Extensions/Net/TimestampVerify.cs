@@ -21,7 +21,11 @@ namespace AutoCSer.Net
         public static byte[] Md5(MD5CryptoServiceProvider md5, string verifyString, ulong randomPrefix, long timestamp)
         {
             int size = (verifyString.Length << 1) + (sizeof(ulong) + sizeof(long));
-            ByteArrayBuffer buffer = ByteArrayPool.GetBuffer(size);
+            ByteArrayBuffer buffer = ByteArrayPool.GetBuffer(size
+#if DEBUG
+            , false
+#endif
+                );
             try
             {
                 fixed (byte* dataFixed = buffer.GetFixedBuffer())
@@ -41,7 +45,7 @@ namespace AutoCSer.Net
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ulong Md5Equals(byte[] left, byte[] right)
         {
             fixed (byte* leftFixed = left, rightRixed = right)

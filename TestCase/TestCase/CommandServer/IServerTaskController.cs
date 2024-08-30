@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>
@@ -30,75 +31,63 @@ namespace AutoCSer.TestCase
     /// </summary>
     internal sealed class ServerTaskController : IServerTaskController
     {
-        internal static async Task TaskStart()
+        Task<string> IServerTaskController.AsynchronousTaskReturnSocket(CommandServerSocket socket, int Value, int Ref)
         {
-            //await Task.Delay(1);
+            return Task.FromResult(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref).ToString());
         }
-
-        async Task<string> IServerTaskController.AsynchronousTaskReturnSocket(CommandServerSocket socket, int Value, int Ref)
+        Task<string> IServerTaskController.AsynchronousTaskReturnSocket(CommandServerSocket socket)
         {
-            await ServerTaskController.TaskStart();
-            return ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref).ToString();
+            return Task.FromResult(((CommandServerSessionObject)socket.SessionObject).Xor().ToString());
         }
-        async Task<string> IServerTaskController.AsynchronousTaskReturnSocket(CommandServerSocket socket)
+        Task IServerTaskController.AsynchronousTaskSocket(CommandServerSocket socket, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
-            return ((CommandServerSessionObject)socket.SessionObject).Xor().ToString();
-        }
-        async Task IServerTaskController.AsynchronousTaskSocket(CommandServerSocket socket, int Value, int Ref)
-        {
-            await ServerTaskController.TaskStart();
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
+            return AutoCSer.Common.CompletedTask;
         }
-        async Task IServerTaskController.AsynchronousTaskSocket(CommandServerSocket socket)
+        Task IServerTaskController.AsynchronousTaskSocket(CommandServerSocket socket)
         {
-            await ServerTaskController.TaskStart();
+            return AutoCSer.Common.CompletedTask;
         }
-        async Task<string> IServerTaskController.AsynchronousTaskReturn(int Value, int Ref)
+        Task<string> IServerTaskController.AsynchronousTaskReturn(int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
-            return ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString();
+            return Task.FromResult(ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString());
         }
-        async Task<string> IServerTaskController.AsynchronousTaskReturn()
+        Task<string> IServerTaskController.AsynchronousTaskReturn()
         {
-            await ServerTaskController.TaskStart();
-            return ServerSynchronousController.SessionObject.Xor().ToString();
+            return Task.FromResult(ServerSynchronousController.SessionObject.Xor().ToString());
         }
-        async Task IServerTaskController.AsynchronousTask(int Value, int Ref)
+        Task IServerTaskController.AsynchronousTask(int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
+            return AutoCSer.Common.CompletedTask;
         }
-        async Task IServerTaskController.AsynchronousTask()
+        Task IServerTaskController.AsynchronousTask()
         {
-            await ServerTaskController.TaskStart();
+            return AutoCSer.Common.CompletedTask;
         }
 
-        async Task<string> IServerTaskController.TaskQueueReturnSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref)
+        Task<string> IServerTaskController.TaskQueueReturnSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
-            return ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref).ToString();
+            return Task.FromResult(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref).ToString());
         }
-        async Task IServerTaskController.TaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task IServerTaskController.TaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
+            return AutoCSer.Common.CompletedTask;
         }
-        async Task<string> IServerTaskController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task<string> IServerTaskController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
-            return ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString();
+            return Task.FromResult(ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString());
         }
-        async Task IServerTaskController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
+        Task IServerTaskController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
+            return AutoCSer.Common.CompletedTask;
         }
 
-        async Task<string> IServerTaskController.TaskQueueException(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task<string> IServerTaskController.TaskQueueException(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
-            throw new Exception(ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString());
+            throw new AutoCSer.Log.IgnoreException(ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString());
         }
     }
 }

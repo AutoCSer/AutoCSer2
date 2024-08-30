@@ -42,11 +42,10 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task<CommandServerSendOnly> ISendOnlyController.SendOnly(CommandServerSocket socket, CommandServerCallTaskQueue queue, int queueKey, int parameter1, int parameter2)
+        Task<CommandServerSendOnly> ISendOnlyController.SendOnly(CommandServerSocket socket, CommandServerCallTaskQueue queue, int queueKey, int parameter1, int parameter2)
         {
-            await Task.Yield();
             Console.WriteLine(parameter1 + parameter2);
-            return null;
+            return Task.FromResult((CommandServerSendOnly)null);
         }
         /// <summary>
         /// 不返回数据（不应答客户端）
@@ -55,11 +54,10 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         /// <param name="queueKey">默认第一个数据参数为队列关键字</param>
         /// <param name="parameter">参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task<CommandServerSendOnly> ISendOnlyController.SendOnly(CommandServerCallTaskLowPriorityQueue queue, int queueKey, int parameter)
+        Task<CommandServerSendOnly> ISendOnlyController.SendOnly(CommandServerCallTaskLowPriorityQueue queue, int queueKey, int parameter)
         {
-            await Task.Yield();
             Console.WriteLine(parameter);
-            return null;
+            return Task.FromResult((CommandServerSendOnly)null);
         }
     }
 }

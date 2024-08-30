@@ -42,6 +42,8 @@
     <Compile Include="Client\Synchronous\ISendOnlyController.cs" />
     <Compile Include="Client\Synchronous\ISynchronousController.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="DefinedDissymmetryMethodEnum.cs" />
+    <Compile Include="IDefinedSymmetryController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Server\AsyncTaskQueueContext\IKeepCallbackController.cs" />
     <Compile Include="Server\AsyncTaskQueueContext\ISendOnlyController.cs" />
@@ -66,11 +68,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoCSer2.1" Version="2.0.5" />
+    <PackageReference Include="AutoCSer2.1" Version="2.0.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,6 +9,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
     /// </summary>
     internal sealed class ConfigFile
     {
+#pragma warning disable
         /// <summary>
         /// 服务器地址
         /// </summary>
@@ -37,6 +38,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// 删除文件小时数
         /// </summary>
         public int DeleteFileHours;
+#pragma warning restore
         /// <summary>
         /// 检查配置
         /// </summary>
@@ -44,20 +46,20 @@ namespace AutoCSer.TestCase.DatabaseBackup
         {
             if (string.IsNullOrEmpty(VerifyString))
             {
-                Console.WriteLine("没有找到配置 验证字符串");
+                ConsoleWriteQueue.WriteLine("没有找到配置 验证字符串", ConsoleColor.Red);
                 return;
             }
             if (string.IsNullOrEmpty(BackupPath))
             {
-                Console.WriteLine("没有找到配置 数据库备份文件目录");
+                ConsoleWriteQueue.WriteLine("没有找到配置 数据库备份文件目录", ConsoleColor.Red);
                 return;
             }
             if (DatabaseArray == null || DatabaseArray.Length == 0)
             {
-                Console.WriteLine("没有找到配置 数据库信息");
+                ConsoleWriteQueue.WriteLine("没有找到配置 数据库信息", ConsoleColor.Red);
                 return;
             }
-            if (ServerPort == 0) ServerPort = (ushort)AutoCSer.TestCase.Common.CommandServerPort.DatabaseBackup;
+            if (ServerPort == 0) ServerPort = (ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DatabaseBackup;
             if (CommandTimeoutMinutes <= 0) CommandTimeoutMinutes = 60;
             if (DeleteFileHours <= 0) DeleteFileHours = 12;
             if (!Directory.Exists(BackupPath)) Directory.CreateDirectory(BackupPath);
@@ -75,12 +77,12 @@ namespace AutoCSer.TestCase.DatabaseBackup
                 Default = AutoCSer.JsonDeserializer.Deserialize<ConfigFile>(File.ReadAllText(configFile.FullName, Encoding.UTF8));
                 if (Default == null)
                 {
-                    Console.WriteLine($"配置文件解析失败 {configFile.FullName}");
+                    ConsoleWriteQueue.WriteLine($"配置文件解析失败 {configFile.FullName}", ConsoleColor.Red);
                     return;
                 }
                 Default.Check();
             }
-            else Console.WriteLine($"没有找到配置文件 {configFile.FullName}");
+            else ConsoleWriteQueue.WriteLine($"没有找到配置文件 {configFile.FullName}", ConsoleColor.Red);
         }
     }
 }

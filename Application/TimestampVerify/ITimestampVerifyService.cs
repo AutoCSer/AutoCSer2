@@ -17,6 +17,6 @@ namespace AutoCSer.CommandService
         /// <param name="hashData">验证 Hash 数据</param>
         /// <param name="timestamp">待验证时间戳</param>
         /// <returns></returns>
-        CommandServerVerifyState Verify(CommandServerSocket socket, CommandServerCallQueue queue, ulong randomPrefix, byte[] hashData, ref long timestamp);
+        CommandServerVerifyStateEnum Verify(CommandServerSocket socket, CommandServerCallQueue queue, ulong randomPrefix, byte[] hashData, ref long timestamp);
     }
 }

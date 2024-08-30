@@ -29,7 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandClientConfig.cs" />
     <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="ITimestampVerify.cs" />
     <Compile Include="ITimestampVerifyClient.cs" />
@@ -32,7 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

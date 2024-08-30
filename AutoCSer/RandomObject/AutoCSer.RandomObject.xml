@@ -51,12 +51,13 @@
             公共默认配置参数
             </summary>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.Create``1(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.Create``1(AutoCSer.RandomObject.Config,System.Boolean)">
             <summary>
             创建随机对象
             </summary>
             <typeparam name="T"></typeparam>
             <param name="config"></param>
+            <param name="isNullable"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.RandomObject.Creator.CreateMember``1(``0@,AutoCSer.RandomObject.Config)">
@@ -76,6 +77,14 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.RandomObject.Creator.CreateArray``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createArray``1(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机数组
             </summary>
@@ -219,7 +228,21 @@
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createDateTime(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateDateTime(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机时间
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createDateTimeOffset(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机时间戳
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateTimeSpan(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机时间
             </summary>
@@ -237,6 +260,13 @@
             </summary>
             <param name="type"></param>
             <returns>基本类型随机数创建函数信息</returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.Create``1(``0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
         </member>
         <member name="M:AutoCSer.RandomObject.Creator.EnumLong``1(AutoCSer.RandomObject.Config)">
             <summary>
@@ -299,6 +329,26 @@
             随机对象生成配置
             </summary>
         </member>
+        <member name="F:AutoCSer.RandomObject.Config.MinDateTime">
+            <summary>
+            最小时间值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MaxDateTime">
+            <summary>
+            最大时间值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MinDecimal">
+            <summary>
+            最小数字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MaxDecimal">
+            <summary>
+            最大数字
+            </summary>
+        </member>
         <member name="F:AutoCSer.RandomObject.Config.MaxArraySize">
             <summary>
             数组最大容量，默认为 15
@@ -314,6 +364,11 @@
             浮点数是否转换成字符串
             </summary>
         </member>
+        <member name="F:AutoCSer.RandomObject.Config.IsAscii">
+            <summary>
+            字符是否ASCII
+            </summary>
+        </member>
         <member name="F:AutoCSer.RandomObject.Config.IsNullChar">
             <summary>
             是否生成字符0
@@ -323,6 +378,13 @@
             <summary>
             是否保存历史对象
             </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.GetCustomCreator(System.Type)">
+            <summary>
+            获取自定义生成委托
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.RandomObject.Config.CreateNotSupport``1">
             <summary>
@@ -354,6 +416,20 @@
             <summary>
             清理历史对象集合
             </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.CreateString(System.Char,System.Char)">
+            <summary>
+            创建字符串
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.CreateDateTime">
+            <summary>
+            创建时间
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.RandomObject.Creator`1">
             <summary>
@@ -399,6 +475,13 @@
             <param name="value"></param>
             <param name="config"></param>
         </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.CreateMember(`0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
         <member name="M:AutoCSer.RandomObject.Creator`1.createDefault(AutoCSer.RandomObject.Config)">
             <summary>
             不支持类型创建默认值
@@ -418,6 +501,26 @@
             获取随机数创建委托
             </summary>
             <returns>随机数创建委托</returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.IgnoreAttribute">
+            <summary>
+            忽略成员配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.MemberAttribute">
+            <summary>
+            成员配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberAttribute.IsNullable">
+            <summary>
+            默认为 true 表示允许 null 值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberAttribute.Default">
+            <summary>
+            默认成员配置
+            </summary>
         </member>
         <member name="T:AutoCSer.RandomObject.MemberDynamicMethod">
             <summary>
@@ -450,21 +553,23 @@
             </summary>
             <param name="type"></param>
         </member>
-        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Push(System.Reflection.FieldInfo)">
+        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Push(System.Reflection.FieldInfo,AutoCSer.RandomObject.MemberAttribute)">
             <summary>
             添加字段
             </summary>
             <param name="field">字段信息</param>
+            <param name="attribute"></param>
         </member>
         <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Base">
             <summary>
             基类调用
             </summary>
         </member>
-        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Create``1">
+        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Create(System.Type)">
             <summary>
             创建委托
             </summary>
+            <param name="type">委托类型</param>
             <returns>委托</returns>
         </member>
         <member name="T:AutoCSer.RandomObject.Metadata.CollectionGenericType">

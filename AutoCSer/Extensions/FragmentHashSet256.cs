@@ -46,11 +46,20 @@ namespace AutoCSer
             Count = 0;
         }
         /// <summary>
+        /// 清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void ClearArray()
+        {
+            Array.Clear(hashSets, 0, 256);
+            Count = 0;
+        }
+        /// <summary>
         /// 添加数据
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Add(T value)
         {
             if (GetOrCreateHashSet(value).Add(value))
@@ -77,7 +86,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(T value)
         {
             HashSet<T> hashSet = hashSets[value.GetHashCode() & 0xff];
@@ -97,6 +106,23 @@ namespace AutoCSer
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// 获取数据集合
+        /// </summary>
+        /// <returns>数据集合</returns>
+        public LeftArray<T> GetArray()
+        {
+            if (Count == 0) return new LeftArray<T>(0);
+            LeftArray<T> array = new LeftArray<T>(Count);
+            foreach (HashSet<T> hashSet in hashSets)
+            {
+                if (hashSet != null)
+                {
+                    foreach (T value in hashSet) array.Array[array.Length++] = value;
+                }
+            }
+            return array;
         }
     }
 }

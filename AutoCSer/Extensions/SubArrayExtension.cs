@@ -14,7 +14,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static MemoryStream createMemoryStream(this SubArray<byte> data)
         {
             return new MemoryStream(data.Array, data.Start, data.Length);

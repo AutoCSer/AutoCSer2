@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{548BFC6C-9445-46FE-9F8A-B3270A64D60A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCSer.Search</RootNamespace>
+    <AssemblyName>AutoCSer.Search</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.Search.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.Search.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ArrayPool.cs" />
+    <Compile Include="SearchResult.cs" />
+    <Compile Include="SearchCharResult.cs" />
+    <Compile Include="WordCountIndexs\SearchResult.cs" />
+    <Compile Include="WordIndexs\QueueContext.cs" />
+    <Compile Include="Memory\Unmanaged.cs" />
+    <Compile Include="ResultIndexs.cs" />
+    <Compile Include="SegmenterWordTextTypeEnum.cs" />
+    <Compile Include="Simplified.cs" />
+    <Compile Include="StaticSearcher.cs" />
+    <Compile Include="StaticSearcherQueueContext.cs" />
+    <Compile Include="StaticStringTrieGraph.cs" />
+    <Compile Include="StaticStringTrieGraphBuilder.cs" />
+    <Compile Include="StaticTrieGraph.cs" />
+    <Compile Include="StaticTrieGraphNode.cs" />
+    <Compile Include="StringTrieGraph.cs" />
+    <Compile Include="TrieGraph.cs" />
+    <Compile Include="TrieGraphBuilder.cs" />
+    <Compile Include="TrieGraphBuilderThread.cs" />
+    <Compile Include="TrieGraphNode.cs" />
+    <Compile Include="WordIndexs\SearchResult.cs" />
+    <Compile Include="WordIndexs\StaticSearcher.cs" />
+    <Compile Include="WordCountIndexs\QueueContext.cs" />
+    <Compile Include="WordCountIndexs\StaticSearcher.cs" />
+    <Compile Include="WordCountIndexs\WordCounter.cs" />
+    <Compile Include="WordTypeEnum.cs" />
+    <Compile Include="WordTypePoolIndex.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>
+  </PropertyGroup>
+</Project>

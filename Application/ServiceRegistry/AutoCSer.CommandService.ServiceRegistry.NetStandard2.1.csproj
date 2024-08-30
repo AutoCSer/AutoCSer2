@@ -23,6 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="CommandServerSocketSessionObject.cs" />
+    <Compile Include="IPortRegistryClient.cs" />
+    <Compile Include="IPortRegistryClientSocketEvent.cs" />
+    <Compile Include="IPortRegistryService.cs" />
+    <Compile Include="PortIdentity.cs" />
+    <Compile Include="PortRegistryClient.cs" />
+    <Compile Include="PortRegistryClientData.cs" />
+    <Compile Include="PortRegistryData.cs" />
+    <Compile Include="PortRegistryService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceRegistryCommandClientServiceRegistrar.cs" />
     <Compile Include="ServiceRegistryCommandServerConfig.cs" />
     <Compile Include="ServiceRegistryCommandServiceRegistrar.cs" />
@@ -32,15 +42,15 @@
     <Compile Include="LogAssembler.cs" />
     <Compile Include="LogAssemblerQueueNode.cs" />
     <Compile Include="ServiceRegisterLogClientAssembler.cs" />
-    <Compile Include="ServiceRegisterLogClientChangedType.cs" />
-    <Compile Include="ServiceRegisterOperationType.cs" />
+    <Compile Include="ServiceRegisterLogClientChangedTypeEnum.cs" />
+    <Compile Include="ServiceRegisterOperationTypeEnum.cs" />
     <Compile Include="ServiceRegisterResponse.cs" />
-    <Compile Include="ServiceRegisterState.cs" />
+    <Compile Include="ServiceRegisterStateEnum.cs" />
     <Compile Include="ServiceRegistryService.cs" />
     <Compile Include="ServiceRegistryClient.cs" />
     <Compile Include="ServiceRegistryCommandClientConfig.cs" />
     <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
-    <Compile Include="Session.cs" />
+    <Compile Include="ServiceRegisterSession.cs" />
     <Compile Include="SessionCallback.cs" />
     <Compile Include="SessionLog.cs" />
     <Compile Include="ServiceRegistryWaitServerEndPointTask.cs" />

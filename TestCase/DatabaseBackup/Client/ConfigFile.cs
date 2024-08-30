@@ -10,6 +10,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
     /// </summary>
     internal sealed class ConfigFile
     {
+#pragma warning disable
         /// <summary>
         /// 备份时间
         /// </summary>
@@ -38,6 +39,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
         /// 数据库备份文件目录
         /// </summary>
         public string BackupPath;
+#pragma warning restore
         /// <summary>
         /// 检查配置
         /// </summary>
@@ -45,17 +47,17 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
         {
             if (string.IsNullOrEmpty(ServerHost))
             {
-                Console.WriteLine("没有找到配置 服务器地址");
+                ConsoleWriteQueue.WriteLine("没有找到配置 服务器地址", ConsoleColor.Red);
                 return;
             }
             if (string.IsNullOrEmpty(VerifyString))
             {
-                Console.WriteLine("没有找到配置 验证字符串");
+                ConsoleWriteQueue.WriteLine("没有找到配置 验证字符串", ConsoleColor.Red);
                 return;
             }
             if (string.IsNullOrEmpty(BackupPath))
             {
-                Console.WriteLine("没有找到配置 数据库备份文件目录");
+                ConsoleWriteQueue.WriteLine("没有找到配置 数据库备份文件目录", ConsoleColor.Red);
                 return;
             }
             if (ServerPort == 0) ServerPort = 3005;
@@ -74,12 +76,12 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
                 Default = AutoCSer.JsonDeserializer.Deserialize<ConfigFile>(File.ReadAllText(configFile.FullName, Encoding.UTF8));
                 if (Default == null)
                 {
-                    Console.WriteLine($"配置文件解析失败 {configFile.FullName}");
+                    ConsoleWriteQueue.WriteLine($"配置文件解析失败 {configFile.FullName}", ConsoleColor.Red);
                     return;
                 }
                 Default.Check();
             }
-            else Console.WriteLine($"没有找到配置文件 {configFile.FullName}");
+            else ConsoleWriteQueue.WriteLine($"没有找到配置文件 {configFile.FullName}", ConsoleColor.Red);
         }
     }
 }

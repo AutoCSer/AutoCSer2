@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Service
+namespace AutoCSer.TestCase.ServiceRegistry.Client
 {
     /// <summary>
     /// 基于递增登录时间戳验证的服务认证客户端套接字事件
@@ -45,9 +45,9 @@ namespace AutoCSer.TestCase.ServiceRegistry.Service
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public override async Task<CommandClientReturnValue<CommandServerVerifyState>> CallVerifyMethod(CommandClientController controller)
+        public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
-            return TimestampVerifyChecker.Verify(controller, verifyString);
+            return getCompletedTask(TimestampVerifyChecker.Verify(controller, verifyString));
         }
     }
 }

@@ -8,12 +8,13 @@ namespace AutoCSer.CommandService.ServiceRegistry
     /// <summary>
     /// 获取服务注册日志回调委托
     /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct SessionCallback
     {
         /// <summary>
         /// 服务注册会话对象
         /// </summary>
-        internal readonly Session Session;
+        internal readonly ServiceRegisterSession Session;
         /// <summary>
         /// 获取服务注册日志回调委托
         /// </summary>
@@ -23,7 +24,7 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// </summary>
         /// <param name="session">服务注册会话对象</param>
         /// <param name="callback">获取服务注册日志回调委托</param>
-        internal SessionCallback(Session session, CommandServerKeepCallback<ServiceRegisterLog> callback)
+        internal SessionCallback(ServiceRegisterSession session, CommandServerKeepCallback<ServiceRegisterLog> callback)
         {
             Session = session;
             this.callback = callback;
@@ -33,7 +34,7 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// </summary>
         /// <param name="log"></param>
         /// <returns>调线会话ID</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal long Callback(ServiceRegisterLog log)
         {
             return callback.Callback(log) ? 0 : Session.SetDroppedSessionID();
@@ -42,8 +43,8 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// 取消保持回调
         /// </summary>
         /// <param name="state"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
-        internal void CancelKeep(ServiceRegisterState state)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void CancelKeep(ServiceRegisterStateEnum state)
         {
             callback.CancelKeep(CommandServerCall.GetCustom((byte)state));
         }

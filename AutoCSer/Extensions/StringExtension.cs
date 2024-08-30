@@ -27,7 +27,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">大写字符串</param>
         /// <returns>小写字符串(原引用)</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static string toLower(this string value)
         {
             return !string.IsNullOrEmpty(value) ? toLowerNotEmpty(value) : value;
@@ -154,6 +154,30 @@ namespace AutoCSer.Extensions
                 }
             }
             return value;
+        }
+        /// <summary>
+        /// 获取Ascii字符串原始字节流
+        /// </summary>
+        /// <param name="start">字符串,不能为null</param>
+        /// <param name="length">字符串长度</param>
+        /// <param name="write">写入位置,不能为null</param>
+        internal static void WriteBytes(char* start, int length, byte* write)
+        {
+            for (char* end = start + (length & (int.MaxValue - 3)); start != end; start += 4, write += 4)
+            {
+                *write = *(byte*)start;
+                *(write + 1) = *(byte*)(start + 1);
+                *(write + 2) = *(byte*)(start + 2);
+                *(write + 3) = *(byte*)(start + 3);
+            }
+            if ((length & 2) != 0)
+            {
+                *write = *(byte*)start;
+                *(write + 1) = *(byte*)(start + 1);
+                start += 2;
+                write += 2;
+            }
+            if ((length & 1) != 0) *write = *(byte*)start;
         }
     }
 }

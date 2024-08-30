@@ -1,0 +1,1622 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.Drawing</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.Drawing.CharMap">
+            <summary>
+            字符位图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.map0">
+            <summary>
+            0-3 行
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.map1">
+            <summary>
+            4-7 行
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.map2">
+            <summary>
+            8-11 行
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.map3">
+            <summary>
+            12-15 行
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.Left">
+            <summary>
+            左侧起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.Top">
+            <summary>
+            顶部起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.Width">
+            <summary>
+            宽度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.Height">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMap.#ctor">
+            <summary>
+            字符位图
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMap.#ctor(AutoCSer.Drawing.LockBitmap,System.Int16,System.Int16,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            字符位图
+            </summary>
+            <param name="lockBitmap"></param>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMap.Write(AutoCSer.Drawing.LockBitmap,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            写入字符
+            </summary>
+            <param name="lockBitmap">位图</param>
+            <param name="left">位图位置</param>
+            <param name="top">位图位置</param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMap.readColorMap(AutoCSer.Drawing.LockBitmap,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,System.Int32@)">
+            <summary>
+            读取颜色位图
+            </summary>
+            <param name="lockBitmap"></param>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="color"></param>
+            <param name="width"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMap.getHeight(System.UInt64)">
+            <summary>
+            获取颜色位图有效行数
+            </summary>
+            <param name="map"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMap.writeColorMap(AutoCSer.Drawing.LockBitmap,System.Int32,System.Int32,System.UInt64,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            写入颜色位图
+            </summary>
+            <param name="lockBitmap"></param>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="map"></param>
+            <param name="color"></param>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMap.Empty">
+            <summary>
+            空字符位图
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Drawing.CharMapBuilder">
+            <summary>
+            字符位图生成工具
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMapBuilder.bitmap">
+            <summary>
+            位图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMapBuilder.brush">
+            <summary>
+            画笔
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.CharMapBuilder.font">
+            <summary>
+            字体
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMapBuilder.#ctor(System.Int32,System.Int32)">
+            <summary>
+            字符位图生成工具
+            </summary>
+            <param name="fontSize">默认为 10</param>
+            <param name="bitmapSize">默认为最大值 16</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMapBuilder.#ctor(System.Drawing.Font,System.Int32)">
+            <summary>
+            字符位图生成工具
+            </summary>
+            <param name="font"></param>
+            <param name="bitmapSize">默认为最大值 16</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMapBuilder.Create(System.Char)">
+            <summary>
+            创建字符位图
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.CharMapBuilder.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.Application">
+            <summary>
+            应用程序扩展
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Application.Type">
+            <summary>
+            数据块类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Application.identifier">
+            <summary>
+            用来鉴别应用程序自身的标识(8个连续ASCII字符)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Application.Identifier">
+            <summary>
+            用来鉴别应用程序自身的标识(8个连续ASCII字符)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Application.authenticationCode">
+            <summary>
+            应用程序定义的特殊标识码(3个连续ASCII字符)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Application.AuthenticationCode">
+            <summary>
+            应用程序定义的特殊标识码(3个连续ASCII字符)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Application.customDatas">
+            <summary>
+            应用程序自定义数据块集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Application.CustomData">
+            <summary>
+            应用程序自定义数据块
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Application.#ctor(AutoCSer.Drawing.Gif.Decoder@)">
+            <summary>
+            应用程序扩展
+            </summary>
+            <param name="decoder"></param>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.Comment">
+            <summary>
+            注释扩展
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Comment.Type">
+            <summary>
+            数据块类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Comment.data">
+            <summary>
+            注释数据块
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Comment.#ctor(AutoCSer.Drawing.Gif.Decoder@)">
+            <summary>
+            注释扩展
+            </summary>
+            <param name="decoder"></param>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.CopyScreen">
+            <summary>
+            定时截屏获取图片生成 GIF 文件数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.CopyScreen.screenLeft">
+            <summary>
+            截屏开始横坐标位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.CopyScreen.screenTop">
+            <summary>
+            截屏开始纵坐标位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.CopyScreen.bitmap">
+            <summary>
+            获取的图片
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.CopyScreen.#ctor(System.IO.Stream,System.Int16,System.Int16,AutoCSer.Drawing.LockBitmapColor[],System.Byte,System.Boolean,System.Int32,System.Byte,System.Int32,System.Int32)">
+            <summary>
+            定时截屏获取图片生成 GIF 文件数据
+            </summary>
+            <param name="stream">输出数据流</param>
+            <param name="width">素数宽度</param>
+            <param name="height">素数高度</param>
+            <param name="globalColors">全局颜色列表</param>
+            <param name="backgroundColorIndex">背景颜色在全局颜色列表中的索引，如果没有全局颜色列表，该值没有意义</param>
+            <param name="isLeaveDisposeStream">是否自动释放输出数据流</param>
+            <param name="interval">获取图片定时毫秒数，最小值为 40</param>
+            <param name="maxPixel">最大色彩深度，2-8</param>
+            <param name="screenLeft">截屏开始横坐标位置默认为最小值 0</param>
+            <param name="screenTop">截屏开始纵坐标位置默认为最小值 0</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.CopyScreen.disposeBitmap">
+            <summary>
+            释放图片资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.CopyScreen.disposeBitmap(System.Drawing.Bitmap,System.Drawing.Imaging.BitmapData)">
+            <summary>
+            释放图片资源
+            </summary>
+            <param name="bitmap"></param>
+            <param name="bitmapData"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.CopyScreen.getBitmap">
+            <summary>
+            定时获取图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.CopyScreen.CheckSize(System.Int32,System.Int32)">
+            <summary>
+            检查屏幕分辨率
+            </summary>
+            <param name="maxWidth">最大检查宽度为 10240 像素</param>
+            <param name="maxHeight">最大检查高度为 5400 像素</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.DataBlock">
+            <summary>
+            GIF 文件数据块
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.DataBlock.Type">
+            <summary>
+            数据块类型
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.DataTypeEnum">
+            <summary>
+            数据类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.DataTypeEnum.Image">
+            <summary>
+            图像块
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.DataTypeEnum.GraphicControl">
+            <summary>
+            图形控制扩展(需要89a版本)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.DataTypeEnum.PlainText">
+            <summary>
+            图形文本扩展(需要89a版本)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.DataTypeEnum.Comment">
+            <summary>
+            注释扩展(需要89a版本)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.DataTypeEnum.Application">
+            <summary>
+            应用程序扩展(需要89a版本)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.Decoder">
+            <summary>
+            GIF 文件数据解码器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Decoder.FileData">
+            <summary>
+            GIF 文件数据内容
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Decoder.fileStart">
+            <summary>
+            GIF 文件数据内容起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Decoder.End">
+            <summary>
+            GIF文件数据结束位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Decoder.Data">
+            <summary>
+            当前解析数据位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Decoder.CurrentIndex">
+            <summary>
+            当前解析数据位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Decoder.IsEnd">
+            <summary>
+            是否文件结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Decoder.IsError">
+            <summary>
+            是否解析错误
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Decoder.#ctor(System.Byte[],System.Byte*,System.Byte*)">
+            <summary>
+            GIF 文件数据解码器
+            </summary>
+            <param name="fileData">GIF 文件数据内容</param>
+            <param name="fileStart">GIF 文件数据内容起始位置</param>
+            <param name="data">当前解析数据位置</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Decoder.Next">
+            <summary>
+            解析下一个数据块
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Decoder.GetBlocks(AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            填充数据块
+            </summary>
+            <param name="blockData"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Decoder.GetBlockList(AutoCSer.LeftArray{AutoCSer.SubArray{System.Byte}}@)">
+            <summary>
+            填充数据块集合
+            </summary>
+            <param name="datas">填充数据块集合</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Decoder.FillColor(AutoCSer.Drawing.LockBitmapColor[],System.Byte*)">
+            <summary>
+            颜色列表数据填充
+            </summary>
+            <param name="colors">颜色列表数组</param>
+            <param name="data">颜色列表数据</param>
+            <returns>数据结束位置</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Decoder.BlocksToByte(AutoCSer.LeftArray{AutoCSer.SubArray{System.Byte}}@)">
+            <summary>
+            合并数据块集合
+            </summary>
+            <param name="datas">数据块集合</param>
+            <returns>合并后的数据块</returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.FileData">
+            <summary>
+            GIF 文件解析数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.Width">
+            <summary>
+            素数宽度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.Height">
+            <summary>
+            素数高度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.ColorResoluTion">
+            <summary>
+            颜色深度 1-8
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.SortFlag">
+            <summary>
+            全局颜色列表是否分类排列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.BackgroundColorIndex">
+            <summary>
+            背景颜色在全局颜色列表中的索引，如果没有全局颜色列表，该值没有意义
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.PixelAspectRadio">
+            <summary>
+            像素宽高比
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.GlobalColors">
+            <summary>
+            全局颜色列表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.blocks">
+            <summary>
+            数据块集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.FileData.Blocks">
+            <summary>
+            数据块集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FileData.isSucceed">
+            <summary>
+            GIF 文件数据是否解析成功
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.FileData.#ctor(System.Byte[])">
+            <summary>
+            GIF 文件解析数据
+            </summary>
+            <param name="fileData">GIF 文件内容数据</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.FileData.Create(System.Byte[])">
+            <summary>
+            创建 GIF 文件解析数据
+            </summary>
+            <param name="fileData">GIF 文件内容数据</param>
+            <returns>GIF 文件解析数据，失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.FileData.Create(System.String)">
+            <summary>
+            创建 GIF 文件解析数据
+            </summary>
+            <param name="filename">GIF 文件名</param>
+            <returns>GIF 文件解析数据，失败返回 null</returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.Image">
+            <summary>
+            图像数据块
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.stringBufferPool">
+            <summary>
+            LZW 压缩解码字符串缓冲区
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Image.Type">
+            <summary>
+            数据块类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.LeftOffset">
+            <summary>
+            X方向偏移量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.TopOffset">
+            <summary>
+            Y方向偏移量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.Width">
+            <summary>
+            图象宽度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.Height">
+            <summary>
+            图象高度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.InterlaceFlag">
+            <summary>
+            图象数据是否连续方式排列，否则使用顺序排列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.SortFlag">
+            <summary>
+            颜色列表是否分类排列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.LzwSize">
+            <summary>
+            LZW 编码初始码表大小的位数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.Colors">
+            <summary>
+            颜色列表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Image.lzwDatas">
+            <summary>
+            压缩数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.Image.LzwDatas">
+            <summary>
+            压缩数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Image.#ctor(AutoCSer.Drawing.Gif.Decoder@)">
+            <summary>
+            图像数据块
+            </summary>
+            <param name="decoder"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Image.CreateBitmap(AutoCSer.Drawing.LockBitmapColor[])">
+            <summary>
+            创建位图
+            </summary>
+            <param name="globalColors">全局颜色列表</param>
+            <returns>位图,失败返回null</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Image.lzwDecode(System.Byte[],System.Byte*,System.Byte)">
+            <summary>
+            LZW 压缩解码
+            </summary>
+            <param name="input">输入数据</param>
+            <param name="output">输出数据缓冲</param>
+            <param name="size">编码长度</param>
+            <returns>解码数据长度,失败返回-1</returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.FillBitmap">
+            <summary>
+            位图填充
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FillBitmap.currentIndex">
+            <summary>
+            当前颜色索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FillBitmap.colors">
+            <summary>
+            颜色列表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.FillBitmap.width">
+            <summary>
+            图像宽度
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.FillBitmap.#ctor(System.Int32,System.Byte*,AutoCSer.Drawing.LockBitmapColor*)">
+            <summary>
+            位图填充
+            </summary>
+            <param name="width"></param>
+            <param name="currentIndex"></param>
+            <param name="colors"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.FillBitmap.FillColor(System.Int32,System.Byte*,System.Int32)">
+            <summary>
+            填充颜色列表
+            </summary>
+            <param name="height">填充行数</param>
+            <param name="bitmap">位图当前填充位置</param>
+            <param name="bitMapSpace">位图填充留空</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.FillBitmap.FillIndex(System.Int32,System.Byte*,System.Int32)">
+            <summary>
+            填充颜色索引
+            </summary>
+            <param name="height">填充行数</param>
+            <param name="bitmap">位图当前填充位置</param>
+            <param name="bitMapSpace">位图填充留空</param>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.PlainText">
+            <summary>
+            图形文本扩展
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.PlainText.Type">
+            <summary>
+            数据块类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.Left">
+            <summary>
+            文本框离逻辑屏幕的左边界距离
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.Top">
+            <summary>
+            文本框离逻辑屏幕的上边界距离
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.Width">
+            <summary>
+            文本框像素宽度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.Height">
+            <summary>
+            文本框像素高度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.CharacterWidth">
+            <summary>
+            字符宽度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.CharacterHeight">
+            <summary>
+            字符高度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.ColorIndex">
+            <summary>
+            前景色在全局颜色列表中的索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.BlackgroundColorIndex">
+            <summary>
+            背景色在全局颜色列表中的索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.PlainText.textData">
+            <summary>
+            文本数据块集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.PlainText.Text">
+            <summary>
+            文本数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.PlainText.#ctor(AutoCSer.Drawing.Gif.Decoder@)">
+            <summary>
+            图形文本扩展
+            </summary>
+            <param name="decoder"></param>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.GraphicControl">
+            <summary>
+            图形控制扩展
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.Gif.GraphicControl.Type">
+            <summary>
+            数据块类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControl.DelayTime">
+            <summary>
+            延迟时间，单位1/100秒
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControl.TransparentColorIndex">
+            <summary>
+            透明色索引值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControl.IsTransparentColor">
+            <summary>
+            是否使用使用透明颜色
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControl.IsUseInput">
+            <summary>
+            用户输入标志，指出是否期待用户有输入之后才继续进行下去，置位表示期待，值否表示不期待。
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControl.MethodType">
+            <summary>
+            图形处置方法 0-7
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.GraphicControl.#ctor(AutoCSer.Drawing.Gif.Decoder@)">
+            <summary>
+            图形控制扩展
+            </summary>
+            <param name="decoder"></param>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.GraphicControlMethodTypeEnum">
+            <summary>
+            图形处置方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControlMethodTypeEnum.None">
+            <summary>
+            不使用处置方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControlMethodTypeEnum.KeepCurrent">
+            <summary>
+            不处置图形，保留当前的图像，再绘制一帧图像在上面
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControlMethodTypeEnum.BackgroundColor">
+            <summary>
+            回复到背景色
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.GraphicControlMethodTypeEnum.PreviousState">
+            <summary>
+            回复到先前状态
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.TimerWriter">
+            <summary>
+            定时获取图片生成 GIF 文件数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.timer">
+            <summary>
+            获取图片定时器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.interval">
+            <summary>
+            截屏定时毫秒数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.keepInterval">
+            <summary>
+            图片间隔毫秒数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.lastBitmap">
+            <summary>
+            最后一次获取的图片
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.lastBitmapData">
+            <summary>
+            最后一次获取的图片数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.keepCount">
+            <summary>
+            跳图数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.isTimer">
+            <summary>
+            是否正在获取图片
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.TimerWriter.maxPixel">
+            <summary>
+            最大色彩深度
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.#ctor(System.IO.Stream,System.Int16,System.Int16,AutoCSer.Drawing.LockBitmapColor[],System.Byte,System.Boolean,System.Int32,System.Byte,System.Boolean)">
+            <summary>
+            定时获取图片生成 GIF 文件
+            </summary>
+            <param name="stream">输出数据流</param>
+            <param name="width">素数宽度</param>
+            <param name="height">素数高度</param>
+            <param name="globalColors">全局颜色列表</param>
+            <param name="backgroundColorIndex">背景颜色在全局颜色列表中的索引，如果没有全局颜色列表，该值没有意义</param>
+            <param name="isLeaveDisposeStream">是否自动释放输出数据流</param>
+            <param name="interval">获取图片定时毫秒数默认最小值为 40</param>
+            <param name="maxPixel">最大色彩深度默认为最大值 8，最小值为 2</param>
+            <param name="isStart">默认为 true 表示开始</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.disposeAsync">
+            <summary>
+            释放资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.disposeBitmap">
+            <summary>
+            释放图片资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.disposeBitmap(System.Drawing.Bitmap,System.Drawing.Imaging.BitmapData)">
+            <summary>
+            释放图片资源
+            </summary>
+            <param name="bitmap"></param>
+            <param name="bitmapData"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.start">
+            <summary>
+            设置获取图片定时器并开始获取图片
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.onTimer(System.Object)">
+            <summary>
+            定时获取图片
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.TimerWriter.getBitmap">
+            <summary>
+            定时获取图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.Gif.Writer">
+            <summary>
+            GIF 文件数据写入器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.fileVersion">
+            <summary>
+            GIF文件标识与版本信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.stream">
+            <summary>
+            输出数据流
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.fileBuffer">
+            <summary>
+            文件缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.colors">
+            <summary>
+            当前图像色彩缓存
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.colorCounts">
+            <summary>
+            当前图像色彩数量缓存
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.colorIndexs">
+            <summary>
+            当前图像色彩数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.globalColorCount">
+            <summary>
+            全局颜色数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.Width">
+            <summary>
+            素数宽度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.Height">
+            <summary>
+            素数高度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.isLeaveDisposeStream">
+            <summary>
+            是否自动释放输出数据流
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.bufferIndex">
+            <summary>
+            当前文件缓存位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.Gif.Writer.isDisposed">
+            <summary>
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.#ctor(System.IO.Stream,System.Int16,System.Int16,AutoCSer.Drawing.LockBitmapColor[],System.Byte,System.Boolean)">
+            <summary>
+            GIF文件写入器
+            </summary>
+            <param name="stream">输出数据流</param>
+            <param name="width">素数宽度</param>
+            <param name="height">素数高度</param>
+            <param name="globalColors">全局颜色列表</param>
+            <param name="backgroundColorIndex">背景颜色在全局颜色列表中的索引，如果没有全局颜色列表，该值没有意义</param>
+            <param name="isLeaveDisposeStream">是否自动释放输出数据流</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.DisposeAsync">
+            <summary>
+            释放资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.disposeAsync">
+            <summary>
+            释放资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.checkBuffer(System.Byte*)">
+            <summary>
+            检测文件缓存
+            </summary>
+            <param name="bufferFixed">文件缓存起始位置</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.checkBuffer(System.Byte*,System.Int32)">
+            <summary>
+            检测文件缓存
+            </summary>
+            <param name="bufferFixed">文件缓存起始位置</param>
+            <param name="length">新增长度</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.AddImage(System.Drawing.Bitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Byte)">
+            <summary>
+            添加图片
+            </summary>
+            <param name="bitmap">位图</param>
+            <param name="leftOffset">X方向偏移量</param>
+            <param name="topOffset">Y方向偏移量</param>
+            <param name="width">图象宽度</param>
+            <param name="height">图象高度</param>
+            <param name="bitmapLeftOffset">位图剪切X方向偏移量</param>
+            <param name="bitmapTopOffset">位图剪切Y方向偏移量</param>
+            <param name="isInterlace">图象数据是否连续方式排列，否则使用顺序排列</param>
+            <param name="maxPixel">最大色彩深度</param>
+            <returns>图片是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.addImage(System.Drawing.Imaging.BitmapData,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Byte)">
+            <summary>
+            添加图片
+            </summary>
+            <param name="bitmap">位图</param>
+            <param name="leftOffset">X方向偏移量</param>
+            <param name="topOffset">Y方向偏移量</param>
+            <param name="width">图象宽度</param>
+            <param name="height">图象高度</param>
+            <param name="bitmapLeftOffset">位图剪切X方向偏移量</param>
+            <param name="bitmapTopOffset">位图剪切Y方向偏移量</param>
+            <param name="isInterlace">图象数据是否连续方式排列，否则使用顺序排列</param>
+            <param name="maxPixel">最大色彩深度</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.lzwEncode(System.Byte*,System.Byte*,System.Int32)">
+            <summary>
+            LZW 压缩编码
+            </summary>
+            <param name="inputFixed">输入数据</param>
+            <param name="outputFixed">输出数据缓冲</param>
+            <param name="size">编码长度</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.addBlocks(System.Byte*,System.Byte*,System.Byte*)">
+            <summary>
+            添加数据块
+            </summary>
+            <param name="bufferFixed">文件缓存</param>
+            <param name="outputFixed">输出数据起始位置</param>
+            <param name="outputEnd">输出数据结束位置</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.addBlocks(System.Byte*,System.String)">
+            <summary>
+            添加数据块
+            </summary>
+            <param name="bufferFixed">文件缓存</param>
+            <param name="text">文本数据</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.AddGraphicControl(System.Int16,AutoCSer.Drawing.Gif.GraphicControlMethodTypeEnum,System.Boolean)">
+            <summary>
+            添加图形控制扩展
+            </summary>
+            <param name="delayTime">延迟时间，单位1/100秒</param>
+            <param name="method">图形处置方法</param>
+            <param name="isUseInput">用户输入标志，指出是否期待用户有输入之后才继续进行下去，置位表示期待，值否表示不期待。</param>
+            <returns>图形控制扩展是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.AddPlainText(System.String,System.Int16,System.Int16,System.Int16,System.Int16,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            添加图形文本扩展
+            </summary>
+            <param name="text">文本数据</param>
+            <param name="left">文本框离逻辑屏幕的左边界距离</param>
+            <param name="top">文本框离逻辑屏幕的上边界距离</param>
+            <param name="width">文本框像素宽度</param>
+            <param name="height">文本框像素高度</param>
+            <param name="colorIndex">前景色在全局颜色列表中的索引</param>
+            <param name="blackgroundColorIndex">背景色在全局颜色列表中的索引</param>
+            <param name="characterWidth">字符宽度</param>
+            <param name="characterHeight">字符高度</param>
+            <returns>图形文本扩展是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.AddComment(System.Byte[])">
+            <summary>
+            添加注释扩展
+            </summary>
+            <param name="comment">注释内容</param>
+            <returns>注释扩展是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.AddComment(System.String)">
+            <summary>
+            添加注释扩展
+            </summary>
+            <param name="comment">注释内容</param>
+            <returns>注释扩展是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.AddApplication(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            添加应用程序扩展
+            </summary>
+            <param name="identifier">用来鉴别应用程序自身的标识(8个连续ASCII字符)</param>
+            <param name="authenticationCode">应用程序定义的特殊标识码(3个连续ASCII字符)</param>
+            <param name="customData">应用程序自定义数据块集合</param>
+            <returns>应用程序扩展是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.Gif.Writer.write(System.Byte*,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            颜色写入缓冲区
+            </summary>
+            <param name="data"></param>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.LockBitmap">
+            <summary>
+            锁住的位图，用于指针操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmap.Bitmap">
+            <summary>
+            位图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmap.bitmapData">
+            <summary>
+            位图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmap.Data">
+            <summary>
+            位图数据起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmap.Stride">
+            <summary>
+            每行数据字节数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmap.Width">
+            <summary>
+            宽度
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmap.Height">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmap.endColor">
+            <summary>
+            最后一个颜色位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmap.Item(System.Int32,System.Int32)">
+            <summary>
+            获取色彩
+            </summary>
+            <param name="top">顶部大小</param>
+            <param name="left">左部大小</param>
+            <returns>色彩</returns>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmap.Item(System.Int32)">
+            <summary>
+            颜色指针
+            </summary>
+            <param name="top"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.#ctor(System.Drawing.Bitmap,System.Drawing.Imaging.ImageLockMode)">
+            <summary>
+            锁住的位图
+            </summary>
+            <param name="bitmap"></param>
+            <param name="mode"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.checkLeftWidth(System.Int32@,System.Int32@)">
+            <summary>
+            检查左右位置
+            </summary>
+            <param name="left"></param>
+            <param name="width"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.HorizontalLine(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画横线
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.horizontalLine(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画横线
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.HorizontalLineChangeColor(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变横线中指定的颜色
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.horizontalLineChangeColor(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变横线中指定的颜色
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.changeColor(System.Byte*,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变指定的颜色
+            </summary>
+            <param name="data"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.DotHorizontalLine(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画虚横线
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.dotHorizontalLine(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画虚横线
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.DotHorizontalLineChangeColor(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变虚横线中指定的颜色
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.dotHorizontalLineChangeColor(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变虚横线中指定的颜色
+            </summary>
+            <param name="top"></param>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.checkTopHeight(System.Int32@,System.Int32@)">
+            <summary>
+            检查顶底位置
+            </summary>
+            <param name="top"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.VerticalLine(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画竖线
+            </summary>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.verticalLine(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画竖线
+            </summary>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.VerticalLineChangeColor(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变竖线中指定的颜色
+            </summary>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.verticalLineChangeColor(System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变竖线中指定的颜色
+            </summary>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.VerticalLine2(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画平行竖线
+            </summary>
+            <param name="left1"></param>
+            <param name="left2"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.verticalLine2(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画平行竖线
+            </summary>
+            <param name="left1"></param>
+            <param name="left2"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.Rectangle(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画空心矩形
+            </summary>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.rectangle(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画空心矩形
+            </summary>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.SetBorder(AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            设置边框色彩值
+            </summary>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.SolidRectangle(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画实心矩形
+            </summary>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.solidRectangle(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画实心矩形
+            </summary>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.SolidRectangleChangeColor(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变实心矩形中指定的颜色
+            </summary>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.solidRectangleChangeColor(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            改变实心矩形中指定的颜色
+            </summary>
+            <param name="left"></param>
+            <param name="width"></param>
+            <param name="top"></param>
+            <param name="height"></param>
+            <param name="sourceColor"></param>
+            <param name="setColor"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.Fill(AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            填充颜色
+            </summary>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.Line(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            画直线
+            </summary>
+            <param name="left1"></param>
+            <param name="top1"></param>
+            <param name="left2"></param>
+            <param name="top2"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.horizontalLine(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            横线方向画直线
+            </summary>
+            <param name="left1"></param>
+            <param name="top1"></param>
+            <param name="left2"></param>
+            <param name="top2"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.verticalLine(System.Int32,System.Int32,System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            竖线方向画直线
+            </summary>
+            <param name="left1"></param>
+            <param name="top1"></param>
+            <param name="left2"></param>
+            <param name="top2"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.FindColorTop(AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            查找颜色所在的第一个行位置，从 0 开始
+            </summary>
+            <param name="color"></param>
+            <returns>失败返回 -1</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.FindColorLeft(System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            查找颜色所在的第一个列位置，从 0 开始
+            </summary>
+            <param name="top">查找起始行位置</param>
+            <param name="width">查找宽度</param>
+            <param name="color"></param>
+            <returns>失败返回 -1</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.ReadColorMap(System.Int32,System.Int32,AutoCSer.Drawing.LockBitmapColor,System.Int32@)">
+            <summary>
+            读取颜色位图
+            </summary>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="color"></param>
+            <param name="width"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.WriteColorMap(System.Int32,System.Int32,System.UInt64,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            写入颜色位图
+            </summary>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="map"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.FindBottom(AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            根据空白颜色查找图片底部行号
+            </summary>
+            <param name="nullColor">空白颜色</param>
+            <returns>失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.FindRight(System.Int32,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            根据空白颜色查找图片右侧列号
+            </summary>
+            <param name="height"></param>
+            <param name="nullColor">空白颜色</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.Write(System.Byte*,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            写入 24 位色彩
+            </summary>
+            <param name="data"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.getColor(System.Byte*,System.Byte*)">
+            <summary>
+            获取 24 位色彩
+            </summary>
+            <param name="color">色彩地址</param>
+            <param name="endColor">图片最后一个色彩地址，防止访问到不可访问内存</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.GetColor(System.Byte*)">
+            <summary>
+            根据指针获取 24 位色彩
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmap.GetColor(System.Byte*,System.Byte*)">
+            <summary>
+            根据指针获取 24 位色彩
+            </summary>
+            <param name="data"></param>
+            <param name="endColor">图片最后一个色彩地址，防止访问到不可访问内存</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.LockBitmapColor">
+            <summary>
+            24 位色彩
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmapColor.Value">
+            <summary>
+            整数值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmapColor.Blue">
+            <summary>
+            蓝色
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmapColor.Green">
+            <summary>
+            绿色
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmapColor.Red">
+            <summary>
+            红色
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.#ctor(System.Byte,System.Byte,System.Byte)">
+            <summary>
+            24位色彩
+            </summary>
+            <param name="blue"></param>
+            <param name="green"></param>
+            <param name="red"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.#ctor(System.Drawing.Color)">
+            <summary>
+            24位色彩
+            </summary>
+            <param name="color"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.op_Implicit(System.Drawing.Color)~AutoCSer.Drawing.LockBitmapColor">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.GetHashCode">
+            <summary>
+            HASH值
+            </summary>
+            <returns>HASH值</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.Equals(AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="other"></param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.Equals(System.Object)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="obj"></param>
+            <returns>是否相等</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.op_Equality(AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            == 操作符
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColor.op_Inequality(AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
+            <summary>
+            != 操作符
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Drawing.LockBitmapColorPoint">
+            <summary>
+            颜色指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmapColorPoint.data">
+            <summary>
+            数据起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Drawing.LockBitmapColorPoint.endColor">
+            <summary>
+            最后一个颜色位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmapColorPoint.IsLeft">
+            <summary>
+            0 表示和左侧颜色相同
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmapColorPoint.IsRight">
+            <summary>
+            0 表示和右侧颜色相同
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Drawing.LockBitmapColorPoint.Color">
+            <summary>
+            获取色彩
+            </summary>
+            <returns>色彩</returns>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColorPoint.#ctor(System.Byte*,System.Byte*)">
+            <summary>
+            颜色指针
+            </summary>
+            <param name="data"></param>
+            <param name="endColor">图片最后一个色彩地址，防止访问到不可访问内存</param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColorPoint.MoveNext">
+            <summary>
+            移动到下一个颜色数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColorPoint.MovePrevious">
+            <summary>
+            移动到上一个颜色数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColorPoint.Move(System.Int32)">
+            <summary>
+            移动颜色数据
+            </summary>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColorPoint.MoveOffset(System.Int32)">
+            <summary>
+            移动颜色数据
+            </summary>
+            <param name="offset"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColorPoint.GetOffset(System.Int32)">
+            <summary>
+            获取相对颜色指针
+            </summary>
+            <param name="offset"></param>
+        </member>
+        <member name="M:AutoCSer.Drawing.LockBitmapColorPoint.GetOffsetColor(System.Int32)">
+            <summary>
+            获取相对指针颜色
+            </summary>
+            <param name="offset"></param>
+        </member>
+    </members>
+</doc>

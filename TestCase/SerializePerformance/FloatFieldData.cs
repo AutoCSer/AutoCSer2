@@ -18,4 +18,3 @@ namespace AutoCSer.TestCase.SerializePerformance
         public decimal? DecimalNull;
     }
 }
-#pragma warning restore

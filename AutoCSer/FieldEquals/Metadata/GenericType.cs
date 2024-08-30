@@ -22,7 +22,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static GenericType create<T>()
         {

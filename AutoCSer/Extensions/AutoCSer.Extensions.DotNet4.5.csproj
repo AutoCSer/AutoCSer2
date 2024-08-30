@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;DotNet45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.Extensions.XML</DocumentationFile>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\DotNet4.5\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;DotNet45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.Extensions.XML</DocumentationFile>
@@ -41,13 +41,61 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\CombinationTemplate\CompareFrom.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\LeftArray.Fixed.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\QuickRangeSorter.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\SortIndex.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\SortIndex.QuickSort.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\UnsafeSortArray.cs" />
+    <Compile Include="Algorithm\RadixSort.cs" />
+    <Compile Include="BinarySerialize\InternalIndependentSerializer.cs" />
+    <Compile Include="Breakpoint.cs" />
+    <Compile Include="CombinationTemplateConfig.cs" />
+    <Compile Include="DictionaryCreator.cs" />
+    <Compile Include="ExceptionRepeat.cs" />
+    <Compile Include="Expression\Builder.cs" />
+    <Compile Include="Expression\CallNode.cs" />
+    <Compile Include="Expression\ConstantTypeEnum.cs" />
+    <Compile Include="Expression\ContentNode.cs" />
+    <Compile Include="Expression\IfElseNode.cs" />
+    <Compile Include="Expression\NodeTypeEnum.cs" />
+    <Compile Include="Expression\ParenthesisNode.cs" />
+    <Compile Include="Expression\ValueNode.cs" />
+    <Compile Include="Expression\ValueTypeEnum.cs" />
+    <Compile Include="Extensions\EnumerableExtension.cs" />
+    <Compile Include="Extensions\FileInfoExtension.cs" />
+    <Compile Include="Extensions\IntegerExtension.cs" />
+    <Compile Include="Extensions\LeftArraySort.cs" />
+    <Compile Include="Extensions\QueueExtension.cs" />
+    <Compile Include="Extensions\SortedDictionaryExtension.cs" />
+    <Compile Include="Extensions\SortedListExtension.cs" />
+    <Compile Include="Extensions\StackExtension.cs" />
+    <Compile Include="Extensions\SubStringExtension.cs" />
+    <Compile Include="Extensions\SynchronizationContextExtension.cs" />
+    <Compile Include="Extensions\TypeExtension.cs" />
+    <Compile Include="FragmentHashStringDictionary256.cs" />
+    <Compile Include="HashSubString.cs" />
+    <Compile Include="Html\RawNode.cs" />
+    <Compile Include="Html\RawNodeTypeEnum.cs" />
+    <Compile Include="IO\StreamPersistenceLoader.cs" />
+    <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
+    <Compile Include="Memory\BitMap.cs" />
+    <Compile Include="Memory\ByteArrayBufferObject.cs" />
+    <Compile Include="Memory\Common.cs" />
+    <Compile Include="Memory\HashBytes.cs" />
+    <Compile Include="Memory\Unmanaged.cs" />
+    <Compile Include="Metadata\BaseGenericType.cs" />
+    <Compile Include="Metadata\CollectionGenericType.cs" />
+    <Compile Include="Metadata\EnumGenericType.cs" />
+    <Compile Include="Metadata\GenericType.cs" />
+    <Compile Include="Metadata\GenericType2.cs" />
+    <Compile Include="Metadata\StructGenericType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArrayHeap.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="Deploy\SwitchProcess.cs" />
     <Compile Include="Deploy\SwitchWait.cs" />
-    <Compile Include="FifoPriorityQueue.cs" />
-    <Compile Include="FragmentDictionary256.cs" />
     <Compile Include="FragmentHashSet256.cs" />
     <Compile Include="Net\TimestampVerify.cs" />
     <Compile Include="ObjectRoot\ObjectReference.cs" />
@@ -60,16 +108,61 @@
     <Compile Include="ObjectRoot\ReflectionType.cs" />
     <Compile Include="ObjectRoot\ReflectionTypeScanner.cs" />
     <Compile Include="ObjectRoot\TypeScanner.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="Reflection\LoadAssemblyCache.cs" />
+    <Compile Include="Reflection\XmlDocument.cs" />
+    <Compile Include="Reflection\XmlDocumentAssembly.cs" />
     <Compile Include="SearchTree\Dictionary.cs" />
+    <Compile Include="SearchTree\EnumerableCount.cs" />
     <Compile Include="SearchTree\FindArray.cs" />
     <Compile Include="SearchTree\Node.cs" />
     <Compile Include="SearchTree\PageArray.cs" />
     <Compile Include="SearchTree\Set.cs" />
+    <Compile Include="SimpleSerialize\InternalIndependentSerializer.cs" />
+    <Compile Include="StateSearcher\AsciiBuilder.cs" />
+    <Compile Include="StateSearcher\AsciiSearcher.cs" />
+    <Compile Include="Threading\AutoWaitCount.cs" />
+    <Compile Include="Threading\AwaitCallBack.cs" />
+    <Compile Include="Threading\CallbackEnumerator.cs" />
+    <Compile Include="Threading\CallbackEnumeratorMoveNext.cs" />
     <Compile Include="Threading\DistributedMillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\LocalMillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\MillisecondIdentityGenerator.cs" />
-    <Compile Include="Threading\ReentrantSemaphoreSlimLockCount.cs" />
+    <Compile Include="Threading\SynchronizationContextAction.cs" />
     <Compile Include="Threading\TaskRunTimer.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlDeserializer.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlDeserializer.CustomConfig.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Enum.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Number.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlSerializer.CustomConfig.CharStream.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlSerializer.CustomConfig.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlSerializer.Enum.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlSerializer.Number.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlSerializer.Struct.cs" />
+    <Compile Include="Xml\Common.cs" />
+    <Compile Include="Xml\CustomConfig.cs" />
+    <Compile Include="Xml\CustomSerializeGenericType.cs" />
+    <Compile Include="Xml\DeserializeResult.cs" />
+    <Compile Include="Xml\DeserializeStateEnum.cs" />
+    <Compile Include="Xml\EnumDeserialize.cs" />
+    <Compile Include="Xml\ICustomSerialize.cs" />
+    <Compile Include="Xml\MemberNameSearcher.cs" />
+    <Compile Include="Xml\SerializeMemberDynamicMethod.cs" />
+    <Compile Include="Xml\SerializeMemberMapDynamicMethod.cs" />
+    <Compile Include="Xml\StateSearcher.cs" />
+    <Compile Include="Xml\ThreadStaticDeserializer.cs" />
+    <Compile Include="Xml\ThreadStaticSerializer.cs" />
+    <Compile Include="Xml\TypeDeserializer.cs" />
+    <Compile Include="Xml\TypeSerializer.cs" />
+    <Compile Include="Xml\XmlDeserializeConfig.cs" />
+    <Compile Include="Xml\XmlDeserializer.cs" />
+    <Compile Include="Xml\XmlNode.cs" />
+    <Compile Include="Xml\XmlNodeTypeEnum.cs" />
+    <Compile Include="Xml\XmlSerializeAttribute.cs" />
+    <Compile Include="Xml\XmlSerializeConfig.cs" />
+    <Compile Include="Xml\XmlSerializeMemberAttribute.cs" />
+    <Compile Include="Xml\XmlSerializer.cs" />
+    <Compile Include="{AutoCSer.Extensions}.CombinationTemplate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

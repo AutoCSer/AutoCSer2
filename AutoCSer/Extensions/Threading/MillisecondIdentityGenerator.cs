@@ -62,7 +62,7 @@ namespace AutoCSer.Extensions.Threading
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public DateTime GetTime(long identity)
         {
             return startTime.AddTicks((long)(identity >> bits) * TimeSpan.TicksPerMillisecond);
@@ -72,7 +72,7 @@ namespace AutoCSer.Extensions.Threading
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public DateTime GetLocalTime(long identity)
         {
             return startTime.AddTicks((long)(identity >> bits) * TimeSpan.TicksPerMillisecond).ToLocalTime();

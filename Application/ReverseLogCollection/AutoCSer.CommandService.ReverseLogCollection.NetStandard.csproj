@@ -25,6 +25,7 @@
   <ItemGroup>
     <Compile Include="IReverseLogCollectionService.cs" />
     <Compile Include="IReverseLogCollectionClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseLogCollectionService.cs" />
     <Compile Include="LogCallback.cs" />
   </ItemGroup>

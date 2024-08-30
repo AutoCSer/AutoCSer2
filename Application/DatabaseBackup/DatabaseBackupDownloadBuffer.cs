@@ -6,6 +6,7 @@ namespace AutoCSer.CommandService
     /// 下载备份文件缓冲区
     /// </summary>
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, IsAnonymousFields = true)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DatabaseBackupDownloadBuffer
     {
         /// <summary>

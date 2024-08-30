@@ -5,6 +5,7 @@ namespace AutoCSer.CommandService.DistributedLock
     /// <summary>
     /// 可重入锁缓存关键字
     /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct ReentrantKey : IEquatable<ReentrantKey>
     {
         /// <summary>

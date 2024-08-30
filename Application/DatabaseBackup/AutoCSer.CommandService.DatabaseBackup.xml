@@ -108,7 +108,7 @@
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DatabaseBackupClient.StartAsync">
+        <member name="M:AutoCSer.CommandService.DatabaseBackupClient.Start">
             <summary>
             开始备份数据库
             </summary>
@@ -129,7 +129,7 @@
             <param name="backupFullName">备份文件名称</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.DatabaseBackupClient.BackupTableAsync">
+        <member name="M:AutoCSer.CommandService.DatabaseBackupClient.BackupTable">
             <summary>
             开始备份数据库表格
             </summary>
@@ -507,12 +507,6 @@
             <param name="callback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetDatabaseAsync">
-            <summary>
-            获取可备份数据库名称集合
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetDatabase">
             <summary>
             获取可备份数据库名称集合
@@ -525,13 +519,6 @@
             </summary>
             <param name="database">数据库名称</param>
             <param name="callback">备份文件名称</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.BackupAsync(System.String)">
-            <summary>
-            备份数据库并返回文件名称
-            </summary>
-            <param name="database">数据库名称</param>
-            <returns>备份文件名称</returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.Backup(System.String)">
             <summary>
@@ -563,13 +550,6 @@
             </summary>
             <param name="database">数据库名称</param>
             <param name="callback"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetTableNameAsync(System.String)">
-            <summary>
-            获取可备份数据库表格名称集合
-            </summary>
-            <param name="database">数据库名称</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetTableName(System.String)">

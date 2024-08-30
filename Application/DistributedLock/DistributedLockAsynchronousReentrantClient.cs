@@ -35,12 +35,12 @@ namespace AutoCSer.CommandService
         /// <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
         /// <param name="keepSeconds">心跳间隔秒数</param>
         /// <returns>异步可重入锁释放对象</returns>
-        public async Task<CommandClientReturnValue<DistributedLockAsynchronousReentrant>> EnterAsync(T key, int releaseSeconds, int keepSeconds)
+        public async Task<CommandClientReturnValue<DistributedLockAsynchronousReentrant>> Enter(T key, int releaseSeconds, int keepSeconds)
         {
             ReentrantKey reentrantKey = new ReentrantKey(typeof(T), key);
             DistributedLockAsynchronousReentrant reentrantLock = reentrantLockManager.Get(reentrantKey);
             if (reentrantLock != null) return reentrantLock;
-            CommandClientReturnValue<DistributedLockKeepRequest<T>> request = await client.EnterAsync(key, releaseSeconds, keepSeconds);
+            CommandClientReturnValue<DistributedLockKeepRequest<T>> request = await client.Enter(key, releaseSeconds, keepSeconds);
             if (!request.IsSuccess) return request.ReturnValue;
             return await reentrantLockManager.CreateAsync(reentrantKey, request.Value).ConfigureAwait(false);
         }
@@ -51,12 +51,12 @@ namespace AutoCSer.CommandService
         /// <param name="releaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
         /// <param name="keepSeconds">心跳间隔秒数</param>
         /// <returns>异步可重入锁释放对象，失败返回 null</returns>
-        public async Task<CommandClientReturnValue<DistributedLockAsynchronousReentrant>> TryEnterAsync(T key, int releaseSeconds, int keepSeconds)
+        public async Task<CommandClientReturnValue<DistributedLockAsynchronousReentrant>> TryEnter(T key, int releaseSeconds, int keepSeconds)
         {
             ReentrantKey reentrantKey = new ReentrantKey(typeof(T), key);
             DistributedLockAsynchronousReentrant reentrantLock = reentrantLockManager.Get(reentrantKey);
             if (reentrantLock != null) return reentrantLock;
-            CommandClientReturnValue<DistributedLockKeepRequest<T>> request = await client.TryEnterAsync(key, releaseSeconds, keepSeconds);
+            CommandClientReturnValue<DistributedLockKeepRequest<T>> request = await client.TryEnter(key, releaseSeconds, keepSeconds);
             if (!request.IsSuccess) return request.ReturnValue;
             return await reentrantLockManager.CreateAsync(reentrantKey, request.Value).ConfigureAwait(false);
         }
@@ -68,12 +68,12 @@ namespace AutoCSer.CommandService
         /// <param name="timeoutSeconds">请求超时时间</param>
         /// <param name="keepSeconds">心跳间隔秒数</param>
         /// <returns>异步可重入锁释放对象，失败返回 null</returns>
-        public async Task<CommandClientReturnValue<DistributedLockAsynchronousReentrant>> TryEnterAsync(T key, int releaseSeconds, int timeoutSeconds, int keepSeconds)
+        public async Task<CommandClientReturnValue<DistributedLockAsynchronousReentrant>> TryEnter(T key, int releaseSeconds, int timeoutSeconds, int keepSeconds)
         {
             ReentrantKey reentrantKey = new ReentrantKey(typeof(T), key);
             DistributedLockAsynchronousReentrant reentrantLock = reentrantLockManager.Get(reentrantKey);
             if (reentrantLock != null) return reentrantLock;
-            CommandClientReturnValue<DistributedLockKeepRequest<T>> request = await client.TryEnterTimeoutAsync(key, releaseSeconds, timeoutSeconds, keepSeconds);
+            CommandClientReturnValue<DistributedLockKeepRequest<T>> request = await client.TryEnterTimeout(key, releaseSeconds, timeoutSeconds, keepSeconds);
             if (!request.IsSuccess) return request.ReturnValue;
             return await reentrantLockManager.CreateAsync(reentrantKey, request.Value).ConfigureAwait(false);
         }

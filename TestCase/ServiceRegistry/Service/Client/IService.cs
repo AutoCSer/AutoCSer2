@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.ServiceRegistry.Service
         /// 获取当前服务测试版本
         /// </summary>
         /// <returns>服务测试版本</returns>
-        int GetVersion();
+        uint GetVersion();
     }
     /// <summary>
     /// 命令服务注册测试接口
@@ -21,12 +21,12 @@ namespace AutoCSer.TestCase.ServiceRegistry.Service
         /// <summary>
         /// 当前服务测试版本
         /// </summary>
-        private readonly int currentVersion;
+        private readonly uint currentVersion;
         /// <summary>
         /// 命令服务注册测试接口
         /// </summary>
         /// <param name="currentVersion">当前服务测试版本</param>
-        internal Service(int currentVersion)
+        internal Service(uint currentVersion)
         {
             this.currentVersion = currentVersion;
         }
@@ -34,6 +34,6 @@ namespace AutoCSer.TestCase.ServiceRegistry.Service
         /// 获取当前服务测试版本
         /// </summary>
         /// <returns>服务测试版本</returns>
-        int IService.GetVersion() { return currentVersion; }
+        uint IService.GetVersion() { return currentVersion; }
     }
 }

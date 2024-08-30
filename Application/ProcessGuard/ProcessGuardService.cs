@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 进程守护服务端管理器
     /// </summary>
+    [CommandServerController(InterfaceType = typeof(IProcessGuardService))]
     public class ProcessGuardService : CommandServerBindController, IProcessGuardService
     {
         /// <summary>
@@ -77,7 +79,7 @@ namespace AutoCSer.CommandService
         /// <param name="guardProcess"></param>
         public virtual void OnProcessStartError(Exception exception, GuardProcess guardProcess)
         {
-            CatchTask.AddIgnoreException(Controller.Server.Log.Exception(exception, $"新进程启动失败 {AutoCSer.JsonSerializer.Serialize(guardProcess)}", LogLevel.AutoCSer | LogLevel.Exception | LogLevel.Fatal));
+            Controller.Server.Log.ExceptionIgnoreException(exception, $"新进程启动失败 {AutoCSer.JsonSerializer.Serialize(guardProcess)}", LogLevelEnum.AutoCSer | LogLevelEnum.Exception | LogLevelEnum.Fatal);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace AutoCSer.RandomObject.Metadata
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="UT"></typeparam>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static EnumGenericType create<T, UT>()
             where T : struct, IConvertible
@@ -67,14 +67,14 @@ namespace AutoCSer.RandomObject.Metadata
             {
                 switch (AutoCSer.Metadata.EnumGenericType<T, UT>.UnderlyingType)
                 {
-                    case AutoCSer.Metadata.UnderlyingType.Int: return (Func<Config, T>)Creator.EnumInt<T>;
-                    case AutoCSer.Metadata.UnderlyingType.UInt: return (Func<Config, T>)Creator.EnumUInt<T>;
-                    case AutoCSer.Metadata.UnderlyingType.Byte: return (Func<Config, T>)Creator.EnumByte<T>;
-                    case AutoCSer.Metadata.UnderlyingType.ULong: return (Func<Config, T>)Creator.EnumULong<T>;
-                    case AutoCSer.Metadata.UnderlyingType.UShort: return (Func<Config, T>)Creator.EnumUShort<T>;
-                    case AutoCSer.Metadata.UnderlyingType.Long: return (Func<Config, T>)Creator.EnumLong<T>;
-                    case AutoCSer.Metadata.UnderlyingType.Short: return (Func<Config, T>)Creator.EnumShort<T>;
-                    case AutoCSer.Metadata.UnderlyingType.SByte: return (Func<Config, T>)Creator.EnumSByte<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Int: return (Func<Config, T>)Creator.EnumInt<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UInt: return (Func<Config, T>)Creator.EnumUInt<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Byte: return (Func<Config, T>)Creator.EnumByte<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.ULong: return (Func<Config, T>)Creator.EnumULong<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UShort: return (Func<Config, T>)Creator.EnumUShort<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Long: return (Func<Config, T>)Creator.EnumLong<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Short: return (Func<Config, T>)Creator.EnumShort<T>;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.SByte: return (Func<Config, T>)Creator.EnumSByte<T>;
                     default: return (Func<Config, T>)Creator.EnumInt<T>;
                 }
             }

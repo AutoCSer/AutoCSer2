@@ -20,10 +20,10 @@ namespace AutoCSer.TestCase.DatabaseBackup
                 MinCompressSize = 1024,
                 Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost)
             };
-            using (CommandListener commandListener = new CommandListener(commandServerConfig
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (ITimestampVerifyService)new AutoCSer.CommandService.TimestampVerifyService(configFile.VerifyString))
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (IDatabaseBackupService)new DatabaseBackupService())
-                ))
+            await using (CommandListener commandListener = new CommandListenerBuilder(0)
+                .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, configFile.VerifyString))
+                .Append<IDatabaseBackupService>(server => new DatabaseBackupService())
+                .CreateCommandListener(commandServerConfig))
             {
                 if (await commandListener.Start())
                 {
@@ -33,7 +33,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
                 }
                 else
                 {
-                    Console.WriteLine($"数据库备份服务启动失败 {commandServerConfig.Host.Host}:{commandServerConfig.Host.Port}");
+                    ConsoleWriteQueue.WriteLine($"数据库备份服务启动失败 {commandServerConfig.Host.Host}:{commandServerConfig.Host.Port}", ConsoleColor.Red);
                     Console.ReadKey();
                 }
             }

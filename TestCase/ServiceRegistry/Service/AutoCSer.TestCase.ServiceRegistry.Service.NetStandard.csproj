@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.ServiceRegistry.Service</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.ServiceRegistry.Service</RootNamespace>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,15 +22,14 @@
     <Compile Include="Client\IService.cs" />
     <Compile Include="CommandServerConfig.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Client\ServiceRegistryCommandClientConfig.cs" />
-    <Compile Include="Client\ServiceRegistryCommandClientSocketEvent.cs" />
+    <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="ServiceVersion.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NetStandard2.1.csproj" />
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

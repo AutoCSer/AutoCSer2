@@ -20,6 +20,7 @@ namespace AutoCSer.TestCase.SerializePerformance
         public long Long;
         public ulong ULong;
         public DateTime DateTime;
+        public TimeSpan TimeSpan;
         public Guid Guid;
         public char Char;
         public string String;
@@ -33,8 +34,8 @@ namespace AutoCSer.TestCase.SerializePerformance
         public long? LongNull;
         public ulong? ULongNull;
         public DateTime? DateTimeNull;
+        public TimeSpan? TimeSpanNull;
         public Guid? GuidNull;
         public char? CharNull;
     }
 }
-#pragma warning restore

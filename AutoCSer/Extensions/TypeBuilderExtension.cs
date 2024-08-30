@@ -14,7 +14,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="typeBuilder"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static Type CreateType(this TypeBuilder typeBuilder)
         {
             return typeBuilder.CreateTypeInfo().AsType();

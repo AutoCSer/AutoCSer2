@@ -50,49 +50,47 @@ namespace AutoCSer.TestCase.DistributedLockClient
             reentrantClient = client.GetAsynchronousReentrant();//注意要调用点的异步上下文中初始化，对于上层异步上下文无效
             do
             {
-                CommandClientReturnValue<DistributedLockRequest<int>> request = await client.EnterAsync(lockKey, 5);
-                if (request.IsSuccess)
+                CommandClientReturnValue<DistributedLockRequest<int>> request = await client.Enter(lockKey, 5);
+                if (ConsoleWriteQueue.Breakpoint(request))
                 {
                     int checkValue = System.Threading.Interlocked.Increment(ref checkLock);
                     if (checkValue != 1)
                     {
-                        Console.Write($"*ERROR+{clientID}.{checkValue}+ERROR*");
+                        ConsoleWriteQueue.Breakpoint($"*ERROR+{clientID}.{checkValue}+ERROR*");
                         return;
                     }
-                    using (request.Value)
+                    await using (request.Value)
                     {
                         Console.Write(clientID);
                         checkValue = System.Threading.Interlocked.Decrement(ref checkLock);
                         if (checkValue != 0)
                         {
-                            Console.Write($"*ERROR-{clientID}.{checkValue}-ERROR*");
+                            ConsoleWriteQueue.Breakpoint($"*ERROR-{clientID}.{checkValue}-ERROR*");
                             return;
                         }
                     }
                 }
-                else Console.Write("X");
 
-                CommandClientReturnValue<DistributedLockAsynchronousReentrant> reentrantLock = await reentrantClient.EnterAsync(lockKey, 5, 5);
-                if (reentrantLock.IsSuccess)
+                CommandClientReturnValue<DistributedLockAsynchronousReentrant> reentrantLock = await reentrantClient.Enter(lockKey, 5, 5);
+                if (ConsoleWriteQueue.Breakpoint(reentrantLock))
                 {
                     int checkValue = System.Threading.Interlocked.Increment(ref checkLock);
                     if (checkValue != 1)
                     {
-                        Console.Write($"*ERROR+{clientID}.{checkValue}+ERROR*");
+                        ConsoleWriteQueue.Breakpoint($"*ERROR+{clientID}.{checkValue}+ERROR*");
                         return;
                     }
-                    using (reentrantLock.Value)
+                    await using (reentrantLock.Value)
                     {
                         await Reentrant();
                         checkValue = System.Threading.Interlocked.Decrement(ref checkLock);
                         if (checkValue != 0)
                         {
-                            Console.Write($"*ERROR-{clientID}.{checkValue}-ERROR*");
+                            ConsoleWriteQueue.Breakpoint($"*ERROR-{clientID}.{checkValue}-ERROR*");
                             return;
                         }
                     }
                 }
-                else Console.Write("X");
             }
             while (true);
         }
@@ -102,27 +100,26 @@ namespace AutoCSer.TestCase.DistributedLockClient
         /// <returns></returns>
         private async Task Reentrant()
         {
-            CommandClientReturnValue<DistributedLockAsynchronousReentrant> reentrantLock1 = await reentrantClient.EnterAsync(lockKey, 5, 5);
-            if (reentrantLock1.IsSuccess)
+            CommandClientReturnValue<DistributedLockAsynchronousReentrant> reentrantLock1 = await reentrantClient.Enter(lockKey, 5, 5);
+            if (ConsoleWriteQueue.Breakpoint(reentrantLock1))
             {
                 int checkValue = System.Threading.Interlocked.Increment(ref checkLock);
                 if (checkValue != 2)
                 {
-                    Console.Write($"*ERROR+{clientID}.{checkValue}+ERROR*");
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{clientID}.{checkValue}+ERROR*");
                     return;
                 }
-                using (reentrantLock1.Value)
+                await using (reentrantLock1.Value)
                 {
                     Console.Write(clientID);
                     checkValue = System.Threading.Interlocked.Decrement(ref checkLock);
                     if (checkValue != 1)
                     {
-                        Console.Write($"*ERROR-{clientID}.{checkValue}-ERROR*");
+                        ConsoleWriteQueue.Breakpoint($"*ERROR-{clientID}.{checkValue}-ERROR*");
                         return;
                     }
                 }
             }
-            else Console.Write("X");
         }
     }
 }

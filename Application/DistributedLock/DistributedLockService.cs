@@ -9,6 +9,7 @@ namespace AutoCSer.CommandService
     /// 分布式锁服务端
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [CommandServerController(InterfaceType = typeof(IDistributedLockService<>))]
     public class DistributedLockService<T> : DistributedLockController, IDistributedLockService<T> where T : IEquatable<T>
     {
         /// <summary>

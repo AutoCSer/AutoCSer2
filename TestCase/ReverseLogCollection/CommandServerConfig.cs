@@ -18,9 +18,9 @@ namespace AutoCSer.TestCase.ReverseLogCollection
         /// <returns></returns>
         public override async Task<AutoCSer.Net.CommandServiceRegistrar> GetRegistrar(CommandListener server)
         {
-            ServiceRegistryCommandClientConfig commandClientConfig = new ServiceRegistryCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ServiceRegistry) };
+            ServiceRegistryCommandClientConfig commandClientConfig = new ServiceRegistryCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry) };
             ServiceRegistryClient client = await ServiceRegistryClient.Get(commandClientConfig, this);
-            return await ServiceRegistryCommandServiceRegistrar.Create(server, client, this) ?? await base.GetRegistrar(server);
+            return await ServiceRegistryCommandServiceRegistrar.Create(server, client, this, null) ?? await base.GetRegistrar(server);
         }
         /// <summary>
         /// 获取服务注册日志
@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.ReverseLogCollection
         /// <returns></returns>
         public override ServiceRegisterLog GetServiceRegisterLog(IPEndPoint endPoint)
         {
-            return new ServiceRegisterLog(this, endPoint, ServiceRegisterOperationType.ClusterNode);
+            return new ServiceRegisterLog(this, endPoint, ServiceRegisterOperationTypeEnum.ClusterNode);
         }
     }
 }

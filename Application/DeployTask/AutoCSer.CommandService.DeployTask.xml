@@ -1,0 +1,1335 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.CommandService.DeployTask</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.CommandService.DeployTask.CopyFileTask">
+            <summary>
+            复制文件任务
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.CopyFileTask.AutoCSer#CommandService#IDeployTask#OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CopyFileTask.service">
+            <summary>
+            发布任务服务端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CopyFileTask.sourcePath">
+            <summary>
+            文件源路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CopyFileTask.destinationPath">
+            <summary>
+            文件目标路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CopyFileTask.checkSwitchFileName">
+            <summary>
+            切换检测文件名称，null 表示不检测
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CopyFileTask.isBackup">
+            <summary>
+            是否备份历史文件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.CopyFileTask.#ctor(AutoCSer.CommandService.DeployTaskService,System.Int64,System.Int32,System.String,System.String,System.Boolean)">
+            <summary>
+            复制文件
+            </summary>
+            <param name="service">发布任务服务端</param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="destinationPath">文件目标路径</param>
+            <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
+            <param name="isBackup">是否备份历史文件</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.CopyFileTask.Run">
+            <summary>
+            执行任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.CopyFileTask.copy(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+            <summary>
+            复制文件
+            </summary>
+            <param name="sourceDirectory"></param>
+            <param name="destinationDirectory"></param>
+            <param name="backupDirectory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.CopyFileTask.Cancel">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.FileTime">
+            <summary>
+            文件最后修改时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileTime.LastWriteTimeUtc">
+            <summary>
+            文件最后修改时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileTime.Length">
+            <summary>
+            文件字节数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileTime.FileName">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileTime.#ctor(System.IO.FileInfo)">
+            <summary>
+            文件最后修改时间
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileTime.Check(System.Collections.Generic.Dictionary{AutoCSer.HashString,System.IO.FileInfo},System.Collections.Generic.Dictionary{AutoCSer.HashString,System.IO.FileInfo})">
+            <summary>
+            检查返回匹配的文件
+            </summary>
+            <param name="checkFileDictionary"></param>
+            <param name="switchFileDictionary"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.StartProcessTask">
+            <summary>
+            执行程序任务
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.StartProcessTask.AutoCSer#CommandService#IDeployTask#OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.StartProcessTask.startFileName">
+            <summary>
+            运行程序文件名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.StartProcessTask.arguments">
+            <summary>
+            运行程序参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.StartProcessTask.isWait">
+            <summary>
+            执行任务流程是否等待程序运行结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.StartProcessTask.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            执行程序任务
+            </summary>
+            <param name="startFileName"></param>
+            <param name="arguments">运行程序参数</param>
+            <param name="isWait">执行任务流程是否等待程序运行结束</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.StartProcessTask.Run">
+            <summary>
+            执行任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.StartProcessTask.Cancel">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.TaskFileStream">
+            <summary>
+            发布任务写入文件流
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.TaskFileStream.stream">
+            <summary>
+            写入文件流
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.TaskFileStream.file">
+            <summary>
+            文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.TaskFileStream.fileTime">
+            <summary>
+            文件最后修改时间
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.TaskFileStream.#ctor(System.IO.FileStream,System.IO.FileInfo,AutoCSer.CommandService.DeployTask.FileTime@)">
+            <summary>
+            发布任务写入文件流
+            </summary>
+            <param name="stream">写入文件流</param>
+            <param name="file">文件信息</param>
+            <param name="fileTime">文件最后修改时间</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.TaskFileStream.Close">
+            <summary>
+            关闭文件流
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.TaskFileStream.close">
+            <summary>
+            关闭文件流
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.TaskFileStream.Write(AutoCSer.CommandService.DeployTask.UploadFileBuffer)">
+            <summary>
+            写入文件数据
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileBuffer">
+            <summary>
+            上传文件缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.Buffer">
+            <summary>
+            数据缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.Length">
+            <summary>
+            数据长度
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.Free">
+            <summary>
+            释放数据缓冲区
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DeployTask#UploadFileBuffer}#Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            序列化
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DeployTask#UploadFileBuffer}#Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.DeployTaskConfig">
+            <summary>
+            发布任务配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.buffers">
+            <summary>
+            缓冲区集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.bufferLock">
+            <summary>
+            缓冲区集合访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.getBuffer(System.Int32)">
+            <summary>
+            获取缓冲区
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.getBufferHandle">
+            <summary>
+            获取缓冲区
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.CreateUploadFileResult">
+            <summary>
+            初始化上传文件结果
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CreateUploadFileResult.Length">
+            <summary>
+            当前文件位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CreateUploadFileResult.Index">
+            <summary>
+            服务端文件流索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.CreateUploadFileResult.BufferSize">
+            <summary>
+            上传文件缓冲区字节大小
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.CreateUploadFileResult.Set(System.Int64,System.Int32)">
+            <summary>
+            设置当前文件位置
+            </summary>
+            <param name="length"></param>
+            <param name="index"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileClient">
+            <summary>
+            文件上传客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.clientBuilder">
+            <summary>
+            客户端任务创建器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.serverPath">
+            <summary>
+            服务端路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.uploadIndex">
+            <summary>
+            上传文件批次号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.uploadTaskCount">
+            <summary>
+            上传任务数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.uploadTaskLock">
+            <summary>
+            上传任务等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.buffers">
+            <summary>
+            缓冲区集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.bufferLock">
+            <summary>
+            缓冲区集合访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.result">
+            <summary>
+            上传文件结果
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.#ctor(AutoCSer.CommandService.DeployTaskClientBuilder,System.String)">
+            <summary>
+            文件上传客户端
+            </summary>
+            <param name="clientBuilder">客户端任务创建器</param>
+            <param name="serverPath">服务端路径</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.UploadFileAsync(System.String)">
+            <summary>
+            上传文件目录
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.uploadFileAsync(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            上传文件目录
+            </summary>
+            <param name="directory"></param>
+            <param name="path">服务端相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.uploadFileAsync(System.String,System.IO.FileInfo,AutoCSer.CommandService.DeployTask.FileTime)">
+            <summary>
+            上传文件
+            </summary>
+            <param name="path"></param>
+            <param name="file"></param>
+            <param name="fileTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.getBuffer">
+            <summary>
+            获取文件上传缓冲区
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.AppendCopyFile(System.String,System.Boolean)">
+            <summary>
+            添加复制文件步骤
+            </summary>
+            <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
+            <param name="isBackup">是否备份历史文件</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.CustomDeployTask">
+            <summary>
+            自定义发布任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.CustomDeployTask.operationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.CustomDeployTask.getTask">
+            <summary>
+            获取执行任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.CustomDeployTask.getCancelTask">
+            <summary>
+            获取取消任务
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.CustomDeployTask.AutoCSer#CommandService#IDeployTask#OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.CustomDeployTask.#ctor(System.UInt16,System.Func{System.Threading.Tasks.Task{AutoCSer.CommandService.DeployTaskLog}},System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            自定义发布任务
+            </summary>
+            <param name="operationType">操作类型</param>
+            <param name="getTask">获取执行任务</param>
+            <param name="getCancelTask">获取取消任务</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.CustomDeployTask.AutoCSer#CommandService#IDeployTask#Run">
+            <summary>
+            执行任务
+            </summary>
+            <returns>错误日志</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.CustomDeployTask.AutoCSer#CommandService#IDeployTask#Cancel">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskBuilder">
+            <summary>
+            发布任务创建器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskBuilder.appendSuccessTask">
+            <summary>
+            添加任务步骤成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskBuilder.Identity">
+            <summary>
+            发布任务编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskBuilder.service">
+            <summary>
+            发布任务服务端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskBuilder.tasks">
+            <summary>
+            发布任务集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskBuilder.files">
+            <summary>
+            写入文件流集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskBuilder.callback">
+            <summary>
+            任务状态变更回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.#ctor(AutoCSer.CommandService.DeployTaskService)">
+            <summary>
+            发布任务创建器
+            </summary>
+            <param name="service">发布任务服务端</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.disposeFiles">
+            <summary>
+            释放写入文件流
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.Append(AutoCSer.CommandService.IDeployTask)">
+            <summary>
+            添加任务步骤
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.AppendCustom(System.UInt16,System.Func{System.Threading.Tasks.Task{AutoCSer.CommandService.DeployTaskLog}},System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            添加自定义任务步骤
+            </summary>
+            <param name="operationType">操作类型</param>
+            <param name="getTask">获取执行任务</param>
+            <param name="getCancelTask">获取取消任务</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.Cancel">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.cancel">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.Start(System.DateTime,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.DeployTaskLog})">
+            <summary>
+            启动任务
+            </summary>
+            <param name="startTime"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.startTimer">
+            <summary>
+            定时启动任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.start">
+            <summary>
+            启动任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.run">
+            <summary>
+            执行任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.GetDifferent(System.Int32,System.String,System.String,AutoCSer.CommandService.DeployTask.FileTime[],AutoCSer.Net.CommandServerCallback{System.Boolean[]})">
+            <summary>
+            比较文件最后修改时间
+            </summary>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="bootPath">服务端文件根目录</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTimes">文件信息集合</param>
+            <param name="callback">比较结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.getFileNameDictionary(System.IO.DirectoryInfo)">
+            <summary>
+            获取文件名称字典集合
+            </summary>
+            <param name="directory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.CreateUploadFile(System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DeployTask.CreateUploadFileResult})">
+            <summary>
+            初始化上传文件
+            </summary>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTime">文件信息</param>
+            <param name="callback">初始化上传文件结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskBuilder.WriteUploadFile(System.Int32,AutoCSer.CommandService.DeployTask.UploadFileBuffer,AutoCSer.Net.CommandServerCallback{System.Boolean})">
+            <summary>
+            上传文件数据
+            </summary>
+            <param name="index"></param>
+            <param name="buffer"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskClient">
+            <summary>
+            发布任务客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskClient.Client">
+            <summary>
+            发布任务客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskClient.UploadFileLock">
+            <summary>
+            文件上传并发访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskClient.UploadFileBufferSize">
+            <summary>
+            文件上传缓冲区大小
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClient.#ctor(AutoCSer.CommandService.IDeployTaskClientSocketEvent,System.Int32,System.Int32)">
+            <summary>
+            发布任务客户端
+            </summary>
+            <param name="client">发布任务客户端套接字事件</param>
+            <param name="uploadFileCount">文件上传并发数量</param>
+            <param name="uploadFileBufferSize">文件上传缓冲区大小</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClient.Create">
+            <summary>
+            创建任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskClientBuilder">
+            <summary>
+            客户端任务创建器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskClientBuilder.Client">
+            <summary>
+            发布任务客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskClientBuilder.Identity">
+            <summary>
+            发布任务编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskClientBuilder.UploadIndex">
+            <summary>
+            上传文件批次号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClientBuilder.#ctor(AutoCSer.CommandService.DeployTaskClient,System.Int64)">
+            <summary>
+            客户端任务创建器
+            </summary>
+            <param name="client">发布任务客户端套接字事件</param>
+            <param name="identity">发布任务编号</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClientBuilder.Dispose">
+            <summary>
+            取消任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClientBuilder.DisposeAsync">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClientBuilder.Start(System.DateTime,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DeployTaskLog},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            启动任务
+            </summary>
+            <param name="startTime">运行任务时间</param>
+            <param name="callback">任务状态变更回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClientBuilder.Start(System.DateTime)">
+            <summary>
+            启动任务
+            </summary>
+            <param name="startTime">运行任务时间</param>
+            <returns>任务状态变更</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClientBuilder.AppendStartProcess(System.String,System.String,System.Boolean)">
+            <summary>
+            添加执行程序步骤
+            </summary>
+            <param name="startFileName">运行程序文件名称</param>
+            <param name="arguments">运行程序参数</param>
+            <param name="isWait">执行任务流程是否等待程序运行结束</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskClientBuilder.UploadFileAsync(System.String,System.String)">
+            <summary>
+            上传文件
+            </summary>
+            <param name="path"></param>
+            <param name="serverPath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskOperationTypeEnum">
+            <summary>
+            发布任务状态变更操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationTypeEnum.Unknown">
+            <summary>
+            未知操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationTypeEnum.StartProcess">
+            <summary>
+            执行程序
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationTypeEnum.CopyFile">
+            <summary>
+            复制文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationTypeEnum.COUNT">
+            <summary>
+            保留，仅用于计数
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskService">
+            <summary>
+            发布任务服务端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskService.DefaultBackupDirectoryName">
+            <summary>
+            默认备份目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskService.IdentityGenerator">
+            <summary>
+            任务标识生成器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskService.UploadFilePath">
+            <summary>
+            上传文件目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskService.SwitchDirectoryName">
+            <summary>
+            切换目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskService.BackupDirectoryName">
+            <summary>
+            备份目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskService.Tasks">
+            <summary>
+            发布任务集合，需要增加超时释放机制
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.#ctor(AutoCSer.Threading.DistributedMillisecondIdentityGenerator,System.String,System.String,System.String)">
+            <summary>
+            发布任务服务端
+            </summary>
+            <param name="identityGenerator">任务标识生成器</param>
+            <param name="uploadFilePath">上传文件目录</param>
+            <param name="switchDirectoryName">切换目录名称</param>
+            <param name="backupDirectoryName">切换目录名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.createBuilder">
+            <summary>
+            发布任务创建器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.Create(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue)">
+            <summary>
+            创建任务
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <returns>任务ID</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.Cancel(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64)">
+            <summary>
+            取消任务
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <returns>返回 false 表示没有找到任务或者任务已经启动不允许取消</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.Start(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.DateTime,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.DeployTaskLog})">
+            <summary>
+            启动任务
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startTime">运行任务时间</param>
+            <param name="callback">任务状态变更回调委托</param>
+            <returns>返回 false 表示没有找到任务、任务已经取消或者任务已经调用启动</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.AppendStartProcess(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.String,System.String,System.Boolean)">
+            <summary>
+            添加执行程序步骤
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startFileName">运行程序文件名称</param>
+            <param name="arguments">运行程序参数</param>
+            <param name="isWait">执行任务流程是否等待程序运行结束</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.AppendCopyUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,System.String,System.Boolean)">
+            <summary>
+            添加复制文件步骤
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="destinationPath">文件目标路径</param>
+            <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
+            <param name="isBackup">是否备份历史文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.GetDifferent(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,System.String,AutoCSer.CommandService.DeployTask.FileTime[],AutoCSer.Net.CommandServerCallback{System.Boolean[]})">
+            <summary>
+            比较文件最后修改时间
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="bootPath">服务端文件根目录</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTimes">文件信息集合</param>
+            <param name="callback">比较结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.CreateUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DeployTask.CreateUploadFileResult})">
+            <summary>
+            初始化上传文件
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTime">文件信息</param>
+            <param name="callback">初始化上传文件结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskService.WriteUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,AutoCSer.CommandService.DeployTask.UploadFileBuffer,AutoCSer.Net.CommandServerCallback{System.Boolean})">
+            <summary>
+            上传文件数据
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">写入文件流索引</param>
+            <param name="buffer">上传文件缓冲区</param>
+            <param name="callback">上传文件数据结果回调委托，上传文件流标识匹配失败则返回 false</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskAppendResult">
+            <summary>
+            添加任务步骤结果
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskAppendResult.AppendState">
+            <summary>
+            添加任务步骤状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskAppendResult.Message">
+            <summary>
+            附加提示信息
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.IDeployTask">
+            <summary>
+            发布任务
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.IDeployTask.OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTask.Run">
+            <summary>
+            执行任务
+            </summary>
+            <returns>错误日志</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTask.Cancel">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.IDeployTaskClientSocketEvent">
+            <summary>
+            发布任务客户端套接字事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.IDeployTaskClientSocketEvent.DeployTaskClient">
+            <summary>
+            发布任务客户端接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.IDeployTaskService">
+            <summary>
+            发布任务服务端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.Create(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue)">
+            <summary>
+            创建任务
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <returns>任务ID</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.Cancel(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64)">
+            <summary>
+            取消任务
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <returns>返回 false 表示没有找到任务或者任务已经启动不允许取消</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.Start(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.DateTime,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.DeployTaskLog})">
+            <summary>
+            启动任务
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startTime">运行任务时间</param>
+            <param name="callback">任务状态变更回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.AppendStartProcess(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.String,System.String,System.Boolean)">
+            <summary>
+            添加执行程序步骤
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startFileName">运行程序文件名称</param>
+            <param name="arguments">运行程序参数</param>
+            <param name="isWait">执行任务流程是否等待程序运行结束</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.AppendCopyUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,System.String,System.Boolean)">
+            <summary>
+            添加复制文件步骤
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="destinationPath">文件目标路径</param>
+            <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
+            <param name="isBackup">是否备份历史文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.GetDifferent(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,System.String,AutoCSer.CommandService.DeployTask.FileTime[],AutoCSer.Net.CommandServerCallback{System.Boolean[]})">
+            <summary>
+            比较文件最后修改时间
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="bootPath">服务端文件根目录</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTimes">文件信息集合</param>
+            <param name="callback">比较结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.CreateUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DeployTask.CreateUploadFileResult})">
+            <summary>
+            初始化上传文件
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTime">文件信息</param>
+            <param name="callback">初始化上传文件结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskService.WriteUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,AutoCSer.CommandService.DeployTask.UploadFileBuffer,AutoCSer.Net.CommandServerCallback{System.Boolean})">
+            <summary>
+            上传文件数据
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">写入文件流索引</param>
+            <param name="buffer">上传文件缓冲区</param>
+            <param name="callback">上传文件数据结果回调委托，上传文件流标识匹配失败则返回 false</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.IDeployTaskClient">
+            <summary>
+            发布任务客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.Create">
+            <summary>
+            创建任务
+            </summary>
+            <returns>任务ID</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.Create(System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}})">
+            <summary>
+            创建任务
+            </summary>
+            <param name="callback">任务ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.Cancel(System.Int64)">
+            <summary>
+            取消任务
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <returns>返回 false 表示没有找到任务或者任务已经启动不允许取消</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.Cancel(System.Int64,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}})">
+            <summary>
+            取消任务
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="callback">返回 false 表示没有找到任务或者任务已经启动不允许取消</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.Start(System.Int64,System.DateTime,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DeployTaskLog},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            启动任务
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startTime">运行任务时间</param>
+            <param name="callback">任务状态变更回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.Start(System.Int64,System.DateTime)">
+            <summary>
+            启动任务
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startTime">运行任务时间</param>
+            <returns>任务状态变更</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.AppendStartProcess(System.Int64,System.String,System.String,System.Boolean)">
+            <summary>
+            添加执行程序步骤
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startFileName">运行程序文件名称</param>
+            <param name="arguments">运行程序参数</param>
+            <param name="isWait">执行任务流程是否等待程序运行结束</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.AppendStartProcess(System.Int64,System.String,System.String,System.Boolean,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DeployTaskAppendResult}})">
+            <summary>
+            添加执行程序步骤
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="startFileName">运行程序文件名称</param>
+            <param name="arguments">运行程序参数</param>
+            <param name="isWait">执行任务流程是否等待程序运行结束</param>
+            <param name="callback">添加任务步骤结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.AppendCopyUploadFile(System.Int64,System.Int32,System.String,System.String,System.Boolean)">
+            <summary>
+            添加复制文件步骤
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="destinationPath">文件目标路径</param>
+            <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
+            <param name="isBackup">是否备份历史文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.AppendCopyUploadFile(System.Int64,System.Int32,System.String,System.String,System.Boolean,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DeployTaskAppendResult}})">
+            <summary>
+            添加复制文件步骤
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="destinationPath">文件目标路径</param>
+            <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
+            <param name="isBackup">是否备份历史文件</param>
+            <param name="callback">添加任务步骤结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.GetDifferent(System.Int64,System.Int32,System.String,System.String,AutoCSer.CommandService.DeployTask.FileTime[])">
+            <summary>
+            比较文件最后修改时间
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="bootPath">服务端文件根目录</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTimes">文件信息集合</param>
+            <returns>比较结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.GetDifferent(System.Int64,System.Int32,System.String,System.String,AutoCSer.CommandService.DeployTask.FileTime[],System.Action{AutoCSer.Net.CommandClientReturnValue{System.Boolean[]}})">
+            <summary>
+            比较文件最后修改时间
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="bootPath">服务端文件根目录</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTimes">文件信息集合</param>
+            <param name="callback">比较结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.CreateUploadFile(System.Int64,System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime)">
+            <summary>
+            初始化上传文件
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTime">文件信息</param>
+            <returns>初始化上传文件结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.CreateUploadFile(System.Int64,System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DeployTask.CreateUploadFileResult}})">
+            <summary>
+            初始化上传文件
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">当前任务临时文件目录序号</param>
+            <param name="path">服务端文件相对目录</param>
+            <param name="fileTime">文件信息</param>
+            <param name="callback">初始化上传文件结果回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.WriteUploadFile(System.Int64,System.Int32,AutoCSer.CommandService.DeployTask.UploadFileBuffer)">
+            <summary>
+            上传文件数据
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">写入文件流索引</param>
+            <param name="buffer">上传文件缓冲区</param>
+            <returns>上传文件数据结果，上传文件流标识匹配失败则返回 false</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskClient.WriteUploadFile(System.Int64,System.Int32,AutoCSer.CommandService.DeployTask.UploadFileBuffer,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Boolean}})">
+            <summary>
+            上传文件数据
+            </summary>
+            <param name="taskIdentity">任务ID</param>
+            <param name="index">写入文件流索引</param>
+            <param name="buffer">上传文件缓冲区</param>
+            <param name="callback">上传文件数据结果回调委托，上传文件流标识匹配失败则返回 false</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskAppendStateEnum">
+            <summary>
+            添加任务步骤状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskAppendStateEnum.Unknown">
+            <summary>
+            未知错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskAppendStateEnum.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskAppendStateEnum.NotFound">
+            <summary>
+            没有找到任务
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskConfig">
+            <summary>
+            发布任务配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskConfig.UploadFileBufferSize">
+            <summary>
+            上传文件缓冲区字节大小，默认为 128KB
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskConfig.UploadFileBufferCount">
+            <summary>
+            上传文件缓冲区数量，默认为 128
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskLog">
+            <summary>
+            发布任务状态变更回调日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskLog.TaskIdentity">
+            <summary>
+            任务ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskLog.TaskIndex">
+            <summary>
+            任务索引编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskLog.OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskLog.OperationState">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskLog.Message">
+            <summary>
+            附加提示信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskLog.CheckRun(AutoCSer.CommandService.DeployTaskLog)">
+            <summary>
+            检查任务执行状态
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskLog.CallbackError(AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.DeployTaskLog},AutoCSer.CommandService.DeployTaskOperationStateEnum)">
+            <summary>
+            错误状态回调
+            </summary>
+            <param name="callback"></param>
+            <param name="errorState"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskOperationStateEnum">
+            <summary>
+            发布任务状态变更操作状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.Unknown">
+            <summary>
+            未知错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.Completed">
+            <summary>
+            任务执行完成
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.Cancel">
+            <summary>
+            取消任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.StartRun">
+            <summary>
+            启动执行任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.Exception">
+            <summary>
+            任务执行异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.NotFoundFile">
+            <summary>
+            没有找到文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.NotFoundTask">
+            <summary>
+            没有找到任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.EmptyTask">
+            <summary>
+            任务集合为空
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.StartedError">
+            <summary>
+            启动任务调用冲突
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskOperationStateEnum.StartTimeError">
+            <summary>
+            启动定时时间超出范围错误
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskUploadFileResult">
+            <summary>
+            上传文件结果
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileResult.State">
+            <summary>
+            文件上传状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileResult.ReturnType">
+            <summary>
+            客户端调用返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskUploadFileResult.Set(AutoCSer.CommandService.DeployTaskUploadFileStateEnum,AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            设置上传文件结果
+            </summary>
+            <param name="state"></param>
+            <param name="returnType"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTaskUploadFileStateEnum">
+            <summary>
+            文件上传状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.NotFoundDirectory">
+            <summary>
+            没有找到上传文件目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.GetDifferentError">
+            <summary>
+            客户端比较文件最后修改时间调用失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.FileLengthChanged">
+            <summary>
+            文件上传之前大小被修改
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.FileTimeChanged">
+            <summary>
+            文件上传之前最后修改时间被修改
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.CreateUploadFileError">
+            <summary>
+            初始化上传文件调用失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.CreateUploadFileUnknownError">
+            <summary>
+            初始化上传文件未知错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.WriteUploadFileError">
+            <summary>
+            上传文件数据调用失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.WriteUploadFileUnknownError">
+            <summary>
+            上传文件数据未知错误
+            </summary>
+        </member>
+    </members>
+</doc>

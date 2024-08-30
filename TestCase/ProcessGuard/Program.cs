@@ -14,9 +14,9 @@ namespace AutoCSer.TestCase.ProcessGuard
         /// <returns></returns>
         static async Task Main(string[] args)
         {
-            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ProcessGuard) };
-            using (CommandListener commandListener = new CommandListener(commandServerConfig
-                , CommandServerInterfaceControllerCreator.GetCreator(server => (IProcessGuardService)new AutoCSer.CommandService.ProcessGuardService())
+            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ProcessGuard) };
+            await using (CommandListener commandListener = new CommandListener(commandServerConfig
+                , CommandServerInterfaceControllerCreator.GetCreator(server => new AutoCSer.CommandService.ProcessGuardService())
                 ))
             {
                 if (await commandListener.Start())

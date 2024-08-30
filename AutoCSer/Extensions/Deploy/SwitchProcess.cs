@@ -15,7 +15,7 @@ namespace AutoCSer.Deploy
         /// <summary>
         /// 切换进程进关闭参数
         /// </summary>
-        public const string CloseSwitchProcessArgument = "AutoCSerCloseSwitchProcess";
+        public const string CloseSwitchProcessArgument = AutoCSer.Common.NamePrefix + "CloseSwitchProcess";
 
         /// <summary>
         /// 切换服务锁
@@ -64,7 +64,7 @@ namespace AutoCSer.Deploy
         /// 初始化操作
         /// </summary>
         /// <returns></returns>
-        protected virtual async Task initialize() { }
+        protected virtual Task initialize() { return AutoCSer.Common.CompletedTask; }
         /// <summary>
         /// 切换进程等待关闭处理退出
         /// </summary>
@@ -102,13 +102,14 @@ namespace AutoCSer.Deploy
         /// <returns></returns>
         protected virtual async Task onExit()
         {
+            await AutoCSer.LogHelper.Flush();
             Environment.Exit(0);
         }
         /// <summary>
         /// 删除被守护进程
         /// </summary>
         /// <returns></returns>
-        protected virtual async Task removeGuard() { }
+        protected virtual Task removeGuard() { return AutoCSer.Common.CompletedTask; }
 
         /// <summary>
         /// 在文件当前目录启动进程
@@ -185,7 +186,7 @@ namespace AutoCSer.Deploy
         /// <returns>切换服务文件</returns>
         public static FileInfo GetSwitchFile(string deployServerFileName = null, string switchDirectoryName = DefaultSwitchDirectoryName)
         {
-            DirectoryInfo CurrentDirectory = new DirectoryInfo(AutoCSer.Common.ApplicationPath), SwitchDirectory;
+            DirectoryInfo CurrentDirectory = AutoCSer.Common.ApplicationDirectory, SwitchDirectory;
             if (CurrentDirectory.Name == switchDirectoryName)
             {
                 SwitchDirectory = CurrentDirectory.Parent;

@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.ProcessGuard</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.ProcessGuard</RootNamespace>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NetStandard2.1.csproj" />
   </ItemGroup>
 
   <ItemGroup>

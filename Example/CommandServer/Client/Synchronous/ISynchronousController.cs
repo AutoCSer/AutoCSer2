@@ -89,26 +89,21 @@ namespace AutoCSer.Example.CommandServer.Client.Synchronous
             int refParameter = 3;
             long outParameter = 5;
             CommandClientReturnValue<int> returnValue = socketEvent.Synchronous_SynchronousController.SynchronousReturn(7, ref refParameter, out outParameter);
-            if (returnValue.IsSuccess)
+            if (AutoCSer.ConsoleWriteQueue.Breakpoint(returnValue))
             {
                 Console.WriteLine(refParameter);
                 Console.WriteLine(outParameter);
                 Console.WriteLine(returnValue.Value);
             }
-            else
-            {
-                Console.WriteLine(returnValue.ReturnType);
-                Program.Breakpoint();
-            }
 
             CommandClientReturnValue returnType = await socketEvent.Synchronous_SynchronousController.SynchronousCallAsync(3, 5);
-            if (!returnType.IsSuccess) Program.Breakpoint();
+            AutoCSer.ConsoleWriteQueue.Breakpoint(returnType);
 
             returnType = await socketEvent.Synchronous_SynchronousController.SynchronousCallQueueAsync(3, 5);
-            if (!returnType.IsSuccess) Program.Breakpoint();
+            AutoCSer.ConsoleWriteQueue.Breakpoint(returnType);
 
             returnType = socketEvent.Synchronous_SynchronousController.SynchronousCall(3, 5);
-            if (!returnType.IsSuccess) Program.Breakpoint();
+            AutoCSer.ConsoleWriteQueue.Breakpoint(returnType);
         }
     }
 }

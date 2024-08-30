@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>
@@ -73,40 +74,40 @@ namespace AutoCSer.TestCase
             return SendOnly();
         }
 
-        async Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskSocket(CommandServerSocket socket, int Value, int Ref)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskSocket(CommandServerSocket socket, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            return SendOnly();
+            SendOnly();
+            return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
-        async Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskSocket(CommandServerSocket socket)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskSocket(CommandServerSocket socket)
         {
-            await ServerTaskController.TaskStart();
-            return SendOnly();
+            SendOnly();
+            return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
-        async Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTask(int Value, int Ref)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTask(int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            return SendOnly();
+            SendOnly();
+            return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
-        async Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTask()
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTask()
         {
-            await ServerTaskController.TaskStart();
-            return SendOnly();
+            SendOnly();
+            return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
 
-        async Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            return SendOnly();
+            SendOnly();
+            return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
-        async Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
         {
-            await ServerTaskController.TaskStart();
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            return SendOnly();
+            SendOnly();
+            return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
     }
 }

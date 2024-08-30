@@ -62,7 +62,7 @@ namespace AutoCSer.SearchTree
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <param name="count"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void set(NT left, NT right, int count)
         {
             Left = left;
@@ -74,7 +74,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="left"></param>
         /// <param name="count"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void set(NT left, int count)
         {
             Left = left;
@@ -88,7 +88,7 @@ namespace AutoCSer.SearchTree
         internal int IndexOf(ref KT key)
         {
             int cmp = key.CompareTo(Key);
-            if (cmp == 0) return 0;
+            if (cmp == 0) return Left != null ? Left.Count : 0;
             if (cmp < 0)
             {
                 if (Left != null) return Left.IndexOf(ref key);
@@ -137,7 +137,7 @@ namespace AutoCSer.SearchTree
         /// 删除节点计数
         /// </summary>
         /// <param name="node"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkRemoveCount1(NT node)
         {
             if (node != null) Count -= node.Count;
@@ -147,7 +147,7 @@ namespace AutoCSer.SearchTree
         /// 删除节点计数
         /// </summary>
         /// <param name="node"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void removeCount1(NT node)
         {
             Count -= node.Count + 1;
@@ -157,7 +157,7 @@ namespace AutoCSer.SearchTree
         /// 清除左节点并重置节点数量
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT clearLeft()
         {
             NT left = Left;
@@ -169,7 +169,7 @@ namespace AutoCSer.SearchTree
         /// 删除左节点计数
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT removeLeftCount()
         {
             if (Left != null) Count -= Left.Count;
@@ -179,7 +179,7 @@ namespace AutoCSer.SearchTree
         /// 右节点移动到左节点
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT rightToLeft()
         {
             Left = Right;
@@ -191,7 +191,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="right"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT rightToLeft(NT right)
         {
             NT left = Left;
@@ -204,7 +204,7 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 检测左节点的右节点
         /// </summary>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkLeftRight()
         {
             if (Left.Right != null)
@@ -224,7 +224,7 @@ namespace AutoCSer.SearchTree
         /// 清除左节点并重置节点数量
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT clearRight()
         {
             NT right = Right;
@@ -236,7 +236,7 @@ namespace AutoCSer.SearchTree
         /// 删除左节点计数
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT removeRightCount()
         {
             if (Right != null) Count -= Right.Count;
@@ -246,7 +246,7 @@ namespace AutoCSer.SearchTree
         /// 右节点移动到左节点
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT leftToRight()
         {
             Right = Left;
@@ -258,7 +258,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="left"></param>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT leftToRight(NT left)
         {
             NT right = Right;
@@ -271,7 +271,7 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 检测右节点的左节点
         /// </summary>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkRightLeft()
         {
             if (Right.Left != null)

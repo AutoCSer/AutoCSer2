@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
@@ -136,7 +137,7 @@ namespace AutoCSer.CommandService
             clientServiceRegistrars.SetEmpty();
             clientServiceRegistrarsLock.Exit();
 
-            if (mainLog != null && mainLog.OperationType == ServiceRegisterOperationType.Singleton) newLogAssembler.mainLog = mainLog;
+            if (mainLog != null && mainLog.OperationType == ServiceRegisterOperationTypeEnum.Singleton) newLogAssembler.mainLog = mainLog;
         }
         /// <summary>
         /// 添加服务注册服务端组件
@@ -180,7 +181,7 @@ namespace AutoCSer.CommandService
                 AutoCSer.Net.CommandClientReturnValue<ServiceRegisterResponse> serviceRegister = await serviceRegistryClient.Client.Append(log.CreateLogout());
                 if (serviceRegister.IsSuccess)
                 {
-                    if (serviceRegister.Value.State != ServiceRegisterState.Success) await serviceRegistryClient.ServiceRestierLogoutFail(serviceName, serviceRegister.Value.State);
+                    if (serviceRegister.Value.State != ServiceRegisterStateEnum.Success) await serviceRegistryClient.ServiceRestierLogoutFail(serviceName, serviceRegister.Value.State);
                 }
                 else await serviceRegistryClient.ServiceRestierLogoutFail(serviceName, serviceRegister.ReturnType);
             }
@@ -234,7 +235,7 @@ namespace AutoCSer.CommandService
                         ServiceRegisterLog log = serviceRegistrar.ServiceRegisterLog;
                         if (log.ServiceID != 0)
                         {
-                            if (log.OperationType == ServiceRegisterOperationType.Singleton)
+                            if (log.OperationType == ServiceRegisterOperationTypeEnum.Singleton)
                             {
                                 if (mainLog != null && log.ServiceID == mainLog.ServiceID)
                                 {
@@ -260,10 +261,10 @@ namespace AutoCSer.CommandService
         /// 单例服务定时尝试上线
         /// </summary>
         /// <param name="serviceRegistrar"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void CheckSingleton(ServiceRegistryCommandServiceRegistrar serviceRegistrar)
         {
-            if (mainLog == null) CatchTask.AddIgnoreException(append(serviceRegistrar.ServiceRegisterLog));
+            if (mainLog == null) append(serviceRegistrar.ServiceRegisterLog).NotWait();
         }
         /// <summary>
         /// 添加服务注册日志
@@ -277,7 +278,7 @@ namespace AutoCSer.CommandService
                 AutoCSer.Net.CommandClientReturnValue<ServiceRegisterResponse> serviceRegister = await serviceRegistryClient.Client.Append(log);
                 if (serviceRegister.IsSuccess)
                 {
-                    if (serviceRegister.Value.State == ServiceRegisterState.Success) log.ServiceID = serviceRegister.Value.ServiceID;
+                    if (serviceRegister.Value.State == ServiceRegisterStateEnum.Success) log.ServiceID = serviceRegister.Value.ServiceID;
                     else await serviceRegistryClient.ServiceRestierAgainFail(serviceName, serviceRegister.Value.State);
                 }
                 else await serviceRegistryClient.ServiceRestierAgainFail(serviceName, serviceRegister.ReturnType);
@@ -295,22 +296,22 @@ namespace AutoCSer.CommandService
                 ServiceRegisterLog log = returnValue.Value;
                 if (log != null)
                 {
-                    ServiceRegisterOperationType operationType = log.OperationType;
+                    ServiceRegisterOperationTypeEnum operationType = log.OperationType;
                     switch (operationType)
                     {
-                        case ServiceRegisterOperationType.ClusterNode:
-                        case ServiceRegisterOperationType.ClusterMain:
-                        case ServiceRegisterOperationType.Singleton:
+                        case ServiceRegisterOperationTypeEnum.ClusterNode:
+                        case ServiceRegisterOperationTypeEnum.ClusterMain:
+                        case ServiceRegisterOperationTypeEnum.Singleton:
                             uint versioin = log.Version;
                             if (isLoaded)
                             {
-                                ServiceRegisterLogClientChangedType changedType = 0;
+                                ServiceRegisterLogClientChangedTypeEnum changedType = 0;
                                 if (versioin != maxVersion)
                                 {
                                     if (mainLog != null)
                                     {
-                                        changedType |= ServiceRegisterLogClientChangedType.Delete;
-                                        logs.Clear();
+                                        changedType |= ServiceRegisterLogClientChangedTypeEnum.Delete;
+                                        logs.ClearLength();
                                         mainLog = null;
                                     }
                                     maxVersion = versioin;
@@ -319,19 +320,19 @@ namespace AutoCSer.CommandService
                                 {
                                     switch (operationType)
                                     {
-                                        case ServiceRegisterOperationType.ClusterNode:
-                                        case ServiceRegisterOperationType.ClusterMain:
-                                            if (operationType == ServiceRegisterOperationType.ClusterNode)
+                                        case ServiceRegisterOperationTypeEnum.ClusterNode:
+                                        case ServiceRegisterOperationTypeEnum.ClusterMain:
+                                            if (operationType == ServiceRegisterOperationTypeEnum.ClusterNode)
                                             {
                                                 logs.Add(log);
-                                                callback(log, ServiceRegisterLogClientChangedType.Append);
+                                                callback(log, ServiceRegisterLogClientChangedTypeEnum.Append);
                                                 return;
                                             }
                                             logs.Add(mainLog);
                                             break;
                                     }
                                 }
-                                callback(mainLog = log, ServiceRegisterLogClientChangedType.Main | changedType);
+                                callback(mainLog = log, ServiceRegisterLogClientChangedTypeEnum.Main | changedType);
                             }
                             else if (mainLog == null)
                             {
@@ -340,21 +341,21 @@ namespace AutoCSer.CommandService
                             }
                             else logs.Add(log);
                             return;
-                        case ServiceRegisterOperationType.Logout:  logout(log); return;
-                        case ServiceRegisterOperationType.Offline:
+                        case ServiceRegisterOperationTypeEnum.Logout:  logout(log); return;
+                        case ServiceRegisterOperationTypeEnum.Offline:
                             foreach (ServiceRegistryCommandServiceRegistrar serviceRegistrar in serviceRegistrars)
                             {
                                 serviceRegistrar.Offline(log.ServiceID);
                             }
                             return;
-                        case ServiceRegisterOperationType.LostContact: lostContact(log); return;
-                        case ServiceRegisterOperationType.Clear:
+                        case ServiceRegisterOperationTypeEnum.LostContact: lostContact(log); return;
+                        case ServiceRegisterOperationTypeEnum.Clear:
                             if (mainLog == null) tryCallback(log, 0);
                             else
                             {
-                                logs.Clear();
+                                logs.ClearLength();
                                 mainLog = null;
-                                tryCallback(log, ServiceRegisterLogClientChangedType.Main | ServiceRegisterLogClientChangedType.Delete);
+                                tryCallback(log, ServiceRegisterLogClientChangedTypeEnum.Main | ServiceRegisterLogClientChangedTypeEnum.Delete);
                             }
                             return;
                         default: serviceRegistryClient.UnrecognizableOperationType(log); return;
@@ -363,7 +364,7 @@ namespace AutoCSer.CommandService
                 else if (!isLoaded)
                 {
                     isLoaded = true;
-                    if (mainLog != null) callback(null, ServiceRegisterLogClientChangedType.Main);
+                    if (mainLog != null) callback(null, ServiceRegisterLogClientChangedTypeEnum.Main);
                 }
             }
         }
@@ -379,7 +380,7 @@ namespace AutoCSer.CommandService
             if (mainLog.ServiceID == serviceID)
             {
                 logs.TryPop(out mainLog);
-                tryCallback(log, ServiceRegisterLogClientChangedType.Main | ServiceRegisterLogClientChangedType.Delete);
+                tryCallback(log, ServiceRegisterLogClientChangedTypeEnum.Main | ServiceRegisterLogClientChangedTypeEnum.Delete);
                 return;
             }
             int logIndex = 0;
@@ -388,7 +389,7 @@ namespace AutoCSer.CommandService
                 if (nextLog.ServiceID == serviceID)
                 {
                     logs.RemoveAtToEnd(logIndex);
-                    tryCallback(log, ServiceRegisterLogClientChangedType.Delete);
+                    tryCallback(log, ServiceRegisterLogClientChangedTypeEnum.Delete);
                     return;
                 }
                 ++logIndex;
@@ -411,7 +412,7 @@ namespace AutoCSer.CommandService
                 ServiceRegisterLog serviceRegisterLog = serviceRegistrar.ServiceRegisterLog;
                 if (serviceRegisterLog.ServiceID == serviceID)
                 {
-                    CatchTask.AddIgnoreException(append(serviceRegisterLog));
+                    append(serviceRegisterLog).NotWait();
                     break;
                 }
             }
@@ -420,7 +421,7 @@ namespace AutoCSer.CommandService
             {
                 lostContactLog = mainLog;
                 logs.TryPop(out mainLog);
-                tryCallback(log, ServiceRegisterLogClientChangedType.Main | ServiceRegisterLogClientChangedType.Delete | ServiceRegisterLogClientChangedType.LostContact);
+                tryCallback(log, ServiceRegisterLogClientChangedTypeEnum.Main | ServiceRegisterLogClientChangedTypeEnum.Delete | ServiceRegisterLogClientChangedTypeEnum.LostContact);
                 return;
             }
             int logIndex = 0;
@@ -430,7 +431,7 @@ namespace AutoCSer.CommandService
                 {
                     lostContactLog = nextLog;
                     logs.RemoveAtToEnd(logIndex);
-                    tryCallback(log, ServiceRegisterLogClientChangedType.Delete | ServiceRegisterLogClientChangedType.LostContact);
+                    tryCallback(log, ServiceRegisterLogClientChangedTypeEnum.Delete | ServiceRegisterLogClientChangedTypeEnum.LostContact);
                     return;
                 }
                 ++logIndex;
@@ -441,8 +442,8 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="log"></param>
         /// <param name="changedType"></param>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
-        private void tryCallback(ServiceRegisterLog log, ServiceRegisterLogClientChangedType changedType)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private void tryCallback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
         {
             if (isLoaded) callback(log, changedType);
         }
@@ -451,7 +452,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="log"></param>
         /// <param name="changedType"></param>
-        private void callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedType changedType)
+        private void callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
         {
             if (clientServiceRegistrars.Count == 0) return;
             LeftArray<ServiceRegistryCommandClientServiceRegistrar> removeServiceRegistrars = new LeftArray<ServiceRegistryCommandClientServiceRegistrar>(0);
@@ -463,7 +464,7 @@ namespace AutoCSer.CommandService
             if (removeServiceRegistrars.Count == clientServiceRegistrars.Count)
             {
                 clientServiceRegistrarsLock.Enter();
-                clientServiceRegistrars.Clear();
+                clientServiceRegistrars.ClearLength();
                 clientServiceRegistrarsLock.Exit();
                 return;
             }

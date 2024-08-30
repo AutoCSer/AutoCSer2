@@ -50,7 +50,7 @@ namespace AutoCSer.ObjectRoot
         ///// <summary>
         ///// 增加对象计数
         ///// </summary>
-        //[MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         //internal void Increment()
         //{
         //    if (++fields.Length <= 0) fields.Length = int.MaxValue;
@@ -97,7 +97,7 @@ namespace AutoCSer.ObjectRoot
         /// <param name="type"></param>
         /// <returns></returns>
 
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static bool IsScanDerived(Type type)
         {
             return type.IsInterface || (type.IsClass && !type.IsSealed);

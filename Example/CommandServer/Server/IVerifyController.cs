@@ -16,7 +16,7 @@ namespace AutoCSer.Example.CommandServer.Server
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>返回值类型必须为 AutoCSer.Net.CommandServerVerifyState</returns>
-        Task<CommandServerVerifyState> Verify(CommandServerSocket socket, int parameter1, int parameter2);
+        Task<CommandServerVerifyStateEnum> Verify(CommandServerSocket socket, int parameter1, int parameter2);
     }
     /// <summary>
     /// 服务认证 API 示例接口实例
@@ -30,11 +30,10 @@ namespace AutoCSer.Example.CommandServer.Server
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>返回值类型必须为 AutoCSer.Net.CommandServerVerifyState</returns>
-        async Task<CommandServerVerifyState> IVerifyController.Verify(CommandServerSocket socket, int parameter1, int parameter2)
+        Task<CommandServerVerifyStateEnum> IVerifyController.Verify(CommandServerSocket socket, int parameter1, int parameter2)
         {
-            await Task.Yield();
-            if (parameter1 == 1 && parameter2 == 2) return CommandServerVerifyState.Success;
-            return CommandServerVerifyState.Fail;
+            if (parameter1 == 1 && parameter2 == 2) return Task.FromResult(CommandServerVerifyStateEnum.Success);
+            return Task.FromResult(CommandServerVerifyStateEnum.Fail);
         }
     }
 }

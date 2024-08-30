@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="callback">服务会话在线检查回调委托</param>
-        [CommandServerMethod(IsInitobj = false, AutoCancelKeep = false)]
+        [CommandServerMethod(AutoCancelKeep = false)]
         void CheckCallback(CommandServerSocket socket, CommandServerCallQueue queue, CommandServerKeepCallback callback);
         /// <summary>
         /// 添加服务注册日志

@@ -17,17 +17,17 @@ namespace AutoCSer.TestCase.ReverseLogCollection
         {
             ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
         }
-        /// <summary>
-        /// 创建服务注册客户端
-        /// </summary>
-        /// <returns></returns>
-        public override CommandClient CreateCommandClient()
-        {
-            return new CommandClient(this
-                , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerifyService>()
-                , CommandClientInterfaceControllerCreator.GetCreator<IServiceRegistryClient, IServiceRegistryService>()
-                );
-        }
+        ///// <summary>
+        ///// 创建服务注册客户端
+        ///// </summary>
+        ///// <returns></returns>
+        //public override CommandClient CreateCommandClient()
+        //{
+        //    return new CommandClient(this
+        //        , CommandClientInterfaceControllerCreator.GetCreator<ITimestampVerifyClient, ITimestampVerifyService>()
+        //        , CommandClientInterfaceControllerCreator.GetCreator<IServiceRegistryClient, IServiceRegistryService>()
+        //        );
+        //}
         /// <summary>
         /// 获取命令客户端套接字事件（初始化时一次性调用）
         /// </summary>

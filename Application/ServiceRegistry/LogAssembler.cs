@@ -30,7 +30,7 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// <summary>
         /// 服务会话集合
         /// </summary>
-        private readonly Dictionary<long, SessionCallback> callbacks = DictionaryCreator.CreateLong<SessionCallback>();
+        private readonly Dictionary<long, SessionCallback> callbacks = AutoCSer.Extensions.DictionaryCreator.CreateLong<SessionCallback>();
         /// <summary>
         /// 服务注册日志组装
         /// </summary>
@@ -65,23 +65,23 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// <returns></returns>
         internal ServiceRegisterResponse Append(CommandServerSocket socket, ServiceRegisterLog log)
         {
-            ServiceRegisterOperationType operationType = log.OperationType;
+            ServiceRegisterOperationTypeEnum operationType = log.OperationType;
             switch (operationType)
             {
-                case ServiceRegisterOperationType.ClusterNode:
-                case ServiceRegisterOperationType.ClusterMain:
-                case ServiceRegisterOperationType.Singleton:
+                case ServiceRegisterOperationTypeEnum.ClusterNode:
+                case ServiceRegisterOperationTypeEnum.ClusterMain:
+                case ServiceRegisterOperationTypeEnum.Singleton:
                     uint versioin = log.Version;
-                    if (versioin < maxVersion) return new ServiceRegisterResponse(ServiceRegisterState.VersionTooLow);
+                    if (versioin < maxVersion) return new ServiceRegisterResponse(ServiceRegisterStateEnum.VersionTooLow);
                     if (versioin != maxVersion)
                     {
-                        logs.Clear();
+                        logs.ClearLength();
                         MainLog = null;
                         maxVersion = versioin;
                     }
                     if (MainLog == null)
                     {
-                        Session session = ServiceRegistry.GetSession(socket);
+                        ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
                         MainLog = new SessionLog(session, log);
                         ServiceRegistry.Callback(callbacks, log);
                         session.Regiser(this);
@@ -90,7 +90,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                     checkSessionDropped();
                     if (MainLog == null)
                     {
-                        Session session = ServiceRegistry.GetSession(socket);
+                        ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
                         MainLog = new SessionLog(session, log);
                         ServiceRegistry.Callback(callbacks, log);
                         session.Regiser(this);
@@ -98,18 +98,18 @@ namespace AutoCSer.CommandService.ServiceRegister
                     }
                     switch (operationType)
                     {
-                        case ServiceRegisterOperationType.ClusterNode:
-                        case ServiceRegisterOperationType.ClusterMain:
+                        case ServiceRegisterOperationTypeEnum.ClusterNode:
+                        case ServiceRegisterOperationTypeEnum.ClusterMain:
                             switch (MainLog.Log.OperationType)
                             {
-                                case ServiceRegisterOperationType.ClusterNode:
-                                case ServiceRegisterOperationType.ClusterMain:
+                                case ServiceRegisterOperationTypeEnum.ClusterNode:
+                                case ServiceRegisterOperationTypeEnum.ClusterMain:
                                     break;
-                                default: return new ServiceRegisterResponse(ServiceRegisterState.OperationTypeConflict);
+                                default: return new ServiceRegisterResponse(ServiceRegisterStateEnum.OperationTypeConflict);
                             }
-                            Session session = ServiceRegistry.GetSession(socket);
+                            ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
                             SessionLog sessionLog = new SessionLog(session, log);
-                            if (operationType == ServiceRegisterOperationType.ClusterNode) logs.Add(sessionLog);
+                            if (operationType == ServiceRegisterOperationTypeEnum.ClusterNode) logs.Add(sessionLog);
                             else
                             {
                                 logs.Add(MainLog);
@@ -119,23 +119,23 @@ namespace AutoCSer.CommandService.ServiceRegister
                             session.Regiser(this);
                             return new ServiceRegisterResponse(log.ServiceID);
                         default:
-                            if (MainLog.Log.OperationType != ServiceRegisterOperationType.Singleton) return new ServiceRegisterResponse(ServiceRegisterState.OperationTypeConflict);
+                            if (MainLog.Log.OperationType != ServiceRegisterOperationTypeEnum.Singleton) return new ServiceRegisterResponse(ServiceRegisterStateEnum.OperationTypeConflict);
                             SessionLog removeLog;
                             while (logs.TryPop(out removeLog)) ;
-                            session = ServiceRegistry.GetSession(socket);
+                            session = ServiceRegistry.GetOrCreateSession(socket);
                             logs.Add(new SessionLog(session, log));
                             session.Regiser(this);
                             ServiceRegistry.Callback(callbacks, MainLog.Log.CreateOffline());
                             AutoCSer.Threading.SecondTimer.TaskArray.Append(new LogAssemblerQueueNode(this).AppendQueueNode, (int)log.TimeoutSeconds + 1);
                             return new ServiceRegisterResponse(log.ServiceID);
                     }
-                case ServiceRegisterOperationType.Logout: return logout(log);
-                case ServiceRegisterOperationType.Clear:
-                    logs.Clear();
+                case ServiceRegisterOperationTypeEnum.Logout: return logout(log);
+                case ServiceRegisterOperationTypeEnum.Clear:
+                    logs.ClearLength();
                     MainLog = null;
                     ServiceRegistry.Callback(callbacks, log);
-                    return new ServiceRegisterResponse(ServiceRegisterState.Success);
-                default: return new ServiceRegisterResponse(ServiceRegisterState.UnrecognizableOperationType);
+                    return new ServiceRegisterResponse(ServiceRegisterStateEnum.Success);
+                default: return new ServiceRegisterResponse(ServiceRegisterStateEnum.UnrecognizableOperationType);
             }
         }
         /// <summary>
@@ -145,9 +145,9 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// <returns></returns>
         private ServiceRegisterResponse logout(ServiceRegisterLog log)
         {
-            if (MainLog == null) return new ServiceRegisterResponse(ServiceRegisterState.NotFoundServiceID);
+            if (MainLog == null) return new ServiceRegisterResponse(ServiceRegisterStateEnum.NotFoundServiceID);
             long serviceID = log.ServiceID;
-            if (serviceID == 0) return new ServiceRegisterResponse(ServiceRegisterState.NotFoundServiceID);
+            if (serviceID == 0) return new ServiceRegisterResponse(ServiceRegisterStateEnum.NotFoundServiceID);
             if (MainLog.Log.ServiceID == serviceID)
             {
                 ServiceRegistry.Callback(callbacks, log);
@@ -168,7 +168,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                 }
                 ++logIndex;
             }
-            return new ServiceRegisterResponse(ServiceRegisterState.NotFoundServiceID);
+            return new ServiceRegisterResponse(ServiceRegisterStateEnum.NotFoundServiceID);
         }
         /// <summary>
         /// 单例主服务超时下线
@@ -187,7 +187,7 @@ namespace AutoCSer.CommandService.ServiceRegister
         {
             if (logs.Count != 0)
             {
-                if (MainLog.Log.OperationType == ServiceRegisterOperationType.Singleton) logs.RemoveAllToEnd(SessionLog.CheckSessionDropped);
+                if (MainLog.Log.OperationType == ServiceRegisterOperationTypeEnum.Singleton) logs.RemoveAllToEnd(SessionLog.CheckSessionDropped);
                 else
                 {
                     foreach (SessionLog droppedLog in logs.GetRemoveAllToEnd(SessionLog.CheckSessionDropped))
@@ -203,7 +203,7 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// <summary>
         /// 服务注册会话掉线
         /// </summary>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void SessionDropped()
         {
             if (MainLog != null) checkSessionDropped();
@@ -222,7 +222,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                     ServiceRegistry.SetDropped(socket);
                     return;
                 }
-                if (MainLog.Log.OperationType != ServiceRegisterOperationType.Singleton)
+                if (MainLog.Log.OperationType != ServiceRegisterOperationTypeEnum.Singleton)
                 {
                     foreach (SessionLog log in logs)
                     {
@@ -239,7 +239,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                 ServiceRegistry.SetDropped(socket);
                 return;
             }
-            Session session = ServiceRegistry.GetSession(socket);
+            ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
             callbacks[session.SessionID] = new SessionCallback(session, callback);
         }
         /// <summary>
@@ -252,7 +252,7 @@ namespace AutoCSer.CommandService.ServiceRegister
             if (MainLog != null)
             {
                 if (!callback.Callback(MainLog.Log)) return false;
-                if (MainLog.Log.OperationType != ServiceRegisterOperationType.Singleton)
+                if (MainLog.Log.OperationType != ServiceRegisterOperationTypeEnum.Singleton)
                 {
                     foreach (SessionLog log in logs)
                     {

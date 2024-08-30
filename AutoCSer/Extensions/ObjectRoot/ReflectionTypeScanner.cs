@@ -13,7 +13,7 @@ namespace AutoCSer.ObjectRoot
         /// <summary>
         /// 类型统计数据集合
         /// </summary>
-        internal readonly Dictionary<Type, ReflectionType> ObjectTypeCache = DictionaryCreator.CreateOnly<Type, ReflectionType>();
+        internal readonly Dictionary<HashObject<Type>, ReflectionType> ObjectTypeCache = DictionaryCreator.CreateHashObject<Type, ReflectionType>();
         /// <summary>
         /// 获取统计数组类型集合
         /// </summary>

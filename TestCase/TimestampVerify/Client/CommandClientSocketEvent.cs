@@ -35,9 +35,9 @@ namespace AutoCSer.TestCase.TimestampVerifyClient
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public override async Task<CommandClientReturnValue<CommandServerVerifyState>> CallVerifyMethod(CommandClientController controller)
+        public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
-            return TimestampVerifyChecker.Verify(controller, AutoCSer.TestCase.Common.Config.TimestampVerifyString);
+            return getCompletedTask(TimestampVerifyChecker.Verify(controller, AutoCSer.TestCase.Common.Config.TimestampVerifyString));
         }
     }
 }

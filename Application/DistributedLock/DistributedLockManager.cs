@@ -173,7 +173,7 @@ namespace AutoCSer.CommandService
             }
             else
             {
-                AutoCSer.Threading.SecondTimer.TaskArray.Append(request.WaitTimeout, Math.Max(timeoutSeconds, 1), SecondTimerTaskThreadMode.Synchronous);
+                AutoCSer.Threading.SecondTimer.TaskArray.Append(request.WaitTimeout, Math.Max(timeoutSeconds, 1), SecondTimerTaskThreadModeEnum.Synchronous);
                 appendWait(request);
                 callback = null;
             }

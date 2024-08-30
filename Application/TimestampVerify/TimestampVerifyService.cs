@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using AutoCSer.CommandService.TimestampVerify;
 using AutoCSer.Net;
 
 namespace AutoCSer.CommandService
@@ -7,8 +8,13 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
     /// </summary>
+    [CommandServerController(InterfaceType = typeof(ITimestampVerifyService))]
     public class TimestampVerifyService : ITimestampVerifyService, IDisposable
     {
+        /// <summary>
+        /// 会话对象操作接口
+        /// </summary>
+        private readonly ICommandServerSocketSessionObject<TimestampVerifySession> socketSessionObject;
         /// <summary>
         /// 递增登录时间戳检查器
         /// </summary>
@@ -24,12 +30,14 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
         /// </summary>
+        /// <param name="listener"></param>
         /// <param name="verifyString">服务认证验证字符串</param>
         /// <param name="maxSecondsDifference">最大时间差秒数，默认为 5</param>
-        public TimestampVerifyService(string verifyString, byte maxSecondsDifference = 5)
+        public TimestampVerifyService(CommandListener listener, string verifyString, byte maxSecondsDifference = 5)
         {
             this.verifyString = verifyString;
             timestampChecker = new TimestampVerifyChecker(maxSecondsDifference);
+            socketSessionObject = (ICommandServerSocketSessionObject<TimestampVerifySession>)listener.SessionObject ?? CommandServerSocketSessionObject.Default;
         }
         /// <summary>
         /// 释放资源
@@ -43,27 +51,6 @@ namespace AutoCSer.CommandService
             }
         }
         /// <summary>
-        /// 尝试获取会话对象
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <returns></returns>
-        protected virtual ITimestampVerifySession tryGetSessionObject(CommandServerSocket socket)
-        {
-            object sessionObject = socket.SessionObject;
-            return sessionObject == null ? null : (ITimestampVerifySession)sessionObject;
-        }
-        /// <summary>
-        /// 创建会话对象
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <returns></returns>
-        protected virtual ITimestampVerifySession createSessionObject(CommandServerSocket socket)
-        {
-            TimestampVerifySession session =  new TimestampVerifySession();
-            socket.SessionObject = session;
-            return session;
-        }
-        /// <summary>
         /// 验证函数，默认采用 MD5 做 Hash 计算
         /// </summary>
         /// <param name="socket"></param>
@@ -72,24 +59,24 @@ namespace AutoCSer.CommandService
         /// <param name="hashData">验证 Hash 数据</param>
         /// <param name="timestamp">待验证时间戳</param>
         /// <returns></returns>
-        public virtual CommandServerVerifyState Verify(CommandServerSocket socket, CommandServerCallQueue queue, ulong randomPrefix, byte[] hashData, ref long timestamp)
+        public virtual CommandServerVerifyStateEnum Verify(CommandServerSocket socket, CommandServerCallQueue queue, ulong randomPrefix, byte[] hashData, ref long timestamp)
         {
             if (hashData?.Length == 16)
             {
-                ITimestampVerifySession session = tryGetSessionObject(socket);
+                TimestampVerifySession session = socketSessionObject.TryGetSessionObject(socket);
                 if (session == null)
                 {
                     long serverTimestamp = 0;
                     switch(timestampChecker.Check(ref timestamp, ref serverTimestamp))
                     {
-                        case CommandServerVerifyState.Success: break;
-                        case CommandServerVerifyState.Retry:
-                            session = createSessionObject(socket);
+                        case CommandServerVerifyStateEnum.Success: break;
+                        case CommandServerVerifyStateEnum.Retry:
+                            session = socketSessionObject.CreateSessionObject(socket);
                             session.ServerTimestamp = serverTimestamp;
-                            return CommandServerVerifyState.Retry;
+                            return CommandServerVerifyStateEnum.Retry;
                         default:
                             timestamp = 0;
-                            return CommandServerVerifyState.Fail;
+                            return CommandServerVerifyStateEnum.Fail;
                     }
                 }
                 else
@@ -97,24 +84,24 @@ namespace AutoCSer.CommandService
                     long serverTimestamp = session.ServerTimestamp;
                     switch (timestampChecker.Check(ref timestamp, ref serverTimestamp))
                     {
-                        case CommandServerVerifyState.Success: break;
-                        case CommandServerVerifyState.Retry:
+                        case CommandServerVerifyStateEnum.Success: break;
+                        case CommandServerVerifyStateEnum.Retry:
                             session.ServerTimestamp = serverTimestamp;
-                            return CommandServerVerifyState.Retry;
+                            return CommandServerVerifyStateEnum.Retry;
                         default:
                             timestamp = 0;
-                            return CommandServerVerifyState.Fail;
+                            return CommandServerVerifyStateEnum.Fail;
                     }
                 }
                 if (md5 == null) md5 = new MD5CryptoServiceProvider();
                 if (AutoCSer.Net.TimestampVerify.Md5Equals(AutoCSer.Net.TimestampVerify.Md5(md5, verifyString, randomPrefix, timestamp), hashData) == 0)
                 {
                     timestampChecker.Set(timestamp);
-                    return CommandServerVerifyState.Success;
+                    return CommandServerVerifyStateEnum.Success;
                 }
             }
             timestamp = 0;
-            return CommandServerVerifyState.Fail;
+            return CommandServerVerifyStateEnum.Fail;
         }
     }
 }

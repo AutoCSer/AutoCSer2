@@ -27,11 +27,13 @@
     <Compile Include="IProcessGuardService.cs" />
     <Compile Include="IProcessGuardClient.cs" />
     <Compile Include="IProcessGuardClientSocketEvent.cs" />
+    <Compile Include="ProcessGuardClient.cs" />
     <Compile Include="ProcessGuardCommandClientConfig.cs" />
     <Compile Include="ProcessGuardService.cs" />
     <Compile Include="ProcessGuardClientSocketEvent.cs" />
     <Compile Include="ProcessGuardInfo.cs" />
     <Compile Include="ProcessGuardSwitchProcess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>

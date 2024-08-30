@@ -1,9 +1,11 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+#pragma warning disable
 namespace AutoCSer.TestCase
 {
     /// <summary>
@@ -135,37 +137,37 @@ namespace AutoCSer.TestCase
 
         void IServerKeepCallbackController.KeepCallbackCountSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback));
+            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountSocket(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountSocketReturn(CommandServerSocket socket, CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback));
+            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountSocket(CommandServerSocket socket, CommandServerKeepCallbackCount Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountReturn(int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback));
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCount(int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountReturn(CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback));
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCount(CommandServerKeepCallbackCount Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
 
         void IServerKeepCallbackController.KeepCallbackQueueSocketReturn(CommandServerSocket socket, CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
@@ -205,37 +207,37 @@ namespace AutoCSer.TestCase
 
         void IServerKeepCallbackController.KeepCallbackCountQueueSocketReturn(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback));
+            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueueSocket(CommandServerSocket socket, CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueueSocketReturn(CommandServerSocket socket, CommandServerCallQueue queue, CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback));
+            KeepCallback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueueSocket(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, CommandServerKeepCallbackCount Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueueReturn(CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback));
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueue(CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueueReturn(CommandServerCallQueue queue, CommandServerKeepCallbackCount<string> Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback));
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback).NotWait();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueue(CommandServerCallLowPriorityQueue queue, CommandServerKeepCallbackCount Callback)
         {
-            CatchTask.AddIgnoreException(KeepCallback(Callback));
+            KeepCallback(Callback).NotWait();
         }
     }
 }

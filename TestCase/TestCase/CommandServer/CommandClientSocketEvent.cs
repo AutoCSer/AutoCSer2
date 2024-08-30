@@ -47,6 +47,55 @@ namespace AutoCSer.TestCase
         /// </summary>
         public CommandClientController<IClientTaskQueueContextController, int> ClientTaskQueueContextController { get; private set; }
         /// <summary>
+        /// 定义对称接口测试
+        /// </summary>
+        public IDefinedSymmetryController DefinedSymmetryController { get; private set; }
+        /// <summary>
+        /// 客户端定义非对称测试接口
+        /// </summary>
+        public IDefinedDissymmetryClientController DefinedDissymmetryClientController { get; private set; }
+
+        /// <summary>
+        /// 同步接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientSynchronousController ServerBindContextClientSynchronousController { get; private set; }
+        /// <summary>
+        /// 仅发送数据接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientSendOnlyController ServerBindContextClientSendOnlyController { get; private set; }
+        /// <summary>
+        /// 队列接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientQueueController ServerBindContextClientQueueController { get; private set; }
+        /// <summary>
+        /// 回调接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientCallbackController ServerBindContextClientCallbackController { get; private set; }
+        /// <summary>
+        /// 保持回调接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientKeepCallbackController ServerBindContextClientKeepCallbackController { get; private set; }
+        /// <summary>
+        /// 异步任务接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientTaskController ServerBindContextClientTaskController { get; private set; }
+        /// <summary>
+        /// 保持回调异步任务接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientKeepCallbackTaskController ServerBindContextClientKeepCallbackTaskController { get; private set; }
+        /// <summary>
+        /// 控制器异步队列接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientTaskQueueController ServerBindContextClientTaskQueueController { get; private set; }
+        /// <summary>
+        /// 定义对称接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IDefinedSymmetryController ServerBindContextDefinedSymmetryController { get; private set; }
+        /// <summary>
+        /// 客户端定义非对称测试接口（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IDefinedDissymmetryClientController ServerBindContextDefinedDissymmetryClientController { get; private set; }
+        /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
         public override IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters
@@ -62,6 +111,19 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackTaskController), typeof(IClientKeepCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueController), typeof(IClientTaskQueueController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueContextController), typeof(int), typeof(IClientTaskQueueContextController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IDefinedSymmetryController), typeof(IDefinedSymmetryController));
+                yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(IDefinedDissymmetryClientController));
+
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerSynchronousController), typeof(ServerBindContext.IClientSynchronousController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerSendOnlyController), typeof(ServerBindContext.IClientSendOnlyController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerQueueController), typeof(ServerBindContext.IClientQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerCallbackController), typeof(ServerBindContext.IClientCallbackController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackController), typeof(ServerBindContext.IClientKeepCallbackController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskController), typeof(ServerBindContext.IClientTaskController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackTaskController), typeof(ServerBindContext.IClientKeepCallbackTaskController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IClientTaskQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IDefinedSymmetryController), typeof(ServerBindContext.IDefinedSymmetryController));
+                yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(ServerBindContext.IDefinedDissymmetryClientController));
             }
         }
         /// <summary>
@@ -74,9 +136,9 @@ namespace AutoCSer.TestCase
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public override async Task<CommandClientReturnValue<CommandServerVerifyState>> CallVerifyMethod(CommandClientController controller)
+        public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
-            return ((IClientSynchronousController)controller).SynchronousSocket(int.MinValue);
+            return getCompletedTask(((IClientSynchronousController)controller).SynchronousSocket(int.MinValue));
         }
     }
 }

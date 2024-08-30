@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>数据视图示例 - AutoCSer 高性能 C# 互联网应用开发框架</title>
+    <script language="javascript" type="text/javascript" src="/AutoCSerScript/load.js?v=A9984D#S/ExampleView"></script>
+</head>
+<body>
+    <div>
+        <p>. <b>取值表达式</b> 由符号 {<b></b>{ 与 }} 定义</p>
+        <p><b>#</b> 开始表示从 数据视图全局客户端对象 取值，成员名称为 <b>Client</b>，数据来源为 <b>AutoCSer.Pub.ClientViewData</b>，否则为服务端视图数据定义</p>
+        <p><b>Query</b> 为 数据视图全局客户端对象 <b>AutoCSer.Pub.ClientViewData</b> 的内置成员，数据来源于当前页面地址 <b>location.search</b> 与 <b>location.hash</b> 的解析键值对</p>
+        <p>{<b></b>{#Query.left}} = {{#Query.left}}</p>
+        <p>{<b></b>{Parameters.left + Parameters.right}} = {{Parameters.left}} + {{Parameters.right}} = {{Parameters.left + Parameters.right}} = {<b></b>{Sum}} = {{Sum}} = {<b></b>{TaskSum}} = {{TaskSum}}</p>
+        <p>表达式中间出现 <b>$</b> 将替换为成员引用符号 <b>.</b>，后续开始调用客户端成员，比如下面的表达式表示服务端成员 <b>Sum</b> 调用客户端扩展方法 <b>Number.prototype.ToTrue()</b></b></p>
+        <p>{<b></b>{Sum$ToTrue()}} = {{Sum$ToTrue()}}</p>
+        <p><b>??</b> 左侧表达式值不为 null 时取左侧值，否则取右侧值</p>
+        <p>{<b></b>{#Query.x ?? Sum}} = {{#Query.x ?? Sum}}</p>
+    </div>
+    <div>
+        <p>. <b>视图节点</b> 由成对的 <b>&lt;!--COMMAND#NAME:VALUE--&gt;</b> 组成</p>
+        <p>. <b>COMMAND</b> 为指令标识，支持 <b>PUSH</b>、<b>LOOP</b>、<b>IF</b>、<b>NOT</b>、<b>MARK</b> 5 种指令</p>
+        <p>. <b>#NAME</b> 为节点名称标识，用于避免节点标记重复嵌套，为可选项</p>
+        <p>. <b>:VALUE</b> 为取值表达式，<b>MARK</b> 标记节点无该选项</p>
+        <p>. <b>PUSH</b> 指令用于将对象指定为节点内成员引用对象，比如下面的节点表示将 <b>Parameters</b> 对象指定为节点内成员引用对象</p>
+        <p>&lt;!--PUSH:Parameters--&gt;{<b></b>{left + right}}&lt;!--PUSH:Parameters--&gt;</p>
+        <p><!--PUSH:Parameters-->{{left + right}}<!--PUSH:Parameters--></p>
+        <p>. <b>LOOP</b> 指令用于将数组元素循环指定为节点内成员引用对象，服务端实现 <b>System.Collections.Generic.IEnumerable&lt;T&gt;</b> 的数据都可以当成数组看待，比如下面的节点表示将 <b>Left10</b> 中的数字循环指定为节点内成员引用对象</p>
+        <p>&lt;!--LOOP:Left10--&gt;{<b></b>{$toString()}} , &lt;!--LOOP:Left10--&gt;</p>
+        <p><!--LOOP:Left10-->{{$toString()}} , <!--LOOP:Left10--></p>
+        <p>. <b>IF</b> / <b>NOT</b> 指令用于表达式转逻辑值判定，不满足条件则忽略该节点，根据 JavaScript 判定规则，空字符、数字 0 与 null 都将转换为逻辑值 false 处理</p>
+        <p>
+            &lt;!--IF:Parameters.left >= Parameters.right--&gt;{<b></b>{Parameters.left}} &gt;= {<b></b>{Parameters.right}}&lt;!--IF:Parameters.left >= Parameters.right--&gt;
+        </p>
+        <p>
+            &lt;!--NOT:Parameters.left >= Parameters.right--&gt;{<b></b>{Parameters.left}} &lt; {<b></b>{Parameters.right}}&lt;!--NOT:Parameters.left >= Parameters.right--&gt;
+        </p>
+        <p>
+            <!--IF:Parameters.left >= Parameters.right-->{{Parameters.left}} >= {{Parameters.right}}<!--IF:Parameters.left >= Parameters.right-->
+            <!--NOT:Parameters.left >= Parameters.right-->{{Parameters.left}} < {{Parameters.right}}<!--NOT:Parameters.left >= Parameters.right-->
+        </p>
+        <p>视图节点内部表达式，如果以 <b>.</b> 开始则表示向上层回溯成员引用对象，<b>.</b> 的数量表示回溯层级数量</p>
+        <p>&lt;!--PUSH:Parameters--&gt;{<b></b>{.Parameters.left}} + {<b></b>{.Parameters.right}} = {<b></b>{left + right}}&lt;!--PUSH:Parameters--&gt;</p>
+        <p><!--PUSH:Parameters-->{{.Parameters.left}} + {{.Parameters.right}} = {{left + right}}<!--PUSH:Parameters--></p>
+        <p>. 测试数据示例</p>
+        <div>
+            <!--LOOP:DataList-->
+            <p>IntData = {{IntData}} , StringData = {{StringData}} , <!--PUSH:NextData-->NextData.IntData = {{IntData}} , NextData.StringData = {{StringData}}<!--PUSH:NextData--></p>
+            <!--LOOP:DataList-->
+        </div>
+    </div>
+    <div>
+        <p>. <b>预定义符号</b> 是框架默认的替换字符串，字符串两侧各有两个下划线避免与应用代码冲突</p>
+        <p><b>JAVASCRIPTPATH</b> 替换为中间件成员 AutoCSer.NetCoreWeb.ViewMiddleware.AutoCSerScriptPath 定义，用于指定框架脚本目录相对项目路径，当前项目定义为 <b>AutoCSerScript</b></p>
+        <p><b>JSONQUERYNAME</b> 替换为中间件成员 AutoCSer.NetCoreWeb.ViewMiddleware.JsonQueryName 定义，用于指定视图数据请求查询 JSON 参数的名称，当前项目定义为 <b>j</b></p>
+        <p><b>CALLBACKQUERYNAME</b> 替换为中间件成员 AutoCSer.NetCoreWeb.ViewMiddleware.CallbackQueryName 定义，用于指定视图数据请求的回调函数参数的名称，当前项目定义为 <b>c</b></p>
+        <p><b>VERSIONQUERYNAME</b> 替换为中间件成员 AutoCSer.NetCoreWeb.ViewMiddleware.VersionQueryName 定义，用于指定 URL 版本参数的名称，当前项目定义为 <b>v</b></p>
+        <p><b>VERSION</b> 替换为项目代码生成时间戳，项目代码生成默认由项目编译触发，也就是说每次项目编译成功并且代码生成正常都会更新该版本值，当前值为 <b>A9984D</b></p>
+        <p><b>ERRORPATH</b> 替换为中间件成员 AutoCSer.NetCoreWeb.ViewMiddleware.ErrorRequestPath 定义，用于指定收集客户端错误信息的请求地址，传参数据基本定义参考 AutoCSer.NetCoreWeb.ClientMessage，当前项目定义为 <b>/ClientError</b></p>
+        <p><b>VIEWOVERID</b> 替换为中间件成员 AutoCSer.NetCoreWeb.ViewMiddleware.ViewOverId 定义，用于指定页面初始化等待的默认遮罩层控件 id，当前项目定义为 <b>AutoCSerViewOver</b></p>
+    </div>
+    <script language="javascript" type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?dbf5c7b4884f5ce1150a825c5d55bdc9";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

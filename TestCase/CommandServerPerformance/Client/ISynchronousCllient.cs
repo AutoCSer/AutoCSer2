@@ -16,7 +16,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(IsInitobj = false)]
         CommandClientReturnValue<int> Synchronous(int left, int right);
         /// <summary>
         /// 服务端回调返回结果
@@ -24,7 +23,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(IsInitobj = false)]
         CommandClientReturnValue<int> Callback(int left, int right);
         /// <summary>
         /// 服务端配置队列执行返回结果
@@ -32,7 +30,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(IsInitobj = false)]
         CommandClientReturnValue<int> Queue(int left, int right);
         /// <summary>
         /// 服务端 async 任务返回返回结果
@@ -40,7 +37,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(IsInitobj = false)]
         CommandClientReturnValue<int> Task(int left, int right);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -48,7 +44,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(IsInitobj = false)]
         CommandClientReturnValue<int> TaskQueue(int left, int right);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -57,7 +52,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        [CommandClientMethod(IsInitobj = false)]
         CommandClientReturnValue<int> TaskQueueKey(int queueKey, int left, int right);
     }
     /// <summary>
@@ -71,12 +65,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task Test()
         {
-            CommandClientConfig<ISynchronousCllient> commandClientConfig = new CommandClientConfig<ISynchronousCllient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.Performance), CommandPoolBits = 16, CheckSeconds = 0 };
+            CommandClientConfig<ISynchronousCllient> commandClientConfig = new CommandClientConfig<ISynchronousCllient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CommandPoolBits = 11, CheckSeconds = 0, CommandQueueCount = 1 << 10 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<ISynchronousCllient, IService>()))
             {
                 if (await commandClient.GetSocketAsync() == null)
                 {
-                    Console.WriteLine("ERROR");
+                    ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
                 //CommandClientSocketEvent<ISynchronousCllient> client = (CommandClientSocketEvent<ISynchronousCllient>)commandClient.SocketEvent;
@@ -86,12 +80,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //for (int right = testCount; right != 0; CheckSynchronous(client.InterfaceController.Synchronous(Left, --right))) ;
                 //await LoopCompleted(nameof(SynchronousCllient), nameof(client.InterfaceController.Synchronous));
 
-                await new SynchronousCllient(commandClient, nameof(Synchronous)).Wait();
-                await new SynchronousCllient(commandClient, nameof(Callback)).Wait();
-                await new SynchronousCllient(commandClient, nameof(Queue)).Wait();
-                await new SynchronousCllient(commandClient, nameof(TaskQueue)).Wait();
-                await new SynchronousCllient(commandClient, nameof(TaskQueueKey)).Wait();
-                await new SynchronousCllient(commandClient, nameof(Task)).Wait();
+                await new SynchronousCllient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
             }
         }
 

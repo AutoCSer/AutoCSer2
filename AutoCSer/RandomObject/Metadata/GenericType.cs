@@ -26,7 +26,7 @@ namespace AutoCSer.RandomObject.Metadata
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static GenericType create<T>()
         {
@@ -64,7 +64,7 @@ namespace AutoCSer.RandomObject.Metadata
         /// <summary>
         /// 创建随机对象
         /// </summary>
-        internal override Delegate CreateDelegate { get { return (Func<Config, T>)Creator.Create<T>; } }
+        internal override Delegate CreateDelegate { get { return (Func<Config, bool, T>)Creator.Create<T>; } }
         /// <summary>
         /// 创建随机对象
         /// </summary>

@@ -11,8 +11,13 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 默认服务注册
     /// </summary>
+    [CommandServerController(InterfaceType = typeof(IServiceRegistryService))]
     public class ServiceRegistryService : CommandServerBindController, IServiceRegistryService
     {
+        /// <summary>
+        /// 服务注册会话对象操作接口
+        /// </summary>
+        private readonly ICommandServerSocketSessionObject<ServiceRegistryService, ServiceRegisterSession> socketSessionObject;
         /// <summary>
         /// 命令服务
         /// </summary>
@@ -28,7 +33,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 获取服务注册日志回调集合
         /// </summary>
-        private readonly Dictionary<long, SessionCallback> callbacks = DictionaryCreator.CreateLong<SessionCallback>();
+        private readonly Dictionary<long, SessionCallback> callbacks = AutoCSer.Extensions.DictionaryCreator.CreateLong<SessionCallback>();
         /// <summary>
         /// 需要移除的服务会话集合
         /// </summary>
@@ -44,29 +49,26 @@ namespace AutoCSer.CommandService
             IdentityGenerator = identityGenerator
              ?? ((ConfigObject<DistributedMillisecondIdentityGenerator>)AutoCSer.Configuration.Common.Get(typeof(DistributedMillisecondIdentityGenerator)))?.Value
              ?? new DistributedMillisecondIdentityGenerator();
+            socketSessionObject = (ICommandServerSocketSessionObject<ServiceRegistryService, ServiceRegisterSession>)listener.SessionObject ?? CommandServerSocketSessionObject.Default;
         }
         /// <summary>
         /// 获取当前套接字连接会话对象
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
-        internal Session GetSession(CommandServerSocket socket)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal ServiceRegisterSession GetOrCreateSession(CommandServerSocket socket)
         {
-            object sessionObject = socket.SessionObject;
-            if (sessionObject != null) return (Session)sessionObject;
-
-            Session session = new Session(this, socket, IdentityGenerator.GetNext());
-            socket.SessionObject = session;
-            return session;
+            return socketSessionObject.TryGetSessionObject(socket) ?? socketSessionObject.CreateSessionObject(this, socket);
         }
         /// <summary>
         /// 设置会话掉线
         /// </summary>
         /// <param name="socket"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void SetDropped(CommandServerSocket socket)
         {
-            object sessionObject = socket.SessionObject;
-            if (sessionObject != null) ((Session)sessionObject).SetDropped();
+            socketSessionObject.TryGetSessionObject(socket)?.SetDropped();
         }
         /// <summary>
         /// 设置服务会话在线检查回调委托
@@ -76,7 +78,7 @@ namespace AutoCSer.CommandService
         /// <param name="callback">服务会话在线检查回调委托</param>
         public void CheckCallback(CommandServerSocket socket, CommandServerCallQueue queue, CommandServerKeepCallback callback)
         {
-            GetSession(socket).CheckCallback = callback;
+            GetOrCreateSession(socket).CheckCallback = callback;
         }
         /// <summary>
         /// 创建服务注册日志组装
@@ -101,10 +103,10 @@ namespace AutoCSer.CommandService
             if (!checkServiceName(ref serviceNameHashString))
             {
                 assembler = null;
-                return new ServiceRegisterResponse(ServiceRegisterState.UnsupportedServiceName);
+                return new ServiceRegisterResponse(ServiceRegisterStateEnum.UnsupportedServiceName);
             }
             if (!services.TryGetValue(serviceNameHashString, out assembler)) services.Add(serviceNameHashString, assembler = createAssembler());
-            return new ServiceRegisterResponse(ServiceRegisterState.Success);
+            return new ServiceRegisterResponse(ServiceRegisterStateEnum.Success);
         }
         /// <summary>
         /// 服务注册日志回调
@@ -113,7 +115,7 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         internal void Callback(Dictionary<long, SessionCallback> callbacks, ServiceRegisterLog log)
         {
-            removeCallbackSessionID.Clear();
+            removeCallbackSessionID.ClearLength();
             callback(callbacks, log);
             callback(this.callbacks, log);
         }
@@ -142,7 +144,7 @@ namespace AutoCSer.CommandService
         {
             LogAssembler assembler;
             ServiceRegisterResponse response = getAssembler(log.ServiceName, out assembler);
-            return response.State == ServiceRegisterState.Success ? assembler.Append(socket, log) : response;
+            return response.State == ServiceRegisterStateEnum.Success ? assembler.Append(socket, log) : response;
         }
         /// <summary>
         /// 获取服务注册日志
@@ -157,7 +159,7 @@ namespace AutoCSer.CommandService
             {
                 LogAssembler assembler;
                 ServiceRegisterResponse response = getAssembler(serviceName, out assembler);
-                if (response.State != ServiceRegisterState.Success)
+                if (response.State != ServiceRegisterStateEnum.Success)
                 {
                     callback.CancelKeep(CommandServerCall.GetCustom((byte)response.State));
                     return;
@@ -178,12 +180,12 @@ namespace AutoCSer.CommandService
                 SetDropped(socket);
                 return;
             }
-            Session session = GetSession(socket);
+            ServiceRegisterSession session = GetOrCreateSession(socket);
             long sessionID = session.SessionID;
             SessionCallback sessionCallback;
             callbacks.TryGetValue(sessionID, out sessionCallback);
             callbacks[sessionID] = new SessionCallback(session, callback);
-            sessionCallback.CancelKeep(ServiceRegisterState.NewLogCallback);
+            sessionCallback.CancelKeep(ServiceRegisterStateEnum.NewLogCallback);
         }
     }
 }

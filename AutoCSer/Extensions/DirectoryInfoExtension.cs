@@ -18,22 +18,22 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="path">目录</param>
         /// <returns>\结尾的路径全名</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string fullName(this DirectoryInfo path)
         {
             string name = path.FullName;
             return name[name.Length - 1] == Path.DirectorySeparatorChar ? name : (name + Separator);
         }
-        /// <summary>
-        /// 目录分隔符\替换
-        /// </summary>
-        /// <param name="path">路径</param>
-        /// <returns>替换\后的路径</returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
-        public static string pathSeparator(this string path)
-        {
-            if (Path.DirectorySeparatorChar != '\\') path.replaceNotNull('\\', Path.DirectorySeparatorChar);
-            return path;
-        }
+        ///// <summary>
+        ///// 目录分隔符\替换
+        ///// </summary>
+        ///// <param name="path">路径</param>
+        ///// <returns>替换\后的路径</returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public static string pathSeparator(this string path)
+        //{
+        //    if (Path.DirectorySeparatorChar != '\\') path.replaceNotNull('\\', Path.DirectorySeparatorChar);
+        //    return path;
+        //}
     }
 }

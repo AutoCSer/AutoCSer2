@@ -11,7 +11,7 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// <summary>
         /// 服务注册会话对象
         /// </summary>
-        internal readonly Session Session;
+        internal readonly ServiceRegisterSession Session;
         /// <summary>
         /// 服务注册日志
         /// </summary>
@@ -21,7 +21,7 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// </summary>
         /// <param name="session"></param>
         /// <param name="log"></param>
-        internal SessionLog(Session session, ServiceRegisterLog log)
+        internal SessionLog(ServiceRegisterSession session, ServiceRegisterLog log)
         {
             Session = session;
             Log = log;

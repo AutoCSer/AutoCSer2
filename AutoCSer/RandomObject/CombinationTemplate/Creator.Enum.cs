@@ -14,10 +14,12 @@ namespace AutoCSer.RandomObject
         /// <typeparam name="T"></typeparam>
         /// <param name="config"></param>
         /// <returns></returns>
-        [System.Runtime.CompilerServices.MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static T EnumULong<T>(Config config) where T : struct, IConvertible
         {
-            return AutoCSer.Metadata.EnumGenericType<T, ulong>.FromInt(CreateULong(config));
+            Func<Config, bool, T> customCreator = (Func<Config, bool, T>)config.GetCustomCreator(typeof(T));
+            return customCreator == null ? AutoCSer.Metadata.EnumGenericType<T, ulong>.FromInt(CreateULong(config)) : customCreator(config, false);
+
         }
     }
 }

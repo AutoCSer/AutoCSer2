@@ -1,6 +1,6 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
-using AutoCSer.Threading;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
         public override void AutoCreateSocket(CommandClient client)
         {
             if (!IsAutoSocket) return;
-            if (ServiceName != null) CatchTask.AddIgnoreException(AutoCreateSocketAsync(client));
+            if (ServiceName != null) AutoCreateSocketAsync(client).NotWait();
             else base.AutoCreateSocket(client);
         }
         /// <summary>
@@ -45,9 +45,14 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
         /// <returns></returns>
         public override async Task<CommandClientServiceRegistrar> GetRegistrar(CommandClient commandClient)
         {
-            Service.ServiceRegistryCommandClientConfig commandClientConfig = new Service.ServiceRegistryCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPort.ServiceRegistry) };
-            ServiceRegistryClient client = await ServiceRegistryClient.Get(commandClientConfig, this);
-            return await ServiceRegistryCommandClientServiceRegistrar.Create(commandClient, client, this) ?? await base.GetRegistrar(commandClient);
+            ServiceRegistryCommandClientConfig commandClientConfig = new ServiceRegistryCommandClientConfig
+            {
+                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry),
+                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
+            };
+            commandClientConfig.GetSocketEventDelegate = (client) => new ServiceRegistryCommandClientSocketEvent(client, commandClientConfig, AutoCSer.TestCase.Common.Config.TimestampVerifyString);
+            ServiceRegistryClient serviceRegistryClient = await ServiceRegistryClient.Get(commandClientConfig, this);
+            return await ServiceRegistryCommandClientServiceRegistrar.Create(commandClient, serviceRegistryClient, this) ?? await base.GetRegistrar(commandClient);
         }
     }
 }

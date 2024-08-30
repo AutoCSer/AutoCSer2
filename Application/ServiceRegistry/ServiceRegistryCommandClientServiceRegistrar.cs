@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -75,7 +76,7 @@ namespace AutoCSer.CommandService
         /// <returns>是否需要取消定时任务</returns>
         internal async Task<bool> WaitServerEndPoint()
         {
-            if (Assembler.MainLog != null) return true;
+            //if (Assembler.MainLog != null) return true;
             return await client.WaitServerEndPoint();
         }
         /// <summary>
@@ -84,10 +85,10 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         /// <param name="changedType"></param>
         /// <returns></returns>
-        public virtual bool Callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedType changedType)
+        public virtual bool Callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
         {
             if (client.IsDisposed) return false;
-            if ((changedType & ServiceRegisterLogClientChangedType.Main) != 0)
+            if ((changedType & ServiceRegisterLogClientChangedTypeEnum.Main) != 0)
             {
                 ServiceRegisterLog mainLog = Assembler.MainLog;
                 if (mainLog != null) client.ServerEndPointChanged(mainLog.HostEndPoint.IPEndPoint);
@@ -110,7 +111,7 @@ namespace AutoCSer.CommandService
                 await serviceRegistrar.getAssembler();
                 return serviceRegistrar;
             }
-            await config.Log.Error("缺少注册服务名称配置", LogLevel.AutoCSer | LogLevel.Error | LogLevel.Fatal);
+            await config.Log.Error("缺少注册服务名称配置", LogLevelEnum.AutoCSer | LogLevelEnum.Error | LogLevelEnum.Fatal);
             return null;
         }
     }

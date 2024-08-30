@@ -51,7 +51,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="socket">当前套接字连接上下文，必须是第一个参数，允许不定义该参数</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
-        /// <returns>必须是 async Task[IEnumerable[T]]</returns>
+        /// <returns>必须是 async Task{IEnumerable{T}}</returns>
         [CommandServerMethod(KeepCallbackOutputCount = 4)]
         Task<IEnumerable<int>> EnumerableCallbackCount(CommandServerSocket socket, int parameter1, int parameter2);
 
@@ -62,7 +62,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="socket">当前套接字连接上下文，必须是第一个参数，允许不定义该参数</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
-        /// <returns>必须是 async IAsyncEnumerable[T]</returns>
+        /// <returns>必须是 async IAsyncEnumerable{T}</returns>
         [CommandServerMethod(KeepCallbackOutputCount = 4)]
         IAsyncEnumerable<int> AsyncEnumerable(CommandServerSocket socket, int parameter1, int parameter2);
 #endif
@@ -80,10 +80,10 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="parameter2">参数</param>
         /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task IKeepCallbackController.CallbackReturn(CommandServerSocket socket, int parameter1, int parameter2, CommandServerKeepCallback<int> callback)
+        Task IKeepCallbackController.CallbackReturn(CommandServerSocket socket, int parameter1, int parameter2, CommandServerKeepCallback<int> callback)
         {
-            await Task.Yield();
             foreach (int value in enumerableCallbackCount(parameter1, parameter2)) callback.Callback(value);
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 保持回调委托无返回值，返回值类型必须为 void
@@ -91,11 +91,11 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="parameter">参数</param>
         /// <param name="callback">保持回调委托包装，必须是最后一个参数</param>
         /// <returns>必须是 async Task</returns>
-        async Task IKeepCallbackController.CallbackCall(int parameter, CommandServerKeepCallback callback)
+        Task IKeepCallbackController.CallbackCall(int parameter, CommandServerKeepCallback callback)
         {
-            await Task.Yield();
             Console.WriteLine(parameter);
             for (int value = 4; value != 0; --value) callback.Callback();
+            return AutoCSer.Common.CompletedTask;
         }
 
         /// <summary>
@@ -128,11 +128,10 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="socket">当前套接字连接上下文，必须是第一个参数，允许不定义该参数</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
-        /// <returns>必须是 async Task[IEnumerable[T]]</returns>
-        async Task<IEnumerable<int>> IKeepCallbackController.EnumerableCallbackCount(CommandServerSocket socket, int parameter1, int parameter2)
+        /// <returns>必须是 async Task{IEnumerable{T}}</returns>
+        Task<IEnumerable<int>> IKeepCallbackController.EnumerableCallbackCount(CommandServerSocket socket, int parameter1, int parameter2)
         {
-            await Task.Yield();
-            return enumerableCallbackCount(parameter1, parameter2);
+            return Task.FromResult(enumerableCallbackCount(parameter1, parameter2));
         }
         /// <summary>
         /// 返回数据集合
@@ -152,7 +151,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="socket">当前套接字连接上下文，必须是第一个参数，允许不定义该参数</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
-        /// <returns>必须是 async IAsyncEnumerable[T]</returns>
+        /// <returns>必须是 async IAsyncEnumerable{T}</returns>
         async IAsyncEnumerable<int> IKeepCallbackController.AsyncEnumerable(CommandServerSocket socket, int parameter1, int parameter2)
         {
             await Task.Yield();

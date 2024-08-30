@@ -11,7 +11,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 对象对比委托
         /// </summary>
-        internal abstract Delegate EqualsDelegate { get; }
+        internal abstract Delegate EquatableEqualsDelegate { get; }
         /// <summary>
         /// 对象对比委托
         /// </summary>
@@ -22,7 +22,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        [MethodImpl(AutoCSer.MethodImpl.AggressiveInlining)]
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static EquatableGenericType create<T>() where T : IEquatable<T>
         {
@@ -60,7 +60,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 对象对比委托
         /// </summary>
-        internal override Delegate EqualsDelegate { get { return (Func<T, T, bool>)Comparor.Equals<T>; } }
+        internal override Delegate EquatableEqualsDelegate { get { return (Func<T, T, bool>)Comparor.EquatableEquals<T>; } }
         /// <summary>
         /// 对象对比委托
         /// </summary>

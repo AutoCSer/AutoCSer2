@@ -17,16 +17,8 @@ namespace AutoCSer.Example.CommandServer
                 commandListener.Dispose();
                 return;
             }
-            Console.WriteLine("ERROR");
+            AutoCSer.ConsoleWriteQueue.Breakpoint("ERROR");
             Console.ReadKey();
-        }
-        /// <summary>
-        /// 测试错误断点
-        /// </summary>
-        /// <returns></returns>
-        internal static bool Breakpoint()
-        {
-            return false;
         }
     }
 }

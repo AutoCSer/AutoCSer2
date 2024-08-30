@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Threading;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -90,7 +91,7 @@ namespace AutoCSer.CommandService
                 finally
                 {
                     Monitor.Exit(linkLock);
-                    if (requests.Count != 0) CatchTask.AddIgnoreException(enterAgain(requests));
+                    if (requests.Count != 0) enterAgain(requests).NotWait();
                 }
             }
         }

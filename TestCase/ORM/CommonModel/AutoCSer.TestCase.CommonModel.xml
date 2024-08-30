@@ -1,0 +1,714 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.TestCase.CommonModel</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum">
+            <summary>
+            自增ID与其它混合测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Get">
+            <summary>
+            [0] 
+            long key 
+            返回值 AutoCSer.TestCase.BusinessService.AutoIdentityModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Insert">
+            <summary>
+            [1] 
+            AutoCSer.TestCase.BusinessService.AutoIdentityModel value 
+            返回值 long 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Update">
+            <summary>
+            [2] 
+            AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel,AutoCSer.TestCase.BusinessService.AutoIdentityModel} value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Delete">
+            <summary>
+            [3] 
+            AutoCSer.TestCase.BusinessService.AutoIdentityModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.DeleteKey">
+            <summary>
+            [4] 
+            long key 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.CustomColumnQuery">
+            <summary>
+            [5] 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum">
+            <summary>
+            自定义字段列测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Get">
+            <summary>
+            [0] 
+            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey key 
+            返回值 AutoCSer.TestCase.BusinessService.CustomColumnFieldModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Insert">
+            <summary>
+            [1] 
+            AutoCSer.TestCase.BusinessService.CustomColumnFieldModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Update">
+            <summary>
+            [2] 
+            AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.CustomColumnFieldModel,AutoCSer.TestCase.BusinessService.CustomColumnFieldModel} value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Delete">
+            <summary>
+            [3] 
+            AutoCSer.TestCase.BusinessService.CustomColumnFieldModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.DeleteKey">
+            <summary>
+            [4] 
+            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey key 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.CustomColumnQuery">
+            <summary>
+            [5] 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum">
+            <summary>
+            自定义属性列测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Get">
+            <summary>
+            [0] 
+            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey key 
+            返回值 AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Insert">
+            <summary>
+            [1] 
+            AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Update">
+            <summary>
+            [2] 
+            AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel,AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel} value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Delete">
+            <summary>
+            [3] 
+            AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.DeleteKey">
+            <summary>
+            [4] 
+            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey key 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.CustomColumnQuery">
+            <summary>
+            [5] 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum">
+            <summary>
+            字段测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Get">
+            <summary>
+            [0] 
+            long key 
+            返回值 AutoCSer.TestCase.BusinessService.FieldModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Insert">
+            <summary>
+            [1] 
+            AutoCSer.TestCase.BusinessService.FieldModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Update">
+            <summary>
+            [2] 
+            AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.FieldModel,AutoCSer.TestCase.BusinessService.FieldModel} value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Delete">
+            <summary>
+            [3] 
+            AutoCSer.TestCase.BusinessService.FieldModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.DeleteKey">
+            <summary>
+            [4] 
+            long key 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.CustomColumnQuery">
+            <summary>
+            [5] 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum">
+            <summary>
+            属性测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Get">
+            <summary>
+            [0] 
+            string key 
+            返回值 AutoCSer.TestCase.BusinessService.PropertyModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Insert">
+            <summary>
+            [1] 
+            AutoCSer.TestCase.BusinessService.PropertyModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Update">
+            <summary>
+            [2] 
+            AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.PropertyModel,AutoCSer.TestCase.BusinessService.PropertyModel} value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Delete">
+            <summary>
+            [3] 
+            AutoCSer.TestCase.BusinessService.PropertyModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.DeleteKey">
+            <summary>
+            [4] 
+            string key 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.CustomColumnQuery">
+            <summary>
+            [5] 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2">
+            <summary>
+            控制台输出表格操作记录
+            </summary>
+            <typeparam name="BT"></typeparam>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.BusinessTableEvent">
+            <summary>
+            业务表格模型表格操作事件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.output(`0,System.String)">
+            <summary>
+            控制台输出
+            </summary>
+            <param name="value"></param>
+            <param name="callerMemberName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.BeforeInsert(`0)">
+            <summary>
+            添加数据之前检查数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否继续执行添加数据操作</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnInserted(`0)">
+            <summary>
+            非事务模式添加数据之后的操作
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnInserted(`0,AutoCSer.ORM.Transaction)">
+            <summary>
+            事务模式执行添加数据之后的操作
+            </summary>
+            <param name="value"></param>
+            <param name="transaction"></param>
+            <returns>是否继续执行后续事务，否则中止事务</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnInsertedCommited(`0)">
+            <summary>
+            事务模式添加数据事务提交以后的操作
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.BeforeUpdate(`0,AutoCSer.Metadata.MemberMap{`1})">
+            <summary>
+            更新数据之前检查操作
+            </summary>
+            <param name="value"></param>
+            <param name="memberMap"></param>
+            <returns>是否继续执行更新数据操作</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnUpdated(`0,AutoCSer.Metadata.MemberMap{`1})">
+            <summary>
+            非事务模式更新数据之后的操作
+            </summary>
+            <param name="value"></param>
+            <param name="memberMap"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnUpdated(`0,AutoCSer.Metadata.MemberMap{`1},AutoCSer.ORM.Transaction)">
+            <summary>
+            事务模式执行更新数据之后的操作
+            </summary>
+            <param name="value"></param>
+            <param name="memberMap"></param>
+            <param name="transaction"></param>
+            <returns>是否继续执行后续事务，否则中止事务</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnUpdatedCommited(`0,AutoCSer.Metadata.MemberMap{`1})">
+            <summary>
+            事务模式更新数据事务提交以后的操作
+            </summary>
+            <param name="value"></param>
+            <param name="memberMap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.BeforeDelete(`0)">
+            <summary>
+            删除数据之前检查数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否继续执行删除数据操作</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnDeleted(`0)">
+            <summary>
+            非事务模式删除数据之后的操作
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnDeleted(`0,AutoCSer.ORM.Transaction)">
+            <summary>
+            事务模式执行删除数据之后的操作
+            </summary>
+            <param name="value"></param>
+            <param name="transaction"></param>
+            <returns>是否继续执行后续事务，否则中止事务</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2.OnDeletedCommited(`0)">
+            <summary>
+            事务模式删除数据事务提交以后的操作
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel">
+            <summary>
+            自增ID与其它混合测试模型（建议使用字段来描述持久化数据，同时也作为内部 RPC 服务接口传参数据配置二进制序列化规则）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel.Identity">
+            <summary>
+            64位自增ID 关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel.RangeTime">
+            <summary>
+            时间范围
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel.Email">
+            <summary>
+            电子邮箱
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel.EmailArray">
+            <summary>
+            不可识别类型持久化为 JSON 字符串
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumnFieldModel">
+            <summary>
+            自定义字段列测试模型（建议使用字段来描述持久化数据，同时也作为内部 RPC 服务接口传参数据配置二进制序列化规则）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumnFieldModel.Key">
+            <summary>
+            自定义组合字段列关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumnFieldModel.CustomColumnField">
+            <summary>
+            自定义字段列
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel">
+            <summary>
+            自定义属性列测试模型（二进制序列化不支持属性，需要配置序列化匿名字段以支持 RPC 传参）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel.Key">
+            <summary>
+            自定义组合属性列关键字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel.CustomColumnProperty">
+            <summary>
+            自定义属性列
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnField">
+            <summary>
+            自定义字段列（建议使用字段来描述持久化数据，同时也作为内部 RPC 服务接口传参）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnField.NVarCharMax">
+            <summary>
+            字符串默认为 nvarchar(max)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnField.NVarChar">
+            <summary>
+            nvarchar(10) 不允许空字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnField.VarCharMax">
+            <summary>
+            varchar(max)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnField.VarChar">
+            <summary>
+            varchar(10) 允许 null 值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnField.Decimal">
+            <summary>
+            默认为 decimal(18,2)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnField.DecimalNull">
+            <summary>
+            decimal(38,4)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey">
+            <summary>
+            自定义组合字段列关键字，需要实现接口 IEquatable{T}，如果有缓存关键字需求需要同时重写 Equals 与 GetHashCode（建议使用字段来描述持久化数据，同时也作为内部 RPC 服务接口传参）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey.Equals(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey.Equals(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey.GetHashCode">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnProperty">
+            <summary>
+            自定义属性列（二进制序列化不支持属性，需要配置序列化匿名字段以支持 RPC 传参）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnProperty.NVarCharMax">
+            <summary>
+            字符串默认为 nvarchar(max)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnProperty.NVarChar">
+            <summary>
+            nvarchar(10) 不允许空字符串
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnProperty.VarCharMax">
+            <summary>
+            varchar(max)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnProperty.VarChar">
+            <summary>
+            varchar(10) 允许 null 值
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnProperty.Decimal">
+            <summary>
+            默认为 decimal(18,2)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnProperty.DecimalNull">
+            <summary>
+            decimal(38,4)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey">
+            <summary>
+            自定义组合属性列关键字，需要实现接口 IEquatable{T}，如果有缓存关键字需求需要同时重写 Equals 与 GetHashCode（二进制序列化不支持属性，需要配置序列化匿名字段以支持 RPC 传参）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey.Equals(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey.Equals(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey.GetHashCode">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange">
+            <summary>
+            时间范围（建议使用字段来描述持久化数据，同时也作为内部 RPC 服务接口传参）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.Start">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.End">
+            <summary>
+            结束时间（不包含）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.op_Equality(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange,AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange)">
+            <summary>
+            ==
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.op_Inequality(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange,AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange)">
+            <summary>
+            !=
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.Verify">
+            <summary>
+            自定义数据验证，验证失败需要抛出异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.Check(System.DateTime)">
+            <summary>
+            检查时间是否在范围之内
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.Equals(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.Equals(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.DateTimeRange.GetHashCode">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email">
+            <summary>
+            电子邮箱（建议使用字段来描述持久化数据，同时也作为内部 RPC 服务接口传参）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.email">
+            <summary>
+            邮箱地址
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.op_Implicit(System.String)~AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.op_Implicit(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email)~System.String">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.verifyRegex">
+            <summary>
+            邮箱地址简单验证正则
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.Verify">
+            <summary>
+            自定义数据验证，验证失败需要抛出异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.AutoCSer#Json#ICustomSerialize{AutoCSer#TestCase#CommonModel#TableModel#CustomColumn#Email}#Serialize(AutoCSer.JsonSerializer)">
+            <summary>
+            JSON 序列化
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.AutoCSer#Json#ICustomSerialize{AutoCSer#TestCase#CommonModel#TableModel#CustomColumn#Email}#Deserialize(AutoCSer.JsonDeserializer)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.FieldModel">
+            <summary>
+            字段测试模型（建议使用字段来描述持久化数据，同时也作为内部 RPC 服务接口传参数据配置二进制序列化规则）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.FieldModel.Key">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.FieldModel.NVarCharMax">
+            <summary>
+            字符串默认为 nvarchar(max)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.FieldModel.NVarChar">
+            <summary>
+            nvarchar(10) 不允许空字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.FieldModel.VarCharMax">
+            <summary>
+            varchar(max)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.FieldModel.VarChar">
+            <summary>
+            varchar(10) 允许 null 值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.FieldModel.Decimal">
+            <summary>
+            默认为 decimal(18,2)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.CommonModel.TableModel.FieldModel.DecimalNull">
+            <summary>
+            decimal(38,4)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel">
+            <summary>
+            属性测试模型（二进制序列化不支持属性，需要配置序列化匿名字段以支持 RPC 传参）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel.Key">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel.NVarCharMax">
+            <summary>
+            字符串默认为 nvarchar(max)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel.NVarChar">
+            <summary>
+            nvarchar(10) 不允许空字符串
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel.VarCharMax">
+            <summary>
+            varchar(max)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel.VarChar">
+            <summary>
+            varchar(10) 允许 null 值
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel.Decimal">
+            <summary>
+            默认为 decimal(18,2)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommonModel.TableModel.PropertyModel.DecimalNull">
+            <summary>
+            decimal(38,4)
+            </summary>
+        </member>
+    </members>
+</doc>
