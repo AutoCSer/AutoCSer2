@@ -140,37 +140,28 @@
             测试断点信息添加到输出队列（DEBUG 有效）
             </summary>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint(System.Type,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint(System.Type)">
             <summary>
             检查返回数据
             </summary>
-            <param name="type">比较类型</param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="callerFilePath">调用源代码文件路径</param>
-            <param name="callerLineNumber">调用源代码行号</param>
+            <param name="type"></param>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(``0,``0,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(``0,``0)">
             <summary>
             测试断点信息添加到输出队列
             </summary>
             <typeparam name="T"></typeparam>
             <param name="left"></param>
             <param name="right"></param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="callerFilePath">调用源代码文件路径</param>
-            <param name="callerLineNumber">调用源代码行号</param>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(System.Type,``0,``0,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(System.Type,``0,``0)">
             <summary>
             测试断点信息添加到输出队列
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="type">比较类型</param>
+            <param name="type"></param>
             <param name="left"></param>
             <param name="right"></param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="callerFilePath">调用源代码文件路径</param>
-            <param name="callerLineNumber">调用源代码行号</param>
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Equals``1(``0,``0)">
             <summary>

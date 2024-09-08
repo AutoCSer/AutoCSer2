@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 #if DotNet45
 [assembly: AssemblyTitle("AutoCSer.Extensions")]
-[assembly: AssemblyDescription("AutoCSer.Extensions 是一个杂乱工具帮助类库集合，主要包括 XML 序列化、项目 XML 文档解析、取值表达式解析、平衡二叉树、基数排序 等 API。")]
+[assembly: AssemblyDescription("AutoCSer.Extensions 是一个杂乱工具帮助类库集合，主要包括 XML 序列化、项目 XML 文档解析、取值表达式解析、原始套接字监听、平衡二叉树、基数排序 等 API。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AutoCSer.Extensions")]
