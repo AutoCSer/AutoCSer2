@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 回调测试节点
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(CallbackNodeMethodEnum), IsAutoMethodIndex = false, IsMethodParameterCreator = true)]
+    [ServerNode(MethodIndexEnumType = typeof(CallbackNodeMethodEnum), IsAutoMethodIndex = false, IsMethodParameterCreator = true, IsLocalClient = true)]
     public interface ICallbackNode
     {
         [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]

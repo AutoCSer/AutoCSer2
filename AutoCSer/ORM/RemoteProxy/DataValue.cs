@@ -147,7 +147,9 @@ namespace AutoCSer.ORM.RemoteProxy
                     {
                         case DataType.String: deserializer.Deserialize(ref String); break;
                         case DataType.Int: deserializer.Read(out Bit128.Int); break;
-                        case DataType.Bool: goto ERROR;
+                        case DataType.Bool:
+                            deserializer.SetCustomError(string.Empty);
+                            return false;
                         case DataType.DateTime: deserializer.Read(out Bit128.DateTime); break;
                         case DataType.TimeSpan: deserializer.Read(out Bit128.TimeSpan); break;
                         case DataType.Long: deserializer.Read(out Bit128.Long); break;
@@ -156,12 +158,20 @@ namespace AutoCSer.ORM.RemoteProxy
                         case DataType.Byte:
                             int value;
                             deserializer.Read(out value);
-                            if (value < byte.MinValue || value > byte.MaxValue) goto ERROR;
+                            if (value < byte.MinValue || value > byte.MaxValue)
+                            {
+                                deserializer.SetCustomError(string.Empty);
+                                return false;
+                            }
                             Bit128.Byte = (byte)value;
                             break;
                         case DataType.Short:
                             deserializer.Read(out value);
-                            if (value < short.MinValue || value > short.MaxValue) goto ERROR;
+                            if (value < short.MinValue || value > short.MaxValue)
+                            {
+                                deserializer.SetCustomError(string.Empty);
+                                return false;
+                            }
                             Bit128.Short = (short)value;
                             break;
                         case DataType.Float: deserializer.Read(out Bit128.Float); break;
@@ -179,13 +189,19 @@ namespace AutoCSer.ORM.RemoteProxy
                             {
                                 case 2 - 2: Bit128.Bool = false; break;
                                 case 3 - 2: Bit128.Bool = true; break;
-                                default: goto ERROR;
+                                default:
+                                    deserializer.SetCustomError(string.Empty);
+                                    return false;
                             }
                             break;
                         case DataType.DateTime:
                         case DataType.TimeSpan:
                         case DataType.Guid:
-                            if (dataType != 2) goto ERROR;
+                            if (dataType != 2)
+                            {
+                                deserializer.SetCustomError(string.Empty);
+                                return false;
+                            }
                             break;
                         case DataType.Long: Bit128.Long = dataType - 2; break;
                         case DataType.Decimal: Bit128.Decimal = dataType - 2; break;
@@ -197,7 +213,6 @@ namespace AutoCSer.ORM.RemoteProxy
                     break;
             }
             if (DataType <= DataType.Double) return deserializer.State == BinarySerialize.DeserializeStateEnum.Success;
-            ERROR:
             deserializer.SetCustomError(string.Empty);
             return false;
         }

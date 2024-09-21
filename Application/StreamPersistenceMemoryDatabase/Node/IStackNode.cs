@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 栈节点（后进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(StackNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(StackNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface IStackNode<T>
     {
         /// <summary>

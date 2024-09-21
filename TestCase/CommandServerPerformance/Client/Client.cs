@@ -13,6 +13,14 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     internal abstract class Client
     {
         /// <summary>
+        /// 单并发线程每次循环获取任务数量
+        /// </summary>
+        internal const int LoopCountBit = 12;
+        /// <summary>
+        /// 单并发线程每次循环获取任务数量
+        /// </summary>
+        internal const int LoopCount = 1 << LoopCountBit;
+        /// <summary>
         /// 服务端同步最大测试请求次数
         /// </summary>
         protected const int maxTestCount = 1 << 26;
@@ -62,7 +70,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         internal static int Reset(CommandClient commandClient, int testCount, int concurrent = 1)
         {
             Client.commandClient = commandClient;
-            Client.testCount = Math.Min(testCount, maxTestCount);
+            Client.testCount = Math.Min(testCount, maxTestCount) & (int.MaxValue ^ (LoopCount - 1));
             Client.concurrent = concurrent;
             Array.Clear(checkMap, 0, checkMap.Length);
             errorCount = 0;
@@ -149,6 +157,16 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             }
             Interlocked.Increment(ref errorCount);
             if (Interlocked.Decrement(ref callbackCount) == 0) waitLock.Release();
+        }
+        /// <summary>
+        /// 单个并发测试完成
+        /// </summary>
+        /// <param name="success"></param>
+        /// <param name="error"></param>
+        internal static void CheckLock(int success, int error)
+        {
+            Interlocked.Add(ref errorCount, error);
+            if(Interlocked.Add(ref callbackCount, -(success + error)) == 0) waitLock.Release();
         }
         /// <summary>
         /// 循环完成输出

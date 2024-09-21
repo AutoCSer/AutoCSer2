@@ -170,7 +170,7 @@ namespace AutoCSer.CommandService
         internal static async Task<ResponseResult> CallInput<T>(ClientNode node, int methodIndex, T parameter) where T : struct
         {
             NodeIndex nodeIndex = node.Index;
-            CommandClientReturnValue<CallStateEnum> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(nodeIndex, methodIndex, new AutoCSer.BinarySerialize.InternalIndependentSerializer<T>(ref parameter).SerializeNotReference));
+            CommandClientReturnValue<CallStateEnum> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(nodeIndex, methodIndex, new RequestParameterBinarySerializer<T>(ref parameter)));
             if (returnValue.ReturnType == CommandClientReturnTypeEnum.Success && returnValue.Value != CallStateEnum.Success) await node.CheckStateAsync(nodeIndex, returnValue.Value);
             return new ResponseResult(returnValue);
         }
@@ -185,7 +185,7 @@ namespace AutoCSer.CommandService
         internal static async Task<ResponseResult> SimpleSerializeCallInput<T>(ClientNode node, int methodIndex, T parameter) where T : struct
         {
             NodeIndex nodeIndex = node.Index;
-            CommandClientReturnValue<CallStateEnum> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(nodeIndex, methodIndex, new AutoCSer.SimpleSerialize.InternalIndependentSerializer<T>(ref parameter).Serialize));
+            CommandClientReturnValue<CallStateEnum> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(nodeIndex, methodIndex, new RequestParameterSimpleSerializer<T> (ref parameter)));
             if (returnValue.ReturnType == CommandClientReturnTypeEnum.Success && returnValue.Value != CallStateEnum.Success) await node.CheckStateAsync(nodeIndex, returnValue.Value);
             return new ResponseResult(returnValue);
         }
@@ -258,7 +258,7 @@ namespace AutoCSer.CommandService
         {
             NodeIndex nodeIndex = node.Index;
             ResponseParameter<RT> responseParameter = (flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0 ? (ResponseParameter<RT>)new SimpleSerializeResponseParameter<RT>() : new BinarySerializeResponseParameter<RT>();
-            CommandClientReturnValue<ResponseParameter> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(nodeIndex, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (Action<BinarySerializer>)new AutoCSer.SimpleSerialize.InternalIndependentSerializer<T>(ref parameter).Serialize : new AutoCSer.BinarySerialize.InternalIndependentSerializer<T>(ref parameter).SerializeNotReference));
+            CommandClientReturnValue<ResponseParameter> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(nodeIndex, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
             if (returnValue.IsSuccess)
             {
                 switch (returnValue.Value.State)
@@ -284,7 +284,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static SendOnlyCommand SendOnly<T>(ClientNode node, int methodIndex, T parameter) where T : struct
         {
-            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.SendOnly(new RequestParameter(node.Index, methodIndex, new AutoCSer.BinarySerialize.InternalIndependentSerializer<T>(ref parameter).SerializeNotReference));
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.SendOnly(new RequestParameter(node.Index, methodIndex, new RequestParameterBinarySerializer<T>(ref parameter)));
         }
         /// <summary>
         /// 调用节点方法
@@ -296,7 +296,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static SendOnlyCommand SimpleSerializeSendOnly<T>(ClientNode node, int methodIndex, T parameter) where T : struct
         {
-            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.SendOnly(new RequestParameter(node.Index, methodIndex, new AutoCSer.SimpleSerialize.InternalIndependentSerializer<T>(ref parameter).Serialize));
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.SendOnly(new RequestParameter(node.Index, methodIndex, new RequestParameterSimpleSerializer<T>(ref parameter)));
         }
         /// <summary>
         /// 调用节点方法
@@ -307,7 +307,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static async Task<KeepCallbackResponse<T>> KeepCallback<T>(ClientNode node, int methodIndex)
         {
-            AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<T>.Default), node.Index, methodIndex);
+            AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<T>.Default, false), node.Index, methodIndex);
             if (enumeratorCommand == null) return KeepCallbackResponse<T>.NullResponse;
             try
             {
@@ -327,7 +327,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static async Task<KeepCallbackResponse<T>> SimpleDeserializeKeepCallback<T>(ClientNode node, int methodIndex)
         {
-            AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<T>.Default), node.Index, methodIndex);
+            AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<T>.Default, true), node.Index, methodIndex);
             if (enumeratorCommand == null) return KeepCallbackResponse<T>.NullResponse;
             try
             {
@@ -354,11 +354,11 @@ namespace AutoCSer.CommandService
             AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand;
             if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
             {
-                enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<RT>.Default), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (Action<BinarySerializer>)new AutoCSer.SimpleSerialize.InternalIndependentSerializer<T>(ref parameter).Serialize : new AutoCSer.BinarySerialize.InternalIndependentSerializer<T>(ref parameter).SerializeNotReference));
+                enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<RT>.Default, true), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
             }
             else
             {
-                enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<RT>.Default), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (Action<BinarySerializer>)new AutoCSer.SimpleSerialize.InternalIndependentSerializer<T>(ref parameter).Serialize : new AutoCSer.BinarySerialize.InternalIndependentSerializer<T>(ref parameter).SerializeNotReference));
+                enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<RT>.Default, false), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
             }
             if (enumeratorCommand == null) return KeepCallbackResponse<RT>.NullResponse;
             try

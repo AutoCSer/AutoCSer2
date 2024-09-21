@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 256 基分片 HashString 字典 节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(HashStringFragmentDictionaryNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(HashStringFragmentDictionaryNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface IHashStringFragmentDictionaryNode<T>
     {
         /// <summary>

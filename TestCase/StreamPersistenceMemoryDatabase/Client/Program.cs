@@ -43,10 +43,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                     {
                         CommandClientReturnValue<RebuildResult> rebuildResult = await client.Client.StreamPersistenceMemoryDatabaseClient.Rebuild();
                         if (!ConsoleWriteQueue.Breakpoint(rebuildResult)) break;
-                        if (rebuildResult.Value.CallState != CallStateEnum.Success)
+                        switch (rebuildResult.Value.CallState)
                         {
-                            ConsoleWriteQueue.Breakpoint($"*ERROR+{rebuildResult.Value.CallState}+ERROR*");
-                            break;
+                            case CallStateEnum.Success:
+                            case CallStateEnum.PersistenceRebuilding:
+                                break;
+                            default:
+                                ConsoleWriteQueue.Breakpoint($"*ERROR+{rebuildResult.Value.CallState}+ERROR*");
+                                break;
                         }
                     }
                     await Task.WhenAll(

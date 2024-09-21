@@ -44,6 +44,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         internal abstract Delegate MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate { get; }
 
         /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate LocalServiceCallInputNodeCreateDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate LocalServiceSendOnlyNodeCreateDelegate { get; }
+
+        /// <summary>
         /// 创建泛型类型元数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -115,5 +124,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 创建调用方法与参数信息
         /// </summary>
         internal override Delegate MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T>)MethodParameterCreator.CreateInputKeepCallbackMethodParameter<T>; } }
+
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate LocalServiceCallInputNodeCreateDelegate { get { return (Func<LocalClientNode, int, T, LocalServiceQueueNode<ResponseResult>>)LocalServiceCallInputNode.Create<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate LocalServiceSendOnlyNodeCreateDelegate { get { return (Func<LocalClientNode, int, T, MethodParameter>)LocalServiceSendOnlyNode.Create<T>; } }
     }
 }

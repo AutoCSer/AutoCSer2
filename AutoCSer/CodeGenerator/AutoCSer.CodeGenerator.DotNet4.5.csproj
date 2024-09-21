@@ -65,10 +65,12 @@
     <Compile Include="TemplateGenerator\InterfaceMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\JavaScriptTypeDefinition.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseClientNode.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\TypeDefinition.cs" />
     <Compile Include="Template\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseClientNode.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseMethodIndexEnumType.cs" />
     <Compile Include="TreeTemplate\ITreeBuilderNode.cs" />
     <Compile Include="TreeTemplate\ITreeTemplateNode.cs" />

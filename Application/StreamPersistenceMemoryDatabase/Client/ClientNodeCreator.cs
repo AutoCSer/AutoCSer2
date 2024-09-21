@@ -107,7 +107,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (serverType.IsGenericTypeDefinition) serverType = serverType.MakeGenericType(type.GetGenericArguments());
                 NodeType nodeType = new NodeType(serverType);
                 ClientNodeMethod[] methods;
-                if (!nodeType.GetClientMethods(type, ref creatorException, ref creatorMessages, out methods)) return;
+                if (!nodeType.GetClientMethods(type, ref creatorException, ref creatorMessages, out methods, false)) return;
 
                 TypeBuilder typeBuilder = AutoCSer.Reflection.Emit.Module.Builder.DefineType(AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase.ClientNode." + type.FullName, TypeAttributes.Class | TypeAttributes.Sealed, typeof(ClientNode<T>), new Type[] { type });
                 #region 构造函数

@@ -7789,6 +7789,19 @@
             </summary>
             <param name="genericType"></param>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.checkCompleted(AutoCSer.Metadata.GenericType,System.Boolean)">
+            <summary>
+            计算状态完成检查
+            </summary>
+            <param name="genericType"></param>
+            <param name="notReferenceCount"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.completed(System.Boolean)">
+            <summary>
+            计算状态完成
+            </summary>
+            <param name="notReferenceCount"></param>
+        </member>
         <member name="T:AutoCSer.BinarySerialize.SerializePushTypeEnum">
             <summary>
             序列化循环引用检查类型
@@ -7939,6 +7952,33 @@
             <param name="memberMap"></param>
             <param name="binarySerializer"></param>
             <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.CodeGenerator.AwaitResultTypeAttribute">
+            <summary>
+            代码生成模板支持 await 泛型申明
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CodeGenerator.CombinationTemplateConfig">
+            <summary>
+            自定义简单组合模板参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.CombinationTemplateConfig.DefaultTemplatePath">
+            <summary>
+            默认自定义模板相对项目路径
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CodeGenerator.CombinationTemplateConfig.TemplatePath">
+            <summary>
+            自定义模板相对项目路径
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CodeGenerator.CombinationTemplateConfig.GetCodeFileName(System.String)">
+            <summary>
+            获取目标代码文件名称（默认为项目命名空间）
+            </summary>
+            <param name="defaultNamespace"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Config">
             <summary>
@@ -19406,14 +19446,14 @@
             返回值数量
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.IsCanceled">
+            <summary>
+            是否已经取消回调 0/2
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.IsCurrentMoveNext">
             <summary>
             枚举命令是否存在下一个数据 是否当前等待数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.IsCanceled">
-            <summary>
-            是否已经取消回调
             </summary>
         </member>
         <member name="P:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.IsCompleted">
@@ -19478,6 +19518,12 @@
             设置是否存在下一个数据
             </summary>
             <param name="command"></param>
+            <param name="isNextValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.SetNextValue(System.Boolean)">
+            <summary>
+            设置是否存在下一个数据
+            </summary>
             <param name="isNextValue"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.MoveNext">
@@ -26713,7 +26759,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.IsBuildOutputThread">
             <summary>
-            输出是否采用新开线程模式建议默认为 true 避免本地 IO 调用同步完成导致输出串行化的问题，如果不存在本地 127.0.0.1 客户端调用可以尝试设置为 false 以避免输出线程调度（如果造成并发性能故障请还原设置为 true）
+            输出是否采用新开线程模式建议默认为 true 以支持并发批量输出，纯同步输出或者低频输出场景可以设置为 false 以避免输出线程调度
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.IsOutputExceptionMessage">
@@ -29441,6 +29487,11 @@
             套接字异步事件对象池
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandListener.listenAcceptEvent">
+            <summary>
+            监听套接字异步事件
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandListener.Controllers">
             <summary>
             命令服务控制器集合
@@ -29624,10 +29675,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandListener.acceptSocket">
+        <member name="M:AutoCSer.Net.CommandListener.listenAcceptCompleted(System.Object,System.Net.Sockets.SocketAsyncEventArgs)">
             <summary>
             获取客户端请求套接字
             </summary>
+            <param name="sender"></param>
+            <param name="listenAcceptEvent"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandListener.GetCommandController(System.UInt32@)">
             <summary>
@@ -31426,6 +31479,12 @@
             </summary>
             <param name="returnValue"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.VirtualCallback(`0)">
+            <summary>
+            返回值回调
+            </summary>
+            <param name="returnValue"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(`0,System.Action)">
             <summary>
             返回值回调
@@ -31434,6 +31493,12 @@
             <param name="onFree"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackCancelKeep(`0)">
+            <summary>
+            返回值回调并结束回调
+            </summary>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.VirtualCallbackCancelKeep(`0)">
             <summary>
             返回值回调并结束回调
             </summary>
@@ -31650,6 +31715,16 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.CallbackIdentity">
             <summary>
             当前处理会话标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.outputHead">
+            <summary>
+            同步输出头节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.outputEnd">
+            <summary>
+            同步输出尾节点
             </summary>
         </member>
         <member name="P:AutoCSer.Net.CommandServerSocket.customDataSize">
@@ -32049,6 +32124,17 @@
             <param name="sender"></param>
             <param name="async">异步回调参数</param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.AppendOutput(AutoCSer.Net.CommandServer.ServerOutput)">
+            <summary>
+            添加同步输出
+            </summary>
+            <param name="output"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.sendLink">
+            <summary>
+            发送同步输出
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.Push(AutoCSer.Net.CommandServer.ServerOutput)">
             <summary>
             添加输出信息
@@ -32235,6 +32321,20 @@
             <param name="method">服务端输出信息</param>
             <param name="outputParameter">返回值</param>
             <returns>是否成功加入输出队列</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.AppendCustomData(System.Byte[])">
+            <summary>
+            同步发送自定义数据（非同步模式则需要等待下次触发同步发送调用）
+            </summary>
+            <param name="data"></param>
+            <returns>是否添加到发送队列</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.AppendCustomData(AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            同步发送自定义数据（非同步模式则需要等待下次触发同步发送调用）
+            </summary>
+            <param name="data"></param>
+            <returns>是否添加到发送队列</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.SendCustomData(System.Byte[])">
             <summary>
@@ -32812,28 +32912,6 @@
             
             </summary>
             <param name="obj"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CodeGenerator.CombinationTemplateConfig">
-            <summary>
-            自定义简单组合模板参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.CombinationTemplateConfig.DefaultTemplatePath">
-            <summary>
-            默认自定义模板相对项目路径
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CodeGenerator.CombinationTemplateConfig.TemplatePath">
-            <summary>
-            自定义模板相对项目路径
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CodeGenerator.CombinationTemplateConfig.GetCodeFileName(System.String)">
-            <summary>
-            获取目标代码文件名称（默认为项目命名空间）
-            </summary>
-            <param name="defaultNamespace"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CombinationTemplateConfig">

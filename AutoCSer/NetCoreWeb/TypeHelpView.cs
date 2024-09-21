@@ -237,6 +237,7 @@ namespace AutoCSer.NetCoreWeb
                 Type genericTypeDefinition = type.GetGenericTypeDefinition();
                 if (genericTypeDefinition == typeof(Task<>)) return type.GetGenericArguments()[0];
                 if (genericTypeDefinition == typeof(ReturnCommand<>) || genericTypeDefinition == typeof(ReturnQueueCommand<>)) return typeof(CommandClientReturnValue<>).MakeGenericType(type.GetGenericArguments());
+                if(type.GetCustomAttribute(typeof(AutoCSer.CodeGenerator.AwaitResultTypeAttribute), false) != null) return type.GetGenericArguments()[0];
             }
             return null;
         }

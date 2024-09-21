@@ -1868,35 +1868,6 @@
             </summary>
             <param name="heapFixed"></param>
         </member>
-        <member name="T:AutoCSer.BinarySerialize.InternalIndependentSerializer`1">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.InternalIndependentSerializer`1.value">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.InternalIndependentSerializer`1.#ctor(`0)">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.InternalIndependentSerializer`1.#ctor(`0@)">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.InternalIndependentSerializer`1.SerializeNotReference(AutoCSer.BinarySerializer)">
-            <summary>
-            序列化，仅支持 struct 并且不能是自定义序列化类型
-            </summary>
-            <param name="serializer"></param>
-        </member>
         <member name="T:AutoCSer.Breakpoint">
             <summary>
             测试断点
@@ -7075,35 +7046,6 @@
             <param name="index">节点位置</param>
             <returns>数据</returns>
         </member>
-        <member name="T:AutoCSer.SimpleSerialize.InternalIndependentSerializer`1">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.SimpleSerialize.InternalIndependentSerializer`1.value">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.SimpleSerialize.InternalIndependentSerializer`1.#ctor(`0)">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.SimpleSerialize.InternalIndependentSerializer`1.#ctor(`0@)">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.SimpleSerialize.InternalIndependentSerializer`1.Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
         <member name="T:AutoCSer.StateSearcher.AsciiBuilder">
             <summary>
             状态数据创建器
@@ -7936,6 +7878,13 @@
             <typeparam name="T">目标类型</typeparam>
             <param name="value">目标数据</param>
             <returns>解析状态</returns>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.deserializeValue``1(``0@)">
+            <summary>
+            XML 解析
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.XmlDeserializer.freeThreadStatic">
             <summary>

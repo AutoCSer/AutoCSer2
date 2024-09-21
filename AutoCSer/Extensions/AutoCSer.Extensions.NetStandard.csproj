@@ -34,7 +34,6 @@
     <Compile Include="Algorithm\CombinationTemplate\UnsafeSortArray.cs" />
     <Compile Include="Algorithm\RadixSort.cs" />
     <Compile Include="ArrayHeap.cs" />
-    <Compile Include="BinarySerialize\InternalIndependentSerializer.cs" />
     <Compile Include="Breakpoint.cs" />
     <Compile Include="CombinationTemplateConfig.cs" />
     <Compile Include="Date.cs" />
@@ -129,7 +128,6 @@
     <Compile Include="SearchTree\Node.cs" />
     <Compile Include="SearchTree\PageArray.cs" />
     <Compile Include="SearchTree\Set.cs" />
-    <Compile Include="SimpleSerialize\InternalIndependentSerializer.cs" />
     <Compile Include="StateSearcher\AsciiBuilder.cs" />
     <Compile Include="StateSearcher\AsciiSearcher.cs" />
     <Compile Include="Threading\AutoWaitCount.cs" />

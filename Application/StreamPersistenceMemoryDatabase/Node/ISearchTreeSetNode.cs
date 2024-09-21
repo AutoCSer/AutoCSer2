@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 二叉搜索树集合节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(SearchTreeSetNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(SearchTreeSetNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface ISearchTreeSetNode<T> where T : IComparable<T>
     {
         /// <summary>

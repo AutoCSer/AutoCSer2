@@ -53,7 +53,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             if (value.IsValue)
                             {
                                 callback = null;
-                                this.callback?.CallbackCancelKeep(value.Value.CreateKeepCallback());
+                                this.callback?.VirtualCallbackCancelKeep(value.Value.CreateKeepCallback());
                                 return CallStateEnum.Success;
                             }
                         }
@@ -71,7 +71,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     finally
                     {
-                        this.callback?.CallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.Unknown));
+                        this.callback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.Unknown));
                     }
                     return CallStateEnum.Success;
                 }
@@ -118,9 +118,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     service.WritePersistenceCallbackExceptionPosition(persistenceCallbackExceptionPosition);
                                     rebuilder = null;
                                     isPersistenceCallbackException = false;
-                                    callback.CallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.IgnorePersistenceCallbackException));
+                                    callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.IgnorePersistenceCallbackException));
                                 }
-                                else callback.CallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.PersistenceCallbackException));
+                                else callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.PersistenceCallbackException));
                             }
                             finally
                             {
@@ -145,7 +145,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                callback.CallbackCancelKeep(new KeepCallbackResponseParameter(state));
+                callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
             }
             return LinkNext;
         }
@@ -198,7 +198,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 输入参数
         /// </summary>
-        private T parameter;
+        internal T Parameter;
         /// <summary>
         /// 调用方法与参数信息
         /// </summary>
@@ -213,7 +213,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter"></param>
         public InputKeepCallbackMethodParameter(ServerNode node, int methodIndex, ref T parameter) : base(node, (InputKeepCallbackMethod)node.NodeCreator.Methods[methodIndex])
         {
-            this.parameter = parameter;
+            this.Parameter = parameter;
             callback = KeepCallbackResponseParameter.EmptyKeepCallback;
         }
         /// <summary>
@@ -222,8 +222,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            if (Method.IsSimpleDeserializeParamter) deserializer.SimpleDeserialize(ref parameter);
-            else deserializer.InternalIndependentDeserializeNotReference(ref parameter);
+            if (Method.IsSimpleDeserializeParamter) deserializer.SimpleDeserialize(ref Parameter);
+            else deserializer.InternalIndependentDeserializeNotReference(ref Parameter);
         }
         /// <summary>
         /// 输入参数反序列化
@@ -233,8 +233,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override bool Deserialize(AutoCSer.BinaryDeserializer deserializer, ref SubArray<byte> buffer)
         {
-            if (Method.IsSimpleDeserializeParamter) return deserializer.SimpleDeserialize(ref buffer, ref parameter);
-            return deserializer.InternalIndependentDeserializeNotReference(ref buffer, ref parameter);
+            if (Method.IsSimpleDeserializeParamter) return deserializer.SimpleDeserialize(ref buffer, ref Parameter);
+            return deserializer.InternalIndependentDeserializeNotReference(ref buffer, ref Parameter);
         }
         /// <summary>
         /// 持久化序列化
@@ -243,7 +243,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override MethodParameter PersistenceSerialize(AutoCSer.BinarySerializer serializer)
         {
-            return PersistenceSerialize(serializer, Method, ref parameter);
+            return PersistenceSerialize(serializer, Method, ref Parameter);
         }
         /// <summary>
         /// 创建持久化检查方法调用参数
@@ -252,7 +252,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override CallInputOutputMethodParameter CreateBeforePersistenceMethodParameter(CallInputOutputMethod beforePersistenceMethod)
         {
-            return new BeforePersistenceMethodParameter<T>(Node, beforePersistenceMethod, parameter);
+            return new BeforePersistenceMethodParameter<T>(Node, beforePersistenceMethod, Parameter);
         }
         /// <summary>
         /// 获取输入参数
@@ -262,7 +262,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static T GetParameter(InputKeepCallbackMethodParameter<T> parameter)
         {
-            return parameter.parameter;
+            return parameter.Parameter;
         }
     }
 }

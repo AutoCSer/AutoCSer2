@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 自定义序列化，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)
         /// </summary>
-        private readonly Action<BinarySerializer> serializer;
+        private readonly WriteBufferSerializer serializer;
         /// <summary>
         /// 数据缓冲区
         /// </summary>
@@ -32,7 +32,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 写入数据缓冲区
         /// </summary>
         /// <param name="serializer"></param>
-        internal WriteBuffer(Action<BinarySerializer> serializer)
+        internal WriteBuffer(WriteBufferSerializer serializer)
         {
             this.serializer = serializer;
             Buffer = default(SubArray<byte>);
@@ -42,16 +42,16 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="buffer"></param>
         public static implicit operator WriteBuffer(SubArray<byte> buffer) { return new WriteBuffer(buffer); }
-        /// <summary>
-        /// 隐式转换
-        /// </summary>
-        /// <param name="serializer">自定义序列化，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)</param>
-        public static implicit operator WriteBuffer(Action<BinarySerializer> serializer) { return new WriteBuffer(serializer); }
+        ///// <summary>
+        ///// 隐式转换
+        ///// </summary>
+        ///// <param name="serializer">自定义序列化，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)</param>
+        //public static implicit operator WriteBuffer(WriteBufferSerializer serializer) { return new WriteBuffer(serializer); }
         /// <summary>
         /// 隐式转换
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator WriteBuffer(string value) { return new WriteBuffer(new StringSerializer(value).Serialize); }
+        public static implicit operator WriteBuffer(string value) { return new WriteBuffer(new StringSerializer(value)); }
 
         /// <summary>
         /// 序列化
@@ -59,7 +59,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="serializer"></param>
         void AutoCSer.BinarySerialize.ICustomSerialize<WriteBuffer>.Serialize(AutoCSer.BinarySerializer serializer)
         {
-            if (this.serializer != null) this.serializer(serializer);
+            if (this.serializer != null) this.serializer.Serialize(serializer);
             else serializer.SerializeBuffer(ref Buffer);
         }
         /// <summary>

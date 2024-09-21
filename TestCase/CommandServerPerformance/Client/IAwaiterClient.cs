@@ -165,27 +165,27 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             switch (serverMethodName)
             {
                 case nameof(Synchronous):
-                    right = Reset(commandClient, maxTestCount, taskCount);
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) Synchronous().NotWait();
                     break;
                 case nameof(Callback):
-                    right = Reset(commandClient, maxTestCount, taskCount);
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) Callback().NotWait();
                     break;
                 case nameof(Queue):
-                    right = Reset(commandClient, maxTestCount, taskCount);
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) Queue().NotWait();
                     break;
                 case nameof(TaskQueue):
-                    right = Reset(commandClient, maxTestCount >> 1, taskCount);
+                    right = Reset(commandClient, maxTestCount >> 1, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) TaskQueue().NotWait();
                     break;
                 case nameof(TaskQueueKey):
-                    right = Reset(commandClient, maxTestCount >> 1, taskCount);
+                    right = Reset(commandClient, maxTestCount >> 1, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) TaskQueueKey().NotWait();
                     break;
                 case nameof(Task):
-                    right = Reset(commandClient, maxTestCount >> 1, taskCount);
+                    right = Reset(commandClient, maxTestCount >> 1, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) Task().NotWait();
                     break;
             }
@@ -203,12 +203,26 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private async Task Synchronous()
         {
+            int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(await client.InterfaceController.Synchronous(Left, right));
-                else return;
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.Synchronous(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
             }
             while (true);
         }
@@ -217,12 +231,26 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private async Task Callback()
         {
+            int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(await client.InterfaceController.Callback(Left, right));
-                else return;
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.Callback(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
             }
             while (true);
         }
@@ -231,12 +259,26 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private async Task Queue()
         {
+            int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(await client.InterfaceController.Queue(Left, right));
-                else return;
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.Queue(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
             }
             while (true);
         }
@@ -245,12 +287,26 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private async Task Task()
         {
+            int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(await client.InterfaceController.Task(Left, right));
-                else return;
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.Task(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
             }
             while (true);
         }
@@ -259,12 +315,26 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private async Task TaskQueue()
         {
+            int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(await client.InterfaceController.TaskQueue(Left, right));
-                else return;
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.TaskQueue(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
             }
             while (true);
         }
@@ -273,12 +343,26 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private async Task TaskQueueKey()
         {
+            int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(await client.InterfaceController.TaskQueueKey(0, Left, right));
-                else return;
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.TaskQueueKey(left, left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
             }
             while (true);
         }

@@ -194,74 +194,84 @@ namespace AutoCSer
                             else if ((end -= (2 + bootName.Length)) > Current && *(int*)end == ('<' + ('/' << 16))
                                 && AutoCSer.Memory.Common.SimpleEqualNotNull((byte*)bootNameFixed, (byte*)(end + 2), bootName.Length << 1))
                             {
-                                goto START;
+                                State = DeserializeStateEnum.Success;
+                                space();
+                                if (State == DeserializeStateEnum.Success)
+                                {
+                                    if (*(int*)Current == ('<' + ('?' << 16)))
+                                    {
+                                        Current += 3;
+                                        do
+                                        {
+                                            if (*Current == '>')
+                                            {
+                                                if (Current <= end)
+                                                {
+                                                    if (*(Current - 1) == '?')
+                                                    {
+                                                        ++Current;
+                                                        break;
+                                                    }
+                                                    else State = DeserializeStateEnum.HeaderError;
+                                                }
+                                                else State = DeserializeStateEnum.CrashEnd;
+                                                return;
+                                            }
+                                            ++Current;
+                                        }
+                                        while (true);
+                                        space();
+                                        if (State != DeserializeStateEnum.Success) return;
+                                    }
+                                    if (*Current == '<' && AutoCSer.Memory.Common.SimpleEqualNotNull((byte*)bootNameFixed, (byte*)(++Current), bootName.Length << 1))
+                                    {
+                                        if (((bits[*(byte*)(Current += bootName.Length)] & spaceBit) | *(((byte*)Current) + 1)) != 0)
+                                        {
+                                            if (*Current == '>')
+                                            {
+                                                attributes.Length = 0;
+                                                ++Current;
+                                                deserializeValue(ref value);
+                                                return;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ++Current;
+                                            attribute();
+                                            if (State == DeserializeStateEnum.Success)
+                                            {
+                                                deserializeValue(ref value);
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                                else State = DeserializeStateEnum.NotFoundBootNodeStart;
+                                return;
                             }
                         }
                         State = DeserializeStateEnum.NotFoundBootNodeEnd;
                         return;
                     }
                 }
-            START:
-                State = DeserializeStateEnum.Success;
+            }
+        }
+        /// <summary>
+        /// XML 解析
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        private void deserializeValue<T>(ref T value)
+        {
+            TypeDeserializer<T>.DefaultDeserializer(this, ref value);
+            if (State == DeserializeStateEnum.Success)
+            {
                 space();
                 if (State == DeserializeStateEnum.Success)
                 {
-                    if (*(int*)Current == ('<' + ('?' << 16)))
-                    {
-                        Current += 3;
-                        do
-                        {
-                            if (*Current == '>')
-                            {
-                                if (Current <= end)
-                                {
-                                    if (*(Current - 1) == '?')
-                                    {
-                                        ++Current;
-                                        break;
-                                    }
-                                    else State = DeserializeStateEnum.HeaderError;
-                                }
-                                else State = DeserializeStateEnum.CrashEnd;
-                                return;
-                            }
-                            ++Current;
-                        }
-                        while (true);
-                        space();
-                        if (State != DeserializeStateEnum.Success) return;
-                    }
-                    if (*Current == '<' && AutoCSer.Memory.Common.SimpleEqualNotNull((byte*)bootNameFixed, (byte*)(++Current), bootName.Length << 1))
-                    {
-                        if (((bits[*(byte*)(Current += bootName.Length)] & spaceBit) | *(((byte*)Current) + 1)) != 0)
-                        {
-                            if (*Current == '>')
-                            {
-                                attributes.Length = 0;
-                                ++Current;
-                                goto DESERIALIZE;
-                            }
-                        }
-                        else
-                        {
-                            ++Current;
-                            attribute();
-                            if (State == DeserializeStateEnum.Success) goto DESERIALIZE;
-                        }
-                    }
-                }
-                else State = DeserializeStateEnum.NotFoundBootNodeStart;
-                return;
-            DESERIALIZE:
-                TypeDeserializer<T>.DefaultDeserializer(this, ref value);
-                if (State == DeserializeStateEnum.Success)
-                {
-                    space();
-                    if (State == DeserializeStateEnum.Success)
-                    {
-                        if (Current == end) return;
-                        State = DeserializeStateEnum.CrashEnd;
-                    }
+                    if (Current == end) return;
+                    State = DeserializeStateEnum.CrashEnd;
                 }
             }
         }

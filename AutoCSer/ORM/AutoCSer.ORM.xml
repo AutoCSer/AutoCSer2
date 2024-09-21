@@ -2574,6 +2574,13 @@
             成员表达式
             </summary>
         </member>
+        <member name="M:AutoCSer.ORM.ConditionExpressionConverter.unknown(System.Linq.Expressions.Expression,System.Linq.Expressions.ExpressionType)">
+            <summary>
+            未知表达式
+            </summary>
+            <param name="expression"></param>
+            <param name="notSupportType"></param>
+        </member>
         <member name="M:AutoCSer.ORM.ConditionExpressionConverter.convertArrayLength">
             <summary>
             数组长度表达式

@@ -209,12 +209,10 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 获取节点标识
         /// </summary>
-        /// <param name="socket"></param>
-        /// <param name="queue"></param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo)
+        internal protected NodeIndex GetNodeIndex(string key, NodeInfo nodeInfo)
         {
             if (key != null)
             {
@@ -226,6 +224,18 @@ namespace AutoCSer.CommandService
                 return new NodeIndex(index, Nodes[index].GetFreeIdentity());
             }
             return new NodeIndex(CallStateEnum.NullKey);
+        }
+        /// <summary>
+        /// 获取节点标识
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
+        public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo)
+        {
+            return GetNodeIndex(key, nodeInfo);
         }
         /// <summary>
         /// 检查节点信息是否匹配
@@ -362,12 +372,10 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        /// <param name="socket"></param>
-        /// <param name="queue"></param>
         /// <param name="index">节点索引信息</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback"></param>
-        public void Call(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<CallStateEnum> callback)
+        internal void Call(NodeIndex index, int methodIndex, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             try
@@ -379,7 +387,7 @@ namespace AutoCSer.CommandService
                         ServerNode node = Nodes[index.Index].Get(index.Identity);
                         if (node != null)
                         {
-                            if((state = node.CallState) == CallStateEnum.Success) state = node.Call(methodIndex, ref callback);
+                            if ((state = node.CallState) == CallStateEnum.Success) state = node.Call(methodIndex, ref callback);
                             return;
                         }
                         state = CallStateEnum.NodeIdentityNotMatch;
@@ -397,8 +405,19 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="index">节点索引信息</param>
         /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Call(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<CallStateEnum> callback)
+        {
+            Call(index, methodIndex, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">返回参数</param>
-        public void CallOutput(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback)
+        internal void CallOutput(NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             try
@@ -426,8 +445,22 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="queue"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallOutput(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback)
+        {
+            CallOutput(index, methodIndex, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
         /// <param name="callback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void CallInput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
@@ -449,6 +482,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
         /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void CallInputOutput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
@@ -470,6 +504,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public CommandServerSendOnly SendOnly(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter)
         {
             if (!IsDisposed && parameter.CallState == CallStateEnum.Success) ((SendOnlyMethodParameter)parameter.MethodParameter).SendOnly();
@@ -478,12 +513,10 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        /// <param name="socket"></param>
-        /// <param name="queue"></param>
         /// <param name="index">节点索引信息</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">返回参数</param>
-        public void KeepCallback(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+        internal void KeepCallback(NodeIndex index, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             try
@@ -506,8 +539,21 @@ namespace AutoCSer.CommandService
             }
             finally
             {
-                if (callback != null) callback.CallbackCancelKeep(new KeepCallbackResponseParameter(state));
+                if (callback != null) callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
             }
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void KeepCallback(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+        {
+            KeepCallback(index, methodIndex, callback);
         }
         /// <summary>
         /// 调用节点方法
@@ -858,10 +904,8 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 重建持久化文件（清除无效数据），注意不支持快照的节点将被抛弃
         /// </summary>
-        /// <param name="socket"></param>
-        /// <param name="queue"></param>
         /// <returns></returns>
-        public virtual RebuildResult Rebuild(CommandServerSocket socket, CommandServerCallQueue queue)
+        internal RebuildResult Rebuild()
         {
             if (!IsDisposed)
             {
@@ -878,6 +922,16 @@ namespace AutoCSer.CommandService
                 return new RebuildResult(CallStateEnum.PersistenceRebuilding);
             }
             return new RebuildResult(CallStateEnum.Disposed);
+        }
+        /// <summary>
+        /// 重建持久化文件（清除无效数据），注意不支持快照的节点将被抛弃
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <returns></returns>
+        public virtual RebuildResult Rebuild(CommandServerSocket socket, CommandServerCallQueue queue)
+        {
+            return Rebuild();
         }
         /// <summary>
         /// 持久化文件重建异常并已关闭

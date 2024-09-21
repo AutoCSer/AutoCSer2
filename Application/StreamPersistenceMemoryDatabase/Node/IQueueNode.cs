@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 队列节点接口（先进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(QueueNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(QueueNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface IQueueNode<T>
     {
         /// <summary>

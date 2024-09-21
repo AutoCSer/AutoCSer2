@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">排序关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(SearchTreeDictionaryNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(SearchTreeDictionaryNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface ISearchTreeDictionaryNode<KT, VT>
         where KT : IComparable<KT>
     {

@@ -89,7 +89,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 finally
                 {
-                    if (!isCallback) callback.Socket.DisposeSocket();
+                    if (!isCallback) callback.Socket?.DisposeSocket();
                 }
             }
         }

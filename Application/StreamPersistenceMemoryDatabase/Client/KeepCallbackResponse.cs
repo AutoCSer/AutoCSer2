@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 保持回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class KeepCallbackResponse<T> : IDisposable
+    public class KeepCallbackResponse<T> : IDisposable
 #if DotNet45 || NetStandard2
 , IEnumeratorTask<ResponseResult<T>>
 #endif
@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 空响应（命令提交失败）
         /// </summary>
-        private KeepCallbackResponse() { }
+        protected KeepCallbackResponse() { }
         /// <summary>
         /// 保持回调输出
         /// </summary>
@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 释放资源
         /// </summary>
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (enumeratorCommand != null) ((IDisposable)enumeratorCommand).Dispose();
         }
@@ -116,7 +116,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 获取 IAsyncEnumerable
         /// </summary>
         /// <returns></returns>
-        public async IAsyncEnumerable<ResponseResult<T>> GetAsyncEnumerable()
+        public virtual async IAsyncEnumerable<ResponseResult<T>> GetAsyncEnumerable()
         {
             if (enumeratorCommand != null)
             {
@@ -129,7 +129,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         KeepCallbackResponseParameter response = enumeratorCommand.Current;
                         if (response.State == CallStateEnum.Success)
                         {
-                            if (enumeratorCommand.ReturnType == Net.CommandClientReturnTypeEnum.Success) yield return new ResponseResult<T>(KeepCallbackResponseDeserializeValue<T>.GetValue(response.DeserializeValue));
+                            if (enumeratorCommand.ReturnType == AutoCSer.Net.CommandClientReturnTypeEnum.Success) yield return new ResponseResult<T>(KeepCallbackResponseDeserializeValue<T>.GetValue(response.DeserializeValue));
                             else
                             {
                                 isError = true;
@@ -158,7 +158,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="VT">目标数据类型</typeparam>
         /// <param name="getValue">数据转换委托</param>
         /// <returns></returns>
-        public async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T, VT> getValue)
+        public virtual async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T, VT> getValue)
         {
             await foreach (ResponseResult<T> value in GetAsyncEnumerable())
             {

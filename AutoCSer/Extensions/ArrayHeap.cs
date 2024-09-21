@@ -145,15 +145,14 @@ namespace AutoCSer
         private int getPushIndex(KT key, int heapIndex)
         {
             int* heapFixed = Heap.Int;
-        START:
-            int parentValueIndex = heapFixed[heapIndex >> 1];
-            if (key.CompareTo(Array[parentValueIndex].Key) < 0)
+            do
             {
+                int parentValueIndex = heapFixed[heapIndex >> 1];
+                if (key.CompareTo(Array[parentValueIndex].Key) >= 0) return heapIndex;
                 heapFixed[heapIndex] = parentValueIndex;
-                if ((heapIndex >>= 1) != 1) goto START;
-                return 1;
+                if ((heapIndex >>= 1) == 1) return 1;
             }
-            return heapIndex;
+            while (true);
         }
         /// <summary>
         /// 删除堆顶数据

@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 位图节点接口
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(BitmapNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(BitmapNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface IBitmapNode
     {
         /// <summary>

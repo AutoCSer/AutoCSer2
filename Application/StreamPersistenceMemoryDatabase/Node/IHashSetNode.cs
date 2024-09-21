@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 哈希表节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(HashSetNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(HashSetNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface IHashSetNode<T> where T : IEquatable<T>
     {
         /// <summary>

@@ -85,15 +85,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="creatorException"></param>
         /// <param name="creatorMessages"></param>
         /// <param name="methods"></param>
+        /// <param name="isLocalClient"></param>
         /// <returns></returns>
-        internal bool GetClientMethods(Type type, ref Exception creatorException, ref string[] creatorMessages, out ClientNodeMethod[] methods)
+        internal bool GetClientMethods(Type type, ref Exception creatorException, ref string[] creatorMessages, out ClientNodeMethod[] methods, bool isLocalClient)
         {
             methods = null;
             LeftArray<ClientNodeMethod> methodArray = new LeftArray<ClientNodeMethod>(0);
             if (Error == null)
             {
                 if (Messages.Length != 0) creatorMessages = Messages.ToArray();
-                Error = ClientNodeMethod.GetMethod(type, ref methodArray);
+                Error = ClientNodeMethod.GetMethod(type, ref methodArray, isLocalClient);
             }
             if (Error != null)
             {
@@ -102,7 +103,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             foreach (Type interfaceType in type.GetInterfaces())
             {
-                Error = ClientNodeMethod.GetMethod(interfaceType, ref methodArray);
+                Error = ClientNodeMethod.GetMethod(interfaceType, ref methodArray, isLocalClient);
                 if (Error != null)
                 {
                     creatorException = new Exception($"{type.fullName()} 客户端节点生成失败 {Error}");

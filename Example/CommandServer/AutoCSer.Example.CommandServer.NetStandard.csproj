@@ -72,7 +72,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoCSer2" Version="2.0.7" />
+    <PackageReference Include="AutoCSer2" Version="2.0.8" />
   </ItemGroup>
 
   <ItemGroup>

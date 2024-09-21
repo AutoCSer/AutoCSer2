@@ -28,7 +28,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 GetMessage(keepCallback).NotWait();
 
                 await Task.WhenAll(getAppendMessageTask(config, isPersistence));
-                await loopCompleted(nameof(PerformanceDictionaryNode), nameof(AppendMessage), nameof(this.node.Completed));
+                await loopCompleted(nameof(PerformanceMessageNode), nameof(AppendMessage), nameof(this.node.Completed));
 
                 ResponseResult<int> intResult = await this.node.GetCount();
                 if (!Program.Breakpoint(result)) return;

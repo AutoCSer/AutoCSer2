@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// <summary>
     /// 字符串序列化
     /// </summary>
-    internal sealed class StringSerializer
+    internal sealed class StringSerializer : WriteBufferSerializer
     {
         /// <summary>
         /// 字符串
@@ -24,7 +24,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        internal unsafe void Serialize(AutoCSer.BinarySerializer serializer)
+        internal override void Serialize(AutoCSer.BinarySerializer serializer)
         {
             int index = serializer.SerializeBufferStart();
             if (index >= 0) serializer.SerializeBufferEnd(index, serializer.SerializeBuffer(value));

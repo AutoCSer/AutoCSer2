@@ -740,12 +740,17 @@ namespace AutoCSer.ORM
                 Expression = memberExpression.Expression;
                 Convert();
                 if (Type == ConvertTypeEnum.NotSupport) return;
-                if (Expression.NodeType != ExpressionType.Constant) goto UNKNOWN;
+                if (Expression.NodeType != ExpressionType.Constant)
+                {
+                    unknown(memberExpression, ExpressionType.MemberAccess);
+                    return;
+                }
                 target = Expression.getConstantValue();
                 if (target == null)
                 {
                     ExceptionType = ExceptionTypeEnum.TargetIsNull;
-                    goto UNKNOWN;
+                    unknown(memberExpression, ExpressionType.MemberAccess);
+                    return;
                 }
             }
             FieldInfo fieldInfo = memberExpression.Member as FieldInfo;
@@ -762,10 +767,19 @@ namespace AutoCSer.ORM
                 Type = ConvertTypeEnum.ConvertExpression;
                 return;
             }
-        UNKNOWN:
+            unknown(memberExpression, ExpressionType.MemberAccess);
+        }
+        /// <summary>
+        /// 未知表达式
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="notSupportType"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private void unknown(System.Linq.Expressions.Expression expression, ExpressionType notSupportType)
+        {
             Type = ConvertTypeEnum.NotSupport;
             NotSupportType = ExpressionType.MemberAccess;
-            Expression = memberExpression;
+            Expression = expression;
         }
         /// <summary>
         /// 数组长度表达式
@@ -1246,12 +1260,17 @@ namespace AutoCSer.ORM
                 Expression = methodCallExpression.Object;
                 Convert();
                 if (Type == ConvertTypeEnum.NotSupport) return;
-                if (Expression.NodeType != ExpressionType.Constant) goto UNKNOWN;
+                if (Expression.NodeType != ExpressionType.Constant)
+                {
+                    unknown(methodCallExpression, ExpressionType.Call);
+                    return;
+                }
                 target = Expression.getConstantValue();
                 if (target == null)
                 {
                     ExceptionType = ExceptionTypeEnum.TargetIsNull;
-                    goto UNKNOWN;
+                    unknown(methodCallExpression, ExpressionType.Call);
+                    return;
                 }
             }
             object[] arguments = EmptyArray<object>.Array;
@@ -1264,17 +1283,16 @@ namespace AutoCSer.ORM
                     Expression = agrumentExpression;
                     Convert();
                     if (Type == ConvertTypeEnum.NotSupport) return;
-                    if (Expression.NodeType != ExpressionType.Constant) goto UNKNOWN;
+                    if (Expression.NodeType != ExpressionType.Constant)
+                    {
+                        unknown(methodCallExpression, ExpressionType.Call);
+                        return;
+                    }
                     arguments[argumentIndex++] = Expression.getConstantValue();
                 }
             }
             Expression = System.Linq.Expressions.Expression.Constant(method.Invoke(target, arguments));
             Type = ConvertTypeEnum.ConvertExpression;
-            return;
-        UNKNOWN:
-            Type = ConvertTypeEnum.NotSupport;
-            NotSupportType = ExpressionType.Call;
-            Expression = methodCallExpression;
         }
         ///// <summary>
         ///// Lambda 表达式

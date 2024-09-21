@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
     /// <summary>
-    /// 流序列化缓存客户端节点
+    /// 流序列化数据库客户端节点
     /// </summary>
-    [Generator(Name = "流序列化缓存客户端节点", IsAuto = true)]
+    [Generator(Name = "流序列化数据库客户端节点", IsAuto = true)]
     internal partial class StreamPersistenceMemoryDatabaseClientNode : AttributeGenerator<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute>
     {
         /// <summary>

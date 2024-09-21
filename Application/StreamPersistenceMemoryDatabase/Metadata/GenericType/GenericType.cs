@@ -48,6 +48,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         internal abstract Action<CommandServerSocketSessionObjectService, DirectoryInfo, RepairNodeMethodDirectory> AppendRepairNodeMethodLoader { get; }
 
         /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate LocalServiceCallOutputNodeCreateDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate LocalServiceKeepCallbackNodeCreateDelegate { get; }
+
+
+        /// <summary>
         /// 创建泛型类型元数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -122,5 +132,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 添加待加载修复方法节点
         /// </summary>
         internal override Action<CommandServerSocketSessionObjectService, DirectoryInfo, RepairNodeMethodDirectory> AppendRepairNodeMethodLoader { get { return CommandServerSocketSessionObjectService.AppendRepairNodeMethodLoader<T>; } }
+
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate LocalServiceCallOutputNodeCreateDelegate { get { return (Func<LocalClientNode, int, LocalServiceQueueNode<ResponseResult<T>>>)LocalServiceCallOutputNode<T>.Create; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate LocalServiceKeepCallbackNodeCreateDelegate { get { return (Func<LocalClientNode, int, LocalServiceQueueNode<KeepCallbackResponse<T>>>)LocalServiceKeepCallbackNode<T>.Create; } }
     }
 }

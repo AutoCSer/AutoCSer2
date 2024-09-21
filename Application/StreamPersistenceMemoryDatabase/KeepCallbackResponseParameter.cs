@@ -17,9 +17,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal CallStateEnum State;
         /// <summary>
+        /// 是否简单序列化输出数据
+        /// </summary>
+        internal readonly bool IsSimpleSerialize;
+        /// <summary>
         /// 返回参数序列化
         /// </summary>
-        private readonly ResponseParameterSerializer serializer;
+        internal readonly ResponseParameterSerializer Serializer;
         /// <summary>
         /// 反序列化操作对象
         /// </summary>
@@ -31,17 +35,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal KeepCallbackResponseParameter(CallStateEnum state)
         {
             this.State = state;
-            serializer = null;
+            IsSimpleSerialize = false;
+            Serializer = null;
             DeserializeValue = null;
         }
         /// <summary>
         /// 返回参数序列化
         /// </summary>
         /// <param name="serializer">返回参数序列化</param>
-        internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer)
+        /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
+        internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer, bool isSimpleSerialize)
         {
             State = CallStateEnum.Success;
-            this.serializer = serializer;
+            IsSimpleSerialize = isSimpleSerialize;
+            this.Serializer = serializer;
             DeserializeValue = null;
         }
         /// <summary>
@@ -51,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         void AutoCSer.BinarySerialize.ICustomSerialize<KeepCallbackResponseParameter>.Serialize(AutoCSer.BinarySerializer serializer)
         {
             serializer.Stream.Write((int)(byte)State);
-            if (State == CallStateEnum.Success) this.serializer.Serialize(serializer);
+            if (State == CallStateEnum.Success) this.Serializer.Serialize(serializer);
         }
         /// <summary>
         /// 反序列化
@@ -63,7 +70,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (deserializer.Read(out state))
             {
                 this.State = (CallStateEnum)(byte)state;
-                if (this.State == CallStateEnum.Success) DeserializeValue = this.serializer.Deserialize(deserializer);
+                if (this.State == CallStateEnum.Success) DeserializeValue = this.Serializer.Deserialize(deserializer);
             }
         }
         /// <summary>
@@ -76,8 +83,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static KeepCallbackResponseParameter Create<T>(T value, bool isSimpleSerialize)
         {
-            if (isSimpleSerialize) return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value));
-            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value));
+            if (isSimpleSerialize) return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value), isSimpleSerialize);
+            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value), isSimpleSerialize);
         }
         /// <summary>
         /// 创建返回参数
@@ -92,14 +99,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 foreach (T value in values)
                 {
-                    yield return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value));
+                    yield return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value), true);
                 }
             }
             else
             {
                 foreach (T value in values)
                 {
-                    yield return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value));
+                    yield return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value), false);
                 }
             }
         }

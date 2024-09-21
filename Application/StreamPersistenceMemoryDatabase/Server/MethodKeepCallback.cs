@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
                     isParameter = true;
-                    isCallback = callback.Callback(responseParameter);
+                    isCallback = callback.VirtualCallback(responseParameter);
                 }
                 catch(Exception exception)
                 {
@@ -109,7 +109,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 try
                 {
-                    callback.CallbackCancelKeep(new KeepCallbackResponseParameter(state));
+                    callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
                 }
                 catch (Exception exception)
                 {

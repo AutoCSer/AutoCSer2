@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(FragmentDictionaryNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(FragmentDictionaryNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface IFragmentDictionaryNode<KT, VT>
         where KT : IEquatable<KT>
     {

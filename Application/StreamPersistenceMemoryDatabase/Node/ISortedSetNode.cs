@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 排序集合节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(SortedSetNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(SortedSetNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface ISortedSetNode<T> where T : IComparable<T>
     {
         /// <summary>

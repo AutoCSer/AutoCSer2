@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using AutoCSer.Extensions;
 
 namespace AutoCSer.MessagePack
 {
@@ -437,7 +438,7 @@ namespace AutoCSer.MessagePack
         /// </summary>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public string GetString(Encoding encoding)
+        public unsafe string GetString(Encoding encoding)
         {
             AutoCSer.Memory.Pointer memory = Memory;
             if (memory.ByteSize > 0) return encoding.GetString(memory.Byte, memory.ByteSize);

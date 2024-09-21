@@ -147,7 +147,7 @@ namespace AutoCSer.CommandService
                     callback(BlockIndex.JsonNull);
                     return;
                 }
-                if (await Client.Write((Action<BinarySerializer>)new JsonSerializer<T>(data).Serialize, callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(new WriteBuffer(new JsonSerializer<T>(data)), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -163,7 +163,7 @@ namespace AutoCSer.CommandService
         public CommandClientReturnValue<BlockIndex> WriteJson<T>(T data)
         {
             if (data == null) return BlockIndex.JsonNull;
-            return Client.WaitWrite((Action<BinarySerializer>)new JsonSerializer<T>(data).Serialize);
+            return Client.WaitWrite(new WriteBuffer(new JsonSerializer<T>(data)));
         }
         /// <summary>
         /// 写入 JSON
@@ -174,7 +174,7 @@ namespace AutoCSer.CommandService
         public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonAsync<T>(T data)
         {
             if (data == null) return BlockIndex.JsonNull;
-            return await Client.Write((Action<BinarySerializer>)new JsonSerializer<T>(data).Serialize);
+            return await Client.Write(new WriteBuffer(new JsonSerializer<T>(data)));
         }
         /// <summary>
         /// 写入 JSON
@@ -194,7 +194,7 @@ namespace AutoCSer.CommandService
                     callback(BlockIndex.JsonNull);
                     return;
                 }
-                if (await Client.Write((Action<BinarySerializer>)new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data).Serialize, callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(new WriteBuffer(new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data)), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -210,7 +210,7 @@ namespace AutoCSer.CommandService
         public CommandClientReturnValue<BlockIndex> WriteJsonMemberMap<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return BlockIndex.JsonNull;
-            return Client.WaitWrite((Action<BinarySerializer>)new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data).Serialize);
+            return Client.WaitWrite(new WriteBuffer(new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data)));
         }
         /// <summary>
         /// 写入 JSON
@@ -221,7 +221,7 @@ namespace AutoCSer.CommandService
         public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return BlockIndex.JsonNull;
-            return await Client.Write((Action<BinarySerializer>)new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data).Serialize);
+            return await Client.Write(new WriteBuffer(new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data)));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -241,7 +241,7 @@ namespace AutoCSer.CommandService
                     callback(new BlockIndex(BinarySerializer.NullValue, -4));
                     return;
                 }
-                if (await Client.Write((Action<BinarySerializer>)new InternalIndependentSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data)).SerializeNotReference, callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -257,7 +257,7 @@ namespace AutoCSer.CommandService
         public CommandClientReturnValue<BlockIndex> WriteBinary<T>(T data)
         {
             if (data == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return Client.WaitWrite((Action<BinarySerializer>)new InternalIndependentSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data)).SerializeNotReference);
+            return Client.WaitWrite(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -268,7 +268,7 @@ namespace AutoCSer.CommandService
         public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryAsync<T>(T data)
         {
             if (data == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return await Client.Write((Action<BinarySerializer>)new InternalIndependentSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data)).SerializeNotReference);
+            return await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -288,7 +288,7 @@ namespace AutoCSer.CommandService
                     callback(new BlockIndex(BinarySerializer.NullValue, -4));
                     return;
                 }
-                if (await Client.Write((Action<BinarySerializer>)new InternalIndependentSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data)).SerializeNotReference, callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -304,7 +304,7 @@ namespace AutoCSer.CommandService
         public CommandClientReturnValue<BlockIndex> WriteBinaryMemberMap<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return Client.WaitWrite((Action<BinarySerializer>)new InternalIndependentSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data)).SerializeNotReference);
+            return Client.WaitWrite(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -315,7 +315,7 @@ namespace AutoCSer.CommandService
         public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return await Client.Write((Action<BinarySerializer>)new InternalIndependentSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data)).SerializeNotReference);
+            return await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))));
         }
 
         /// <summary>

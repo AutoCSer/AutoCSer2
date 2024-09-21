@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 数组节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(LeftArrayNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(LeftArrayNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface ILeftArrayNode<T>
     {
         /// <summary>

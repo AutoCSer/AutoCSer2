@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// JSON 序列化
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class JsonSerializer<T>
+    internal sealed class JsonSerializer<T> : WriteBufferSerializer
     {
         /// <summary>
         /// 数据
@@ -26,7 +26,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        internal void Serialize(AutoCSer.BinarySerializer serializer)
+        internal override void Serialize(AutoCSer.BinarySerializer serializer)
         {
             int index = serializer.SerializeBufferStart();
             if (index >= 0) serializer.SerializeBufferEnd(index, ((CommandClientSocket)serializer.Context).JsonSerializeBuffer(ref value, serializer.Stream));

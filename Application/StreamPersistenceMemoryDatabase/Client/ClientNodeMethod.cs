@@ -13,18 +13,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class ClientNodeMethod : NodeMethod
     {
         /// <summary>
+        /// 本地客户端 SendOnly 方法返回值类型
+        /// </summary>
+        internal static readonly Type LocalClientSendOnlyMethodReturnType = typeof(MethodParameter);
+
+        /// <summary>
         /// 客户端节点方法信息
         /// </summary>
         /// <param name="type"></param>
         /// <param name="method"></param>
-        internal ClientNodeMethod(Type type, MethodInfo method) : base(type, method)
+        /// <param name="isLocalClient"></param>
+        internal ClientNodeMethod(Type type, MethodInfo method, bool isLocalClient) : base(type, method)
         {
             MethodIndex = int.MinValue;
             Parameters = method.GetParameters();
             ParameterEndIndex = Parameters.Length;
             ReturnValueType = method.ReturnType;
             bool isReturnType = false, isKeepCallback = false;
-            if (ReturnValueType == typeof(SendOnlyCommand))
+            if (ReturnValueType == (isLocalClient ? LocalClientSendOnlyMethodReturnType : typeof(SendOnlyCommand)))
             {
                 ReturnValueType = typeof(void);
                 CallType = CallTypeEnum.SendOnly;
@@ -34,7 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (ReturnValueType.IsGenericType)
                 {
                     Type genericTypeDefinition = ReturnValueType.GetGenericTypeDefinition();
-                    if (genericTypeDefinition == typeof(Task<>))
+                    if (genericTypeDefinition == (isLocalClient ? typeof(LocalServiceQueueNode<>) : typeof(Task<>)))
                     {
                         ReturnValueType = ReturnValueType.GetGenericArguments()[0];
                         if (ReturnValueType == typeof(ResponseResult))
@@ -60,7 +66,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 if (!isReturnType)
                 {
-                    Error = $"节点方法 {type.fullName()}.{method.Name} 返回值类型必须是 {typeof(Task<ResponseResult>).fullName()}";
+                    Type awaitType = isLocalClient ? typeof(LocalServiceQueueNode<ResponseResult>) : typeof(Task<ResponseResult>);
+                    Error = $"节点方法 {type.fullName()}.{method.Name} 返回值类型必须是 {awaitType.fullName()}";
                     return;
                 }
                 setCallType();
@@ -114,14 +121,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="type"></param>
         /// <param name="methods"></param>
+        /// <param name="isLocalClient"></param>
         /// <returns></returns>
-        internal static string GetMethod(Type type, ref LeftArray<ClientNodeMethod> methods)
+        internal static string GetMethod(Type type, ref LeftArray<ClientNodeMethod> methods, bool isLocalClient)
         {
             foreach (MethodInfo method in type.GetMethods())
             {
                 string error = AutoCSer.Net.CommandServer.InterfaceController.CheckMethod(type, method);
                 if (error != null) return error;
-                methods.Add(new ClientNodeMethod(type, method));
+                methods.Add(new ClientNodeMethod(type, method, isLocalClient));
             }
             return null;
         }

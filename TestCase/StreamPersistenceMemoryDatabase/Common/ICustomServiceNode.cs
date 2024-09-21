@@ -6,7 +6,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务基础操作自定义扩展接口（用于添加自定义节点创建接口）
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(CustomServiceNodeMethodEnum), IsAutoMethodIndex = false, IsClientCodeGeneratorOnlyDeclaringMethod = true)]
+    [ServerNode(MethodIndexEnumType = typeof(CustomServiceNodeMethodEnum), IsAutoMethodIndex = false, IsClientCodeGeneratorOnlyDeclaringMethod = true, IsLocalClient = true)]
     public interface ICustomServiceNode : IServiceNode
     {
         /// <summary>

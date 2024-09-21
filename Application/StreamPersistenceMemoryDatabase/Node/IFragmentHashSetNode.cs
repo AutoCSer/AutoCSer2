@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 256 基分片 哈希表 节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(FragmentHashSetNodeMethodEnum), IsAutoMethodIndex = false)]
+    [ServerNode(MethodIndexEnumType = typeof(FragmentHashSetNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
     public interface IFragmentHashSetNode<T>
     {
         /// <summary>
