@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.ReverseLogCollection
@@ -6,7 +7,7 @@ namespace AutoCSer.CommandService.ReverseLogCollection
     /// <summary>
     /// 日志回调
     /// </summary>
-    internal sealed class LogCallback<T> : CommandServerCallQueueNode
+    internal sealed class LogCallback<T> : QueueTaskNode
     {
         /// <summary>
         /// 反向日志收集服务

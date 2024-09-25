@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="T">返回结果类型</typeparam>
     [AutoCSer.CodeGenerator.AwaitResultType]
-    public abstract class LocalServiceQueueNode<T> : CommandServerCallQueueNode, INotifyCompletion
+    public abstract class LocalServiceQueueNode<T> : QueueTaskNode, INotifyCompletion
     {
         /// <summary>
         /// 日志流持久化内存数据库本地服务

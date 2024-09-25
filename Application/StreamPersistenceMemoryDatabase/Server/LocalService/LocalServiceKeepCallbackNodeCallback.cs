@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -36,12 +37,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 返回值回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private bool callback(ref KeepCallbackResponseParameter returnValue)
+        {
+            if (IsCancelKeep == 0)
+            {
+                Response.Callback(returnValue);
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
         /// 返回值回调并结束回调
         /// </summary>
         /// <param name="returnValue"></param>
         public override void VirtualCallbackCancelKeep(KeepCallbackResponseParameter returnValue)
         {
-            if (VirtualCallback(returnValue)) CancelKeep();
+            if (callback(ref returnValue)) CancelKeep();
         }
         /// <summary>
         /// 返回值回调
@@ -49,12 +64,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="returnValue"></param>
         public override bool VirtualCallback(KeepCallbackResponseParameter returnValue)
         {
-            if(IsCancelKeep == 0)
-            {
-                Response.Callback(returnValue);
-                return true;
-            }
-            return false;
+            return callback(ref returnValue);
+        }
+        /// <summary>
+        /// 返回值回调
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        internal override bool Callback(CommandServerCallQueue queue, KeepCallbackResponseParameter returnValue)
+        {
+            return callback(ref returnValue);
         }
         /// <summary>
         /// 返回数据集合

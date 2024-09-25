@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.DistributedLock
@@ -6,7 +7,7 @@ namespace AutoCSer.CommandService.DistributedLock
     /// <summary>
     /// 分布式锁请求超时释放处理
     /// </summary>
-    internal sealed class RequestTimeout : CommandServerCallQueueNode
+    internal sealed class RequestTimeout : QueueTaskNode
     {
         /// <summary>
         /// 分布式锁请求

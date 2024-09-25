@@ -194,6 +194,7 @@
     <Compile Include="Server\LocalService\LocalServiceCallOutputNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallOutputNodeCallback.cs" />
     <Compile Include="Server\LocalService\LocalServiceConfig.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCustomQueueNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceGetNodeIndex.cs" />
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNode.cs" />

@@ -16030,6 +16030,11 @@
             TCP 服务器端异步成功回调
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandServerSynchronousCallbackDelegate">
+            <summary>
+            TCP 服务器端异步成功回调
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerKeepCallbackDelegate">
             <summary>
             创建 TCP 服务器端异步回调对象
@@ -16513,6 +16518,11 @@
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerCallbackDelegate">
+            <summary>
+            TCP 服务器端异步成功回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerSynchronousCallbackDelegate">
             <summary>
             TCP 服务器端异步成功回调
             </summary>
@@ -17007,6 +17017,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:AutoCSer.Metadata.StructGenericType.CommandServerCallQueueSend">
+            <summary>
+            服务端执行队列任务发送数据
+            </summary>
+        </member>
         <member name="M:AutoCSer.Metadata.StructGenericType.create``1">
             <summary>
             创建泛型类型元数据
@@ -17095,6 +17110,21 @@
             获取二进制反序列化函数信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Metadata.StructGenericType`1.CommandServerCallQueueSendDelegate">
+            <summary>
+            发送数据
+            </summary>
+            <param name="node"></param>
+            <param name="queue"></param>
+            <param name="method">服务端输出信息</param>
+            <param name="outputParameter">返回值</param>
+            <returns>是否成功加入输出队列</returns>
+        </member>
+        <member name="P:AutoCSer.Metadata.StructGenericType`1.CommandServerCallQueueSend">
+            <summary>
+            服务端执行队列任务发送数据
+            </summary>
         </member>
         <member name="T:AutoCSer.Metadata.IgnoreAttribute">
             <summary>
@@ -22339,6 +22369,16 @@
             添加任务
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCallQueueNodeSocketIsClose">
+            <summary>
+            判断套接字是否已经关闭
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCallQueueNodeCheckOfflineCount">
+            <summary>
+            下线计数对象检查
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallQueueLowPriorityLinkAdd">
             <summary>
             添加任务
@@ -22476,11 +22516,6 @@
             发送数据
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerSocketCallQueueSendMethod">
-            <summary>
-            服务端执行队列任务发送数据
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerSocketCallTaskQueueAppendQueueMethod">
             <summary>
             添加队列任务
@@ -22527,9 +22562,9 @@
             异步回调类型构造函数参数类型集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCallQueueNodeSetOfflineCountNull">
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallQueueParameterTypes">
             <summary>
-            清除下线计数对象
+            异步回调类型构造函数参数类型集合
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CreateServerCallbackDelegate">
@@ -30660,6 +30695,13 @@
             </summary>
             <param name="returnValue"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.SynchronousCallback(`0)">
+            <summary>
+            同步回调
+            </summary>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.callback(AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
             <summary>
             成功回调
@@ -30671,6 +30713,24 @@
             <summary>
             成功回调
             </summary>
+            <param name="serverCallback"></param>
+            <param name="method"></param>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.synchronousCallback(AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
+            <summary>
+            成功回调
+            </summary>
+            <param name="queue"></param>
+            <param name="method"></param>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.SynchronousCallback(AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerCallback{`0},AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
+            <summary>
+            成功回调
+            </summary>
+            <param name="queue"></param>
             <param name="serverCallback"></param>
             <param name="method"></param>
             <param name="returnValue"></param>
@@ -30751,7 +30811,7 @@
             </summary>
             <param name="node"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallLowPriorityQueue.add(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerCallLowPriorityQueue.add(AutoCSer.Threading.QueueTaskNode)">
             <summary>
             添加任务
             </summary>
@@ -31485,6 +31545,14 @@
             </summary>
             <param name="returnValue"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(AutoCSer.Net.CommandServerCallQueue,`0)">
+            <summary>
+            返回值回调
+            </summary>
+            <param name="queue"></param>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(`0,System.Action)">
             <summary>
             返回值回调
@@ -32148,6 +32216,13 @@
             <param name="head"></param>
             <param name="end"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.CheckPush(AutoCSer.Net.CommandServer.ServerOutput,AutoCSer.Net.CommandServer.ServerOutput)">
+            <summary>
+            添加输出信息
+            </summary>
+            <param name="head"></param>
+            <param name="end"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.TryPush(AutoCSer.Net.CommandServer.ServerOutput)">
             <summary>
             添加输出信息
@@ -32279,16 +32354,6 @@
             </summary>
             <typeparam name="T">输出数据类型</typeparam>
             <param name="callbackIdentity">会话标识</param>
-            <param name="method">服务端输出信息</param>
-            <param name="outputParameter">返回值</param>
-            <returns>是否成功加入输出队列</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerSocket.CallQueueSend``1(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
-            <summary>
-            服务端执行队列任务发送数据
-            </summary>
-            <typeparam name="T">输出数据类型</typeparam>
-            <param name="node"></param>
             <param name="method">服务端输出信息</param>
             <param name="outputParameter">返回值</param>
             <returns>是否成功加入输出队列</returns>
@@ -32590,7 +32655,7 @@
             </summary>
             <param name="node"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueue.AddOnly(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerCallQueue.AddOnly(AutoCSer.Threading.QueueTaskNode)">
             <summary>
             添加任务
             </summary>
@@ -32620,6 +32685,39 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerCallQueue.sendSocket">
+            <summary>
+            当前发送数据套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallQueue.outputHead">
+            <summary>
+            输出信息头节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallQueue.outputEnd">
+            <summary>
+            输出信息尾节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallQueue.sendTimestamp">
+            <summary>
+            发送数据时间戳
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallQueue.send">
+            <summary>
+            发送数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallQueue.Send(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerOutput)">
+            <summary>
+            服务端执行队列任务发送数据
+            </summary>
+            <param name="socket"></param>
+            <param name="output">服务端输出信息</param>
+            <returns>是否成功加入输出队列</returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerCallQueueNode">
             <summary>
             服务端执行队列任务
@@ -32635,7 +32733,7 @@
             服务端下线计数对象
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerCallQueueNode.callbackIdentity">
+        <member name="F:AutoCSer.Net.CommandServerCallQueueNode.CallbackIdentity">
             <summary>
             当前处理会话标识
             </summary>
@@ -32658,22 +32756,6 @@
             <param name="offlineCount"></param>
             <param name="methodType"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.RunTask">
-            <summary>
-            执行任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.CheckRunTask">
-            <summary>
-            执行任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.RunTask(AutoCSer.Net.CommandServerCallQueueNode@)">
-            <summary>
-            执行任务
-            </summary>
-            <param name="next"></param>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerCallQueueNode.OnTimeout(AutoCSer.Net.CommandServerCallQueue,System.Int64)">
             <summary>
             服务端队列超时通知
@@ -32687,17 +32769,24 @@
             下线计数对象检查
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.CheckOfflineCount(AutoCSer.Net.CommandServerCallQueueNode)">
+            <summary>
+            下线计数对象检查
+            </summary>
+            <param name="node"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallQueueNode.OnException(System.Exception)">
             <summary>
             队列任务执行异常
             </summary>
             <param name="exception"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.SetOfflineCountNull(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.SocketIsClose(AutoCSer.Net.CommandServerCallQueueNode)">
             <summary>
-            清除下线计数对象
+            判断套接字是否已经关闭
             </summary>
             <param name="node"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallQueueNode.GetSocket(AutoCSer.Net.CommandServerCallQueueNode)">
             <summary>
@@ -32706,43 +32795,50 @@
             <param name="node"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.send">
-            <summary>
-            发送成功返回值类型
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.Send(AutoCSer.Net.CommandServerCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.Send(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServerCallQueue)">
             <summary>
             发送成功返回值类型
             </summary>
             <param name="node"></param>
+            <param name="queue"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.Send``1(AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.send``1(AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
             <summary>
             发送数据
             </summary>
             <typeparam name="T">输出数据类型</typeparam>
+            <param name="queue"></param>
             <param name="method">服务端输出信息</param>
             <param name="outputParameter">返回值</param>
-            <returns>是否成功加入输出队列</returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.send``1(AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.Send``1(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
             <summary>
             发送数据
             </summary>
             <typeparam name="T">输出数据类型</typeparam>
+            <param name="node"></param>
+            <param name="queue"></param>
             <param name="method">服务端输出信息</param>
             <param name="outputParameter">返回值</param>
             <returns>是否成功加入输出队列</returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.Send``1(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.sendReturnValue``1(AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
+            <summary>
+            发送数据
+            </summary>
+            <typeparam name="T">输出数据类型</typeparam>
+            <param name="queue"></param>
+            <param name="method">服务端输出信息</param>
+            <param name="outputParameter">返回值</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.SendReturnValue``1(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
             <summary>
             服务端执行队列任务发送数据
             </summary>
             <typeparam name="T">输出数据类型</typeparam>
             <param name="node"></param>
+            <param name="queue"></param>
             <param name="method">服务端输出信息</param>
             <param name="outputParameter">返回值</param>
             <returns>是否成功加入输出队列</returns>
@@ -33502,6 +33598,11 @@
             获取初始化时间差
             </summary>
             <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Date.TimestampByMilliseconds">
+            <summary>
+            1毫秒时间戳
+            </summary>
         </member>
         <member name="F:AutoCSer.Date.LocalTimeTicks">
             <summary>
@@ -41420,6 +41521,36 @@
             <summary>
             默认链表缓存池参数
             </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.QueueTaskNode">
+            <summary>
+            队列任务节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.QueueTaskNode.RunTask">
+            <summary>
+            执行任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.QueueTaskNode.RunTask(AutoCSer.Threading.QueueTaskNode@)">
+            <summary>
+            执行任务
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.QueueTaskNode.OnException(System.Exception)">
+            <summary>
+            队列任务执行异常
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.QueueTaskNode.OnTimeout(AutoCSer.Net.CommandServerCallQueue,System.Int64)">
+            <summary>
+            服务端队列超时通知
+            </summary>
+            <param name="queue"></param>
+            <param name="seconds"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Threading.RingPool`1">
             <summary>

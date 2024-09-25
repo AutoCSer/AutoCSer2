@@ -81,7 +81,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     ResponseParameter responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
                     isCallback = true;
-                    callbackCopy.Callback(responseParameter);
+                    callbackCopy.SynchronousCallback(responseParameter);
                 }
                 catch (Exception exception)
                 {

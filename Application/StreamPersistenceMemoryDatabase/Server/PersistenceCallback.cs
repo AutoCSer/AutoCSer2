@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -6,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 日志流持久化内存数据库回调操作
     /// </summary>
-    internal sealed class PersistenceCallback : CommandServerCallQueueNode
+    internal sealed class PersistenceCallback : QueueTaskNode
     {
         /// <summary>
         /// 持久化流已写入位置

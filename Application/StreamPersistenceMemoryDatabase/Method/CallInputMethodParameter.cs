@@ -64,7 +64,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     finally
                     {
-                        this.callback?.Callback(CallStateEnum.Unknown);
+                        this.callback?.SynchronousCallback(CallStateEnum.Unknown);
                     }
                     return CallStateEnum.Success;
                 }
@@ -111,9 +111,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     service.WritePersistenceCallbackExceptionPosition(persistenceCallbackExceptionPosition);
                                     rebuilder = null;
                                     isPersistenceCallbackException = false;
-                                    callback.Callback(CallStateEnum.IgnorePersistenceCallbackException);
+                                    callback.SynchronousCallback(CallStateEnum.IgnorePersistenceCallbackException);
                                 }
-                                else callback.Callback(CallStateEnum.PersistenceCallbackException);
+                                else callback.SynchronousCallback(CallStateEnum.PersistenceCallbackException);
                             }
                             finally
                             {
@@ -138,7 +138,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                callback.Callback(state);
+                callback.SynchronousCallback(state);
             }
             return LinkNext;
         }
@@ -152,7 +152,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                callback.Callback(CallStateEnum.Success);
+                callback.SynchronousCallback(CallStateEnum.Success);
             }
         }
         /// <summary>

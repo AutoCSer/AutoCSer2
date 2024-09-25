@@ -18,6 +18,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return true;
         }
+        /// <summary>
+        /// 同步回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        internal override bool SynchronousCallback(T returnValue)
+        {
+            return true;
+        }
 
         /// <summary>
         /// 空回调

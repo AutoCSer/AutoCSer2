@@ -270,7 +270,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                         ValueResult<ResponseParameter> value = ((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex]).CallOutputBeforePersistence(this);
                                         if (value.IsValue)
                                         {
-                                            callback?.Callback(value.Value);
+                                            callback?.SynchronousCallback(value.Value);
                                             callback = null;
                                             return CallStateEnum.Success;
                                         }

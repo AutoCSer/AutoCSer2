@@ -396,7 +396,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.Callback(state); }
+            finally { callback?.SynchronousCallback(state); }
         }
         /// <summary>
         /// 调用节点方法
@@ -438,7 +438,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.Callback(new ResponseParameter(state)); }
+            finally { callback?.SynchronousCallback(new ResponseParameter(state)); }
         }
         /// <summary>
         /// 调用节点方法
@@ -473,7 +473,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.Callback(state); }
+            finally { callback?.SynchronousCallback(state); }
         }
         /// <summary>
         /// 调用节点方法
@@ -495,7 +495,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.Callback(new ResponseParameter(state)); }
+            finally { callback?.SynchronousCallback(new ResponseParameter(state)); }
         }
         /// <summary>
         /// 调用节点方法

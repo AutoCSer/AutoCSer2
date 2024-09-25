@@ -74,6 +74,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 成功回调
         /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool Callback(CommandServerCallQueue queue, T value)
+        {
+            if (callback != null)
+            {
+                bool isParameter = false, isCallback = false;
+                try
+                {
+                    KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
+                    isParameter = true;
+                    isCallback = callback.VirtualCallback(responseParameter);
+                }
+                catch (Exception exception)
+                {
+                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                }
+                finally
+                {
+                    if (!isParameter) CallbackCancelKeep(CallStateEnum.Unknown);
+                }
+                return isCallback;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 成功回调
+        /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
         public bool Callback(IEnumerable<T> values)

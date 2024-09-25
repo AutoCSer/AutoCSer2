@@ -53,6 +53,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return true;
         }
+        ///// <summary>
+        ///// 成功回调
+        ///// </summary>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //internal bool SynchronousCallback(T value)
+        //{
+        //    if (callback != null)
+        //    {
+        //        bool isCallback;
+        //        ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
+        //        try
+        //        {
+        //            responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
+        //        }
+        //        finally { isCallback = callback.SynchronousCallback(responseParameter); }
+        //        return isCallback;
+        //    }
+        //    return true;
+        //}
         /// <summary>
         /// 失败回调
         /// </summary>
@@ -63,6 +83,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return callback == null || callback.Callback(new ResponseParameter(state));
         }
+        ///// <summary>
+        ///// 失败回调
+        ///// </summary>
+        ///// <param name="state">失败状态</param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal bool SynchronousCallback(CallStateEnum state)
+        //{
+        //    return callback == null || callback.SynchronousCallback(new ResponseParameter(state));
+        //}
 
         /// <summary>
         /// 创建方法调用回调包装对象委托类型

@@ -53,7 +53,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             if (value.IsValue)
                             {
                                 callback = null;
-                                this.callback?.Callback(value.Value);
+                                this.callback?.SynchronousCallback(value.Value);
                                 return CallStateEnum.Success;
                             }
                         }
@@ -71,7 +71,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     finally
                     {
-                        this.callback?.Callback(new ResponseParameter(CallStateEnum.Unknown));
+                        this.callback?.SynchronousCallback(new ResponseParameter(CallStateEnum.Unknown));
                     }
                     return CallStateEnum.Success;
                 }
@@ -118,9 +118,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     service.WritePersistenceCallbackExceptionPosition(persistenceCallbackExceptionPosition);
                                     rebuilder = null;
                                     isPersistenceCallbackException = false;
-                                    callback.Callback(new ResponseParameter(CallStateEnum.IgnorePersistenceCallbackException));
+                                    callback.SynchronousCallback(new ResponseParameter(CallStateEnum.IgnorePersistenceCallbackException));
                                 }
-                                else callback.Callback(new ResponseParameter(CallStateEnum.PersistenceCallbackException));
+                                else callback.SynchronousCallback(new ResponseParameter(CallStateEnum.PersistenceCallbackException));
                             }
                             finally
                             {
@@ -145,7 +145,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                callback.Callback(new ResponseParameter(state));
+                callback.SynchronousCallback(new ResponseParameter(state));
             }
             return LinkNext;
         }
@@ -165,7 +165,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     ResponseParameter responseParameter = ResponseParameter.Create(value, Method.IsSimpleSerializeParamter);
                     isCallback = true;
-                    callback.Callback(responseParameter);
+                    callback.SynchronousCallback(responseParameter);
                 }
                 catch (Exception exception)
                 {

@@ -30,5 +30,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return node.Callback(result);
         }
+        /// <summary>
+        /// 同步回调
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        internal override bool SynchronousCallback(ResponseParameter result)
+        {
+            return node.Callback(result);
+        }
     }
 }

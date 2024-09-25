@@ -77,9 +77,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     service.WritePersistenceCallbackExceptionPosition(persistenceCallbackExceptionPosition);
                                     rebuilder = null;
                                     isPersistenceCallbackException = false;
-                                    callback.Callback(CallStateEnum.IgnorePersistenceCallbackException);
+                                    callback.SynchronousCallback(CallStateEnum.IgnorePersistenceCallbackException);
                                 }
-                                else callback.Callback(CallStateEnum.PersistenceCallbackException);
+                                else callback.SynchronousCallback(CallStateEnum.PersistenceCallbackException);
                             }
                             finally
                             {
@@ -104,7 +104,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                callback.Callback(state);
+                callback.SynchronousCallback(state);
             }
             return LinkNext;
         }

@@ -103,6 +103,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return new LocalServiceRebuild(Service).AppendQueue();
         }
+        /// <summary>
+        /// 添加非持久化队列任务（不修改内存数据状态）
+        /// </summary>
+        /// <typeparam name="T">获取结果数据类型</typeparam>
+        /// <param name="getResult">获取结果数据委托</param>
+        /// <returns>队列节点</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public LocalServiceQueueNode<T> AppendQueueNode<T>(Func<T> getResult)
+        {
+            return Service.AppendQueueNode(getResult);
+        }
     }
     /// <summary>
     /// 日志流持久化内存数据库本地服务客户端

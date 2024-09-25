@@ -322,7 +322,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             for (int index = callbacks.Length; index != 0;)
             {
                 MethodKeepCallback<T> checkCallback = callbackArray[--index].Callback;
-                if (!checkCallback.Callback((T)null)) removeCallback(checkCallback);
+                if (!checkCallback.Callback(streamPersistenceMemoryDatabaseService.CommandServerCallQueue, (T)null)) removeCallback(checkCallback);
             }
             callbacks.PrepLength(1);
             if (fullCallbackIndex != callbacks.Length)
@@ -373,7 +373,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
                     }
                     while (true);
-                    if (currentCallback.Callback(linkHead, end))
+                    if (currentCallback.Callback(streamPersistenceMemoryDatabaseService.CommandServerCallQueue, linkHead, end))
                     {
                         do
                         {
@@ -424,7 +424,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         message.MessageIdeneity.ArrayIndex = messageArrayFreeIndex;
                         do
                         {
-                            if (currentCallback.Callback(message))
+                            if (currentCallback.Callback(streamPersistenceMemoryDatabaseService.CommandServerCallQueue, message))
                             {
                                 nextFailed.LinkNext = appendArrayMessage(message);
                                 if (nextFailed.LinkNext == null) nextFailed = failedHead;
@@ -505,7 +505,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             message.MessageIdeneity.ArrayIndex = messageArrayFreeIndex;
             do
             {
-                if (currentCallback.Callback(message))
+                if (currentCallback.Callback(streamPersistenceMemoryDatabaseService.CommandServerCallQueue, message))
                 {
                     linkHead = appendArrayMessage(message);
                     return;

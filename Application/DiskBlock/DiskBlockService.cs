@@ -428,7 +428,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 {
                     if (buffer.SubArray.Length == index.Size)
                     {
-                        callback.Callback(new ReadBuffer(ref buffer.SubArray));
+                        callback.SynchronousCallback(new ReadBuffer(ref buffer.SubArray));
                         callback = null;
                     }
                     else state = ReadBufferStateEnum.Size;
@@ -439,7 +439,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 if (block != null) Block.Read(ref index, ref callback);
                 else state = ReadBufferStateEnum.BlockIndex;
             }
-            finally { callback?.Callback(new ReadBuffer(state)); }
+            finally { callback?.SynchronousCallback(new ReadBuffer(state)); }
         }
         /// <summary>
         /// 根据索引获取磁盘块

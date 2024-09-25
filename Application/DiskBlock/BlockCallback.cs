@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.DiskBlock
@@ -6,7 +7,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// <summary>
     /// 磁盘块操作回调操作
     /// </summary>
-    internal sealed class BlockCallback : CommandServerCallQueueNode
+    internal sealed class BlockCallback : QueueTaskNode
     {
         /// <summary>
         /// 磁盘块

@@ -88,7 +88,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 异步释放资源
         /// </summary>
         /// <returns></returns>
+#if DotNet45 || NetStandard2
         public new ValueTask DisposeAsync()
+#else
+        public ValueTask DisposeAsync()
+#endif
         {
             callback.SetCancelKeep();
             return AutoCSer.Common.CompletedTask.ToValueTask();

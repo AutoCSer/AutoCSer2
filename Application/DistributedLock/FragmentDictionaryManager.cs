@@ -54,7 +54,7 @@ namespace AutoCSer.CommandService.DistributedLock
             {
                 get(key).Enter(controller, releaseSeconds, ref callback);
             }
-            finally { callback?.Callback(0); }
+            finally { callback?.SynchronousCallback(0); }
         }
         /// <summary>
         /// 尝试请求锁
@@ -79,7 +79,7 @@ namespace AutoCSer.CommandService.DistributedLock
             {
                 get(key).Enter(controller, releaseSeconds, timeoutSeconds, ref callback);
             }
-            finally { callback?.Callback(0); }
+            finally { callback?.SynchronousCallback(0); }
         }
         /// <summary>
         /// 锁请求断线重连

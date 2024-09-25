@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -23,8 +24,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="node">服务端节点</param>
         public virtual void SetContext(ServerNode<T> node)
         {
-            streamPersistenceMemoryDatabaseNode = node;
             streamPersistenceMemoryDatabaseService = (StreamPersistenceMemoryDatabaseService)node.NodeCreator.Service;
+            streamPersistenceMemoryDatabaseNode = node;
         }
         /// <summary>
         /// 初始化加载完毕处理

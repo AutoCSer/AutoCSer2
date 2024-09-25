@@ -21,10 +21,11 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodCallback"></param>
+        /// <param name="queue"></param>
         /// <param name="head">开始节点</param>
         /// <param name="end">结束节点</param>
         /// <returns></returns>
-        internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, T head, T end)
+        internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, CommandServerCallQueue queue, T head, T end)
              where T : KeepCallbackReturnValueLink<T>
         {
 #if DEBUG
@@ -38,24 +39,20 @@ namespace AutoCSer.Extensions
                 {
                     if (!object.ReferenceEquals(callback.GetType().Assembly, currentAssembly))
                     {
-                        if (!callback.Socket.IsClose)
+                        CommandServerSocket socket = callback.Socket;
+                        if (!socket.IsClose)
                         {
-                            ServerOutput outputHead = null, outputEnd = null;
                             do
                             {
                                 ServerReturnValue<KeepCallbackResponseParameter> outputParameter = new ServerReturnValue<KeepCallbackResponseParameter>(KeepCallbackResponseParameter.Create(head, methodCallback.IsSimpleSerialize));
-                                ServerOutput output = callback.Socket.GetOutput(callback.CallbackIdentity, callback.Method, ref outputParameter);
-                                if (outputHead == null) outputHead = output;
-                                else outputEnd.LinkNext = output;
-                                outputEnd = output;
+                                queue.Send(socket, socket.GetOutput(callback.CallbackIdentity, callback.Method, ref outputParameter));
                             }
                             while ((head = head.LinkNext) != end);
-                            callback.Socket.Push(outputHead, outputEnd);
                             return isPush = true;
                         }
                     }
                     else
-                    {
+                    {//本地模式
                         do
                         {
                             if (!callback.VirtualCallback(KeepCallbackResponseParameter.Create(head, methodCallback.IsSimpleSerialize))) return false;

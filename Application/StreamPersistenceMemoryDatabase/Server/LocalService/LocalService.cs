@@ -88,5 +88,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             finally { callback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
         }
+        /// <summary>
+        /// 添加非持久化队列任务（不修改内存数据状态）
+        /// </summary>
+        /// <typeparam name="T">获取结果数据类型</typeparam>
+        /// <param name="getResult">获取结果数据委托</param>
+        /// <returns>队列节点</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public LocalServiceQueueNode<T> AppendQueueNode<T>(Func<T> getResult)
+        {
+            return new LocalServiceCustomQueueNode<T>(this, getResult);
+        }
     }
 }

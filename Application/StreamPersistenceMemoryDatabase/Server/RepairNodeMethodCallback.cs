@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 using System.IO;
 using System.Reflection;
@@ -8,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 修复节点方法队列回调
     /// </summary>
-    internal sealed class RepairNodeMethodCallback : CommandServerCallQueueNode
+    internal sealed class RepairNodeMethodCallback : QueueTaskNode
     {
         /// <summary>
         /// 生成服务端节点

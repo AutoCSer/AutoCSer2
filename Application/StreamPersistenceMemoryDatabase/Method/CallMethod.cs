@@ -53,7 +53,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callbackCopy != null)
             {
                 callback = null;
-                callbackCopy.Callback(CallStateEnum.Success);
+                callbackCopy.SynchronousCallback(CallStateEnum.Success);
             }
         }
         /// <summary>
