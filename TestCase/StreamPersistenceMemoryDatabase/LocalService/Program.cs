@@ -45,6 +45,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                         }
                         await Task.WhenAll(
                             CallbackNode.Test(client)
+                            , DistributedLockNode.Test(client)
                             , ServerJsonBinaryMessageConsumer.Test(client)
                             , ServerBinaryMessageConsumer.Test(client)
                             , StringMessageConsumer.Test(client)

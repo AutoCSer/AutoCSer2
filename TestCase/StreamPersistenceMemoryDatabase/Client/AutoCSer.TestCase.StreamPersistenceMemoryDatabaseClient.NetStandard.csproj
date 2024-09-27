@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Compile Include="CommandClientSocketEventTaskClient.cs" />
+    <Compile Include="DistributedLockNode.cs" />
     <Compile Include="PerformanceClient.cs" />
     <Compile Include="PerformanceMessageNode.cs" />
     <Compile Include="PerformanceSearchTreeDictionaryNode.cs" />

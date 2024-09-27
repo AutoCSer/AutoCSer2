@@ -145,6 +145,14 @@ namespace AutoCSer.CommandService
             if (Rebuilder != null) CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(Rebuilder, PersistenceRebuilderCallbackTypeEnum.Close));
         }
         /// <summary>
+        /// 获取服务端 UTC 时间
+        /// </summary>
+        /// <returns></returns>
+        public DateTime GetUtcNow()
+        {
+            return DateTime.UtcNow;
+        }
+        /// <summary>
         /// 绑定命令服务控制器
         /// </summary>
         /// <param name="controller"></param>

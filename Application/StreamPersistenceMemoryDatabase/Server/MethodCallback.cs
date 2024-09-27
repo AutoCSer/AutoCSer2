@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 方法调用回调包装
     /// </summary>
     /// <typeparam name="T">返回数据类型</typeparam>
-    public sealed class MethodCallback<T>
+    public sealed class MethodCallback<T> : AutoCSer.Threading.Link<MethodCallback<T>>
     {
         /// <summary>
         /// 服务接口回调委托
@@ -18,6 +18,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否简单序列化输出数据
         /// </summary>
         private readonly bool isSimpleSerialize;
+        /// <summary>
+        /// 保留
+        /// </summary>
+        internal ushort Reserve;
         /// <summary>
         /// 无回调
         /// </summary>
@@ -53,26 +57,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return true;
         }
-        ///// <summary>
-        ///// 成功回调
-        ///// </summary>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //internal bool SynchronousCallback(T value)
-        //{
-        //    if (callback != null)
-        //    {
-        //        bool isCallback;
-        //        ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
-        //        try
-        //        {
-        //            responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
-        //        }
-        //        finally { isCallback = callback.SynchronousCallback(responseParameter); }
-        //        return isCallback;
-        //    }
-        //    return true;
-        //}
+        /// <summary>
+        /// 成功回调
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool SynchronousCallback(T value)
+        {
+            if (callback != null)
+            {
+                bool isCallback;
+                ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
+                try
+                {
+                    responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
+                }
+                finally { isCallback = callback.SynchronousCallback(responseParameter); }
+                return isCallback;
+            }
+            return true;
+        }
         /// <summary>
         /// 失败回调
         /// </summary>

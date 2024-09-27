@@ -26,41 +26,15 @@ namespace AutoCSer.TestCase.BusinessClient
         /// </summary>
         public static CommandClientSocketEvent SocketEvent { get { return Instance.socketEvent; } }
         /// <summary>
-        /// 分布式锁客户端
-        /// </summary>
-        private readonly AutoCSer.CommandService.DistributedLockClient<string> distributedLockClient;
-        /// <summary>
-        /// 命令客户端套接字事件
-        /// </summary>
-        public static AutoCSer.CommandService.DistributedLockClient<string> DistributedLockClient { get { return Instance.distributedLockClient; } }
-        /// <summary>
         /// 命令客户端
         /// </summary>
         /// <param name="commandClient"></param>
         /// <param name="socketEvent"></param>
         /// <param name="distributedLockClient"></param>
-        private Client(CommandClient commandClient, CommandClientSocketEvent socketEvent, AutoCSer.CommandService.DistributedLockClient<string> distributedLockClient)
+        private Client(CommandClient commandClient, CommandClientSocketEvent socketEvent)
         {
             this.commandClient = commandClient;
             this.socketEvent = socketEvent;
-            this.distributedLockClient = distributedLockClient;
-        }
-        /// <summary>
-        /// 获取分布式业务锁
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="ReleaseSeconds">自动释放锁超时秒数，用于客户端掉线没有释放锁的情况</param>
-        /// <param name="KeepSeconds">心跳间隔秒数</param>
-        /// <returns></returns>
-        public static async Task<CommandClientReturnValue<AutoCSer.CommandService.DistributedLockKeepRequest<string>>> EnterDistributedLockAsync(string key, int ReleaseSeconds = 60, int KeepSeconds = 15)
-        {
-            CommandClientSocketEvent socketEvent = SocketEvent;
-            if (socketEvent.DistributedLockClient == null)
-            {
-                await CommandClient.GetSocketAsync();
-                if (socketEvent.DistributedLockClient == null) return new CommandClientReturnValue { ReturnType = CommandClientReturnTypeEnum.ClientUnknown, ErrorMessage = "业务数据服务连接中，请稍后重试！" };
-            }
-            return await DistributedLockClient.Enter(key, ReleaseSeconds, KeepSeconds);
         }
 
         /// <summary>
@@ -136,8 +110,7 @@ namespace AutoCSer.TestCase.BusinessClient
                         await LogHelper.Error("业务数据服务连接失败");
                         return null;
                     }
-                    CommandClientSocketEvent socketEvent = (CommandClientSocketEvent)commandClient.SocketEvent;
-                    instance = new Client(commandClient, socketEvent, new AutoCSer.CommandService.DistributedLockClient<string>(socketEvent));
+                    instance = new Client(commandClient, (CommandClientSocketEvent)commandClient.SocketEvent);
                 }
             }
             finally { instanceLock.Exit(); }

@@ -28,6 +28,7 @@
     <Compile Include="BitmapNode.cs" />
     <Compile Include="CallbackNode.cs" />
     <Compile Include="DictionaryNode.cs" />
+    <Compile Include="DistributedLockNode.cs" />
     <Compile Include="FragmentDictionaryNode.cs" />
     <Compile Include="FragmentHashSetNode.cs" />
     <Compile Include="HashSetNode.cs" />

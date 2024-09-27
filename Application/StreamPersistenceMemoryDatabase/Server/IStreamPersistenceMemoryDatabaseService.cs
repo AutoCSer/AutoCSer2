@@ -17,6 +17,11 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         CommandServerSendOnly CreateSessionObject(CommandServerSocket socket);
         /// <summary>
+        /// 获取服务端 UTC 时间
+        /// </summary>
+        /// <returns></returns>
+        DateTime GetUtcNow();
+        /// <summary>
         /// 获取持久化流已当前写入位置
         /// </summary>
         /// <returns></returns>

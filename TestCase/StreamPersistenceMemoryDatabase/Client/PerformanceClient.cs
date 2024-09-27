@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         /// 最大测试请求次数
         /// </summary>
 #if DEBUG
-        protected const int maxTestCount = 1 << 8;
+        protected const int maxTestCount = 1 << 10;
 #else
         protected const int maxTestCount = 1 << 23;
 #endif

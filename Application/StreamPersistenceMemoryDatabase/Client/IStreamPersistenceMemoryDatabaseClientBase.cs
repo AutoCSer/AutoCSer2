@@ -14,6 +14,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         SendOnlyCommand CreateSessionObject();
         /// <summary>
+        /// 获取服务端 UTC 时间
+        /// </summary>
+        /// <returns></returns>
+        ReturnCommand<DateTime> GetUtcNow();
+        /// <summary>
         /// 获取持久化流已当前写入位置
         /// </summary>
         /// <returns></returns>

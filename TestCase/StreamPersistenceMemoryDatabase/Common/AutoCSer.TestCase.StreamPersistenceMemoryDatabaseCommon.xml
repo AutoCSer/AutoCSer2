@@ -89,6 +89,15 @@
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNode.CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{int}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNode.CreateArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
             <summary>
             创建数组节点 ArrayNode{string}
@@ -511,6 +520,15 @@
             <param name="arraySize">正在处理消息数组大小</param>
             <param name="timeoutSeconds">消息处理超时秒数</param>
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode.CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{int}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode.CreateArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
@@ -980,6 +998,15 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeClientNode.CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{int}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode">
             <summary>
             本地客户端节点接口
@@ -1246,6 +1273,15 @@
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode.CreatePerformanceSearchTreeDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             创建吞吐性能测试二叉搜索树字典节点（非持久化纯内存模式） SearchTreeDictionaryNode{int,int}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode.CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{int}
             </summary>
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
@@ -1917,6 +1953,15 @@
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreatePerformanceSearchTreeDictionaryNode">
             <summary>
             [28] 创建吞吐性能测试二叉搜索树字典节点（非持久化纯内存模式） SearchTreeDictionaryNode{int,int}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateDistributedLockNode">
+            <summary>
+            [29] 创建分布式锁节点节点 DistributedLockNode{int}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息

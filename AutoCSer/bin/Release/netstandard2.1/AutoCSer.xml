@@ -42123,6 +42123,13 @@
             <param name="keepMode">定时任务继续模式</param>
             <param name="keepSeconds">继续执行间隔秒数，0 表示不继续执行</param>
         </member>
+        <member name="M:AutoCSer.Threading.SecondTimerArrayNode.#ctor(AutoCSer.Threading.SecondTimerArray,System.Int64)">
+            <summary>
+            二维秒级定时任务节点
+            </summary>
+            <param name="taskArray">二维定时任务数组</param>
+            <param name="timeoutSeconds">执行任务时间</param>
+        </member>
         <member name="M:AutoCSer.Threading.SecondTimerArrayNode.getNextTimeoutSeconds">
             <summary>
             获取下一个超时秒计数

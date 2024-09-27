@@ -32,6 +32,15 @@ namespace AutoCSer.CommandService
             return client.CreateSessionObject();
         }
         /// <summary>
+        /// 获取服务端 UTC 时间
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ReturnCommand<DateTime> GetUtcNow()
+        {
+            return client.GetUtcNow();
+        }
+        /// <summary>
         /// 获取节点标识
         /// </summary>
         /// <param name="key">节点全局关键字</param>

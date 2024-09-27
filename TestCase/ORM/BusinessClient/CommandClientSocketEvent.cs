@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.BusinessClient
     /// <summary>
     /// 命令客户端套接字事件
     /// </summary>
-    public sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent, AutoCSer.CommandService.IDistributedLockClientSocketEvent<string>
+    public sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent
     {
         /// <summary>
         /// 基于递增登录时间戳验证的服务认证客户端示例接口
@@ -42,7 +42,6 @@ namespace AutoCSer.TestCase.BusinessClient
             get
             {
                 yield return new CommandClientControllerCreatorParameter(typeof(AutoCSer.CommandService.ITimestampVerifyService), typeof(AutoCSer.CommandService.ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(AutoCSer.CommandService.IDistributedLockService<string>), typeof(AutoCSer.CommandService.IDistributedLockClient<string>));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(IAutoIdentityModelClient));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(IFieldModelClient));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(IPropertyModelClient));
@@ -54,10 +53,7 @@ namespace AutoCSer.TestCase.BusinessClient
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public CommandClientSocketEvent(CommandClient client) : base(client)
-        {
-            distributedLockRequestManager = new AutoCSer.CommandService.DistributedLockRequestManager<string>(this);
-        }
+        public CommandClientSocketEvent(CommandClient client) : base(client) { }
         /// <summary>
         /// 客户端创建套接字连接以后调用认证 API
         /// </summary>
@@ -66,31 +62,6 @@ namespace AutoCSer.TestCase.BusinessClient
         public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
             return getCompletedTask(AutoCSer.CommandService.TimestampVerifyChecker.Verify(controller, AutoCSer.TestCase.Common.Config.TimestampVerifyString));
-        }
-
-        /// <summary>
-        /// 锁请求队列管理
-        /// </summary>
-        private readonly AutoCSer.CommandService.DistributedLockRequestManager<string> distributedLockRequestManager;
-        /// <summary>
-        /// 分布式平台业务锁接口
-        /// </summary>
-        public AutoCSer.CommandService.IDistributedLockClient<string> DistributedLockClient { get; private set; }
-        /// <summary>
-        /// 添加新的锁请求对象
-        /// </summary>
-        /// <param name="request"></param>
-        void AutoCSer.CommandService.IDistributedLockClientSocketEvent.AppendRequest(AutoCSer.CommandService.IDistributedLockRequest request)
-        {
-            distributedLockRequestManager.Append(request);
-        }
-        /// <summary>
-        /// 删除锁请求对象
-        /// </summary>
-        /// <param name="request"></param>
-        void AutoCSer.CommandService.IDistributedLockClientSocketEvent.RemoveRequest(AutoCSer.CommandService.IDistributedLockRequest request)
-        {
-            distributedLockRequestManager.Remove(request);
         }
     }
 }

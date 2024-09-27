@@ -491,6 +491,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStreamPersistenceMemoryDatabaseClientBase.GetUtcNow">
+            <summary>
+            获取服务端 UTC 时间
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStreamPersistenceMemoryDatabaseClientBase.GetPersistencePosition">
             <summary>
             获取持久化流已当前写入位置
@@ -2564,6 +2570,321 @@
             <param name="index">位索引</param>
             <returns>取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1">
+            <summary>
+            分布式锁
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.Node">
+            <summary>
+            分布式锁节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.Identity">
+            <summary>
+            分布式锁标识信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.callbackHead">
+            <summary>
+            锁等待队列头节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.callbackEnd">
+            <summary>
+            锁等待队列尾节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.LockTimeout">
+            <summary>
+            当前超时
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{`0}@)">
+            <summary>
+            分布式锁
+            </summary>
+            <param name="node">分布式锁节点</param>
+            <param name="identity">分布式锁标识信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode{`0},`0,System.UInt16)">
+            <summary>
+            分布式锁
+            </summary>
+            <param name="node">分布式锁节点</param>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.Enter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Int64})">
+            <summary>
+            申请锁
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.checkTimeout">
+            <summary>
+            超时检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.Release(System.Int64)">
+            <summary>
+            释放锁
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.next">
+            <summary>
+            处理下一个等待节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock`1.Timeout(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeout{`0})">
+            <summary>
+            超时检查
+            </summary>
+            <param name="timeout"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity`1">
+            <summary>
+            分布式锁标识信息
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity`1.Key">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity`1.Timeout">
+            <summary>
+            当前超时时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity`1.Identity">
+            <summary>
+            锁操作标识
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity`1.Set(System.Int64)">
+            <summary>
+            设置锁操作标识
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity`1.Set(`0,System.DateTime,System.Int64)">
+            <summary>
+            设置锁信息
+            </summary>
+            <param name="key"></param>
+            <param name="timeout"></param>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity`1.Set(System.DateTime,System.Int64)">
+            <summary>
+            设置锁信息
+            </summary>
+            <param name="timeout"></param>
+            <param name="identity"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1">
+            <summary>
+            分布式锁节点
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.locks">
+            <summary>
+            锁信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.Identity">
+            <summary>
+            当前分配锁操作标识
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.CommandServerCallQueue">
+            <summary>
+            服务端执行队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.#ctor">
+            <summary>
+            分布式锁节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.GetSnapshotArray">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <returns>快照数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{`0})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.Remove(`0)">
+            <summary>
+            移除锁信息
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock{`0})">
+            <summary>
+            移除锁信息
+            </summary>
+            <param name="distributedLock"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.EnterBeforePersistence(`0,System.UInt16)">
+            <summary>
+            申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.Enter(`0,System.UInt16,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Int64})">
+            <summary>
+            申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <param name="callback">失败返回 0</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.TryEnterBeforePersistence(`0,System.UInt16)">
+            <summary>
+            尝试申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.TryEnter(`0,System.UInt16)">
+            <summary>
+            尝试申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.ReleaseBeforePersistence(`0,System.Int64)">
+            <summary>
+            释放锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="identity">锁操作标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.Release(`0,System.Int64)">
+            <summary>
+            释放锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="identity">锁操作标识</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeout`1">
+            <summary>
+            分布式锁超时
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeout`1.DistributedLock">
+            <summary>
+            分布式锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeout`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLock{`0},System.Int64)">
+            <summary>
+            分布式锁超时
+            </summary>
+            <param name="distributedLock">分布式锁</param>
+            <param name="timeoutSeconds">超时时间</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeout`1.OnTimer">
+            <summary>
+            触发定时操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeoutNode`1">
+            <summary>
+            分布式锁超时检查队列节点
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeoutNode`1.timeout">
+            <summary>
+            分布式锁超时
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeoutNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeout{`0})">
+            <summary>
+            分布式锁超时检查队列节点
+            </summary>
+            <param name="timeout">分布式锁超时</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockTimeoutNode`1.RunTask">
+            <summary>
+            超时检查
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1">
+            <summary>
+            分布式锁节点
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{`0})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.EnterBeforePersistence(`0,System.UInt16)">
+            <summary>
+            申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.Enter(`0,System.UInt16,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Int64})">
+            <summary>
+            申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <param name="callback">失败返回 0</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.TryEnterBeforePersistence(`0,System.UInt16)">
+            <summary>
+            尝试申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.TryEnter(`0,System.UInt16)">
+            <summary>
+            尝试申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.Release(`0,System.Int64)">
+            <summary>
+            释放锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="identity">锁操作标识</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptyNodeMethodEnum">
+            <summary>
+            空节点接口方法映射枚举（用于节点初始化绑定 MethodIndexEnumType ）
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1">
             <summary>
             256 基分片哈希表节点
@@ -2825,6 +3146,93 @@
             <param name="value"></param>
             <returns>是否删除成功</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment">
+            <summary>
+            自增 ID 分段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.identity">
+            <summary>
+            当前分配 ID
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.Identity">
+            <summary>
+            当前分配 ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.count">
+            <summary>
+            剩余 ID 数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.Count">
+            <summary>
+            剩余 ID 数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.#ctor(System.Int64@,System.Int32)">
+            <summary>
+            自增 ID 分段
+            </summary>
+            <param name="identity"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.Next(System.Int64@)">
+            <summary>
+            获取下一个自增ID
+            </summary>
+            <param name="identity">分配的分配 ID</param>
+            <returns>返回 false 表示没有可分配 ID</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode">
+            <summary>
+            64 位自增ID 节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.identity">
+            <summary>
+            当前分配 ID
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.#ctor(System.Int64)">
+            <summary>
+            位图节点
+            </summary>
+            <param name="identity">当前分配 ID</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.GetSnapshotArray">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <returns>快照数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.SnapshotSet(System.Int64)">
+            <summary>
+            快照添加数据
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.Next">
+            <summary>
+            获取下一个自增ID
+            </summary>
+            <returns>下一个自增ID，失败返回负数</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.NextFragmentBeforePersistence(System.Int32)">
+            <summary>
+            获取自增 ID 分段 持久化参数检查
+            </summary>
+            <param name="count">排序数据数量</param>
+            <returns>自增 ID 分段</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.NextFragment(System.Int32)">
+            <summary>
+            获取自增 ID 分段
+            </summary>
+            <param name="count">获取数量</param>
+            <returns>自增 ID 分段</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage`1">
             <summary>
             二进制序列化消息
@@ -2853,6 +3261,37 @@
             隐式转换
             </summary>
             <param name="message"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode">
+            <summary>
+            64 位自增ID 节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode.SnapshotSet(System.Int64)">
+            <summary>
+            快照添加数据
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode.Next">
+            <summary>
+            获取下一个自增ID
+            </summary>
+            <returns>下一个自增ID，失败返回负数</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode.NextFragmentBeforePersistence(System.Int32)">
+            <summary>
+            获取自增 ID 分段 持久化参数检查
+            </summary>
+            <param name="count">排序数据数量</param>
+            <returns>自增 ID 分段</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode.NextFragment(System.Int32)">
+            <summary>
+            获取自增 ID 分段
+            </summary>
+            <param name="count">获取数量</param>
+            <returns>自增 ID 分段</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1">
             <summary>
@@ -10478,6 +10917,11 @@
             是否简单序列化输出数据
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Reserve">
+            <summary>
+            保留
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.#ctor">
             <summary>
             无回调
@@ -10491,6 +10935,13 @@
             <param name="isSimpleSerialize">是否简单序列化输出数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Callback(`0)">
+            <summary>
+            成功回调
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.SynchronousCallback(`0)">
             <summary>
             成功回调
             </summary>
@@ -13434,6 +13885,34 @@
             </summary>
             <param name="capacity">新容器初始化大小</param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode`1">
+            <summary>
+            分布式锁节点 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode`1.Enter(`0,System.UInt16)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="timeoutSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode`1.Release(`0,System.Int64)">
+            <summary>
+            释放锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="identity">锁操作标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode`1.TryEnter(`0,System.UInt16)">
+            <summary>
+            尝试申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeClientNode`2">
             <summary>
             256 基分片字典 节点接口 客户端节点接口
@@ -13647,6 +14126,24 @@
             </summary>
             <param name="key"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode">
+            <summary>
+            64 位自增ID 节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode.Next">
+            <summary>
+            获取下一个自增ID
+            </summary>
+            <returns>下一个自增ID，失败返回负数</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode.NextFragment(System.Int32)">
+            <summary>
+            获取自增 ID 分段
+            </summary>
+            <param name="count">获取数量</param>
+            <returns>自增 ID 分段</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNodeClientNode`1">
             <summary>
@@ -14700,6 +15197,34 @@
             </summary>
             <param name="capacity">新容器初始化大小</param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode`1">
+            <summary>
+            分布式锁节点 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode`1.Enter(`0,System.UInt16)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="timeoutSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode`1.Release(`0,System.Int64)">
+            <summary>
+            释放锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="identity">锁操作标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode`1.TryEnter(`0,System.UInt16)">
+            <summary>
+            尝试申请锁
+            </summary>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
+            <returns>失败返回 0</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeLocalClientNode`2">
             <summary>
             256 基分片字典 节点接口 客户端节点接口
@@ -14913,6 +15438,24 @@
             </summary>
             <param name="key"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode">
+            <summary>
+            64 位自增ID 节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode.Next">
+            <summary>
+            获取下一个自增ID
+            </summary>
+            <returns>下一个自增ID，失败返回负数</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode.NextFragment(System.Int32)">
+            <summary>
+            获取自增 ID 分段
+            </summary>
+            <param name="count">获取数量</param>
+            <returns>自增 ID 分段</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNodeLocalClientNode`1">
             <summary>
@@ -16112,6 +16655,52 @@
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 无返回值表示需要继续调用持久化方法
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNodeeMethodEnum.Enter">
+            <summary>
+            [0] 
+            T key 
+            ushort timeoutSeconds 
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{long} callback 
+            返回值 long 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNodeeMethodEnum.EnterBeforePersistence">
+            <summary>
+            [1] 申请锁
+            T key 锁关键字
+            ushort timeoutSeconds 超时秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{long} 失败返回 0
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNodeeMethodEnum.Release">
+            <summary>
+            [2] 释放锁
+            T key 锁关键字
+            long identity 锁操作标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNodeeMethodEnum.SnapshotSet">
+            <summary>
+            [3] 
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{T} value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNodeeMethodEnum.TryEnter">
+            <summary>
+            [4] 尝试申请锁
+            T key 锁关键字
+            ushort timeoutSeconds 超时秒数
+            返回值 long 失败返回 0
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNodeeMethodEnum.TryEnterBeforePersistence">
+            <summary>
+            [5] 尝试申请锁
+            T key 锁关键字
+            ushort timeoutSeconds 超时秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{long} 失败返回 0
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNodeMethodEnum">
             <summary>
             256 基分片字典 节点接口方法映射枚举
@@ -16430,6 +17019,37 @@
             string key 
             T value 
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 无返回值表示需要继续调用持久化方法
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeMethodEnum">
+            <summary>
+            空节点接口方法映射枚举（用于节点初始化绑定 MethodIndexEnumType ）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeMethodEnum.Next">
+            <summary>
+            [0] 获取下一个自增ID
+            返回值 long 下一个自增ID，失败返回负数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeMethodEnum.NextFragment">
+            <summary>
+            [1] 获取自增 ID 分段
+            int count 获取数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment 自增 ID 分段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeMethodEnum.SnapshotSet">
+            <summary>
+            [2] 快照添加数据
+            long identity 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeMethodEnum.NextFragmentBeforePersistence">
+            <summary>
+            [3] 获取自增 ID 分段 持久化参数检查
+            int count 排序数据数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment} 自增 ID 分段
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LeftArrayNodeMethodEnum">
@@ -17877,6 +18497,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseTaskClient.GetUtcNow">
+            <summary>
+            获取服务端 UTC 时间
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseTaskClient.GetNodeIndex(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             获取节点标识
@@ -18057,6 +18683,12 @@
             创建会话对象，用于反序列化时获取服务信息
             </summary>
             <param name="socket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.GetUtcNow">
+            <summary>
+            获取服务端 UTC 时间
+            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.GetPersistencePosition">
@@ -18331,6 +18963,12 @@
             <summary>
             释放资源
             </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetUtcNow">
+            <summary>
+            获取服务端 UTC 时间
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.AutoCSer#Net#ICommandServerBindController#Bind(AutoCSer.Net.CommandServerController)">
             <summary>

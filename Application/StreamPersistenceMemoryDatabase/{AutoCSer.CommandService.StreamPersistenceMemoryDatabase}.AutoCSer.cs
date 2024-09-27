@@ -243,6 +243,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 分布式锁节点 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode<>))]
+        public partial interface IDistributedLockNodeClientNode<T>
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="timeoutSeconds"></param>
+            /// <returns></returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Enter(T key, ushort timeoutSeconds);
+            /// <summary>
+            /// 释放锁
+            /// </summary>
+            /// <param name="key">锁关键字</param>
+            /// <param name="identity">锁操作标识</param>
+            AutoCSer.Net.SendOnlyCommand Release(T key, long identity);
+            /// <summary>
+            /// 尝试申请锁
+            /// </summary>
+            /// <param name="key">锁关键字</param>
+            /// <param name="timeoutSeconds">超时秒数</param>
+            /// <returns>失败返回 0</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> TryEnter(T key, ushort timeoutSeconds);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 256 基分片字典 节点接口 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode<,>))]
@@ -439,6 +468,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryGetValue(string key);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 64 位自增ID 节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode))]
+        public partial interface IIdentityGeneratorNodeClientNode
+        {
+            /// <summary>
+            /// 获取下一个自增ID
+            /// </summary>
+            /// <returns>下一个自增ID，失败返回负数</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Next();
+            /// <summary>
+            /// 获取自增 ID 分段
+            /// </summary>
+            /// <param name="count">获取数量</param>
+            /// <returns>自增 ID 分段</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment>> NextFragment(int count);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1399,6 +1448,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 分布式锁节点 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode<>))]
+        public partial interface IDistributedLockNodeLocalClientNode<T>
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="timeoutSeconds"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Enter(T key, ushort timeoutSeconds);
+            /// <summary>
+            /// 释放锁
+            /// </summary>
+            /// <param name="key">锁关键字</param>
+            /// <param name="identity">锁操作标识</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter Release(T key, long identity);
+            /// <summary>
+            /// 尝试申请锁
+            /// </summary>
+            /// <param name="key">锁关键字</param>
+            /// <param name="timeoutSeconds">超时秒数</param>
+            /// <returns>失败返回 0</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> TryEnter(T key, ushort timeoutSeconds);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 256 基分片字典 节点接口 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode<,>))]
@@ -1595,6 +1673,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryGetValue(string key);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 64 位自增ID 节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode))]
+        public partial interface IIdentityGeneratorNodeLocalClientNode
+        {
+            /// <summary>
+            /// 获取下一个自增ID
+            /// </summary>
+            /// <returns>下一个自增ID，失败返回负数</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Next();
+            /// <summary>
+            /// 获取自增 ID 分段
+            /// </summary>
+            /// <param name="count">获取数量</param>
+            /// <returns>自增 ID 分段</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment>> NextFragment(int count);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2677,6 +2775,51 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
+    public enum DistributedLockNodeeMethodEnum
+    {
+            /// <summary>
+            /// [0] 
+            /// T key 
+            /// ushort timeoutSeconds 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{long} callback 
+            /// 返回值 long 
+            /// </summary>
+            Enter = 0,
+            /// <summary>
+            /// [1] 申请锁
+            /// T key 锁关键字
+            /// ushort timeoutSeconds 超时秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{long} 失败返回 0
+            /// </summary>
+            EnterBeforePersistence = 1,
+            /// <summary>
+            /// [2] 释放锁
+            /// T key 锁关键字
+            /// long identity 锁操作标识
+            /// </summary>
+            Release = 2,
+            /// <summary>
+            /// [3] 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{T} value 
+            /// </summary>
+            SnapshotSet = 3,
+            /// <summary>
+            /// [4] 尝试申请锁
+            /// T key 锁关键字
+            /// ushort timeoutSeconds 超时秒数
+            /// 返回值 long 失败返回 0
+            /// </summary>
+            TryEnter = 4,
+            /// <summary>
+            /// [5] 尝试申请锁
+            /// T key 锁关键字
+            /// ushort timeoutSeconds 超时秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{long} 失败返回 0
+            /// </summary>
+            TryEnterBeforePersistence = 5,
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
         /// <summary>
         /// 256 基分片字典 节点接口方法映射枚举
         /// </summary>
@@ -2961,6 +3104,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 无返回值表示需要继续调用持久化方法
             /// </summary>
             TryAddBeforePersistence = 13,
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 空节点接口方法映射枚举（用于节点初始化绑定 MethodIndexEnumType ）
+        /// </summary>
+    public enum IdentityGeneratorNodeMethodEnum
+    {
+            /// <summary>
+            /// [0] 获取下一个自增ID
+            /// 返回值 long 下一个自增ID，失败返回负数
+            /// </summary>
+            Next = 0,
+            /// <summary>
+            /// [1] 获取自增 ID 分段
+            /// int count 获取数量
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment 自增 ID 分段
+            /// </summary>
+            NextFragment = 1,
+            /// <summary>
+            /// [2] 快照添加数据
+            /// long identity 
+            /// </summary>
+            SnapshotSet = 2,
+            /// <summary>
+            /// [3] 获取自增 ID 分段 持久化参数检查
+            /// int count 排序数据数量
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment} 自增 ID 分段
+            /// </summary>
+            NextFragmentBeforePersistence = 3,
     }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
