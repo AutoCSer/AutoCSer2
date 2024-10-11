@@ -142,10 +142,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             uint persistenceFileHeadVersion = 0;
             ulong rebuildPosition = 0;
-            if (await AutoCSer.Common.Config.FileExists(service.PersistenceCallbackExceptionPositionFileInfo, true) && service.PersistenceCallbackExceptionPositionFileInfo.Length >= ServiceLoader.FileHeadSize)
+            if (await AutoCSer.Common.Config.FileExists(service.PersistenceCallbackExceptionPositionFileInfo, true) && service.PersistenceCallbackExceptionPositionFileInfo.Length >= ServiceLoader.ExceptionPositionFileHeadSize)
             {
                 persistenceCallbackExceptionPositionStream = await AutoCSer.Common.Config.CreateFileStream(service.PersistenceCallbackExceptionPositionFileInfo.FullName, FileMode.Open, FileAccess.ReadWrite);
-                await persistenceCallbackExceptionPositionStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
+                await persistenceCallbackExceptionPositionStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
                 persistenceFileHeadVersion = ServiceLoader.GetPersistenceFileHeadVersion(service.PersistenceDataPositionBuffer, out rebuildPosition);
                 CommandClientReturnValue<long> position = await masterClient.StreamPersistenceMemoryDatabaseClient.CheckPersistenceCallbackExceptionPositionFileHead(persistenceFileHeadVersion, rebuildPosition);
                 if (!check(ref position)) return false;

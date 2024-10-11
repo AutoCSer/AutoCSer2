@@ -34177,7 +34177,7 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.SynchronousCallback(`0)">
             <summary>
-            同步回调
+            队列同步回调
             </summary>
             <param name="returnValue"></param>
             <returns></returns>

@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 获取磁盘块当前写入位置
         /// </summary>
-        /// <param name="identity"></param>
+        /// <param name="identity">磁盘块服务唯一编号</param>
         /// <param name="callback"></param>
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         KeepCallbackCommand GetPosition(uint identity, Action<CommandClientReturnValue<long>, KeepCallbackCommand> callback);

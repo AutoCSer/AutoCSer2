@@ -16,19 +16,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 文件版本号
         /// </summary>
-        internal const uint FileVersion = 0;
+        internal const uint FileVersion = 1;
         /// <summary>
-        /// 文件头部前 4 个字节，头部版本号为 0
+        /// 文件头部前 4 个字节，头部版本号为 1
         /// </summary>
         internal const uint FieHead = 'a' + ('m' << 8) + ('d' << 16) + (FileVersion << 24);
         /// <summary>
+        /// 文件头部字节大小 [版本号]+[持久化流重建起始位置]+[快照结束位置]
+        /// </summary>
+        internal const int FileHeadSize = sizeof(uint) + sizeof(ulong) + sizeof(long);
+        /// <summary>
+        /// 持久化回调异常位置文件版本号
+        /// </summary>
+        internal const uint ExceptionPositionFileVersion = 0;
+        /// <summary>
         /// 持久化回调异常位置文件头部前 4 个字节，头部版本号为 0
         /// </summary>
-        internal const uint PersistenceCallbackExceptionPositionFileHead = 'c' + ('e' << 8) + ('p' << 16) + (FileVersion << 24);
+        internal const uint PersistenceCallbackExceptionPositionFileHead = 'c' + ('e' << 8) + ('p' << 16) + (ExceptionPositionFileVersion << 24);
         /// <summary>
-        /// 文件头部字节大小
+        /// 持久化回调异常位置文件头部字节大小 [版本号]+[持久化流重建起始位置]
         /// </summary>
-        internal const int FileHeadSize = sizeof(uint) + sizeof(ulong);
+        internal const int ExceptionPositionFileHeadSize = sizeof(uint) + sizeof(ulong);
 
         /// <summary>
         /// 日志流持久化内存数据库服务端
@@ -91,9 +99,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     switch (*(start + 3))
                     {
                         case 0:
-                            service.SetPersistenceFileHeadVersion(*(uint*)start, *(ulong*)(start + sizeof(uint)));
+                            service.SetPersistenceFileHeadVersion(*(uint*)start, *(ulong*)(start + sizeof(uint)), 0);
                             loadPersistenceCallbackExceptionPositionVersion0();
                             return sizeof(uint) + sizeof(ulong);
+                        case 1:
+                            service.SetPersistenceFileHeadVersion(*(uint*)start, *(ulong*)(start + sizeof(uint)), *(long*)(start + (sizeof(uint) + sizeof(ulong))));
+                            loadPersistenceCallbackExceptionPositionVersion0();
+                            return sizeof(uint) + sizeof(ulong) + sizeof(long);
                         default: throw new Exception($"文件 {persistenceFileName} 头部版本号不被支持 {(*(start + 3)).toString()}");
                     }
                 }

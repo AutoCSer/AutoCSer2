@@ -48,6 +48,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         NodeCreating,
         /// <summary>
+        /// 没有找到匹配关键字的节点
+        /// </summary>
+        NotFoundNodeKey,
+        /// <summary>
         /// 服务端节点生成失败，说明该接口类型不符合节点定义
         /// </summary>
         NotFoundNodeCreator,

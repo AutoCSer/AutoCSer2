@@ -45,11 +45,12 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public ReturnCommand<NodeIndex> GetNodeIndex(string key, NodeInfo nodeInfo)
+        public ReturnCommand<NodeIndex> GetNodeIndex(string key, NodeInfo nodeInfo, bool isCreate)
         {
-            return client.GetNodeIndex(key, nodeInfo);
+            return client.GetNodeIndex(key, nodeInfo, isCreate);
         }
         /// <summary>
         /// 调用节点方法
@@ -169,6 +170,15 @@ namespace AutoCSer.CommandService
         public ReturnCommand<long> GetPersistencePosition()
         {
             return client.GetPersistencePosition();
+        }
+        /// <summary>
+        /// 获取重建快照结束位置
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ReturnCommand<long> GetRebuildSnapshotPosition()
+        {
+            return client.GetRebuildSnapshotPosition();
         }
         /// <summary>
         /// 创建备份

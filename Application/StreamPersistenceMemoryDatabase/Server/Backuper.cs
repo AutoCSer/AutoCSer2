@@ -39,9 +39,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.masterClient = masterClient;
             delayTimeSpan = config.DelayTimeSpan;
-
-            DirectoryInfo directory = PersistenceFileInfo.Directory;
-            if (!directory.Exists) directory.Create();
         }
         /// <summary>
         /// 释放资源

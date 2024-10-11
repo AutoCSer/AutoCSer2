@@ -16,33 +16,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         {
             try
             {
-                LocalServiceConfig cacheServiceConfig = new LocalServiceConfig
+                ServiceConfig cacheServiceConfig = new ServiceConfig
                 {
-                    PersistenceFileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService), StreamPersistenceMemoryDatabaseServiceConfig.DefaultPersistenceFileName),
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(ServiceConfig.PersistenceSwitchPath)),
                 };
                 using (LocalService cacheService = cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                 {
                     LocalClient<ICustomServiceNodeLocalClientNode> client = cacheService.CreateClient<ICustomServiceNodeLocalClientNode>();
                     do
                     {
-                        long persistencePosition = client.PersistencePosition;
-#if DEBUG
-                        if (persistencePosition >= 1 << 20)
-#else
-                        if (persistencePosition >= 200 << 20)
-#endif
-                        {
-                            RebuildResult rebuildResult = await client.Rebuild();
-                            switch (rebuildResult.CallState)
-                            {
-                                case CallStateEnum.Success:
-                                case CallStateEnum.PersistenceRebuilding:
-                                    break;
-                                default:
-                                    ConsoleWriteQueue.Breakpoint($"*ERROR+{rebuildResult.CallState}+ERROR*");
-                                    break;
-                            }
-                        }
                         await Task.WhenAll(
                             CallbackNode.Test(client)
                             , DistributedLockNode.Test(client)
@@ -74,13 +57,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                         await new PerformanceMessageNode().Test(client, false);
                         await new PerformanceMessageNode().Test(client, true);
                     }
-#if DEBUG
                     while (true);
-#else
-                    while (false);
-#endif
-                    Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
                 }
             }
             catch (Exception exception)

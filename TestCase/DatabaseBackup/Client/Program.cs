@@ -1,4 +1,4 @@
-﻿using AutoCSer.Extensions.Threading;
+﻿using AutoCSer.Threading;
 using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;

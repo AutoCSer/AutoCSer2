@@ -38,9 +38,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.masterClient = masterClient;
             delayTimeSpan = config.DelayTimeSpan;
-
-            DirectoryInfo directory = PersistenceFileInfo.Directory;
-            if (!directory.Exists) directory.Create();
         }
         /// <summary>
         /// 释放资源
@@ -60,8 +57,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="queue"></param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        public override NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo)
+        public override NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
         {
             return new NodeIndex(CallStateEnum.OnlyMaster);
         }
@@ -114,7 +112,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 开始加载数据
         /// </summary>
         /// <returns></returns>
-        internal async Task Load()
+        internal new async Task Load()
         {
             if (Interlocked.CompareExchange(ref isLoad, 1, 0) == 0)
             {

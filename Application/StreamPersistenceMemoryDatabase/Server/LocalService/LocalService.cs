@@ -21,7 +21,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal LocalService(LocalServiceConfig config, Func<StreamPersistenceMemoryDatabaseService, ServerNode> createServiceNode) : base(config, createServiceNode, true)
         {
             IsSynchronousCallback = config.IsSynchronousCallback;
-            if (config.OnlyLocalService) CommandServerCallQueue = new AutoCSer.Net.CommandServerCallQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null, 0);
+            if (config.OnlyLocalService)
+            {
+                CommandServerCallQueue = new AutoCSer.Net.CommandServerCallQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null, 0);
+                CommandServerCallQueue.AddOnly(new ServiceLoad(this));
+            }
         }
         /// <summary>
         /// 释放资源

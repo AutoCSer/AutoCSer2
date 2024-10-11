@@ -74,7 +74,7 @@ namespace AutoCSer.CommandService
             NodeInfo nodeInfo = ClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {
-                CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo);
+                CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo, true);
                 if (index.IsSuccess)
                 {
                     CallStateEnum state = index.Value.GetState();

@@ -38,6 +38,7 @@
     <Compile Include="DiskBlockService.cs" />
     <Compile Include="DiskBlockServiceConfig.cs" />
     <Compile Include="DiskBlockTaskClient.cs" />
+    <Compile Include="DistributedClient.cs" />
     <Compile Include="FileBlock.cs" />
     <Compile Include="FileBlockServiceConfig.cs" />
     <Compile Include="IDiskBlockTaskClient.cs" />

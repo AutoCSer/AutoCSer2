@@ -145,7 +145,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                callback.SynchronousCallback(new ResponseParameter(state));
+                callback.Callback(new ResponseParameter(state));
             }
             return LinkNext;
         }

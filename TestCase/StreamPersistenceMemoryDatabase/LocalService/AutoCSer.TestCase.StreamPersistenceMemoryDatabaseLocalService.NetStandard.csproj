@@ -45,6 +45,7 @@
     <Compile Include="ServerBinaryMessageConsumer.cs" />
     <Compile Include="ServerJsonBinaryMessageConsumer.cs" />
     <Compile Include="ServerJsonMessageConsumer.cs" />
+    <Compile Include="ServiceConfig.cs" />
     <Compile Include="SortedDictionaryNode.cs" />
     <Compile Include="SortedListNode.cs" />
     <Compile Include="SortedSetNode.cs" />

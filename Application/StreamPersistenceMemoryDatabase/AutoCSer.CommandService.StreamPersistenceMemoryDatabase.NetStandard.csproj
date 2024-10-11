@@ -37,6 +37,8 @@
     <Compile Include="Client\ClientNodeAttribute.cs" />
     <Compile Include="Client\ClientNodeCreator.cs" />
     <Compile Include="Client\ClientNodeMethod.cs" />
+    <Compile Include="Client\DistributedClient.cs" />
+    <Compile Include="Client\DistributedClientRepairNodeMethodState.cs" />
     <Compile Include="Client\LocalClient.cs" />
     <Compile Include="Client\LocalClientNode.cs" />
     <Compile Include="Client\LocalClientNodeCreator.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Server\LocalService\LocalServiceQueueNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceRebuild.cs" />
     <Compile Include="Server\LocalService\LocalServiceSendOnlyNode.cs" />
+    <Compile Include="Server\RemoveHistoryFile.cs" />
     <Compile Include="Server\RepairNodeMethodLoader.cs" />
     <Compile Include="Server\RepairNodeMethodCallback.cs" />
     <Compile Include="Server\ServerMethodAttribute.cs" />
@@ -225,6 +228,7 @@
     <Compile Include="Node\ServiceNode.cs" />
     <Compile Include="Server\ServiceSlaveCallback.cs" />
     <Compile Include="Server\ServiceSlaveCallbackTypeEnum.cs" />
+    <Compile Include="Server\ServiceLoad.cs" />
     <Compile Include="Server\SlaveLoader.cs" />
     <Compile Include="Server\SlaveServiceConfig.cs" />
     <Compile Include="Server\SlaveServiceLoadTypeEnum.cs" />

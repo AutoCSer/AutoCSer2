@@ -20,7 +20,7 @@ namespace AutoCSer.Search
         /// </summary>
         internal TrieGraphNode<T> Link;
         /// <summary>
-        /// 节点值长度，0 表示没有节点值
+        /// 节点值长度，0 表示没有节点值（在分布式搜索服务中表示分词编号）
         /// </summary>
         internal int Length;
         /// <summary>

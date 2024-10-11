@@ -12,10 +12,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             try
             {
-                StreamPersistenceMemoryDatabaseServiceConfig cacheServiceConfig = new StreamPersistenceMemoryDatabaseServiceConfig
+                ServiceConfig cacheServiceConfig = new ServiceConfig
                 {
                     CommandServerSocketSessionObject = new CommandServerSocketSessionObject(),
-                    PersistenceFileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase), StreamPersistenceMemoryDatabaseServiceConfig.DefaultPersistenceFileName),
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase)),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(ServiceConfig.PersistenceSwitchPath)),
                     CanCreateSlave = true
                 };
                 StreamPersistenceMemoryDatabaseService cacheService = cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p));

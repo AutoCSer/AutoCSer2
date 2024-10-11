@@ -2,6 +2,7 @@
 using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
+using System.IO;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -31,9 +32,38 @@ namespace AutoCSer.CommandService
         /// </summary>
         public ICommandServerSocketSessionObject<CommandServerSocketSessionObjectService, CommandServerSocketSessionObjectService> CommandServerSocketSessionObject;
         /// <summary>
-        /// 持久化文件名称，建议使用绝对路径
+        /// 持久化文件路径，建议使用绝对路径（为了最优化冷启动读取速度，应该使用一个正常格式化的空白磁盘）
+        /// </summary>
+        public string PersistencePath;
+        /// <summary>
+        /// 重建持久化文件路径，建议使用绝对路径（为了最优化冷启动读取速度与文件重建速度，应该另外使用一个正常格式化的空白磁盘，也就是说需要两个正常格式化的空白磁盘切换）
+        /// </summary>
+        public string PersistenceSwitchPath;
+        /// <summary>
+        /// 持久化文件名称
         /// </summary>
         public string PersistenceFileName = DefaultPersistenceFileName;
+        /// <summary>
+        /// 获取持久化文件信息
+        /// </summary>
+        /// <returns></returns>
+        internal FileInfo GetPersistenceFileInfo()
+        {
+            FileInfo file = new FileInfo(string.IsNullOrEmpty(PersistencePath) ? PersistenceFileName : Path.Combine(PersistencePath, PersistenceFileName));
+            if (string.Equals(file.Extension, PersistenceExtensionName, StringComparison.OrdinalIgnoreCase)) return file; 
+            return new FileInfo(file.FullName + PersistenceExtensionName);
+        }
+        /// <summary>
+        /// 获取重建持久化文件信息
+        /// </summary>
+        /// <returns></returns>
+        internal FileInfo GetPersistenceSwitchFileInfo()
+        {
+            if (string.IsNullOrEmpty(PersistenceSwitchPath) || PersistencePath == PersistenceSwitchPath) return null;
+            FileInfo file = new FileInfo(Path.Combine(PersistenceSwitchPath, PersistenceFileName));
+            if (string.Equals(file.Extension, PersistenceExtensionName, StringComparison.OrdinalIgnoreCase)) return file;
+            return new FileInfo(file.FullName + PersistenceExtensionName);
+        }
         /// <summary>
         /// 修复节点方法保存目录名称，默认为 RepairNodeMethod
         /// </summary>
@@ -73,6 +103,29 @@ namespace AutoCSer.CommandService
         public virtual string GetBackupFileNameSuffix()
         {
             return AutoCSer.Threading.SecondTimer.Now.ToString(".yyyyMMddHHmmss");
+        }
+        /// <summary>
+        /// 获取删除历史持久化文件 Utc 时间，默认为时间最大值表示不删除
+        /// </summary>
+        /// <returns></returns>
+        public virtual DateTime GetRemoveHistoryFileTime()
+        {
+            return DateTime.MaxValue;
+        }
+        /// <summary>
+        /// 启动删除历史持久化文件任务，默认不删除文件
+        /// </summary>
+        /// <param name="service"></param>
+        public virtual void RemoveHistoryFile(StreamPersistenceMemoryDatabaseService service) { }
+        /// <summary>
+        /// 判断持久化文件是否需要重建（默认为超过 100MB 并且相对上次重建的快照版本增加一倍大小以后触发），要根据实际需求确定重建文件大小避免频繁触发重建操作
+        /// </summary>
+        /// <param name="service"></param>
+        /// <returns>持久化文件是否需要重建</returns>
+        public virtual bool CheckRebuild(StreamPersistenceMemoryDatabaseService service)
+        {
+            long persistencePosition = service.GetPersistencePosition();
+            return (persistencePosition >> 1) >= service.RebuildSnapshotPosition && persistencePosition > 100 << 20;
         }
 
         /// <summary>

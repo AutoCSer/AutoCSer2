@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
     /// 日志流持久化内存数据库本地服务配置
     /// </summary>
-    public sealed class LocalServiceConfig : StreamPersistenceMemoryDatabaseServiceConfig
+    public class LocalServiceConfig : StreamPersistenceMemoryDatabaseServiceConfig
     {
         /// <summary>
         /// 默认为 true 表示仅支持本地服务，否则为混合服务模式

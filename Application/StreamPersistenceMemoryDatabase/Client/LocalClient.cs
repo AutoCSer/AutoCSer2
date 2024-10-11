@@ -18,6 +18,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public long PersistencePosition { get { return Service.PersistencePosition; } }
         /// <summary>
+        /// 重建快照结束位置
+        /// </summary>
+        public long RebuildSnapshotPosition { get { return Service.RebuildSnapshotPosition; } }
+        /// <summary>
         /// 日志流持久化内存数据库本地服务客户端
         /// </summary>
         /// <param name="service">日志流持久化内存数据库本地服务</param>

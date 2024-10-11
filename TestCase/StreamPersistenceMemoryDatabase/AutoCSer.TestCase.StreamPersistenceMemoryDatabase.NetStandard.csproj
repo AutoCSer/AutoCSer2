@@ -26,6 +26,7 @@
     <Compile Include="CommandServerSocketSessionObject.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ServiceConfig.cs" />
   </ItemGroup>
 
   <ItemGroup>

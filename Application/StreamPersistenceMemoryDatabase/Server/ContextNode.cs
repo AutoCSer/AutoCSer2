@@ -13,11 +13,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库服务端
         /// </summary>
-        protected StreamPersistenceMemoryDatabaseService streamPersistenceMemoryDatabaseService;
+        protected StreamPersistenceMemoryDatabaseService streamPersistenceMemoryDatabaseService { get; private set; }
         /// <summary>
         /// 服务端节点
         /// </summary>
-        protected ServerNode<T> streamPersistenceMemoryDatabaseNode;
+        protected ServerNode<T> streamPersistenceMemoryDatabaseNode { get; private set; }
+        /// <summary>
+        /// 服务端执行队列
+        /// </summary>
+        public CommandServerCallQueue StreamPersistenceMemoryDatabaseCallQueue { get; private set; }
         /// <summary>
         /// 服务端节点上下文
         /// </summary>
@@ -26,6 +30,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             streamPersistenceMemoryDatabaseService = (StreamPersistenceMemoryDatabaseService)node.NodeCreator.Service;
             streamPersistenceMemoryDatabaseNode = node;
+            StreamPersistenceMemoryDatabaseCallQueue = streamPersistenceMemoryDatabaseService.CommandServerCallQueue;
         }
         /// <summary>
         /// 初始化加载完毕处理

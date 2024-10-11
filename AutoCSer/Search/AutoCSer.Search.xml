@@ -1185,7 +1185,7 @@
         </member>
         <member name="F:AutoCSer.Search.StaticTrieGraphNode`1.Length">
             <summary>
-            节点值长度，0 表示没有节点值
+            节点值长度，0 表示没有节点值（在分布式搜索服务中表示分词编号）
             </summary>
         </member>
         <member name="M:AutoCSer.Search.StaticTrieGraphNode`1.Reset">
@@ -1237,12 +1237,32 @@
             任意字符，用于搜索哨岗
             </summary>
         </member>
+        <member name="M:AutoCSer.Search.StringTrieGraph.#ctor">
+            <summary>
+            字符串 Trie 图
+            </summary>
+        </member>
         <member name="M:AutoCSer.Search.StringTrieGraph.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
             <summary>
             字符串 Trie 图
             </summary>
             <param name="words">分词集合，词语中间不能存在空格</param>
             <param name="threadCount">建图并行线程数量，默认为 0 表示 CPU 逻辑处理器数量</param>
+        </member>
+        <member name="M:AutoCSer.Search.StringTrieGraph.Append(System.String,System.Char*)">
+            <summary>
+            添加分词
+            </summary>
+            <param name="word"></param>
+            <param name="simplified"></param>
+        </member>
+        <member name="M:AutoCSer.Search.StringTrieGraph.buildGraph(System.Int32,System.Int32)">
+            <summary>
+            建图
+            </summary>
+            <param name="wordCount"></param>
+            <param name="threadCount"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Search.StringTrieGraph.Dispose">
             <summary>
@@ -1420,7 +1440,7 @@
         </member>
         <member name="F:AutoCSer.Search.TrieGraphNode`1.Length">
             <summary>
-            节点值长度，0 表示没有节点值
+            节点值长度，0 表示没有节点值（在分布式搜索服务中表示分词编号）
             </summary>
         </member>
         <member name="M:AutoCSer.Search.TrieGraphNode`1.Create(`0)">

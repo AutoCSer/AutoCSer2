@@ -46,13 +46,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal CommandServerCallQueue CommandServerCallQueue;
         /// <summary>
+        /// 持久化文件主目录
+        /// </summary>
+        internal readonly DirectoryInfo PersistenceDirectory;
+        /// <summary>
         /// 持久化文件信息
         /// </summary>
-        public readonly FileInfo PersistenceFileInfo;
+        internal FileInfo PersistenceFileInfo;
         /// <summary>
         /// 持久化回调异常位置文件信息
         /// </summary>
-        public readonly FileInfo PersistenceCallbackExceptionPositionFileInfo;
+        internal FileInfo PersistenceCallbackExceptionPositionFileInfo;
+        /// <summary>
+        /// 重建持久化文件信息
+        /// </summary>
+        internal FileInfo PersistenceSwitchFileInfo;
+        /// <summary>
+        /// 重建持久化回调异常位置文件信息
+        /// </summary>
+        internal FileInfo PersistenceCallbackExceptionPositionSwitchFileInfo;
         /// <summary>
         /// 生成服务端节点集合
         /// </summary>
@@ -118,13 +130,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal long PersistencePosition;
         /// <summary>
-        /// 持久化流重建绝对结束位置 rebuildPosition + persistencePosition
+        /// 持久化流重建绝对结束位置 RebuildPosition + PersistencePosition
         /// </summary>
         internal ulong RebuildPersistenceEndPosition { get { return RebuildPosition + (ulong)PersistencePosition; } }
         /// <summary>
         /// 持久化回调异常位置文件已写入位置
         /// </summary>
         internal long PersistenceCallbackExceptionFilePosition;
+        /// <summary>
+        /// 重建快照结束位置
+        /// </summary>
+        public long RebuildSnapshotPosition { get; internal set; }
         /// <summary>
         /// 当前分配节点索引
         /// </summary>
@@ -160,7 +176,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 是否已经释放资源
         /// </summary>
-        internal bool IsDisposed;
+        public bool IsDisposed { get; protected set; }
         /// <summary>
         /// 服务端会话绑定日志流持久化内存数据库服务
         /// </summary>
@@ -177,12 +193,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 throw new InvalidOperationException($"当前配置 {typeof(StreamPersistenceMemoryDatabaseConfig).fullName()}.{nameof(streamPersistenceMemoryDatabaseConfig.IsSingleService)} 为进程内单服务，不允许生成多个日志流持久化内存数据库服务");
             }
 
-            PersistenceFileInfo = new FileInfo(config.PersistenceFileName);
-            if (!string.Equals(PersistenceFileInfo.Extension, StreamPersistenceMemoryDatabaseServiceConfig.PersistenceExtensionName, StringComparison.OrdinalIgnoreCase))
-            {
-                PersistenceFileInfo = new FileInfo(PersistenceFileInfo.FullName + StreamPersistenceMemoryDatabaseServiceConfig.PersistenceExtensionName);
-            }
+            PersistenceFileInfo = config.GetPersistenceFileInfo();
+            PersistenceDirectory = PersistenceFileInfo.Directory;
+            if (!PersistenceDirectory.Exists) PersistenceDirectory.Create();
             PersistenceCallbackExceptionPositionFileInfo = new FileInfo(PersistenceFileInfo.FullName + StreamPersistenceMemoryDatabaseServiceConfig.PersistenceCallbackExceptionPositionExtensionName);
+            PersistenceSwitchFileInfo = config.GetPersistenceSwitchFileInfo();
+            if (PersistenceSwitchFileInfo?.FullName == PersistenceFileInfo.FullName) PersistenceSwitchFileInfo = null;
+            if (PersistenceSwitchFileInfo == null)
+            {
+                PersistenceSwitchFileInfo = PersistenceFileInfo;
+                PersistenceCallbackExceptionPositionSwitchFileInfo = PersistenceCallbackExceptionPositionFileInfo;
+            }
+            else
+            {
+                PersistenceCallbackExceptionPositionSwitchFileInfo = new FileInfo(PersistenceSwitchFileInfo.FullName + StreamPersistenceMemoryDatabaseServiceConfig.PersistenceCallbackExceptionPositionExtensionName);
+                if (PersistenceSwitchFileInfo.Exists)
+                {
+                    if (!PersistenceFileInfo.Exists || PersistenceSwitchFileInfo.LastWriteTimeUtc > PersistenceFileInfo.LastWriteTimeUtc) SwitchPersistenceFileInfo();
+                }
+                else
+                {
+                    DirectoryInfo switchDirectory = PersistenceSwitchFileInfo.Directory;
+                    if (!switchDirectory.Exists) switchDirectory.Create();
+                }
+            }
 
             Config = config;
             IsMaster = isMaster;
@@ -197,6 +231,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             PersistenceDataPositionBuffer = AutoCSer.Common.Config.GetArray(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
             Nodes = new NodeIdentity[sizeof(int)];
         }
+        /// <summary>
+        /// 切换持久化文件信息
+        /// </summary>
+        internal void SwitchPersistenceFileInfo()
+        {
+            FileInfo switchFileInfo = PersistenceSwitchFileInfo;
+            PersistenceSwitchFileInfo = PersistenceFileInfo;
+            PersistenceFileInfo = switchFileInfo;
+            switchFileInfo = PersistenceCallbackExceptionPositionSwitchFileInfo;
+            PersistenceCallbackExceptionPositionSwitchFileInfo = PersistenceCallbackExceptionPositionFileInfo;
+            PersistenceCallbackExceptionPositionFileInfo = switchFileInfo;
+        }
+        /// <summary>
+        /// 获取持久化流已写入位置
+        /// </summary>
+        /// <returns>持久化流已写入位置</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public long GetPersistencePosition() { return PersistencePosition; }
+        /// <summary>
+        /// 获取重建快照结束位置
+        /// </summary>
+        /// <returns>重建快照结束位置</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public long GetRebuildSnapshotPosition() { return RebuildSnapshotPosition; }
         /// <summary>
         /// 添加新节点
         /// </summary>
@@ -272,7 +330,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="head"></param>
         /// <param name="end"></param>
         /// <param name="persistencePosition"></param>
-        internal void PersistenceCallback(MethodParameter head, MethodParameter end, long persistencePosition)
+        /// <param name="checkRebuild"></param>
+        internal void PersistenceCallback(MethodParameter head, MethodParameter end, long persistencePosition, bool checkRebuild)
         {
             CurrentCallIsPersistence = true;
             ExceptionRepeat exceptionRepeat = default(ExceptionRepeat);
@@ -327,8 +386,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     while ((slave = slave.LinkNext) != null);
                     Slave = slave;
                 }
+                if (Rebuilder == null && checkRebuild) CheckRebuild();
             }
         }
+        /// <summary>
+        /// 重建持久化文件
+        /// </summary>
+        /// <returns></returns>
+        internal virtual bool CheckRebuild() { return false; }
         /// <summary>
         /// 持久化结束释放队列
         /// </summary>
@@ -402,7 +467,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal async Task AppendRepairNodeMethod(RepairNodeMethod repairNodeMethod)
         {
-            DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(PersistenceFileInfo.Directory.FullName, Config.RepairNodeMethodDirectoryName, repairNodeMethod.TypeDirectoryName));
+            DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(PersistenceDirectory.FullName, Config.RepairNodeMethodDirectoryName, repairNodeMethod.TypeDirectoryName));
             await AutoCSer.Common.Config.TryCreateDirectory(typeDirectory);
             DirectoryInfo methodDirectory = new DirectoryInfo(Path.Combine(typeDirectory.FullName, repairNodeMethod.MethodDirectoryName));
             DirectoryInfo backupMethodDirectory = new DirectoryInfo(methodDirectory.FullName + ".bak");

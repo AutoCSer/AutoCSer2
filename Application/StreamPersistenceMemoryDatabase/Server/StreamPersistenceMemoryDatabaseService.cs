@@ -42,23 +42,13 @@ namespace AutoCSer.CommandService
         /// </summary>
         internal uint PersistenceCallbackExceptionPositionFileHeadVersion;
         /// <summary>
-        /// 获取所有有效节点集合（不包括基础操作节点）
-        /// </summary>
-        internal IEnumerable<ServerNode> GetNodes
-        {
-            get
-            {
-                for (int index = NodeIndex; index > 1;)
-                {
-                    ServerNode node = Nodes[--index].Node;
-                    if (node != null) yield return node;
-                }
-            }
-        }
-        /// <summary>
         /// 空闲索引集合
         /// </summary>
         private LeftArray<int> freeIndexs;
+        /// <summary>
+        /// 持久化重建加载异常节点
+        /// </summary>
+        private ServerNode rebuildLoadExceptionNode;
         /// <summary>
         /// 最后一次生成的从节点时间戳标识
         /// </summary>
@@ -81,46 +71,47 @@ namespace AutoCSer.CommandService
             PersistenceBufferPool = ByteArrayPool.GetPool((BufferSizeBitsEnum)Math.Max((byte)BufferSizeBitsEnum.Kilobyte4, (byte)config.BufferSizeBits));
             createServiceNode(this);
 
-            if (isMaster)
+            if (isMaster) PersistenceWaitHandle.Set(new object());
+        }
+        /// <summary>
+        /// 加载数据
+        /// </summary>
+        internal unsafe void Load()
+        {
+            if (PersistenceFileInfo.Exists)
             {
-                if (PersistenceFileInfo.Exists)
+                if (PersistenceCallbackExceptionPositionFileInfo.Exists)
                 {
-                    if (PersistenceCallbackExceptionPositionFileInfo.Exists)
-                    {
-                        long startTimestamp = Stopwatch.GetTimestamp(), count = new ServiceLoader(this).Load();
-                        //if (count != 0) Console.WriteLine($"初始化加载 {count} 条持久化数据耗时 {AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp)}ms");
-                        for (int index = NodeIndex; index > 1; Nodes[--index].Node?.Loaded()) ;
-                    }
-                    else throw new Exception($"持久化回调异常位置文件缺失 {PersistenceCallbackExceptionPositionFileInfo.FullName}，请确认文件组完整性");
+                    long startTimestamp = Stopwatch.GetTimestamp(), count = new ServiceLoader(this).Load();
+                    //if (count != 0) Console.WriteLine($"初始化加载 {count} 条持久化数据耗时 {AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp)}ms");
+                    for (int index = NodeIndex; index > 1; Nodes[--index].Node?.Loaded()) ;
                 }
-                else
-                {
-                    if (PersistenceCallbackExceptionPositionFileInfo.Exists)
-                    {
-                        File.Move(PersistenceCallbackExceptionPositionFileInfo.FullName, PersistenceCallbackExceptionPositionFileInfo.FullName + config.GetBackupFileNameSuffix() + ".bak");
-                    }
-                    else
-                    {
-                        DirectoryInfo directory = PersistenceFileInfo.Directory;
-                        if (!directory.Exists) directory.Create();
-                    }
-                    fixed (byte* bufferFixed = PersistenceDataPositionBuffer)
-                    {
-                        *(uint*)bufferFixed = PersistenceCallbackExceptionPositionFileHeadVersion = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;
-                        *(ulong*)(bufferFixed + sizeof(int)) = 0;
-                        using (FileStream fileStream = PersistenceCallbackExceptionPositionFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
-                        *(uint*)bufferFixed = PersistenceFileHeadVersion = ServiceLoader.FieHead;
-                        using (FileStream fileStream = PersistenceFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
-                    }
-                    PersistenceCallbackExceptionFilePosition = PersistencePosition = ServiceLoader.FileHeadSize;
-                }
-                IsLoaded = true;
-                serviceCallbackWait = new ManualResetEvent(true);
-                PersistenceWaitHandle.Set(new object());
-                rebuildCompletedWaitHandle.Set(new object());
-                AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
-                RepairNodeMethodLoaders = null;
+                else throw new Exception($"持久化回调异常位置文件缺失 {PersistenceCallbackExceptionPositionFileInfo.FullName}，请确认文件组完整性");
             }
+            else
+            {
+                if (PersistenceCallbackExceptionPositionFileInfo.Exists)
+                {
+                    File.Move(PersistenceCallbackExceptionPositionFileInfo.FullName, PersistenceCallbackExceptionPositionFileInfo.FullName + Config.GetBackupFileNameSuffix() + ".bak");
+                }
+                fixed (byte* bufferFixed = PersistenceDataPositionBuffer)
+                {
+                    *(uint*)bufferFixed = PersistenceCallbackExceptionPositionFileHeadVersion = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;
+                    *(ulong*)(bufferFixed + sizeof(int)) = 0;
+                    using (FileStream fileStream = PersistenceCallbackExceptionPositionFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
+                    *(uint*)bufferFixed = PersistenceFileHeadVersion = ServiceLoader.FieHead;
+                    *(long*)(bufferFixed + (sizeof(int) + sizeof(ulong))) = 0;
+                    using (FileStream fileStream = PersistenceFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
+                }
+                PersistenceCallbackExceptionFilePosition = ServiceLoader.ExceptionPositionFileHeadSize;
+                PersistencePosition = ServiceLoader.FileHeadSize;
+            }
+            IsLoaded = true;
+            serviceCallbackWait = new ManualResetEvent(true);
+            rebuildCompletedWaitHandle.Set(new object());
+            AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
+            RepairNodeMethodLoaders = null;
+            Config.RemoveHistoryFile(this);
         }
         /// <summary>
         /// 释放资源
@@ -153,12 +144,25 @@ namespace AutoCSer.CommandService
             return DateTime.UtcNow;
         }
         /// <summary>
+        /// 获取所有有效节点集合（不包括基础操作节点）
+        /// </summary>
+        /// <returns></returns>
+        internal IEnumerable<ServerNode> GetNodes()
+        {
+            for (int index = NodeIndex; index > 1;)
+            {
+                ServerNode node = Nodes[--index].Node;
+                if (node != null) yield return node;
+            }
+        }
+        /// <summary>
         /// 绑定命令服务控制器
         /// </summary>
         /// <param name="controller"></param>
         void ICommandServerBindController.Bind(CommandServerController controller)
         {
             CommandServerCallQueue = controller.CallQueue;
+            if (IsMaster) CommandServerCallQueue.AddOnly(new ServiceLoad(this));
         }
         /// <summary>
         /// 根据节点全局关键字获取服务端节点
@@ -207,29 +211,26 @@ namespace AutoCSer.CommandService
             PersistenceCallbackExceptionFilePosition = persistenceCallbackExceptionFilePosition;
         }
         /// <summary>
-        /// 获取持久化流已当前写入位置
-        /// </summary>
-        /// <returns></returns>
-        public long GetPersistencePosition()
-        {
-            return PersistencePosition;
-        }
-        /// <summary>
         /// 获取节点标识
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        internal protected NodeIndex GetNodeIndex(string key, NodeInfo nodeInfo)
+        internal protected NodeIndex GetNodeIndex(string key, NodeInfo nodeInfo, bool isCreate)
         {
             if (key != null)
             {
                 ServerNode node;
                 HashString hashKey = key;
                 if (nodeDictionary.TryGetValue(hashKey, out node)) return check(node, ref nodeInfo);
-                if (!createKeys.Add(hashKey)) return new NodeIndex(CallStateEnum.NodeCreating);
-                int index = GetFreeIndex();
-                return new NodeIndex(index, Nodes[index].GetFreeIdentity());
+                if (isCreate)
+                {
+                    if (!createKeys.Add(hashKey)) return new NodeIndex(CallStateEnum.NodeCreating);
+                    int index = GetFreeIndex();
+                    return new NodeIndex(index, Nodes[index].GetFreeIdentity());
+                }
+                return new NodeIndex(CallStateEnum.NotFoundNodeKey);
             }
             return new NodeIndex(CallStateEnum.NullKey);
         }
@@ -240,10 +241,11 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo)
+        public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
         {
-            return GetNodeIndex(key, nodeInfo);
+            return GetNodeIndex(key, nodeInfo, isCreate);
         }
         /// <summary>
         /// 检查节点信息是否匹配
@@ -650,17 +652,9 @@ namespace AutoCSer.CommandService
                                     }
                                     persistenceStream.Dispose();
 
-                                    long persistenceCallbackExceptionFilePosition, newPersistencePosition = Rebuilder.QueuePersistence(out persistenceCallbackExceptionFilePosition);
-                                    if (newPersistencePosition != 0)
+                                    if (Rebuilder.QueuePersistence())
                                     {
-                                        RebuildPosition += (ulong)PersistencePosition;
-                                        PersistencePosition = newPersistencePosition;
-                                        PersistenceCallbackExceptionFilePosition = persistenceCallbackExceptionFilePosition;
-                                        if (current != null)
-                                        {
-                                            PersistenceQueue.IsPushHead(ref current, end);
-                                            head = null;
-                                        }
+                                        if (head != null) PersistenceQueue.IsPushHead(ref head, end);
                                         if (!PersistenceQueue.IsEmpty) PersistenceWaitHandle.IsWait = 1;
                                         isRebuilderPersistenceWaitting = false;
                                         Rebuilder = null;
@@ -746,6 +740,7 @@ namespace AutoCSer.CommandService
                                     PersistencePosition = persistenceStream.Position;
                                     if (Interlocked.Increment(ref serviceCallbackCount) == 1) serviceCallbackWait.Reset();
                                     serviceCallback.PersistencePosition = PersistencePosition;
+                                    serviceCallback.CheckRebuild = Rebuilder == null && rebuildLoadExceptionNode == null && Config.CheckRebuild(this);
                                     CommandServerCallQueue.AddOnly(serviceCallback);
                                     if (Rebuilder != null && !isRebuilderPersistenceWaitting) Thread.Sleep(0);
                                 }
@@ -775,11 +770,7 @@ namespace AutoCSer.CommandService
                                     persistenceBuffer.Reset();
                                     goto LOOP;
                                 }
-                                if (current != null)
-                                {
-                                    head = null;
-                                    if (PersistenceQueue.IsPushHead(ref current, end)) PersistenceWaitHandle.Set();
-                                }
+                                if (current != null && PersistenceQueue.IsPushHead(ref head, end)) PersistenceWaitHandle.Set();
                             }
                         }
                         while (true);
@@ -910,6 +901,21 @@ namespace AutoCSer.CommandService
             return CallStateEnum.NodeIndexOutOfRange;
         }
         /// <summary>
+        /// 设置重建文件位置信息
+        /// </summary>
+        /// <param name="persistencePosition"></param>
+        /// <param name="persistenceCallbackExceptionFilePosition"></param>
+        /// <param name="rebuildSnapshotPosition"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetRebuild(long persistencePosition, long persistenceCallbackExceptionFilePosition, long rebuildSnapshotPosition)
+        {
+            SwitchPersistenceFileInfo();
+            RebuildPosition += (ulong)PersistencePosition;
+            PersistencePosition = persistencePosition;
+            PersistenceCallbackExceptionFilePosition = persistenceCallbackExceptionFilePosition;
+            RebuildSnapshotPosition = rebuildSnapshotPosition;
+        }
+        /// <summary>
         /// 重建持久化文件（清除无效数据），注意不支持快照的节点将被抛弃
         /// </summary>
         /// <returns></returns>
@@ -921,9 +927,8 @@ namespace AutoCSer.CommandService
                 {
                     if (PersistencePosition != ServiceLoader.FileHeadSize)
                     {
-                        ServerNode loadExceptionNode = new PersistenceRebuilder(this).LoadExceptionNode;
-                        if (loadExceptionNode == null) return new RebuildResult(CallStateEnum.Success);
-                        return new RebuildResult(Rebuilder.LoadExceptionNode);
+                        if (CheckRebuild()) return new RebuildResult(CallStateEnum.Success);
+                        return new RebuildResult(rebuildLoadExceptionNode);
                     }
                     return new RebuildResult(CallStateEnum.Success);
                 }
@@ -940,6 +945,20 @@ namespace AutoCSer.CommandService
         public virtual RebuildResult Rebuild(CommandServerSocket socket, CommandServerCallQueue queue)
         {
             return Rebuild();
+        }
+        /// <summary>
+        /// 重建持久化文件
+        /// </summary>
+        /// <returns></returns>
+        internal override bool CheckRebuild()
+        {
+            if (rebuildLoadExceptionNode == null)
+            {
+                rebuildLoadExceptionNode = new PersistenceRebuilder(this).LoadExceptionNode;
+                if (rebuildLoadExceptionNode == null) return true;
+                AutoCSer.LogHelper.FatalIgnoreException($"内存数据库节点 {rebuildLoadExceptionNode.Key} => {rebuildLoadExceptionNode.NodeCreator.Type.fullName()} 初始化加载执行异常，持久化操作被中断", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal);
+            }
+            return false;
         }
         /// <summary>
         /// 持久化文件重建异常并已关闭
@@ -976,11 +995,13 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="persistenceFileHeadVersion"></param>
         /// <param name="rebuildPosition"></param>
+        /// <param name="rebuildSnapshotPosition"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void SetPersistenceFileHeadVersion(uint persistenceFileHeadVersion, ulong rebuildPosition)
+        internal void SetPersistenceFileHeadVersion(uint persistenceFileHeadVersion, ulong rebuildPosition, long rebuildSnapshotPosition)
         {
             PersistenceFileHeadVersion = persistenceFileHeadVersion;
             RebuildPosition = rebuildPosition;
+            this.RebuildSnapshotPosition = rebuildSnapshotPosition;
         }
         /// <summary>
         /// 设置重建持久化等待操作

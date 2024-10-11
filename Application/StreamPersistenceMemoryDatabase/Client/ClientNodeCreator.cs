@@ -65,15 +65,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal static NodeInfo GetNodeInfo(out Exception exception)
         {
             exception = creatorException;
-            if (creatorMessages == null) return nodeInfo;
+            if (creatorMessages == null) return NodeInfo;
             AutoCSer.LogHelper.DebugIgnoreException($"{typeof(T).fullName()} 节点客户端生成警告\r\n{string.Join("\r\n", creatorMessages)}");
             creatorMessages = null;
-            return nodeInfo;
+            return NodeInfo;
         }
         /// <summary>
         /// 服务端信息
         /// </summary>
-        private static readonly NodeInfo nodeInfo;
+        internal static readonly NodeInfo NodeInfo;
         /// <summary>
         /// 创建客户端节点委托
         /// </summary>
@@ -211,7 +211,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(ClientNodeCreator.NodeConstructorParameterTypes));
                 callConstructorGenerator.Emit(OpCodes.Ret);
                 creator = (Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>));
-                nodeInfo = new NodeInfo(serverType);
+                NodeInfo = new NodeInfo(serverType);
             }
             catch (Exception exception)
             {

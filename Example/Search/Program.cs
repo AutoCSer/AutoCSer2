@@ -46,8 +46,12 @@ namespace AutoCSer.Example.Search
             }
             Console.WriteLine();
 
+            AutoCSer.Search.StaticStringTrieGraph staticTrieGraph;
             using (AutoCSer.Search.StringTrieGraph trieGraph = new AutoCSer.Search.StringTrieGraph(new string[] { "吹牛", "牛B", "现在", "将来", "曾经", "以后", "努力", "张三丰" }, 1))
-            using (AutoCSer.Search.StaticStringTrieGraph staticTrieGraph = trieGraph.CreateStaticGraph(false))
+            {
+                staticTrieGraph = trieGraph.CreateStaticGraph(false);
+            }
+            using (staticTrieGraph)
             using (AutoCSer.Search.StaticSearcher<SearchKey> searcher = new AutoCSer.Search.StaticSearcher<SearchKey>(staticTrieGraph))
             {
                 AutoCSer.Search.StaticSearcherQueueContext<SearchKey> queueContext = searcher.QueueContext;

@@ -10,69 +10,91 @@ namespace AutoCSer.Search
     /// <summary>
     /// 字符串 Trie 图
     /// </summary>
-    public unsafe sealed class StringTrieGraph : TrieGraph<char>, IDisposable
+    public unsafe class StringTrieGraph : TrieGraph<char>, IDisposable
     {
         /// <summary>
         /// 分词字符类型数据访问锁
         /// </summary>
-        private readonly object charTypeDataLock;
+        protected readonly object charTypeDataLock;
         /// <summary>
         /// 分词字符类型数据
         /// </summary>
-        private Pointer charTypeData;
+        protected Pointer charTypeData;
         /// <summary>
         /// 任意字符，用于搜索哨岗
         /// </summary>
-        internal readonly char AnyHeadChar;
+        internal char AnyHeadChar;
+        /// <summary>
+        /// 字符串 Trie 图
+        /// </summary>
+        protected StringTrieGraph()
+        {
+            charTypeData = new Pointer(DefaultCharTypeData.Data, 0);
+            charTypeDataLock = new object();
+        }
         /// <summary>
         /// 字符串 Trie 图
         /// </summary>
         /// <param name="words">分词集合，词语中间不能存在空格</param>
         /// <param name="threadCount">建图并行线程数量，默认为 0 表示 CPU 逻辑处理器数量</param>
-        public StringTrieGraph(IEnumerable<string> words, int threadCount = 0)
+        public StringTrieGraph(IEnumerable<string> words, int threadCount = 0) : this()
         {
-            charTypeData = new Pointer(DefaultCharTypeData.Data, 0);
-            charTypeDataLock = new object();
             int wordCount = 0;
             char* simplified = Simplified.Chars.Char;
             foreach (string word in words)
             {
-                if (word != null && word.Length > 1)
+                if (word?.Length > 1)
                 {
-                    if (charTypeData.Data == DefaultCharTypeData.Data)
-                    {
-                        AutoCSer.Memory.Common.CopyNotNull(DefaultCharTypeData.Byte, (charTypeData = Unmanaged.GetPointer(1 << 16, false)).Byte, 1 << 16);
-                    }
-                    TrieGraphNode<char> node = Boot;
-                    fixed (char* wordFixed = word)
-                    {
-                        char* start = wordFixed, end = wordFixed + word.Length;
-                        char letter = simplified[*wordFixed];
-                        charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphHead;
-                        do
-                        {
-                            node = node.Create(letter);
-                            if (letter != ' ') charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraph;
-                            if (++start != end) letter = simplified[*start];
-                            else break;
-                        }
-                        while (true);
-                        charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphEnd;
-                    }
-                    node.Length = word.Length;
+                    Append(word, simplified).Length = word.Length;
                     ++wordCount;
                 }
             }
-            if (wordCount != 0) BuildGraph(threadCount);
-            if (Boot.Nodes == null) Boot.Nodes = AutoCSer.Extensions.DictionaryCreator.CreateChar<TrieGraphNode<char>>();
-            else
+            AnyHeadChar = buildGraph(wordCount, threadCount);
+        }
+        /// <summary>
+        /// 添加分词
+        /// </summary>
+        /// <param name="word"></param>
+        /// <param name="simplified"></param>
+        internal TrieGraphNode<char> Append(string word, char* simplified)
+        {
+            if (charTypeData.Data == DefaultCharTypeData.Data)
             {
-                foreach (char key in Boot.Nodes.Keys)
-                {
-                    AnyHeadChar = key;
-                    break;
-                }
+                AutoCSer.Memory.Common.CopyNotNull(DefaultCharTypeData.Byte, (charTypeData = Unmanaged.GetPointer(1 << 16, false)).Byte, 1 << 16);
             }
+            TrieGraphNode<char> node = Boot;
+            fixed (char* wordFixed = word)
+            {
+                char* start = wordFixed, end = wordFixed + word.Length;
+                char letter = simplified[*wordFixed];
+                charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphHead;
+                do
+                {
+                    node = node.Create(letter);
+                    if (letter != ' ') charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraph;
+                    if (++start != end) letter = simplified[*start];
+                    else break;
+                }
+                while (true);
+                charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphEnd;
+            }
+            return node;
+        }
+        /// <summary>
+        /// 建图
+        /// </summary>
+        /// <param name="wordCount"></param>
+        /// <param name="threadCount"></param>
+        /// <returns></returns>
+        protected char buildGraph(int wordCount, int threadCount)
+        {
+            if (wordCount != 0) BuildGraph(threadCount);
+            if (Boot.Nodes != null)
+            {
+                foreach (char key in Boot.Nodes.Keys) return key;
+            }
+            Boot.Nodes = AutoCSer.Extensions.DictionaryCreator.CreateChar<TrieGraphNode<char>>();
+            return (char)0;
         }
         /// <summary>
         /// 释放资源

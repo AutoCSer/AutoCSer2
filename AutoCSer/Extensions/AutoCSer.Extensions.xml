@@ -1234,42 +1234,6 @@
             <param name="semaphoreSlim"></param>
             <returns>-1 表示不匹配</returns>
         </member>
-        <member name="T:AutoCSer.Extensions.Threading.TaskRunTimer">
-            <summary>
-            定时任务运行时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.TaskRunTimer.RunTime">
-            <summary>
-            下一次运行时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.TaskRunTimer.IntervalSeconds">
-            <summary>
-            运行间隔秒数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.Threading.TaskRunTimer.#ctor(System.Double)">
-            <summary>
-            定时任务运行时间
-            </summary>
-            <param name="IntervalSeconds">运行间隔秒数</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.Threading.TaskRunTimer.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
-            <summary>
-            按天运行的定时任务运行时间
-            </summary>
-            <param name="Hour">开始执行小时</param>
-            <param name="Minute">开始执行分钟</param>
-            <param name="Second">开始执行秒数</param>
-            <param name="IntervalSeconds">间隔执行秒数</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.Threading.TaskRunTimer.Delay">
-            <summary>
-            等待运行时间
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.Algorithm.ULongQuickRangeSorterDesc">
             <summary>
             范围排序器(一般用于获取分页)
@@ -7647,6 +7611,42 @@
             调用委托
             </summary>
             <param name="_"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskRunTimer">
+            <summary>
+            定时任务运行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskRunTimer.runTime">
+            <summary>
+            下一次运行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskRunTimer.intervalSeconds">
+            <summary>
+            运行间隔秒数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Double)">
+            <summary>
+            定时任务运行时间
+            </summary>
+            <param name="intervalSeconds">运行间隔秒数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
+            <summary>
+            按天运行的定时任务运行时间
+            </summary>
+            <param name="hour">开始执行小时</param>
+            <param name="minute">开始执行分钟</param>
+            <param name="second">开始执行秒数</param>
+            <param name="intervalSeconds">间隔执行秒数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.Delay">
+            <summary>
+            等待运行时间
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.XmlDeserializer">
             <summary>

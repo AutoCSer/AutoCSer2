@@ -22,10 +22,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal long Identity;
         /// <summary>
-        /// 服务端执行队列
-        /// </summary>
-        internal CommandServerCallQueue CommandServerCallQueue { get { return streamPersistenceMemoryDatabaseService.CommandServerCallQueue; } }
-        /// <summary>
         /// 分布式锁节点
         /// </summary>
         public DistributedLockNode()

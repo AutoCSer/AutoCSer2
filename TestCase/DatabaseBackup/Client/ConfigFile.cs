@@ -1,4 +1,4 @@
-﻿using AutoCSer.Extensions.Threading;
+﻿using AutoCSer.Threading;
 using System;
 using System.IO;
 using System.Text;

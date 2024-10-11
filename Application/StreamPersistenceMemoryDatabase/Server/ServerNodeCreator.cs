@@ -80,7 +80,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             string nodeTypeFullName = Type.fullName();
             RepairNodeMethodDirectory repairNodeMethodDirectory = new RepairNodeMethodDirectory(nodeTypeFullName);
-            DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(Service.PersistenceFileInfo.Directory.FullName, Service.Config.RepairNodeMethodDirectoryName, repairNodeMethodDirectory.NodeTypeHashCode.toHex()));
+            DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(Service.PersistenceDirectory.FullName, Service.Config.RepairNodeMethodDirectoryName, repairNodeMethodDirectory.NodeTypeHashCode.toHex()));
             if (typeDirectory.Exists)
             {
                 HashSet<int> methodIndexs = HashSetCreator.CreateInt();
@@ -234,7 +234,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private async Task<RepairNodeMethod> writeRepairNodeMethodFile(byte[] rawAssembly, MethodInfo methodInfo, ServerMethodAttribute methodAttribute)
         {
             RepairNodeMethodDirectory repairNodeMethodDirectory = new RepairNodeMethodDirectory(Type.fullName(), methodAttribute.MethodIndex);
-            DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(Service.PersistenceFileInfo.Directory.FullName, Service.Config.RepairNodeMethodDirectoryName, repairNodeMethodDirectory.NodeTypeHashCode.toHex()));
+            DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(Service.PersistenceDirectory.FullName, Service.Config.RepairNodeMethodDirectoryName, repairNodeMethodDirectory.NodeTypeHashCode.toHex()));
             await AutoCSer.Common.Config.TryCreateDirectory(typeDirectory);
             DirectoryInfo methodDirectory = new DirectoryInfo(Path.Combine(typeDirectory.FullName, repairNodeMethodDirectory.RepairTime.toString() + repairNodeMethodDirectory.MethodIndex.toHex()));
             await AutoCSer.Common.Config.TryCreateDirectory(methodDirectory);

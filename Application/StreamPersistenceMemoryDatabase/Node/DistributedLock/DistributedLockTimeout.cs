@@ -28,7 +28,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         protected internal override void OnTimer()
         {
-            if (object.ReferenceEquals(this, DistributedLock.LockTimeout)) DistributedLock.Node.CommandServerCallQueue.AddOnly(new DistributedLockTimeoutNode<T>(this));
+            if (object.ReferenceEquals(this, DistributedLock.LockTimeout)) DistributedLock.Node.StreamPersistenceMemoryDatabaseCallQueue.AddOnly(new DistributedLockTimeoutNode<T>(this));
         }
     }
 }

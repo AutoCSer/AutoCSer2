@@ -33,26 +33,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode>((IStreamPersistenceMemoryDatabaseClientSocketEvent)commandClient.SocketEvent);
                 do
                 {
-                    CommandClientReturnValue<long> persistencePosition = await client.Client.StreamPersistenceMemoryDatabaseClient.GetPersistencePosition();
-                    if (!ConsoleWriteQueue.Breakpoint(persistencePosition)) break;
-#if DEBUG
-                    if (persistencePosition.Value >= 1 << 20)
-#else
-                    if (persistencePosition.Value >= 200 << 20)
-#endif
-                    {
-                        CommandClientReturnValue<RebuildResult> rebuildResult = await client.Client.StreamPersistenceMemoryDatabaseClient.Rebuild();
-                        if (!ConsoleWriteQueue.Breakpoint(rebuildResult)) break;
-                        switch (rebuildResult.Value.CallState)
-                        {
-                            case CallStateEnum.Success:
-                            case CallStateEnum.PersistenceRebuilding:
-                                break;
-                            default:
-                                ConsoleWriteQueue.Breakpoint($"*ERROR+{rebuildResult.Value.CallState}+ERROR*");
-                                break;
-                        }
-                    }
                     await Task.WhenAll(
                         CallbackNode.Test(client)
                         , DistributedLockNode.Test(client)
@@ -84,13 +64,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                     await new PerformanceMessageNode().Test(commandClientConfig, client, false);
                     await new PerformanceMessageNode().Test(commandClientConfig, client, true);
                 }
-#if DEBUG
                 while (true);
-#else
-                while (false);
-#endif
-                Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
             }
         }
         internal static bool Breakpoint(ResponseResult result, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)

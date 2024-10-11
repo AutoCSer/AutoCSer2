@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
         {
             SlaveServiceConfig slaveServiceConfig = new SlaveServiceConfig
             {
-                PersistenceFileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper), StreamPersistenceMemoryDatabaseServiceConfig.DefaultPersistenceFileName),
+                PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper)),
             };
             CommandClientConfig commandClientConfig = new CommandClientConfig
             {

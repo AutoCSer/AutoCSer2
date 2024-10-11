@@ -649,6 +649,265 @@
             <param name="startIndex">磁盘块起始位置，不允许删除当前写操作的磁盘块</param>
             <returns>是否删除成功</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.DistributedClient">
+            <summary>
+            分布式客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.DistributedClient.clients">
+            <summary>
+            客户端集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.#ctor">
+            <summary>
+            分布式客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.createClient(System.UInt32)">
+            <summary>
+            根据磁盘块服务唯一编号创建客户端
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <returns>磁盘块客户端</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.getClient(System.UInt32)">
+            <summary>
+            获取客户端
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.GetClient(System.UInt32)">
+            <summary>
+            根据磁盘块服务唯一编号获取客户端
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <returns>磁盘块客户端</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.Write(System.UInt32,AutoCSer.SubArray{System.Byte},System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
+            <summary>
+            写入数据
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <param name="callback">写入数据起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteAsync(System.UInt32,AutoCSer.SubArray{System.Byte})">
+            <summary>
+            写入数据
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <returns>写入数据起始位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteString(System.UInt32,System.String,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
+            <summary>
+            写入字符串
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <param name="callback">写入数据起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteStringAsync(System.UInt32,System.String)">
+            <summary>
+            写入字符串
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <returns>写入数据起始位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteJson``1(System.UInt32,``0,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
+            <summary>
+            写入 JSON
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <param name="callback">写入数据起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteJsonAsync``1(System.UInt32,``0)">
+            <summary>
+            写入 JSON
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <returns>写入数据起始位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteJsonMemberMap``1(System.UInt32,AutoCSer.Metadata.MemberMapValue{``0},System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
+            <summary>
+            写入 JSON
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <param name="callback">写入数据起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteJsonMemberMapAsync``1(System.UInt32,AutoCSer.Metadata.MemberMapValue{``0})">
+            <summary>
+            写入 JSON
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <returns>写入数据起始位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteBinary``1(System.UInt32,``0,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
+            <summary>
+            写入二进制序列化数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <param name="callback">写入数据起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteBinaryAsync``1(System.UInt32,``0)">
+            <summary>
+            写入二进制序列化数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <returns>写入数据起始位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteBinaryMemberMap``1(System.UInt32,AutoCSer.Metadata.MemberMapValue{``0},System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
+            <summary>
+            写入二进制序列化数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <param name="callback">写入数据起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteBinaryMemberMapAsync``1(System.UInt32,AutoCSer.Metadata.MemberMapValue{``0})">
+            <summary>
+            写入二进制序列化数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="data">数据</param>
+            <returns>写入数据起始位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.Read(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{System.Byte[]}})">
+            <summary>
+            读取数据
+            </summary>
+            <param name="index"></param>
+            <param name="callback">读取数据结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadAsync(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取数据
+            </summary>
+            <param name="index"></param>
+            <returns>读取数据结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadString(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{System.String}})">
+            <summary>
+            读取字符串
+            </summary>
+            <param name="index"></param>
+            <param name="callback">读取数据结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadStringAsync(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取字符串
+            </summary>
+            <param name="index"></param>
+            <returns>读取数据结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadJson``1(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{``0}})">
+            <summary>
+            读取 JSON 对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <param name="callback">读取数据结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadJsonAsync``1(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取 JSON 对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <returns>读取数据结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadJsonMemberMap``1(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{AutoCSer.Metadata.MemberMapValue{``0}}})">
+            <summary>
+            读取 JSON 对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <param name="callback">读取数据结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadJsonMemberMapAsync``1(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取 JSON 对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <returns>读取数据结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadBinary``1(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{``0}})">
+            <summary>
+            读取二进制序列化对象（适合定义稳定不变的对象）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <param name="callback">读取数据结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadBinaryAsync``1(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取二进制序列化对象（适合定义稳定不变的对象）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <returns>读取数据结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadBinaryMemberMap``1(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{AutoCSer.Metadata.MemberMapValue{``0}}})">
+            <summary>
+            读取二进制序列化对象（适合定义稳定不变的对象）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <param name="callback">读取数据结果</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.ReadBinaryMemberMapAsync``1(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取二进制序列化对象（适合定义稳定不变的对象）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <returns>读取数据结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.SwitchBlock(System.UInt32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}})">
+            <summary>
+            切换磁盘块（正常情况下，只有在需要清理历史垃圾数据时才需要切换磁盘块，切换磁盘块以后，需要自行处理掉所有历史引用，比如可以将数据写入新的磁盘块并更新历史引用，然后删除垃圾磁盘块）
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <param name="callback">磁盘块当前写入位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.SwitchBlockAsync(System.UInt32)">
+            <summary>
+            切换磁盘块（正常情况下，只有在需要清理历史垃圾数据时才需要切换磁盘块，切换磁盘块以后，需要自行处理掉所有历史引用，比如可以将数据写入新的磁盘块并更新历史引用，然后删除垃圾磁盘块）
+            </summary>
+            <param name="identity">磁盘块服务唯一编号</param>
+            <returns>磁盘块当前写入位置</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.FileBlock">
             <summary>
             文件块
@@ -2020,7 +2279,7 @@
             <summary>
             获取磁盘块当前写入位置
             </summary>
-            <param name="identity"></param>
+            <param name="identity">磁盘块服务唯一编号</param>
             <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.IDiskBlockClient.Write(AutoCSer.CommandService.DiskBlock.WriteBuffer,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">

@@ -22,6 +22,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly MethodParameter end;
         /// <summary>
+        /// 持久化文件是否需要重建
+        /// </summary>
+        internal bool CheckRebuild;
+        /// <summary>
         /// 日志流持久化内存数据库回调操作
         /// </summary>
         /// <param name="head">持久化回调头节点</param>
@@ -36,7 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public override void RunTask()
         {
-            head.Node.NodeCreator.Service.PersistenceCallback(head, end, PersistencePosition);
+            head.Node.NodeCreator.Service.PersistenceCallback(head, end, PersistencePosition, CheckRebuild);
         }
     }
 }

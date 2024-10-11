@@ -63,6 +63,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private long persistenceCallbackExceptionFilePosition;
         /// <summary>
+        /// 重建快照结束位置
+        /// </summary>
+        private long rebuildSnapshotPosition;
+        /// <summary>
         /// 快照事务关系节点版本
         /// </summary>
         private readonly int snapshotTransactionNodeVersion;
@@ -96,7 +100,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isLoaded = false;
             try
             {
-                foreach (ServerNode node in service.GetNodes)
+                foreach (ServerNode node in service.GetNodes())
                 {
                     if (node.IsRebuild)
                     {
@@ -190,18 +194,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             try
             {
                 string backupFileNameSuffix = Service.Config.GetBackupFileNameSuffix() + ".rb";
-                persistenceCallbackExceptionPositionFileInfo = new FileInfo(Service.PersistenceCallbackExceptionPositionFileInfo.FullName + backupFileNameSuffix);
-                persistenceFileInfo = new FileInfo(Service.PersistenceFileInfo.FullName + backupFileNameSuffix);
+                persistenceCallbackExceptionPositionFileInfo = new FileInfo(Service.PersistenceCallbackExceptionPositionSwitchFileInfo.FullName + backupFileNameSuffix);
+                persistenceFileInfo = new FileInfo(Service.PersistenceSwitchFileInfo.FullName + backupFileNameSuffix);
                 persistenceDataPositionBuffer = AutoCSer.Common.Config.GetArray(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
                 fixed (byte* bufferFixed = persistenceDataPositionBuffer)
                 {
                     *(uint*)bufferFixed = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;
                     *(ulong*)(bufferFixed + sizeof(int)) = rebuildPosition = Service.RebuildPersistenceEndPosition;
-                    using (FileStream fileStream = persistenceCallbackExceptionPositionFileInfo.Create()) fileStream.Write(persistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
+                    using (FileStream fileStream = persistenceCallbackExceptionPositionFileInfo.Create()) fileStream.Write(persistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
                     *(uint*)bufferFixed = ServiceLoader.FieHead;
+                    *(long*)(bufferFixed + (sizeof(int) + sizeof(ulong))) = 0;
                     using (FileStream fileStream = persistenceFileInfo.Create()) fileStream.Write(persistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
                 }
-                persistenceCallbackExceptionFilePosition = persistencePosition = ServiceLoader.FileHeadSize;
+                persistenceCallbackExceptionFilePosition = ServiceLoader.ExceptionPositionFileHeadSize;
+                persistencePosition = ServiceLoader.FileHeadSize;
                 Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
                 isPersistence = true;
             }
@@ -262,6 +268,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 else return;
             }
+            rebuildSnapshotPosition = persistencePosition;
             CheckQueue();
         }
         /// <summary>
@@ -379,6 +386,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             try
             {
                 methodParameter = methodParameter.Clone();
+                methodParameter.LinkNext = null;
                 persistenceQueue.IsPushHead(methodParameter);
                 isPushQueue = true;
             }
@@ -523,9 +531,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 未完成调用队列持久化
         /// </summary>
-        /// <param name="persistenceCallbackExceptionFilePosition"></param>
         /// <returns></returns>
-        internal unsafe long QueuePersistence(out long persistenceCallbackExceptionFilePosition)
+        internal unsafe bool QueuePersistence()
         {
             bool isPersistence = false;
             try
@@ -545,9 +552,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     *(ulong*)(bufferFixed + sizeof(int)) = newRebuildPosition;
                                     using (FileStream fileStream = new FileStream(persistenceCallbackExceptionPositionFileInfo.FullName, FileMode.Open, FileAccess.Write, FileShare.None, 4 << 10, FileOptions.None))
                                     {
-                                        fileStream.Write(persistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
+                                        fileStream.Write(persistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
                                     }
                                     *(uint*)bufferFixed = ServiceLoader.FieHead;
+                                    *(long*)(bufferFixed + (sizeof(int) + sizeof(ulong))) = persistencePosition;
                                     using (FileStream fileStream = new FileStream(persistenceFileInfo.FullName, FileMode.Open, FileAccess.Write, FileShare.None, 4 << 10, FileOptions.None))
                                     {
                                         fileStream.Write(persistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
@@ -557,11 +565,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             string backupFileNameSuffix = Service.Config.GetBackupFileNameSuffix() + ".bak";
                             File.Move(Service.PersistenceFileInfo.FullName, Service.PersistenceFileInfo.FullName + backupFileNameSuffix);
                             File.Move(Service.PersistenceCallbackExceptionPositionFileInfo.FullName, Service.PersistenceCallbackExceptionPositionFileInfo.FullName + backupFileNameSuffix);
-                            File.Move(persistenceCallbackExceptionPositionFileInfo.FullName, Service.PersistenceCallbackExceptionPositionFileInfo.FullName);
-                            File.Move(persistenceFileInfo.FullName, Service.PersistenceFileInfo.FullName);
-                            isPersistence = true;
-                            persistenceCallbackExceptionFilePosition = this.persistenceCallbackExceptionFilePosition;
-                            return persistencePosition;
+                            File.Move(persistenceCallbackExceptionPositionFileInfo.FullName, Service.PersistenceCallbackExceptionPositionSwitchFileInfo.FullName);
+                            File.Move(persistenceFileInfo.FullName, Service.PersistenceSwitchFileInfo.FullName);
+                            Service.SetRebuild(persistencePosition, persistenceCallbackExceptionFilePosition, rebuildSnapshotPosition);
+                            return isPersistence = true;
                         }
                     }
                 }
@@ -570,7 +577,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 if (!isPersistence) Close();
             }
-            return persistenceCallbackExceptionFilePosition = 0;
+            return false;
         }
     }
 }

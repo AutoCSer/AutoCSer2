@@ -31,6 +31,8 @@
   <ItemGroup>
     <Compile Include="BinarySerializeResponseParameter.cs" />
     <Compile Include="CallStateEnum.cs" />
+    <Compile Include="Client\DistributedClient.cs" />
+    <Compile Include="Client\DistributedClientRepairNodeMethodState.cs" />
     <Compile Include="Client\LocalClientNode.cs" />
     <Compile Include="Client\LocalClientNodeCreator.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseTaskClient.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Server\LocalService\LocalServiceConfig.cs" />
     <Compile Include="Server\LocalService\LocalServiceGetNodeIndex.cs" />
     <Compile Include="Server\LocalService\LocalServiceQueueNode.cs" />
+    <Compile Include="Server\RemoveHistoryFile.cs" />
     <Compile Include="Server\RepairNodeMethodLoader.cs" />
     <Compile Include="Server\RepairNodeMethodCallback.cs" />
     <Compile Include="Server\ServerMethodAttribute.cs" />
@@ -220,6 +223,7 @@
     <Compile Include="Server\PersistenceRebuilder.cs" />
     <Compile Include="Server\PersistenceRebuilderCallback.cs" />
     <Compile Include="Server\PersistenceRebuilderCallbackTypeEnum.cs" />
+    <Compile Include="Server\ServiceLoad.cs" />
     <Compile Include="Server\ServiceSlave.cs" />
     <Compile Include="Server\PersistenceCallback.cs" />
     <Compile Include="Server\ServiceLoader.cs" />

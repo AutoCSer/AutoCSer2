@@ -24,12 +24,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         ReturnCommand<long> GetPersistencePosition();
         /// <summary>
+        /// 获取重建快照结束位置
+        /// </summary>
+        /// <returns></returns>
+        ReturnCommand<long> GetRebuildSnapshotPosition();
+        /// <summary>
         /// 获取节点标识
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        ReturnCommand<NodeIndex> GetNodeIndex(string key, NodeInfo nodeInfo);
+        ReturnCommand<NodeIndex> GetNodeIndex(string key, NodeInfo nodeInfo, bool isCreate);
         /// <summary>
         /// 调用节点方法
         /// </summary>
