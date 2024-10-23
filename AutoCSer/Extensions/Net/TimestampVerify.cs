@@ -18,7 +18,7 @@ namespace AutoCSer.Net
         /// <param name="randomPrefix">随机前缀</param>
         /// <param name="timestamp">待验证时间戳</param>
         /// <returns></returns>
-        public static byte[] Md5(MD5CryptoServiceProvider md5, string verifyString, ulong randomPrefix, long timestamp)
+        public static byte[] Md5(MD5 md5, string verifyString, ulong randomPrefix, long timestamp)
         {
             int size = (verifyString.Length << 1) + (sizeof(ulong) + sizeof(long));
             ByteArrayBuffer buffer = ByteArrayPool.GetBuffer(size

@@ -15,7 +15,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(ulong value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -25,7 +25,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, ulong value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -35,7 +35,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, ulong? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }

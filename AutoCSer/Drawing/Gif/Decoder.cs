@@ -5,6 +5,7 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// GIF 文件数据解码器
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal unsafe struct Decoder
     {
@@ -139,7 +140,7 @@ namespace AutoCSer.Drawing.Gif
                 int length = 0, count = datas.Length;
                 SubArray<byte>[] array = datas.Array;
                 for (int index = 0; index != count; ++index) length += array[index].Length;
-                byte[] data = AutoCSer.Common.Config.GetArray(length);
+                byte[] data = AutoCSer.Common.Config.GetUninitializedArray<byte>(length);
                 fixed (byte* dataFixed = data)
                 {
                     byte* write = dataFixed;

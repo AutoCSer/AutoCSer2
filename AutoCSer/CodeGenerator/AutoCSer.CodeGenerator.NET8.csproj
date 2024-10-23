@@ -1,0 +1,160 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.CodeGenerator</AssemblyName>
+    <RootNamespace>AutoCSer.CodeGenerator</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+    <ApplicationIcon />
+    <StartupObject />
+    <RepositoryUrl>https://github.com/AutoCSer/AutoCSer2</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Remove="Script\loadSendError.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CodeLanguageEnum.cs" />
+    <Compile Include="Coder.cs" />
+    <Compile Include="CombinationTemplate\CombinationTemplate.cs" />
+    <Compile Include="CombinationTemplate\CombinationTemplateHeaderEnumerable.cs" />
+    <Compile Include="CombinationTemplate\CombinationTemplateLink.cs" />
+    <Compile Include="CSharper.cs" />
+    <Compile Include="CustomConfig.cs" />
+    <Compile Include="Extensions\TypeExtension.cs" />
+    <Compile Include="GeneratorAttribute.cs" />
+    <Compile Include="IGenerator.cs" />
+    <Compile Include="Metadata\GenericType\GenericType.cs" />
+    <Compile Include="Metadata\MethodParameter.cs" />
+    <Compile Include="NetCoreWebView\CodeFragment.cs" />
+    <Compile Include="NetCoreWebView\CodeFragmentTypeEnum.cs" />
+    <Compile Include="NetCoreWebView\CssFile.cs" />
+    <Compile Include="NetCoreWebView\HtmlFile.cs" />
+    <Compile Include="NetCoreWebView\HtmlGenerator.cs" />
+    <Compile Include="NetCoreWebView\IncludeFile.cs" />
+    <Compile Include="NetCoreWebView\JavaScriptFile.cs" />
+    <Compile Include="NetCoreWebView\TreeTemplateCommandEnum.cs" />
+    <Compile Include="NetCoreWebView\TreeBuilderTag.cs" />
+    <Compile Include="NetCoreWebView\TreeBuilderTagTypeEnum.cs" />
+    <Compile Include="NetCoreWebView\JavaScriptTreeTemplate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateGenerator\CommandServerMethodIndexEnumType.cs" />
+    <Compile Include="TemplateGenerator\InterfaceMethodIndexEnumType.cs" />
+    <Compile Include="TemplateGenerator\JavaScriptTypeDefinition.cs" />
+    <Compile Include="TemplateGenerator\NetCoreWebView.cs" />
+    <Compile Include="TemplateGenerator\NetCoreWebViewMiddleware.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseClientNode.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseMethodIndexEnumType.cs" />
+    <Compile Include="Template\NetCoreWebViewMiddleware.cs" />
+    <Compile Include="Template\NetCoreWebView.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseClientNode.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseMethodIndexEnumType.cs" />
+    <Compile Include="TreeTemplate\ITreeTemplateNode.cs" />
+    <Compile Include="Messages.cs" />
+    <Compile Include="Metadata\ExtensionType.cs" />
+    <Compile Include="Metadata\MemberIndex.cs" />
+    <Compile Include="Metadata\MethodIndex.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectParameter.cs" />
+    <Compile Include="TemplateGenerator\AttributeGenerator.cs" />
+    <Compile Include="TemplateGenerator\CSharpTypeDefinition.cs" />
+    <Compile Include="TemplateGenerator\Generator.cs" />
+    <Compile Include="TemplateGenerator\TypeDefinition.cs" />
+    <Compile Include="Template\CommandServerMethodIndexEnumType.cs" />
+    <Compile Include="TreeTemplate\ITreeBuilderNode.cs" />
+    <Compile Include="TreeTemplate\TreeBuilder.cs" />
+    <Compile Include="TreeTemplate\TreeBuilderCheckRoundTypeEnum.cs" />
+    <Compile Include="TreeTemplate\TreeBuilderNode.cs" />
+    <Compile Include="TreeTemplate\TreeBuilderTag.cs" />
+    <Compile Include="TreeTemplate\TreeBuilderTagTypeEnum.cs" />
+    <Compile Include="TreeTemplate\TreeTemplate.cs" />
+    <Compile Include="TreeTemplate\TreeTemplateCommandEnum.cs" />
+    <Compile Include="TreeTemplate\TreeTemplateMemberNode.cs" />
+    <Compile Include="NetCoreWebView\TreeNode.cs" />
+    <Compile Include="{AutoCSer}.CSharper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Script\color512_64.bmp" />
+    <Content Include="tsconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Script\Ace\Ace.js" />
+    <None Include="Script\Ace\load.page.ts" />
+    <None Include="Script\autoHeight.ts" />
+    <None Include="Script\loadSendError.ts" />
+    <None Include="Script\load.page.ts" />
+    <None Include="Script\color.ts" />
+    <None Include="Script\crawlTitle.ts" />
+    <None Include="Script\defaultInput.ts" />
+    <None Include="Script\defaultPassword.ts" />
+    <None Include="Script\emailDomain.ts" />
+    <None Include="Script\fileClicker.ts" />
+    <None Include="Script\floatCenter.ts" />
+    <None Include="Script\form.ts" />
+    <None Include="Script\Highcharts\Highcharts.js" />
+    <None Include="Script\htmlEditor.page.ts" />
+    <None Include="Script\inputKeyCode.ts" />
+    <None Include="Script\inputLength.ts" />
+    <None Include="Script\manyClickMenu.ts" />
+    <None Include="Script\MathJax\load.page.ts" />
+    <None Include="Script\MathJax\MathJax.js" />
+    <None Include="Script\menu.ts" />
+    <None Include="Script\mouseImage.ts" />
+    <None Include="Script\mouseMenu.ts" />
+    <None Include="Script\mouseMove.ts" />
+    <None Include="Script\mouseOver.ts" />
+    <None Include="Script\overDiv.ts" />
+    <None Include="Script\overIframe.ts" />
+    <None Include="Script\socket.ts" />
+    <None Include="Script\textHeight.ts" />
+    <None Include="Script\timerShow.ts" />
+    <None Include="Script\touchTop.ts" />
+    <None Include="Script\verifyImage.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.4.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="AutoCSer">
+			<HintPath>..\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\Extensions\AutoCSer.Extensions.NET8.csproj" />
+    <ProjectReference Include="..\NetCoreWeb\AutoCSer.NetCoreWeb.NET8.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+
+</Project>

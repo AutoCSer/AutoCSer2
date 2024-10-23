@@ -88,8 +88,8 @@ namespace AutoCSer.NetCoreWeb
                         break;
                     case 1:
                         string versionQueryName = ViewMiddleware.VersionQueryName;
-                        if (!string.IsNullOrEmpty(versionQueryName) && httpContext.Request.Query.ContainsKey(versionQueryName)) httpResponse.Headers.Add("Cache-Control", ViewMiddleware.StaticFileCacheControl);
-                        else httpResponse.Headers.Add("ETag", this.eTag);
+                        if (!string.IsNullOrEmpty(versionQueryName) && httpContext.Request.Query.ContainsKey(versionQueryName)) httpResponse.Headers["Cache-Control"] = ViewMiddleware.StaticFileCacheControl;
+                        else httpResponse.Headers["ETag"] = this.eTag;
                         switch (type)
                         {
                             case ViewRequestTypeEnum.Html: httpResponse.ContentType = ResponseContentType.GetHtml(ViewMiddleware.ResponseEncoding); break;

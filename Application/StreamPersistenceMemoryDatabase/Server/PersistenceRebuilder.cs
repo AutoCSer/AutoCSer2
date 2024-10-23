@@ -196,7 +196,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 string backupFileNameSuffix = Service.Config.GetBackupFileNameSuffix() + ".rb";
                 persistenceCallbackExceptionPositionFileInfo = new FileInfo(Service.PersistenceCallbackExceptionPositionSwitchFileInfo.FullName + backupFileNameSuffix);
                 persistenceFileInfo = new FileInfo(Service.PersistenceSwitchFileInfo.FullName + backupFileNameSuffix);
-                persistenceDataPositionBuffer = AutoCSer.Common.Config.GetArray(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
+                persistenceDataPositionBuffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
                 fixed (byte* bufferFixed = persistenceDataPositionBuffer)
                 {
                     *(uint*)bufferFixed = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;
@@ -385,9 +385,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isPushQueue = false;
             try
             {
-                methodParameter = methodParameter.Clone();
-                methodParameter.LinkNext = null;
-                persistenceQueue.IsPushHead(methodParameter);
+                //methodParameter = methodParameter.Clone();
+                //methodParameter.LinkNext = null;
+                //persistenceQueue.IsPushHead(methodParameter);
+                persistenceQueue.IsPushHead(methodParameter.Clone());
                 isPushQueue = true;
             }
             finally

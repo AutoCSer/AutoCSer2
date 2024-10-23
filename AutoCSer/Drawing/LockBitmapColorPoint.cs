@@ -6,6 +6,7 @@ namespace AutoCSer.Drawing
     /// <summary>
     /// 颜色指针
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal unsafe struct LockBitmapColorPoint
     {

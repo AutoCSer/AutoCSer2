@@ -1,7 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Client
+namespace AutoCSer.TestCase.ServiceRegistryClient
 {
     /// <summary>
     /// 命令服务注册测试接口

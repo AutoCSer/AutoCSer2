@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Client
+namespace AutoCSer.TestCase.ServiceRegistryClient
 {
     /// <summary>
     /// 基于递增登录时间戳验证的服务认证客户端套接字事件

@@ -4,7 +4,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Service
+namespace AutoCSer.TestCase.ServiceRegistryService
 {
     class Program
     {

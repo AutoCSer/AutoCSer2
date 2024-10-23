@@ -26,7 +26,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// MD5 加密
         /// </summary>
-        protected MD5CryptoServiceProvider md5;
+        protected MD5 md5;
         /// <summary>
         /// 基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
         /// </summary>
@@ -93,7 +93,7 @@ namespace AutoCSer.CommandService
                             return CommandServerVerifyStateEnum.Fail;
                     }
                 }
-                if (md5 == null) md5 = new MD5CryptoServiceProvider();
+                if (md5 == null) md5 = MD5.Create();
                 if (AutoCSer.Net.TimestampVerify.Md5Equals(AutoCSer.Net.TimestampVerify.Md5(md5, verifyString, randomPrefix, timestamp), hashData) == 0)
                 {
                     timestampChecker.Set(timestamp);

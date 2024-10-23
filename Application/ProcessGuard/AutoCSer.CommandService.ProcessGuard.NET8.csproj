@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.ProcessGuard</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.ProcessGuard</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.xml</DocumentationFile>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="GuardProcess.cs" />
+    <Compile Include="IProcessGuardService.cs" />
+    <Compile Include="IProcessGuardClient.cs" />
+    <Compile Include="IProcessGuardClientSocketEvent.cs" />
+    <Compile Include="ProcessGuardClient.cs" />
+    <Compile Include="ProcessGuardCommandClientConfig.cs" />
+    <Compile Include="ProcessGuardService.cs" />
+    <Compile Include="ProcessGuardClientSocketEvent.cs" />
+    <Compile Include="ProcessGuardInfo.cs" />
+    <Compile Include="ProcessGuardSwitchProcess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

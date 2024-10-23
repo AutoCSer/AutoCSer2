@@ -4011,7 +4011,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(long value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4021,7 +4021,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, long value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4031,7 +4031,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, long? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }
@@ -4050,7 +4050,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(uint value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4060,7 +4060,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, uint value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4070,7 +4070,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, uint? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }
@@ -4089,7 +4089,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(int value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4099,7 +4099,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, int value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4109,7 +4109,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, int? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }
@@ -4128,7 +4128,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(ushort value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4138,7 +4138,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, ushort value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4148,7 +4148,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, ushort? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }
@@ -4167,7 +4167,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(short value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4177,7 +4177,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, short value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4187,7 +4187,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, short? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }
@@ -4206,7 +4206,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(byte value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4216,7 +4216,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, byte value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4226,7 +4226,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, byte? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }
@@ -4245,7 +4245,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void PrimitiveSerialize(sbyte value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, CharStream);
+            CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4255,7 +4255,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, sbyte value)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(value, serializer.CharStream);
+            serializer.CharStream.WriteString(value);
         }
         /// <summary>
         /// 数字转换
@@ -4265,7 +4265,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, sbyte? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, serializer.CharStream);
+            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
         }
     }
 }

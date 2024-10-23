@@ -65,7 +65,8 @@ namespace AutoCSer.CodeGenerator
                 {
                     try
                     {
-                        types = Assembly.GetTypes().sort((left, right) => string.CompareOrdinal(left.FullName, right.FullName));
+                        types = Assembly.GetTypes();
+                        types = types.sort((left, right) => string.CompareOrdinal(left.FullName, right.FullName));
                     }
                     catch (Exception exception)
                     {
@@ -212,7 +213,7 @@ namespace AutoCSer.CodeGenerator
             try
             {
                 await AutoCSer.LogHelper.Info(string.Join(@""", @""", args), LogLevelEnum.Info | LogLevelEnum.AutoCSer);
-                    //args = new string[] { @"AutoCSer.TestCase.NetCoreWeb.NetCore3.1", @"C:\AutoCSer2\TestCase\NetCoreWeb\ ", @"C:\AutoCSer2\TestCase\NetCoreWeb\bin\Debug\netcoreapp3.1\AutoCSer.TestCase.NetCoreWeb.dll ", @"AutoCSer.TestCase.NetCoreWeb" };
+                //args = new string[] { @"AutoCSer.ORM.NET8", @"C:\AutoCSer2\AutoCSer\ORM\ ", @"C:\AutoCSer2\AutoCSer\ORM\bin\Release\net8.0\AutoCSer.ORM.dll ", @"AutoCSer.ORM" };
                 if (args.Length >= 4)
                 {
                     ProjectParameter parameter = new ProjectParameter(args[0].TrimEnd(' '), args[1].TrimEnd(' '), args[2].TrimEnd(' '), args[3].TrimEnd(' '), args.Length > 4);

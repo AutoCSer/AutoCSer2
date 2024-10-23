@@ -46,20 +46,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CallState = CallStateEnum.Success;
             MethodParameter = null;
         }
-        /// <summary>
-        /// 请求参数序列化
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="methodIndex">调用方法编号</param>
-        /// <param name="parameter">调用方法信息</param>
-        internal RequestParameter(NodeIndex index, int methodIndex, InputMethodParameter parameter)
-        {
-            this.Index = index;
-            this.methodIndex = methodIndex;
-            this.serializer = null;
-            CallState = CallStateEnum.Success;
-            MethodParameter = parameter;
-        }
+        ///// <summary>
+        ///// 请求参数序列化
+        ///// </summary>
+        ///// <param name="index">节点索引信息</param>
+        ///// <param name="methodIndex">调用方法编号</param>
+        ///// <param name="parameter">调用方法信息</param>
+        //internal RequestParameter(NodeIndex index, int methodIndex, InputMethodParameter parameter)
+        //{
+        //    this.Index = index;
+        //    this.methodIndex = methodIndex;
+        //    this.serializer = null;
+        //    CallState = CallStateEnum.Success;
+        //    MethodParameter = parameter;
+        //}
         /// <summary>
         /// 序列化
         /// </summary>

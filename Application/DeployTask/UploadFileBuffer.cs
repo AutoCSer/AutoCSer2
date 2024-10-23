@@ -77,7 +77,7 @@ namespace AutoCSer.CommandService.DeployTask
                     return buffer;
                 }
                 Monitor.Exit(bufferLock);
-                return AutoCSer.Common.Config.GetArray(DeployTaskConfig.UploadFileBufferSize);
+                return AutoCSer.Common.Config.GetUninitializedArray<byte>(DeployTaskConfig.UploadFileBufferSize);
             }
             return null;
         }

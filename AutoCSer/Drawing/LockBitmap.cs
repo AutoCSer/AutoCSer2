@@ -8,6 +8,7 @@ namespace AutoCSer.Drawing
     /// <summary>
     /// 锁住的位图，用于指针操作
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed unsafe class LockBitmap : IDisposable
     {
         /// <summary>

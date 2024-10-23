@@ -5,6 +5,7 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// 应用程序扩展
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed class Application : DataBlock
     {
         /// <summary>

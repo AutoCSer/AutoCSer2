@@ -176,9 +176,5 @@
       <HintPath>..\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
-  </Target>
   
 </Project>

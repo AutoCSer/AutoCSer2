@@ -228,7 +228,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             nodeCreatorLock = new object();
             nodeCreators = DictionaryCreator.CreateHashObject<Type, ServerNodeCreator>();
             RepairNodeMethodLoaders = AutoCSer.Extensions.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
-            PersistenceDataPositionBuffer = AutoCSer.Common.Config.GetArray(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
+            PersistenceDataPositionBuffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
+            createInputMethodParameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.Default;
             Nodes = new NodeIdentity[sizeof(int)];
         }
         /// <summary>
@@ -272,16 +273,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建调用方法与参数信息
         /// </summary>
+        private InputMethodParameter createInputMethodParameter;
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
         /// <param name="index">节点索引信息</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="state"></param>
         /// <returns></returns>
         internal InputMethodParameter CreateInputMethodParameter(NodeIndex index, int methodIndex, out CallStateEnum state)
         {
+            InputMethodParameter parameter = createInputMethodParameter.Clone(index, methodIndex);
+            if (parameter != null && object.ReferenceEquals(parameter.Node, Nodes[index.Index].Node))
+            {
+                state = CallStateEnum.Success;
+                return parameter;
+            }
             if ((uint)index.Index < (uint)NodeIndex)
             {
                 ServerNode node = Nodes[index.Index].CheckGet(index.Identity);
-                if (node != null) return node.CreateInputMethodParameter(methodIndex, out state);
+                if (node != null)
+                {
+                    parameter = node.CreateInputMethodParameter(methodIndex, out state);
+                    createInputMethodParameter = parameter;
+                    return parameter;
+                }
                 state = CallStateEnum.NodeIdentityNotMatch;
             }
             else state = CallStateEnum.NodeIndexOutOfRange;

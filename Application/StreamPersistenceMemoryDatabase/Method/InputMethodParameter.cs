@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -16,6 +17,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="node"></param>
         public InputMethodParameter(ServerNode node) : base(node) { }
+        /// <summary>
+        /// 清除信息
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        protected void clearClone()
+        {
+            LinkNext = null;
+            BeforePersistenceMethodParameter = null;
+            persistenceCallbackExceptionPosition = 0;
+            IsPersistenceCallback = false;
+        }
+        /// <summary>
+        /// 复制调用方法与参数信息
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="methodIndex"></param>
+        /// <returns></returns>
+        internal abstract InputMethodParameter Clone(NodeIndex index, int methodIndex);
         /// <summary>
         /// 输入参数反序列化
         /// </summary>

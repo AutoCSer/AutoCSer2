@@ -86,7 +86,7 @@ namespace AutoCSer.CommandService
             ITimestampVerifyClient client = (ITimestampVerifyClient)controller;
             long timestamp = TimestampVerifyChecker.CurrentTimestamp;
             bool isRetry = false;
-            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            using (MD5 md5 = MD5.Create())
             {
                 do
                 {

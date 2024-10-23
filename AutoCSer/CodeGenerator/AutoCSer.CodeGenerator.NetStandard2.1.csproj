@@ -151,8 +151,4 @@
     <ProjectReference Include="..\NetCoreWeb\AutoCSer.NetCoreWeb.NetCore3.1.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
-  </Target>
-
 </Project>

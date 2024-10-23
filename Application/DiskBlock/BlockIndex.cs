@@ -193,7 +193,7 @@ namespace AutoCSer.CommandService.DiskBlock
                     else
                     {
                         BlockIndex index = this;
-                        byte[] buffer = AutoCSer.Common.Config.GetArray(size);
+                        byte[] buffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(size);
                         AutoCSer.Common.Config.CopyTo((byte*)&index, buffer, 0, size);
                         result.Set(buffer);
                     }

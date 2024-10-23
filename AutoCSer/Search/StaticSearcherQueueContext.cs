@@ -208,14 +208,13 @@ namespace AutoCSer.Search
             {
                 Simplified.FormatNotEmpty(textFixed, formatTextFixed, formatLength);
                 words.Length = matchs.Length = 0;
-                chineseCharacter = false;
                 char* start = formatTextFixed, end = formatTextFixed + formatLength;
                 byte type, nextType, wordType;
-                //bool isMatchMap = false;
+                chineseCharacter = isSingleCharacter && AutoCSer.Search.StringTrieGraph.IsChineseCharacter(formatTextFixed, end, charTypeData);
                 if (charTypeData != StringTrieGraph.DefaultCharTypeData.Byte)
                 {
                     StaticStringTrieGraph trieGraph = searcher.TrieGraph;
-                    int count, index, startIndex;
+                    int count, startIndex;
                     char trieGraphHeadChar = trieGraph.AnyHeadChar;
                     do
                     {
@@ -224,18 +223,19 @@ namespace AutoCSer.Search
                             *end = trieGraphHeadChar;
                             do
                             {
-                                //if ((type & ((byte)WordTypeEnum.Chinese | (byte)WordTypeEnum.TrieGraph)) == ((byte)WordTypeEnum.Chinese | (byte)WordTypeEnum.TrieGraph)) addWord((int)(start - formatTextFixed), 1, WordTypeEnum.Chinese);
                                 if (((nextType = charTypeData[*++start]) & (byte)WordTypeEnum.TrieGraphHead) != 0)
                                 {
                                     if (start == end) goto TRIEGRAPHEND;
                                     if ((nextType & (byte)WordTypeEnum.Chinese) != 0
-                                        || (type & nextType & ((byte)WordTypeEnum.OtherLetter | (byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) == 0) goto TRIEGRAPH;
+                                        || (type & nextType & ((byte)WordTypeEnum.OtherLetter | (byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) == 0)
+                                    {
+                                        break;
+                                    }
                                 }
                                 type = nextType;
                             }
                             while (true);
                         }
-                    TRIEGRAPH:
                         *end = ' ';
                         char* segment = start, segmentEnd = (type & (byte)WordTypeEnum.TrieGraphEnd) == 0 ? start++ : ++start;
                         while (((type = charTypeData[*start]) & (byte)WordTypeEnum.TrieGraph) != 0)
@@ -243,75 +243,20 @@ namespace AutoCSer.Search
                             ++start;
                             if ((type & (byte)WordTypeEnum.TrieGraphEnd) != 0) segmentEnd = start;
                         }
-                        if ((int)(start - segment) == 1)
+                        if (segment != segmentEnd)
                         {
-                            chineseCharacter |= (charTypeData[*segment] & (byte)WordTypeEnum.Chinese) != 0;
-                            //if (((type = charTypeData[*segment]) & (byte)WordTypeEnum.Chinese) != 0)
-                            //{
-                            //    addWord((int)(segment - formatTextFixed), 1, (type & (byte)WordTypeEnum.TrieGraph) != 0 ? WordTypeEnum.TrieGraph : WordTypeEnum.Chinese);
-                            //}
-                        }
-                        else
-                        {
-                            if (segment != segmentEnd)
+                            matchs.Length = 0;
+                            trieGraph.Match(segment, segmentEnd, ref matchs);
+                            if ((count = matchs.Length) == 0) segmentEnd = segment;
+                            else
                             {
-                                matchs.Length = 0;
-                                trieGraph.Match(segment, segmentEnd, ref matchs);
-                                if ((count = matchs.Length) == 0)
-                                {
-                                    segmentEnd = segment;
-                                    goto CHINESE;
-                                }
-                                //if (!isMatchMap)
-                                //{
-                                //    checkMatchMap(formatLength);
-                                //    isMatchMap = true;
-                                //}
                                 startIndex = (int)(segment - formatTextFixed);
                                 foreach (Range value in matchs.Array)
                                 {
                                     addWord(value.StartIndex + startIndex, value.EndIndex, WordTypeEnum.TrieGraph);
-                                    //addWord(index = value.StartIndex + startIndex, value.EndIndex, WordTypeEnum.TrieGraph);
-                                    //matchMap.Set(index, value.EndIndex);
                                     if (--count == 0) break;
                                 }
-                                if (!chineseCharacter && isSingleCharacter)
-                                {
-                                    index = (int)(segmentEnd - formatTextFixed);
-                                    do
-                                    {
-                                        if ((charTypeData[formatTextFixed[startIndex]] & (byte)WordTypeEnum.Chinese) != 0)
-                                        {
-                                            chineseCharacter = true;
-                                            break;
-                                        }
-                                    }
-                                    while (++startIndex != index);
-                                }
-                                //do
-                                //{
-                                //    if (matchMap.Get(startIndex) == 0 && (charTypeData[formatTextFixed[startIndex]] & (byte)WordTypeEnum.Chinese) != 0) addWord(startIndex, 1, WordTypeEnum.Chinese);
-                                //}
-                                //while (++startIndex != index);
                             }
-                        CHINESE:
-                            if (!chineseCharacter && isSingleCharacter)
-                            {
-                                while (segmentEnd != start)
-                                {
-                                    if ((charTypeData[*segmentEnd] & (byte)WordTypeEnum.Chinese) != 0)
-                                    {
-                                        chineseCharacter = true;
-                                        break;
-                                    }
-                                    ++segmentEnd;
-                                }
-                            }
-                            //while (segmentEnd != start)
-                            //{
-                            //    if ((charTypeData[*segmentEnd] & (byte)WordTypeEnum.Chinese) != 0) addWord((int)(segmentEnd - formatTextFixed), 1, WordTypeEnum.Chinese);
-                            //    ++segmentEnd;
-                            //}
                         }
                     }
                     while (start != end);
@@ -321,73 +266,46 @@ namespace AutoCSer.Search
                 do
                 {
                     type = charTypeData[*start];
-                    if ((type &= ((byte)WordTypeEnum.Chinese | (byte)WordTypeEnum.OtherLetter | (byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) == 0)
+                    if ((type &= ((byte)WordTypeEnum.OtherLetter | (byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) == 0)
                     {
                         *end = '0';
                         do
                         {
                             type = charTypeData[*++start];
-                            if ((type &= ((byte)WordTypeEnum.Chinese | (byte)WordTypeEnum.OtherLetter | (byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) != 0)
+                            if ((type &= ((byte)WordTypeEnum.OtherLetter | (byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) != 0)
                             {
-                                if (start != end) goto OTHER;
-                                goto CHINESECHARACTER;
+                                if (start != end) break;
+                                return;
                             }
                         }
                         while (true);
                     }
-                OTHER:
                     *end = ' ';
-                    if ((type & (byte)WordTypeEnum.Chinese) != 0)
+                    char* segment = start;
+                    if ((type & (byte)WordTypeEnum.OtherLetter) == 0)
                     {
-                        chineseCharacter = true;
-                        while ((charTypeData[*++start] & (byte)WordTypeEnum.Chinese) != 0) ;
-                        //type = charTypeData[*start];
-                        //do
-                        //{
-                        //    if ((type & (byte)WordTypeEnum.TrieGraph) == 0) addWord((int)(start - formatTextFixed), 1, WordTypeEnum.Chinese);
-                        //}
-                        //while (((type = charTypeData[*++start]) & (byte)WordTypeEnum.Chinese) != 0);
+                        char* word = start;
+                        wordType = type;
+                        for (nextType = charTypeData[*++start]; (nextType &= ((byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) != 0; nextType = charTypeData[*++start])
+                        {
+                            if (type != nextType)
+                            {
+                                if (type != (byte)WordTypeEnum.Keep) addWord((int)(word - formatTextFixed), (int)(start - word), (WordTypeEnum)type);
+                                wordType |= nextType;
+                                type = nextType;
+                                word = start;
+                            }
+                        }
+                        if (word != segment && type != (byte)WordTypeEnum.Keep) addWord((int)(word - formatTextFixed), (int)(start - word), (WordTypeEnum)type);
+                        addWord((int)(segment - formatTextFixed), (int)(start - segment), (WordTypeEnum)wordType);
                     }
                     else
                     {
-                        char* segment = start;
-                        if ((type & (byte)WordTypeEnum.OtherLetter) == 0)
-                        {
-                            char* word = start;
-                            wordType = type;
-                            for (nextType = charTypeData[*++start]; (nextType &= ((byte)WordTypeEnum.Letter | (byte)WordTypeEnum.Number | (byte)WordTypeEnum.Keep)) != 0; nextType = charTypeData[*++start])
-                            {
-                                if (type != nextType)
-                                {
-                                    if (type != (byte)WordTypeEnum.Keep) addWord((int)(word - formatTextFixed), (int)(start - word), (WordTypeEnum)type);
-                                    wordType |= nextType;
-                                    type = nextType;
-                                    word = start;
-                                }
-                            }
-                            if (word != segment && type != (byte)WordTypeEnum.Keep) addWord((int)(word - formatTextFixed), (int)(start - word), (WordTypeEnum)type);
-                            addWord((int)(segment - formatTextFixed), (int)(start - segment), (WordTypeEnum)wordType);
-                        }
-                        else
-                        {
-                            while ((charTypeData[*++start] & (byte)WordTypeEnum.OtherLetter) != 0) ;
-                            addWord((int)(segment - formatTextFixed), (int)(start - segment), WordTypeEnum.OtherLetter);
-                        }
+                        while ((charTypeData[*++start] & (byte)WordTypeEnum.OtherLetter) != 0) ;
+                        addWord((int)(segment - formatTextFixed), (int)(start - segment), WordTypeEnum.OtherLetter);
                     }
                 }
                 while (start != end);
-            CHINESECHARACTER:
-                if (chineseCharacter)
-                {
-                    if (!isSingleCharacter) chineseCharacter = false;
-                }
-                else if (isSingleCharacter)
-                {
-                    start = formatTextFixed;
-                    *end = '肖';
-                    while ((charTypeData[*start] & (byte)WordTypeEnum.Chinese) == 0) ++start;
-                    chineseCharacter = start != end;
-                }
             }
         }
         /// <summary>

@@ -211,9 +211,9 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
                     if (decimalAttribute == null) decimalAttribute = DecimalAttribute.Default;
                     charStream.SimpleWrite(nameof(SqlDbType.Decimal));
                     charStream.Write('(');
-                    AutoCSer.Extensions.NumberExtension.ToString(Math.Min(decimalAttribute.Precision, DecimalAttribute.MaxPrecision), charStream);
+                    charStream.WriteString(Math.Min(decimalAttribute.Precision, DecimalAttribute.MaxPrecision));
                     charStream.Write(',');
-                    AutoCSer.Extensions.NumberExtension.ToString(decimalAttribute.Scale, charStream);
+                    charStream.WriteString(decimalAttribute.Scale);
                     charStream.Write(')');
                     break;
                 case ReaderDataTypeEnum.Guid: charStream.SimpleWrite(nameof(SqlDbType.UniqueIdentifier)); break;
@@ -240,7 +240,7 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
                             charStream.SimpleWrite(stringAttribute.IsFixed ? nameof(SqlDbType.NChar) : nameof(SqlDbType.NVarChar));
                         }
                         charStream.Write('(');
-                        AutoCSer.Extensions.NumberExtension.ToString(size, charStream);
+                        charStream.WriteString(size);
                         charStream.Write(')');
                     }
                     break;
@@ -508,7 +508,7 @@ update ");
                 if (readCount > 0)
                 {
                     charStream.SimpleWrite("top ");
-                    AutoCSer.Extensions.NumberExtension.ToString(readCount, charStream);
+                    charStream.WriteString(readCount);
                     charStream.Write(' ');
                 }
             }
@@ -520,9 +520,9 @@ update ");
             if (skipCount > 0)
             {
                 charStream.SimpleWrite(")__queryskip__ where __rownumber__>");
-                AutoCSer.Extensions.NumberExtension.ToString(skipCount, charStream);
+                charStream.WriteString(skipCount);
                 charStream.SimpleWrite(" and __rownumber__<=");
-                AutoCSer.Extensions.NumberExtension.ToString(skipCount + readCount, charStream);
+                charStream.WriteString(skipCount + readCount);
             }
             else writeOrder(charStream, query);
         }
@@ -561,7 +561,7 @@ update ");
             if (readCount > 0)
             {
                 charStream.SimpleWrite("top ");
-                AutoCSer.Extensions.NumberExtension.ToString(readCount, charStream);
+                charStream.WriteString(readCount);
                 charStream.Write(' ');
             }
             if (extensionQueryData.QueryNames.Count == 0) throw new ArgumentNullException($"{query.TableWriter.TableName} 缺少查询列");

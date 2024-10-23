@@ -233,7 +233,7 @@ namespace AutoCSer.Reflection
                                     if (typeIndex >= 0)
                                     {
                                         nameStream.Write(AutoCSer.Reflection.TypeNameBuilder.GenericSplit);
-                                        AutoCSer.Extensions.NumberExtension.ToString(typeIndex, nameStream);
+                                        nameStream.WriteString(typeIndex);
                                     }
                                     else parameter.ParameterType.typeFullName(ref typeNameBuilder);
                                 }

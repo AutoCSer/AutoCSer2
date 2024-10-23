@@ -69,6 +69,7 @@
     <Compile Include="Method\BeforePersistenceCallOutputMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceMethodParameter.cs" />
+    <Compile Include="Method\CreateInputMethodParameter.cs" />
     <Compile Include="Method\InputKeepCallbackMethod.cs" />
     <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\KeepCallbackMethod.cs" />
@@ -252,9 +253,5 @@
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\netcoreapp3.1\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
-  </Target>
 
 </Project>

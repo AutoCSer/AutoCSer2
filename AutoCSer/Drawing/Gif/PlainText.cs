@@ -5,6 +5,7 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// 图形文本扩展
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed class PlainText : DataBlock
     {
         /// <summary>

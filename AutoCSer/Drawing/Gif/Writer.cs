@@ -17,6 +17,7 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// GIF 文件数据写入器
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public class Writer : IDisposable, IAsyncDisposable
     {
         /// <summary>
@@ -102,7 +103,7 @@ namespace AutoCSer.Drawing.Gif
                 }
                 pixel |= 0x80;
             }
-            fileBuffer = AutoCSer.Common.Config.GetArray(UnmanagedPool.DefaultSize + (256 * 3) + 8);
+            fileBuffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(UnmanagedPool.DefaultSize + (256 * 3) + 8);
             fixed (byte* bufferFixed = fileBuffer)
             {
                 *(ulong*)bufferFixed = fileVersion | ((ulong)width << 48);
@@ -119,8 +120,8 @@ namespace AutoCSer.Drawing.Gif
                     bufferIndex += 3 << (pixel ^ 0x80);
                 }
             }
-            colors = AutoCSer.Common.Config.GetArray<LockBitmapColor>((int)Width * Height);
-            colorCounts = AutoCSer.Common.Config.GetArray<int>(colors.Length);
+            colors = AutoCSer.Common.Config.GetUninitializedArray<LockBitmapColor>((int)Width * Height);
+            colorCounts = AutoCSer.Common.Config.GetUninitializedArray<int>(colors.Length);
             colorIndexs = ReusableDictionary<LockBitmapColor>.Create<int>();
         }
         /// <summary>

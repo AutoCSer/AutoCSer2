@@ -139,6 +139,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.Parameter = parameter;
         }
         /// <summary>
+        /// 复制调用方法与参数信息
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="methodIndex"></param>
+        /// <returns></returns>
+        internal override InputMethodParameter Clone(NodeIndex index, int methodIndex)
+        {
+            if (method.Index == methodIndex && index.Equals(Node.Index))
+            {
+                SendOnlyMethodParameter<T> methodParameter = (SendOnlyMethodParameter<T>)base.MemberwiseClone();
+                methodParameter.clearClone();
+                methodParameter.Parameter = default(T);
+                return methodParameter;
+            }
+            return null;
+        }
+        /// <summary>
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>

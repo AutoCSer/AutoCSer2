@@ -4,7 +4,7 @@ using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Service
+namespace AutoCSer.TestCase.ServiceRegistryService
 {
     /// <summary>
     /// 服务版本测试

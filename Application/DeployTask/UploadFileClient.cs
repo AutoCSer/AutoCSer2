@@ -207,7 +207,7 @@ namespace AutoCSer.CommandService.DeployTask
                 return buffer;
             }
             Monitor.Exit(bufferLock);
-            return AutoCSer.Common.Config.GetArray(clientBuilder.Client.UploadFileBufferSize);
+            return AutoCSer.Common.Config.GetUninitializedArray<byte>(clientBuilder.Client.UploadFileBufferSize);
         }
         /// <summary>
         /// 添加复制文件步骤

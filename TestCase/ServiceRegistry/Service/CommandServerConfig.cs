@@ -5,7 +5,7 @@ using AutoCSer.CommandService;
 using System.Net;
 using System.Reflection;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Service
+namespace AutoCSer.TestCase.ServiceRegistryService
 {
     /// <summary>
     /// 命令服务端配置

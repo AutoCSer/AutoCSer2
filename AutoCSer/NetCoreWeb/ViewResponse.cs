@@ -68,7 +68,7 @@ namespace AutoCSer.NetCoreWeb
                 stream.Write('(');
             }
             stream.SimpleWrite(isResponseJavaScript ? @"{State:" : @"{""State"":");
-            NumberExtension.ToString((byte)result.State, stream);
+            stream.WriteString((byte)result.State);
             string message = result.Message;
             if (message != null)
             {

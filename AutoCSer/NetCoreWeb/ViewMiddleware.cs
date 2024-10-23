@@ -915,7 +915,7 @@ namespace AutoCSer.NetCoreWeb
             HttpResponse httpResponse = httpContext.Response;
             if (checkVersion && !string.IsNullOrEmpty(VersionQueryName) && httpContext.Request.Query.ContainsKey(VersionQueryName))
             {
-                httpResponse.Headers.Add("Cache-Control", StaticFileCacheControl);
+                httpResponse.Headers["Cache-Control"] = StaticFileCacheControl;
             }
             if (length >= MinCompressSize && httpContext.Request.Headers.TryGetValue("Accept-Encoding", out StringValues acceptEncoding)
                 && acceptEncoding.ToString().IndexOf("gzip", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -930,7 +930,7 @@ namespace AutoCSer.NetCoreWeb
                         {
                             data = bufferStream.GetBuffer();
                             startIndex = buffer.StartIndex;
-                            httpResponse.Headers.Add("Content-Encoding", "gzip");
+                            httpResponse.Headers["Content-Encoding"] = "gzip";
                             httpResponse.ContentLength = length = (int)bufferStream.Position;
 #if DotNet45 || NetStandard2
                             using (Stream stream = httpResponse.Body) await httpResponse.Body.WriteAsync(data, startIndex, length);

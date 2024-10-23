@@ -51,7 +51,8 @@ namespace AutoCSer.TestCase
                     CommandClientConfig commandClientConfig = new CommandClientConfig 
                     {
                         Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase),
-                        GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
+                        GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
+                        CheckSeconds = 0
                     };
                     using (CommandClient commandClient = new CommandClient(commandClientConfig))
                     {

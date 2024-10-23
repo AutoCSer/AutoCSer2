@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Client
+namespace AutoCSer.TestCase.ServiceRegistryClient
 {
     /// <summary>
     /// 命令客户端套接字事件
@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
             get
             {
                 yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(Service.IService), typeof(IClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServiceRegistryService.IService), typeof(IClient));
             }
         }
         /// <summary>

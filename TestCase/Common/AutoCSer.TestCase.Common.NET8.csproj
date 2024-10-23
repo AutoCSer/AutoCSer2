@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.Common</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.Common</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CommandServerPortEnum.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Data\Enum\ByteEnum.cs" />
+    <Compile Include="Data\Enum\ByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\IntEnum.cs" />
+    <Compile Include="Data\Enum\IntFlagEnum.cs" />
+    <Compile Include="Data\Enum\LongEnum.cs" />
+    <Compile Include="Data\Enum\LongFlagEnum.cs" />
+    <Compile Include="Data\Enum\SByteEnum.cs" />
+    <Compile Include="Data\Enum\SByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\ShortEnum.cs" />
+    <Compile Include="Data\Enum\ShortFlagEnum.cs" />
+    <Compile Include="Data\Enum\UIntEnum.cs" />
+    <Compile Include="Data\Enum\UIntFlagEnum.cs" />
+    <Compile Include="Data\Enum\ULongEnum.cs" />
+    <Compile Include="Data\Enum\ULongFlagEnum.cs" />
+    <Compile Include="Data\Enum\UShortEnum.cs" />
+    <Compile Include="Data\Enum\UShortFlagEnum.cs" />
+    <Compile Include="ProcessGuard\CommandServiceSwitchProcess.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardClientSocketEvent.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardCommandClientConfig.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardSwitchProcess.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.NET8.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="AutoCSer">
+			<HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+  
+</Project>

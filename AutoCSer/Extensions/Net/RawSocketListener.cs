@@ -7,8 +7,9 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 原始套接字监听
+    /// 原始套接字监听（仅支持 Windows）
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed class RawSocketListener : IDisposable
     {
         /// <summary>

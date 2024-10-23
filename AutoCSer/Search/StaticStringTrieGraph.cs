@@ -87,6 +87,71 @@ namespace AutoCSer.Search
             nodes = Unmanaged.GetPointer((1 << 16) * sizeof(int), true);
             foreach (KeyValue<char, int> node in NodePool.Pool[boot >> ArrayPool.ArraySizeBit][boot & ArrayPool.ArraySizeAnd].Nodes) nodes.Int[node.Key] = node.Value;
         }
+        ///// <summary>
+        ///// 从左到右匹配
+        ///// </summary>
+        ///// <param name="start">匹配起始位置</param>
+        ///// <param name="end">匹配结束位置</param>
+        ///// <param name="matchs">匹配结果集合</param>
+        //internal void Match(char* start, char* end, ref LeftArray<Range> matchs)
+        //{
+        //    if (nodes.Data != null && end - start > 1)
+        //    {
+        //        StaticTrieGraphNode<char> poolNode;
+        //        StaticTrieGraphNode<char>[][] pool = NodePool.Pool;
+        //        char* read = start;
+        //        do
+        //        {
+        //            int node = nodes.Int[*read];
+        //            if (++read != end)
+        //            {
+        //                if (node != 0)
+        //                {
+        //                    node = pool[node >> ArrayPool.ArraySizeBit][node & ArrayPool.ArraySizeAnd].GetNode(*read);
+        //                    if (node != 0)
+        //                    {
+        //                        do
+        //                        {
+        //                            poolNode = pool[node >> ArrayPool.ArraySizeBit][node & ArrayPool.ArraySizeAnd];
+        //                            if (poolNode.Length == 0)
+        //                            {
+        //                                if (++read == end) return;
+        //                                node = poolNode.GetNode(*read);
+        //                            }
+        //                            else
+        //                            {
+        //                                matchs.PrepLength(1);
+        //                                matchs.Array[matchs.Length++].Set((int)(++read - start) - poolNode.Length, poolNode.Length);
+        //                                if (read == end) return;
+        //                                node = poolNode.Nodes.Length == 0 ? 0 : poolNode.GetNode(*read);
+        //                            }
+        //                            if (node == 0)
+        //                            {
+        //                                do
+        //                                {
+        //                                    if ((node = poolNode.Link) == 0) break;
+        //                                    poolNode = pool[node >> ArrayPool.ArraySizeBit][node & ArrayPool.ArraySizeAnd];
+        //                                    if (poolNode.Length == 0) node = poolNode.GetNode(*read);
+        //                                    else
+        //                                    {
+        //                                        matchs.PrepLength(1);
+        //                                        matchs.Array[matchs.Length++].Set((int)(read - start) - poolNode.Length, poolNode.Length);
+        //                                        node = poolNode.Nodes.Length == 0 ? 0 : poolNode.GetNode(*read);
+        //                                    }
+        //                                }
+        //                                while (node == 0);
+        //                                if (node == 0) break;
+        //                            }
+        //                        }
+        //                        while (true);
+        //                    }
+        //                }
+        //            }
+        //            else return;
+        //        }
+        //        while (true);
+        //    }
+        //}
         /// <summary>
         /// 从左到右匹配
         /// </summary>
@@ -97,54 +162,42 @@ namespace AutoCSer.Search
         {
             if (nodes.Data != null && end - start > 1)
             {
+                int node;
                 StaticTrieGraphNode<char> poolNode;
                 StaticTrieGraphNode<char>[][] pool = NodePool.Pool;
                 char* read = start;
                 do
                 {
-                    int node = nodes.Int[*read];
+                    node = nodes.Int[*read];
                     if (++read != end)
                     {
                         if (node != 0)
                         {
-                            node = pool[node >> ArrayPool.ArraySizeBit][node & ArrayPool.ArraySizeAnd].GetNode(*read);
-                            if (node != 0)
+                            do
                             {
-                                do
+                                poolNode = pool[node >> ArrayPool.ArraySizeBit][node & ArrayPool.ArraySizeAnd];
+                                if (poolNode.Length != 0)
                                 {
-                                    poolNode = pool[node >> ArrayPool.ArraySizeBit][node & ArrayPool.ArraySizeAnd];
-                                    if (poolNode.Length == 0)
+                                    matchs.PrepLength(1);
+                                    matchs.Array[matchs.Length++].Set((int)(read - start) - poolNode.Length, poolNode.Length);
+                                    if (poolNode.Nodes.Length == 0)
                                     {
-                                        if (++read == end) return;
-                                        node = poolNode.GetNode(*read);
-                                    }
-                                    else
-                                    {
-                                        matchs.PrepLength(1);
-                                        matchs.Array[matchs.Length++].Set((int)(++read - start) - poolNode.Length, poolNode.Length);
-                                        if (read == end) return;
-                                        node = poolNode.Nodes.Length == 0 ? 0 : poolNode.GetNode(*read);
-                                    }
-                                    if (node == 0)
-                                    {
-                                        do
+                                        if ((node = poolNode.Link) == 0)
                                         {
-                                            if ((node = poolNode.Link) == 0) break;
-                                            poolNode = pool[node >> ArrayPool.ArraySizeBit][node & ArrayPool.ArraySizeAnd];
-                                            if (poolNode.Length == 0) node = poolNode.GetNode(*read);
-                                            else
-                                            {
-                                                matchs.PrepLength(1);
-                                                matchs.Array[matchs.Length++].Set((int)(read - start) - poolNode.Length, poolNode.Length);
-                                                node = poolNode.Nodes.Length == 0 ? 0 : poolNode.GetNode(*read);
-                                            }
+                                            if (read != end) break;
+                                            return;
                                         }
-                                        while (node == 0);
-                                        if (node == 0) break;
+                                        continue;
                                     }
                                 }
-                                while (true);
+                                if (read == end)
+                                {
+                                    if ((node = poolNode.Link) == 0) return;
+                                }
+                                else if (poolNode.GetNode(*read, out node)) ++read;
+                                else if (node == 0) break;
                             }
+                            while (true);
                         }
                     }
                     else return;

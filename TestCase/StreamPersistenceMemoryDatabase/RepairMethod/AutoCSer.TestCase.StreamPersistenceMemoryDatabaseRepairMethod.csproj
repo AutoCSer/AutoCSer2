@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseRepairMethod</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseRepairMethod</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CallbackNodeRepairMethod.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="AutoCSer">
+			<HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+  
+</Project>

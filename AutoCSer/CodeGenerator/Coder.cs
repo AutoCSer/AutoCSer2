@@ -245,11 +245,10 @@ using AutoCSer;
                 await AutoCSer.Common.Config.WriteFileAllText(fileName, content, Encoding.UTF8);
                 return true;
             }
-            catch (Exception exception)
+            finally
             {
-                await AutoCSer.LogHelper.Exception(exception, $"文件创建失败 : {fileName}", LogLevelEnum.All);
+                await AutoCSer.LogHelper.Error($"文件创建失败 : {fileName}", LogLevelEnum.All);
                 await AutoCSer.LogHelper.Flush();
-                throw exception;
             }
         }
 

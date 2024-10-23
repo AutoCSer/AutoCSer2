@@ -1,10 +1,10 @@
 ﻿using AutoCSer.CommandService;
 using AutoCSer.Net;
-using AutoCSer.TestCase.ServiceRegistry.Service;
+using AutoCSer.TestCase.ServiceRegistryService;
 using System;
 using System.Threading.Tasks;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Client
+namespace AutoCSer.TestCase.ServiceRegistryClient
 {
     class Program
     {

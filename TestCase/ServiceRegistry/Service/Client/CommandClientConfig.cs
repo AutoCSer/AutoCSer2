@@ -5,7 +5,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Client
+namespace AutoCSer.TestCase.ServiceRegistryClient
 {
     /// <summary>
     /// 命令客户端配置
@@ -51,7 +51,7 @@ namespace AutoCSer.TestCase.ServiceRegistry.Client
                 ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
             };
             commandClientConfig.GetSocketEventDelegate = (client) => new ServiceRegistryCommandClientSocketEvent(client, commandClientConfig, AutoCSer.TestCase.Common.Config.TimestampVerifyString);
-            ServiceRegistryClient serviceRegistryClient = await ServiceRegistryClient.Get(commandClientConfig, this);
+            AutoCSer.CommandService.ServiceRegistryClient serviceRegistryClient = await AutoCSer.CommandService.ServiceRegistryClient.Get(commandClientConfig, this);
             return await ServiceRegistryCommandClientServiceRegistrar.Create(commandClient, serviceRegistryClient, this) ?? await base.GetRegistrar(commandClient);
         }
     }

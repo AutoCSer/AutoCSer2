@@ -20,9 +20,13 @@ namespace AutoCSer.Search
         /// </summary>
         internal TrieGraphNode<T> Link;
         /// <summary>
-        /// 节点值长度，0 表示没有节点值（在分布式搜索服务中表示分词编号）
+        /// 节点值长度，0 表示没有节点值
         /// </summary>
         internal int Length;
+        /// <summary>
+        /// 分布式搜索分词编号
+        /// </summary>
+        internal uint Identity;
         /// <summary>
         /// 创建子节点
         /// </summary>
@@ -41,6 +45,17 @@ namespace AutoCSer.Search
                 Nodes.Add(letter, node = new TrieGraphNode<T>());
             }
             return node;
+        }
+        /// <summary>
+        /// 设置节点值长度与分词编号
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="identity"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void Set(int length, int identity)
+        {
+            Length = length;
+            Identity = (uint)identity;
         }
         /// <summary>
         /// 设置失败节点并获取子节点数量
@@ -90,6 +105,47 @@ namespace AutoCSer.Search
         internal int GetNodeCount()
         {
             return Nodes == null ? 0 : Nodes.Count;
+        }
+        /// <summary>
+        /// 获取子节点
+        /// </summary>
+        /// <param name="letter"></param>
+        /// <param name="node"></param>
+        /// <returns>false 返回失败节点</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool GetNode(T letter, out TrieGraphNode<T> node)
+        {
+            if (Nodes.TryGetValue(letter, out node)) return true;
+            node = Link;
+            return false;
+        }
+        /// <summary>
+        /// 检查节点匹配
+        /// </summary>
+        /// <param name="matchs"></param>
+        /// <returns>返回 true 表示需要匹配失败节点</returns>
+        internal bool CheckMatch(ref LeftArray<AutoCSer.Search.TrieGraphNode<T>> matchs)
+        {
+            if (Length != 0)
+            {
+                if ((Identity & 0x80000000U) == 0)
+                {
+                    matchs.Add(this);
+                    Identity |= 0x80000000U;
+                }
+                return Nodes == null;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 取消节点匹配
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal int FreeMatch()
+        {
+            Identity &= int.MaxValue;
+            return (int)Identity;
         }
     }
 }

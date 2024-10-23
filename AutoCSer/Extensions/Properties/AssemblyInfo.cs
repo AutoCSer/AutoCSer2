@@ -25,5 +25,6 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("AutoCSer.Drawing")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.StreamPersistenceMemoryDatabase")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.DiskBlock")]
+[assembly: InternalsVisibleTo("AutoCSer.CommandService.Search")]
 
 [assembly: InternalsVisibleTo("AutoCSer.Custom")]//预留程序集名称，开发者可以自建项目暴露 AutoCSer 的 internal 访问权限

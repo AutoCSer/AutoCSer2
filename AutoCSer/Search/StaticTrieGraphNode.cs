@@ -19,7 +19,7 @@ namespace AutoCSer.Search
         /// </summary>
         internal int Link;
         /// <summary>
-        /// 节点值长度，0 表示没有节点值（在分布式搜索服务中表示分词编号）
+        /// 节点值长度，0 表示没有节点值
         /// </summary>
         internal int Length;
         /// <summary>
@@ -64,12 +64,29 @@ namespace AutoCSer.Search
             }
             CancelBuilder();
         }
+        ///// <summary>
+        ///// 二分查找子节点
+        ///// </summary>
+        ///// <param name="letter"></param>
+        ///// <returns></returns>
+        //internal int GetNode(T letter)
+        //{
+        //    int start = 0, length = Nodes.Length, average;
+        //    do
+        //    {
+        //        if (letter.CompareTo(Nodes[average = start + ((length - start) >> 1)].Key) > 0) start = average + 1;
+        //        else length = average;
+        //    }
+        //    while (start != length);
+        //    return start != Nodes.Length && letter.CompareTo(Nodes[start].Key) == 0 ? Nodes[start].Value : 0;
+        //}
         /// <summary>
         /// 二分查找子节点
         /// </summary>
         /// <param name="letter"></param>
-        /// <returns></returns>
-        internal int GetNode(T letter)
+        /// <param name="node">子节点</param>
+        /// <returns>false 返回失败节点</returns>
+        internal bool GetNode(T letter, out int node)
         {
             int start = 0, length = Nodes.Length, average;
             do
@@ -78,7 +95,13 @@ namespace AutoCSer.Search
                 else length = average;
             }
             while (start != length);
-            return start != Nodes.Length && letter.CompareTo(Nodes[start].Key) == 0 ? Nodes[start].Value : 0;
+            if (start != Nodes.Length && letter.CompareTo(Nodes[start].Key) == 0)
+            {
+                node = Nodes[start].Value;
+                return true;
+            }
+            node = Link;
+            return false;
         }
         ///// <summary>
         ///// 子节点不存在时获取失败节点

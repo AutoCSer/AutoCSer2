@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.ServiceRegistry</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.ServiceRegistry</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CommandServerSocketSessionObject.cs" />
+    <Compile Include="IPortRegistryClient.cs" />
+    <Compile Include="IPortRegistryClientSocketEvent.cs" />
+    <Compile Include="IPortRegistryService.cs" />
+    <Compile Include="PortIdentity.cs" />
+    <Compile Include="PortRegistryClient.cs" />
+    <Compile Include="PortRegistryClientData.cs" />
+    <Compile Include="PortRegistryData.cs" />
+    <Compile Include="PortRegistryService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceRegistryCommandClientServiceRegistrar.cs" />
+    <Compile Include="ServiceRegistryCommandServerConfig.cs" />
+    <Compile Include="ServiceRegistryCommandServiceRegistrar.cs" />
+    <Compile Include="IServiceRegistryService.cs" />
+    <Compile Include="IServiceRegistryClient.cs" />
+    <Compile Include="ServiceRegisterLog.cs" />
+    <Compile Include="LogAssembler.cs" />
+    <Compile Include="LogAssemblerQueueNode.cs" />
+    <Compile Include="ServiceRegisterLogClientAssembler.cs" />
+    <Compile Include="ServiceRegisterLogClientChangedTypeEnum.cs" />
+    <Compile Include="ServiceRegisterOperationTypeEnum.cs" />
+    <Compile Include="ServiceRegisterResponse.cs" />
+    <Compile Include="ServiceRegisterStateEnum.cs" />
+    <Compile Include="ServiceRegistryService.cs" />
+    <Compile Include="ServiceRegistryClient.cs" />
+    <Compile Include="ServiceRegistryCommandClientConfig.cs" />
+    <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
+    <Compile Include="ServiceRegisterSession.cs" />
+    <Compile Include="SessionCallback.cs" />
+    <Compile Include="SessionLog.cs" />
+    <Compile Include="ServiceRegistryWaitServerEndPointTask.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

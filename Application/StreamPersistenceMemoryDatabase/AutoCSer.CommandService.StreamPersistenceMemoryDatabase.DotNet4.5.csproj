@@ -80,6 +80,7 @@
     <Compile Include="Method\BeforePersistenceCallOutputMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceMethodParameter.cs" />
+    <Compile Include="Method\CreateInputMethodParameter.cs" />
     <Compile Include="Method\InputKeepCallbackMethod.cs" />
     <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\KeepCallbackMethod.cs" />

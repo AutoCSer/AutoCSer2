@@ -6,6 +6,7 @@ namespace AutoCSer.Drawing
     /// <summary>
     /// 字符位图
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed class CharMap
     {
         /// <summary>

@@ -11,6 +11,7 @@ namespace AutoCSer.ORM.Excel
     /// <summary>
     /// Excel 连接信息
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed class ConnectionInfo
     {
         /// <summary>
@@ -63,7 +64,7 @@ namespace AutoCSer.ORM.Excel
                     default: charStream.SimpleWrite("Excel 12.0"); break;
                 }
                 charStream.WriteNotNull(IsTitleColumn ? ";HDR=YES;IMEX=" : ";HDR=NO;IMEX=");
-                AutoCSer.Extensions.NumberExtension.ToString((byte)Intermixed, charStream);
+                charStream.WriteString((byte)Intermixed);
                 charStream.Write('\'');
                 return charStream.ToString();
             }

@@ -31,7 +31,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public LeftArray<byte[]> GetSnapshotArray()
         {
             LeftArray<byte[]> array = new LeftArray<byte[]>(1);
-            array.Add(AutoCSer.Common.Config.GetArray(map, map.Length));
+            array.Add(AutoCSer.Common.Config.GetUninitializedArray(map, map.Length));
             return array;
         }
         /// <summary>

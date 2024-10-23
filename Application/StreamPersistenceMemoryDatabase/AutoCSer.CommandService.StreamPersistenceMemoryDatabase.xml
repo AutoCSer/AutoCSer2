@@ -1908,6 +1908,63 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.#ctor">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.Clone(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32)">
+            <summary>
+            复制调用方法与参数信息
+            </summary>
+            <param name="index"></param>
+            <param name="methodIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.PersistenceCallback">
+            <summary>
+            持久化回调
+            </summary>
+            <returns>下一个参数</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.PersistenceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            持久化异常回调
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.PersistenceSerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            持久化序列化
+            </summary>
+            <param name="serializer">序列化</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            输入参数反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.Deserialize(AutoCSer.BinaryDeserializer,AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            输入参数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.Default">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod">
             <summary>
             服务端节点方法
@@ -2070,6 +2127,14 @@
             <param name="node"></param>
             <param name="methodIndex"></param>
             <param name="parameter"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter`1.Clone(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32)">
+            <summary>
+            复制调用方法与参数信息
+            </summary>
+            <param name="index"></param>
+            <param name="methodIndex"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter`1.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -7737,14 +7802,6 @@
             <param name="methodIndex">调用方法编号</param>
             <param name="serializer">序列化委托</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputMethodParameter)">
-            <summary>
-            请求参数序列化
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="methodIndex">调用方法编号</param>
-            <param name="parameter">调用方法信息</param>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#RequestParameter}#Serialize(AutoCSer.BinarySerializer)">
             <summary>
             序列化
@@ -8018,6 +8075,14 @@
             <param name="methodIndex"></param>
             <param name="parameter"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter`1.Clone(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32)">
+            <summary>
+            复制调用方法与参数信息
+            </summary>
+            <param name="index"></param>
+            <param name="methodIndex"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter`1.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             反序列化
@@ -8138,6 +8203,14 @@
             <param name="node"></param>
             <param name="methodIndex"></param>
             <param name="parameter"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter`1.Clone(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32)">
+            <summary>
+            复制调用方法与参数信息
+            </summary>
+            <param name="index"></param>
+            <param name="methodIndex"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter`1.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -8367,6 +8440,14 @@
             <param name="node"></param>
             <param name="method"></param>
             <param name="parameter"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter`1.Clone(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32)">
+            <summary>
+            复制调用方法与参数信息
+            </summary>
+            <param name="index"></param>
+            <param name="methodIndex"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter`1.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -9498,6 +9579,19 @@
             </summary>
             <param name="node"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputMethodParameter.clearClone">
+            <summary>
+            清除信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputMethodParameter.Clone(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32)">
+            <summary>
+            复制调用方法与参数信息
+            </summary>
+            <param name="index"></param>
+            <param name="methodIndex"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputMethodParameter.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             输入参数反序列化
@@ -9776,6 +9870,11 @@
             <param name="node"></param>
             <param name="key"></param>
             <returns>当前执行的持久化回调</returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.createInputMethodParameter">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CreateInputMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum@)">
             <summary>

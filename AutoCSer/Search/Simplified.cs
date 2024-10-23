@@ -56,6 +56,28 @@ namespace AutoCSer.Search
                 if (simplified[code] != ' ') charTypeData[code] |= (byte)WordTypeEnum.Chinese;
             }
         }
+        /// <summary>
+        /// 返回格式化搜索字符串
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        internal static string Format(string text)
+        {
+            fixed (char* textFixed = text)
+            {
+                char* simplified = Chars.Char, end = textFixed + text.Length;
+                for (char* start = textFixed; start != null; ++start)
+                {
+                    if (*start != simplified[*start])
+                    {
+                        string formatedText = AutoCSer.Common.Config.AllocateString(text.Length);
+                        fixed (char* formatTextFixed = formatedText) FormatNotEmpty(textFixed, formatTextFixed, text.Length);
+                        return formatedText;
+                    }
+                }
+            }
+            return text;
+        }
 
         /// <summary>
         /// 简体字符集

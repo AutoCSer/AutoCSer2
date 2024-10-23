@@ -5,6 +5,7 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// 注释扩展
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed class Comment : DataBlock
     {
         /// <summary>

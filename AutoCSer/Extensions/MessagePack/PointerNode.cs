@@ -426,7 +426,7 @@ namespace AutoCSer.MessagePack
                 AutoCSer.Memory.Pointer memory = Memory;
                 if (memory.ByteSize > 0)
                 {
-                    byte[] data = new byte[memory.ByteSize];
+                    byte[] data = AutoCSer.Common.Config.GetUninitializedArray<byte>(memory.ByteSize);
                     AutoCSer.Common.Config.CopyTo(memory.Data, data, 0, memory.ByteSize);
                     return data;
                 }
@@ -556,7 +556,7 @@ namespace AutoCSer.MessagePack
         /// </summary>
         public byte[] GetData()
         {
-            byte[] data = new byte[(int)(End - Start)];
+            byte[] data = AutoCSer.Common.Config.GetUninitializedArray<byte>((int)(End - Start));
             AutoCSer.Common.Config.CopyTo(Start, data, 0, data.Length);
             return data;
         }

@@ -5100,7 +5100,7 @@
         </member>
         <member name="T:AutoCSer.Net.RawSocketListener">
             <summary>
-            原始套接字监听
+            原始套接字监听（仅支持 Windows）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.RawSocketListener.defaultBufferSize">
@@ -5283,7 +5283,7 @@
             基于递增登录时间戳验证的服务认证辅助函数
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.TimestampVerify.Md5(System.Security.Cryptography.MD5CryptoServiceProvider,System.String,System.UInt64,System.Int64)">
+        <member name="M:AutoCSer.Net.TimestampVerify.Md5(System.Security.Cryptography.MD5,System.String,System.UInt64,System.Int64)">
             <summary>
             MD5 加密
             </summary>

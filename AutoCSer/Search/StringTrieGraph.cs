@@ -19,7 +19,7 @@ namespace AutoCSer.Search
         /// <summary>
         /// 分词字符类型数据
         /// </summary>
-        protected Pointer charTypeData;
+        internal Pointer CharTypeData;
         /// <summary>
         /// 任意字符，用于搜索哨岗
         /// </summary>
@@ -29,7 +29,7 @@ namespace AutoCSer.Search
         /// </summary>
         protected StringTrieGraph()
         {
-            charTypeData = new Pointer(DefaultCharTypeData.Data, 0);
+            CharTypeData = new Pointer(DefaultCharTypeData.Data, 0);
             charTypeDataLock = new object();
         }
         /// <summary>
@@ -58,25 +58,25 @@ namespace AutoCSer.Search
         /// <param name="simplified"></param>
         internal TrieGraphNode<char> Append(string word, char* simplified)
         {
-            if (charTypeData.Data == DefaultCharTypeData.Data)
+            if (CharTypeData.Data == DefaultCharTypeData.Data)
             {
-                AutoCSer.Memory.Common.CopyNotNull(DefaultCharTypeData.Byte, (charTypeData = Unmanaged.GetPointer(1 << 16, false)).Byte, 1 << 16);
+                AutoCSer.Memory.Common.CopyNotNull(DefaultCharTypeData.Byte, (CharTypeData = Unmanaged.GetPointer(1 << 16, false)).Byte, 1 << 16);
             }
             TrieGraphNode<char> node = Boot;
             fixed (char* wordFixed = word)
             {
                 char* start = wordFixed, end = wordFixed + word.Length;
                 char letter = simplified[*wordFixed];
-                charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphHead;
+                CharTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphHead;
                 do
                 {
                     node = node.Create(letter);
-                    if (letter != ' ') charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraph;
+                    if (letter != ' ') CharTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraph;
                     if (++start != end) letter = simplified[*start];
                     else break;
                 }
                 while (true);
-                charTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphEnd;
+                CharTypeData.Byte[letter] |= (byte)WordTypeEnum.TrieGraphEnd;
             }
             return node;
         }
@@ -104,10 +104,10 @@ namespace AutoCSer.Search
             Monitor.Enter(charTypeDataLock);
             try
             {
-                if (charTypeData.Data != DefaultCharTypeData.Data)
+                if (CharTypeData.Data != DefaultCharTypeData.Data)
                 {
-                    Unmanaged.Free(ref charTypeData);
-                    charTypeData = new Pointer(DefaultCharTypeData.Data, 0);
+                    Unmanaged.Free(ref CharTypeData);
+                    CharTypeData = new Pointer(DefaultCharTypeData.Data, 0);
                 }
             }
             finally { Monitor.Exit(charTypeDataLock); }
@@ -119,8 +119,8 @@ namespace AutoCSer.Search
         internal Pointer GetCharTypeData()
         {
             Monitor.Enter(charTypeDataLock);
-            Pointer charTypeData = this.charTypeData;
-            if (charTypeData.Data != DefaultCharTypeData.Data) this.charTypeData = new Pointer(DefaultCharTypeData.Data, 0);
+            Pointer charTypeData = this.CharTypeData;
+            if (charTypeData.Data != DefaultCharTypeData.Data) this.CharTypeData = new Pointer(DefaultCharTypeData.Data, 0);
             Monitor.Exit(charTypeDataLock);
             return charTypeData;
         }
@@ -133,6 +133,20 @@ namespace AutoCSer.Search
         public StaticStringTrieGraph CreateStaticGraph(bool isCopyCharTypeData = true)
         {
             return new StaticStringTrieGraph(this, isCopyCharTypeData);
+        }
+
+        /// <summary>
+        /// 判断是否存在中文字符
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="charTypeData"></param>
+        /// <returns></returns>
+        internal static bool IsChineseCharacter(char* start, char* end, byte* charTypeData)
+        {
+            *end = '肖';
+            while ((charTypeData[*start] & (byte)WordTypeEnum.Chinese) == 0) ++start;
+            return start != end;
         }
 
         /// <summary>

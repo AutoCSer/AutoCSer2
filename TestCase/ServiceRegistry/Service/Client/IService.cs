@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoCSer.TestCase.ServiceRegistry.Service
+namespace AutoCSer.TestCase.ServiceRegistryService
 {
     /// <summary>
     /// 命令服务注册测试接口

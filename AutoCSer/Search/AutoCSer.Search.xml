@@ -614,6 +614,13 @@
             </summary>
             <param name="charTypeData">分词字符类型数据</param>
         </member>
+        <member name="M:AutoCSer.Search.Simplified.Format(System.String)">
+            <summary>
+            返回格式化搜索字符串
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.Search.Simplified.Chars">
             <summary>
             简体字符集
@@ -1185,7 +1192,7 @@
         </member>
         <member name="F:AutoCSer.Search.StaticTrieGraphNode`1.Length">
             <summary>
-            节点值长度，0 表示没有节点值（在分布式搜索服务中表示分词编号）
+            节点值长度，0 表示没有节点值
             </summary>
         </member>
         <member name="M:AutoCSer.Search.StaticTrieGraphNode`1.Reset">
@@ -1210,12 +1217,13 @@
             释放节点
             </summary>
         </member>
-        <member name="M:AutoCSer.Search.StaticTrieGraphNode`1.GetNode(`0)">
+        <member name="M:AutoCSer.Search.StaticTrieGraphNode`1.GetNode(`0,System.Int32@)">
             <summary>
             二分查找子节点
             </summary>
             <param name="letter"></param>
-            <returns></returns>
+            <param name="node">子节点</param>
+            <returns>false 返回失败节点</returns>
         </member>
         <member name="T:AutoCSer.Search.StringTrieGraph">
             <summary>
@@ -1227,7 +1235,7 @@
             分词字符类型数据访问锁
             </summary>
         </member>
-        <member name="F:AutoCSer.Search.StringTrieGraph.charTypeData">
+        <member name="F:AutoCSer.Search.StringTrieGraph.CharTypeData">
             <summary>
             分词字符类型数据
             </summary>
@@ -1281,6 +1289,15 @@
             </summary>
             <param name="isCopyCharTypeData">默认为 true 表示复制分词字符类型数据；字符串 Trie 图无需重用的场景可以设置为 false 释放字符串 Trie 图分词字符类型数据</param>
             <returns>绑定静态节点池的字符串 Trie 图</returns>
+        </member>
+        <member name="M:AutoCSer.Search.StringTrieGraph.IsChineseCharacter(System.Char*,System.Char*,System.Byte*)">
+            <summary>
+            判断是否存在中文字符
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="charTypeData"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.Search.StringTrieGraph.DefaultCharTypeData">
             <summary>
@@ -1440,7 +1457,12 @@
         </member>
         <member name="F:AutoCSer.Search.TrieGraphNode`1.Length">
             <summary>
-            节点值长度，0 表示没有节点值（在分布式搜索服务中表示分词编号）
+            节点值长度，0 表示没有节点值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Search.TrieGraphNode`1.Identity">
+            <summary>
+            分布式搜索分词编号
             </summary>
         </member>
         <member name="M:AutoCSer.Search.TrieGraphNode`1.Create(`0)">
@@ -1449,6 +1471,13 @@
             </summary>
             <param name="letter">当前字符</param>
             <returns>子节点</returns>
+        </member>
+        <member name="M:AutoCSer.Search.TrieGraphNode`1.Set(System.Int32,System.Int32)">
+            <summary>
+            设置节点值长度与分词编号
+            </summary>
+            <param name="length"></param>
+            <param name="identity"></param>
         </member>
         <member name="M:AutoCSer.Search.TrieGraphNode`1.GetNodeCount(System.Collections.Generic.Dictionary{`0,AutoCSer.Search.TrieGraphNode{`0}},`0)">
             <summary>
@@ -1479,6 +1508,27 @@
             获取子节点数量
             </summary>
             <returns>子节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.Search.TrieGraphNode`1.GetNode(`0,AutoCSer.Search.TrieGraphNode{`0}@)">
+            <summary>
+            获取子节点
+            </summary>
+            <param name="letter"></param>
+            <param name="node"></param>
+            <returns>false 返回失败节点</returns>
+        </member>
+        <member name="M:AutoCSer.Search.TrieGraphNode`1.CheckMatch(AutoCSer.LeftArray{AutoCSer.Search.TrieGraphNode{`0}}@)">
+            <summary>
+            检查节点匹配
+            </summary>
+            <param name="matchs"></param>
+            <returns>返回 true 表示需要匹配失败节点</returns>
+        </member>
+        <member name="M:AutoCSer.Search.TrieGraphNode`1.FreeMatch">
+            <summary>
+            取消节点匹配
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Search.WordTypeEnum">
             <summary>

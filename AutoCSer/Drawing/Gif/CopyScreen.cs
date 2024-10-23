@@ -8,6 +8,7 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// 定时截屏获取图片生成 GIF 文件数据
     /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
     public sealed class CopyScreen : TimerWriter
     {
         /// <summary>

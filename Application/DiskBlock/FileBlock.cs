@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService.DiskBlock
         internal FileBlock(DiskBlockService service, FileInfo file, long startIndex, long position, int readBufferSize) : base(service, startIndex)
         {
             this.file = file;
-            buffer = AutoCSer.Common.Config.GetArray(readBufferSize);
+            buffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(readBufferSize);
             Position = position;
         }
         /// <summary>
@@ -160,7 +160,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 request.Buffer.Set(new SubArray<byte>(sizeof(int), size, this.buffer).GetArray());
                 return;
             }
-            byte[] buffer = AutoCSer.Common.Config.GetArray(size);
+            byte[] buffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(size);
             if (await fileStream.ReadAsync(buffer, readSize, size - readSize) + readSize == size)
             {
                 AutoCSer.Common.Config.CopyTo(this.buffer, sizeof(int), buffer, 0, readSize);

@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.RandomObject</AssemblyName>
+    <RootNamespace>AutoCSer.RandomObject</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\RandomObject\AutoCSer.RandomObject.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\RandomObject\AutoCSer.RandomObject.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CombinationTemplateConfig.cs" />
+    <Compile Include="CombinationTemplate\Creator.Enum.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Creator.cs" />
+    <Compile Include="IgnoreAttribute.cs" />
+    <Compile Include="MemberAttribute.cs" />
+    <Compile Include="MemberDynamicMethod.cs" />
+    <Compile Include="Metadata\CollectionGenericType.cs" />
+    <Compile Include="Metadata\DictionaryGenericType.cs" />
+    <Compile Include="Metadata\EnumGenericType.cs" />
+    <Compile Include="Metadata\GenericType.cs" />
+    <Compile Include="Metadata\StructGenericType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="{AutoCSer.RandomObject}.CombinationTemplate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+
+</Project>

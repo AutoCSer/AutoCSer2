@@ -8109,14 +8109,7 @@
             锁超时检查时间戳，默认为 60s
             </summary>
         </member>
-        <member name="M:AutoCSer.Config.GetArray(System.Int32)">
-            <summary>
-            获取数组，允许存在未初始化数组项
-            </summary>
-            <param name="capacity"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Config.GetArray``1(System.Int32)">
+        <member name="M:AutoCSer.Config.getUninitializedArray``1(System.Int32)">
             <summary>
             获取数组，允许存在未初始化数组项
             </summary>
@@ -8124,7 +8117,15 @@
             <param name="capacity"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetArray``1(``0[])">
+        <member name="M:AutoCSer.Config.GetUninitializedArray``1(System.Int32)">
+            <summary>
+            获取数组，允许存在未初始化数组项
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="capacity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Config.GetUninitializedArray``1(``0[])">
             <summary>
             复制数组，允许存在未初始化数组项
             </summary>
@@ -8132,7 +8133,7 @@
             <param name="sourceArray"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetArray``1(``0[],System.Int32)">
+        <member name="M:AutoCSer.Config.GetUninitializedArray``1(``0[],System.Int32)">
             <summary>
             复制数组，允许存在未初始化数组项
             </summary>
@@ -8141,7 +8142,7 @@
             <param name="capacity"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetArray``1(``0[],System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Config.GetUninitializedArray``1(``0[],System.Int32,System.Int32)">
             <summary>
             复制数组，允许存在未初始化数组项
             </summary>
@@ -9616,76 +9617,6 @@
             </summary>
             <param name="value">数值</param>
             <param name="chars">字符串</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.Byte,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.SByte,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.UInt16,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.Int16,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.UInt32,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.Int32,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.UInt64,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.UnsafeToString(System.UInt64,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.Int64,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.UnsafeToString(System.Int64,AutoCSer.Memory.CharStream)">
-            <summary>
-            数值转字符串
-            </summary>
-            <param name="value">数值</param>
-            <param name="charStream">字符流</param>
         </member>
         <member name="M:AutoCSer.Extensions.NumberExtension.toHex(System.UInt64)">
             <summary>
@@ -13051,6 +12982,66 @@
             <param name="value"></param>
             <param name="size"></param>
         </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.Byte)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.SByte)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.UInt16)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.Int16)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.UInt32)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.Int32)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.UInt64)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.UnsafeToString(System.UInt64)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteString(System.Int64)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.UnsafeToString(System.Int64)">
+            <summary>
+            数值转字符串
+            </summary>
+            <param name="value">数值</param>
+        </member>
         <member name="M:AutoCSer.Memory.CharStream.WriteJsonNull">
             <summary>
             输出 null 值
@@ -13624,6 +13615,13 @@
             </summary>
             <param name="obj">待比较指针</param>
             <returns>指针是否相等</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Get(System.Int32)">
+            <summary>
+            获取指定字节
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.Equals(AutoCSer.Memory.Pointer)">
             <summary>
@@ -18216,6 +18214,16 @@
             </summary>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.SupportedOSPlatformName">
+            <summary>
+            操作系统名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SupportedOSPlatformName.Windows">
+            <summary>
+            Windows
+            </summary>
         </member>
         <member name="T:AutoCSer.IAsyncDisposable">
             <summary>
@@ -25364,6 +25372,11 @@
         <member name="F:AutoCSer.Net.CommandClientConfig.QueueTimeoutSeconds">
             <summary>
             同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientConfig.CancelKeepCallbackSeconds">
+            <summary>
+            释放保持回调发送命令定时秒数默认为 2，开放服务建议值为 5
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.VerifyErrorCount">
@@ -44091,6 +44104,22 @@
             </summary>
             <param name="value">匹配数据</param>
             <returns>是否存在数据</returns>
+        </member>
+        <member name="T:System.Runtime.Versioning.SupportedOSPlatformAttribute">
+            <summary>
+            操作系统支持
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Versioning.SupportedOSPlatformAttribute.PlatformName">
+            <summary>
+            平台名称
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Versioning.SupportedOSPlatformAttribute.#ctor(System.String)">
+            <summary>
+            操作系统支持
+            </summary>
+            <param name="platformName">平台名称</param>
         </member>
     </members>
 </doc>

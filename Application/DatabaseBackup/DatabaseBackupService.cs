@@ -118,7 +118,7 @@ namespace AutoCSer.CommandService
                     if (startIndex != fileStream.Length)
                     {
                         await AutoCSer.Common.Config.Seek(fileStream, startIndex, SeekOrigin.Begin);
-                        byte[][] buffers = new byte[][] { AutoCSer.Common.Config.GetArray(1 << 20), AutoCSer.Common.Config.GetArray(1 << 20), AutoCSer.Common.Config.GetArray(1 << 20) };
+                        byte[][] buffers = new byte[][] { AutoCSer.Common.Config.GetUninitializedArray<byte>(1 << 20), AutoCSer.Common.Config.GetUninitializedArray<byte>(1 << 20), AutoCSer.Common.Config.GetUninitializedArray<byte>(1 << 20) };
                         int bufferIndex = 0;
                         do
                         {

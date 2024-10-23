@@ -360,7 +360,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertByte(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((byte)parameter, charStream);
+            charStream.WriteString((byte)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -370,7 +370,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, byte parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(parameter, charStream);
+            charStream.WriteString(parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -389,7 +389,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, byte? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, charStream);
+            if (value.HasValue) charStream.WriteString(value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -399,7 +399,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertSByte(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((byte)(sbyte)parameter, charStream);
+            charStream.WriteString((byte)(sbyte)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -409,7 +409,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, sbyte parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((byte)parameter, charStream);
+            charStream.WriteString((byte)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -428,7 +428,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, sbyte? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((byte)value.Value, charStream);
+            if (value.HasValue) charStream.WriteString((byte)value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -438,7 +438,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertShort(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((short)parameter, charStream);
+            charStream.WriteString((short)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -448,7 +448,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, short parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(parameter, charStream);
+            charStream.WriteString(parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -467,7 +467,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, short? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, charStream);
+            if (value.HasValue) charStream.WriteString(value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -477,7 +477,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertUShort(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((short)(ushort)parameter, charStream);
+            charStream.WriteString((short)(ushort)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -487,7 +487,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, ushort parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((short)parameter, charStream);
+            charStream.WriteString((short)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -506,7 +506,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, ushort? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((short)value.Value, charStream);
+            if (value.HasValue) charStream.WriteString((short)value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -516,7 +516,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertInt(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((int)parameter, charStream);
+            charStream.WriteString((int)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -526,7 +526,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, int parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(parameter, charStream);
+            charStream.WriteString(parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -545,7 +545,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, int? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, charStream);
+            if (value.HasValue) charStream.WriteString(value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -555,7 +555,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertUInt(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((int)(uint)parameter, charStream);
+            charStream.WriteString((int)(uint)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -565,7 +565,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, uint parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((int)parameter, charStream);
+            charStream.WriteString((int)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -584,7 +584,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, uint? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((int)value.Value, charStream);
+            if (value.HasValue) charStream.WriteString((int)value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -594,7 +594,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertLong(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((long)parameter, charStream);
+            charStream.WriteString((long)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -604,7 +604,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, long parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString(parameter, charStream);
+            charStream.WriteString(parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -623,7 +623,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, long? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(value.Value, charStream);
+            if (value.HasValue) charStream.WriteString(value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -633,7 +633,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter">常量</param>
         private void convertULong(CharStream charStream, object parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((long)(ulong)parameter, charStream);
+            charStream.WriteString((long)(ulong)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -643,7 +643,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, ulong parameter)
         {
-            AutoCSer.Extensions.NumberExtension.ToString((long)parameter, charStream);
+            charStream.WriteString((long)parameter);
         }
         /// <summary>
         /// 常量转换字符串
@@ -662,7 +662,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Convert(CharStream charStream, ulong? value)
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((long)value.Value, charStream);
+            if (value.HasValue) charStream.WriteString((long)value.Value);
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1261,7 +1261,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertByteEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, byte>.ToInt((T)parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, byte>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1272,7 +1272,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertByteEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, byte>.ToInt(parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, byte>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1293,7 +1293,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertByteEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, byte>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString(EnumGenericType<T, byte>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1304,7 +1304,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertSByteEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((byte)EnumGenericType<T, sbyte>.ToInt((T)parameter), charStream);
+            charStream.WriteString((byte)EnumGenericType<T, sbyte>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1315,7 +1315,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertSByteEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((byte)EnumGenericType<T, sbyte>.ToInt(parameter), charStream);
+            charStream.WriteString((byte)EnumGenericType<T, sbyte>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1336,7 +1336,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertSByteEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((byte)EnumGenericType<T, sbyte>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString((byte)EnumGenericType<T, sbyte>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1347,7 +1347,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertShortEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, short>.ToInt((T)parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, short>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1358,7 +1358,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertShortEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, short>.ToInt(parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, short>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1379,7 +1379,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertShortEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, short>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString(EnumGenericType<T, short>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1390,7 +1390,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertUShortEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((short)EnumGenericType<T, ushort>.ToInt((T)parameter), charStream);
+            charStream.WriteString((short)EnumGenericType<T, ushort>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1401,7 +1401,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertUShortEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((short)EnumGenericType<T, ushort>.ToInt(parameter), charStream);
+            charStream.WriteString((short)EnumGenericType<T, ushort>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1422,7 +1422,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertUShortEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((short)EnumGenericType<T, ushort>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString((short)EnumGenericType<T, ushort>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1433,7 +1433,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertIntEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, int>.ToInt((T)parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, int>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1444,7 +1444,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertIntEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, int>.ToInt(parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, int>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1465,7 +1465,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertIntEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, int>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString(EnumGenericType<T, int>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1476,7 +1476,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertUIntEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((int)EnumGenericType<T, uint>.ToInt((T)parameter), charStream);
+            charStream.WriteString((int)EnumGenericType<T, uint>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1487,7 +1487,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertUIntEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((int)EnumGenericType<T, uint>.ToInt(parameter), charStream);
+            charStream.WriteString((int)EnumGenericType<T, uint>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1508,7 +1508,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertUIntEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((int)EnumGenericType<T, uint>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString((int)EnumGenericType<T, uint>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1519,7 +1519,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertLongEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, long>.ToInt((T)parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, long>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1530,7 +1530,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertLongEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, long>.ToInt(parameter), charStream);
+            charStream.WriteString(EnumGenericType<T, long>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1551,7 +1551,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertLongEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString(EnumGenericType<T, long>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString(EnumGenericType<T, long>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
@@ -1562,7 +1562,7 @@ namespace AutoCSer.ORM
         /// <param name="parameter"></param>
         internal void ConvertULongEnum<T>(CharStream charStream, object parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((long)EnumGenericType<T, ulong>.ToInt((T)parameter), charStream);
+            charStream.WriteString((long)EnumGenericType<T, ulong>.ToInt((T)parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1573,7 +1573,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertULongEnum<T>(CharStream charStream, T parameter) where T : struct, IConvertible
         {
-            AutoCSer.Extensions.NumberExtension.ToString((long)EnumGenericType<T, ulong>.ToInt(parameter), charStream);
+            charStream.WriteString((long)EnumGenericType<T, ulong>.ToInt(parameter));
         }
         /// <summary>
         /// 枚举常量转换字符串
@@ -1594,7 +1594,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void ConvertULongEnumNullable<T>(CharStream charStream, T? value) where T : struct, IConvertible
         {
-            if (value.HasValue) AutoCSer.Extensions.NumberExtension.ToString((long)EnumGenericType<T, ulong>.ToInt(value.Value), charStream);
+            if (value.HasValue) charStream.WriteString((long)EnumGenericType<T, ulong>.ToInt(value.Value));
             else charStream.WriteJsonNull();
         }
         /// <summary>
