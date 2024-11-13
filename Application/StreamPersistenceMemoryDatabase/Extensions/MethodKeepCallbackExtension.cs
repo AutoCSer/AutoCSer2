@@ -49,7 +49,7 @@ namespace AutoCSer.Extensions
                         {
                             do
                             {
-                                ServerReturnValue<KeepCallbackResponseParameter> outputParameter = new ServerReturnValue<KeepCallbackResponseParameter>(KeepCallbackResponseParameter.Create(head, methodCallback.IsSimpleSerialize));
+                                ServerReturnValue<KeepCallbackResponseParameter> outputParameter = new ServerReturnValue<KeepCallbackResponseParameter>(KeepCallbackResponseParameter.Create(next, methodCallback.IsSimpleSerialize));
                                 queue.Send(socket, socket.GetOutput(callback.CallbackIdentity, callback.Method, ref outputParameter));
                             }
                             while ((next = next.notNull().LinkNext) != end);
