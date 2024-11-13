@@ -12,22 +12,19 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             try
             {
+                CommandServerConfig commandServerConfig = new CommandServerConfig
+                {
+                    Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
+                };
                 ServiceConfig cacheServiceConfig = new ServiceConfig
                 {
-                    CommandServerSocketSessionObject = new CommandServerSocketSessionObject(),
                     PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase)),
                     PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(ServiceConfig.PersistenceSwitchPath)),
                     CanCreateSlave = true
                 };
-                StreamPersistenceMemoryDatabaseService cacheService = cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p));
-                CommandServerConfig commandServerConfig = new CommandServerConfig
-                {
-                    Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
-                    SessionObject = cacheService.CommandServerSocketSessionObject
-                };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
                     .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheService)
+                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())

@@ -47,11 +47,9 @@ namespace AutoCSer.CommandService.DeployTask
             //Task.Delay(Sleep);
             if (isWait)
             {
-                using (System.Diagnostics.Process process = await AutoCSer.Deploy.SwitchProcess.GetStartProcessDirectoryAsync(fileInfo, arguments))
-                {
-                    if (process == null) return new DeployTaskLog { OperationState = DeployTaskOperationStateEnum.NotFoundFile };
-                    process.WaitForExit();
-                }
+                var process = await AutoCSer.Deploy.SwitchProcess.GetStartProcessDirectoryAsync(fileInfo, arguments);
+                if (process != null) process.WaitForExit();
+                else return new DeployTaskLog { OperationState = DeployTaskOperationStateEnum.NotFoundFile };
             }
             else if (!await AutoCSer.Deploy.SwitchProcess.StartProcessDirectoryAsync(fileInfo, arguments))
             {

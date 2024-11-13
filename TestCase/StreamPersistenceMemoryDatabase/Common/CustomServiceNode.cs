@@ -1,5 +1,6 @@
 ﻿using AutoCSer.CommandService;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game;
 using System;
 
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -344,5 +345,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             return createNode<IMessageNode<PerformanceMessage>>(index, key, nodeInfo, () => MessageNode<PerformanceMessage>.Create(service, arraySize, timeoutSeconds, checkTimeoutSeconds));
         }
         #endregion
+
+        /// <summary>
+        /// 创建游戏测试节点 GameNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public NodeIndex CreateGameNode(NodeIndex index, string key, NodeInfo nodeInfo)
+        {
+            return createNode<IGameNode, GameNode, Monster>(index, key, nodeInfo, () => new GameNode());
+        }
     }
 }

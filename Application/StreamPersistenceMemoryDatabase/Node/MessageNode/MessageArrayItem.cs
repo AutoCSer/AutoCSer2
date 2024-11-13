@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -14,11 +15,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 正在处理的消息
         /// </summary>
+#if NetStandard21
+        internal T? Message;
+#else
         internal T Message;
+#endif
         /// <summary>
         /// 消息回调
         /// </summary>
+#if NetStandard21
+        private MethodKeepCallback<T?>? callback;
+#else
         private MethodKeepCallback<T> callback;
+#endif
         /// <summary>
         /// 下一个空闲位置 或者 上一个正在处理的消息节点位置
         /// </summary>
@@ -35,7 +44,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="timeoutTimestamp"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal int Set(T message, MethodKeepCallback<T?> callback, long timeoutTimestamp)
+#else
         internal int Set(T message, MethodKeepCallback<T> callback, long timeoutTimestamp)
+#endif
         {
             int nextIndex = NextIndex;
             this.callback = callback;
@@ -50,7 +63,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nextIndex"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal T? GetMessage(out int nextIndex)
+#else
         internal T GetMessage(out int nextIndex)
+#endif
         {
             nextIndex = NextIndex;
             return Message;
@@ -61,9 +78,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nextIndex"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal MethodKeepCallback<T?> Free(int nextIndex)
+#else
         internal MethodKeepCallback<T> Free(int nextIndex)
+#endif
         {
-            MethodKeepCallback<T> callback = this.callback;
+            var callback = this.callback.notNull();
             Message = null;
             NextIndex = nextIndex;
             this.callback = null;
@@ -86,7 +107,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nextIndex"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal T? CheckTimeout(out int nextIndex)
+#else
         internal T CheckTimeout(out int nextIndex)
+#endif
         {
             if (timeoutTimestamp <= Stopwatch.GetTimestamp())
             {

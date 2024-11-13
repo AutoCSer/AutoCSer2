@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.ServiceRegister;
-using System;
+﻿using System;
 
 namespace AutoCSer.CommandService.ServiceRegistry
 {
@@ -11,7 +10,7 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// <summary>
         /// 服务注册会话对象
         /// </summary>
-        internal readonly ServiceRegisterSession Session;
+        internal readonly ServiceRegisterSocketSession Session;
         /// <summary>
         /// 服务注册日志
         /// </summary>
@@ -21,11 +20,11 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// </summary>
         /// <param name="session"></param>
         /// <param name="log"></param>
-        internal SessionLog(ServiceRegisterSession session, ServiceRegisterLog log)
+        internal SessionLog(ServiceRegisterSocketSession session, ServiceRegisterLog log)
         {
             Session = session;
             Log = log;
-            log.ServiceID = Session.ServiceRegistry.IdentityGenerator.GetNext();
+            log.ServiceID = Session.Service.IdentityGenerator.GetNext();
         }
 
         /// <summary>

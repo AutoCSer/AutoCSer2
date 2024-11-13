@@ -48,11 +48,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 接收消息的最后一次错误信息
         /// </summary>
-        protected ResponseResult<T> lastError;
+        protected ResponseResult lastError;
         /// <summary>
         /// 保持回调输出
         /// </summary>
+#if NetStandard21
+        private KeepCallbackResponse<T>? keepCallback;
+#else
         private KeepCallbackResponse<T> keepCallback;
+#endif
         /// <summary>
         /// 字符串消息消费者
         /// </summary>
@@ -62,7 +66,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected LocalServiceMessageConsumer(LocalClient client, IMessageNodeLocalClientNode<T> node, int delayMilliseconds) : base(client, delayMilliseconds)
         {
             this.node = node;
-            lastError = null;
+            lastError.Set(CommandClientReturnTypeEnum.Success, CallStateEnum.Success, null);
         }
         /// <summary>
         /// 释放资源
@@ -86,7 +90,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 if (error.ReturnType != lastError.ReturnType || error.CallState != lastError.CallState)
                 {
-                    lastError = error;
+                    lastError.Set(error.ReturnType, error.CallState, error.ErrorMessage);
                     await AutoCSer.LogHelper.Error($"字符串消息节点 {((ClientNode)node).Key} 接收消息失败，RPC 通讯状态为 {error.ReturnType} {error.ErrorMessage}，服务端节点调用状态为 {error.CallState}");
                 }
             }
@@ -102,10 +106,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 using (keepCallback = await node.GetMessage(maxCallbackCount))
                 {
-#if DotNet45 || NetStandard2
-                    while (await keepCallback.MoveNextAsync())
+#if NetStandard21
+                    await foreach (ResponseResult<T> message in keepCallback.GetAsyncEnumerable())
                     {
-                        ResponseResult<T> message = keepCallback.Current;
                         if (message.IsSuccess)
                         {
                             if (message.Value != null) checkOnMessage(message.Value).NotWait();
@@ -117,8 +120,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                     }
 #else
-                    await foreach (ResponseResult<T> message in keepCallback.GetAsyncEnumerable())
+                    while (await keepCallback.MoveNextAsync())
                     {
+                        ResponseResult<T> message = keepCallback.Current;
                         if (message.IsSuccess)
                         {
                             if (message.Value != null) checkOnMessage(message.Value).NotWait();

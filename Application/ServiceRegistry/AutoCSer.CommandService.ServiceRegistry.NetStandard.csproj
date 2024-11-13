@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandServerSocketSessionObject.cs" />
     <Compile Include="IPortRegistryClient.cs" />
     <Compile Include="IPortRegistryClientSocketEvent.cs" />
     <Compile Include="IPortRegistryService.cs" />

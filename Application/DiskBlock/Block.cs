@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -49,6 +49,15 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 return isRead != 0 || !readQueue.IsEmpty;
             }
+        }
+        /// <summary>
+        /// 默认空磁盘块
+        /// </summary>
+        internal Block()
+        {
+            service = new DiskBlockService(this);
+            StartIndex = long.MaxValue;
+            Position = long.MinValue;
         }
         /// <summary>
         /// 磁盘块
@@ -101,17 +110,29 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="index">磁盘块索引信息</param>
         /// <param name="callback"></param>
-        internal void Read(ref BlockIndex index, ref CommandServerCallback<ReadBuffer> callback)
+        /// <param name="isCallback"></param>
+        internal void Read(ref BlockIndex index, CommandServerCallback<ReadBuffer> callback, ref bool isCallback)
         {
-            ReadRequest cacheRequest;
-            ReadRequest request = null;
+            var cacheRequest = default(ReadRequest);
+            var request = default(ReadRequest);
             try
             {
-                if (readCache.TryGetValue(index.Index, out cacheRequest)) cacheRequest.AppendCallback(index.Size, ref callback);
+                if (readCache.TryGetValue(index.Index, out cacheRequest))
+                {
+                    cacheRequest.AppendCallback(index.Size, callback);
+                    isCallback = false;
+                }
                 else
                 {
-                    readCache.Add(index.Index, request = new ReadRequest(this, ref index, ref callback));
-                    if (readQueue.IsPushHead(ref request) && Interlocked.CompareExchange(ref isRead, 1, 0) == 0) read().NotWait();
+                    request = new ReadRequest(this, ref index, callback);
+                    isCallback = false;
+                    readCache.Add(index.Index, request);
+                    if (readQueue.IsPushHead(request))
+                    {
+                        request = null;
+                        if (Interlocked.CompareExchange(ref isRead, 1, 0) == 0) read().NotWait();
+                    }
+                    else request = null;
                 }
             }
             finally { request?.CancelCallback(new ReadBuffer(ReadBufferStateEnum.Unknown)); }
@@ -125,11 +146,11 @@ namespace AutoCSer.CommandService.DiskBlock
             ExceptionRepeat exceptionRepeat = default(ExceptionRepeat);
             do
             {
-                object context = null;
+                var context = default(object);
                 do
                 {
                     bool isQueue = false;
-                    ReadRequest request = readQueue.GetClear();
+                    var request = readQueue.GetClear().notNull();
                     do
                     {
                         try
@@ -153,20 +174,23 @@ namespace AutoCSer.CommandService.DiskBlock
                         {
                             if (!exceptionRepeat.IsRepeat(exception)) await AutoCSer.LogHelper.Exception(exception);
                         }
-                        if(!isQueue) service.CommandServerCallQueue.AddOnly(request.BlockCallback);
-                        request = request.LinkNext;
+                        if(!isQueue) service.CommandServerCallQueue.AddOnly(request.notNull().BlockCallback);
+                        request = request.notNull().LinkNext;
                     }
                     while (request != null);
                 }
                 while (!readQueue.IsEmpty);
                 Interlocked.Exchange(ref isRead, 0);
-                try
+                if (context != null)
                 {
-                    await freeReadContext(context);
-                }
-                catch (Exception exception)
-                {
-                    await AutoCSer.LogHelper.Exception(exception);
+                    try
+                    {
+                        await freeReadContext(context);
+                    }
+                    catch (Exception exception)
+                    {
+                        await AutoCSer.LogHelper.Exception(exception);
+                    }
                 }
             }
             while (!readQueue.IsEmpty && Interlocked.CompareExchange(ref isRead, 1, 0) == 0);

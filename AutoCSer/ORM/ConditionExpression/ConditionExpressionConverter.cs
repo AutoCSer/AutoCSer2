@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using AutoCSer.Extensions;
 
 namespace AutoCSer.ORM
 {
@@ -96,7 +97,7 @@ namespace AutoCSer.ORM
                 if (object.ReferenceEquals(Expression, constantTrue) || Expression == null) return LogicTypeEnum.True;
                 if (Expression.NodeType == ExpressionType.Constant)
                 {
-                    object value = Expression.getConstantValue();
+                    object value = Expression.getConstantValue().notNull();
                     if (value.GetType() == typeof(bool)) return (bool)value ? LogicTypeEnum.True : LogicTypeEnum.False;
                 }
                 return LogicTypeEnum.Unknown;
@@ -202,7 +203,7 @@ namespace AutoCSer.ORM
         {
             if (Expression.NodeType == ExpressionType.Constant)
             {
-                return (bool)Expression.getConstantValue() ? LogicTypeEnum.True : LogicTypeEnum.False;
+                return (bool)Expression.getConstantValue().notNull() ? LogicTypeEnum.True : LogicTypeEnum.False;
             }
             return LogicTypeEnum.Unknown;
         }
@@ -310,7 +311,7 @@ namespace AutoCSer.ORM
             {
                 if (Expression.NodeType == ExpressionType.Constant)
                 {
-                    object value = Expression.getConstantValue();
+                    var value = Expression.getConstantValue();
                     if (value != null)
                     {
                         System.Type systemType = value.GetType();
@@ -320,7 +321,7 @@ namespace AutoCSer.ORM
                             Type = ConvertTypeEnum.ConvertExpression;
                             return;
                         }
-                        Func<object, object> calculator;
+                        var calculator = default(Func<object, object>);
                         if (notCalculators.TryGetValue(systemType, out calculator))
                         {
                             Expression = System.Linq.Expressions.Expression.Constant(calculator(value));
@@ -407,7 +408,7 @@ namespace AutoCSer.ORM
                         case ExpressionType.Or:
                         case ExpressionType.And:
                         case ExpressionType.ExclusiveOr:
-                            object value = getConstantCalculator(left.Expression, binaryExpression.NodeType);
+                            var value = getConstantCalculator(left.Expression, binaryExpression.NodeType);
                             if (value != null) Expression = System.Linq.Expressions.Expression.Constant(value);
                             else if (Type == ConvertTypeEnum.Expression && left.Type == ConvertTypeEnum.Expression)
                             {
@@ -460,7 +461,8 @@ namespace AutoCSer.ORM
         {
             if (Expression.NodeType == ExpressionType.Constant && leftExpression.NodeType == ExpressionType.Constant)
             {
-                object left = leftExpression.getConstantValue(), right = Expression.getConstantValue();
+                var left = leftExpression.getConstantValue();
+                var right = Expression.getConstantValue();
                 if (left != null) return left.Equals(right) ? LogicTypeEnum.True : LogicTypeEnum.False;
                 return right == null || right.Equals(left) ? LogicTypeEnum.True : LogicTypeEnum.False;
             }
@@ -514,16 +516,16 @@ namespace AutoCSer.ORM
         {
             if (Expression.NodeType == ExpressionType.Constant && leftExpression.NodeType == ExpressionType.Constant)
             {
-                object left = leftExpression.getConstantValue();
+                var left = leftExpression.getConstantValue();
                 if (left != null)
                 {
-                    object right = Expression.getConstantValue();
+                    var right = Expression.getConstantValue();
                     if (right != null)
                     {
                         System.Type type = left.GetType();
                         if (type == right.GetType())
                         {
-                            Func<ExpressionType, object, object, LogicTypeEnum> comparator;
+                            var comparator = default(Func<ExpressionType, object, object, LogicTypeEnum>);
                             if (comparators.TryGetValue(type, out comparator)) return comparator(expressionType, left, right);
                         }
                     }
@@ -617,20 +619,28 @@ namespace AutoCSer.ORM
         /// <param name="leftExpression"></param>
         /// <param name="expressionType"></param>
         /// <returns></returns>
+#if NetStandard21
+        private object? getConstantCalculator(System.Linq.Expressions.Expression leftExpression, ExpressionType expressionType)
+#else
         private object getConstantCalculator(System.Linq.Expressions.Expression leftExpression, ExpressionType expressionType)
+#endif
         {
             if (Expression.NodeType == ExpressionType.Constant && leftExpression.NodeType == ExpressionType.Constant)
             {
-                object left = leftExpression.getConstantValue();
+                var left = leftExpression.getConstantValue();
                 if (left != null)
                 {
-                    object right = Expression.getConstantValue();
+                    var right = Expression.getConstantValue();
                     if (right != null)
                     {
                         System.Type type = left.GetType();
                         if (type == right.GetType())
                         {
+#if NetStandard21
+                            var calculator = default(Func<ExpressionType, object, object, object?>);
+#else
                             Func<ExpressionType, object, object, object> calculator;
+#endif
                             if (calculators.TryGetValue(type, out calculator)) return calculator(expressionType, left, right);
                         }
                     }
@@ -644,17 +654,25 @@ namespace AutoCSer.ORM
         /// <param name="leftExpression"></param>
         /// <param name="expressionType"></param>
         /// <returns></returns>
+#if NetStandard21
+        private object? getConstantCalculatorShift(System.Linq.Expressions.Expression leftExpression, ExpressionType expressionType)
+#else
         private object getConstantCalculatorShift(System.Linq.Expressions.Expression leftExpression, ExpressionType expressionType)
+#endif
         {
             if (Expression.NodeType == ExpressionType.Constant && leftExpression.NodeType == ExpressionType.Constant)
             {
-                object left = leftExpression.getConstantValue();
+                var left = leftExpression.getConstantValue();
                 if (left != null)
                 {
-                    object right = Expression.getConstantValue();
+                    var right = Expression.getConstantValue();
                     if (right != null && right.GetType() == typeof(int))
                     {
+#if NetStandard21
+                        var calculator = default(Func<ExpressionType, object, object, object?>);
+#else
                         Func<ExpressionType, object, object, object> calculator;
+#endif
                         if (calculators.TryGetValue(left.GetType(), out calculator)) return calculator(expressionType, left, right);
                     }
                 }
@@ -668,7 +686,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         private bool convertLeftShift(ref ConditionExpressionConverter left)
         {
-            object value = getConstantCalculatorShift(left.Expression, ExpressionType.LeftShift);
+            var value = getConstantCalculatorShift(left.Expression, ExpressionType.LeftShift);
             if (value != null)
             {
                 Expression = System.Linq.Expressions.Expression.Constant(value);
@@ -685,7 +703,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         private bool convertRightShift(ref ConditionExpressionConverter left)
         {
-            object value = getConstantCalculatorShift(left.Expression, ExpressionType.RightShift);
+            var value = getConstantCalculatorShift(left.Expression, ExpressionType.RightShift);
             if (value != null)
             {
                 Expression = System.Linq.Expressions.Expression.Constant(value);
@@ -719,8 +737,8 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         private static bool checkMemberAccessParameter(MemberExpression memberExpression)
         {
-            System.Linq.Expressions.Expression expression = memberExpression.Expression;
-            while(expression.NodeType == ExpressionType.MemberAccess) expression = ((MemberExpression)expression).Expression;
+            System.Linq.Expressions.Expression expression = memberExpression.Expression.notNull();
+            while(expression.NodeType == ExpressionType.MemberAccess) expression = ((MemberExpression)expression).Expression.notNull();
             return expression.NodeType == ExpressionType.Parameter;
         }
         /// <summary>
@@ -729,7 +747,7 @@ namespace AutoCSer.ORM
         private void convertMemberAccess()
         {
             MemberExpression memberExpression = (MemberExpression)Expression;
-            object target = null;
+            var target = default(object);
             if (memberExpression.Expression != null)
             {
                 if (checkMemberAccessParameter(memberExpression))
@@ -753,14 +771,14 @@ namespace AutoCSer.ORM
                     return;
                 }
             }
-            FieldInfo fieldInfo = memberExpression.Member as FieldInfo;
+            var fieldInfo = memberExpression.Member as FieldInfo;
             if (fieldInfo != null)
             {
                 Expression = System.Linq.Expressions.Expression.Constant(fieldInfo.GetValue(target));
                 Type = ConvertTypeEnum.ConvertExpression;
                 return;
             }
-            PropertyInfo propertyInfo = memberExpression.Member as PropertyInfo;
+            var propertyInfo = memberExpression.Member as PropertyInfo;
             if (propertyInfo != null)
             {
                 Expression = System.Linq.Expressions.Expression.Constant(propertyInfo.GetValue(target, null));
@@ -788,7 +806,7 @@ namespace AutoCSer.ORM
         {
             UnaryExpression unaryExpression = (UnaryExpression)Expression;
             Expression = unaryExpression.Operand;
-            Array array = convertArray(ExpressionType.ArrayLength);
+            var array = convertArray(ExpressionType.ArrayLength);
             if (array != null)
             {
                 Expression = System.Linq.Expressions.Expression.Constant(array.Length);
@@ -800,14 +818,18 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+#if NetStandard21
+        private Array? convertArray(ExpressionType type)
+#else
         private Array convertArray(ExpressionType type)
+#endif
         {
             Convert();
             if (Type != ConvertTypeEnum.NotSupport)
             {
                 if (Expression.NodeType == ExpressionType.Constant)
                 {
-                    object array = Expression.getConstantValue();
+                    var array = Expression.getConstantValue();
                     if (array != null)
                     {
                         if (array.GetType().IsArray) return (Array)array;
@@ -828,7 +850,7 @@ namespace AutoCSer.ORM
         {
             BinaryExpression binaryExpression = (BinaryExpression)Expression;
             Expression = binaryExpression.Left;
-            Array array = convertArray(ExpressionType.ArrayIndex);
+            var array = convertArray(ExpressionType.ArrayIndex);
             if (array != null)
             {
                 Expression = binaryExpression.Right;
@@ -836,7 +858,7 @@ namespace AutoCSer.ORM
                 {
                     if (Expression.NodeType == ExpressionType.Constant)
                     {
-                        object indexObject = Expression.getConstantValue();
+                        var indexObject = Expression.getConstantValue();
                         if (indexObject != null && indexObject.GetType() == typeof(int))
                         {
                             int index = (int)indexObject;
@@ -913,10 +935,14 @@ namespace AutoCSer.ORM
             {
                 if (Expression.NodeType == ExpressionType.Constant)
                 {
-                    object value = Expression.getConstantValue();
+                    var value = Expression.getConstantValue();
                     if (value != null)
                     {
+#if NetStandard21
+                        var calculator = default(Func<ExpressionType, object, object?>);
+#else
                         Func<ExpressionType, object, object> calculator;
+#endif
                         if (unaryCalculators.TryGetValue(value.GetType(), out calculator))
                         {
                             value = calculator(unaryExpression.NodeType, value);
@@ -999,7 +1025,7 @@ namespace AutoCSer.ORM
                 switch (Expression.NodeType)
                 {
                     case ExpressionType.Constant:
-                        object value = Expression.getConstantValue();
+                        var value = Expression.getConstantValue();
                         if (value != null)
                         {
                             System.Type valueType = value.GetType(), convertType = unaryExpression.Type;
@@ -1042,7 +1068,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 枚举转换整数
         /// </summary>
+#if NetStandard21
+        private static object? convertEnum(object value, System.Type convertType)
+#else
         private static object convertEnum(object value, System.Type convertType)
+#endif
         {
             if (convertType == typeof(int)) return (int)value;
             if (convertType == typeof(long)) return (long)value;
@@ -1150,14 +1180,14 @@ namespace AutoCSer.ORM
                                 Convert();
                                 if (Expression.NodeType == ExpressionType.Constant)
                                 {
-                                    object left = Expression.getConstantValue();
+                                    var left = Expression.getConstantValue();
                                     if (left != null)
                                     {
                                         Expression = methodCallExpression.Arguments[1];
                                         Convert();
                                         if (Expression.NodeType == ExpressionType.Constant)
                                         {
-                                            object right = Expression.getConstantValue();
+                                            var right = Expression.getConstantValue();
                                             if (left != null && right != null)
                                             {
                                                 Type type = right.GetType();
@@ -1172,10 +1202,10 @@ namespace AutoCSer.ORM
                                                 }
                                                 else if (type == left.GetType())
                                                 {
-                                                    Func<ExpressionType, object, object, LogicTypeEnum> comparator;
+                                                    var comparator = default(Func<ExpressionType, object, object, LogicTypeEnum>);
                                                     if (comparators.TryGetValue(type, out comparator))
                                                     {
-                                                        LogicTypeEnum logicType = comparator((ExpressionType)methodCallExpression.Arguments[2].getConstantValue(), left, right);
+                                                        LogicTypeEnum logicType = comparator(methodCallExpression.Arguments[2].getConstantValue().castType<ExpressionType>(), left, right);
                                                         switch (logicType)
                                                         {
                                                             case LogicTypeEnum.False:
@@ -1214,7 +1244,7 @@ namespace AutoCSer.ORM
             if (Type == ConvertTypeEnum.NotSupport) return true;
             if (Expression.NodeType == ExpressionType.Constant)
             {
-                object values = Expression.getConstantValue();
+                var values = Expression.getConstantValue();
                 bool isEmpty = values == null;
                 if (values != null)
                 {
@@ -1238,7 +1268,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         private bool convertCallExists(bool isNot)
         {
-            IQueryBuilder query = (IQueryBuilder)Expression.getConstantValue();
+            var query = Expression.getConstantValue().castType<IQueryBuilder>();
             if (query == null || !query.IsQuery)
             {
                 Expression = isNot ? constantTrue : constantFalse;
@@ -1254,7 +1284,7 @@ namespace AutoCSer.ORM
         /// <param name="method"></param>
         internal void ConvertCall(MethodCallExpression methodCallExpression, MethodInfo method)
         {
-            object target = null;
+            var target = default(object);
             if (methodCallExpression.Object != null)
             {
                 Expression = methodCallExpression.Object;
@@ -1273,7 +1303,11 @@ namespace AutoCSer.ORM
                     return;
                 }
             }
+#if NetStandard21
+            object?[] arguments = EmptyArray<object>.Array;
+#else
             object[] arguments = EmptyArray<object>.Array;
+#endif
             if (methodCallExpression.Arguments != null && methodCallExpression.Arguments.Count != 0)
             {
                 arguments = new object[methodCallExpression.Arguments.Count];
@@ -1330,11 +1364,19 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 常量计算器集合
         /// </summary>
+#if NetStandard21
+        private static readonly Dictionary<HashObject<System.Type>, Func<ExpressionType, object, object, object?>> calculators;
+#else
         private static readonly Dictionary<HashObject<System.Type>, Func<ExpressionType, object, object, object>> calculators;
+#endif
         /// <summary>
         /// 常量计算器集合
         /// </summary>
+#if NetStandard21
+        private static readonly Dictionary<HashObject<System.Type>, Func<ExpressionType, object, object?>> unaryCalculators;
+#else
         private static readonly Dictionary<HashObject<System.Type>, Func<ExpressionType, object, object>> unaryCalculators;
+#endif
         /// <summary>
         /// 常量计算器集合
         /// </summary>
@@ -1356,7 +1398,11 @@ namespace AutoCSer.ORM
             comparators.Add(typeof(DateTime), compareDateTime);
             comparators.Add(typeof(TimeSpan), compareTimeSpan);
 
+#if NetStandard21
+            calculators = DictionaryCreator.CreateHashObject<System.Type, Func<ExpressionType, object, object, object?>>();
+#else
             calculators = DictionaryCreator.CreateHashObject<System.Type, Func<ExpressionType, object, object, object>>();
+#endif
             calculators.Add(typeof(ulong), calculateULong);
             calculators.Add(typeof(long), calculateLong);
             calculators.Add(typeof(uint), calculateUInt);
@@ -1370,7 +1416,11 @@ namespace AutoCSer.ORM
             calculators.Add(typeof(float), calculateFloat);
             calculators.Add(typeof(decimal), calculateDecimal);
 
+#if NetStandard21
+            unaryCalculators = DictionaryCreator.CreateHashObject<System.Type, Func<ExpressionType, object, object?>>();
+#else
             unaryCalculators = DictionaryCreator.CreateHashObject<System.Type, Func<ExpressionType, object, object>>();
+#endif
             unaryCalculators.Add(typeof(long), calculateLong);
             unaryCalculators.Add(typeof(uint), calculateUInt);
             unaryCalculators.Add(typeof(int), calculateInt);

@@ -2,6 +2,7 @@
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -28,11 +29,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建节点参数
         /// </summary>
+#if NetStandard21
+        internal readonly MethodParameter? CreateNodeMethodParameter;
+#else
         internal readonly MethodParameter CreateNodeMethodParameter;
+#endif
         /// <summary>
         /// 快照事务关系节点集合
         /// </summary>
+#if NetStandard21
+        internal Dictionary<HashString, ServerNode>? SnapshotTransactionNodes;
+#else
         internal Dictionary<HashString, ServerNode> SnapshotTransactionNodes;
+#endif
         /// <summary>
         /// 快照事务关系节点数量
         /// </summary>
@@ -108,7 +117,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (SnapshotTransactionNodes != null)
             {
                 HashString key = Key;
-                foreach (ServerNode node in SnapshotTransactionNodes.Values) node.SnapshotTransactionNodes.Remove(key);
+                foreach (ServerNode node in SnapshotTransactionNodes.Values) node.SnapshotTransactionNodes.notNull().Remove(key);
             }
         }
         /// <summary>
@@ -117,9 +126,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal ServerNode? GetSnapshotTransactionNode(ref HashString key)
+#else
         internal ServerNode GetSnapshotTransactionNode(ref HashString key)
+#endif
         {
-            ServerNode node;
+            var node = default(ServerNode);
             return SnapshotTransactionNodes != null && SnapshotTransactionNodes.TryGetValue(key, out node) ? node : null;
         }
         /// <summary>
@@ -169,11 +182,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex"></param>
         /// <param name="state"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal InputMethodParameter? CreateInputMethodParameter(int methodIndex, out CallStateEnum state)
+#else
         internal InputMethodParameter CreateInputMethodParameter(int methodIndex, out CallStateEnum state)
+#endif
         {
             if ((uint)methodIndex < (uint)NodeCreator.Methods.Length)
             {
-                Method method = NodeCreator.Methods[methodIndex];
+                var method = NodeCreator.Methods[methodIndex];
                 if (method != null)
                 {
                     state = CallStateEnum.Success;
@@ -200,11 +217,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal CallStateEnum Call(int methodIndex, [MaybeNull] ref CommandServerCallback<CallStateEnum> callback)
+#else
         internal CallStateEnum Call(int methodIndex, ref CommandServerCallback<CallStateEnum> callback)
+#endif
         {
             if ((uint)methodIndex < (uint)NodeCreator.Methods.Length)
             {
-                Method method = NodeCreator.Methods[methodIndex];
+                var method = NodeCreator.Methods[methodIndex];
                 if (method != null)
                 {
                     if (method.CallType == CallTypeEnum.Call)
@@ -212,15 +233,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         CallMethod callMethod = (CallMethod)method;
                         if (method.IsClientCall)
                         {
-                            CommandServerSocketSessionObjectService service = NodeCreator.Service;
+                            StreamPersistenceMemoryDatabaseServiceBase service = NodeCreator.Service;
                             if (method.IsPersistence)
                             {
                                 if (IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
-                                CallMethodParameter callMethodParameter = null;
+                                var callMethodParameter = default(CallMethodParameter);
                                 if (method.BeforePersistenceMethodIndex >= 0)
                                 {
                                     service.CurrentMethodParameter = callMethodParameter = new BeforePersistenceCallMethodParameter(this, callMethod, callback);
-                                    if (!((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex]).CallBeforePersistence(this)) return CallStateEnum.Success;
+                                    if (!((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull()).CallBeforePersistence(this)) return CallStateEnum.Success;
                                 }
                                 if (IsPersistence)
                                 {
@@ -245,11 +266,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal CallStateEnum CallOutput(int methodIndex, [MaybeNull] ref CommandServerCallback<ResponseParameter> callback)
+#else
         internal CallStateEnum CallOutput(int methodIndex, ref CommandServerCallback<ResponseParameter> callback)
+#endif
         {
             if ((uint)methodIndex < (uint)NodeCreator.Methods.Length)
             {
-                Method method = NodeCreator.Methods[methodIndex];
+                var method = NodeCreator.Methods[methodIndex];
                 if (method != null)
                 {
                     switch (method.CallType)
@@ -259,15 +284,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             CallOutputMethod callOutputMethod = (CallOutputMethod)method;
                             if (method.IsClientCall)
                             {
-                                CommandServerSocketSessionObjectService service = NodeCreator.Service;
+                                StreamPersistenceMemoryDatabaseServiceBase service = NodeCreator.Service;
                                 if (method.IsPersistence)
                                 {
                                     if (IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
-                                    CallOutputMethodParameter callOutputMethodParameter = null;
+                                    var callOutputMethodParameter = default(CallOutputMethodParameter);
                                     if (method.BeforePersistenceMethodIndex >= 0)
                                     {
                                         service.CurrentMethodParameter = callOutputMethodParameter = new BeforePersistenceCallOutputMethodParameter(this, callOutputMethod, callback);
-                                        ValueResult<ResponseParameter> value = ((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex]).CallOutputBeforePersistence(this);
+                                        ValueResult<ResponseParameter> value = ((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull()).CallOutputBeforePersistence(this);
                                         if (value.IsValue)
                                         {
                                             callback?.SynchronousCallback(value.Value);
@@ -298,11 +323,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal CallStateEnum KeepCallback(int methodIndex, [MaybeNull] ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+#else
         internal CallStateEnum KeepCallback(int methodIndex, ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+#endif
         {
             if ((uint)methodIndex < (uint)NodeCreator.Methods.Length)
             {
-                Method method = NodeCreator.Methods[methodIndex];
+                var method = NodeCreator.Methods[methodIndex];
                 if (method != null)
                 {
                     switch (method.CallType)
@@ -312,15 +341,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             KeepCallbackMethod keepCallbackMethod = (KeepCallbackMethod)method;
                             if (method.IsClientCall)
                             {
-                                CommandServerSocketSessionObjectService service = NodeCreator.Service;
+                                StreamPersistenceMemoryDatabaseServiceBase service = NodeCreator.Service;
                                 if (method.IsPersistence)
                                 {
                                     if (IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
-                                    KeepCallbackMethodParameter keepCallbackMethodParameter = null;
+                                    var keepCallbackMethodParameter = default(KeepCallbackMethodParameter);
                                     if (method.BeforePersistenceMethodIndex >= 0)
                                     {
                                         service.CurrentMethodParameter = keepCallbackMethodParameter = new BeforePersistenceKeepCallbackMethodParameter(this, keepCallbackMethod, callback);
-                                        ValueResult<ResponseParameter> value = ((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex]).CallOutputBeforePersistence(this);
+                                        ValueResult<ResponseParameter> value = ((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull()).CallOutputBeforePersistence(this);
                                         if (value.IsValue)
                                         {
                                             callback?.VirtualCallbackCancelKeep(value.Value.CreateKeepCallback());
@@ -370,7 +399,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
-        public abstract void Repair(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, ref CommandServerCallback<CallStateEnum> callback);
+        public abstract void Repair(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback);
         /// <summary>
         /// 绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
         /// </summary>
@@ -378,7 +407,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号与其他必要配置信息</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
-        public abstract void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, ref CommandServerCallback<CallStateEnum> callback);
+        public abstract void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback);
 
         /// <summary>
         /// 获取快照数据集合
@@ -489,12 +518,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal override void Loaded()
         {
-            INode<T> node = target as INode<T>;
+            var node = target as INode<T>;
             if (node != null)
             {
                 try
                 {
-                    T newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
+                    var newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
                     if (newTarget != null) target = newTarget;
                 }
                 catch (Exception exception)
@@ -510,7 +539,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal override void OnRemoved()
         {
             base.OnRemoved();
-            INode<T> node = target as INode<T>;
+            var node = target as INode<T>;
             if (node != null)
             {
                 try
@@ -529,7 +558,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>创建调用方法与参数信息</returns>
         public MethodParameterCreator<T> CreateMethodParameterCreator()
         {
-            return ServerNodeCreator<T>.MethodParameterCreator(this) as MethodParameterCreator<T>;
+            return (ServerNodeCreator<T>.MethodParameterCreator(this) as MethodParameterCreator<T>).notNull();
         }
         /// <summary>
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
@@ -538,10 +567,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
-        public override void Repair(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, ref CommandServerCallback<CallStateEnum> callback)
+        public override void Repair(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
             NodeCreator.Repair<T>(rawAssembly, method, methodAttribute, callback).NotWait();
-            callback = null;
         }
         /// <summary>
         /// 绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
@@ -550,10 +578,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号与其他必要配置信息</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
-        public override void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, ref CommandServerCallback<CallStateEnum> callback)
+        public override void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
             NodeCreator.Bind<T>(rawAssembly, method, methodAttribute, callback).NotWait();
-            callback = null;
         }
 
         /// <summary>
@@ -601,19 +628,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private static T checkTarget(T target)
         {
             if (target is ISnapshot<ST>) return target;
+#pragma warning disable CS8602
             throw new InvalidCastException($"服务端节点类型 {target.GetType().fullName()} 缺少快照接口实现 {typeof(ISnapshot<ST>).fullName()}");
+#pragma warning restore CS8602
         }
         /// <summary>
         /// 初始化加载完毕处理
         /// </summary>
         internal override void Loaded()
         {
-            INode<T> node = target as INode<T>;
+            var node = target as INode<T>;
             if (node != null)
             {
                 try
                 {
-                    T newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
+                    var newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
                     if (newTarget != null) checkTarget(target = newTarget);
                 }
                 catch (Exception exception)
@@ -640,7 +669,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Rebuilding = false;
             if (!IsLoadException)
             {
-                snapshotArray = (target as ISnapshot<ST>).GetSnapshotArray();
+                snapshotArray = (target as ISnapshot<ST>).notNull().GetSnapshotArray();
                 return true;
             }
             return false;

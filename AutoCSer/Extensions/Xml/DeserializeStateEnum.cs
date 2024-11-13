@@ -108,6 +108,10 @@ namespace AutoCSer.Xml
         /// </summary>
         CrashEnd,
         /// <summary>
+        /// 构造函数返回 null 值
+        /// </summary>
+        ConstructorNull,
+        /// <summary>
         /// 成员位图类型错误
         /// </summary>
         MemberMap,

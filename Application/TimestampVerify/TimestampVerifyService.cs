@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using AutoCSer.CommandService.TimestampVerify;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 
 namespace AutoCSer.CommandService
@@ -14,7 +15,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 会话对象操作接口
         /// </summary>
-        private readonly ICommandServerSocketSessionObject<TimestampVerifySession> socketSessionObject;
+        private readonly ICommandListenerSession<ITimestampVerifySession> socketSessionObject;
         /// <summary>
         /// 递增登录时间戳检查器
         /// </summary>
@@ -28,26 +29,31 @@ namespace AutoCSer.CommandService
         /// </summary>
         protected MD5 md5;
         /// <summary>
+        /// 是否已经释放资源
+        /// </summary>
+        protected bool isDisposed;
+        /// <summary>
         /// 基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
         /// </summary>
-        /// <param name="listener"></param>
+        /// <param name="listener">SessionObject 必须实现 AutoCSer.Net.ICommandListenerSession[AutoCSer.CommandService.ITimestampVerifySession]</param>
         /// <param name="verifyString">服务认证验证字符串</param>
         /// <param name="maxSecondsDifference">最大时间差秒数，默认为 5</param>
         public TimestampVerifyService(CommandListener listener, string verifyString, byte maxSecondsDifference = 5)
         {
             this.verifyString = verifyString;
             timestampChecker = new TimestampVerifyChecker(maxSecondsDifference);
-            socketSessionObject = (ICommandServerSocketSessionObject<TimestampVerifySession>)listener.SessionObject ?? CommandServerSocketSessionObject.Default;
+            socketSessionObject = listener.GetSessionObject<ICommandListenerSession<ITimestampVerifySession>>() ?? AutoCSer.CommandService.TimestampVerify.CommandListenerSession.Default;
+            md5 = MD5.Create();
         }
         /// <summary>
         /// 释放资源
         /// </summary>
         public virtual void Dispose()
         {
-            if (md5 != null)
+            if (!isDisposed)
             {
+                isDisposed = true;
                 md5.Dispose();
-                md5 = null;
             }
         }
         /// <summary>
@@ -63,7 +69,7 @@ namespace AutoCSer.CommandService
         {
             if (hashData?.Length == 16)
             {
-                TimestampVerifySession session = socketSessionObject.TryGetSessionObject(socket);
+                var session = socketSessionObject.TryGetSessionObject(socket);
                 if (session == null)
                 {
                     long serverTimestamp = 0;
@@ -93,7 +99,6 @@ namespace AutoCSer.CommandService
                             return CommandServerVerifyStateEnum.Fail;
                     }
                 }
-                if (md5 == null) md5 = MD5.Create();
                 if (AutoCSer.Net.TimestampVerify.Md5Equals(AutoCSer.Net.TimestampVerify.Md5(md5, verifyString, randomPrefix, timestamp), hashData) == 0)
                 {
                     timestampChecker.Set(timestamp);

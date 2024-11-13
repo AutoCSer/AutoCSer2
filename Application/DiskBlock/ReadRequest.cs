@@ -35,12 +35,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="blockManager"></param>
         /// <param name="index"></param>
         /// <param name="callback"></param>
-        internal ReadRequest(Block blockManager, ref BlockIndex index, ref CommandServerCallback<ReadBuffer> callback)
+        internal ReadRequest(Block blockManager, ref BlockIndex index, CommandServerCallback<ReadBuffer> callback)
         {
             this.callback.Set(callback, index.Size);
             BlockCallback = new BlockCallback(BlockCallbackTypeEnum.Read, blockManager, this);
             Index = index.Index;
-            callback = null;
         }
         /// <summary>
         /// 添加读取数据回调委托
@@ -48,10 +47,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="size"></param>
         /// <param name="callback"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void AppendCallback(int size, ref CommandServerCallback<ReadBuffer> callback)
+        internal void AppendCallback(int size, CommandServerCallback<ReadBuffer> callback)
         {
             callbacks.Add(new KeyValue<CommandServerCallback<ReadBuffer>, int>(callback, size));
-            callback = null;
         }
         /// <summary>
         /// 错误取消写入操作

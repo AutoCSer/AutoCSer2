@@ -37,9 +37,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 初始化加载完毕处理
         /// </summary>
         /// <returns>加载完毕替换的新节点</returns>
+#if NetStandard21
+        public override IMessageNode<T>? StreamPersistenceMemoryDatabaseServiceLoaded()
+#else
         public override IMessageNode<T> StreamPersistenceMemoryDatabaseServiceLoaded()
+#endif
         {
-            foreach(T message in messages.Values) messageNode.AppendLinkCount(message);
+            foreach (T message in messages.Values) messageNode.AppendLinkCount(message);
             foreach (T message in failedMessages.Values) messageNode.AppendFailedCount(message);
             messageNode.SetContext(streamPersistenceMemoryDatabaseNode);
             return messageNode.StreamPersistenceMemoryDatabaseServiceLoaded();
@@ -124,7 +128,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="maxCount">当前客户端最大并发消息数量</param>
         /// <param name="callback"></param>
+#if NetStandard21
+        public void GetMessage(int maxCount, MethodKeepCallback<T?> callback)
+#else
         public void GetMessage(int maxCount, MethodKeepCallback<T> callback)
+#endif
         {
             throw new InvalidOperationException();
         }
@@ -178,7 +186,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="identity"></param>
         public void Failed(MessageIdeneity identity)
         {
-            T message;
+            var message = default(T);
             if (messages.Remove(identity.Identity, out message))
             {
                 message.MessageIdeneity.Flags |= MessageFlagsEnum.Failed;

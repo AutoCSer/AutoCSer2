@@ -8,7 +8,7 @@ namespace AutoCSer.CodeGenerator.Template
         /// <summary>
         /// @CurrentType.XmlDocument 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(@CurrentType.GenericDefinitionFullName))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(@CurrentType.GenericDefinitionFullName))]
         /*NOTE*/
         public partial interface /*NOTE*/@TypeNameDefinition
         {

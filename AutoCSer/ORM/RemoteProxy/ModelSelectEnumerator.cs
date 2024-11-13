@@ -2,9 +2,10 @@
 using AutoCSer.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -15,10 +16,10 @@ namespace AutoCSer.ORM.RemoteProxy
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
     public sealed class ModelSelectEnumerator<T>
-#if DotNet45 || NetStandard2
-        : IEnumeratorTask<T>
-#else
+#if NetStandard21
         : IAsyncEnumerator<T>
+#else
+        : IEnumeratorTask<T>
 #endif
         where T : class
     {
@@ -29,10 +30,17 @@ namespace AutoCSer.ORM.RemoteProxy
         /// <summary>
         /// 数据列索引集合
         /// </summary>
+#if NetStandard21
+        private int[]? columnIndexs;
+#else
         private int[] columnIndexs;
+#endif
         /// <summary>
         /// 当前读取数据
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public T Current { get; private set; }
         /// <summary>
         /// 异步查询枚举器
@@ -46,17 +54,17 @@ namespace AutoCSer.ORM.RemoteProxy
         /// 判断是否存在下一个数据
         /// </summary>
         /// <returns></returns>
-#if DotNet45 || NetStandard2
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
-#else
+#if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<T>.MoveNextAsync()
+#else
+        async Task<bool> IEnumeratorTask.MoveNextAsync()
 #endif
         {
             if (await enumeratorCommand.MoveNext())
             {
                 DataRow dataRow = enumeratorCommand.Current;
-                if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(dataRow.Columns);
-                T value = DefaultConstructor<T>.Constructor();
+                if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(dataRow.Columns.notNull());
+                T value = DefaultConstructor<T>.Constructor().notNull();
                 if (columnIndexs.Length != 0) ModelReader<T>.Reader(dataRow.Row, value, columnIndexs);
                 Current = value;
                 return true;
@@ -70,9 +78,13 @@ namespace AutoCSer.ORM.RemoteProxy
         /// <returns></returns>
         public ValueTask DisposeAsync()
         {
-            int[] columnIndexs = Interlocked.Exchange(ref this.columnIndexs, null);
+            var columnIndexs = Interlocked.Exchange(ref this.columnIndexs, null);
             if (columnIndexs != null) ModelReader<T>.FreeColumnIndexCache(columnIndexs);
+#if NET8
+            return ValueTask.CompletedTask;
+#else
             return AutoCSer.Common.CompletedTask.ToValueTask();
+#endif
         }
     }
 }

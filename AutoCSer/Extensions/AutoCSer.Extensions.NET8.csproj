@@ -4,17 +4,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.Extensions</AssemblyName>
     <RootNamespace>AutoCSer.Extensions</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\Extensions\AutoCSer.Extensions.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NetStandard21;NET8</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>C:\AutoCSer2\AutoCSer\Extensions\AutoCSer.Extensions.xml</DocumentationFile>
+    <DefineConstants>NetStandard21;NET8</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

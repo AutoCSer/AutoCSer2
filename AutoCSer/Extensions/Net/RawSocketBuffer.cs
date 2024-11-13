@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 using System.Threading;
 
@@ -12,7 +13,11 @@ namespace AutoCSer.Net
         /// <summary>
         /// 数据缓冲区计数
         /// </summary>
+#if NetStandard21
+        private BufferCount? bufferCount;
+#else
         private BufferCount bufferCount;
+#endif
         /// <summary>
         /// 数据
         /// </summary>
@@ -44,7 +49,7 @@ namespace AutoCSer.Net
         internal RawSocketBuffer(BufferCount bufferCount, int index, int count)
         {
             this.bufferCount = bufferCount;
-            buffer.Set(bufferCount.Buffer.Buffer.Buffer, index, count);
+            buffer.Set(bufferCount.Buffer.Buffer.notNull().Buffer, index, count);
             ++bufferCount.Count;
         }
         /// <summary>
@@ -52,7 +57,7 @@ namespace AutoCSer.Net
         /// </summary>
         public void Dispose()
         {
-            BufferCount bufferCount = Interlocked.Exchange(ref this.bufferCount, null);
+            var bufferCount = Interlocked.Exchange(ref this.bufferCount, null);
             if (bufferCount != null)
             {
                 bufferCount.Free();

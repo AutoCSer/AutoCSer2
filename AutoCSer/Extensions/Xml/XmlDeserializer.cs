@@ -1,7 +1,9 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Xml;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer
@@ -18,7 +20,7 @@ namespace AutoCSer
         /// <summary>
         /// 公共默认配置参数
         /// </summary>
-        internal static readonly XmlDeserializeConfig DefaultConfig = ((ConfigObject<XmlDeserializeConfig>)AutoCSer.Configuration.Common.Get(typeof(XmlDeserializeConfig)))?.Value ?? new XmlDeserializeConfig();
+        internal static readonly XmlDeserializeConfig DefaultConfig = AutoCSer.Configuration.Common.Get<XmlDeserializeConfig>()?.Value ?? new XmlDeserializeConfig();
 
         /// <summary>
         /// 配置参数
@@ -27,7 +29,11 @@ namespace AutoCSer
         /// <summary>
         /// 集合子节点名称
         /// </summary>
+#if NetStandard21
+        internal string? ItemName;
+#else
         internal string ItemName;
+#endif
         /// <summary>
         /// 集合子节点名称
         /// </summary>
@@ -92,9 +98,13 @@ namespace AutoCSer
         /// <param name="value">目标数据</param>
         /// <param name="config">配置参数</param>
         /// <returns>解析状态</returns>
+#if NetStandard21
+        private DeserializeResult deserialize<T>(ref SubString xml, ref T? value, XmlDeserializeConfig? config)
+#else
         private DeserializeResult deserialize<T>(ref SubString xml, ref T value, XmlDeserializeConfig config)
+#endif
         {
-            fixed (char* xmlFixed = (this.text = xml.String))
+            fixed (char* xmlFixed = (this.text = xml.String.notNull()))
             {
                 Current = (this.textFixed = xmlFixed) + xml.Start;
                 this.Config = config ?? DefaultConfig;
@@ -117,7 +127,11 @@ namespace AutoCSer
         /// <param name="value">目标数据</param>
         /// <param name="config">配置参数</param>
         /// <returns>解析状态</returns>
+#if NetStandard21
+        private DeserializeResult deserialize<T>(string xml, ref T? value, XmlDeserializeConfig? config)
+#else
         private DeserializeResult deserialize<T>(string xml, ref T value, XmlDeserializeConfig config)
+#endif
         {
             fixed (char* xmlFixed = (this.text = xml))
             {
@@ -142,7 +156,11 @@ namespace AutoCSer
         /// <param name="length"></param>
         /// <param name="value">目标数据</param>
         /// <returns>解析状态</returns>
+#if NetStandard21
+        private DeserializeResult deserialize<T>(char* xml, int length, ref T? value)
+#else
         private DeserializeResult deserialize<T>(char* xml, int length, ref T value)
+#endif
         {
             Config = DefaultConfig;
             end = (textFixed = Current = xml) + length;
@@ -161,7 +179,11 @@ namespace AutoCSer
         /// <typeparam name="T">目标类型</typeparam>
         /// <param name="value">目标数据</param>
         /// <returns>解析状态</returns>
+#if NetStandard21
+        private void deserialize<T>(ref T? value)
+#else
         private void deserialize<T>(ref T value)
+#endif
         {
             string bootName = Config.BootNodeName;
             fixed (char* bootNameFixed = bootName)
@@ -262,7 +284,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if NetStandard21
+        private void deserializeValue<T>(ref T? value)
+#else
         private void deserializeValue<T>(ref T value)
+#endif
         {
             TypeDeserializer<T>.DefaultDeserializer(this, ref value);
             if (State == DeserializeStateEnum.Success)
@@ -1347,7 +1373,11 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void Deserialize<T>(XmlDeserializer deserializer, ref T? value)
+#else
         internal static void Deserialize<T>(XmlDeserializer deserializer, ref T value)
+#endif
         {
             TypeDeserializer<T>.DefaultDeserializer(deserializer, ref value);
         }
@@ -1358,7 +1388,11 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="array"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void Array<T>(XmlDeserializer deserializer, ref T?[]? array)
+#else
         internal static void Array<T>(XmlDeserializer deserializer, ref T[] array)
+#endif
         {
             TypeDeserializer<T>.Array(deserializer, ref array);
         }
@@ -1369,11 +1403,23 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="values"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void LeftArray<T>(XmlDeserializer deserializer, ref LeftArray<T?> values)
+#else
         internal static void LeftArray<T>(XmlDeserializer deserializer, ref LeftArray<T> values)
+#endif
         {
-            T[] array = null;
+#if NetStandard21
+            var array = default(T?[]);
+#else
+            var array = default(T[]);
+#endif
             int count = TypeDeserializer<T>.ArrayIndex(deserializer, ref array);
+#if NetStandard21
+            if (count != -1) values = new LeftArray<T?>(count, array.notNull());
+#else
             if (count != -1) values = new LeftArray<T>(count, array);
+#endif
         }
         /// <summary>
         /// 数组解析
@@ -1382,17 +1428,33 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="values"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void ListArray<T>(XmlDeserializer deserializer, ref ListArray<T?>? values)
+#else
         internal static void ListArray<T>(XmlDeserializer deserializer, ref ListArray<T> values)
+#endif
         {
-            T[] array = null;
+#if NetStandard21
+            var array = default(T?[]);
+#else
+            var array = default(T[]);
+#endif
             int count = TypeDeserializer<T>.ArrayIndex(deserializer, ref array);
+#if NetStandard21
+            if (count != -1) values = new ListArray<T?>(count, array.notNull());
+#else
             if (count != -1) values = new ListArray<T>(count, array);
+#endif
         }
         /// <summary>
         /// 集合解析
         /// </summary>
         /// <returns>目标数据</returns>
+#if NetStandard21
+        private System.Collections.Generic.IEnumerable<T?> enumerable<T>()
+#else
         private System.Collections.Generic.IEnumerable<T> enumerable<T>()
+#endif
         {
             string arrayItemName = ArrayItemName;
             fixed (char* itemFixed = arrayItemName) return TypeDeserializer<T>.Enumerable(this, new AutoCSer.Memory.Pointer(itemFixed, arrayItemName.Length));
@@ -1404,13 +1466,22 @@ namespace AutoCSer
         /// <typeparam name="VT"></typeparam>
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="collection"></param>
+#if NetStandard21
+        internal static void Collection<T, VT>(XmlDeserializer deserializer, ref T? collection) where T : ICollection<VT?>
+#else
         internal static void Collection<T, VT>(XmlDeserializer deserializer, ref T collection) where T : ICollection<VT>
+#endif
         {
-            collection = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
-            string arrayItemName = deserializer.ArrayItemName;
-            fixed (char* itemFixed = arrayItemName)
+            if (deserializer.Constructor(out collection))
             {
-                foreach (VT value in TypeDeserializer<VT>.Enumerable(deserializer, new AutoCSer.Memory.Pointer(itemFixed, arrayItemName.Length))) collection.Add(value);
+                string arrayItemName = deserializer.ArrayItemName;
+                fixed (char* itemFixed = arrayItemName)
+                {
+                    foreach (var value in TypeDeserializer<VT>.Enumerable(deserializer, new AutoCSer.Memory.Pointer(itemFixed, arrayItemName.Length)))
+                    {
+                        collection.Add(value);
+                    }
+                }
             }
         }
         /// <summary>
@@ -1432,19 +1503,26 @@ namespace AutoCSer
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="BT"></typeparam>
         /// <param name="value">目标数据</param>
+#if NetStandard21
+        private void baseDeserialize<T, BT>(ref T? value) where T : class, BT
+#else
         private void baseDeserialize<T, BT>(ref T value) where T : class, BT
+#endif
         {
             if (value == null)
             {
                 if (IsValue() == 0) return;
-                if (AutoCSer.Metadata.DefaultConstructor<T>.Type != Metadata.DefaultConstructorTypeEnum.None) value = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+                if (AutoCSer.Metadata.DefaultConstructor<T>.Type != Metadata.DefaultConstructorTypeEnum.None)
+                {
+                    if (!Constructor(out value)) return;
+                }
                 else if (!AutoCSer.XmlSerializer.CustomConfig.CallCustomConstructor(out value))
                 {
                     IgnoreValue();
                     return;
                 }
             }
-            BT newValue = value;
+            var newValue = (BT)value.notNull();
             TypeDeserializer<BT>.DefaultDeserializer(this, ref newValue);
         }
         /// <summary>
@@ -1455,7 +1533,11 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void Base<T, BT>(XmlDeserializer deserializer, ref T? value) where T : class, BT
+#else
         internal static void Base<T, BT>(XmlDeserializer deserializer, ref T value) where T : class, BT
+#endif
         {
             deserializer.baseDeserialize<T, BT>(ref value);
         }
@@ -1490,9 +1572,31 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void NotSupport<T>(XmlDeserializer deserializer, ref T? value)
+#else
         internal static void NotSupport<T>(XmlDeserializer deserializer, ref T value)
+#endif
         {
             if (!XmlSerializer.CustomConfig.NotSupport(deserializer, ref value)) deserializer.State = DeserializeStateEnum.NotSupport;
+        }
+        /// <summary>
+        /// 构造函数调用
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+#if NetStandard21
+        internal bool Constructor<T>([NotNullWhen(true)] out T? value)
+#else
+        internal bool Constructor<T>(out T value)
+#endif
+        {
+            value = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+            if (value != null) return true;
+            State = DeserializeStateEnum.ConstructorNull;
+            customError = $"{typeof(T).fullName()} 默认构造缺少返回值";
+            return false;
         }
 
         /// <summary>
@@ -1502,7 +1606,11 @@ namespace AutoCSer
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public bool CustomDeserialize<T>(ref T? value)
+#else
         public bool CustomDeserialize<T>(ref T value)
+#endif
         {
             TypeDeserializer<T>.DefaultDeserializer(this, ref value);
             return State == DeserializeStateEnum.Success;
@@ -1822,7 +1930,11 @@ namespace AutoCSer
         /// 字符串解析
         /// </summary>
         /// <param name="value">数据</param>
+#if NetStandard21
+        public void PrimitiveDeserialize(ref string? value)
+#else
         public void PrimitiveDeserialize(ref string value)
+#endif
         {
             space();
             if (State != DeserializeStateEnum.Success) return;
@@ -1847,7 +1959,7 @@ namespace AutoCSer
                         if (valueSize == 0) value = new string(valueStart, 0, length);
                         else
                         {
-                            fixed (char* valueFixed = value = AutoCSer.Common.Config.AllocateString(length - valueSize))
+                            fixed (char* valueFixed = value = AutoCSer.Common.AllocateString(length - valueSize))
                             {
                                 decodeString(valueFixed, valueFixed + value.Length);
                             }
@@ -1879,7 +1991,11 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value">数据</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref string? value)
+#else
         private static void primitiveDeserialize(XmlDeserializer serializer, ref string value)
+#endif
         {
             serializer.PrimitiveDeserialize(ref value);
         }
@@ -1922,7 +2038,7 @@ namespace AutoCSer
                         }
                         else
                         {
-                            string decodeValue = AutoCSer.Common.Config.AllocateString(length - valueSize);
+                            string decodeValue = AutoCSer.Common.AllocateString(length - valueSize);
                             fixed (char* valueFixed = decodeValue) decodeString(valueFixed, valueFixed + decodeValue.Length);
                             value.Set(decodeValue, 0, decodeValue.Length);
                         }
@@ -1961,7 +2077,11 @@ namespace AutoCSer
         /// 对象解析
         /// </summary>
         /// <param name="value">数据</param>
+#if NetStandard21
+        public void PrimitiveDeserialize(ref object? value)
+#else
         public void PrimitiveDeserialize(ref object value)
+#endif
         {
             XmlNode node = default(XmlNode);
             PrimitiveDeserialize(ref node);
@@ -1974,7 +2094,11 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value">数据</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref object? value)
+#else
         private static void primitiveDeserialize(XmlDeserializer serializer, ref object value)
+#endif
         {
             serializer.PrimitiveDeserialize(ref value);
         }
@@ -2007,7 +2131,7 @@ namespace AutoCSer
                 }
                 char* nameStart;
                 LeftArray<KeyValue<SubString, XmlNode>> nodes = new LeftArray<KeyValue<SubString, XmlNode>>(0);
-                KeyValue<Range, Range>[] attributes;
+                var attributes = default(KeyValue<Range, Range>[]);
                 int nameSize = 0;
                 do
                 {
@@ -2079,10 +2203,14 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static T? Deserialize<T>(string xml, XmlDeserializeConfig? config = null)
+#else
         public static T Deserialize<T>(string xml, XmlDeserializeConfig config = null)
+#endif
         {
-            T value = AutoCSer.Common.GetDefault<T>();
-            return Deserialize(xml, ref value, config).State == DeserializeStateEnum.Success ? value : AutoCSer.Common.GetDefault<T>();
+            var value = default(T);
+            return Deserialize(xml, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
         /// XML 反序列化
@@ -2092,7 +2220,11 @@ namespace AutoCSer
         /// <param name="value">目标数据</param>
         /// <param name="config">配置参数</param>
         /// <returns>反序列化状态</returns>
+#if NetStandard21
+        public static DeserializeResult Deserialize<T>(string xml, ref T? value, XmlDeserializeConfig? config = null)
+#else
         public static DeserializeResult Deserialize<T>(string xml, ref T value, XmlDeserializeConfig config = null)
+#endif
         {
             if (string.IsNullOrEmpty(xml)) return new DeserializeResult(DeserializeStateEnum.NullXml);
             XmlDeserializer xmlDeserializer = YieldPool.Default.Pop() ?? new XmlDeserializer();
@@ -2110,10 +2242,14 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static T? Deserialize<T>(SubString xml, XmlDeserializeConfig? config = null)
+#else
         public static T Deserialize<T>(SubString xml, XmlDeserializeConfig config = null)
+#endif
         {
-            T value = AutoCSer.Common.GetDefault<T>();
-            return Deserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : AutoCSer.Common.GetDefault<T>();
+            var value = default(T);
+            return Deserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
         /// XML 反序列化
@@ -2124,7 +2260,11 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>反序列化状态</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static DeserializeResult Deserialize<T>(SubString xml, ref T? value, XmlDeserializeConfig? config = null)
+#else
         public static DeserializeResult Deserialize<T>(SubString xml, ref T value, XmlDeserializeConfig config = null)
+#endif
         {
             return Deserialize(ref xml, ref value, config);
         }
@@ -2136,10 +2276,14 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static T? Deserialize<T>(ref SubString xml, XmlDeserializeConfig? config = null)
+#else
         public static T Deserialize<T>(ref SubString xml, XmlDeserializeConfig config = null)
+#endif
         {
-            T value = AutoCSer.Common.GetDefault<T>();
-            return Deserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : AutoCSer.Common.GetDefault<T>();
+            var value = default(T);
+            return Deserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
         /// XML 反序列化
@@ -2149,7 +2293,11 @@ namespace AutoCSer
         /// <param name="value">目标数据</param>
         /// <param name="config">配置参数</param>
         /// <returns>反序列化状态</returns>
+#if NetStandard21
+        public static DeserializeResult Deserialize<T>(ref SubString xml, ref T? value, XmlDeserializeConfig? config = null)
+#else
         public static DeserializeResult Deserialize<T>(ref SubString xml, ref T value, XmlDeserializeConfig config = null)
+#endif
         {
             if (string.IsNullOrEmpty(xml)) return new DeserializeResult(DeserializeStateEnum.NullXml);
             XmlDeserializer xmlDeserializer = YieldPool.Default.Pop() ?? new XmlDeserializer();
@@ -2167,7 +2315,11 @@ namespace AutoCSer
         /// <param name="length">XML 长度</param>
         /// <param name="value">目标数据</param>
         /// <returns>是否解析成功</returns>
+#if NetStandard21
+        internal static DeserializeResult UnsafeDeserialize<T>(char* xml, int length, ref T? value)
+#else
         internal static DeserializeResult UnsafeDeserialize<T>(char* xml, int length, ref T value)
+#endif
         {
             XmlDeserializer xmlDeserializer = YieldPool.Default.Pop() ?? new XmlDeserializer();
             try
@@ -2185,10 +2337,14 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static T? ThreadStaticDeserialize<T>(string xml, XmlDeserializeConfig? config = null)
+#else
         public static T ThreadStaticDeserialize<T>(string xml, XmlDeserializeConfig config = null)
+#endif
         {
-            T value = AutoCSer.Common.GetDefault<T>();
-            return ThreadStaticDeserialize(xml, ref value, config).State == DeserializeStateEnum.Success ? value : AutoCSer.Common.GetDefault<T>();
+            var value = default(T);
+            return ThreadStaticDeserialize(xml, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
         /// XML 反序列化（线程静态实例模式）
@@ -2198,7 +2354,11 @@ namespace AutoCSer
         /// <param name="value">目标数据</param>
         /// <param name="config">配置参数</param>
         /// <returns>反序列化状态</returns>
+#if NetStandard21
+        public static DeserializeResult ThreadStaticDeserialize<T>(string xml, ref T? value, XmlDeserializeConfig? config = null)
+#else
         public static DeserializeResult ThreadStaticDeserialize<T>(string xml, ref T value, XmlDeserializeConfig config = null)
+#endif
         {
             if (string.IsNullOrEmpty(xml)) return new DeserializeResult(DeserializeStateEnum.NullXml);
             XmlDeserializer xmlDeserializer = ThreadStaticDeserializer.Get().Deserializer;
@@ -2216,10 +2376,14 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static T? ThreadStaticDeserialize<T>(SubString xml, XmlDeserializeConfig? config = null)
+#else
         public static T ThreadStaticDeserialize<T>(SubString xml, XmlDeserializeConfig config = null)
+#endif
         {
-            T value = AutoCSer.Common.GetDefault<T>();
-            return ThreadStaticDeserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : AutoCSer.Common.GetDefault<T>();
+            var value = default(T);
+            return ThreadStaticDeserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
         /// XML 反序列化（线程静态实例模式）
@@ -2230,7 +2394,11 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>反序列化状态</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static DeserializeResult ThreadStaticDeserialize<T>(SubString xml, ref T? value, XmlDeserializeConfig? config = null)
+#else
         public static DeserializeResult ThreadStaticDeserialize<T>(SubString xml, ref T value, XmlDeserializeConfig config = null)
+#endif
         {
             return ThreadStaticDeserialize(ref xml, ref value, config);
         }
@@ -2242,10 +2410,14 @@ namespace AutoCSer
         /// <param name="config">配置参数</param>
         /// <returns>目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static T? ThreadStaticDeserialize<T>(ref SubString xml, XmlDeserializeConfig? config = null)
+#else
         public static T ThreadStaticDeserialize<T>(ref SubString xml, XmlDeserializeConfig config = null)
+#endif
         {
-            T value = AutoCSer.Common.GetDefault<T>();
-            return ThreadStaticDeserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : AutoCSer.Common.GetDefault<T>();
+            var value = default(T);
+            return ThreadStaticDeserialize(ref xml, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
         /// XML 反序列化（线程静态实例模式）
@@ -2255,7 +2427,11 @@ namespace AutoCSer
         /// <param name="value">目标数据</param>
         /// <param name="config">配置参数</param>
         /// <returns>反序列化状态</returns>
+#if NetStandard21
+        public static DeserializeResult ThreadStaticDeserialize<T>(ref SubString xml, ref T? value, XmlDeserializeConfig? config = null)
+#else
         public static DeserializeResult ThreadStaticDeserialize<T>(ref SubString xml, ref T value, XmlDeserializeConfig config = null)
+#endif
         {
             if (string.IsNullOrEmpty(xml)) return new DeserializeResult(DeserializeStateEnum.NullXml);
             XmlDeserializer xmlDeserializer = ThreadStaticDeserializer.Get().Deserializer;
@@ -2283,9 +2459,13 @@ namespace AutoCSer
         /// <param name="type">基本类型</param>
         /// <returns>转换函数</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static Delegate? GetDeserializeDelegate(Type type)
+#else
         internal static Delegate GetDeserializeDelegate(Type type)
+#endif
         {
-            Delegate deserializeDelegate;
+            var deserializeDelegate = default(Delegate);
             return deserializeDelegates.TryGetValue(type, out deserializeDelegate) ? deserializeDelegate : null;
         }
 
@@ -2632,14 +2812,19 @@ namespace AutoCSer
             deserializeDelegates.Add(typeof(TimeSpan?), (DeserializeDelegate<TimeSpan?>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(Guid), (DeserializeDelegate<Guid>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(Guid?), (DeserializeDelegate<Guid?>)primitiveDeserialize);
-            deserializeDelegates.Add(typeof(string), (DeserializeDelegate<string>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(SubString), (DeserializeDelegate<SubString>)primitiveDeserialize);
-            deserializeDelegates.Add(typeof(object), (DeserializeDelegate<object>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(XmlNode), (DeserializeDelegate<XmlNode>)primitiveDeserialize);
+#if NetStandard21
+            deserializeDelegates.Add(typeof(string), (DeserializeDelegate<string?>)primitiveDeserialize);
+            deserializeDelegates.Add(typeof(object), (DeserializeDelegate<object?>)primitiveDeserialize);
+#else
+            deserializeDelegates.Add(typeof(string), (DeserializeDelegate<string>)primitiveDeserialize);
+            deserializeDelegates.Add(typeof(object), (DeserializeDelegate<object>)primitiveDeserialize);
+#endif
 
             foreach (Delegate deserializeDelegate in AutoCSer.XmlSerializer.CustomConfig.PrimitiveDeserializeDelegates)
             {
-                Type type = AutoCSer.Common.CheckDeserializeType(typeof(XmlDeserializer), deserializeDelegate);
+                var type = AutoCSer.Common.CheckDeserializeType(typeof(XmlDeserializer), deserializeDelegate);
                 if (type != null) deserializeDelegates[type] = deserializeDelegate;
             }
         }

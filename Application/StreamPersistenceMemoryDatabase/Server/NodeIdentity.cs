@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -12,7 +13,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务端节点
         /// </summary>
+#if NetStandard21
+        internal ServerNode? Node;
+#else
         internal ServerNode Node;
+#endif
         /// <summary>
         /// 节点标识
         /// </summary>
@@ -23,7 +28,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="identity"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal ServerNode? Get(uint identity)
+#else
         internal ServerNode Get(uint identity)
+#endif
         {
             return this.identity == identity ? Node : null;
         }
@@ -33,12 +42,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="identity"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal ServerNode? CheckGet(uint identity)
+#else
         internal ServerNode CheckGet(uint identity)
+#endif
         {
             if (this.identity == identity)
             {
-                ServerNode node = this.Node;
-                if (node.Index.Identity == identity) return node;
+                var node = this.Node;
+                if (node != null && node.Index.Identity == identity) return node;
             }
             return null;
         }
@@ -65,11 +78,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="identity"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal ServerNode? GetRemove(uint identity)
+#else
         internal ServerNode GetRemove(uint identity)
+#endif
         {
             if (this.identity == identity)
             {
-                ServerNode node = this.Node;
+                var node = this.Node;
                 if ((++this.identity & NodeIndex.FreeIdentity) != 0) this.identity = 0;
                 this.Node = null;
                 return node;

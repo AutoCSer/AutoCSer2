@@ -45,7 +45,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 添加待加载修复方法节点
         /// </summary>
-        internal abstract Action<CommandServerSocketSessionObjectService, DirectoryInfo, RepairNodeMethodDirectory> AppendRepairNodeMethodLoader { get; }
+        internal abstract Action<StreamPersistenceMemoryDatabaseServiceBase, DirectoryInfo, RepairNodeMethodDirectory> AppendRepairNodeMethodLoader { get; }
 
         /// <summary>
         /// 调用节点方法
@@ -71,7 +71,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static GenericType? lastGenericType;
+#else
         protected static GenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -79,7 +83,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns></returns>
         public static GenericType Get(Type type)
         {
-            GenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = get(type);
             lastGenericType = value;
@@ -131,7 +135,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 添加待加载修复方法节点
         /// </summary>
-        internal override Action<CommandServerSocketSessionObjectService, DirectoryInfo, RepairNodeMethodDirectory> AppendRepairNodeMethodLoader { get { return CommandServerSocketSessionObjectService.AppendRepairNodeMethodLoader<T>; } }
+        internal override Action<StreamPersistenceMemoryDatabaseServiceBase, DirectoryInfo, RepairNodeMethodDirectory> AppendRepairNodeMethodLoader { get { return StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethodLoader<T>; } }
 
         /// <summary>
         /// 调用节点方法

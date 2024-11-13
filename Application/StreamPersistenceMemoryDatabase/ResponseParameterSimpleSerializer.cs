@@ -38,7 +38,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="deserializer"></param>
         /// <returns>目标对象</returns>
+#if NetStandard21
+        internal override object? Deserialize(AutoCSer.BinaryDeserializer deserializer)
+#else
         internal override object Deserialize(AutoCSer.BinaryDeserializer deserializer)
+#endif
         {
             deserializer.SimpleDeserialize(ref Value);
             return this;

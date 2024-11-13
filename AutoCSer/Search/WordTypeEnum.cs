@@ -17,7 +17,7 @@ namespace AutoCSer.Search
         /// </summary>
         Chinese = 1,
         /// <summary>
-        /// 其它字母
+        /// 其它字母，不包括中文
         /// </summary>
         OtherLetter = 2,
         /// <summary>

@@ -15,7 +15,14 @@ namespace AutoCSer.ORM
         /// <param name="fucntionName">调用函数名称</param>
         /// <param name="parameters">调用参数</param>
         /// <returns></returns>
-        public static T Call<T>(string fucntionName, params object[] parameters) { return default(T); }
+#if NetStandard21
+        public static T? Call<T>(string fucntionName, params object[] parameters)
+#else
+        public static T Call<T>(string fucntionName, params object[] parameters)
+#endif
+        {
+            return default(T);
+        }
 
         /// <summary>
         /// COUNT(*) 计数
@@ -43,7 +50,7 @@ namespace AutoCSer.ORM
         /// <returns>求和</returns>
         public static T Sum<T>(T value)
         {
-            return default(T);
+            return value;
         }
         /// <summary>
         /// MAX(value) 最大值
@@ -53,7 +60,7 @@ namespace AutoCSer.ORM
         /// <returns>最大值</returns>
         public static T Max<T>(T value)
         {
-            return default(T);
+            return value;
         }
         /// <summary>
         /// MIN(value) 最小值
@@ -63,7 +70,7 @@ namespace AutoCSer.ORM
         /// <returns>最小值</returns>
         public static T Min<T>(T value)
         {
-            return default(T);
+            return value;
         }
         /// <summary>
         /// DISTINCT(value) 去重
@@ -73,7 +80,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         public static T Distinct<T>(T value)
         {
-            return default(T);
+            return value;
         }
         /// <summary>
         /// GETDATE() 获取当前时间
@@ -309,7 +316,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         public static string Replace(string value, string oldValue, string newValue)
         {
-            return null;
+            return value.Replace(oldValue, newValue);
         }
         /// <summary>
         /// ISNULL(value,nullValue) 空值判断
@@ -381,7 +388,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         public static T Case<T>(bool condition, T trueValue, T falseValue)
         {
-            return default(T);
+            return condition ? trueValue : falseValue;
         }
         /// <summary>
         /// 比较操作，比如字符串比较，仅支持 大于 GreaterThan、大于等于 GreaterThanOrEqual、小于 LessThan、小于等于 LessThanOrEqual

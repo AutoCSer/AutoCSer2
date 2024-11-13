@@ -58,6 +58,7 @@
     <Compile Include="IDiskBlockClientBase.cs" />
     <Compile Include="IDiskBlockClientSocketEvent.cs" />
     <Compile Include="JsonSerializer.cs" />
+    <Compile Include="NullBlock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadBinaryCallback.cs" />
     <Compile Include="ReadBuffer.cs" />

@@ -20,7 +20,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 成员类型
         /// </summary>
+#if NetStandard21
+        private TypeHelpView? type;
+#else
         private TypeHelpView type;
+#endif
         /// <summary>
         /// 成员类型
         /// </summary>
@@ -30,7 +34,7 @@ namespace AutoCSer.NetCoreWeb
             {
                 if (type == null)
                 {
-                    FieldInfo field = member as FieldInfo;
+                    var field = member as FieldInfo;
                     type = DeclaringType.ViewMiddleware.GetTypeHelpView(field?.FieldType ?? ((PropertyInfo)member).PropertyType);
                 }
                 return type;
@@ -43,7 +47,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 成员文档描述
         /// </summary>
+#if NetStandard21
+        private string? summary;
+#else
         private string summary;
+#endif
         /// <summary>
         /// 成员文档描述
         /// </summary>
@@ -53,7 +61,7 @@ namespace AutoCSer.NetCoreWeb
             {
                 if (summary == null)
                 {
-                    FieldInfo field = member as FieldInfo;
+                    var field = member as FieldInfo;
                     if(field  == null)
                     {
                         PropertyInfo property = (PropertyInfo)member;

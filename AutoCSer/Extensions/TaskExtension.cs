@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -26,10 +26,10 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ValueTask ToValueTask(this Task task)
         {
-#if DotNet45 || NetStandard2
-            return task;
-#else
+#if NetStandard21
             return new ValueTask(task);
+#else
+            return task;
 #endif
         }
     }

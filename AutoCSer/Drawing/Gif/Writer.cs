@@ -8,7 +8,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -78,7 +78,11 @@ namespace AutoCSer.Drawing.Gif
         /// <param name="globalColors">全局颜色列表</param>
         /// <param name="backgroundColorIndex">背景颜色在全局颜色列表中的索引，如果没有全局颜色列表，该值没有意义</param>
         /// <param name="isLeaveDisposeStream">是否自动释放输出数据流</param>
+#if NetStandard21
+        public unsafe Writer(Stream stream, short width, short height, LockBitmapColor[]? globalColors = null, byte backgroundColorIndex = 0, bool isLeaveDisposeStream = false)
+#else
         public unsafe Writer(Stream stream, short width, short height, LockBitmapColor[] globalColors = null, byte backgroundColorIndex = 0, bool isLeaveDisposeStream = false)
+#endif
         {
             if (stream == null) throw new ArgumentNullException();
             if (width <= 0) throw new IndexOutOfRangeException("width[" + width.toString() + "] <= 0");
@@ -160,10 +164,10 @@ namespace AutoCSer.Drawing.Gif
             fileBuffer[bufferIndex++] = 0x3b;
             if (isLeaveDisposeStream)
             {
-#if DotNet45 || NetStandard2
-                using (stream) await stream.WriteAsync(fileBuffer, 0, bufferIndex);
-#else
+#if NetStandard21
                 await using (stream) await stream.WriteAsync(fileBuffer, 0, bufferIndex);
+#else
+                using (stream) await stream.WriteAsync(fileBuffer, 0, bufferIndex);
 #endif
             }
             else stream.Write(fileBuffer, 0, bufferIndex);
@@ -752,7 +756,11 @@ namespace AutoCSer.Drawing.Gif
         /// <param name="authenticationCode">应用程序定义的特殊标识码(3个连续ASCII字符)</param>
         /// <param name="customData">应用程序自定义数据块集合</param>
         /// <returns>应用程序扩展是否添加成功</returns>
+#if NetStandard21
+        public unsafe bool AddApplication(byte[] identifier, byte[] authenticationCode, byte[]? customData)
+#else
         public unsafe bool AddApplication(byte[] identifier, byte[] authenticationCode, byte[] customData)
+#endif
         {
             if (identifier != null && authenticationCode != null && ((identifier.Length ^ 8) | (authenticationCode.Length ^ 3) | isDisposed) == 0)
             {
@@ -763,7 +771,7 @@ namespace AutoCSer.Drawing.Gif
                     *(currentBuffer + 2) = 11;
                     fixed (byte* identifierFixed = identifier) *(ulong*)(currentBuffer + 3) = *(ulong*)identifierFixed;
                     fixed (byte* authenticationCodeFixed = authenticationCode) *(int*)(currentBuffer + 11) = *(int*)authenticationCodeFixed;
-                    if (customData == null && customData.Length == 0)
+                    if (customData == null || customData.Length == 0)
                     {
                         *(currentBuffer + 14) = 0;
                         checkBuffer(bufferFixed, 15);

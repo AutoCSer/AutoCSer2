@@ -56,7 +56,7 @@ namespace AutoCSer.ObjectRoot
                     if (objectType.BaseType.IsScan != 0) objectType.BaseType.Append(ref scanner, value, isArray);
                     isEndIndex = 1;
                 }
-                object fieldValue = field.Key.GetValue(value);
+                var fieldValue = field.Key.GetValue(value);
                 if (fieldValue != null)
                 {
                     ReflectionType objectType = field.Value;

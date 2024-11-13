@@ -2,6 +2,7 @@
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -23,6 +24,9 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册日志客户端组装
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         internal ServiceRegisterLogClientAssembler Assembler;
         /// <summary>
         /// 服务日志集合
@@ -56,16 +60,20 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         protected async Task getAssembler()
         {
-            Assembler = await serviceRegistryClient.GetAssembler(commandClientConfig.ServiceName);
+            Assembler = await serviceRegistryClient.GetAssembler(commandClientConfig.ServiceName.notNull());
             Assembler.Append(this);
         }
         /// <summary>
         /// 获取服务监听地址
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        public override async Task<IPEndPoint?> GetServerEndPoint()
+#else
         public override async Task<IPEndPoint> GetServerEndPoint()
+#endif
         {
-            ServiceRegisterLog log = Assembler.MainLog;
+            var log = Assembler.MainLog;
             if (log != null) return log.HostEndPoint.IPEndPoint;
             await (new ServiceRegistryWaitServerEndPointTask(this, Math.Max(waitServerEndPointSeconds, (byte)1))).TryAppendTaskArrayAsync();
             return null;
@@ -85,12 +93,16 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         /// <param name="changedType"></param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual bool Callback(ServiceRegisterLog? log, ServiceRegisterLogClientChangedTypeEnum changedType)
+#else
         public virtual bool Callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
+#endif
         {
             if (client.IsDisposed) return false;
             if ((changedType & ServiceRegisterLogClientChangedTypeEnum.Main) != 0)
             {
-                ServiceRegisterLog mainLog = Assembler.MainLog;
+                var mainLog = Assembler.MainLog;
                 if (mainLog != null) client.ServerEndPointChanged(mainLog.HostEndPoint.IPEndPoint);
             }
             return true;
@@ -103,7 +115,11 @@ namespace AutoCSer.CommandService
         /// <param name="client"></param>
         /// <param name="config"></param>
         /// <returns></returns>
+#if NetStandard21
+        public static async Task<ServiceRegistryCommandClientServiceRegistrar?> Create(CommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config)
+#else
         public static async Task<ServiceRegistryCommandClientServiceRegistrar> Create(CommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config)
+#endif
         {
             if (config.ServiceName != null)
             {

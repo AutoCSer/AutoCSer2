@@ -5,12 +5,46 @@ using AutoCSer;
 #if NoAutoCSer
 #else
 #pragma warning disable
-namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
+namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 {
         /// <summary>
         ///  客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode))]
+        public partial interface IGameNodeClientNode
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="monster"></param>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster monster);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="monsters"></param>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[] monsters);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="speed"></param>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetSpeed(int id, int speed);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="speeds"></param>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetSpeeds(AutoCSer.KeyValue<int,int>[] speeds);
+            /// <summary>
+            /// 
+            /// </summary>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+        }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        ///  客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode))]
         public partial interface ICallbackNodeClientNode
         {
             /// <summary>
@@ -138,7 +172,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         /// <summary>
         ///  客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode))]
         public partial interface ICustomServiceNodeClientNode
         {
             /// <summary>
@@ -387,13 +421,55 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo"></param>
             /// <returns></returns>
             System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="key"></param>
+            /// <param name="nodeInfo"></param>
+            /// <returns></returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+        }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
+{
+        /// <summary>
+        ///  客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode))]
+        public partial interface IGameNodeLocalClientNode
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="monster"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster monster);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="monsters"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[] monsters);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="speed"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetSpeed(int id, int speed);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="speeds"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetSpeeds(AutoCSer.KeyValue<int,int>[] speeds);
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
         ///  客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode))]
         public partial interface ICallbackNodeLocalClientNode
         {
             /// <summary>
@@ -521,7 +597,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         /// <summary>
         ///  客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode))]
         public partial interface ICustomServiceNodeLocalClientNode
         {
             /// <summary>
@@ -770,7 +846,45 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="index"></param>
+            /// <param name="key"></param>
+            /// <param name="nodeInfo"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
+{
+    public enum GameNodeMethodEnum
+    {
+            /// <summary>
+            /// [0] 
+            /// AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster monster 
+            /// </summary>
+            AddMonster = 0,
+            /// <summary>
+            /// [1] 
+            /// AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[] monsters 
+            /// </summary>
+            AddMonsters = 1,
+            /// <summary>
+            /// [2] 
+            /// int id 
+            /// int speed 
+            /// </summary>
+            SetSpeed = 2,
+            /// <summary>
+            /// [3] 
+            /// AutoCSer.KeyValue{int,int}[] speeds 
+            /// </summary>
+            SetSpeeds = 3,
+            /// <summary>
+            /// [4] 
+            /// </summary>
+            Clear = 4,
+    }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
     public enum CallbackNodeMethodEnum
@@ -1239,6 +1353,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
             /// </summary>
             CreateDistributedLockNode = 29,
+            /// <summary>
+            /// [30] 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
+            /// string key 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// </summary>
+            CreateGameNode = 30,
     }
 }
 #endif

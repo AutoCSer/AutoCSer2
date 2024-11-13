@@ -37,7 +37,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 初始化节点加载修复方法
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal abstract RepairNodeMethod? LoadRepair();
+#else
         internal abstract RepairNodeMethod LoadRepair();
+#endif
     }
     /// <summary>
     /// 加载修复节点方法
@@ -56,11 +60,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 初始化节点加载修复方法
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal override RepairNodeMethod? LoadRepair()
+#else
         internal override RepairNodeMethod LoadRepair()
+#endif
         {
             try
             {
-                RepairNodeMethod repairNodeMethod = nodeCreator.loadRepairNodeMethod<T>(methodDirectory, typeof(T).fullName(), null, false);
+                RepairNodeMethod repairNodeMethod = nodeCreator.loadRepairNodeMethod<T>(methodDirectory, typeof(T).fullName().notNull(), null, false).notNull();
                 repairNodeMethod.RepairNodeMethodDirectory = repairNodeMethodDirectory;
                 return repairNodeMethod;
             }

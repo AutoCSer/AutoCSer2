@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Net;
 using System.Runtime.CompilerServices;
 
@@ -21,7 +22,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 主机名称或者IP地址
         /// </summary>
+#if NetStandard21
+        public string? Host { get; internal set; }
+#else
         public string Host { get; internal set; }
+#endif
         /// <summary>
         /// 服务版本号，高版本上限将踢掉所有低版本节点
         /// </summary>
@@ -35,7 +40,10 @@ namespace AutoCSer.CommandService
         /// </summary>
         public AutoCSer.Net.HostEndPoint HostEndPoint
         {
-            get { return new AutoCSer.Net.HostEndPoint(Port, Host); }
+            get 
+            {
+                return !string.IsNullOrEmpty(Host) ? new AutoCSer.Net.HostEndPoint(Port, Host) : new AutoCSer.Net.HostEndPoint(Port);
+            }
         }
         /// <summary>
         /// 服务注册日志操作类型
@@ -48,7 +56,22 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册日志
         /// </summary>
-        public ServiceRegisterLog() { }
+        private ServiceRegisterLog()
+        {
+            ServiceName = string.Empty;
+        }
+        /// <summary>
+        /// 服务注册日志
+        /// </summary>
+        /// <param name="serviceID"></param>
+        /// <param name="serviceName"></param>
+        /// <param name="operationType"></param>
+        internal ServiceRegisterLog(long serviceID, string serviceName, ServiceRegisterOperationTypeEnum operationType)
+        {
+            ServiceID = serviceID;
+            ServiceName = serviceName;
+            OperationType = operationType;
+        }
         /// <summary>
         /// 服务注册日志
         /// </summary>
@@ -59,7 +82,7 @@ namespace AutoCSer.CommandService
         /// <param name="version">服务版本号，高版本上线将踢掉所有低版本节点</param>
         public ServiceRegisterLog(AutoCSer.Net.CommandServerConfig config, IPEndPoint endPoint, ServiceRegisterOperationTypeEnum operationType = ServiceRegisterOperationTypeEnum.ClusterMain, byte timeoutSeconds = 0, uint version = 0)
         {
-            ServiceName = config.ServiceName;
+            ServiceName = config.ServiceName.notNull();
             Host = endPoint.Address.ToString();
             Port = (ushort)endPoint.Port;
             OperationType = operationType;
@@ -73,12 +96,7 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ServiceRegisterLog CreateLogout()
         {
-            return new ServiceRegisterLog
-            {
-                ServiceID = ServiceID,
-                ServiceName = ServiceName,
-                OperationType = ServiceRegisterOperationTypeEnum.Logout
-            };
+            return new ServiceRegisterLog(ServiceID, ServiceName, ServiceRegisterOperationTypeEnum.Logout);
         }
         /// <summary>
         /// 创建失联服务日志
@@ -87,12 +105,7 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal ServiceRegisterLog CreateLostContact()
         {
-            return new ServiceRegisterLog
-            {
-                ServiceID = ServiceID,
-                ServiceName = ServiceName,
-                OperationType = ServiceRegisterOperationTypeEnum.LostContact
-            };
+            return new ServiceRegisterLog(ServiceID, ServiceName, ServiceRegisterOperationTypeEnum.LostContact);
         }
         /// <summary>
         /// 创建通知单例服务下线日志
@@ -101,12 +114,7 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal ServiceRegisterLog CreateOffline()
         {
-            return new ServiceRegisterLog
-            {
-                ServiceID = ServiceID,
-                ServiceName = ServiceName,
-                OperationType = ServiceRegisterOperationTypeEnum.Offline
-            };
+            return new ServiceRegisterLog(ServiceID, ServiceName, ServiceRegisterOperationTypeEnum.Offline);
         }
         /// <summary>
         /// 检查服务主机与端口信息是否匹配

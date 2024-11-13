@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -17,7 +18,11 @@ namespace AutoCSer.Search
         /// 绑定结果池的分词搜索器
         /// </summary>
         /// <param name="trieGraph">绑定静态节点池的字符串 Trie 图</param>
+#if NetStandard21
+        protected StaticSearcher(StaticStringTrieGraph? trieGraph)
+#else
         protected StaticSearcher(StaticStringTrieGraph trieGraph)
+#endif
         {
             TrieGraph = trieGraph ?? StaticStringTrieGraph.Null;
         }
@@ -52,7 +57,11 @@ namespace AutoCSer.Search
         /// </summary>
         /// <param name="trieGraph">绑定静态节点池的字符串 Trie 图</param>
         /// <param name="isSingleCharacter">是否支持单字符搜索结果</param>
+#if NetStandard21
+        protected StaticSearcher(StaticStringTrieGraph? trieGraph, bool isSingleCharacter) : base(trieGraph)
+#else
         protected StaticSearcher(StaticStringTrieGraph trieGraph, bool isSingleCharacter) : base(trieGraph)
+#endif
         {
             Texts = DictionaryCreator<T>.Create<string>();
             results = AutoCSer.Extensions.DictionaryCreator.CreateHashSubString<RT>();
@@ -76,7 +85,11 @@ namespace AutoCSer.Search
         /// <param name="words">单字符分词集合</param>
         /// <param name="formatedText">格式化以后的分词文本</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal unsafe void Add(T key, string text, ReusableDictionary<HashSubString, ResultIndexs> wordIndexs, ref LeftArray<KeyValue<SubString, WordTypeEnum>> words, string? formatedText)
+#else
         internal unsafe void Add(T key, string text, ReusableDictionary<HashSubString, ResultIndexs> wordIndexs, ref LeftArray<KeyValue<SubString, WordTypeEnum>> words, string formatedText)
+#endif
         {
             Texts.Add(key, text);
             if (wordIndexs.Count != 0) add(key, wordIndexs);
@@ -155,9 +168,13 @@ namespace AutoCSer.Search
         /// <param name="word"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal RT? GetResult(ref HashSubString word)
+#else
         internal RT GetResult(ref HashSubString word)
+#endif
         {
-            RT counter;
+            var counter = default(RT);
             return results.TryGetValue(word, out counter) ? counter : null;
         }
         /// <summary>
@@ -166,7 +183,11 @@ namespace AutoCSer.Search
         /// <param name="code"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal HashSet<T>? GetResult(char code)
+#else
         internal HashSet<T> GetResult(char code)
+#endif
         {
             HashSet<T> value = characters[code];
             return value != null && value.Count != 0 ? value : null;
@@ -188,7 +209,11 @@ namespace AutoCSer.Search
         /// </summary>
         /// <param name="trieGraph">绑定静态节点池的字符串 Trie 图</param>
         /// <param name="isSingleCharacter">默认为 true 表示支持单字符搜索结果，但是会造成占用大量内存；设置为 false 则应该设置中文词库，否则无法搜索中文内容</param>
+#if NetStandard21
+        public StaticSearcher(StaticStringTrieGraph? trieGraph = null, bool isSingleCharacter = true)
+#else
         public StaticSearcher(StaticStringTrieGraph trieGraph = null, bool isSingleCharacter = true)
+#endif
             : base(trieGraph, isSingleCharacter)
         {
             QueueContext = new StaticSearcherQueueContext<T>(this);
@@ -207,10 +232,10 @@ namespace AutoCSer.Search
         /// <param name="values">分词结果</param>
         protected override void add(T key, ReusableDictionary<HashSubString, ResultIndexs> values)
         {
-            HashSet<T> keys;
+            var keys = default(HashSet<T>);
             foreach (KeyValue<HashSubString, ResultIndexs> result in values.KeyValues)
             {
-                if (!results.TryGetValue(result.Key, out keys)) results.Add((string)result.Key.String, keys = HashSetCreator<T>.Create());
+                if (!results.TryGetValue(result.Key, out keys)) results.Add(result.Key.String.ToString().notNull(), keys = HashSetCreator<T>.Create());
                 keys.Add(key);
             }
         }
@@ -221,7 +246,7 @@ namespace AutoCSer.Search
         /// <param name="words">文本分词结果</param>
         protected override void remove(T key, ref LeftArray<KeyValue<SubString, WordTypeEnum>> words)
         {
-            HashSet<T> keys;
+            var keys = default(HashSet<T>);
             int count = words.Length;
             foreach (KeyValue<SubString, WordTypeEnum> word in words.Array)
             {

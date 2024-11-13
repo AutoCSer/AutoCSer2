@@ -73,7 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal async Task<ResponseResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator) where T : class
         {
-            Exception exception;
+            var exception = default(Exception);
             NodeInfo nodeInfo = LocalClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {

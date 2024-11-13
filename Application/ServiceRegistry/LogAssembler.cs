@@ -1,10 +1,10 @@
-﻿using AutoCSer.CommandService.ServiceRegistry;
+﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace AutoCSer.CommandService.ServiceRegister
+namespace AutoCSer.CommandService.ServiceRegistry
 {
     /// <summary>
     /// 服务注册日志组装
@@ -18,7 +18,11 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// <summary>
         /// 主日志
         /// </summary>
+#if NetStandard21
+        internal SessionLog? MainLog;
+#else
         internal SessionLog MainLog;
+#endif
         /// <summary>
         /// 附加日志
         /// </summary>
@@ -81,7 +85,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                     }
                     if (MainLog == null)
                     {
-                        ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
+                        ServiceRegisterSocketSession session = ServiceRegistry.GetOrCreateSession(socket);
                         MainLog = new SessionLog(session, log);
                         ServiceRegistry.Callback(callbacks, log);
                         session.Regiser(this);
@@ -90,7 +94,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                     checkSessionDropped();
                     if (MainLog == null)
                     {
-                        ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
+                        ServiceRegisterSocketSession session = ServiceRegistry.GetOrCreateSession(socket);
                         MainLog = new SessionLog(session, log);
                         ServiceRegistry.Callback(callbacks, log);
                         session.Regiser(this);
@@ -107,7 +111,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                                     break;
                                 default: return new ServiceRegisterResponse(ServiceRegisterStateEnum.OperationTypeConflict);
                             }
-                            ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
+                            ServiceRegisterSocketSession session = ServiceRegistry.GetOrCreateSession(socket);
                             SessionLog sessionLog = new SessionLog(session, log);
                             if (operationType == ServiceRegisterOperationTypeEnum.ClusterNode) logs.Add(sessionLog);
                             else
@@ -120,7 +124,7 @@ namespace AutoCSer.CommandService.ServiceRegister
                             return new ServiceRegisterResponse(log.ServiceID);
                         default:
                             if (MainLog.Log.OperationType != ServiceRegisterOperationTypeEnum.Singleton) return new ServiceRegisterResponse(ServiceRegisterStateEnum.OperationTypeConflict);
-                            SessionLog removeLog;
+                            var removeLog = default(SessionLog);
                             while (logs.TryPop(out removeLog)) ;
                             session = ServiceRegistry.GetOrCreateSession(socket);
                             logs.Add(new SessionLog(session, log));
@@ -175,7 +179,7 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// </summary>
         internal void SingletonTimeout()
         {
-            SessionLog newMainLog;
+            var newMainLog = default(SessionLog);
             if (!logs.TryPop(out newMainLog) || newMainLog.Session.CheckDropped()) return;
             MainLog = newMainLog;
             ServiceRegistry.Callback(callbacks, newMainLog.Log);
@@ -185,9 +189,10 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// </summary>
         private void checkSessionDropped()
         {
+            SessionLog mainLog = MainLog.notNull();
             if (logs.Count != 0)
             {
-                if (MainLog.Log.OperationType == ServiceRegisterOperationTypeEnum.Singleton) logs.RemoveAllToEnd(SessionLog.CheckSessionDropped);
+                if (mainLog.Log.OperationType == ServiceRegisterOperationTypeEnum.Singleton) logs.RemoveAllToEnd(SessionLog.CheckSessionDropped);
                 else
                 {
                     foreach (SessionLog droppedLog in logs.GetRemoveAllToEnd(SessionLog.CheckSessionDropped))
@@ -196,8 +201,9 @@ namespace AutoCSer.CommandService.ServiceRegister
                     }
                 }
             }
-            if (!MainLog.Session.CheckDropped()) return;
-            ServiceRegistry.Callback(callbacks, MainLog.Log.CreateLostContact());
+            if (!mainLog.Session.CheckDropped()) return;
+            //Console.WriteLine($"checkSessionDropped CreateLostContact mainLog {mainLog.Log.Port}");
+            ServiceRegistry.Callback(callbacks, mainLog.Log.CreateLostContact());
             logs.TryPop(out MainLog);
         }
         /// <summary>
@@ -213,7 +219,11 @@ namespace AutoCSer.CommandService.ServiceRegister
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="callback"></param>
+#if NetStandard21
+        internal void Append(CommandServerSocket socket, CommandServerKeepCallback<ServiceRegisterLog?> callback)
+#else
         internal void Append(CommandServerSocket socket, CommandServerKeepCallback<ServiceRegisterLog> callback)
+#endif
         {
             if (MainLog != null)
             {
@@ -234,13 +244,15 @@ namespace AutoCSer.CommandService.ServiceRegister
                     }
                 }
             }
-            if (!callback.Callback((ServiceRegisterLog)null))
+            if (!callback.Callback(default(ServiceRegisterLog)))
             {
                 ServiceRegistry.SetDropped(socket);
                 return;
             }
-            ServiceRegisterSession session = ServiceRegistry.GetOrCreateSession(socket);
+            ServiceRegisterSocketSession session = ServiceRegistry.GetOrCreateSession(socket);
+#pragma warning disable CS8620
             callbacks[session.SessionID] = new SessionCallback(session, callback);
+#pragma warning restore CS8620
         }
         /// <summary>
         /// 服务注册日志回调

@@ -32,6 +32,10 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// </summary>
         internal UploadFileStateEnum State;
         /// <summary>
+        /// 默认空文件上传数据
+        /// </summary>
+        private UploadFileBuffer() { }
+        /// <summary>
         /// 文件上传数据
         /// </summary>
         /// <param name="uploaderIndex">上传索引信息</param>
@@ -63,10 +67,6 @@ namespace AutoCSer.CommandService.FileSynchronous
 #endif
         }
         /// <summary>
-        /// 是否输出反序列化错误日志
-        /// </summary>
-        private static bool isDeserializeLog = true;
-        /// <summary>
         /// 服务端反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -75,31 +75,14 @@ namespace AutoCSer.CommandService.FileSynchronous
             if (deserializer.Read(out UploaderIndex.Index) && deserializer.Read(out UploaderIndex.Identity) && deserializer.Read(out FileIndex.Index) && deserializer.Read(out FileIndex.Identity)
                 && deserializer.DeserializeBuffer(ref Buffer, true))
             {
-                UploadFileService service = UploadFileService.SingleService;
-                if (service != null) State = service.UploadFileData(this);
-                else
-                {
-                    CommandServerSocket socket = (CommandServerSocket)deserializer.Context;
-                    ICommandServerSocketSessionObject<UploadFileService, UploadFileService> sessionObject = socket.SessionObject as ICommandServerSocketSessionObject<UploadFileService, UploadFileService>;
-                    if (sessionObject != null)
-                    {
-                        service = sessionObject.TryGetSessionObject(socket);
-                        if (service != null) State = service.UploadFileData(this);
-                        else
-                        {
-                            isDeserializeLog = false;
-                            AutoCSer.LogHelper.ErrorIgnoreException($"文件上传服务无法从套接字自定义会话对象中获取文件上传服务端对象，请确认类型 {socket.SessionObject.GetType().fullName()} 是否正确实现 {typeof(ICommandServerSocketSessionObject<UploadFileService, UploadFileService>).fullName()}.{nameof(ICommandServerSocketSessionObject<UploadFileService, UploadFileService>.CreateSessionObject)}", LogLevelEnum.Error | LogLevelEnum.Fatal);
-                        }
-                    }
-                    else if (isDeserializeLog)
-                    {
-                        isDeserializeLog = false;
-                        if (socket.SessionObject == null) AutoCSer.LogHelper.ErrorIgnoreException($"文件上传服务缺少套接字自定义会话对象，请在初始化阶段调用 {typeof(IUploadFileClient).fullName()}.{nameof(IUploadFileClient.CreateSessionObject)}", LogLevelEnum.Error | LogLevelEnum.Fatal);
-                        else AutoCSer.LogHelper.ErrorIgnoreException($"文件上传服务套接字自定义会话对象类型错误 {socket.SessionObject.GetType().fullName()} 未实现接口 {typeof(ICommandServerSocketSessionObject<UploadFileService, UploadFileService>).fullName()}", LogLevelEnum.Error | LogLevelEnum.Fatal);
-                    }
-                }
-                if (State == UploadFileStateEnum.Unknown) State = UploadFileStateEnum.NotFoundSessionObject;
+                CommandServerController<IUploadFileService> controller = (CommandServerController<IUploadFileService>)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController;
+                State = ((UploadFileService)controller.Controller).UploadFileData(this);
             }
         }
+
+        /// <summary>
+        /// 默认空文件上传数据
+        /// </summary>
+        internal static readonly UploadFileBuffer Null = new UploadFileBuffer();
     }
 }

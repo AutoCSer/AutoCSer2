@@ -31,7 +31,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用方法信息
         /// </summary>
+#if NetStandard21
+        internal InputMethodParameter? MethodParameter;
+#else
         internal InputMethodParameter MethodParameter;
+#endif
         /// <summary>
         /// 请求参数序列化
         /// </summary>
@@ -80,9 +84,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (deserializer.Read(out Index.Index) && deserializer.Read(out Index.Identity) && deserializer.Read(out methodIndex))
             {
-                CommandServerSocketSessionObjectService service = CommandServerSocketSessionObjectService.GetSessionObject(deserializer);
-                if (service != null)
+                CommandServerSocket socket = deserializer.Context.castType<CommandServerSocket>().notNull();
+                if (!object.ReferenceEquals(socket, CommandServerSocket.CommandServerSocketContext))
                 {
+                    CommandServerController<IStreamPersistenceMemoryDatabaseService> controller = (CommandServerController<IStreamPersistenceMemoryDatabaseService>)socket.CurrentController;
+                    StreamPersistenceMemoryDatabaseService service = (StreamPersistenceMemoryDatabaseService)controller.Controller;
                     MethodParameter = service.CreateInputMethodParameter(Index, methodIndex, out CallState);
                     if (MethodParameter != null)
                     {

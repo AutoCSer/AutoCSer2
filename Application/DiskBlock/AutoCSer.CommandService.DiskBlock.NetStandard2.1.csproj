@@ -4,18 +4,19 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AutoCSer.CommandService.DiskBlock</AssemblyName>
     <RootNamespace>AutoCSer.CommandService.DiskBlock</RootNamespace>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\DiskBlock\AutoCSer.CommandService.DiskBlock.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;DEBUG;NetStandard21</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\DiskBlock\AutoCSer.CommandService.DiskBlock.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>NetStandard21</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -44,6 +45,7 @@
     <Compile Include="IDiskBlockClientBase.cs" />
     <Compile Include="IDiskBlockClientSocketEvent.cs" />
     <Compile Include="JsonSerializer.cs" />
+    <Compile Include="NullBlock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadBinaryCallback.cs" />
     <Compile Include="ReadBuffer.cs" />

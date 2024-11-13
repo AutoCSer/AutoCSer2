@@ -1,7 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -75,15 +75,19 @@ namespace AutoCSer.CommandService
         /// <param name="arguments">运行程序参数</param>
         /// <param name="isWait">执行任务流程是否等待程序运行结束</param>
         /// <returns></returns>
+#if NetStandard21
+        public ReturnCommand<DeployTaskAppendResult> AppendStartProcess(string startFileName, string? arguments = null, bool isWait = false)
+#else
         public ReturnCommand<DeployTaskAppendResult> AppendStartProcess(string startFileName, string arguments = null, bool isWait = false)
+#endif
         {
-            return Client.Client.DeployTaskClient.AppendStartProcess(Identity, startFileName, arguments, isWait);
+            return Client.Client.DeployTaskClient.AppendStartProcess(Identity, startFileName, arguments ?? string.Empty, isWait);
         }
         /// <summary>
         /// 上传文件
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="serverPath"></param>
+        /// <param name="path">客户端路径</param>
+        /// <param name="serverPath">服务端路径</param>
         /// <returns></returns>
         public async Task<DeployTaskUploadFileResult> UploadFileAsync(string path, string serverPath)
         {

@@ -4,16 +4,18 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AutoCSer.CommandService.TimestampVerify</AssemblyName>
     <RootNamespace>AutoCSer.CommandService.TimestampVerify</RootNamespace>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandServerSocketSessionObject.cs" />
     <Compile Include="ITimestampVerifyService.cs" />
     <Compile Include="ITimestampVerifyClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

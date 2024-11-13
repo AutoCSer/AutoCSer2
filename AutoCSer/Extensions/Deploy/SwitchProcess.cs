@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -20,6 +22,9 @@ namespace AutoCSer.Deploy
         /// <summary>
         /// 切换服务锁
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         protected AutoCSer.Threading.SemaphoreSlimLock exitLock;
         /// <summary>
         /// 是否需要初始化处理
@@ -28,6 +33,9 @@ namespace AutoCSer.Deploy
         /// <summary>
         /// 切换进程等待关闭处理
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private SwitchWait switchWait;
         /// <summary>
         /// 切换进程（默认规则）
@@ -36,7 +44,6 @@ namespace AutoCSer.Deploy
         protected SwitchProcess(string[] arguments)
             : this(arguments.Length == 0 ? null : arguments[0], Array.IndexOf(arguments, CloseSwitchProcessArgument) >= 0)
         {
-
         }
         /// <summary>
         /// 切换进程
@@ -45,12 +52,16 @@ namespace AutoCSer.Deploy
         /// <param name="isOnlySet"></param>
         /// <param name="deployServerFileName"></param>
         /// <param name="switchDirectoryName"></param>
+#if NetStandard21
+        protected SwitchProcess(string? arguments, bool isOnlySet = false, string? deployServerFileName = null, string switchDirectoryName = DefaultSwitchDirectoryName)
+#else
         protected SwitchProcess(string arguments, bool isOnlySet = false, string deployServerFileName = null, string switchDirectoryName = DefaultSwitchDirectoryName)
+#endif
         {
-            FileInfo SwitchFile = GetSwitchFile(deployServerFileName, switchDirectoryName);
-            if (SwitchFile != null)
+            var switchFile = GetSwitchFile(deployServerFileName, switchDirectoryName);
+            if (switchFile != null)
             {
-                StartProcessDirectory(SwitchFile, arguments);
+                StartProcessDirectory(switchFile, arguments);
                 return;
             }
             if (isOnlySet) SwitchWait.Set(switchWaitPrefix);
@@ -59,7 +70,11 @@ namespace AutoCSer.Deploy
         /// <summary>
         /// 切换进程名称前缀，可用于区分环境版本
         /// </summary>
+#if NetStandard21
+        protected virtual string? switchWaitPrefix { get { return null; } }
+#else
         protected virtual string switchWaitPrefix { get { return null; } }
+#endif
         /// <summary>
         /// 初始化操作
         /// </summary>
@@ -117,9 +132,13 @@ namespace AutoCSer.Deploy
         /// <param name="file">文件信息</param>
         /// <param name="arguments">执行参数</param>
         /// <returns>是否成功</returns>
+#if NetStandard21
+        public static bool StartProcessDirectory(FileInfo file, string? arguments = null)
+#else
         public static bool StartProcessDirectory(FileInfo file, string arguments = null)
+#endif
         {
-            System.Diagnostics.Process process = GetStartProcessDirectory(file, arguments);
+            var process = GetStartProcessDirectory(file, arguments);
             if (process != null)
             {
                 process.Dispose();
@@ -133,7 +152,11 @@ namespace AutoCSer.Deploy
         /// <param name="file">文件信息</param>
         /// <param name="arguments">执行参数</param>
         /// <returns>是否成功</returns>
+#if NetStandard21
+        public static System.Diagnostics.Process? GetStartProcessDirectory(FileInfo file, string? arguments = null)
+#else
         public static System.Diagnostics.Process GetStartProcessDirectory(FileInfo file, string arguments = null)
+#endif
         {
             if (file != null && file.Exists) return getStartProcessDirectory(file, arguments);
             return null;
@@ -144,9 +167,13 @@ namespace AutoCSer.Deploy
         /// <param name="file"></param>
         /// <param name="arguments"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static System.Diagnostics.Process? getStartProcessDirectory(FileInfo file, string? arguments)
+#else
         private static System.Diagnostics.Process getStartProcessDirectory(FileInfo file, string arguments)
+#endif
         {
-            System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(file.FullName, arguments);
+            System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(file.FullName, arguments ?? string.Empty);
             info.UseShellExecute = true;
             info.WorkingDirectory = file.DirectoryName;
             return System.Diagnostics.Process.Start(info);
@@ -157,9 +184,13 @@ namespace AutoCSer.Deploy
         /// <param name="file">文件信息</param>
         /// <param name="arguments">执行参数</param>
         /// <returns>是否成功</returns>
+#if NetStandard21
+        public static async Task<bool> StartProcessDirectoryAsync(FileInfo file, string? arguments = null)
+#else
         public static async Task<bool> StartProcessDirectoryAsync(FileInfo file, string arguments = null)
+#endif
         {
-            System.Diagnostics.Process process = await GetStartProcessDirectoryAsync(file, arguments);
+            var process = await GetStartProcessDirectoryAsync(file, arguments);
             if (process != null)
             {
                 process.Dispose();
@@ -173,7 +204,11 @@ namespace AutoCSer.Deploy
         /// <param name="file">文件信息</param>
         /// <param name="arguments">执行参数</param>
         /// <returns>是否成功</returns>
+#if NetStandard21
+        public static async Task<System.Diagnostics.Process?> GetStartProcessDirectoryAsync(FileInfo file, string? arguments = null)
+#else
         public static async Task<System.Diagnostics.Process> GetStartProcessDirectoryAsync(FileInfo file, string arguments = null)
+#endif
         {
             if (file != null && await AutoCSer.Common.Config.FileExists(file)) return getStartProcessDirectory(file, arguments);
             return null;
@@ -184,22 +219,26 @@ namespace AutoCSer.Deploy
         /// <param name="deployServerFileName">发布服务文件名称</param>
         /// <param name="switchDirectoryName">切换服务相对目录名称</param>
         /// <returns>切换服务文件</returns>
+#if NetStandard21
+        public static FileInfo? GetSwitchFile(string? deployServerFileName = null, string switchDirectoryName = DefaultSwitchDirectoryName)
+#else
         public static FileInfo GetSwitchFile(string deployServerFileName = null, string switchDirectoryName = DefaultSwitchDirectoryName)
+#endif
         {
-            DirectoryInfo CurrentDirectory = AutoCSer.Common.ApplicationDirectory, SwitchDirectory;
-            if (CurrentDirectory.Name == switchDirectoryName)
+            DirectoryInfo currentDirectory = AutoCSer.Common.ApplicationDirectory, switchDirectory;
+            if (currentDirectory.Name == switchDirectoryName)
             {
-                SwitchDirectory = CurrentDirectory.Parent;
+                switchDirectory = currentDirectory.Parent.notNull();
             }
             else
             {
-                SwitchDirectory = new DirectoryInfo(Path.Combine(CurrentDirectory.FullName, switchDirectoryName));
+                switchDirectory = new DirectoryInfo(Path.Combine(currentDirectory.FullName, switchDirectoryName));
             }
-            if (SwitchDirectory.Exists)
+            if (switchDirectory.Exists)
             {
                 if (deployServerFileName == null)
                 {
-                    deployServerFileName = System.Reflection.Assembly.GetEntryAssembly().Location;
+                    deployServerFileName = System.Reflection.Assembly.GetEntryAssembly().notNull().Location;
                     if (string.CompareOrdinal(deployServerFileName.Substring(deployServerFileName.Length - 4), ".dll") == 0)
                     {
                         string exeDeployServerFileName = deployServerFileName.Substring(0, deployServerFileName.Length - 3) + "exe";
@@ -207,10 +246,10 @@ namespace AutoCSer.Deploy
                     }
                     deployServerFileName = new FileInfo(deployServerFileName).Name;
                 }
-                FileInfo SwitchFile = new FileInfo(Path.Combine(SwitchDirectory.FullName, deployServerFileName));
+                FileInfo SwitchFile = new FileInfo(Path.Combine(switchDirectory.FullName, deployServerFileName));
                 if (SwitchFile.Exists)
                 {
-                    FileInfo CurrentFile = new FileInfo(Path.Combine(CurrentDirectory.FullName, deployServerFileName));
+                    FileInfo CurrentFile = new FileInfo(Path.Combine(currentDirectory.FullName, deployServerFileName));
                     if (SwitchFile.LastWriteTimeUtc > CurrentFile.LastWriteTimeUtc) return SwitchFile;
                 }
             }

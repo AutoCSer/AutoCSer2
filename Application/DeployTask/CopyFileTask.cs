@@ -57,8 +57,9 @@ namespace AutoCSer.CommandService.DeployTask
         /// <returns></returns>
         public async Task<DeployTaskLog> Run()
         {
-            DirectoryInfo destinationDirectory = null, backupDirectory = null;
-            if (checkSwitchFileName != null)
+            var destinationDirectory = default(DirectoryInfo);
+            var backupDirectory = default(DirectoryInfo);
+            if (!string.IsNullOrEmpty(checkSwitchFileName))
             {
                 FileInfo checkFile = new FileInfo(Path.Combine(destinationPath, checkSwitchFileName));
                 if (await AutoCSer.Common.Config.FileExists(checkFile))
@@ -86,12 +87,18 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="destinationDirectory"></param>
         /// <param name="backupDirectory"></param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task copy(DirectoryInfo sourceDirectory, DirectoryInfo destinationDirectory, DirectoryInfo? backupDirectory)
+#else
         private async Task copy(DirectoryInfo sourceDirectory, DirectoryInfo destinationDirectory, DirectoryInfo backupDirectory)
+#endif
         {
-            string destinationPath = destinationDirectory.FullName, backupPath = backupDirectory?.FullName;
+            string destinationPath = destinationDirectory.FullName;
+            var backupPath = backupDirectory?.FullName;
             foreach (DirectoryInfo nextSourceDirectory in await AutoCSer.Common.Config.GetDirectories(sourceDirectory))
             {
-                DirectoryInfo nextDestinationDirectory = new DirectoryInfo(Path.Combine(destinationPath, nextSourceDirectory.Name)), nextBackupDirectory = null;
+                DirectoryInfo nextDestinationDirectory = new DirectoryInfo(Path.Combine(destinationPath, nextSourceDirectory.Name));
+                var nextBackupDirectory = default(DirectoryInfo);
                 await AutoCSer.Common.Config.TryCreateDirectory(nextDestinationDirectory);
                 if (backupPath != null) await AutoCSer.Common.Config.TryCreateDirectory(nextBackupDirectory = new DirectoryInfo(Path.Combine(backupPath, nextSourceDirectory.Name)));
                 await copy(nextSourceDirectory, nextDestinationDirectory, nextBackupDirectory);

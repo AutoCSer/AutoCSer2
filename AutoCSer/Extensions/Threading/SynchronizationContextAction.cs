@@ -23,7 +23,11 @@ namespace AutoCSer.Threading
         /// 调用委托
         /// </summary>
         /// <param name="_"></param>
+#if NetStandard21
+        internal void Call(object? _)
+#else
         internal void Call(object _)
+#endif
         {
             call();
         }
@@ -56,7 +60,11 @@ namespace AutoCSer.Threading
         /// 调用委托
         /// </summary>
         /// <param name="_"></param>
+#if NetStandard21
+        internal void Call(object? _)
+#else
         internal void Call(object _)
+#endif
         {
             call(parameter);
         }

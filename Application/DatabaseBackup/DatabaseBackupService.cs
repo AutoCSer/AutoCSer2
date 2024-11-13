@@ -45,26 +45,38 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="database">数据库名称</param>
         /// <param name="callback">重写必须保证回调执行</param>
+#if NetStandard21
+        public virtual void Backup(CommandServerCallQueue queue, string database, CommandServerCallback<string?> callback)
+#else
         public virtual void Backup(CommandServerCallQueue queue, string database, CommandServerCallback<string> callback)
+#endif
         {
             HashString backuperKey = default(HashString);
-            Exception exception = null;
-            DatabaseBackuper backuper = null;
+            var exception = default(Exception);
+            var backuper = default(DatabaseBackuper);
+            bool isCallback = true;
             try
             {
-                if (databaseBackupers.TryGetValue(backuperKey = database, out backuper)) backuper.Callback(ref callback);
+                if (databaseBackupers.TryGetValue(backuperKey = database, out backuper))
+                {
+#pragma warning disable CS8620
+                    backuper.Callback(callback, ref isCallback);
+#pragma warning restore CS8620
+                }
                 else
                 {
                     backuper = createDatabaseBackuper(queue, database);
                     if (backuper != null)
                     {
                         databaseBackupers.Add(backuperKey, backuper);
-                        backuper.Start(ref callback);
+#pragma warning disable CS8620
+                        backuper.Start(callback, ref isCallback);
+#pragma warning restore CS8620
                     }
                     else
                     {
                         callback.Callback(null);
-                        callback = null;
+                        isCallback = false;
                     }
                 }
             }
@@ -74,7 +86,7 @@ namespace AutoCSer.CommandService
             }
             finally
             {
-                if (callback != null)
+                if (isCallback)
                 {
                     callback.Callback(CommandClientReturnTypeEnum.ServerException, exception);
                     if (backuper != null && backuper.CallbackCount == 0) databaseBackupers.Remove(backuperKey);
@@ -106,13 +118,13 @@ namespace AutoCSer.CommandService
         public virtual async Task Download(string backupFullName, long startIndex, CommandServerKeepCallbackCount<DatabaseBackupDownloadBuffer> callback)
         {
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;
-            Exception exception = null;
+            var exception = default(Exception);
             try
             {
-#if DotNet45 || NetStandard2
-                using (FileStream fileStream = File.OpenRead(backupFullName))
-#else
+#if NetStandard21
                 await using (FileStream fileStream = File.OpenRead(backupFullName))
+#else
+                using (FileStream fileStream = File.OpenRead(backupFullName))
 #endif
                 {
                     if (startIndex != fileStream.Length)

@@ -479,7 +479,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>没有可移除数据则无数据返回</returns>
         public ValueResult<T> GetTryPopValue()
         {
-            T value;
+            var value = default(T);
             if (array.TryPop(out value)) return value;
             return default(ValueResult<T>);
         }
@@ -498,7 +498,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否存在可移除数据</returns>
         public bool TryPop()
         {
-            T value;
+            var value = default(T);
             return array.TryPop(out value);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -46,7 +47,12 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 被守护进程信息
         /// </summary>
-        public ProcessGuardInfo() { }
+        private ProcessGuardInfo()
+        {
+#if NetStandard21
+            WorkingDirectory = Arguments = FileName = ProcessName = string.Empty;
+#endif
+        }
         /// <summary>
         /// 被守护进程信息
         /// </summary>
@@ -69,7 +75,7 @@ namespace AutoCSer.CommandService
                 UseShellExecute = true;
                 WindowStyle = ProcessWindowStyle.Normal;
 
-                FileInfo file = new FileInfo(process.MainModule.FileName);
+                FileInfo file = new FileInfo(process.MainModule.notNull().FileName);
                 FileName = file.FullName;
                 WorkingDirectory = Environment.CurrentDirectory;
                 Arguments = string.Join(" ", Environment.GetCommandLineArgs());
@@ -79,7 +85,11 @@ namespace AutoCSer.CommandService
         /// 启动新进程
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        public Process? Start()
+#else
         public Process Start()
+#endif
         {
             ProcessStartInfo startInfo = new ProcessStartInfo(FileName, Arguments);
             startInfo.UseShellExecute = UseShellExecute;

@@ -384,17 +384,19 @@
             回调数量
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DatabaseBackuper.Callback(AutoCSer.Net.CommandServerCallback{System.String}@)">
+        <member name="M:AutoCSer.CommandService.DatabaseBackuper.Callback(AutoCSer.Net.CommandServerCallback{System.String},System.Boolean@)">
             <summary>
             尝试添加回调委托
             </summary>
             <param name="callback"></param>
+            <param name="isCallback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DatabaseBackuper.Start(AutoCSer.Net.CommandServerCallback{System.String}@)">
+        <member name="M:AutoCSer.CommandService.DatabaseBackuper.Start(AutoCSer.Net.CommandServerCallback{System.String},System.Boolean@)">
             <summary>
             开始备份数据
             </summary>
             <param name="callback"></param>
+            <param name="isCallback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DatabaseBackuper.backupThread">
             <summary>
@@ -476,7 +478,7 @@
             </summary>
             <param name="queue"></param>
             <param name="database">数据库名称</param>
-            <param name="callback">重写必须保证回调执行</param>
+            <param name="callback">重写必须保证回调执行，返回 null 表示没有找到数据库</param>
         </member>
         <member name="M:AutoCSer.CommandService.IDatabaseBackupService.Download(System.String,System.Int64,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DatabaseBackupDownloadBuffer})">
             <summary>
@@ -518,14 +520,14 @@
             备份数据库并返回文件名称
             </summary>
             <param name="database">数据库名称</param>
-            <param name="callback">备份文件名称</param>
+            <param name="callback">备份文件名称，返回 null 表示没有找到数据库</param>
         </member>
         <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.Backup(System.String)">
             <summary>
             备份数据库并返回文件名称
             </summary>
             <param name="database">数据库名称</param>
-            <returns>备份文件名称</returns>
+            <returns>备份文件名称，返回 null 表示没有找到数据库</returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.Download(System.String,System.Int64,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DatabaseBackupDownloadBuffer},AutoCSer.Net.KeepCallbackCommand})">
             <summary>

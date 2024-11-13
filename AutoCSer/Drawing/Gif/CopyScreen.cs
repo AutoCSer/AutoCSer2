@@ -22,7 +22,11 @@ namespace AutoCSer.Drawing.Gif
         /// <summary>
         /// 获取的图片
         /// </summary>
+#if NetStandard21
+        private Bitmap? bitmap;
+#else
         private Bitmap bitmap;
+#endif
         /// <summary>
         /// 定时截屏获取图片生成 GIF 文件数据
         /// </summary>
@@ -36,7 +40,11 @@ namespace AutoCSer.Drawing.Gif
         /// <param name="maxPixel">最大色彩深度，2-8</param>
         /// <param name="screenLeft">截屏开始横坐标位置默认为最小值 0</param>
         /// <param name="screenTop">截屏开始纵坐标位置默认为最小值 0</param>
+#if NetStandard21
+        public CopyScreen(Stream stream, short width, short height, LockBitmapColor[]? globalColors = null, byte backgroundColorIndex = 0, bool isLeaveDisposeStream = false, int interval = 40, byte maxPixel = 8, int screenLeft = 0, int screenTop = 0)
+#else
         public CopyScreen(Stream stream, short width, short height, LockBitmapColor[] globalColors = null, byte backgroundColorIndex = 0, bool isLeaveDisposeStream = false, int interval = 40, byte maxPixel = 8, int screenLeft = 0, int screenTop = 0)
+#endif
             : base(stream, width, height, globalColors, backgroundColorIndex, isLeaveDisposeStream, interval, maxPixel, false)
         {
             this.screenLeft = Math.Max(screenLeft, 0);
@@ -56,7 +64,11 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         /// <param name="bitmap"></param>
         /// <param name="bitmapData"></param>
+#if NetStandard21
+        protected override void disposeBitmap(Bitmap? bitmap, BitmapData? bitmapData)
+#else
         protected override void disposeBitmap(Bitmap bitmap, BitmapData bitmapData)
+#endif
         {
             if (bitmap != null)
             {

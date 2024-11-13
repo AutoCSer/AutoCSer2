@@ -20,7 +20,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 持久化回调尾节点
         /// </summary>
+#if NetStandard21
+        private readonly MethodParameter? end;
+#else
         private readonly MethodParameter end;
+#endif
         /// <summary>
         /// 持久化文件是否需要重建
         /// </summary>
@@ -30,7 +34,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="head">持久化回调头节点</param>
         /// <param name="end">持久化回调尾节点</param>
+#if NetStandard21
+        internal PersistenceCallback(MethodParameter head, MethodParameter? end)
+#else
         internal PersistenceCallback(MethodParameter head, MethodParameter end)
+#endif
         {
             this.head = head;
             this.end = end;

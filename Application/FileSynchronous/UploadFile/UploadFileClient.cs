@@ -68,12 +68,12 @@ namespace AutoCSer.CommandService.FileSynchronous
                     if (synchronousState == UploadFileStateEnum.Success && !checkSuccessState) synchronousState = UploadFileStateEnum.Unknown;
                     if (synchronousState != UploadFileStateEnum.Success)
                     {
-                        uploaderInfo = await Client.UploadFileClient.CreateUploader(this.UploaderInfo.Path, this.UploaderInfo.BackupPath);
+                        uploaderInfo = await Client.UploadFileClient.CreateUploader(this.UploaderInfo.Path.notNull(), this.UploaderInfo.BackupPath ?? string.Empty);
                         if (check(ref uploaderInfo))
                         {
                             isUploader = true;
                             isSynchronousPath = 1;
-                            await synchronous(directory, null);
+                            await synchronous(directory, string.Empty);
                             isWaitCompleted = true;
                             await completedLock.EnterAsync();
                             await completed();
@@ -137,7 +137,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="serverFileName">服务端相对路径文件名称，默认为 null 表示与客户端相同</param>
         /// <param name="checkSuccessState">默认为 true 表示状态为 Success 时直接返回，设置为 false 表示重新上传操作</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<UploadFileStateEnum> Upload(string fileName, string? serverFileName = null, bool checkSuccessState = true)
+#else
         public async Task<UploadFileStateEnum> Upload(string fileName, string serverFileName = null, bool checkSuccessState = true)
+#endif
         {
             FileInfo file = new FileInfo(Path.Combine(directory.FullName, fileName));
             if (await AutoCSer.Common.Config.FileExists(file))
@@ -151,7 +155,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                     if (synchronousState == UploadFileStateEnum.Success && !checkSuccessState) synchronousState = UploadFileStateEnum.Unknown;
                     if (synchronousState != UploadFileStateEnum.Success)
                     {
-                        uploaderInfo = await Client.UploadFileClient.CreateUploader(this.UploaderInfo.Path, this.UploaderInfo.BackupPath);
+                        uploaderInfo = await Client.UploadFileClient.CreateUploader(this.UploaderInfo.Path.notNull(), this.UploaderInfo.BackupPath ?? string.Empty);
                         if (check(ref uploaderInfo))
                         {
                             isUploader = true;
@@ -223,15 +227,16 @@ namespace AutoCSer.CommandService.FileSynchronous
                         string clientPath = clientDirectory.FullName;
                         clientFiles.Empty();
                         foreach (FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(clientDirectory)) clientFiles.Set(file.Name, file);
-                        EnumeratorCommand<UploadFileInfo> fileCommand = await Client.UploadFileClient.GetFiles(UploaderInfo.Index, serverPath);
-                        bool isSuccess = fileCommand != null;
-                        if (isSuccess)
+                        var fileCommand = await Client.UploadFileClient.GetFiles(UploaderInfo.Index, serverPath);
+                        bool isSuccess;
+                        if (fileCommand != null)
                         {
-                            FileInfo file;
+                            var file = default(FileInfo);
                             while (await fileCommand.MoveNext())
                             {
                                 UploadFileInfo fileInfo = fileCommand.Current;
-                                if (clientFiles.Remove(fileInfo.FileInfo.Name, out file))
+                                string fileName = fileInfo.FileInfo.Name.notNull();
+                                if (clientFiles.Remove(fileName, out file))
                                 {
                                     bool isCompleted = false;
                                     while (file.Length == fileInfo.FileInfo.Length && file.LastWriteTimeUtc == fileInfo.FileInfo.LastWriteTime && !isCompleted)
@@ -250,9 +255,9 @@ namespace AutoCSer.CommandService.FileSynchronous
                                                         isCompleted = false;
                                                     }
                                                 }
-                                                else onFileError(new FileInfo(Path.Combine(clientPath, fileInfo.FileInfo.Name)), fileInfo.FileInfo.FullName, appendResult.Value.State);
+                                                else onFileError(new FileInfo(Path.Combine(clientPath, fileName)), fileInfo.FileInfo.FullName, appendResult.Value.State);
                                             }
-                                            else onFileError(new FileInfo(Path.Combine(clientPath, fileInfo.FileInfo.Name)), fileInfo.FileInfo.FullName, UploadFileStateEnum.CallFail);
+                                            else onFileError(new FileInfo(Path.Combine(clientPath, fileName)), fileInfo.FileInfo.FullName, UploadFileStateEnum.CallFail);
                                         }
                                     }
                                     if (!isCompleted) appendFile(new UploadFile(this, file, ref fileInfo.FileInfo));
@@ -260,14 +265,15 @@ namespace AutoCSer.CommandService.FileSynchronous
                                 else if (IsDelete && fileInfo.IsFile)
                                 {
                                     CommandClientReturnValue<bool> isDelete = await Client.UploadFileClient.AppendDeleteFile(UploaderInfo.Index, fileInfo.FileInfo.FullName);
-                                    if (!isDelete.IsSuccess || !isDelete.Value) onFileError(new FileInfo(Path.Combine(clientPath, fileInfo.FileInfo.Name)), fileInfo.FileInfo.FullName, UploadFileStateEnum.CallFail);
+                                    if (!isDelete.IsSuccess || !isDelete.Value) onFileError(new FileInfo(Path.Combine(clientPath, fileName)), fileInfo.FileInfo.FullName, UploadFileStateEnum.CallFail);
                                 }
                             }
-                            if (fileCommand.ReturnType != CommandClientReturnTypeEnum.Success) isSuccess = false;
+                            isSuccess = fileCommand.ReturnType == CommandClientReturnTypeEnum.Success;
                         }
+                        else isSuccess = false;
                         foreach (FileInfo file in clientFiles.Values)
                         {
-                            string fileName = file.Name;
+                            var fileName = file.Name;
                             if (!string.IsNullOrEmpty(serverPath))
                             {
                                 if (isCombinePath == 0) fileName = Path.Combine(serverPath, fileName);
@@ -281,8 +287,8 @@ namespace AutoCSer.CommandService.FileSynchronous
                                     }
                                     else
                                     {
-                                        fileName = null;
                                         onFileError(new FileInfo(Path.Combine(clientPath, fileName)), Path.Combine(serverPath, fileName), UploadFileStateEnum.CallFail);
+                                        fileName = null;
                                     }
                                 }
                             }
@@ -291,7 +297,7 @@ namespace AutoCSer.CommandService.FileSynchronous
 
                         clientDirectorys.Empty();
                         foreach (DirectoryInfo directory in await AutoCSer.Common.Config.GetDirectories(clientDirectory)) clientDirectorys.Set(directory.Name, directory);
-                        EnumeratorCommand<DirectoryName> directoryCommand = await Client.UploadFileClient.GetDirectoryNames(UploaderInfo.Index, serverPath);
+                        var directoryCommand = await Client.UploadFileClient.GetDirectoryNames(UploaderInfo.Index, serverPath);
                         if (directoryCommand != null)
                         {
                             while (await directoryCommand.MoveNext())
@@ -312,7 +318,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                                     if (!isDelete.IsSuccess || !isDelete.Value) onPathError(new DirectoryInfo(Path.Combine(clientPath, directoryName.Name)), directoryName.FullName, UploadFileStateEnum.CallFail);
                                 }
                             }
-                            if (fileCommand.ReturnType != CommandClientReturnTypeEnum.Success) isSuccess = false;
+                            isSuccess = directoryCommand.ReturnType == CommandClientReturnTypeEnum.Success;
                         }
                         else isSuccess = false;
                         foreach (DirectoryInfo directory in clientDirectorys.Values)

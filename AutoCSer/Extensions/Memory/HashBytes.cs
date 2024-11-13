@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 
 namespace AutoCSer.Memory
 {
@@ -73,9 +74,13 @@ namespace AutoCSer.Memory
         /// </summary>
         /// <param name="other">字节数组HASH</param>
         /// <returns>是否相等</returns>
+#if NetStandard21
+        public override bool Equals(object? other)
+#else
         public override bool Equals(object other)
+#endif
         {
-            return Equals((HashBytes)other);
+            return Equals(other.castValue<HashBytes>());
         }
     }
 }

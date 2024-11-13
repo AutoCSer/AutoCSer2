@@ -20,11 +20,19 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册客户端接口
         /// </summary>
+#if NetStandard21
+        internal IServiceRegistryClient? Client;
+#else
         internal IServiceRegistryClient Client;
+#endif
         /// <summary>
         /// 会话在线检查保持回调
         /// </summary>
+#if NetStandard21
+        private CommandKeepCallback? checkKeepCallback;
+#else
         private CommandKeepCallback checkKeepCallback;
+#endif
         /// <summary>
         /// 服务注册日志客户端组装集合
         /// </summary>
@@ -49,7 +57,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal async Task<bool> CheckCallback(IServiceRegistryClient client)
         {
-            CommandKeepCallback checkKeepCallback = await client.CheckCallback(CommandClientKeepCallback.EmptyCallback);
+            var checkKeepCallback = await client.CheckCallback(CommandClientKeepCallback.EmptyCallback);
             if (checkKeepCallback == null) return false;
             await logAssemblersLock.EnterAsync();
             try
@@ -77,7 +85,7 @@ namespace AutoCSer.CommandService
         public async Task<ServiceRegisterLogClientAssembler> GetAssembler(string serviceName)
         {
             HashString serviceNameKey = serviceName;
-            ServiceRegisterLogClientAssembler logAssembler;
+            var logAssembler = default(ServiceRegisterLogClientAssembler);
             await logAssemblersLock.EnterAsync();
             try
             {
@@ -160,7 +168,7 @@ namespace AutoCSer.CommandService
         /// <returns>服务注册客户端</returns>
         public static ServiceRegistryClient Get(ServiceRegistryCommandClientConfig commandClientConfig)
         {
-            ServiceRegistryClient client;
+            var client = default(ServiceRegistryClient);
             Monitor.Enter(clients);
             if (clients.TryGetValue(commandClientConfig.Host, out client))
             {
@@ -201,7 +209,7 @@ namespace AutoCSer.CommandService
         public static async Task<ServiceRegistryClient> Get(ServiceRegistryCommandClientConfig commandClientConfig, CommandServerConfigBase logConfig)
         {
             ServiceRegistryClient client = Get(commandClientConfig);
-            CommandClientSocket socket = await client.CommandClient.GetSocketAsync();
+            var socket = await client.CommandClient.GetSocketAsync();
             if (socket == null) await logConfig.Log.Error($"服务注册客户端初始化失败 {commandClientConfig.Host.Host}:{commandClientConfig.Host.Port}", LogLevelEnum.AutoCSer | LogLevelEnum.Error | LogLevelEnum.Fatal);
             return client;
         }

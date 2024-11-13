@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -21,15 +22,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 锁等待队列头节点
         /// </summary>
+#if NetStandard21
+        private MethodCallback<long>? callbackHead;
+#else
         private MethodCallback<long> callbackHead;
+#endif
         /// <summary>
         /// 锁等待队列尾节点
         /// </summary>
+#if NetStandard21
+        private MethodCallback<long>? callbackEnd;
+#else
         private MethodCallback<long> callbackEnd;
+#endif
         /// <summary>
         /// 当前超时
         /// </summary>
+#if NetStandard21
+        internal DistributedLockTimeout<T>? LockTimeout;
+#else
         internal DistributedLockTimeout<T> LockTimeout;
+#endif
         /// <summary>
         /// 分布式锁
         /// </summary>
@@ -64,7 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             else
             {
-                callbackEnd.LinkNext = callback;
+                callbackEnd.notNull().LinkNext = callback;
                 callbackEnd = callback;
             }
         }
@@ -102,15 +115,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             do
             {
-                Identity.Set(AutoCSer.Threading.SecondTimer.UtcNow.AddSeconds(callbackEnd.Reserve), Node.Identity++);
-                if (callbackHead.SynchronousCallback(Identity.Identity))
+                Identity.Set(AutoCSer.Threading.SecondTimer.UtcNow.AddSeconds(callbackEnd.notNull().Reserve), Node.Identity++);
+                var head = callbackHead.notNull();
+                if (head.SynchronousCallback(Identity.Identity))
                 {
-                    callbackHead = callbackHead.LinkNext;
+                    callbackHead = head.LinkNext;
                     if (callbackHead != null) checkTimeout();
                     return true;
                 }
             }
-            while ((callbackHead = callbackHead.LinkNext) != null);
+            while ((callbackHead = callbackHead.notNull().LinkNext) != null);
             return false;
         }
         /// <summary>

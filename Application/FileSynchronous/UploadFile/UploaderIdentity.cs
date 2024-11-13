@@ -12,7 +12,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <summary>
         /// 文件上传
         /// </summary>
+#if NetStandard21
+        internal FileUploader? Uploader;
+#else
         internal FileUploader Uploader;
+#endif
         /// <summary>
         /// 上传标识
         /// </summary>
@@ -33,7 +37,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="identity">上传标识</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal FileUploader? Get(uint identity)
+#else
         internal FileUploader Get(uint identity)
+#endif
         {
             return this.identity == identity ? Uploader : null;
         }

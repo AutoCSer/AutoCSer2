@@ -14,7 +14,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateLong(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateLong(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {

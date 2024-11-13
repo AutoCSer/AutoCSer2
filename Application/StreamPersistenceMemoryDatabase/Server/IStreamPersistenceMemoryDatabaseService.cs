@@ -11,12 +11,6 @@ namespace AutoCSer.CommandService
     public interface IStreamPersistenceMemoryDatabaseService
     {
         /// <summary>
-        /// 创建会话对象，用于反序列化时获取服务信息
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <returns></returns>
-        CommandServerSendOnly CreateSessionObject(CommandServerSocket socket);
-        /// <summary>
         /// 获取服务端 UTC 时间
         /// </summary>
         /// <returns></returns>

@@ -5,6 +5,7 @@ using AutoCSer.ORM.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -33,15 +34,27 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 泛型类型元数据
         /// </summary>
+#if NetStandard21
+        private object? genericType;
+#else
         private object genericType;
+#endif
         /// <summary>
         /// 自定义数据列配置
         /// </summary>
+#if NetStandard21
+        internal readonly CustomColumnAttribute? CustomColumnAttribute;
+#else
         internal readonly CustomColumnAttribute CustomColumnAttribute;
+#endif
         /// <summary>
         /// 可空成员类型的基础类型，否则为成员类型
         /// </summary>
+#if NetStandard21
+        internal Type? NullableElementType;
+#else
         internal Type NullableElementType;
+#endif
         /// <summary>
         /// 是否可空成员类型
         /// </summary>
@@ -53,11 +66,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 泛型类型元数据
         /// </summary>
-        internal AutoCSer.ORM.Metadata.GenericType GenericType { get { return (AutoCSer.ORM.Metadata.GenericType)genericType; } }
+        internal AutoCSer.ORM.Metadata.GenericType GenericType { get { return (AutoCSer.ORM.Metadata.GenericType)genericType.notNull(); } }
         /// <summary>
         /// 泛型类型元数据
         /// </summary>
-        internal AutoCSer.ORM.Metadata.StructGenericType StructGenericType { get { return (AutoCSer.ORM.Metadata.StructGenericType)genericType; } }
+        internal AutoCSer.ORM.Metadata.StructGenericType StructGenericType { get { return (AutoCSer.ORM.Metadata.StructGenericType)genericType.notNull(); } }
         /// <summary>
         /// 自定义数据列名称集合
         /// </summary>
@@ -68,7 +81,11 @@ namespace AutoCSer.ORM
         /// <param name="member">字段成员</param>
         /// <param name="attribute">数据库成员信息</param>
         /// <param name="isModel"></param>
+#if NetStandard21
+        private Member(MemberIndexInfo member, MemberAttribute? attribute, bool isModel)
+#else
         private Member(MemberIndexInfo member, MemberAttribute attribute, bool isModel)
+#endif
         {
             Type type = member.MemberSystemType;
             MemberIndex = member;
@@ -80,6 +97,7 @@ namespace AutoCSer.ORM
                 genericType = AutoCSer.ORM.Metadata.StructGenericType.Get(nullableType);
                 if (object.ReferenceEquals(nullableType, type)) CustomColumnAttribute = StructGenericType.CustomColumnAttribute;
             }
+            var customColumnNames = default(CustomColumnName[]);
             if (CustomColumnAttribute == null)
             {
                 NullableElementType = nullableType;
@@ -126,29 +144,30 @@ namespace AutoCSer.ORM
 
                 if (isModel)
                 {
-                    string parentName = null;
+                    var parentName = default(string);
                     switch (CustomColumnAttribute.NameConcatType)
                     {
                         case CustomColumnNameConcatTypeEnum.Parent:
                             if (StructGenericType.CustomColumnMemberCount != 1) throw new IndexOutOfRangeException($"{type.fullName()} 字段数量为 {StructGenericType.CustomColumnMemberCount} 不支持仅父节点名称模式");
                             foreach (CustomColumnName name in StructGenericType.GetCustomColumnMemberNames(member.Member.Name, null))
                             {
-                                CustomColumnNames = new CustomColumnName[] { name };
+                                customColumnNames = new CustomColumnName[] { name };
                                 break;
                             }
                             break;
                         case CustomColumnNameConcatTypeEnum.Node: parentName = null; break;
                         default: parentName = member.Member.Name; break;
                     }
-                    if (CustomColumnNames == null)
+                    if (customColumnNames == null)
                     {
-                        CustomColumnNames = new CustomColumnName[StructGenericType.CustomColumnMemberCount];
+                        customColumnNames = new CustomColumnName[StructGenericType.CustomColumnMemberCount];
                         int index = 0;
-                        foreach(CustomColumnName name in StructGenericType.GetCustomColumnMemberNames(parentName, CustomColumnAttribute.NameConcatSplit ?? string.Empty)) CustomColumnNames[index++] = name;
-                        if (index != CustomColumnNames.Length) throw new IndexOutOfRangeException($"{type.fullName()} 字段数量 {StructGenericType.CustomColumnMemberCount} 不匹配 {index}");
+                        foreach(CustomColumnName name in StructGenericType.GetCustomColumnMemberNames(parentName, CustomColumnAttribute.NameConcatSplit ?? string.Empty)) customColumnNames[index++] = name;
+                        if (index != customColumnNames.Length) throw new IndexOutOfRangeException($"{type.fullName()} 字段数量 {StructGenericType.CustomColumnMemberCount} 不匹配 {index}");
                     }
                 }
             }
+            CustomColumnNames = customColumnNames ?? EmptyArray<CustomColumnName>.Array;
         }
         /// <summary>
         /// 递归获取自定义数据列所有表格列名称
@@ -156,9 +175,14 @@ namespace AutoCSer.ORM
         /// <param name="parentName"></param>
         /// <param name="nameConcatSplit"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal IEnumerable<CustomColumnName> GetCustomColumnMemberNames(string? parentName, string? nameConcatSplit)
+#else
         internal IEnumerable<CustomColumnName> GetCustomColumnMemberNames(string parentName, string nameConcatSplit)
+#endif
         {
-            switch (CustomColumnAttribute.NameConcatType)
+            var attribute = CustomColumnAttribute.notNull();
+            switch (attribute.NameConcatType)
             {
                 case CustomColumnNameConcatTypeEnum.Parent:
                     if (StructGenericType.CustomColumnMemberCount != 1) throw new IndexOutOfRangeException($"{MemberIndex.MemberSystemType.fullName()} 字段数量为 {StructGenericType.CustomColumnMemberCount} 不支持仅父节点名称模式");
@@ -169,10 +193,10 @@ namespace AutoCSer.ORM
                     }
                     break;
                 case CustomColumnNameConcatTypeEnum.Node:
-                    foreach (CustomColumnName name in StructGenericType.GetCustomColumnMemberNames(parentName, CustomColumnAttribute.NameConcatSplit ?? string.Empty)) yield return name;
+                    foreach (CustomColumnName name in StructGenericType.GetCustomColumnMemberNames(parentName, attribute.NameConcatSplit ?? string.Empty)) yield return name;
                     break;
                 default:
-                    foreach (CustomColumnName name in StructGenericType.GetCustomColumnMemberNames(ConcatMemberName(parentName, nameConcatSplit), CustomColumnAttribute.NameConcatSplit ?? string.Empty)) yield return name;
+                    foreach (CustomColumnName name in StructGenericType.GetCustomColumnMemberNames(ConcatMemberName(parentName, nameConcatSplit), attribute.NameConcatSplit ?? string.Empty)) yield return name;
                     break;
             }
         }
@@ -182,7 +206,11 @@ namespace AutoCSer.ORM
         /// <param name="parentName"></param>
         /// <param name="nameConcatSplit"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal string ConcatMemberName(string? parentName, string? nameConcatSplit)
+#else
         internal string ConcatMemberName(string parentName, string nameConcatSplit)
+#endif
         {
             if (string.IsNullOrEmpty(parentName)) return MemberIndex.Member.Name;
             if (nameConcatSplit == null) return parentName;
@@ -194,13 +222,18 @@ namespace AutoCSer.ORM
         /// <param name="memberExpression"></param>
         /// <param name="memberExpressions"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal CustomColumnName GetCustomColumnMemberName(MemberExpression? memberExpression, ref LeftArray<MemberExpression> memberExpressions)
+#else
         internal CustomColumnName GetCustomColumnMemberName(MemberExpression memberExpression, ref LeftArray<MemberExpression> memberExpressions)
+#endif
         {
-            switch (CustomColumnAttribute.NameConcatType)
+            var attribute = CustomColumnAttribute.notNull();
+            switch (attribute.NameConcatType)
             {
                 case CustomColumnNameConcatTypeEnum.Parent: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, MemberIndex.Member.Name, null);
-                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, null, CustomColumnAttribute.NameConcatSplit ?? string.Empty);
-                default: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, MemberIndex.Member.Name, CustomColumnAttribute.NameConcatSplit ?? string.Empty);
+                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, null, attribute.NameConcatSplit ?? string.Empty);
+                default: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, MemberIndex.Member.Name, attribute.NameConcatSplit ?? string.Empty);
             }
         }
         /// <summary>
@@ -211,13 +244,18 @@ namespace AutoCSer.ORM
         /// <param name="parentName"></param>
         /// <param name="nameConcatSplit"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal CustomColumnName GetCustomColumnMemberName(MemberExpression? memberExpression, ref LeftArray<MemberExpression> memberExpressions, string? parentName, string? nameConcatSplit)
+#else
         internal CustomColumnName GetCustomColumnMemberName(MemberExpression memberExpression, ref LeftArray<MemberExpression> memberExpressions, string parentName, string nameConcatSplit)
+#endif
         {
-            switch (CustomColumnAttribute.NameConcatType)
+            var attribute = CustomColumnAttribute.notNull();
+            switch (attribute.NameConcatType)
             {
                 case CustomColumnNameConcatTypeEnum.Parent: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, ConcatMemberName(parentName, nameConcatSplit), null);
-                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, parentName, CustomColumnAttribute.NameConcatSplit ?? string.Empty);
-                default: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, ConcatMemberName(parentName, nameConcatSplit), CustomColumnAttribute.NameConcatSplit ?? string.Empty);
+                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, parentName, attribute.NameConcatSplit ?? string.Empty);
+                default: return StructGenericType.GetCustomColumnMemberName(memberExpression, memberExpressions, ConcatMemberName(parentName, nameConcatSplit), attribute.NameConcatSplit ?? string.Empty);
             }
         }
         /// <summary>
@@ -227,13 +265,18 @@ namespace AutoCSer.ORM
         /// <param name="memberExpressions"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal IEnumerable<KeyValue<CustomColumnName, object?>> GetCustomColumnMemberNameValues(MemberExpression? memberExpression, ref LeftArray<MemberExpression> memberExpressions, object value)
+#else
         internal IEnumerable<KeyValue<CustomColumnName, object>> GetCustomColumnMemberNameValues(MemberExpression memberExpression, ref LeftArray<MemberExpression> memberExpressions, object value)
+#endif
         {
-            switch (CustomColumnAttribute.NameConcatType)
+            var attribute = CustomColumnAttribute.notNull();
+            switch (attribute.NameConcatType)
             {
                 case CustomColumnNameConcatTypeEnum.Parent: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, MemberIndex.Member.Name, null);
-                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, null, CustomColumnAttribute.NameConcatSplit ?? string.Empty);
-                default: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, MemberIndex.Member.Name, CustomColumnAttribute.NameConcatSplit ?? string.Empty);
+                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, null, attribute.NameConcatSplit ?? string.Empty);
+                default: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, MemberIndex.Member.Name, attribute.NameConcatSplit ?? string.Empty);
             }
         }
         /// <summary>
@@ -245,13 +288,18 @@ namespace AutoCSer.ORM
         /// <param name="parentName"></param>
         /// <param name="nameConcatSplit"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal IEnumerable<KeyValue<CustomColumnName, object?>> GetCustomColumnMemberNameValues(MemberExpression? memberExpression, ref LeftArray<MemberExpression> memberExpressions, object value, string? parentName, string? nameConcatSplit)
+#else
         internal IEnumerable<KeyValue<CustomColumnName, object>> GetCustomColumnMemberNameValues(MemberExpression memberExpression, ref LeftArray<MemberExpression> memberExpressions, object value, string parentName, string nameConcatSplit)
+#endif
         {
-            switch (CustomColumnAttribute.NameConcatType)
+            var attribute = CustomColumnAttribute.notNull();
+            switch (attribute.NameConcatType)
             {
                 case CustomColumnNameConcatTypeEnum.Parent: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, ConcatMemberName(parentName, nameConcatSplit), null);
-                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, parentName, CustomColumnAttribute.NameConcatSplit ?? string.Empty);
-                default: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, ConcatMemberName(parentName, nameConcatSplit), CustomColumnAttribute.NameConcatSplit ?? string.Empty);
+                case CustomColumnNameConcatTypeEnum.Node: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, parentName, attribute.NameConcatSplit ?? string.Empty);
+                default: return StructGenericType.GetCustomColumnMemberNameValues(memberExpression, memberExpressions, value, ConcatMemberName(parentName, nameConcatSplit), attribute.NameConcatSplit ?? string.Empty);
             }
         }
         /// <summary>
@@ -345,7 +393,11 @@ namespace AutoCSer.ORM
                     if (IsNullable) return ((Func<DbDataReader, int, float?>)AutoCSer.ORM.Member.readFloatNullable).Method;
                     return ((Func<DbDataReader, int, float>)AutoCSer.ORM.Member.readFloat).Method;
                 case ReaderDataTypeEnum.Json: return GenericType.ReadJsonDelegate.Method;
+#if NetStandard21
+                default: return ((Func<DbDataReader, int, string?>)ReadString).Method;
+#else
                 default: return ((Func<DbDataReader, int, string>)ReadString).Method;
+#endif
             }
         }
 
@@ -378,7 +430,7 @@ namespace AutoCSer.ORM
                     Type type = member.MemberSystemType;
                     if (!type.isIgnoreSerialize() && !member.IsIgnore)
                     {
-                        MemberAttribute attribute = member.GetAttribute<MemberAttribute>(false);
+                        var attribute = member.GetAttribute<MemberAttribute>(false);
                         if (attribute == null || !attribute.GetIsIgnoreCurrent) values.Add(new Member(member, attribute, isModel));
                     }
                 }
@@ -406,7 +458,7 @@ namespace AutoCSer.ORM
                     case ReaderDataTypeEnum.Short: return 9;
                     case ReaderDataTypeEnum.Float: return 10;
                     case ReaderDataTypeEnum.Double: return 11;
-                    case ReaderDataTypeEnum.CustomColumn: return CustomColumnNames == null ? 0xfe : CustomColumnNames.Max(p => p.Member.dataTypeSort);
+                    case ReaderDataTypeEnum.CustomColumn: return object.ReferenceEquals(CustomColumnNames, EmptyArray<CustomColumnName>.Array) ? 0xfe : CustomColumnNames.Max(p => p.Member.dataTypeSort);
                     default: return 0xff;
                 }
             }
@@ -419,7 +471,7 @@ namespace AutoCSer.ORM
             get
             {
                 if (ReaderDataType == ReaderDataTypeEnum.CustomColumn) return CustomColumnNames.Where(p => p.Member.dataTypeSort == 0xff).Max(p => p.Member.stringSizeSort);
-                StringAttribute stringAttribute = Attribute as StringAttribute;
+                var stringAttribute = Attribute as StringAttribute;
                 if (stringAttribute == null || stringAttribute.Size == 0) return int.MaxValue;
                 if (stringAttribute.IsAscii) return stringAttribute.Size;
                 return (int)Math.Min((long)stringAttribute.Size << 1, int.MaxValue);
@@ -450,7 +502,11 @@ namespace AutoCSer.ORM
         /// <param name="reader"></param>
         /// <param name="index"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static string? ReadString(DbDataReader reader, int index)
+#else
         internal static string ReadString(DbDataReader reader, int index)
+#endif
         {
             if (reader.IsDBNull(index)) return null;
             return reader.GetString(index);
@@ -462,7 +518,11 @@ namespace AutoCSer.ORM
         /// <param name="reader"></param>
         /// <param name="index"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static T? ReadJson<T>(DbDataReader reader, int index)
+#else
         internal static T ReadJson<T>(DbDataReader reader, int index)
+#endif
         {
             if (reader.IsDBNull(index)) return default(T);
             string jsonString = reader.GetString(index);
@@ -475,7 +535,11 @@ namespace AutoCSer.ORM
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static string? JsonSerialize<T>(T value)
+#else
         internal static string JsonSerialize<T>(T value)
+#endif
         {
             return value == null ? null : AutoCSer.JsonSerializer.Serialize(value);
         }
@@ -490,7 +554,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(DateTimeOffset)) return (DateTimeOffset)reader.GetValue(index);
             if (reader.IsDBNull(index)) return default(DateTimeOffset);
-            return DateTimeOffset.Parse(reader[index].ToString());
+            return DateTimeOffset.Parse(reader[index].ToString().notNull());
         }
         /// <summary>
         /// 读取数据
@@ -502,7 +566,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(DateTimeOffset)) return (DateTimeOffset)reader.GetValue(index);
-            return DateTimeOffset.Parse(reader[index].ToString());
+            return DateTimeOffset.Parse(reader[index].ToString().notNull());
         }
         /// <summary>
         /// 读取数据
@@ -514,7 +578,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(TimeSpan)) return (TimeSpan)reader.GetValue(index);
             if (reader.IsDBNull(index)) return default(TimeSpan);
-            return TimeSpan.Parse(reader[index].ToString());
+            return TimeSpan.Parse(reader[index].ToString().notNull());
         }
         /// <summary>
         /// 读取数据
@@ -526,7 +590,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(TimeSpan)) return (TimeSpan)reader.GetValue(index);
-            return TimeSpan.Parse(reader[index].ToString());
+            return TimeSpan.Parse(reader[index].ToString().notNull());
         }
         /// <summary>
         /// 获取读取数据访问信息
@@ -573,7 +637,11 @@ namespace AutoCSer.ORM
                     if (IsNullable) return ((Func<DbDataReader, int, float?>)AutoCSer.ORM.Member.readFloatNullableObject).Method;
                     return ((Func<DbDataReader, int, float>)AutoCSer.ORM.Member.readFloatObject).Method;
                 case ReaderDataTypeEnum.Json: return GenericType.ReadJsonDelegate.Method;
+#if NetStandard21
+                default: return ((Func<DbDataReader, int, string?>)ReadStringObject).Method;
+#else
                 default: return ((Func<DbDataReader, int, string>)ReadStringObject).Method;
+#endif
             }
         }
         /// <summary>
@@ -582,7 +650,11 @@ namespace AutoCSer.ORM
         /// <param name="reader"></param>
         /// <param name="index"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static string? ReadStringObject(DbDataReader reader, int index)
+#else
         internal static string ReadStringObject(DbDataReader reader, int index)
+#endif
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(string)) return reader.GetString(index);
@@ -701,7 +773,11 @@ namespace AutoCSer.ORM
                     if (IsNullable) return ((Func<RemoteProxy.DataValue[], int, float?>)AutoCSer.ORM.Member.readFloatNullable).Method;
                     return ((Func<RemoteProxy.DataValue[], int, float>)AutoCSer.ORM.Member.readFloat).Method;
                 case ReaderDataTypeEnum.Json: return GenericType.ReadRemoteProxyJsonDelegate.Method;
+#if NetStandard21
+                default: return ((Func<RemoteProxy.DataValue[], int, string?>)ReadRemoteProxyString).Method;
+#else
                 default: return ((Func<RemoteProxy.DataValue[], int, string>)ReadRemoteProxyString).Method;
+#endif
             }
         }
         /// <summary>
@@ -711,7 +787,11 @@ namespace AutoCSer.ORM
         /// <param name="index"></param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static string? ReadRemoteProxyString(RemoteProxy.DataValue[] row, int index)
+#else
         internal static string ReadRemoteProxyString(RemoteProxy.DataValue[] row, int index)
+#endif
         {
             return row[index].ReadString();
         }
@@ -722,9 +802,13 @@ namespace AutoCSer.ORM
         /// <param name="row"></param>
         /// <param name="index"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static T? ReadRemoteProxyJson<T>(RemoteProxy.DataValue[] row, int index)
+#else
         internal static T ReadRemoteProxyJson<T>(RemoteProxy.DataValue[] row, int index)
+#endif
         {
-            string jsonString = row[index].ReadString();
+            var jsonString = row[index].ReadString();
             if (string.IsNullOrEmpty(jsonString)) return default(T);
             return AutoCSer.JsonDeserializer.Deserialize<T>(jsonString);
         }
@@ -743,7 +827,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 获取数据验证方法
         /// </summary>
+#if NetStandard21
+        internal MethodInfo? VerifyMethod
+#else
         internal MethodInfo VerifyMethod
+#endif
         {
             get
             {
@@ -857,7 +945,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         private decimal verify(decimal value)
         {
-            MoneyAttribute moneyAttribute = Attribute as MoneyAttribute;
+            var moneyAttribute = Attribute as MoneyAttribute;
             if (moneyAttribute != null)
             {
                 value = moneyAttribute.Verify(value);
@@ -903,7 +991,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 获取自定义接口数据验证方法
         /// </summary>
+#if NetStandard21
+        internal MethodInfo? VerifyInterfaceMethod
+#else
         internal MethodInfo VerifyInterfaceMethod
+#endif
         {
             get
             {
@@ -913,7 +1005,7 @@ namespace AutoCSer.ORM
                     case ReaderDataTypeEnum.CustomColumn:
                         if (typeof(IVerify).IsAssignableFrom(MemberIndex.MemberSystemType))
                         {
-                            MethodInfo method = MemberIndex.MemberSystemType.GetMethod(nameof(Verify), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, EmptyArray<Type>.Array, null);
+                            MethodInfo method = MemberIndex.MemberSystemType.GetMethod(nameof(Verify), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, EmptyArray<Type>.Array, null).notNull();
                             if (method.ReturnType == MemberIndex.MemberSystemType) return method;
                         }
                         break;

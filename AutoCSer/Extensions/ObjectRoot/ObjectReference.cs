@@ -1,3 +1,4 @@
+using AutoCSer.Extensions;
 using System;
 
 namespace AutoCSer.ObjectRoot
@@ -54,9 +55,13 @@ namespace AutoCSer.ObjectRoot
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+#if NetStandard21
+        public override bool Equals(object? obj)
+#else
         public override bool Equals(object obj)
+#endif
         {
-            return Equals((ObjectReference)obj);
+            return Equals(obj.castValue<ObjectReference>());
         }
     }
 }

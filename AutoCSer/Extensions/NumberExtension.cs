@@ -687,7 +687,7 @@ namespace AutoCSer.Extensions
         /// <returns>16位十六进制字符串</returns>
         public static string toHex(this ulong value)
         {
-            string hexs = AutoCSer.Common.Config.AllocateString(16);
+            string hexs = AutoCSer.Common.AllocateString(16);
             fixed (char* hexFixed = hexs) toHex(value, hexFixed);
             return hexs;
         }
@@ -710,7 +710,7 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string toHex(this uint value)
         {
-            string hexs = Common.Config.AllocateString(8);
+            string hexs = AutoCSer.Common.AllocateString(8);
             fixed (char* hexFixed = hexs) toHex(value, hexFixed);
             return hexs;
         }

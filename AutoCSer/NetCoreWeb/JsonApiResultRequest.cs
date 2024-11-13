@@ -74,7 +74,7 @@ namespace AutoCSer.NetCoreWeb
             return result;
         }
     }
-#if DEBUG
+#if DEBUG && NetStandard21
 #pragma warning disable
     internal struct JsonApiResultRequestParameter
     {

@@ -113,7 +113,7 @@ namespace AutoCSer.FieldEquals
             {
                 if (!right.HasValue) return true;
             }
-            if (right.HasValue) return Comparor<T>.EqualsComparor(left.Value, right.Value);
+            else if (right.HasValue) return Comparor<T>.EqualsComparor(left.Value, right.Value);
             Breakpoint(typeof(T?), right.HasValue, right.HasValue);
             return false;
         }
@@ -194,7 +194,7 @@ namespace AutoCSer.FieldEquals
             {
                 if (leftArray.Count == rightArray.Count)
                 {
-                    VT right;
+                    var right = default(VT);
                     foreach (KeyValuePair<KT, VT> left in leftArray)
                     {
                         if (rightArray.TryGetValue(left.Key, out right))
@@ -204,7 +204,7 @@ namespace AutoCSer.FieldEquals
                         else
                         {
                             Breakpoint(typeof(T));
-                            Comparor<KT>.EqualsComparor(left.Key, default(KT));
+                            //Comparor<KT>.EqualsComparor(left.Key, default(KT));
                             return false;
                         }
                     }
@@ -227,7 +227,11 @@ namespace AutoCSer.FieldEquals
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        internal static void Breakpoint(Type type, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         internal static void Breakpoint(Type type, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             if (IsBreakpoint) AutoCSer.ConsoleWriteQueue.Breakpoint(type.fullName(), callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -240,7 +244,11 @@ namespace AutoCSer.FieldEquals
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        internal static void Breakpoint<T>(T left, T right, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         internal static void Breakpoint<T>(T left, T right, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             if (IsBreakpoint) AutoCSer.ConsoleWriteQueue.Breakpoint($"{typeof(T).fullName()} {left} <> {right}", callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -254,7 +262,11 @@ namespace AutoCSer.FieldEquals
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        internal static void Breakpoint<T>(Type type, T left, T right, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         internal static void Breakpoint<T>(Type type, T left, T right, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             if (IsBreakpoint) AutoCSer.ConsoleWriteQueue.Breakpoint($"{type.fullName()} {left} <> {right}", callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -362,7 +374,11 @@ namespace AutoCSer.FieldEquals
         /// 获取对象比较委托
         /// </summary>
         /// <returns>对象比较委托</returns>
+#if NetStandard21
+        private static Delegate? getDelegate()
+#else
         private static Delegate getDelegate()
+#endif
         {
             Type type = typeof(T);
             if (typeof(IEquatable<T>).IsAssignableFrom(type))
@@ -374,7 +390,7 @@ namespace AutoCSer.FieldEquals
             }
             if (type.IsArray)
             {
-                if (type.GetArrayRank() == 1) return GenericType.Get(type.GetElementType()).ArrayDelegate;
+                if (type.GetArrayRank() == 1) return GenericType.Get(type.GetElementType().notNull()).ArrayDelegate;
                 return (Func<T, T, bool>)notSupport;
             }
             if (type.IsEnum) return EnumGenericType.Get(type).EqualsDelegate;
@@ -391,7 +407,7 @@ namespace AutoCSer.FieldEquals
         }
         static Comparor()
         {
-            Delegate equalsDelegate = getDelegate();
+            var equalsDelegate = getDelegate();
             if (equalsDelegate != null)
             {
                 EqualsComparor = (Func<T, T, bool>)equalsDelegate;
@@ -402,7 +418,7 @@ namespace AutoCSer.FieldEquals
             MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(genericType, false);
             foreach (FieldInfo field in typeof(T).GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly))
             {
-                if (((MemberInfo)field.getPropertyInfo() ?? field).GetCustomAttribute(typeof(IgnoreAttribute), false) == null) dynamicMethod.Push(field);
+                if ((field.getPropertyMemberInfo() ?? field).GetCustomAttribute(typeof(IgnoreAttribute), false) == null) dynamicMethod.Push(field);
             }
             dynamicMethod.Base();
             EqualsComparor = (Func<T, T, bool>)dynamicMethod.Create(typeof(Func<T, T, bool>));

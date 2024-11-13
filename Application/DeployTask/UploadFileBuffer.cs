@@ -18,12 +18,27 @@ namespace AutoCSer.CommandService.DeployTask
         /// </summary>
         internal int Length;
         /// <summary>
+        /// 上传文件缓冲区
+        /// </summary>
+        private UploadFileBuffer()
+        {
+            Buffer = EmptyArray<byte>.Array;
+        }
+        /// <summary>
+        /// 上传文件缓冲区
+        /// </summary>
+        /// <param name="buffer">数据缓冲区</param>
+        internal UploadFileBuffer(byte[] buffer)
+        {
+            this.Buffer = buffer;
+        }
+        /// <summary>
         /// 释放数据缓冲区
         /// </summary>
         internal void Free()
         {
-            byte[] buffer = Interlocked.Exchange(ref this.Buffer, null);
-            if (buffer != null)
+            byte[] buffer = Interlocked.Exchange(ref this.Buffer, EmptyArray<byte>.Array);
+            if (!object.ReferenceEquals(buffer, EmptyArray<byte>.Array))
             {
                 Monitor.Enter(bufferLock);
                 buffers.TryAdd(buffer);
@@ -45,7 +60,9 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="deserializer"></param>
         void AutoCSer.BinarySerialize.ICustomSerialize<UploadFileBuffer>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            Length = deserializer.DeserializeBuffer(getBufferHandle, out Buffer);
+            var buffer = default(byte[]);
+            Length = deserializer.DeserializeBuffer(getBufferHandle, out buffer);
+            Buffer = buffer ?? EmptyArray<byte>.Array;
         }
 
         /// <summary>
@@ -65,11 +82,15 @@ namespace AutoCSer.CommandService.DeployTask
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static byte[]? getBuffer(int length)
+#else
         private static byte[] getBuffer(int length)
+#endif
         {
             if (length <= DeployTaskConfig.UploadFileBufferSize)
             {
-                byte[] buffer;
+                var buffer = default(byte[]);
                 Monitor.Enter(bufferLock);
                 if (buffers.TryPop(out buffer))
                 {
@@ -84,10 +105,14 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 获取缓冲区
         /// </summary>
+#if NetStandard21
+        private static readonly Func<int, byte[]?> getBufferHandle = getBuffer;
+#else
         private static readonly Func<int, byte[]> getBufferHandle = getBuffer;
+#endif
         static UploadFileBuffer()
         {
-            DeployTaskConfig = ((ConfigObject<DeployTaskConfig>)AutoCSer.Configuration.Common.Get(typeof(DeployTaskConfig)))?.Value ?? new DeployTaskConfig();
+            DeployTaskConfig = AutoCSer.Configuration.Common.Get<DeployTaskConfig>()?.Value ?? new DeployTaskConfig();
             buffers = new LeftArray<byte[]>(DeployTaskConfig.UploadFileBufferCount);
         }
     }

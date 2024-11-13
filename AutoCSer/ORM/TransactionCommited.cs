@@ -1,4 +1,5 @@
-﻿using AutoCSer.Metadata;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Metadata;
 using System;
 using System.Threading.Tasks;
 
@@ -44,7 +45,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 更新操作成员
         /// </summary>
+#if NetStandard21
+        private readonly MemberMap<T>? memberMap;
+#else
         private readonly MemberMap<T> memberMap;
+#endif
         /// <summary>
         /// 事务提交事件
         /// </summary>
@@ -52,7 +57,11 @@ namespace AutoCSer.ORM
         /// <param name="tableWriter"></param>
         /// <param name="value"></param>
         /// <param name="memberMap"></param>
+#if NetStandard21
+        private TransactionCommited(TableEventTypeEnum eventType, TableWriter<T> tableWriter, T value, MemberMap<T>? memberMap = null) : base(eventType)
+#else
         private TransactionCommited(TableEventTypeEnum eventType, TableWriter<T> tableWriter, T value, MemberMap<T> memberMap = null) : base(eventType)
+#endif
         {
             this.tableWriter = tableWriter;
             this.value = value;
@@ -71,7 +80,7 @@ namespace AutoCSer.ORM
                     switch (eventType)
                     {
                         case TableEventTypeEnum.Insert: await tableEvent.OnInsertedCommited(value); break;
-                        case TableEventTypeEnum.Update: await tableEvent.OnUpdatedCommited(value, memberMap); break;
+                        case TableEventTypeEnum.Update: await tableEvent.OnUpdatedCommited(value, memberMap.notNull()); break;
                         case TableEventTypeEnum.Delete: await tableEvent.OnDeletedCommited(value); break;
                     }
                 }
@@ -88,7 +97,11 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static async Task<bool> OnInserted(TableWriter<T> tableWriter, T value, Transaction? transaction)
+#else
         internal static async Task<bool> OnInserted(TableWriter<T> tableWriter, T value, Transaction transaction)
+#endif
         {
             if (transaction == null)
             {
@@ -126,7 +139,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static async Task<bool> OnUpdated(TableWriter<T> tableWriter, T value, MemberMap<T> memberMap, Transaction? transaction)
+#else
         internal static async Task<bool> OnUpdated(TableWriter<T> tableWriter, T value, MemberMap<T> memberMap, Transaction transaction)
+#endif
         {
             if (transaction == null)
             {
@@ -163,7 +180,11 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static async Task<bool> OnDeleted(TableWriter<T> tableWriter, T? value, Transaction? transaction)
+#else
         internal static async Task<bool> OnDeleted(TableWriter<T> tableWriter, T value, Transaction transaction)
+#endif
         {
             if (transaction == null)
             {
@@ -171,7 +192,7 @@ namespace AutoCSer.ORM
                 {
                     try
                     {
-                        await tableEvent.OnDeleted(value);
+                        await tableEvent.OnDeleted(value.notNull());
                     }
                     catch (Exception exception)
                     {
@@ -183,13 +204,13 @@ namespace AutoCSer.ORM
             {
                 foreach (ITableEvent<T> tableEvent in tableWriter.Events)
                 {
-                    if (!await tableEvent.OnDeleted(value, transaction))
+                    if (!await tableEvent.OnDeleted(value.notNull(), transaction))
                     {
                         await transaction.DisposeAsync();
                         return false;
                     }
                 }
-                transaction.Commiteds.Add(new TransactionCommited<T>(TableEventTypeEnum.Delete, tableWriter, value));
+                transaction.Commiteds.Add(new TransactionCommited<T>(TableEventTypeEnum.Delete, tableWriter, value.notNull()));
             }
             return true;
         }

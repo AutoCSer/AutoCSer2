@@ -29,7 +29,11 @@ namespace AutoCSer.ORM
         /// <param name="members">数据表格模型字段成员集合</param>
         /// <param name="primaryKey">关键字字段成员</param>
         /// <param name="tableEvent">表格操作事件处理</param>
+#if NetStandard21
+        internal AutoIdentityTableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T>? tableEvent)
+#else
         internal AutoIdentityTableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T> tableEvent)
+#endif
             : base(connectionPool, attribute, members, primaryKey, tableEvent)
         {
         }
@@ -47,10 +51,10 @@ namespace AutoCSer.ORM
         {
             QueryBuilder<T> query = CreateQuery(null, false).OrderBy(PrimaryKey.MemberIndex.Member.Name, false, false);
             query.MemberMap = PrimaryKeyMemberMap;
-            T value = await query.SingleOrDefault();
+            var value = await query.SingleOrDefault();
             if (value != null) currentIdentity = primaryKeyToIdentity(GetPrimaryKey(value));
 
-            AutoIdentity autoIdentity = await ConnectionPool.CheckAutoIdentity(TableName);
+            var autoIdentity = await ConnectionPool.CheckAutoIdentity(TableName);
             if (autoIdentity != null && autoIdentity.Identity > currentIdentity) currentIdentity = (int)autoIdentity.Identity;
         }
     }
@@ -69,7 +73,11 @@ namespace AutoCSer.ORM
         /// <param name="members">数据表格模型字段成员集合</param>
         /// <param name="primaryKey">关键字字段成员</param>
         /// <param name="tableEvent">表格操作事件处理</param>
+#if NetStandard21
+        internal AutoIdentityTableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T>? tableEvent)
+#else
         internal AutoIdentityTableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T> tableEvent)
+#endif
             : base(connectionPool, attribute, members, primaryKey, tableEvent)
         {
         }
@@ -112,7 +120,11 @@ namespace AutoCSer.ORM
         /// <param name="members">数据表格模型字段成员集合</param>
         /// <param name="primaryKey">关键字字段成员</param>
         /// <param name="tableEvent">表格操作事件处理</param>
+#if NetStandard21
+        internal AutoIdentityTableWriter64(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T>? tableEvent)
+#else
         internal AutoIdentityTableWriter64(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T> tableEvent)
+#endif
             : base(connectionPool, attribute, members, primaryKey, tableEvent)
         {
         }

@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -76,16 +77,22 @@ namespace AutoCSer.Net
         /// <param name="onPacket">数据包处理委托</param>
         /// <param name="bufferPool">接收缓冲区池，默认为 128KB</param>
         /// <param name="packetSize">数据包字节数，默认为 1500</param>
+#if NetStandard21
+        public RawSocketListener(IPAddress ipAddress, Action<RawSocketBuffer> onPacket, ByteArrayPool? bufferPool = null, int packetSize = defaultBufferSize)
+#else
         public RawSocketListener(IPAddress ipAddress, Action<RawSocketBuffer> onPacket, ByteArrayPool bufferPool = null, int packetSize = defaultBufferSize)
+#endif
         {
             if (onPacket == null) throw new ArgumentNullException();
             this.bufferPool = bufferPool ?? ByteArrayPool.GetPool(BufferSizeBitsEnum.Kilobyte128);
             if (packetSize <= 0) packetSize = defaultBufferSize;
-            else if (packetSize > bufferPool.Size) packetSize = bufferPool.Size;
+            else if (packetSize > this.bufferPool.Size) packetSize = this.bufferPool.Size;
             this.packetSize = packetSize;
-            maxBufferIndex = bufferPool.Size - packetSize;
+            maxBufferIndex = this.bufferPool.Size - packetSize;
             ipEndPoint = new IPEndPoint(ipAddress, 0);
             onReceiveAsyncCallback = onReceive;
+            socket = AutoCSer.Net.CommandServerConfigBase.NullSocket;
+            buffer = BufferCount.Null;
             async = new SocketAsyncEventArgs();
             async.SocketFlags = SocketFlags.None;
             async.DisconnectReuseSocket = false;
@@ -110,9 +117,9 @@ namespace AutoCSer.Net
         private void closeSocket()
         {
             Socket socket = this.socket;
-            if (socket != null)
+            if (!object.ReferenceEquals(socket, AutoCSer.Net.CommandServerConfigBase.NullSocket))
             {
-                this.socket = null;
+                this.socket = AutoCSer.Net.CommandServerConfigBase.NullSocket;
                 try
                 {
                     if (socket.Connected) socket.Shutdown(SocketShutdown.Both);
@@ -153,10 +160,11 @@ namespace AutoCSer.Net
                 }
                 IsError = true;
             }
-            if (buffer != null)
+            var buffer = this.buffer;
+            if (!object.ReferenceEquals(buffer, BufferCount.Null))
             {
+                this.buffer = BufferCount.Null;
                 buffer.Free();
-                buffer = null;
             }
             using (async) async.Completed -= onReceiveAsyncCallback;
             queue.Dispose();
@@ -169,12 +177,12 @@ namespace AutoCSer.Net
         {
             do
             {
-                if (buffer == null)
+                if (object.ReferenceEquals(buffer, BufferCount.Null))
                 {
                     buffer = new BufferCount(bufferPool);
                     bufferIndex = buffer.Buffer.StartIndex;
                     bufferEndIndex = bufferIndex + bufferPool.Size;
-                    async.SetBuffer(buffer.Buffer.Buffer.Buffer, bufferIndex, bufferPool.Size);
+                    async.SetBuffer(buffer.Buffer.Buffer.notNull().Buffer, bufferIndex, bufferPool.Size);
                 }
                 else async.SetBuffer(bufferIndex, bufferEndIndex - bufferIndex);
                 if (socket.ReceiveAsync(async)) return true;
@@ -188,7 +196,11 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="async">异步回调参数</param>
+#if NetStandard21
+        private void onReceive(object? sender, SocketAsyncEventArgs async)
+#else
         private void onReceive(object sender, SocketAsyncEventArgs async)
+#endif
         {
             try
             {
@@ -215,7 +227,7 @@ namespace AutoCSer.Net
             {
                 queue.Add(new RawSocketBuffer(buffer, bufferIndex, count));
                 bufferIndex += (count + 3) & (int.MaxValue - 3);
-                if (bufferIndex - buffer.Buffer.StartIndex > maxBufferIndex) buffer = null;
+                if (bufferIndex - buffer.Buffer.StartIndex > maxBufferIndex) buffer = BufferCount.Null;
             }
         }
     }

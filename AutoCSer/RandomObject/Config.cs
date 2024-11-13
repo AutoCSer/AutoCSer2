@@ -55,7 +55,11 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual Delegate? GetCustomCreator(Type type)
+#else
         public virtual Delegate GetCustomCreator(Type type)
+#endif
         {
             return null;
         }
@@ -64,24 +68,36 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+#if NetStandard21
+        public virtual T? CreateNotSupport<T>()
+#else
         public virtual T CreateNotSupport<T>()
+#endif
         {
             return default(T);
         }
         /// <summary>
         /// 历史对象集合
         /// </summary>
+#if NetStandard21
+        private Dictionary<HashObject<System.Type>, ListArray<object>>? history;
+#else
         private Dictionary<HashObject<System.Type>, ListArray<object>> history;
+#endif
         /// <summary>
         /// 获取历史对象
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal object? TryGetValue(Type type)
+#else
         internal object TryGetValue(Type type)
+#endif
         {
             if (history != null && AutoCSer.Random.Default.NextBit() == 0)
             {
-                ListArray<object> objects;
+                var objects = default(ListArray<object>);
                 if (history.TryGetValue(type, out objects)) return objects.Array.Array[AutoCSer.Random.Default.Next(objects.Array.Length)];
             }
             return null;
@@ -94,7 +110,7 @@ namespace AutoCSer.RandomObject
         internal void SaveHistory(Type type, object value)
         {
             if (!IsHistory || value == null) return;
-            ListArray<object> objects;
+            var objects = default(ListArray<object>);
             if (history == null) history = DictionaryCreator.CreateHashObject<System.Type, ListArray<object>>();
             if (!history.TryGetValue(type, out objects)) history.Add(type, objects = new ListArray<object>());
             objects.Add(value);

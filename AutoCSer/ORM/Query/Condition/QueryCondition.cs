@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.ORM.QueryParameter;
 using System;
 using System.Collections;
@@ -89,44 +90,44 @@ namespace AutoCSer.ORM
                 case QueryMatchTypeEnum.In: writeIn(charStream, connectionCreator, false); break;
                 case QueryMatchTypeEnum.NotIn: writeIn(charStream, connectionCreator, true); break;
                 case QueryMatchTypeEnum.Like:
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     charStream.SimpleWrite(" like ");
                     connectionCreator.ConvertLike(charStream, (string)fieldValue, true, true);
                     break;
                 case QueryMatchTypeEnum.StartsWith:
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     charStream.SimpleWrite(" like ");
                     connectionCreator.ConvertLike(charStream, (string)fieldValue, false, true);
                     break;
                 case QueryMatchTypeEnum.EndsWith:
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     charStream.SimpleWrite(" like ");
                     connectionCreator.ConvertLike(charStream, (string)fieldValue, true, false);
                     break;
                 case QueryMatchTypeEnum.Contains:
                     charStream.SimpleWrite(" contains(");
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     connectionCreator.Convert(charStream, (string)fieldValue);
                     charStream.Write(')');
                     break;
                 case QueryMatchTypeEnum.NotLike:
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     charStream.SimpleWrite(" not like ");
                     connectionCreator.ConvertLike(charStream, (string)fieldValue, true, true);
                     break;
                 case QueryMatchTypeEnum.NotStartsWith:
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     charStream.SimpleWrite(" not like ");
                     connectionCreator.ConvertLike(charStream, (string)fieldValue, false, true);
                     break;
                 case QueryMatchTypeEnum.NotEndsWith:
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     charStream.SimpleWrite(" not like ");
                     connectionCreator.ConvertLike(charStream, (string)fieldValue, true, false);
                     break;
                 case QueryMatchTypeEnum.NotContains:
                     charStream.SimpleWrite(" not contains(");
-                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+                    connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
                     charStream.Write(',');
                     connectionCreator.Convert(charStream, (string)fieldValue);
                     charStream.Write(')');
@@ -141,11 +142,11 @@ namespace AutoCSer.ORM
         /// <param name="isNot"></param>
         private void writeIn(CharStream charStream, ConnectionCreator connectionCreator, bool isNot)
         {
-            Action<CharStream, object> toString = connectionCreator.GetConstantConverter(memberParameter.Field.ElementType, memberParameter.ColumnIndex.Member);
-            connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+            Action<CharStream, object> toString = connectionCreator.GetConstantConverter(memberParameter.Field.ElementType.notNull(), memberParameter.ColumnIndex.Member);
+            connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
             charStream.SimpleWrite(isNot ? " not in(" : " in(");
             int index = 0;
-            ICollection collection = fieldValue as ICollection;
+            var collection = (fieldValue as ICollection).notNull();
             foreach (object value in collection)
             {
                 if (index++ == 0) charStream.Write(',');
@@ -161,7 +162,7 @@ namespace AutoCSer.ORM
         /// <param name="compareTo"></param>
         private void writeCompareTo(CharStream charStream, ConnectionCreator connectionCreator, char compareTo)
         {
-            connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+            connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
             charStream.Write(compareTo);
             object value = memberParameter.Field.GenericType == null ? fieldValue : memberParameter.Field.GenericType.GetNullableValue(fieldValue);
             connectionCreator.GetConstantConverter(value.GetType(), memberParameter.ColumnIndex.Member)(charStream, value);
@@ -175,7 +176,7 @@ namespace AutoCSer.ORM
         /// <param name="char2"></param>
         private void writeCompareTo(CharStream charStream, ConnectionCreator connectionCreator, char char1, char char2)
         {
-            connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName);
+            connectionCreator.FormatName(charStream, memberParameter.ColumnIndex.ColumnName.notNull());
             charStream.Write(char1);
             charStream.Write(char2);
             object value = memberParameter.Field.GenericType == null ? fieldValue : memberParameter.Field.GenericType.GetNullableValue(fieldValue);

@@ -22,7 +22,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 自定义序列化
         /// </summary>
+#if NetStandard21
+        private readonly Action<BinaryDeserializer>? deserializer;
+#else
         private readonly Action<BinaryDeserializer> deserializer;
+#endif
         /// <summary>
         /// 读取数据缓冲区
         /// </summary>

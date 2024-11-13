@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer
@@ -85,9 +86,13 @@ namespace AutoCSer
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+#if NetStandard21
+        public override bool Equals(object? obj)
+#else
         public override bool Equals(object obj)
+#endif
         {
-            return Equals((HashSubString)obj);
+            return Equals(obj.castValue<HashSubString>());
         }
         /// <summary>
         /// 判断字符串是否相等
@@ -103,7 +108,11 @@ namespace AutoCSer
         /// 转换成字符串
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        public override string? ToString()
+#else
         public override string ToString()
+#endif
         {
             return String.ToString();
         }

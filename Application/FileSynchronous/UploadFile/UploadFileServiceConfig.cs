@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Net;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.CommandService.FileSynchronous
 {
@@ -9,13 +10,16 @@ namespace AutoCSer.CommandService.FileSynchronous
     public class UploadFileServiceConfig
     {
         /// <summary>
-        /// 套接字自定义会话对象操作
-        /// </summary>
-        public ICommandServerSocketSessionObject<UploadFileService, UploadFileService> CommandServerSocketSessionObject;
-        /// <summary>
         /// 备份文件目录
         /// </summary>
+#if NET8
+        public required string BackupPath;
+#else
+#if NetStandard21
+        [AllowNull]
+#endif
         public string BackupPath;
+#endif
         /// <summary>
         /// 文件上传操作超时检查秒数，默认为 4，最小值为 1
         /// </summary>

@@ -9,11 +9,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public interface IStreamPersistenceMemoryDatabaseClientBase
     {
         /// <summary>
-        /// 创建会话对象，用于反序列化时获取服务信息
-        /// </summary>
-        /// <returns></returns>
-        SendOnlyCommand CreateSessionObject();
-        /// <summary>
         /// 获取服务端 UTC 时间
         /// </summary>
         /// <returns></returns>

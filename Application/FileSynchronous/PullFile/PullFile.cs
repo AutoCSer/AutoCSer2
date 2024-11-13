@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -18,11 +19,19 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <summary>
         /// 客户端写入文件流
         /// </summary>
+#if NetStandard21
+        private FileStream? writeStream;
+#else
         private FileStream writeStream;
+#endif
         /// <summary>
         /// 获取文件数据命令
         /// </summary>
+#if NetStandard21
+        private EnumeratorCommand<PullFileBuffer?>? getFileDataCommand;
+#else
         private EnumeratorCommand<PullFileBuffer> getFileDataCommand;
+#endif
         /// <summary>
         /// 文件读取状态
         /// </summary>
@@ -101,10 +110,10 @@ namespace AutoCSer.CommandService.FileSynchronous
                             {
                                 case (byte)PullFileStateEnum.Success: return;
                                 case (byte)PullFileStateEnum.NotExist:
-#if DotNet45 || NetStandard2
-                                    writeStream.Dispose();
-#else
+#if NetStandard21
                                     await writeStream.DisposeAsync();
+#else
+                                    writeStream.Dispose();
 #endif
                                     writeStream = null;
                                     if (client.IsDelete) await AutoCSer.Common.Config.DeleteFile(ClientFile);
@@ -112,10 +121,10 @@ namespace AutoCSer.CommandService.FileSynchronous
                                     return;
                                 case (byte)PullFileStateEnum.LengthLess:
                                 case (byte)PullFileStateEnum.LastWriteTimeNotMatch:
-#if DotNet45 || NetStandard2
-                                    writeStream.Dispose();
-#else
+#if NetStandard21
                                     await writeStream.DisposeAsync();
+#else
+                                    writeStream.Dispose();
 #endif
                                     writeStream = null;
                                     await AutoCSer.Common.Config.DeleteFile(ClientFile);
@@ -152,10 +161,10 @@ namespace AutoCSer.CommandService.FileSynchronous
                 else client.onFileError(ClientFile, FileInfo.FullName, (PullFileStateEnum)(byte)fileReadState);
                 if (writeStream != null)
                 {
-#if DotNet45 || NetStandard2
-                    writeStream.Dispose();
-#else
+#if NetStandard21
                     await writeStream.DisposeAsync();
+#else
+                    writeStream.Dispose();
 #endif
                     ClientFile.LastWriteTimeUtc = FileInfo.LastWriteTime;
                 }
@@ -168,7 +177,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Write(ref SubArray<byte> buffer)
         {
-            writeStream.Write(buffer.Array, buffer.Start, buffer.Length);
+            writeStream.notNull().Write(buffer.Array, buffer.Start, buffer.Length);
         }
         /// <summary>
         /// 错误处理
@@ -178,7 +187,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         internal void Error(int state)
         {
             fileReadState = state;
-            getFileDataCommand.CancelKeepCallback(CommandClientReturnTypeEnum.ClientDeserializeError, null);
+            getFileDataCommand.notNull().CancelKeepCallback(CommandClientReturnTypeEnum.ClientDeserializeError, null);
         }
     }
 }

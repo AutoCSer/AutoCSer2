@@ -28,7 +28,7 @@ namespace AutoCSer.CommandService
         {
             Process process = Process.GetProcessById(processInfo.ProcessID);
             if (process == null || process.ProcessName != processInfo.ProcessName) return false;
-            GuardProcess guardProcess;
+            var guardProcess = default(GuardProcess);
             if (!guards.TryGetValue(processInfo.ProcessID, out guardProcess))
             {
                 guards.Add(processInfo.ProcessID, new GuardProcess(this, processInfo, process));
@@ -44,7 +44,7 @@ namespace AutoCSer.CommandService
         /// <param name="processName">进程名称</param>
         public virtual void Remove(CommandServerSocket socket, CommandServerCallLowPriorityQueue queue, int processId, string processName)
         {
-            GuardProcess guardProcess;
+            var guardProcess = default(GuardProcess);
             if (guards.TryGetValue(processId, out guardProcess) && guardProcess.ProcessInfo.ProcessName == processName)
             {
                 guards.Remove(processId);
@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService
         /// <param name="guardProcess"></param>
         public virtual void OnStart(GuardProcess guardProcess)
         {
-            GuardProcess existsGuardProcess;
+            var existsGuardProcess = default(GuardProcess);
             if (guards.TryGetValue(guardProcess.ProcessInfo.ProcessID, out existsGuardProcess)
                 && object.ReferenceEquals(guardProcess, existsGuardProcess))
             {

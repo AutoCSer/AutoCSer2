@@ -19,17 +19,17 @@ namespace AutoCSer.Extensions
         {
             return array == null || array.Length == 0;
         }
-        /// <summary>
-        /// 空值转0长度数组
-        /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="array">数组数据</param>
-        /// <returns>非空数组</returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static T[] notNull<T>(this T[] array)
-        {
-            return array != null ? array : EmptyArray<T>.Array;
-        }
+        ///// <summary>
+        ///// 空值转0长度数组
+        ///// </summary>
+        ///// <typeparam name="T">数据类型</typeparam>
+        ///// <param name="array">数组数据</param>
+        ///// <returns>非空数组</returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public static T[] notNull<T>(this T[] array)
+        //{
+        //    return array != null ? array : EmptyArray<T>.Array;
+        //}
         /// <summary>
         /// 复制数组
         /// </summary>
@@ -173,7 +173,7 @@ namespace AutoCSer.Extensions
         {
             int length = 0;
             foreach (string nextString in array) length += nextString.Length;
-            string value = AutoCSer.Common.Config.AllocateString(length + array.Length - 1);
+            string value = AutoCSer.Common.AllocateString(length + array.Length - 1);
             fixed (char* valueFixed = value)
             {
                 char* write = valueFixed;

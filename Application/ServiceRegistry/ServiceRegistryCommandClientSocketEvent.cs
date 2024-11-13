@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -17,6 +18,9 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 注册服务命令接口测试
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public IServiceRegistryClient ServiceRegistryClient { get; protected set; }
         /// <summary>
         /// 客户端控制器创建器参数集合

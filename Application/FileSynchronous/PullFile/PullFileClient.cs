@@ -74,7 +74,7 @@ namespace AutoCSer.CommandService.FileSynchronous
             try
             {
                 FileInfo clientFile = new FileInfo(clientFileName);
-                await AutoCSer.Common.Config.TryCreateDirectory(clientFile.Directory);
+                await AutoCSer.Common.Config.TryCreateDirectory(clientFile.Directory.notNull());
                 CommandClientReturnValue<SynchronousFileInfo> fileInfoResult = await Client.PullFileClient.GetFile(serverFileName);
                 if (fileInfoResult.IsSuccess)
                 {
@@ -142,23 +142,24 @@ namespace AutoCSer.CommandService.FileSynchronous
 
                         pathFiles.Length = 0;
                         string clientPath = clientDirectory.FullName;
-                        EnumeratorCommand<SynchronousFileInfo> fileCommand = await Client.PullFileClient.GetFiles(serverPath);
-                        bool isSuccess = fileCommand != null;
-                        if (isSuccess)
+                        var fileCommand = await Client.PullFileClient.GetFiles(serverPath);
+                        bool isSuccess;
+                        if (fileCommand != null)
                         {
                             while (await fileCommand.MoveNext())
                             {
-                                FileInfo file = null;
+                                var file = default(FileInfo);
                                 SynchronousFileInfo fileInfo = fileCommand.Current;
-                                if (IsDelete) clientFiles.Remove(fileInfo.Name, out file);
-                                if (file == null) file = new FileInfo(Path.Combine(clientPath, fileInfo.Name));
+                                if (IsDelete) clientFiles.Remove(fileInfo.Name.notNull(), out file);
+                                if (file == null) file = new FileInfo(Path.Combine(clientPath, fileInfo.Name.notNull()));
                                 if (!await AutoCSer.Common.Config.FileExists(file) || file.LastWriteTimeUtc != fileInfo.LastWriteTime || file.Length != fileInfo.Length)
                                 {
                                     pathFiles.Add(new PullFile(this, file, ref fileInfo));
                                 }
                             }
-                            if (fileCommand.ReturnType != CommandClientReturnTypeEnum.Success) isSuccess = false;
+                            isSuccess = fileCommand.ReturnType == CommandClientReturnTypeEnum.Success;
                         }
+                        else isSuccess = false;
                         if (isSuccess && IsDelete)
                         {
                             foreach (FileInfo file in clientFiles.Values) await AutoCSer.Common.Config.DeleteFile(file);
@@ -187,8 +188,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                         }
 
                         bool isCallSuccess = isSuccess;
-                        isSuccess = true;
-                        EnumeratorCommand<DirectoryName> directoryCommand = await Client.PullFileClient.GetDirectoryNames(serverPath);
+                        var directoryCommand = await Client.PullFileClient.GetDirectoryNames(serverPath);
                         if (directoryCommand != null)
                         {
                             while (await directoryCommand.MoveNext())
@@ -202,7 +202,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                                 finally { Monitor.Exit(fileLock); }
                                 if (IsDelete) clientDirectorys.Remove(directoryName.Name);
                             }
-                            if (fileCommand.ReturnType != CommandClientReturnTypeEnum.Success) isSuccess = false;
+                            isSuccess = directoryCommand.ReturnType == CommandClientReturnTypeEnum.Success;
                         }
                         else isSuccess = false;
                         if (isSuccess && IsDelete)

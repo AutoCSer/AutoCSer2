@@ -51,10 +51,10 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-#if DotNet45 || NetStandard2
-        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env)
-#else
+#if NetStandard21
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+#else
+        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env)
 #endif
         {
             //if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
@@ -81,12 +81,12 @@ namespace AutoCSer.NetCoreWeb
         {
             try
             {
-#if DotNet45 || NetStandard2
-                WebHost.CreateDefaultBuilder(args)
-                    .UseStartup(typeof(Startup<T>))
-#else
+#if NetStandard21
                 Host.CreateDefaultBuilder(args)
                     .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup(typeof(Startup<T>)))
+#else
+                WebHost.CreateDefaultBuilder(args)
+                    .UseStartup(typeof(Startup<T>))
 #endif
                     .Build()
                     .Run();

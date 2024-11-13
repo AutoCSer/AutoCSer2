@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 
@@ -22,10 +23,16 @@ namespace AutoCSer.IO
         /// <summary>
         /// 加载数据等待锁
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private AutoResetEvent loadBufferWait;
         /// <summary>
         /// 持久化数据读取文件流
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private FileStream readStream;
         /// <summary>
         /// 日志流持久化文件名称
@@ -74,7 +81,11 @@ namespace AutoCSer.IO
         /// <summary>
         /// 加载数据异常
         /// </summary>
+#if NetStandard21
+        private Exception? loadBufferException;
+#else
         private Exception loadBufferException;
+#endif
         /// <summary>
         /// 日志流持久化初始化加载数据
         /// </summary>
@@ -97,7 +108,7 @@ namespace AutoCSer.IO
             try
             {
                 ByteArrayPool.GetBuffer(ref buffer.ReadBuffer, Math.Max(readBufferSize, 4 << 10));
-                ByteArrayPool.GetBuffer(ref buffer2.ReadBuffer, bufferSize = buffer.ReadBuffer.Buffer.BufferSize);
+                ByteArrayPool.GetBuffer(ref buffer2.ReadBuffer, bufferSize = buffer.ReadBuffer.Buffer.notNull().BufferSize);
                 using (readStream = new FileStream(persistenceFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None, bufferSize, FileOptions.SequentialScan))
                 {
                     unreadSize = readStream.Length;
@@ -158,7 +169,7 @@ namespace AutoCSer.IO
             }
             else
             {
-                int readSize = readStream.Read(buffer.ReadBuffer.Buffer.Buffer, buffer.ReadBuffer.StartIndex, bufferSize);
+                int readSize = readStream.Read(buffer.ReadBuffer.Buffer.notNull().Buffer, buffer.ReadBuffer.StartIndex, bufferSize);
                 unreadSize -= readSize;
                 endIndex = readSize;
                 position = readIndex = loadHead(buffer.ReadBuffer.GetSubArray(readSize));
@@ -205,12 +216,13 @@ namespace AutoCSer.IO
                 {
                     buffer.CopyBuffer.Free();
                     ByteArrayPool.GetBuffer(ref buffer.CopyBuffer, errorSize);
-                    AutoCSer.Common.Config.CopyTo(buffer.ReadBufferStart, buffer.CopyBuffer.Buffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
-                    if (unreadSize != 0) readStream.Read(buffer.CopyBuffer.Buffer.Buffer, buffer.CopyBuffer.StartIndex + endIndex, (int)unreadSize);
+                    var errorCopyBuffer = buffer.CopyBuffer.Buffer.notNull();
+                    AutoCSer.Common.Config.CopyTo(buffer.ReadBufferStart, errorCopyBuffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
+                    while (unreadSize != 0) unreadSize -= readStream.Read(errorCopyBuffer.Buffer, buffer.CopyBuffer.StartIndex + endIndex, (int)unreadSize);
                     string errorFileName = persistenceFileName + AutoCSer.Threading.SecondTimer.Now.ToString(".yyyyMMddHHmmss.") + ((ulong)position).toHex();
                     using (FileStream errorStream = new FileStream(errorFileName, FileMode.CreateNew, FileAccess.Write, FileShare.None, errorSize, FileOptions.None))
                     {
-                        errorStream.Write(buffer.CopyBuffer.Buffer.Buffer, buffer.CopyBuffer.StartIndex, errorSize);
+                        errorStream.Write(errorCopyBuffer.Buffer, buffer.CopyBuffer.StartIndex, errorSize);
                     }
                     readStream.Seek(position, SeekOrigin.Begin);
                     readStream.SetLength(position);
@@ -220,7 +232,7 @@ namespace AutoCSer.IO
             }
             if (size <= bufferSize)
             {
-                int readSize = readStream.Read(buffer.ReadBuffer.Buffer.Buffer, buffer.ReadBuffer.StartIndex + endIndex, bufferSize - endIndex);
+                int readSize = readStream.Read(buffer.ReadBuffer.Buffer.notNull().Buffer, buffer.ReadBuffer.StartIndex + endIndex, bufferSize - endIndex);
                 unreadSize -= readSize;
                 endIndex += readSize;
                 getReadBuffer(ref buffer);
@@ -228,8 +240,9 @@ namespace AutoCSer.IO
             }
             buffer.CopyBuffer.Free();
             ByteArrayPool.GetBuffer(ref buffer.CopyBuffer, size);
-            AutoCSer.Common.Config.CopyTo(buffer.ReadBufferStart, buffer.CopyBuffer.Buffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
-            unreadSize -= readStream.Read(buffer.CopyBuffer.Buffer.Buffer, buffer.CopyBuffer.StartIndex + endIndex, size - endIndex);
+            var copyBuffer = buffer.CopyBuffer.Buffer.notNull();
+            AutoCSer.Common.Config.CopyTo(buffer.ReadBufferStart, copyBuffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
+            unreadSize -= readStream.Read(copyBuffer.Buffer, buffer.CopyBuffer.StartIndex + endIndex, size - endIndex);
             endIndex = 0;
             buffer.SetCopyBuffer(size);
             return false;

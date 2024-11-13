@@ -34,7 +34,11 @@ namespace AutoCSer.Extensions.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static BaseGenericType? lastGenericType;
+#else
         protected static BaseGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -43,7 +47,7 @@ namespace AutoCSer.Extensions.Metadata
         /// <returns></returns>
         public static BaseGenericType Get(Type type, Type baseType)
         {
-            BaseGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
 
             try
@@ -61,7 +65,7 @@ namespace AutoCSer.Extensions.Metadata
             {
                 if (!cache.TryGetValue(type, out value))
                 {
-                    value = (BaseGenericType)createMethod.MakeGenericMethod(type, baseType).Invoke(null, null);
+                    value = (BaseGenericType)createMethod.MakeGenericMethod(type, baseType).Invoke(null, null).notNull();
                     cache.Add(type, value);
                 }
             }
@@ -94,6 +98,10 @@ namespace AutoCSer.Extensions.Metadata
         /// <summary>
         /// XML 基类反序列化委托
         /// </summary>
+#if NetStandard21
+        internal override Delegate XmlDeserializeBaseDelegate { get { return (XmlDeserializer.DeserializeDelegate<T?>)XmlDeserializer.Base<T, BT>; } }
+#else
         internal override Delegate XmlDeserializeBaseDelegate { get { return (XmlDeserializer.DeserializeDelegate<T>)XmlDeserializer.Base<T, BT>; } }
+#endif
     }
 }

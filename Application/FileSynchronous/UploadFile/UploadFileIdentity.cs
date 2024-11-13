@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -13,7 +14,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <summary>
         /// 写入文件流
         /// </summary>
+#if NetStandard21
+        internal FileStream? FileStream;
+#else
         internal FileStream FileStream;
+#endif
         /// <summary>
         /// 写入文件信息
         /// </summary>
@@ -59,7 +64,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="fileLength"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal FileStream? Get(uint identity, out long fileLength)
+#else
         internal FileStream Get(uint identity, out long fileLength)
+#endif
         {
             fileLength = this.fileLength;
             return identity == this.identity ? FileStream : null;
@@ -72,7 +81,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         internal FileInfo Completed(out FileInfo backupFile)
         {
             ++identity;
-            FileStream.Dispose();
+            FileStream.notNull().Dispose();
             backupFile = this.backupFile;
             this.backupFile.LastWriteTimeUtc = lastWriteTime;
             FileStream = null;
@@ -85,11 +94,15 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="backupFile"></param>
         /// <param name="lastWriteTime"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal FileStream? Remove(uint identity, out FileInfo? backupFile, out DateTime lastWriteTime)
+#else
         internal FileStream Remove(uint identity, out FileInfo backupFile, out DateTime lastWriteTime)
+#endif
         {
             if (this.identity == identity)
             {
-                FileStream fileStream = FileStream;
+                FileStream fileStream = FileStream.notNull();
                 backupFile = this.backupFile;
                 lastWriteTime = this.lastWriteTime;
                 ++this.identity;

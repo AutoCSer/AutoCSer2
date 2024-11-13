@@ -4,15 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.FieldEquals</AssemblyName>
     <RootNamespace>AutoCSer.FieldEquals</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.xml</DocumentationFile>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.xml</DocumentationFile>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

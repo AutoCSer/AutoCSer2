@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
 using System.IO;
@@ -37,6 +38,9 @@ namespace AutoCSer.CommandService.FileSynchronous
         {
             this.client = client;
             FileInfo.SetLastWriteTime(clientFile.LastWriteTime);
+#if NetStandard21
+            uploadFileBuffer = UploadFileBuffer.Null;
+#endif
         }
         /// <summary>
         /// 客户端读文件操作
@@ -47,6 +51,9 @@ namespace AutoCSer.CommandService.FileSynchronous
         internal UploadFile(UploadFileClient client, FileInfo clientFile, string serverFileName) : base(clientFile, serverFileName)
         {
             this.client = client;
+#if NetStandard21
+            uploadFileBuffer = UploadFileBuffer.Null;
+#endif
         }
         /// <summary>
         /// 文件上传
@@ -68,10 +75,10 @@ namespace AutoCSer.CommandService.FileSynchronous
                         {
                             long unreadSize = ClientFile.Length - serverFileLength;
                             int bufferSize = (int)Math.Min(unreadSize, client.BufferSize);
-#if DotNet45 || NetStandard2
-                            using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
-#else
+#if NetStandard21
                             await using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
+#else
+                            using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
 #endif
                             {
                                 unreadSize = fileStream.Length;
@@ -82,8 +89,9 @@ namespace AutoCSer.CommandService.FileSynchronous
                                 }
                                 buffer = ByteArrayPool.GetBuffer(bufferSize);
                                 uploadFileBuffer = new UploadFileBuffer(client.UploaderInfo.Index, fileIndex.Value);
-                                bufferSize = buffer.Buffer.BufferSize;
-                                byte[] bufferArray = buffer.Buffer.Buffer;
+                                ByteArray byteBuffer = buffer.Buffer.notNull();
+                                bufferSize = byteBuffer.BufferSize;
+                                byte[] bufferArray = byteBuffer.Buffer;
                                 do
                                 {
                                     int readSize = await fileStream.ReadAsync(bufferArray, buffer.StartIndex + this.bufferSize, bufferSize - this.bufferSize);
@@ -130,7 +138,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <returns></returns>
         private async Task<UploadFileStateEnum> upload()
         {
-            byte[] bufferArray = buffer.Buffer.Buffer;
+            byte[] bufferArray = buffer.Buffer.notNull().Buffer;
             uploadFileBuffer.Buffer.Set(bufferArray, buffer.StartIndex, bufferSize);
             CommandClientReturnValue<UploadFileStateEnum> state = await client.Client.UploadFileClient.UploadFileData(uploadFileBuffer);
             if (!state.IsSuccess) return UploadFileStateEnum.CallFail;

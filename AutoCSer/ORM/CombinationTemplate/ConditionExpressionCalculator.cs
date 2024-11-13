@@ -15,7 +15,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateULong(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateULong(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {

@@ -43,5 +43,9 @@ namespace AutoCSer.CommandService
         /// 上传文件数据未知错误
         /// </summary>
         WriteUploadFileUnknownError,
+        /// <summary>
+        /// 没有找到文件上传任务或者服务端异常
+        /// </summary>
+        NotFoundTaskOrException,
     }
 }

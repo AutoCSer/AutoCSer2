@@ -63,7 +63,11 @@ namespace AutoCSer.ORM
         /// <param name="isTransaction">是否事务查询，事务查询默认锁为 NONE，否则锁为 NOLOCK</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public QueryBuilder<T> CreateQuery(Expression<Func<T, bool>>? condition = null, bool isTransaction = false)
+#else
         public QueryBuilder<T> CreateQuery(Expression<Func<T, bool>> condition = null, bool isTransaction = false)
+#endif
         {
             return Writer.CreateQuery(condition, isTransaction);
         }
@@ -74,7 +78,11 @@ namespace AutoCSer.ORM
         /// <param name="condition">查询条件</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public QueryBuilder<T> CreateQuery(ref Transaction? transaction, Expression<Func<T, bool>>? condition = null)
+#else
         public QueryBuilder<T> CreateQuery(ref Transaction transaction, Expression<Func<T, bool>> condition = null)
+#endif
         {
             ConnectionPool.CheckTransaction(ref transaction);
             return Writer.CreateQuery(condition, transaction != null);
@@ -89,7 +97,11 @@ namespace AutoCSer.ORM
         /// <param name="setQuery">设置关联查询条件以后的附加查询设置委托</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public AssociatedTable<T, RT, KT> GetAssociatedTable<RT, KT>(Expression<Func<T, KT>> getLeftKey, TableWriter<RT, KT> rightTable, Action<QueryBuilder<RT>>? setQuery = null)
+#else
         public AssociatedTable<T, RT, KT> GetAssociatedTable<RT, KT>(Expression<Func<T, KT>> getLeftKey, TableWriter<RT, KT> rightTable, Action<QueryBuilder<RT>> setQuery = null)
+#endif
             where RT : class
             where KT : IEquatable<KT>
         {
@@ -106,7 +118,11 @@ namespace AutoCSer.ORM
         /// <param name="setQuery">设置关联查询条件以后的附加查询设置委托</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public AssociatedTable<T, RT, KT> GetAssociatedTable<RT, KT>(Expression<Func<T, KT>> getLeftKey, TableWriter<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>>? setQuery = null)
+#else
         public AssociatedTable<T, RT, KT> GetAssociatedTable<RT, KT>(Expression<Func<T, KT>> getLeftKey, TableWriter<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>> setQuery = null)
+#endif
             where RT : class
             where KT : IEquatable<KT>
         {
@@ -118,7 +134,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<T?> SingleOrDefault(Query<T> query, Transaction? transaction = null)
+#else
         public async Task<T> SingleOrDefault(Query<T> query, Transaction transaction = null)
+#endif
         {
             return await SingleOrDefault<T>(query, transaction);
         }
@@ -129,7 +149,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> SingleOrDefault<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<VT> SingleOrDefault<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
+#endif
         {
             if (query != null)
             {
@@ -144,7 +168,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<T>> Query(Query<T> query, Transaction? transaction = null)
+#else
         public async Task<LeftArray<T>> Query(Query<T> query, Transaction transaction = null)
+#endif
         {
             return await Query<T>(query, transaction);
         }
@@ -155,7 +183,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
+#endif
         {
             if (query != null)
             {
@@ -172,7 +204,11 @@ namespace AutoCSer.ORM
         /// <param name="getValue">数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<CT>> Query<CT>(Query<T> query, Func<T, CT> getValue, Transaction? transaction = null)
+#else
         public async Task<LeftArray<CT>> Query<CT>(Query<T> query, Func<T, CT> getValue, Transaction transaction = null)
+#endif
         {
             return await Query<T, CT>(query, getValue, transaction);
         }
@@ -185,7 +221,11 @@ namespace AutoCSer.ORM
         /// <param name="getValue">数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction transaction = null) where VT : class, T
+#endif
         {
             if (query != null)
             {
@@ -200,7 +240,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction? transaction = null)
+#else
         public async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction transaction = null)
+#endif
         {
             if (query != null)
             {
@@ -216,7 +260,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
+#endif
         {
             if (query != null)
             {
@@ -271,7 +319,11 @@ namespace AutoCSer.ORM
         /// <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT, KT>(Func<T, KT> getKey, Func<KT, Task<VT?>> getValue, int capacity, bool isClear = true)
+#else
         public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT, KT>(Func<T, KT> getKey, Func<KT, Task<VT>> getValue, int capacity, bool isClear = true)
+#endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
@@ -307,7 +359,11 @@ namespace AutoCSer.ORM
         /// <param name="setQuery">设置关联查询条件以后的附加查询设置委托</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public AssociatedTable<T, RT, KT> GetAssociatedTable<RT>(TableQuery<RT, KT> rightTable, Action<QueryBuilder<RT>>? setQuery = null)
+#else
         public AssociatedTable<T, RT, KT> GetAssociatedTable<RT>(TableQuery<RT, KT> rightTable, Action<QueryBuilder<RT>> setQuery = null)
+#endif
             where RT : class
         {
             return new AssociatedTable<T, RT, KT>(Writer, rightTable.Writer, setQuery);
@@ -321,7 +377,11 @@ namespace AutoCSer.ORM
         /// <param name="setQuery">设置关联查询条件以后的附加查询设置委托</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public AssociatedTable<T, RT, KT> GetAssociatedTable<RT>(TableQuery<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>>? setQuery = null)
+#else
         public AssociatedTable<T, RT, KT> GetAssociatedTable<RT>(TableQuery<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>> setQuery = null)
+#endif
             where RT : class
         {
             return new AssociatedTable<T, RT, KT>(Writer, rightTable.Writer, getRightKey, setQuery);
@@ -333,7 +393,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public Query<T> GetQueryByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null)
+#else
         public Query<T> GetQueryByPrimaryKey(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null)
+#endif
         {
             ConnectionPool.CheckTransaction(ref transaction);
             return new QueryBuilder<T>(Writer, transaction != null, new PrimaryKeyCondition<T, KT>(Writer, primaryKey), memberMap).GetQuery(1);
@@ -345,7 +409,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<T?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null)
+#else
         public async Task<T> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null)
+#endif
         {
             ConnectionPool.CheckTransaction(ref transaction);
             return await Writer.GetByPrimaryKey(primaryKey, memberMap, transaction);
@@ -358,7 +426,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, T
+#endif
         {
             ConnectionPool.CheckTransaction(ref transaction);
             return await Writer.GetByPrimaryKey<VT>(primaryKey, memberMap, transaction);
@@ -370,7 +442,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<Dictionary<KT, VT>> GetDictionary<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<Dictionary<KT, VT>> GetDictionary<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
+#endif
         {
             if (query != null)
             {

@@ -4,100 +4,6 @@
         <name>AutoCSer.CommandService.ServiceRegistry</name>
     </assembly>
     <members>
-        <member name="T:AutoCSer.CommandService.ServiceRegistry.CommandServerSocketSessionObject">
-            <summary>
-            服务注册会话对象操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistry.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#ServiceRegistryService,AutoCSer#CommandService#ServiceRegisterSession}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            尝试从命令服务套接字自定义会话对象获取指定会话对象
-            </summary>
-            <param name="socket"></param>
-            <returns>失败返回 null</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistry.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#ServiceRegistryService,AutoCSer#CommandService#ServiceRegisterSession}#CreateSessionObject(AutoCSer.CommandService.ServiceRegistryService,AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象
-            </summary>
-            <param name="service"></param>
-            <param name="socket"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegistry.CommandServerSocketSessionObject.Default">
-            <summary>
-            默认服务注册会话对象操作
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.ServiceRegistry.SessionCallback">
-            <summary>
-            获取服务注册日志回调委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionCallback.Session">
-            <summary>
-            服务注册会话对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionCallback.callback">
-            <summary>
-            获取服务注册日志回调委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionCallback.#ctor(AutoCSer.CommandService.ServiceRegisterSession,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.ServiceRegisterLog})">
-            <summary>
-            获取服务注册日志回调委托
-            </summary>
-            <param name="session">服务注册会话对象</param>
-            <param name="callback">获取服务注册日志回调委托</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionCallback.Callback(AutoCSer.CommandService.ServiceRegisterLog)">
-            <summary>
-            日志回调
-            </summary>
-            <param name="log"></param>
-            <returns>调线会话ID</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionCallback.CancelKeep(AutoCSer.CommandService.ServiceRegisterStateEnum)">
-            <summary>
-            取消保持回调
-            </summary>
-            <param name="state"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.ServiceRegistry.SessionLog">
-            <summary>
-            服务注册日志与会话信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionLog.Session">
-            <summary>
-            服务注册会话对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionLog.Log">
-            <summary>
-            服务注册日志
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionLog.#ctor(AutoCSer.CommandService.ServiceRegisterSession,AutoCSer.CommandService.ServiceRegisterLog)">
-            <summary>
-            服务注册日志与会话信息
-            </summary>
-            <param name="session"></param>
-            <param name="log"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionLog.checkSessionDropped(AutoCSer.CommandService.ServiceRegistry.SessionLog)">
-            <summary>
-            检查会话是否掉线
-            </summary>
-            <param name="log"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionLog.CheckSessionDropped">
-            <summary>
-            检查会话是否掉线
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.IPortRegistryClient">
             <summary>
             端口注册客户端
@@ -503,76 +409,301 @@
             失联服务
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.ServiceRegisterSession">
+        <member name="T:AutoCSer.CommandService.ServiceRegistry.CommandListenerSession">
             <summary>
-            服务注册会话对象
+            服务注册服务会话对象操作
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegisterSession.ServiceRegistry">
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.CommandListenerSession.lastSession">
+            <summary>
+            最后访问的会话对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.CommandListenerSession.AutoCSer#Net#ICommandListenerGetSession{AutoCSer#CommandService#IServiceRegisterSocketSession}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            尝试从命令服务套接字自定义会话对象获取指定会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.CommandListenerSession.AutoCSer#Net#ICommandListenerSession{AutoCSer#CommandService#IServiceRegisterSocketSession,AutoCSer#CommandService#ServiceRegistryService}#CreateSessionObject(AutoCSer.CommandService.ServiceRegistryService,AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            创建会话对象
+            </summary>
+            <param name="service">默认服务注册</param>
+            <param name="socket">命令服务套接字</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.CommandListenerSession.Default">
+            <summary>
+            默认服务注册服务会话对象操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ServiceRegistry.LogAssembler">
+            <summary>
+            服务注册日志组装
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.LogAssembler.ServiceRegistry">
             <summary>
             服务注册
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegisterSession.socket">
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.LogAssembler.MainLog">
+            <summary>
+            主日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.LogAssembler.logs">
+            <summary>
+            附加日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.LogAssembler.maxVersion">
+            <summary>
+            注册服务最大版本号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.LogAssembler.callbacks">
+            <summary>
+            服务会话集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.#ctor(AutoCSer.CommandService.ServiceRegistryService)">
+            <summary>
+            服务注册日志组装
+            </summary>
+            <param name="serviceRegistry"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.Append(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.ServiceRegisterLog)">
+            <summary>
+            添加服务注册日志
+            </summary>
+            <param name="socket"></param>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.logout(AutoCSer.CommandService.ServiceRegisterLog)">
+            <summary>
+            注销服务
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.SingletonTimeout">
+            <summary>
+            单例主服务超时下线
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.checkSessionDropped">
+            <summary>
+            会话掉线检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.SessionDropped">
+            <summary>
+            服务注册会话掉线
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.Append(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.ServiceRegisterLog})">
+            <summary>
+            添加服务注册日志回调委托
+            </summary>
+            <param name="socket"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssembler.Callback(AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.ServiceRegisterLog})">
+            <summary>
+            服务注册日志回调
+            </summary>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.ServiceRegistry.LogAssemblerQueueNode">
+            <summary>
+            单例服务器超时强制下线任务节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.LogAssemblerQueueNode.logAssembler">
+            <summary>
+            服务注册日志组装
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.LogAssemblerQueueNode.mainLog">
+            <summary>
+            需要下线的主服务日志
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssemblerQueueNode.#ctor(AutoCSer.CommandService.ServiceRegistry.LogAssembler)">
+            <summary>
+            单例服务器超时强制下线任务节点
+            </summary>
+            <param name="logAssembler"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssemblerQueueNode.AppendQueueNode">
+            <summary>
+            添加超时检查队列任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.LogAssemblerQueueNode.RunTask">
+            <summary>
+            检查主服务日志
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ServiceRegistry.SessionCallback">
+            <summary>
+            获取服务注册日志回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionCallback.Session">
+            <summary>
+            服务注册会话对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionCallback.callback">
+            <summary>
+            获取服务注册日志回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionCallback.#ctor(AutoCSer.CommandService.ServiceRegisterSocketSession,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.ServiceRegisterLog})">
+            <summary>
+            获取服务注册日志回调委托
+            </summary>
+            <param name="session">服务注册会话对象</param>
+            <param name="callback">获取服务注册日志回调委托</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionCallback.Callback(AutoCSer.CommandService.ServiceRegisterLog)">
+            <summary>
+            日志回调
+            </summary>
+            <param name="log"></param>
+            <returns>调线会话ID</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionCallback.CancelKeep(AutoCSer.CommandService.ServiceRegisterStateEnum)">
+            <summary>
+            取消保持回调
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.ServiceRegistry.SessionLog">
+            <summary>
+            服务注册日志与会话信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionLog.Session">
+            <summary>
+            服务注册会话对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionLog.Log">
+            <summary>
+            服务注册日志
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionLog.#ctor(AutoCSer.CommandService.ServiceRegisterSocketSession,AutoCSer.CommandService.ServiceRegisterLog)">
+            <summary>
+            服务注册日志与会话信息
+            </summary>
+            <param name="session"></param>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistry.SessionLog.checkSessionDropped(AutoCSer.CommandService.ServiceRegistry.SessionLog)">
+            <summary>
+            检查会话是否掉线
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistry.SessionLog.CheckSessionDropped">
+            <summary>
+            检查会话是否掉线
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.IServiceRegisterSocketSession">
+            <summary>
+            服务注册会话对象操作接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.IServiceRegisterSocketSession.ServiceRegisterSocketSession">
+            <summary>
+            服务注册会话对象
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ServiceRegisterSocketSession">
+            <summary>
+            服务注册会话对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegisterSocketSession.Service">
+            <summary>
+            服务注册
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegisterSocketSession.Socket">
             <summary>
             命令服务套接字
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegisterSession.SessionID">
+        <member name="F:AutoCSer.CommandService.ServiceRegisterSocketSession.SessionID">
             <summary>
             会话ID
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegisterSession.onSocketClosedHandle">
+        <member name="F:AutoCSer.CommandService.ServiceRegisterSocketSession.onSocketClosedHandle">
             <summary>
             命令服务套接字关闭处理委托
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegisterSession.CheckCallback">
+        <member name="F:AutoCSer.CommandService.ServiceRegisterSocketSession.CheckCallback">
             <summary>
             服务在线检查回调委托
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegisterSession.logAssemblers">
+        <member name="F:AutoCSer.CommandService.ServiceRegisterSocketSession.logAssemblers">
             <summary>
             注册服务集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegisterSession.IsDropped">
+        <member name="F:AutoCSer.CommandService.ServiceRegisterSocketSession.IsDropped">
             <summary>
             是否已经掉线
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterSession.#ctor(AutoCSer.CommandService.ServiceRegistryService,AutoCSer.Net.CommandServerSocket)">
+        <member name="P:AutoCSer.CommandService.ServiceRegisterSocketSession.AutoCSer#CommandService#IServiceRegisterSocketSession#ServiceRegisterSocketSession">
             <summary>
             服务注册会话对象
             </summary>
-            <param name="serviceRegistry"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegisterSocketSession.#ctor(AutoCSer.CommandService.ServiceRegistryService,AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            服务注册会话对象
+            </summary>
+            <param name="service"></param>
             <param name="socket">命令服务套接字</param>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterSession.RunTask">
+        <member name="M:AutoCSer.CommandService.ServiceRegisterSocketSession.RunTask">
             <summary>
             套接字关闭或者掉线处理
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterSession.Regiser(AutoCSer.CommandService.ServiceRegister.LogAssembler)">
+        <member name="M:AutoCSer.CommandService.ServiceRegisterSocketSession.Regiser(AutoCSer.CommandService.ServiceRegistry.LogAssembler)">
             <summary>
             注册服务
             </summary>
             <param name="logAssembler"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterSession.SetDropped">
+        <member name="M:AutoCSer.CommandService.ServiceRegisterSocketSession.SetDropped">
             <summary>
             设置掉线
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterSession.SetDroppedSessionID">
+        <member name="M:AutoCSer.CommandService.ServiceRegisterSocketSession.SetDroppedSessionID">
             <summary>
             设置掉线并返回会话ID
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterSession.CheckDropped">
+        <member name="M:AutoCSer.CommandService.ServiceRegisterSocketSession.CheckDropped">
             <summary>
             检查是否掉线
             </summary>
@@ -842,7 +973,7 @@
             <param name="socket"></param>
             <param name="queue"></param>
             <param name="serviceName">监视服务名称，null 标识所有服务</param>
-            <param name="callback">服务注册日志回调委托</param>
+            <param name="callback">服务注册日志回调委托，返回 null 表示初始化加载完毕</param>
         </member>
         <member name="T:AutoCSer.CommandService.IServiceRegistryClient">
             <summary>
@@ -868,7 +999,7 @@
             获取服务注册日志
             </summary>
             <param name="serviceName">监视服务名称，null 标识所有服务</param>
-            <param name="callback">服务注册日志回调委托</param>
+            <param name="callback">服务注册日志回调委托，返回 null 表示初始化加载完毕</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.ServiceRegisterLog">
@@ -921,6 +1052,14 @@
             服务注册日志
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegisterLog.#ctor(System.Int64,System.String,AutoCSer.CommandService.ServiceRegisterOperationTypeEnum)">
+            <summary>
+            服务注册日志
+            </summary>
+            <param name="serviceID"></param>
+            <param name="serviceName"></param>
+            <param name="operationType"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.ServiceRegisterLog.#ctor(AutoCSer.Net.CommandServerConfig,System.Net.IPEndPoint,AutoCSer.CommandService.ServiceRegisterOperationTypeEnum,System.Byte,System.UInt32)">
             <summary>
             服务注册日志
@@ -955,117 +1094,6 @@
             </summary>
             <param name="log"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.ServiceRegister.LogAssembler">
-            <summary>
-            服务注册日志组装
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegister.LogAssembler.ServiceRegistry">
-            <summary>
-            服务注册
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegister.LogAssembler.MainLog">
-            <summary>
-            主日志
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegister.LogAssembler.logs">
-            <summary>
-            附加日志
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegister.LogAssembler.maxVersion">
-            <summary>
-            注册服务最大版本号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegister.LogAssembler.callbacks">
-            <summary>
-            服务会话集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.#ctor(AutoCSer.CommandService.ServiceRegistryService)">
-            <summary>
-            服务注册日志组装
-            </summary>
-            <param name="serviceRegistry"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.Append(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.ServiceRegisterLog)">
-            <summary>
-            添加服务注册日志
-            </summary>
-            <param name="socket"></param>
-            <param name="log"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.logout(AutoCSer.CommandService.ServiceRegisterLog)">
-            <summary>
-            注销服务
-            </summary>
-            <param name="log"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.SingletonTimeout">
-            <summary>
-            单例主服务超时下线
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.checkSessionDropped">
-            <summary>
-            会话掉线检查
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.SessionDropped">
-            <summary>
-            服务注册会话掉线
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.Append(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.ServiceRegisterLog})">
-            <summary>
-            添加服务注册日志回调委托
-            </summary>
-            <param name="socket"></param>
-            <param name="callback"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssembler.Callback(AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.ServiceRegisterLog})">
-            <summary>
-            服务注册日志回调
-            </summary>
-            <param name="callback"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.ServiceRegister.LogAssemblerQueueNode">
-            <summary>
-            单例服务器超时强制下线任务节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegister.LogAssemblerQueueNode.logAssembler">
-            <summary>
-            服务注册日志组装
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegister.LogAssemblerQueueNode.mainLog">
-            <summary>
-            需要下线的主服务日志
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssemblerQueueNode.#ctor(AutoCSer.CommandService.ServiceRegister.LogAssembler)">
-            <summary>
-            单例服务器超时强制下线任务节点
-            </summary>
-            <param name="logAssembler"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssemblerQueueNode.AppendQueueNode">
-            <summary>
-            添加超时检查队列任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegister.LogAssemblerQueueNode.RunTask">
-            <summary>
-            检查主服务日志
-            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.ServiceRegisterLogClientAssembler">
             <summary>
@@ -1312,7 +1340,7 @@
             <summary>
             默认服务注册
             </summary>
-            <param name="listener"></param>
+            <param name="listener">SessionObject 必须实现 AutoCSer.Net.ICommandListenerSession[AutoCSer.CommandService.IServiceRegisterSocketSession, AutoCSer.CommandService.ServiceRegistryService]</param>
             <param name="identityGenerator">服务标识生成器</param>
         </member>
         <member name="M:AutoCSer.CommandService.ServiceRegistryService.GetOrCreateSession(AutoCSer.Net.CommandServerSocket)">
@@ -1349,7 +1377,7 @@
             <param name="serviceName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistryService.getAssembler(System.String,AutoCSer.CommandService.ServiceRegister.LogAssembler@)">
+        <member name="M:AutoCSer.CommandService.ServiceRegistryService.getAssembler(System.String,AutoCSer.CommandService.ServiceRegistry.LogAssembler@)">
             <summary>
             获取服务注册日志组装
             </summary>
@@ -1387,7 +1415,7 @@
             <param name="socket"></param>
             <param name="queue"></param>
             <param name="serviceName">监视服务名称，null 标识所有服务</param>
-            <param name="callback">服务注册日志回调委托</param>
+            <param name="callback">服务注册日志回调委托，返回 null 表示初始化加载完毕</param>
         </member>
         <member name="T:AutoCSer.CommandService.ServiceRegistryClient">
             <summary>

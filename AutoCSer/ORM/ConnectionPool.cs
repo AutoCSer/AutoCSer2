@@ -49,15 +49,16 @@ namespace AutoCSer.ORM
                 Monitor.Exit(connectionLock);
                 return;
             }
+            bool isCloseConnection = true;
             try
             {
                 connections.Add(connection);
-                connection = null;
+                isCloseConnection = false;
             }
             finally
             {
                 Monitor.Exit(connectionLock);
-                if (connection != null) await ConnectionCreator.CloseConnectionAsync(connection);
+                if (isCloseConnection) await ConnectionCreator.CloseConnectionAsync(connection);
             }
         }
         /// <summary>
@@ -68,7 +69,7 @@ namespace AutoCSer.ORM
         internal void FreeConnection(Transaction transaction)
         {
             Monitor.Enter(connectionLock);
-            DbConnection connection = transaction.ClearConnection();
+            var connection = transaction.ClearConnection();
             if (connection != null && !connections.TryAdd(connection))
             {
                 try
@@ -92,7 +93,7 @@ namespace AutoCSer.ORM
         internal async Task FreeConnectionAsync(Transaction transaction)
         {
             Monitor.Enter(connectionLock);
-            DbConnection connection = transaction.ClearConnection();
+            var connection = transaction.ClearConnection();
             if (connection != null && !connections.TryAdd(connection))
             {
                 try
@@ -112,9 +113,13 @@ namespace AutoCSer.ORM
         /// 获取数据库连接
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal DbConnection? GetConnection()
+#else
         internal DbConnection GetConnection()
+#endif
         {
-            DbConnection connection;
+            var connection = default(DbConnection);
             Monitor.Enter(connectionLock);
             connections.TryPop(out connection);
             Monitor.Exit(connectionLock);
@@ -153,16 +158,18 @@ namespace AutoCSer.ORM
 #else
             if (isAsyncLocal && Transaction.AsyncLocal.Value != null) throw new InvalidOperationException("当前异步上下文已经绑定数据库事务");
 #endif
-            DbConnection connection = GetConnection() ?? await Creator.CreateConnection();
-            DbTransaction dbTransaction = null;
+            var connection = GetConnection() ?? await Creator.CreateConnection();
+            var dbTransaction = default(DbTransaction);
             try
             {
-#if DotNet45 || NetStandard2
-                dbTransaction = connection.BeginTransaction(level);
-#else
+#if NetStandard21
                 dbTransaction = await connection.BeginTransactionAsync(level);
+#else
+                dbTransaction = connection.BeginTransaction(level);
 #endif
-                return new Transaction(this, ref connection, dbTransaction, isAsyncLocal);
+                Transaction transaction = new Transaction(this, connection, dbTransaction, isAsyncLocal);
+                connection = null;
+                return transaction;
             }
             finally
             {
@@ -190,7 +197,11 @@ namespace AutoCSer.ORM
         /// 检查数据库事务连接池是否匹配
         /// </summary>
         /// <param name="transaction"></param>
+#if NetStandard21
+        internal void CheckTransaction(ref Transaction? transaction)
+#else
         internal void CheckTransaction(ref Transaction transaction)
+#endif
         {
 #if !DotNet45
             if (transaction == null)
@@ -209,7 +220,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<int> ExecuteNonQuery(string statement, int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<int> ExecuteNonQuery(string statement, int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             CheckTransaction(ref transaction);
             return await ExecuteNonQueryTransaction(statement, timeoutSeconds, transaction);
@@ -221,18 +236,22 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<int> ExecuteNonQueryTransaction(string statement, int timeoutSeconds, Transaction? transaction)
+#else
         internal async Task<int> ExecuteNonQueryTransaction(string statement, int timeoutSeconds, Transaction transaction)
+#endif
         {
             if (transaction == null)
             {
-                DbConnection connection = GetConnection() ?? await CreateConnection();
+                var connection = GetConnection() ?? await CreateConnection();
                 try
                 {
                     int rowCount;
-#if DotNet45 || NetStandard2
-                    using (DbCommand command = CreateCommand(connection, statement))
-#else
+#if NetStandard21
                     await using (DbCommand command = CreateCommand(connection, statement))
+#else
+                    using (DbCommand command = CreateCommand(connection, statement))
 #endif
                     {
                         if (timeoutSeconds > 0) command.CommandTimeout = timeoutSeconds;
@@ -247,10 +266,10 @@ namespace AutoCSer.ORM
                     if (connection != null) await ConnectionCreator.CloseConnectionAsync(connection);
                 }
             }
-#if DotNet45 || NetStandard2
-            using (DbCommand command = transaction.CreateCommand(statement))
-#else
+#if NetStandard21
             await using (DbCommand command = transaction.CreateCommand(statement))
+#else
+            using (DbCommand command = transaction.CreateCommand(statement))
 #endif
             {
                 transaction.Set(command);
@@ -266,16 +285,20 @@ namespace AutoCSer.ORM
         /// <param name="tableEvent">表格操作事件处理</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<TableQuery<T, KT>> CreateTableQuery<T, KT>(ITableEvent<T>? tableEvent = null, ModelAttribute? attribute = null)
+#else
         public async Task<TableQuery<T, KT>> CreateTableQuery<T, KT>(ITableEvent<T> tableEvent = null, ModelAttribute attribute = null)
+#endif
             where T : class
             where KT : IEquatable<KT>
         {
             Type modelType = typeof(T);
-            if (attribute == null) attribute = (ModelAttribute)modelType.GetCustomAttribute(typeof(ModelAttribute), true) ?? TableWriter.DefaultAttribute;
+            if (attribute == null) attribute = modelType.GetCustomAttribute<ModelAttribute>(true) ?? TableWriter.DefaultAttribute;
             LeftArray<Member> memberList = Member.Get(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), MemberIndexGroup<T>.GetProperties(attribute.MemberFilters), true);
             memberList.Sort(Member.Sort);
             Member[] members = memberList.ToArray();
-            Member primaryKey = null;
+            var primaryKey = default(Member);
             foreach (Member member in members)
             {
                 if (member.Attribute.PrimaryKeyType != PrimaryKeyTypeEnum.None && member.MemberIndex.MemberSystemType == typeof(KT)
@@ -294,14 +317,14 @@ namespace AutoCSer.ORM
                     AutoIdentityTableWriter64<T> autoIdentityWriter = new AutoIdentityTableWriter64<T>(this, attribute, members, primaryKey, tableEvent);
                     if (attribute.AutoCreateTable) await Creator.AutoCreateTable(autoIdentityWriter);
                     await autoIdentityWriter.GetCurrentIdentity();
-                    return new TableQuery<T, long>(autoIdentityWriter) as TableQuery<T, KT>;
+                    return (new TableQuery<T, long>(autoIdentityWriter) as TableQuery<T, KT>).notNull();
                 }
                 else
                 {
                     AutoIdentityTableWriter<T> autoIdentityWriter = new AutoIdentityTableWriter<T>(this, attribute, members, primaryKey, tableEvent);
                     if (attribute.AutoCreateTable) await Creator.AutoCreateTable(autoIdentityWriter);
                     await autoIdentityWriter.GetCurrentIdentity();
-                    return new TableQuery<T, int>(autoIdentityWriter) as TableQuery<T, KT>;
+                    return (new TableQuery<T, int>(autoIdentityWriter) as TableQuery<T, KT>).notNull();
                 }
             }
             TableWriter<T, KT> writer = new TableWriter<T, KT>(this, attribute, members, primaryKey, tableEvent);
@@ -316,7 +339,11 @@ namespace AutoCSer.ORM
         /// <param name="tableEvent">表格操作事件处理</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<TablePersistence<T, KT>> CreateTablePersistence<T, KT>(ITableEvent<T>? tableEvent = null, ModelAttribute? attribute = null)
+#else
         public async Task<TablePersistence<T, KT>> CreateTablePersistence<T, KT>(ITableEvent<T> tableEvent = null, ModelAttribute attribute = null)
+#endif
             where T : class
             where KT : IEquatable<KT>
         {
@@ -331,7 +358,11 @@ namespace AutoCSer.ORM
         /// <param name="tableEvent">表格操作事件处理</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<BusinessPersistence<BT, T, KT>> CreateBusinessPersistence<BT, T, KT>(BusinessTableEvent<BT, T>? tableEvent = null, ModelAttribute? attribute = null)
+#else
         public async Task<BusinessPersistence<BT, T, KT>> CreateBusinessPersistence<BT, T, KT>(BusinessTableEvent<BT, T> tableEvent = null, ModelAttribute attribute = null)
+#endif
             where BT : class, T
             where T : class
             where KT : IEquatable<KT>
@@ -346,7 +377,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<T?> SingleOrDefault<T>(string statement, int timeoutSeconds = 0, Transaction? transaction = null) where T : class
+#else
         public async Task<T> SingleOrDefault<T>(string statement, int timeoutSeconds = 0, Transaction transaction = null) where T : class
+#endif
         {
             CheckTransaction(ref transaction);
             return await SingleOrDefaultTransaction<T>(statement, timeoutSeconds, transaction);
@@ -359,18 +394,23 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<T?> SingleOrDefaultTransaction<T>(string statement, int timeoutSeconds, Transaction? transaction) where T : class
+#else
         internal async Task<T> SingleOrDefaultTransaction<T>(string statement, int timeoutSeconds, Transaction transaction) where T : class
+#endif
         {
             if (transaction == null)
             {
-                DbConnection connection = GetConnection() ?? await CreateConnection();
+                var connection = GetConnection() ?? await CreateConnection();
                 try
                 {
-                    T value;
-#if DotNet45 || NetStandard2
-                    using (DbCommand command = CreateCommand(connection, statement))
-#else
+#if NetStandard21
+                    var value = default(T);
                     await using (DbCommand command = CreateCommand(connection, statement))
+#else
+                    T value;
+                    using (DbCommand command = CreateCommand(connection, statement))
 #endif
                     {
                         if (timeoutSeconds > 0) command.CommandTimeout = timeoutSeconds;
@@ -385,10 +425,10 @@ namespace AutoCSer.ORM
                     if (connection != null) await ConnectionCreator.CloseConnectionAsync(connection);
                 }
             }
-#if DotNet45 || NetStandard2
-            using (DbCommand command = transaction.CreateCommand(statement))
-#else
+#if NetStandard21
             await using (DbCommand command = transaction.CreateCommand(statement))
+#else
+            using (DbCommand command = transaction.CreateCommand(statement))
 #endif
             {
                 transaction.Set(command);
@@ -402,17 +442,21 @@ namespace AutoCSer.ORM
         /// <typeparam name="T"></typeparam>
         /// <param name="command"></param>
         /// <returns></returns>
-        private static async Task<T> singleOrDefault<T>(DbCommand command) where T : class
-        {
-#if DotNet45 || NetStandard2
-            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#if NetStandard21
+        private static async Task<T?> singleOrDefault<T>(DbCommand command) where T : class
 #else
+        private static async Task<T> singleOrDefault<T>(DbCommand command) where T : class
+#endif
+        {
+#if NetStandard21
             await using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#else
+            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
 #endif
             {
                 if (await reader.ReadAsync())
                 {
-                    T value = DefaultConstructor<T>.Constructor();
+                    T value = DefaultConstructor<T>.Constructor().notNull();
                     int[] columnIndexs = ModelReader<T>.GetColumnIndexCache(reader);
                     try
                     {
@@ -432,19 +476,23 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<T>> Query<T>(string statement, int timeoutSeconds = 0, Transaction? transaction = null) where T : class
+#else
         public async Task<LeftArray<T>> Query<T>(string statement, int timeoutSeconds = 0, Transaction transaction = null) where T : class
+#endif
         {
             CheckTransaction(ref transaction);
             if (transaction == null)
             {
-                DbConnection connection = GetConnection() ?? await CreateConnection();
+                var connection = GetConnection() ?? await CreateConnection();
                 try
                 {
                     LeftArray<T> array;
-#if DotNet45 || NetStandard2
-                    using (DbCommand command = CreateCommand(connection, statement))
-#else
+#if NetStandard21
                     await using (DbCommand command = CreateCommand(connection, statement))
+#else
+                    using (DbCommand command = CreateCommand(connection, statement))
 #endif
                     {
                         if (timeoutSeconds > 0) command.CommandTimeout = timeoutSeconds;
@@ -459,10 +507,10 @@ namespace AutoCSer.ORM
                     if (connection != null) await ConnectionCreator.CloseConnectionAsync(connection);
                 }
             }
-#if DotNet45 || NetStandard2
-            using (DbCommand command = transaction.CreateCommand(statement))
-#else
+#if NetStandard21
             await using (DbCommand command = transaction.CreateCommand(statement))
+#else
+            using (DbCommand command = transaction.CreateCommand(statement))
 #endif
             {
                 transaction.Set(command);
@@ -479,10 +527,10 @@ namespace AutoCSer.ORM
         internal static async Task<LeftArray<T>> Query<T>(DbCommand command) where T : class
         {
             LeftArray<T> array = new LeftArray<T>(0);
-#if DotNet45 || NetStandard2
-            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
-#else
+#if NetStandard21
             await using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#else
+            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
 #endif
             {
                 int[] columnIndexs = ModelReader<T>.GetColumnIndexCache(reader);
@@ -490,7 +538,7 @@ namespace AutoCSer.ORM
                 {
                     while (await reader.ReadAsync())
                     {
-                        T value = DefaultConstructor<T>.Constructor();
+                        T value = DefaultConstructor<T>.Constructor().notNull();
                         if (columnIndexs.Length != 0) ModelReader<T>.Reader(reader, value, columnIndexs);
                         array.Add(value);
                     }
@@ -507,7 +555,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<ModelSelectEnumerator<T>> Select<T>(string statement, int timeoutSeconds = 0, Transaction? transaction = null) where T : class
+#else
         public async Task<ModelSelectEnumerator<T>> Select<T>(string statement, int timeoutSeconds = 0, Transaction transaction = null) where T : class
+#endif
         {
             CheckTransaction(ref transaction);
             ModelSelectEnumerator<T> selectEnumerator = new ModelSelectEnumerator<T>(this, transaction);
@@ -530,20 +582,20 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         public async Task<RemoteProxy.DataRow> RemoteProxySingleOrDefault(string statement, int timeoutSeconds)
         {
-            DbConnection connection = GetConnection() ?? await CreateConnection();
+            var connection = GetConnection() ?? await CreateConnection();
             try
             {
-#if DotNet45 || NetStandard2
-                using (DbCommand command = CreateCommand(connection, statement))
-#else
+#if NetStandard21
                 await using (DbCommand command = CreateCommand(connection, statement))
+#else
+                using (DbCommand command = CreateCommand(connection, statement))
 #endif
                 {
                     if (timeoutSeconds > 0) command.CommandTimeout = timeoutSeconds;
-#if DotNet45 || NetStandard2
-                    using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
-#else
+#if NetStandard21
                     await using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#else
+                    using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
 #endif
                     {
                         if (await reader.ReadAsync()) return new RemoteProxy.DataRow(reader, null);
@@ -567,23 +619,23 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         public async Task RemoteProxyQuery(string statement, int timeoutSeconds, AutoCSer.Net.CommandServerKeepCallbackCount<RemoteProxy.DataRow> callback)
         {
-            DbConnection connection = GetConnection() ?? await CreateConnection();
+            var connection = GetConnection() ?? await CreateConnection();
             try
             {
-#if DotNet45 || NetStandard2
-                using (DbCommand command = CreateCommand(connection, statement))
-#else
+#if NetStandard21
                 await using (DbCommand command = CreateCommand(connection, statement))
+#else
+                using (DbCommand command = CreateCommand(connection, statement))
 #endif
                 {
                     if (timeoutSeconds > 0) command.CommandTimeout = timeoutSeconds;
-#if DotNet45 || NetStandard2
-                    using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
-#else
+#if NetStandard21
                     await using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#else
+                    using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
 #endif
                     {
-                        RemoteProxy.Column[] columns = null;
+                        var columns = default(RemoteProxy.Column[]);
                         while (await reader.ReadAsync())
                         {
                             RemoteProxy.DataRow dataRow = new RemoteProxy.DataRow(reader, columns);
@@ -606,18 +658,23 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        internal async Task<AutoIdentity> CheckAutoIdentity(string tableName)
-        {
-            Query<AutoIdentity> query = Creator.AutoIdentityWriter.CreateQuery(p => p.TableName == tableName, true).GetQueryData(1);
-#if DotNet45 || NetStandard2
-            using (Transaction transaction = await CreateDefaultTransaction())
+#if NetStandard21
+        internal async Task<AutoIdentity?> CheckAutoIdentity(string tableName)
 #else
+        internal async Task<AutoIdentity> CheckAutoIdentity(string tableName)
+#endif
+        {
+            var autoIdentityWriter = Creator.AutoIdentityWriter.notNull();
+            Query<AutoIdentity> query = autoIdentityWriter.CreateQuery(p => p.TableName == tableName, true).GetQueryData(1);
+#if NetStandard21
             await using (Transaction transaction = await CreateTransaction(isAsyncLocal: false))
+#else
+            using (Transaction transaction = await CreateDefaultTransaction())
 #endif
             {
-                AutoIdentity autoIdentity = await Creator.AutoIdentityWriter.SingleOrDefault(query, transaction);
+                var autoIdentity = await autoIdentityWriter.SingleOrDefault(query, transaction);
                 if (autoIdentity != null) return autoIdentity;
-                await Creator.AutoIdentityWriter.Insert(new AutoIdentity { TableName = tableName }, transaction);
+                await autoIdentityWriter.Insert(new AutoIdentity { TableName = tableName }, transaction);
                 await transaction.CommitAsync();
             }
             return null;
@@ -630,7 +687,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         internal async Task UpdateAutoIdentity(string tableName, long identity)
         {
-            await Creator.AutoIdentityWriter.Update(new AutoIdentity { TableName = tableName, Identity = identity }, null, p => p.TableName == tableName && p.Identity < identity);
+            await Creator.AutoIdentityWriter.notNull().Update(new AutoIdentity { TableName = tableName, Identity = identity }, null, p => p.TableName == tableName && p.Identity < identity);
         }
 
         /// <summary>
@@ -639,10 +696,14 @@ namespace AutoCSer.ORM
         /// <param name="creator"></param>
         /// <param name="autoIdentityTableName">自增ID记录表格名称</param>
         /// <returns></returns>
+#if NetStandard21
+        public static async Task<ConnectionPool> Create(ConnectionCreator creator, string? autoIdentityTableName = null)
+#else
         public static async Task<ConnectionPool> Create(ConnectionCreator creator, string autoIdentityTableName = null)
+#endif
         {
             ConnectionPool connectionPool = new ConnectionPool(creator);
-            ModelAttribute autoIdentityAttribute = null;
+            var autoIdentityAttribute = default(ModelAttribute);
             if (!string.IsNullOrEmpty(autoIdentityTableName))
             {
                 autoIdentityAttribute = TableWriter.DefaultAttribute.Clone();

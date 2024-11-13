@@ -19,7 +19,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务端接口方法信息集合
         /// </summary>
+#if NetStandard21
+        internal ServerNodeMethod?[] Methods;
+#else
         internal ServerNodeMethod[] Methods;
+#endif
         /// <summary>
         /// 提示信息集合
         /// </summary>
@@ -27,14 +31,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 错误信息
         /// </summary>
+#if NetStandard21
+        internal string? Error;
+#else
         internal string Error;
+#endif
         /// <summary>
         /// 服务端节点类型信息
         /// </summary>
         /// <param name="type"></param>
         internal NodeType(Type type)
         {
-            Methods = null;
+            Methods = EmptyArray<ServerNodeMethod>.Array;
             Messages = new LeftArray<string>(0);
             Error = CheckType(type, out NodeAttribute);
             if (Error != null) return;
@@ -56,12 +64,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             methodArray.Sort(AutoCSer.Net.CommandServer.InterfaceMethodBase.Compare);
             Error = AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs(type, NodeAttribute, ref methodArray, ref Messages, out Methods);
             if (Error != null) return;
-            foreach (ServerNodeMethod beforePersistenceMethod in Methods)
+            foreach (var beforePersistenceMethod in Methods)
             {
                 if (beforePersistenceMethod != null && beforePersistenceMethod.PersistenceMethodName.Length != 0)
                 {
                     bool isMethod = false;
-                    foreach (ServerNodeMethod nodeMethod in Methods)
+                    foreach (var nodeMethod in Methods)
                     {
                         if (nodeMethod != null && nodeMethod.CheckBeforePersistence(beforePersistenceMethod, ref Error))
                         {
@@ -87,9 +95,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methods"></param>
         /// <param name="isLocalClient"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal bool GetClientMethods(Type type, ref Exception? creatorException, ref string[]? creatorMessages, out ClientNodeMethod?[] methods, bool isLocalClient)
+#else
         internal bool GetClientMethods(Type type, ref Exception creatorException, ref string[] creatorMessages, out ClientNodeMethod[] methods, bool isLocalClient)
+#endif
         {
-            methods = null;
+            methods = EmptyArray<ClientNodeMethod>.Array;
             LeftArray<ClientNodeMethod> methodArray = new LeftArray<ClientNodeMethod>(0);
             if (Error == null)
             {
@@ -125,7 +137,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (serverMethodArray.Count == 1)
                     {
-                        string error = method.Set(serverMethodArray.Head);
+                        var error = method.Set(serverMethodArray.Head);
                         if (error == null) methods[method.MethodIndex] = method;
                         else
                         {
@@ -143,19 +155,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             if (checkEnum)
             {
-                Dictionary<HashString, object> enumNames = null;
+                var enumNames = default(Dictionary<HashString, object>);
                 if (NodeAttribute.MethodIndexEnumType != null)
                 {
                     Array enums = System.Enum.GetValues(NodeAttribute.MethodIndexEnumType);
                     enumNames = DictionaryCreator.CreateHashString<object>(enums.Length);
-                    foreach (object value in enums) enumNames.Add(value.ToString(), value);
+                    foreach (object value in enums) enumNames.Add(value.ToString().notNull(), value);
                 }
                 else enumNames = DictionaryCreator.CreateHashString<object>();
                 foreach (ClientNodeMethod method in methodArray)
                 {
                     if (method.MethodIndex < 0)
                     {
-                        object value;
+                        var value = default(object);
                         HashString hashKey = method.Method.Name;
                         if (enumNames.TryGetValue(hashKey, out value))
                         {
@@ -163,7 +175,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             if (methods[method.MethodIndex] == null) methods[method.MethodIndex] = method;
                             else
                             {
-                                creatorException = new Exception($"{type.fullName()} 客户端节点方法编号 {method.MethodIndex.toString()} 冲突 {method.Method.Name} + {methods[method.MethodIndex].Method.Name}");
+                                creatorException = new Exception($"{type.fullName()} 客户端节点方法编号 {method.MethodIndex.toString()} 冲突 {method.Method.Name} + {methods[method.MethodIndex].notNull().Method.Name}");
                                 return false;
                             }
                             enumNames.Remove(hashKey);
@@ -184,9 +196,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal Dictionary<StreamPersistenceMemoryDatabase.NodeMethod, HeadLeftArray<ServerNodeMethod>> GetMethodGroup()
         {
-            if (Methods == null) return null;
             Dictionary<StreamPersistenceMemoryDatabase.NodeMethod, HeadLeftArray<ServerNodeMethod>> methodGroup = DictionaryCreator<StreamPersistenceMemoryDatabase.NodeMethod>.Create<HeadLeftArray<ServerNodeMethod>>(Methods.Length);
-            foreach (ServerNodeMethod method in Methods)
+            foreach (var method in Methods)
             {
                 if (method != null && method.IsClientCall)
                 {
@@ -208,7 +219,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static string? CheckType(Type type)
+#else
         internal static string CheckType(Type type)
+#endif
         {
             if (!type.IsInterface) return $"不支持非接口类型 {type.fullName()}";
             if (type.IsGenericTypeDefinition && !AutoCSer.Common.IsCodeGenerator) return $"不支持泛型接口类型 {type.fullName()}";
@@ -221,16 +236,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="type"></param>
         /// <param name="nodeAttribute"></param>
         /// <returns>错误信息</returns>
+#if NetStandard21
+        internal static string? CheckType(Type type, out ServerNodeAttribute nodeAttribute)
+#else
         internal static string CheckType(Type type, out ServerNodeAttribute nodeAttribute)
+#endif
         {
-            string error = CheckType(type);
+            var error = CheckType(type);
             if (error == null)
             {
-                nodeAttribute = (ServerNodeAttribute)type.GetCustomAttribute(typeof(ServerNodeAttribute), false) ?? ServerNode.DefaultAttribute;
+                nodeAttribute = type.GetCustomAttribute<ServerNodeAttribute>(false) ?? ServerNode.DefaultAttribute;
                 if (nodeAttribute.MethodIndexEnumType == null) return $"{type.fullName()} 缺少配置方法序号映射枚举类型 {typeof(ServerNodeAttribute).fullName()}.{nameof(ServerNodeAttribute.MethodIndexEnumType)}";
                 return null;
             }
-            nodeAttribute = null;
+            nodeAttribute = ServerNode.DefaultAttribute;
             return error;
         }
     }

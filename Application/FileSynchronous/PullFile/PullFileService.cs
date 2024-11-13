@@ -63,15 +63,21 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="fileInfo">文件信息</param>
-        /// <param name="callback">获取文件数据回调委托</param>
+        /// <param name="callback">获取文件数据回调委托，返回 null 表示服务端未知异常</param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual async Task GetFileData(CommandServerSocket socket, SynchronousFileInfo fileInfo, CommandServerKeepCallbackCount<PullFileBuffer?> callback)
+#else
         public virtual async Task GetFileData(CommandServerSocket socket, SynchronousFileInfo fileInfo, CommandServerKeepCallbackCount<PullFileBuffer> callback)
+#endif
         {
-            PullFileBuffer readFileBuffer = null;
+            var readFileBuffer = default(PullFileBuffer);
             bool iscompleted = false;
             try
             {
+#pragma warning disable CS8620
                 readFileBuffer = new PullFileBuffer(callback);
+#pragma warning restore CS8620
                 iscompleted = await readFileBuffer.Read(fileInfo, socket.Server.SendBufferPool.Size);
             }
             finally 

@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -17,7 +18,11 @@ namespace AutoCSer.Drawing.Gif
         /// <summary>
         /// 获取图片定时器
         /// </summary>
+#if NetStandard21
+        private System.Threading.Timer? timer;
+#else
         private System.Threading.Timer timer;
+#endif
         /// <summary>
         /// 截屏定时毫秒数
         /// </summary>
@@ -29,11 +34,19 @@ namespace AutoCSer.Drawing.Gif
         /// <summary>
         /// 最后一次获取的图片
         /// </summary>
+#if NetStandard21
+        private Bitmap? lastBitmap;
+#else
         private Bitmap lastBitmap;
+#endif
         /// <summary>
         /// 最后一次获取的图片数据
         /// </summary>
+#if NetStandard21
+        private BitmapData? lastBitmapData;
+#else
         private BitmapData lastBitmapData;
+#endif
         /// <summary>
         /// 跳图数量
         /// </summary>
@@ -58,7 +71,11 @@ namespace AutoCSer.Drawing.Gif
         /// <param name="interval">获取图片定时毫秒数默认最小值为 40</param>
         /// <param name="maxPixel">最大色彩深度默认为最大值 8，最小值为 2</param>
         /// <param name="isStart">默认为 true 表示开始</param>
+#if NetStandard21
+        protected TimerWriter(Stream stream, short width, short height, LockBitmapColor[]? globalColors = null, byte backgroundColorIndex = 0, bool isLeaveDisposeStream = false, int interval = 40, byte maxPixel = 8, bool isStart = true)
+#else
         protected TimerWriter(Stream stream, short width, short height, LockBitmapColor[] globalColors = null, byte backgroundColorIndex = 0, bool isLeaveDisposeStream = false, int interval = 40, byte maxPixel = 8, bool isStart = true)
+#endif
             : base(stream, width, height, globalColors, backgroundColorIndex, isLeaveDisposeStream)
         {
             this.maxPixel = (byte)(maxPixel - 2) < 8 ? maxPixel : (byte)8;
@@ -71,7 +88,7 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         protected override void dispose()
         {
-            timer.Dispose();
+            if (timer != null) timer.Dispose();
             while (Interlocked.CompareExchange(ref isTimer, 1, 0) != 0) Thread.Sleep(1);
             disposeBitmap();
             base.dispose();
@@ -82,7 +99,7 @@ namespace AutoCSer.Drawing.Gif
         /// <returns></returns>
         protected override async Task disposeAsync()
         {
-            await timer.DisposeAsync();
+            if (timer != null) await timer.DisposeAsync();
             while (Interlocked.CompareExchange(ref isTimer, 1, 0) != 0) await Task.Delay(1);
             disposeBitmap();
             await base.disposeAsync();
@@ -99,7 +116,11 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         /// <param name="bitmap"></param>
         /// <param name="bitmapData"></param>
+#if NetStandard21
+        protected virtual void disposeBitmap(Bitmap? bitmap, BitmapData? bitmapData)
+#else
         protected virtual void disposeBitmap(Bitmap bitmap, BitmapData bitmapData)
+#endif
         {
             if (bitmap != null)
             {
@@ -119,12 +140,16 @@ namespace AutoCSer.Drawing.Gif
         /// 定时获取图片
         /// </summary>
         /// <param name="state"></param>
+#if NetStandard21
+        private unsafe void onTimer(object? state)
+#else
         private unsafe void onTimer(object state)
+#endif
         {
             if (Interlocked.Exchange(ref isTimer, 1) == 0 && isDisposed == 0)
             {
-                Bitmap bitmap = null;
-                BitmapData bitmapData = null;
+                var bitmap = default(Bitmap);
+                var bitmapData = default(BitmapData);
                 try
                 {
                     int keepCount = Interlocked.Exchange(ref this.keepCount, 0);
@@ -135,6 +160,7 @@ namespace AutoCSer.Drawing.Gif
                     if (lastBitmapData != null)
                     {
                         byte* lastBitmapFixed = (byte*)lastBitmapData.Scan0, bitmapFixed = (byte*)bitmapData.Scan0;
+                        var lastBitmap = this.lastBitmap.notNull();
                         int minHeight = bitmap.Height <= lastBitmap.Height ? bitmap.Height : lastBitmap.Height;
                         int minWidth = lastBitmap.Width, width3;
                         if (bitmap.Width <= lastBitmap.Width)

@@ -47,7 +47,7 @@ namespace AutoCSer.TestCase
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskQueueSocketReturn(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref);
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskQueueReturn(CommandServerCallTaskQueue queue, int Value, int Ref);
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         IAsyncEnumerable<string> AsyncEnumerableSocketReturn(CommandServerSocket socket, int Value, int Ref);
         IAsyncEnumerable<string> AsyncEnumerableSocketReturn(CommandServerSocket socket);
         IAsyncEnumerable<string> AsyncEnumerableReturn(int Value, int Ref);
@@ -208,7 +208,7 @@ namespace AutoCSer.TestCase
             return Task.FromResult(ServerKeepCallbackController.KeepCallbackEnumerable(ServerSynchronousController.SessionObject.Xor(Value, Ref)));
         }
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         async IAsyncEnumerable<string> IServerKeepCallbackTaskController.AsyncEnumerableSocketReturn(CommandServerSocket socket, int Value, int Ref)
         {
             await Task.Yield();

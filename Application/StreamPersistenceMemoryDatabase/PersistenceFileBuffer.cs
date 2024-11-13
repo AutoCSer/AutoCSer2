@@ -104,7 +104,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 CallState = (CallStateEnum)(byte)state;
                 if (CallState == CallStateEnum.Success && deserializer.Read(out position) && deserializer.DeserializeBuffer(ref Buffer, true))
                 {
-                    ISlaveLoader loader = SlaveLoader.GetSessionObject(deserializer);
+                    var loader = SlaveLoader.GetSessionObject(deserializer);
                     if (loader != null)
                     {
                         switch (state >> 8)

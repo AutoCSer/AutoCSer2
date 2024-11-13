@@ -45,14 +45,22 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 设置关联查询条件以后的附加查询设置委托
         /// </summary>
+#if NetStandard21
+        private readonly Action<QueryBuilder<RT>>? setQuery;
+#else
         private readonly Action<QueryBuilder<RT>> setQuery;
+#endif
         /// <summary>
         /// 模拟关联表格
         /// </summary>
         /// <param name="leftTable"></param>
         /// <param name="rightTable"></param>
         /// <param name="setQuery"></param>
+#if NetStandard21
+        internal AssociatedTable(TableWriter<LT, KT> leftTable, TableWriter<RT, KT> rightTable, Action<QueryBuilder<RT>>? setQuery)
+#else
         internal AssociatedTable(TableWriter<LT, KT> leftTable, TableWriter<RT, KT> rightTable, Action<QueryBuilder<RT>> setQuery)
+#endif
         {
             this.leftTable = leftTable;
             leftKeyName = leftTable.PrimaryKey.MemberIndex.Member.Name;
@@ -69,7 +77,11 @@ namespace AutoCSer.ORM
         /// <param name="rightTable"></param>
         /// <param name="getRightKey"></param>
         /// <param name="setQuery"></param>
+#if NetStandard21
+        internal AssociatedTable(TableWriter<LT, KT> leftTable, TableWriter<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>>? setQuery)
+#else
         internal AssociatedTable(TableWriter<LT, KT> leftTable, TableWriter<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>> setQuery)
+#endif
         {
             this.leftTable = leftTable;
             leftKeyName = leftTable.PrimaryKey.MemberIndex.Member.Name;
@@ -86,7 +98,11 @@ namespace AutoCSer.ORM
         /// <param name="getLeftKey"></param>
         /// <param name="rightTable"></param>
         /// <param name="setQuery"></param>
+#if NetStandard21
+        internal AssociatedTable(TableWriter<LT> leftTable, Expression<Func<LT, KT>> getLeftKey, TableWriter<RT, KT> rightTable, Action<QueryBuilder<RT>>? setQuery)
+#else
         internal AssociatedTable(TableWriter<LT> leftTable, Expression<Func<LT, KT>> getLeftKey, TableWriter<RT, KT> rightTable, Action<QueryBuilder<RT>> setQuery)
+#endif
         {
             this.leftTable = leftTable;
             leftKeyName = leftTable.Convert(getLeftKey);
@@ -105,7 +121,11 @@ namespace AutoCSer.ORM
         /// <param name="rightTable"></param>
         /// <param name="getRightKey"></param>
         /// <param name="setQuery"></param>
+#if NetStandard21
+        internal AssociatedTable(TableWriter<LT> leftTable, Expression<Func<LT, KT>> getLeftKey, TableWriter<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>>? setQuery)
+#else
         internal AssociatedTable(TableWriter<LT> leftTable, Expression<Func<LT, KT>> getLeftKey, TableWriter<RT> rightTable, Expression<Func<RT, KT>> getRightKey, Action<QueryBuilder<RT>> setQuery)
+#endif
         {
             this.leftTable = leftTable;
             leftKeyName = leftTable.Convert(getLeftKey);
@@ -126,7 +146,7 @@ namespace AutoCSer.ORM
             QueryBuilder<RT> query = rightTable.CreateQuery(null, isTransaction);
             MemberColumnIndex columnIndex;
             if (!rightTable.ColumnNames.TryGetValue(rightKeyName, out columnIndex)) throw new InvalidCastException($"{rightTable.TableName} 没有找到数据列 {rightKeyName}");
-            HashSet<KT> keys = null;
+            var keys = default(HashSet<KT>);
             foreach (LT leftValue in leftValues)
             {
                 KT key = GetLeftKey(leftValue);
@@ -134,8 +154,8 @@ namespace AutoCSer.ORM
                 keys.Add(key);
             }
             if (keys == null) query.ConditionLogicType = LogicTypeEnum.False;
-            else query.And(new QueryParameter.MemberParameter(ref columnIndex, new QueryParameter.FieldParameter { ElementType = typeof(KT), Attribute = QueryParameterAttribute.In }), keys);
-            return new OnJoinQuery<LT, RT, KT>(this, query, leftValues, keys.Count);
+            else query.And(new QueryParameter.MemberParameter(ref columnIndex, new QueryParameter.FieldParameter(null, QueryParameterAttribute.In, typeof(KT), null, 0)), keys);
+            return new OnJoinQuery<LT, RT, KT>(this, query, leftValues, keys != null ? keys.Count : 0);
         }
         /// <summary>
         /// 主表格创建 EXISTS 子查询条件

@@ -93,7 +93,11 @@ namespace AutoCSer.ORM.Extensions
         /// <param name="expression"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static object? getConstantValue(this System.Linq.Expressions.Expression expression)
+#else
         internal static object getConstantValue(this System.Linq.Expressions.Expression expression)
+#endif
         {
             return ((ConstantExpression)expression).Value;
         }

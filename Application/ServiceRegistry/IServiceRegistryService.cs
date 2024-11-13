@@ -30,8 +30,12 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="serviceName">监视服务名称，null 标识所有服务</param>
-        /// <param name="callback">服务注册日志回调委托</param>
+        /// <param name="callback">服务注册日志回调委托，返回 null 表示初始化加载完毕</param>
         [CommandServerMethod(IsOutputPool = true, AutoCancelKeep = false)]
+#if NetStandard21
+        void LogCallback(CommandServerSocket socket, CommandServerCallQueue queue, string serviceName, CommandServerKeepCallback<ServiceRegisterLog?> callback);
+#else
         void LogCallback(CommandServerSocket socket, CommandServerCallQueue queue, string serviceName, CommandServerKeepCallback<ServiceRegisterLog> callback);
+#endif
     }
 }

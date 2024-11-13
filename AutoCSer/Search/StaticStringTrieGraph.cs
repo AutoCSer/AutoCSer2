@@ -28,6 +28,9 @@ namespace AutoCSer.Search
         private StaticStringTrieGraph()
         {
             CharTypeData = new AutoCSer.Memory.Pointer(StringTrieGraph.DefaultCharTypeData.Data, 0);
+#if NetStandard21
+            charTypeDataLock = this;
+#endif
         }
         /// <summary>
         /// 绑定静态节点池的字符串 Trie 图
@@ -40,7 +43,7 @@ namespace AutoCSer.Search
             CharTypeData = new AutoCSer.Memory.Pointer(StringTrieGraph.DefaultCharTypeData.Data, 0);
             AnyHeadChar = trieGraph.AnyHeadChar;
 
-            Dictionary<char, TrieGraphNode<char>> nodes = trieGraph.Boot.Nodes;
+            var nodes = trieGraph.Boot.Nodes;
             if (nodes != null && nodes.Count != 0) new StaticStringTrieGraphBuilder().Create(this, trieGraph);
             CharTypeData = trieGraph.GetCharTypeData();
             if (isCopyCharTypeData)

@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
@@ -45,18 +46,26 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
+#if NetStandard21
+        public T? this[KT key]
+#else
         public T this[KT key]
+#endif
         {
             get
             {
-                T value;
+                var value = default(T);
                 return cache.TryGetValue(key, out value) ? value : null;
             }
         }
         /// <summary>
         /// 当前命令
         /// </summary>
+#if NetStandard21
+        private KeepCallbackCommand? keepCallbackCommand;
+#else
         private KeepCallbackCommand keepCallbackCommand;
+#endif
         /// <summary>
         /// 获取缓存异常次数
         /// </summary>
@@ -98,7 +107,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
         {
             if (returnValue.IsSuccess)
             {
-                T value = returnValue.Value.Value;
+                T value = returnValue.Value.Value.notNull();
                 switch (returnValue.Value.OperationType)
                 {
                     case OperationTypeEnum.Cache: cache.Add(client.GetKey(value), value); return;

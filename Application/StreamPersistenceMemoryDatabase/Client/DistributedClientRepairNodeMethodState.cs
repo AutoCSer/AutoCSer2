@@ -26,7 +26,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用错误的客户端
         /// </summary>
+#if NetStandard21
+        public readonly StreamPersistenceMemoryDatabaseClient? ErrorClient;
+#else
         public readonly StreamPersistenceMemoryDatabaseClient ErrorClient;
+#endif
         /// <summary>
         /// 分布式客户端修复接口方法状态结果
         /// </summary>
@@ -43,7 +47,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="state"></param>
         /// <param name="client"></param>
+#if NetStandard21
+        internal DistributedClientRepairNodeMethodState(CallStateEnum state, StreamPersistenceMemoryDatabaseClient? client)
+#else
         internal DistributedClientRepairNodeMethodState(CallStateEnum state, StreamPersistenceMemoryDatabaseClient client)
+#endif
         {
             ReturnType = CommandClientReturnTypeEnum.Success;
             State = state;

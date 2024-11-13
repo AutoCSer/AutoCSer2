@@ -29,7 +29,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 数据库表格字段名称，null 表示查询参数属性名称
         /// </summary>
+#if NetStandard21
+        public string? TableMemberName;
+#else
         public string TableMemberName;
+#endif
         /// <summary>
         /// 是否检查前后缀
         /// </summary>

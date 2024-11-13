@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.Net
@@ -23,11 +24,19 @@ namespace AutoCSer.Net
         /// <summary>
         /// 队列头部
         /// </summary>
+#if NetStandard21
+        private RawSocketBuffer? head;
+#else
         private RawSocketBuffer head;
+#endif
         /// <summary>
         /// 队列尾部
         /// </summary>
+#if NetStandard21
+        private RawSocketBuffer? end;
+#else
         private RawSocketBuffer end;
+#endif
         /// <summary>
         /// 弹出节点访问锁
         /// </summary>
@@ -72,7 +81,7 @@ namespace AutoCSer.Net
             }
             else
             {
-                end.LinkNext = buffer;
+                end.notNull().LinkNext = buffer;
                 end = buffer;
                 queueLock.Exit();
             }
@@ -87,7 +96,7 @@ namespace AutoCSer.Net
                 waitHandle.Wait();
                 if (isDisposed) return;
                 queueLock.EnterYield();
-                RawSocketBuffer value = head;
+                var value = head;
                 end = null;
                 head = null;
                 queueLock.Exit();
@@ -107,7 +116,7 @@ namespace AutoCSer.Net
                     {
                         AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
                     }
-                    value = value.LinkNext;
+                    value = value.notNull().LinkNext;
                 }
                 while (value != null);
             }

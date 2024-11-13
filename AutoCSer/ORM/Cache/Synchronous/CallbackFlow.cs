@@ -33,15 +33,27 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// <summary>
         /// 等待传输的新数据队列首节点
         /// </summary>
+#if NetStandard21
+        private CallbackValueLinkNode<T>? queueHead;
+#else
         private CallbackValueLinkNode<T> queueHead;
+#endif
         /// <summary>
         /// 等待传输的新数据队列尾节点
         /// </summary>
+#if NetStandard21
+        private CallbackValueLinkNode<T>? queueEnd;
+#else
         private CallbackValueLinkNode<T> queueEnd;
+#endif
         /// <summary>
         /// 下一个等待处理的缓存数据同步回调流
         /// </summary>
+#if NetStandard21
+        internal CallbackFlow<T, VT>? Next;
+#else
         internal CallbackFlow<T, VT> Next;
+#endif
         /// <summary>
         /// 是否已经启动同步任务
         /// </summary>
@@ -63,9 +75,13 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal CallbackFlow<T, VT>? GetNext()
+#else
         internal CallbackFlow<T, VT> GetNext()
+#endif
         {
-            CallbackFlow<T, VT> next = Next;
+            var next = Next;
             Next = null;
             return next;
         }
@@ -144,13 +160,14 @@ namespace AutoCSer.ORM.Cache.Synchronous
         private async Task synchronous(CallbackValueLinkNode<T> node)
         {
             bool isNext = false;
+            var callbackNode = node;
             try
             {
                 do
                 {
-                    if (!await callback.CallbackAsync(node.Value)) return;
+                    if (!await callback.CallbackAsync(callbackNode.Value)) return;
                 }
-                while ((node = node.LinkNext) != null);
+                while ((callbackNode = callbackNode.LinkNext) != null);
                 cache.AppendQueue(checkQueueHandle);
                 isNext = true;
             }
@@ -166,7 +183,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// <param name="operationType"></param>
         private void append(VT value, OperationTypeEnum operationType)
         {
-            CallbackValueLinkNode<T> node = new CallbackValueLinkNode<T>(value, operationType);
+            var node = new CallbackValueLinkNode<T>(value, operationType);
             if (synchronousTask == 0)
             {
                 synchronousTask = 1;
@@ -176,7 +193,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
                     node = queueHead;
                     queueHead = queueEnd = null;
                 }
-               synchronous(node).NotWait();
+               synchronous(node.notNull()).NotWait();
             }
             else
             {

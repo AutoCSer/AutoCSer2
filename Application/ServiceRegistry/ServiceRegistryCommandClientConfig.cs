@@ -13,7 +13,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册客户端
         /// </summary>
+#if NetStandard21
+        internal ServiceRegistryClient? Client;
+#else
         internal ServiceRegistryClient Client;
+#endif
         /// <summary>
         /// 获取命令客户端套接字事件（初始化时一次性调用）
         /// </summary>

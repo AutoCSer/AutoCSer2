@@ -30,7 +30,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 第一个表达式查询条件
         /// </summary>
+#if NetStandard21
+        internal ICondition? Condition;
+#else
         internal ICondition Condition;
+#endif
         /// <summary>
         /// 表达式查询条件集合
         /// </summary>
@@ -67,7 +71,11 @@ namespace AutoCSer.ORM
         /// <param name="tableWriter">数据库表格持久化写入</param>
         /// <param name="isTransaction">是否事务查询，事务查询默认锁为 NONE，否则锁为 NOLOCK</param>
         /// <param name="primaryKeyCondition">关键字条件</param>
+#if NetStandard21
+        internal QueryBuilder(TableWriter tableWriter, bool isTransaction, ICondition? primaryKeyCondition = null)
+#else
         internal QueryBuilder(TableWriter tableWriter, bool isTransaction, ICondition primaryKeyCondition = null)
+#endif
         {
             TableWriter = tableWriter;
                WithLock = isTransaction ? WithLockTypeEnum.None : WithLockTypeEnum.NoLock;
@@ -114,7 +122,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 查询表格字段集合
         /// </summary>
+#if NetStandard21
+        public MemberMap<T>? MemberMap;
+#else
         public MemberMap<T> MemberMap;
+#endif
         /// <summary>
         ///  获取查询语句
         /// </summary>
@@ -137,7 +149,11 @@ namespace AutoCSer.ORM
         /// <param name="tableWriter">数据库表格持久化写入</param>
         /// <param name="condition">第一个表达式查询条件</param>
         /// <param name="isTransaction">是否事务查询，事务查询默认锁为 NONE，否则锁为 NOLOCK</param>
+#if NetStandard21
+        internal QueryBuilder(TableWriter<T> tableWriter, Expression<Func<T, bool>>? condition, bool isTransaction) : base(tableWriter, isTransaction)
+#else
         internal QueryBuilder(TableWriter<T> tableWriter, Expression<Func<T, bool>> condition, bool isTransaction) : base(tableWriter, isTransaction)
+#endif
         {
             TableWriter = tableWriter;
             ConditionLogicType = LogicTypeEnum.True;
@@ -165,7 +181,11 @@ namespace AutoCSer.ORM
         /// <param name="isTransaction">是否事务查询，事务查询默认锁为 NONE，否则锁为 NOLOCK</param>
         /// <param name="primaryKeyCondition">关键字条件</param>
         /// <param name="memberMap">查询表格字段集合</param>
+#if NetStandard21
+        internal QueryBuilder(TableWriter<T> tableWriter, bool isTransaction, ICondition primaryKeyCondition, MemberMap<T>? memberMap) : base(tableWriter, isTransaction, primaryKeyCondition)
+#else
         internal QueryBuilder(TableWriter<T> tableWriter, bool isTransaction, ICondition primaryKeyCondition, MemberMap<T> memberMap) : base(tableWriter, isTransaction, primaryKeyCondition)
+#endif
         {
             TableWriter = tableWriter;
             MemberMap = memberMap;
@@ -357,7 +377,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<T?> SingleOrDefault(int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<T> SingleOrDefault(int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             return await SingleOrDefault<T>(timeoutSeconds, transaction);
         }
@@ -368,7 +392,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> SingleOrDefault<VT>(int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<VT> SingleOrDefault<VT>(int timeoutSeconds = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             switch (ConditionLogicType)
             {
@@ -384,7 +412,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<bool> Exists(int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<bool> Exists(int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             TableWriter.ConnectionPool.CheckTransaction(ref transaction);
             MemberMap = new MemberMap<T>(TableWriter.PrimaryKeyMemberMap);
@@ -398,7 +430,11 @@ namespace AutoCSer.ORM
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<T>> Query(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction? transaction = null)
+#else
         public async Task<LeftArray<T>> Query(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction transaction = null)
+#endif
         {
             return await Query<T>(readCount, timeoutSeconds, skipCount, transaction);
         }
@@ -411,7 +447,11 @@ namespace AutoCSer.ORM
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<VT>> Query<VT>(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<LeftArray<VT>> Query<VT>(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             switch (ConditionLogicType)
             {
@@ -431,7 +471,11 @@ namespace AutoCSer.ORM
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<CT>> Query<CT>(Func<T, CT> getValue, int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction? transaction = null)
+#else
         public async Task<LeftArray<CT>> Query<CT>(Func<T, CT> getValue, int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction transaction = null)
+#endif
         {
             return await Query<T, CT>(getValue, readCount, timeoutSeconds, skipCount, transaction);
         }
@@ -446,7 +490,11 @@ namespace AutoCSer.ORM
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<CT>> Query<VT, CT>(Func<VT, CT> getValue, int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<LeftArray<CT>> Query<VT, CT>(Func<VT, CT> getValue, int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             switch (ConditionLogicType)
             {
@@ -464,7 +512,11 @@ namespace AutoCSer.ORM
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<SelectEnumerator<T, T>> Select(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction? transaction = null)
+#else
         public async Task<SelectEnumerator<T, T>> Select(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction transaction = null)
+#endif
         {
             return await Select<T>(readCount, timeoutSeconds, skipCount, transaction);
         }
@@ -477,7 +529,11 @@ namespace AutoCSer.ORM
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<SelectEnumerator<T, VT>> Select<VT>(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<SelectEnumerator<T, VT>> Select<VT>(int readCount = 0, int timeoutSeconds = 0, long skipCount = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             switch (ConditionLogicType)
             {
@@ -521,7 +577,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<T>> Page(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<LeftArray<T>> Page(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             return await Page<T>(pageIndex, pageSize, timeoutSeconds, transaction);
         }
@@ -534,7 +594,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<VT>> Page<VT>(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<LeftArray<VT>> Page<VT>(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             switch (ConditionLogicType)
             {
@@ -556,7 +620,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<CT>> Page<CT>(Func<T, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<LeftArray<CT>> Page<CT>(Func<T, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             return await Page<T, CT>(getValue, pageIndex, pageSize, timeoutSeconds, transaction);
         }
@@ -571,7 +639,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<LeftArray<CT>> Page<VT, CT>(Func<VT, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<LeftArray<CT>> Page<VT, CT>(Func<VT, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             switch (ConditionLogicType)
             {
@@ -589,7 +661,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<long> Count(int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<long> Count(int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             switch (ConditionLogicType)
             {
@@ -598,7 +674,7 @@ namespace AutoCSer.ORM
             }
             TableWriter.ConnectionPool.CheckTransaction(ref transaction);
             string countStatement = TableWriter.ConnectionPool.Creator.GetQueryStatement(this, ref ExtensionQueryData.Count, 0, false);
-            ValueResult<long> count = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<long>>(countStatement, timeoutSeconds, transaction);
+            var count = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<long>>(countStatement, timeoutSeconds, transaction);
             return count != null ? count.Value : 0;
         }
         /// <summary>
@@ -611,11 +687,15 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <param name="method"></param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task<VT?> call<VT>(Expression<Func<T, VT>> member, int timeoutSeconds, VT? defaultValue, Transaction? transaction, string method)
+#else
         private async Task<VT> call<VT>(Expression<Func<T, VT>> member, int timeoutSeconds, VT defaultValue, Transaction transaction, string method)
+#endif
         {
             ExtensionQueryData queryData = new ExtensionQueryData { QueryNames = new LeftArray<string>(new string[] { $"{method}({TableWriter.Convert(member)}){nameof(ValueResult<VT>.Value)}" }) };
             string countStatement = TableWriter.ConnectionPool.Creator.GetQueryStatement(this, ref queryData, 0, false);
-            ValueResult<VT> value = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<VT>>(countStatement, timeoutSeconds, transaction);
+            var value = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<VT>>(countStatement, timeoutSeconds, transaction);
             return value != null ? value.Value : defaultValue;
         }
         /// <summary>
@@ -627,7 +707,11 @@ namespace AutoCSer.ORM
         /// <param name="defaultValue">查询失败返回的默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> Sum<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
+#else
         public async Task<VT> Sum<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
+#endif
         {
             TableWriter.ConnectionPool.CheckTransaction(ref transaction);
             return await call(member, timeoutSeconds, defaultValue, transaction, "sum");
@@ -641,7 +725,11 @@ namespace AutoCSer.ORM
         /// <param name="defaultValue">查询失败返回的默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> Max<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
+#else
         public async Task<VT> Max<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
+#endif
         {
             TableWriter.ConnectionPool.CheckTransaction(ref transaction);
             return await call(member, timeoutSeconds, defaultValue, transaction, "max");
@@ -655,7 +743,11 @@ namespace AutoCSer.ORM
         /// <param name="defaultValue">查询失败返回的默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> Min<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
+#else
         public async Task<VT> Min<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
+#endif
         {
             TableWriter.ConnectionPool.CheckTransaction(ref transaction);
             return await call(member, timeoutSeconds, defaultValue, transaction, "min");
@@ -668,7 +760,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<PageResult<T>> PageResult(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<PageResult<T>> PageResult(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             return await PageResult<T>(pageIndex, pageSize, timeoutSeconds, transaction);
         }
@@ -681,7 +777,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<PageResult<VT>> PageResult<VT>(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<PageResult<VT>> PageResult<VT>(int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             PageResult<VT> page = new PageResult<VT>(pageIndex, pageSize);
             switch (ConditionLogicType)
@@ -691,7 +791,7 @@ namespace AutoCSer.ORM
             }
             TableWriter.ConnectionPool.CheckTransaction(ref transaction);
             string countStatement = TableWriter.ConnectionPool.Creator.GetQueryStatement(this, ref ExtensionQueryData.Count, 0, false);
-            ValueResult<long> count = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<long>>(countStatement, timeoutSeconds, transaction);
+            var count = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<long>>(countStatement, timeoutSeconds, transaction);
             if (page.Set(count)) page.Result = await TableWriter.Query<VT>(GetQueryPageData(ref page, timeoutSeconds), transaction);
             return page;
         }
@@ -705,7 +805,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<PageResult<CT>> PageResult<CT>(Func<T, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task<PageResult<CT>> PageResult<CT>(Func<T, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null)
+#endif
         {
             return await PageResult<T, CT>(getValue, pageIndex, pageSize, timeoutSeconds, transaction);
         }
@@ -720,7 +824,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<PageResult<CT>> PageResult<VT, CT>(Func<VT, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<PageResult<CT>> PageResult<VT, CT>(Func<VT, CT> getValue, int pageIndex, int pageSize = 10, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, T
+#endif
         {
             PageResult<CT> page = new PageResult<CT>(pageIndex, pageSize);
             switch (ConditionLogicType)
@@ -730,7 +838,7 @@ namespace AutoCSer.ORM
             }
             TableWriter.ConnectionPool.CheckTransaction(ref transaction);
             string countStatement = TableWriter.ConnectionPool.Creator.GetQueryStatement(this, ref ExtensionQueryData.Count, 0, false);
-            ValueResult<long> count = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<long>>(countStatement, timeoutSeconds, transaction);
+            var count = await TableWriter.ConnectionPool.SingleOrDefaultTransaction<ValueResult<long>>(countStatement, timeoutSeconds, transaction);
             if (page.Set(count)) page.Result = await TableWriter.Query(GetQueryPageData(ref page, timeoutSeconds), getValue, transaction);
             return page;
         }
@@ -752,7 +860,11 @@ namespace AutoCSer.ORM
         /// <param name="queryName">添加查询名称，默认为 null 表示不添加到查询</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ExtensionQueryBuilder<T> GroupBy<VT>(Expression<Func<T, VT>> member, string? queryName = null)
+#else
         public ExtensionQueryBuilder<T> GroupBy<VT>(Expression<Func<T, VT>> member, string queryName = null)
+#endif
         {
             return new ExtensionQueryBuilder<T>(this).GroupBy(member, queryName);
         }

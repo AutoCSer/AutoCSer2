@@ -4,15 +4,18 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AutoCSer.RandomObject</AssemblyName>
     <RootNamespace>AutoCSer.RandomObject</RootNamespace>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\RandomObject\AutoCSer.RandomObject.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\RandomObject\AutoCSer.RandomObject.xml</DocumentationFile>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

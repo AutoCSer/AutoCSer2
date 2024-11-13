@@ -4,6 +4,7 @@ using AutoCSer.Net;
 using AutoCSer.Reflection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -23,7 +24,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库服务端
         /// </summary>
-        internal readonly CommandServerSocketSessionObjectService Service;
+        internal readonly StreamPersistenceMemoryDatabaseServiceBase Service;
         /// <summary>
         /// 节点接口类型
         /// </summary>
@@ -35,19 +36,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 节点方法集合
         /// </summary>
+#if NetStandard21
+        internal Method?[] Methods;
+#else
         internal Method[] Methods;
+#endif
         /// <summary>
         /// 节点方法信息集合
         /// </summary>
+#if NetStandard21
+        internal ServerNodeMethod?[] NodeMethods;
+#else
         internal ServerNodeMethod[] NodeMethods;
+#endif
         /// <summary>
         /// 快照方法
         /// </summary>
+#if NetStandard21
+        internal Method? SnapshotMethod;
+#else
         internal Method SnapshotMethod;
+#endif
         /// <summary>
         /// 快照数据类型
         /// </summary>
+#if NetStandard21
+        internal readonly Type? SnapshotType;
+#else
         internal readonly Type SnapshotType;
+#endif
         /// <summary>
         /// 节点状态
         /// </summary>
@@ -61,7 +78,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeMethods">节点方法信息集合</param>
         /// <param name="snapshotMethod">快照方法</param>
         /// <param name="snapshotType">快照数据类型</param>
-        unsafe internal ServerNodeCreator(CommandServerSocketSessionObjectService service, Type type, Method[] methods, ServerNodeMethod[] nodeMethods, Method snapshotMethod, Type snapshotType)
+#if NetStandard21
+        unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method?[] methods, ServerNodeMethod?[] nodeMethods, Method? snapshotMethod, Type? snapshotType)
+#else
+        unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method[] methods, ServerNodeMethod[] nodeMethods, Method snapshotMethod, Type snapshotType)
+#endif
         {
             Service = service;
             Type = type;
@@ -78,20 +99,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="T"></typeparam>
         internal void LoadRepairNodeMethod<T>()
         {
-            string nodeTypeFullName = Type.fullName();
+            string nodeTypeFullName = Type.fullName().notNull();
             RepairNodeMethodDirectory repairNodeMethodDirectory = new RepairNodeMethodDirectory(nodeTypeFullName);
             DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(Service.PersistenceDirectory.FullName, Service.Config.RepairNodeMethodDirectoryName, repairNodeMethodDirectory.NodeTypeHashCode.toHex()));
             if (typeDirectory.Exists)
             {
                 HashSet<int> methodIndexs = HashSetCreator.CreateInt();
-                HashSet<HashKey<ulong, uint>> positionMethodIndexs = null;
+                var positionMethodIndexs = default(HashSet<HashKey<ulong, uint>>);
                 foreach (DirectoryInfo methodDirectory in typeDirectory.GetDirectories().Where(p => p.Name.Length == 16 + 14 + 8).OrderByDescending(p => p.Name))
                 {
                     if (GetMethodDirectory(methodDirectory, ref repairNodeMethodDirectory))
                     {
                         if (Service.IsLoaded || repairNodeMethodDirectory.Position <= Service.RebuildPosition)
                         {
-                            RepairNodeMethod repairNodeMethod = loadRepairNodeMethod<T>(methodDirectory, nodeTypeFullName, methodIndexs, !Service.IsLoaded);
+                            var repairNodeMethod = loadRepairNodeMethod<T>(methodDirectory, nodeTypeFullName, methodIndexs, !Service.IsLoaded);
                             if (repairNodeMethod != null)
                             {
                                 repairNodeMethod.RepairNodeMethodDirectory = repairNodeMethodDirectory;
@@ -129,7 +150,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndexs"></param>
         /// <param name="isMoveHistory"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal RepairNodeMethod? loadRepairNodeMethod<T>(DirectoryInfo methodDirectory, string nodeTypeFullName, HashSet<int>? methodIndexs, bool isMoveHistory)
+#else
         internal RepairNodeMethod loadRepairNodeMethod<T>(DirectoryInfo methodDirectory, string nodeTypeFullName, HashSet<int> methodIndexs, bool isMoveHistory)
+#endif
         {
             FileInfo assemblyFile = new FileInfo(Path.Combine(methodDirectory.FullName, Service.Config.RepairNodeMethodAssemblyFileName));
             FileInfo methodNameFile = new FileInfo(Path.Combine(methodDirectory.FullName, Service.Config.RepairNodeMethodNameFileName));
@@ -140,25 +165,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     RepairNodeMethodName methodName = AutoCSer.JsonDeserializer.Deserialize<RepairNodeMethodName>(File.ReadAllText(methodNameFile.FullName, Encoding.UTF8));
                     if (methodName.NodeTypeFullName == nodeTypeFullName)
                     {
-                        MethodInfo methodInfo;
+                        var methodInfo = default(MethodInfo);
                         byte[] rawAssembly = File.ReadAllBytes(assemblyFile.FullName);
                         CallStateEnum state = GetRepairMethod(ref rawAssembly, ref methodName, out methodInfo);
                         if (state == CallStateEnum.Success)
                         {
-                            ServerMethodAttribute methodAttribute = (ServerMethodAttribute)methodInfo.GetCustomAttribute(typeof(ServerMethodAttribute), false);
+                            methodInfo = methodInfo.notNull();
+                            ServerMethodAttribute methodAttribute = methodInfo.GetCustomAttribute<ServerMethodAttribute>(false).notNull();
                             if (methodIndexs == null || methodIndexs.Add(methodAttribute.MethodIndex))
                             {
                                 if ((uint)methodAttribute.MethodIndex >= (uint)Methods.Length) Methods = AutoCSer.Common.Config.GetCopyArray(Methods, methodAttribute.MethodIndex + 1);
                                 if ((uint)methodAttribute.MethodIndex >= (uint)NodeMethods.Length) NodeMethods = AutoCSer.Common.Config.GetCopyArray(NodeMethods, methodAttribute.MethodIndex + 1);
-                                Method method = Methods[methodAttribute.MethodIndex];
-                                ServerNodeMethod nodeMethod;
+                                var method = Methods[methodAttribute.MethodIndex];
+                                var nodeMethod = default(ServerNodeMethod);
                                 if (method != null)
                                 {
-                                    nodeMethod = NodeMethods[methodAttribute.MethodIndex];
+                                    nodeMethod = NodeMethods[methodAttribute.MethodIndex].notNull();
                                     state = nodeMethod.CheckRepair(Type, methodInfo);
                                     if (state == CallStateEnum.Success)
                                     {
-                                        RepairNodeMethod repairNodeMethod = Service.CanCreateSlave ? new RepairNodeMethod(Type, methodDirectory.Parent.Name, methodDirectory.Name, rawAssembly, methodInfo, assemblyFile, methodNameFile) : null;
+                                        var repairNodeMethod = Service.CanCreateSlave ? new RepairNodeMethod(Type, methodDirectory.Parent.notNull().Name, methodDirectory.Name, rawAssembly, methodInfo, assemblyFile, methodNameFile) : null;
                                         Method newMethod = nodeMethod.CreateMethod<T>(methodInfo);
                                         Methods[methodAttribute.MethodIndex] = newMethod;
                                         nodeMethod.RepairNodeMethod = methodInfo;
@@ -170,7 +196,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 nodeMethod = new ServerNodeMethod(Type, methodInfo, methodAttribute, false);
                                 if (nodeMethod.CallType != CallTypeEnum.Unknown)
                                 {
-                                    RepairNodeMethod repairNodeMethod = Service.CanCreateSlave ? new RepairNodeMethod(Type, methodDirectory.Parent.Name, methodDirectory.Name, rawAssembly, methodInfo, assemblyFile, methodNameFile) : null;
+                                    var repairNodeMethod = Service.CanCreateSlave ? new RepairNodeMethod(Type, methodDirectory.Parent.notNull().Name, methodDirectory.Name, rawAssembly, methodInfo, assemblyFile, methodNameFile) : null;
                                     method = nodeMethod.CreateMethod<T>(methodInfo);
                                     Methods[methodAttribute.MethodIndex] = method;
                                     NodeMethods[methodAttribute.MethodIndex] = nodeMethod;
@@ -201,20 +227,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal async Task Repair<T>(byte[] rawAssembly, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.MethodIndexOutOfRange;
+            bool isCallback = true;
             try
             {
                 if ((uint)methodAttribute.MethodIndex < (uint)Methods.Length)
                 {
-                    Method method = Methods[methodAttribute.MethodIndex];
+                    var method = Methods[methodAttribute.MethodIndex];
                     if (method != null)
                     {
-                        ServerNodeMethod nodeMethod = NodeMethods[methodAttribute.MethodIndex];
+                        ServerNodeMethod nodeMethod = NodeMethods[methodAttribute.MethodIndex].notNull();
                         if (nodeMethod.RepairNodeMethod != methodInfo)
                         {
                             state = nodeMethod.CheckRepair(Type, methodInfo);
                             if (state == CallStateEnum.Success)
                             {
-                                Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), null, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, ref callback));
+                                Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), null, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
+                                isCallback = false;
                             }
                         }
                         else state = CallStateEnum.Success;
@@ -222,7 +250,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     else state = CallStateEnum.NotFoundMethod;
                 }
             }
-            finally { callback?.Callback(state); }
+            finally
+            {
+                if (isCallback) callback.Callback(state);
+            }
         }
         /// <summary>
         /// 写入修复节点方法问价
@@ -233,16 +264,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         private async Task<RepairNodeMethod> writeRepairNodeMethodFile(byte[] rawAssembly, MethodInfo methodInfo, ServerMethodAttribute methodAttribute)
         {
-            RepairNodeMethodDirectory repairNodeMethodDirectory = new RepairNodeMethodDirectory(Type.fullName(), methodAttribute.MethodIndex);
+            RepairNodeMethodDirectory repairNodeMethodDirectory = new RepairNodeMethodDirectory(Type.fullName().notNull(), methodAttribute.MethodIndex);
             DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(Service.PersistenceDirectory.FullName, Service.Config.RepairNodeMethodDirectoryName, repairNodeMethodDirectory.NodeTypeHashCode.toHex()));
             await AutoCSer.Common.Config.TryCreateDirectory(typeDirectory);
             DirectoryInfo methodDirectory = new DirectoryInfo(Path.Combine(typeDirectory.FullName, repairNodeMethodDirectory.RepairTime.toString() + repairNodeMethodDirectory.MethodIndex.toHex()));
             await AutoCSer.Common.Config.TryCreateDirectory(methodDirectory);
             FileInfo assemblyFile = new FileInfo(Path.Combine(methodDirectory.FullName, Service.Config.RepairNodeMethodAssemblyFileName));
-#if DotNet45 || NetStandard2
-            using (FileStream assemblyStream = await AutoCSer.Common.Config.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
-#else
+#if NetStandard21
             await using (FileStream assemblyStream = await AutoCSer.Common.Config.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
+#else
+            using (FileStream assemblyStream = await AutoCSer.Common.Config.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
 #endif
             {
                 await assemblyStream.WriteAsync(rawAssembly, 0, rawAssembly.Length);
@@ -250,7 +281,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             FileInfo methodNameFile = new FileInfo(Path.Combine(methodDirectory.FullName, Service.Config.RepairNodeMethodNameFileName));
             await AutoCSer.Common.Config.WriteFileAllText(methodNameFile.FullName, AutoCSer.JsonSerializer.Serialize(new RepairNodeMethodName(methodInfo, Type)), Encoding.UTF8);
             methodNameFile.LastWriteTimeUtc = assemblyFile.RefreshLastWriteTimeUtc();
-            RepairNodeMethod repairNodeMethod = new RepairNodeMethod(Type, methodDirectory.Parent.Name, methodDirectory.FullName, rawAssembly, methodInfo, assemblyFile, methodNameFile);
+            RepairNodeMethod repairNodeMethod = new RepairNodeMethod(Type, methodDirectory.Parent.notNull().Name, methodDirectory.FullName, rawAssembly, methodInfo, assemblyFile, methodNameFile);
             repairNodeMethod.RepairNodeMethodDirectory = repairNodeMethodDirectory;
             return repairNodeMethod;
         }
@@ -266,6 +297,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal async Task Bind<T>(byte[] rawAssembly, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.MethodIndexOutOfRange;
+            bool isCallback = true;
             try
             {
                 if ((uint)methodAttribute.MethodIndex >= (uint)Methods.Length)
@@ -275,24 +307,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         if ((uint)methodAttribute.MethodIndex >= (uint)Methods.Length)
                         {
-                            Method[] methods = AutoCSer.Common.Config.GetCopyArray(Methods, methodAttribute.MethodIndex + 1);
+                            var methods = AutoCSer.Common.Config.GetCopyArray(Methods, methodAttribute.MethodIndex + 1);
                             NodeMethods = AutoCSer.Common.Config.GetCopyArray(NodeMethods, methods.Length);
                             Methods = methods;
                         }
                     }
                     finally { Monitor.Exit(methodLock); }
                 }
-                ServerNodeMethod nodeMethod = NodeMethods[methodAttribute.MethodIndex];
+                var nodeMethod = NodeMethods[methodAttribute.MethodIndex];
                 if(nodeMethod == null)
                 {
                     nodeMethod = new ServerNodeMethod(Type, methodInfo, methodAttribute, false);
                     if (nodeMethod.CallType != CallTypeEnum.Unknown)
                     {
-                        Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, ref callback));
+                        Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
+                        isCallback = false;
                     }
                     else
                     {
-                        AutoCSer.LogHelper.ErrorIgnoreException(nodeMethod.Error ?? $"{methodInfo.DeclaringType.fullName()}.{methodInfo.Name} 未知节点方法调用类型 {nodeMethod.CallState}");
+                        AutoCSer.LogHelper.ErrorIgnoreException(nodeMethod.Error ?? $"{methodInfo.DeclaringType.notNull().fullName()}.{methodInfo.Name} 未知节点方法调用类型 {nodeMethod.CallState}");
                         state = nodeMethod.CallState;
                     }
                 }
@@ -300,13 +333,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (nodeMethod.RepairNodeMethod != methodInfo)
                     {
-                        Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, ref callback));
+                        Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
+                        isCallback = false;
                     }
                     else state = CallStateEnum.Success;
                 }
                 else state = CallStateEnum.BindMethodIndexUsed;
             }
-            finally { callback?.Callback(state); }
+            finally
+            {
+                if (isCallback) callback.Callback(state);
+            }
         }
         /// <summary>
         /// 修复接口方法错误
@@ -318,16 +355,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodAttribute"></param>
         /// <param name="methodDirectory"></param>
         /// <param name="callback"></param>
+#if NetStandard21
+        internal void Repair(RepairNodeMethod repairNodeMethod, ServerNodeMethod? nodeMethod, Method method, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, DirectoryInfo methodDirectory, CommandServerCallback<CallStateEnum> callback)
+#else
         internal void Repair(RepairNodeMethod repairNodeMethod, ServerNodeMethod nodeMethod, Method method, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, DirectoryInfo methodDirectory, CommandServerCallback<CallStateEnum> callback)
+#endif
         {
             CallStateEnum state = CallStateEnum.Unknown;
             try
             {
                 repairNodeMethod.RepairNodeMethodDirectory.Position = Service.RebuildPersistenceEndPosition;
-                Directory.Move(methodDirectory.FullName, Path.Combine(methodDirectory.Parent.FullName, repairNodeMethod.MethodDirectoryName = repairNodeMethod.RepairNodeMethodDirectory.Position.toHex() + methodDirectory.Name));
+                Directory.Move(methodDirectory.FullName, Path.Combine(methodDirectory.Parent.notNull().FullName, repairNodeMethod.MethodDirectoryName = repairNodeMethod.RepairNodeMethodDirectory.Position.toHex() + methodDirectory.Name));
                 int methodIndex = methodAttribute.MethodIndex;
-                Method historyMethod = Methods[methodIndex];
-                if (nodeMethod == null) nodeMethod = NodeMethods[methodIndex];
+                var historyMethod = Methods[methodIndex];
+                if (nodeMethod == null) nodeMethod = NodeMethods[methodIndex].notNull();
                 else NodeMethods[methodIndex] = nodeMethod;
                 Methods[methodIndex] = method;
                 nodeMethod.RepairNodeMethod = methodInfo;
@@ -399,10 +440,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodName"></param>
         /// <param name="method"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static CallStateEnum GetRepairMethod(ref byte[] rawAssembly, ref RepairNodeMethodName methodName, out MethodInfo? method)
+#else
         internal static CallStateEnum GetRepairMethod(ref byte[] rawAssembly, ref RepairNodeMethodName methodName, out MethodInfo method)
+#endif
         {
             Assembly assembly = LoadAssemblyCache.Load(ref rawAssembly);
-            Type type = assembly.GetType(methodName.DeclaringTypeFullName);
+            var type = assembly.GetType(methodName.DeclaringTypeFullName);
             if (type != null)
             {
                 method = type.GetMethod(methodName.Name, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
@@ -420,16 +465,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="method"></param>
         /// <param name="methodAttribute"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static CallStateEnum GetRepairMethod(byte[] rawAssembly, ref RepairNodeMethodName methodName, out MethodInfo? method, out ServerMethodAttribute? methodAttribute)
+#else
         internal static CallStateEnum GetRepairMethod(byte[] rawAssembly, ref RepairNodeMethodName methodName, out MethodInfo method, out ServerMethodAttribute methodAttribute)
+#endif
         {
             CallStateEnum state = GetRepairMethod(ref rawAssembly, ref methodName, out method);
             if (state == CallStateEnum.Success)
             {
+                method = method.notNull();
                 if (method.IsStatic)
                 {
                     if (!method.IsGenericMethodDefinition)
                     {
-                        methodAttribute = (ServerMethodAttribute)method.GetCustomAttribute(typeof(ServerMethodAttribute), false) ?? ServerMethodAttribute.Default;
+                        methodAttribute = method.GetCustomAttribute<ServerMethodAttribute>(false) ?? ServerMethodAttribute.Default;
                         return methodAttribute.MethodIndex >= 0 ? CallStateEnum.Success : CallStateEnum.MethodIndexOutOfRange;
                     }
                     state = CallStateEnum.RepairMethodIsGenericMethodDefinition;
@@ -451,7 +501,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallMethod = typeof(CallMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallMethod.Call), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallMethod = typeof(CallMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallMethod.Call), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -459,7 +509,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallOutputMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallOutput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallOutputMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallOutput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -467,11 +517,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallOutputCallBeforePersistenceMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallOutputCallBeforePersistenceMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallOutputCallOutputBeforePersistenceMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallOutputBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallOutputCallOutputBeforePersistenceMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallOutputBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -479,7 +529,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallInputMethod = typeof(CallInputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod.CallInput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallInputMethod = typeof(CallInputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod.CallInput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -487,7 +537,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallInputOutputMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallInputOutput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallInputOutputMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallInputOutput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -495,15 +545,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallInputOutputCallOutputBeforePersistenceMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallOutputBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallInputOutputCallOutputBeforePersistenceMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallOutputBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo CallInputOutputCallBeforePersistenceMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallInputOutputCallBeforePersistenceMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo SendOnlyMethod = typeof(SendOnlyMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod.SendOnly), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo SendOnlyMethod = typeof(SendOnlyMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod.SendOnly), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -511,7 +561,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo KeepCallbackMethod = typeof(KeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod.KeepCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo KeepCallbackMethod = typeof(KeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod.KeepCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -519,7 +569,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo InputKeepCallbackMethod = typeof(InputKeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod.InputKeepCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo InputKeepCallbackMethod = typeof(InputKeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod.InputKeepCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用节点方法参数
         /// </summary>
@@ -535,11 +585,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用回调
         /// </summary>
-        internal static readonly MethodInfo CallOutputMethodCallbackMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallOutputMethodCallbackMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 获取持久化检查方法返回值
         /// </summary>
-        internal static readonly MethodInfo CallOutputMethodGetBeforePersistenceResponseParameterMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.GetBeforePersistenceResponseParameter), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallOutputMethodGetBeforePersistenceResponseParameterMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.GetBeforePersistenceResponseParameter), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 调用回调
         /// </summary>
@@ -547,19 +597,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用回调
         /// </summary>
-        internal static readonly MethodInfo CallInputOutputMethodParameterCallbackMethod = typeof(CallInputOutputMethodParameter).GetMethod(nameof(CallInputOutputMethodParameter.Callback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallInputOutputMethodParameterCallbackMethod = typeof(CallInputOutputMethodParameter).GetMethod(nameof(CallInputOutputMethodParameter.Callback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 获取持久化检查方法返回值
         /// </summary>
-        internal static readonly MethodInfo CallInputOutputMethodParameterGetBeforePersistenceResponseParameterMethod = typeof(CallInputOutputMethodParameter).GetMethod(nameof(CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo CallInputOutputMethodParameterGetBeforePersistenceResponseParameterMethod = typeof(CallInputOutputMethodParameter).GetMethod(nameof(CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 枚举回调
         /// </summary>
-        internal static readonly MethodInfo KeepCallbackMethodEnumerableCallbackMethod = typeof(KeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod.EnumerableCallback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo KeepCallbackMethodEnumerableCallbackMethod = typeof(KeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod.EnumerableCallback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
         /// 枚举回调
         /// </summary>
-        internal static readonly MethodInfo InputKeepCallbackMethodParameterEnumerableCallbackMethod = typeof(InputKeepCallbackMethodParameter).GetMethod(nameof(InputKeepCallbackMethodParameter.EnumerableCallback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+        internal static readonly MethodInfo InputKeepCallbackMethodParameterEnumerableCallbackMethod = typeof(InputKeepCallbackMethodParameter).GetMethod(nameof(InputKeepCallbackMethodParameter.EnumerableCallback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
 
         /// <summary>
         /// 创建调用方法与参数信息
@@ -583,33 +633,57 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 节点生成错误
         /// </summary>
+#if NetStandard21
+        private static Exception? creatorException;
+#else
         private static Exception creatorException;
+#endif
         /// <summary>
         /// 节点生成提示信息
         /// </summary>
+#if NetStandard21
+        private static string[]? creatorMessages;
+#else
         private static string[] creatorMessages;
+#endif
         /// <summary>
         /// 节点方法集合
         /// </summary>
+#if NetStandard21
+        private static Method?[] methods;
+#else
         private static Method[] methods;
+#endif
         /// <summary>
         /// 节点方法信息集合
         /// </summary>
+#if NetStandard21
+        private static ServerNodeMethod?[] nodeMethods;
+#else
         private static ServerNodeMethod[] nodeMethods;
+#endif
         /// <summary>
         /// 快照方法
         /// </summary>
-        private static Method snapshotMethod = null;
+#if NetStandard21
+        private static Method? snapshotMethod;
+#else
+        private static Method snapshotMethod;
+#endif
         /// <summary>
         /// 快照数据类型
         /// </summary>
+#if NetStandard21
+        private static Type? snapshotType;
+#else
         private static Type snapshotType = null;
+#endif
         /// <summary>
         /// 生成服务端节点
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
-        internal static ServerNodeCreator Create(CommandServerSocketSessionObjectService service)
+        internal static ServerNodeCreator Create(StreamPersistenceMemoryDatabaseServiceBase service)
         {
             if (creatorException == null)
             {
@@ -627,12 +701,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建调用方法与参数信息
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         internal static readonly Func<ServerNode<T>, T> MethodParameterCreator;
 
         static ServerNodeCreator()
         {
             Type type = typeof(T);
             NodeType nodeType = default(NodeType);
+            methods = EmptyArray<Method>.Array;
+            nodeMethods = EmptyArray<ServerNodeMethod>.Array;
             try
             {
                 nodeType = new NodeType(type);
@@ -641,13 +720,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     creatorException = new Exception($"{type.fullName()} 节点服务端生成失败 {nodeType.Error}");
                     return;
                 }
-                ServerNodeMethod[] nodeMethods = nodeType.Methods;
+                var nodeMethods = nodeType.Methods;
+#if NetStandard21
+                Method?[] methods = new Method[nodeMethods.Length];
+#else
                 Method[] methods = new Method[nodeMethods.Length];
-                ServerNodeMethod snapshotNodeMethod = null;
-                Method snapshotMethod = null;
-                Type snapshotType = null;
+#endif
+                var snapshotNodeMethod = default(ServerNodeMethod);
+                var snapshotMethod = default(Method);
+                var snapshotType = default(Type);
                 int methodIndex = 0;
-                foreach (ServerNodeMethod nodeMethod in nodeMethods)
+                foreach (var nodeMethod in nodeMethods)
                 {
                     if (nodeMethod != null)
                     {
@@ -663,7 +746,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     snapshotMethod = method;
                                     snapshotType = nodeMethod.Parameters[nodeMethod.ParameterStartIndex].ParameterType;
                                 }
-                                else nodeType.Messages.Add($"{type.fullName()} 节点快照方法 {nodeMethod.Method.Name} 冲突 {snapshotNodeMethod.Method.Name}");
+                                else nodeType.Messages.Add($"{type.fullName()} 节点快照方法 {nodeMethod.Method.Name} 冲突 {snapshotNodeMethod.notNull().Method.Name}");
                             }
                             else nodeType.Messages.Add($"{type.fullName()} 节点快照方法 {nodeMethod.Method.Name} 有效输入参数数量 {nodeMethod.ParameterCount} 必须为 1");
                         }
@@ -681,12 +764,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     #region base(node)
                     constructorGenerator.Emit(OpCodes.Ldarg_0);
                     constructorGenerator.Emit(OpCodes.Ldarg_1);
-                    constructorGenerator.Emit(OpCodes.Call, methodParameterCreatorType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, methodParameterCreatorConstructorParameterTypes, null));
+                    constructorGenerator.Emit(OpCodes.Call, methodParameterCreatorType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, methodParameterCreatorConstructorParameterTypes, null).notNull());
                     constructorGenerator.Emit(OpCodes.Ret);
                     #endregion
                     #endregion
                     methodIndex = 0;
-                    foreach (NodeMethod nodeMethod in nodeMethods)
+                    foreach (var nodeMethod in nodeMethods)
                     {
                         if (nodeMethod != null)
                         {
@@ -710,18 +793,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             switch (nodeMethod.CallType)
                             {
                                 case CallTypeEnum.CallInput:
-                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.Type).MethodParameterCreatorCreateCallInputMethodParameterDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateCallInputMethodParameterDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInputOutput:
                                 case CallTypeEnum.InputCallback:
-                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.Type).MethodParameterCreatorCreateCallInputOutputMethodParameterDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateCallInputOutputMethodParameterDelegate.Method);
                                     break;
                                 case CallTypeEnum.SendOnly:
-                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.Type).MethodParameterCreatorCreateSendOnlyMethodParameterDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateSendOnlyMethodParameterDelegate.Method);
                                     break;
                                 case CallTypeEnum.InputKeepCallback:
                                 case CallTypeEnum.InputEnumerable:
-                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.Type).MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate.Method);
                                     break;
 
                                 case CallTypeEnum.Call:
@@ -757,7 +840,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     DynamicMethod dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "CallConstructor", type, methodParameterCreatorConstructorParameterTypes, creatorType, true);
                     ILGenerator callConstructorGenerator = dynamicMethod.GetILGenerator();
                     callConstructorGenerator.Emit(OpCodes.Ldarg_0);
-                    callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(methodParameterCreatorConstructorParameterTypes));
+                    callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(methodParameterCreatorConstructorParameterTypes).notNull());
                     callConstructorGenerator.Emit(OpCodes.Ret);
                     MethodParameterCreator = (Func<ServerNode<T>, T>)dynamicMethod.CreateDelegate(typeof(Func<ServerNode<T>, T>));
                 }
@@ -773,17 +856,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
 
-#if DEBUG
+#if DEBUG && NetStandard21
         public interface IDictionary<KT, VT>
             where KT : IEquatable<KT>
         {
             void Call();
             void Add(KT key, VT value);
             void Set(KT key, VT value);
-            VT Get(KT key);
-            VT CallOutput();
-            void Callback(MethodCallback<VT> callback);
-            void GetCallback(KT key, MethodCallback<VT> callback);
+            VT? Get(KT key);
+            VT? CallOutput();
+            void Callback(MethodCallback<VT?> callback);
+            void GetCallback(KT key, MethodCallback<VT?> callback);
             void KeepCallback(MethodKeepCallback<VT> callback);
             void GetKeepCallback(KT key, MethodKeepCallback<VT> callback);
         }
@@ -803,21 +886,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateCallInputMethodParameter(this, 0, new Dictionary<KT, VT>.p0 { key = key, value = value });
             }
-            public VT Get(KT key)
+            public VT? Get(KT key)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateCallInputOutputMethodParameter(this, 0, new Dictionary<KT, VT>.p0 { key = key });
                 return default(VT);
             }
-            public VT CallOutput()
+            public VT? CallOutput()
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateCallOutputMethodParameter(this, 0);
                 return default(VT);
             }
-            public void Callback(MethodCallback<VT> callback)
+            public void Callback(MethodCallback<VT?> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateCallOutputMethodParameter(this, 0);
             }
-            public void GetCallback(KT key, MethodCallback<VT> callback)
+            public void GetCallback(KT key, MethodCallback<VT?> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateCallInputOutputMethodParameter(this, 0, new Dictionary<KT, VT>.p0 { key = key });
             }
@@ -836,10 +919,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             public void Call() { }
             public void Add(KT key, VT value) { }
             public void Set(KT key, VT value) { }
-            public VT Get(KT key) { return default(VT); }
-            public VT CallOutput() { return default(VT); }
-            public void Callback(MethodCallback<VT> callback) { callback.Callback(default(VT)); }
-            public void GetCallback(KT key, MethodCallback<VT> callback) { callback.Callback(default(VT)); }
+            public VT? Get(KT key) { return default(VT); }
+            public VT? CallOutput() { return default(VT); }
+            public void Callback(MethodCallback<VT?> callback) { callback.Callback(default(VT)); }
+            public void GetCallback(KT key, MethodCallback<VT?> callback) { callback.Callback(default(VT)); }
             public void KeepCallback(MethodKeepCallback<VT> callback) { callback.CallbackCancelKeep(CallStateEnum.Unknown); }
             public void GetKeepCallback(KT key, MethodKeepCallback<VT> callback) { callback.CallbackCancelKeep(CallStateEnum.Unknown); }
 
@@ -873,18 +956,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public override ValueResult<ResponseParameter> CallOutputBeforePersistence(CallInputOutputMethodParameter methodParameter)
                 {
                     p1 parameter = CallInputOutputMethodParameter<p1>.GetParameter(((CallInputOutputMethodParameter<p1>)methodParameter));
-                    return CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter(methodParameter, (ValueResult<VT>)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Get(parameter.key));
+                    return CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter(methodParameter, (ValueResult<VT?>)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Get(parameter.key));
                 }
                 public override bool CallBeforePersistence(CallInputOutputMethodParameter methodParameter)
                 {
                     p1 parameter = CallInputOutputMethodParameter<p1>.GetParameter(((CallInputOutputMethodParameter<p1>)methodParameter));
-                    return (bool)(object)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Get(parameter.key);
+#pragma warning disable CS8605
+                    return (bool)(object?)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Get(parameter.key);
+#pragma warning restore CS8605
                 }
             }
             public sealed class m2 : CallMethod
             {
                 public m2() : base(0, int.MinValue, 0) { }
-                public override void Call(ServerNode node, ref CommandServerCallback<CallStateEnum> callback)
+                public override void Call(ServerNode node, ref CommandServerCallback<CallStateEnum>? callback)
                 {
                     ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).Call();
                     CallMethod.Callback(ref callback);
@@ -893,25 +978,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             public sealed class m3 : CallOutputMethod
             {
                 public m3() : base(0, int.MinValue, 0) { }
-                public override void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter> callback)
+                public override void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter>? callback)
                 {
                     CallOutputMethod.Callback(ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput(), ref callback, false);
                 }
                 public override ValueResult<ResponseParameter> CallOutputBeforePersistence(ServerNode node)
                 {
-                    return CallOutputMethod.GetBeforePersistenceResponseParameter((ValueResult<VT>)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput(), false);
+                    return CallOutputMethod.GetBeforePersistenceResponseParameter((ValueResult<VT?>)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput(), false);
                 }
                 public override bool CallBeforePersistence(ServerNode node)
                 {
-                    return (bool)(object)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput();
+#pragma warning disable CS8605
+                    return (bool)(object?)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput();
+#pragma warning restore CS8605
                 }
             }
             public sealed class m4 : CallOutputMethod
             {
                 public m4() : base(0, int.MinValue, CallTypeEnum.Callback, 0) { }
-                public override void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter> callback)
+                public override void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter>? callback)
                 {
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).Callback(MethodCallback<VT>.Create(ref callback, false));
+                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).Callback(MethodCallback<VT?>.Create(ref callback, false));
                 }
             }
             public sealed class m5 : CallInputOutputMethod<p1>
@@ -920,7 +1007,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public override void CallInputOutput(CallInputOutputMethodParameter methodParameter)
                 {
                     p1 parameter = CallInputOutputMethodParameter<p1>.GetParameter(((CallInputOutputMethodParameter<p1>)methodParameter));
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).GetCallback(parameter.key, MethodCallback<VT>.Create(methodParameter));
+                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).GetCallback(parameter.key, MethodCallback<VT?>.Create(methodParameter));
                 }
             }
             public sealed class m6 : SendOnlyMethod<p0>
@@ -935,7 +1022,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             public sealed class m7 : KeepCallbackMethod
             {
                 public m7() : base(0, int.MinValue, 0) { }
-                public override void KeepCallback(ServerNode node, ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+                public override void KeepCallback(ServerNode node, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback)
                 {
                     ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).KeepCallback(MethodKeepCallback<VT>.Create(ref callback, false));
                 }

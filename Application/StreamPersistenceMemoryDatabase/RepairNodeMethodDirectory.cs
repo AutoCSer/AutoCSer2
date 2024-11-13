@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -62,9 +63,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+#if NetStandard21
+        public override bool Equals(object? obj)
+#else
         public override bool Equals(object obj)
+#endif
         {
-            return Equals((RepairNodeMethodDirectory)obj);
+            return Equals(obj.castValue<RepairNodeMethodDirectory>());
         }
         /// <summary>
         /// 哈希值

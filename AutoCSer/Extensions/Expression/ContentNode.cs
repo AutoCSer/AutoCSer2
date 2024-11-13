@@ -18,7 +18,12 @@ namespace AutoCSer.Expression
         /// <param name="content">节点内容字符串</param>
         /// <param name="next">下一个节点</param>
         /// <param name="memberDepth">成员回溯深度</param>
-        internal ContentNode(ValueTypeEnum valueType, SubString content, ValueNode next = null, byte memberDepth = 0) : base(NodeTypeEnum.Content, valueType, next, memberDepth)
+#if NetStandard21
+        internal ContentNode(ValueTypeEnum valueType, SubString content, ValueNode? next = null, byte memberDepth = 0)
+#else
+        internal ContentNode(ValueTypeEnum valueType, SubString content, ValueNode next = null, byte memberDepth = 0) 
+#endif
+            : base(NodeTypeEnum.Content, valueType, next, memberDepth)
         {
             Content = content;
         }

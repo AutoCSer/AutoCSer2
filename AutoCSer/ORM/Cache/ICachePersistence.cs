@@ -27,7 +27,11 @@ namespace AutoCSer.ORM
         /// <param name="isClone"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        Task<VT?> Update(VT value, MemberMap<T>? memberMap = null, bool isClone = true, Transaction? transaction = null);
+#else
         Task<VT> Update(VT value, MemberMap<T> memberMap = null, bool isClone = true, Transaction transaction = null);
+#endif
         /// <summary>
         /// 根据缓存更新数据
         /// </summary>
@@ -35,13 +39,21 @@ namespace AutoCSer.ORM
         /// <param name="isClone"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        Task<VT?> Update(MemberMapValue<T, VT> value, bool isClone = true, Transaction? transaction = null);
+#else
         Task<VT> Update(MemberMapValue<T, VT> value, bool isClone = true, Transaction transaction = null);
+#endif
         /// <summary>
         /// 根据关键字删除缓存数据
         /// </summary>
         /// <param name="key"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        Task<VT?> Delete(KT key, Transaction? transaction = null);
+#else
         Task<VT> Delete(KT key, Transaction transaction = null);
+#endif
     }
 }

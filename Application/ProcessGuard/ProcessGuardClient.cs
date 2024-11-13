@@ -47,7 +47,11 @@ namespace AutoCSer.CommandService
         /// 删除被守护进程
         /// </summary>
         /// <returns>await</returns>
+#if NetStandard21
+        public ReturnCommand? GetRemoveGuardAwaiter()
+#else
         public ReturnCommand GetRemoveGuardAwaiter()
+#endif
         {
             isRemoveGuard = true;
             return socketEvent.IProcessGuardClient?.Remove(processInfo.ProcessID, processInfo.ProcessName);

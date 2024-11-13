@@ -3,6 +3,7 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 using AutoCSer.TestCase.StreamPersistenceMemoryDatabase;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -26,6 +27,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                     LocalClient<ICustomServiceNodeLocalClientNode> client = cacheService.CreateClient<ICustomServiceNodeLocalClientNode>();
                     do
                     {
+                        //await GameNode.Test(client);
+                        //await Task.Delay(100);
+                        //continue;
+
                         await Task.WhenAll(
                             CallbackNode.Test(client)
                             , DistributedLockNode.Test(client)

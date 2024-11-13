@@ -32,7 +32,11 @@ namespace AutoCSer.CommandService
         /// <param name="taskIdentity">任务ID</param>
         /// <param name="callback">返回 false 表示没有找到任务或者任务已经启动不允许取消</param>
         /// <returns></returns>
+#if NetStandard21
+        CallbackCommand Cancel(long taskIdentity, Action<CommandClientReturnValue<long>>? callback);
+#else
         CallbackCommand Cancel(long taskIdentity, Action<CommandClientReturnValue<long>> callback);
+#endif
 
         /// <summary>
         /// 启动任务
@@ -100,8 +104,12 @@ namespace AutoCSer.CommandService
         /// <param name="bootPath">服务端文件根目录</param>
         /// <param name="path">服务端文件相对目录</param>
         /// <param name="fileTimes">文件信息集合</param>
-        /// <returns>比较结果</returns>
+        /// <returns>比较结果，返回 null 表示没有找到任务或者异常</returns>
+#if NetStandard21
+        ReturnCommand<bool[]?> GetDifferent(long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes);
+#else
         ReturnCommand<bool[]> GetDifferent(long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes);
+#endif
         /// <summary>
         /// 比较文件最后修改时间
         /// </summary>
@@ -110,9 +118,13 @@ namespace AutoCSer.CommandService
         /// <param name="bootPath">服务端文件根目录</param>
         /// <param name="path">服务端文件相对目录</param>
         /// <param name="fileTimes">文件信息集合</param>
-        /// <param name="callback">比较结果回调委托</param>
+        /// <param name="callback">比较结果回调委托，返回 null 表示没有找到任务或者异常</param>
         /// <returns></returns>
+#if NetStandard21
+        CallbackCommand GetDifferent(long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, Action<CommandClientReturnValue<bool[]?>> callback);
+#else
         CallbackCommand GetDifferent(long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, Action<CommandClientReturnValue<bool[]>> callback);
+#endif
 
         /// <summary>
         /// 初始化上传文件

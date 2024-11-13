@@ -14,7 +14,11 @@ namespace AutoCSer
         /// <summary>
         /// 异常调用栈
         /// </summary>
+#if NetStandard21
+        private string? stackTrace;
+#else
         private string stackTrace;
+#endif
         /// <summary>
         /// 判断异常信息是否和上一次重复
         /// </summary>
@@ -24,7 +28,8 @@ namespace AutoCSer
         {
             try
             {
-                string exceptionMessage = exception.Message, exceptionStackTrace = exception.StackTrace;
+                string exceptionMessage = exception.Message;
+                var exceptionStackTrace = exception.StackTrace;
                 if (exceptionMessage == message)
                 {
                     if (exceptionStackTrace == stackTrace) return true;

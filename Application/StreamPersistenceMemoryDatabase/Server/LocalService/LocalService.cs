@@ -54,12 +54,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void CallInput(CallInputMethodParameter parameter, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
-                if (!IsDisposed) state = parameter.CallInput(ref callback);
+                if (!IsDisposed) state = parameter.CallInput(ref refCallback);
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.Callback(state); }
+            finally { refCallback?.Callback(state); }
         }
         /// <summary>
         /// 调用节点方法
@@ -70,12 +71,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void CallInputOutput(CallInputOutputMethodParameter parameter, CommandServerCallback<ResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
-                if (!IsDisposed) state = parameter.CallInputOutput(ref callback);
+                if (!IsDisposed) state = parameter.CallInputOutput(ref refCallback);
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.Callback(new ResponseParameter(state)); }
+            finally { refCallback?.Callback(new ResponseParameter(state)); }
         }
         /// <summary>
         /// 调用节点方法
@@ -85,12 +87,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void InputKeepCallback(InputKeepCallbackMethodParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
-                if (!IsDisposed) parameter.InputKeepCallback(ref callback);
+                if (!IsDisposed) parameter.InputKeepCallback(ref refCallback);
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
+            finally { refCallback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
         }
         /// <summary>
         /// 添加非持久化队列任务（不修改内存数据状态）

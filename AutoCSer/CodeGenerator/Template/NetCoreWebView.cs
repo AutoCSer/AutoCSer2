@@ -19,18 +19,22 @@ namespace AutoCSer.CodeGenerator.Template
             /// </summary>
             public /*IF:IsQueryName*/struct __QUERYPARAMETER__
             {
+#pragma warning disable CS0649
                 #region LOOP LoadParameters
                 public @ParameterType.FullName @ParameterName;
                 #endregion LOOP LoadParameters
                 #region NOTE
                 public object ParameterJoinName;
                 #endregion NOTE
+#pragma warning restore CS0649
             }
             #region IF IsQueryName
+#pragma warning disable CS0649
             /// <summary>
             /// 客户端查询传参
             /// </summary>
             public __QUERYPARAMETER__ @QueryParameterName;
+#pragma warning restore CS0649
             #endregion IF IsQueryName
             #endregion IF ParameterCount
             #endregion PUSH Method

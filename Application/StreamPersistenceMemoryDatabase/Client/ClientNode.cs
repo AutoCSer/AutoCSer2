@@ -55,7 +55,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.Index = index;
             this.isPersistenceCallbackExceptionRenewNode = isPersistenceCallbackExceptionRenewNode;
         }
-#if DotNet45 || NetStandard2
+#if !NetStandard21
         /// <summary>
         /// 检查返回错误状态
         /// </summary>
@@ -137,7 +137,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 默认客户端节点自定义属性
         /// </summary>
-        internal static readonly ClientNodeAttribute DefaultAttribute = new ClientNodeAttribute();
+        internal static readonly ClientNodeAttribute DefaultAttribute = new ClientNodeAttribute(typeof(ClientNodeAttribute));
     }
     /// <summary>
     /// 客户端节点

@@ -28,7 +28,11 @@ namespace AutoCSer.NetCoreWeb.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static GenericType? lastGenericType;
+#else
         protected static GenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -36,7 +40,7 @@ namespace AutoCSer.NetCoreWeb.Metadata
         /// <returns></returns>
         public static GenericType Get(Type type)
         {
-            GenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = get(type);
             lastGenericType = value;

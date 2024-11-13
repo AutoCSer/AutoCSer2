@@ -22,13 +22,17 @@ namespace AutoCSer.TestCase.NetCoreWeb
             /// </summary>
             public struct __QUERYPARAMETER__
             {
+#pragma warning disable CS0649
                 public int left;
                 public int right;
+#pragma warning restore CS0649
             }
+#pragma warning disable CS0649
             /// <summary>
             /// 客户端查询传参
             /// </summary>
             public __QUERYPARAMETER__ Parameters;
+#pragma warning restore CS0649
             /// <summary>
             /// 初始化加载数据（基本操作用代码生成组件处理）
             /// </summary>
@@ -182,9 +186,11 @@ namespace AutoCSer.TestCase.NetCoreWeb
             protected override string defaultRequestPath { get { return "/ViewHelp"; } }
             struct __QUERYPARAMETER__
             {
+#pragma warning disable CS0649
                 public AutoCSer.TestCase.NetCoreWeb.ViewHelpTypeEnum type;
                 public string controllerTypeFullName;
                 public string typeFullName;
+#pragma warning restore CS0649
             }
             /// <summary>
             /// 初始化加载数据（基本操作用代码生成组件处理）

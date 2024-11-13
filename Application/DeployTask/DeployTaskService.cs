@@ -43,10 +43,14 @@ namespace AutoCSer.CommandService
         /// <param name="uploadFilePath">上传文件目录</param>
         /// <param name="switchDirectoryName">切换目录名称</param>
         /// <param name="backupDirectoryName">切换目录名称</param>
+#if NetStandard21
+        public DeployTaskService(DistributedMillisecondIdentityGenerator? identityGenerator = null, string? uploadFilePath = null, string switchDirectoryName = AutoCSer.Deploy.SwitchProcess.DefaultSwitchDirectoryName, string backupDirectoryName = DefaultBackupDirectoryName)
+#else
         public DeployTaskService(DistributedMillisecondIdentityGenerator identityGenerator = null, string uploadFilePath = null, string switchDirectoryName = AutoCSer.Deploy.SwitchProcess.DefaultSwitchDirectoryName, string backupDirectoryName = DefaultBackupDirectoryName)
+#endif
         {
             IdentityGenerator = identityGenerator
-             ?? ((ConfigObject<DistributedMillisecondIdentityGenerator>)AutoCSer.Configuration.Common.Get(typeof(DistributedMillisecondIdentityGenerator)))?.Value
+             ?? AutoCSer.Configuration.Common.Get<DistributedMillisecondIdentityGenerator>()?.Value
              ?? new DistributedMillisecondIdentityGenerator();
             UploadFilePath = uploadFilePath ?? AutoCSer.Common.ApplicationDirectory.FullName;
             SwitchDirectoryName = switchDirectoryName ?? AutoCSer.Deploy.SwitchProcess.DefaultSwitchDirectoryName;
@@ -81,7 +85,7 @@ namespace AutoCSer.CommandService
         /// <returns>返回 false 表示没有找到任务或者任务已经启动不允许取消</returns>
         public virtual async Task<bool> Cancel(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity)
         {
-            DeployTaskBuilder builder;
+            var builder = default(DeployTaskBuilder);
             if (Tasks.TryGetValue(taskIdentity, out builder))
             {
                 await builder.Cancel();
@@ -103,7 +107,7 @@ namespace AutoCSer.CommandService
             bool IsCallback = false;
             try
             {
-                DeployTaskBuilder builder;
+                var builder = default(DeployTaskBuilder);
                 if (Tasks.TryGetValue(taskIdentity, out builder))
                 {
                     IsCallback = true;
@@ -133,7 +137,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual async Task<DeployTaskAppendResult> AppendStartProcess(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, string startFileName, string arguments, bool isWait)
         {
-            DeployTaskBuilder builder;
+            var builder = default(DeployTaskBuilder);
             if (Tasks.TryGetValue(taskIdentity, out builder))
             {
                 return await builder.Append(new DeployTask.StartProcessTask(startFileName, arguments, isWait));
@@ -153,7 +157,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual async Task<DeployTaskAppendResult> AppendCopyUploadFile(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string destinationPath, string checkSwitchFileName, bool isBackup)
         {
-            DeployTaskBuilder builder;
+            var builder = default(DeployTaskBuilder);
             if (Tasks.TryGetValue(taskIdentity, out builder))
             {
                 return await builder.Append(new DeployTask.CopyFileTask(this, taskIdentity, index, destinationPath, checkSwitchFileName, isBackup));
@@ -171,13 +175,20 @@ namespace AutoCSer.CommandService
         /// <param name="bootPath">服务端文件根目录</param>
         /// <param name="path">服务端文件相对目录</param>
         /// <param name="fileTimes">文件信息集合</param>
-        /// <param name="callback">比较结果回调委托</param>
+        /// <param name="callback">比较结果回调委托，返回 null 表示没有找到任务或者异常</param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual Task GetDifferent(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, CommandServerCallback<bool[]?> callback)
+#else
         public virtual Task GetDifferent(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, CommandServerCallback<bool[]> callback)
+#endif
         {
-            DeployTaskBuilder builder;
-            if (Tasks.TryGetValue(taskIdentity, out builder)) AutoCSer.Threading.CatchTask.Add(builder.GetDifferent(index, bootPath, path, fileTimes, callback));
-            else callback.Callback((bool[])null);
+            var builder = default(DeployTaskBuilder);
+            if (Tasks.TryGetValue(taskIdentity, out builder))
+            {
+                AutoCSer.Threading.CatchTask.Add(builder.GetDifferent(index, bootPath, path, fileTimes, callback));
+            }
+            else callback.Callback(default(bool[]));
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
@@ -193,7 +204,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual async Task CreateUploadFile(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string path, DeployTask.FileTime fileTime, CommandServerCallback<DeployTask.CreateUploadFileResult> callback)
         {
-            DeployTaskBuilder builder;
+            var builder = default(DeployTaskBuilder);
             if (Tasks.TryGetValue(taskIdentity, out builder))
             {
                 await builder.CreateUploadFile(index, path, fileTime, callback);
@@ -213,8 +224,8 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public virtual Task WriteUploadFile(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, DeployTask.UploadFileBuffer buffer, CommandServerCallback<bool> callback)
         {
-            DeployTaskBuilder builder;
-            if (buffer.Buffer != null && Tasks.TryGetValue(taskIdentity, out builder)) AutoCSer.Threading.CatchTask.Add(builder.WriteUploadFile(index, buffer, callback));
+            var builder = default(DeployTaskBuilder);
+            if (buffer.Buffer.Length != 0 && Tasks.TryGetValue(taskIdentity, out builder)) AutoCSer.Threading.CatchTask.Add(builder.WriteUploadFile(index, buffer, callback));
             else
             {
                 callback.Callback(false);

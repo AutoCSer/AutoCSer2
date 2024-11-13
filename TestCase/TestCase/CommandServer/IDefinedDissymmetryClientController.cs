@@ -43,26 +43,26 @@ namespace AutoCSer.TestCase
             CommandClientReturnValue returnType = client.DefinedDissymmetryClientController.SetSocket(model);
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(model))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             CommandClientReturnValue<Data.ORM.ModelGeneric> returnValue = client.DefinedDissymmetryClientController.GetSocket();
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(returnValue.Value))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create();
             returnType = await client.DefinedDissymmetryClientController.SetSocketTask(model);
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(model))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             returnValue = await client.DefinedDissymmetryClientController.GetSocketTask();
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(returnValue.Value))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             return true;

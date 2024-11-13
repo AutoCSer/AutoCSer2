@@ -193,6 +193,11 @@
             当前是否存在读取操作
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.Block.#ctor">
+            <summary>
+            默认空磁盘块
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.Block.#ctor(AutoCSer.CommandService.DiskBlock.DiskBlockService,System.Int64)">
             <summary>
             磁盘块
@@ -234,12 +239,13 @@
             写入数据回调操作
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.Block.Read(AutoCSer.CommandService.DiskBlock.BlockIndex@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.ReadBuffer}@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.Block.Read(AutoCSer.CommandService.DiskBlock.BlockIndex@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.ReadBuffer},System.Boolean@)">
             <summary>
             读取数据
             </summary>
             <param name="index">磁盘块索引信息</param>
             <param name="callback"></param>
+            <param name="isCallback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.Block.read">
             <summary>
@@ -508,6 +514,12 @@
             是否已经释放资源
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.#ctor(AutoCSer.CommandService.DiskBlock.Block)">
+            <summary>
+            默认空磁盘块服务
+            </summary>
+            <param name="block"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.#ctor(AutoCSer.CommandService.DiskBlockServiceConfig,System.Int32)">
             <summary>
             磁盘块服务
@@ -542,7 +554,7 @@
             </summary>
             <param name="controller"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.Set(AutoCSer.CommandService.DiskBlock.Block@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.Set(AutoCSer.CommandService.DiskBlock.Block)">
             <summary>
             设置当前操作磁盘块
             </summary>
@@ -554,7 +566,7 @@
             </summary>
             <param name="block"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.SetSwitch(AutoCSer.CommandService.DiskBlock.Block@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.SetSwitch(AutoCSer.CommandService.DiskBlock.Block)">
             <summary>
             切换当前操作磁盘块
             </summary>
@@ -943,7 +955,7 @@
             <param name="position">磁盘块当前写入位置</param>
             <param name="readBufferSize">文件流缓存字节数</param>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.FileBlock.#ctor(AutoCSer.CommandService.DiskBlock.DiskBlockService,System.IO.FileInfo,System.Int64,System.Int64,System.Int32,System.Int32,System.IO.FileStream@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.FileBlock.#ctor(AutoCSer.CommandService.DiskBlock.DiskBlockService,System.IO.FileInfo,System.Int64,System.Int64,System.Int32,System.Int32,System.IO.FileStream)">
             <summary>
             文件块
             </summary>
@@ -1108,6 +1120,54 @@
             序列化
             </summary>
             <param name="serializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.NullBlock">
+            <summary>
+            默认空磁盘块
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.DisposeAsync">
+            <summary>
+            释放资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.Write(AutoCSer.CommandService.DiskBlock.WriteRequest)">
+            <summary>
+            写入数据
+            </summary>
+            <param name="request"></param>
+            <returns>磁盘块当前写入位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.Flush">
+            <summary>
+            写入数据
+            </summary>
+            <returns>磁盘块当前写入位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.read(AutoCSer.CommandService.DiskBlock.ReadRequest,System.Object)">
+            <summary>
+            读取数据
+            </summary>
+            <param name="request"></param>
+            <param name="context">获取读取数据上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.Delete">
+            <summary>
+            删除磁盘块
+            </summary>
+            <returns>是否删除成功</returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.NullBlock.Null">
+            <summary>
+            默认空磁盘块
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadBinaryCallback`1">
             <summary>
@@ -1344,7 +1404,7 @@
             读取数据缓冲区
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadRequest.#ctor(AutoCSer.CommandService.DiskBlock.Block,AutoCSer.CommandService.DiskBlock.BlockIndex@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.ReadBuffer}@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadRequest.#ctor(AutoCSer.CommandService.DiskBlock.Block,AutoCSer.CommandService.DiskBlock.BlockIndex@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.ReadBuffer})">
             <summary>
             读取数据请求信息
             </summary>
@@ -1352,7 +1412,7 @@
             <param name="index"></param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadRequest.AppendCallback(System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.ReadBuffer}@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadRequest.AppendCallback(System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.ReadBuffer})">
             <summary>
             添加读取数据回调委托
             </summary>
@@ -1629,7 +1689,7 @@
             是否已经触发回调
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.#ctor(AutoCSer.CommandService.DiskBlock.BlockIndex@,AutoCSer.Memory.HashBytes@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.BlockIndex}@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.#ctor(AutoCSer.CommandService.DiskBlock.BlockIndex@,AutoCSer.Memory.HashBytes@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.BlockIndex})">
             <summary>
             写入数据请求信息
             </summary>
@@ -1637,7 +1697,7 @@
             <param name="hashBytes">写入数据缓冲区</param>
             <param name="callback">写入位置回调委托</param>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.#ctor(AutoCSer.CommandService.DiskBlock.WriteOperationTypeEnum,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.BlockIndex}@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.#ctor(AutoCSer.CommandService.DiskBlock.WriteOperationTypeEnum,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.BlockIndex})">
             <summary>
             写入数据请求信息
             </summary>
@@ -1650,13 +1710,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.AppendCallback(AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.BlockIndex}@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.AppendCallback(AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DiskBlock.BlockIndex})">
             <summary>
             添加写入位置回调委托
             </summary>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.AppendCallback(AutoCSer.CommandService.DiskBlock.WriteRequest@)">
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteRequest.AppendCallback(AutoCSer.CommandService.DiskBlock.WriteRequest)">
             <summary>
             添加写入位置回调委托
             </summary>

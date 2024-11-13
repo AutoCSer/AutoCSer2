@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -13,7 +14,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 消费者回调
         /// </summary>
+#if NetStandard21
+        internal MethodKeepCallback<T?>? Callback;
+#else
         internal MethodKeepCallback<T> Callback;
+#endif
         /// <summary>
         /// 最大并发数量
         /// </summary>
@@ -35,7 +40,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         /// <param name="maxCount"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal void Set(MethodKeepCallback<T?> callback, int maxCount)
+#else
         internal void Set(MethodKeepCallback<T> callback, int maxCount)
+#endif
         {
             Callback = callback;
             MaxCount = Math.Max(maxCount, 1);
@@ -50,16 +59,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             Count = callback.Count;
             MaxCount = callback.MaxCount;
-            Callback = callback.remove(Callback.Reserve);
+            Callback = callback.remove(Callback.notNull().Reserve);
         }
         /// <summary>
         /// 移除并复制消费者回调信息
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
+#if NetStandard21
+        private MethodKeepCallback<T?> remove(int index)
+#else
         private MethodKeepCallback<T> remove(int index)
+#endif
         {
-            MethodKeepCallback<T> callback = Callback;
+            var callback = Callback.notNull();
             callback.Reserve = index;
             Callback = null;
             return callback;

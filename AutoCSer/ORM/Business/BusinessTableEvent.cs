@@ -114,7 +114,11 @@ namespace AutoCSer.ORM
         /// <param name="connectionPool">数据库连接池</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<BusinessPersistence<BT, T, KT>> CreatePersistence<KT>(ConnectionPool connectionPool, ModelAttribute? attribute = null)
+#else
         public async Task<BusinessPersistence<BT, T, KT>> CreatePersistence<KT>(ConnectionPool connectionPool, ModelAttribute attribute = null)
+#endif
             where KT : IEquatable<KT>
         {
             return await connectionPool.CreateBusinessPersistence<BT, T, KT>(this, attribute);

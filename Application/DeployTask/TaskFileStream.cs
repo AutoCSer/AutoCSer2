@@ -41,7 +41,17 @@ namespace AutoCSer.CommandService.DeployTask
         {
             if (stream != null) await close();
         }
-#if DotNet45 || NetStandard2
+#if NetStandard21
+        /// <summary>
+        /// 关闭文件流
+        /// </summary>
+        /// <returns></returns>
+        private async Task close()
+        {
+            await stream.DisposeAsync();
+            file.LastWriteTimeUtc = fileTime.LastWriteTimeUtc;
+        }
+#else
         /// <summary>
         /// 关闭文件流
         /// </summary>
@@ -51,16 +61,6 @@ namespace AutoCSer.CommandService.DeployTask
             stream.Dispose();
             file.LastWriteTimeUtc = fileTime.LastWriteTimeUtc;
             return AutoCSer.Common.CompletedTask;
-        }
-#else
-        /// <summary>
-        /// 关闭文件流
-        /// </summary>
-        /// <returns></returns>
-        private async Task close()
-        {
-            await stream.DisposeAsync();
-            file.LastWriteTimeUtc = fileTime.LastWriteTimeUtc;
         }
 #endif
         /// <summary>

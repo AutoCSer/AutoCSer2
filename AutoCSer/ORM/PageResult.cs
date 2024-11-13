@@ -59,7 +59,11 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="count"></param>
         /// <returns>是否需要查询分页数据</returns>
+#if NetStandard21
+        internal bool Set(ValueResult<long>? count)
+#else
         internal bool Set(ValueResult<long> count)
+#endif
         {
             if (count == null) return false;
             TotalCount = count.Value;

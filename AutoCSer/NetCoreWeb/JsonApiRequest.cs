@@ -35,7 +35,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// JSON API 单例代理控制器
         /// </summary>
+#if NetStandard21
+        private readonly JsonApiController? controller;
+#else
         private readonly JsonApiController controller;
+#endif
         /// <summary>
         /// 创建 JSON API 代理控制器委托
         /// </summary>
@@ -55,13 +59,14 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="flags">JSON API 方法信息标记</param>
         internal JsonApiRequest(ViewMiddleware viewMiddleware, Func<JsonApiController> createController, MethodInfo method, JsonApiControllerAttribute controllerAttribute, JsonApiAttribute attribute, JsonApiFlags flags) : base(viewMiddleware)
         {
+            this.createController = createController;
             switch (attribute.SingletonEnum)
             {
                 case JsonApiSingletonEnum.Controller:
                     if (controllerAttribute.IsSingleton) controller = createController();
-                    else this.createController = createController;
+                    //else this.createController = createController;
                     break;
-                case JsonApiSingletonEnum.New: this.createController = createController; break;
+                //case JsonApiSingletonEnum.New: this.createController = createController; break;
                 case JsonApiSingletonEnum.Singleton: controller = createController(); break;
             }
             ControllerType = (controller ?? createController()).GetType();
@@ -82,7 +87,7 @@ namespace AutoCSer.NetCoreWeb
             bool isReadPostString = false, checkVersion = !Attribute.CheckReferer && (Flags & (JsonApiFlags.IsCheckRequest | JsonApiFlags.IsAccessTokenParameter)) == 0;
             ResponseResult result = ResponseStateEnum.Unknown;
             long callIdentity = long.MinValue;
-            string postString = null;
+            var postString = default(string);
             try
             {
                 bool isPost = string.Compare(request.Method, "POST", true) == 0;
@@ -148,7 +153,7 @@ namespace AutoCSer.NetCoreWeb
                         int index = 0;
                         do
                         {
-                            int readSize = await httpContext.Request.Body.ReadAsync(buffer.Buffer.Buffer, buffer.StartIndex + index, size - index);
+                            int readSize = await httpContext.Request.Body.ReadAsync(buffer.Buffer.notNull().Buffer, buffer.StartIndex + index, size - index);
                             if (readSize <= 0)
                             {
                                 result.State = ResponseStateEnum.ReadBodySizeError;
@@ -161,7 +166,7 @@ namespace AutoCSer.NetCoreWeb
                         buffer.CurrentIndex = size;
                         if (contentTypeEncoding.CodePage != AutoCSer.Common.UnicodeCodePage)
                         {
-                            int stringSize = contentTypeEncoding.GetCharCount(buffer.Buffer.Buffer, buffer.StartIndex, size);
+                            int stringSize = contentTypeEncoding.GetCharCount(buffer.Buffer.notNull().Buffer, buffer.StartIndex, size);
                             stringBuffer = ByteArrayPool.GetBuffer(stringSize << 1);
                             stringBuffer.CurrentIndex = stringSize;
                         }

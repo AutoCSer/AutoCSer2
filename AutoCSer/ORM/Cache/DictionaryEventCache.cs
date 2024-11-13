@@ -1,4 +1,5 @@
-﻿using AutoCSer.Metadata;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -72,18 +73,18 @@ namespace AutoCSer.ORM
         internal async Task Initialize()
         {
             if (cache.Count != 0) cache.Clear();
-#if DotNet45 || NetStandard2
+#if NetStandard21
+            await using (IAsyncEnumerator<VT> selectEnumerator = await tableWriter.CreateQuery(null, false).Select<VT>())
+            {
+                while (await selectEnumerator.MoveNextAsync()) insert(selectEnumerator.Current);
+            }
+#else
             IEnumeratorTask<VT> selectEnumerator = await tableWriter.CreateQuery(null, false).Select<VT>();
             try
             {
                 while (await selectEnumerator.MoveNextAsync()) insert(selectEnumerator.Current);
             }
             finally { await selectEnumerator.DisposeAsync(); }
-#else
-            await using (IAsyncEnumerator<VT> selectEnumerator = await tableWriter.CreateQuery(null, false).Select<VT>())
-            {
-                while (await selectEnumerator.MoveNextAsync()) insert(selectEnumerator.Current);
-            }
 #endif
         }
         /// <summary>
@@ -92,9 +93,13 @@ namespace AutoCSer.ORM
         /// <param name="key">缓存关键字</param>
         /// <param name="isClone">默认为 true 表示浅复制缓存数据对象，避免缓存数据对象数据被意外修改</param>
         /// <returns>没有找到缓存对象时返回 null</returns>
+#if NetStandard21
+        public VT? Get(KT key, bool isClone = true)
+#else
         public VT Get(KT key, bool isClone = true)
+#endif
         {
-            VT value;
+            var value = default(VT);
             if (cache.TryGetValue(key, out value))
             {
                 return isClone ? (VT)DefaultConstructor.CallMemberwiseClone(value) : value;
@@ -106,9 +111,13 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        protected override VT? getCacheValue(T value)
+#else
         protected override VT getCacheValue(T value)
+#endif
         {
-            VT cacheValue;
+            var cacheValue = default(VT);
             return cache.TryGetValue(getKey(value), out cacheValue) ? cacheValue : null;
         }
         /// <summary>
@@ -135,10 +144,14 @@ namespace AutoCSer.ORM
         /// <param name="isClone"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        async Task<VT?> ICachePersistence<T, VT, KT>.Update(VT value, MemberMap<T>? memberMap, bool isClone, Transaction? transaction)
+#else
         async Task<VT> ICachePersistence<T, VT, KT>.Update(VT value, MemberMap<T> memberMap, bool isClone, Transaction transaction)
+#endif
         {
             tableWriter.CheckReadOnly(ref transaction);
-            VT cacheValue;
+            var cacheValue = default(VT);
             KT key = getKey(value);
             if(cache.TryGetValue(key, out cacheValue) && await tableWriter.Update(value, memberMap, cacheValue, transaction))
             {
@@ -153,10 +166,14 @@ namespace AutoCSer.ORM
         /// <param name="isClone"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        async Task<VT?> ICachePersistence<T, VT, KT>.Update(MemberMapValue<T, VT> value, bool isClone, Transaction? transaction)
+#else
         async Task<VT> ICachePersistence<T, VT, KT>.Update(MemberMapValue<T, VT> value, bool isClone, Transaction transaction)
+#endif
         {
             tableWriter.CheckReadOnly(ref transaction);
-            return await ((ICachePersistence<T, VT, KT>)this).Update(value.Value, value.MemberMap, isClone, transaction);
+            return await ((ICachePersistence<T, VT, KT>)this).Update(value.Value.notNull(), value.MemberMap, isClone, transaction);
         }
         /// <summary>
         /// 根据关键字删除数据
@@ -164,10 +181,14 @@ namespace AutoCSer.ORM
         /// <param name="key"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        async Task<VT?> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction? transaction)
+#else
         async Task<VT> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction transaction)
+#endif
         {
             tableWriter.CheckReadOnly(ref transaction);
-            VT value;
+            var value = default(VT);
             return cache.TryGetValue(key, out value) && await tableWriter.Delete(value, isEventAvailable, transaction) ? value : null;
         }
     }

@@ -59,9 +59,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 消费客户端获取消息
         /// </summary>
         /// <param name="maxCount">当前客户端最大并发消息数量</param>
-        /// <param name="callback"></param>
+        /// <param name="callback">null 表示心跳测试数据，客户端应该忽略该消息</param>
         [ServerMethod(IsPersistence = false)]
+#if NetStandard21
+        void GetMessage(int maxCount, MethodKeepCallback<T?> callback);
+#else
         void GetMessage(int maxCount, MethodKeepCallback<T> callback);
+#endif
         /// <summary>
         /// 生产者添加新消息 持久化参数检查
         /// </summary>

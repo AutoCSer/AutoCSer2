@@ -43,6 +43,10 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="callback">获取文件数据回调委托</param>
         /// <returns></returns>
         [CommandServerMethod(KeepCallbackOutputCount = 1 << 8)]
+#if NetStandard21
+        Task GetFileData(CommandServerSocket socket, SynchronousFileInfo fileInfo, CommandServerKeepCallbackCount<PullFileBuffer?> callback);
+#else
         Task GetFileData(CommandServerSocket socket, SynchronousFileInfo fileInfo, CommandServerKeepCallbackCount<PullFileBuffer> callback);
+#endif
     }
 }

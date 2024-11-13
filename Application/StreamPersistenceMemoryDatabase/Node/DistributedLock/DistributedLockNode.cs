@@ -66,7 +66,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void Remove(DistributedLock<T> distributedLock)
         {
             T key = distributedLock.Identity.Key;
-            DistributedLock<T> removeLock;
+            var removeLock = default(DistributedLock<T>);
             if (locks.TryGetValue(key, out removeLock) && object.ReferenceEquals(distributedLock, removeLock)) locks.Remove(key);
         }
         /// <summary>
@@ -88,7 +88,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback">失败返回 0</param>
         public void Enter(T key, ushort timeoutSeconds, MethodCallback<long> callback)
         {
-            DistributedLock<T> distributedLock;
+            var distributedLock = default(DistributedLock<T>);
             if (!locks.TryGetValue(key, out distributedLock))
             {
                 locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
@@ -110,7 +110,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (key != null && timeoutSeconds != 0)
             {
-                DistributedLock<T> distributedLock;
+                var distributedLock = default(DistributedLock<T>);
                 if (!locks.TryGetValue(key, out distributedLock)) return default(ValueResult<long>);
             }
             return 0;
@@ -123,7 +123,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>失败返回 0</returns>
         public long TryEnter(T key, ushort timeoutSeconds)
         {
-            DistributedLock<T> distributedLock;
+            var distributedLock = default(DistributedLock<T>);
             if (!locks.TryGetValue(key, out distributedLock))
             {
                 locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
@@ -141,7 +141,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (key != null)
             {
-                DistributedLock<T> distributedLock;
+                var distributedLock = default(DistributedLock<T>);
                 return locks.TryGetValue(key, out distributedLock) && distributedLock.Identity.Identity == identity;
             }
             return false;
@@ -153,7 +153,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="identity">锁操作标识</param>
         public void Release(T key, long identity)
         {
-            DistributedLock<T> distributedLock;
+            var distributedLock = default(DistributedLock<T>);
             if (locks.TryGetValue(key, out distributedLock)) distributedLock.Release(identity);
         }
     }

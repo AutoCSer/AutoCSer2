@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -17,6 +18,9 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 基于递增登录时间戳验证的服务认证客户端示例接口
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public ITimestampVerifyClient TimestampVerifyClient { get; private set; }
         /// <summary>
         /// 客户端控制器创建器参数集合

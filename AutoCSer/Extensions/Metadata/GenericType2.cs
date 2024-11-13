@@ -29,7 +29,11 @@ namespace AutoCSer.Extensions.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static GenericType2? lastGenericType;
+#else
         protected static GenericType2 lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -38,7 +42,7 @@ namespace AutoCSer.Extensions.Metadata
         /// <returns></returns>
         public static GenericType2 Get(Type type1, Type type2)
         {
-            GenericType2 value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType2 == type2 && value.CurrentType1 == type1) return value;
 
             value = get(type1, type2);

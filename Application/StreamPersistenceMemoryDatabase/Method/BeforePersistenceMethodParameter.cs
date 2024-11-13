@@ -19,7 +19,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="node"></param>
         /// <param name="method"></param>
         /// <param name="parameter"></param>
-        public BeforePersistenceMethodParameter(ServerNode node, CallInputOutputMethod method, T parameter) : base(node, method, parameter) { }
+        public BeforePersistenceMethodParameter(ServerNode node, CallInputOutputMethod method, T parameter) : base(node, method, parameter) 
+        {
+            customSessionObject = AutoCSer.Common.EmptyObject;
+        }
         /// <summary>
         /// 设置自定义状态对象
         /// </summary>
@@ -29,11 +32,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 获取自定义状态对象
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        public override object? GetBeforePersistenceCustomSessionObject()
+#else
         public override object GetBeforePersistenceCustomSessionObject()
+#endif
         {
             object customSessionObject = this.customSessionObject;
-            this.customSessionObject = null;
-            return customSessionObject;
+            this.customSessionObject = AutoCSer.Common.EmptyObject;
+            return object.ReferenceEquals(customSessionObject, AutoCSer.Common.EmptyObject) ? null : customSessionObject;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AutoCSer.Metadata;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Metadata;
 using AutoCSer.Net;
 using AutoCSer.ORM.Cache.Synchronous;
 using AutoCSer.Threading;
@@ -93,7 +94,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 当前缓存数据同步回调流
         /// </summary>
+#if NetStandard21
+        private CallbackFlow<T, VT>? callbackFlow;
+#else
         private CallbackFlow<T, VT> callbackFlow;
+#endif
         /// <summary>
         /// 获取缓存数据数量
         /// </summary>
@@ -174,17 +179,21 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        protected abstract VT? getCacheValue(T value);
+#else
         protected abstract VT getCacheValue(T value);
+#endif
         /// <summary>
         /// 添加数据之后的操作
         /// </summary>
         /// <param name="value"></param>
         internal override void OnInserted(T value)
         {
-            VT cacheValue = value as VT;
+            var cacheValue = value as VT;
             if (cacheValue == null)
             {
-                cacheValue = DefaultConstructor<VT>.Constructor();
+                cacheValue = DefaultConstructor<VT>.Constructor().notNull();
                 tableWriter.CopyTo(value, cacheValue);
             }
             insert(cacheValue);
@@ -212,7 +221,7 @@ namespace AutoCSer.ORM
         /// <param name="memberMap"></param>
         internal override void OnUpdated(T value, MemberMap<T> memberMap)
         {
-            VT cacheValue = getCacheValue(value);
+            var cacheValue = getCacheValue(value);
             if (cacheValue == null)
             {
                 LogHelper.ErrorIgnoreException($"没有找到待更新的缓存数据 {AutoCSer.JsonSerializer.Serialize(value)}", LogLevelEnum.Fatal);
@@ -249,7 +258,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         internal override void OnDeleted(T value)
         {
-            VT cacheValue = getCacheValue(value);
+            var cacheValue = getCacheValue(value);
             if (cacheValue == null)
             {
                 LogHelper.ErrorIgnoreException($"没有找到待删除的缓存数据 {AutoCSer.JsonSerializer.Serialize(value)}", LogLevelEnum.Fatal);
@@ -308,7 +317,8 @@ namespace AutoCSer.ORM
         public async Task CreateCallbackFlow(CommandServerKeepCallbackCount<CallbackValue<T>> callback)
         {
             if (callback == null) throw new ArgumentNullException();
-            CallbackFlow<T, VT> callbackFlow = null;
+            bool isCallback = true;
+            var callbackFlow = default(CallbackFlow<T, VT>);
             try
             {
                 if (IsDispose) return;
@@ -323,11 +333,11 @@ namespace AutoCSer.ORM
                     this.callbackFlow.Next = callbackFlow;
                     callbackFlow = null;
                 }
-                callback = null;
+                isCallback = false;
             }
             finally
             {
-                if (callback != null) callback.CancelKeep();
+                if (isCallback) callback.CancelKeep();
                 if (callbackFlow != null) await callbackFlow.Start();
             }
         }
@@ -341,8 +351,8 @@ namespace AutoCSer.ORM
             bool isAppend = false;
             try
             {
-                if (isRemove) RemoveEvent(callbackFlow);
-                callbackFlow = callbackFlow.GetNext();
+                if (isRemove) RemoveEvent(callbackFlow.notNull());
+                callbackFlow = callbackFlow.notNull().GetNext();
                 if(callbackFlow != null && !IsDispose)
                 {
                     appendEvent(callbackFlow);

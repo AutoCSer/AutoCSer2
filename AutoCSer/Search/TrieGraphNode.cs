@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Search
@@ -14,11 +16,19 @@ namespace AutoCSer.Search
         /// <summary>
         /// 子节点
         /// </summary>
+#if NetStandard21
+        internal Dictionary<T, TrieGraphNode<T>>? Nodes;
+#else
         internal Dictionary<T, TrieGraphNode<T>> Nodes;
+#endif
         /// <summary>
         /// 失败节点
         /// </summary>
+#if NetStandard21
+        internal TrieGraphNode<T>? Link;
+#else
         internal TrieGraphNode<T> Link;
+#endif
         /// <summary>
         /// 节点值长度，0 表示没有节点值
         /// </summary>
@@ -34,7 +44,7 @@ namespace AutoCSer.Search
         /// <returns>子节点</returns>
         internal TrieGraphNode<T> Create(T letter)
         {
-            TrieGraphNode<T> node;
+            var node = default(TrieGraphNode<T>);
             if (Nodes == null)
             {
                 Nodes = DictionaryCreator<T>.Create<TrieGraphNode<T>>();
@@ -77,7 +87,11 @@ namespace AutoCSer.Search
         /// <param name="link">失败节点</param>
         /// <returns>是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal int GetLinkWhereNull(T letter, ref TrieGraphNode<T>? node, ref TrieGraphNode<T>? link)
+#else
         internal int GetLinkWhereNull(T letter, ref TrieGraphNode<T> node, ref TrieGraphNode<T> link)
+#endif
         {
             if (Nodes == null || Nodes.Count == 0 || !Nodes.TryGetValue(letter, out node))
             {
@@ -113,9 +127,13 @@ namespace AutoCSer.Search
         /// <param name="node"></param>
         /// <returns>false 返回失败节点</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal bool GetNode(T letter, [MaybeNullWhen(false)] out TrieGraphNode<T> node)
+#else
         internal bool GetNode(T letter, out TrieGraphNode<T> node)
+#endif
         {
-            if (Nodes.TryGetValue(letter, out node)) return true;
+            if (Nodes.notNull().TryGetValue(letter, out node)) return true;
             node = Link;
             return false;
         }

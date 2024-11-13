@@ -4,10 +4,11 @@ using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -21,6 +22,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 服务端执行队列
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         internal CommandServerCallQueue CommandServerCallQueue;
         /// <summary>
         /// 获取磁盘块当前写入位置委托集合
@@ -99,6 +103,14 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         internal bool IsDisposed;
         /// <summary>
+        /// 默认空磁盘块服务
+        /// </summary>
+        /// <param name="block"></param>
+        internal DiskBlockService(Block block)
+        {
+            Block = block;
+        }
+        /// <summary>
         /// 磁盘块服务
         /// </summary>
         /// <param name="config">磁盘块服务配置</param>
@@ -112,6 +124,7 @@ namespace AutoCSer.CommandService.DiskBlock
             maxCacheSize = Math.Max(config.MaxCacheSize, 0);
             maxCacheTotalSize = Math.Max(config.MaxCacheTotalSize, maxCacheSize);
             blocks = new LeftArray<Block>(blockCapacity);
+            Block = NullBlock.Null;
         }
         /// <summary>
         /// 释放资源
@@ -119,7 +132,7 @@ namespace AutoCSer.CommandService.DiskBlock
         public virtual void Dispose()
         {
             IsDisposed = true;
-            Block?.Dispose();
+            Block.Dispose();
             foreach (Block block in blocks) block.Dispose();
             dispose();
         }
@@ -130,7 +143,7 @@ namespace AutoCSer.CommandService.DiskBlock
         public virtual async ValueTask DisposeAsync()
         {
             IsDisposed = true;
-            if (Block != null) await Block.DisposeAsync();
+            await Block.DisposeAsync();
             foreach (Block block in blocks) await block.DisposeAsync();
             dispose();
         }
@@ -139,7 +152,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         private void dispose()
         {
-            if (Block != null) CommandServerCallQueue.AddOnly(new BlockCallback(BlockCallbackTypeEnum.Dispose, Block));
+            if (!object.ReferenceEquals(Block, NullBlock.Null)) CommandServerCallQueue.AddOnly(new BlockCallback(BlockCallbackTypeEnum.Dispose, Block));
         }
         /// <summary>
         /// 释放资源
@@ -163,18 +176,17 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="controller"></param>
         void ICommandServerBindController.Bind(CommandServerController controller)
         {
-            CommandServerCallQueue = controller.CallQueue;
+            CommandServerCallQueue = controller.CallQueue.notNull();
         }
         /// <summary>
         /// 设置当前操作磁盘块
         /// </summary>
         /// <param name="block"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void Set(ref Block block)
+        internal void Set(Block block)
         {
             blocks.Add(block);
             Block = block;
-            block = null;
         }
         /// <summary>
         /// 添加磁盘块
@@ -189,7 +201,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 切换当前操作磁盘块
         /// </summary>
         /// <param name="block"></param>
-        internal void SetSwitch(ref Block block)
+        internal void SetSwitch(Block block)
         {
             Monitor.Enter(blockLock);
             try
@@ -198,7 +210,6 @@ namespace AutoCSer.CommandService.DiskBlock
             }
             finally { Monitor.Exit(blockLock); }
             Block = block;
-            block = null;
         }
         /// <summary>
         /// 获取磁盘块当前写入位置
@@ -209,6 +220,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="callback">磁盘块当前写入位置</param>
         public void GetPosition(CommandServerSocket socket, CommandServerCallQueue queue, uint identity, CommandServerKeepCallback<long> callback)
         {
+            bool isCallback = true;
             try
             {
                 if (!IsDisposed)
@@ -218,13 +230,16 @@ namespace AutoCSer.CommandService.DiskBlock
                         if (callback.Callback(Block.Position))
                         {
                             getPositions.PushHead(callback);
-                            callback = null;
+                            isCallback = false;
                         }
                     }
                     else callback.Callback(long.MinValue);
                 }
             }
-            finally { callback?.CancelKeep(); }
+            finally 
+            {
+                if (isCallback) callback.CancelKeep();
+            }
         }
         /// <summary>
         /// 写入数据回调操作
@@ -243,8 +258,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="callback">写入数据起始位置</param>
         public void Write(CommandServerSocket socket, WriteBuffer buffer, CommandServerCallback<BlockIndex> callback)
         {
-            WriteRequest request = null;
+            var request = default(WriteRequest);
             BlockIndex index = new BlockIndex(Identity);
+            bool isCallback = true;
             try
             {
                 bool isIndex;
@@ -272,20 +288,22 @@ namespace AutoCSer.CommandService.DiskBlock
                     Monitor.Exit(dataCacheLock);
                 }
 
-                WriteRequest cacheRequest;
+                var cacheRequest = default(WriteRequest);
                 Monitor.Enter(writeCacheLock);
                 if (writeCache.TryGetValue(hashBytes, out cacheRequest))
                 {
                     try
                     {
-                        cacheRequest.AppendCallback(ref callback);
+                        cacheRequest.AppendCallback(callback);
+                        isCallback = false;
                     }
                     finally { Monitor.Exit(writeCacheLock); }
                     return;
                 }
                 Monitor.Exit(writeCacheLock);
 
-                request = new WriteRequest(ref index, ref hashBytes, ref callback);
+                request = new WriteRequest(ref index, ref hashBytes, callback);
+                isCallback = false;
                 hashBytes = request.GetHashBytes();
 
                 Monitor.Enter(writeCacheLock);
@@ -293,19 +311,25 @@ namespace AutoCSer.CommandService.DiskBlock
                 {
                     try
                     {
-                        cacheRequest.AppendCallback(ref request);
+                        cacheRequest.AppendCallback(request);
+                        request = null;
                     }
                     finally { Monitor.Exit(writeCacheLock); }
                     return;
                 }
                 Monitor.Exit(writeCacheLock);
 
-                if (writeQueue.IsPushHead(ref request) && Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().NotWait();
+                if (writeQueue.IsPushHead(request))
+                {
+                    request = null;
+                    if (Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().NotWait();
+                }
+                else request = null;
             }
             finally 
             {
                 request?.CancelCallback(ref index);
-                callback?.Callback(index);
+                if (isCallback) callback.Callback(index);
             }
         }
         /// <summary>
@@ -319,7 +343,8 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 do
                 {
-                    WriteRequest head = writeQueue.GetClear(), request = head;
+                    var head = writeQueue.GetClear().notNull();
+                    var request = head;
                     long flushPosition = Block.Position, flushTimestamp = Stopwatch.GetTimestamp() + autoFlushTimestamp;
                     do
                     {
@@ -336,7 +361,7 @@ namespace AutoCSer.CommandService.DiskBlock
                                         {
                                             flushPosition = await Block.Flush();
                                             CommandServerCallQueue.AddOnly(new BlockCallback(BlockCallbackTypeEnum.Flush, Block));
-                                            while (head != request) head = free(head);
+                                            while (head != request) head = free(head.notNull());
                                             head = free(head);
                                             flushTimestamp = Stopwatch.GetTimestamp() + autoFlushTimestamp;
                                         }
@@ -352,7 +377,7 @@ namespace AutoCSer.CommandService.DiskBlock
                         {
                             if (!exceptionRepeat.IsRepeat(exception)) await AutoCSer.LogHelper.Exception(exception);
                         }
-                        request = request.LinkNext;
+                        request = request.notNull().LinkNext;
                     }
                     while (request != null);
                     try
@@ -374,7 +399,7 @@ namespace AutoCSer.CommandService.DiskBlock
                         {
                             await AutoCSer.LogHelper.Exception(exception);
                         }
-                        head = head.LinkNext;
+                        head = head.notNull().LinkNext;
                     }
                     while (head != null);
                 }
@@ -388,7 +413,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
+#if NetStandard21
+        private WriteRequest? free(WriteRequest request)
+#else
         private WriteRequest free(WriteRequest request)
+#endif
         {
             if (request.OperationType == WriteOperationTypeEnum.Append)
             {
@@ -409,6 +438,7 @@ namespace AutoCSer.CommandService.DiskBlock
         public void Read(CommandServerSocket socket, CommandServerCallQueue queue, BlockIndex index, CommandServerCallback<ReadBuffer> callback)
         {
             ReadBufferStateEnum state = index.GetReadState();
+            bool isCallback = true;
             try
             {
                 if (state != ReadBufferStateEnum.Unknown) return;
@@ -429,24 +459,31 @@ namespace AutoCSer.CommandService.DiskBlock
                     if (buffer.SubArray.Length == index.Size)
                     {
                         callback.SynchronousCallback(new ReadBuffer(ref buffer.SubArray));
-                        callback = null;
+                        isCallback = false;
                     }
                     else state = ReadBufferStateEnum.Size;
                     return;
                 }
 
-                Block block = getReadBlock(index.Index);
-                if (block != null) Block.Read(ref index, ref callback);
+                var block = getReadBlock(index.Index);
+                if (block != null) block.Read(ref index, callback, ref isCallback);
                 else state = ReadBufferStateEnum.BlockIndex;
             }
-            finally { callback?.SynchronousCallback(new ReadBuffer(state)); }
+            finally 
+            {
+                if (isCallback) callback.SynchronousCallback(new ReadBuffer(state));
+            }
         }
         /// <summary>
         /// 根据索引获取磁盘块
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
+#if NetStandard21
+        private Block? getReadBlock(long index)
+#else
         private Block getReadBlock(long index)
+#endif
         {
             if (Block.StartIndex <= index) return Block;
             if (blocks.Length > 1)
@@ -565,18 +602,25 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="callback">磁盘块当前写入位置</param>
         public void SwitchBlock(CommandServerSocket socket, uint identity, CommandServerCallback<BlockIndex> callback)
         {
-            WriteRequest request = null;
+            var request = default(WriteRequest);
             BlockIndex index = new BlockIndex(long.MinValue, BlockIndex.ErrorSize, Identity);
+            bool isCallback = true;
             try
             {
                 if (IsDisposed) return;
-                request = new WriteRequest(WriteOperationTypeEnum.SwitchBlock, ref callback);
-                if (writeQueue.IsPushHead(ref request) && Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().NotWait();
+                request = new WriteRequest(WriteOperationTypeEnum.SwitchBlock, callback);
+                isCallback = false;
+                if (writeQueue.IsPushHead(request))
+                {
+                    request = null;
+                    if (Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().NotWait();
+                }
+                else request = null;
             }
             finally
             {
                 request?.CancelCallback(ref index);
-                callback?.Callback(index);
+                if (isCallback) callback.Callback(index);
             }
         }
         /// <summary>
@@ -585,7 +629,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="socket"></param>
         /// <param name="identity">磁盘块服务唯一编号</param>
         /// <returns>null 表示失败</returns>
+#if NetStandard21
+        public BlockInfo[]? GetBlocks(CommandServerSocket socket, uint identity)
+#else
         public BlockInfo[] GetBlocks(CommandServerSocket socket, uint identity)
+#endif
         {
             return identity == Identity ? blocks.GetArray(p => new BlockInfo(p)) : null;
         }
@@ -600,7 +648,7 @@ namespace AutoCSer.CommandService.DiskBlock
         {
             if (identity == Identity && blocks.Length > 1)
             {
-                Block block = null;
+                var block = default(Block);
                 Monitor.Enter(blockLock);
                 try
                 {

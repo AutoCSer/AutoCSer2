@@ -71,9 +71,13 @@ namespace AutoCSer.CommandService
         /// <param name="bootPath">服务端文件根目录</param>
         /// <param name="path">服务端文件相对目录</param>
         /// <param name="fileTimes">文件信息集合</param>
-        /// <param name="callback">比较结果回调委托</param>
+        /// <param name="callback">比较结果回调委托，返回 null 表示没有找到任务或者异常</param>
         /// <returns></returns>
+#if NetStandard21
+        Task GetDifferent(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, CommandServerCallback<bool[]?> callback);
+#else
         Task GetDifferent(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, CommandServerCallback<bool[]> callback);
+#endif
         /// <summary>
         /// 初始化上传文件
         /// </summary>

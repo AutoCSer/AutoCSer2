@@ -31,7 +31,11 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static DictionaryGenericType? lastGenericType;
+#else
         protected static DictionaryGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -40,7 +44,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <returns></returns>
         public static DictionaryGenericType Get(Type type, Type interfaceType)
         {
-            DictionaryGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = getDictionary(type, interfaceType);
             lastGenericType = value;

@@ -35,7 +35,11 @@ namespace AutoCSer.Drawing.Gif
         /// <summary>
         /// 应用程序自定义数据块
         /// </summary>
+#if NetStandard21
+        public byte[]? CustomData
+#else
         public byte[] CustomData
+#endif
         {
             get { return Decoder.BlocksToByte(ref customDatas); }
         }

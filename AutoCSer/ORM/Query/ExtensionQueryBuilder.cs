@@ -84,7 +84,11 @@ namespace AutoCSer.ORM
         /// <param name="member"></param>
         /// <param name="queryName">添加查询名称，默认为 null 表示不添加到查询</param>
         /// <returns></returns>
+#if NetStandard21
+        public ExtensionQueryBuilder<T> GroupBy<VT>(Expression<Func<T, VT>> member, string? queryName = null)
+#else
         public ExtensionQueryBuilder<T> GroupBy<VT>(Expression<Func<T, VT>> member, string queryName = null)
+#endif
         {
             ExtensionData.GroupBy(QueryBuilder.TableWriter.ConvertIsSimple(member), queryName);
             return this;
@@ -117,7 +121,11 @@ namespace AutoCSer.ORM
         /// <param name="member"></param>
         /// <param name="queryName">查询返回列名称</param>
         /// <returns></returns>
+#if NetStandard21
+        public ExtensionQueryBuilder<T> Query<VT>(Expression<Func<T, VT>> member, string? queryName = null)
+#else
         public ExtensionQueryBuilder<T> Query<VT>(Expression<Func<T, VT>> member, string queryName = null)
+#endif
         {
             string memberName = QueryBuilder.TableWriter.ConvertIsSimple(member);
             if (string.IsNullOrEmpty(queryName)) ExtensionData.QueryNames.Add(memberName);
@@ -130,7 +138,11 @@ namespace AutoCSer.ORM
         /// <param name="member"></param>
         /// <param name="queryName"></param>
         /// <param name="method"></param>
+#if NetStandard21
+        private void call(string member, string? queryName, string method)
+#else
         private void call(string member, string queryName, string method)
+#endif
         {
             if (QueryBuilder.TableWriter.IsColumnName(member))
             {
@@ -147,7 +159,11 @@ namespace AutoCSer.ORM
         /// <param name="queryName">查询返回列名称，默认 null 表格表示和查询列名称一致</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ExtensionQueryBuilder<T> QueryCount(string member = "*", string? queryName = null)
+#else
         public ExtensionQueryBuilder<T> QueryCount(string member = "*", string queryName = null)
+#endif
         {
             call(member, queryName, "count");
             return this;
@@ -159,7 +175,11 @@ namespace AutoCSer.ORM
         /// <param name="queryName">查询返回列名称，默认 null 表格表示和查询列名称一致</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ExtensionQueryBuilder<T> QuerySum(string member, string? queryName = null)
+#else
         public ExtensionQueryBuilder<T> QuerySum(string member, string queryName = null)
+#endif
         {
             call(member, queryName, "sum");
             return this;
@@ -171,7 +191,11 @@ namespace AutoCSer.ORM
         /// <param name="queryName">查询返回列名称，默认 null 表格表示和查询列名称一致</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ExtensionQueryBuilder<T> QueryMax(string member, string? queryName = null)
+#else
         public ExtensionQueryBuilder<T> QueryMax(string member, string queryName = null)
+#endif
         {
             call(member, queryName, "max");
             return this;
@@ -183,7 +207,11 @@ namespace AutoCSer.ORM
         /// <param name="queryName">查询返回列名称，默认 null 表格表示和查询列名称一致</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ExtensionQueryBuilder<T> QueryMin(string member, string? queryName = null)
+#else
         public ExtensionQueryBuilder<T> QueryMin(string member, string queryName = null)
+#endif
         {
             call(member, queryName, "min");
             return this;

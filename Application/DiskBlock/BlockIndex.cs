@@ -181,9 +181,17 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal unsafe bool GetResult(out ReadResult<byte[]?> result)
+#else
         internal unsafe bool GetResult(out ReadResult<byte[]> result)
+#endif
         {
+#if NetStandard21
+            result = new ReadResult<byte[]?>(CommandClientReturnTypeEnum.ClientException);
+#else
             result = new ReadResult<byte[]>(CommandClientReturnTypeEnum.ClientException);
+#endif
             switch (result.BufferState = GetReadState())
             {
                 case ReadBufferStateEnum.Unknown: return false;
@@ -206,9 +214,17 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal unsafe bool GetResult(out ReadResult<string?> result)
+#else
         internal unsafe bool GetResult(out ReadResult<string> result)
+#endif
         {
+#if NetStandard21
+            result = new ReadResult<string?>(CommandClientReturnTypeEnum.ClientException);
+#else
             result = new ReadResult<string>(CommandClientReturnTypeEnum.ClientException);
+#endif
             switch (result.BufferState = GetReadState())
             {
                 case ReadBufferStateEnum.Unknown: return false;
@@ -217,7 +233,7 @@ namespace AutoCSer.CommandService.DiskBlock
                     if (size < sizeof(int)) result.Set(ReadBufferStateEnum.UnidentifiableSize);
                     else
                     {
-                        string value;
+                        var value = default(string);
                         BlockIndex index = this;
                         if (deserializeString((byte*)&index, size + (-size & 3), out value)) result.Set(value);
                         else result.ReturnType = CommandClientReturnTypeEnum.ClientDeserializeError;
@@ -233,7 +249,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="size"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private unsafe static bool deserializeString(byte* start, int size, out string? value)
+#else
         private unsafe static bool deserializeString(byte* start, int size, out string value)
+#endif
         {
             if (*(int*)start == BinarySerializer.NullValue)
             {
@@ -261,7 +281,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
                 if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= size)
                 {
-                    value = AutoCSer.Common.Config.AllocateString(length);
+                    value = AutoCSer.Common.AllocateString(length);
                     fixed (char* valueFixed = value)
                     {
                         byte* end = start + size;
@@ -278,9 +298,17 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal unsafe bool GetJsonResult<T>(out ReadResult<T?> result)
+#else
         internal unsafe bool GetJsonResult<T>(out ReadResult<T> result)
+#endif
         {
+#if NetStandard21
+            result = new ReadResult<T?>(CommandClientReturnTypeEnum.ClientException);
+#else
             result = new ReadResult<T>(CommandClientReturnTypeEnum.ClientException);
+#endif
             switch (result.BufferState = GetReadState())
             {
                 case ReadBufferStateEnum.Unknown: return false;
@@ -291,7 +319,7 @@ namespace AutoCSer.CommandService.DiskBlock
                     else
                     {
                         BlockIndex index = this;
-                        T value;
+                        var value = default(T);
                         if (deserializeJson((byte*)&index, size + (-size & 3), out value)) result.Set(value);
                         else result.ReturnType = CommandClientReturnTypeEnum.ClientDeserializeError;
                     }
@@ -307,7 +335,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="size"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private unsafe static bool deserializeJson<T>(byte* start, int size, out T? value)
+#else
         private unsafe static bool deserializeJson<T>(byte* start, int size, out T value)
+#endif
         {
             int length = *(int*)start;
             if ((length & 1) == 0)
@@ -331,7 +363,7 @@ namespace AutoCSer.CommandService.DiskBlock
                         fixed (byte* bufferFixed = buffer.GetFixedBuffer())
                         {
                             byte* bufferStart = bufferFixed + buffer.StartIndex, end = start + size;
-                            if (BinaryDeserializer.Deserialize(start, end, (char*)bufferStart, length, lengthSize) == end) return deserializeJson(bufferStart, length, out value);
+                            if (BinaryDeserializer.Deserialize(start, end, (char*)bufferStart, length, lengthSize) == end) return deserializeJson((char*)bufferStart, length, out value);
                         }
                     }
                     finally { buffer.Free(); }
@@ -348,7 +380,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="length"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private unsafe static bool deserializeJson<T>(char* start, int length, out T? value)
+#else
         private unsafe static bool deserializeJson<T>(char* start, int length, out T value)
+#endif
         {
             value = default(T);
             if (length == 4 && *(long*)start == JsonDeserializer.NullStringValue) return true;
@@ -360,9 +396,17 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal unsafe bool GetBinaryResult<T>(out ReadResult<T?> result)
+#else
         internal unsafe bool GetBinaryResult<T>(out ReadResult<T> result)
+#endif
         {
+#if NetStandard21
+            result = new ReadResult<T?>(CommandClientReturnTypeEnum.ClientException);
+#else
             result = new ReadResult<T>(CommandClientReturnTypeEnum.ClientException);
+#endif
             switch (result.BufferState = GetReadState())
             {
                 case ReadBufferStateEnum.Unknown: return false;
@@ -378,7 +422,7 @@ namespace AutoCSer.CommandService.DiskBlock
                         result.Set(default(T));
                         return true;
                     }
-                    T value = default(T);
+                    var value = default(T);
                     BlockIndex index = this;
                     if (BinaryDeserializer.UnsafeDeserialize((byte*)&index, size, ref value).State == BinarySerialize.DeserializeStateEnum.Success)
                     {

@@ -1,18 +1,28 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.CommandService.DiskBlock
 {
     /// <summary>
     /// 读取数据回调
     /// </summary>
+#if NetStandard21
+    internal sealed class ReadCallback : ReadCallback<byte[]?>
+#else
     internal sealed class ReadCallback : ReadCallback<byte[]>
+#endif
     {
         /// <summary>
         /// 读取数据回调
         /// </summary>
         /// <param name="callback"></param>
+#if NetStandard21
+        internal ReadCallback(Action<ReadResult<byte[]?>>? callback = null) : base(callback) { }
+#else
         internal ReadCallback(Action<ReadResult<byte[]>> callback = null) : base(callback) { }
+#endif
         /// <summary>
         /// 反序列化
         /// </summary>
@@ -31,16 +41,27 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 回调数据
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         protected T value;
         /// <summary>
         /// 读取数据回调
         /// </summary>
+#if NetStandard21
+        private readonly Action<ReadResult<T>>? callback;
+#else
         private readonly Action<ReadResult<T>> callback;
+#endif
         /// <summary>
         /// 读取数据回调
         /// </summary>
         /// <param name="callback"></param>
+#if NetStandard21
+        protected ReadCallback(Action<ReadResult<T>>? callback)
+#else
         protected ReadCallback(Action<ReadResult<T>> callback)
+#endif
         {
             this.callback = callback;
         }
@@ -50,7 +71,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="buffer"></param>
         internal void Callback(CommandClientReturnValue<ReadBuffer> buffer)
         {
-            callback(GetResult(buffer));
+            callback.notNull()(GetResult(buffer));
         }
         /// <summary>
         /// 获取数据

@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -27,7 +28,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 反序列化操作对象
         /// </summary>
+#if NetStandard21
+        internal object? DeserializeValue;
+#else
         internal object DeserializeValue;
+#endif
         /// <summary>
         /// 返回参数序列化
         /// </summary>
@@ -36,7 +41,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.State = state;
             IsSimpleSerialize = false;
+#if NetStandard21
+            Serializer = NullResponseParameterSerializer.Null;
+#else
             Serializer = null;
+#endif
             DeserializeValue = null;
         }
         /// <summary>

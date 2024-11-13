@@ -1,10 +1,12 @@
-﻿using AutoCSer.Metadata;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -15,10 +17,10 @@ namespace AutoCSer.ORM
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
     public sealed class ModelSelectEnumerator<T> : SelectEnumerator
-#if DotNet45 || NetStandard2
-    , IEnumeratorTask<T>
-#else
+#if NetStandard21
     , IAsyncEnumerator<T>
+#else
+    , IEnumeratorTask<T>
 #endif
         where T : class
     {
@@ -29,17 +31,28 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 数据列索引集合
         /// </summary>
+#if NetStandard21
+        private int[]? columnIndexs;
+#else
         private int[] columnIndexs;
+#endif
         /// <summary>
         /// 当前读取数据
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public T Current { get; private set; }
         /// <summary>
         /// 异步查询枚举器
         /// </summary>
         /// <param name="connectionPool"></param>
         /// <param name="transaction"></param>
+#if NetStandard21
+        internal ModelSelectEnumerator(ConnectionPool connectionPool, Transaction? transaction) : base(transaction)
+#else
         internal ModelSelectEnumerator(ConnectionPool connectionPool, Transaction transaction) : base(transaction)
+#endif
         {
             this.connectionPool = connectionPool;
         }
@@ -52,6 +65,7 @@ namespace AutoCSer.ORM
         internal async Task GetReader(string statement, int timeoutSeconds)
         {
             await getReader(connectionPool);
+            var command = this.command.notNull();
             ConnectionPool.SetCommand(command, statement);
             if (timeoutSeconds > 0) command.CommandTimeout = timeoutSeconds;
             Reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult);
@@ -61,18 +75,19 @@ namespace AutoCSer.ORM
         /// 判断是否存在下一个数据
         /// </summary>
         /// <returns></returns>
-#if DotNet45 || NetStandard2
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
-#else
+#if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<T>.MoveNextAsync()
+#else
+        async Task<bool> IEnumeratorTask.MoveNextAsync()
 #endif
         {
             ++errorCount;
-            if (await Reader.ReadAsync())
+            var reader = Reader.notNull();
+            if (await reader.ReadAsync())
             {
-                T value = DefaultConstructor<T>.Constructor();
-                if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(Reader);
-                if (columnIndexs.Length != 0) ModelReader<T>.Reader(Reader, value, columnIndexs);
+                T value = DefaultConstructor<T>.Constructor().notNull();
+                if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(reader);
+                if (columnIndexs.Length != 0) ModelReader<T>.Reader(reader, value, columnIndexs);
                 Current = value;
                 --errorCount;
                 return true;
@@ -86,7 +101,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
-            int[] columnIndexs = Interlocked.Exchange(ref this.columnIndexs, null);
+            var columnIndexs = Interlocked.Exchange(ref this.columnIndexs, null);
             if (columnIndexs != null) ModelReader<T>.FreeColumnIndexCache(columnIndexs);
 
             await free(connectionPool);

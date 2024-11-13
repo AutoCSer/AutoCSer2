@@ -12,21 +12,18 @@ namespace AutoCSer.TestCase.FileSynchronous
         {
             try
             {
-                UploadFileServiceConfig uploadFileServiceConfig = new UploadFileServiceConfig
-                {
-                    BackupPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(UploadFileServiceConfig.BackupPath)),
-                    CommandServerSocketSessionObject = new CommandServerSocketSessionObject()
-                };
-                UploadFileService uploadFileService = uploadFileServiceConfig.Create();
                 CommandServerConfig commandServerConfig = new CommandServerConfig
                 {
                     Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.FileSynchronous),
-                    SessionObject = uploadFileService.CommandServerSocketSessionObject
+                };
+                UploadFileServiceConfig uploadFileServiceConfig = new UploadFileServiceConfig
+                {
+                    BackupPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(UploadFileServiceConfig.BackupPath)),
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
                     .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                     .Append<IPullFileService>(new PullFileService())
-                    .Append<IUploadFileService>(uploadFileService)
+                    .Append<IUploadFileService>(uploadFileServiceConfig.Create())
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())

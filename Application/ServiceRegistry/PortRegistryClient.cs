@@ -112,7 +112,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal async Task<bool> SetCallback(CommandListener commandListener, PortIdentity portIdentity)
         {
-            CommandKeepCallback commandKeepCallback = await socketEvent.IPortRegistryClient.SetCallback(portIdentity, CommandClientKeepCallback.EmptyCallback);
+            var commandKeepCallback = await socketEvent.IPortRegistryClient.SetCallback(portIdentity, CommandClientKeepCallback.EmptyCallback);
             if (commandKeepCallback == null) return false;
             PortRegistryClientData data = new PortRegistryClientData(commandListener, portIdentity, commandKeepCallback);
             bool isAdd = false;

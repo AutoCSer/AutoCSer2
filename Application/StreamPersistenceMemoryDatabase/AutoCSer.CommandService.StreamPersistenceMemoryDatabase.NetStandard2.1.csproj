@@ -4,19 +4,21 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AutoCSer.CommandService.StreamPersistenceMemoryDatabase</AssemblyName>
     <RootNamespace>AutoCSer.CommandService.StreamPersistenceMemoryDatabase</RootNamespace>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NetStandard21</DefineConstants>
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -142,6 +144,7 @@
     <Compile Include="Node\SortedListNode.cs" />
     <Compile Include="Node\SortedSetNode.cs" />
     <Compile Include="Node\StackNode.cs" />
+    <Compile Include="NullResponseParameterSerializer.cs" />
     <Compile Include="PersistenceFileBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepairNodeMethod.cs" />
@@ -175,10 +178,8 @@
     <Compile Include="ServerJsonBinary.cs" />
     <Compile Include="ServerJson.cs" />
     <Compile Include="Server\Backuper.cs" />
-    <Compile Include="Server\CommandServerSocketSessionObject.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
-    <Compile Include="Server\CommandServerSocketSessionObjectService.cs" />
     <Compile Include="Server\ContextNode.cs" />
     <Compile Include="Server\EmptyCommandServerCallback.cs" />
     <Compile Include="Server\INode.cs" />
@@ -235,8 +236,8 @@
     <Compile Include="Server\SlaveServiceConfig.cs" />
     <Compile Include="Server\SlaveServiceLoadTypeEnum.cs" />
     <Compile Include="Server\SnapshotMethodSerializer.cs" />
-    <Compile Include="Server\StreamPersistenceMemoryDatabaseConfig.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseService.cs" />
+    <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceBase.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceConfig.cs" />
     <Compile Include="Server\SlaveService.cs" />
     <Compile Include="SimpleSerializeResponseParameter.cs" />

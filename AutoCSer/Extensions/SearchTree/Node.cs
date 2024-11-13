@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.SearchTree
@@ -15,11 +16,19 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 左节点
         /// </summary>
+#if NetStandard21
+        internal NT? Left;
+#else
         internal NT Left;
+#endif
         /// <summary>
         /// 右节点
         /// </summary>
+#if NetStandard21
+        internal NT? Right;
+#else
         internal NT Right;
+#endif
         /// <summary>
         /// 关键字
         /// </summary>
@@ -28,6 +37,15 @@ namespace AutoCSer.SearchTree
         /// 节点数量
         /// </summary>
         internal int Count;
+        /// <summary>
+        /// 二叉字典树节点
+        /// </summary>
+        /// <param name="key"></param>
+        internal Node(KT key)
+        {
+            Key = key;
+            Count = 1;
+        }
         /// <summary>
         /// 节点高度
         /// </summary>
@@ -54,7 +72,7 @@ namespace AutoCSer.SearchTree
         /// </summary>
         protected int leftRightDifferenceCount
         {
-            get { return Left.Count - Right.Count; }
+            get { return Left.notNull().Count - Right.notNull().Count; }
         }
         /// <summary>
         /// 设置节点信息
@@ -63,7 +81,11 @@ namespace AutoCSer.SearchTree
         /// <param name="right"></param>
         /// <param name="count"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected void set(NT? left, NT right, int count)
+#else
         protected void set(NT left, NT right, int count)
+#endif
         {
             Left = left;
             Right = right;
@@ -75,7 +97,11 @@ namespace AutoCSer.SearchTree
         /// <param name="left"></param>
         /// <param name="count"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected void set(NT? left, int count)
+#else
         protected void set(NT left, int count)
+#endif
         {
             Left = left;
             Count = count;
@@ -138,7 +164,11 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected void checkRemoveCount1(NT? node)
+#else
         protected void checkRemoveCount1(NT node)
+#endif
         {
             if (node != null) Count -= node.Count;
             --Count;
@@ -158,9 +188,13 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected NT? clearLeft()
+#else
         protected NT clearLeft()
+#endif
         {
-            NT left = Left;
+            var left = Left;
             Count = 1;
             Left = null;
             return left;
@@ -170,7 +204,11 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected NT? removeLeftCount()
+#else
         protected NT removeLeftCount()
+#endif
         {
             if (Left != null) Count -= Left.Count;
             return Left;
@@ -180,7 +218,11 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected NT? rightToLeft()
+#else
         protected NT rightToLeft()
+#endif
         {
             Left = Right;
             Right = null;
@@ -194,7 +236,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT rightToLeft(NT right)
         {
-            NT left = Left;
+            NT left = Left.notNull();
             Count += right.Count;
             Left = Right;
             Count -= left.Count;
@@ -207,16 +249,16 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkLeftRight()
         {
-            if (Left.Right != null)
+            if (Left.notNull().Right != null)
             {
-                Right = Left.Right;
-                Left.Right = Right.removeLeftCount();
-                Left.checkRemoveCount1(Right.rightToLeft());
+                Right = Left.notNull().Right;
+                Left.notNull().Right = Right.notNull().removeLeftCount();
+                Left.notNull().checkRemoveCount1(Right.notNull().rightToLeft());
             }
             else
             {
                 Right = Left;
-                Left = Right.clearLeft();
+                Left = Right.notNull().clearLeft();
             }
         }
 
@@ -225,9 +267,13 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected NT? clearRight()
+#else
         protected NT clearRight()
+#endif
         {
-            NT right = Right;
+            var right = Right;
             Count = 1;
             Right = null;
             return right;
@@ -237,7 +283,11 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected NT? removeRightCount()
+#else
         protected NT removeRightCount()
+#endif
         {
             if (Right != null) Count -= Right.Count;
             return Right;
@@ -247,7 +297,11 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        protected NT? leftToRight()
+#else
         protected NT leftToRight()
+#endif
         {
             Right = Left;
             Left = null;
@@ -261,7 +315,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected NT leftToRight(NT left)
         {
-            NT right = Right;
+            NT right = Right.notNull();
             Count += left.Count;
             Right = Left;
             Count -= right.Count;
@@ -274,16 +328,16 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkRightLeft()
         {
-            if (Right.Left != null)
+            if (Right.notNull().Left != null)
             {
-                Left = Right.Left;
-                Right.Left = Left.removeRightCount();
-                Right.checkRemoveCount1(Left.leftToRight());
+                Left = Right.notNull().Left;
+                Right.notNull().Left = Left.notNull().removeRightCount();
+                Right.notNull().checkRemoveCount1(Left.notNull().leftToRight());
             }
             else
             {
                 Left = Right;
-                Right = Left.clearRight();
+                Right = Left.notNull().clearRight();
             }
         }
     }

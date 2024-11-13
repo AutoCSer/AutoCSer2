@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -15,6 +16,11 @@ namespace AutoCSer.SearchTree
         /// </summary>
         private sealed class Node : Node<Node, T>
         {
+            /// <summary>
+            /// 二叉搜索树集合
+            /// </summary>
+            /// <param name="key"></param>
+            internal Node(T key) : base(key) { }
             /// <summary>
             /// 数据集合
             /// </summary>
@@ -58,7 +64,11 @@ namespace AutoCSer.SearchTree
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>匹配节点</returns>
+#if NetStandard21
+            internal Node? Get(ref T key)
+#else
             internal Node Get(ref T key)
+#endif
             {
                 int cmp = key.CompareTo(Key);
                 if (cmp == 0) return this;
@@ -88,7 +98,7 @@ namespace AutoCSer.SearchTree
                     if ((index -= Left.Count) == 0) return this;
                 }
                 else if (index == 0) return this;
-                return Right.at(index - 1);
+                return Right.notNull().at(index - 1);
             }
 
             /// <summary>
@@ -104,7 +114,7 @@ namespace AutoCSer.SearchTree
                 {
                     if (Left == null)
                     {
-                        Left = new Node { Key = key, Count = 1 };
+                        Left = new Node(key);
                         ++Count;
                         return true;
                     }
@@ -117,7 +127,7 @@ namespace AutoCSer.SearchTree
                 }
                 if (Right == null)
                 {
-                    Right = new Node { Key = key, Count = 1 };
+                    Right = new Node(key);
                     ++Count;
                     return true;
                 }
@@ -147,22 +157,22 @@ namespace AutoCSer.SearchTree
                 ++Count;
                 if (Right != null)
                 {
-                    if ((Left.Count >> 1) > Right.Count && Left.isLeftAndRight)
+                    if ((Left.notNull().Count >> 1) > Right.Count && Left.notNull().isLeftAndRight)
                     {
-                        if (Left.leftRightDifferenceCount <= 0)
+                        if (Left.notNull().leftRightDifferenceCount <= 0)
                         {
-                            Node leftRight = Left.Right;
+                            Node leftRight = Left.notNull().Right.notNull();
                             if (leftRight.isLeftAndRight)
                             {
-                                Left.Right = leftRight.rightToLeft(Right);
-                                Left.removeCount1(leftRight.Left);
+                                Left.notNull().Right = leftRight.rightToLeft(Right);
+                                Left.notNull().removeCount1(leftRight.Left.notNull());
                                 leftRight.changeKey(ref Key);
                                 Right = leftRight;
                             }
                         }
-                        else if (Left.Right != null)
+                        else if (Left.notNull().Right != null)
                         {
-                            Node left = Left;
+                            Node left = Left.notNull();
                             Left = left.rightToLeft(Right);
                             left.changeKey(ref Key);
                             Right = left;
@@ -172,7 +182,7 @@ namespace AutoCSer.SearchTree
                 else
                 {
                     checkLeftRight();
-                    Right.changeKey(ref Key);
+                    Right.notNull().changeKey(ref Key);
                 }
             }
             /// <summary>
@@ -183,22 +193,22 @@ namespace AutoCSer.SearchTree
                 ++Count;
                 if (Left != null)
                 {
-                    if ((Right.Count >> 1) > Left.Count && Right.isLeftAndRight)
+                    if ((Right.notNull().Count >> 1) > Left.Count && Right.notNull().isLeftAndRight)
                     {
-                        if (Right.leftRightDifferenceCount >= 0)
+                        if (Right.notNull().leftRightDifferenceCount >= 0)
                         {
-                            Node rightLeft = Right.Left;
+                            Node rightLeft = Right.notNull().Left.notNull();
                             if (rightLeft.isLeftAndRight)
                             {
-                                Right.Left = rightLeft.leftToRight(Left);
-                                Right.removeCount1(rightLeft.Right);
+                                Right.notNull().Left = rightLeft.leftToRight(Left);
+                                Right.notNull().removeCount1(rightLeft.Right.notNull());
                                 rightLeft.changeKey(ref Key);
                                 Left = rightLeft;
                             }
                         }
-                        else if (Right.Left != null)
+                        else if (Right.notNull().Left != null)
                         {
-                            Node right = Right;
+                            Node right = Right.notNull();
                             Right = right.leftToRight(Left);
                             right.changeKey(ref Key);
                             Left = right;
@@ -208,7 +218,7 @@ namespace AutoCSer.SearchTree
                 else
                 {
                     checkRightLeft();
-                    Left.changeKey(ref Key);
+                    Left.notNull().changeKey(ref Key);
                 }
             }
 
@@ -217,7 +227,11 @@ namespace AutoCSer.SearchTree
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>被删除节点</returns>
+#if NetStandard21
+            internal Node? Remove(ref T key)
+#else
             internal Node Remove(ref T key)
+#endif
             {
                 int cmp = key.CompareTo(Key);
                 if (cmp == 0) return this;
@@ -225,7 +239,7 @@ namespace AutoCSer.SearchTree
                 {
                     if (Left != null)
                     {
-                        Node node = Left.Remove(ref key);
+                        var node = Left.Remove(ref key);
                         if (node != null)
                         {
                             --Count;
@@ -236,7 +250,7 @@ namespace AutoCSer.SearchTree
                 }
                 else if (Right != null)
                 {
-                    Node node = Right.Remove(ref key);
+                    var node = Right.Remove(ref key);
                     if (node != null)
                     {
                         --Count;
@@ -251,7 +265,11 @@ namespace AutoCSer.SearchTree
             /// </summary>
             /// <returns>用户替换当前节点的节点</returns>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+            internal Node? Remove()
+#else
             internal Node Remove()
+#endif
             {
                 if (Right != null)
                 {
@@ -286,7 +304,11 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 根节点
         /// </summary>
+#if NetStandard21
+        private Node? boot;
+#else
         private Node boot;
+#endif
         /// <summary>
         /// 节点数据
         /// </summary>
@@ -311,7 +333,7 @@ namespace AutoCSer.SearchTree
         {
             get
             {
-                return Count != 0 ? boot.Values : EmptyArray<T>.Array;
+                return boot != null && boot.Count != 0 ? boot.Values : EmptyArray<T>.Array;
             }
         }
         /// <summary>
@@ -368,7 +390,7 @@ namespace AutoCSer.SearchTree
         {
             if (boot == null)
             {
-                boot = new Node { Key = key, Count = 1 };
+                boot = new Node(key);
                 return true;
             }
             return boot.Add(ref key);
@@ -392,7 +414,7 @@ namespace AutoCSer.SearchTree
         {
             if (boot != null)
             {
-                Node node = boot.Remove(ref key);
+                var node = boot.Remove(ref key);
                 if (node != null)
                 {
                     if (node == boot) boot = node.Remove();

@@ -36,7 +36,11 @@ namespace AutoCSer.ORM
         /// <param name="groupBy"></param>
         /// <param name="queryName"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal void GroupBy(string groupBy, string? queryName)
+#else
         internal void GroupBy(string groupBy, string queryName)
+#endif
         {
             GroupBys.Add(groupBy);
             if (queryName != null) QueryNames.Add($"{groupBy} as {queryName}");

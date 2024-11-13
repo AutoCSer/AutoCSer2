@@ -1,3 +1,4 @@
+using AutoCSer.Extensions;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -43,7 +44,7 @@ namespace AutoCSer.ObjectRoot
         /// <param name="scanner"></param>
         internal void GetElementType(ReflectionTypeScanner scanner)
         {
-            Type ElementType = Type.GetElementType();
+            var ElementType = Type.GetElementType().notNull();
             if (!ElementType.IsPointer && ElementType != typeof(System.Reflection.Pointer))
             {
                 this.ElementType = scanner.GetObjectType(ElementType);

@@ -55,7 +55,7 @@ namespace AutoCSer.ORM.CustomColumn
                     else
                     {
                         generator.Emit(OpCodes.Ldarga_S, 0);
-                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                     }
                     if(member.ReaderDataType == ReaderDataTypeEnum.Json) generator.call(member.GenericType.JsonSerializeDelegate.Method);
                     else if (member.MemberIndex.MemberSystemType.IsValueType) generator.Emit(OpCodes.Box, member.MemberIndex.MemberSystemType);
@@ -82,7 +82,7 @@ namespace AutoCSer.ORM.CustomColumn
                     else
                     {
                         generator.Emit(OpCodes.Ldarga_S, 0);
-                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                     }
                     generator.Emit(OpCodes.Ldarg_2);
                     generator.call(member.StructGenericType.CustomColumnToArrayDelegate.Method);
@@ -93,7 +93,7 @@ namespace AutoCSer.ORM.CustomColumn
             writer = (Writer)dynamicMethod.CreateDelegate(typeof(Writer));
         }
     }
-#if DEBUG
+#if DEBUG && NetStandard21
 #pragma warning disable
     internal struct ToArrayIL
     {

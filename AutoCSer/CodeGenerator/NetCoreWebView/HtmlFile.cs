@@ -193,7 +193,8 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                         ViewAttribute attribute = (ViewAttribute)view.GetType().GetCustomAttribute(typeof(ViewAttribute), false) ?? ViewAttribute.Default;
                         if (attribute.IsStaticVersion) loadParameter = "S";
                     }
-                    loadParameter += view.RequestPath ?? HtmlGenerator.ViewMiddleware.GetRequestPath(view.GetType());
+                    var requestPath = view.RequestPath;
+                    loadParameter += !string.IsNullOrEmpty(requestPath) ? requestPath : HtmlGenerator.ViewMiddleware.GetRequestPath(view.GetType());
                 }
                 htmlCode = htmlCode.Replace("__LOADPARAMETER__", loadParameter);
             }

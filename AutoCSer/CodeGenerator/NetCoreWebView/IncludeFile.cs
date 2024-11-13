@@ -172,7 +172,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         {
             int length = 0;
             foreach (SubString codeFragment in codes) length += codeFragment.Length;
-            string code = AutoCSer.Common.Config.AllocateString(length);
+            string code = AutoCSer.Common.AllocateString(length);
             fixed (char* codeFixed = code)
             {
                 char* write = codeFixed;

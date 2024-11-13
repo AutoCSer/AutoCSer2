@@ -20,7 +20,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务端会话绑定日志流持久化内存数据库服务
         /// </summary>
-        private readonly CommandServerSocketSessionObjectService service;
+        private readonly StreamPersistenceMemoryDatabaseServiceBase service;
         /// <summary>
         /// 主节点客户端
         /// </summary>
@@ -36,27 +36,51 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 从节点获取修复节点方法信息命令
         /// </summary>
+#if NetStandard21
+        private CommandKeepCallback? getRepairNodeMethodPositionCommandKeepCallback;
+#else
         private CommandKeepCallback getRepairNodeMethodPositionCommandKeepCallback;
+#endif
         /// <summary>
         /// 持久化回调异常位置文件流
         /// </summary>
+#if NetStandard21
+        private FileStream? persistenceCallbackExceptionPositionStream;
+#else
         private FileStream persistenceCallbackExceptionPositionStream;
+#endif
         /// <summary>
         /// 获取持久化回调异常位置文件数据命令
         /// </summary>
+#if NetStandard21
+        private CommandKeepCallback? getPersistenceCallbackExceptionPositionFileCommandKeepCallback;
+#else
         private CommandKeepCallback getPersistenceCallbackExceptionPositionFileCommandKeepCallback;
+#endif
         /// <summary>
         /// 获取持久化回调异常位置数据命令
         /// </summary>
+#if NetStandard21
+        private CommandKeepCallback? getPersistenceCallbackExceptionPositionCommandKeepCallback;
+#else
         private CommandKeepCallback getPersistenceCallbackExceptionPositionCommandKeepCallback;
+#endif
         /// <summary>
         /// 持久化文件流
         /// </summary>
+#if NetStandard21
+        private FileStream? persistenceStream;
+#else
         private FileStream persistenceStream;
+#endif
         /// <summary>
         /// 获取持久化文件数据命令
         /// </summary>
+#if NetStandard21
+        private CommandKeepCallback? getPersistenceFileCommandKeepCallback;
+#else
         private CommandKeepCallback getPersistenceFileCommandKeepCallback;
+#endif
         /// <summary>
         /// 获取持久化回调异常位置文件数据是否已完成
         /// </summary>
@@ -78,7 +102,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="service"></param>
         /// <param name="masterClient"></param>
-        internal SlaveLoader(CommandServerSocketSessionObjectService service, IStreamPersistenceMemoryDatabaseClientSocketEvent masterClient)
+        internal SlaveLoader(StreamPersistenceMemoryDatabaseServiceBase service, IStreamPersistenceMemoryDatabaseClientSocketEvent masterClient)
         {
             this.service = service;
             this.masterClient = masterClient;
@@ -145,7 +169,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (await AutoCSer.Common.Config.FileExists(service.PersistenceCallbackExceptionPositionFileInfo, true) && service.PersistenceCallbackExceptionPositionFileInfo.Length >= ServiceLoader.ExceptionPositionFileHeadSize)
             {
                 persistenceCallbackExceptionPositionStream = await AutoCSer.Common.Config.CreateFileStream(service.PersistenceCallbackExceptionPositionFileInfo.FullName, FileMode.Open, FileAccess.ReadWrite);
-                await persistenceCallbackExceptionPositionStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
+                if (await persistenceCallbackExceptionPositionStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize) != ServiceLoader.ExceptionPositionFileHeadSize)
+                {
+                    callState = CallStateEnum.ReadFileSizeError;
+                    return false;
+                }
                 persistenceFileHeadVersion = ServiceLoader.GetPersistenceFileHeadVersion(service.PersistenceDataPositionBuffer, out rebuildPosition);
                 CommandClientReturnValue<long> position = await masterClient.StreamPersistenceMemoryDatabaseClient.CheckPersistenceCallbackExceptionPositionFileHead(persistenceFileHeadVersion, rebuildPosition);
                 if (!check(ref position)) return false;
@@ -184,8 +212,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (position > 0)
                     {
                         fixed (byte* buffer = service.PersistenceDataPositionBuffer) *(long*)buffer = position;
-                        persistenceCallbackExceptionPositionStream.Write(service.PersistenceDataPositionBuffer, 0, sizeof(long));
-                        persistenceCallbackExceptionPositionStream.Flush();
+                        var fileStream = persistenceCallbackExceptionPositionStream.notNull();
+                        fileStream.Write(service.PersistenceDataPositionBuffer, 0, sizeof(long));
+                        fileStream.Flush();
                         if (!isBackup) AutoCSer.Common.EmptyFunction();//添加异常位置数据
                         return;
                     }
@@ -193,7 +222,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         if (!getPersistenceCallbackExceptionPositionFileCompleted)
                         {
-                            persistenceCallbackExceptionPositionStream.Flush();
+                            persistenceCallbackExceptionPositionStream.notNull().Flush();
                             getPersistenceCallbackExceptionPositionFileCompleted = true;
                             if (!isBackup) AutoCSer.Threading.CatchTask.AddIgnoreException(getPersistenceFile());
                             return;
@@ -245,9 +274,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isLoad = false;
             try
             {
-                if (persistenceCallbackExceptionPositionStream.Position == position)
+                var fileStream = persistenceCallbackExceptionPositionStream.notNull();
+                if (fileStream.Position == position)
                 {
-                    persistenceCallbackExceptionPositionStream.Write(buffer.Array, buffer.Start, buffer.Length);
+                    fileStream.Write(buffer.Array, buffer.Start, buffer.Length);
                     if (!isBackup) AutoCSer.Common.EmptyFunction();//添加异常位置数据
                     isLoad = true;
                 }
@@ -273,7 +303,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (await AutoCSer.Common.Config.FileExists(service.PersistenceFileInfo, true) && service.PersistenceFileInfo.Length >= ServiceLoader.FileHeadSize)
             {
                 persistenceStream = await AutoCSer.Common.Config.CreateFileStream(service.PersistenceFileInfo.FullName, FileMode.Open, FileAccess.ReadWrite);
-                await persistenceStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
+                if (await persistenceStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize) != ServiceLoader.FileHeadSize)
+                {
+                    callState = CallStateEnum.ReadFileSizeError;
+                    return false;
+                }
                 persistenceFileHeadVersion = ServiceLoader.GetPersistenceFileHeadVersion(service.PersistenceDataPositionBuffer, out rebuildPosition);
                 CommandClientReturnValue<long> position = await masterClient.StreamPersistenceMemoryDatabaseClient.CheckPersistenceFileHead(persistenceFileHeadVersion, rebuildPosition);
                 if (!check(ref position)) return false;
@@ -342,10 +376,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isLoad = false;
             try
             {
-                if (persistenceStream.Position == position)
+                var fileStream = persistenceStream.notNull();
+                if (fileStream.Position == position)
                 {
-                    persistenceStream.Write(buffer.Array, buffer.Start, buffer.Length);
-                    persistenceStream.Flush();
+                    fileStream.Write(buffer.Array, buffer.Start, buffer.Length);
+                    fileStream.Flush();
                     if (!isBackup) AutoCSer.Common.EmptyFunction();//尝试触发数据解析
                     isLoad = true;
                 }
@@ -367,7 +402,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private async Task<bool> getRepairNodeMethodPosition()
         {
             RepairNodeMethodDirectory repairNodeMethodDirectoryKey = default(RepairNodeMethodDirectory);
-            DirectoryInfo repairNodeMethodDirectory = new DirectoryInfo(Path.Combine(service.PersistenceFileInfo.Directory.FullName, service.Config.RepairNodeMethodDirectoryName));
+            DirectoryInfo repairNodeMethodDirectory = new DirectoryInfo(Path.Combine(service.PersistenceFileInfo.Directory.notNull().FullName, service.Config.RepairNodeMethodDirectoryName));
             if (!await AutoCSer.Common.Config.TryCreateDirectory(repairNodeMethodDirectory))
             {
                 foreach (DirectoryInfo typeDirectory in await AutoCSer.Common.Config.GetDirectories(repairNodeMethodDirectory))
@@ -407,7 +442,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (check(ref returnValue))
             {
-                RepairNodeMethod repairNodeMethod = returnValue.Value.RepairNodeMethod;
+                var repairNodeMethod = returnValue.Value.RepairNodeMethod;
                 if (repairNodeMethod == null)
                 {
                     persistencePosition = returnValue.Value.Position;
@@ -438,10 +473,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="deserializer"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static ISlaveLoader? GetSessionObject(AutoCSer.BinaryDeserializer deserializer)
+#else
         internal static ISlaveLoader GetSessionObject(AutoCSer.BinaryDeserializer deserializer)
+#endif
         {
-            CommandClientSocket socket = (CommandClientSocket)deserializer.Context;
-            ISlaveLoader loader = socket.SessionObject as ISlaveLoader;
+            CommandClientSocket socket = (CommandClientSocket)deserializer.Context.notNull();
+            var loader = socket.SessionObject as ISlaveLoader;
             if (loader != null) return loader;
             else if (isDeserializeLog)
             {

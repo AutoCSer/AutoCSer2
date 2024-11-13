@@ -1867,6 +1867,15 @@
             <param name="callerLineNumber">调用源代码行号</param>
             <returns>返回值状态是否成功</returns>
         </member>
+        <member name="M:AutoCSer.Breakpoint.ReturnFalse(System.String,System.String,System.Int32)">
+            <summary>
+            添加测试断点信息并返回 false
+            </summary>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerFilePath">调用源代码文件路径</param>
+            <param name="callerLineNumber">调用源代码行号</param>
+            <returns>返回值状态是否成功</returns>
+        </member>
         <member name="T:AutoCSer.Deploy.SwitchProcess">
             <summary>
             切换进程
@@ -3201,6 +3210,11 @@
             当前计数
             </summary>
         </member>
+        <member name="M:AutoCSer.Memory.BufferCount.#ctor">
+            <summary>
+            默认空数据缓冲区计数
+            </summary>
+        </member>
         <member name="M:AutoCSer.Memory.BufferCount.#ctor(AutoCSer.Memory.ByteArrayPool)">
             <summary>
             数据缓冲区计数
@@ -3210,6 +3224,11 @@
         <member name="M:AutoCSer.Memory.BufferCount.Free">
             <summary>
             释放计数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.BufferCount.Null">
+            <summary>
+            默认空数据缓冲区计数
             </summary>
         </member>
         <member name="T:AutoCSer.Memory.ByteArrayBufferObject">
@@ -6145,6 +6164,13 @@
             节点数据
             </summary>
         </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.#ctor(`0,`1)">
+            <summary>
+            二叉搜索树字典节点
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
         <member name="P:AutoCSer.SearchTree.Dictionary`2.Node.KeyValue">
             <summary>
             数据
@@ -6595,6 +6621,12 @@
             节点数量
             </summary>
         </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.#ctor(`1)">
+            <summary>
+            二叉字典树节点
+            </summary>
+            <param name="key"></param>
+        </member>
         <member name="P:AutoCSer.SearchTree.Node`2.Height">
             <summary>
             节点高度
@@ -6814,6 +6846,12 @@
             <summary>
             二叉搜索树集合节点
             </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.#ctor(`0)">
+            <summary>
+            二叉搜索树集合
+            </summary>
+            <param name="key"></param>
         </member>
         <member name="P:AutoCSer.SearchTree.Set`1.Node.Values">
             <summary>
@@ -8237,6 +8275,14 @@
             <param name="deserializer">XML 反序列化</param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.XmlDeserializer.Constructor``1(``0@)">
+            <summary>
+            构造函数调用
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.XmlDeserializer.CustomDeserialize``1(``0@)">
             <summary>
             自定义反序列化调用
@@ -9412,6 +9458,11 @@
         <member name="F:AutoCSer.Xml.DeserializeStateEnum.CrashEnd">
             <summary>
             非正常意外结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Xml.DeserializeStateEnum.ConstructorNull">
+            <summary>
+            构造函数返回 null 值
             </summary>
         </member>
         <member name="F:AutoCSer.Xml.DeserializeStateEnum.MemberMap">

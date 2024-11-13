@@ -10,12 +10,6 @@ namespace AutoCSer.CommandService.FileSynchronous
     public interface IUploadFileService
     {
         /// <summary>
-        /// 创建会话对象，用于反序列化时获取服务信息
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <returns></returns>
-        CommandServerSendOnly CreateSessionObject(CommandServerSocket socket);
-        /// <summary>
         /// 拼接路径
         /// </summary>
         /// <param name="left"></param>
@@ -71,7 +65,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="path">相对路径</param>
         /// <param name="directoryName">目录名称</param>
         /// <returns>返回 null 表示失败</returns>
+#if NetStandard21
+        Task<string?> CreateDirectory(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path, string directoryName);
+#else
         Task<string> CreateDirectory(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path, string directoryName);
+#endif
         /// <summary>
         /// 创建上传文件
         /// </summary>

@@ -47,6 +47,7 @@
     <Compile Include="JsonApiSingletonEnum.cs" />
     <Compile Include="MemberHelpView.cs" />
     <Compile Include="Metadata\GenericType\ClassGenericType.cs" />
+    <Compile Include="NullViewMiddleware.cs" />
     <Compile Include="ParameterConstraintTypeEnum.cs" />
     <Compile Include="ResponseContentType.cs" />
     <Compile Include="RouteParameter.cs" />

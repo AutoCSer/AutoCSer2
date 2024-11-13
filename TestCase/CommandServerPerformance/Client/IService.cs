@@ -180,7 +180,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         CommandServerSendOnly IService.SendOnly(int left, int right)
         {
             keepCallback.Callback(left + right);
-            return null;
+            return CommandServerSendOnly.Null;
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         async Task<CommandServerSendOnly> IService.SendOnlyTask(int left, int right)
         {
             await keepCallbackCount.CallbackAsync(left + right);
-            return null;
+            return CommandServerSendOnly.Null;
         }
     }
 }

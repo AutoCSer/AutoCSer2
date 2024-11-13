@@ -20,8 +20,8 @@ namespace AutoCSer.Extensions
         {
             if (json.IsSuccess)
             {
-                T value = default(T);
-                AutoCSer.Json.DeserializeResult result = AutoCSer.JsonDeserializer.Deserialize(json.Value, ref value);
+                var value = default(T);
+                AutoCSer.Json.DeserializeResult result = AutoCSer.JsonDeserializer.Deserialize(json.Value.notNull(), ref value);
                 if (result.State == AutoCSer.Json.DeserializeStateEnum.Success) return value;
                 return CommandClientReturnTypeEnum.ClientDeserializeError;
             }
@@ -39,7 +39,7 @@ namespace AutoCSer.Extensions
             {
                 if (json.Value.IsValue)
                 {
-                    T value = default(T);
+                    var value = default(T);
                     AutoCSer.Json.DeserializeResult result = AutoCSer.JsonDeserializer.Deserialize(json.Value.Value, ref value);
                     if (result.State == AutoCSer.Json.DeserializeStateEnum.Success) return value;
                     return CommandClientReturnTypeEnum.ClientDeserializeError;

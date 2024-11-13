@@ -23,15 +23,6 @@ namespace AutoCSer.CommandService
             this.client = client;
         }
         /// <summary>
-        /// 创建会话对象，用于反序列化时获取服务信息
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public SendOnlyCommand CreateSessionObject()
-        {
-            return client.CreateSessionObject();
-        }
-        /// <summary>
         /// 获取服务端 UTC 时间
         /// </summary>
         /// <returns></returns>

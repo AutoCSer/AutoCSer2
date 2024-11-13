@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 日志流持久化内存数据库备份
     /// </summary>
-    public sealed class Backuper : CommandServerSocketSessionObjectService, ISlaveLoader, IDisposable
+    public sealed class Backuper : StreamPersistenceMemoryDatabaseServiceBase, ISlaveLoader, IDisposable
     {
         /// <summary>
         /// 主节点客户端
@@ -21,7 +21,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库从节点服务数据加载
         /// </summary>
+#if NetStandard21
+        private SlaveLoader? loader;
+#else
         private SlaveLoader loader;
+#endif
         /// <summary>
         /// 是否已经启动数据加载
         /// </summary>

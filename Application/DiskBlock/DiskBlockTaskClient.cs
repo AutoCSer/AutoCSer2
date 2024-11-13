@@ -136,7 +136,11 @@ namespace AutoCSer.CommandService
         /// <param name="callback">null 表示失败</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public CallbackCommand GetBlocks(uint identity, Action<CommandClientReturnValue<BlockInfo[]?>> callback)
+#else
         public CallbackCommand GetBlocks(uint identity, Action<CommandClientReturnValue<BlockInfo[]>> callback)
+#endif
         {
             return client.GetBlocks(identity, callback);
         }
@@ -146,7 +150,11 @@ namespace AutoCSer.CommandService
         /// <param name="identity">磁盘块服务唯一编号</param>
         /// <returns>null 表示失败</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ReturnCommand<BlockInfo[]?> GetBlocks(uint identity)
+#else
         public ReturnCommand<BlockInfo[]> GetBlocks(uint identity)
+#endif
         {
             return client.GetBlocks(identity);
         }

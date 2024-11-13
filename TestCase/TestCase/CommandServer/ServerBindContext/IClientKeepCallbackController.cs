@@ -52,7 +52,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -62,7 +62,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -70,7 +70,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -78,7 +78,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -88,7 +88,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -98,7 +98,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -106,7 +106,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -114,7 +114,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -124,7 +124,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -134,7 +134,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -142,7 +142,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -150,7 +150,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -160,7 +160,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -170,7 +170,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -178,7 +178,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -186,7 +186,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 

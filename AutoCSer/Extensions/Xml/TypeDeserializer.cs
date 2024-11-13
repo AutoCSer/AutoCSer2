@@ -1,4 +1,5 @@
-﻿using AutoCSer.Metadata;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -25,7 +26,11 @@ namespace AutoCSer.Xml
             /// <summary>
             /// 集合子节点名称
             /// </summary>
+#if NetStandard21
+            private string? itemName;
+#else
             private string itemName;
+#endif
             /// <summary>
             /// 成员位图索引
             /// </summary>
@@ -37,7 +42,11 @@ namespace AutoCSer.Xml
             /// <param name="member"></param>
             /// <param name="memberAttribute"></param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+            public void Set(DynamicMethod dynamicMethod, MemberIndexInfo member, XmlSerializeMemberAttribute? memberAttribute)
+#else
             public void Set(DynamicMethod dynamicMethod, MemberIndexInfo member, XmlSerializeMemberAttribute memberAttribute)
+#endif
             {
                 deserialize = (XmlDeserializer.DeserializeDelegate<T>)dynamicMethod.CreateDelegate(typeof(XmlDeserializer.DeserializeDelegate<T>));
                 itemName = memberAttribute?.ItemName;
@@ -90,7 +99,11 @@ namespace AutoCSer.Xml
         /// <summary>
         /// 解析委托
         /// </summary>
+#if NetStandard21
+        internal static readonly XmlDeserializer.DeserializeDelegate<T?> DefaultDeserializer;
+#else
         internal static readonly XmlDeserializer.DeserializeDelegate<T> DefaultDeserializer;
+#endif
         /// <summary>
         /// 成员解析器集合
         /// </summary>
@@ -109,9 +122,15 @@ namespace AutoCSer.Xml
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private static void deserializeValue(XmlDeserializer deserializer, ref T? value)
+#else
         private static void deserializeValue(XmlDeserializer deserializer, ref T value)
+#endif
         {
+#pragma warning disable CS8601
             if (deserializer.IsValue() != 0) DeserializeMembers(deserializer, ref value);
+#pragma warning restore CS8601
             else value = default(T);
         }
         /// <summary>
@@ -119,7 +138,11 @@ namespace AutoCSer.Xml
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
+#if NetStandard21
+        private static void deserializeClass(XmlDeserializer deserializer, ref T? value)
+#else
         private static void deserializeClass(XmlDeserializer deserializer, ref T value)
+#endif
         {
             if (deserializer.IsValue() != 0)
             {
@@ -127,7 +150,7 @@ namespace AutoCSer.Xml
                 {
                     if (AutoCSer.Metadata.DefaultConstructor<T>.Type != Metadata.DefaultConstructorTypeEnum.None)
                     {
-                        value = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+                        if (!deserializer.Constructor(out value)) return;
                     }
                     else if (!AutoCSer.XmlSerializer.CustomConfig.CallCustomConstructor(out value))
                     {
@@ -135,9 +158,11 @@ namespace AutoCSer.Xml
                         return;
                     }
                 }
+#pragma warning disable CS8601
                 DeserializeMembers(deserializer, ref value);
+#pragma warning restore CS8601
             }
-            else value = AutoCSer.Common.GetDefault<T>();
+            else value = default(T);
         }
         /// <summary>
         /// 数据成员解析
@@ -148,7 +173,7 @@ namespace AutoCSer.Xml
         {
             byte* names = memberNames.Byte;
             XmlDeserializeConfig config = deserializer.Config;
-            MemberMap memberMap = deserializer.MemberMap;
+            var memberMap = deserializer.MemberMap;
             int index = 0;
             if (memberMap == null)
             {
@@ -187,7 +212,7 @@ namespace AutoCSer.Xml
                 }
                 while (true);
             }
-            MemberMap<T> memberMapObject = memberMap as MemberMap<T>;
+            var memberMapObject = memberMap as MemberMap<T>;
             if (memberMapObject != null)
             {
                 try
@@ -235,10 +260,14 @@ namespace AutoCSer.Xml
         /// <param name="deserializer">XML解析器</param>
         /// <param name="array">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void Array(XmlDeserializer deserializer, ref T?[]? array)
+#else
         internal static void Array(XmlDeserializer deserializer, ref T[] array)
+#endif
         {
             int count = ArrayIndex(deserializer, ref array);
-            if (count != -1 && count != array.Length) System.Array.Resize(ref array, count);
+            if (count != -1 && count != array.notNull().Length) System.Array.Resize(ref array, count);
         }
         /// <summary>
         /// 数组解析
@@ -246,7 +275,11 @@ namespace AutoCSer.Xml
         /// <param name="deserializer">XML解析器</param>
         /// <param name="array">目标数据</param>
         /// <returns>数据数量,-1表示失败</returns>
+#if NetStandard21
+        internal static unsafe int ArrayIndex(XmlDeserializer deserializer, ref T?[]? array)
+#else
         internal static unsafe int ArrayIndex(XmlDeserializer deserializer, ref T[] array)
+#endif
         {
             if (array == null) array = EmptyArray<T>.Array;
             string arrayItemName = deserializer.ArrayItemName;
@@ -267,7 +300,7 @@ namespace AutoCSer.Xml
                         }
                         if (index == array.Length)
                         {
-                            T value = default(T);
+                            var value = default(T);
                             if (deserializer.IsArrayItem(itemFixed, arrayItemName.Length) != 0)
                             {
                                 DefaultDeserializer(deserializer, ref value);
@@ -309,7 +342,11 @@ namespace AutoCSer.Xml
         /// <param name="deserializer">XML解析器</param>
         /// <param name="arrayItemName">集合子节点名称</param>
         /// <returns>目标数据</returns>
+#if NetStandard21
+        internal static IEnumerable<T?> Enumerable(XmlDeserializer deserializer, AutoCSer.Memory.Pointer arrayItemName)
+#else
         internal static IEnumerable<T> Enumerable(XmlDeserializer deserializer, AutoCSer.Memory.Pointer arrayItemName)
+#endif
         {
             AutoCSer.Memory.Pointer name = default(AutoCSer.Memory.Pointer);
             byte isTagEnd = 0;
@@ -325,7 +362,7 @@ namespace AutoCSer.Xml
                     }
                     if (deserializer.IsArrayItem(ref arrayItemName) != 0)
                     {
-                        T value = default(T);
+                        var value = default(T);
                         DefaultDeserializer(deserializer, ref value);
                         if (deserializer.State != DeserializeStateEnum.Success) break;
                         yield return value;
@@ -343,7 +380,11 @@ namespace AutoCSer.Xml
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private static void noMemberValue(XmlDeserializer deserializer, ref T? value)
+#else
         private static void noMemberValue(XmlDeserializer deserializer, ref T value)
+#endif
         {
             value = default(T);
             deserializer.IgnoreValue();
@@ -353,11 +394,15 @@ namespace AutoCSer.Xml
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
+#if NetStandard21
+        private static void noMember(XmlDeserializer deserializer, ref T? value)
+#else
         private static void noMember(XmlDeserializer deserializer, ref T value)
+#endif
         {
             if (deserializer.IsValue() == 0)
             {
-                if (value == null) value = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+                if (value == null && !deserializer.Constructor(out value)) return;
             }
             else value = default(T);
             deserializer.IgnoreValue();
@@ -367,12 +412,19 @@ namespace AutoCSer.Xml
         {
             XmlSerializeAttribute attribute;
             AutoCSer.Extensions.Metadata.GenericType<T> genericType = new AutoCSer.Extensions.Metadata.GenericType<T>();
-            Delegate deserializeDelegate = Common.GetTypeDeserializeDelegate(genericType, out attribute);
-            if (deserializeDelegate != null) DefaultDeserializer = (XmlDeserializer.DeserializeDelegate<T>)deserializeDelegate;
+            var deserializeDelegate = Common.GetTypeDeserializeDelegate(genericType, out attribute);
+            if (deserializeDelegate != null)
+            {
+#if NetStandard21
+                DefaultDeserializer = (XmlDeserializer.DeserializeDelegate<T?>)deserializeDelegate;
+#else
+                DefaultDeserializer = (XmlDeserializer.DeserializeDelegate<T>)deserializeDelegate;
+#endif
+            }
             else
             {
                 Type type = typeof(T);
-                LeftArray<KeyValue<FieldIndex, XmlSerializeMemberAttribute>> fields = AutoCSer.TextSerialize.Common.GetDeserializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), attribute);
+                var  fields = AutoCSer.TextSerialize.Common.GetDeserializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), attribute);
                 LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetProperties(attribute.MemberFilters), attribute);
                 int count = fields.Length + properties.Length;
                 if (count != 0)
@@ -380,7 +432,7 @@ namespace AutoCSer.Xml
                     TryDeserializeFilter[] deserializers = new TryDeserializeFilter[count];
                     string[] names = new string[count];
                     int index = 0;
-                    foreach (KeyValue<FieldIndex, XmlSerializeMemberAttribute> member in fields)
+                    foreach (var member in fields)
                     {
                         deserializers[index].Set(Common.CreateDynamicMethod(type, member.Key.Member), member.Key, member.Value);
                         names[index++] = member.Key.AnonymousName;
@@ -390,14 +442,22 @@ namespace AutoCSer.Xml
                         deserializers[index].Set(Common.CreateDynamicMethod(type, member.Property.Member, member.Method), member.Property, member.MemberAttribute);
                         names[index++] = member.Property.Member.Name;
                     }
+#if NetStandard21
+                    DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T?>)deserializeValue : (XmlDeserializer.DeserializeDelegate<T?>)deserializeClass;
+#else
                     DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T>)deserializeValue : (XmlDeserializer.DeserializeDelegate<T>)deserializeClass;
+#endif
                     memberDeserializers = deserializers;
                     MemberNameSearcher searcher = MemberNameSearcher.Get(type, names);
                     memberNames = searcher.Names;
                     memberSearcher = searcher.Searcher;
                     return;
                 }
+#if NetStandard21
+                DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T?>)noMemberValue : (XmlDeserializer.DeserializeDelegate<T?>)noMember;
+#else
                 DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T>)noMemberValue : (XmlDeserializer.DeserializeDelegate<T>)noMember;
+#endif
             }
             memberDeserializers = EmptyArray<TryDeserializeFilter>.Array;
             memberNames = MemberNameSearcher.Null.Names;

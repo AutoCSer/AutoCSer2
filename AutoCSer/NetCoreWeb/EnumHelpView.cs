@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Reflection;
 
 namespace AutoCSer.NetCoreWeb
@@ -23,7 +24,7 @@ namespace AutoCSer.NetCoreWeb
         internal EnumHelpView(FieldInfo field)
         {
             Name = field.Name;
-            Value = ((IConvertible)field.GetValue(null)).ToUInt64(null);
+            Value = ((IConvertible)field.GetValue(null).notNull()).ToUInt64(null);
         }
     }
 }

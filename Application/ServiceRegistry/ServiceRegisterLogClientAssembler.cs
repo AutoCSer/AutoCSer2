@@ -24,15 +24,27 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 获取服务注册日志保持回调
         /// </summary>
+#if NetStandard21
+        private CommandKeepCallback? logKeepCallback;
+#else
         private CommandKeepCallback logKeepCallback;
+#endif
         /// <summary>
         /// 主日志
         /// </summary>
+#if NetStandard21
+        private ServiceRegisterLog? mainLog;
+#else
         private ServiceRegisterLog mainLog;
+#endif
         /// <summary>
         /// 主服务日志
         /// </summary>
+#if NetStandard21
+        public ServiceRegisterLog? MainLog { get { return mainLog; } }
+#else
         public ServiceRegisterLog MainLog { get { return mainLog; } }
+#endif
         /// <summary>
         /// 附加日志
         /// </summary>
@@ -161,7 +173,7 @@ namespace AutoCSer.CommandService
                 serviceRegistrars.Add(serviceRegistrar);
                 serviceRegistrarsLock.Exit();
             }
-            ServiceRegisterLog log = serviceRegistrar.ServiceRegisterLog;
+            var log = serviceRegistrar.ServiceRegisterLog;
             if (log != null) await append(log);
         }
         /// <summary>
@@ -175,7 +187,7 @@ namespace AutoCSer.CommandService
             serviceRegistrars.Remove(serviceRegistrar);
             serviceRegistrarsLock.Exit();
 
-            ServiceRegisterLog log = serviceRegistrar.ServiceRegisterLog;
+            var log = serviceRegistrar.ServiceRegisterLog;
             if (log != null && log.ServiceID != 0 && serviceRegistryClient.Client != null)
             {
                 AutoCSer.Net.CommandClientReturnValue<ServiceRegisterResponse> serviceRegister = await serviceRegistryClient.Client.Append(log.CreateLogout());
@@ -226,13 +238,13 @@ namespace AutoCSer.CommandService
         {
             if (serviceRegistryClient.Client != null)
             {
-                logKeepCallback = await serviceRegistryClient.Client.LogCallback(serviceName, (Action<CommandClientReturnValue<ServiceRegisterLog>, KeepCallbackCommand>)logCallback);
+                logKeepCallback = await serviceRegistryClient.Client.LogCallback(serviceName, logCallback);
                 if (logKeepCallback != null)
                 {
                     LeftArray<ServiceRegistryCommandServiceRegistrar> singletonServiceRegistrars = new LeftArray<ServiceRegistryCommandServiceRegistrar>(0);
                     foreach (ServiceRegistryCommandServiceRegistrar serviceRegistrar in serviceRegistrars)
                     {
-                        ServiceRegisterLog log = serviceRegistrar.ServiceRegisterLog;
+                        ServiceRegisterLog log = serviceRegistrar.ServiceRegisterLog.notNull();
                         if (log.ServiceID != 0)
                         {
                             if (log.OperationType == ServiceRegisterOperationTypeEnum.Singleton)
@@ -264,7 +276,7 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void CheckSingleton(ServiceRegistryCommandServiceRegistrar serviceRegistrar)
         {
-            if (mainLog == null) append(serviceRegistrar.ServiceRegisterLog).NotWait();
+            if (mainLog == null) append(serviceRegistrar.ServiceRegisterLog.notNull()).NotWait();
         }
         /// <summary>
         /// 添加服务注册日志
@@ -289,11 +301,15 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="returnValue"></param>
         /// <param name="keepCallbackCommand"></param>
+#if NetStandard21
+        private void logCallback(CommandClientReturnValue<ServiceRegisterLog?> returnValue, KeepCallbackCommand keepCallbackCommand)
+#else
         private void logCallback(CommandClientReturnValue<ServiceRegisterLog> returnValue, KeepCallbackCommand keepCallbackCommand)
+#endif
         {
             if (returnValue.IsSuccess)
             {
-                ServiceRegisterLog log = returnValue.Value;
+                var log = returnValue.Value;
                 if (log != null)
                 {
                     ServiceRegisterOperationTypeEnum operationType = log.OperationType;
@@ -398,7 +414,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 最后失联服务日志
         /// </summary>
+#if NetStandard21
+        private ServiceRegisterLog? lostContactLog;
+#else
         private ServiceRegisterLog lostContactLog;
+#endif
         /// <summary>
         /// 服务失联
         /// </summary>
@@ -409,7 +429,7 @@ namespace AutoCSer.CommandService
             long serviceID = log.ServiceID;
             foreach (ServiceRegistryCommandServiceRegistrar serviceRegistrar in serviceRegistrars)
             {
-                ServiceRegisterLog serviceRegisterLog = serviceRegistrar.ServiceRegisterLog;
+                ServiceRegisterLog serviceRegisterLog = serviceRegistrar.ServiceRegisterLog.notNull();
                 if (serviceRegisterLog.ServiceID == serviceID)
                 {
                     append(serviceRegisterLog).NotWait();
@@ -452,7 +472,11 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="log"></param>
         /// <param name="changedType"></param>
+#if NetStandard21
+        private void callback(ServiceRegisterLog? log, ServiceRegisterLogClientChangedTypeEnum changedType)
+#else
         private void callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
+#endif
         {
             if (clientServiceRegistrars.Count == 0) return;
             LeftArray<ServiceRegistryCommandClientServiceRegistrar> removeServiceRegistrars = new LeftArray<ServiceRegistryCommandClientServiceRegistrar>(0);

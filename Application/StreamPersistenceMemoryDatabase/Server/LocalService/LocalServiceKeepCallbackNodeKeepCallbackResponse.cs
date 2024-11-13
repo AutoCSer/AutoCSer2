@@ -4,7 +4,7 @@ using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -15,10 +15,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class LocalServiceKeepCallbackNodeKeepCallbackResponse<T> : KeepCallbackResponse<T>
-#if DotNet45 || NetStandard2
-, IEnumeratorTask<ResponseResult<T>>
-#else
+#if NetStandard21
 , IAsyncEnumerator<ResponseResult<T>>
+#else
+, IEnumeratorTask<ResponseResult<T>>
 #endif
     {
         /// <summary>
@@ -44,10 +44,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 当前返回数据
         /// </summary>
-#if DotNet45 || NetStandard2
-        public new ResponseResult<T> Current
-#else
+#if NetStandard21
         public ResponseResult<T> Current
+#else
+        public new ResponseResult<T> Current
 #endif
         {
             get
@@ -67,7 +67,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 异常信息
         /// </summary>
+#if NetStandard21
+        public Exception? Exception { get; private set; }
+#else
         public Exception Exception { get; private set; }
+#endif
         /// <summary>
         /// 本地服务调用节点方法队列节点回调输出
         /// </summary>
@@ -88,21 +92,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 异步释放资源
         /// </summary>
         /// <returns></returns>
-#if DotNet45 || NetStandard2
-        public new ValueTask DisposeAsync()
-#else
+#if NetStandard21
         public ValueTask DisposeAsync()
+#else
+        public new ValueTask DisposeAsync()
 #endif
         {
             callback.SetCancelKeep();
+#if NET8
+            return ValueTask.CompletedTask;
+#else
             return AutoCSer.Common.CompletedTask.ToValueTask();
+#endif
         }
         /// <summary>
         /// 取消输出
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="exception"></param>
+#if NetStandard21
+        internal void CancelKeep(CommandClientReturnTypeEnum returnType, Exception? exception = null)
+#else
         internal void CancelKeep(CommandClientReturnTypeEnum returnType, Exception exception = null)
+#endif
         {
             if (returnType == CommandClientReturnTypeEnum.Success)
             {
@@ -186,15 +198,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 判断是否存在下一个数据
         /// </summary>
         /// <returns></returns>
-#if DotNet45 || NetStandard2
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
-#else
+#if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<ResponseResult<T>>.MoveNextAsync()
+#else
+        async Task<bool> IEnumeratorTask.MoveNextAsync()
 #endif
         {
             return await MoveNext();
         }
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         /// <summary>
         /// 获取 IAsyncEnumerable
         /// </summary>
@@ -239,7 +251,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="VT">目标数据类型</typeparam>
         /// <param name="getValue">数据转换委托</param>
         /// <returns></returns>
-        public override async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T, VT> getValue)
+        public override async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T?, VT> getValue)
         {
             await foreach (ResponseResult<T> value in GetAsyncEnumerable())
             {

@@ -4,19 +4,20 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>AutoCSer.CommandService.DatabaseBackup</AssemblyName>
     <RootNamespace>AutoCSer.CommandService.DatabaseBackup</RootNamespace>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;DEBUG;NetStandard21</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

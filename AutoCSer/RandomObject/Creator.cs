@@ -15,7 +15,7 @@ namespace AutoCSer.RandomObject
         /// <summary>
         /// 公共默认配置参数
         /// </summary>
-        internal static readonly Config DefaultConfig = ((ConfigObject<Config>)AutoCSer.Configuration.Common.Get(typeof(Config)))?.Value ?? new Config();
+        internal static readonly Config DefaultConfig = AutoCSer.Configuration.Common.Get<Config>()?.Value ?? new Config();
 
         /// <summary>
         /// 创建随机对象
@@ -24,9 +24,13 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <param name="isNullable"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static T? Create<T>(Config config, bool isNullable)
+#else
         internal static T Create<T>(Config config, bool isNullable)
+#endif
         {
-            Func<Config, bool, T> customCreator = (Func<Config, bool, T>)config.GetCustomCreator(typeof(T));
+            var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
             if (customCreator == null) return isNullable ? Creator<T>.Create(config) : Creator<T>.CreateNotNull(config);
             return customCreator(config, isNullable);
         }
@@ -59,9 +63,13 @@ namespace AutoCSer.RandomObject
         /// <typeparam name="T"></typeparam>
         /// <param name="config"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static T?[]? CreateArray<T>(Config config)
+#else
         internal static T[] CreateArray<T>(Config config)
+#endif
         {
-            Func<Config, bool, T> customCreator = (Func<Config, bool, T>)config.GetCustomCreator(typeof(T));
+            var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
             if (customCreator == null) return createArray<T>(config);
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -79,9 +87,13 @@ namespace AutoCSer.RandomObject
         /// <typeparam name="T"></typeparam>
         /// <param name="config"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static T?[]? createArray<T>(Config config)
+#else
         private static T[] createArray<T>(Config config)
+#endif
         {
-            object historyValue = config.TryGetValue(typeof(T[]));
+            var historyValue = config.TryGetValue(typeof(T[]));
             if (historyValue != null) return (T[])historyValue;
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -89,7 +101,11 @@ namespace AutoCSer.RandomObject
                 case 1: return EmptyArray<T>.Array;
             }
             int length = Math.Abs(AutoCSer.Random.Default.Next(config.MaxArraySize)) + 1;
+#if NetStandard21
+            T?[] value = new T[length];
+#else
             T[] value = new T[length];
+#endif
             config.SaveHistory(typeof(T[]), value);
             while (length != 0) value[--length] = Creator<T>.Create(config);
             return value;
@@ -102,25 +118,31 @@ namespace AutoCSer.RandomObject
         /// <typeparam name="VT"></typeparam>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static T CreateDictionary<T, KT, VT>(Config config)
-            where T : IDictionary<KT, VT>
+#if NetStandard21
+        internal static T? CreateDictionary<T, KT, VT>(Config config) where T : IDictionary<KT, VT?>
+#else
+        internal static T CreateDictionary<T, KT, VT>(Config config) where T : IDictionary<KT, VT>
+#endif
         {
-            Func<Config, bool, T> customCreator = (Func<Config, bool, T>)config.GetCustomCreator(typeof(T));
+            var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
             if (customCreator == null)
             {
-                object historyValue = typeof(T).IsValueType ? null : config.TryGetValue(typeof(T));
+                var historyValue = typeof(T).IsValueType ? null : config.TryGetValue(typeof(T));
                 if (historyValue != null) return (T)historyValue;
                 switch (AutoCSer.Random.Default.NextByte())
                 {
                     case 0: return default(T);
                     case 1: return AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
                 }
-                T dictionary = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
-                if (!typeof(T).IsValueType) config.SaveHistory(typeof(T), dictionary);
-                for (int length = Math.Abs(AutoCSer.Random.Default.Next(config.MaxArraySize)) + 1; length != 0; --length)
+                var dictionary = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+                if (dictionary != null)
                 {
-                    KT key = Creator<KT>.Create(config);
-                    if (key != null) dictionary[key] = Creator<VT>.Create(config);
+                    if (!typeof(T).IsValueType) config.SaveHistory(typeof(T), dictionary);
+                    for (int length = Math.Abs(AutoCSer.Random.Default.Next(config.MaxArraySize)) + 1; length != 0; --length)
+                    {
+                        var key = Creator<KT>.Create(config);
+                        if (key != null) dictionary[key] = Creator<VT>.Create(config);
+                    }
                 }
                 return dictionary;
             }
@@ -133,24 +155,30 @@ namespace AutoCSer.RandomObject
         /// <typeparam name="VT"></typeparam>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static T CreateCollection<T, VT>(Config config)
-            where T : ICollection<VT>
+#if NetStandard21
+        internal static T? CreateCollection<T, VT>(Config config) where T : ICollection<VT?>
+#else
+        internal static T CreateCollection<T, VT>(Config config) where T : ICollection<VT>
+#endif
         {
-            Func<Config, bool, T> customCreator = (Func<Config, bool, T>)config.GetCustomCreator(typeof(T));
+            var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
             if (customCreator == null)
             {
-                object historyValue = typeof(T).IsValueType ? null : config.TryGetValue(typeof(T));
+                var historyValue = typeof(T).IsValueType ? null : config.TryGetValue(typeof(T));
                 if (historyValue != null) return (T)historyValue;
                 switch (AutoCSer.Random.Default.NextByte())
                 {
                     case 0: return default(T);
                     case 1: return AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
                 }
-                T collection = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
-                if (!typeof(T).IsValueType) config.SaveHistory(typeof(T), collection);
-                for (int length = Math.Abs(AutoCSer.Random.Default.Next(config.MaxArraySize)) + 1; length != 0; --length)
+                var collection = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+                if (collection != null)
                 {
-                    collection.Add(Creator<VT>.Create(config));
+                    if (!typeof(T).IsValueType) config.SaveHistory(typeof(T), collection);
+                    for (int length = Math.Abs(AutoCSer.Random.Default.Next(config.MaxArraySize)) + 1; length != 0; --length)
+                    {
+                        collection.Add(Creator<VT>.Create(config));
+                    }
                 }
                 return collection;
             }
@@ -320,11 +348,15 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static string? createString(Config config)
+#else
         private static string createString(Config config)
+#endif
         {
-            object historyValue = config.TryGetValue(typeof(string));
+            var historyValue = config.TryGetValue(typeof(string));
             if (historyValue != null) return (string)historyValue;
-            char[] charArray = createArray<char>(config);
+            var charArray = createArray<char>(config);
             if (charArray == null) return null;
             string value = new string(charArray);
             config.SaveHistory(typeof(string), value);
@@ -480,9 +512,13 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="type"></param>
         /// <returns>基本类型随机数创建函数信息</returns>
+#if NetStandard21
+        internal static Delegate? GetDelegate(Type type)
+#else
         internal static Delegate GetDelegate(Type type)
+#endif
         {
-            Delegate method;
+            var method = default(Delegate);
             if (!createDelegates.TryGetValue(type, out method)) return null;
             createDelegates.Remove(type);
             return method;
@@ -494,7 +530,11 @@ namespace AutoCSer.RandomObject
         /// <param name="value"></param>
         /// <param name="config"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static void Create<T>(ref T value, Config? config = null)
+#else
         public static void Create<T>(ref T value, Config config = null)
+#endif
         {
             Creator<T>.Create(ref value, config);
         }
@@ -520,7 +560,11 @@ namespace AutoCSer.RandomObject
             createDelegates.Add(typeof(DateTime), (Func<Config, DateTime>)CreateDateTime);
             createDelegates.Add(typeof(DateTimeOffset), (Func<Config, DateTimeOffset>)createDateTimeOffset);
             createDelegates.Add(typeof(TimeSpan), (Func<Config, TimeSpan>)CreateTimeSpan);
+#if NetStandard21
+            createDelegates.Add(typeof(string), (Func<Config, string?>)createString);
+#else
             createDelegates.Add(typeof(string), (Func<Config, string>)createString);
+#endif
 
             AutoCSer.Memory.Common.AddClearCache(DefaultConfig.ClearHistory, AutoCSer.Common.Config.GetMemoryCacheClearSeconds());
             AutoCSer.Memory.ObjectRoot.ScanType.Add(typeof(Creator));
@@ -545,19 +589,27 @@ namespace AutoCSer.RandomObject
         /// <summary>
         /// 基本类型随机数创建函数
         /// </summary>
+#if NetStandard21
+        private static readonly Func<Config, T?>? defaultCreator;
+#else
         private static readonly Func<Config, T> defaultCreator;
+#endif
 
         /// <summary>
         /// 创建随机对象
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
+#if NetStandard21
+        public static T? Create(Config? config = null)
+#else
         public static T Create(Config config = null)
+#endif
         {
             if (config == null) config = Creator.DefaultConfig;
             if (defaultCreator != null) return defaultCreator(config);
-            T value = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
-            Create(ref value, config);
+            var value = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+            if (value != null) create(ref value, config);
             return value;
         }
         /// <summary>
@@ -565,27 +617,59 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
+#if NetStandard21
+        public static T CreateNotNull(Config? config = null)
+#else
         public static T CreateNotNull(Config config = null)
+#endif
         {
-            do
+            if (config == null) config = Creator.DefaultConfig;
+            if (defaultCreator != null)
             {
-                T value = Create(config);
-                if (value != null) return value;
+                do
+                {
+                    var value = defaultCreator(config);
+                    if (value != null) return value;
+                }
+                while (true);
             }
-            while (true);
+            var newValue = AutoCSer.Metadata.DefaultConstructor<T>.Constructor();
+            if (newValue != null)
+            {
+                create(ref newValue, config);
+                return newValue;
+            }
+            throw new NullReferenceException();
         }
         /// <summary>
         /// 创建随机对象
         /// </summary>
         /// <param name="value"></param>
         /// <param name="config"></param>
-        public static void Create(ref T value, Config config = null)
+#if NetStandard21
+        private static void create(ref T value, Config config)
+#else
+        private static void create(ref T value, Config config = null)
+#endif
         {
             try
             {
                 memberCreator(ref value, config);
             }
             finally { config.ClearHistory(); }
+        }
+        /// <summary>
+        /// 创建随机对象
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="config"></param>
+#if NetStandard21
+        public static void Create(ref T value, Config? config = null)
+#else
+        public static void Create(ref T value, Config config = null)
+#endif
+        {
+            create(ref value, config ?? Creator.DefaultConfig);
         }
         /// <summary>
         /// 创建随机对象
@@ -603,9 +687,13 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static T? createDefault(Config config)
+#else
         private static T createDefault(Config config)
+#endif
         {
-            Func<Config, bool, T> customCreator = (Func<Config, bool, T>)config.GetCustomCreator(typeof(T));
+            var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
             return customCreator == null ? config.CreateNotSupport<T>() : customCreator(config, true);
         }
         /// <summary>
@@ -619,15 +707,23 @@ namespace AutoCSer.RandomObject
         /// 获取随机数创建委托
         /// </summary>
         /// <returns>随机数创建委托</returns>
+#if NetStandard21
+        private static Delegate? getDelegate()
+#else
         private static Delegate getDelegate()
+#endif
         {
             Type type = typeof(T);
-            Delegate createDelegate = Creator.GetDelegate(type);
+            var createDelegate = Creator.GetDelegate(type);
             if (createDelegate != null) return createDelegate;
             if (type.IsArray)
             {
-                if (type.GetArrayRank() == 1) return GenericType.Get(type.GetElementType()).CreateArrayDelegate;
+                if (type.GetArrayRank() == 1) return GenericType.Get(type.GetElementType().notNull()).CreateArrayDelegate;
+#if NetStandard21
+                return (Func<Config, T?>)createDefault;
+#else
                 return (Func<Config, T>)createDefault;
+#endif
             }
             if (type.IsEnum) return EnumGenericType.Get(type).CreateEnumDelegate;
             if (type.isValueTypeNullable()) return StructGenericType.Get(type.GetGenericArguments()[0]).CreateNullableDelegate;
@@ -637,15 +733,26 @@ namespace AutoCSer.RandomObject
                 if (genericType == typeof(IDictionary<,>)) return DictionaryGenericType.Get(type, interfaceType).CreateDictionaryDelegate;
                 if (genericType == typeof(ICollection<>)) return CollectionGenericType.Get(type, interfaceType).CreateCollectionDelegate;
             }
-            if (!AutoCSer.Metadata.GenericType<T>.GetIsSerializeConstructor()) return (Func<Config, T>)createDefault;
+            if (!AutoCSer.Metadata.GenericType<T>.GetIsSerializeConstructor())
+            {
+#if NetStandard21
+                return (Func<Config, T?>)createDefault;
+#else
+                return (Func<Config, T>)createDefault;
+#endif
+            }
             return null;
         }
         static Creator()
         {
-            Delegate createDelegate = getDelegate();
+            var createDelegate = getDelegate();
             if (createDelegate != null)
             {
+#if NetStandard21
+                defaultCreator = (Func<Config, T?>)createDelegate;
+#else
                 defaultCreator = (Func<Config, T>)createDelegate;
+#endif
                 memberCreator = createDefault;
                 return;
             }
@@ -653,10 +760,10 @@ namespace AutoCSer.RandomObject
             MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(type);
             foreach (FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly))
             {
-                MemberInfo member = (MemberInfo)field.getPropertyInfo() ?? field;
+                MemberInfo member = field.getPropertyMemberInfo() ?? field;
                 if (member.GetCustomAttribute(typeof(IgnoreAttribute), false) == null)
                 {
-                    MemberAttribute attribute = (MemberAttribute)member.GetCustomAttribute(typeof(MemberAttribute), false) ?? MemberAttribute.Default;
+                    MemberAttribute attribute = member.GetCustomAttribute<MemberAttribute>(false) ?? MemberAttribute.Default;
                     dynamicMethod.Push(field, attribute);
                 }
             }

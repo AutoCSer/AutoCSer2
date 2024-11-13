@@ -2,6 +2,7 @@
 using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
@@ -24,11 +25,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo LocalServiceCallInputOutputNodeCreateMethod = typeof(LocalServiceCallInputOutputNode).GetMethod(nameof(LocalServiceCallInputOutputNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        internal static readonly MethodInfo LocalServiceCallInputOutputNodeCreateMethod = typeof(LocalServiceCallInputOutputNode).GetMethod(nameof(LocalServiceCallInputOutputNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo LocalServiceInputKeepCallbackNodeCreateMethod = typeof(LocalServiceInputKeepCallbackNode).GetMethod(nameof(LocalServiceInputKeepCallbackNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        internal static readonly MethodInfo LocalServiceInputKeepCallbackNodeCreateMethod = typeof(LocalServiceInputKeepCallbackNode).GetMethod(nameof(LocalServiceInputKeepCallbackNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
     }
     /// <summary>
     /// 生成客户端节点
@@ -45,7 +46,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">节点索引信息</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns></returns>
+#if NetStandard21
+        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>? creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+#else
         internal static T Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+#endif
         {
             if (creatorException == null)
             {
@@ -62,7 +67,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="exception"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static NodeInfo GetNodeInfo(out Exception? exception)
+#else
         internal static NodeInfo GetNodeInfo(out Exception exception)
+#endif
         {
             exception = creatorException;
             if (creatorMessages == null) return nodeInfo;
@@ -77,27 +86,41 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建客户端节点委托
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T> creator;
+#else
         private static readonly Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T> creator;
+#endif
         /// <summary>
         /// 节点构造错误
         /// </summary>
+#if NetStandard21
+        private static readonly Exception? creatorException;
+#else
         private static readonly Exception creatorException;
+#endif
         /// <summary>
         /// 节点构造提示信息
         /// </summary>
+#if NetStandard21
+        private static string[]? creatorMessages;
+#else
         private static string[] creatorMessages;
+#endif
         static LocalClientNodeCreator()
         {
-            Type type = typeof(T), serverType = null;
+            Type type = typeof(T);
+            var serverType = typeof(Type);
             try
             {
-                string error = NodeType.CheckType(type);
+                var error = NodeType.CheckType(type);
                 if (error != null)
                 {
                     creatorException = new Exception(error);
                     return;
                 }
-                ClientNodeAttribute attribute = (ClientNodeAttribute)type.GetCustomAttribute(typeof(ClientNodeAttribute), false) ?? ClientNode.DefaultAttribute;
+                ClientNodeAttribute attribute = type.GetCustomAttribute<ClientNodeAttribute>(false) ?? ClientNode.DefaultAttribute;
                 serverType = attribute.ServerNodeType;
                 if (serverType == null)
                 {
@@ -106,7 +129,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 if (serverType.IsGenericTypeDefinition) serverType = serverType.MakeGenericType(type.GetGenericArguments());
                 NodeType nodeType = new NodeType(serverType);
+#if NetStandard21
+                ClientNodeMethod?[] methods;
+#else
                 ClientNodeMethod[] methods;
+#endif
                 if (!nodeType.GetClientMethods(type, ref creatorException, ref creatorMessages, out methods, true)) return;
 
                 TypeBuilder typeBuilder = AutoCSer.Reflection.Emit.Module.Builder.DefineType(AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase.LocalClientNode." + type.FullName, TypeAttributes.Class | TypeAttributes.Sealed, typeof(LocalClientNode<T>), new Type[] { type });
@@ -120,11 +147,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 constructorGenerator.Emit(OpCodes.Ldarg_3);
                 constructorGenerator.ldarg(4);
                 constructorGenerator.ldarg(5);
-                constructorGenerator.Emit(OpCodes.Call, typeof(LocalClientNode<T>).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, LocalClientNodeCreator.NodeConstructorParameterTypes, null));
+                constructorGenerator.Emit(OpCodes.Call, typeof(LocalClientNode<T>).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, LocalClientNodeCreator.NodeConstructorParameterTypes, null).notNull());
                 constructorGenerator.Emit(OpCodes.Ret);
                 #endregion
                 #endregion
-                foreach (ClientNodeMethod method in methods)
+                foreach (var method in methods)
                 {
                     if (method != null)
                     {
@@ -137,7 +164,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             methodGenerator.Emit(OpCodes.Ldarg_0);
                             methodGenerator.int32(method.MethodIndex);
                             #region p0 inputParameter = new p0 { Value = Value, Ref = Ref };
-                            LocalBuilder inputParameterLocalBuilder = null;
+                            var inputParameterLocalBuilder = default(LocalBuilder);
                             if (method.InputParameterType != null)
                             {
                                 inputParameterLocalBuilder = methodGenerator.DeclareLocal(method.InputParameterType.Type);
@@ -159,19 +186,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceCallOutputNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInput:
-                                    methodGenerator.call(StructGenericType.Get(method.InputParameterType.Type).LocalServiceCallInputNodeCreateDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceCallInputNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInputOutput:
-                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceCallInputOutputNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.Type));
+                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceCallInputOutputNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     break;
                                 case CallTypeEnum.SendOnly:
-                                    methodGenerator.call(StructGenericType.Get(method.InputParameterType.Type).LocalServiceSendOnlyNodeCreateDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceSendOnlyNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.KeepCallback:
                                     methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.InputKeepCallback:
-                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.Type));
+                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     break;
                             }
                             #endregion
@@ -194,9 +221,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 callConstructorGenerator.Emit(OpCodes.Ldarg_2);
                 callConstructorGenerator.Emit(OpCodes.Ldarg_3);
                 callConstructorGenerator.ldarg(4);
-                callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(LocalClientNodeCreator.NodeConstructorParameterTypes));
+                callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(LocalClientNodeCreator.NodeConstructorParameterTypes).notNull());
                 callConstructorGenerator.Emit(OpCodes.Ret);
+#if NetStandard21
+                creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>));
+#else
                 creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>));
+#endif
                 nodeInfo = new NodeInfo(serverType);
             }
             catch (Exception exception)
@@ -204,7 +235,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 creatorException = new Exception($"{serverType?.fullName()} 客户端节点 {type.fullName()} 生成失败", exception);
             }
         }
-#if DEBUG
+#if DEBUG && NetStandard21
         public interface IDictionary<KT, VT>
             where KT : IEquatable<KT>
         {

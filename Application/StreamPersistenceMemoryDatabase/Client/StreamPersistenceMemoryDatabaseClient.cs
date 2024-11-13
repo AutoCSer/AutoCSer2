@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
@@ -70,7 +71,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal async Task<ResponseResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator) where T : class
         {
-            Exception exception;
+            var exception = default(Exception);
             NodeInfo nodeInfo = ClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {
@@ -107,7 +108,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async Task<CommandClientReturnValue<CallStateEnum>> RepairNodeMethod(ClientNode node, MethodInfo method)
         {
-            Assembly assembly = method.DeclaringType.Assembly;
+            Assembly assembly = method.DeclaringType.notNull().Assembly;
             byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
             return await Client.StreamPersistenceMemoryDatabaseClient.RepairNodeMethod(node.Index, rawAssembly, new RepairNodeMethodName(method));
         }
@@ -130,7 +131,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async Task<CommandClientReturnValue<CallStateEnum>> BindNodeMethod(ClientNode node, MethodInfo method)
         {
-            Assembly assembly = method.DeclaringType.Assembly;
+            Assembly assembly = method.DeclaringType.notNull().Assembly;
             byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
             return await Client.StreamPersistenceMemoryDatabaseClient.BindNodeMethod(node.Index, rawAssembly, new RepairNodeMethodName(method));
         }
@@ -307,11 +308,13 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static async Task<KeepCallbackResponse<T>> KeepCallback<T>(ClientNode node, int methodIndex)
         {
-            AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<T>.Default, false), node.Index, methodIndex);
+            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<T>.Default, false), node.Index, methodIndex);
             if (enumeratorCommand == null) return KeepCallbackResponse<T>.NullResponse;
             try
             {
-                return new KeepCallbackResponse<T>(node, ref enumeratorCommand);
+                KeepCallbackResponse<T> response = new KeepCallbackResponse<T>(node, enumeratorCommand);
+                enumeratorCommand = null;
+                return response;
             }
             finally
             {
@@ -327,11 +330,13 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static async Task<KeepCallbackResponse<T>> SimpleDeserializeKeepCallback<T>(ClientNode node, int methodIndex)
         {
-            AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<T>.Default, true), node.Index, methodIndex);
+            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<T>.Default, true), node.Index, methodIndex);
             if (enumeratorCommand == null) return KeepCallbackResponse<T>.NullResponse;
             try
             {
-                return new KeepCallbackResponse<T>(node, ref enumeratorCommand);
+                KeepCallbackResponse<T> response = new KeepCallbackResponse<T>(node, enumeratorCommand);
+                enumeratorCommand = null;
+                return response;
             }
             finally
             {
@@ -351,7 +356,7 @@ namespace AutoCSer.CommandService
         internal static async Task<KeepCallbackResponse<RT>> InputKeepCallback<T, RT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, T parameter)
             where T : struct
         {
-            AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand;
+            var enumeratorCommand = default(AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter>);
             if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
             {
                 enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<RT>.Default, true), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
@@ -363,7 +368,9 @@ namespace AutoCSer.CommandService
             if (enumeratorCommand == null) return KeepCallbackResponse<RT>.NullResponse;
             try
             {
-                return new KeepCallbackResponse<RT>(node, ref enumeratorCommand);
+                KeepCallbackResponse<RT> response = new KeepCallbackResponse<RT>(node, enumeratorCommand);
+                enumeratorCommand = null;
+                return response;
             }
             finally 
             {

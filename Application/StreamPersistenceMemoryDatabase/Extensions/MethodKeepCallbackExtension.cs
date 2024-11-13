@@ -25,16 +25,21 @@ namespace AutoCSer.Extensions
         /// <param name="head">开始节点</param>
         /// <param name="end">结束节点</param>
         /// <returns></returns>
+#if NetStandard21
+        internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, CommandServerCallQueue queue, T head, T? end)
+#else
         internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, CommandServerCallQueue queue, T head, T end)
+#endif
              where T : KeepCallbackReturnValueLink<T>
         {
 #if DEBUG
             if (head == null) throw new ArgumentNullException("head is null");
 #endif
-            CommandServerKeepCallback<KeepCallbackResponseParameter> callback = methodCallback.callback;
+            var callback = methodCallback.callback;
             if (callback != null && callback.IsCancelKeep == 0)
             {
                 bool isPush = false;
+                var next = head;
                 try
                 {
                     if (!object.ReferenceEquals(callback.GetType().Assembly, currentAssembly))
@@ -47,7 +52,7 @@ namespace AutoCSer.Extensions
                                 ServerReturnValue<KeepCallbackResponseParameter> outputParameter = new ServerReturnValue<KeepCallbackResponseParameter>(KeepCallbackResponseParameter.Create(head, methodCallback.IsSimpleSerialize));
                                 queue.Send(socket, socket.GetOutput(callback.CallbackIdentity, callback.Method, ref outputParameter));
                             }
-                            while ((head = head.LinkNext) != end);
+                            while ((next = next.notNull().LinkNext) != end);
                             return isPush = true;
                         }
                     }
@@ -55,9 +60,9 @@ namespace AutoCSer.Extensions
                     {//本地模式
                         do
                         {
-                            if (!callback.VirtualCallback(KeepCallbackResponseParameter.Create(head, methodCallback.IsSimpleSerialize))) return false;
+                            if (!callback.VirtualCallback(KeepCallbackResponseParameter.Create(next, methodCallback.IsSimpleSerialize))) return false;
                         }
-                        while ((head = head.LinkNext) != end);
+                        while ((next = next.notNull().LinkNext) != end);
                         return isPush = true;
                     }
                 }

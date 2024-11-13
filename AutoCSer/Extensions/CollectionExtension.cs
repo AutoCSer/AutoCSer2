@@ -97,7 +97,11 @@ namespace AutoCSer.Extensions
         /// <param name="values">值集合</param>
         /// <param name="getValue">获取数组值的委托</param>
         /// <returns>匹配数组</returns>
+#if NetStandard21
+        public static VT[] getFindArrayNotNull<T, VT>(this ICollection<T> values, Func<T, VT?> getValue)
+#else
         public static VT[] getFindArrayNotNull<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
+#endif
             where VT : class
         {
             if (values.Count != 0)
@@ -113,7 +117,7 @@ namespace AutoCSer.Extensions
                     index = 0;
                     foreach (T value in values)
                     {
-                        VT arrayValue = getValue(value);
+                        var arrayValue = getValue(value);
                         if (arrayValue != null) newValues[index++] = arrayValue;
                     }
                     return newValues;

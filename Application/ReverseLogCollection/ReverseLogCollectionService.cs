@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService.ReverseLogCollection;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 
@@ -31,7 +32,7 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         public virtual void Appped(T log)
         {
-            Controller.CallQueue.AddOnly(new LogCallback<T>(this, log));
+            Controller.CallQueue.notNull().AddOnly(new LogCallback<T>(this, log));
         }
         /// <summary>
         /// 日志回调

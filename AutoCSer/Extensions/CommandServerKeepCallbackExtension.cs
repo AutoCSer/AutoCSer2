@@ -19,7 +19,11 @@ namespace AutoCSer.Extensions
         /// <param name="endCount">实际结束数量</param>
         /// <param name="isCancel">回调完成之后是否关闭</param>
         /// <returns></returns>
+#if NetStandard21
+        public static bool Callback<T>(this CommandServerKeepCallback<T> callback, T head, int getCount, out T? end, out int endCount, bool isCancel = true)
+#else
         public static bool Callback<T>(this CommandServerKeepCallback<T> callback, T head, int getCount, out T end, out int endCount, bool isCancel = true)
+#endif
              where T : KeepCallbackReturnValueLink<T>
         {
             if (callback.IsCancelKeep == 0)

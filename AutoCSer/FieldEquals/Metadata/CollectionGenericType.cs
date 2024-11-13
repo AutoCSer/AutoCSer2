@@ -30,7 +30,11 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static CollectionGenericType? lastGenericType;
+#else
         protected static CollectionGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -39,7 +43,7 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <returns></returns>
         public static CollectionGenericType Get(Type type, Type interfaceType)
         {
-            CollectionGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = getCollection(type, interfaceType);
             lastGenericType = value;

@@ -53,7 +53,11 @@ namespace AutoCSer.Search
             char* simplified = Chars.Char;
             for (int code = 0x4E00; code <= 0X9FA5; ++code)
             {
-                if (simplified[code] != ' ') charTypeData[code] |= (byte)WordTypeEnum.Chinese;
+                if (simplified[code] != ' ')
+                {
+                    charTypeData[code] |= (byte)WordTypeEnum.Chinese;
+                    charTypeData[code] &= byte.MaxValue ^ (byte)WordTypeEnum.OtherLetter;
+                }
             }
         }
         /// <summary>
@@ -70,7 +74,7 @@ namespace AutoCSer.Search
                 {
                     if (*start != simplified[*start])
                     {
-                        string formatedText = AutoCSer.Common.Config.AllocateString(text.Length);
+                        string formatedText = AutoCSer.Common.AllocateString(text.Length);
                         fixed (char* formatTextFixed = formatedText) FormatNotEmpty(textFixed, formatTextFixed, text.Length);
                         return formatedText;
                     }

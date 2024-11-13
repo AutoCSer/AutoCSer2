@@ -1,7 +1,7 @@
-﻿using AutoCSer.CommandService.ServiceRegistry;
+﻿using AutoCSer.Extensions;
 using System;
 
-namespace AutoCSer.CommandService.ServiceRegister
+namespace AutoCSer.CommandService.ServiceRegistry
 {
     /// <summary>
     /// 单例服务器超时强制下线任务节点
@@ -23,7 +23,7 @@ namespace AutoCSer.CommandService.ServiceRegister
         internal LogAssemblerQueueNode(LogAssembler logAssembler)
         {
             this.logAssembler = logAssembler;
-            mainLog = logAssembler.MainLog;
+            mainLog = logAssembler.MainLog.notNull();
         }
         /// <summary>
         /// 添加超时检查队列任务

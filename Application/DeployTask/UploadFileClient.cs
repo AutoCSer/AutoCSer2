@@ -66,7 +66,7 @@ namespace AutoCSer.CommandService.DeployTask
             if (await AutoCSer.Common.Config.DirectoryExists(directory))
             {
                 uploadTaskCount = 1;
-                await uploadFileAsync(directory, null);
+                await uploadFileAsync(directory, string.Empty);
                 if (Interlocked.Decrement(ref uploadTaskCount) != 0) await uploadTaskLock.WaitAsync();
             }
             else result.State = DeployTaskUploadFileStateEnum.NotFoundDirectory;
@@ -83,10 +83,15 @@ namespace AutoCSer.CommandService.DeployTask
             FileInfo[] files = await AutoCSer.Common.Config.DirectoryGetFiles(directory);
             if (files.Length == 0) return;
             FileTime[] fileTimes = files.getArray(p => new FileTime(p));
-            CommandClientReturnValue<bool[]> differents = await clientBuilder.Client.Client.DeployTaskClient.GetDifferent(clientBuilder.Identity, uploadIndex, serverPath, path, fileTimes);
+            var differents = await clientBuilder.Client.Client.DeployTaskClient.GetDifferent(clientBuilder.Identity, uploadIndex, serverPath, path, fileTimes);
             if (!differents.IsSuccess)
             {
                 result.Set(DeployTaskUploadFileStateEnum.GetDifferentError, differents.ReturnType);
+                return;
+            }
+            if(differents.Value == null)
+            {
+                result.Set(DeployTaskUploadFileStateEnum.NotFoundTaskOrException, CommandClientReturnTypeEnum.Success);
                 return;
             }
             int fileIndex = 0;
@@ -102,7 +107,7 @@ namespace AutoCSer.CommandService.DeployTask
             }
             foreach (DirectoryInfo nextDirectory in await AutoCSer.Common.Config.GetDirectories(directory))
             {
-                await uploadFileAsync(nextDirectory, path == null ? null : Path.Combine(path, nextDirectory.Name));
+                await uploadFileAsync(nextDirectory, path.Length == 0 ? path : Path.Combine(path, nextDirectory.Name));
                 if (result.State != DeployTaskUploadFileStateEnum.Success) return;
             }
         }
@@ -115,15 +120,15 @@ namespace AutoCSer.CommandService.DeployTask
         /// <returns></returns>
         private async Task uploadFileAsync(string path, FileInfo file, FileTime fileTime)
         {
-            byte[] buffer = null;
+            var buffer = default(byte[]);
             await clientBuilder.Client.UploadFileLock.WaitAsync();
             try
             {
                 if (result.State != DeployTaskUploadFileStateEnum.Success) return;
-#if DotNet45 || NetStandard2
-                using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
-#else
+#if NetStandard21
                 await using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
+#else
+                using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
 #endif
                 {
                     if (fileStream.Length != fileTime.Length)
@@ -155,7 +160,7 @@ namespace AutoCSer.CommandService.DeployTask
                         await AutoCSer.Common.Config.Seek(fileStream, createResult.Value.Length, SeekOrigin.Begin);
                         fileTime.Length -= createResult.Value.Length;
                     }
-                    UploadFileBuffer uploadFileBuffer = new UploadFileBuffer { Buffer = buffer = getBuffer() };
+                    UploadFileBuffer uploadFileBuffer = new UploadFileBuffer(buffer = getBuffer());
                     int bufferSize = Math.Min(buffer.Length, createResult.Value.BufferSize);
                     while (fileTime.Length > 0)
                     {
@@ -199,7 +204,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <returns></returns>
         private byte[] getBuffer()
         {
-            byte[] buffer;
+            var buffer = default(byte[]);
             Monitor.Enter(bufferLock);
             if (buffers.TryPop(out buffer))
             {
@@ -215,9 +220,13 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
         /// <param name="isBackup">是否备份历史文件</param>
         /// <returns></returns>
+#if NetStandard21
+        public ReturnCommand<DeployTaskAppendResult> AppendCopyFile(string? checkSwitchFileName = null, bool isBackup = true)
+#else
         public ReturnCommand<DeployTaskAppendResult> AppendCopyFile(string checkSwitchFileName = null, bool isBackup = true)
+#endif
         {
-            return clientBuilder.Client.Client.DeployTaskClient.AppendCopyUploadFile(clientBuilder.Identity, uploadIndex, serverPath, checkSwitchFileName, isBackup);
+            return clientBuilder.Client.Client.DeployTaskClient.AppendCopyUploadFile(clientBuilder.Identity, uploadIndex, serverPath, checkSwitchFileName ?? string.Empty, isBackup);
         }
     }
 }

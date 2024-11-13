@@ -31,7 +31,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// JSON API 请求实例父类型
         /// </summary>
+#if NetStandard21
+        internal Type? ParentType
+#else
         internal Type ParentType
+#endif
         {
             get
             {
@@ -46,7 +50,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 帮助文档返回值类型
         /// </summary>
+#if NetStandard21
+        internal Type? HelpReturnType
+#else
         internal Type HelpReturnType
+#endif
         {
             get
             {
@@ -61,7 +69,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 请求路由路径
         /// </summary>
+#if NetStandard21
+        internal string? RoutePath;
+#else
         internal string RoutePath;
+#endif
         /// <summary>
         /// 是否生成 API 调用
         /// </summary>
@@ -77,14 +89,22 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="attribute">JSON API 自定义配置</param>
         /// <param name="parameters">参数信息集合</param>
         /// <param name="type">JSON API 方法类型</param>
+#if NetStandard21
+        internal JsonApiMethod(MethodInfo method, JsonApiAttribute? attribute, ParameterInfo[] parameters, JsonApiMethodTypeEnum type)
+#else
         internal JsonApiMethod(MethodInfo method, JsonApiAttribute attribute, ParameterInfo[] parameters, JsonApiMethodTypeEnum type)
+#endif
         {
             Method = method;
             Parameters = parameters;
             Attribute = attribute ?? JsonApiAttribute.Default;
-            resultType = null;
+            resultType = typeof(void);
             this.type = type;
             IsApi = true;
+#if NetStandard21
+            HttpMethodParameters = EmptyArray<HttpMethodParameter>.Array;
+#endif
+
         }
         /// <summary>
         /// JSON API 方法信息
@@ -93,7 +113,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="attribute">JSON API 自定义配置</param>
         /// <param name="parameters">参数信息集合</param>
         /// <param name="resultType">ResponseResult{T} 返回值类型 T</param>
+#if NetStandard21
+        internal JsonApiMethod(MethodInfo method, JsonApiAttribute? attribute, ParameterInfo[] parameters, Type resultType)
+#else
         internal JsonApiMethod(MethodInfo method, JsonApiAttribute attribute, ParameterInfo[] parameters, Type resultType)
+#endif
         {
             Method = method;
             Parameters = parameters;
@@ -101,6 +125,9 @@ namespace AutoCSer.NetCoreWeb
             this.resultType = resultType;
             type = JsonApiMethodTypeEnum.ResponseResult;
             IsApi = true;
+#if NetStandard21
+            HttpMethodParameters = EmptyArray<HttpMethodParameter>.Array;
+#endif
         }
     }
 }

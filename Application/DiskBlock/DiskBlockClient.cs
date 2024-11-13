@@ -324,10 +324,18 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <param name="callback">读取数据结果</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task Read(BlockIndex index, Action<ReadResult<byte[]?>> callback)
+#else
         public async Task Read(BlockIndex index, Action<ReadResult<byte[]>> callback)
+#endif
         {
             bool isCallback = false;
+#if NetStandard21
+            ReadResult<byte[]?> result = default(ReadResult<byte[]?>);
+#else
             ReadResult<byte[]> result = default(ReadResult<byte[]>);
+#endif
             try
             {
                 if (!index.GetResult(out result))
@@ -346,9 +354,17 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public ReadResult<byte[]?> Read(BlockIndex index)
+#else
         public ReadResult<byte[]> Read(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<byte[]?> result;
+#else
             ReadResult<byte[]> result;
+#endif
             if (index.GetResult(out result)) return result;
             ReadCallback readCallback = new ReadCallback();
             return readCallback.GetResult(Client.WaitRead((ReadBuffer)readCallback.Deserialize, index));
@@ -358,9 +374,17 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public async Task<ReadResult<byte[]?>> ReadAsync(BlockIndex index)
+#else
         public async Task<ReadResult<byte[]>> ReadAsync(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<byte[]?> result;
+#else
             ReadResult<byte[]> result;
+#endif
             if (index.GetResult(out result)) return result;
             ReadCallback readCallback = new ReadCallback();
             return readCallback.GetResult(await Client.Read((ReadBuffer)readCallback.Deserialize, index));
@@ -371,10 +395,18 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <param name="callback">读取数据结果</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task ReadString(BlockIndex index, Action<ReadResult<string?>> callback)
+#else
         public async Task ReadString(BlockIndex index, Action<ReadResult<string>> callback)
+#endif
         {
             bool isCallback = false;
+#if NetStandard21
+            ReadResult<string?> result = default(ReadResult<string?>);
+#else
             ReadResult<string> result = default(ReadResult<string>);
+#endif
             try
             {
                 if (!index.GetResult(out result))
@@ -393,9 +425,17 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public ReadResult<string?> ReadString(BlockIndex index)
+#else
         public ReadResult<string> ReadString(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<string?> result;
+#else
             ReadResult<string> result;
+#endif
             if (index.GetResult(out result)) return result;
             ReadStringCallback readStringCallback = new ReadStringCallback();
             return readStringCallback.GetResult(Client.WaitRead((ReadBuffer)readStringCallback.Deserialize, index));
@@ -405,9 +445,17 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public async Task<ReadResult<string?>> ReadStringAsync(BlockIndex index)
+#else
         public async Task<ReadResult<string>> ReadStringAsync(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<string?> result;
+#else
             ReadResult<string> result;
+#endif
             if (index.GetResult(out result)) return result;
             ReadStringCallback readStringCallback = new ReadStringCallback();
             return readStringCallback.GetResult(await Client.Read((ReadBuffer)readStringCallback.Deserialize, index));
@@ -419,10 +467,18 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <param name="callback">读取数据结果</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task ReadJson<T>(BlockIndex index, Action<ReadResult<T?>> callback)
+#else
         public async Task ReadJson<T>(BlockIndex index, Action<ReadResult<T>> callback)
+#endif
         {
             bool isCallback = false;
+#if NetStandard21
+            ReadResult<T?> result = default(ReadResult<T?>);
+#else
             ReadResult<T> result = default(ReadResult<T>);
+#endif
             try
             {
                 if (!index.GetJsonResult(out result))
@@ -442,9 +498,17 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public ReadResult<T?> ReadJson<T>(BlockIndex index)
+#else
         public ReadResult<T> ReadJson<T>(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<T?> result;
+#else
             ReadResult<T> result;
+#endif
             if (index.GetJsonResult(out result)) return result;
             ReadJsonCallback<T> readJsonCallback = new ReadJsonCallback<T>();
             return readJsonCallback.GetResult(Client.WaitRead((ReadBuffer)readJsonCallback.Deserialize, index));
@@ -455,9 +519,17 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public async Task<ReadResult<T?>> ReadJsonAsync<T>(BlockIndex index)
+#else
         public async Task<ReadResult<T>> ReadJsonAsync<T>(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<T?> result;
+#else
             ReadResult<T> result;
+#endif
             if (index.GetJsonResult(out result)) return result;
             ReadJsonCallback<T> readJsonCallback = new ReadJsonCallback<T>();
             return readJsonCallback.GetResult(await Client.Read((ReadBuffer)readJsonCallback.Deserialize, index));
@@ -519,10 +591,18 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <param name="callback">读取数据结果</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task ReadBinary<T>(BlockIndex index, Action<ReadResult<T?>> callback)
+#else
         public async Task ReadBinary<T>(BlockIndex index, Action<ReadResult<T>> callback)
+#endif
         {
             bool isCallback = false;
+#if NetStandard21
+            ReadResult<T?> result = default(ReadResult<T?>);
+#else
             ReadResult<T> result = default(ReadResult<T>);
+#endif
             try
             {
                 if (!index.GetBinaryResult(out result))
@@ -542,9 +622,17 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public ReadResult<T?> ReadBinary<T>(BlockIndex index)
+#else
         public ReadResult<T> ReadBinary<T>(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<T?> result;
+#else
             ReadResult<T> result;
+#endif
             if (index.GetBinaryResult(out result)) return result;
             ReadBinaryCallback<T> readBinaryCallback = new ReadBinaryCallback<T>();
             return readBinaryCallback.GetResult(Client.WaitRead((ReadBuffer)readBinaryCallback.DeserializeNotReference, index));
@@ -555,9 +643,17 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
+#if NetStandard21
+        public async Task<ReadResult<T?>> ReadBinaryAsync<T>(BlockIndex index)
+#else
         public async Task<ReadResult<T>> ReadBinaryAsync<T>(BlockIndex index)
+#endif
         {
+#if NetStandard21
+            ReadResult<T?> result;
+#else
             ReadResult<T> result;
+#endif
             if (index.GetBinaryResult(out result)) return result;
             ReadBinaryCallback<T> readBinaryCallback = new ReadBinaryCallback<T>();
             return readBinaryCallback.GetResult(await Client.Read((ReadBuffer)readBinaryCallback.DeserializeNotReference, index));

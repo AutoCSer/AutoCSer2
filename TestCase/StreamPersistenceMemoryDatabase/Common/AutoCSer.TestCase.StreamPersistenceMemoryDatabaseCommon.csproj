@@ -20,6 +20,10 @@
   <ItemGroup>
     <Compile Include="CallbackNode.cs" />
     <Compile Include="CustomServiceNode.cs" />
+    <Compile Include="Game\GameNode.cs" />
+    <Compile Include="Game\IGameNode.cs" />
+    <Compile Include="Game\Monster.cs" />
+    <Compile Include="Game\Pos.cs" />
     <Compile Include="ICallbackNode.cs" />
     <Compile Include="ICallbackNodeClientNode.cs" />
     <Compile Include="ICustomServiceNode.cs" />
@@ -39,5 +43,9 @@
 			<HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="if exist &quot;$(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+	</Target>
   
 </Project>

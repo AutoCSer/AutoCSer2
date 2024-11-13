@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
 
 namespace AutoCSer.Search.WordIndexs
@@ -19,7 +20,11 @@ namespace AutoCSer.Search.WordIndexs
         /// </summary>
         /// <param name="trieGraph">绑定静态节点池的字符串 Trie 图</param>
         /// <param name="isSingleCharacter">默认为 true 表示支持单字符搜索结果，但是会造成占用大量内存；设置为 false 则应该设置中文词库，否则无法搜索中文内容</param>
+#if NetStandard21
+        public StaticSearcher(StaticStringTrieGraph? trieGraph = null, bool isSingleCharacter = true)
+#else
         public StaticSearcher(StaticStringTrieGraph trieGraph = null, bool isSingleCharacter = true)
+#endif
             : base(trieGraph, isSingleCharacter)
         {
             QueueContext = new QueueContext<T>(this);
@@ -38,10 +43,10 @@ namespace AutoCSer.Search.WordIndexs
         /// <param name="values">分词结果</param>
         protected override void add(T key, ReusableDictionary<HashSubString, ResultIndexs> values)
         {
-            Dictionary<T, HeadLeftArray<int>> indexs;
+            var indexs = default(Dictionary<T, HeadLeftArray<int>>);
             foreach (KeyValue<HashSubString, ResultIndexs> result in values.KeyValues)
             {
-                if (!results.TryGetValue(result.Key, out indexs)) results.Add((string)result.Key.String, indexs = DictionaryCreator<T>.Create<HeadLeftArray<int>>());
+                if (!results.TryGetValue(result.Key, out indexs)) results.Add(result.Key.String.ToString().notNull(), indexs = DictionaryCreator<T>.Create<HeadLeftArray<int>>());
                 indexs.Add(key, result.Value.Indexs);
             }
         }
@@ -53,7 +58,7 @@ namespace AutoCSer.Search.WordIndexs
         protected override void remove(T key, ref LeftArray<KeyValue<SubString, WordTypeEnum>> words)
         {
             int count = words.Length;
-            Dictionary<T, HeadLeftArray<int>> indexs;
+            var indexs = default(Dictionary<T, HeadLeftArray<int>>);
             foreach (KeyValue<SubString, WordTypeEnum> word in words.Array)
             {
                 if (word.Key.Length != 1)

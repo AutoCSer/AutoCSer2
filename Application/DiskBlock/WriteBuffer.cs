@@ -14,7 +14,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 自定义序列化，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)
         /// </summary>
+#if NetStandard21
+        private readonly WriteBufferSerializer? serializer;
+#else
         private readonly WriteBufferSerializer serializer;
+#endif
         /// <summary>
         /// 数据缓冲区
         /// </summary>

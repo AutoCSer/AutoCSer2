@@ -47,7 +47,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int Value, int Ref);
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         EnumeratorCommand<string> AsyncEnumerableReturn(int Value, int Ref);
         EnumeratorCommand<string> AsyncEnumerableReturn();
 
@@ -72,7 +72,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             EnumeratorCommand<string> enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -80,19 +80,19 @@ namespace AutoCSer.TestCase.ServerBindContext
             EnumeratorCommand enumeratorCommand = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTask(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommand, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskReturn();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             enumeratorCommand = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTask();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommand, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -100,7 +100,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -108,19 +108,19 @@ namespace AutoCSer.TestCase.ServerBindContext
             enumeratorCommand = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTask(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommand, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTaskReturn();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             enumeratorCommand = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTask();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommand, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -128,28 +128,28 @@ namespace AutoCSer.TestCase.ServerBindContext
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             IAsyncEnumerable<string> asyncEnumerable = client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(asyncEnumerable, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             asyncEnumerable = client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskReturnAsync();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(asyncEnumerable, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -157,13 +157,13 @@ namespace AutoCSer.TestCase.ServerBindContext
             asyncEnumerable = client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(asyncEnumerable, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             asyncEnumerable = client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTaskReturnAsync();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(asyncEnumerable, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -171,13 +171,13 @@ namespace AutoCSer.TestCase.ServerBindContext
             asyncEnumerable = client.ServerBindContextClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(asyncEnumerable, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             asyncEnumerable = client.ServerBindContextClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturnAsync();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(asyncEnumerable, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 #endif
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -185,7 +185,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             EnumeratorQueueCommand<string> enumeratorQueueCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorQueueCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -193,7 +193,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             EnumeratorQueueCommand enumeratorQueueCommand = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskQueue(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorQueueCommand, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -201,7 +201,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             enumeratorQueueCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorQueueCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -209,7 +209,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             enumeratorQueueCommand = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackCountTaskQueue(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorQueueCommand, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -217,22 +217,22 @@ namespace AutoCSer.TestCase.ServerBindContext
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.AsyncEnumerableReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.AsyncEnumerableReturn();
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
@@ -240,7 +240,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.AsyncEnumerableQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!await AutoCSer.TestCase.ClientKeepCallbackTaskController.Callback(enumeratorCommandReturn, clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 #endif
             return true;

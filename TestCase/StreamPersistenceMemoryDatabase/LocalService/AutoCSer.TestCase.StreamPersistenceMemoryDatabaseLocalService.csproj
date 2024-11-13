@@ -31,6 +31,7 @@
     <Compile Include="DistributedLockNode.cs" />
     <Compile Include="FragmentDictionaryNode.cs" />
     <Compile Include="FragmentHashSetNode.cs" />
+    <Compile Include="GameNode.cs" />
     <Compile Include="HashSetNode.cs" />
     <Compile Include="HashStringFragmentDictionaryNode.cs" />
     <Compile Include="LeftArrayNode.cs" />

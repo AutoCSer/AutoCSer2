@@ -139,7 +139,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>被删除数据</returns>
         public ValueResult<VT> GetRemove(KT key)
         {
-            VT value;
+            var value = default(VT);
             if (dictionary.Remove(ref key, out value)) return value;
             return default(ValueResult<VT>);
         }
@@ -159,7 +159,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>目标数据</returns>
         public ValueResult<VT> TryGetValue(KT key)
         {
-            VT value;
+            var value = default(VT);
             if (key != null && dictionary.TryGetValue(ref key, out value)) return value;
             return default(ValueResult<VT>);
         }
@@ -207,7 +207,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>数据</returns>
         public ValueResult<VT> TryGetValueByIndex(int index)
         {
-            VT value;
+            var value = default(VT);
             if ((uint)index < (uint)dictionary.Count && dictionary.TryGetValueByIndex(index, out value)) return value;
             return default(ValueResult<VT>);
         }

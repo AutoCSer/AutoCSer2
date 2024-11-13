@@ -27,7 +27,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 数据列索引集合 临时缓存
         /// </summary>
+#if NetStandard21
+        private static int[]? columnIndexCache;
+#else
         private static int[] columnIndexCache;
+#endif
         /// <summary>
         /// 获取数据列索引集合
         /// </summary>
@@ -38,7 +42,7 @@ namespace AutoCSer.ORM
             if (columnIndexs.Count != 0)
             {
                 int columnIndex;
-                int[] indexs = Interlocked.Exchange(ref columnIndexCache, null);
+                var indexs = Interlocked.Exchange(ref columnIndexCache, null);
                 if (indexs == null) indexs = new int[(columnIndexs.Count + 1) & (int.MaxValue - 1)];
                 fixed (int* indexFixed = indexs)
                 {
@@ -124,7 +128,7 @@ namespace AutoCSer.ORM
                     generator.Emit(OpCodes.Ldloc_S, columnIndexLocalBuilder);
                     generator.call(member.GetReadObjectMethod());
                     if (member.MemberIndex.IsField) generator.Emit(OpCodes.Stfld, (FieldInfo)member.MemberIndex.Member);
-                    else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                    else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                     #endregion
                     generator.MarkLabel(nextLabel);
                 }
@@ -156,7 +160,7 @@ namespace AutoCSer.ORM
                     #region value.CustomProperty = property;
                     generator.Emit(OpCodes.Ldarg_1);
                     generator.Emit(OpCodes.Ldloc, propertyLocalBuilder);
-                    generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                    generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                     #endregion
                 }
             }
@@ -165,7 +169,7 @@ namespace AutoCSer.ORM
             ModelReader<T>.columnIndexs = columnIndexs;
         }
     }
-#if DEBUG
+#if DEBUG && NetStandard21
 #pragma warning disable
     internal class ModelReaderIL
     {

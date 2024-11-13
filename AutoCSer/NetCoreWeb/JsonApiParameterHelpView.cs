@@ -1,4 +1,5 @@
-﻿using AutoCSer.Reflection;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Reflection;
 using System;
 using System.Reflection;
 
@@ -20,7 +21,7 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 参数名称
         /// </summary>
-        public string Name { get { return parameter.Parameter.Name; } }
+        public string Name { get { return parameter.Parameter.Name.notNull(); } }
         /// <summary>
         /// 代理控制器方法参数约束类型
         /// </summary>

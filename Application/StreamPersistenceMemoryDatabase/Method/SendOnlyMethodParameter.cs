@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -29,13 +30,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (Node.CallState == CallStateEnum.Success && method.IsClientCall)
             {
-                CommandServerSocketSessionObjectService service = Node.NodeCreator.Service;
+                StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
                 if (method.IsPersistence)
                 {
                     if (Node.IsPersistence && !service.IsMaster) return;
                     if (method.BeforePersistenceMethodIndex >= 0)
                     {
-                        CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[method.BeforePersistenceMethodIndex];
+                        CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull();
                         BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
                         service.CurrentMethodParameter = BeforePersistenceMethodParameter;
                         if (!beforePersistenceMethod.CallBeforePersistence(BeforePersistenceMethodParameter)) return;
@@ -54,7 +55,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 持久化回调
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal override MethodParameter? PersistenceCallback()
+#else
         internal override MethodParameter PersistenceCallback()
+#endif
         {
             if (Node.IsPersistence)
             {
@@ -66,8 +71,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 finally
                 {
-                    CommandServerSocketSessionObjectService service = Node.NodeCreator.Service;
-                    PersistenceRebuilder rebuilder = service.Rebuilder;
+                    StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
+                    var rebuilder = service.Rebuilder;
                     if (IsPersistenceCallback)
                     {
                         if (rebuilder != null && Node.IsRebuild && !Node.Rebuilding) rebuilder.PushQueue(this);
@@ -100,7 +105,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal override MethodParameter? PersistenceCallback(CallStateEnum state)
+#else
         internal override MethodParameter PersistenceCallback(CallStateEnum state)
+#endif
         {
             return LinkNext;
         }
@@ -134,7 +143,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="node"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        public SendOnlyMethodParameter(ServerNode node, int methodIndex, ref T parameter) : base(node, (SendOnlyMethod)node.NodeCreator.Methods[methodIndex]) 
+        public SendOnlyMethodParameter(ServerNode node, int methodIndex, ref T parameter) : base(node, (SendOnlyMethod)node.NodeCreator.Methods[methodIndex].notNull()) 
         {
             this.Parameter = parameter;
         }
@@ -144,7 +153,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index"></param>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal override InputMethodParameter? Clone(NodeIndex index, int methodIndex)
+#else
         internal override InputMethodParameter Clone(NodeIndex index, int methodIndex)
+#endif
         {
             if (method.Index == methodIndex && index.Equals(Node.Index))
             {
@@ -180,7 +193,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="serializer">序列化</param>
         /// <returns></returns>
+#if NetStandard21
+        internal override MethodParameter? PersistenceSerialize(AutoCSer.BinarySerializer serializer)
+#else
         internal override MethodParameter PersistenceSerialize(AutoCSer.BinarySerializer serializer)
+#endif
         {
             return PersistenceSerialize(serializer, method, ref Parameter);
         }

@@ -25,7 +25,11 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Reentrant(this AutoCSer.Threading.SemaphoreSlimLock semaphoreSlimLock
 #if DEBUG
+#if NetStandard21
+             , [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
+#else
              , [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
+#endif
 #endif
             )
         {
@@ -43,7 +47,7 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static bool ReentrantExit(this AutoCSer.Threading.SemaphoreSlimLock semaphoreSlimLock)
         {
-            AutoCSer.Threading.ReentrantSemaphoreSlimLockManager manager = AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Manager.Value;
+            var manager = AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Manager.Value;
             return manager != null && manager.Exit(semaphoreSlimLock);
         }
     }

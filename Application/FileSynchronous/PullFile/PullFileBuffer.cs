@@ -1,6 +1,8 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -15,18 +17,33 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <summary>
         /// 客户端写文件操作
         /// </summary>
+#if NetStandard21
+        private readonly PullFile? fileWriter;
+#else
         private readonly PullFile fileWriter;
+#endif
         /// <summary>
         /// 读取文件数据回调委托
         /// </summary>
+#if NetStandard21
+        private readonly CommandServerKeepCallbackCount<PullFileBuffer>? callback;
+#else
         private readonly CommandServerKeepCallbackCount<PullFileBuffer> callback;
+#endif
         /// <summary>
         /// 输出错误处理释放序列化等待锁
         /// </summary>
+#if NetStandard21
+        private Action? releaseSerializeLockHandle;
+#else
         private Action releaseSerializeLockHandle;
+#endif
         /// <summary>
         /// 序列化等待锁
         /// </summary>
+#if DEBUG && NetStandard21
+        [AllowNull]
+#endif
         private AutoCSer.Threading.SemaphoreSlimLock serializeLock;
         /// <summary>
         /// 读取数据缓冲区
@@ -73,10 +90,10 @@ namespace AutoCSer.CommandService.FileSynchronous
             {
                 long unreadSize = file.Length - fileInfo.Length;
                 if (bufferSize > unreadSize) bufferSize = (int)unreadSize;
-#if DotNet45 || NetStandard2
-                using (FileStream readStream = await AutoCSer.Common.Config.CreateFileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
-#else
+#if NetStandard21
                 await using (FileStream readStream = await AutoCSer.Common.Config.CreateFileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
+#else
+                using (FileStream readStream = await AutoCSer.Common.Config.CreateFileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
 #endif
                 {
                     unreadSize = readStream.Length;
@@ -93,8 +110,9 @@ namespace AutoCSer.CommandService.FileSynchronous
                             try
                             {
                                 this.bufferSize = 0;
-                                byte[] bufferArray = buffer.Buffer.Buffer;
-                                bufferSize = buffer.Buffer.BufferSize;
+                                ByteArray byteArray = buffer.Buffer.notNull();
+                                byte[] bufferArray = byteArray.Buffer;
+                                bufferSize = byteArray.BufferSize;
                                 do
                                 {
                                     int readSize = await readStream.ReadAsync(bufferArray, buffer.StartIndex + this.bufferSize, bufferSize - this.bufferSize);
@@ -132,7 +150,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                 releaseSerializeLockHandle = releaseSerializeLock;
             }
             ReadState = PullFileStateEnum.Success;
-            if (await callback.CallbackAsync(this, releaseSerializeLockHandle))
+            if (await callback.notNull().CallbackAsync(this, releaseSerializeLockHandle))
             {
                 await serializeLock.EnterAsync();
                 ReadState = PullFileStateEnum.Unknown;
@@ -140,7 +158,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                 {
                     if ((bufferSize -= serializeSize) != 0)
                     {
-                        byte[] bufferArray = buffer.Buffer.Buffer;
+                        byte[] bufferArray = buffer.Buffer.notNull().Buffer;
                         AutoCSer.Common.Config.CopyTo(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, bufferSize);
                     }
                     return true;
@@ -167,11 +185,11 @@ namespace AutoCSer.CommandService.FileSynchronous
 #if DEBUG
             if (ReadState == PullFileStateEnum.Success && !stream.IsResizeError)
             {
-                serializeSize = serializer.CustomWriteFree(buffer.Buffer.Buffer, buffer.StartIndex, bufferSize);
+                serializeSize = serializer.CustomWriteFree(buffer.Buffer.notNull().Buffer, buffer.StartIndex, bufferSize);
                 if (stream.IsResizeError) AutoCSer.ConsoleWriteQueue.Breakpoint();
             }
 #else
-            if (ReadState == PullFileStateEnum.Success) serializeSize = serializer.CustomWriteFree(buffer.Buffer.Buffer, buffer.StartIndex, bufferSize);
+            if (ReadState == PullFileStateEnum.Success) serializeSize = serializer.CustomWriteFree(buffer.Buffer.notNull().Buffer, buffer.StartIndex, bufferSize);
 #endif
             if (!stream.IsResizeError) serializeLock.Exit();
         }
@@ -182,6 +200,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         void AutoCSer.BinarySerialize.ICustomSerialize<PullFileBuffer>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             int state;
+            PullFile fileWriter = this.fileWriter.notNull();
             if (deserializer.Read(out state))
             {
                 if(state == (byte)PullFileStateEnum.Success)

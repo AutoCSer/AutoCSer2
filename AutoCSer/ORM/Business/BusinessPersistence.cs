@@ -54,7 +54,7 @@ namespace AutoCSer.ORM
             where BT : class, T
             where T : class
         {
-            return AutoCSer.Metadata.DefaultConstructor<BT>.Constructor();
+            return AutoCSer.Metadata.DefaultConstructor<BT>.Constructor().notNull();
         }
     }
     /// <summary>

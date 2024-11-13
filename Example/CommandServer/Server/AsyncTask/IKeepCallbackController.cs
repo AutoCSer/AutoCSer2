@@ -55,7 +55,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         [CommandServerMethod(KeepCallbackOutputCount = 4)]
         Task<IEnumerable<int>> EnumerableCallbackCount(CommandServerSocket socket, int parameter1, int parameter2);
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         /// <summary>
         /// 保持回调委托返回数据
         /// </summary>
@@ -144,7 +144,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
             for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue;) yield return value++;
         }
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         /// <summary>
         /// 保持回调委托返回数据
         /// </summary>

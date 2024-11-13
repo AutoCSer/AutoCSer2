@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 /*long,Long,GetInt64;int,Int,GetInt32;short,Short,GetInt16;byte,Byte,GetByte;bool,Bool,GetBoolean;DateTime,DateTime,GetDateTime;decimal,Decimal,GetDecimal;Guid,Guid,GetGuid;double,Double,GetDouble;float,Float,GetFloat*/
 
 namespace AutoCSer.ORM
@@ -39,7 +40,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(long)) return reader.GetInt64(index);
             if (reader.IsDBNull(index)) return default(long);
-            return long.Parse(reader[index].ToString());
+            return long.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -51,7 +52,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(long)) return reader.GetInt64(index);
-            return long.Parse(reader[index].ToString());
+            return long.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据

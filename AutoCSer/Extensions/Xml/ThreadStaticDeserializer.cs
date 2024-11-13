@@ -16,7 +16,11 @@ namespace AutoCSer.Xml
         /// 线程静态变量
         /// </summary>
         [ThreadStatic]
+#if NetStandard21
+        private static ThreadStaticDeserializer? value;
+#else
         private static ThreadStaticDeserializer value;
+#endif
         /// <summary>
         /// 创建线程静态变量访问锁
         /// </summary>

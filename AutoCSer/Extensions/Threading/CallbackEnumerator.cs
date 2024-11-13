@@ -1,9 +1,10 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -14,10 +15,10 @@ namespace AutoCSer.Threading
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class CallbackEnumerator<T>
-#if DotNet45 || NetStandard2
-: IEnumeratorTask<T>
-#else
+#if NetStandard21
 : IAsyncEnumerator<T>
+#else
+: IEnumeratorTask<T>
 #endif
     {
         /// <summary>
@@ -35,6 +36,9 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 当前返回数据
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public T Current { get; private set; }
         /// <summary>
         /// 持续回调转 IAsyncEnumerator{T} 包装
@@ -48,7 +52,14 @@ namespace AutoCSer.Threading
         /// 释放资源
         /// </summary>
         /// <returns></returns>
-        ValueTask IAsyncDisposable.DisposeAsync() { return AutoCSer.Common.CompletedTask.ToValueTask(); }
+        ValueTask IAsyncDisposable.DisposeAsync()
+        {
+#if NET8
+            return ValueTask.CompletedTask;
+#else
+            return AutoCSer.Common.CompletedTask.ToValueTask();
+#endif
+        }
         /// <summary>
         /// 数据回调
         /// </summary>
@@ -90,15 +101,15 @@ namespace AutoCSer.Threading
         /// 判断是否存在下一个数据
         /// </summary>
         /// <returns></returns>
-#if DotNet45 || NetStandard2
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
-#else
+#if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<T>.MoveNextAsync()
+#else
+        async Task<bool> IEnumeratorTask.MoveNextAsync()
 #endif
         {
             return await MoveNext();
         }
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         /// <summary>
         /// 获取 IAsyncEnumerator{T}
         /// </summary>

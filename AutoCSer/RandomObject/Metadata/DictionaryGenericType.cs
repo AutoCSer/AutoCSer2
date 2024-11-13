@@ -24,14 +24,22 @@ namespace AutoCSer.RandomObject.Metadata
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static DictionaryGenericType create<T, KT, VT>()
+#if NetStandard21
+            where T : IDictionary<KT, VT?>
+#else
             where T : IDictionary<KT, VT>
+#endif
         {
             return new DictionaryGenericType<T, KT, VT>();
         }
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static DictionaryGenericType? lastGenericType;
+#else
         protected static DictionaryGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -40,7 +48,7 @@ namespace AutoCSer.RandomObject.Metadata
         /// <returns></returns>
         public static DictionaryGenericType Get(Type type, Type interfaceType)
         {
-            DictionaryGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = getDictionary(type, interfaceType);
             lastGenericType = value;
@@ -54,7 +62,11 @@ namespace AutoCSer.RandomObject.Metadata
     /// <typeparam name="KT"></typeparam>
     /// <typeparam name="VT"></typeparam>
     internal sealed class DictionaryGenericType<T, KT, VT> : DictionaryGenericType
+#if NetStandard21
+        where T : IDictionary<KT, VT?>
+#else
         where T : IDictionary<KT, VT>
+#endif
     {
         /// <summary>
         /// 获取当前泛型类型
@@ -64,6 +76,10 @@ namespace AutoCSer.RandomObject.Metadata
         /// <summary>
         /// 创建随机字典委托
         /// </summary>
+#if NetStandard21
+        internal override Delegate CreateDictionaryDelegate { get { return (Func<Config, T?>)Creator.CreateDictionary<T, KT, VT>; } }
+#else
         internal override Delegate CreateDictionaryDelegate { get { return (Func<Config, T>)Creator.CreateDictionary<T, KT, VT>; } }
+#endif
     }
 }

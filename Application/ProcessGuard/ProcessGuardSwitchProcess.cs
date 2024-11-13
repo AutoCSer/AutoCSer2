@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Deploy;
 using AutoCSer.Net;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -38,6 +39,9 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 进程守护调用客户端
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         protected ProcessGuardClient processGuardClient;
         /// <summary>
         /// 启动守护

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -11,6 +13,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用方法与参数信息
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private readonly InputKeepCallbackMethodParameter parameter;
         /// <summary>
         /// 本地服务调用节点方法队列节点回调对象
@@ -31,8 +36,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用状态错误
         /// </summary>
+        /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="result"></param>
-        internal LocalServiceInputKeepCallbackNode(CallStateEnum result) : base(null)
+        internal LocalServiceInputKeepCallbackNode(LocalClientNode clientNode, CallStateEnum result) : base(clientNode.Client.Service)
         {
             callback = new LocalServiceKeepCallbackNodeCallback<T>();
             callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(result));
@@ -66,14 +72,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             CallStateEnum state;
             NodeIndex nodeIndex = clientNode.Index;
-            InputKeepCallbackMethodParameter<PT> methodParameter = (InputKeepCallbackMethodParameter<PT>)clientNode.Client.Service.CreateInputMethodParameter(nodeIndex, methodIndex, out state);
+            var inputKeepCallbackMethodParameter = clientNode.Client.Service.CreateInputMethodParameter(nodeIndex, methodIndex, out state).castType<InputKeepCallbackMethodParameter<PT>>();
             if (state == CallStateEnum.Success)
             {
+                var methodParameter = inputKeepCallbackMethodParameter.notNull();
                 methodParameter.Parameter = parameter;
                 return new LocalServiceInputKeepCallbackNode<T>(clientNode, methodParameter);
             }
             clientNode.CheckState(nodeIndex, state);
-            return new LocalServiceInputKeepCallbackNode<T>(state);
+            return new LocalServiceInputKeepCallbackNode<T>(clientNode, state);
         }
     }
 }

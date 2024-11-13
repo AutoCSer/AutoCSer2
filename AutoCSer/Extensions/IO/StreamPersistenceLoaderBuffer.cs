@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -64,7 +65,7 @@ namespace AutoCSer.IO
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void SetReadBuffer(int size)
         {
-            LoadBuffer.Set(ReadBuffer.Buffer.Buffer, ReadBuffer.StartIndex, size);
+            LoadBuffer.Set(ReadBuffer.Buffer.notNull().Buffer, ReadBuffer.StartIndex, size);
         }
         /// <summary>
         /// 设置读取文件结果
@@ -73,7 +74,7 @@ namespace AutoCSer.IO
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void SetCopyBuffer(int size)
         {
-            LoadBuffer.Set(CopyBuffer.Buffer.Buffer, CopyBuffer.StartIndex, size);
+            LoadBuffer.Set(CopyBuffer.Buffer.notNull().Buffer, CopyBuffer.StartIndex, size);
         }
     }
 }

@@ -1547,7 +1547,7 @@
         </member>
         <member name="F:AutoCSer.Search.WordTypeEnum.OtherLetter">
             <summary>
-            其它字母
+            其它字母，不包括中文
             </summary>
         </member>
         <member name="F:AutoCSer.Search.WordTypeEnum.Letter">

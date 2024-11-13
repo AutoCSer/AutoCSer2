@@ -8,7 +8,7 @@ namespace AutoCSer.Extensions
     /// </summary>
     public static class IDisposableExtension
     {
-#if DotNet45 || NetStandard2
+#if !NetStandard21
         /// <summary>
         /// 释放资源
         /// </summary>

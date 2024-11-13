@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Net;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -13,14 +14,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库服务端
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         protected StreamPersistenceMemoryDatabaseService streamPersistenceMemoryDatabaseService { get; private set; }
         /// <summary>
         /// 服务端节点
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         protected ServerNode<T> streamPersistenceMemoryDatabaseNode { get; private set; }
         /// <summary>
         /// 服务端执行队列
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public CommandServerCallQueue StreamPersistenceMemoryDatabaseCallQueue { get; private set; }
         /// <summary>
         /// 服务端节点上下文
@@ -36,7 +46,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 初始化加载完毕处理
         /// </summary>
         /// <returns>加载完毕替换的新节点</returns>
+#if NetStandard21
+        public virtual T? StreamPersistenceMemoryDatabaseServiceLoaded() { return default(T); }
+#else
         public virtual T StreamPersistenceMemoryDatabaseServiceLoaded() { return default(T); }
+#endif
         /// <summary>
         /// 节点移除后处理
         /// </summary>
@@ -47,12 +61,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">节点全局关键字</param>
         /// <param name="isSnapshotTransaction">默认为 true 表示需要建立快照事务关系，比如在持久化 API 中同步更新其它节点状态</param>
         /// <returns>服务端节点，失败返回 null</returns>
+#if NetStandard21
+        protected ServerNode? getServerNode(string key, bool isSnapshotTransaction = true)
+#else
         protected ServerNode getServerNode(string key, bool isSnapshotTransaction = true)
+#endif
         {
             HashString hashKey = key;
             if (isSnapshotTransaction)
             {
-                ServerNode node = streamPersistenceMemoryDatabaseNode.GetSnapshotTransactionNode(ref hashKey);
+                var node = streamPersistenceMemoryDatabaseNode.GetSnapshotTransactionNode(ref hashKey);
                 if (node != null) return node;
                 node = streamPersistenceMemoryDatabaseService.GetServerNode(ref hashKey);
                 if (node != null) streamPersistenceMemoryDatabaseNode.AppendSnapshotTransaction(ref hashKey, node);

@@ -49,7 +49,7 @@ namespace AutoCSer.Xml
                     ++serializer.CheckDepth;
                     return;
                 case AutoCSer.TextSerialize.PushTypeEnum.UnknownNode:
-                    int unknownCount = serializer.PushUnknownNode(value);
+                    int unknownCount = serializer.PushUnknownNode(value.castObject());
                     if (unknownCount != 0)
                     {
                         DefaultSerializer(serializer, value);
@@ -61,7 +61,7 @@ namespace AutoCSer.Xml
                     serializer.PopUnknownDepthCount();
                     return;
                 case AutoCSer.TextSerialize.PushTypeEnum.Push:
-                    if (serializer.Push(value))
+                    if (serializer.Push(value.castObject()))
                     {
                         DefaultSerializer(serializer, value);
                         serializer.Pop();
@@ -83,7 +83,7 @@ namespace AutoCSer.Xml
                     ++serializer.CheckDepth;
                     return;
                 case AutoCSer.TextSerialize.PushTypeEnum.UnknownNode:
-                    int unknownCount = serializer.PushUnknownNode(value);
+                    int unknownCount = serializer.PushUnknownNode(value.castObject());
                     if (unknownCount != 0)
                     {
                         DefaultSerializer(serializer, value);
@@ -95,7 +95,7 @@ namespace AutoCSer.Xml
                     serializer.PopUnknownDepthCount();
                     return;
                 case AutoCSer.TextSerialize.PushTypeEnum.Push:
-                    if (serializer.Push(value))
+                    if (serializer.Push(value.castObject()))
                     {
                         DefaultSerializer(serializer, value);
                         serializer.Pop();
@@ -112,12 +112,12 @@ namespace AutoCSer.Xml
         {
             CharStream charStream = serializer.CharStream;
             XmlSerializeConfig config = serializer.Config;
-            MemberMap memberMap = config.MemberMap;
+            var memberMap = config.MemberMap;
             int streamIndex = charStream.Data.Pointer.CurrentIndex;
             if (memberMap == null) memberSerializer(serializer, value);
             else
             {
-                MemberMap<T> memberMapObject = memberMap as MemberMap<T>;
+                var memberMapObject = memberMap as MemberMap<T>;
                 if (memberMapObject != null)
                 {
                     config.MemberMap = null;
@@ -201,7 +201,7 @@ namespace AutoCSer.Xml
             {
                 if (object.ReferenceEquals(attribute, XmlSerializer.AllMemberAttribute) && type.Name[0] == '<') attribute = XmlSerializeAttribute.AnonymousTypeMember;
                 emptyString = @"<" + type.Name + @"></" + type.Name + @">";
-                LeftArray<KeyValue<FieldIndex, XmlSerializeMemberAttribute>> fields = AutoCSer.TextSerialize.Common.GetSerializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), attribute);
+                var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), attribute);
                 LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetProperties(attribute.MemberFilters), attribute);
                 if ((fields.Length | properties.Length) != 0)
                 {
@@ -209,7 +209,7 @@ namespace AutoCSer.Xml
                     if (attribute.CheckLoopReference)
                     {
                         HashSet<HashObject<System.Type>> referenceTypes = HashSetCreator.CreateHashObject<System.Type>();
-                        foreach (KeyValue<FieldIndex, XmlSerializeMemberAttribute> member in fields) referenceTypes.Add(member.Key.Member.FieldType);
+                        foreach (var member in fields) referenceTypes.Add(member.Key.Member.FieldType);
                         foreach (AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute> member in properties) referenceTypes.Add(member.Property.Member.PropertyType);
                         SerializeDelegateReference.SetMember(DefaultSerializer, referenceTypes.getArray(p => p.Value));
                         Common.CheckCompleted(type, ref SerializeDelegateReference);
@@ -218,7 +218,7 @@ namespace AutoCSer.Xml
 
                     SerializeMemberDynamicMethod dynamicMethod = new SerializeMemberDynamicMethod(type);
                     SerializeMemberMapDynamicMethod memberMapDynamicMethod = new SerializeMemberMapDynamicMethod(new AutoCSer.Metadata.GenericType<T>());
-                    foreach (KeyValue<FieldIndex, XmlSerializeMemberAttribute> member in fields)
+                    foreach (var member in fields)
                     {
                         MethodInfo serializeMethod = Common.GetMemberSerializeDelegate(member.Key.Member.FieldType).Method;
                         dynamicMethod.Push(member.Key, serializeMethod, member.Value);

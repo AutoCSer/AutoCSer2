@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.ORM
 {
@@ -30,7 +31,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 最后转换表达式的 DateTime 成员
         /// </summary>
+#if NetStandard21
+        private Member? dateTimeMember;
+#else
         private Member dateTimeMember;
+#endif
         /// <summary>
         /// 表达式转换
         /// </summary>
@@ -190,7 +195,7 @@ namespace AutoCSer.ORM
         private void convertEqual(BinaryExpression expression)
         {
             System.Linq.Expressions.Expression left = expression.Left, right = expression.Right;
-            object value = getCustomColumnMemberAccessConstantValue(left, right);
+            var value = getCustomColumnMemberAccessConstantValue(left, right);
             if (value == null)
             {
                 if (left.isConstantNull())
@@ -210,12 +215,12 @@ namespace AutoCSer.ORM
             }
             bool isFrist = true;
             CharStream.Write('(');
-            foreach (KeyValue<CustomColumnName, object> nameValue in getCustomColumnMemberAccessValues((MemberExpression)left, value))
+            foreach (var nameValue in getCustomColumnMemberAccessValues((MemberExpression)left, value))
             {
                 if (isFrist) isFrist = false;
                 else CharStream.SimpleWrite(" and ");
                 CharStream.SimpleWrite(nameValue.Key.Name);
-                object memberValue = nameValue.Value;
+                var memberValue = nameValue.Value;
                 if (memberValue == null) CharStream.SimpleWrite(" is null");
                 else
                 {
@@ -235,7 +240,7 @@ namespace AutoCSer.ORM
         private void convertNotEqual(BinaryExpression expression)
         {
             System.Linq.Expressions.Expression left = expression.Left, right = expression.Right;
-            object value = getCustomColumnMemberAccessConstantValue(left, right);
+            var value = getCustomColumnMemberAccessConstantValue(left, right);
             if (value == null)
             {
                 if (left.isConstantNull())
@@ -256,12 +261,12 @@ namespace AutoCSer.ORM
             }
             bool isFrist = true;
             CharStream.Write('(');
-            foreach (KeyValue<CustomColumnName, object> nameValue in getCustomColumnMemberAccessValues((MemberExpression)left, value))
+            foreach (var nameValue in getCustomColumnMemberAccessValues((MemberExpression)left, value))
             {
                 if (isFrist) isFrist = false;
                 else CharStream.SimpleWrite(" or ");
                 CharStream.SimpleWrite(nameValue.Key.Name);
-                object memberValue = nameValue.Value;
+                var memberValue = nameValue.Value;
                 if (memberValue == null) CharStream.SimpleWrite(" is not null");
                 else
                 {
@@ -281,20 +286,24 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private object? getCustomColumnMemberAccessConstantValue(System.Linq.Expressions.Expression left, System.Linq.Expressions.Expression right)
+#else
         private object getCustomColumnMemberAccessConstantValue(System.Linq.Expressions.Expression left, System.Linq.Expressions.Expression right)
+#endif
         {
             if (left.NodeType == ExpressionType.MemberAccess && right.NodeType == ExpressionType.Constant)
             {
-                object value = right.getConstantValue();
+                var value = right.getConstantValue();
                 if (value != null)
                 {
                     Type type = value.GetType();
                     if (type.IsValueType && !type.IsEnum && !type.isNullable() && AutoCSer.ORM.Metadata.StructGenericType.Get(type).CustomColumnAttribute != null)
                     {
                         MemberExpression memberExpression = (MemberExpression)left;
-                        FieldInfo fieldInfo = memberExpression.Member as FieldInfo;
+                        var fieldInfo = memberExpression.Member as FieldInfo;
                         if (fieldInfo != null && value.GetType() == fieldInfo.FieldType) return value;
-                        PropertyInfo propertyInfo = memberExpression.Member as PropertyInfo;
+                        var propertyInfo = memberExpression.Member as PropertyInfo;
                         if (propertyInfo != null && value.GetType() == propertyInfo.PropertyType) return value;
                     }
                 }
@@ -307,15 +316,24 @@ namespace AutoCSer.ORM
         /// <param name="memberExpression"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private IEnumerable<KeyValue<CustomColumnName, object?>> getCustomColumnMemberAccessValues(MemberExpression memberExpression, object value)
+#else
         private IEnumerable<KeyValue<CustomColumnName, object>> getCustomColumnMemberAccessValues(MemberExpression memberExpression, object value)
+#endif
         {
             LeftArray<MemberExpression> memberExpressions;
-            Member member = getMember(ref memberExpression, out memberExpressions);
+            var expression = memberExpression;
+            Member member = getMember(ref expression, out memberExpressions);
             if (member.ReaderDataType == ReaderDataTypeEnum.CustomColumn)
             {
-                foreach (KeyValue<CustomColumnName, object> memberValue in member.GetCustomColumnMemberNameValues(memberExpression, ref memberExpressions, value)) yield return memberValue;
+                foreach (var memberValue in member.GetCustomColumnMemberNameValues(expression, ref memberExpressions, value)) yield return memberValue;
             }
+#if NetStandard21
+            else yield return new KeyValue<CustomColumnName, object?>(new CustomColumnName(member, member.MemberIndex.Member.Name), value);
+#else
             else yield return new KeyValue<CustomColumnName, object>(new CustomColumnName(member, member.MemberIndex.Member.Name), value);
+#endif
         }
         /// <summary>
         /// 转换表达式
@@ -368,20 +386,24 @@ namespace AutoCSer.ORM
         /// <param name="memberExpression"></param>
         /// <param name="memberExpressions"></param>
         /// <returns></returns>
+#if NetStandard21
+        private Member getMember([MaybeNull] ref MemberExpression memberExpression, out LeftArray<MemberExpression> memberExpressions)
+#else
         private Member getMember(ref MemberExpression memberExpression, out LeftArray<MemberExpression> memberExpressions)
+#endif
         {
             memberExpressions = new LeftArray<MemberExpression>(0);
-            for (System.Linq.Expressions.Expression expression = memberExpression.Expression; expression.NodeType == ExpressionType.MemberAccess; expression = ((MemberExpression)expression).Expression)
+            for (System.Linq.Expressions.Expression expression = memberExpression.Expression.notNull(); expression.NodeType == ExpressionType.MemberAccess; expression = ((MemberExpression)expression).Expression.notNull())
             {
                 memberExpressions.Add((MemberExpression)expression);
             }
-            MemberExpression startExpression;
+            var startExpression = default(MemberExpression);
             if (!memberExpressions.TryPop(out startExpression))
             {
                 startExpression = memberExpression;
                 memberExpression = null;
             }
-            Member member = TableWriter.GetMember(startExpression.Member);
+            var member = TableWriter.GetMember(startExpression.Member);
             if (member != null) return member;
             throw new MemberAccessException($"{TableWriter.TableName} 没有找到成员定义 {startExpression.Member.Name}");
         }
@@ -392,14 +414,15 @@ namespace AutoCSer.ORM
         private void convertMemberAccess(MemberExpression memberExpression)
         {
             LeftArray<MemberExpression> memberExpressions;
-            Member member = getMember(ref memberExpression, out memberExpressions);
+            var expression = memberExpression;
+            Member member = getMember(ref expression, out memberExpressions);
             if (member.ReaderDataType != ReaderDataTypeEnum.CustomColumn)
             {
                 if (member.ReaderDataType == ReaderDataTypeEnum.DateTime) dateTimeMember = member;
                 TableWriter.ConnectionPool.Creator.FormatName(CharStream, member.MemberIndex.Member.Name);
                 return;
             }
-            CustomColumnName name = member.CustomColumnNames.Length == 1 ? member.CustomColumnNames[0] : member.GetCustomColumnMemberName(memberExpression, ref memberExpressions);
+            CustomColumnName name = member.CustomColumnNames.Length == 1 ? member.CustomColumnNames[0] : member.GetCustomColumnMemberName(expression, ref memberExpressions);
             if (name.Member.ReaderDataType == ReaderDataTypeEnum.DateTime) dateTimeMember = name.Member;
             TableWriter.ConnectionPool.Creator.FormatName(CharStream, name.Name);
         }
@@ -566,7 +589,7 @@ namespace AutoCSer.ORM
                                         {
                                             throw new InvalidCastException($"未知 SQL 函数名称 {conditionConverter.Expression.NodeType}");
                                         }
-                                        string functionName = (string)conditionConverter.Expression.getConstantValue();
+                                        var functionName = conditionConverter.Expression.getConstantValue().castType<string>();
                                         if (string.IsNullOrEmpty(functionName)) throw new InvalidCastException($"SQL 函数名称不能为空 {conditionConverter.Expression.NodeType}");
                                         CharStream.SimpleWrite(functionName);
                                         CharStream.Write('(');
@@ -680,8 +703,8 @@ namespace AutoCSer.ORM
             {
                 throw new InvalidCastException($"未知函数表达式参数值 {expression.Method.Name}");
             }
-            object argument = conditionConverter.Expression.getConstantValue();
-            System.Collections.IEnumerable values = argument as System.Collections.IEnumerable;
+            var argument = conditionConverter.Expression.getConstantValue();
+            var values = argument as System.Collections.IEnumerable;
             if (values != null)
             {
                 LeftArray<object> array = new LeftArray<object>(0);
@@ -720,7 +743,7 @@ namespace AutoCSer.ORM
             }
             else
             {
-                IQueryBuilder query = argument as IQueryBuilder;
+                var query = argument as IQueryBuilder;
                 if (query != null && query.IsQuery)
                 {
                     ConditionConvert(arguments[0]);
@@ -763,7 +786,11 @@ namespace AutoCSer.ORM
             {
                 throw new InvalidCastException($"未知函数表达式参数值 {expression.Method.Name}");
             }
+#if NetStandard21
+            var array = conditionConverter.Expression.getConstantValue().castType<string?[]>();
+#else
             string[] array = (string[])conditionConverter.Expression.getConstantValue();
+#endif
             if (array != null)
             {
                 switch (array.Length)
@@ -778,7 +805,7 @@ namespace AutoCSer.ORM
                         int index = 0;
                         System.Linq.Expressions.Expression memberExpression = arguments[0];
                         CharStream.Write('(');
-                        foreach (string value in array)
+                        foreach (var value in array)
                         {
                             if (index == 0) index = 1;
                             else CharStream.SimpleWrite(" or ");
@@ -805,7 +832,7 @@ namespace AutoCSer.ORM
             {
                 throw new InvalidCastException($"未知函数表达式参数值 {expression.Method.Name}");
             }
-            string value = (string)conditionConverter.Expression.getConstantValue();
+            var value = conditionConverter.Expression.getConstantValue().castType<string>();
             CharStream.SimpleWrite(isNot ? "not contains(" : " contains(");
             convertIsSimple(arguments[0]);
             CharStream.Write(',');
@@ -839,7 +866,7 @@ namespace AutoCSer.ORM
             {
                 throw new InvalidCastException($"未知函数表达式参数值 {expression.Method.Name}");
             }
-            IQueryBuilder query = (IQueryBuilder)conditionConverter.Expression.getConstantValue();
+            var query = conditionConverter.Expression.getConstantValue().castType<IQueryBuilder>();
             if (query != null && query.IsQuery)
             {
                 CharStream.SimpleWrite(isNot ? " not exists" : " exists");
@@ -859,7 +886,7 @@ namespace AutoCSer.ORM
             {
                 throw new InvalidCastException($"未知函数表达式参数值 {expression.Method.Name}");
             }
-            ExpressionCallDateDiffType type = (ExpressionCallDateDiffType)conditionConverter.Expression.getConstantValue();
+            ExpressionCallDateDiffType type = (ExpressionCallDateDiffType)conditionConverter.Expression.getConstantValue().notNull();
             CharStream.SimpleWrite("datediff(");
             CharStream.SimpleWrite(type.ToString());
             CharStream.Write(',');
@@ -895,7 +922,7 @@ namespace AutoCSer.ORM
             {
                 throw new InvalidCastException($"未知函数表达式参数值 {expression.Method.Name}");
             }
-            ExpressionType type = (ExpressionType)conditionConverter.Expression.getConstantValue();
+            ExpressionType type = (ExpressionType)conditionConverter.Expression.getConstantValue().notNull();
             switch (type)
             {
                 case ExpressionType.GreaterThan:
@@ -929,8 +956,8 @@ namespace AutoCSer.ORM
             System.Linq.Expressions.Expression right = conditionConverter.Expression;
             if (right.NodeType == ExpressionType.Constant)
             {
-                object value = right.getConstantValue();
-                IQueryBuilder query = value as IQueryBuilder;
+                var value = right.getConstantValue();
+                var query = value as IQueryBuilder;
                 if (query == null)
                 {
                     switch (type)
@@ -1030,7 +1057,11 @@ namespace AutoCSer.ORM
         /// 转换表达式
         /// </summary>
         /// <param name="value"></param>
+#if NetStandard21
+        private void convertConstant(object? value)
+#else
         private void convertConstant(object value)
+#endif
         {
             if (value != null) (TableWriter.ConnectionPool.Creator.GetConstantConverter(value.GetType(), dateTimeMember))(CharStream, value);
             else CharStream.WriteJsonNull();

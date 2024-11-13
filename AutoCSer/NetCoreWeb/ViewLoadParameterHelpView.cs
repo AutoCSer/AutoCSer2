@@ -1,4 +1,5 @@
-﻿using AutoCSer.Reflection;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Reflection;
 using System;
 using System.Reflection;
 
@@ -20,11 +21,15 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 参数名称
         /// </summary>
-        public string Name { get { return parameter.Name; } }
+        public string Name { get { return parameter.Name.notNull(); } }
         /// <summary>
         /// 参数文档描述
         /// </summary>
+#if NetStandard21
+        private string? summary;
+#else
         private string summary;
+#endif
         /// <summary>
         /// 参数文档描述
         /// </summary>
@@ -34,7 +39,8 @@ namespace AutoCSer.NetCoreWeb
             {
                 if (summary == null)
                 {
-                    summary = XmlDocument.Get(view.Method, parameter);
+                    var method = view.Method;
+                    if (method != null) summary = XmlDocument.Get(method, parameter);
                     if (string.IsNullOrEmpty(summary)) summary = Type.Summary;
                 }
                 return summary;
@@ -43,7 +49,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 参数类型
         /// </summary>
+#if NetStandard21
+        private TypeHelpView? type;
+#else
         private TypeHelpView type;
+#endif
         /// <summary>
         /// 参数类型
         /// </summary>

@@ -12,7 +12,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 绑定输出成员名称（客户端存在依赖逻辑）
         /// </summary>
+#if NetStandard21
+        public string? BindingName;
+#else
         public string BindingName;
+#endif
         /// <summary>
         /// 默认为 true 表示自动输出当前成员
         /// </summary>

@@ -21,7 +21,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="node"></param>
         /// <param name="callback"></param>
+#if NetStandard21
+        public abstract void Call(ServerNode node, ref CommandServerCallback<CallStateEnum>? callback);
+#else
         public abstract void Call(ServerNode node, ref CommandServerCallback<CallStateEnum> callback);
+#endif
         /// <summary>
         /// 初始化加载数据
         /// </summary>
@@ -31,7 +35,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                CommandServerCallback<CallStateEnum> callback = null;
+                var callback = default(CommandServerCallback<CallStateEnum>);
                 Call(node, ref callback);
                 return CallStateEnum.Success;
             }
@@ -47,9 +51,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="callback"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static void Callback(ref CommandServerCallback<CallStateEnum>? callback)
+#else
         internal static void Callback(ref CommandServerCallback<CallStateEnum> callback)
+#endif
         {
-            CommandServerCallback<CallStateEnum> callbackCopy = callback;
+            var callbackCopy = callback;
             if (callbackCopy != null)
             {
                 callback = null;
@@ -60,6 +68,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用回调
         /// </summary>
         /// <param name="callback"></param>
+#if NetStandard21
+        internal delegate void CallbackDelegate(ref CommandServerCallback<CallStateEnum>? callback);
+#else
         internal delegate void CallbackDelegate(ref CommandServerCallback<CallStateEnum> callback);
+#endif
     }
 }

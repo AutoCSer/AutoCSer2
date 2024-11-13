@@ -56,7 +56,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 持久化回调
         /// </summary>
         /// <returns>下一个参数</returns>
+#if NetStandard21
+        internal abstract MethodParameter? PersistenceCallback();
+#else
         internal abstract MethodParameter PersistenceCallback();
+#endif
         ///// <summary>
         ///// 设置持久化回调错误
         ///// </summary>
@@ -72,13 +76,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal abstract MethodParameter? PersistenceCallback(CallStateEnum state);
+#else
         internal abstract MethodParameter PersistenceCallback(CallStateEnum state);
+#endif
         /// <summary>
         /// 持久化异常回调
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal MethodParameter? PersistenceCallbackIgnoreException(CallStateEnum state)
+#else
         internal MethodParameter PersistenceCallbackIgnoreException(CallStateEnum state)
+#endif
         {
             try
             {
@@ -97,7 +109,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="persistenceCallbackExceptionPosition"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal MethodParameter? PersistenceSerialize(AutoCSer.BinarySerializer serializer, long persistenceCallbackExceptionPosition)
+#else
         internal MethodParameter PersistenceSerialize(AutoCSer.BinarySerializer serializer, long persistenceCallbackExceptionPosition)
+#endif
         {
             this.persistenceCallbackExceptionPosition = persistenceCallbackExceptionPosition;
             return PersistenceSerialize(serializer);
@@ -107,14 +123,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="serializer">序列化</param>
         /// <returns></returns>
+#if NetStandard21
+        internal abstract MethodParameter? PersistenceSerialize(AutoCSer.BinarySerializer serializer);
+#else
         internal abstract MethodParameter PersistenceSerialize(AutoCSer.BinarySerializer serializer);
+#endif
         /// <summary>
         /// 持久化序列化
         /// </summary>
         /// <param name="serializer"></param>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
+#if NetStandard21
+        protected unsafe MethodParameter? persistenceSerialize(AutoCSer.BinarySerializer serializer, long methodIndex)
+#else
         protected unsafe MethodParameter persistenceSerialize(AutoCSer.BinarySerializer serializer, long methodIndex)
+#endif
         {
             UnmanagedStream stream = serializer.Stream;
             byte* data = stream.GetBeforeMove(sizeof(NodeIndex) + sizeof(long));
@@ -134,7 +158,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="method"></param>
         /// <param name="parameter"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal unsafe MethodParameter? PersistenceSerialize<T>(AutoCSer.BinarySerializer serializer, Method method, ref T parameter)
+#else
         internal unsafe MethodParameter PersistenceSerialize<T>(AutoCSer.BinarySerializer serializer, Method method, ref T parameter)
+#endif
             where T : struct
         {
             UnmanagedStream stream = serializer.Stream;
@@ -162,7 +190,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 获取自定义状态对象
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        public virtual object? GetBeforePersistenceCustomSessionObject() { return null; }
+#else
         public virtual object GetBeforePersistenceCustomSessionObject() { return null; }
+#endif
         /// <summary>
         /// 获取服务端节点
         /// </summary>

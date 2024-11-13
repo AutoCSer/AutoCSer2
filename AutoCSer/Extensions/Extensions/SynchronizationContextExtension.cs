@@ -15,7 +15,11 @@ namespace AutoCSer.Extensions
         /// <param name="context"></param>
         /// <param name="call"></param>
         /// <param name="state"></param>
+#if NetStandard21
+        public static void Post(this SynchronizationContext context, Action call, object? state = null)
+#else
         public static void Post(this SynchronizationContext context, Action call, object state = null)
+#endif
         {
             context.Post(new SynchronizationContextAction(call).Call, state);
         }
@@ -27,7 +31,11 @@ namespace AutoCSer.Extensions
         /// <param name="call"></param>
         /// <param name="parameter"></param>
         /// <param name="state"></param>
+#if NetStandard21
+        public static void Post<T>(this SynchronizationContext context, Action<T> call, T parameter, object? state = null)
+#else
         public static void Post<T>(this SynchronizationContext context, Action<T> call, T parameter, object state = null)
+#endif
         {
             context.Post(new SynchronizationContextAction<T>(call, parameter).Call, state);
         }

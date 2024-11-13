@@ -129,10 +129,10 @@ namespace AutoCSer.ORM.MSSQL
                     if (xusertype == TableColumnDbTypeEnum.Time) return;
                     break;
                 case ReaderDataTypeEnum.Decimal:
-                    DecimalAttribute decimalAttribute = member.Attribute as DecimalAttribute;
+                    var decimalAttribute = member.Attribute as DecimalAttribute;
                     if (decimalAttribute == null)
                     {
-                        MoneyAttribute moneyAttribute = member.Attribute as MoneyAttribute;
+                        var moneyAttribute = member.Attribute as MoneyAttribute;
                         if (moneyAttribute != null)
                         {
                             if (moneyAttribute.IsSmall)

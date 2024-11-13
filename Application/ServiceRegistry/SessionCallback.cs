@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.ServiceRegister;
-using AutoCSer.Net;
+﻿using AutoCSer.Net;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -14,7 +13,7 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// <summary>
         /// 服务注册会话对象
         /// </summary>
-        internal readonly ServiceRegisterSession Session;
+        internal readonly ServiceRegisterSocketSession Session;
         /// <summary>
         /// 获取服务注册日志回调委托
         /// </summary>
@@ -24,7 +23,7 @@ namespace AutoCSer.CommandService.ServiceRegistry
         /// </summary>
         /// <param name="session">服务注册会话对象</param>
         /// <param name="callback">获取服务注册日志回调委托</param>
-        internal SessionCallback(ServiceRegisterSession session, CommandServerKeepCallback<ServiceRegisterLog> callback)
+        internal SessionCallback(ServiceRegisterSocketSession session, CommandServerKeepCallback<ServiceRegisterLog> callback)
         {
             Session = session;
             this.callback = callback;

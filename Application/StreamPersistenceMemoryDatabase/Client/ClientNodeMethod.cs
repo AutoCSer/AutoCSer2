@@ -83,7 +83,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!checkParameter()) return;
             if (ParameterStartIndex != ParameterEndIndex)
             {
-                InputParameterType = AutoCSer.Net.CommandServer.ServerMethodParameter.Get(ParameterCount, InputParameters, typeof(void));
+                InputParameterType = AutoCSer.Net.CommandServer.ServerMethodParameter.Get(ParameterCount, InputParameters, typeof(void)).notNull();
                 InputParameterFields = InputParameterType.GetFields(InputParameters);
                 IsSimpleSerializeParamter = InputParameterType.IsSimpleSerialize;
             }
@@ -94,7 +94,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="method"></param>
         /// <returns>错误信息</returns>
+#if NetStandard21
+        internal string? Set(ServerNodeMethod method)
+#else
         internal string Set(ServerNodeMethod method)
+#endif
         {
             MethodIndex = method.MethodIndex;
             if (CallType == method.CallType) return null;
@@ -123,11 +127,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methods"></param>
         /// <param name="isLocalClient"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static string? GetMethod(Type type, ref LeftArray<ClientNodeMethod> methods, bool isLocalClient)
+#else
         internal static string GetMethod(Type type, ref LeftArray<ClientNodeMethod> methods, bool isLocalClient)
+#endif
         {
             foreach (MethodInfo method in type.GetMethods())
             {
-                string error = AutoCSer.Net.CommandServer.InterfaceController.CheckMethod(type, method);
+                var error = AutoCSer.Net.CommandServer.InterfaceController.CheckMethod(type, method);
                 if (error != null) return error;
                 methods.Add(new ClientNodeMethod(type, method, isLocalClient));
             }

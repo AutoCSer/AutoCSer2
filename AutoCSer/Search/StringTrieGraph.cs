@@ -175,7 +175,10 @@ namespace AutoCSer.Search
                     case UnicodeCategory.OtherNumber:
                         *start = (byte)WordTypeEnum.Number;
                         break;
-                    case UnicodeCategory.OtherLetter: *start = (byte)WordTypeEnum.OtherLetter; break;
+                    case UnicodeCategory.OtherLetter:
+                        //包括中文、日文、韩文字母等
+                        *start = (byte)WordTypeEnum.OtherLetter;
+                        break;
                     default:
                         if (code == '&' || code == '.' || code == '+' || code == '#' || code == '-' || code == '_') *start = (byte)WordTypeEnum.Keep;
                         break;

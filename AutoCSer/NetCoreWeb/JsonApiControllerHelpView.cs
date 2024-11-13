@@ -18,7 +18,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 控制器类型
         /// </summary>
+#if NetStandard21
+        private TypeHelpView? type;
+#else
         private TypeHelpView type;
+#endif
         /// <summary>
         /// 控制器类型
         /// </summary>
@@ -37,7 +41,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// API 方法集合
         /// </summary>
+#if NetStandard21
+        private JsonApiHelpView[]? methods;
+#else
         private JsonApiHelpView[] methods;
+#endif
         /// <summary>
         /// API 方法集合
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Diagnostics;
 
@@ -28,7 +29,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 新进程
         /// </summary>
+#if NetStandard21
+        internal Process? NewProcess;
+#else
         internal Process NewProcess;
+#endif
         /// <summary>
         /// 是否重新启动进程
         /// </summary>
@@ -59,7 +64,7 @@ namespace AutoCSer.CommandService
         internal GuardProcess(GuardProcess guardProcess)
         {
             guardManager = guardProcess.guardManager;
-            process = guardProcess.NewProcess;
+            process = guardProcess.NewProcess.notNull();
             ProcessInfo = new ProcessGuardInfo(process);
             guardHandle = guard;
             process.EnableRaisingEvents = true;//服务端需要以管理员身份运行，否则可能异常
@@ -70,7 +75,11 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+#if NetStandard21
+        private void guard(object? sender, EventArgs e)
+#else
         private void guard(object sender, EventArgs e)
+#endif
         {
             if (System.Threading.Interlocked.CompareExchange(ref isReStart, 1, 0) == 0)
             {

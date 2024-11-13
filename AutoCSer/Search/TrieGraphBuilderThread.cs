@@ -21,7 +21,11 @@ namespace AutoCSer.Search
         /// <summary>
         /// 建图线程异常
         /// </summary>
+#if NetStandard21
+        internal Exception? Exception;
+#else
         internal Exception Exception;
+#endif
         /// <summary>
         /// Trie 图创建器
         /// </summary>

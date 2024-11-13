@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandServerSocketSessionObject.cs" />
     <Compile Include="ITimestampVerifyService.cs" />
     <Compile Include="ITimestampVerifyClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

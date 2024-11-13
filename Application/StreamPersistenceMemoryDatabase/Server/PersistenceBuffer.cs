@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -73,7 +74,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (minCompressSize <= 0) minCompressSize = int.MaxValue;
             bufferLength = service.PersistenceBufferPool.Size;
             Count = currentIndex = 0;
-            OutputStream = null;
+            OutputStream = UnmanagedStream.Null;
             start = null;
             isNewBuffer = false;
         }
@@ -84,7 +85,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void GetBufferLength()
         {
             service.PersistenceBufferPool.Get(ref OutputBuffer);
-            bufferLength = OutputBuffer.Buffer.BufferSize;
+            bufferLength = OutputBuffer.Buffer.notNull().BufferSize;
         }
         /// <summary>
         /// 释放缓冲区
@@ -111,7 +112,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Reset()
         {
-            if (OutputStream.Data.Pointer.Byte != start) OutputStream.Reset(start, OutputBuffer.Buffer.BufferSize);
+            if (OutputStream.Data.Pointer.Byte != start) OutputStream.Reset(start, OutputBuffer.Buffer.notNull().BufferSize);
             isNewBuffer = false;
             Count = 0;
             OutputStream.Data.Pointer.CurrentIndex = currentIndex = MethodParameter.PersistenceStartIndex;
@@ -192,7 +193,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 byte* dataStart = OutputStream.Data.Pointer.Byte;
                 if (dataStart != start) AutoCSer.Common.Config.CopyTo(dataStart + MethodParameter.PersistenceStartIndex, start + MethodParameter.PersistenceStartIndex, dataSize);
-                SubArray<byte> outputData = new SubArray<byte>(OutputBuffer.StartIndex + MethodParameter.PersistenceStartIndex, dataSize, OutputBuffer.Buffer.Buffer);
+                SubArray<byte> outputData = new SubArray<byte>(OutputBuffer.StartIndex + MethodParameter.PersistenceStartIndex, dataSize, OutputBuffer.Buffer.notNull().Buffer);
                 if (dataSize >= minCompressSize && compress(ref outputData)) return outputData;
                 outputData.MoveStart(-MethodParameter.PersistenceStartIndex);
                 *(int*)start = dataSize;
@@ -201,8 +202,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else
             {
                 OutputStream.Data.Pointer.GetBuffer(ref outputCopyBuffer, MethodParameter.PersistenceStartIndex);
-                SubArray<byte> outputData = new SubArray<byte>(outputCopyBuffer.StartIndex + MethodParameter.PersistenceStartIndex, dataSize, outputCopyBuffer.Buffer.Buffer);
-                if (outputCopyBuffer.Buffer.BufferSize <= SendBufferMaxSize)
+                var buffer = outputCopyBuffer.Buffer.notNull();
+                SubArray<byte> outputData = new SubArray<byte>(outputCopyBuffer.StartIndex + MethodParameter.PersistenceStartIndex, dataSize, buffer.Buffer);
+                if (buffer.BufferSize <= SendBufferMaxSize)
                 {
                     OutputBuffer.CopyFromFree(ref outputCopyBuffer);
                     isNewBuffer = true;

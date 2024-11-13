@@ -19,12 +19,8 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 日志流持久化内存数据库服务端
     /// </summary>
-    public class StreamPersistenceMemoryDatabaseService : CommandServerSocketSessionObjectService, IStreamPersistenceMemoryDatabaseService, ICommandServerBindController, IDisposable
+    public class StreamPersistenceMemoryDatabaseService : StreamPersistenceMemoryDatabaseServiceBase, IStreamPersistenceMemoryDatabaseService, ICommandServerBindController, IDisposable
     {
-        /// <summary>
-        /// 日志流持久化内存数据库服务端会话对象操作
-        /// </summary>
-        public readonly ICommandServerSocketSessionObject<CommandServerSocketSessionObjectService, CommandServerSocketSessionObjectService> CommandServerSocketSessionObject;
         /// <summary>
         /// 持久化缓冲区池
         /// </summary>
@@ -48,7 +44,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 持久化重建加载异常节点
         /// </summary>
+#if NetStandard21
+        private ServerNode? rebuildLoadExceptionNode;
+#else
         private ServerNode rebuildLoadExceptionNode;
+#endif
         /// <summary>
         /// 最后一次生成的从节点时间戳标识
         /// </summary>
@@ -65,11 +65,11 @@ namespace AutoCSer.CommandService
         /// <param name="isMaster">是否主节点</param>
         internal unsafe StreamPersistenceMemoryDatabaseService(StreamPersistenceMemoryDatabaseServiceConfig config, Func<StreamPersistenceMemoryDatabaseService, ServerNode> createServiceNode, bool isMaster) : base(config, isMaster)
         {
-            CommandServerSocketSessionObject = config.CommandServerSocketSessionObject ?? new CommandServerSocketSessionObject();
             freeIndexs = new LeftArray<int>(sizeof(int));
             Nodes[0].SetFreeIdentity(ServiceNode.ServiceNodeIndex.Identity);
             PersistenceBufferPool = ByteArrayPool.GetPool((BufferSizeBitsEnum)Math.Max((byte)BufferSizeBitsEnum.Kilobyte4, (byte)config.BufferSizeBits));
             createServiceNode(this);
+            createInputMethodParameter = new CreateInputMethodParameter(Nodes[0].Node.notNull());
 
             if (isMaster) PersistenceWaitHandle.Set(new object());
         }
@@ -110,7 +110,7 @@ namespace AutoCSer.CommandService
             serviceCallbackWait = new ManualResetEvent(true);
             rebuildCompletedWaitHandle.Set(new object());
             AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
-            RepairNodeMethodLoaders = null;
+            RepairNodeMethodLoaders = NullRepairNodeMethodLoaders;
             Config.RemoveHistoryFile(this);
         }
         /// <summary>
@@ -151,9 +151,46 @@ namespace AutoCSer.CommandService
         {
             for (int index = NodeIndex; index > 1;)
             {
-                ServerNode node = Nodes[--index].Node;
+                var node = Nodes[--index].Node;
                 if (node != null) yield return node;
             }
+        }
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
+        private InputMethodParameter createInputMethodParameter;
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+#if NetStandard21
+        internal InputMethodParameter? CreateInputMethodParameter(NodeIndex index, int methodIndex, out CallStateEnum state)
+#else
+        internal InputMethodParameter CreateInputMethodParameter(NodeIndex index, int methodIndex, out CallStateEnum state)
+#endif
+        {
+            var parameter = createInputMethodParameter.Clone(index, methodIndex);
+            if (parameter != null && object.ReferenceEquals(parameter.Node, Nodes[index.Index].Node))
+            {
+                state = CallStateEnum.Success;
+                return parameter;
+            }
+            if ((uint)index.Index < (uint)NodeIndex)
+            {
+                var node = Nodes[index.Index].CheckGet(index.Identity);
+                if (node != null)
+                {
+                    parameter = node.CreateInputMethodParameter(methodIndex, out state);
+                    if (parameter != null) createInputMethodParameter = parameter;
+                    return parameter;
+                }
+                state = CallStateEnum.NodeIdentityNotMatch;
+            }
+            else state = CallStateEnum.NodeIndexOutOfRange;
+            return null;
         }
         /// <summary>
         /// 绑定命令服务控制器
@@ -162,7 +199,7 @@ namespace AutoCSer.CommandService
         void ICommandServerBindController.Bind(CommandServerController controller)
         {
             CommandServerCallQueue = controller.CallQueue;
-            if (IsMaster) CommandServerCallQueue.AddOnly(new ServiceLoad(this));
+            if (IsMaster) CommandServerCallQueue.notNull().AddOnly(new ServiceLoad(this));
         }
         /// <summary>
         /// 根据节点全局关键字获取服务端节点
@@ -170,9 +207,13 @@ namespace AutoCSer.CommandService
         /// <param name="key"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal ServerNode? GetServerNode(ref HashString key)
+#else
         internal ServerNode GetServerNode(ref HashString key)
+#endif
         {
-            ServerNode node;
+            var node = default(ServerNode);
             return nodeDictionary.TryGetValue(key, out node) ? node : null;
         }
         /// <summary>
@@ -181,7 +222,7 @@ namespace AutoCSer.CommandService
         /// <param name="position"></param>
         internal void LoadRepairNodeMethod(long position)
         {
-            RepairNodeMethodLoader loader;
+            var loader = default(RepairNodeMethodLoader);
             Monitor.Enter(nodeCreatorLock);
             if (!RepairNodeMethodLoaders.Remove(RebuildPosition + (ulong)position, out loader)) Monitor.Exit(nodeCreatorLock);
             else
@@ -189,7 +230,7 @@ namespace AutoCSer.CommandService
                 Monitor.Exit(nodeCreatorLock);
                 do
                 {
-                    RepairNodeMethod repairNodeMethod = loader.LoadRepair();
+                    var repairNodeMethod = loader.LoadRepair();
                     if (repairNodeMethod != null)
                     {
                         repairNodeMethod.LinkNext = LoadedRepairNodeMethod;
@@ -221,7 +262,7 @@ namespace AutoCSer.CommandService
         {
             if (key != null)
             {
-                ServerNode node;
+                var node = default(ServerNode);
                 HashString hashKey = key;
                 if (nodeDictionary.TryGetValue(hashKey, out node)) return check(node, ref nodeInfo);
                 if (isCreate)
@@ -274,7 +315,7 @@ namespace AutoCSer.CommandService
         {
             if (key != null)
             {
-                ServerNode node;
+                var node = default(ServerNode);
                 if (nodeDictionary.TryGetValue(key, out node)) return check(node, ref nodeInfo);
                 if ((uint)index.Index < (uint)NodeIndex)
                 {
@@ -320,7 +361,7 @@ namespace AutoCSer.CommandService
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         public bool RemoveNode(NodeIndex index)
         {
-            ServerNode node = Nodes[index.Index].GetRemove(index.Identity);
+            var node = Nodes[index.Index].GetRemove(index.Identity);
             if (node != null)
             {
                 nodeDictionary.Remove(node.Key);
@@ -369,17 +410,6 @@ namespace AutoCSer.CommandService
             if (Nodes[index.Index].FreeIdentity(index.Identity)) freeIndexs.Add(index.Index);
         }
         /// <summary>
-        /// 创建会话对象，用于反序列化时获取服务信息
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public CommandServerSendOnly CreateSessionObject(CommandServerSocket socket)
-        {
-            CommandServerSocketSessionObject.CreateSessionObject(this, socket);
-            return null;
-        }
-        /// <summary>
         /// 调用节点方法
         /// </summary>
         /// <param name="index">节点索引信息</param>
@@ -388,16 +418,17 @@ namespace AutoCSer.CommandService
         internal void Call(NodeIndex index, int methodIndex, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
                 if (!IsDisposed)
                 {
                     if ((uint)index.Index < (uint)NodeIndex)
                     {
-                        ServerNode node = Nodes[index.Index].Get(index.Identity);
+                        var node = Nodes[index.Index].Get(index.Identity);
                         if (node != null)
                         {
-                            if ((state = node.CallState) == CallStateEnum.Success) state = node.Call(methodIndex, ref callback);
+                            if ((state = node.CallState) == CallStateEnum.Success) state = node.Call(methodIndex, ref refCallback);
                             return;
                         }
                         state = CallStateEnum.NodeIdentityNotMatch;
@@ -406,7 +437,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.SynchronousCallback(state); }
+            finally { refCallback?.SynchronousCallback(state); }
         }
         /// <summary>
         /// 调用节点方法
@@ -430,16 +461,17 @@ namespace AutoCSer.CommandService
         internal void CallOutput(NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
                 if (!IsDisposed)
                 {
                     if ((uint)index.Index < (uint)NodeIndex)
                     {
-                        ServerNode node = Nodes[index.Index].Get(index.Identity);
+                        var node = Nodes[index.Index].Get(index.Identity);
                         if (node != null)
                         {
-                            if ((state = node.CallState) == CallStateEnum.Success) state = node.CallOutput(methodIndex, ref callback);
+                            if ((state = node.CallState) == CallStateEnum.Success) state = node.CallOutput(methodIndex, ref refCallback);
                             return;
                         }
                         else state = CallStateEnum.NodeIdentityNotMatch;
@@ -448,7 +480,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.SynchronousCallback(new ResponseParameter(state)); }
+            finally { refCallback?.SynchronousCallback(new ResponseParameter(state)); }
         }
         /// <summary>
         /// 调用节点方法
@@ -474,16 +506,17 @@ namespace AutoCSer.CommandService
         public void CallInput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
                 if (!IsDisposed)
                 {
-                    if (parameter.CallState == CallStateEnum.Success) state = ((CallInputMethodParameter)parameter.MethodParameter).CallInput(ref callback);
+                    if (parameter.CallState == CallStateEnum.Success) state = ((CallInputMethodParameter)parameter.MethodParameter.notNull()).CallInput(ref refCallback);
                     else state = parameter.CallState;
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.SynchronousCallback(state); }
+            finally { refCallback?.SynchronousCallback(state); }
         }
         /// <summary>
         /// 调用节点方法
@@ -496,16 +529,17 @@ namespace AutoCSer.CommandService
         public void CallInputOutput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
                 if (!IsDisposed)
                 {
-                    if (parameter.CallState == CallStateEnum.Success) state = ((CallInputOutputMethodParameter)parameter.MethodParameter).CallInputOutput(ref callback);
+                    if (parameter.CallState == CallStateEnum.Success) state = ((CallInputOutputMethodParameter)parameter.MethodParameter.notNull()).CallInputOutput(ref refCallback);
                     else state = parameter.CallState;
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.SynchronousCallback(new ResponseParameter(state)); }
+            finally { refCallback?.SynchronousCallback(new ResponseParameter(state)); }
         }
         /// <summary>
         /// 调用节点方法
@@ -517,8 +551,8 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public CommandServerSendOnly SendOnly(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter)
         {
-            if (!IsDisposed && parameter.CallState == CallStateEnum.Success) ((SendOnlyMethodParameter)parameter.MethodParameter).SendOnly();
-            return null;
+            if (!IsDisposed && parameter.CallState == CallStateEnum.Success) ((SendOnlyMethodParameter)parameter.MethodParameter.notNull()).SendOnly();
+            return CommandServerSendOnly.Null;
         }
         /// <summary>
         /// 调用节点方法
@@ -529,16 +563,17 @@ namespace AutoCSer.CommandService
         internal void KeepCallback(NodeIndex index, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
                 if (!IsDisposed)
                 {
                     if ((uint)index.Index < (uint)NodeIndex)
                     {
-                        ServerNode node = Nodes[index.Index].Get(index.Identity);
+                        var node = Nodes[index.Index].Get(index.Identity);
                         if (node != null)
                         {
-                            if ((state = node.CallState) == CallStateEnum.Success) state = node.KeepCallback(methodIndex, ref callback);
+                            if ((state = node.CallState) == CallStateEnum.Success) state = node.KeepCallback(methodIndex, ref refCallback);
                             return;
                         }
                         else state = CallStateEnum.NodeIdentityNotMatch;
@@ -549,7 +584,7 @@ namespace AutoCSer.CommandService
             }
             finally
             {
-                if (callback != null) callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
+                refCallback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
             }
         }
         /// <summary>
@@ -575,16 +610,17 @@ namespace AutoCSer.CommandService
         public void InputKeepCallback(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
                 if (!IsDisposed)
                 {
-                    if (parameter.CallState == CallStateEnum.Success) state = ((InputKeepCallbackMethodParameter)parameter.MethodParameter).InputKeepCallback(ref callback);
+                    if (parameter.CallState == CallStateEnum.Success) state = ((InputKeepCallbackMethodParameter)parameter.MethodParameter.notNull()).InputKeepCallback(ref refCallback);
                     else state = parameter.CallState;
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { callback?.CallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
+            finally { refCallback?.CallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
         }
         /// <summary>
         /// 设置自定义状态对象
@@ -600,9 +636,13 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public object? GetBeforePersistenceMethodParameterCustomSessionObject()
+#else
         public object GetBeforePersistenceMethodParameterCustomSessionObject()
+#endif
         {
-            CallInputOutputMethodParameter beforePersistenceMethodParameter = (CurrentMethodParameter as InputMethodParameter)?.BeforePersistenceMethodParameter;
+            var beforePersistenceMethodParameter = (CurrentMethodParameter as InputMethodParameter)?.BeforePersistenceMethodParameter;
             return (beforePersistenceMethodParameter ?? CurrentMethodParameter)?.GetBeforePersistenceCustomSessionObject();
         }
         /// <summary>
@@ -611,8 +651,10 @@ namespace AutoCSer.CommandService
         private unsafe void persistence()
         {
             bool isRebuild = false;
-            MethodParameter head = null, end = null, current = null;
-            BinarySerializer outputSerializer = null;
+            var head = default(MethodParameter);
+            var end = default(MethodParameter);
+            var current = default(MethodParameter);
+            var outputSerializer = default(BinarySerializer);
             PersistenceCallback serviceCallback;
             PersistenceBuffer persistenceBuffer = new PersistenceBuffer(this);
             try
@@ -643,18 +685,23 @@ namespace AutoCSer.CommandService
                                 if (IsDisposed) return;
                                 if (isRebuilderPersistenceWaitting)
                                 {
-                                    PersistenceRebuilderCallback completedCallback = CanCreateSlave ? new PersistenceRebuilderCallback(Rebuilder, PersistenceRebuilderCallbackTypeEnum.Completed) : null;
+                                    PersistenceRebuilder rebuilder = Rebuilder.notNull();
+                                    var completedCallback = CanCreateSlave ? new PersistenceRebuilderCallback(rebuilder, PersistenceRebuilderCallbackTypeEnum.Completed) : null;
                                     serviceCallbackWait.WaitOne();
                                     if (Slave != null)
                                     {
-                                        CommandServerCallQueue.AddOnly(completedCallback);
+                                        CommandServerCallQueue.AddOnly(completedCallback.notNull());
                                         rebuildCompletedWaitHandle.Wait();
                                     }
                                     persistenceStream.Dispose();
 
-                                    if (Rebuilder.QueuePersistence())
+                                    if (rebuilder.QueuePersistence())
                                     {
-                                        if (head != null) PersistenceQueue.IsPushHead(ref head, end);
+                                        if (head != null)
+                                        {
+                                            PersistenceQueue.IsPushHead(head, end.notNull());
+                                            head = null;
+                                        }
                                         if (!PersistenceQueue.IsEmpty) PersistenceWaitHandle.IsWait = 1;
                                         isRebuilderPersistenceWaitting = false;
                                         Rebuilder = null;
@@ -674,7 +721,9 @@ namespace AutoCSer.CommandService
                                 }
                                 else if (current == null)
                                 {
+#pragma warning disable CS8601
                                     PersistenceQueue.GetToEndClear(ref current, ref end);
+#pragma warning restore CS8601
                                     if (current == null)
                                     {
                                         if (IsDisposed) return;
@@ -683,9 +732,11 @@ namespace AutoCSer.CommandService
                                 }
                                 else
                                 {
+#pragma warning disable CS8601
                                     PersistenceQueue.GetToEndClear(ref end);
+#pragma warning restore CS8601
                                 }
-                                LOOP:
+                            LOOP:
                                 do
                                 {
                                     try
@@ -711,7 +762,7 @@ namespace AutoCSer.CommandService
                                         AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
                                     }
                                     persistenceBuffer.RestoreCurrentIndex();
-                                    current = current.PersistenceCallbackIgnoreException(CallStateEnum.PersistenceSerializeException);
+                                    current = current.notNull().PersistenceCallbackIgnoreException(CallStateEnum.PersistenceSerializeException);
                                 }
                                 while (current != null);
                                 if (persistenceBuffer.Count == 0)
@@ -724,7 +775,7 @@ namespace AutoCSer.CommandService
                                 try
                                 {
                                     outputData = persistenceBuffer.GetData();
-                                    serviceCallback = new PersistenceCallback(head, current);
+                                    serviceCallback = new PersistenceCallback(head.notNull(), current);
                                     if (Rebuilder != null && !isRebuilderPersistenceWaitting) Thread.Sleep(0);
                                 }
                                 catch (Exception exception)
@@ -770,7 +821,11 @@ namespace AutoCSer.CommandService
                                     persistenceBuffer.Reset();
                                     goto LOOP;
                                 }
-                                if (current != null && PersistenceQueue.IsPushHead(ref head, end)) PersistenceWaitHandle.Set();
+                                if (head != null)
+                                {
+                                    if (PersistenceQueue.IsPushHead(head, end.notNull())) PersistenceWaitHandle.Set();
+                                    head = null;
+                                }
                             }
                         }
                         while (true);
@@ -805,12 +860,12 @@ namespace AutoCSer.CommandService
         {
             if ((uint)index.Index < (uint)NodeIndex)
             {
-                ServerNode node = Nodes[index.Index].Get(index.Identity);
+                var node = Nodes[index.Index].Get(index.Identity);
                 if (node != null)
                 {
                     if ((uint)methodIndex < (uint)node.NodeCreator.Methods.Length)
                     {
-                        Method method = node.NodeCreator.Methods[methodIndex];
+                        var method = node.NodeCreator.Methods[methodIndex];
                         if (method != null)
                         {
                             switch (method.CallType)
@@ -928,7 +983,7 @@ namespace AutoCSer.CommandService
                     if (PersistencePosition != ServiceLoader.FileHeadSize)
                     {
                         if (CheckRebuild()) return new RebuildResult(CallStateEnum.Success);
-                        return new RebuildResult(rebuildLoadExceptionNode);
+                        return new RebuildResult(rebuildLoadExceptionNode.notNull());
                     }
                     return new RebuildResult(CallStateEnum.Success);
                 }
@@ -969,7 +1024,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         internal void RebuildCompleted()
         {
-            ServiceSlave slave = Slave;
+            var slave = Slave;
             Slave = null;
             do
             {
@@ -987,7 +1042,7 @@ namespace AutoCSer.CommandService
                     AutoCSer.LogHelper.ExceptionIgnoreException(exception);
                 }
             }
-            while ((slave = slave.LinkNext) != null);
+            while ((slave = slave.notNull().LinkNext) != null);
             rebuildCompletedWaitHandle.Set();
         }
         /// <summary>
@@ -1022,7 +1077,11 @@ namespace AutoCSer.CommandService
         /// <param name="method"></param>
         /// <param name="methodAttribute"></param>
         /// <returns></returns>
+#if NetStandard21
+        private CallStateEnum getRepairMethod(NodeIndex index, byte[] rawAssembly, ref RepairNodeMethodName methodName, out ServerNode? node, out MethodInfo? method, out ServerMethodAttribute? methodAttribute)
+#else
         private CallStateEnum getRepairMethod(NodeIndex index, byte[] rawAssembly, ref RepairNodeMethodName methodName, out ServerNode node, out MethodInfo method, out ServerMethodAttribute methodAttribute)
+#endif
         {
             method = null;
             methodAttribute = null;
@@ -1046,15 +1105,23 @@ namespace AutoCSer.CommandService
         public virtual void RepairNodeMethod(NodeIndex index, byte[] rawAssembly, RepairNodeMethodName methodName, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            bool isCallback = true;
             try
             {
-                ServerNode node;
-                MethodInfo method;
-                ServerMethodAttribute methodAttribute;
+                var node = default(ServerNode);
+                var method = default(MethodInfo);
+                var methodAttribute = default(ServerMethodAttribute);
                 state = getRepairMethod(index, rawAssembly, ref methodName, out node, out method, out methodAttribute);
-                if (state == CallStateEnum.Success) node.Repair(rawAssembly, method, methodAttribute, ref callback);
+                if (state == CallStateEnum.Success)
+                {
+                    node.notNull().Repair(rawAssembly, method.notNull(), methodAttribute.notNull(), callback);
+                    isCallback = false;
+                }
             }
-            finally { callback?.Callback(state); }
+            finally
+            {
+                if (isCallback) callback.Callback(state);
+            }
         }
         /// <summary>
         /// 绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
@@ -1067,19 +1134,27 @@ namespace AutoCSer.CommandService
         public virtual void BindNodeMethod(NodeIndex index, byte[] rawAssembly, RepairNodeMethodName methodName, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            bool isCallback = true;
             try
             {
                 if (!methodName.Name.EndsWith(ServerNodeMethod.BeforePersistenceMethodNameSuffix, StringComparison.Ordinal))
                 {
-                    ServerNode node;
-                    MethodInfo method;
-                    ServerMethodAttribute methodAttribute;
+                    var node = default(ServerNode);
+                    var method = default(MethodInfo);
+                    var methodAttribute = default(ServerMethodAttribute);
                     state = getRepairMethod(index, rawAssembly, ref methodName, out node, out method, out methodAttribute);
-                    if (state == CallStateEnum.Success) node.Bind(rawAssembly, method, methodAttribute, ref callback);
+                    if (state == CallStateEnum.Success)
+                    {
+                        node.notNull().Bind(rawAssembly, method.notNull(), methodAttribute.notNull(), callback);
+                        isCallback = false;
+                    }
                 }
                 else state = CallStateEnum.BindMethodNotSupportBeforePersistence;
             }
-            finally { callback?.Callback(state); }
+            finally 
+            {
+                if (isCallback) callback.Callback(state);
+            }
         }
         /// <summary>
         /// 获取从节点时间戳标识
@@ -1115,9 +1190,13 @@ namespace AutoCSer.CommandService
         /// <param name="timestamp"></param>
         /// <param name="left"></param>
         /// <returns></returns>
+#if NetStandard21
+        private ServiceSlave? getSlave(long timestamp, out ServiceSlave? left)
+#else
         private ServiceSlave getSlave(long timestamp, out ServiceSlave left)
+#endif
         {
-            ServiceSlave slave = Slave;
+            var slave = Slave;
             if (slave != null)
             {
                 if (slave.Timestamp == timestamp)
@@ -1125,7 +1204,7 @@ namespace AutoCSer.CommandService
                     left = null;
                     return slave;
                 }
-                for (ServiceSlave next = slave.LinkNext; next != null; next = next.LinkNext)
+                for (var next = slave.LinkNext; next != null; next = next.LinkNext)
                 {
                     if (next.Timestamp == timestamp)
                     {
@@ -1148,7 +1227,7 @@ namespace AutoCSer.CommandService
         public CommandServerSendOnly RemoveSlave(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp)
         {
             RemoveSlave(timestamp);
-            return null;
+            return CommandServerSendOnly.Null;
         }
         /// <summary>
         /// 从节点添加修复方法目录与文件信息
@@ -1161,14 +1240,14 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public CommandServerSendOnly AppendRepairNodeMethodDirectoryFile(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, RepairNodeMethodDirectory directory, RepairNodeMethodFile file)
         {
-            ServiceSlave left;
-            ServiceSlave slave = getSlave(timestamp, out left);
+            var left = default(ServiceSlave);
+            var slave = getSlave(timestamp, out left);
             if (slave != null && !slave.AppendRepairNodeMethodDirectoryFile(directory, file))
             {
                 if (left == null) Slave = slave.LinkNext;
                 else left.LinkNext = slave.LinkNext;
             }
-            return null;
+            return CommandServerSendOnly.Null;
         }
         /// <summary>
         /// 移除从节点客户端信息
@@ -1176,8 +1255,8 @@ namespace AutoCSer.CommandService
         /// <param name="timestamp"></param>
         internal void RemoveSlave(long timestamp)
         {
-            ServiceSlave left;
-            ServiceSlave slave = getSlave(timestamp, out left);
+            var left = default(ServiceSlave);
+            var slave = getSlave(timestamp, out left);
             if (slave != null)
             {
                 if (left == null) Slave = slave.LinkNext;
@@ -1195,13 +1274,14 @@ namespace AutoCSer.CommandService
         public void GetRepairNodeMethodPosition(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, CommandServerKeepCallback<RepairNodeMethodPosition> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
-                ServiceSlave left;
-                ServiceSlave slave = getSlave(timestamp, out left);
+                var left = default(ServiceSlave);
+                var slave = getSlave(timestamp, out left);
                 if (slave != null)
                 {
-                    if (!slave.GetRepairNodeMethodPosition(ref callback))
+                    if (!slave.GetRepairNodeMethodPosition(ref refCallback))
                     {
                         if (left == null) Slave = slave.LinkNext;
                         else left.LinkNext = slave.LinkNext;
@@ -1211,7 +1291,7 @@ namespace AutoCSer.CommandService
             }
             finally
             {
-                callback?.CallbackCancelKeep(new RepairNodeMethodPosition(new RepairNodeMethod(state)));
+                refCallback?.CallbackCancelKeep(new RepairNodeMethodPosition(new RepairNodeMethod(state)));
             }
         }
         /// <summary>
@@ -1237,17 +1317,18 @@ namespace AutoCSer.CommandService
         public void GetPersistenceFile(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, uint fileHeadVersion, ulong rebuildPosition, long position, CommandServerKeepCallback<PersistenceFileBuffer> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
-                ServiceSlave left;
-                ServiceSlave slave = getSlave(timestamp, out left);
+                var left = default(ServiceSlave);
+                var slave = getSlave(timestamp, out left);
                 if (slave != null)
                 {
                     if ((PersistenceFileHeadVersion == fileHeadVersion && RebuildPosition == rebuildPosition) || position == 0)
                     {
                         if (position <= PersistencePosition)
                         {
-                            if (!slave.GetPersistenceFile(position, ref callback))
+                            if (!slave.GetPersistenceFile(position, ref refCallback))
                             {
                                 if (left == null) Slave = slave.LinkNext;
                                 else left.LinkNext = slave.LinkNext;
@@ -1262,7 +1343,7 @@ namespace AutoCSer.CommandService
             }
             finally
             {
-                callback?.CallbackCancelKeep(new PersistenceFileBuffer(state, false));
+                refCallback?.CallbackCancelKeep(new PersistenceFileBuffer(state, false));
             }
         }
         /// <summary>
@@ -1285,21 +1366,22 @@ namespace AutoCSer.CommandService
         public void GetPersistenceCallbackExceptionPosition(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, CommandServerKeepCallback<long> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            bool isCallback = true;
             try
             {
-                ServiceSlave left;
-                ServiceSlave slave = getSlave(timestamp, out left);
+                var left = default(ServiceSlave);
+                var slave = getSlave(timestamp, out left);
                 if (slave != null)
                 {
                     slave.PersistenceCallbackExceptionPositionCallback = callback;
-                    callback = null;
+                    isCallback = false;
                     return;
                 }
                 else state = CallStateEnum.SlaveTimestampNotMatch;
             }
             finally
             {
-                callback?.CallbackCancelKeep(-(long)(ulong)(byte)state);
+                if (isCallback) callback.CallbackCancelKeep(-(long)(ulong)(byte)state);
             }
         }
         /// <summary>
@@ -1315,17 +1397,18 @@ namespace AutoCSer.CommandService
         public void GetPersistenceCallbackExceptionPositionFile(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, uint fileHeadVersion, ulong rebuildPosition, long position, CommandServerKeepCallback<PersistenceFileBuffer> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
+            var refCallback = callback;
             try
             {
-                ServiceSlave left;
-                ServiceSlave slave = getSlave(timestamp, out left);
+                var left = default(ServiceSlave);
+                var slave = getSlave(timestamp, out left);
                 if (slave != null)
                 {
                     if ((PersistenceCallbackExceptionPositionFileHeadVersion == fileHeadVersion && RebuildPosition == rebuildPosition) || position == 0)
                     {
                         if (position <= PersistenceCallbackExceptionFilePosition)
                         {
-                            if (!slave.GetPersistenceCallbackExceptionPositionFile(position, ref callback))
+                            if (!slave.GetPersistenceCallbackExceptionPositionFile(position, ref refCallback))
                             {
                                 if (left == null) Slave = slave.LinkNext;
                                 else left.LinkNext = slave.LinkNext;
@@ -1340,7 +1423,7 @@ namespace AutoCSer.CommandService
             }
             finally
             {
-                callback?.CallbackCancelKeep(new PersistenceFileBuffer(state, true));
+                refCallback?.CallbackCancelKeep(new PersistenceFileBuffer(state, true));
             }
         }
         /// <summary>

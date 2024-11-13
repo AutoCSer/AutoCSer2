@@ -30,7 +30,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="node"></param>
         /// <param name="callback"></param>
+#if NetStandard21
+        public virtual void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter>? callback) { }
+#else
         public virtual void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter> callback) { }
+#endif
         /// <summary>
         /// 持久化之前检查参数
         /// </summary>
@@ -52,7 +56,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                CommandServerCallback<ResponseParameter> callback = null;
+                var callback = default(CommandServerCallback<ResponseParameter>);
                 CallOutput(node, ref callback);
                 return CallStateEnum.Success;
             }
@@ -70,9 +74,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value"></param>
         /// <param name="callback"></param>
         /// <param name="isSimpleSerialize"></param>
+#if NetStandard21
+        internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter>? callback, bool isSimpleSerialize)
+#else
         internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter> callback, bool isSimpleSerialize)
+#endif
         {
-            CommandServerCallback<ResponseParameter> callbackCopy = callback;
+            var callbackCopy = callback;
             if (callbackCopy != null)
             {
                 callback = null;
@@ -89,7 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 finally
                 {
-                    if (!isCallback) callback.Socket?.DisposeSocket();
+                    if (!isCallback) callbackCopy.Socket.DisposeSocket();
                 }
             }
         }

@@ -31,11 +31,19 @@ namespace AutoCSer.ORM
         /// <summary>
         /// SQL 字符流 临时缓存
         /// </summary>
+#if NetStandard21
+        private CharStream? charStreamCache;
+#else
         private CharStream charStreamCache;
+#endif
         /// <summary>
         /// 自增ID 数据库表格持久化写入
         /// </summary>
+#if NetStandard21
+        internal TableWriter<AutoIdentity, string>? AutoIdentityWriter;
+#else
         internal TableWriter<AutoIdentity, string> AutoIdentityWriter;
+#endif
         /// <summary>
         /// 创建数据库连接
         /// </summary>
@@ -88,7 +96,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         internal CharStream GetCharStreamCache()
         {
-            CharStream charStream = Interlocked.Exchange(ref this.charStreamCache, null);
+            var charStream = Interlocked.Exchange(ref this.charStreamCache, null);
             if (charStream == null) charStream = new CharStream(UnmanagedPool.Default);
             else charStream.Clear();
             return charStream;
@@ -100,8 +108,8 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void FreeCharStreamCache(CharStream charStream)
         {
-            if (this.charStreamCache == null) charStream = Interlocked.Exchange(ref this.charStreamCache, charStream);
-            charStream?.Dispose();
+            if (this.charStreamCache == null) Interlocked.Exchange(ref this.charStreamCache, charStream)?.Dispose();
+            else charStream.Dispose();
         }
         /// <summary>
         /// 创建数据库连接
@@ -135,7 +143,11 @@ namespace AutoCSer.ORM
         /// <param name="isUnique"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal abstract Task<bool> CreateIndex(TableWriter tableWriter, CustomColumnName[] columns, string? indexNameSuffix, bool isUnique, int timeoutSeconds);
+#else
         internal abstract Task<bool> CreateIndex(TableWriter tableWriter, CustomColumnName[] columns, string indexNameSuffix, bool isUnique, int timeoutSeconds);
+#endif
         /// <summary>
         /// 生成查询 SQL 语句
         /// </summary>
@@ -248,9 +260,13 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="member"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal Action<CharStream, object> GetConstantConverter(Type type, Member? member)
+#else
         internal Action<CharStream, object> GetConstantConverter(Type type, Member member)
+#endif
         {
-            Action<CharStream, object> value;
+            var value = default(Action<CharStream, object>);
             if (type == typeof(DateTime) || type == typeof(DateTime?))
             {
                 DateTimeAttribute dateTimeAttribute = member?.Attribute as DateTimeAttribute ?? DateTimeAttribute.Default;
@@ -1159,7 +1175,11 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="charStream"></param>
         /// <param name="value"></param>
+#if NetStandard21
+        internal unsafe virtual void Convert(CharStream charStream, string? value)
+#else
         internal unsafe virtual void Convert(CharStream charStream, string value)
+#endif
         {
             if (value == null) charStream.WriteJsonNull();
             else
@@ -1226,7 +1246,11 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="isStart"></param>
         /// <param name="isEnd"></param>
+#if NetStandard21
+        internal unsafe virtual void ConvertLike(CharStream charStream, string? value, bool isStart, bool isEnd)
+#else
         internal unsafe virtual void ConvertLike(CharStream charStream, string value, bool isStart, bool isEnd)
+#endif
         {
             charStream.Write('\'');
             if (isStart) charStream.Write('%');
@@ -1670,14 +1694,28 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="connection"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static void CloseConnection(DbConnection? connection)
+#else
         internal static void CloseConnection(DbConnection connection)
+#endif
         {
             if (connection != null)
             {
                 using (connection) connection.Close();
             }
         }
-#if DotNet45 || NetStandard2
+#if NetStandard21
+        /// <summary>
+        /// 关闭并释放连接
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <returns></returns>
+        internal static async Task CloseConnectionAsync(DbConnection connection)
+        {
+            await using (connection) await connection.CloseAsync();
+        }
+#else
         /// <summary>
         /// 关闭并释放连接
         /// </summary>
@@ -1687,16 +1725,6 @@ namespace AutoCSer.ORM
         {
             using (connection) connection.Close();
             return AutoCSer.Common.CompletedTask;
-        }
-#else
-        /// <summary>
-        /// 关闭并释放连接
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <returns></returns>
-        internal static async Task CloseConnectionAsync(DbConnection connection)
-        {
-            await using (connection) await connection.CloseAsync();
         }
 #endif
 
@@ -1722,7 +1750,7 @@ namespace AutoCSer.ORM
             switch (readerDataType)
             {
                 case ReaderDataTypeEnum.DateTime:
-                    DateTimeAttribute dateTimeAttribute = attribute as DateTimeAttribute;
+                    var dateTimeAttribute = attribute as DateTimeAttribute;
                     if (type == typeof(DateTime))
                     {
                         if (dateTimeAttribute != null)

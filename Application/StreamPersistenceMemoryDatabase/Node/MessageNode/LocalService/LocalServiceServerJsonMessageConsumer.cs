@@ -24,13 +24,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         protected override async Task onMessage(ServerJsonMessage<T> message)
         {
+#if NetStandard21
+            await onMessage((T?)message);
+#else
             await onMessage((T)message);
+#endif
         }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
+#if NetStandard21
+        protected abstract Task onMessage(T? message);
+#else
         protected abstract Task onMessage(T message);
+#endif
     }
 }

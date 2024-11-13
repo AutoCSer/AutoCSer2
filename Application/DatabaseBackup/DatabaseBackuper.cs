@@ -33,7 +33,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 备份异常信息
         /// </summary>
+#if NetStandard21
+        protected Exception? exception;
+#else
         protected Exception exception;
+#endif
         /// <summary>
         /// 是否已经完成
         /// </summary>
@@ -58,7 +62,11 @@ namespace AutoCSer.CommandService
         /// <param name="database">数据库名称</param>
         /// <param name="backupFullName">数据库备份文件名称</param>
         /// <param name="compressionFullName">压缩数据库备份文件名称</param>
+#if NetStandard21
+        public DatabaseBackuper(DatabaseBackupService databaseBackup, CommandServerCallQueue queue, string database, string backupFullName, string? compressionFullName = null)
+#else
         public DatabaseBackuper(DatabaseBackupService databaseBackup, CommandServerCallQueue queue, string database, string backupFullName, string compressionFullName = null)
+#endif
         {
             this.databaseBackup = databaseBackup;
             this.queue = queue;
@@ -74,23 +82,25 @@ namespace AutoCSer.CommandService
         /// 尝试添加回调委托
         /// </summary>
         /// <param name="callback"></param>
-        public virtual void Callback(ref CommandServerCallback<string> callback)
+        /// <param name="isCallback"></param>
+        public virtual void Callback(CommandServerCallback<string> callback, ref bool isCallback)
         {
             if (isCompleted) this.callback(callback);
             else
             {
                 callbacks.Add(callback);
-                callback = null;
+                isCallback = false;
             }
         }
         /// <summary>
         /// 开始备份数据
         /// </summary>
         /// <param name="callback"></param>
-        public virtual void Start(ref CommandServerCallback<string> callback)
+        /// <param name="isCallback"></param>
+        public virtual void Start(CommandServerCallback<string> callback, ref bool isCallback)
         {
             callbacks.Add(callback);
-            if (AutoCSer.Threading.ThreadPool.TinyBackground.Start(backupThread)) callback = null;
+            if (AutoCSer.Threading.ThreadPool.TinyBackground.Start(backupThread)) isCallback = false;
             else
             {
                 exception = new Exception("备份线程启动失败");
@@ -102,10 +112,10 @@ namespace AutoCSer.CommandService
         /// </summary>
         private void backupThread()
         {
-            Exception exception = null;
+            var exception = default(Exception);
             try
             {
-                DirectoryInfo Directory = new FileInfo(backupFullName).Directory;
+                DirectoryInfo Directory = new FileInfo(backupFullName).Directory.notNull();
                 if (!Directory.Exists) Directory.Create();
                 databaseBackup.OnMessage($"开始备份数据库 {database} 到 {backupFullName}");
                 backup();
@@ -181,7 +191,11 @@ namespace AutoCSer.CommandService
         /// 数据库备份完成
         /// </summary>
         /// <param name="exception">存在异常信息表示备份失败</param>
+#if NetStandard21
+        protected void completed(Exception? exception)
+#else
         protected void completed(Exception exception)
+#endif
         {
             this.exception = exception;
             queue.Add(this);

@@ -28,14 +28,22 @@ namespace AutoCSer.Extensions.Metadata
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         [AutoCSer.AOT.Preserve(Conditional = true)]
         private static CollectionGenericType create<T, VT>()
+#if NetStandard21
+            where T : ICollection<VT?>
+#else
             where T : ICollection<VT>
+#endif
         {
             return new CollectionGenericType<T, VT>();
         }
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static CollectionGenericType? lastGenericType;
+#else
         protected static CollectionGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -44,7 +52,7 @@ namespace AutoCSer.Extensions.Metadata
         /// <returns></returns>
         public static CollectionGenericType Get(Type type, Type interfaceType)
         {
-            CollectionGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = getCollection(type, interfaceType);
             lastGenericType = value;
@@ -57,7 +65,11 @@ namespace AutoCSer.Extensions.Metadata
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="VT"></typeparam>
     internal sealed class CollectionGenericType<T, VT> : CollectionGenericType
+#if NetStandard21
+        where T : ICollection<VT?>
+#else
         where T : ICollection<VT>
+#endif
     {
         /// <summary>
         /// 获取当前泛型类型
@@ -69,11 +81,19 @@ namespace AutoCSer.Extensions.Metadata
         /// <param name="serializeDelegateReference"></param>
         internal override void GetXmlSerializeCollectionDelegate(ref AutoCSer.TextSerialize.DelegateReference serializeDelegateReference)
         {
+#if NetStandard21
             serializeDelegateReference.SetMember((Action<XmlSerializer, T>)XmlSerializer.Collection<T, VT>, AutoCSer.Metadata.CollectionGenericType<T, VT>.ReferenceTypes);
+#else
+            serializeDelegateReference.SetMember((Action<XmlSerializer, T>)XmlSerializer.Collection<T, VT>, AutoCSer.Metadata.CollectionGenericType<T, VT>.ReferenceTypes);
+#endif
         }
         /// <summary>
         /// XML 集合反序列化委托
         /// </summary>
+#if NetStandard21
+        internal override Delegate XmlDeserializeCollectionDelegate { get { return (XmlDeserializer.DeserializeDelegate<T?>)XmlDeserializer.Collection<T, VT>; } }
+#else
         internal override Delegate XmlDeserializeCollectionDelegate { get { return (XmlDeserializer.DeserializeDelegate<T>)XmlDeserializer.Collection<T, VT>; } }
+#endif
     }
 }

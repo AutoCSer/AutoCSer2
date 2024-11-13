@@ -4,6 +4,7 @@ using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -27,35 +28,67 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 异常移除客户端回调
         /// </summary>
+#if NetStandard21
+        private ServiceSlaveCallback? removeCallback;
+#else
         private ServiceSlaveCallback removeCallback;
+#endif
         /// <summary>
         /// 获取修复节点方法信息委托
         /// </summary>
+#if NetStandard21
+        private CommandServerKeepCallback<RepairNodeMethodPosition>? repairNodeMethodPositionCallback;
+#else
         private CommandServerKeepCallback<RepairNodeMethodPosition> repairNodeMethodPositionCallback;
+#endif
         /// <summary>
         /// 获取持久化文件数据委托
         /// </summary>
+#if NetStandard21
+        private CommandServerKeepCallback<PersistenceFileBuffer>? persistenceFileCallback;
+#else
         private CommandServerKeepCallback<PersistenceFileBuffer> persistenceFileCallback;
+#endif
         /// <summary>
         /// 获取持久化回调异常位置文件数据委托
         /// </summary>
+#if NetStandard21
+        private CommandServerKeepCallback<PersistenceFileBuffer>? persistenceCallbackExceptionPositionFileCallback;
+#else
         private CommandServerKeepCallback<PersistenceFileBuffer> persistenceCallbackExceptionPositionFileCallback;
+#endif
         /// <summary>
         /// 获取持久化回调异常位置信息委托
         /// </summary>
+#if NetStandard21
+        internal CommandServerKeepCallback<long>? PersistenceCallbackExceptionPositionCallback;
+#else
         internal CommandServerKeepCallback<long> PersistenceCallbackExceptionPositionCallback;
+#endif
         /// <summary>
         /// 持久化文件读取操作等待锁
         /// </summary>
+#if NetStandard21
+        private ManualResetEvent? readPersistenceWaitLock;
+#else
         private ManualResetEvent readPersistenceWaitLock;
+#endif
         /// <summary>
         /// 持久化文件流
         /// </summary>
+#if NetStandard21
+        private FileStream? persistenceFileStream;
+#else
         private FileStream persistenceFileStream;
+#endif
         /// <summary>
         /// 持久化异常位置文件流
         /// </summary>
+#if NetStandard21
+        private FileStream? persistenceCallbackExceptionPositionFileStream;
+#else
         private FileStream persistenceCallbackExceptionPositionFileStream;
+#endif
         /// <summary>
         /// 创建从节点客户端信息时间戳
         /// </summary>
@@ -134,7 +167,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (!isClosed)
             {
-                ServiceSlaveCallback removeCallback = System.Threading.Interlocked.Exchange(ref this.removeCallback, null);
+                var removeCallback = System.Threading.Interlocked.Exchange(ref this.removeCallback, null);
                 if (removeCallback != null) service.CommandServerCallQueue.AddOnly(removeCallback);
             }
         }
@@ -167,12 +200,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal bool GetRepairNodeMethodPosition([MaybeNull]ref CommandServerKeepCallback<RepairNodeMethodPosition> callback)
+#else
         internal bool GetRepairNodeMethodPosition(ref CommandServerKeepCallback<RepairNodeMethodPosition> callback)
+#endif
         {
             try
             {
                 RepairNodeMethodFile file;
-                for (RepairNodeMethod head = service.LoadedRepairNodeMethod; head != null; head = head.LinkNext)
+                for (var head = service.LoadedRepairNodeMethod; head != null; head = head.LinkNext)
                 {
                     if (!repairNodeMethodDirectoryFiles.Remove(head.RepairNodeMethodDirectory, out file) || !head.RepairNodeMethodFile.Equals(file))
                     {
@@ -209,7 +246,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     return isCallback = true;
                 }
-                if (repairNodeMethodPositionCallback.Callback(new RepairNodeMethodPosition(repairNodeMethod))) return isCallback = true;
+                if (repairNodeMethodPositionCallback.notNull().Callback(new RepairNodeMethodPosition(repairNodeMethod))) return isCallback = true;
                 repairNodeMethodPositionCallback = null;
             }
             catch (Exception exception)
@@ -235,7 +272,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 bool isCallback = false;
                 try
                 {
-                    if (repairNodeMethodPositionCallback.Callback(new RepairNodeMethodPosition(persistencePosition)))
+                    if (repairNodeMethodPositionCallback.notNull().Callback(new RepairNodeMethodPosition(persistencePosition)))
                     {
                         readPersistenceWaitLock?.Set();
                         return isCallback = true;
@@ -260,7 +297,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="position"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal bool GetPersistenceFile(long position, [MaybeNull] ref CommandServerKeepCallback<PersistenceFileBuffer> callback)
+#else
         internal bool GetPersistenceFile(long position, ref CommandServerKeepCallback<PersistenceFileBuffer> callback)
+#endif
         {
             try
             {
@@ -295,9 +336,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 buffer = ByteArrayPool.GetBuffer(this.bufferSize);
                 PersistenceFileBuffer fileBuffer = new PersistenceFileBuffer(ref buffer, false);
-                byte[] bufferArray = buffer.Buffer.Buffer;
-                int bufferSize = buffer.Buffer.BufferSize;
+                ByteArray byteArray = buffer.Buffer.notNull();
+                byte[] bufferArray = byteArray.Buffer;
+                int bufferSize = byteArray.BufferSize;
                 Action onFree = fileBuffer.SetSerializeWaitLock;
+                var readPersistenceWaitLock = this.readPersistenceWaitLock.notNull();
                 using (persistenceFileStream = new FileStream(service.PersistenceFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, bufferSize, FileOptions.SequentialScan))
                 {
                     if (isClosed) return;
@@ -310,7 +353,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             int readSize = persistenceFileStream.Read(bufferArray, buffer.StartIndex + readIndex, bufferSize - readIndex);
                             long position = persistencePosition - readIndex;
                             fileBuffer.SetBuffer(readIndex += readSize, position);
-                            if (!persistenceFileCallback.Callback(fileBuffer, onFree))
+                            if (!persistenceFileCallback.notNull().Callback(fileBuffer, onFree))
                             {
                                 persistenceFileCallback = null;
                                 return;
@@ -330,7 +373,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         while (readIndex > 0)
                         {
                             fileBuffer.SetBuffer(readIndex, persistencePosition - readIndex);
-                            if (!persistenceFileCallback.Callback(fileBuffer, onFree))
+                            if (!persistenceFileCallback.notNull().Callback(fileBuffer, onFree))
                             {
                                 persistenceFileCallback = null;
                                 return;
@@ -366,14 +409,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="position"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal bool GetPersistenceCallbackExceptionPositionFile(long position, [MaybeNull] ref CommandServerKeepCallback<PersistenceFileBuffer> callback)
+#else
         internal bool GetPersistenceCallbackExceptionPositionFile(long position, ref CommandServerKeepCallback<PersistenceFileBuffer> callback)
+#endif
         {
             try
             {
                 if (position == service.PersistenceCallbackExceptionFilePosition)
                 {
                     isPersistenceCallbackExceptionPosition = true;
-                    if (PersistenceCallbackExceptionPositionCallback.Callback(-(long)(ulong)(byte)CallStateEnum.Success))
+                    if (PersistenceCallbackExceptionPositionCallback.notNull().Callback(-(long)(ulong)(byte)CallStateEnum.Success))
                     {
                         callback.CancelKeep();
                         callback = null;
@@ -416,8 +463,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 int bufferSize = Math.Max((int)Math.Min(this.bufferSize, service.PersistenceCallbackExceptionFilePosition - persistenceCallbackExceptionFilePosition), 4 << 10);
                 buffer = ByteArrayPool.GetBuffer(bufferSize);
                 PersistenceFileBuffer fileBuffer = new PersistenceFileBuffer(ref buffer, true);
-                byte[] bufferArray = buffer.Buffer.Buffer;
-                bufferSize = buffer.Buffer.BufferSize;
+                ByteArray byteArray = buffer.Buffer.notNull();
+                byte[] bufferArray = byteArray.Buffer;
+                bufferSize = byteArray.BufferSize;
                 Action onFree = fileBuffer.SetSerializeWaitLock;
                 int readIndex = 0;
                 do
@@ -433,7 +481,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 int readSize = persistenceCallbackExceptionPositionFileStream.Read(bufferArray, buffer.StartIndex + readIndex, bufferSize - readIndex);
                                 long position = persistenceCallbackExceptionFilePosition - readIndex;
                                 fileBuffer.SetBuffer(readIndex += readSize, position);
-                                if (!persistenceCallbackExceptionPositionFileCallback.Callback(fileBuffer, onFree))
+                                if (!persistenceCallbackExceptionPositionFileCallback.notNull().Callback(fileBuffer, onFree))
                                 {
                                     persistenceCallbackExceptionPositionFileCallback = null;
                                     return;
@@ -457,7 +505,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     while (readIndex > 0)
                     {
                         fileBuffer.SetBuffer(readIndex, persistenceCallbackExceptionFilePosition - readIndex);
-                        if (!persistenceCallbackExceptionPositionFileCallback.Callback(fileBuffer, onFree))
+                        if (!persistenceCallbackExceptionPositionFileCallback.notNull().Callback(fileBuffer, onFree))
                         {
                             persistenceCallbackExceptionPositionFileCallback = null;
                             return;
@@ -500,9 +548,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (persistenceCallbackExceptionFilePosition == service.PersistenceCallbackExceptionFilePosition)
                     {
                         isPersistenceCallbackExceptionPosition = true;
-                        if (PersistenceCallbackExceptionPositionCallback.Callback(-(long)(ulong)(byte)CallStateEnum.Success))
+                        if (PersistenceCallbackExceptionPositionCallback.notNull().Callback(-(long)(ulong)(byte)CallStateEnum.Success))
                         {
-                            persistenceCallbackExceptionPositionFileCallback.CancelKeep();
+                            persistenceCallbackExceptionPositionFileCallback.notNull().CancelKeep();
                             persistenceCallbackExceptionPositionFileCallback = null;
                             isFile = true;
                             return;
@@ -536,7 +584,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isCallback = false;
             try
             {
-                if (PersistenceCallbackExceptionPositionCallback.Callback(position)) return isCallback = true;
+                if (PersistenceCallbackExceptionPositionCallback.notNull().Callback(position)) return isCallback = true;
                 PersistenceCallbackExceptionPositionCallback = null;
             }
             catch (Exception exception)

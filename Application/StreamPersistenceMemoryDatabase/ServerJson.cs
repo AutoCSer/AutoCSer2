@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -15,16 +16,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务端 JSON 字符串
         /// </summary>
+#if NetStandard21
+        public string? Json { get; private set; }
+#else
         public string Json { get; private set; }
+#endif
         /// <summary>
         /// 客户端对象
         /// </summary>
+#if NetStandard21
+        public T? Value;
+#else
         public T Value;
+#endif
         /// <summary>
         /// 客户端对象
         /// </summary>
         /// <param name="value"></param>
+#if NetStandard21
+        public ServerJson(T? value)
+#else
         public ServerJson(T value)
+#endif
         {
             Value = value;
             Json = null;
@@ -42,17 +55,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务端隐式转换为字符串
         /// </summary>
         /// <param name="value"></param>
+#if NetStandard21
+        public static implicit operator string?(ServerJson<T> value) { return value.Json; }
+#else
         public static implicit operator string(ServerJson<T> value) { return value.Json; }
+#endif
         /// <summary>
         /// 客户端隐式转换
         /// </summary>
         /// <param name="value"></param>
+#if NetStandard21
+        public static implicit operator ServerJson<T>(T? value) { return new ServerJson<T>(value); }
+#else
         public static implicit operator ServerJson<T>(T value) { return new ServerJson<T>(value); }
+#endif
         /// <summary>
         /// 客户端隐式转换
         /// </summary>
         /// <param name="value"></param>
+#if NetStandard21
+        public static implicit operator T?(ServerJson<T> value) { return value.Value; }
+#else
         public static implicit operator T(ServerJson<T> value) { return value.Value; }
+#endif
 
         /// <summary>
         /// 序列化
@@ -63,9 +88,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             int index = serializer.SerializeBufferStart();
             if (index >= 0)
             {
-                Type type = serializer.Context?.GetType();
+                var type = serializer.Context?.GetType();
                 if (type == typeof(CommandServerSocket)) serializer.SerializeBufferEnd(index, serializer.SerializeBuffer(Json));
-                else if (type == typeof(CommandClientSocket)) serializer.SerializeBufferEnd(index, ((CommandClientSocket)serializer.Context).JsonSerializeBuffer(ref Value, serializer.Stream));
+                else if (type == typeof(CommandClientSocket)) serializer.SerializeBufferEnd(index, serializer.Context.castType<CommandClientSocket>().notNull().JsonSerializeBuffer(ref Value, serializer.Stream));
                 else serializer.SerializeBufferEnd(index, serializer.GetJsonSerializer().SerializeCommandServerBuffer(ref Value, serializer.Stream));
             }
         }
@@ -78,14 +103,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             byte* end = deserializer.DeserializeBufferStart();
             if (end != null)
             {
-                Type type = deserializer.Context?.GetType();
+                var type = deserializer.Context?.GetType();
                 if (type == typeof(CommandServerSocket))
                 {
-                    string json = Json;
+                    var json = Json;
                     deserializer.Deserialize(ref json);
                     Json = json;
                 }
-                else if (type == typeof(CommandClientSocket)) deserializer.DeserializeJson(((CommandClientSocket)deserializer.Context).ReceiveJsonDeserializer, out Value);
+                else if (type == typeof(CommandClientSocket)) deserializer.DeserializeJson(deserializer.Context.castType<CommandClientSocket>().notNull().ReceiveJsonDeserializer, out Value);
                 else deserializer.DeserializeJson(out Value);
                 deserializer.DeserializeBufferEnd(end);
             }

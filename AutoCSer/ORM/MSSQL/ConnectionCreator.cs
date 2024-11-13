@@ -92,7 +92,7 @@ end");
             }
             Dictionary<string, TableColumn> columnNames = columns.getDictionary(p => p.name);
             LeftArray<CustomColumnName> newColumns = new LeftArray<CustomColumnName>(0);
-            TableColumn column;
+            var column = default(TableColumn);
             foreach (CustomColumnName name in tableWriter.Columns)
             {
                 if (columnNames.TryGetValue(name.Name, out column)) column.Match(name.Member, tableWriter);
@@ -182,7 +182,7 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
         {
             FormatName(charStream, name.Name);
             charStream.Write(' ');
-            StringAttribute stringAttribute = null;
+            var stringAttribute = default(StringAttribute);
             Member member = name.Member;
             switch (member.ReaderDataType)
             {
@@ -198,10 +198,10 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
                 case ReaderDataTypeEnum.DateTimeOffset: charStream.SimpleWrite(nameof(SqlDbType.DateTimeOffset)); break;
                 case ReaderDataTypeEnum.TimeSpan: charStream.SimpleWrite(nameof(SqlDbType.Time)); break;
                 case ReaderDataTypeEnum.Decimal:
-                    DecimalAttribute decimalAttribute = member.Attribute as DecimalAttribute;
+                    var decimalAttribute = member.Attribute as DecimalAttribute;
                     if (decimalAttribute == null)
                     {
-                        MoneyAttribute moneyAttribute = member.Attribute as MoneyAttribute;
+                        var moneyAttribute = member.Attribute as MoneyAttribute;
                         if (moneyAttribute != null)
                         {
                             charStream.SimpleWrite(moneyAttribute.IsSmall ? nameof(SqlDbType.SmallMoney) : nameof(SqlDbType.Money));
@@ -245,7 +245,7 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
                     }
                     break;
             }
-            string defaultValue = member.Attribute.DefaultValue;
+            var defaultValue = member.Attribute.DefaultValue;
             if (!isCreateTable && !member.IsNullable && string.IsNullOrEmpty(defaultValue))
             {
                 switch (member.ReaderDataType)
@@ -280,7 +280,7 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
             {
                 case ReaderDataTypeEnum.Json:
                 case ReaderDataTypeEnum.String:
-                    if (!stringAttribute.IsNullable) charStream.SimpleWrite(" not");
+                    if (!stringAttribute.notNull().IsNullable) charStream.SimpleWrite(" not");
                     break;
                 default:
                     if (!member.IsNullable) charStream.SimpleWrite(" not");
@@ -411,7 +411,11 @@ update ");
         /// <param name="isUnique"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal override async Task<bool> CreateIndex(TableWriter tableWriter, CustomColumnName[] columns, string? indexNameSuffix, bool isUnique, int timeoutSeconds)
+#else
         internal override async Task<bool> CreateIndex(TableWriter tableWriter, CustomColumnName[] columns, string indexNameSuffix, bool isUnique, int timeoutSeconds)
+#endif
         {
             CharStream charStream;
             if (indexNameSuffix == null)
@@ -430,7 +434,7 @@ update ");
                 }
                 finally { FreeCharStreamCache(charStream); }
             }
-            TableIndex index = await tableWriter.ConnectionPool.SingleOrDefaultTransaction<TableIndex>("select top 1 indid from sysindexes where name='ix_" + tableWriter.TableName + "_" + indexNameSuffix + "'", 0, null);
+            var index = await tableWriter.ConnectionPool.SingleOrDefaultTransaction<TableIndex>("select top 1 indid from sysindexes where name='ix_" + tableWriter.TableName + "_" + indexNameSuffix + "'", 0, null);
             if (index != null) return false;
 
             string statement;
@@ -733,7 +737,7 @@ update ");
             if (query.ConditionLogicType != ConditionExpression.LogicTypeEnum.True)
             {
                 charStream.SimpleWrite(" where ");
-                query.Condition.WriteCondition(charStream);
+                query.Condition.notNull().WriteCondition(charStream);
                 foreach (ICondition condition in query.Conditions)
                 {
                     charStream.SimpleWrite(" and ");
@@ -766,7 +770,7 @@ update ");
         /// <param name="orderItem"></param>
         private static void write(CharStream charStream, OrderItem orderItem)
         {
-            charStream.SimpleWrite(orderItem.Member);
+            charStream.SimpleWrite(orderItem.Member.notNull());
             charStream.Write(' ');
             charStream.SimpleWrite(orderItem.IsAscending ? "asc" : "desc");
         }
@@ -806,7 +810,11 @@ update ");
         /// </summary>
         /// <param name="charStream">SQL字符流</param>
         /// <param name="value">常量</param>
+#if NetStandard21
+        internal unsafe override void Convert(CharStream charStream, string? value)
+#else
         internal unsafe override void Convert(CharStream charStream, string value)
+#endif
         {
             if (value == null) charStream.WriteJsonNull();
             else
@@ -855,7 +863,11 @@ update ");
         /// <param name="value"></param>
         /// <param name="isStart"></param>
         /// <param name="isEnd"></param>
+#if NetStandard21
+        internal unsafe override void ConvertLike(CharStream charStream, string? value, bool isStart, bool isEnd)
+#else
         internal unsafe override void ConvertLike(CharStream charStream, string value, bool isStart, bool isEnd)
+#endif
         {
             if (value != null)
             {
@@ -966,7 +978,7 @@ update ");
                 foreach (T value in values) dataTable.Rows.Add(tableWriter.ToArray(value));
                 if (dataTable.Rows.Count != 0)
                 {
-                    SqlConnection connection = (SqlConnection)(connectionPool.GetConnection() ?? await CreateConnection());
+                    var connection = (SqlConnection)(connectionPool.GetConnection() ?? await CreateConnection());
                     try
                     {
                         using (SqlBulkCopy copy = new SqlBulkCopy(connection, SqlBulkCopyOptions.UseInternalTransaction, null))
@@ -999,20 +1011,20 @@ update ");
         public static async Task<ConnectionCreator> Create(string connectionString)
         {
             string versionString;
-#if DotNet45 || NetStandard2
-            using (SqlConnection connection = new SqlConnection(connectionString))
-#else
+#if NetStandard21
             await using (SqlConnection connection = new SqlConnection(connectionString))
+#else
+            using (SqlConnection connection = new SqlConnection(connectionString))
 #endif
             {
                 await connection.OpenAsync();
-#if DotNet45 || NetStandard2
-                using (DbCommand command = ConnectionPool.CreateCommand(connection, "select @@version"))
-#else
+#if NetStandard21
                 await using (DbCommand command = ConnectionPool.CreateCommand(connection, "select @@version"))
+#else
+                using (DbCommand command = ConnectionPool.CreateCommand(connection, "select @@version"))
 #endif
                 {
-                    versionString = (string)await command.ExecuteScalarAsync();
+                    versionString = (await command.ExecuteScalarAsync()).castType<string>().notNull();
                 }
             }
             Match versionMatch = versionRegex.Match(versionString);
@@ -1033,7 +1045,11 @@ update ");
         /// <param name="connectionString"></param>
         /// <param name="autoIdentityTableName"></param>
         /// <returns></returns>
+#if NetStandard21
+        public static async Task<ConnectionPool> CreateConnectionPool(string connectionString, string? autoIdentityTableName = null)
+#else
         public static async Task<ConnectionPool> CreateConnectionPool(string connectionString, string autoIdentityTableName = null)
+#endif
         {
             return await ConnectionPool.Create(await Create(connectionString), autoIdentityTableName);
         }

@@ -56,10 +56,12 @@ namespace AutoCSer.RandomObject
         /// </summary>
         public void Base()
         {
-            if (isValueType || (type = type.BaseType) == typeof(object)) return;
+            if (isValueType) return;
+            var bastType = type.BaseType.notNull();
+            if (bastType == typeof(object)) return;
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldarg_1);
-            generator.call(AutoCSer.RandomObject.Metadata.GenericType.Get(type).CreateMemberDelegate.Method);
+            generator.call(AutoCSer.RandomObject.Metadata.GenericType.Get(bastType).CreateMemberDelegate.Method);
         }
         /// <summary>
         /// 创建委托

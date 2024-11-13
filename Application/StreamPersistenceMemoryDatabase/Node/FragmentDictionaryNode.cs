@@ -42,7 +42,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public ValueResult<VT> TryGetValue(KT key)
         {
-            VT value;
+            var value = default(VT);
             if (key != null && dictionary.TryGetValue(key, out value)) return value;
             return  default(ValueResult<VT>);
         }
@@ -148,7 +148,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>被删除数据</returns>
         public ValueResult<VT> GetRemove(KT key)
         {
-            VT value;
+            var value = default(VT);
             if (dictionary.Remove(key, out value)) return value;
             return default(ValueResult<VT>);
         }

@@ -4,6 +4,7 @@ using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -49,10 +50,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 反序列化
         /// </summary>
+#if NetStandard21
+        private BinaryDeserializer? deserializer;
+#else
         private BinaryDeserializer deserializer;
+#endif
         /// <summary>
         /// 持久化回调异常位置集合
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private HashSet<long> persistenceCallbackExceptionPositions;
         /// <summary>
         /// 日志流持久化文件名称
@@ -124,7 +132,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ByteArrayBuffer buffer = ByteArrayPool.GetBuffer(Math.Max(readBufferSize, 4 << 10));
             try
             {
-                int bufferSize = buffer.Buffer.BufferSize;
+                int bufferSize = buffer.Buffer.notNull().BufferSize;
                 using (FileStream readStream = new FileStream(persistenceCallbackExceptionPositionFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None, bufferSize, FileOptions.SequentialScan))
                 {
                     persistenceCallbackExceptionFilePosition = unreadSize = readStream.Length;
@@ -136,7 +144,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             byte* start = dataFixed + buffer.StartIndex;
                             do
                             {
-                                int readSize = readStream.Read(buffer.Buffer.Buffer, buffer.StartIndex + endIndex, bufferSize - endIndex);
+                                int readSize = readStream.Read(buffer.Buffer.notNull().Buffer, buffer.StartIndex + endIndex, bufferSize - endIndex);
                                 endIndex += readSize;
                                 unreadSize -= readSize;
                                 if (fileHeadSize != 0)
@@ -215,7 +223,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         NodeIndex index = *(NodeIndex*)(dataFixed + bufferIndex);
                         int methodIndex = *(int*)(dataFixed + (bufferIndex + sizeof(NodeIndex)));
                         ++loadCount;
-                        CallStateEnum state = service.Load(index, methodIndex, deserializer, new SubArray<byte>(bufferIndex + (sizeof(NodeIndex) + sizeof(int) * 2), parameterSize, data.Array));
+                        CallStateEnum state = service.Load(index, methodIndex, deserializer.notNull(), new SubArray<byte>(bufferIndex + (sizeof(NodeIndex) + sizeof(int) * 2), parameterSize, data.Array));
                         switch (state)
                         {
                             case CallStateEnum.Success:

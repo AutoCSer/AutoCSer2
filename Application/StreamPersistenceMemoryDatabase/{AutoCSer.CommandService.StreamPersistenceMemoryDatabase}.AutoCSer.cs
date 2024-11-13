@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 数组节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode<>))]
         public partial interface IArrayNodeClientNode<T>
         {
             /// <summary>
@@ -118,7 +118,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 位图节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode))]
         public partial interface IBitmapNodeClientNode
         {
             /// <summary>
@@ -178,7 +178,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 字典节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode<,>))]
         public partial interface IDictionaryNodeClientNode<KT,VT>
         {
             /// <summary>
@@ -245,7 +245,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 分布式锁节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode<>))]
         public partial interface IDistributedLockNodeClientNode<T>
         {
             /// <summary>
@@ -274,7 +274,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 256 基分片字典 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode<,>))]
         public partial interface IFragmentDictionaryNodeClientNode<KT,VT>
         {
             /// <summary>
@@ -334,7 +334,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 256 基分片 哈希表 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode<>))]
         public partial interface IFragmentHashSetNodeClientNode<T>
         {
             /// <summary>
@@ -374,7 +374,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 哈希表节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode<>))]
         public partial interface IHashSetNodeClientNode<T>
         {
             /// <summary>
@@ -414,7 +414,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 256 基分片 HashString 字典 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNode<>))]
         public partial interface IHashStringFragmentDictionaryNodeClientNode<T>
         {
             /// <summary>
@@ -474,7 +474,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 64 位自增ID 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode))]
         public partial interface IIdentityGeneratorNodeClientNode
         {
             /// <summary>
@@ -494,7 +494,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 数组节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode<>))]
         public partial interface ILeftArrayNodeClientNode<T>
         {
             /// <summary>
@@ -674,7 +674,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 消息处理节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode<>))]
         public partial interface IMessageNodeClientNode<T>
         {
             /// <summary>
@@ -737,7 +737,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 队列节点接口（先进先出） 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode<>))]
         public partial interface IQueueNodeClientNode<T>
         {
             /// <summary>
@@ -776,7 +776,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 二叉搜索树节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode<,>))]
         public partial interface ISearchTreeDictionaryNodeClientNode<KT,VT>
         {
             /// <summary>
@@ -904,7 +904,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 二叉搜索树集合节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode<>))]
         public partial interface ISearchTreeSetNodeClientNode<T>
         {
             /// <summary>
@@ -974,7 +974,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务基础操作接口方法映射枚举 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode))]
         public partial interface IServiceNodeClientNode
         {
             /// <summary>
@@ -997,7 +997,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 排序字典节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode<,>))]
         public partial interface ISortedDictionaryNodeClientNode<KT,VT>
         {
             /// <summary>
@@ -1052,7 +1052,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 排序列表节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode<,>))]
         public partial interface ISortedListNodeClientNode<KT,VT>
         {
             /// <summary>
@@ -1130,7 +1130,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 排序集合节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode<>))]
         public partial interface ISortedSetNodeClientNode<T>
         {
             /// <summary>
@@ -1176,7 +1176,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 栈节点（后进先出） 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode<>))]
         public partial interface IStackNodeClientNode<T>
         {
             /// <summary>
@@ -1215,7 +1215,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 数组节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNode<>))]
         public partial interface IArrayNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1323,7 +1323,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 位图节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNode))]
         public partial interface IBitmapNodeLocalClientNode
         {
             /// <summary>
@@ -1383,7 +1383,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 字典节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode<,>))]
         public partial interface IDictionaryNodeLocalClientNode<KT,VT>
         {
             /// <summary>
@@ -1450,7 +1450,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 分布式锁节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode<>))]
         public partial interface IDistributedLockNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1479,7 +1479,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 256 基分片字典 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode<,>))]
         public partial interface IFragmentDictionaryNodeLocalClientNode<KT,VT>
         {
             /// <summary>
@@ -1539,7 +1539,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 256 基分片 哈希表 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode<>))]
         public partial interface IFragmentHashSetNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1579,7 +1579,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 哈希表节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode<>))]
         public partial interface IHashSetNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1619,7 +1619,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 256 基分片 HashString 字典 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNode<>))]
         public partial interface IHashStringFragmentDictionaryNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1679,7 +1679,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 64 位自增ID 节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNode))]
         public partial interface IIdentityGeneratorNodeLocalClientNode
         {
             /// <summary>
@@ -1699,7 +1699,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 数组节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode<>))]
         public partial interface ILeftArrayNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1879,7 +1879,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 消息处理节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode<>))]
         public partial interface IMessageNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1942,7 +1942,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 队列节点接口（先进先出） 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode<>))]
         public partial interface IQueueNodeLocalClientNode<T>
         {
             /// <summary>
@@ -1981,7 +1981,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 二叉搜索树节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode<,>))]
         public partial interface ISearchTreeDictionaryNodeLocalClientNode<KT,VT>
         {
             /// <summary>
@@ -2109,7 +2109,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 二叉搜索树集合节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode<>))]
         public partial interface ISearchTreeSetNodeLocalClientNode<T>
         {
             /// <summary>
@@ -2179,7 +2179,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务基础操作接口方法映射枚举 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode))]
         public partial interface IServiceNodeLocalClientNode
         {
             /// <summary>
@@ -2202,7 +2202,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 排序字典节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNode<,>))]
         public partial interface ISortedDictionaryNodeLocalClientNode<KT,VT>
         {
             /// <summary>
@@ -2257,7 +2257,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 排序列表节点 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode<,>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNode<,>))]
         public partial interface ISortedListNodeLocalClientNode<KT,VT>
         {
             /// <summary>
@@ -2335,7 +2335,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 排序集合节点接口 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNode<>))]
         public partial interface ISortedSetNodeLocalClientNode<T>
         {
             /// <summary>
@@ -2381,7 +2381,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 栈节点（后进先出） 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode<>))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode<>))]
         public partial interface IStackNodeLocalClientNode<T>
         {
             /// <summary>

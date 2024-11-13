@@ -94,11 +94,11 @@ namespace AutoCSer.TestCase
 
             if (AutoCSer.BinaryDeserializer.Deserialize<int>(data = AutoCSer.BinarySerializer.Serialize<int>(1)) != 1)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (AutoCSer.BinaryDeserializer.Deserialize<string>(data = AutoCSer.BinarySerializer.Serialize<string>("1")) != "1")
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             return true;
@@ -111,11 +111,11 @@ namespace AutoCSer.TestCase
             }
             if (model.ModelAssociated == null)
             {
-                if (businessModel.ModelAssociated != null) return false;
+                if (businessModel.ModelAssociated != null) return AutoCSer.Breakpoint.ReturnFalse();
             }
             else
             {
-                if (businessModel.ModelAssociated == null) return false;
+                if (businessModel.ModelAssociated == null) return AutoCSer.Breakpoint.ReturnFalse();
                 if (!AutoCSer.FieldEquals.Comparor.Equals(model.ModelAssociated, businessModel.ModelAssociated))
                 {
                     return false;
@@ -123,13 +123,13 @@ namespace AutoCSer.TestCase
             }
             if (model.ModelAssociatedList == null)
             {
-                if (businessModel.ModelAssociatedList != null) return false;
+                if (businessModel.ModelAssociatedList != null) return AutoCSer.Breakpoint.ReturnFalse();
             }
             else
             {
                 if (model.ModelAssociatedList.Count != businessModel.ModelAssociatedList?.Count)
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
                 if (!AutoCSer.FieldEquals.Comparor.Equals(model.ModelAssociatedList, businessModel.ModelAssociatedList.getListArray(p => (Data.ORM.ModelAssociated)p)))
                 {

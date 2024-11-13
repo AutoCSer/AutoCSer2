@@ -208,6 +208,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         StateNotMatch,
         /// <summary>
+        /// 自定义反序列化失败
+        /// </summary>
+        CustomDeserializeError,
+        /// <summary>
+        /// 文件读取数据失败
+        /// </summary>
+        ReadFileSizeError,
+        /// <summary>
         /// 客户端调用失败
         /// </summary>
         CallFail,

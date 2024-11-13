@@ -28,7 +28,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="exception"></param>
+#if NetStandard21
+        public override void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception? exception = null)
+#else
         public override void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception exception = null)
+#endif
         {
             if (IsCancelKeep == 0)
             {

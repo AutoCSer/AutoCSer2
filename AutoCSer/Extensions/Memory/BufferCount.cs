@@ -18,6 +18,10 @@ namespace AutoCSer.Memory
         /// </summary>
         internal int Count;
         /// <summary>
+        /// 默认空数据缓冲区计数
+        /// </summary>
+        private BufferCount() { }
+        /// <summary>
         /// 数据缓冲区计数
         /// </summary>
         /// <param name="pool"></param>
@@ -34,5 +38,10 @@ namespace AutoCSer.Memory
         {
             if (Interlocked.Decrement(ref Count) == 0) Buffer.Free();
         }
+
+        /// <summary>
+        /// 默认空数据缓冲区计数
+        /// </summary>
+        internal static readonly BufferCount Null = new BufferCount();
     }
 }

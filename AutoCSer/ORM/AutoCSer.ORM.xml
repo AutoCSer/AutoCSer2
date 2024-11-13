@@ -7136,6 +7136,16 @@
             查询参数字段序号
             </summary>
         </member>
+        <member name="M:AutoCSer.ORM.QueryParameter.FieldParameter.#ctor(System.Reflection.FieldInfo,AutoCSer.ORM.QueryParameterAttribute,System.Type,AutoCSer.ORM.Metadata.StructGenericType,System.Int32)">
+            <summary>
+            查询参数字段信息
+            </summary>
+            <param name="field"></param>
+            <param name="attribute"></param>
+            <param name="elementType"></param>
+            <param name="genericType"></param>
+            <param name="index"></param>
+        </member>
         <member name="T:AutoCSer.ORM.QueryParameter.FieldParameter`1">
             <summary>
             查询参数
@@ -9587,12 +9597,12 @@
             写入条件数据委托
             </summary>
         </member>
-        <member name="F:AutoCSer.ORM.TableModel`1.Copy">
+        <member name="F:AutoCSer.ORM.TableModel`1.copy">
             <summary>
             复制数据委托
             </summary>
         </member>
-        <member name="F:AutoCSer.ORM.TableModel`1.ToArray">
+        <member name="F:AutoCSer.ORM.TableModel`1.toArray">
             <summary>
             数据列值转数组
             </summary>
@@ -9601,6 +9611,16 @@
             <summary>
             数据库表格模型成员位图
             </summary>
+        </member>
+        <member name="M:AutoCSer.ORM.TableModel`1.#ctor(System.Action{System.Data.Common.DbDataReader,`0,AutoCSer.Metadata.MemberMap{`0}},System.Action{AutoCSer.Memory.CharStream,`0,AutoCSer.ORM.TableWriter},System.Action{AutoCSer.Memory.CharStream,`0,AutoCSer.ORM.TableWriter,AutoCSer.Metadata.MemberMap{`0}},System.Action{AutoCSer.Memory.CharStream,`0,AutoCSer.ORM.TableWriter,AutoCSer.Metadata.MemberMap{`0}},AutoCSer.Metadata.MemberMapData{`0})">
+            <summary>
+            数据表格模型集合委托
+            </summary>
+            <param name="read"></param>
+            <param name="insert"></param>
+            <param name="update"></param>
+            <param name="concatCondition"></param>
+            <param name="memberMap"></param>
         </member>
         <member name="F:AutoCSer.ORM.TableModel`1.modelLock">
             <summary>
@@ -11553,7 +11573,7 @@
             事务提交事件集合
             </summary>
         </member>
-        <member name="M:AutoCSer.ORM.Transaction.#ctor(AutoCSer.ORM.ConnectionPool,System.Data.Common.DbConnection@,System.Data.Common.DbTransaction,System.Boolean)">
+        <member name="M:AutoCSer.ORM.Transaction.#ctor(AutoCSer.ORM.ConnectionPool,System.Data.Common.DbConnection,System.Data.Common.DbTransaction,System.Boolean)">
             <summary>
             数据库事务
             </summary>

@@ -19,8 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandServerSocketSessionObject.cs" />
+    <Compile Include="CommandListenerSession.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ServiceRegisterSocketSession.cs" />
   </ItemGroup>
 
   <ItemGroup>

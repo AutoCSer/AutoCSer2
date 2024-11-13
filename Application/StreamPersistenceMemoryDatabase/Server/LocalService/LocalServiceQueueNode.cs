@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -20,10 +21,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 异步回调
         /// </summary>
+#if NetStandard21
+        private Action? continuation;
+#else
         private Action continuation;
+#endif
         /// <summary>
         /// 返回结果
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         protected T result;
         /// <summary>
         /// 完成状态

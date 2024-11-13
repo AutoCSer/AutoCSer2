@@ -1,4 +1,7 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
+using AutoCSer.Net;
+using AutoCSer.Reflection;
 using System;
 using System.IO;
 using System.Reflection;
@@ -47,7 +50,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 修复节点方法信息
         /// </summary>
-        internal RepairNodeMethod() { }
+        internal RepairNodeMethod()
+        {
+#if NetStandard21
+            TypeDirectoryName = MethodDirectoryName = string.Empty;
+#endif
+        }
         /// <summary>
         /// 错误信息
         /// </summary>
@@ -55,6 +63,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal RepairNodeMethod(CallStateEnum callState)
         {
             CallState = callState;
+#if NetStandard21
+            TypeDirectoryName = MethodDirectoryName = string.Empty;
+#endif
         }
         /// <summary>
         /// 修复节点方法信息
@@ -118,22 +129,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 byte* end = deserializer.DeserializeBufferStart();
                 if (end != null)
                 {
-                    if (deserializer.DeserializeBuffer(ref RemoteType.AssemblyName) && deserializer.DeserializeBuffer(ref RemoteType.Name) &&
-                        deserializer.DeserializeBuffer(ref TypeDirectoryName) && deserializer.DeserializeBuffer(ref MethodDirectoryName)
-                        && deserializer.DeserializeBuffer(ref MethodName.DeclaringTypeFullName) && deserializer.DeserializeBuffer(ref MethodName.Name)
-                        && deserializer.DeserializeBuffer(ref RawAssembly, true) && deserializer.Read(out RepairNodeMethodFile.LastWriteTime)
-                        && deserializer.Read(out RepairNodeMethodDirectory.NodeTypeHashCode) && deserializer.Read(out RepairNodeMethodDirectory.Position)
-                        && deserializer.Read(out RepairNodeMethodDirectory.RepairTime) && deserializer.Read(out RepairNodeMethodDirectory.MethodIndex)
-                        && deserializer.DeserializeBufferEnd(end))
+                    var assemblyName = default(string);
+                    var typeName = default(string);
+                    var typeDirectoryName = default(string);
+                    var methodDirectoryName = default(string);
+                    var methodTypeName = default(string);
+                    var methodName = default(string);
+                    if (deserializer.DeserializeBuffer(ref assemblyName) && deserializer.DeserializeBuffer(ref typeName) &&
+                        deserializer.DeserializeBuffer(ref typeDirectoryName) && deserializer.DeserializeBuffer(ref methodDirectoryName)
+                        && deserializer.DeserializeBuffer(ref methodTypeName) && deserializer.DeserializeBuffer(ref methodName))
                     {
-                        CommandServerSocketSessionObjectService service = CommandServerSocketSessionObjectService.GetSessionObject(deserializer);
-                        if (service != null)
+                        if (assemblyName != null && typeName != null && typeDirectoryName != null && methodDirectoryName != null && methodTypeName != null && methodName != null
+                            && deserializer.DeserializeBuffer(ref RawAssembly, true) && deserializer.Read(out RepairNodeMethodFile.LastWriteTime)
+                            && deserializer.Read(out RepairNodeMethodDirectory.NodeTypeHashCode) && deserializer.Read(out RepairNodeMethodDirectory.Position)
+                            && deserializer.Read(out RepairNodeMethodDirectory.RepairTime) && deserializer.Read(out RepairNodeMethodDirectory.MethodIndex)
+                            && deserializer.DeserializeBufferEnd(end))
                         {
+                            RemoteType.Set(assemblyName, typeName);
+                            TypeDirectoryName = typeDirectoryName;
+                            MethodDirectoryName = methodDirectoryName;
+                            MethodName.Set(methodTypeName, methodName);
+
+                            CommandServerController<IStreamPersistenceMemoryDatabaseService> controller = (CommandServerController<IStreamPersistenceMemoryDatabaseService>)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController;
+                            StreamPersistenceMemoryDatabaseServiceBase service = (StreamPersistenceMemoryDatabaseService)controller.Controller;
                             MethodName.NodeTypeFullName = RemoteType.Name;
                             service.AppendRepairNodeMethod(this).Wait();
+                            return;
                         }
-                        else CallState = CallStateEnum.NotFoundSessionObject;
                     }
+                    CallState = CallStateEnum.CustomDeserializeError;
+                    deserializer.SetCustomError(CallState.ToString());
                 }
             }
         }

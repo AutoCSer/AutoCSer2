@@ -140,17 +140,17 @@ namespace AutoCSer.TestCase
         {
             if (commandKeepCallback == null)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await callbackWaitLock.WaitAsync();
             if (!KeepCallbackCommands.TryGetValue((KeepCallbackCommand)commandKeepCallback.Command, out KeepCallbackCommandResult result))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             KeepCallbackCommands.Remove((KeepCallbackCommand)commandKeepCallback.Command);
             if (!result.ReturnValue.IsSuccess)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             return true;
         }
@@ -172,7 +172,7 @@ namespace AutoCSer.TestCase
             {
                 if(!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -182,7 +182,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -190,7 +190,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -198,7 +198,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -208,7 +208,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -218,7 +218,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -226,7 +226,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -234,7 +234,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -244,7 +244,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -254,7 +254,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -262,7 +262,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -270,7 +270,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -280,7 +280,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -290,7 +290,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -298,7 +298,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -306,7 +306,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -316,7 +316,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -326,7 +326,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -334,7 +334,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -342,7 +342,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -352,7 +352,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -362,7 +362,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -370,7 +370,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -378,7 +378,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -388,7 +388,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -398,7 +398,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -406,7 +406,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -414,7 +414,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -424,7 +424,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -434,7 +434,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -442,7 +442,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 
@@ -450,7 +450,7 @@ namespace AutoCSer.TestCase
             {
                 if (!await WaitKeepCallback(commandKeepCallback))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
 

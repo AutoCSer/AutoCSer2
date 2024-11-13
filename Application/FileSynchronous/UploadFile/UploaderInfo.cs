@@ -19,11 +19,19 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <summary>
         /// 上传根路径
         /// </summary>
+#if NetStandard21
+        internal string? Path;
+#else
         internal string Path;
+#endif
         /// <summary>
         /// 上传备份根路径
         /// </summary>
+#if NetStandard21
+        internal string? BackupPath;
+#else
         internal string BackupPath;
+#endif
         /// <summary>
         /// 错误信息
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.ORM.Metadata
@@ -30,7 +31,11 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static BaseGenericType? lastGenericType;
+#else
         protected static BaseGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -39,7 +44,7 @@ namespace AutoCSer.ORM.Metadata
         /// <returns></returns>
         public static BaseGenericType Get(Type type, Type baseType)
         {
-            BaseGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
 
             try
@@ -57,7 +62,7 @@ namespace AutoCSer.ORM.Metadata
             {
                 if (!cache.TryGetValue(type, out value))
                 {
-                    value = (BaseGenericType)createMethod.MakeGenericMethod(type, baseType).Invoke(null, null);
+                    value = (BaseGenericType)createMethod.MakeGenericMethod(type, baseType).Invoke(null, null).notNull();
                     cache.Add(type, value);
                 }
             }

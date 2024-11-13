@@ -16,7 +16,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 代理控制器方法参数约束
         /// </summary>
+#if NetStandard21
+        private readonly ParameterConstraintAttribute? attribute;
+#else
         private readonly ParameterConstraintAttribute attribute;
+#endif
         /// <summary>
         /// 代理控制器方法参数约束类型
         /// </summary>
@@ -34,7 +38,7 @@ namespace AutoCSer.NetCoreWeb
         internal HttpMethodParameter(ParameterInfo parameter, bool isDefaultParameterConstraint, bool isTemplateParameter)
         {
             Parameter = parameter;
-            attribute = (ParameterConstraintAttribute)parameter.GetCustomAttribute(typeof(ParameterConstraintAttribute), false);
+            attribute = parameter.GetCustomAttribute<ParameterConstraintAttribute>(false);
             IsTemplateParameter = isTemplateParameter;
             if (attribute != null)
             {

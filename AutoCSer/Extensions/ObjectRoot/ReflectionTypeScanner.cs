@@ -58,7 +58,7 @@ namespace AutoCSer.ObjectRoot
             if (type.IsPrimitive || type.IsEnum || type.IsPointer) return ReflectionObjectType.NullType;
             if (type.IsInterface) return ReflectionObjectType.InterfaceType;
             if (!type.IsClass && !type.IsValueType) return ReflectionObjectType.NullType;
-            ReflectionType objectType;
+            var objectType = default(ReflectionType);
             if (!ObjectTypeCache.TryGetValue(type, out objectType))
             {
                 if (type.IsArray)

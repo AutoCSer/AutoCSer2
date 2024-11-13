@@ -58,7 +58,7 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// JSON 反序列化方法信息
         /// </summary>
-        private static readonly MethodInfo jsonApiRequestJsonDeserializeParameterMethod = typeof(JsonApiRequest).GetMethod(nameof(JsonApiRequest.JsonDeserializeParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        private static readonly MethodInfo jsonApiRequestJsonDeserializeParameterMethod = typeof(JsonApiRequest).GetMethod(nameof(JsonApiRequest.JsonDeserializeParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
         /// JSON API 检查传参类型集合
         /// </summary>
@@ -108,10 +108,10 @@ namespace AutoCSer.NetCoreWeb
         {
             get
             {
-                string directoryName = GetType().Namespace;
+                string directoryName = GetType().Namespace.notNull();
                 int startIndex = directoryName.LastIndexOf('.') + 1;
                 if (startIndex > 0) directoryName = directoryName.Substring(startIndex);
-                DirectoryInfo directory = AutoCSer.Common.ApplicationDirectory;
+                var directory = AutoCSer.Common.ApplicationDirectory;
                 do
                 {
                     if (directory.Name == directoryName) return directory.FullName;
@@ -216,9 +216,9 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         public virtual string ViewOverId { get { return AutoCSer.Common.NamePrefix + "ViewOver"; } }
         /// <summary>
-        /// 收集客户端错误信息的请求地址，默认为 null 表示不采集客户端错误，在代码生成中替换标记字符串 __ERRORPATH__
+        /// 收集客户端错误信息的请求地址，默认为空字符串表示不采集客户端错误，在代码生成中替换标记字符串 __ERRORPATH__
         /// </summary>
-        public virtual string ErrorRequestPath { get { return null; } }
+        public virtual string ErrorRequestPath { get { return string.Empty; } }
         /// <summary>
         /// 本地 HTML 文件链接是否添加版本号，默认为 false
         /// </summary>
@@ -266,7 +266,7 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 无参构造（避免 WEB 项目错误提示）
         /// </summary>
-        protected ViewMiddleware() : this(null) { }
+        protected ViewMiddleware() : this(NullViewMiddleware.NullRequestDelegate) { }
         /// <summary>
         /// 数据视图中间件
         /// </summary>
@@ -282,7 +282,7 @@ namespace AutoCSer.NetCoreWeb
             MinResponseLogSize = Math.Max(minResponseLogSize, 1);
             MinCompressSize = Math.Max(minCompressSize, 1);
             StaticFileCacheControl = "public, max-age=" + staticFileCacheControl.toString();
-            viewNamespace = GetType().Namespace;
+            viewNamespace = GetType().Namespace.notNull();
             helpLock = new object();
             LoadLock = new SemaphoreSlim(1, 1);
             routeNode = new JsonApiRouteNode(null, 1);
@@ -302,7 +302,7 @@ namespace AutoCSer.NetCoreWeb
             HashString pathKey = path;
             if (requests.TryAdd(pathKey, new KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>(view, ViewRequestTypeEnum.ViewData)))
             {
-                if (view.Attribute.IsHelp) viewHelpTypes.Add(view.Type.fullName(), new ViewHelpView(view));
+                if (view.Attribute.IsHelp) viewHelpTypes.Add(view.Type.fullName().notNull(), new ViewHelpView(view));
                 return;
             }
             KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum> request = requests[pathKey];
@@ -332,14 +332,14 @@ namespace AutoCSer.NetCoreWeb
                     {
                         if (!type.IsAbstract && !type.IsGenericType && typeof(JsonApiController).IsAssignableFrom(type))
                         {
-                            ConstructorInfo constructor = type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, EmptyArray<Type>.Array, null);
+                            var constructor = type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, EmptyArray<Type>.Array, null);
                             if (constructor != null)
                             {
-                                JsonApiControllerAttribute controllerAttribute = (JsonApiControllerAttribute)type.GetCustomAttribute(typeof(JsonApiControllerAttribute), true) ?? JsonApiControllerAttribute.Default;
+                                JsonApiControllerAttribute controllerAttribute = type.GetCustomAttribute<JsonApiControllerAttribute>(true) ?? JsonApiControllerAttribute.Default;
                                 LeftArray<JsonApiMethod> methods = new LeftArray<JsonApiMethod>(0);
                                 foreach (MethodInfo method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public))
                                 {
-                                    JsonApiAttribute attribute = (JsonApiAttribute)method.GetCustomAttribute(typeof(JsonApiAttribute), false);
+                                    var attribute = method.GetCustomAttribute<JsonApiAttribute>(false);
                                     if (!controllerAttribute.IsMethodAttribute || attribute != null)
                                     {
                                         Type returnType = method.ReturnType;
@@ -349,13 +349,13 @@ namespace AutoCSer.NetCoreWeb
                                             ParameterInfo[] parameters = method.GetParameters();
                                             if (jsonType == typeof(ResponseResult))
                                             {
-                                                ParameterInfo parameter = checkRef(parameters);
+                                                var parameter = checkRef(parameters);
                                                 if (parameter == null) methods.Add(new JsonApiMethod(method, attribute, parameters, JsonApiMethodTypeEnum.ResponseState));
                                                 else await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Name} 参数 {parameter.Name} 不允许使用 ref / out");
                                             }
                                             else if (jsonType.IsGenericType && jsonType.GetGenericTypeDefinition() == typeof(ResponseResult<>))
                                             {
-                                                ParameterInfo parameter = checkRef(parameters);
+                                                var parameter = checkRef(parameters);
                                                 if (parameter == null) methods.Add(new JsonApiMethod(method, attribute, parameters, jsonType.GetGenericArguments()[0]));
                                                 else await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Name} 参数 {parameter.Name} 不允许使用 ref / out");
                                             }
@@ -364,21 +364,21 @@ namespace AutoCSer.NetCoreWeb
                                         else if (attribute != null) await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Name} 返回值类型必须为 {typeof(Task<>).fullName()}");
                                     }
                                 }
-                                Func<JsonApiController> createController = null;
-                                string controllerRoutePath = null;
-                                JsonApiRouteNode controllerRouteNode = null;
+                                var createController = default(Func<JsonApiController>);
+                                var controllerRoutePath = default(string);
+                                var controllerRouteNode = default(JsonApiRouteNode);
                                 foreach (JsonApiMethod method in methods)
                                 {
-                                    JsonApiRouteNode routeNode = null;
+                                    var routeNode = default(JsonApiRouteNode);
                                     LeftArray<ParameterInfo> templateParameters = new LeftArray<ParameterInfo>(0);
-                                    string template = method.Attribute.Template;
+                                    var template = method.Attribute.Template;
                                     routePaths.Length = 1;
                                     if (template == null)
                                     {
-                                        string route = controllerAttribute.Route;
+                                        var route = controllerAttribute.Route;
                                         if (route == null)
                                         {
-                                            if (controllerRoutePath == null) controllerRoutePath = type.Namespace.Substring(viewNamespace.Length).Replace('.', '/') + "/";
+                                            if (controllerRoutePath == null) controllerRoutePath = type.Namespace.notNull().Substring(viewNamespace.Length).Replace('.', '/') + "/";
                                             method.RoutePath = controllerRoutePath + getControllerTypeRoute(type) + "/" + method.Method.Name;
                                         }
                                         else if (route.Length != 0) method.RoutePath = "/" + route + "/" + getControllerTypeRoute(type) + "/" + method.Method.Name;
@@ -406,7 +406,7 @@ namespace AutoCSer.NetCoreWeb
                                                             {
                                                                 if (object.ReferenceEquals(templateParameter, parameter))
                                                                 {
-                                                                    await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Method.Name} 路由模板 {template} 参数名称 {(string)parameterName} 重复");
+                                                                    await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Method.Name} 路由模板 {template} 参数名称 {parameterName.ToString()} 重复");
                                                                     isParameter = 2;
                                                                 }
                                                             }
@@ -419,7 +419,7 @@ namespace AutoCSer.NetCoreWeb
                                                     {
                                                         startIndex = 0;
                                                         method.IsApi = false;
-                                                        if (isParameter == 1) await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Method.Name} 没有找到路由模板 {template} 参数名称 {(string)parameterName}");
+                                                        if (isParameter == 1) await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Method.Name} 没有找到路由模板 {template} 参数名称 {parameterName.ToString()}");
                                                     }
                                                 }
                                                 while (startIndex > 0);
@@ -458,7 +458,7 @@ namespace AutoCSer.NetCoreWeb
                                             }
                                             else if (template[0] != '/')
                                             {
-                                                if (controllerRoutePath == null) controllerRoutePath = type.Namespace.Substring(viewNamespace.Length).Replace('.', '/') + "/";
+                                                if (controllerRoutePath == null) controllerRoutePath = type.Namespace.notNull().Substring(viewNamespace.Length).Replace('.', '/') + "/";
                                                 method.RoutePath = controllerRoutePath + template;
                                             }
                                             else method.RoutePath = template;
@@ -483,10 +483,14 @@ namespace AutoCSer.NetCoreWeb
                                                 method.IsApi = false;
                                             }
                                         }
-                                        else if (routeNode.Request != null)
+                                        else
                                         {
-                                            await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Method.Name} 路由冲突 {routeNode.Request.ControllerType.fullName()}.{routeNode.Request.MethodName}");
-                                            method.IsApi = false;
+                                            var request = routeNode.notNull().Request;
+                                            if (request != null)
+                                            {
+                                                await AutoCSer.LogHelper.Error($"JSON API {type.fullName()}.{method.Method.Name} 路由冲突 {request.ControllerType.fullName()}.{request.MethodName}");
+                                                method.IsApi = false;
+                                            }
                                         }
                                         if (method.IsApi)
                                         {
@@ -516,7 +520,7 @@ namespace AutoCSer.NetCoreWeb
                                                 if (httpMethodParameter.ConstraintType != ParameterConstraintTypeEnum.None) flags |= JsonApiFlags.IsCheckParameter;
                                             }
                                             method.HttpMethodParameters = httpMethodParameters.ToArray();
-                                            Type parentType = method.ParentType;
+                                            var parentType = method.ParentType.notNull();
                                             TypeBuilder typeBuilder = AutoCSer.Reflection.Emit.Module.Builder.DefineType(AutoCSer.Common.NamePrefix + ".NetCoreWeb.JsonApi" + (++jsonApiMethodIndex).toString() + "." + type.Name + "." + method.Method.Name, TypeAttributes.Class | TypeAttributes.Sealed, parentType);
                                             #region 构造函数
                                             ConstructorBuilder constructorBuilder = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, jsonApiConstructorTypes);
@@ -530,12 +534,12 @@ namespace AutoCSer.NetCoreWeb
                                             constructorGenerator.ldarg(5);
                                             if (method.Parameters.Length != 0 && IsAccessTokenParameter(method.Parameters[0])) flags |= JsonApiFlags.IsAccessTokenParameter;
                                             constructorGenerator.int32((byte)flags);
-                                            constructorGenerator.Emit(OpCodes.Call, parentType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, jsonApiRequestConstructorTypes, null));
+                                            constructorGenerator.Emit(OpCodes.Call, parentType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, jsonApiRequestConstructorTypes, null).notNull());
                                             constructorGenerator.Emit(OpCodes.Ret);
                                             #endregion
                                             #endregion
-                                            AutoCSer.Net.CommandServer.ServerMethodParameter parameterType = null;
-                                            FieldBuilder parameterField = null;
+                                            var parameterType = default(AutoCSer.Net.CommandServer.ServerMethodParameter);
+                                            var parameterField = default(FieldBuilder);
                                             if (method.Parameters.Length != 0)
                                             {
                                                 parameterType = AutoCSer.Net.CommandServer.ServerMethodParameter.GetOrCreate(method.Parameters.Length, method.Parameters, typeof(void));
@@ -549,8 +553,8 @@ namespace AutoCSer.NetCoreWeb
                                             foreach (ParameterInfo parameter in method.Parameters)
                                             {
                                                 generator.Emit(OpCodes.Ldarg_0);
-                                                generator.Emit(OpCodes.Ldflda, parameterField);
-                                                generator.Emit(OpCodes.Ldfld, parameterType.GetField(parameter.Name));
+                                                generator.Emit(OpCodes.Ldflda, parameterField.notNull());
+                                                generator.Emit(OpCodes.Ldfld, parameterType.notNull().GetField(parameter.Name.notNull()).notNull());
                                             }
                                             generator.call(method.Method);
                                             generator.Emit(OpCodes.Ret);
@@ -564,8 +568,8 @@ namespace AutoCSer.NetCoreWeb
                                                 #region return JsonApiRequest.JsonDeserializeParameter(ref postBuffer, ref parameter);
                                                 generator.Emit(OpCodes.Ldarg_1);
                                                 generator.Emit(OpCodes.Ldarg_0);
-                                                generator.Emit(OpCodes.Ldflda, parameterField);
-                                                generator.call(jsonApiRequestJsonDeserializeParameterMethod.MakeGenericMethod(parameterType.Type));
+                                                generator.Emit(OpCodes.Ldflda, parameterField.notNull());
+                                                generator.call(jsonApiRequestJsonDeserializeParameterMethod.MakeGenericMethod(parameterType.notNull().Type));
                                                 #endregion
                                                 generator.Emit(OpCodes.Ret);
                                                 #endregion
@@ -585,9 +589,9 @@ namespace AutoCSer.NetCoreWeb
                                                         if (isParameter) generator.Emit(OpCodes.Brfalse, end);
                                                         else isParameter = true;
                                                         generator.ldarg(0);
-                                                        generator.Emit(OpCodes.Ldflda, parameterField);
-                                                        generator.Emit(OpCodes.Ldfld, parameterType.GetField(parameter.Parameter.Name));
-                                                        generator.ldstr(parameter.Parameter.Name);
+                                                        generator.Emit(OpCodes.Ldflda, parameterField.notNull());
+                                                        generator.Emit(OpCodes.Ldfld, parameterType.notNull().GetField(parameter.Parameter.Name.notNull()).notNull());
+                                                        generator.ldstr(parameter.Parameter.Name.notNull());
                                                         string summary = AutoCSer.Reflection.XmlDocument.Get(method.Method, parameter.Parameter);
                                                         if (string.IsNullOrEmpty(summary)) AutoCSer.Reflection.XmlDocument.Get(parameter.Parameter.ParameterType);
                                                         generator.ldstr(summary);
@@ -617,8 +621,8 @@ namespace AutoCSer.NetCoreWeb
                                                 generator.ldarg(0);
                                                 generator.call(getRequestViewMiddleware.Method);
                                                 generator.ldarg(0);
-                                                generator.Emit(OpCodes.Ldflda, parameterField);
-                                                generator.Emit(OpCodes.Ldfld, parameterType.GetField(method.Parameters[0].Name));
+                                                generator.Emit(OpCodes.Ldflda, parameterField.notNull());
+                                                generator.Emit(OpCodes.Ldfld, parameterType.notNull().GetField(method.Parameters[0].Name.notNull()).notNull());
                                                 generator.call(GenericType.Get(method.Parameters[0].ParameterType).CheckAccessTokenParameterDelegate.Method);
                                                 generator.Emit(OpCodes.Ret);
                                                 #endregion
@@ -639,11 +643,11 @@ namespace AutoCSer.NetCoreWeb
                                                         if (isParameter) generator.Emit(OpCodes.Brfalse, end);
                                                         else isParameter = true;
                                                         generator.Emit(OpCodes.Ldarg_1);
-                                                        generator.ldstr(parameter.Parameter.Name);
+                                                        generator.ldstr(parameter.Parameter.Name.notNull());
                                                         generator.Emit(OpCodes.Ldarg_0);
-                                                        generator.Emit(OpCodes.Ldflda, parameterField);
-                                                        generator.Emit(OpCodes.Ldflda, parameterType.GetField(parameter.Parameter.Name));
-                                                        if (routeParameterMethods.TryGetValue(parameter.Parameter.ParameterType, out MethodInfo routeParameterMethod)) generator.call(routeParameterMethod);
+                                                        generator.Emit(OpCodes.Ldflda, parameterField.notNull());
+                                                        generator.Emit(OpCodes.Ldflda, parameterType.notNull().GetField(parameter.Parameter.Name.notNull()).notNull());
+                                                        if (routeParameterMethods.TryGetValue(parameter.Parameter.ParameterType, out var routeParameterMethod)) generator.call(routeParameterMethod);
                                                         else generator.call(ViewMiddleware.routeParameterMethod.MakeGenericMethod(parameter.Parameter.ParameterType));
                                                         #endregion
                                                     }
@@ -661,17 +665,17 @@ namespace AutoCSer.NetCoreWeb
                                                 generator.Emit(OpCodes.Ret);
                                                 createController = (Func<JsonApiController>)dynamicMethod.CreateDelegate(typeof(Func<JsonApiController>));
                                             }
-                                            JsonApiRequest jsonApiRequest = (JsonApiRequest)typeBuilder.CreateType().GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, jsonApiConstructorTypes, null)
-                                                .Invoke(new object[] { this, createController, method.Method, controllerAttribute, method.Attribute });
+                                            JsonApiRequest jsonApiRequest = (JsonApiRequest)typeBuilder.CreateType().notNull().GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, jsonApiConstructorTypes, null)
+                                                .notNull().Invoke(new object[] { this, createController, method.Method, controllerAttribute, method.Attribute });
                                             bool isHelp = controllerAttribute.IsHelp && method.Attribute.IsHelp;
                                             if (method.RoutePath != null) requests.Add(method.RoutePath, new KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>(jsonApiRequest, ViewRequestTypeEnum.JsonApi));
                                             else
                                             {
-                                                routeNode.Request = jsonApiRequest;
+                                                routeNode.notNull().Request = jsonApiRequest;
                                                 if (isHelp)
                                                 {
                                                     foreach (ParameterInfo parameter in templateParameters) routePaths.Add("{" + parameter.Name + "}");
-                                                    method.RoutePath = string.Join('/', routePaths.getArray(p => (string)p));
+                                                    method.RoutePath = string.Join('/', routePaths.getArray(p => p.ToString()));
                                                 }
                                             }
                                             if (!isHelp) method.IsApi = false;
@@ -688,7 +692,7 @@ namespace AutoCSer.NetCoreWeb
                                         if (method.IsApi) methods.Add(method);
                                         if (--methodCount == 0) break;
                                     }
-                                    if (methods.Length != 0) controllerHelpViews.Add(type.fullName(), new JsonApiControllerHelpView(this, type, ref methods));
+                                    if (methods.Length != 0) controllerHelpViews.Add(type.fullName().notNull(), new JsonApiControllerHelpView(this, type, ref methods));
                                 }
                             }
                             else await AutoCSer.LogHelper.Error($"JSON API 代理控制器类型 {type.fullName()} 没有找到无参构造函数");
@@ -724,7 +728,11 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static ParameterInfo? checkRef(ParameterInfo[] parameters)
+#else
         private static ParameterInfo checkRef(ParameterInfo[] parameters)
+#endif
         {
             foreach (ParameterInfo parameter in parameters)
             {
@@ -753,11 +761,11 @@ namespace AutoCSer.NetCoreWeb
         private JsonApiRouteNode getRouteNode(Type controllerType, JsonApiControllerAttribute controllerAttribute, ref LeftArray<SubString> controllerRoutePaths)
         {
             JsonApiRouteNode routeNode = this.routeNode;
-            string route = controllerAttribute.Route;
+            var route = controllerAttribute.Route;
             controllerRoutePaths.Length = 0;
             if (route == null)
             {
-                int startIndex = (route = controllerType.Namespace).IndexOf('.', viewNamespace.Length) + 1;
+                int startIndex = (route = controllerType.Namespace.notNull()).IndexOf('.', viewNamespace.Length) + 1;
                 if (startIndex > 0)
                 {
                     do
@@ -818,7 +826,8 @@ namespace AutoCSer.NetCoreWeb
                 await request.Key.Request(httpContext, request.Value);
                 return;
             }
-            JsonApiRouteNode routeNode = this.routeNode, requestNode = routeNode.Request == null ? null : routeNode;
+            var routeNode = this.routeNode;
+            var requestNode = routeNode.Request == null ? null : routeNode;
             if (routeNode.Nodes != null && path.Length > 1)
             {
                 int startIndex = 1;
@@ -849,54 +858,57 @@ namespace AutoCSer.NetCoreWeb
         /// <returns>POST 数据类型</returns>
         public virtual PostTypeEnum GetPostType(HttpContext httpContext, out Encoding contentTypeEncoding)
         {
-            string contentType = httpContext.Request.ContentType;
-            int contentTypeIndex = contentType.IndexOf(';');
-            if (contentTypeIndex <= 0) contentTypeIndex = contentType.Length;
-            switch (contentTypeIndex - 8)
+            var contentType = httpContext.Request.ContentType;
+            if (contentType != null)
             {
-                case 9 - 8:
-                    if (new SubString(0, contentTypeIndex, contentType).LowerEquals("text/json"))
-                    {
-                        contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
-                        return PostTypeEnum.Json;
-                    }
-                    break;
-                case 16 - 8:
-                    if (new SubString(0, contentTypeIndex, contentType).LowerEquals("application/json"))
-                    {
-                        contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
-                        return PostTypeEnum.Json;
-                    }
-                    break;
-                case 33 - 8:
-                    if (new SubString(0, contentTypeIndex, contentType).LowerEquals("application/x-www-form-urlencoded"))
-                    {
-                        contentTypeEncoding = Encoding.UTF8;
-                        return PostTypeEnum.Form;
-                    }
-                    break;
-                case 8 - 8:
-                    if (new SubString(0, contentTypeIndex, contentType).LowerEquals("text/xml"))
-                    {
-                        contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
-                        return PostTypeEnum.Xml;
-                    }
-                    break;
-                case 15 - 8:
-                    if (new SubString(0, contentTypeIndex, contentType).LowerEquals("application/xml"))
-                    {
-                        contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
-                        return PostTypeEnum.Xml;
-                    }
-                    break;
-                case 19 - 8:
-                    if (new SubString(0, contentTypeIndex, contentType).LowerEquals("multipart/form-data"))
-                    {
-                        contentTypeEncoding = Encoding.UTF8;
-                        //boundary = getBoundary(contentType, contentTypeIndex + 1);
-                        return PostTypeEnum.FormData;
-                    }
-                    break;
+                int contentTypeIndex = contentType.IndexOf(';');
+                if (contentTypeIndex <= 0) contentTypeIndex = contentType.Length;
+                switch (contentTypeIndex - 8)
+                {
+                    case 9 - 8:
+                        if (new SubString(0, contentTypeIndex, contentType).LowerEquals("text/json"))
+                        {
+                            contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
+                            return PostTypeEnum.Json;
+                        }
+                        break;
+                    case 16 - 8:
+                        if (new SubString(0, contentTypeIndex, contentType).LowerEquals("application/json"))
+                        {
+                            contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
+                            return PostTypeEnum.Json;
+                        }
+                        break;
+                    case 33 - 8:
+                        if (new SubString(0, contentTypeIndex, contentType).LowerEquals("application/x-www-form-urlencoded"))
+                        {
+                            contentTypeEncoding = Encoding.UTF8;
+                            return PostTypeEnum.Form;
+                        }
+                        break;
+                    case 8 - 8:
+                        if (new SubString(0, contentTypeIndex, contentType).LowerEquals("text/xml"))
+                        {
+                            contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
+                            return PostTypeEnum.Xml;
+                        }
+                        break;
+                    case 15 - 8:
+                        if (new SubString(0, contentTypeIndex, contentType).LowerEquals("application/xml"))
+                        {
+                            contentTypeEncoding = getEncoding(contentType, contentTypeIndex + 1);
+                            return PostTypeEnum.Xml;
+                        }
+                        break;
+                    case 19 - 8:
+                        if (new SubString(0, contentTypeIndex, contentType).LowerEquals("multipart/form-data"))
+                        {
+                            contentTypeEncoding = Encoding.UTF8;
+                            //boundary = getBoundary(contentType, contentTypeIndex + 1);
+                            return PostTypeEnum.FormData;
+                        }
+                        break;
+                }
             }
             contentTypeEncoding = Encoding.UTF8;
             return PostTypeEnum.Unknown;
@@ -932,10 +944,10 @@ namespace AutoCSer.NetCoreWeb
                             startIndex = buffer.StartIndex;
                             httpResponse.Headers["Content-Encoding"] = "gzip";
                             httpResponse.ContentLength = length = (int)bufferStream.Position;
-#if DotNet45 || NetStandard2
-                            using (Stream stream = httpResponse.Body) await httpResponse.Body.WriteAsync(data, startIndex, length);
-#else
+#if NetStandard21
                             await using (Stream stream = httpResponse.Body) await httpResponse.Body.WriteAsync(data, startIndex, length);
+#else
+                            using (Stream stream = httpResponse.Body) await httpResponse.Body.WriteAsync(data, startIndex, length);
 #endif
                             if (length >= MinResponseLogSize) await responseSizeLog(httpContext, length);
                             return;
@@ -947,10 +959,10 @@ namespace AutoCSer.NetCoreWeb
             httpResponse.ContentLength = length;
             if (length != 0)
             {
-#if DotNet45 || NetStandard2
-                using (Stream stream = httpResponse.Body) await httpResponse.Body.WriteAsync(data, startIndex, length);
-#else
+#if NetStandard21
                 await using (Stream stream = httpResponse.Body) await httpResponse.Body.WriteAsync(data, startIndex, length);
+#else
+                using (Stream stream = httpResponse.Body) await httpResponse.Body.WriteAsync(data, startIndex, length);
 #endif
                 if (length >= MinResponseLogSize) await responseSizeLog(httpContext, length);
             }
@@ -965,15 +977,15 @@ namespace AutoCSer.NetCoreWeb
         /// <returns></returns>
         internal async Task ResponseError(HttpContext httpContext, ResponseResult result, bool isResponseJavaScript, bool checkVersion)
         {
-            string callback = httpContext.Request.Query[CallbackQueryName];
-            ViewResponse response = new ViewResponse(null);
+            var callback = httpContext.Request.Query[CallbackQueryName];
+            ViewResponse response = new ViewResponse(View.Null);
             try
             {
                 ByteArrayBuffer buffer = response.Error(ref result, callback, ResponseEncoding, isResponseJavaScript);
                 try
                 {
                     httpContext.Response.ContentType = ResponseContentType.GetJavaScript(ResponseEncoding);
-                    await Response(httpContext, buffer.Buffer.Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
+                    await Response(httpContext, buffer.Buffer.notNull().Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
                 }
                 finally { buffer.Free(); }
             }
@@ -988,15 +1000,15 @@ namespace AutoCSer.NetCoreWeb
         /// <returns></returns>
         internal async Task ResponseSuccess(HttpContext httpContext, bool isResponseJavaScript, bool checkVersion)
         {
-            string callback = httpContext.Request.Query[CallbackQueryName];
-            ViewResponse response = new ViewResponse(null);
+            var callback = httpContext.Request.Query[CallbackQueryName];
+            ViewResponse response = new ViewResponse(View.Null);
             try
             {
                 ByteArrayBuffer buffer = response.Success(callback, ResponseEncoding, isResponseJavaScript);
                 try
                 {
                     httpContext.Response.ContentType = ResponseContentType.GetJavaScript(ResponseEncoding);
-                    await Response(httpContext, buffer.Buffer.Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
+                    await Response(httpContext, buffer.Buffer.notNull().Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
                 }
                 finally { buffer.Free(); }
             }
@@ -1015,8 +1027,8 @@ namespace AutoCSer.NetCoreWeb
         {
             if (result != null)
             {
-                string callback = httpContext.Request.Query[CallbackQueryName];
-                ViewResponse response = new ViewResponse(null);
+                var callback = httpContext.Request.Query[CallbackQueryName];
+                ViewResponse response = new ViewResponse(View.Null);
                 try
                 {
                     response.Start(callback, isResponseJavaScript);
@@ -1025,7 +1037,7 @@ namespace AutoCSer.NetCoreWeb
                     try
                     {
                         httpContext.Response.ContentType = ResponseContentType.GetJavaScript(ResponseEncoding);
-                        await Response(httpContext, buffer.Buffer.Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
+                        await Response(httpContext, buffer.Buffer.notNull().Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
                     }
                     finally { buffer.Free(); }
                 }
@@ -1048,7 +1060,11 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="referer">来源页面</param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual ResponseResult CheckReferer(string? referer)
+#else
         public virtual ResponseResult CheckReferer(string referer)
+#endif
         {
             return ResponseStateEnum.RefererNotMatch;
         }
@@ -1124,7 +1140,7 @@ namespace AutoCSer.NetCoreWeb
         /// <returns>请求路径</returns>
         public virtual string GetRequestPath(Type viewType)
         {
-            string typeNamespace = viewType.Namespace;
+            string typeNamespace = viewType.Namespace.notNull();
             if (typeNamespace.Length <= viewNamespace.Length) return "/" + viewType.Name;
             return typeNamespace.Substring(viewNamespace.Length).Replace('.', '/') + "/" + viewType.Name;
         }
@@ -1135,7 +1151,7 @@ namespace AutoCSer.NetCoreWeb
         /// <returns>命名空间模板文件路径</returns>
         public virtual string GetNamespaceTemplateFilePath(Type viewType)
         {
-            string typeNamespace = viewType.Namespace;
+            string typeNamespace = viewType.Namespace.notNull();
             if (typeNamespace.Length <= viewNamespace.Length) return string.Empty;
             return typeNamespace.Substring(viewNamespace.Length + 1).Replace('.', Path.DirectorySeparatorChar);
         }
@@ -1175,7 +1191,7 @@ namespace AutoCSer.NetCoreWeb
         {
             HashObject<Type> key = type;
             Monitor.Enter(helpLock);
-            if (typeHelpViews.TryGetValue(key, out TypeHelpView view))
+            if (typeHelpViews.TryGetValue(key, out var view))
             {
                 Monitor.Exit(helpLock);
                 return view;
@@ -1183,7 +1199,7 @@ namespace AutoCSer.NetCoreWeb
             try
             {
                 typeHelpViews.Add(key, view = new TypeHelpView(this, type));
-                typeHelpViewNames.Add(type.fullName(), view);
+                typeHelpViewNames.Add(type.fullName().notNull(), view);
             }
             finally { Monitor.Exit(helpLock); }
             return view;
@@ -1193,11 +1209,15 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="typeFullName"></param>
         /// <returns></returns>
+#if NetStandard21
+        public TypeHelpView? GetTypeHelpView(string typeFullName)
+#else
         public TypeHelpView GetTypeHelpView(string typeFullName)
+#endif
         {
             HashString key = typeFullName;
             Monitor.Enter(helpLock);
-            typeHelpViewNames.TryGetValue(key, out TypeHelpView view);
+            typeHelpViewNames.TryGetValue(key, out var view);
             Monitor.Exit(helpLock);
             return view;
         }
@@ -1226,9 +1246,13 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="controllerTypeFullName">控制器类型名称</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public JsonApiControllerHelpView? GetControllerHelpView(string controllerTypeFullName)
+#else
         public JsonApiControllerHelpView GetControllerHelpView(string controllerTypeFullName)
+#endif
         {
-            return !string.IsNullOrEmpty(controllerTypeFullName) && controllerHelpViews.TryGetValue(controllerTypeFullName, out JsonApiControllerHelpView controllerHelpView) ? controllerHelpView : null;
+            return !string.IsNullOrEmpty(controllerTypeFullName) && controllerHelpViews.TryGetValue(controllerTypeFullName, out var controllerHelpView) ? controllerHelpView : null;
         }
 
         /// <summary>
@@ -1278,9 +1302,11 @@ namespace AutoCSer.NetCoreWeb
                 contentTypeEncoding.GetChars(bufferFixed + buffer.StartIndex, buffer.CurrentIndex, (char*)(stringBufferFixed + stringBuffer.StartIndex), stringBuffer.CurrentIndex);
             }
         }
+
         static ViewMiddleware()
         {
             routeParameterMethods = DictionaryCreator.CreateHashObject<Type, MethodInfo>();
+            routeParameterMethod = AutoCSer.Common.NullMethodInfo;
             foreach (MethodInfo method in typeof(RouteParameter).GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
                 if (method.ReturnType == typeof(bool))
@@ -1291,7 +1317,7 @@ namespace AutoCSer.NetCoreWeb
                         if (parameters.Length == 2 && parameters[0].ParameterType == typeof(string))
                         {
                             ParameterInfo parameter = parameters[1];
-                            if (parameter.ParameterType.IsByRef) routeParameterMethods.Add(parameter.ParameterType.GetElementType(), method);
+                            if (parameter.ParameterType.IsByRef) routeParameterMethods.Add(parameter.ParameterType.GetElementType().notNull(), method);
                         }
                     }
                     else
@@ -1300,15 +1326,12 @@ namespace AutoCSer.NetCoreWeb
                         if (parameters.Length == 2 && parameters[0].ParameterType == typeof(string))
                         {
                             ParameterInfo parameter = parameters[1];
-#if DotNet45 || NetStandard2
-                            if (parameter.ParameterType.IsByRef && parameter.ParameterType.GetElementType().IsGenericParameter) routeParameterMethod = method;
-#else
-                            if (parameter.ParameterType.IsByRef && parameter.ParameterType.GetElementType().IsGenericTypeParameter) routeParameterMethod = method;
-#endif
+                            if (parameter.ParameterType.IsByRef && parameter.ParameterType.GetElementType().notNull().IsGenericParameter) routeParameterMethod = method;
                         }
                     }
                 }
             }
+            if (object.ReferenceEquals(routeParameterMethod, AutoCSer.Common.NullMethodInfo)) throw new EntryPointNotFoundException();
         }
     }
 }

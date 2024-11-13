@@ -77,7 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>没有可弹出数据则返回无数据</returns>
         public ValueResult<T> TryDequeue()
         {
-            T value;
+            var value = default(T);
             if (queue.TryDequeue(out value)) return value;
             return default(ValueResult<T>);
         }
@@ -87,7 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>没有可弹出数据则返回无数据</returns>
         public ValueResult<T> TryPeek()
         {
-            T value;
+            var value = default(T);
             if (queue.TryPeek(out value)) return value;
             return default(ValueResult<T>);
         }

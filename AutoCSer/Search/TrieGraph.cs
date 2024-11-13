@@ -41,7 +41,7 @@ namespace AutoCSer.Search
         private unsafe void buildGraph()
         {
             TrieGraphBuilder<T> builder = new TrieGraphBuilder<T>(Boot);
-            for (LeftArray<TrieGraphNode<T>> reader = new LeftArray<TrieGraphNode<T>>(Boot.Nodes.Values.getArray()); reader.Length != 0; reader.Exchange(ref builder.Writer))
+            for (LeftArray<TrieGraphNode<T>> reader = new LeftArray<TrieGraphNode<T>>(Boot.Nodes.notNull().Values.getArray()); reader.Length != 0; reader.Exchange(ref builder.Writer))
             {
                 builder.Set(ref reader);
                 builder.Build();
@@ -53,7 +53,7 @@ namespace AutoCSer.Search
         /// <param name="threadCount">并行线程数量</param>
         private void buildGraph(int threadCount)
         {
-            LeftArray<TrieGraphNode<T>> reader = new LeftArray<TrieGraphNode<T>>(Boot.Nodes.Values.getArray());
+            LeftArray<TrieGraphNode<T>> reader = new LeftArray<TrieGraphNode<T>>(Boot.Nodes.notNull().Values.getArray());
             int taskCount = threadCount - 1;
             bool isError = false;
             AutoCSer.Threading.AutoWaitCount waitCount = new AutoCSer.Threading.AutoWaitCount(taskCount);

@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.ServiceRegistry
             CommandServerConfig commandServerConfig = new CommandServerConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry),
-                SessionObject = new CommandServerSocketSessionObject()
+                SessionObject = new CommandListenerSession()
             };
             await using (CommandListener commandListener = new CommandListenerBuilder(0)
                 .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))

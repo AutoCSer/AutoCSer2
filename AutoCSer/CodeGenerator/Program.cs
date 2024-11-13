@@ -3,7 +3,7 @@ using System;
 
 namespace AutoCSer.CodeGenerator
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {

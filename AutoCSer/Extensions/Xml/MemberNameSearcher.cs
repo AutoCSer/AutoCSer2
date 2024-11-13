@@ -93,7 +93,7 @@ namespace AutoCSer.Xml
             if (!type.IsGenericType) return new MemberNameSearcher(type, names);
 
             type = type.GetGenericTypeDefinition();
-            MemberNameSearcher value = lastSearcher;
+            var value = lastSearcher;
             if (value.type == type) return value;
 
             cacheLock.EnterYield();

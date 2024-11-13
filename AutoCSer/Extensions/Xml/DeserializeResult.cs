@@ -19,7 +19,11 @@ namespace AutoCSer.Xml
         /// <summary>
         /// 成员位图
         /// </summary>
+#if NetStandard21
+        public AutoCSer.Metadata.MemberMap? MemberMap;
+#else
         public AutoCSer.Metadata.MemberMap MemberMap;
+#endif
         /// <summary>
         /// XML 字符串
         /// </summary>
@@ -27,17 +31,25 @@ namespace AutoCSer.Xml
         /// <summary>
         /// 自定义错误
         /// </summary>
+#if NetStandard21
+        public string? CustomError;
+#else
         public string CustomError;
+#endif
         /// <summary>
         /// XML 反序列化状态结果
         /// </summary>
         /// <param name="memberMap"></param>
+#if NetStandard21
+        internal DeserializeResult(AutoCSer.Metadata.MemberMap? memberMap)
+#else
         internal DeserializeResult(AutoCSer.Metadata.MemberMap memberMap)
+#endif
         {
             State = DeserializeStateEnum.Success;
             MemberMap = memberMap;
             Index = 0;
-            CustomError = string.Empty;
+            CustomError = null;
             Xml = string.Empty;
         }
         /// <summary>
@@ -47,13 +59,17 @@ namespace AutoCSer.Xml
         /// <param name="index"></param>
         /// <param name="xml"></param>
         /// <param name="customError"></param>
+#if NetStandard21
+        internal DeserializeResult(DeserializeStateEnum state, int index = 0, string? xml = null, string? customError = null)
+#else
         internal DeserializeResult(DeserializeStateEnum state, int index = 0, string xml = null, string customError = null)
+#endif
         {
             State = state;
             MemberMap = null;
             Index = index;
             Xml = xml ?? string.Empty;
-            CustomError = customError ?? string.Empty;
+            CustomError = customError;
         }
         /// <summary>
         /// XML 反序列化状态结果
@@ -62,13 +78,17 @@ namespace AutoCSer.Xml
         /// <param name="xml"></param>
         /// <param name="index"></param>
         /// <param name="customError"></param>
+#if NetStandard21
+        internal DeserializeResult(DeserializeStateEnum state, ref SubString xml, int index, string? customError = null)
+#else
         internal DeserializeResult(DeserializeStateEnum state, ref SubString xml, int index, string customError = null)
+#endif
         {
             State = state;
             MemberMap = null;
             Index = index;
             Xml = xml;
-            CustomError = customError ?? string.Empty;
+            CustomError = customError;
         }
         /// <summary>
         /// 

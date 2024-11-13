@@ -77,18 +77,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
+#if NetStandard21
+        public bool Equals(NodeMethod? other)
+#else
         public bool Equals(NodeMethod other)
+#endif
         {
-            return InputParameterType == other.InputParameterType && ReturnValueType == other.ReturnValueType && Method.Name == other.Method.Name;
+            return other != null && InputParameterType == other.InputParameterType && ReturnValueType == other.ReturnValueType && Method.Name == other.Method.Name;
         }
         /// <summary>
         /// 判断是否相等
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+#if NetStandard21
+        public override bool Equals(object? obj)
+#else
         public override bool Equals(object obj)
+#endif
         {
-            return Equals((NodeMethod)obj);
+            return Equals(obj.castType<NodeMethod>());
         }
         /// <summary>
         /// 获取哈希值

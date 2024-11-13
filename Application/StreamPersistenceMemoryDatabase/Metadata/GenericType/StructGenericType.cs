@@ -66,7 +66,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static StructGenericType? lastGenericType;
+#else
         protected static StructGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -74,7 +78,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns></returns>
         public static StructGenericType Get(Type type)
         {
-            StructGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = get(type);
             lastGenericType = value;
@@ -132,6 +136,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+#if NetStandard21
+        internal override Delegate LocalServiceSendOnlyNodeCreateDelegate { get { return (Func<LocalClientNode, int, T, MethodParameter?>)LocalServiceSendOnlyNode.Create<T>; } }
+#else
         internal override Delegate LocalServiceSendOnlyNodeCreateDelegate { get { return (Func<LocalClientNode, int, T, MethodParameter>)LocalServiceSendOnlyNode.Create<T>; } }
+#endif
     }
 }

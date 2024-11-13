@@ -20,7 +20,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateLong(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateLong(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -57,7 +61,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateUInt(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateUInt(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -94,7 +102,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateInt(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateInt(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -131,7 +143,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateUShort(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateUShort(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -168,7 +184,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateShort(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateShort(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -205,7 +225,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateByte(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateByte(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -242,7 +266,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateSByte(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateSByte(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -279,7 +307,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateChar(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateChar(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -628,7 +660,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateFloat(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateFloat(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -660,7 +696,11 @@ namespace AutoCSer.ORM
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateDecimal(System.Linq.Expressions.ExpressionType type, object left, object right)
+#else
         private static object calculateDecimal(System.Linq.Expressions.ExpressionType type, object left, object right)
+#endif
         {
             switch (type)
             {
@@ -691,7 +731,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateUInt(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateUInt(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -716,7 +760,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateInt(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateInt(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -741,7 +789,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateUShort(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateUShort(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -766,7 +818,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateShort(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateShort(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -791,7 +847,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateByte(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateByte(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -816,7 +876,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateSByte(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateSByte(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -841,7 +905,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateChar(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateChar(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -866,7 +934,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateDouble(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateDouble(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -891,7 +963,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateFloat(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateFloat(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -916,7 +992,11 @@ namespace AutoCSer.ORM
         /// <param name="type"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static object? calculateDecimal(System.Linq.Expressions.ExpressionType type, object value)
+#else
         private static object calculateDecimal(System.Linq.Expressions.ExpressionType type, object value)
+#endif
         {
             switch (type)
             {
@@ -1099,7 +1179,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(int)) return reader.GetInt32(index);
             if (reader.IsDBNull(index)) return default(int);
-            return int.Parse(reader[index].ToString());
+            return int.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1111,7 +1191,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(int)) return reader.GetInt32(index);
-            return int.Parse(reader[index].ToString());
+            return int.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1175,7 +1255,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(short)) return reader.GetInt16(index);
             if (reader.IsDBNull(index)) return default(short);
-            return short.Parse(reader[index].ToString());
+            return short.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1187,7 +1267,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(short)) return reader.GetInt16(index);
-            return short.Parse(reader[index].ToString());
+            return short.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1251,7 +1331,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(byte)) return reader.GetByte(index);
             if (reader.IsDBNull(index)) return default(byte);
-            return byte.Parse(reader[index].ToString());
+            return byte.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1263,7 +1343,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(byte)) return reader.GetByte(index);
-            return byte.Parse(reader[index].ToString());
+            return byte.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1327,7 +1407,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(bool)) return reader.GetBoolean(index);
             if (reader.IsDBNull(index)) return default(bool);
-            return bool.Parse(reader[index].ToString());
+            return bool.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1339,7 +1419,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(bool)) return reader.GetBoolean(index);
-            return bool.Parse(reader[index].ToString());
+            return bool.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1403,7 +1483,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(DateTime)) return reader.GetDateTime(index);
             if (reader.IsDBNull(index)) return default(DateTime);
-            return DateTime.Parse(reader[index].ToString());
+            return DateTime.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1415,7 +1495,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(DateTime)) return reader.GetDateTime(index);
-            return DateTime.Parse(reader[index].ToString());
+            return DateTime.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1479,7 +1559,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(decimal)) return reader.GetDecimal(index);
             if (reader.IsDBNull(index)) return default(decimal);
-            return decimal.Parse(reader[index].ToString());
+            return decimal.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1491,7 +1571,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(decimal)) return reader.GetDecimal(index);
-            return decimal.Parse(reader[index].ToString());
+            return decimal.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1555,7 +1635,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(Guid)) return reader.GetGuid(index);
             if (reader.IsDBNull(index)) return default(Guid);
-            return Guid.Parse(reader[index].ToString());
+            return Guid.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1567,7 +1647,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(Guid)) return reader.GetGuid(index);
-            return Guid.Parse(reader[index].ToString());
+            return Guid.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1631,7 +1711,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(double)) return reader.GetDouble(index);
             if (reader.IsDBNull(index)) return default(double);
-            return double.Parse(reader[index].ToString());
+            return double.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1643,7 +1723,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(double)) return reader.GetDouble(index);
-            return double.Parse(reader[index].ToString());
+            return double.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1707,7 +1787,7 @@ namespace AutoCSer.ORM
         {
             if (reader.GetFieldType(index) == typeof(float)) return reader.GetFloat(index);
             if (reader.IsDBNull(index)) return default(float);
-            return float.Parse(reader[index].ToString());
+            return float.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据
@@ -1719,7 +1799,7 @@ namespace AutoCSer.ORM
         {
             if (reader.IsDBNull(index)) return null;
             if (reader.GetFieldType(index) == typeof(float)) return reader.GetFloat(index);
-            return float.Parse(reader[index].ToString());
+            return float.Parse(AutoCSer.Extensions.NullableReferenceExtension.notNull(reader[index].ToString()));
         }
         /// <summary>
         /// 读取数据

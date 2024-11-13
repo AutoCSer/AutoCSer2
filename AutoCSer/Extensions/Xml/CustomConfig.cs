@@ -62,9 +62,13 @@ namespace AutoCSer.Xml
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual Delegate? GeteCustomDeserializDelegate(Type type)
+#else
         public virtual Delegate GeteCustomDeserializDelegate(Type type)
+#endif
         {
-            Delegate deserializDelegate;
+            var deserializDelegate = default(Delegate);
             if (geteCustomDeserializDelegate(type, out deserializDelegate)) return deserializDelegate;
 
             if (typeof(ICustomSerialize).IsAssignableFrom(type) && typeof(ICustomSerialize<>).MakeGenericType(type).IsAssignableFrom(type))
@@ -140,7 +144,11 @@ namespace AutoCSer.Xml
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual bool NotSupport<T>(XmlDeserializer deserializer, ref T? value)
+#else
         public virtual bool NotSupport<T>(XmlDeserializer deserializer, ref T value)
+#endif
         {
             value = default(T);
             deserializer.IgnoreValue();

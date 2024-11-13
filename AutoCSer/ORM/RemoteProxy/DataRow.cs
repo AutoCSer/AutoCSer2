@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Metadata;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,11 @@ namespace AutoCSer.ORM.RemoteProxy
         /// <summary>
         /// 数据列描述集合
         /// </summary>
+#if NetStandard21
+        internal Column[]? Columns;
+#else
         internal Column[] Columns;
+#endif
         /// <summary>
         /// 行数据
         /// </summary>
@@ -28,7 +33,11 @@ namespace AutoCSer.ORM.RemoteProxy
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="columns"></param>
+#if NetStandard21
+        internal DataRow(DbDataReader reader, Column[]? columns)
+#else
         internal DataRow(DbDataReader reader, Column[] columns)
+#endif
         {
             if (columns == null)
             {
@@ -105,10 +114,14 @@ namespace AutoCSer.ORM.RemoteProxy
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+#if NetStandard21
+        public T? SingleOrDefault<T>() where T : class
+#else
         public T SingleOrDefault<T>() where T : class
+#endif
         {
             if (Columns == null) return null;
-            T value = DefaultConstructor<T>.Constructor();
+            T value = DefaultConstructor<T>.Constructor().notNull();
             int[] columnIndexs = ModelReader<T>.GetColumnIndexCache(Columns);
             try
             {
@@ -127,15 +140,15 @@ namespace AutoCSer.ORM.RemoteProxy
         /// <returns></returns>
         public static async Task<AutoCSer.Net.CommandClientReturnValue<LeftArray<T>>> Query<T>(AutoCSer.Net.EnumeratorCommand<DataRow> enumeratorCommand, int capacity = 0) where T : class
         {
-            int[] columnIndexs = null;
+            var columnIndexs = default(int[]);
             LeftArray<T> array = new LeftArray<T>(0);
             try
             {
                 while (await enumeratorCommand.MoveNext())
                 {
                     DataRow dataRow = enumeratorCommand.Current;
-                    T value = DefaultConstructor<T>.Constructor();
-                    if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(dataRow.Columns);
+                    T value = DefaultConstructor<T>.Constructor().notNull();
+                    if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(dataRow.Columns.notNull());
                     if (columnIndexs.Length != 0) ModelReader<T>.Reader(dataRow.Row, value, columnIndexs);
                     if (array.Array.Length == 0 && capacity != 0) array = new LeftArray<T>(capacity);
                     array.Add(value);
@@ -148,7 +161,33 @@ namespace AutoCSer.ORM.RemoteProxy
             if(enumeratorCommand.ReturnType == AutoCSer.Net.CommandClientReturnTypeEnum.Success) return array;
             return new AutoCSer.Net.CommandClientReturnValue<LeftArray<T>> { ReturnType = enumeratorCommand.ReturnType };
         }
-#if DotNet45 || NetStandard2
+#if NetStandard21
+        /// <summary>
+        /// 客户端获取远程代理访问数据库结果 查询数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumeratorCommand">RPC 远程代理访问命令</param>
+        /// <returns></returns>
+        public static async IAsyncEnumerable<T> Select<T>(AutoCSer.Net.EnumeratorCommand<DataRow> enumeratorCommand) where T : class
+        {
+            var columnIndexs = default(int[]);
+            try
+            {
+                while (await enumeratorCommand.MoveNext())
+                {
+                    DataRow dataRow = enumeratorCommand.Current;
+                    T value = DefaultConstructor<T>.Constructor().notNull();
+                    if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(dataRow.Columns.notNull());
+                    if (columnIndexs.Length != 0) ModelReader<T>.Reader(dataRow.Row, value, columnIndexs);
+                    yield return value;
+                }
+            }
+            finally
+            {
+                if (columnIndexs != null) ModelReader<T>.FreeColumnIndexCache(columnIndexs);
+            }
+        }
+#else
         /// <summary>
         /// 客户端获取远程代理访问数据库结果 查询数据
         /// </summary>
@@ -158,32 +197,6 @@ namespace AutoCSer.ORM.RemoteProxy
         public static Task<ModelSelectEnumerator<T>> Select<T>(AutoCSer.Net.EnumeratorCommand<DataRow> enumeratorCommand) where T : class
         {
             return Task<ModelSelectEnumerator<T>>.FromResult(new ModelSelectEnumerator<T>(enumeratorCommand));
-        }
-#else
-        /// <summary>
-        /// 客户端获取远程代理访问数据库结果 查询数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="enumeratorCommand">RPC 远程代理访问命令</param>
-        /// <returns></returns>
-        public static async IAsyncEnumerable<T> Select<T>(AutoCSer.Net.EnumeratorCommand<DataRow> enumeratorCommand) where T : class
-        {
-            int[] columnIndexs = null;
-            try
-            {
-                while (await enumeratorCommand.MoveNext())
-                {
-                    DataRow dataRow = enumeratorCommand.Current;
-                    T value = DefaultConstructor<T>.Constructor();
-                    if (columnIndexs == null) columnIndexs = ModelReader<T>.GetColumnIndexCache(dataRow.Columns);
-                    if (columnIndexs.Length != 0) ModelReader<T>.Reader(dataRow.Row, value, columnIndexs);
-                    yield return value;
-                }
-            }
-            finally
-            {
-                if (columnIndexs != null) ModelReader<T>.FreeColumnIndexCache(columnIndexs);
-            }
         }
 #endif
     }

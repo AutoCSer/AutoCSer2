@@ -5,17 +5,20 @@
     <AssemblyName>AutoCSer.NetCoreWeb</AssemblyName>
     <RootNamespace>AutoCSer.NetCoreWeb</RootNamespace>
     <OutputType>Library</OutputType>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\NetCoreWeb\AutoCSer.NetCoreWeb.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NetStandard21</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>C:\AutoCSer2\AutoCSer\NetCoreWeb\AutoCSer.NetCoreWeb.xml</DocumentationFile>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +49,7 @@
     <Compile Include="JsonApiSingletonEnum.cs" />
     <Compile Include="MemberHelpView.cs" />
     <Compile Include="Metadata\GenericType\ClassGenericType.cs" />
+    <Compile Include="NullViewMiddleware.cs" />
     <Compile Include="ParameterConstraintTypeEnum.cs" />
     <Compile Include="ResponseContentType.cs" />
     <Compile Include="RouteParameter.cs" />

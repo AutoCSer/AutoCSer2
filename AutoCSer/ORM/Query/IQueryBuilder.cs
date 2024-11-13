@@ -15,7 +15,11 @@ namespace AutoCSer.ORM
         /// <summary>
         ///  获取查询语句
         /// </summary>
+#if NetStandard21
+        string? Statement { get; }
+#else
         string Statement { get; }
+#endif
         /// <summary>
         /// 获取查询语句
         /// </summary>

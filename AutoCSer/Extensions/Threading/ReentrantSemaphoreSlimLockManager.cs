@@ -21,7 +21,7 @@ namespace AutoCSer.Threading
         /// <returns></returns>
         public static ReentrantSemaphoreSlimLockManager Get()
         {
-            ReentrantSemaphoreSlimLockManager lockManager = Manager.Value;
+            var lockManager = Manager.Value;
             if (lockManager == null) Manager.Value = lockManager = new ReentrantSemaphoreSlimLockManager();
             return lockManager;
         }
@@ -62,7 +62,11 @@ namespace AutoCSer.Threading
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Enter(SemaphoreSlimLock semaphoreSlimLock
 #if DEBUG
+#if NetStandard21
+             , [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
+#else
              , [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
+#endif
 #endif
             )
         {
@@ -92,7 +96,11 @@ namespace AutoCSer.Threading
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public async Task EnterAsync(SemaphoreSlimLock semaphoreSlimLock
 #if DEBUG
+#if NetStandard21
+             , [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
+#else
              , [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
+#endif
 #endif
             )
         {

@@ -26,7 +26,7 @@ namespace AutoCSer.Search
         internal void Create(StaticStringTrieGraph staticGraph, StringTrieGraph graph)
         {
             cache = AutoCSer.Extensions.DictionaryCreator.CreateOnly<TrieGraphNode<char>, int>();
-            TrieGraphNode<char> boot = graph.Boot;
+            var boot = graph.Boot;
             ArrayPool<StaticTrieGraphNode<char>> nodePool = StaticTrieGraph<char>.NodePool;
             object nodePoolLock = nodePool.Lock;
             Monitor.Enter(nodePoolLock);
@@ -80,7 +80,11 @@ namespace AutoCSer.Search
         /// </summary>
         /// <param name="nodes">节点集合</param>
         /// <returns></returns>
+#if NetStandard21
+        private KeyValue<char, int>[] create(Dictionary<char, TrieGraphNode<char>>? nodes)
+#else
         private KeyValue<char, int>[] create(Dictionary<char, TrieGraphNode<char>> nodes)
+#endif
         {
             if (nodes == null || nodes.Count == 0) return EmptyArray<KeyValue<char, int>>.Array;
             int index = 0;
@@ -109,7 +113,11 @@ namespace AutoCSer.Search
         /// 创建失败节点
         /// </summary>
         /// <param name="nodes">节点集合</param>
+#if NetStandard21
+        private void createLink(Dictionary<char, TrieGraphNode<char>>? nodes)
+#else
         private void createLink(Dictionary<char, TrieGraphNode<char>> nodes)
+#endif
         {
             if (nodes != null && nodes.Count != 0)
             {

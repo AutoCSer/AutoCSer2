@@ -1317,6 +1317,28 @@
             参数鉴权
             </summary>
         </member>
+        <member name="T:AutoCSer.NetCoreWeb.NullViewMiddleware">
+            <summary>
+            默认空数据视图中间件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.NullViewMiddleware.nullRequestDelegate(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            默认空请求处理
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.NullViewMiddleware.NullRequestDelegate">
+            <summary>
+            默认空请求处理委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.NullViewMiddleware.Null">
+            <summary>
+            默认空数据视图中间件
+            </summary>
+        </member>
         <member name="T:AutoCSer.NetCoreWeb.ParameterConstraintTypeEnum">
             <summary>
             参数约束类型
@@ -1720,7 +1742,12 @@
             数据视图类型
             </summary>
         </member>
-        <member name="F:AutoCSer.NetCoreWeb.ViewHelpView.Method">
+        <member name="F:AutoCSer.NetCoreWeb.ViewHelpView.method">
+            <summary>
+            初始化加载数据 LoadView 方法信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.ViewHelpView.Method">
             <summary>
             初始化加载数据 LoadView 方法信息
             </summary>
@@ -2561,7 +2588,7 @@
         </member>
         <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.ErrorRequestPath">
             <summary>
-            收集客户端错误信息的请求地址，默认为 null 表示不采集客户端错误，在代码生成中替换标记字符串 __ERRORPATH__
+            收集客户端错误信息的请求地址，默认为空字符串表示不采集客户端错误，在代码生成中替换标记字符串 __ERRORPATH__
             </summary>
         </member>
         <member name="P:AutoCSer.NetCoreWeb.ViewMiddleware.IsHtmlLinkVersion">
@@ -2925,7 +2952,7 @@
         </member>
         <member name="P:AutoCSer.NetCoreWeb.View.queryName">
             <summary>
-            默认为 null 表示不生成参数成员，仅支持英文字母与数字不支持符号，用于代码生成
+            默认为空字符串表示不生成参数成员，仅支持英文字母与数字不支持符号，用于代码生成
             </summary>
         </member>
         <member name="P:AutoCSer.NetCoreWeb.View.QueryName">
@@ -3069,6 +3096,11 @@
             </summary>
             <param name="type">数据视图类型</param>
             <returns></returns>
+        </member>
+        <member name="F:AutoCSer.NetCoreWeb.View.Null">
+            <summary>
+            默认空数据视图
+            </summary>
         </member>
         <member name="T:AutoCSer.NetCoreWeb.ViewScriptTypeEnum">
             <summary>

@@ -11,7 +11,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 持久化之前检查参数的调用方法与参数信息
         /// </summary>
+#if NetStandard21
+        internal CallInputOutputMethodParameter? BeforePersistenceMethodParameter;
+#else
         internal CallInputOutputMethodParameter BeforePersistenceMethodParameter;
+#endif
         /// <summary>
         /// 调用方法与参数信息
         /// </summary>
@@ -34,7 +38,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index"></param>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal abstract InputMethodParameter? Clone(NodeIndex index, int methodIndex);
+#else
         internal abstract InputMethodParameter Clone(NodeIndex index, int methodIndex);
+#endif
         /// <summary>
         /// 输入参数反序列化
         /// </summary>

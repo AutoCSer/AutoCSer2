@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;

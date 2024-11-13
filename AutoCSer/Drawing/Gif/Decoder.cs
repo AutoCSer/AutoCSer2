@@ -58,7 +58,11 @@ namespace AutoCSer.Drawing.Gif
         /// 解析下一个数据块
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal DataBlock? Next()
+#else
         internal DataBlock Next()
+#endif
         {
             if (*Data == 0x2c) return new Image(ref this);
             if (*Data == 0x21)
@@ -133,7 +137,11 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         /// <param name="datas">数据块集合</param>
         /// <returns>合并后的数据块</returns>
+#if NetStandard21
+        internal static byte[]? BlocksToByte(ref LeftArray<SubArray<byte>> datas)
+#else
         internal static byte[] BlocksToByte(ref LeftArray<SubArray<byte>> datas)
+#endif
         {
             if (datas.Length != 0)
             {

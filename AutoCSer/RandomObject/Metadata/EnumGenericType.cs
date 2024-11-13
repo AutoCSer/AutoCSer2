@@ -30,7 +30,11 @@ namespace AutoCSer.RandomObject.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static EnumGenericType? lastGenericType;
+#else
         protected static EnumGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -38,7 +42,7 @@ namespace AutoCSer.RandomObject.Metadata
         /// <returns></returns>
         public static EnumGenericType Get(Type type)
         {
-            EnumGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = getEnum(type);
             lastGenericType = value;

@@ -212,6 +212,17 @@
             数据长度
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.#ctor">
+            <summary>
+            上传文件缓冲区
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.#ctor(System.Byte[])">
+            <summary>
+            上传文件缓冲区
+            </summary>
+            <param name="buffer">数据缓冲区</param>
+        </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.Free">
             <summary>
             释放数据缓冲区
@@ -653,8 +664,8 @@
             <summary>
             上传文件
             </summary>
-            <param name="path"></param>
-            <param name="serverPath"></param>
+            <param name="path">客户端路径</param>
+            <param name="serverPath">服务端路径</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTaskOperationTypeEnum">
@@ -796,7 +807,7 @@
             <param name="bootPath">服务端文件根目录</param>
             <param name="path">服务端文件相对目录</param>
             <param name="fileTimes">文件信息集合</param>
-            <param name="callback">比较结果回调委托</param>
+            <param name="callback">比较结果回调委托，返回 null 表示没有找到任务或者异常</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskService.CreateUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DeployTask.CreateUploadFileResult})">
@@ -940,7 +951,7 @@
             <param name="bootPath">服务端文件根目录</param>
             <param name="path">服务端文件相对目录</param>
             <param name="fileTimes">文件信息集合</param>
-            <param name="callback">比较结果回调委托</param>
+            <param name="callback">比较结果回调委托，返回 null 表示没有找到任务或者异常</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskService.CreateUploadFile(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallTaskLowPriorityQueue,System.Int64,System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.DeployTask.CreateUploadFileResult})">
@@ -1071,7 +1082,7 @@
             <param name="bootPath">服务端文件根目录</param>
             <param name="path">服务端文件相对目录</param>
             <param name="fileTimes">文件信息集合</param>
-            <returns>比较结果</returns>
+            <returns>比较结果，返回 null 表示没有找到任务或者异常</returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskClient.GetDifferent(System.Int64,System.Int32,System.String,System.String,AutoCSer.CommandService.DeployTask.FileTime[],System.Action{AutoCSer.Net.CommandClientReturnValue{System.Boolean[]}})">
             <summary>
@@ -1082,7 +1093,7 @@
             <param name="bootPath">服务端文件根目录</param>
             <param name="path">服务端文件相对目录</param>
             <param name="fileTimes">文件信息集合</param>
-            <param name="callback">比较结果回调委托</param>
+            <param name="callback">比较结果回调委托，返回 null 表示没有找到任务或者异常</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskClient.CreateUploadFile(System.Int64,System.Int32,System.String,AutoCSer.CommandService.DeployTask.FileTime)">
@@ -1329,6 +1340,11 @@
         <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.WriteUploadFileUnknownError">
             <summary>
             上传文件数据未知错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTaskUploadFileStateEnum.NotFoundTaskOrException">
+            <summary>
+            没有找到文件上传任务或者服务端异常
             </summary>
         </member>
     </members>

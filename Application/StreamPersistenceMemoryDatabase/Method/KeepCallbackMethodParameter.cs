@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -15,7 +16,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用回调
         /// </summary>
+#if NetStandard21
+        private CommandServerKeepCallback<KeepCallbackResponseParameter>? callback;
+#else
         private CommandServerKeepCallback<KeepCallbackResponseParameter> callback;
+#endif
         /// <summary>
         /// 调用方法与参数信息
         /// </summary>
@@ -34,16 +39,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex"></param>
         internal KeepCallbackMethodParameter(ServerNode node, int methodIndex) : base(node)
         {
-            this.method = (KeepCallbackMethod)node.NodeCreator.Methods[methodIndex];
+            this.method = (KeepCallbackMethod)node.NodeCreator.Methods[methodIndex].notNull();
             callback = KeepCallbackResponseParameter.EmptyKeepCallback;
         }
         /// <summary>
         /// 持久化回调
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal override MethodParameter? PersistenceCallback()
+#else
         internal override MethodParameter PersistenceCallback()
+#endif
         {
-            CommandServerKeepCallback<KeepCallbackResponseParameter> callback = this.callback;
+            var callback = this.callback;
             if (callback != null)
             {
                 this.callback = null;
@@ -56,8 +65,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     finally
                     {
-                        CommandServerSocketSessionObjectService service = Node.NodeCreator.Service;
-                        PersistenceRebuilder rebuilder = service.Rebuilder;
+                        StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
+                        var rebuilder = service.Rebuilder;
                         if (callback == null)
                         {
                             if (rebuilder != null && Node.IsRebuild && !Node.Rebuilding)
@@ -97,9 +106,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal override MethodParameter? PersistenceCallback(CallStateEnum state)
+#else
         internal override MethodParameter PersistenceCallback(CallStateEnum state)
+#endif
         {
-            CommandServerKeepCallback<KeepCallbackResponseParameter> callback = this.callback;
+            var callback = this.callback;
             if (callback != null)
             {
                 this.callback = null;
@@ -112,7 +125,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="serializer">序列化</param>
         /// <returns></returns>
+#if NetStandard21
+        internal override MethodParameter? PersistenceSerialize(AutoCSer.BinarySerializer serializer)
+#else
         internal override MethodParameter PersistenceSerialize(AutoCSer.BinarySerializer serializer)
+#endif
         {
             return persistenceSerialize(serializer, method.Index);
         }

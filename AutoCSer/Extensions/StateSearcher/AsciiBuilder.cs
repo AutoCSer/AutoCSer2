@@ -278,7 +278,7 @@ namespace AutoCSer.StateSearcher
                 ++index;
             }
             strings = strings.sort(CharBuilder.StringCompare);
-            string errorValue;
+            var errorValue = default(string);
             if (CharBuilder.Check(strings, out errorValue)) return new AsciiBuilder(strings, isStaticUnmanaged).Data;
             throw new Exception(string.IsNullOrEmpty(errorValue) ? "查找数据不能为空" : ("查找数据重复 " + errorValue));
         }

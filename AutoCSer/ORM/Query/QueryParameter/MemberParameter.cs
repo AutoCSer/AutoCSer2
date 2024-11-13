@@ -1,4 +1,5 @@
-﻿using AutoCSer.ORM.CustomColumn;
+﻿using AutoCSer.Extensions;
+using AutoCSer.ORM.CustomColumn;
 using System;
 using System.Collections;
 using System.Linq;
@@ -36,7 +37,11 @@ namespace AutoCSer.ORM.QueryParameter
         /// <param name="columnIndex"></param>
         /// <param name="field"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static MemberParameter? Match(ref MemberColumnIndex columnIndex, FieldParameter field)
+#else
         internal static MemberParameter Match(ref MemberColumnIndex columnIndex, FieldParameter field)
+#endif
         {
             switch (field.Attribute.MatchType)
             {
@@ -83,7 +88,7 @@ namespace AutoCSer.ORM.QueryParameter
         {
             if (memberParameters == null)
             {
-                ListArray<FieldParameter> fieldList;
+                var fieldList = default(ListArray<FieldParameter>);
                 Monitor.Enter(memberParameterLock);
                 try
                 {
@@ -97,7 +102,7 @@ namespace AutoCSer.ORM.QueryParameter
                             {
                                 foreach (FieldParameter field in fieldList)
                                 {
-                                    MemberParameter memberParameter = MemberParameter.Match(ref columnIndex, field);
+                                    var memberParameter = MemberParameter.Match(ref columnIndex, field);
                                     if (memberParameter != null) memberParameterArray.Add(memberParameter);
                                 }
                             }
@@ -110,7 +115,7 @@ namespace AutoCSer.ORM.QueryParameter
                                     {
                                         foreach (FieldParameter field in fieldList)
                                         {
-                                            MemberParameter memberParameter = MemberParameter.Match(ref columnIndex, field);
+                                            var memberParameter = MemberParameter.Match(ref columnIndex, field);
                                             if (memberParameter != null) memberParameterArray.Add(memberParameter);
                                         }
                                     }
@@ -125,7 +130,7 @@ namespace AutoCSer.ORM.QueryParameter
 
             foreach (MemberParameter memberParameter in memberParameters)
             {
-                object fieldValue = memberParameter.Field.Field.GetValue(value);
+                var fieldValue = memberParameter.Field.Field.notNull().GetValue(value);
                 switch (memberParameter.Field.Attribute.MatchType)
                 {
                     case QueryMatchTypeEnum.Equal:
@@ -135,13 +140,18 @@ namespace AutoCSer.ORM.QueryParameter
                     case QueryMatchTypeEnum.Greater:
                     case QueryMatchTypeEnum.LessOrEqual:
                     case QueryMatchTypeEnum.GreaterOrEqual:
-                        if (memberParameter.Field.GenericType == null ? fieldValue != null : memberParameter.Field.GenericType.IsNullableHasValue(fieldValue))
+                        if(memberParameter.Field.GenericType == null)
                         {
-                            query.And(memberParameter, fieldValue);
+                            if (fieldValue != null) query.And(memberParameter, fieldValue);
+                        }
+                        else
+                        {
+                            object nullableValue = fieldValue.notNull();
+                            if (memberParameter.Field.GenericType.notNull().IsNullableHasValue(nullableValue)) query.And(memberParameter, nullableValue);
                         }
                         break;
                     case QueryMatchTypeEnum.In:
-                        ICollection collection = fieldValue as ICollection;
+                        var collection = fieldValue as ICollection;
                         if (collection != null)
                         {
                             if (collection.Count == 0)
@@ -149,29 +159,31 @@ namespace AutoCSer.ORM.QueryParameter
                                 query.ConditionLogicType = ConditionExpression.LogicTypeEnum.False;
                                 return;
                             }
-                            query.And(memberParameter, fieldValue);
+                            query.And(memberParameter, collection);
                         }
                         break;
                     case QueryMatchTypeEnum.NotIn:
                         collection = fieldValue as ICollection;
-                        if (collection != null && collection.Count != 0) query.And(memberParameter, fieldValue);
+                        if (collection != null && collection.Count != 0) query.And(memberParameter, collection);
                         break;
                     case QueryMatchTypeEnum.Like:
                     case QueryMatchTypeEnum.StartsWith:
                     case QueryMatchTypeEnum.EndsWith:
                     case QueryMatchTypeEnum.Contains:
-                        if (!string.IsNullOrEmpty((string)fieldValue)) query.And(memberParameter, fieldValue);
+                        var stringValue = fieldValue.castType<string>();
+                        if (!string.IsNullOrEmpty(stringValue)) query.And(memberParameter, stringValue);
                         break;
                     case QueryMatchTypeEnum.NotLike:
                     case QueryMatchTypeEnum.NotStartsWith:
                     case QueryMatchTypeEnum.NotEndsWith:
                     case QueryMatchTypeEnum.NotContains:
-                        if (string.IsNullOrEmpty((string)fieldValue))
+                        stringValue = fieldValue.castType<string>();
+                        if (string.IsNullOrEmpty(stringValue))
                         {
                             query.ConditionLogicType = ConditionExpression.LogicTypeEnum.False;
                             return;
                         }
-                        query.And(memberParameter, fieldValue);
+                        query.And(memberParameter, stringValue);
                         break;
                 }
             }
@@ -180,7 +192,11 @@ namespace AutoCSer.ORM.QueryParameter
         /// <summary>
         /// 成员参数匹配数据集合
         /// </summary>
+#if NetStandard21
+        private static MemberParameter[]? memberParameters;
+#else
         private static MemberParameter[] memberParameters;
+#endif
         /// <summary>
         /// 成员参数匹配数据集合 访问锁
         /// </summary>

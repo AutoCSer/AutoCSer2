@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer
@@ -150,7 +151,7 @@ namespace AutoCSer
                 Range index = default(Range);
                 fixed (char* nameFixed = name)
                 {
-                    if (GetAttribute(nameFixed, name.Length, ref index)) return new SubString(index.StartIndex, index.Length, String.String);
+                    if (GetAttribute(nameFixed, name.Length, ref index)) return new SubString(index.StartIndex, index.Length, String.String.notNull());
                 }
             }
             return default(SubString);

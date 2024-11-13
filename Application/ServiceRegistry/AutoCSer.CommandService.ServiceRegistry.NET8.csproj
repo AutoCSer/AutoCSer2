@@ -4,16 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.CommandService.ServiceRegistry</AssemblyName>
     <RootNamespace>AutoCSer.CommandService.ServiceRegistry</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DefineConstants>DEBUG;TRACE;NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.xml</DocumentationFile>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandServerSocketSessionObject.cs" />
     <Compile Include="IPortRegistryClient.cs" />
     <Compile Include="IPortRegistryClientSocketEvent.cs" />
     <Compile Include="IPortRegistryService.cs" />

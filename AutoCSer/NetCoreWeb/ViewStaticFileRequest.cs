@@ -41,6 +41,9 @@ namespace AutoCSer.NetCoreWeb
         {
             this.file = file;
             eTag = "\"" + ((ulong)file.LastWriteTimeUtc.Ticks).toHex() + "\"";
+#if NetStandard21
+            fileData = EmptyArray<byte>.Array;
+#endif
         }
         /// <summary>
         /// 加载请求

@@ -54,7 +54,11 @@ namespace AutoCSer.Expression
         /// <summary>
         /// 表达式，失败为 null
         /// </summary>
+#if NetStandard21
+        internal ValueNode? Expression;
+#else
         internal ValueNode Expression;
+#endif
         /// <summary>
         /// 当前解析位置
         /// </summary>
@@ -81,7 +85,7 @@ namespace AutoCSer.Expression
                     current = start = expressionFixed + expression.Start;
                     end = start + expression.Length;
 
-                    ValueNode value = this.value();
+                    var value = this.value();
                     if (value != null)
                     {
                         do
@@ -103,7 +107,11 @@ namespace AutoCSer.Expression
         /// 取值解析
         /// </summary>
         /// <returns>null 表示失败</returns>
+#if NetStandard21
+        private ValueNode? value()
+#else
         private ValueNode value()
+#endif
         {
             if (--depth != 0)
             {
@@ -117,7 +125,7 @@ namespace AutoCSer.Expression
                             {
                                 if (++current != end)
                                 {
-                                    ValueNode notValue = new ValueNode(ValueTypeEnum.Not, this.value()).CheckNext();
+                                    var notValue = new ValueNode(ValueTypeEnum.Not, this.value()).CheckNext();
                                     ++depth;
                                     return notValue;
                                 }
@@ -164,7 +172,7 @@ namespace AutoCSer.Expression
                             {
                                 if (++current != end)
                                 {
-                                    ValueNode value = this.value();
+                                    var value = this.value();
                                     if (value != null && ++current != end)
                                     {
                                         do
@@ -176,7 +184,7 @@ namespace AutoCSer.Expression
                                                     ++depth;
                                                     return new ParenthesisNode(value);
                                                 }
-                                                ParenthesisNode parenthesis = new ParenthesisNode(memberNext(ConstantTypeEnum.None), value);
+                                                ParenthesisNode parenthesis = new ParenthesisNode(value, memberNext(ConstantTypeEnum.None));
                                                 if (parenthesis.CheckNextNull())
                                                 {
                                                     ++depth;
@@ -214,7 +222,7 @@ namespace AutoCSer.Expression
                                     if (((bits[*(byte*)current] & memberNameStartBit) | *((byte*)current + 1)) == 0)
                                     {
                                         currentStart = current;
-                                        ValueNode hashNode = new ValueNode(ValueTypeEnum.Client, member(-1)).CheckNext();
+                                        var hashNode = new ValueNode(ValueTypeEnum.Client, member(-1)).CheckNext();
                                         ++depth;
                                         return hashNode;
                                     }
@@ -229,7 +237,7 @@ namespace AutoCSer.Expression
                                 if (isClient && ++current != end && ((bits[*(byte*)current] & memberNameStartBit) | *((byte*)current + 1)) == 0)
                                 {
                                     currentStart = current;
-                                    ValueNode clientNode = new ValueNode(ValueTypeEnum.Client, member(-1)).CheckNext();
+                                    var clientNode = new ValueNode(ValueTypeEnum.Client, member(-1)).CheckNext();
                                     ++depth;
                                     return clientNode;
                                 }
@@ -255,7 +263,7 @@ namespace AutoCSer.Expression
                                         if (memberDepth <= byte.MaxValue && ((bits[*(byte*)current] & memberNameStartBit) | *((byte*)current + 1)) == 0)
                                         {
                                             currentStart = current;
-                                            ValueNode value = member(memberDepth);
+                                            var value = member(memberDepth);
                                             ++depth;
                                             return value;
                                         }
@@ -270,7 +278,7 @@ namespace AutoCSer.Expression
                     if (((bits[(byte)code] & memberNameBit) | (code >> 8)) == 0)
                     {
                         currentStart = current;
-                        ValueNode value = (uint)(code - '0') >= 10 ? member(0) : number(code, false);
+                        var value = (uint)(code - '0') >= 10 ? member(0) : number(code, false);
                         ++depth;
                         return value;
                     }
@@ -290,7 +298,11 @@ namespace AutoCSer.Expression
         /// </summary>
         /// <param name="memberDepth">成员回溯深度</param>
         /// <returns>null 表示失败</returns>
+#if NetStandard21
+        private ValueNode? member(int memberDepth)
+#else
         private ValueNode member(int memberDepth)
+#endif
         {
             while (++current != end)
             {
@@ -323,7 +335,11 @@ namespace AutoCSer.Expression
         /// </summary>
         /// <param name="constantType"></param>
         /// <returns>null 表示失败，ValueExpression.Null 表示返回 null</returns>
+#if NetStandard21
+        private ValueNode? memberNext(ConstantTypeEnum constantType)
+#else
         private ValueNode memberNext(ConstantTypeEnum constantType)
+#endif
         {
             do
             {
@@ -356,7 +372,7 @@ namespace AutoCSer.Expression
                                 if (((bits[*(byte*)current] & memberNameStartBit) | *((byte*)current + 1)) == 0)
                                 {
                                     currentStart = current;
-                                    ValueNode node = new ValueNode(ValueTypeEnum.NextMember, member(-1)).CheckNext();
+                                    var node = new ValueNode(ValueTypeEnum.NextMember, member(-1)).CheckNext();
                                     if (node != null) return new ValueNode(ValueTypeEnum.Client, node).CheckNext();
                                 }
                                 else if (*current == '&')
@@ -390,7 +406,7 @@ namespace AutoCSer.Expression
                         {
                             if (++current != end && constantType == ConstantTypeEnum.None)
                             {
-                                ValueNode parameter = this.value();
+                                var parameter = this.value();
                                 if (current != end)
                                 {
                                     LeftArray<ValueNode> parameters = new LeftArray<ValueNode>(0);
@@ -537,7 +553,7 @@ namespace AutoCSer.Expression
                                 }
                                 if (code == '?') return ++current != end ? new ValueNode(ValueTypeEnum.IfNullThen, value()).CheckNext() : null;
                                 if (code == '[') return constantType == ConstantTypeEnum.None && ++current != end ? index(ValueTypeEnum.IfNotNullIndex) : null;
-                                ValueNode ifValue = value();
+                                var ifValue = value();
                                 if (ifValue != null && current != end)
                                 {
                                     do
@@ -546,7 +562,7 @@ namespace AutoCSer.Expression
                                         {
                                             if(++current != end)
                                             {
-                                                ValueNode elseValue = value();
+                                                var elseValue = value();
                                                 if (elseValue != null) return new IfElseNode(ifValue, elseValue);
                                             }
                                             return null;
@@ -592,10 +608,14 @@ namespace AutoCSer.Expression
         /// </summary>
         /// <param name="valueType"></param>
         /// <returns>null 表示失败</returns>
+#if NetStandard21
+        private CallNode? index(ValueTypeEnum valueType)
+#else
         private CallNode index(ValueTypeEnum valueType)
+#endif
         {
             LeftArray<ValueNode> parameters = new LeftArray<ValueNode>(0);
-            ValueNode parameter = value();
+            var parameter = value();
             if (current != end)
             {
                 if (parameter != null)
@@ -643,7 +663,11 @@ namespace AutoCSer.Expression
         /// 带符号数解析
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        private ValueNode? signed()
+#else
         private ValueNode signed()
+#endif
         {
             currentStart = current;
             if (++current != end)
@@ -651,7 +675,7 @@ namespace AutoCSer.Expression
                 char numberCode = *current;
                 if ((uint)(numberCode - '0') < 10)
                 {
-                    ValueNode value = number(numberCode, true);
+                    var value = number(numberCode, true);
                     ++depth;
                     return value;
                 }
@@ -664,7 +688,11 @@ namespace AutoCSer.Expression
         /// </summary>
         /// <param name="valueType"></param>
         /// <returns></returns>
+#if NetStandard21
+        private ValueNode? getFloat(ValueTypeEnum valueType)
+#else
         private ValueNode getFloat(ValueTypeEnum valueType)
+#endif
         {
             do
             {
@@ -675,7 +703,7 @@ namespace AutoCSer.Expression
                 }
             }
             while ((uint)(*current - '0') < 10);
-            ValueNode value = numberNext(valueType);
+            var value = numberNext(valueType);
             ++depth;
             return value;
         }
@@ -685,7 +713,11 @@ namespace AutoCSer.Expression
         /// <param name="code"></param>
         /// <param name="isSigned"></param>
         /// <returns>null 表示失败</returns>
+#if NetStandard21
+        private ValueNode? number(char code, bool isSigned)
+#else
         private ValueNode number(char code, bool isSigned)
+#endif
         {
             ValueTypeEnum valueType = isSigned ? ValueTypeEnum.SignedDecimalism : ValueTypeEnum.Decimalism;
             if (++current != end)
@@ -729,7 +761,11 @@ namespace AutoCSer.Expression
         /// </summary>
         /// <param name="valueType"></param>
         /// <returns>null 表示失败</returns>
+#if NetStandard21
+        private ValueNode? numberNext(ValueTypeEnum valueType)
+#else
         private ValueNode numberNext(ValueTypeEnum valueType)
+#endif
         {
             if (--depth != 0)
             {

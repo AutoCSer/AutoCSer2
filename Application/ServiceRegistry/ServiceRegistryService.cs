@@ -1,5 +1,5 @@
-﻿using AutoCSer.CommandService.ServiceRegister;
-using AutoCSer.CommandService.ServiceRegistry;
+﻿using AutoCSer.CommandService.ServiceRegistry;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
@@ -17,7 +17,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册会话对象操作接口
         /// </summary>
-        private readonly ICommandServerSocketSessionObject<ServiceRegistryService, ServiceRegisterSession> socketSessionObject;
+        private readonly ICommandListenerSession<IServiceRegisterSocketSession, ServiceRegistryService> socketSessionObject;
         /// <summary>
         /// 命令服务
         /// </summary>
@@ -41,15 +41,19 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 默认服务注册
         /// </summary>
-        /// <param name="listener"></param>
+        /// <param name="listener">SessionObject 必须实现 AutoCSer.Net.ICommandListenerSession[AutoCSer.CommandService.IServiceRegisterSocketSession, AutoCSer.CommandService.ServiceRegistryService]</param>
         /// <param name="identityGenerator">服务标识生成器</param>
+#if NetStandard21
+        public ServiceRegistryService(CommandListener listener, DistributedMillisecondIdentityGenerator? identityGenerator = null)
+#else
         public ServiceRegistryService(CommandListener listener, DistributedMillisecondIdentityGenerator identityGenerator = null)
+#endif
         {
             this.listener = listener;
             IdentityGenerator = identityGenerator
-             ?? ((ConfigObject<DistributedMillisecondIdentityGenerator>)AutoCSer.Configuration.Common.Get(typeof(DistributedMillisecondIdentityGenerator)))?.Value
+             ?? AutoCSer.Configuration.Common.Get<DistributedMillisecondIdentityGenerator>()?.Value
              ?? new DistributedMillisecondIdentityGenerator();
-            socketSessionObject = (ICommandServerSocketSessionObject<ServiceRegistryService, ServiceRegisterSession>)listener.SessionObject ?? CommandServerSocketSessionObject.Default;
+            socketSessionObject = listener.GetSessionObject<ICommandListenerSession<IServiceRegisterSocketSession, ServiceRegistryService>>() ?? AutoCSer.CommandService.ServiceRegistry.CommandListenerSession.Default;
         }
         /// <summary>
         /// 获取当前套接字连接会话对象
@@ -57,9 +61,10 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal ServiceRegisterSession GetOrCreateSession(CommandServerSocket socket)
+        internal ServiceRegisterSocketSession GetOrCreateSession(CommandServerSocket socket)
         {
-            return socketSessionObject.TryGetSessionObject(socket) ?? socketSessionObject.CreateSessionObject(this, socket);
+            IServiceRegisterSocketSession session = socketSessionObject.TryGetSessionObject(socket) ?? socketSessionObject.CreateSessionObject(this, socket);
+            return session.ServiceRegisterSocketSession;
         }
         /// <summary>
         /// 设置会话掉线
@@ -68,7 +73,7 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void SetDropped(CommandServerSocket socket)
         {
-            socketSessionObject.TryGetSessionObject(socket)?.SetDropped();
+            socketSessionObject.TryGetSessionObject(socket)?.ServiceRegisterSocketSession.SetDropped();
         }
         /// <summary>
         /// 设置服务会话在线检查回调委托
@@ -97,7 +102,11 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName"></param>
         /// <param name="assembler"></param>
         /// <returns></returns>
+#if NetStandard21
+        private ServiceRegisterResponse getAssembler(string serviceName, out LogAssembler? assembler)
+#else
         private ServiceRegisterResponse getAssembler(string serviceName, out LogAssembler assembler)
+#endif
         {
             HashString serviceNameHashString = serviceName;
             if (!checkServiceName(ref serviceNameHashString))
@@ -142,9 +151,9 @@ namespace AutoCSer.CommandService
         /// <returns>服务注册结果</returns>
         public ServiceRegisterResponse Append(CommandServerSocket socket, CommandServerCallQueue queue, ServiceRegisterLog log)
         {
-            LogAssembler assembler;
+            var assembler = default(LogAssembler);
             ServiceRegisterResponse response = getAssembler(log.ServiceName, out assembler);
-            return response.State == ServiceRegisterStateEnum.Success ? assembler.Append(socket, log) : response;
+            return response.State == ServiceRegisterStateEnum.Success ? assembler.notNull().Append(socket, log) : response;
         }
         /// <summary>
         /// 获取服务注册日志
@@ -152,39 +161,47 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="serviceName">监视服务名称，null 标识所有服务</param>
-        /// <param name="callback">服务注册日志回调委托</param>
+        /// <param name="callback">服务注册日志回调委托，返回 null 表示初始化加载完毕</param>
+#if NetStandard21
+        public void LogCallback(CommandServerSocket socket, CommandServerCallQueue queue, string serviceName, CommandServerKeepCallback<ServiceRegisterLog?> callback)
+#else
         public void LogCallback(CommandServerSocket socket, CommandServerCallQueue queue, string serviceName, CommandServerKeepCallback<ServiceRegisterLog> callback)
+#endif
         {
             if (serviceName != null)
             {
-                LogAssembler assembler;
+                var assembler = default(LogAssembler);
                 ServiceRegisterResponse response = getAssembler(serviceName, out assembler);
                 if (response.State != ServiceRegisterStateEnum.Success)
                 {
                     callback.CancelKeep(CommandServerCall.GetCustom((byte)response.State));
                     return;
                 }
-                assembler.Append(socket, callback);
+                assembler.notNull().Append(socket, callback);
                 return;
             }
             foreach (LogAssembler assembler in services.Values)
             {
+#pragma warning disable CS8620
                 if (!assembler.Callback(callback))
+#pragma warning restore CS8620
                 {
                     SetDropped(socket);
                     return;
                 }
             }
-            if (!callback.Callback((ServiceRegisterLog)null))
+            if (!callback.Callback(default(ServiceRegisterLog)))
             {
                 SetDropped(socket);
                 return;
             }
-            ServiceRegisterSession session = GetOrCreateSession(socket);
+            ServiceRegisterSocketSession session = GetOrCreateSession(socket);
             long sessionID = session.SessionID;
             SessionCallback sessionCallback;
             callbacks.TryGetValue(sessionID, out sessionCallback);
+#pragma warning disable CS8620
             callbacks[sessionID] = new SessionCallback(session, callback);
+#pragma warning restore CS8620
             sessionCallback.CancelKeep(ServiceRegisterStateEnum.NewLogCallback);
         }
     }

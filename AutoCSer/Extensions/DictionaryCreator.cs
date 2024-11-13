@@ -26,7 +26,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="VT">数据类型</typeparam>
         /// <param name="capacity">初始化容器尺寸</param>
         /// <returns>字典</returns>
-        public static Dictionary<KT, VT> CreateAny<KT, VT>(int capacity)
+        public static Dictionary<KT, VT> CreateAny<KT, VT>(int capacity) where KT : class
         {
 #if AOT
             return new Dictionary<KT, VT>(capacity, AutoCSer.AOT.EqualityComparer<KT>.Default);

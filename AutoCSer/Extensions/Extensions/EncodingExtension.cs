@@ -24,7 +24,7 @@ namespace AutoCSer.Extensions
                     int charCount = encoding.GetCharCount(data, size);
                     if (charCount != 0)
                     {
-                        string value = AutoCSer.Common.Config.AllocateString(charCount);
+                        string value = AutoCSer.Common.AllocateString(charCount);
                         fixed (char* valueFixed = value) encoding.GetChars(data, size, valueFixed, charCount);
                         return value;
                     }

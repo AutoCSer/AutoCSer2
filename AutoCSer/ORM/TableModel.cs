@@ -33,15 +33,40 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 复制数据委托
         /// </summary>
-        public Action<T, T, MemberMap<T>> Copy;
+#if NetStandard21
+        private Action<T, T, MemberMap<T>>? copy;
+#else
+        private Action<T, T, MemberMap<T>> copy;
+#endif
         /// <summary>
         /// 数据列值转数组
         /// </summary>
-        public Action<T, object[]> ToArray;
+#if NetStandard21
+        private Action<T, object[]>? toArray;
+#else
+        private Action<T, object[]> toArray;
+#endif
         /// <summary>
         /// 数据库表格模型成员位图
         /// </summary>
         private MemberMapData<T> memberMap;
+        /// <summary>
+        /// 数据表格模型集合委托
+        /// </summary>
+        /// <param name="read"></param>
+        /// <param name="insert"></param>
+        /// <param name="update"></param>
+        /// <param name="concatCondition"></param>
+        /// <param name="memberMap"></param>
+        private TableModel(Action<DbDataReader, T, MemberMap<T>> read, Action<CharStream, T, TableWriter> insert, Action<CharStream, T, TableWriter, MemberMap<T>> update
+            , Action<CharStream, T, TableWriter, MemberMap<T>> concatCondition, MemberMapData<T> memberMap)
+        {
+            Read = read;
+            Insert = insert;
+            Update = update;
+            ConcatCondition = concatCondition;
+            this.memberMap = memberMap;
+        }
 
         /// <summary>
         /// 读取数据表格模型对象委托访问锁
@@ -50,7 +75,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 读取数据表格模型对象委托
         /// </summary>
+#if NetStandard21
+        private static TableModel<T>? model;
+#else
         private static TableModel<T> model;
+#endif
         /// <summary>
         /// 读取数据表格模型对象委托集合
         /// </summary>
@@ -60,7 +89,11 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="memberMap"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static TableModel<T>? get(ref MemberMapData<T> memberMap)
+#else
         private static TableModel<T> get(ref MemberMapData<T> memberMap)
+#endif
         {
             if (model != null)
             {
@@ -79,7 +112,7 @@ namespace AutoCSer.ORM
         /// <param name="member"></param>
         private static void insertVerifyInterface(ILGenerator generator, Member member)
         {
-            MethodInfo verifyInterfaceMethod = member.VerifyInterfaceMethod;
+            var verifyInterfaceMethod = member.VerifyInterfaceMethod;
             generator.Emit(OpCodes.Ldarg_1);
             if (member.MemberIndex.IsField)
             {
@@ -88,7 +121,7 @@ namespace AutoCSer.ORM
             }
             else
             {
-                generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                 if (verifyInterfaceMethod != null && member.MemberIndex.MemberSystemType.IsValueType)
                 {
                     LocalBuilder verifyLocal = generator.DeclareLocal(member.MemberIndex.MemberSystemType);
@@ -112,7 +145,7 @@ namespace AutoCSer.ORM
             KeyValue<MethodInfo, bool> method = member.GetConstantConvertMethod(out isObjectToString);
             if (method.Value) generator.Emit(OpCodes.Ldloc_S, connectionCreatorLocal);
             generator.Emit(OpCodes.Ldarg_0);
-            MethodInfo verifyMethod = member.VerifyMethod;
+            var verifyMethod = member.VerifyMethod;
             if (verifyMethod != null)
             {
                 generator.Emit(OpCodes.Ldarg_2);
@@ -135,7 +168,7 @@ namespace AutoCSer.ORM
             Monitor.Enter(modelLock);
             try
             {
-                TableModel<T> tableModel = get(ref writer.MemberMap.MemberMapData);
+                var tableModel = get(ref writer.MemberMap.MemberMapData);
                 if (tableModel != null) return tableModel;
                 Type type = typeof(T);
                 AutoCSer.Metadata.GenericType genericType = new AutoCSer.Metadata.GenericType<T>();
@@ -167,7 +200,7 @@ namespace AutoCSer.ORM
                         generator.Emit(OpCodes.Stloc_S, indexLocalBuilder);
                         generator.call(member.GetReadMethod());
                         if (member.MemberIndex.IsField) generator.Emit(OpCodes.Stfld, (FieldInfo)member.MemberIndex.Member);
-                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                         #endregion
                     }
                     else if (member.MemberIndex.IsField)
@@ -196,7 +229,7 @@ namespace AutoCSer.ORM
                         #region value.CustomProperty = property;
                         generator.Emit(OpCodes.Ldarg_1);
                         generator.Emit(OpCodes.Ldloc, propertyLocalBuilder);
-                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                         #endregion
                     }
                     generator.MarkLabel(notMemberLabel);
@@ -371,7 +404,7 @@ namespace AutoCSer.ORM
                         generator.Emit(OpCodes.Ldarg_0);
                         generator.Emit(OpCodes.Ldarg_1);
                         if (member.MemberIndex.IsField) generator.Emit(OpCodes.Ldfld, (FieldInfo)member.MemberIndex.Member);
-                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                         if (member.ReaderDataType == ReaderDataTypeEnum.Json) generator.call(member.GenericType.JsonSerializeDelegate.Method);
                         else if (isObjectToString && member.MemberIndex.MemberSystemType.IsValueType) generator.Emit(OpCodes.Box, member.MemberIndex.MemberSystemType);
                         generator.call(method.Key);
@@ -395,7 +428,7 @@ namespace AutoCSer.ORM
                         generator.Emit(OpCodes.Ldarg_0);
                         generator.Emit(OpCodes.Ldarg_1);
                         if (member.MemberIndex.IsField) generator.Emit(OpCodes.Ldfld, (FieldInfo)member.MemberIndex.Member);
-                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                         generator.Emit(OpCodes.Ldarg_2);
                         generator.Emit(OpCodes.Ldloc_S, columnIndexLocal);
                         generator.Emit(OpCodes.Ldloc_S, isFirstLocal);
@@ -420,7 +453,7 @@ namespace AutoCSer.ORM
                 generator.Emit(OpCodes.Ret);
                 Action<CharStream, T, TableWriter, MemberMap<T>> concatCondition = (Action<CharStream, T, TableWriter, MemberMap<T>>)dynamicMethod.CreateDelegate(typeof(Action<CharStream, T, TableWriter, MemberMap<T>>));
 
-                tableModel = new TableModel<T> { Read = read, Insert = insert, Update = update, ConcatCondition = concatCondition, memberMap = writer.MemberMap.MemberMapData };
+                tableModel = new TableModel<T>(read, insert, update, concatCondition, writer.MemberMap.MemberMapData);
                 if (model == null) model = tableModel;
                 else models.Add(tableModel);
                 return tableModel;
@@ -437,8 +470,8 @@ namespace AutoCSer.ORM
             Monitor.Enter(modelLock);
             try
             {
-                TableModel<T> tableModel = get(ref writer.MemberMap.MemberMapData);
-                if (tableModel.Copy != null) return tableModel.Copy;
+                var tableModel = get(ref writer.MemberMap.MemberMapData).notNull();
+                if (tableModel.copy != null) return tableModel.copy;
                 Type type = typeof(T);
                 AutoCSer.Metadata.GenericType genericType = new AutoCSer.Metadata.GenericType<T>();
                 string hashCode = writer.MemberMap.MemberMapData.GetHashCode64().toHex();
@@ -464,15 +497,15 @@ namespace AutoCSer.ORM
                     else
                     {
                         PropertyInfo property = (PropertyInfo)member.MemberIndex.Member;
-                        generator.call(property.GetGetMethod(true));
-                        generator.call(property.GetSetMethod(true));
+                        generator.call(property.GetGetMethod(true).notNull());
+                        generator.call(property.GetSetMethod(true).notNull());
                     }
                     #endregion
                     generator.MarkLabel(notMemberLabel);
                 }
                 generator.Emit(OpCodes.Ret);
-                tableModel.Copy = (Action<T, T, MemberMap<T>>)dynamicMethod.CreateDelegate(typeof(Action<T, T, MemberMap<T>>));
-                return tableModel.Copy;
+                tableModel.copy = (Action<T, T, MemberMap<T>>)dynamicMethod.CreateDelegate(typeof(Action<T, T, MemberMap<T>>));
+                return tableModel.copy;
             }
             finally { Monitor.Exit(modelLock); }
         }
@@ -486,8 +519,8 @@ namespace AutoCSer.ORM
             Monitor.Enter(modelLock);
             try
             {
-                TableModel<T> tableModel = get(ref writer.MemberMap.MemberMapData);
-                if (tableModel.Copy != null) return tableModel.ToArray;
+                var tableModel = get(ref writer.MemberMap.MemberMapData).notNull();
+                if (tableModel.toArray != null) return tableModel.toArray;
                 Type type = typeof(T);
                 string hashCode = writer.MemberMap.MemberMapData.GetHashCode64().toHex();
 
@@ -511,7 +544,7 @@ namespace AutoCSer.ORM
                         generator.Emit(OpCodes.Stloc_0);
                         generator.Emit(OpCodes.Ldarg_0);
                         if (member.MemberIndex.IsField) generator.Emit(OpCodes.Ldfld, (FieldInfo)member.MemberIndex.Member);
-                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                         if (member.ReaderDataType == ReaderDataTypeEnum.Json) generator.call(member.GenericType.JsonSerializeDelegate.Method);
                         else if (member.MemberIndex.MemberSystemType.IsValueType) generator.Emit(OpCodes.Box, member.MemberIndex.MemberSystemType);
                         generator.Emit(OpCodes.Stelem_Ref);
@@ -523,20 +556,20 @@ namespace AutoCSer.ORM
                         generator.Emit(OpCodes.Ldarg_1);
                         generator.Emit(OpCodes.Ldarg_0);
                         if (member.MemberIndex.IsField) generator.Emit(OpCodes.Ldfld, (FieldInfo)member.MemberIndex.Member);
-                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        else generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                         generator.Emit(OpCodes.Ldloca_S, indexLocalBuilder);
                         generator.call(member.StructGenericType.CustomColumnToArrayDelegate.Method);
                         #endregion
                     }
                 }
                 generator.Emit(OpCodes.Ret);
-                tableModel.ToArray = (Action<T, object[]>)dynamicMethod.CreateDelegate(typeof(Action<T, object[]>));
-                return tableModel.ToArray;
+                tableModel.toArray = (Action<T, object[]>)dynamicMethod.CreateDelegate(typeof(Action<T, object[]>));
+                return tableModel.toArray;
             }
             finally { Monitor.Exit(modelLock); }
         }
     }
-#if DEBUG
+#if DEBUG && NetStandard21
 #pragma warning disable
     internal class TableModelReaderIL
     {

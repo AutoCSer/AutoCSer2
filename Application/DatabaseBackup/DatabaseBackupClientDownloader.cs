@@ -41,7 +41,11 @@ namespace AutoCSer.CommandService
         /// <param name="backupFullName">备份文件名称</param>
         /// <param name="backupFileName">备份文件名称</param>
         /// <param name="tryErrorCount">连续错误尝试次数</param>
+#if NetStandard21
+        public DatabaseBackupClientDownloader(DatabaseBackupClient client, string database, string backupFullName, string? backupFileName = null, int tryErrorCount = 2)
+#else
         public DatabaseBackupClientDownloader(DatabaseBackupClient client, string database, string backupFullName, string backupFileName = null, int tryErrorCount = 2)
+#endif
         {
             this.client = client;
             this.database = database;
@@ -60,19 +64,19 @@ namespace AutoCSer.CommandService
             try
             {
                 int tryErrorCount = this.tryErrorCount;
-                await AutoCSer.Common.Config.TryCreateDirectory(new FileInfo(backupFileName).Directory);
+                await AutoCSer.Common.Config.TryCreateDirectory(new FileInfo(backupFileName).Directory.notNull());
                 do
                 {
                     int lastBufferSize = 0;
-#if DotNet45 || NetStandard2
-                    using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
-#else
+#if NetStandard21
                     await using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
+#else
+                    using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
 #endif
                     {
                         await AutoCSer.Common.Config.Seek(fileStream, 0, SeekOrigin.End);
 
-                        EnumeratorCommand<DatabaseBackupDownloadBuffer> downloadCommand = await client.Client.DatabaseBackupClient.Download(backupFullName, fileStream.Length);
+                        var downloadCommand = await client.Client.DatabaseBackupClient.Download(backupFullName, fileStream.Length);
                         if (downloadCommand != null)
                         {
                             while (await downloadCommand.MoveNext())
@@ -124,7 +128,9 @@ namespace AutoCSer.CommandService
                     await client.OnError($"备份文件 {backupFileName} 删除失败 {exception.Message}");
                 }
             }
-            foreach (FileInfo FileInfo in new FileInfo(backupFileName).Directory.GetFiles("*.bak").OrderByDescending(p => p.CreationTime).Skip(2))
+            ;
+            foreach (FileInfo FileInfo in (await AutoCSer.Common.Config.DirectoryGetFiles(new FileInfo(backupFileName).Directory.notNull(), "*.bak"))
+                .OrderByDescending(p => p.CreationTime).Skip(2))
             {
                 try
                 {

@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,16 @@ namespace AutoCSer.TestCase.ServiceRegistryClient
         public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
             return getCompletedTask(TimestampVerifyChecker.Verify(controller, verifyString));
+        }
+        /// <summary>
+        /// 没有找到服务端控制器名称通知
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="controllerName"></param>
+        /// <returns></returns>
+        public override async Task NotFoundControllerName(CommandClientSocket socket, string controllerName)
+        {
+            if (controllerName != typeof(AutoCSer.CommandService.IPortRegistryService).fullName()) await base.NotFoundControllerName(socket, controllerName);
         }
     }
 }

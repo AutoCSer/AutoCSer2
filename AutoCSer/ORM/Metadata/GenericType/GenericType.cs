@@ -36,7 +36,11 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static GenericType? lastGenericType;
+#else
         protected static GenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -44,7 +48,7 @@ namespace AutoCSer.ORM.Metadata
         /// <returns></returns>
         public static GenericType Get(Type type)
         {
-            GenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = get(type);
             lastGenericType = value;
@@ -65,14 +69,26 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 读取 JSON 对象
         /// </summary>
+#if NetStandard21
+        internal override Delegate ReadJsonDelegate { get { return (Func<DbDataReader, int, T?>)AutoCSer.ORM.Member.ReadJson<T>; } }
+#else
         internal override Delegate ReadJsonDelegate { get { return (Func<DbDataReader, int, T>)AutoCSer.ORM.Member.ReadJson<T>; } }
+#endif
         /// <summary>
         /// JSON 序列化
         /// </summary>
+#if NetStandard21
+        internal override Delegate JsonSerializeDelegate { get { return (Func<T, string?>)AutoCSer.ORM.Member.JsonSerialize<T>; } }
+#else
         internal override Delegate JsonSerializeDelegate { get { return (Func<T, string>)AutoCSer.ORM.Member.JsonSerialize<T>; } }
+#endif
         /// <summary>
         /// 读取 JSON 对象
         /// </summary>
+#if NetStandard21
+        internal override Delegate ReadRemoteProxyJsonDelegate { get { return (Func<RemoteProxy.DataValue[], int, T?>)AutoCSer.ORM.Member.ReadRemoteProxyJson<T>; } }
+#else
         internal override Delegate ReadRemoteProxyJsonDelegate { get { return (Func<RemoteProxy.DataValue[], int, T>)AutoCSer.ORM.Member.ReadRemoteProxyJson<T>; } }
+#endif
     }
 }

@@ -12,7 +12,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 排序成员字符串
         /// </summary>
+#if NetStandard21
+        public string? Member;
+#else
         public string Member;
+#endif
         /// <summary>
         /// 是否升序
         /// </summary>

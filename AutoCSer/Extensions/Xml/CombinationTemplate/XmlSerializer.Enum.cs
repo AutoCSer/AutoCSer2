@@ -16,7 +16,7 @@ namespace AutoCSer
         private void enumULong<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化

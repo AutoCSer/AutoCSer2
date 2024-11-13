@@ -33,7 +33,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             CallState = callState;
             LoadExceptionNodeState = CallStateEnum.Unknown;
-            LoadExceptionNodeKey = null;
+            LoadExceptionNodeKey = string.Empty;
             LoadExceptionNodeType = default(RemoteType);
         }
         /// <summary>

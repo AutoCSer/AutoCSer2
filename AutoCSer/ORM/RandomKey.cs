@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 
 namespace AutoCSer
 {
@@ -63,9 +64,13 @@ namespace AutoCSer
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+#if NetStandard21
+        public override bool Equals(object? obj)
+#else
         public override bool Equals(object obj)
+#endif
         {
-            return Equals((RandomKey<T>)obj);
+            return Equals(obj.castValue<RandomKey<T>>());
         }
     }
 }

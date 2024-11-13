@@ -27,6 +27,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 初始化加载完毕处理
         /// </summary>
         /// <returns>加载完毕替换的新节点</returns>
+#if NetStandard21
+        T? StreamPersistenceMemoryDatabaseServiceLoaded();
+#else
         T StreamPersistenceMemoryDatabaseServiceLoaded();
+#endif
     }
 }

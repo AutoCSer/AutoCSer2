@@ -36,7 +36,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 类型名称临时字符串
         /// </summary>
-        private readonly string typeNameString = AutoCSer.Common.Config.AllocateString(4096);
+        private readonly string typeNameString = AutoCSer.Common.AllocateString(4096);
         /// <summary>
         /// 类型名称访问锁
         /// </summary>
@@ -123,7 +123,7 @@ namespace AutoCSer.Reflection
                     nameStream.Reset(nameFixed, typeNameString.Length << 1);
                     using (nameStream)
                     {
-                        field.DeclaringType.typeFullName(ref typeNameBuilder);
+                        field.DeclaringType.notNull().typeFullName(ref typeNameBuilder);
                         nameStream.Write('.');
                         nameStream.SimpleWrite(field.Name);
                         fieldName = TypeNameExtension.GetName(ref typeNameBuilder, typeNameString, nameFixed);
@@ -163,7 +163,7 @@ namespace AutoCSer.Reflection
                     nameStream.Reset(nameFixed, typeNameString.Length << 1);
                     using (nameStream)
                     {
-                        property.DeclaringType.typeFullName(ref typeNameBuilder);
+                        property.DeclaringType.notNull().typeFullName(ref typeNameBuilder);
                         nameStream.Write('.');
                         nameStream.SimpleWrite(property.Name);
                         propertyName = TypeNameExtension.GetName(ref typeNameBuilder, typeNameString, nameFixed);
@@ -209,7 +209,7 @@ namespace AutoCSer.Reflection
                         nameStream.Reset(nameFixed, typeNameString.Length << 1);
                         using (nameStream)
                         {
-                            Type declaringType = method.DeclaringType;
+                            var declaringType = method.DeclaringType.notNull();
                             declaringType.typeFullName(ref typeNameBuilder);
                             nameStream.Write('.');
                             string name = method.Name;
@@ -223,7 +223,7 @@ namespace AutoCSer.Reflection
                             if (parameters.Length != 0)
                             {
                                 bool isFirst = true;
-                                Type[] genericArguments = declaringType.IsGenericTypeDefinition ? declaringType.GetGenericArguments() : null;
+                                var genericArguments = declaringType.IsGenericTypeDefinition ? declaringType.GetGenericArguments() : null;
                                 nameStream.Write('(');
                                 foreach (ParameterInfo parameter in parameters)
                                 {
@@ -282,7 +282,7 @@ namespace AutoCSer.Reflection
             XmlNode xmlNode = get(method);
             if (xmlNode.Type == XmlNodeTypeEnum.Node)
             {
-                string parameterName = parameter.Name;
+                string parameterName = parameter.Name.notNull();
                 Range attribute = default(Range);
                 fixed (char* nameFixed = "name", parameterFixed = parameterName)
                 {
@@ -296,7 +296,7 @@ namespace AutoCSer.Reflection
                             {
                                 if (AutoCSer.Memory.Common.SimpleEqualNotNull((byte*)parameterFixed, (byte*)(attributeFixed + attribute.StartIndex), parameterName.Length << 1))
                                 {
-                                    return node.Value.String.Length == 0 ? string.Empty : node.Value.String.ToString();
+                                    return node.Value.String.Length == 0 ? string.Empty : node.Value.String.ToString().notNull();
                                 }
                             }
                         }
@@ -349,7 +349,7 @@ namespace AutoCSer.Reflection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static string get(XmlNode node, string name)
         {
-            return (node = node[name]).String.Length != 0 ? node.String.ToString() : string.Empty;
+            return (node = node[name]).String.Length != 0 ? node.String.ToString().notNull() : string.Empty;
         }
         /// <summary>
         /// 名称格式化

@@ -186,7 +186,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             public ");
             }
             _code_.Add(@"struct __QUERYPARAMETER__
-            {");
+            {
+#pragma warning disable CS0649");
                 {
                     System.Collections.Generic.IEnumerable<AutoCSer.CodeGenerator.Metadata.MethodParameter> _value2_;
                     _value2_ = LoadParameters;
@@ -214,6 +215,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     }
                 }
             _code_.Add(@"
+#pragma warning restore CS0649
             }");
             _if_ = false;
                     if (IsQueryName)
@@ -223,12 +225,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (_if_)
             {
             _code_.Add(@"
+#pragma warning disable CS0649
             /// <summary>
             /// 客户端查询传参
             /// </summary>
             public __QUERYPARAMETER__ ");
             _code_.Add(QueryParameterName);
-            _code_.Add(@";");
+            _code_.Add(@";
+#pragma warning restore CS0649");
             }
             }
             }
@@ -657,7 +661,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             _code_.Add(@" 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(");
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(");
                 {
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
                     if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
@@ -822,7 +826,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             _code_.Add(@" 客户端节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(ServerNodeType = typeof(");
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(");
                 {
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
                     if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))

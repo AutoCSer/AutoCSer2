@@ -238,7 +238,7 @@ namespace AutoCSer.Example.CommandServer.Client.AsyncTaskQueueContext
         /// <returns>返回值类型必须为 AutoCSer.Net.KeepCallbackCommand</returns>
         KeepCallbackCommand EnumerableCallbackCount(int parameter1, int parameter2, CommandClientKeepCallbackQueue<int> callback);
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         /// <summary>
         /// await 等待保持回调
         /// </summary>

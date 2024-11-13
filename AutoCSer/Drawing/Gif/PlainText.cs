@@ -51,7 +51,11 @@ namespace AutoCSer.Drawing.Gif
         /// <summary>
         /// 文本数据
         /// </summary>
+#if NetStandard21
+        public byte[]? Text
+#else
         public byte[] Text
+#endif
         {
             get { return Decoder.BlocksToByte(ref textData); }
         }

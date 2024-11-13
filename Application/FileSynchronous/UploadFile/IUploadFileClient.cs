@@ -10,11 +10,6 @@ namespace AutoCSer.CommandService.FileSynchronous
     public interface IUploadFileClient
     {
         /// <summary>
-        /// 创建会话对象，用于反序列化时获取服务信息
-        /// </summary>
-        /// <returns></returns>
-        SendOnlyCommand CreateSessionObject();
-        /// <summary>
         /// 拼接路径
         /// </summary>
         /// <param name="left"></param>

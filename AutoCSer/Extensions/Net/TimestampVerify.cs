@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -35,7 +36,7 @@ namespace AutoCSer.Net
                     *(long*)(start + sizeof(ulong)) = timestamp;
                     AutoCSer.Common.Config.CopyTo(verifyString, start + (sizeof(ulong) + sizeof(long)));
                 }
-                return md5.ComputeHash(buffer.Buffer.Buffer, buffer.StartIndex, size);
+                return md5.ComputeHash(buffer.Buffer.notNull().Buffer, buffer.StartIndex, size);
             }
             finally { buffer.Free(); }
         }

@@ -2,6 +2,7 @@
 using AutoCSer.CommandService.DiskBlock;
 using AutoCSer.Net;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.DiskBlock
@@ -12,7 +13,11 @@ namespace AutoCSer.TestCase.DiskBlock
         {
             try
             {
-                FileBlockServiceConfig fileBlockServiceConfig = new FileBlockServiceConfig { Identity = 1 };
+                FileBlockServiceConfig fileBlockServiceConfig = new FileBlockServiceConfig 
+                {
+                    Identity = 1,
+                    Path = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.DiskBlock))
+                };
                 DiskBlockService diskBlockService = await fileBlockServiceConfig.CreateFileBlockService();
                 CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock) };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)

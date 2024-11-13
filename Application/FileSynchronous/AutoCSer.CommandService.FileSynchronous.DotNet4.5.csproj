@@ -44,7 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynchronousFileInfo.cs" />
     <Compile Include="SynchronousFile.cs" />
-    <Compile Include="UploadFile\CommandServerSocketSessionObject.cs" />
     <Compile Include="UploadFile\IUploadFileClientSocketEvent.cs" />
     <Compile Include="UploadFile\FileUploader.cs" />
     <Compile Include="UploadFile\IUploadFileClient.cs" />
@@ -57,7 +56,6 @@
     <Compile Include="UploadFile\UploadFileIdentity.cs" />
     <Compile Include="UploadFile\UploadFileIndex.cs" />
     <Compile Include="UploadFile\UploadFileService.cs" />
-    <Compile Include="UploadFile\UploadFileConfig.cs" />
     <Compile Include="UploadFile\UploadFileServiceConfig.cs" />
     <Compile Include="UploadFile\UploadFileStateEnum.cs" />
     <Compile Include="DirectoryName.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -22,7 +23,11 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 文件名称
         /// </summary>
+#if NetStandard21
+        public string? FileName;
+#else
         public string FileName;
+#endif
         /// <summary>
         /// 文件最后修改时间
         /// </summary>
@@ -40,11 +45,15 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="checkFileDictionary"></param>
         /// <param name="switchFileDictionary"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal FileInfo? Check(Dictionary<HashString, FileInfo>? checkFileDictionary, Dictionary<HashString, FileInfo>? switchFileDictionary)
+#else
         internal FileInfo Check(Dictionary<HashString, FileInfo> checkFileDictionary, Dictionary<HashString, FileInfo> switchFileDictionary)
+#endif
         {
-            HashString fileName = FileName;
+            HashString fileName = FileName.notNull();
             FileName = null;
-            FileInfo file;
+            var file = default(FileInfo);
             if (checkFileDictionary != null && checkFileDictionary.TryGetValue(fileName, out file)
                 && file.Length == Length && file.LastWriteTimeUtc == LastWriteTimeUtc) return file;
             if (switchFileDictionary != null && switchFileDictionary.TryGetValue(fileName, out file)

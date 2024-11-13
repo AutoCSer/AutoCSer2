@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -37,8 +38,9 @@ namespace AutoCSer.Search
         /// <param name="boot">根节点</param>
         internal TrieGraphBuilder(TrieGraphNode<T> boot)
         {
-            this.boot = boot.Nodes;
+            this.boot = boot.Nodes.notNull();
             Writer = new LeftArray<TrieGraphNode<T>>(0);
+            reader = EmptyArray<TrieGraphNode<T>>.Array;
         }
         /// <summary>
         /// 设置当前处理节点集合
@@ -63,16 +65,17 @@ namespace AutoCSer.Search
                 TrieGraphNode<T> fatherNode = reader[startIndex++];
                 if (fatherNode.Link == null)
                 {
-                    foreach (KeyValuePair<T, TrieGraphNode<T>> nextNode in fatherNode.Nodes)
+                    foreach (KeyValuePair<T, TrieGraphNode<T>> nextNode in fatherNode.Nodes.notNull())
                     {
                         if (nextNode.Value.GetNodeCount(boot, nextNode.Key) != 0) Writer.Add(nextNode.Value);
                     }
                 }
                 else
                 {
-                    foreach (KeyValuePair<T, TrieGraphNode<T>> nextNode in fatherNode.Nodes)
+                    foreach (KeyValuePair<T, TrieGraphNode<T>> nextNode in fatherNode.Nodes.notNull())
                     {
-                        TrieGraphNode<T> link = fatherNode.Link, linkNode = null;
+                        var link = fatherNode.Link;
+                        var linkNode = default(TrieGraphNode<T>);
                         do
                         {
                             if (link.GetLinkWhereNull(nextNode.Key, ref linkNode, ref link) == 0)
@@ -85,7 +88,7 @@ namespace AutoCSer.Search
                             }
                             else
                             {
-                                if (nextNode.Value.GetNodeCount(linkNode) != 0) Writer.Add(nextNode.Value);
+                                if (nextNode.Value.GetNodeCount(linkNode.notNull()) != 0) Writer.Add(nextNode.Value);
                                 break;
                             }
                         }

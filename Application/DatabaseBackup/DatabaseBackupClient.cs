@@ -64,7 +64,7 @@ namespace AutoCSer.CommandService
                 if (checkDatabase(database))
                 {
                     OnMessage($"开始备份数据库 {database}");
-                    CommandClientReturnValue<string> backupFullName = await Client.DatabaseBackupClient.Backup(database);
+                    var backupFullName = await Client.DatabaseBackupClient.Backup(database);
                     if (backupFullName.IsSuccess)
                     {
                         if (backupFullName.Value != null)

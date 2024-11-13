@@ -24,7 +24,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 数据视图显示类型
         /// </summary>
+#if NetStandard21
+        private Type? viewShowType;
+#else
         private Type viewShowType;
+#endif
         /// <summary>
         /// 数据视图显示类型
         /// </summary>
@@ -37,7 +41,7 @@ namespace AutoCSer.NetCoreWeb
                     Type type = GetAwaitResultType(this.type) ?? this.type;
                     if (type != typeof(string))
                     {
-                        Type enumerableInterfaceType = type.getGenericInterfaceType(typeof(IEnumerable<>));
+                        var enumerableInterfaceType = type.getGenericInterfaceType(typeof(IEnumerable<>));
                         if (enumerableInterfaceType != null)
                         {
                             type = enumerableInterfaceType.GetGenericArguments()[0];
@@ -66,7 +70,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 类型全名（帮助文档识别标识）
         /// </summary>
+#if NetStandard21
+        private string? fullName;
+#else
         private string fullName;
+#endif
         /// <summary>
         /// 类型全名（帮助文档识别标识）
         /// </summary>
@@ -74,14 +82,18 @@ namespace AutoCSer.NetCoreWeb
         {
             get
             {
-                if(fullName == null) fullName = ViewShowType.fullName();
+                if(fullName == null) fullName = ViewShowType.fullName().notNull();
                 return fullName;
             }
         }
         /// <summary>
         /// 类型文档描述
         /// </summary>
+#if NetStandard21
+        private string? summary;
+#else
         private string summary;
+#endif
         /// <summary>
         /// 类型文档描述
         /// </summary>
@@ -96,11 +108,19 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 成员集合
         /// </summary>
+#if NetStandard21
+        private MemberHelpView[]? members;
+#else
         private MemberHelpView[] members;
+#endif
         /// <summary>
         /// 成员集合
         /// </summary>
+#if NetStandard21
+        public MemberHelpView[]? Members
+#else
         public MemberHelpView[] Members
+#endif
         {
             get
             {
@@ -130,11 +150,19 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 枚举值集合
         /// </summary>
+#if NetStandard21
+        private EnumHelpView[]? enums;
+#else
         private EnumHelpView[] enums;
+#endif
         /// <summary>
         /// 枚举值集合
         /// </summary>
+#if NetStandard21
+        public EnumHelpView[]? Enums
+#else
         public EnumHelpView[] Enums
+#endif
         {
             get
             {
@@ -213,7 +241,7 @@ namespace AutoCSer.NetCoreWeb
             {
                 isLoad = true;
                 ViewMiddleware.GetTypeHelpView(ViewShowType);
-                MemberHelpView[] members = Members;
+                var members = Members;
                 if (members != null)
                 {
                     foreach (MemberHelpView member in members) member.Type.LoadTypeView();
@@ -224,13 +252,17 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 空类型
         /// </summary>
-        private static readonly TypeHelpView nullType = new TypeHelpView(null, null);
+        private static readonly TypeHelpView nullType = new TypeHelpView(NullViewMiddleware.Null, typeof(void));
         /// <summary>
         /// 获取 await 结果类型
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static Type? GetAwaitResultType(Type type)
+#else
         internal static Type GetAwaitResultType(Type type)
+#endif
         {
             if (type.IsGenericType)
             {

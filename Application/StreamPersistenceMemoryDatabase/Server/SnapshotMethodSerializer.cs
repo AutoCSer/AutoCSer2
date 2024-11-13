@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Net.CommandServer;
 using System;
 
@@ -35,7 +36,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.serializer = serializer;
             nodeIndex = node.Index;
-            Method method = node.NodeCreator.SnapshotMethod;
+            Method method = node.NodeCreator.SnapshotMethod.notNull();
             methodIndex = method.Index;
             isSimpleSerializeParamter = method.IsSimpleDeserializeParamter;
         }

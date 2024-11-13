@@ -1,10 +1,11 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -19,13 +20,21 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 异步上下文
         /// </summary>
+#if NetStandard21
+        internal static readonly AsyncLocal<Transaction?> AsyncLocal = new AsyncLocal<Transaction?>();
+#else
         internal static readonly AsyncLocal<Transaction> AsyncLocal = new AsyncLocal<Transaction>();
+#endif
         /// <summary>
         /// 获取异步上下文数据库事务
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static Transaction? GetAsyncLocal()
+#else
         public static Transaction GetAsyncLocal()
+#endif
         {
             return AsyncLocal.Value;
         }
@@ -48,11 +57,19 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 数据库连接
         /// </summary>
+#if NetStandard21
+        internal DbConnection? Connection;
+#else
         internal DbConnection Connection;
+#endif
         /// <summary>
         /// 数据库事务
         /// </summary>
+#if NetStandard21
+        private DbTransaction? transaction;
+#else
         private DbTransaction transaction;
+#endif
         /// <summary>
         /// 事务提交事件集合
         /// </summary>
@@ -64,7 +81,7 @@ namespace AutoCSer.ORM
         /// <param name="connection">数据库连接</param>
         /// <param name="transaction">数据库事务</param>
         /// <param name="isAsyncLocal">是否创建异步上下文</param>
-        internal Transaction(ConnectionPool connectionPool, ref DbConnection connection, DbTransaction transaction, bool isAsyncLocal)
+        internal Transaction(ConnectionPool connectionPool, DbConnection connection, DbTransaction transaction, bool isAsyncLocal)
         {
             ConnectionPool = connectionPool;
             this.Connection = connection;
@@ -73,7 +90,6 @@ namespace AutoCSer.ORM
 #if !DotNet45
             if (isAsyncLocal) AsyncLocal.Value = this;
 #endif
-            connection = null;
         }
         /// <summary>
         /// 创建命令
@@ -83,7 +99,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal DbCommand CreateCommand(string statement)
         {
-            return ConnectionPool.CreateCommand(Connection, statement);
+            return ConnectionPool.CreateCommand(Connection.notNull(), statement);
         }
         /// <summary>
         /// 设置命令参数
@@ -100,9 +116,13 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal DbConnection? ClearConnection()
+#else
         internal DbConnection ClearConnection()
+#endif
         {
-            DbConnection connection = this.Connection;
+            var connection = this.Connection;
             this.Connection = null;
             return connection;
         }
@@ -112,34 +132,37 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         public async Task CommitAsync()
         {
-            try
+            if (transaction != null)
             {
-#if DotNet45 || NetStandard2
-                transaction.Commit();
-#else
-                await transaction.CommitAsync();
-#endif
-                transaction = null;
                 try
                 {
-                    await ConnectionPool.FreeConnectionAsync(this);
+#if NetStandard21
+                    await transaction.CommitAsync();
+#else
+                    transaction.Commit();
+#endif
+                    transaction = null;
+                    try
+                    {
+                        await ConnectionPool.FreeConnectionAsync(this);
+                    }
+                    finally
+                    {
+                        foreach (TransactionCommited commited in Commiteds) await commited.OnCommited();
+                        Commiteds.SetEmpty();
+                    }
                 }
                 finally
                 {
-                    foreach (TransactionCommited commited in Commiteds) await commited.OnCommited();
-                    Commiteds.SetEmpty();
-                }
-            }
-            finally
-            {
-                DbTransaction transaction = Interlocked.Exchange(ref this.transaction, null);
-#if DotNet45 || NetStandard2
-                if (transaction != null) transaction.Dispose();
+                    var transaction = Interlocked.Exchange(ref this.transaction, null);
+#if NetStandard21
+                    if (transaction != null) await transaction.DisposeAsync();
 #else
-                if (transaction != null) await transaction.DisposeAsync();
+                    if (transaction != null) transaction.Dispose();
 #endif
-                DbConnection connection = Interlocked.Exchange(ref this.Connection, null);
-                if (connection != null) await ConnectionCreator.CloseConnectionAsync(connection);
+                    var connection = Interlocked.Exchange(ref this.Connection, null);
+                    if (connection != null) await ConnectionCreator.CloseConnectionAsync(connection);
+                }
             }
         }
         /// <summary>
@@ -149,7 +172,7 @@ namespace AutoCSer.ORM
         {
             try
             {
-                DbTransaction transaction = Interlocked.Exchange(ref this.transaction, null);
+                var transaction = Interlocked.Exchange(ref this.transaction, null);
                 if (transaction != null)
                 {
                     using (transaction) transaction.Rollback();
@@ -161,7 +184,7 @@ namespace AutoCSer.ORM
 #if !DotNet45
                 if (object.ReferenceEquals(AsyncLocal.Value, this)) AsyncLocal.Value = null;
 #endif
-                DbConnection connection = Interlocked.Exchange(ref this.Connection, null);
+                var connection = Interlocked.Exchange(ref this.Connection, null);
                 ConnectionCreator.CloseConnection(connection);
             }
         }
@@ -173,13 +196,13 @@ namespace AutoCSer.ORM
         {
             try
             {
-                DbTransaction transaction = Interlocked.Exchange(ref this.transaction, null);
+                var transaction = Interlocked.Exchange(ref this.transaction, null);
                 if (transaction != null)
                 {
-#if DotNet45 || NetStandard2
-                    using (transaction) transaction.Rollback();
-#else
+#if NetStandard21
                     await using (transaction) await transaction.RollbackAsync();
+#else
+                    using (transaction) transaction.Rollback();
 #endif
                 }
                 await ConnectionPool.FreeConnectionAsync(this);
@@ -189,7 +212,7 @@ namespace AutoCSer.ORM
 #if !DotNet45
                 if (object.ReferenceEquals(AsyncLocal.Value, this)) AsyncLocal.Value = null;
 #endif
-                DbConnection connection = Interlocked.Exchange(ref this.Connection, null);
+                var connection = Interlocked.Exchange(ref this.Connection, null);
                 if (connection != null) await ConnectionCreator.CloseConnectionAsync(connection);
             }
         }

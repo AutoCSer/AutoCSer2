@@ -186,10 +186,8 @@
     <Compile Include="ServerJsonBinary.cs" />
     <Compile Include="ServerJson.cs" />
     <Compile Include="Server\Backuper.cs" />
-    <Compile Include="Server\CommandServerSocketSessionObject.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
-    <Compile Include="Server\CommandServerSocketSessionObjectService.cs" />
     <Compile Include="Server\ContextNode.cs" />
     <Compile Include="Server\EmptyCommandServerCallback.cs" />
     <Compile Include="Server\INode.cs" />
@@ -246,8 +244,8 @@
     <Compile Include="Server\SlaveServiceConfig.cs" />
     <Compile Include="Server\SlaveServiceLoadTypeEnum.cs" />
     <Compile Include="Server\SnapshotMethodSerializer.cs" />
-    <Compile Include="Server\StreamPersistenceMemoryDatabaseConfig.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseService.cs" />
+    <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceBase.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceConfig.cs" />
     <Compile Include="Server\SlaveService.cs" />
     <Compile Include="SimpleSerializeResponseParameter.cs" />

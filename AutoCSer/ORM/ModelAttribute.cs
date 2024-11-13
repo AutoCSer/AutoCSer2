@@ -17,7 +17,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 默认表格名称，null 表示数据表格模型类型名称
         /// </summary>
+#if NetStandard21
+        public string? TableName;
+#else
         public string TableName;
+#endif
         /// <summary>
         /// 默认为 true 表示自动创建数据库表格
         /// </summary>

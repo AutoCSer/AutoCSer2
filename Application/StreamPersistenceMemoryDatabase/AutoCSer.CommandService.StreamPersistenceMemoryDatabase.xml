@@ -294,6 +294,16 @@
             当前状态不匹配
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.CustomDeserializeError">
+            <summary>
+            自定义反序列化失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.ReadFileSizeError">
+            <summary>
+            文件读取数据失败
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.CallFail">
             <summary>
             客户端调用失败
@@ -511,11 +521,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode.DefaultAttribute">
-            <summary>
-            默认客户端节点自定义属性
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode`1">
             <summary>
             客户端节点
@@ -617,12 +622,6 @@
             <summary>
             日志流持久化内存数据库客户端接口
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStreamPersistenceMemoryDatabaseClientBase.CreateSessionObject">
-            <summary>
-            创建会话对象，用于反序列化时获取服务信息
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStreamPersistenceMemoryDatabaseClientBase.GetUtcNow">
             <summary>
@@ -794,7 +793,7 @@
             空响应（命令提交失败）
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode,AutoCSer.Net.EnumeratorCommand{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode,AutoCSer.Net.EnumeratorCommand{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
             <summary>
             保持回调输出
             </summary>
@@ -951,6 +950,12 @@
             <summary>
             匹配服务端节点接口类型
             </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeAttribute.#ctor(System.Type)">
+            <summary>
+            客户端节点自定义属性
+            </summary>
+            <param name="serverNodeType">匹配服务端节点接口类型</param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeCreator">
             <summary>
@@ -1202,6 +1207,14 @@
             返回结果
             </summary>
             <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult.Set(AutoCSer.Net.CommandClientReturnTypeEnum,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum,System.String)">
+            <summary>
+            返回结果
+            </summary>
+            <param name="returnType"></param>
+            <param name="state"></param>
+            <param name="errorMessage"></param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult`1">
             <summary>
@@ -1913,10 +1926,11 @@
             创建调用方法与参数信息
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.#ctor">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode)">
             <summary>
             创建调用方法与参数信息
             </summary>
+            <param name="node"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.Clone(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32)">
             <summary>
@@ -1959,11 +1973,6 @@
             <param name="deserializer"></param>
             <param name="buffer"></param>
             <returns></returns>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateInputMethodParameter.Default">
-            <summary>
-            创建调用方法与参数信息
-            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod">
             <summary>
@@ -2101,6 +2110,13 @@
             <typeparam name="T"></typeparam>
             <param name="methodParameter"></param>
             <param name="values"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter.CreateMethodKeepCallback``1">
+            <summary>
+            创建方法调用回调包装对象
+            </summary>
+            <typeparam name="T">返回数据类型</typeparam>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter`1">
             <summary>
@@ -3555,7 +3571,7 @@
             消费客户端获取消息
             </summary>
             <param name="maxCount">当前客户端最大并发消息数量</param>
-            <param name="callback"></param>
+            <param name="callback">null 表示心跳测试数据，客户端应该忽略该消息</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.AppendMessageBeforePersistence(`0)">
             <summary>
@@ -7450,6 +7466,29 @@
             </summary>
             <returns>没有可弹出数据则返回无数据</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NullResponseParameterSerializer">
+            <summary>
+            默认空返回参数序列化
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NullResponseParameterSerializer.Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            序列化
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NullResponseParameterSerializer.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <returns>目标对象</returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NullResponseParameterSerializer.Null">
+            <summary>
+            默认空返回参数序列化
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFileBuffer">
             <summary>
             持久化文件缓冲区
@@ -7724,6 +7763,13 @@
             </summary>
             <param name="method">静态方法信息</param>
             <param name="nodeType">节点类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodName.Set(System.String,System.String)">
+            <summary>
+            设置修复节点方法名称信息
+            </summary>
+            <param name="declaringTypeFullName"></param>
+            <param name="name"></param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodPosition">
             <summary>
@@ -8405,6 +8451,13 @@
             <typeparam name="T"></typeparam>
             <param name="methodParameter"></param>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.CreateMethodCallback``1">
+            <summary>
+            创建方法调用回调包装对象
+            </summary>
+            <typeparam name="T">返回数据类型</typeparam>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter`1">
@@ -9538,31 +9591,6 @@
             <param name="position"></param>
             <param name="buffer"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObject">
-            <summary>
-            日志流持久化内存数据库服务端会话对象操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#CommandServerSocketSessionObjectService,AutoCSer#CommandService#StreamPersistenceMemoryDatabase#CommandServerSocketSessionObjectService}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            尝试从命令服务套接字自定义会话对象获取指定会话对象
-            </summary>
-            <param name="socket"></param>
-            <returns>失败返回 null</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#CommandServerSocketSessionObjectService,AutoCSer#CommandService#StreamPersistenceMemoryDatabase#CommandServerSocketSessionObjectService}#CreateSessionObject(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService,AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象
-            </summary>
-            <param name="cacheService"></param>
-            <param name="socket"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObject.Default">
-            <summary>
-            默认日志流持久化内存数据库服务端会话对象操作
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputMethodParameter">
             <summary>
             调用方法与参数信息
@@ -9634,236 +9662,216 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase">
             <summary>
-            服务端会话绑定日志流持久化内存数据库服务
+            日志流持久化内存数据库服务端
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.streamPersistenceMemoryDatabaseConfig">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.NullRepairNodeMethodLoaders">
             <summary>
-            日志流持久化内存数据库服务配置
+            默认空待加载修复方法节点集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.singleService">
-            <summary>
-            单服务实例
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.isSingleService">
-            <summary>
-            是否进程内单服务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.isDeserializeLog">
-            <summary>
-            是否输出反序列化错误日志
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.serviceCount">
-            <summary>
-            服务数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.Config">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Config">
             <summary>
             日志流持久化内存数据库服务端配置
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CommandServerCallQueue">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CommandServerCallQueue">
             <summary>
             服务端执行队列
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceDirectory">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceDirectory">
             <summary>
             持久化文件主目录
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceFileInfo">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceFileInfo">
             <summary>
             持久化文件信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceCallbackExceptionPositionFileInfo">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionPositionFileInfo">
             <summary>
             持久化回调异常位置文件信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceSwitchFileInfo">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceSwitchFileInfo">
             <summary>
             重建持久化文件信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceCallbackExceptionPositionSwitchFileInfo">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionPositionSwitchFileInfo">
             <summary>
             重建持久化回调异常位置文件信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.nodeCreators">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.nodeCreators">
             <summary>
             生成服务端节点集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.nodeCreatorLock">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.nodeCreatorLock">
             <summary>
             生成服务端节点集合访问锁
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.RepairNodeMethodLoaders">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RepairNodeMethodLoaders">
             <summary>
             待加载修复方法节点集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceDataPositionBuffer">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceDataPositionBuffer">
             <summary>
             持久化回调异常位置写入缓冲区
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.nodeDictionary">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.nodeDictionary">
             <summary>
             根节点集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.createKeys">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.createKeys">
             <summary>
             正在创建节点的关键字
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.serviceCallbackWait">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.serviceCallbackWait">
             <summary>
             持久化回调完成等待
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.Nodes">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Nodes">
             <summary>
             节点集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CurrentMethodParameter">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CurrentMethodParameter">
             <summary>
             当前执行的调用方法与参数信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceQueue">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceQueue">
             <summary>
             调用持久化链表
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceWaitHandle">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceWaitHandle">
             <summary>
             等待事件
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.Rebuilder">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Rebuilder">
             <summary>
             日志流持久化文件重建
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.Slave">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Slave">
             <summary>
             从节点客户端信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.LoadedRepairNodeMethod">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.LoadedRepairNodeMethod">
             <summary>
             已加载加载修复节点方法
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.RebuildPosition">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RebuildPosition">
             <summary>
             持久化流重建起始位置
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistencePosition">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistencePosition">
             <summary>
             持久化流已写入位置
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.RebuildPersistenceEndPosition">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RebuildPersistenceEndPosition">
             <summary>
             持久化流重建绝对结束位置 RebuildPosition + PersistencePosition
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceCallbackExceptionFilePosition">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionFilePosition">
             <summary>
             持久化回调异常位置文件已写入位置
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.RebuildSnapshotPosition">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RebuildSnapshotPosition">
             <summary>
             重建快照结束位置
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.NodeIndex">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.NodeIndex">
             <summary>
             当前分配节点索引
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.serviceCallbackCount">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.serviceCallbackCount">
             <summary>
             未完成持久化回调次数
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.SnapshotTransactionNodeVersion">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.SnapshotTransactionNodeVersion">
             <summary>
             快照事务关系节点版本
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.IsMaster">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsMaster">
             <summary>
             是否主节点
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CanCreateSlave">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CanCreateSlave">
             <summary>
             是否允许创建从节点
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.IsBackup">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsBackup">
             <summary>
             是否备份客户端
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CurrentCallIsPersistence">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CurrentCallIsPersistence">
             <summary>
             当前调用是否持久化
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.IsLoaded">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsLoaded">
             <summary>
             是否已经加载完数据
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.IsDisposed">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsDisposed">
             <summary>
             是否已经释放资源
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig,System.Boolean)">
             <summary>
             服务端会话绑定日志流持久化内存数据库服务
             </summary>
             <param name="config">日志流持久化内存数据库服务端配置</param>
             <param name="isMaster">是否主节点</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.SwitchPersistenceFileInfo">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.SwitchPersistenceFileInfo">
             <summary>
             切换持久化文件信息
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.GetPersistencePosition">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetPersistencePosition">
             <summary>
             获取持久化流已写入位置
             </summary>
             <returns>持久化流已写入位置</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.GetRebuildSnapshotPosition">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetRebuildSnapshotPosition">
             <summary>
             获取重建快照结束位置
             </summary>
             <returns>重建快照结束位置</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.AppendNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.String)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.String)">
             <summary>
             添加新节点
             </summary>
@@ -9871,27 +9879,13 @@
             <param name="key"></param>
             <returns>当前执行的持久化回调</returns>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.createInputMethodParameter">
-            <summary>
-            创建调用方法与参数信息
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CreateInputMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum@)">
-            <summary>
-            创建调用方法与参数信息
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="methodIndex">调用方法编号</param>
-            <param name="state"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PushPersistenceMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
             <summary>
             添加持久化调用方法与参数信息
             </summary>
             <param name="methodParameter"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PushPersistenceMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,``0@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,``0@)">
             <summary>
             添加持久化调用方法与参数信息
             </summary>
@@ -9899,13 +9893,13 @@
             <param name="methodParameter"></param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.SetCurrentMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.SetCurrentMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
             <summary>
             设置当前执行的调用方法与参数信息
             </summary>
             <param name="methodParameter"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,System.Int64,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,System.Int64,System.Boolean)">
             <summary>
             持久化回调
             </summary>
@@ -9914,13 +9908,13 @@
             <param name="persistencePosition"></param>
             <param name="checkRebuild"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CheckRebuild">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CheckRebuild">
             <summary>
             重建持久化文件
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.PersistenceException(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceException(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
             <summary>
             持久化结束释放队列
             </summary>
@@ -9928,20 +9922,20 @@
             <param name="end"></param>
             <param name="state"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.WritePersistenceCallbackExceptionPosition(System.Int64)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.WritePersistenceCallbackExceptionPosition(System.Int64)">
             <summary>
             写入持久化回调异常数据位置
             </summary>
             <param name="persistenceCallbackExceptionPosition">持久化异常位置信息</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.AppendRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
             <summary>
             添加修复接口方法文件
             </summary>
             <param name="repairNodeMethod"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.AppendRepairNodeMethodLoader``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService,System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethodLoader``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase,System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory)">
             <summary>
             添加待加载修复方法节点
             </summary>
@@ -9950,7 +9944,7 @@
             <param name="methodDirectory"></param>
             <param name="repairNodeMethodDirectory"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.appendRepairNodeMethodLoader``1(System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.appendRepairNodeMethodLoader``1(System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory@)">
             <summary>
             添加待加载修复方法节点
             </summary>
@@ -9958,39 +9952,32 @@
             <param name="methodDirectory"></param>
             <param name="repairNodeMethodDirectory"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.AppendRepairNodeMethodLoader(System.UInt64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodLoader)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethodLoader(System.UInt64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodLoader)">
             <summary>
             添加待加载修复方法节点
             </summary>
             <param name="position"></param>
             <param name="loader"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.GetNodeCreator``1">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetNodeCreator``1">
             <summary>
             获取生成服务端节点
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.AppendLoadedRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendLoadedRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
             <summary>
             添加已加载加载修复节点方法
             </summary>
             <param name="repairNodeMethod"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.CloseLoader(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CloseLoader(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader,System.Boolean)">
             <summary>
             关闭数据加载
             </summary>
             <param name="loader"></param>
             <param name="isRetry"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService.GetSessionObject(AutoCSer.BinaryDeserializer)">
-            <summary>
-            从反序列化上下文中获取日志流持久化内存数据库服务端对象
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1">
             <summary>
@@ -10301,10 +10288,11 @@
             <param name="clientNode">本地服务客户端节点</param>
             <param name="parameter">调用方法与参数信息</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
             <summary>
             调用状态错误
             </summary>
+            <param name="clientNode">本地服务客户端节点</param>
             <param name="result"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackNode`1.RunTask">
@@ -10587,10 +10575,11 @@
             <param name="clientNode">本地服务客户端节点</param>
             <param name="parameter">调用方法与参数信息</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
             <summary>
             调用状态错误
             </summary>
+            <param name="clientNode">本地服务客户端节点</param>
             <param name="result"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode.RunTask">
@@ -10673,10 +10662,11 @@
             <param name="clientNode">本地服务客户端节点</param>
             <param name="parameter">调用方法与参数信息</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
             <summary>
             调用状态错误
             </summary>
+            <param name="clientNode">本地服务客户端节点</param>
             <param name="result"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode`1.RunTask">
@@ -11058,7 +11048,7 @@
             重建持久化文件切换目录
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase)">
             <summary>
             删除历史持久化文件
             </summary>
@@ -11184,7 +11174,7 @@
             修复节点方法回调返回状态
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodCallback.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method,System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodCallback.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method,System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
             修复节点方法队列回调
             </summary>
@@ -11267,7 +11257,7 @@
             无回调
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.#ctor(AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter}@,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.#ctor(AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},System.Boolean)">
             <summary>
             方法调用回调包装
             </summary>
@@ -11468,7 +11458,7 @@
             无回调
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.#ctor(AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter}@,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.#ctor(AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter},System.Boolean)">
             <summary>
             方法调用回调包装
             </summary>
@@ -11874,7 +11864,7 @@
             </summary>
             <param name="rebuilder"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.Repair(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.Repair(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
             修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
             </summary>
@@ -11883,7 +11873,7 @@
             <param name="methodAttribute"></param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.Bind(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.Bind(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
             绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
             </summary>
@@ -11971,7 +11961,7 @@
             </summary>
             <returns>创建调用方法与参数信息</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`1.Repair(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`1.Repair(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
             修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
             </summary>
@@ -11980,7 +11970,7 @@
             <param name="methodAttribute"></param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`1.Bind(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`1.Bind(System.Byte[],System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
             绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
             </summary>
@@ -12097,7 +12087,7 @@
             节点状态
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService,System.Type,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method,System.Type)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase,System.Type,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method,System.Type)">
             <summary>
             生成服务端节点
             </summary>
@@ -12410,7 +12400,7 @@
             快照数据类型
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase)">
             <summary>
             生成服务端节点
             </summary>
@@ -13630,7 +13620,7 @@
             是否备份客户端
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandServerSocketSessionObjectService,AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClientSocketEvent)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase,AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClientSocketEvent)">
             <summary>
             从服务节点加载数据
             </summary>
@@ -18872,12 +18862,6 @@
             </summary>
             <param name="client">日志流持久化内存数据库客户端接口</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseTaskClient.CreateSessionObject">
-            <summary>
-            创建会话对象，用于反序列化时获取服务信息
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseTaskClient.GetUtcNow">
             <summary>
             获取服务端 UTC 时间
@@ -19065,13 +19049,6 @@
             <summary>
             日志流持久化内存数据库服务端接口
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象，用于反序列化时获取服务信息
-            </summary>
-            <param name="socket"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.GetUtcNow">
             <summary>
@@ -19281,24 +19258,9 @@
             <param name="position">读取文件起始位置</param>
             <param name="callback"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseConfig">
-            <summary>
-            日志流持久化内存数据库服务配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseConfig.IsSingleService">
-            <summary>
-            是否进程内单服务
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService">
             <summary>
             日志流持久化内存数据库服务端
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.CommandServerSocketSessionObject">
-            <summary>
-            日志流持久化内存数据库服务端会话对象操作
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.PersistenceBufferPool">
@@ -19374,6 +19336,20 @@
             <summary>
             获取所有有效节点集合（不包括基础操作节点）
             </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.createInputMethodParameter">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.CreateInputMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum@)">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="methodIndex">调用方法编号</param>
+            <param name="state"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.AutoCSer#Net#ICommandServerBindController#Bind(AutoCSer.Net.CommandServerController)">
@@ -19471,13 +19447,6 @@
             释放空闲节点
             </summary>
             <param name="index"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象，用于反序列化时获取服务信息
-            </summary>
-            <param name="socket"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.Call(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
@@ -19811,11 +19780,6 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.DefaultPersistenceFileName">
             <summary>
             默认持久化文件名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.CommandServerSocketSessionObject">
-            <summary>
-            套接字自定义会话对象操作
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.PersistencePath">

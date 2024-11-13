@@ -106,24 +106,27 @@ namespace AutoCSer.CommandService
             {
                 await AutoCSer.Common.Config.TryCreateDirectory(SavePath);
 
-                EnumeratorCommand<T> command = await getCommand(Database, TableName);
-                while (await command.MoveNext())
+                var command = await getCommand(Database, TableName);
+                if (command != null)
                 {
-                    T value = command.Current;
-                    if (value != null)
+                    while (await command.MoveNext())
                     {
-                        values.Add(value);
-                        if (values.FreeCount == 0)
+                        T value = command.Current;
+                        if (value != null)
                         {
-                            await save();
-                            values.Clear();
+                            values.Add(value);
+                            if (values.FreeCount == 0)
+                            {
+                                await save();
+                                values.Clear();
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (values.Count != 0) await save();
-                        isCompleted = true;
-                        return;
+                        else
+                        {
+                            if (values.Count != 0) await save();
+                            isCompleted = true;
+                            return;
+                        }
                     }
                 }
             }
@@ -149,10 +152,10 @@ namespace AutoCSer.CommandService
                 }
             }
             setDataSize(data, dataSize);
-#if DotNet45 || NetStandard2
-            using (FileStream fileStream = File.Create(Path.Combine(SavePath, $"{(fileIndex++).toString()}.bak")))
-#else
+#if NetStandard21
             await using (FileStream fileStream = File.Create(Path.Combine(SavePath, $"{(fileIndex++).toString()}.bak")))
+#else
+            using (FileStream fileStream = File.Create(Path.Combine(SavePath, $"{(fileIndex++).toString()}.bak")))
 #endif
             {
                 await fileStream.WriteAsync(data, 0, fileSize);
@@ -177,7 +180,9 @@ namespace AutoCSer.CommandService
             if (isCompleted)
             {
                 Client.OnMessage($"数据库 {Database} 备份完毕");
-                foreach (DirectoryInfo DirectoryInfo in new DirectoryInfo(SavePath).Parent.GetDirectories("*.bak").OrderByDescending(p => p.CreationTime).Skip(2))
+                ;
+                foreach (DirectoryInfo DirectoryInfo in (await AutoCSer.Common.Config.GetDirectories(new DirectoryInfo(SavePath).Parent.notNull(), "*.bak"))
+                    .OrderByDescending(p => p.CreationTime).Skip(2))
                 {
                     try
                     {

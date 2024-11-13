@@ -15,7 +15,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务接口回调委托
         /// </summary>
+#if NetStandard21
+        internal CommandServerKeepCallback<KeepCallbackResponseParameter>? callback;
+#else
         internal CommandServerKeepCallback<KeepCallbackResponseParameter> callback;
+#endif
         /// <summary>
         /// 是否简单序列化输出数据
         /// </summary>
@@ -37,11 +41,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="callback">服务接口回调委托</param>
         /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
-        internal MethodKeepCallback(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize)
+        internal MethodKeepCallback(CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize)
         {
             this.callback = callback;
             this.IsSimpleSerialize = isSimpleSerialize;
-            callback = null;
         }
         /// <summary>
         /// 成功回调
@@ -172,7 +175,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         /// <param name="isSimpleSerialize"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal delegate MethodKeepCallback<T> CreateDelegate(ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, bool isSimpleSerialize);
+#else
         internal delegate MethodKeepCallback<T> CreateDelegate(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize);
+#endif
         /// <summary>
         /// 创建方法调用回调包装对象
         /// </summary>
@@ -180,9 +187,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isSimpleSerialize"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static MethodKeepCallback<T> Create(ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, bool isSimpleSerialize)
+#else
         internal static MethodKeepCallback<T> Create(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize)
+#endif
         {
-            return callback != null ? new MethodKeepCallback<T>(ref callback, isSimpleSerialize) : NullCallback;
+            if (callback != null)
+            {
+                MethodKeepCallback<T> methodKeepCallback = new MethodKeepCallback<T>(callback, isSimpleSerialize);
+                callback = null;
+                return methodKeepCallback;
+            }
+            return NullCallback;
         }
         /// <summary>
         /// 创建方法调用回调包装对象
@@ -192,7 +209,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static MethodKeepCallback<T> Create(InputKeepCallbackMethodParameter methodParameter)
         {
-            return methodParameter.callback != null ? new MethodKeepCallback<T>(ref methodParameter.callback, methodParameter.Method.IsSimpleSerializeParamter) : NullCallback;
+            return methodParameter.CreateMethodKeepCallback<T>();
         }
         /// <summary>
         /// 无回调

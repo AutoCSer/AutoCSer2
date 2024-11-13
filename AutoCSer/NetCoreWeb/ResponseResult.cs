@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.NetCoreWeb
 {
@@ -14,7 +15,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 附加错误信息
         /// </summary>
+#if NetStandard21
+        public string? Message;
+#else
         public string Message;
+#endif
         /// <summary>
         /// 返回状态是否成功
         /// </summary>
@@ -24,7 +29,11 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="state">返回状态</param>
         /// <param name="message">附加错误信息</param>
+#if NetStandard21
+        public ResponseResult(ResponseStateEnum state, string? message = null)
+#else
         public ResponseResult(ResponseStateEnum state, string message = null)
+#endif
         {
             State = state;
             Message = message;
@@ -53,11 +62,18 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 返回结果
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public T Result;
         /// <summary>
         /// 附加错误信息
         /// </summary>
+#if NetStandard21
+        public string? Message;
+#else
         public string Message;
+#endif
         /// <summary>
         /// 返回状态是否成功
         /// </summary>
@@ -77,7 +93,11 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="state">错误状态</param>
         /// <param name="message">附加错误信息</param>
+#if NetStandard21
+        public ResponseResult(ResponseStateEnum state, string? message = null)
+#else
         public ResponseResult(ResponseStateEnum state, string message = null)
+#endif
         {
             State = state;
             Result = default(T);

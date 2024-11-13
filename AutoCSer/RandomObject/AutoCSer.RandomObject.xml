@@ -468,6 +468,13 @@
             <param name="config"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.create(`0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
         <member name="M:AutoCSer.RandomObject.Creator`1.Create(`0@,AutoCSer.RandomObject.Config)">
             <summary>
             创建随机对象

@@ -42,7 +42,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         protected override Task onMethodVerified(CommandClientSocket socket)
         {
             StreamPersistenceMemoryDatabaseClient = new StreamPersistenceMemoryDatabaseTaskClient(IStreamPersistenceMemoryDatabaseTaskClient);
-            IStreamPersistenceMemoryDatabaseTaskClient.CreateSessionObject().Discard();
             return AutoCSer.Common.CompletedTask;
         }
     }

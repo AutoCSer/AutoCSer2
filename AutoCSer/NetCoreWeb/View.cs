@@ -14,7 +14,7 @@ namespace AutoCSer.NetCoreWeb
     /// <summary>
     /// 数据视图，用于支持 统一规划全局视图，实例类型必须使用 partial 修饰符用于生成静态代码，数据初始化需要定义 Task{AutoCSer.NetCoreWeb.ResponseResult} LoadView 方法，参数定义则对应查询参数
     /// </summary>
-    public abstract class View
+    public class View
     {
         /// <summary>
         /// 成功返回值状态任务
@@ -24,7 +24,7 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 获取请求路径，默认为 类型命令空间+类型名称，用于代码生成，不允许重写该实现
         /// </summary>
-        protected virtual string defaultRequestPath { get { return null; } }
+        protected virtual string defaultRequestPath { get { return string.Empty; } }
         /// <summary>
         /// 获取请求路径，默认为 类型命令空间+类型名称，用于代码生成
         /// </summary>
@@ -34,9 +34,9 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         internal string RequestPath { get { return requestPath; } }
         /// <summary>
-        /// 默认为 null 表示不生成参数成员，仅支持英文字母与数字不支持符号，用于代码生成
+        /// 默认为空字符串表示不生成参数成员，仅支持英文字母与数字不支持符号，用于代码生成
         /// </summary>
-        protected virtual string queryName { get { return null; } }
+        protected virtual string queryName { get { return string.Empty; } }
         /// <summary>
         /// 生成参数成员名称
         /// </summary>
@@ -48,11 +48,19 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 输出文本编码，默认为 null 表示采用中间件编码 AutoCSer.NetCoreWeb.ViewMiddleware.ResponseEncoding
         /// </summary>
+#if NetStandard21
+        protected virtual Encoding? responseEncoding { get { return null; } }
+#else
         protected virtual Encoding responseEncoding { get { return null; } }
+#endif
         /// <summary>
         /// 输出文本编码
         /// </summary>
+#if NetStandard21
+        internal Encoding? ResponseEncoding { get { return responseEncoding; } }
+#else
         internal Encoding ResponseEncoding { get { return responseEncoding; } }
+#endif
         /// <summary>
         /// 是否检查数据视图，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权
         /// </summary>
@@ -142,7 +150,7 @@ namespace AutoCSer.NetCoreWeb
                 {
                     HttpResponse httpResponse = httpContext.Response;
                     httpResponse.ContentType = ResponseContentType.GetJavaScript(encoding);
-                    await viewInfo.ViewMiddleware.Response(httpContext, buffer.Buffer.Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
+                    await viewInfo.ViewMiddleware.Response(httpContext, buffer.Buffer.notNull().Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
                 }
                 finally { buffer.Free(); }
             }
@@ -174,7 +182,7 @@ namespace AutoCSer.NetCoreWeb
             try
             {
                 httpContext.Response.ContentType = ResponseContentType.GetJavaScript(encoding);
-                await viewInfo.ViewMiddleware.Response(httpContext, buffer.Buffer.Buffer, buffer.StartIndex, buffer.CurrentIndex, viewInfo.Attribute.IsStaticVersion);
+                await viewInfo.ViewMiddleware.Response(httpContext, buffer.Buffer.notNull().Buffer, buffer.StartIndex, buffer.CurrentIndex, viewInfo.Attribute.IsStaticVersion);
             }
             finally { buffer.Free(); }
         }
@@ -185,9 +193,17 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="httpContext">HTTP 上下文</param>
         /// <param name="viewInfo">数据视图信息</param>
         /// <returns></returns>
+#if NetStandard21
+        protected virtual async Task<ResponseResult<T?>> getParameter<T>(HttpContext httpContext, ViewRequest viewInfo)
+#else
         protected virtual async Task<ResponseResult<T>> getParameter<T>(HttpContext httpContext, ViewRequest viewInfo)
+#endif
         {
+#if NetStandard21
+            ResponseResult<T?> result = default(T);
+#else
             ResponseResult<T> result = default(T);
+#endif
             if (string.Compare(httpContext.Request.Method, "POST", true) == 0)
             {
                 PostTypeEnum postType = viewInfo.ViewMiddleware.GetPostType(httpContext, out Encoding contentTypeEncoding);
@@ -198,12 +214,16 @@ namespace AutoCSer.NetCoreWeb
                 string key = viewInfo.ViewMiddleware.JsonQueryName; 
                 if (!string.IsNullOrEmpty(key))
                 {
-                    string queryString = httpContext.Request.Query[key];
+                    string queryString = httpContext.Request.Query[key].ToString();
                     if (!string.IsNullOrEmpty(queryString))
                     {
                         AutoCSer.Json.DeserializeResult deserializeResult = AutoCSer.JsonDeserializer.Deserialize(queryString, ref result.Result);
                         if (deserializeResult.State == Json.DeserializeStateEnum.Success) return result;
+#if NetStandard21
+                        return new ResponseResult<T?>(ResponseStateEnum.JsonDeserializeFail, $"GET 查询 {key} 数据 JSON 反序列化位置 {deserializeResult.Index.toString()} 失败 {deserializeResult.State}");
+#else
                         return new ResponseResult<T>(ResponseStateEnum.JsonDeserializeFail, $"GET 查询 {key} 数据 JSON 反序列化位置 {deserializeResult.Index.toString()} 失败 {deserializeResult.State}");
+#endif
                     }
                 }
             }
@@ -216,7 +236,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="postType">POST 数据类型</param>
         /// <param name="contentTypeEncoding">POST 数据文本编码类型</param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task<ResponseResult<T?>> getPostParameter<T>(HttpContext httpContext, PostTypeEnum postType, Encoding contentTypeEncoding)
+#else
         private async Task<ResponseResult<T>> getPostParameter<T>(HttpContext httpContext, PostTypeEnum postType, Encoding contentTypeEncoding)
+#endif
         {
             long? contentLength = httpContext.Request.ContentLength;
             if (contentLength.HasValue)
@@ -233,7 +257,7 @@ namespace AutoCSer.NetCoreWeb
                             int index = 0;
                             do
                             {
-                                int readSize = await httpContext.Request.Body.ReadAsync(buffer.Buffer.Buffer, buffer.StartIndex + index, size - index);
+                                int readSize = await httpContext.Request.Body.ReadAsync(buffer.Buffer.notNull().Buffer, buffer.StartIndex + index, size - index);
                                 if (readSize <= 0) return ResponseStateEnum.ReadBodySizeError;
                                 index += readSize;
                             }
@@ -244,7 +268,7 @@ namespace AutoCSer.NetCoreWeb
                                 case PostTypeEnum.FormData:
                                     return default(T);
                                 case PostTypeEnum.Unknown:
-                                    switch (buffer.Buffer.Buffer[buffer.StartIndex])
+                                    switch (buffer.Buffer.notNull().Buffer[buffer.StartIndex])
                                     {
                                         case (byte)'{': postType = PostTypeEnum.Json; break;
                                         case (byte)'<': postType = PostTypeEnum.Xml; break;
@@ -258,7 +282,7 @@ namespace AutoCSer.NetCoreWeb
                                     buffer.CurrentIndex = size;
                                     if (contentTypeEncoding.CodePage != AutoCSer.Common.UnicodeCodePage)
                                     {
-                                        int stringSize = contentTypeEncoding.GetCharCount(buffer.Buffer.Buffer, buffer.StartIndex, size);
+                                        int stringSize = contentTypeEncoding.GetCharCount(buffer.Buffer.notNull().Buffer, buffer.StartIndex, size);
                                         stringBuffer = ByteArrayPool.GetBuffer(stringSize << 1);
                                         stringBuffer.CurrentIndex = stringSize;
                                     }
@@ -309,14 +333,22 @@ namespace AutoCSer.NetCoreWeb
         /// <typeparam name="T"></typeparam>
         /// <param name="stringBuffer"></param>
         /// <returns></returns>
+#if NetStandard21
+        private unsafe static ResponseResult<T?> jsonDeserialize<T>(ref ByteArrayBuffer stringBuffer)
+#else
         private unsafe static ResponseResult<T> jsonDeserialize<T>(ref ByteArrayBuffer stringBuffer)
+#endif
         {
-            T value = default(T);
+            var value = default(T);
             fixed (byte* stringBufferFixed = stringBuffer.GetFixedBuffer())
             {
                 AutoCSer.Json.DeserializeResult deserializeResult = AutoCSer.JsonDeserializer.UnsafeDeserialize((char*)(stringBufferFixed + stringBuffer.StartIndex), stringBuffer.CurrentIndex, ref value);
                 if (deserializeResult.State == Json.DeserializeStateEnum.Success) return value;
+#if NetStandard21
+                return new ResponseResult<T?>(ResponseStateEnum.JsonDeserializeFail, $"POST 数据 JSON 反序列化位置 {deserializeResult.Index.toString()} 失败 {deserializeResult.State}");
+#else
                 return new ResponseResult<T>(ResponseStateEnum.JsonDeserializeFail, $"POST 数据 JSON 反序列化位置 {deserializeResult.Index.toString()} 失败 {deserializeResult.State}");
+#endif
             }
         }
         /// <summary>
@@ -325,14 +357,22 @@ namespace AutoCSer.NetCoreWeb
         /// <typeparam name="T"></typeparam>
         /// <param name="stringBuffer"></param>
         /// <returns></returns>
+#if NetStandard21
+        private unsafe static ResponseResult<T?> xmlDeserialize<T>(ref ByteArrayBuffer stringBuffer)
+#else
         private unsafe static ResponseResult<T> xmlDeserialize<T>(ref ByteArrayBuffer stringBuffer)
+#endif
         {
-            T value = default(T);
+            var value = default(T);
             fixed (byte* stringBufferFixed = stringBuffer.GetFixedBuffer())
             {
                 AutoCSer.Xml.DeserializeResult deserializeResult = AutoCSer.XmlDeserializer.UnsafeDeserialize((char*)(stringBufferFixed + stringBuffer.StartIndex), stringBuffer.CurrentIndex, ref value);
                 if (deserializeResult.State == AutoCSer.Xml.DeserializeStateEnum.Success) return value;
+#if NetStandard21
+                return new ResponseResult<T?>(ResponseStateEnum.XmlDeserializeFail, $"POST 数据 XML 反序列化位置 {deserializeResult.Index} 失败 {deserializeResult.State}");
+#else
                 return new ResponseResult<T>(ResponseStateEnum.XmlDeserializeFail, $"POST 数据 XML 反序列化位置 {deserializeResult.Index} 失败 {deserializeResult.State}");
+#endif
             }
         }
         /// <summary>
@@ -340,7 +380,11 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="type">数据视图类型</param>
         /// <returns></returns>
+#if NetStandard21
+        internal static MethodInfo? GetLoadMethod(Type type)
+#else
         internal static MethodInfo GetLoadMethod(Type type)
+#endif
         {
             foreach (MethodInfo method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
@@ -351,5 +395,10 @@ namespace AutoCSer.NetCoreWeb
             }
             return null;
         }
+
+        /// <summary>
+        /// 默认空数据视图
+        /// </summary>
+        internal static readonly View Null = new View();
     }
 }

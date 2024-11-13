@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -46,7 +47,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>磁盘块客户端</returns>
         public async Task<StreamPersistenceMemoryDatabaseClient> GetClient(string key)
         {
-            StreamPersistenceMemoryDatabaseClient client;
+            var client = default(StreamPersistenceMemoryDatabaseClient);
             HashString hashKey = key;
             return clients.TryGetValue(hashKey, out client) ? client : await getClient(hashKey);
         }
@@ -59,7 +60,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public async Task<ResponseResult<bool>> RemoveNode(ClientNode node)
         {
             HashString key = node.Key;
-            StreamPersistenceMemoryDatabaseClient client;
+            var client = default(StreamPersistenceMemoryDatabaseClient);
             if (!clients.TryGetValue(key, out client)) client = await getClient(key);
             return await client.RemoveNode(node);
         }
@@ -74,7 +75,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public async Task<ResponseResult<T>> GetOrCreateNode<T>(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
             HashString hashKey = key;
-            StreamPersistenceMemoryDatabaseClient client;
+            var client = default(StreamPersistenceMemoryDatabaseClient);
             if (!clients.TryGetValue(hashKey, out client)) client = await getClient(hashKey);
             return await client.GetOrCreateNode<T>(key, creator, isPersistenceCallbackExceptionRenewNode);
         }
@@ -91,7 +92,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public async Task<ResponseResult<T>> GetOrCreateNode<T, PT>(string key, PT parameter, Func<NodeIndex, string, NodeInfo, PT, Task<ResponseResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
             HashString hashKey = key;
-            StreamPersistenceMemoryDatabaseClient client;
+            var client = default(StreamPersistenceMemoryDatabaseClient);
             if (!clients.TryGetValue(hashKey, out client)) client = await getClient(hashKey);
             return await client.GetOrCreateNode<T, PT>(key, parameter, creator, isPersistenceCallbackExceptionRenewNode);
         }
@@ -118,7 +119,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public async Task<DistributedClientRepairNodeMethodState> RepairNodeMethod<T>(ClientNode<T> node, MethodInfo method)
             where T : class
         {
-            Assembly assembly = method.DeclaringType.Assembly;
+            Assembly assembly = method.DeclaringType.notNull().Assembly;
             byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
             RepairNodeMethodName nodeMethodName = new RepairNodeMethodName(method);
             foreach (StreamPersistenceMemoryDatabaseClient client in getAllClients())
@@ -143,7 +144,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public async Task<DistributedClientRepairNodeMethodState> BindNodeMethod<T>(ClientNode<T> node, MethodInfo method)
             where T : class
         {
-            Assembly assembly = method.DeclaringType.Assembly;
+            Assembly assembly = method.DeclaringType.notNull().Assembly;
             byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
             RepairNodeMethodName nodeMethodName = new RepairNodeMethodName(method);
             foreach (StreamPersistenceMemoryDatabaseClient client in getAllClients())

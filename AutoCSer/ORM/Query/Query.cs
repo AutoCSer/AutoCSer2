@@ -1,8 +1,10 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Metadata;
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.ORM
@@ -17,10 +19,17 @@ namespace AutoCSer.ORM
         /// <summary>
         /// SQL 语句
         /// </summary>
+#if NetStandard21
+        public string? Statement { get; private set; }
+#else
         public string Statement { get; private set; }
+#endif
         /// <summary>
         /// 查询成员位图
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         internal readonly MemberMap<T> MemberMap;
         /// <summary>
         /// 读取记录数量，0 表示不限制
@@ -56,7 +65,10 @@ namespace AutoCSer.ORM
         /// 获取查询语句
         /// </summary>
         /// <param name="charStream"></param>
-        void IQueryBuilder.GetStatement(CharStream charStream) { charStream.SimpleWrite(Statement); }
+        void IQueryBuilder.GetStatement(CharStream charStream)
+        {
+            charStream.SimpleWrite(Statement.notNull());
+        }
         ///// <summary>
         ///// 数据库表格模型 SQL 查询信息
         ///// </summary>
@@ -77,7 +89,7 @@ namespace AutoCSer.ORM
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(DbCommand command)
         {
-            ConnectionPool.SetCommand(command, Statement);
+            ConnectionPool.SetCommand(command, Statement.notNull());
             if (TimeoutSeconds > 0) command.CommandTimeout = TimeoutSeconds;
         }
 

@@ -3795,7 +3795,7 @@ namespace AutoCSer
         private void enumLong<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化
@@ -3826,7 +3826,7 @@ namespace AutoCSer
         private void enumUInt<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化
@@ -3857,7 +3857,7 @@ namespace AutoCSer
         private void enumInt<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化
@@ -3888,7 +3888,7 @@ namespace AutoCSer
         private void enumUShort<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化
@@ -3919,7 +3919,7 @@ namespace AutoCSer
         private void enumShort<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化
@@ -3950,7 +3950,7 @@ namespace AutoCSer
         private void enumByte<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化
@@ -3981,7 +3981,7 @@ namespace AutoCSer
         private void enumSByte<T>(T value) where T : struct, IConvertible
         {
             if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(value));
-            else primitiveSerializeNotEmpty(value.ToString());
+            else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
         /// 枚举值序列化

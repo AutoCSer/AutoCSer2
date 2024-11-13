@@ -28,7 +28,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="node"></param>
         /// <param name="callback"></param>
+#if NetStandard21
+        public abstract void KeepCallback(ServerNode node, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback);
+#else
         public abstract void KeepCallback(ServerNode node, ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback);
+#endif
         /// <summary>
         /// 初始化加载数据
         /// </summary>
@@ -38,7 +42,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                CommandServerKeepCallback<KeepCallbackResponseParameter> callback = null;
+                var callback = default(CommandServerKeepCallback<KeepCallbackResponseParameter>);
                 KeepCallback(node, ref callback);
                 return CallStateEnum.Success;
             }
@@ -56,7 +60,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="values"></param>
         /// <param name="callback"></param>
         /// <param name="isSimpleSerialize"></param>
+#if NetStandard21
+        internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, bool isSimpleSerialize)
+#else
         internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize)
+#endif
         {
             if (callback != null)
             {

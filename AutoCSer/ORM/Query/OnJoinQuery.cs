@@ -55,7 +55,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task OnJoin<VT>(Func<RT, KT> getJoinKey, Action<LT, VT> join, int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task OnJoin<VT>(Func<RT, KT> getJoinKey, Action<LT, VT> join, int timeoutSeconds = 0, Transaction transaction = null)
+#endif
             where VT : class, RT
         {
             switch (Query.ConditionLogicType)
@@ -63,10 +67,22 @@ namespace AutoCSer.ORM
                 case LogicTypeEnum.False: return;
                 case LogicTypeEnum.NotSupport: throw new InvalidCastException("不支持的条件表达式");
             }
-            Dictionary<KT, VT> values = null;
             Query.TableWriter.ConnectionPool.CheckTransaction(ref transaction);
+#if NetStandard21
+            var value = default(VT);
+            var values = default(Dictionary<KT, VT>);
+            await using (IAsyncEnumerator<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction))
+            {
+                while (await selectEnumerator.MoveNextAsync())
+                {
+                    value = selectEnumerator.Current;
+                    if (values == null) values = keyCount == 0 ? DictionaryCreator<KT>.Create<VT>() : DictionaryCreator<KT>.Create<VT>(keyCount);
+                    values.Add(getJoinKey(value), value);
+                }
+            }
+#else
             VT value;
-#if DotNet45 || NetStandard2
+            Dictionary<KT, VT> values = null;
             IEnumeratorTask<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction);
             try
             {
@@ -78,16 +94,6 @@ namespace AutoCSer.ORM
                 }
             }
             finally { await selectEnumerator.DisposeAsync(); }
-#else
-            await using (IAsyncEnumerator<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction))
-            {
-                while (await selectEnumerator.MoveNextAsync())
-                {
-                    value = selectEnumerator.Current;
-                    if (values == null) values = keyCount == 0 ? DictionaryCreator<KT>.Create<VT>() : DictionaryCreator<KT>.Create<VT>(keyCount);
-                    values.Add(getJoinKey(value), value);
-                }
-            }
 #endif
             if (values == null) return;
             foreach (LT leftValue in leftValues)
@@ -104,7 +110,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task OnJoin<VT>(Func<RT, KT> getJoinKey, Action<LT, List<VT>> join, int timeoutSeconds = 0, Transaction? transaction = null)
+#else
         public async Task OnJoin<VT>(Func<RT, KT> getJoinKey, Action<LT, List<VT>> join, int timeoutSeconds = 0, Transaction transaction = null)
+#endif
             where VT : class, RT
         {
             switch (Query.ConditionLogicType)
@@ -112,10 +122,24 @@ namespace AutoCSer.ORM
                 case LogicTypeEnum.False: return;
                 case LogicTypeEnum.NotSupport: throw new InvalidCastException("不支持的条件表达式");
             }
-            Dictionary<KT, List<VT>> values = null;
             Query.TableWriter.ConnectionPool.CheckTransaction(ref transaction);
+#if NetStandard21
+            var valueList = default(List<VT>);
+            var values = default(Dictionary<KT, List<VT>>);
+            await using (IAsyncEnumerator<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction))
+            {
+                while (await selectEnumerator.MoveNextAsync())
+                {
+                    VT value = selectEnumerator.Current;
+                    KT key = getJoinKey(value);
+                    if (values == null) values = keyCount == 0 ? DictionaryCreator<KT>.Create<List<VT>>() : DictionaryCreator<KT>.Create<List<VT>>(keyCount);
+                    if (!values.TryGetValue(key, out valueList)) values.Add(key, valueList = new List<VT>());
+                    valueList.Add(value);
+                }
+            }
+#else
             List<VT> valueList;
-#if DotNet45 || NetStandard2
+            Dictionary<KT, List<VT>> values = null;
             IEnumeratorTask<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction);
             try
             {
@@ -129,18 +153,6 @@ namespace AutoCSer.ORM
                 }
             }
             finally { await selectEnumerator.DisposeAsync(); }
-#else
-            await using (IAsyncEnumerator<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction))
-            {
-                while (await selectEnumerator.MoveNextAsync())
-                {
-                    VT value = selectEnumerator.Current;
-                    KT key = getJoinKey(value);
-                    if (values == null) values = keyCount == 0 ? DictionaryCreator<KT>.Create<List<VT>>() : DictionaryCreator<KT>.Create<List<VT>>(keyCount);
-                    if (!values.TryGetValue(key, out valueList)) values.Add(key, valueList = new List<VT>());
-                    valueList.Add(value);
-                }
-            }
 #endif
             if (values == null) return;
             foreach (LT leftValue in leftValues)

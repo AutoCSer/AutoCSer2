@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
 
@@ -29,7 +30,7 @@ namespace AutoCSer.CommandService.DiskBlock
         internal override void Serialize(AutoCSer.BinarySerializer serializer)
         {
             int index = serializer.SerializeBufferStart();
-            if (index >= 0) serializer.SerializeBufferEnd(index, ((CommandClientSocket)serializer.Context).JsonSerializeBuffer(ref value, serializer.Stream));
+            if (index >= 0) serializer.SerializeBufferEnd(index, serializer.Context.castType<CommandClientSocket>().notNull().JsonSerializeBuffer(ref value, serializer.Stream));
         }
     }
 }

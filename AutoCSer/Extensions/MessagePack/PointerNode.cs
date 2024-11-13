@@ -253,7 +253,11 @@ namespace AutoCSer.MessagePack
         /// <summary>
         /// 获取数组元素集合
         /// </summary>
+#if NetStandard21
+        public IEnumerable<PointerNode>? Array
+#else
         public IEnumerable<PointerNode> Array
+#endif
         {
             get
             {
@@ -287,7 +291,11 @@ namespace AutoCSer.MessagePack
         /// 获取数组
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        public PointerNode[]? GetArray()
+#else
         public PointerNode[] GetArray()
+#endif
         {
             if ((*Start & 0xf0) == 0x90) return getArray(Start + 1, (uint)*Start & 0xf);
             switch (*Start - 0xC0)
@@ -322,7 +330,11 @@ namespace AutoCSer.MessagePack
         /// <summary>
         /// 获取 Map 元素集合
         /// </summary>
+#if NetStandard21
+        public IEnumerable<KeyValue<PointerNode, PointerNode>>? Map
+#else
         public IEnumerable<KeyValue<PointerNode, PointerNode>> Map
+#endif
         {
             get
             {
@@ -355,7 +367,11 @@ namespace AutoCSer.MessagePack
         /// <summary>
         /// 获取 Map 元素数组
         /// </summary>
+#if NetStandard21
+        public KeyValue<PointerNode, PointerNode>[]? GetMap()
+#else
         public KeyValue<PointerNode, PointerNode>[] GetMap()
+#endif
         {
             if ((*Start & 0xf0) == 0x80) return getMap(Start + 1, (uint)*Start & 0xf);
             switch (*Start - 0xC0)
@@ -419,7 +435,11 @@ namespace AutoCSer.MessagePack
         /// <summary>
         /// 字节数组
         /// </summary>
+#if NetStandard21
+        public byte[]? ByteArray
+#else
         public byte[] ByteArray
+#endif
         {
             get
             {
@@ -438,7 +458,11 @@ namespace AutoCSer.MessagePack
         /// </summary>
         /// <param name="encoding"></param>
         /// <returns></returns>
+#if NetStandard21
+        public unsafe string? GetString(Encoding encoding)
+#else
         public unsafe string GetString(Encoding encoding)
+#endif
         {
             AutoCSer.Memory.Pointer memory = Memory;
             if (memory.ByteSize > 0) return encoding.GetString(memory.Byte, memory.ByteSize);

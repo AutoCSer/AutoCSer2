@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 
@@ -39,13 +40,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="parameter">调用参数</param>
         /// <returns></returns>
+#if NetStandard21
+        internal static MethodParameter? Create<T>(LocalClientNode clientNode, int methodIndex, T parameter) where T : struct
+#else
         internal static MethodParameter Create<T>(LocalClientNode clientNode, int methodIndex, T parameter) where T : struct
+#endif
         {
             CallStateEnum state;
             NodeIndex nodeIndex = clientNode.Index;
-            SendOnlyMethodParameter<T> methodParameter = (SendOnlyMethodParameter<T>)clientNode.Client.Service.CreateInputMethodParameter(nodeIndex, methodIndex, out state);
+            var sendOnlyMethodParameter = clientNode.Client.Service.CreateInputMethodParameter(nodeIndex, methodIndex, out state).castType<SendOnlyMethodParameter<T>>();
             if (state == CallStateEnum.Success)
             {
+                var methodParameter = sendOnlyMethodParameter.notNull();
                 methodParameter.Parameter = parameter;
                 return new LocalServiceSendOnlyNode(clientNode, methodParameter).parameter;
             }

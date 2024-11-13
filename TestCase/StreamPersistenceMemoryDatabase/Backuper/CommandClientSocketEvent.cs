@@ -57,7 +57,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
         /// <param name="socket"></param>
         protected override async Task onMethodVerified(CommandClientSocket socket)
         {
-            StreamPersistenceMemoryDatabaseClient.CreateSessionObject().Discard();
             if (backuper == null) backuper = await slaveServiceConfig.Create(this, socket);
             else socket.SessionObject = backuper;
         }

@@ -14,7 +14,11 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 自定义数据列配置
         /// </summary>
+#if NetStandard21
+        internal abstract CustomColumnAttribute? CustomColumnAttribute { get; }
+#else
         internal abstract CustomColumnAttribute CustomColumnAttribute { get; }
+#endif
         /// <summary>
         /// 读取自定义数据列
         /// </summary>
@@ -38,15 +42,27 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 递归获取自定义数据列所有表格列名称
         /// </summary>
+#if NetStandard21
+        internal abstract Func<string?, string?, IEnumerable<CustomColumnName>> GetCustomColumnMemberNames { get; }
+#else
         internal abstract Func<string, string, IEnumerable<CustomColumnName>> GetCustomColumnMemberNames { get; }
+#endif
         /// <summary>
         /// 递归匹配自定义数据列名称
         /// </summary>
+#if NetStandard21
+        internal abstract Func<MemberExpression?, LeftArray<MemberExpression>, string?, string?, CustomColumnName> GetCustomColumnMemberName { get; }
+#else
         internal abstract Func<MemberExpression, LeftArray<MemberExpression>, string, string, CustomColumnName> GetCustomColumnMemberName { get; }
+#endif
         /// <summary>
         /// 递归匹配自定义数据列获取数值
         /// </summary>
+#if NetStandard21
+        internal abstract Func<MemberExpression?, LeftArray<MemberExpression>, object, string?, string?, IEnumerable<KeyValue<CustomColumnName, object?>>> GetCustomColumnMemberNameValues { get; }
+#else
         internal abstract Func<MemberExpression, LeftArray<MemberExpression>, object, string, string, IEnumerable<KeyValue<CustomColumnName, object>>> GetCustomColumnMemberNameValues { get; }
+#endif
         ///// <summary>
         ///// 根据名称获取成员
         ///// </summary>
@@ -97,7 +113,11 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static StructGenericType? lastGenericType;
+#else
         protected static StructGenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -105,7 +125,7 @@ namespace AutoCSer.ORM.Metadata
         /// <returns></returns>
         public static StructGenericType Get(Type type)
         {
-            StructGenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = get(type);
             lastGenericType = value;
@@ -127,7 +147,11 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 自定义数据列配置
         /// </summary>
+#if NetStandard21
+        internal override CustomColumnAttribute? CustomColumnAttribute { get { return CustomColumn.ModelMetadata<T>.Attribute; } }
+#else
         internal override CustomColumnAttribute CustomColumnAttribute { get { return CustomColumn.ModelMetadata<T>.Attribute; } }
+#endif
         /// <summary>
         /// 读取自定义数据列
         /// </summary>
@@ -151,15 +175,27 @@ namespace AutoCSer.ORM.Metadata
         /// <summary>
         /// 递归获取自定义数据列所有表格列名称
         /// </summary>
+#if NetStandard21
+        internal override Func<string?, string?, IEnumerable<CustomColumnName>> GetCustomColumnMemberNames { get { return CustomColumn.ModelMetadata<T>.GetMemberNames; } }
+#else
         internal override Func<string, string, IEnumerable<CustomColumnName>> GetCustomColumnMemberNames { get { return CustomColumn.ModelMetadata<T>.GetMemberNames; } }
+#endif
         /// <summary>
         /// 递归匹配自定义数据列名称
         /// </summary>
+#if NetStandard21
+        internal override Func<MemberExpression?, LeftArray<MemberExpression>, string?, string?, CustomColumnName> GetCustomColumnMemberName { get { return CustomColumn.ModelMetadata<T>.GetMemberName; } }
+#else
         internal override Func<MemberExpression, LeftArray<MemberExpression>, string, string, CustomColumnName> GetCustomColumnMemberName { get { return CustomColumn.ModelMetadata<T>.GetMemberName; } }
+#endif
         /// <summary>
         /// 递归匹配自定义数据列获取数值
         /// </summary>
+#if NetStandard21
+        internal override Func<MemberExpression?, LeftArray<MemberExpression>, object, string?, string?, IEnumerable<KeyValue<CustomColumnName, object?>>> GetCustomColumnMemberNameValues { get { return CustomColumn.ModelMetadata<T>.GetMemberNameValues; } }
+#else
         internal override Func<MemberExpression, LeftArray<MemberExpression>, object, string, string, IEnumerable<KeyValue<CustomColumnName, object>>> GetCustomColumnMemberNameValues { get { return CustomColumn.ModelMetadata<T>.GetMemberNameValues; } }
+#endif
         ///// <summary>
         ///// 根据名称获取成员
         ///// </summary>

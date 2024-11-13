@@ -17,7 +17,11 @@ namespace AutoCSer.Extensions
         /// <param name="buildEnum">类型名称输出类型</param>
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         /// <returns>代码名称</returns>
+#if NetStandard21
+        public static string? fullName(this Type type, TypeNameBuildEnum buildEnum = TypeNameBuildEnum.Code, bool isGenericParameterTypeName = true)
+#else
         public static string fullName(this Type type, TypeNameBuildEnum buildEnum = TypeNameBuildEnum.Code, bool isGenericParameterTypeName = true)
+#endif
         {
             return TypeNameBuilder.GetFullName(type, buildEnum, isGenericParameterTypeName);
         }
@@ -92,7 +96,11 @@ namespace AutoCSer.Extensions
         /// <param name="type">可空类型</param>
         /// <returns>值类型,失败返回null</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static Type? getNullableType(this Type type)
+#else
         internal static Type getNullableType(this Type type)
+#endif
         {
             return type.isNullable() ? type.GetGenericArguments()[0] : null;
         }
@@ -114,7 +122,11 @@ namespace AutoCSer.Extensions
         /// <param name="type"></param>
         /// <param name="genericDefinitionInterfaceType">泛型定义接口类型</param>
         /// <returns></returns>
+#if NetStandard21
+        internal static Type? getGenericInterfaceType(this Type type, Type genericDefinitionInterfaceType)
+#else
         internal static Type getGenericInterfaceType(this Type type, Type genericDefinitionInterfaceType)
+#endif
         {
             if (type.IsInterface && isGenericInterfaceType(type, genericDefinitionInterfaceType)) return type;
             foreach (Type interfaceType in type.GetInterfaces())

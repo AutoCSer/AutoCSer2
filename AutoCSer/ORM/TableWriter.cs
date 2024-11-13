@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Metadata;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 默认空属性
         /// </summary>
-        internal static readonly ModelAttribute DefaultAttribute = ((ConfigObject<ModelAttribute>)AutoCSer.Configuration.Common.Get(typeof(ModelAttribute)))?.Value ?? new ModelAttribute();
+        internal static readonly ModelAttribute DefaultAttribute = AutoCSer.Configuration.Common.Get<ModelAttribute>()?.Value ?? new ModelAttribute();
 
         /// <summary>
         /// 数据库连接池
@@ -53,7 +54,11 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 数据列对象集合 临时缓存
         /// </summary>
+#if NetStandard21
+        private object[]? columnValueCache;
+#else
         private object[] columnValueCache;
+#endif
         /// <summary>
         /// 主键是否自增ID
         /// </summary>
@@ -153,9 +158,13 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="memberInfo"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal Member? GetMember(MemberInfo memberInfo)
+#else
         internal Member GetMember(MemberInfo memberInfo)
+#endif
         {
-            foreach(Member member in Members)
+            foreach (Member member in Members)
             {
                 if (member.MemberIndex.Member == memberInfo) return member;
             }
@@ -196,7 +205,11 @@ namespace AutoCSer.ORM
         /// 写操作前检查只读状态与数据库事务连接池是否匹配
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal void CheckReadOnly(ref Transaction? transaction)
+#else
         internal void CheckReadOnly(ref Transaction transaction)
+#endif
         {
             if (Attribute.IsReadOnly) throw new InvalidOperationException($"{TableName} 处于只读状态不允许该操作");
             ConnectionPool.CheckTransaction(ref transaction);
@@ -228,11 +241,19 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 复制数据委托
         /// </summary>
+#if NetStandard21
+        private Action<T, T, MemberMap<T>>? copyTo;
+#else
         private Action<T, T, MemberMap<T>> copyTo;
+#endif
         /// <summary>
         /// 数据列值转数组
         /// </summary>
+#if NetStandard21
+        private Action<T, object[]>? toArray;
+#else
         private Action<T, object[]> toArray;
+#endif
         /// <summary>
         /// 表格模型成员位图
         /// </summary>
@@ -261,7 +282,11 @@ namespace AutoCSer.ORM
         /// <param name="members">数据表格模型字段成员集合</param>
         /// <param name="primaryKey">关键字字段成员</param>
         /// <param name="tableEvent">表格操作事件处理</param>
+#if NetStandard21
+        internal TableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T>? tableEvent)
+#else
         internal TableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T> tableEvent)
+#endif
             : base(connectionPool, attribute, attribute.GetTableName(typeof(T)), members, primaryKey)
         {
             MemberMapData<T> memberMap = new MemberMapData<T>();
@@ -292,7 +317,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal MemberMap<T> GetMemberMap(MemberMap<T>? memberMap)
+#else
         internal MemberMap<T> GetMemberMap(MemberMap<T> memberMap)
+#endif
         {
             if (memberMap == null) return new MemberMap<T>(MemberMap);
             memberMap.MemberMapData.And(MemberMap.MemberMapData);
@@ -303,9 +332,13 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="memberMap"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal MemberMap<T> GetUpdateMemberMap(MemberMap<T>? memberMap)
+#else
         internal MemberMap<T> GetUpdateMemberMap(MemberMap<T> memberMap)
+#endif
         {
-            if(DefaultUpdateMemberMap.IsDefault) throw new ArgumentNullException("该表格缺少指定更新列");
+            if (DefaultUpdateMemberMap.IsDefault) throw new ArgumentNullException("该表格缺少指定更新列");
             if (memberMap == null) return new MemberMap<T>(DefaultUpdateMemberMap.Copy());
             memberMap.MemberMapData.And(DefaultUpdateMemberMap);
             if (!memberMap.MemberMapData.IsAnyMember) throw new ArgumentNullException("缺少指定更新列");
@@ -353,7 +386,11 @@ namespace AutoCSer.ORM
         /// <param name="isTransaction">是否事务查询，事务查询默认锁为 NONE，否则锁为 NOLOCK</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal QueryBuilder<T> CreateQuery(Expression<Func<T, bool>>? condition, bool isTransaction)
+#else
         internal QueryBuilder<T> CreateQuery(Expression<Func<T, bool>> condition, bool isTransaction)
+#endif
         {
             return new QueryBuilder<T>(this, condition, isTransaction);
         }
@@ -427,7 +464,11 @@ namespace AutoCSer.ORM
         /// <param name="isUnique">是否唯一索引</param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <returns>指定的索引名称已经存在则返回 false</returns>
+#if NetStandard21
+        public async Task<bool> CreateIndex(string[] columnNames, string? indexNameSuffix = null, bool isUnique = false, int timeoutSeconds = 0)
+#else
         public async Task<bool> CreateIndex(string[] columnNames, string indexNameSuffix = null, bool isUnique = false, int timeoutSeconds = 0)
+#endif
         {
             CustomColumnName[] columns = new CustomColumnName[columnNames.Length];
             int index = 0;
@@ -445,7 +486,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<T?> SingleOrDefault(Query<T> query, Transaction? transaction)
+#else
         internal async Task<T> SingleOrDefault(Query<T> query, Transaction transaction)
+#endif
         {
             return await SingleOrDefault<T>(query, transaction);
         }
@@ -456,19 +501,24 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<VT?> SingleOrDefault<VT>(Query<T> query, Transaction? transaction) where VT : class, T
+#else
         internal async Task<VT> SingleOrDefault<VT>(Query<T> query, Transaction transaction) where VT : class, T
+#endif
         {
             if (transaction == null)
             {
                 if (query.Statement == null) return null;
-                DbConnection connection = ConnectionPool.GetConnection() ?? await ConnectionPool.CreateConnection();
+                var connection = ConnectionPool.GetConnection() ?? await ConnectionPool.CreateConnection();
                 try
                 {
-                    VT value;
-#if DotNet45 || NetStandard2
-                    using (DbCommand command = connection.CreateCommand())
-#else
+#if NetStandard21
+                    var value = default(VT);
                     await using (DbCommand command = connection.CreateCommand())
+#else
+                    VT value;
+                    using (DbCommand command = connection.CreateCommand())
 #endif
                     {
                         query.Set(command);
@@ -484,10 +534,10 @@ namespace AutoCSer.ORM
                 }
             }
             if (query.Statement == null) return null;
-#if DotNet45 || NetStandard2
-            using (DbCommand command = transaction.Connection.CreateCommand())
+#if NetStandard21
+            await using (DbCommand command = transaction.Connection.notNull().CreateCommand())
 #else
-            await using (DbCommand command = transaction.Connection.CreateCommand())
+            using (DbCommand command = transaction.Connection.CreateCommand())
 #endif
             {
                 transaction.Set(command);
@@ -502,17 +552,21 @@ namespace AutoCSer.ORM
         /// <param name="command"></param>
         /// <param name="memberMap"></param>
         /// <returns></returns>
-        private async Task<VT> singleOrDefault<VT>(DbCommand command, MemberMap<T> memberMap) where VT : class, T
-        {
-#if DotNet45 || NetStandard2
-            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#if NetStandard21
+        private async Task<VT?> singleOrDefault<VT>(DbCommand command, MemberMap<T> memberMap) where VT : class, T
 #else
+        private async Task<VT> singleOrDefault<VT>(DbCommand command, MemberMap<T> memberMap) where VT : class, T
+#endif
+        {
+#if NetStandard21
             await using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#else
+            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
 #endif
             {
                 if (await reader.ReadAsync())
                 {
-                    VT value = DefaultConstructor<VT>.Constructor();
+                    VT value = DefaultConstructor<VT>.Constructor().notNull();
                     Read(reader, value, memberMap);
                     return value;
                 }
@@ -526,19 +580,23 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction? transaction) where VT : class, T
+#else
         internal async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction transaction) where VT : class, T
+#endif
         {
             if (transaction == null)
             {
                 if (query.Statement == null) return new LeftArray<VT>(0);
-                DbConnection connection = ConnectionPool.GetConnection() ?? await ConnectionPool.CreateConnection();
+                var connection = ConnectionPool.GetConnection() ?? await ConnectionPool.CreateConnection();
                 try
                 {
                     LeftArray<VT> array;
-#if DotNet45 || NetStandard2
-                    using (DbCommand command = connection.CreateCommand())
-#else
+#if NetStandard21
                     await using (DbCommand command = connection.CreateCommand())
+#else
+                    using (DbCommand command = connection.CreateCommand())
 #endif
                     {
                         query.Set(command);
@@ -554,10 +612,10 @@ namespace AutoCSer.ORM
                 }
             }
             if (query.Statement == null) return new LeftArray<VT>(0);
-#if DotNet45 || NetStandard2
-            using (DbCommand command = transaction.Connection.CreateCommand())
+#if NetStandard21
+            await using (DbCommand command = transaction.Connection.notNull().CreateCommand())
 #else
-            await using (DbCommand command = transaction.Connection.CreateCommand())
+            using (DbCommand command = transaction.Connection.CreateCommand())
 #endif
             {
                 transaction.Set(command);
@@ -576,15 +634,15 @@ namespace AutoCSer.ORM
         private async Task<LeftArray<VT>> query<VT>(DbCommand command, MemberMap<T> memberMap, int readCount) where VT : class, T
         {
             LeftArray<VT> array = new LeftArray<VT>(0);
-#if DotNet45 || NetStandard2
-            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
-#else
+#if NetStandard21
             await using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#else
+            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
 #endif
             {
                 while (await reader.ReadAsync())
                 {
-                    VT value = DefaultConstructor<VT>.Constructor();
+                    VT value = DefaultConstructor<VT>.Constructor().notNull();
                     Read(reader, value, memberMap);
                     if (readCount > 0 && array.Array.Length == 0) array.PrepLength(readCount);
                     array.Add(value);
@@ -601,19 +659,23 @@ namespace AutoCSer.ORM
         /// <param name="getValue"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction? transaction) where VT : class, T
+#else
         internal async Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction transaction) where VT : class, T
+#endif
         {
             if (transaction == null)
             {
                 if (query.Statement == null) return new LeftArray<CT>(0);
-                DbConnection connection = ConnectionPool.GetConnection() ?? await ConnectionPool.CreateConnection();
+                var connection = ConnectionPool.GetConnection() ?? await ConnectionPool.CreateConnection();
                 try
                 {
                     LeftArray<CT> array;
-#if DotNet45 || NetStandard2
-                    using (DbCommand command = connection.CreateCommand())
-#else
+#if NetStandard21
                     await using (DbCommand command = connection.CreateCommand())
+#else
+                    using (DbCommand command = connection.CreateCommand())
 #endif
                     {
                         query.Set(command);
@@ -629,10 +691,10 @@ namespace AutoCSer.ORM
                 }
             }
             if (query.Statement == null) return new LeftArray<CT>(0);
-#if DotNet45 || NetStandard2
-            using (DbCommand command = transaction.Connection.CreateCommand())
+#if NetStandard21
+            await using (DbCommand command = transaction.Connection.notNull().CreateCommand())
 #else
-            await using (DbCommand command = transaction.Connection.CreateCommand())
+            using (DbCommand command = transaction.Connection.CreateCommand())
 #endif
             {
                 transaction.Set(command);
@@ -653,15 +715,15 @@ namespace AutoCSer.ORM
         private async Task<LeftArray<CT>> query<VT, CT>(DbCommand command, MemberMap<T> memberMap, Func<VT, CT> getValue, int readCount) where VT : class, T
         {
             LeftArray<CT> array = new LeftArray<CT>(0);
-#if DotNet45 || NetStandard2
-            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
-#else
+#if NetStandard21
             await using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
+#else
+            using (DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleResult))
 #endif
             {
                 while (await reader.ReadAsync())
                 {
-                    VT value = DefaultConstructor<VT>.Constructor();
+                    VT value = DefaultConstructor<VT>.Constructor().notNull();
                     Read(reader, value, memberMap);
                     if (readCount > 0 && array.Array.Length == 0) array.PrepLength(readCount);
                     array.Add(getValue(value));
@@ -675,7 +737,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction? transaction)
+#else
         internal async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction transaction)
+#endif
         {
             return await Select<T>(query, transaction);
         }
@@ -686,7 +752,11 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction? transaction) where VT : class, T
+#else
         internal async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction transaction) where VT : class, T
+#endif
         {
             if (query.Statement == null) return new SelectEnumerator<T, VT>();
             SelectEnumerator<T, VT> selectEnumerator = new SelectEnumerator<T, VT>(this, query, transaction);
@@ -753,7 +823,11 @@ namespace AutoCSer.ORM
         /// <param name="isClone">默认为 true 表示浅复制缓存数据对象，避免缓存数据对象数据被意外修改</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, VT value, MemberMap<T>? memberMap = null, bool isClone = true, Transaction? transaction = null)
+#else
         public async Task<VT> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, VT value, MemberMap<T> memberMap = null, bool isClone = true, Transaction transaction = null)
+#endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
@@ -769,11 +843,15 @@ namespace AutoCSer.ORM
         /// <param name="isClone">默认为 true 表示浅复制缓存数据对象，避免缓存数据对象数据被意外修改</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, MemberMapValue<T, VT> value, bool isClone = true, Transaction? transaction = null)
+#else
         public async Task<VT> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, MemberMapValue<T, VT> value, bool isClone = true, Transaction transaction = null)
+#endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
-            return await cache.Update(value.Value, value.MemberMap, isClone, transaction);
+            return await cache.Update(value.Value.notNull(), value.MemberMap, isClone, transaction);
         }
         /// <summary>
         /// 更新数据
@@ -784,7 +862,11 @@ namespace AutoCSer.ORM
         /// <param name="cacheValue"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal abstract Task<bool> Update<VT>(VT value, MemberMap<T>? memberMap, VT cacheValue, Transaction? transaction) where VT : class, T;
+#else
         internal abstract Task<bool> Update<VT>(VT value, MemberMap<T> memberMap, VT cacheValue, Transaction transaction) where VT : class, T;
+#endif
         /// <summary>
         /// 根据缓存关键字删除数据（缓存操作必须在队列中调用）
         /// </summary>
@@ -794,7 +876,11 @@ namespace AutoCSer.ORM
         /// <param name="key"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<VT?> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction? transaction = null)
+#else
         public async Task<VT> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction transaction = null)
+#endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
@@ -808,7 +894,11 @@ namespace AutoCSer.ORM
         /// <param name="isEventAvailable"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal abstract Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction? transaction) where VT : class, T;
+#else
         internal abstract Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction transaction) where VT : class, T;
+#endif
     }
     /// <summary>
     /// 数据库表格持久化写入
@@ -835,7 +925,11 @@ namespace AutoCSer.ORM
         /// <param name="members">数据表格模型字段成员集合</param>
         /// <param name="primaryKey">关键字字段成员</param>
         /// <param name="tableEvent">表格操作事件处理</param>
+#if NetStandard21
+        internal TableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T>? tableEvent)
+#else
         internal TableWriter(ConnectionPool connectionPool, ModelAttribute attribute, Member[] members, Member primaryKey, ITableEvent<T> tableEvent) 
+#endif
             : base(connectionPool, attribute, members, primaryKey, tableEvent)
         {
             if (primaryKey.MemberIndex.IsField)
@@ -864,7 +958,7 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         internal void PrimaryKeyCondition(CharStream charStream, KT primaryKey)
         {
-            T value = DefaultConstructor<T>.Constructor();
+            T value = DefaultConstructor<T>.Constructor().notNull();
             SetPrimaryKey(value, primaryKey);
             ConcatCondition(charStream, value, this, PrimaryKeyMemberMap);
         }
@@ -875,7 +969,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<T?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap, Transaction? transaction)
+#else
         internal async Task<T> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap, Transaction transaction)
+#endif
         {
             return await GetByPrimaryKey<T>(primaryKey, memberMap, transaction);
         }
@@ -887,7 +985,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap, Transaction? transaction) where VT : class, T
+#else
         internal async Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap, Transaction transaction) where VT : class, T
+#endif
         {
             Query<T> query = (new QueryBuilder<T>(this, transaction != null, new PrimaryKeyCondition<T, KT>(this, primaryKey), memberMap)).GetQueryData(1);
             return await SingleOrDefault<VT>(query, transaction);
@@ -898,7 +1000,11 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<T?> GetByPrimaryKey(KT primaryKey, Transaction? transaction)
+#else
         internal async Task<T> GetByPrimaryKey(KT primaryKey, Transaction transaction)
+#endif
         {
             return await GetByPrimaryKey<T>(primaryKey, transaction);
         }
@@ -909,7 +1015,11 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, Transaction? transaction) where VT : class, T
+#else
         internal async Task<VT> GetByPrimaryKey<VT>(KT primaryKey, Transaction transaction) where VT : class, T
+#endif
         {
             Query<T> query = (new QueryBuilder<T>(this, transaction != null, new PrimaryKeyCondition<T, KT>(this, primaryKey))).GetQueryData(1);
             return await SingleOrDefault<VT>(query, transaction);
@@ -920,7 +1030,11 @@ namespace AutoCSer.ORM
         /// <typeparam name="VT"></typeparam>
         /// <param name="primaryKey"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey) where VT : class, T
+#else
         internal async Task<VT> GetByPrimaryKey<VT>(KT primaryKey) where VT : class, T
+#endif
         {
             return await GetByPrimaryKey<VT>(primaryKey, null);
         }
@@ -931,10 +1045,25 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns>没有数据时返回 null</returns>
+#if NetStandard21
+        internal async Task<Dictionary<KT, VT>?> GetDictionary<VT>(Query<T> query, Transaction? transaction) where VT : class, T
+#else
         internal async Task<Dictionary<KT, VT>> GetDictionary<VT>(Query<T> query, Transaction transaction) where VT : class, T
+#endif
         {
+#if NetStandard21
+            var values = default(Dictionary<KT, VT>);
+            await using (IAsyncEnumerator<VT> selectEnumerator = await Select<VT>(query, transaction))
+            {
+                while (await selectEnumerator.MoveNextAsync())
+                {
+                    VT value = selectEnumerator.Current;
+                    if (values == null) values = query.ReadCount == 0 ? DictionaryCreator<KT>.Create<VT>() : DictionaryCreator<KT>.Create<VT>(query.ReadCount);
+                    values.Add(GetPrimaryKey(value), value);
+                }
+            }
+#else
             Dictionary<KT, VT> values = null;
-#if DotNet45 || NetStandard2
             IEnumeratorTask<VT> selectEnumerator = await Select<VT>(query, transaction);
             try
             {
@@ -946,16 +1075,6 @@ namespace AutoCSer.ORM
                 }
             }
             finally { await selectEnumerator.DisposeAsync(); }
-#else
-            await using (IAsyncEnumerator<VT> selectEnumerator = await Select<VT>(query, transaction))
-            {
-                while (await selectEnumerator.MoveNextAsync())
-                {
-                    VT value = selectEnumerator.Current;
-                    if (values == null) values = query.ReadCount == 0 ? DictionaryCreator<KT>.Create<VT>() : DictionaryCreator<KT>.Create<VT>(query.ReadCount);
-                    values.Add(GetPrimaryKey(value), value);
-                }
-            }
 #endif
             return values;
         }
@@ -967,7 +1086,11 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<bool> Insert<VT>(VT value, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<bool> Insert<VT>(VT value, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await insert(value, transaction);
@@ -979,7 +1102,11 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task<bool> insert<VT>(VT value, Transaction? transaction) where VT : class, T
+#else
         private async Task<bool> insert<VT>(VT value, Transaction transaction) where VT : class, T
+#endif
         {
             if (Events.Length != 0)
             {
@@ -996,9 +1123,13 @@ namespace AutoCSer.ORM
             bool isGetValue = false;
             try
             {
-                value = await GetByPrimaryKey<VT>(GetPrimaryKey(value), transaction);
-                isGetValue = true;
-                return await TransactionCommited<T>.OnInserted(this, value, transaction);
+                var newValue = await GetByPrimaryKey<VT>(GetPrimaryKey(value), transaction);
+                if (newValue != null)
+                {
+                    isGetValue = true;
+                    return await TransactionCommited<T>.OnInserted(this, newValue, transaction);
+                }
+                return transaction == null;
             }
             finally
             {
@@ -1016,7 +1147,11 @@ namespace AutoCSer.ORM
         /// <param name="values"></param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+#if NetStandard21
+        public async Task<int> Insert<VT>(IEnumerable<VT> values, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Insert<VT>(IEnumerable<VT> values, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             int insertCount = 0;
@@ -1039,13 +1174,13 @@ namespace AutoCSer.ORM
                 }
                 if (isAutoTransaction)
                 {
-                    await transaction.CommitAsync();
+                    await transaction.notNull().CommitAsync();
                     isAutoTransaction = false;
                 }
             }
             finally
             {
-                if (isAutoTransaction) await transaction.DisposeAsync();
+                if (isAutoTransaction) await transaction.notNull().DisposeAsync();
             }
             return insertCount;
         }
@@ -1057,7 +1192,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<bool> Update<VT>(VT value, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<bool> Update<VT>(VT value, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await update(value, memberMap, transaction);
@@ -1069,10 +1208,14 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<bool> Update<VT>(MemberMapValue<T, VT> value, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<bool> Update<VT>(MemberMapValue<T, VT> value, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value.Value, value.MemberMap, transaction);
+            return await update(value.Value.notNull(), value.MemberMap, transaction);
         }
         /// <summary>
         /// 更新数据
@@ -1083,7 +1226,11 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <param name="cacheValue"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal override async Task<bool> Update<VT>(VT value, MemberMap<T>? memberMap, VT cacheValue, Transaction? transaction)
+#else
         internal override async Task<bool> Update<VT>(VT value, MemberMap<T> memberMap, VT cacheValue, Transaction transaction)
+#endif
         {
             return await update(value, memberMap, transaction);
         }
@@ -1095,7 +1242,11 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task<bool> update<VT>(VT value, MemberMap<T>? memberMap, Transaction? transaction) where VT : class, T
+#else
         private async Task<bool> update<VT>(VT value, MemberMap<T> memberMap, Transaction transaction) where VT : class, T
+#endif
         {
             memberMap = GetUpdateMemberMap(memberMap);
             if (Events.Length != 0)
@@ -1114,9 +1265,13 @@ namespace AutoCSer.ORM
             bool isGetValue = false;
             try
             {
-                value = await SingleOrDefault<VT>(query.GetQueryData(1), transaction);
-                isGetValue = true;
-                return await TransactionCommited<T>.OnUpdated(this, value, memberMap, transaction);
+                var newValue = await SingleOrDefault<VT>(query.GetQueryData(1), transaction);
+                if (newValue != null)
+                {
+                    isGetValue = true;
+                    return await TransactionCommited<T>.OnUpdated(this, newValue, memberMap, transaction);
+                }
+                return transaction == null;
             }
             finally
             {
@@ -1136,7 +1291,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>更新数据数量</returns>
+#if NetStandard21
+        public async Task<int> Update<VT>(IEnumerable<VT> values, MemberMap<T>? memberMap = null, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Update<VT>(IEnumerable<VT> values, MemberMap<T> memberMap = null, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             int updateCount = 0;
@@ -1159,13 +1318,13 @@ namespace AutoCSer.ORM
                 }
                 if (isAutoTransaction)
                 {
-                    await transaction.CommitAsync();
+                    await transaction.notNull().CommitAsync();
                     isAutoTransaction = false;
                 }
             }
             finally
             {
-                if (isAutoTransaction) await transaction.DisposeAsync();
+                if (isAutoTransaction) await transaction.notNull().DisposeAsync();
             }
             return updateCount;
         }
@@ -1180,7 +1339,11 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <returns>更新数据数量</returns>
+#if NetStandard21
+        public async Task<int> Update<VT>(VT value, MemberMap<T>? memberMap, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Update<VT>(VT value, MemberMap<T> memberMap, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await update(value, memberMap, new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
@@ -1195,10 +1358,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <returns>更新数据数量</returns>
+#if NetStandard21
+        public async Task<int> Update<VT>(MemberMapValue<T, VT> value, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Update<VT>(MemberMapValue<T, VT> value, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value.Value, value.MemberMap, new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
+            return await update(value.Value.notNull(), value.MemberMap, new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件更新数据
@@ -1211,7 +1378,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>更新数据数量</returns>
+#if NetStandard21
+        public async Task<int> Update<VT>(VT value, MemberMap<T>? memberMap, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Update<VT>(VT value, MemberMap<T> memberMap, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await update(value, memberMap, query, timeoutSeconds, ignoreFail, transaction);
@@ -1226,10 +1397,14 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>更新数据数量</returns>
+#if NetStandard21
+        public async Task<int> Update<VT>(MemberMapValue<T, VT> value, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Update<VT>(MemberMapValue<T, VT> value, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value.Value, value.MemberMap, query, timeoutSeconds, ignoreFail, transaction);
+            return await update(value.Value.notNull(), value.MemberMap, query, timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件更新数据
@@ -1242,7 +1417,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>更新数据数量</returns>
+#if NetStandard21
+        private async Task<int> update<VT>(VT value, MemberMap<T>? memberMap, QueryBuilder<T> query, int timeoutSeconds, bool ignoreFail, Transaction? transaction) where VT : class, T
+#else
         private async Task<int> update<VT>(VT value, MemberMap<T> memberMap, QueryBuilder<T> query, int timeoutSeconds, bool ignoreFail, Transaction transaction) where VT : class, T
+#endif
         {
             switch (query.ConditionLogicType)
             {
@@ -1257,7 +1436,27 @@ namespace AutoCSer.ORM
             try
             {
                 query.MemberMap = new MemberMap<T>(PrimaryKeyMemberMap);
-#if DotNet45 || NetStandard2
+#if NetStandard21
+                await using (IAsyncEnumerator<VT> selectEnumerator = await query.Select<VT>())
+                {
+                    while (await selectEnumerator.MoveNextAsync())
+                    {
+                        VT updateValue = selectEnumerator.Current;
+                        CopyTo(value, updateValue, memberMap);
+                        if (transaction == null && !ignoreFail)
+                        {
+                            transaction = await ConnectionPool.CreateTransaction(isAsyncLocal: false);
+                            isAutoTransaction = true;
+                        }
+                        if (await update(updateValue, memberMap, transaction)) ++updateCount;
+                        else if (!ignoreFail)
+                        {
+                            if (!isAutoTransaction && transaction != null) await transaction.DisposeAsync();
+                            return -1;
+                        }
+                    }
+                }
+#else
                 IEnumeratorTask<VT> selectEnumerator = await query.Select<VT>();
                 try
                 {
@@ -1279,36 +1478,16 @@ namespace AutoCSer.ORM
                     }
                 }
                 finally { await selectEnumerator.DisposeAsync(); }
-#else
-                await using (IAsyncEnumerator<VT> selectEnumerator = await query.Select<VT>())
-                {
-                    while (await selectEnumerator.MoveNextAsync())
-                    {
-                        VT updateValue = selectEnumerator.Current;
-                        CopyTo(value, updateValue, memberMap);
-                        if (transaction == null && !ignoreFail)
-                        {
-                            transaction = await ConnectionPool.CreateTransaction(isAsyncLocal: false);
-                            isAutoTransaction = true;
-                        }
-                        if (await update(updateValue, memberMap, transaction)) ++updateCount;
-                        else if (!ignoreFail)
-                        {
-                            if (!isAutoTransaction && transaction != null) await transaction.DisposeAsync();
-                            return -1;
-                        }
-                    }
-                }
 #endif
                 if (isAutoTransaction)
                 {
-                    await transaction.CommitAsync();
+                    await transaction.notNull().CommitAsync();
                     isAutoTransaction = false;
                 }
             }
             finally
             {
-                if (isAutoTransaction) await transaction.DisposeAsync();
+                if (isAutoTransaction) await transaction.notNull().DisposeAsync();
             }
             return updateCount;
         }
@@ -1318,7 +1497,11 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<bool> Delete(KT primaryKey, Transaction? transaction = null)
+#else
         public async Task<bool> Delete(KT primaryKey, Transaction transaction = null)
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete<T>(primaryKey, transaction);
@@ -1330,7 +1513,11 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<bool> Delete<VT>(KT primaryKey, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<bool> Delete<VT>(KT primaryKey, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete<VT>(primaryKey, transaction);
@@ -1342,9 +1529,13 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task<bool> delete<VT>(KT primaryKey, Transaction? transaction) where VT : class, T
+#else
         private async Task<bool> delete<VT>(KT primaryKey, Transaction transaction) where VT : class, T
+#endif
         {
-            VT value = null;
+            var value = default(VT);
             if (Events.Length != 0) value = await GetByPrimaryKey<VT>(primaryKey, transaction);
             return await delete(value, primaryKey, transaction);
         }
@@ -1355,7 +1546,11 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task<bool> Delete<VT>(VT value, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<bool> Delete<VT>(VT value, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete(value, false, transaction);
@@ -1368,7 +1563,11 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <param name="isEventAvailable"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal override async Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction? transaction)
+#else
         internal override async Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction transaction)
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete(value, isEventAvailable, transaction);
@@ -1381,10 +1580,19 @@ namespace AutoCSer.ORM
         /// <param name="isEventAvailable">传参对象是否事件可用</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task<bool> delete<VT>(VT value, bool isEventAvailable, Transaction? transaction) where VT : class, T
+#else
         private async Task<bool> delete<VT>(VT value, bool isEventAvailable, Transaction transaction) where VT : class, T
+#endif
         {
             KT primaryKey = GetPrimaryKey(value);
-            if (Events.Length != 0 && !isEventAvailable) value = await GetByPrimaryKey<VT>(primaryKey, transaction);
+            if (Events.Length != 0 && !isEventAvailable)
+            {
+                var getValue = await GetByPrimaryKey<VT>(primaryKey, transaction);
+                if (getValue == null) return false;
+                value = getValue;
+            }
             return await delete(value, primaryKey, transaction);
         }
         /// <summary>
@@ -1395,7 +1603,11 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+#if NetStandard21
+        private async Task<bool> delete<VT>(VT? value, KT primaryKey, Transaction? transaction) where VT : class, T
+#else
         private async Task<bool> delete<VT>(VT value, KT primaryKey, Transaction transaction) where VT : class, T
+#endif
         {
             if (Events.Length != 0)
             {
@@ -1418,7 +1630,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量，失败返回 -1</returns>
+#if NetStandard21
+        public async Task<int> Delete(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction? transaction = null)
+#else
         public async Task<int> Delete(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction transaction = null)
+#endif
         {
             return await Delete<T>(primaryKeys, ignoreFail, transaction);
         }
@@ -1430,7 +1646,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量，失败返回 -1</returns>
+#if NetStandard21
+        public async Task<int> Delete<VT>(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Delete<VT>(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             int deleteCount = 0;
@@ -1453,13 +1673,13 @@ namespace AutoCSer.ORM
                 }
                 if (isAutoTransaction)
                 {
-                    await transaction.CommitAsync();
+                    await transaction.notNull().CommitAsync();
                     isAutoTransaction = false;
                 }
             }
             finally
             {
-                if (isAutoTransaction) await transaction.DisposeAsync();
+                if (isAutoTransaction) await transaction.notNull().DisposeAsync();
             }
             return deleteCount;
         }
@@ -1471,7 +1691,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量，失败返回 -1</returns>
+#if NetStandard21
+        public async Task<int> Delete<VT>(IEnumerable<VT> values, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Delete<VT>(IEnumerable<VT> values, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             int deleteCount = 0;
@@ -1494,13 +1718,13 @@ namespace AutoCSer.ORM
                 }
                 if (isAutoTransaction)
                 {
-                    await transaction.CommitAsync();
+                    await transaction.notNull().CommitAsync();
                     isAutoTransaction = false;
                 }
             }
             finally
             {
-                if (isAutoTransaction) await transaction.DisposeAsync();
+                if (isAutoTransaction) await transaction.notNull().DisposeAsync();
             }
             return deleteCount;
         }
@@ -1512,7 +1736,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+#if NetStandard21
+        public async Task<int> Delete(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
+#else
         public async Task<int> Delete(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null)
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete<T>(new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
@@ -1525,7 +1753,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+#if NetStandard21
+        public async Task<int> Delete<VT>(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Delete<VT>(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete<VT>(new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
@@ -1538,7 +1770,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+#if NetStandard21
+        public async Task<int> Delete(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
+#else
         public async Task<int> Delete(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null)
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete<T>(query, timeoutSeconds, ignoreFail, transaction);
@@ -1551,7 +1787,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+#if NetStandard21
+        public async Task<int> Delete<VT>(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+#else
         public async Task<int> Delete<VT>(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+#endif
         {
             CheckReadOnly(ref transaction);
             return await delete<VT>(query, timeoutSeconds, ignoreFail, transaction);
@@ -1564,7 +1804,11 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+#if NetStandard21
+        private async Task<int> delete<VT>(QueryBuilder<T> query, int timeoutSeconds, bool ignoreFail, Transaction? transaction) where VT : class, T
+#else
         private async Task<int> delete<VT>(QueryBuilder<T> query, int timeoutSeconds, bool ignoreFail, Transaction transaction) where VT : class, T
+#endif
         {
             switch (query.ConditionLogicType)
             {
@@ -1578,7 +1822,26 @@ namespace AutoCSer.ORM
             try
             {
                 query.MemberMap = new MemberMap<T>(PrimaryKeyMemberMap);
-#if DotNet45 || NetStandard2
+#if NetStandard21
+                await using (IAsyncEnumerator<VT> selectEnumerator = await query.Select<VT>())
+                {
+                    while(await selectEnumerator.MoveNextAsync())
+                    {
+                        VT value = selectEnumerator.Current;
+                        if (transaction == null && !ignoreFail)
+                        {
+                            transaction = await ConnectionPool.CreateTransaction(isAsyncLocal : false);
+                            isAutoTransaction = true;
+                        }
+                        if (await delete(value, false, transaction)) ++deleteCount;
+                        else if (!ignoreFail)
+                        {
+                            if (!isAutoTransaction && transaction != null) await transaction.DisposeAsync();
+                            return -1;
+                        }
+                    }
+                }
+#else
                 IEnumeratorTask<VT> selectEnumerator = await query.Select<VT>();
                 try
                 {
@@ -1599,35 +1862,16 @@ namespace AutoCSer.ORM
                     }
                 }
                 finally { await selectEnumerator.DisposeAsync(); }
-#else
-                await using (IAsyncEnumerator<VT> selectEnumerator = await query.Select<VT>())
-                {
-                    while(await selectEnumerator.MoveNextAsync())
-                    {
-                        VT value = selectEnumerator.Current;
-                        if (transaction == null && !ignoreFail)
-                        {
-                            transaction = await ConnectionPool.CreateTransaction(isAsyncLocal : false);
-                            isAutoTransaction = true;
-                        }
-                        if (await delete(value, false, transaction)) ++deleteCount;
-                        else if (!ignoreFail)
-                        {
-                            if (!isAutoTransaction && transaction != null) await transaction.DisposeAsync();
-                            return -1;
-                        }
-                    }
-                }
 #endif
-                            if (isAutoTransaction)
+                if (isAutoTransaction)
                 {
-                    await transaction.CommitAsync();
+                    await transaction.notNull().CommitAsync();
                     isAutoTransaction = false;
                 }
             }
             finally
             {
-                if (isAutoTransaction) await transaction.DisposeAsync();
+                if (isAutoTransaction) await transaction.notNull().DisposeAsync();
             }
             return deleteCount;
         }

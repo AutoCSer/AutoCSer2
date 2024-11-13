@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Net;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.DiskBlock
@@ -14,11 +15,18 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 返回值
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public T Value;
         /// <summary>
         /// 错误信息
         /// </summary>
+#if NetStandard21
+        public string? ErrorMessage;
+#else
         public string ErrorMessage;
+#endif
         /// <summary>
         /// 网络客户端返回值类型
         /// </summary>
@@ -36,7 +44,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
+#if NetStandard21
+        internal ReadResult(CommandClientReturnTypeEnum returnType, string? errorMessage = null)
+#else
         internal ReadResult(CommandClientReturnTypeEnum returnType, string errorMessage = null)
+#endif
         {
             Value = default(T);
             ErrorMessage = errorMessage;

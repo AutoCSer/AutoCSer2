@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -15,10 +17,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用方法与参数信息
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private readonly CallInputMethodParameter parameter;
         /// <summary>
         /// 本地服务调用节点方法队列节点回调对象
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private readonly LocalServiceCallInputNodeCallback callback;
         /// <summary>
         /// 本地服务调用节点方法队列节点
@@ -35,9 +43,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用状态错误
         /// </summary>
+        /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="result"></param>
-        private LocalServiceCallInputNode(CallStateEnum result) : base(null)
+        private LocalServiceCallInputNode(LocalClientNode clientNode, CallStateEnum result) : base(clientNode.Client.Service)
         {
+            this.clientNode = clientNode;
             this.result = new ResponseResult(result);
             IsCompleted = true;
         }
@@ -73,14 +83,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             CallStateEnum state;
             NodeIndex nodeIndex = clientNode.Index;
-            CallInputMethodParameter<T> methodParameter = (CallInputMethodParameter<T>)clientNode.Client.Service.CreateInputMethodParameter(nodeIndex, methodIndex, out state);
+            var callInputMethodParameter = clientNode.Client.Service.CreateInputMethodParameter(nodeIndex, methodIndex, out state).castType<CallInputMethodParameter<T>>();
             if (state == CallStateEnum.Success)
             {
+                var methodParameter = callInputMethodParameter.notNull();
                 methodParameter.Parameter = parameter;
                 return new LocalServiceCallInputNode(clientNode, methodParameter);
             }
             clientNode.CheckState(nodeIndex, state);
-            return new LocalServiceCallInputNode(state);
+            return new LocalServiceCallInputNode(clientNode, state);
         }
     }
 }

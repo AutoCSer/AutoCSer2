@@ -2,6 +2,7 @@
 using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.ORM.Cache.Synchronous
@@ -15,11 +16,18 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// <summary>
         /// 当前客户端缓存对象
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         public T Cache { get; private set; }
         /// <summary>
         /// 创建中的缓存
         /// </summary>
+#if NetStandard21
+        protected T? createCache;
+#else
         protected T createCache;
+#endif
         /// <summary>
         /// 缓存数据初始化传输完毕
         /// </summary>

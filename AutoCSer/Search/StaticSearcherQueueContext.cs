@@ -142,7 +142,7 @@ namespace AutoCSer.Search
             if (!string.IsNullOrEmpty(text))
             {
                 ++version;
-                string removeText;
+                var removeText = default(string);
                 if (searcher.Texts.TryGetValue(key, out removeText))
                 {
                     if (removeText.Length == text.Length && Simplified.IsMatch(text, removeText)) return;
@@ -166,7 +166,7 @@ namespace AutoCSer.Search
         /// <param name="key">删除关键字</param>
         public void Remove(T key)
         {
-            string text;
+            var text = default(string);
             if (searcher.Texts.Remove(key, out text))
             {
                 ++version;
@@ -203,7 +203,7 @@ namespace AutoCSer.Search
         /// <param name="formatLength"></param>
         protected unsafe void wordSegmenter(string text, int formatLength)
         {
-            if (formatedText.Length <= formatLength) formatedText = AutoCSer.Common.Config.AllocateString(Math.Max(formatLength + 1, formatedText.Length << 1));
+            if (formatedText.Length <= formatLength) formatedText = AutoCSer.Common.AllocateString(Math.Max(formatLength + 1, formatedText.Length << 1));
             fixed (char* textFixed = text, formatTextFixed = formatedText)
             {
                 Simplified.FormatNotEmpty(textFixed, formatTextFixed, formatLength);
@@ -396,7 +396,7 @@ namespace AutoCSer.Search
                             if (word.Key.Length != 1)
                             {
                                 HashSubString wordKey = word.Key;
-                                RT counter = searcher.GetResult(ref wordKey);
+                                var counter = searcher.GetResult(ref wordKey);
                                 if (counter != null)
                                 {
                                     bool isWord = false;
@@ -413,7 +413,7 @@ namespace AutoCSer.Search
                             else
                             {
                                 char code = word.Key[0];
-                                HashSet<T> keys = searcher.GetResult(code);
+                                var keys = searcher.GetResult(code);
                                 if (keys != null)
                                 {
                                     if (matchMap.IsSet(word.Key.Start)) charResults.Set(code, keys);
@@ -437,7 +437,7 @@ namespace AutoCSer.Search
                                     int index = (int)(start - formatTextFixed);
                                     if (matchMap.Get(index) == 0)
                                     {
-                                        HashSet<T> keys = searcher.GetResult(code);
+                                        var keys = searcher.GetResult(code);
                                         if (keys != null)
                                         {
                                             charResults.Set(code, keys);
@@ -474,7 +474,7 @@ namespace AutoCSer.Search
                     if (word.Key.Length != 1)
                     {
                         HashSubString wordKey = word.Key;
-                        RT counter = searcher.GetResult(ref wordKey);
+                        var counter = searcher.GetResult(ref wordKey);
                         if (counter != null)
                         {
                             wordResults.Set(wordKey, counter);
@@ -484,7 +484,7 @@ namespace AutoCSer.Search
                     else
                     {
                         char code = word.Key[0];
-                        HashSet<T> keys = searcher.GetResult(code);
+                        var keys = searcher.GetResult(code);
                         if (keys != null)
                         {
                             charResults.Set(code, keys);

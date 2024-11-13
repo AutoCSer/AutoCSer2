@@ -18,7 +18,7 @@ namespace AutoCSer.Extensions
         internal static Type elementType(this ParameterInfo parameter)
         {
             Type type = parameter.ParameterType;
-            return type.IsByRef ? type.GetElementType() : type;
+            return type.IsByRef ? type.GetElementType().notNull() : type;
         }
     }
 }

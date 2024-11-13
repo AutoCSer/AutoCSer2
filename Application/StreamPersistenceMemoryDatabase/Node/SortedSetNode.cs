@@ -98,7 +98,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>没有数据时返回无返回值</returns>
         public ValueResult<T> GetMin()
         {
+#pragma warning disable CS8604
             if (sortedSet.Count != 0) return sortedSet.Min;
+#pragma warning restore CS8604
             return default(ValueResult<T>);
         }
         /// <summary>
@@ -107,7 +109,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>没有数据时返回无返回值</returns>
         public ValueResult<T> GetMax()
         {
+#pragma warning disable CS8604
             if (sortedSet.Count != 0) return sortedSet.Max;
+#pragma warning restore CS8604
             return default(ValueResult<T>);
         }
     }

@@ -38,78 +38,78 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ServerBindContextClientSendOnlyController.SendOnly(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             if (!await client.ServerBindContextClientSendOnlyController.SendOnly())
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ServerBindContextClientSendOnlyController.SendOnlyQueue(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             if (!await client.ServerBindContextClientSendOnlyController.SendOnlyQueue())
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ServerBindContextClientSendOnlyController.SendOnlyTask(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             if (!await client.ServerBindContextClientSendOnlyController.SendOnlyTask())
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             if (!await client.ServerBindContextClientSendOnlyController.SendOnlyTaskQueue(clientSessionObject.Value, clientSessionObject.Ref))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             await AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.WaitAsync();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             return true;

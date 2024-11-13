@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -68,6 +69,7 @@ namespace AutoCSer.Drawing.Gif
         {
             byte* data = decoder.Data;
             long length = decoder.End - data - 12;
+            Colors = EmptyArray<LockBitmapColor>.Array;
             if (length > 0)
             {
                 LeftOffset = *(short*)(data + 1);
@@ -102,16 +104,20 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         /// <param name="globalColors">全局颜色列表</param>
         /// <returns>位图,失败返回null</returns>
+#if NetStandard21
+        public unsafe Bitmap? CreateBitmap(LockBitmapColor[]? globalColors)
+#else
         public unsafe Bitmap CreateBitmap(LockBitmapColor[] globalColors)
+#endif
         {
-            if (Width != 0 && Height != 0 && LzwSize != 0 && LzwSize <= 8)
+            if (Width != 0 && Height != 0 && LzwSize != 0 && LzwSize <= 8 && lzwDatas.Length != 0)
             {
-                Bitmap bitmap = null;
+                var bitmap = default(Bitmap);
                 int colorSize = Width * Height;
                 AutoCSer.Memory.UnmanagedPoolPointer colorIndexs = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(Math.Max(colorSize, UnmanagedPool.LzwEncodeTableBuffer.Size));
                 try
                 {
-                    int length = lzwDecode(Decoder.BlocksToByte(ref lzwDatas), colorIndexs.Pointer.Byte, LzwSize);
+                    int length = lzwDecode(Decoder.BlocksToByte(ref lzwDatas).notNull(), colorIndexs.Pointer.Byte, LzwSize);
                     if (length == colorSize)
                     {
                         bitmap = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);

@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Compile Include="CommandClientSocketEvent.cs" />
-    <Compile Include="Config.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 

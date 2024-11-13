@@ -67,7 +67,7 @@ namespace AutoCSer.ORM.CustomColumn
                     generator.Emit(OpCodes.Ldloc_S, columnIndexLocalBuilder);
                     generator.call(member.GetReadObjectMethod());
                     if (member.MemberIndex.IsField) generator.Emit(OpCodes.Stfld, (FieldInfo)member.MemberIndex.Member);
-                    else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                    else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                     #endregion
                     #region ++index
                     generator.MarkLabel(nextLabel);
@@ -107,7 +107,7 @@ namespace AutoCSer.ORM.CustomColumn
                     #region value.CustomProperty = property;
                     generator.Emit(OpCodes.Ldarg_1);
                     generator.Emit(OpCodes.Ldloc, propertyLocalBuilder);
-                    generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                    generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                     #endregion
                 }
             }
@@ -115,11 +115,11 @@ namespace AutoCSer.ORM.CustomColumn
             reader = (ReaderDelegate)dynamicMethod.CreateDelegate(typeof(ReaderDelegate));
         }
     }
-#if DEBUG
+#if DEBUG && NetStandard21
     internal struct ModelReaderIL
     {
-        private string NullField;
-        private string NullProperty { get; set; }
+        private string? NullField;
+        private string? NullProperty { get; set; }
 
         private AutoCSer.ORM.CustomColumn.Date JsonStringField;
         private AutoCSer.ORM.CustomColumn.Date JsonStringProperty { get; set; }

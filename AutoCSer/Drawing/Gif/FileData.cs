@@ -56,6 +56,9 @@ namespace AutoCSer.Drawing.Gif
         /// <param name="fileData">GIF 文件内容数据</param>
         private unsafe FileData(byte[] fileData)
         {
+#if NetStandard21
+            GlobalColors = EmptyArray<LockBitmapColor>.Array;
+#endif
             fixed (byte* dataFixed = fileData)
             {
                 if ((*(int*)dataFixed & 0xffffff) == ('G' | ('I' << 8) | ('F' << 16)))
@@ -77,7 +80,8 @@ namespace AutoCSer.Drawing.Gif
                     Decoder decoder = new Decoder(fileData, dataFixed, data);
                     while (!decoder.IsEnd)
                     {
-                        blocks.Add(decoder.Next());
+                        var block = decoder.Next();
+                        if (block != null) blocks.Add(block);
                         if (decoder.IsError) return;
                     }
                     isSucceed = true;
@@ -90,7 +94,11 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         /// <param name="fileData">GIF 文件内容数据</param>
         /// <returns>GIF 文件解析数据，失败返回 null</returns>
+#if NetStandard21
+        public static FileData? Create(byte[] fileData)
+#else
         public static FileData Create(byte[] fileData)
+#endif
         {
             if (fileData != null && fileData.Length > 3 + 3 + 7 + 1)
             {
@@ -104,7 +112,11 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         /// <param name="filename">GIF 文件名</param>
         /// <returns>GIF 文件解析数据，失败返回 null</returns>
+#if NetStandard21
+        public static async Task<FileData?> Create(string filename)
+#else
         public static async Task<FileData> Create(string filename)
+#endif
         {
             if (await AutoCSer.Common.Config.FileExists(filename))
             {

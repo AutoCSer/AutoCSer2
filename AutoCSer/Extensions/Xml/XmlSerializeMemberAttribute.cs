@@ -11,6 +11,10 @@ namespace AutoCSer
         /// <summary>
         /// 集合子节点名称(不能包含非法字符)
         /// </summary>
+#if NetStandard21
+        public string? ItemName;
+#else
         public string ItemName;
+#endif
     }
 }

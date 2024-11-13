@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -16,7 +17,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 在线检查回调委托
         /// </summary>
+#if NetStandard21
+        private CommandServerKeepCallback? callback;
+#else
         private CommandServerKeepCallback callback;
+#endif
         /// <summary>
         /// 允许获取端口标识时间
         /// </summary>
@@ -78,11 +83,15 @@ namespace AutoCSer.CommandService
         /// <param name="identity"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal bool Set(uint identity, ref CommandServerKeepCallback? callback)
+#else
         internal bool Set(uint identity, ref CommandServerKeepCallback callback)
+#endif
         {
             if (this.identity == identity)
             {
-                CommandServerKeepCallback oldCallback = this.callback;
+                var oldCallback = this.callback;
                 this.callback = callback;
                 callback = oldCallback;
                 return true;
@@ -97,7 +106,7 @@ namespace AutoCSer.CommandService
         {
             if (this.identity == identity)
             {
-                CommandServerKeepCallback callback = this.callback;
+                var callback = this.callback;
                 this.callback = null;
                 getTime = AutoCSer.Threading.SecondTimer.Now.AddMinutes(1);
                 callback?.CancelKeep();

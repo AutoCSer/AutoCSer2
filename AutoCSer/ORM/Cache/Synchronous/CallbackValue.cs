@@ -14,7 +14,11 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// <summary>
         /// 同步数据
         /// </summary>
+#if NetStandard21
+        public T? Value;
+#else
         public T Value;
+#endif
         /// <summary>
         /// 同步操作类型
         /// </summary>

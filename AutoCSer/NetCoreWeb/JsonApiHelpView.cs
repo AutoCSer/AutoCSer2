@@ -1,4 +1,5 @@
-﻿using AutoCSer.Reflection;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Reflection;
 using System;
 using System.Reflection;
 
@@ -24,7 +25,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 请求路由路径
         /// </summary>
+#if NetStandard21
+        public string? RoutePath { get { return Method.RoutePath; } }
+#else
         public string RoutePath { get { return Method.RoutePath; } }
+#endif
         /// <summary>
         /// API 方法文档描述
         /// </summary>
@@ -50,7 +55,7 @@ namespace AutoCSer.NetCoreWeb
         {
             Controller = controller;
             this.Method = method;
-            ReturnType = controller.ViewMiddleware.GetTypeHelpView(method.HelpReturnType);
+            ReturnType = controller.ViewMiddleware.GetTypeHelpView(method.HelpReturnType.notNull());
             Summary = XmlDocument.Get(method.Method);
             ReturnSummary = XmlDocument.GetReturn(method.Method);
             if (string.IsNullOrEmpty(ReturnSummary)) ReturnSummary = ReturnType.Summary;

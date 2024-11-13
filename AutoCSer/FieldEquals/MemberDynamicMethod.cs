@@ -3,6 +3,7 @@ using AutoCSer.FieldEquals.Metadata;
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading;
 
 namespace AutoCSer.FieldEquals
 {
@@ -100,13 +101,19 @@ namespace AutoCSer.FieldEquals
         /// </summary>
         public void Base()
         {
-            if (!isValueType && (type = type.BaseType) != typeof(object))
+            if (!isValueType)
             {
-                generator.Emit(OpCodes.Ldarg_0);
-                generator.Emit(OpCodes.Ldarg_1);
-                generator.call(GenericType.Get(type).CallEqualsDelegate.Method);
+                Type baseType = type.BaseType.notNull();
+                if (baseType != typeof(object))
+                {
+                    generator.Emit(OpCodes.Ldarg_0);
+                    generator.Emit(OpCodes.Ldarg_1);
+                    generator.call(GenericType.Get(baseType).CallEqualsDelegate.Method);
+                    generator.Emit(OpCodes.Ret);
+                    return;
+                }
             }
-            else generator.Emit(OpCodes.Ldc_I4_1);
+            generator.Emit(OpCodes.Ldc_I4_1);
             generator.Emit(OpCodes.Ret);
         }
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -12,7 +13,11 @@ namespace AutoCSer.Threading
         /// <summary>
         /// await 异步回调
         /// </summary>
+#if NetStandard21
+        private Action? continuation;
+#else
         private Action continuation;
+#endif
         /// <summary>
         /// 回调处理是否启动线程
         /// </summary>
@@ -82,10 +87,17 @@ namespace AutoCSer.Threading
         /// <summary>
         /// await 异步回调
         /// </summary>
+#if NetStandard21
+        private Action? continuation;
+#else
         private Action continuation;
+#endif
         /// <summary>
         /// 返回值
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         private T returnValue;
         /// <summary>
         /// 回调处理是否启动线程

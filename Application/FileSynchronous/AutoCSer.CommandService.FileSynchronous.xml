@@ -263,31 +263,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.FileSynchronous.CommandServerSocketSessionObject">
-            <summary>
-            文件上传服务端会话对象操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#FileSynchronous#UploadFileService,AutoCSer#CommandService#FileSynchronous#UploadFileService}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            尝试从命令服务套接字自定义会话对象获取指定会话对象
-            </summary>
-            <param name="socket"></param>
-            <returns>失败返回 null</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.CommandServerSocketSessionObject.AutoCSer#Net#ICommandServerSocketSessionObject{AutoCSer#CommandService#FileSynchronous#UploadFileService,AutoCSer#CommandService#FileSynchronous#UploadFileService}#CreateSessionObject(AutoCSer.CommandService.FileSynchronous.UploadFileService,AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象
-            </summary>
-            <param name="cacheService"></param>
-            <param name="socket"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.CommandServerSocketSessionObject.Default">
-            <summary>
-            默认文件上传服务端会话对象操作
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.FileSynchronous.IUploadFileClientSocketEvent">
             <summary>
             文件上传客户端接口
@@ -479,12 +454,6 @@
             文件上传服务客户端接口
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.CreateSessionObject">
-            <summary>
-            创建会话对象，用于反序列化时获取服务信息
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.CombinePath(System.String,System.String)">
             <summary>
             拼接路径
@@ -600,13 +569,6 @@
             <summary>
             文件上传服务接口
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileService.CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象，用于反序列化时获取服务信息
-            </summary>
-            <param name="socket"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileService.CombinePath(System.String,System.String)">
             <summary>
@@ -883,6 +845,11 @@
             文件上传状态
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.UploadFileBuffer.#ctor">
+            <summary>
+            默认空文件上传数据
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.FileSynchronous.UploadFileBuffer.#ctor(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,AutoCSer.CommandService.FileSynchronous.UploadFileIndex)">
             <summary>
             文件上传数据
@@ -896,16 +863,16 @@
             </summary>
             <param name="serializer"></param>
         </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileBuffer.isDeserializeLog">
-            <summary>
-            是否输出反序列化错误日志
-            </summary>
-        </member>
         <member name="M:AutoCSer.CommandService.FileSynchronous.UploadFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#FileSynchronous#UploadFileBuffer}#Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             服务端反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileBuffer.Null">
+            <summary>
+            默认空文件上传数据
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.FileSynchronous.UploadFileClient">
             <summary>
@@ -1091,34 +1058,9 @@
             文件上传服务
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileService.uploadFileConfig">
-            <summary>
-            文件上传服务配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileService.isSingleService">
-            <summary>
-            是否进程内单服务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileService.serviceCount">
-            <summary>
-            服务数量
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileService.backupDirectoryIdentity">
             <summary>
             备份目录编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileService.SingleService">
-            <summary>
-            单服务实例
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileService.CommandServerSocketSessionObject">
-            <summary>
-            日志流持久化内存数据库服务端会话对象操作
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileService.backupPath">
@@ -1161,13 +1103,6 @@
             文件上传服务
             </summary>
             <param name="config">文件上传服务端配置</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.UploadFileService.CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象，用于反序列化时获取服务信息
-            </summary>
-            <param name="socket"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.FileSynchronous.UploadFileService.CombinePath(System.String,System.String)">
             <summary>
@@ -1329,24 +1264,9 @@
             <param name="uploaderIndex">上传文件索引信息</param>
             <returns>返回 false 表示没有找到文件上传操作对象</returns>
         </member>
-        <member name="T:AutoCSer.CommandService.FileSynchronous.UploadFileConfig">
-            <summary>
-            文件上传服务配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileConfig.IsSingleService">
-            <summary>
-            是否进程内单服务
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.FileSynchronous.UploadFileServiceConfig">
             <summary>
             文件上传服务端配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileServiceConfig.CommandServerSocketSessionObject">
-            <summary>
-            套接字自定义会话对象操作
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.FileSynchronous.UploadFileServiceConfig.BackupPath">
@@ -1604,7 +1524,7 @@
             </summary>
             <param name="socket"></param>
             <param name="fileInfo">文件信息</param>
-            <param name="callback">获取文件数据回调委托</param>
+            <param name="callback">获取文件数据回调委托，返回 null 表示服务端未知异常</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.FileSynchronous.PullFile">

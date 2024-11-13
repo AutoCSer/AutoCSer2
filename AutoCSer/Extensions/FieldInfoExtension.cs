@@ -28,11 +28,15 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="field"></param>
         /// <returns></returns>
-        public static PropertyInfo getPropertyInfo(this FieldInfo field)
+#if NetStandard21
+        public static MemberInfo? getPropertyMemberInfo(this FieldInfo field)
+#else
+        public static MemberInfo getPropertyMemberInfo(this FieldInfo field)
+#endif
         {
             string name;
             if (!getAnonymousName(field, out name)) return null;
-            return field.DeclaringType.GetProperty(name, field.FieldType, EmptyArray<Type>.Array);
+            return field.DeclaringType.notNull().GetProperty(name, field.FieldType, EmptyArray<Type>.Array);
         }
     }
 }

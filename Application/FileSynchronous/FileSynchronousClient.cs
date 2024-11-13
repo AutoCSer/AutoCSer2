@@ -85,11 +85,16 @@ namespace AutoCSer.CommandService
     /// <typeparam name="ST">同步状态类型</typeparam>
     public abstract class FileSynchronousClient<FT, ST> : FileSynchronousClient
         where FT : SynchronousFile
+        where ST : struct
     {
         /// <summary>
         /// 正在同步的文件
         /// </summary>
+#if NetStandard21
+        protected readonly FT?[] files;
+#else
         protected readonly FT[] files;
+#endif
         /// <summary>
         /// 未同步文件集合
         /// </summary>
@@ -150,7 +155,7 @@ namespace AutoCSer.CommandService
         {
             if (file.FileIndex >= 0)
             {
-                FT nextUploadFile;
+                var nextUploadFile = default(FT);
                 KeyValue<DirectoryInfo, string> directory = default(KeyValue<DirectoryInfo, string>);
                 Monitor.Enter(fileLock);
                 int index = file.FileIndex;
@@ -165,7 +170,7 @@ namespace AutoCSer.CommandService
                 {
                     if (index != --synchronousFileCount)
                     {
-                        nextUploadFile = files[synchronousFileCount];
+                        nextUploadFile = files[synchronousFileCount].notNull();
                         nextUploadFile.FileIndex = index;
                         files[index] = nextUploadFile;
                     }
@@ -176,7 +181,7 @@ namespace AutoCSer.CommandService
                         else Interlocked.Exchange(ref isSynchronousPath, 0);
                     }
                     Monitor.Exit(fileLock);
-                    if (directory.Key != null) synchronous(directory.Key, directory.Value).NotWait();
+                    if (directory.Key != null) synchronous(directory.Key, directory.Value.notNull()).NotWait();
                 }
             }
             onCompleted(file.ClientFile, file.FileInfo.FullName);

@@ -17,7 +17,7 @@ namespace AutoCSer.RandomObject
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static T EnumULong<T>(Config config) where T : struct, IConvertible
         {
-            Func<Config, bool, T> customCreator = (Func<Config, bool, T>)config.GetCustomCreator(typeof(T));
+            var customCreator = AutoCSer.Extensions.NullableReferenceExtension.castType<Func<Config, bool, T>>(config.GetCustomCreator(typeof(T)));
             return customCreator == null ? AutoCSer.Metadata.EnumGenericType<T, ulong>.FromInt(CreateULong(config)) : customCreator(config, false);
 
         }

@@ -44,7 +44,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public void Renew()
         {
-            hashSet = ((HashSet<T>)streamPersistenceMemoryDatabaseService?.GetBeforePersistenceMethodParameterCustomSessionObject()) ?? HashSetCreator<T>.Create();
+            hashSet = streamPersistenceMemoryDatabaseService?.GetBeforePersistenceMethodParameterCustomSessionObject().castType<HashSet<T>>() ?? HashSetCreator<T>.Create();
         }
         /// <summary>
         /// 获取数据数量

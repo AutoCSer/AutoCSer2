@@ -19,7 +19,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+#if NetStandard21
+        public static async Task<bool> Info(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static async Task<bool> Info(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -32,7 +36,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        public static void InfoIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static void InfoIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             try
             {
@@ -49,7 +57,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        public static void DebugIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Debug, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static void DebugIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Debug, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             try
             {
@@ -67,7 +79,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        public static void ExceptionIgnoreException(this ILog log, Exception exception, string? message = null, LogLevelEnum level = LogLevelEnum.Exception, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static void ExceptionIgnoreException(this ILog log, Exception exception, string message = null, LogLevelEnum level = LogLevelEnum.Exception, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             try
             {
@@ -85,7 +101,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+#if NetStandard21
+        public static async Task<bool> Error(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static async Task<bool> Error(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -98,7 +118,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        public static void ErrorIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static void ErrorIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             try
             {
@@ -116,7 +140,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+#if NetStandard21
+        public static async Task<bool> Warn(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static async Task<bool> Warn(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -129,7 +157,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        public static void WarnIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static void WarnIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             try
             {
@@ -147,7 +179,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+#if NetStandard21
+        public static async Task<bool> Fatal(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static async Task<bool> Fatal(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -160,7 +196,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        public static void FatalIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static void FatalIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             try
             {
@@ -178,7 +218,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+#if NetStandard21
+        public static async Task<bool> Breakpoint(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static async Task<bool> Breakpoint(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
@@ -191,7 +235,11 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">调用成员名称</param>
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
+#if NetStandard21
+        public static void BreakpointIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
         public static void BreakpointIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             try
             {

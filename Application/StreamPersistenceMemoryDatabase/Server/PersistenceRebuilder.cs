@@ -4,6 +4,7 @@ using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 
@@ -41,11 +42,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 初始化加载执行异常节点
         /// </summary>
+#if NetStandard21
+        internal readonly ServerNode? LoadExceptionNode;
+#else
         internal readonly ServerNode LoadExceptionNode;
+#endif
         /// <summary>
         /// 当前持久化节点
         /// </summary>
+#if NetStandard21
+        private ServerNode? node;
+#else
         private ServerNode node;
+#endif
         /// <summary>
         /// 调用持久化链表
         /// </summary>
@@ -97,6 +106,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshotTransactionNodes = DictionaryCreator.CreateHashString<ServerNode>();
             snapshotTransactionNodeVersion = Service.SnapshotTransactionNodeVersion;
             service.Rebuilder = this;
+#if NetStandard21
+            persistenceFileInfo = persistenceCallbackExceptionPositionFileInfo = service.PersistenceFileInfo;
+            persistenceDataPositionBuffer = EmptyArray<byte>.Array;
+#endif
             bool isLoaded = false;
             try
             {
@@ -153,7 +166,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 ServerNode node = serverNode.Value;
                 nodes[nodeCount++].Key = node;
                 node.Rebuilding = true;
-                foreach (KeyValuePair<HashString, ServerNode> snapshotTransactionNode in node.SnapshotTransactionNodes) appendSnapshotTransactionNode(snapshotTransactionNode);
+                foreach (KeyValuePair<HashString, ServerNode> snapshotTransactionNode in node.SnapshotTransactionNodes.notNull())
+                {
+                    appendSnapshotTransactionNode(snapshotTransactionNode);
+                }
             }
         }
         /// <summary>
@@ -276,7 +292,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private void nodePersistence()
         {
-            node.Rebuild(this);
+            node.notNull().Rebuild(this);
         }
         /// <summary>
         /// 检查持久化流已写入位置是否匹配
@@ -301,7 +317,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal unsafe void Rebuild<T>(ref LeftArray<T> array)
         {
             bool isPersistence = false;
-            BinarySerializer outputSerializer = null;
+            var outputSerializer = default(BinarySerializer);
             PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
             try
             {
@@ -319,13 +335,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             persistenceBuffer.SetStart(dataFixed);
                             persistenceBuffer.Reset();
-                            node.CreateNodeMethodParameter.PersistenceSerialize(outputSerializer, persistencePosition);
+                            node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
                             outputData = persistenceBuffer.GetData();
                         }
                         if (isClosedOrServiceDisposed) return;
                         persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
 
-                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node);
+                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull());
                         for (int valueIndex = 0; valueIndex != array.Length;)
                         {
                             fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
@@ -445,8 +461,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         private unsafe bool persistence()
         {
-            BinarySerializer outputSerializer = null;
-            FileStream positionStream = null;
+            var outputSerializer = default(BinarySerializer);
+            var positionStream = default(FileStream);
             PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
             try
             {
@@ -458,7 +474,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         if (!checkPersistencePosition(persistenceStream)) return false;
                         persistenceBuffer.GetBufferLength();
                         SubArray<byte> outputData;
-                        MethodParameter current = null;
+                        var current = default(MethodParameter);
                         using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
                         {
                             outputSerializer.SetDefault();

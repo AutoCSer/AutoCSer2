@@ -4,16 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.CommandService.ProcessGuard</AssemblyName>
     <RootNamespace>AutoCSer.CommandService.ProcessGuard</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>NetStandard21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

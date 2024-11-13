@@ -14,7 +14,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <summary>
         /// 文件名称
         /// </summary>
+#if NetStandard21
+        internal string? Name;
+#else
         internal string Name;
+#endif
         /// <summary>
         /// 文件名称（包含路径）
         /// </summary>

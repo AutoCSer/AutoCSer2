@@ -131,11 +131,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <returns></returns>
         protected abstract Task reindex();
-
-        /// <summary>
-        /// 默认客户端节点自定义属性
-        /// </summary>
-        internal static readonly ClientNodeAttribute DefaultAttribute = new ClientNodeAttribute();
     }
     /// <summary>
     /// 客户端节点

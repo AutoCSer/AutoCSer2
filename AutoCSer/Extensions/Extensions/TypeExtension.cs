@@ -41,11 +41,11 @@ namespace AutoCSer.Extensions
             else if (type.IsGenericType) typeNameBuilder.GenericFullName(type);
             else
             {
-                Type reflectedType = type.ReflectedType;
+                var reflectedType = type.ReflectedType;
                 if (reflectedType == null)
                 {
                     CharStream nameStream = typeNameBuilder.NameStream;
-                    nameStream.SimpleWrite(type.Namespace);
+                    nameStream.SimpleWrite(type.Namespace.notNull());
                     nameStream.Write('.');
                     nameStream.SimpleWrite(type.Name);
                 }

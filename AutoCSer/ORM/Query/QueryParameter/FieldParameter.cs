@@ -15,15 +15,27 @@ namespace AutoCSer.ORM.QueryParameter
         /// <summary>
         /// 查询参数字段
         /// </summary>
+#if NetStandard21
+        public FieldInfo? Field;
+#else
         public FieldInfo Field;
+#endif
         /// <summary>
         /// 列表成员类型
         /// </summary>
+#if NetStandard21
+        public Type? ElementType;
+#else
         public Type ElementType;
+#endif
         /// <summary>
         /// 值类型泛型对象
         /// </summary>
+#if NetStandard21
+        public AutoCSer.ORM.Metadata.StructGenericType? GenericType;
+#else
         public AutoCSer.ORM.Metadata.StructGenericType GenericType;
+#endif
         /// <summary>
         /// 查询参数属性
         /// </summary>
@@ -32,6 +44,26 @@ namespace AutoCSer.ORM.QueryParameter
         /// 查询参数字段序号
         /// </summary>
         public int Index;
+        /// <summary>
+        /// 查询参数字段信息
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="attribute"></param>
+        /// <param name="elementType"></param>
+        /// <param name="genericType"></param>
+        /// <param name="index"></param>
+#if NetStandard21
+        internal FieldParameter(FieldInfo? field, QueryParameterAttribute attribute, Type? elementType, AutoCSer.ORM.Metadata.StructGenericType? genericType, int index)
+#else
+        internal FieldParameter(FieldInfo field, QueryParameterAttribute attribute, Type elementType, AutoCSer.ORM.Metadata.StructGenericType genericType, int index)
+#endif
+        {
+            Field = field;
+            Attribute = attribute;
+            ElementType = elementType;
+            GenericType = genericType;
+            Index = index;
+        }
     }
     /// <summary>
     /// 查询参数
@@ -54,10 +86,11 @@ namespace AutoCSer.ORM.QueryParameter
             int fieldIndex = 0;
             foreach (FieldInfo field in typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
-                QueryParameterAttribute attribute = (QueryParameterAttribute)field.GetCustomAttribute(typeof(QueryParameterAttribute), false) ?? QueryParameterAttribute.Default;
+                QueryParameterAttribute attribute = field.GetCustomAttribute<QueryParameterAttribute>(false) ?? QueryParameterAttribute.Default;
                 string operationName = attribute.TableMemberName ?? field.Name;
-                Type fieldType = field.FieldType, elementType = null;
-                AutoCSer.ORM.Metadata.StructGenericType genericType = null;
+                Type fieldType = field.FieldType;
+                var elementType = default(Type);
+                var genericType = default(AutoCSer.ORM.Metadata.StructGenericType);
                 if (fieldType.IsArray) elementType = fieldType.GetElementType();
                 else if (fieldType != typeof(string)) elementType = fieldType.getGenericInterfaceType(typeof(IList<>))?.GetGenericArguments()[0];
                 if (attribute.GetCheckPrefixSuffix())
@@ -107,7 +140,7 @@ namespace AutoCSer.ORM.QueryParameter
                         {
                             if (fieldType.IsValueType)
                             {
-                               Type nullableType = fieldType.getNullableType();
+                               var nullableType = fieldType.getNullableType();
                                 if (nullableType != null)
                                 {
                                     genericType = AutoCSer.ORM.Metadata.StructGenericType.Get(nullableType);
@@ -141,12 +174,12 @@ namespace AutoCSer.ORM.QueryParameter
                 }
                 if (isMatchType)
                 {
-                    ListArray<FieldParameter> fieldList;
+                    var fieldList = default(ListArray<FieldParameter>);
                     if (!FieldDictionary.TryGetValue(operationName, out fieldList))
                     {
                         FieldDictionary.Add(operationName, fieldList = new ListArray<FieldParameter>());
                     }
-                    fieldList.Add(new FieldParameter { Attribute = attribute, Field = field, ElementType = elementType, GenericType = genericType, Index = ++fieldIndex });
+                    fieldList.Add(new FieldParameter(field, attribute, elementType, genericType, ++fieldIndex));
                 }
                 //if (field.Name == nameof(QueryMembers) && field.FieldType == typeof(string[])) QueryMembers = field;
             }

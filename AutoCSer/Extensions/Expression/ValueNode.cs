@@ -24,7 +24,11 @@ namespace AutoCSer.Expression
         /// <summary>
         /// 下一个节点
         /// </summary>
+#if NetStandard21
+        internal ValueNode? Next;
+#else
         internal ValueNode Next;
+#endif
         /// <summary>
         /// 空表达式节点
         /// </summary>
@@ -35,7 +39,11 @@ namespace AutoCSer.Expression
         /// <param name="valueType">取值类型</param>
         /// <param name="next">下一个节点</param>
         /// <param name="memberDepth">成员回溯深度</param>
+#if NetStandard21
+        internal ValueNode(ValueTypeEnum valueType, ValueNode? next = null, byte memberDepth = 0)
+#else
         internal ValueNode(ValueTypeEnum valueType, ValueNode next = null, byte memberDepth = 0)
+#endif
         {
             this.ValueType = valueType;
             this.Next = next;
@@ -48,7 +56,11 @@ namespace AutoCSer.Expression
         /// <param name="valueType">取值类型</param>
         /// <param name="next">下一个节点</param>
         /// <param name="memberDepth">成员回溯深度</param>
+#if NetStandard21
+        internal ValueNode(NodeTypeEnum nodeType, ValueTypeEnum valueType, ValueNode? next = null, byte memberDepth = 0)
+#else
         internal ValueNode(NodeTypeEnum nodeType, ValueTypeEnum valueType, ValueNode next = null, byte memberDepth = 0)
+#endif
         {
             this.nodeType = nodeType;
             this.ValueType = valueType;
@@ -60,7 +72,11 @@ namespace AutoCSer.Expression
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal ValueNode? CheckNext()
+#else
         internal ValueNode CheckNext()
+#endif
         {
             return Next != null ? this : null;
         }
@@ -84,7 +100,11 @@ namespace AutoCSer.Expression
         /// <param name="next"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal bool SetNext(ValueNode? next)
+#else
         internal bool SetNext(ValueNode next)
+#endif
         {
             if (next != null)
             {

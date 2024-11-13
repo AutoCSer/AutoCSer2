@@ -16,7 +16,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 修复节点方法信息
         /// </summary>
+#if NetStandard21
+        internal RepairNodeMethod? RepairNodeMethod;
+#else
         internal RepairNodeMethod RepairNodeMethod;
+#endif
         /// <summary>
         /// 文件流持久化位置
         /// </summary>

@@ -30,7 +30,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 修复方法集合
         /// </summary>
+#if NetStandard21
+        private Dictionary<HashObject<MethodInfo>, Method>? repairMethods;
+#else
         private Dictionary<HashObject<MethodInfo>, Method> repairMethods;
+#endif
         /// <summary>
         /// 持久化方法名称
         /// </summary>
@@ -73,6 +77,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsClientCall = MethodAttribute.IsClientCall;
             IsPersistence = MethodAttribute.IsPersistence;
             IsDeclaringMethod = isDeclaringMethod;
+#if NetStandard21
+            persistenceMethodReturnType = typeof(void);
+            RepairNodeMethod = AutoCSer.Common.NullMethodInfo;
+#endif
 
             Parameters = method.GetParameters();
             if (method.IsStatic)
@@ -180,7 +188,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="beforePersistenceMethod"></param>
         /// <param name="error"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal bool CheckBeforePersistence(ServerNodeMethod beforePersistenceMethod, ref string? error)
+#else
         internal bool CheckBeforePersistence(ServerNodeMethod beforePersistenceMethod, ref string error)
+#endif
         {
             if (IsPersistence && beforePersistenceMethod.PersistenceMethodName.Equals(Method.Name))
             {
@@ -212,13 +224,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="doCommandGenerator"></param>
         /// <param name="inputParameterLocalBuilder"></param>
+#if NetStandard21
+        internal void CallMethodParameter(ILGenerator doCommandGenerator, LocalBuilder? inputParameterLocalBuilder)
+#else
         internal void CallMethodParameter(ILGenerator doCommandGenerator, LocalBuilder inputParameterLocalBuilder)
+#endif
         {
             for (int parameterIndex = ParameterStartIndex; parameterIndex != ParameterEndIndex; ++parameterIndex)
             {
                 ParameterInfo parameter = Parameters[parameterIndex];
-                doCommandGenerator.Emit(OpCodes.Ldloc_S, inputParameterLocalBuilder);
-                doCommandGenerator.Emit(OpCodes.Ldfld, InputParameterType.GetField(parameter.Name));
+                doCommandGenerator.Emit(OpCodes.Ldloc_S, inputParameterLocalBuilder.notNull());
+                doCommandGenerator.Emit(OpCodes.Ldfld, InputParameterType.notNull().GetField(parameter.Name.notNull()).notNull());
             }
         }
         /// <summary>
@@ -256,12 +272,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="T"></typeparam>
         /// <param name="repairMethod">修复方法信息</param>
         /// <returns></returns>
+#if NetStandard21
+        internal Method CreateMethod<T>(MethodInfo? repairMethod)
+#else
         internal Method CreateMethod<T>(MethodInfo repairMethod)
+#endif
         {
             if (repairMethod == null) return createMethod<T>(null);
             HashObject<MethodInfo> hashKey = repairMethod;
             if (repairMethods == null) repairMethods = DictionaryCreator<HashObject<MethodInfo>>.Create<Method>();
-            Method method;
+            var method = default(Method);
             if (!repairMethods.TryGetValue(hashKey, out method)) repairMethods.Add(hashKey, method = createMethod<T>(repairMethod));
             return method;
         }
@@ -271,11 +291,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="T"></typeparam>
         /// <param name="repairMethod">修复方法信息</param>
         /// <returns></returns>
+#if NetStandard21
+        private Method createMethod<T>(MethodInfo? repairMethod)
+#else
         private Method createMethod<T>(MethodInfo repairMethod)
+#endif
         {
-            Type parentType = null, callMethodReturnType = typeof(void);
-            MethodInfo callMethod = null, getParameterMethod = null;
-            Type[] callMethodParameterTypes = null;
+            var parentType = default(Type);
+            Type callMethodReturnType = typeof(void);
+            var callMethod = default(MethodInfo);
+            var getParameterMethod = default(MethodInfo);
+            var callMethodParameterTypes = default(Type[]);
             switch (CallType)
             {
                 case CallTypeEnum.Call:
@@ -307,14 +333,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     break;
                 case CallTypeEnum.CallInput:
-                    parentType = typeof(CallInputMethod<>).MakeGenericType(InputParameterType.Type);
+                    parentType = typeof(CallInputMethod<>).MakeGenericType(InputParameterType.notNull().Type);
                     callMethod = ServerNodeCreator.CallInputMethod;
                     callMethodParameterTypes = ServerNodeCreator.CallInputMethodParameterTypes;
-                    getParameterMethod = typeof(CallInputMethodParameter<>).MakeGenericType(InputParameterType.Type).GetMethod(nameof(CallInputMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                    getParameterMethod = typeof(CallInputMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(CallInputMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                     break;
                 case CallTypeEnum.CallInputOutput:
                 case CallTypeEnum.InputCallback:
-                    parentType = typeof(CallInputOutputMethod<>).MakeGenericType(InputParameterType.Type);
+                    parentType = typeof(CallInputOutputMethod<>).MakeGenericType(InputParameterType.notNull().Type);
                     if (PersistenceMethodName.Length == 0) callMethod = ServerNodeCreator.CallInputOutputMethod;
                     else if (persistenceMethodReturnType == typeof(void))
                     {
@@ -327,13 +353,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         callMethodReturnType = typeof(ValueResult<ResponseParameter>);
                     }
                     callMethodParameterTypes = ServerNodeCreator.CallInputOutputMethodParameterTypes;
-                    getParameterMethod = typeof(CallInputOutputMethodParameter<>).MakeGenericType(InputParameterType.Type).GetMethod(nameof(CallInputOutputMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                    getParameterMethod = typeof(CallInputOutputMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(CallInputOutputMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                     break;
                 case CallTypeEnum.SendOnly:
-                    parentType = typeof(SendOnlyMethod<>).MakeGenericType(InputParameterType.Type);
+                    parentType = typeof(SendOnlyMethod<>).MakeGenericType(InputParameterType.notNull().Type);
                     callMethod = ServerNodeCreator.SendOnlyMethod;
                     callMethodParameterTypes = ServerNodeCreator.SendOnlyMethodParameterTypes;
-                    getParameterMethod = typeof(SendOnlyMethodParameter<>).MakeGenericType(InputParameterType.Type).GetMethod(nameof(SendOnlyMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                    getParameterMethod = typeof(SendOnlyMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(SendOnlyMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                     break;
                 case CallTypeEnum.KeepCallback:
                 case CallTypeEnum.Enumerable:
@@ -343,10 +369,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     break;
                 case CallTypeEnum.InputKeepCallback:
                 case CallTypeEnum.InputEnumerable:
-                    parentType = typeof(InputKeepCallbackMethod<>).MakeGenericType(InputParameterType.Type);
+                    parentType = typeof(InputKeepCallbackMethod<>).MakeGenericType(InputParameterType.notNull().Type);
                     callMethod = ServerNodeCreator.InputKeepCallbackMethod;
                     callMethodParameterTypes = ServerNodeCreator.InputKeepCallbackMethodParameterTypes;
-                    getParameterMethod = typeof(InputKeepCallbackMethodParameter<>).MakeGenericType(InputParameterType.Type).GetMethod(nameof(InputKeepCallbackMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                    getParameterMethod = typeof(InputKeepCallbackMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(InputKeepCallbackMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                     break;
             }
             string methodName = AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase." + type.FullName + "." + Method.Name + "." + MethodIndex.toString() + "." + Interlocked.Increment(ref createMethodIndex).toString();
@@ -379,25 +405,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             constructorGenerator.int32((byte)flags);
             if (isCallType)
             {
-                constructorGenerator.Emit(OpCodes.Call, parentType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, ServerNodeCreator.CallTypeMethodConstructorParameterTypes, null));
+                constructorGenerator.Emit(OpCodes.Call, parentType.notNull().GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, ServerNodeCreator.CallTypeMethodConstructorParameterTypes, null).notNull());
             }
             else
             {
-                constructorGenerator.Emit(OpCodes.Call, parentType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, ServerNodeCreator.MethodConstructorParameterTypes, null));
+                constructorGenerator.Emit(OpCodes.Call, parentType.notNull().GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, ServerNodeCreator.MethodConstructorParameterTypes, null).notNull());
             }
             #endregion
             constructorGenerator.Emit(OpCodes.Ret);
             #endregion
             #region public override void Call(Node node, ref CommandServerCallback<CallStateEnum> callback)
-            MethodBuilder callMethodBuilder = typeBuilder.DefineMethod(callMethod.Name, MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, callMethodReturnType, callMethodParameterTypes);
+            MethodBuilder callMethodBuilder = typeBuilder.DefineMethod(callMethod.notNull().Name, MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, callMethodReturnType, callMethodParameterTypes);
             ILGenerator callMethodGenerator = callMethodBuilder.GetILGenerator();
             #region p0 parameter = CallInputMethodParameter<p0>.GetParameter(((CallInputMethodParameter<p0>)methodParameter));
-            LocalBuilder inputParameterLocalBuilder = null;
+            var inputParameterLocalBuilder = default(LocalBuilder);
             if (InputParameterType != null)
             {
                 inputParameterLocalBuilder = callMethodGenerator.DeclareLocal(InputParameterType.Type);
                 callMethodGenerator.ldarg(1);
-                callMethodGenerator.call(getParameterMethod);
+                callMethodGenerator.call(getParameterMethod.notNull());
                 callMethodGenerator.Emit(OpCodes.Stloc_S, inputParameterLocalBuilder);
             }
             #endregion
@@ -514,7 +540,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             #endregion
             callMethodGenerator.Emit(OpCodes.Ret);
             #endregion
-            return (Method)typeBuilder.CreateType().GetConstructor(EmptyArray<Type>.Array).Invoke(null);
+            return (Method)typeBuilder.CreateType().GetConstructor(EmptyArray<Type>.Array).notNull().Invoke(null);
         }
 
         /// <summary>
@@ -524,13 +550,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methods"></param>
         /// <param name="isDeclaringMethod"></param>
         /// <returns>错误信息</returns>
+#if NetStandard21
+        internal static string? GetMethod(Type type, ref LeftArray<ServerNodeMethod> methods, bool isDeclaringMethod)
+#else
         internal static string GetMethod(Type type, ref LeftArray<ServerNodeMethod> methods, bool isDeclaringMethod)
+#endif
         {
             foreach (MethodInfo method in type.GetMethods())
             {
-                string error = AutoCSer.Net.CommandServer.InterfaceController.CheckMethod(type, method);
+                var error = AutoCSer.Net.CommandServer.InterfaceController.CheckMethod(type, method);
                 if (error != null) return error;
-                ServerMethodAttribute methodAttribute = (ServerMethodAttribute)method.GetCustomAttribute(typeof(ServerMethodAttribute), false) ?? ServerMethodAttribute.Default;
+                ServerMethodAttribute methodAttribute = method.GetCustomAttribute<ServerMethodAttribute>(false) ?? ServerMethodAttribute.Default;
                 ServerNodeMethod serverMethod = new ServerNodeMethod(type, method, methodAttribute, isDeclaringMethod);
                 if (serverMethod.CallType == CallTypeEnum.Unknown) return serverMethod.Error ?? $"{type.fullName()}.{method.Name} 未知节点方法调用类型";
                 methods.Add(serverMethod);

@@ -23,15 +23,27 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 默认值
         /// </summary>
+#if NetStandard21
+        public string? DefaultValue;
+#else
         public string DefaultValue;
+#endif
         /// <summary>
         /// 备注说明
         /// </summary>
+#if NetStandard21
+        public string? Remark;
+#else
         public string Remark;
+#endif
 
         /// <summary>
         /// 自动补全创建数据列时自动更新列值的表达式
         /// </summary>
+#if NetStandard21
+        public string? CreateColumnUpdateValue;
+#else
         public string CreateColumnUpdateValue;
+#endif
     }
 }

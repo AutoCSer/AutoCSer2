@@ -55,7 +55,11 @@ namespace AutoCSer.Xml
         /// </summary>
         /// <param name="name"></param>
         /// <param name="attribute"></param>
+#if NetStandard21
+        private void nameStart(string name, XmlSerializeMemberAttribute? attribute)
+#else
         private void nameStart(string name, XmlSerializeMemberAttribute attribute)
+#endif
         {
             WriteName(generator, OpCodes.Ldloc_0, name, false);
             if (!string.IsNullOrEmpty(attribute?.ItemName))
@@ -71,10 +75,14 @@ namespace AutoCSer.Xml
         /// <param name="field">字段信息</param>
         /// <param name="serializeMethod"></param>
         /// <param name="attribute"></param>
+#if NetStandard21
+        public void Push(FieldIndex field, MethodInfo serializeMethod, XmlSerializeMemberAttribute? attribute)
+#else
         public void Push(FieldIndex field, MethodInfo serializeMethod, XmlSerializeMemberAttribute attribute)
+#endif
         {
             Label end = default(Label);
-            Delegate isOutputMethod = Common.GetIsOutputDelegate(field.Member.FieldType);
+            var isOutputMethod = Common.GetIsOutputDelegate(field.Member.FieldType);
             if (isOutputMethod != null)
             {
                 generator.Emit(OpCodes.Ldarg_0);
@@ -129,10 +137,14 @@ namespace AutoCSer.Xml
         /// <param name="propertyMethod">函数信息</param>
         /// <param name="serializeMethod"></param>
         /// <param name="attribute"></param>
+#if NetStandard21
+        public void Push(PropertyIndex property, MethodInfo propertyMethod, MethodInfo serializeMethod, XmlSerializeMemberAttribute? attribute)
+#else
         public void Push(PropertyIndex property, MethodInfo propertyMethod, MethodInfo serializeMethod, XmlSerializeMemberAttribute attribute)
+#endif
         {
             Label end = default(Label);
-            Delegate isOutputMethod = Common.GetIsOutputDelegate(property.Member.PropertyType);
+            var isOutputMethod = Common.GetIsOutputDelegate(property.Member.PropertyType);
             if (isOutputMethod != null)
             {
                 generator.Emit(OpCodes.Ldarg_0);

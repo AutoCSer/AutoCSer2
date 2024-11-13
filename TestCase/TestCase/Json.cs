@@ -142,17 +142,17 @@ namespace AutoCSer.TestCase
 
             if (AutoCSer.JsonDeserializer.Deserialize<int>(jsonString = AutoCSer.JsonSerializer.Serialize<int>(1)) != 1)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (AutoCSer.JsonDeserializer.Deserialize<string>(jsonString = AutoCSer.JsonSerializer.Serialize<string>("1")) != "1")
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             Float floatData = AutoCSer.JsonDeserializer.Deserialize<Float>(@"{Double4:-4.0,Double2:2.0,Double6:-6.0,Double5:5.0,Double3:-3.0}");
             if (floatData.Double2 != 2 || floatData.Double3 != -3 || floatData.Double4 != -4 || floatData.Double5 != 5 || floatData.Double6 != -6)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             floatData = new Float { FloatPositiveInfinity = float.NaN, FloatNegativeInfinity = float.NaN, DoublePositiveInfinity = double.NaN, DoubleNegativeInfinity = double.NaN };

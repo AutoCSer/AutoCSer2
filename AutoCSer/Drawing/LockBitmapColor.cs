@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -83,9 +84,13 @@ namespace AutoCSer.Drawing
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>是否相等</returns>
+#if NetStandard21
+        public override bool Equals(object? obj)
+#else
         public override bool Equals(object obj)
+#endif
         {
-            return Equals((LockBitmapColor)obj);
+            return Equals(obj.castValue<LockBitmapColor>());
         }
         /// <summary>
         /// == 操作符

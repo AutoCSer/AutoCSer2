@@ -3,6 +3,7 @@ using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 
 namespace AutoCSer.ObjectRoot
 {
@@ -94,7 +95,7 @@ namespace AutoCSer.ObjectRoot
         /// <returns></returns>
         protected virtual bool isSystemAssembly(Assembly assembly)
         {
-            string name = assembly.FullName;
+            var name = assembly.FullName.notNull();
             if ((name[0] & 2) != 0) return name.StartsWith("System", StringComparison.Ordinal) && (name[6] == '.' || name[6] == ','); // S = 0x53
             return name.StartsWith("mscorlib,", StringComparison.Ordinal); // m = 0x6d
         }
@@ -116,14 +117,14 @@ namespace AutoCSer.ObjectRoot
             if (type.IsClass)
             {
                 if (type.IsArray || type.IsInterface || type.IsGenericTypeDefinition) return;
-                while (type != typeof(object))
+                for (var baseType = type; baseType != typeof(object);)
                 {
-                    if (check(type))
+                    if (check(baseType))
                     {
-                        if (ScanTypes.Add(type)) scan(type);
+                        if (ScanTypes.Add(baseType)) scan(baseType);
                         else return;
                     }
-                    type = type.BaseType;
+                    baseType = baseType.BaseType.notNull();
                 }
             }
             else if (type.IsValueType)
@@ -156,7 +157,7 @@ namespace AutoCSer.ObjectRoot
                     Type fieldType = fieldInfo.FieldType;
                     if (!fieldType.IsEnum && !fieldType.IsPrimitive && !fieldType.IsPointer && check(fieldInfo))
                     {
-                        object value = fieldInfo.GetValue(null);
+                        var value = fieldInfo.GetValue(null);
                         if (value != null) scanRoot(fieldInfo, value);
                     }
                 }
@@ -173,7 +174,7 @@ namespace AutoCSer.ObjectRoot
         /// <param name="exception"></param>
         protected virtual void onException(FieldInfo fieldInfo, Exception exception)
         {
-            AutoCSer.LogHelper.ExceptionIgnoreException(exception, $"{fieldInfo.DeclaringType.FullName}.{fieldInfo.Name} 扫描失败", LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
+            AutoCSer.LogHelper.ExceptionIgnoreException(exception, $"{fieldInfo.DeclaringType.notNull().FullName}.{fieldInfo.Name} 扫描失败", LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
         }
         /// <summary>
         /// 扫描根对象

@@ -71,7 +71,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         {
             foreach (Type type in parameter.Types)
             {
-                if (!type.IsAbstract && typeof(ViewMiddleware).IsAssignableFrom(type))
+                if (!type.IsAbstract && typeof(ViewMiddleware).IsAssignableFrom(type) && type != typeof(NullViewMiddleware))
                 {
                     ViewMiddleware = GenericType.Get(type).CallNetCoreWebViewMiddlewareDefaultConstructor;
                     break;
@@ -82,7 +82,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                 ProjectParameter = parameter;
                 foreach (Type type in parameter.Types)
                 {
-                    if (!type.IsAbstract && typeof(View).IsAssignableFrom(type))
+                    if (!type.IsAbstract && typeof(View).IsAssignableFrom(type) && type != typeof(View))
                     {
                         View view = GenericType.Get(type).CallNetCoreWebViewDefaultConstructor;
                         string filePath = ViewMiddleware.GetNamespaceTemplateFilePath(type);

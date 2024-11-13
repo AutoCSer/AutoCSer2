@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -33,7 +34,7 @@ namespace AutoCSer.Xml
         /// <summary>
         /// 创建泛型类型元数据 函数信息
         /// </summary>
-        protected static readonly MethodInfo createMethod = typeof(CustomSerializeGenericType).GetMethod(nameof(create), BindingFlags.Static | BindingFlags.NonPublic);
+        protected static readonly MethodInfo createMethod = typeof(CustomSerializeGenericType).GetMethod(nameof(create), BindingFlags.Static | BindingFlags.NonPublic).notNull();
         /// <summary>
         /// 获取自定义 XML 序列化泛型类型元数据
         /// </summary>
@@ -41,7 +42,7 @@ namespace AutoCSer.Xml
         /// <returns></returns>
         public static CustomSerializeGenericType Get(Type type)
         {
-            return (CustomSerializeGenericType)createMethod.MakeGenericMethod(type).Invoke(null, null);
+            return (CustomSerializeGenericType)createMethod.MakeGenericMethod(type).Invoke(null, null).notNull();
         }
     }
     /// <summary>

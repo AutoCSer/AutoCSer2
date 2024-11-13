@@ -2,10 +2,11 @@
 using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if DotNet45 || NetStandard2
+#if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
 #endif
 
@@ -31,11 +32,18 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册日志客户端组装
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         internal ServiceRegisterLogClientAssembler Assembler;
         /// <summary>
         /// 服务注册日志
         /// </summary>
+#if NetStandard21
+        internal ServiceRegisterLog? ServiceRegisterLog;
+#else
         internal ServiceRegisterLog ServiceRegisterLog;
+#endif
         /// <summary>
         /// 服务注册组件
         /// </summary>
@@ -56,7 +64,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         private async Task getAssembler()
         {
-            Assembler = await serviceRegistryClient.GetAssembler(commandServerConfig.ServiceName);
+            Assembler = await serviceRegistryClient.GetAssembler(commandServerConfig.ServiceName.notNull());
         }
         /// <summary>
         /// 释放资源
@@ -112,7 +120,7 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Offline(long serviceID)
         {
-            if (ServiceRegisterLog.ServiceID == serviceID) Offline();
+            if (ServiceRegisterLog.notNull().ServiceID == serviceID) Offline();
         }
         /// <summary>
         /// 单例服务定时尝试上线
@@ -121,8 +129,10 @@ namespace AutoCSer.CommandService
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool CheckSingleton()
         {
-            if (server.IsDisposed || ServiceRegisterLog.ServiceID == 0) return false;
-            AutoCSer.Threading.SecondTimer.TaskArray.Append(checkSingleton, (int)ServiceRegisterLog.TimeoutSeconds + 1);
+            if (server.IsDisposed) return false;
+            ServiceRegisterLog log = ServiceRegisterLog.notNull();
+            if (log.ServiceID == 0) return false;
+            AutoCSer.Threading.SecondTimer.TaskArray.Append(checkSingleton, (int)log.TimeoutSeconds + 1);
             return true;
         }
         /// <summary>
@@ -142,7 +152,11 @@ namespace AutoCSer.CommandService
         /// <param name="config"></param>
         /// <param name="portRegistryClient"></param>
         /// <returns></returns>
+#if NetStandard21
+        public static async Task<ServiceRegistryCommandServiceRegistrar?> Create(CommandListener server, ServiceRegistryClient client, ServiceRegistryCommandServerConfig config, PortRegistryClient portRegistryClient)
+#else
         public static async Task<ServiceRegistryCommandServiceRegistrar> Create(CommandListener server, ServiceRegistryClient client, ServiceRegistryCommandServerConfig config, PortRegistryClient portRegistryClient)
+#endif
         {
             if (config.ServiceName != null)
             {

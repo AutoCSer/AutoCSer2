@@ -24,7 +24,7 @@ namespace AutoCSer.ORM.Reflection.Emit
             ILGenerator generator = dynamicMethod.GetILGenerator();
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldarg_1);
-            generator.call(property.GetSetMethod(true));
+            generator.call(property.GetSetMethod(true).notNull());
             generator.Emit(OpCodes.Ret);
             return (Action<T, PT>)dynamicMethod.CreateDelegate(typeof(Action<T, PT>));
         }
@@ -41,7 +41,7 @@ namespace AutoCSer.ORM.Reflection.Emit
             DynamicMethod dynamicMethod = new DynamicMethod(methodName, typeof(PT), new Type[] { typeof(T) }, typeof(T), true);
             ILGenerator generator = dynamicMethod.GetILGenerator();
             generator.Emit(OpCodes.Ldarg_0);
-            generator.call(property.GetGetMethod(true));
+            generator.call(property.GetGetMethod(true).notNull());
             generator.Emit(OpCodes.Ret);
             return (Func<T, PT>)dynamicMethod.CreateDelegate(typeof(Func<T, PT>));
         }

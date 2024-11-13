@@ -28,7 +28,11 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 异步回调
         /// </summary>
+#if NetStandard21
+        private Action? continuation;
+#else
         private Action continuation;
+#endif
         /// <summary>
         /// 枚举命令存在下一个数据
         /// </summary>
@@ -100,7 +104,7 @@ namespace AutoCSer.Threading
         internal void SetNextValue()
         {
             this.isNextValue = true;
-            Action continuation;
+            var continuation = default(Action);
             if (this.continuation != null)
             {
                 continuation = this.continuation;

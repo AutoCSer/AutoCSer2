@@ -19,7 +19,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 文件存储路径
         /// </summary>
+#if NetStandard21
+        public string? Path;
+#else
         public string Path;
+#endif
         /// <summary>
         /// 写入文件流缓存区字节数，默认为 1MB，最小值为 4KB
         /// </summary>
@@ -64,20 +68,22 @@ namespace AutoCSer.CommandService.DiskBlock
             if (files.Length == 0) files.Add(new KeyValue<FileInfo, long>(new FileInfo(System.IO.Path.Combine(directory.FullName, identityHex + "0000000000000000" + ExtensionName)), 0));
 
             bool isServive = false;
-            Block block = null;
-            FileStream writeStream = null;
+            var block = default(Block);
+            var writeStream = default(FileStream);
             DiskBlockService service = new DiskBlockService(this, files.Length);
             int readBufferSize = Math.Max(ReadBufferSize, sizeof(int)), writeBufferSize = Math.Max(WriteBufferSize, 4 << 10);
             try
             {
                 foreach (KeyValue<FileInfo, long> file in files)
                 {
-                    if (service.Block == null)
+                    if (object.ReferenceEquals(service.Block, NullBlock.Null))
                     {
                         writeStream = await AutoCSer.Common.Config.CreateFileStream(file.Key.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, writeBufferSize);
                         await AutoCSer.Common.Config.Seek(writeStream, 0, SeekOrigin.End);
-                        block = new FileBlock(service, file.Key, file.Value, file.Value + writeStream.Position, readBufferSize, writeBufferSize, ref writeStream);
-                        service.Set(ref block);
+                        block = new FileBlock(service, file.Key, file.Value, file.Value + writeStream.Position, readBufferSize, writeBufferSize, writeStream);
+                        writeStream = null;
+                        service.Set(block);
+                        block = null;
                     }
                     else service.Append(new FileBlock(service, file.Key, file.Value, file.Value + file.Key.Length, readBufferSize));
                 }

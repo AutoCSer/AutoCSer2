@@ -103,7 +103,7 @@ namespace AutoCSer.ORM.CustomColumn
             KeyValue<MethodInfo, bool> method = member.GetConstantConvertMethod(out isObjectToString);
             if (method.Value) generator.Emit(OpCodes.Ldloc_S, connectionCreatorLocal);
             generator.Emit(OpCodes.Ldarg_0);
-            MethodInfo verifyMethod = member.VerifyMethod;
+            var verifyMethod = member.VerifyMethod;
             if (verifyMethod != null)
             {
                 generator.Emit(OpCodes.Ldarg_2);
@@ -129,7 +129,7 @@ namespace AutoCSer.ORM.CustomColumn
         /// <param name="member"></param>
         private static void insertVerifyInterface(ILGenerator generator, Member member)
         {
-            MethodInfo verifyInterfaceMethod = member.VerifyInterfaceMethod;
+            var verifyInterfaceMethod = member.VerifyInterfaceMethod;
             if (member.MemberIndex.IsField)
             {
                 if (verifyInterfaceMethod == null || !member.MemberIndex.MemberSystemType.IsValueType)
@@ -146,7 +146,7 @@ namespace AutoCSer.ORM.CustomColumn
             else
             {
                 generator.Emit(OpCodes.Ldarga_S, 1);
-                generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                 if (verifyInterfaceMethod != null && member.MemberIndex.MemberSystemType.IsValueType)
                 {
                     LocalBuilder verifyLocal = generator.DeclareLocal(member.MemberIndex.MemberSystemType);
@@ -172,7 +172,7 @@ namespace AutoCSer.ORM.CustomColumn
                     generator.Emit(OpCodes.Ldind_I4);
                     generator.call(member.GetReadMethod());
                     if (member.MemberIndex.IsField) generator.Emit(OpCodes.Stfld, (FieldInfo)member.MemberIndex.Member);
-                    else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                    else generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                     #endregion
                     #region ++index;
                     generator.Emit(OpCodes.Ldarg_2);
@@ -209,7 +209,7 @@ namespace AutoCSer.ORM.CustomColumn
                     #region value.CustomProperty = property;
                     generator.Emit(OpCodes.Ldarg_1);
                     generator.Emit(OpCodes.Ldloc, propertyLocalBuilder);
-                    generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true));
+                    generator.call(((PropertyInfo)member.MemberIndex.Member).GetSetMethod(true).notNull());
                     #endregion
                 }
             }
@@ -348,7 +348,7 @@ namespace AutoCSer.ORM.CustomColumn
                     else
                     {
                         generator.Emit(OpCodes.Ldarga_S, 1);
-                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                     }
                     if (member.ReaderDataType == ReaderDataTypeEnum.Json) generator.call(member.GenericType.JsonSerializeDelegate.Method);
                     else if (isObjectToString && member.MemberIndex.MemberSystemType.IsValueType) generator.Emit(OpCodes.Box, member.MemberIndex.MemberSystemType);
@@ -373,7 +373,7 @@ namespace AutoCSer.ORM.CustomColumn
                     else
                     {
                         generator.Emit(OpCodes.Ldarga_S, 1);
-                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true));
+                        generator.call(((PropertyInfo)member.MemberIndex.Member).GetGetMethod(true).notNull());
                     }
                     generator.Emit(OpCodes.Ldarg_2);
                     generator.Emit(OpCodes.Ldarg_3);
@@ -390,7 +390,7 @@ namespace AutoCSer.ORM.CustomColumn
             concatCondition = (Func<CharStream, T, TableWriter, int, bool, int>)dynamicMethod.CreateDelegate(typeof(Func<CharStream, T, TableWriter, int, bool, int>));
         }
     }
-#if DEBUG
+#if DEBUG && NetStandard21
 #pragma warning disable
     internal struct TableReaderIL
     {

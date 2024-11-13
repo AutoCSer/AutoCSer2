@@ -17,7 +17,11 @@ namespace AutoCSer.ORM.CustomColumn
         /// <summary>
         /// 自定义数据列配置
         /// </summary>
+#if NetStandard21
+        internal static readonly CustomColumnAttribute? Attribute;
+#else
         internal static readonly CustomColumnAttribute Attribute;
+#endif
         /// <summary>
         /// 字段成员集合
         /// </summary>
@@ -32,7 +36,11 @@ namespace AutoCSer.ORM.CustomColumn
         /// <param name="parentName"></param>
         /// <param name="nameConcatSplit"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static IEnumerable<CustomColumnName> GetMemberNames(string? parentName, string? nameConcatSplit)
+#else
         internal static IEnumerable<CustomColumnName> GetMemberNames(string parentName, string nameConcatSplit)
+#endif
         {
             foreach (Member member in Members)
             {
@@ -51,9 +59,13 @@ namespace AutoCSer.ORM.CustomColumn
         /// <param name="parentName"></param>
         /// <param name="nameConcatSplit"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static CustomColumnName GetMemberName(MemberExpression? memberExpression, LeftArray<MemberExpression> memberExpressions, string? parentName, string? nameConcatSplit)
+#else
         internal static CustomColumnName GetMemberName(MemberExpression memberExpression, LeftArray<MemberExpression> memberExpressions, string parentName, string nameConcatSplit)
+#endif
         {
-            MemberExpression expression;
+            var expression = default(MemberExpression);
             if (!memberExpressions.TryPop(out expression))
             {
                 expression = memberExpression;
@@ -68,7 +80,7 @@ namespace AutoCSer.ORM.CustomColumn
                     return member.GetCustomColumnMemberName(memberExpression, ref memberExpressions, parentName, nameConcatSplit);
                 }
             }
-            throw new MemberAccessException($"没有找到成员定义 {expression.Member.Name}");
+            throw new MemberAccessException($"没有找到成员定义 {expression.notNull().Member.Name}");
         }
         /// <summary>
         /// 递归匹配自定义数据列获取数值
@@ -79,9 +91,13 @@ namespace AutoCSer.ORM.CustomColumn
         /// <param name="parentName"></param>
         /// <param name="nameConcatSplit"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static IEnumerable<KeyValue<CustomColumnName, object?>> GetMemberNameValues(MemberExpression? memberExpression, LeftArray<MemberExpression> memberExpressions, object value, string? parentName, string? nameConcatSplit)
+#else
         internal static IEnumerable<KeyValue<CustomColumnName, object>> GetMemberNameValues(MemberExpression memberExpression, LeftArray<MemberExpression> memberExpressions, object value, string parentName, string nameConcatSplit)
+#endif
         {
-            MemberExpression expression;
+            var expression = default(MemberExpression);
             if (!memberExpressions.TryPop(out expression))
             {
                 expression = memberExpression;
@@ -91,11 +107,14 @@ namespace AutoCSer.ORM.CustomColumn
             {
                 foreach (Member member in Members)
                 {
-                    object memberVaue = member.MemberIndex.GetValue(value);
-                    if (member.CustomColumnAttribute == null) yield return new KeyValue<CustomColumnName, object>(new CustomColumnName(member, member.ConcatMemberName(parentName, nameConcatSplit)), memberVaue);
+                    var memberVaue = member.MemberIndex.GetValue(value);
+                    if (member.CustomColumnAttribute == null) yield return KeyValue.From(new CustomColumnName(member, member.ConcatMemberName(parentName, nameConcatSplit)), memberVaue);
                     else
                     {
-                        foreach (KeyValue<CustomColumnName, object> nameValue in member.GetCustomColumnMemberNameValues(memberExpression, ref memberExpressions, memberVaue, parentName, nameConcatSplit)) yield return nameValue;
+                        foreach (var nameValue in member.GetCustomColumnMemberNameValues(memberExpression, ref memberExpressions, memberVaue.notNull(), parentName, nameConcatSplit))
+                        {
+                            yield return nameValue;
+                        }
                     }
                 }
             }
@@ -107,10 +126,20 @@ namespace AutoCSer.ORM.CustomColumn
                     if (member.MemberIndex.Member == expression.Member)
                     {
                         isMember = true;
-                        if (member.CustomColumnAttribute == null) yield return new KeyValue<CustomColumnName, object>(new CustomColumnName(member, member.ConcatMemberName(parentName, nameConcatSplit)), value);
+                        if (member.CustomColumnAttribute == null)
+                        {
+#if NetStandard21
+                            yield return new KeyValue<CustomColumnName, object?>(new CustomColumnName(member, member.ConcatMemberName(parentName, nameConcatSplit)), value);
+#else
+                            yield return new KeyValue<CustomColumnName, object>(new CustomColumnName(member, member.ConcatMemberName(parentName, nameConcatSplit)), value);
+#endif
+                        }
                         else
                         {
-                            foreach (KeyValue<CustomColumnName, object> nameValue in member.GetCustomColumnMemberNameValues(memberExpression, ref memberExpressions, value, parentName, nameConcatSplit)) yield return nameValue;
+                            foreach (var nameValue in member.GetCustomColumnMemberNameValues(memberExpression, ref memberExpressions, value, parentName, nameConcatSplit))
+                            {
+                                yield return nameValue;
+                            }
                         }
                         break;
                     }
@@ -134,7 +163,7 @@ namespace AutoCSer.ORM.CustomColumn
 
         static ModelMetadata()
         {
-            Attribute = (CustomColumnAttribute)typeof(T).GetCustomAttribute(typeof(CustomColumnAttribute), true);
+            Attribute = typeof(T).GetCustomAttribute<CustomColumnAttribute>(true);
             if (Attribute != null)
             {
                 LeftArray<Member> members = Member.Get(MemberIndexGroup<T>.GetFields(Attribute.MemberFilters), MemberIndexGroup<T>.GetProperties(Attribute.MemberFilters), false);
@@ -150,6 +179,7 @@ namespace AutoCSer.ORM.CustomColumn
                     }
                 }
             }
+            else Members = EmptyArray<Member>.Array;
         }
     }
 }

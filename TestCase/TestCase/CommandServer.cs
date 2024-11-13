@@ -45,7 +45,7 @@ namespace AutoCSer.TestCase
                 {
                     if (!await commandListener.Start())
                     {
-                        return false;
+                        return AutoCSer.Breakpoint.ReturnFalse();
                     }
 
                     CommandClientConfig commandClientConfig = new CommandClientConfig 
@@ -59,7 +59,7 @@ namespace AutoCSer.TestCase
                         CommandServerSessionObject clientSessionObject = new CommandServerSessionObject();
                         if (await commandClient.GetSocketAsync() == null)
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         CommandClientSocketEvent client = (CommandClientSocketEvent)commandClient.SocketEvent;
                         if (!ClientSynchronousController.TestCase(client, clientSessionObject))
@@ -153,7 +153,7 @@ namespace AutoCSer.TestCase
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库服务端
         /// </summary>
-        private readonly CommandServerSocketSessionObjectService service;
+        private readonly StreamPersistenceMemoryDatabaseServiceBase service;
         /// <summary>
         /// 持久化文件名称
         /// </summary>
@@ -24,18 +25,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 重建持久化文件切换目录
         /// </summary>
+#if NetStandard21
+        private readonly DirectoryInfo? switchDirectory;
+#else
         private readonly DirectoryInfo switchDirectory;
+#endif
         /// <summary>
         /// 删除历史持久化文件
         /// </summary>
         /// <param name="service">日志流持久化内存数据库服务端</param>
-        public RemoveHistoryFile(CommandServerSocketSessionObjectService service)
+        public RemoveHistoryFile(StreamPersistenceMemoryDatabaseServiceBase service)
         {
             this.service = service;
             FileInfo persistenceFileInfo = service.PersistenceFileInfo;
-            directory = service.PersistenceFileInfo.Directory;
+            directory = service.PersistenceFileInfo.Directory.notNull();
             persistenceFileName = persistenceFileInfo.Name;
-            if (!object.ReferenceEquals(service.PersistenceFileInfo, service.PersistenceSwitchFileInfo)) switchDirectory = service.PersistenceSwitchFileInfo.Directory;
+            if (!object.ReferenceEquals(service.PersistenceFileInfo, service.PersistenceSwitchFileInfo))
+            {
+                switchDirectory = service.PersistenceSwitchFileInfo.Directory;
+            }
         }
         /// <summary>
         /// 删除文件

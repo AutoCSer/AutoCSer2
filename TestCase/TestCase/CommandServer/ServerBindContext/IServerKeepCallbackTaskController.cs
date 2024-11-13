@@ -32,7 +32,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskQueueReturn(CommandServerCallTaskQueue queue, int Value, int Ref);
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         IAsyncEnumerable<string> AsyncEnumerableReturn(int Value, int Ref);
         IAsyncEnumerable<string> AsyncEnumerableReturn();
 
@@ -120,7 +120,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             return Task.FromResult(AutoCSer.TestCase.ServerKeepCallbackController.KeepCallbackEnumerable(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref)));
         }
 
-#if !DotNet45 && !NetStandard2
+#if NetStandard21
         async IAsyncEnumerable<string> IServerKeepCallbackTaskController.AsyncEnumerableReturn(int Value, int Ref)
         {
             await Task.Yield();

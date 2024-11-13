@@ -95,13 +95,14 @@ namespace AutoCSer.CommandService
         /// <param name="callback">端口标识在线检查回调委托</param>
         public void SetCallback(CommandServerSocket socket, CommandServerCallQueue queue, PortIdentity portIdentity, CommandServerKeepCallback callback)
         {
+            var keepCallback = callback;
             try
             {
-                if (portIdentity.Ticks == AutoCSer.Date.StartTime.Ticks) portArray[portIdentity.Port - startPort].Set(portIdentity.Identity, ref callback);
+                if (portIdentity.Ticks == AutoCSer.Date.StartTime.Ticks) portArray[portIdentity.Port - startPort].Set(portIdentity.Identity, ref keepCallback);
             }
             finally
             {
-                callback?.CancelKeep();
+                keepCallback?.CancelKeep();
             }
         }
         /// <summary>
@@ -114,7 +115,7 @@ namespace AutoCSer.CommandService
         public CommandServerSendOnly FreePort(CommandServerSocket socket, CommandServerCallQueue queue, PortIdentity portIdentity)
         {
             if (portIdentity.Ticks == AutoCSer.Date.StartTime.Ticks) portArray[portIdentity.Port - startPort].Free(portIdentity.Identity);
-            return null;
+            return CommandServerSendOnly.Null;
         }
     }
 }

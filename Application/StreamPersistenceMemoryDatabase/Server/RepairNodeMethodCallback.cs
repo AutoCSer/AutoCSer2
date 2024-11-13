@@ -22,7 +22,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 修复节点方法信息
         /// </summary>
+#if NetStandard21
+        private readonly ServerNodeMethod? nodeMethod;
+#else
         private readonly ServerNodeMethod nodeMethod;
+#endif
         /// <summary>
         /// 修复节点方法
         /// </summary>
@@ -53,7 +57,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodInfo">修复节点方法信息</param>
         /// <param name="methodAttribute">服务端节点方法自定义属性</param>
         /// <param name="callback">修复节点方法回调返回状态</param>
-        internal RepairNodeMethodCallback(ServerNodeCreator nodeCreator, RepairNodeMethod repairNodeMethod, ServerNodeMethod nodeMethod, Method method, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, ref CommandServerCallback<CallStateEnum> callback)
+#if NetStandard21
+        internal RepairNodeMethodCallback(ServerNodeCreator nodeCreator, RepairNodeMethod repairNodeMethod, ServerNodeMethod? nodeMethod, Method method, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
+#else
+        internal RepairNodeMethodCallback(ServerNodeCreator nodeCreator, RepairNodeMethod repairNodeMethod, ServerNodeMethod nodeMethod, Method method, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
+#endif
         {
             this.callback = callback;
             this.repairNodeMethod = repairNodeMethod;
@@ -63,7 +71,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.methodInfo = methodInfo;
             this.methodAttribute = methodAttribute;
             this.methodDirectory = new DirectoryInfo(repairNodeMethod.MethodDirectoryName);
-            callback = null;
         }
         /// <summary>
         /// 回调操作

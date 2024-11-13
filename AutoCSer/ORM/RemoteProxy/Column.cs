@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.ORM.RemoteProxy
 {
@@ -13,6 +14,9 @@ namespace AutoCSer.ORM.RemoteProxy
         /// <summary>
         /// 数据列名称
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         internal string Name;
         /// <summary>
         /// 数据类型

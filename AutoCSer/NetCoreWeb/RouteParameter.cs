@@ -24,7 +24,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 路由参数解析错误信息
         /// </summary>
+#if NetStandard21
+        private string? message;
+#else
         private string message;
+#endif
         /// <summary>
         /// 路由参数解析
         /// </summary>
@@ -449,7 +453,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal bool Get<T>(string name, ref T? value)
+#else
         internal bool Get<T>(string name, ref T value)
+#endif
         {
             if (!isEnd && startIndex != requestPath.Length)
             {
@@ -477,7 +485,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="nextIndex"></param>
         /// <param name="name"></param>
         /// <param name="value"></param>
+#if NetStandard21
+        private void get<T>(string name, ref T? value, int nextIndex)
+#else
         private void get<T>(string name, ref T value, int nextIndex)
+#endif
         {
             AutoCSer.Json.DeserializeResult result = AutoCSer.JsonDeserializer.Deserialize(new SubString(startIndex, nextIndex - startIndex, requestPath), ref value);
             if (result.State != AutoCSer.Json.DeserializeStateEnum.Success) message = $"参数 {name} JSON 反序列化位置 {result.Index.toString()} 失败 {result.State}";

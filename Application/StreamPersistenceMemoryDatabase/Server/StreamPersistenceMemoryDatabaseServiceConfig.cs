@@ -28,17 +28,21 @@ namespace AutoCSer.CommandService
         public const string DefaultPersistenceFileName = AutoCSer.Common.NamePrefix + "MemoryDatabase" + PersistenceExtensionName;
 
         /// <summary>
-        /// 套接字自定义会话对象操作
-        /// </summary>
-        public ICommandServerSocketSessionObject<CommandServerSocketSessionObjectService, CommandServerSocketSessionObjectService> CommandServerSocketSessionObject;
-        /// <summary>
         /// 持久化文件路径，建议使用绝对路径（为了最优化冷启动读取速度，应该使用一个正常格式化的空白磁盘）
         /// </summary>
+#if NetStandard21
+        public string? PersistencePath;
+#else
         public string PersistencePath;
+#endif
         /// <summary>
         /// 重建持久化文件路径，建议使用绝对路径（为了最优化冷启动读取速度与文件重建速度，应该另外使用一个正常格式化的空白磁盘，也就是说需要两个正常格式化的空白磁盘切换）
         /// </summary>
+#if NetStandard21
+        public string? PersistenceSwitchPath;
+#else
         public string PersistenceSwitchPath;
+#endif
         /// <summary>
         /// 持久化文件名称
         /// </summary>
@@ -57,7 +61,11 @@ namespace AutoCSer.CommandService
         /// 获取重建持久化文件信息
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal FileInfo? GetPersistenceSwitchFileInfo()
+#else
         internal FileInfo GetPersistenceSwitchFileInfo()
+#endif
         {
             if (string.IsNullOrEmpty(PersistenceSwitchPath) || PersistencePath == PersistenceSwitchPath) return null;
             FileInfo file = new FileInfo(Path.Combine(PersistenceSwitchPath, PersistenceFileName));

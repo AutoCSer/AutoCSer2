@@ -54,9 +54,9 @@ namespace AutoCSer.ObjectRoot
         /// <param name="scanner">对象扫描</param>
         internal void CreateScanFiled(ReflectionTypeScanner scanner)
         {
-            BaseType = (ReflectionObjectType)scanner.GetObjectType(Type.BaseType);
+            BaseType = (ReflectionObjectType)scanner.GetObjectType(Type.BaseType.notNull());
 
-            List<KeyValue<FieldInfo, ReflectionType>> fieldList = null;
+            var fieldList = default(List<KeyValue<FieldInfo, ReflectionType>>);
             foreach (FieldInfo field in Type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly))
             {
                 Type fieldType = field.FieldType;

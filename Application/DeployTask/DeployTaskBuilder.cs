@@ -32,11 +32,19 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 写入文件流集合
         /// </summary>
+#if NetStandard21
+        private readonly List<DeployTask.TaskFileStream?> files = new List<DeployTask.TaskFileStream?>();
+#else
         private readonly List<DeployTask.TaskFileStream> files = new List<DeployTask.TaskFileStream>();
+#endif
         /// <summary>
         /// 任务状态变更回调委托
         /// </summary>
+#if NetStandard21
+        private CommandServerKeepCallback<DeployTaskLog>? callback;
+#else
         private CommandServerKeepCallback<DeployTaskLog> callback;
+#endif
         /// <summary>
         /// 发布任务创建器
         /// </summary>
@@ -53,7 +61,7 @@ namespace AutoCSer.CommandService
         private async Task disposeFiles()
         {
             if (files.Count == 0) return;
-            foreach (DeployTask.TaskFileStream file in files)
+            foreach (var file in files)
             {
                 if (file != null) await file.Close();
             }
@@ -75,7 +83,11 @@ namespace AutoCSer.CommandService
         /// <param name="operationType">操作类型</param>
         /// <param name="getTask">获取执行任务</param>
         /// <param name="getCancelTask">获取取消任务</param>
+#if NetStandard21
+        public virtual async Task<DeployTaskAppendResult> AppendCustom(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task>? getCancelTask = null)
+#else
         public virtual async Task<DeployTaskAppendResult> AppendCustom(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task> getCancelTask = null)
+#endif
         {
             return await Append(new CustomDeployTask(operationType, getTask, getCancelTask));
         }
@@ -117,6 +129,7 @@ namespace AutoCSer.CommandService
                 return;
             }
             this.callback = callback;
+            bool isCallback = true;
             try
             {
                 long seconds = (long)(startTime - AutoCSer.Threading.SecondTimer.Now).TotalSeconds;
@@ -135,11 +148,11 @@ namespace AutoCSer.CommandService
                     DeployTaskLog.CallbackError(callback, DeployTaskOperationStateEnum.StartTimeError);
                     this.callback = null;
                 }
-                callback = null;
+                isCallback = false;
             }
             finally
             {
-                if (callback != null) DeployTaskLog.CallbackError(callback, DeployTaskOperationStateEnum.Exception);
+                if (isCallback) DeployTaskLog.CallbackError(callback, DeployTaskOperationStateEnum.Exception);
             }
         }
         /// <summary>
@@ -166,6 +179,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         protected virtual async Task run()
         {
+            var callback = this.callback.notNull();
             DeployTaskLog log = new DeployTaskLog { TaskIdentity = Identity };
             try
             {
@@ -205,9 +219,13 @@ namespace AutoCSer.CommandService
         /// <param name="fileTimes">文件信息集合</param>
         /// <param name="callback">比较结果回调委托</param>
         /// <returns></returns>
+#if NetStandard21
+        public virtual async Task GetDifferent(int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, CommandServerCallback<bool[]?> callback)
+#else
         public virtual async Task GetDifferent(int index, string bootPath, string path, DeployTask.FileTime[] fileTimes, CommandServerCallback<bool[]> callback)
+#endif
         {
-            bool[] isDifferents = null;
+            var isDifferents = default(bool[]);
             try
             {
                 DirectoryInfo taskDirectory = new DirectoryInfo(Path.Combine(service.UploadFilePath, Identity.toString(), index.toString(), path));
@@ -217,12 +235,13 @@ namespace AutoCSer.CommandService
                     isDifferents = EmptyArray<bool>.Array;
                     return;
                 }
-                Dictionary<HashString, FileInfo> checkFileDictionary = await getFileNameDictionary(new DirectoryInfo(Path.Combine(bootPath, path))), switchFileDictionary = await getFileNameDictionary(new DirectoryInfo(Path.Combine(bootPath, service.SwitchDirectoryName, path)));
+                var checkFileDictionary = await getFileNameDictionary(new DirectoryInfo(Path.Combine(bootPath, path)));
+                var switchFileDictionary = await getFileNameDictionary(new DirectoryInfo(Path.Combine(bootPath, service.SwitchDirectoryName, path)));
                 string taskPath = taskDirectory.FullName;
                 isDifferents = new bool[fileTimes.Length];
                 for (int fileIndex = fileTimes.Length; fileIndex != 0;)
                 {
-                    FileInfo file = fileTimes[--fileIndex].Check(checkFileDictionary, switchFileDictionary);
+                    var file = fileTimes[--fileIndex].Check(checkFileDictionary, switchFileDictionary);
                     if (file == null) isDifferents[fileIndex] = true;
                     else await AutoCSer.Common.Config.FileCopyTo(file, Path.Combine(taskPath, file.Name), true);
                 }
@@ -239,7 +258,11 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static async Task<Dictionary<HashString, FileInfo>?> getFileNameDictionary(DirectoryInfo directory)
+#else
         private static async Task<Dictionary<HashString, FileInfo>> getFileNameDictionary(DirectoryInfo directory)
+#endif
         {
             if (!await AutoCSer.Common.Config.DirectoryExists(directory)) return null;
             FileInfo[] files = await AutoCSer.Common.Config.DirectoryGetFiles(directory);
@@ -258,11 +281,11 @@ namespace AutoCSer.CommandService
         public virtual async Task CreateUploadFile(int index, string path, DeployTask.FileTime fileTime, CommandServerCallback<DeployTask.CreateUploadFileResult> callback)
         {
             DeployTask.CreateUploadFileResult result = default(DeployTask.CreateUploadFileResult);
-            FileStream fileStream = null;
+            var fileStream = default(FileStream);
             try
             {
                 if (this.callback != null) return;
-                FileInfo file = new FileInfo(Path.Combine(service.UploadFilePath, Identity.toString(), index.toString(), path, fileTime.FileName));
+                FileInfo file = new FileInfo(Path.Combine(service.UploadFilePath, Identity.toString(), index.toString(), path, fileTime.FileName.notNull()));
                 if (await AutoCSer.Common.Config.FileExists(file))
                 {
                     if (file.LastWriteTimeUtc == fileTime.LastWriteTimeUtc && file.Length <= fileTime.Length)
@@ -309,7 +332,7 @@ namespace AutoCSer.CommandService
             bool isWriteFile = false;
             try
             {
-                DeployTask.TaskFileStream file = files[index];
+                var file = files[index];
                 if (file != null)
                 {
                     if (await file.Write(buffer)) files[index] = null;

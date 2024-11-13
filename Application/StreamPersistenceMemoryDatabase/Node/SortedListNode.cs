@@ -156,7 +156,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public ValueResult<VT> GetRemove(KT key)
         {
-            VT value;
+            var value = default(VT);
             if (list.Remove(key, out value)) return value;
             return default(ValueResult<VT>);
         }
@@ -167,7 +167,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public ValueResult<VT> TryGetValue(KT key)
         {
-            VT value;
+            var value = default(VT);
             if (key != null && list.TryGetValue(key, out value)) return value;
             return default(ValueResult<VT>);
         }

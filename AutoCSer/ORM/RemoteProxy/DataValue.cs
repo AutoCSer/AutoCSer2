@@ -18,7 +18,11 @@ namespace AutoCSer.ORM.RemoteProxy
         /// <summary>
         /// 字符串
         /// </summary>
+#if NetStandard21
+        internal string? String;
+#else
         internal string String;
+#endif
         /// <summary>
         /// 数据类型
         /// </summary>
@@ -72,15 +76,16 @@ namespace AutoCSer.ORM.RemoteProxy
                 switch (DataType)
                 {
                     case DataType.String:
-                        switch (String.Length)
+                        var stringValue = String.notNull();
+                        switch (stringValue.Length)
                         {
                             case 0: return 0x20U | (byte)DataType;
                             case 1:
-                                uint code = (uint)String[0] - '0';
+                                uint code = (uint)stringValue[0] - '0';
                                 if (code < 0xd) return ((code + 3) << 4) | (byte)DataType;
                                 break;
                         }
-                        fixed (char* stringFixed = String) stream.Serialize(stringFixed, String.Length);
+                        fixed (char* stringFixed = stringValue) stream.Serialize(stringFixed, stringValue.Length);
                         break;
                     case DataType.Int:
                         if ((uint)Bit128.Int < 0xe) return (((uint)Bit128.Int + 2) << 4) | (byte)DataType;
@@ -517,7 +522,11 @@ namespace AutoCSer.ORM.RemoteProxy
         /// </summary>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal string? ReadString()
+#else
         internal string ReadString()
+#endif
         {
             if (isNull) return null;
             switch (DataType)

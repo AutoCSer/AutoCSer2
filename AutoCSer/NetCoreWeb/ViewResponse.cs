@@ -58,7 +58,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="encoding">输出编码</param>
         /// <param name="isResponseJavaScript"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal unsafe ByteArrayBuffer Error(ref ResponseResult result, string? callback, Encoding encoding, bool isResponseJavaScript)
+#else
         internal unsafe ByteArrayBuffer Error(ref ResponseResult result, string callback, Encoding encoding, bool isResponseJavaScript)
+#endif
         {
             CharStream stream = JsonSerializer.CharStream;
             stream.Clear();
@@ -69,7 +73,7 @@ namespace AutoCSer.NetCoreWeb
             }
             stream.SimpleWrite(isResponseJavaScript ? @"{State:" : @"{""State"":");
             stream.WriteString((byte)result.State);
-            string message = result.Message;
+            var message = result.Message;
             if (message != null)
             {
                 stream.SimpleWrite(isResponseJavaScript ? @",Message:" : @",""Message"":");
@@ -90,7 +94,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="encoding"></param>
         /// <param name="isResponseJavaScript"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal ByteArrayBuffer Success(string? callback, Encoding encoding, bool isResponseJavaScript)
+#else
         internal ByteArrayBuffer Success(string callback, Encoding encoding, bool isResponseJavaScript)
+#endif
         {
             CharStream stream = JsonSerializer.CharStream;
             stream.Clear();
@@ -131,7 +139,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="callback">回调函数名称</param>
         /// <param name="isResponseJavaScript"></param>
         /// <returns>输出流</returns>
+#if NetStandard21
+        internal CharStream Start(string? callback, bool isResponseJavaScript)
+#else
         internal CharStream Start(string callback, bool isResponseJavaScript)
+#endif
         {
             CharStream stream = JsonSerializer.CharStream;
             stream.Clear();

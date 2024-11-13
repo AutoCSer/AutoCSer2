@@ -21,7 +21,11 @@ namespace AutoCSer.Xml
         /// <param name="genericType"></param>
         /// <param name="serializeDelegateReference"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static bool getTypeSerializeDelegate(Type type, ref AutoCSer.Extensions.Metadata.GenericType? genericType, out AutoCSer.TextSerialize.DelegateReference serializeDelegateReference)
+#else
         private static bool getTypeSerializeDelegate(Type type, ref AutoCSer.Extensions.Metadata.GenericType genericType, out AutoCSer.TextSerialize.DelegateReference serializeDelegateReference)
+#endif
         {
             if (XmlSerializer.SerializeDelegates.TryGetValue(type, out serializeDelegateReference)) return true;
             if (XmlSerializer.CustomConfig.GetCustomSerializeDelegate(type).Check(typeof(XmlSerializer), type, ref serializeDelegateReference)) return true;
@@ -29,7 +33,7 @@ namespace AutoCSer.Xml
             {
                 if (type.GetArrayRank() == 1)
                 {
-                    Type elementType = type.GetElementType();
+                    var elementType = type.GetElementType().notNull();
                     if (!elementType.isSerializeNotSupport())
                     {
                         AutoCSer.Extensions.Metadata.GenericType.Get(elementType).GetXmlSerializeArrayDelegate(ref serializeDelegateReference);
@@ -87,10 +91,11 @@ namespace AutoCSer.Xml
         {
             attribute = XmlSerializer.AllMemberAttribute;
             Type type = genericType.CurrentType;
-            if (getTypeSerializeDelegate(type, ref genericType, out serializeDelegateReference)) return true;
-            for (Type baseType = type; baseType != typeof(object);)
+            var genericTypeParameter = genericType;
+            if (getTypeSerializeDelegate(type, ref genericTypeParameter, out serializeDelegateReference)) return true;
+            for (var baseType = type; baseType != typeof(object);)
             {
-                Attribute baseAttribute = baseType.GetCustomAttribute(typeof(XmlSerializeAttribute), false);
+                var baseAttribute = baseType.GetCustomAttribute(typeof(XmlSerializeAttribute), false);
                 if (baseAttribute != null)
                 {
                     attribute = (XmlSerializeAttribute)baseAttribute;
@@ -111,9 +116,9 @@ namespace AutoCSer.Xml
         /// <param name="type">成员类型</param>
         internal static Delegate GetMemberSerializeDelegate(Type type)
         {
-            AutoCSer.Extensions.Metadata.GenericType genericType = null;
+            var genericType = default(AutoCSer.Extensions.Metadata.GenericType);
             AutoCSer.TextSerialize.DelegateReference serializeDelegateReference;
-            if (getTypeSerializeDelegate(type, ref genericType, out serializeDelegateReference)) return serializeDelegateReference.Delegate.Delegate;
+            if (getTypeSerializeDelegate(type, ref genericType, out serializeDelegateReference)) return serializeDelegateReference.Delegate.Delegate.notNull();
 
             return (genericType ?? AutoCSer.Extensions.Metadata.GenericType.Get(type)).XmlSerializeDelegate;
         }
@@ -128,15 +133,16 @@ namespace AutoCSer.Xml
             if (!reference.IsCompleted)
             {
                 int memberIndex = 0;
-                reference.ReferenceGenericTypes = new AutoCSer.Metadata.GenericType[reference.Delegate.ReferenceTypes.Length];
-                foreach (Type memberType in reference.Delegate.ReferenceTypes)
+                var referenceTypes = reference.Delegate.ReferenceTypes.notNull();
+                reference.ReferenceGenericTypes = new AutoCSer.Metadata.GenericType[referenceTypes.Length];
+                foreach (var memberType in referenceTypes)
                 {
-                    AutoCSer.Extensions.Metadata.GenericType genericType = AutoCSer.Extensions.Metadata.GenericType.Get(memberType);
+                    AutoCSer.Extensions.Metadata.GenericType genericType = AutoCSer.Extensions.Metadata.GenericType.Get(memberType.notNull());
                     AutoCSer.TextSerialize.DelegateReference serializeDelegateReference = genericType.XmlSerializeDelegateReference;
                     reference.IsUnknownMember |= serializeDelegateReference.IsUnknownMember;
                     if (!serializeDelegateReference.IsCompleted || serializeDelegateReference.IsCheckMember)
                     {
-                        reference.ReferenceGenericTypes[memberIndex++] = AutoCSer.Metadata.GenericType.Get(memberType);
+                        reference.ReferenceGenericTypes[memberIndex++] = AutoCSer.Metadata.GenericType.Get(memberType.notNull());
                     }
                 }
                 if (memberIndex == 0)
@@ -157,7 +163,7 @@ namespace AutoCSer.Xml
                         typeArray.Length = 1;
                         do
                         {
-                            AutoCSer.Metadata.GenericType genericType = Check(ref typeArray.Array[typeArray.Length - 1], type, types);
+                            var genericType = Check(ref typeArray.Array[typeArray.Length - 1], type, types);
                             if (genericType == null)
                             {
                                 if (--typeArray.Length == 0)
@@ -191,7 +197,11 @@ namespace AutoCSer.Xml
         /// <param name="type"></param>
         /// <param name="types"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static AutoCSer.Metadata.GenericType? Check(ref AutoCSer.TextSerialize.LoopTypeArray array, Type type, HashSet<HashObject<System.Type>> types)
+#else
         internal static AutoCSer.Metadata.GenericType Check(ref AutoCSer.TextSerialize.LoopTypeArray array, Type type, HashSet<HashObject<System.Type>> types)
+#endif
         {
             do
             {
@@ -221,7 +231,8 @@ namespace AutoCSer.Xml
                 }
                 else
                 {
-                    Type currentType = array.ReferenceTypes[array.Index++];
+                    var referenceTypes = array.ReferenceTypes.notNull();
+                    var currentType = referenceTypes[array.Index++].notNull();
                     bool isType;
                     if (currentType.IsValueType) isType = true;
                     else
@@ -235,12 +246,12 @@ namespace AutoCSer.Xml
                         AutoCSer.TextSerialize.DelegateReference serializeDelegateReference = genericType.XmlSerializeDelegateReference;
                         if (!serializeDelegateReference.IsCompleted || serializeDelegateReference.IsCheckMember)
                         {
-                            if (array.Index != array.ReferenceTypes.Length) return AutoCSer.Metadata.GenericType.Get(currentType);
+                            if (array.Index != referenceTypes.Length) return AutoCSer.Metadata.GenericType.Get(currentType);
                             array.Set(ref serializeDelegateReference);
                             goto START;
                         }
                     }
-                    if (array.Index == array.ReferenceTypes.Length) return null;
+                    if (array.Index == referenceTypes.Length) return null;
                 }
             }
             while (true);
@@ -264,7 +275,11 @@ namespace AutoCSer.Xml
         /// <param name="type"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static Delegate? GetIsOutputDelegate(Type type)
+#else
         internal static Delegate GetIsOutputDelegate(Type type)
+#endif
         {
             if (type.IsValueType) return type == typeof(SubString) ? isOutputSubStringMethod : GetIsOutputNullable(type);
             return type == typeof(string) ? isOutputStringMethod : isOutputMethod;
@@ -274,7 +289,11 @@ namespace AutoCSer.Xml
         /// </summary>
         /// <param name="type">数组类型</param>
         /// <returns>数组转换委托调用函数信息</returns>
+#if NetStandard21
+        public static Delegate? GetIsOutputNullable(Type type)
+#else
         public static Delegate GetIsOutputNullable(Type type)
+#endif
         {
             if (type.IsGenericType && type.IsValueType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
@@ -289,14 +308,18 @@ namespace AutoCSer.Xml
         /// <param name="type"></param>
         /// <param name="genericType"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static Delegate? getTypeDeserializeDelegate(Type type, ref AutoCSer.Extensions.Metadata.GenericType? genericType)
+#else
         private static Delegate getTypeDeserializeDelegate(Type type, ref AutoCSer.Extensions.Metadata.GenericType genericType)
+#endif
         {
-            Delegate deserializeDelegate = XmlDeserializer.GetDeserializeDelegate(type);
+            var deserializeDelegate = XmlDeserializer.GetDeserializeDelegate(type);
             if (deserializeDelegate != null) return deserializeDelegate;
             deserializeDelegate = XmlSerializer.CustomConfig.GeteCustomDeserializDelegate(type);
             if (deserializeDelegate != null)
             {
-                Type checkType = AutoCSer.Common.CheckDeserializeType(typeof(XmlDeserializer), deserializeDelegate);
+                var checkType = AutoCSer.Common.CheckDeserializeType(typeof(XmlDeserializer), deserializeDelegate);
                 if (type == checkType) return deserializeDelegate;
                 if (checkType != null) AutoCSer.LogHelper.ErrorIgnoreException($"自定义类型反序列化函数数据类型不匹配 {type.fullName()} <> {checkType.fullName()}", LogLevelEnum.AutoCSer | LogLevelEnum.Error);
             }
@@ -304,8 +327,8 @@ namespace AutoCSer.Xml
             {
                 if (type.GetArrayRank() == 1)
                 {
-                    Type elementType = type.GetElementType();
-                    if (!elementType.isSerializeNotSupport()) return AutoCSer.Extensions.Metadata.GenericType.Get(type.GetElementType()).XmlDeserializeArrayDelegate;
+                    var elementType = type.GetElementType().notNull();
+                    if (!elementType.isSerializeNotSupport()) return AutoCSer.Extensions.Metadata.GenericType.Get(elementType).XmlDeserializeArrayDelegate;
                 }
                 if(genericType == null) genericType = AutoCSer.Extensions.Metadata.GenericType.Get(type);
                 return genericType.XmlDeserializeNotSupportDelegate;
@@ -366,14 +389,20 @@ namespace AutoCSer.Xml
         /// <param name="genericType"></param>
         /// <param name="attribute"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal static Delegate? GetTypeDeserializeDelegate(AutoCSer.Extensions.Metadata.GenericType genericType, out XmlSerializeAttribute attribute)
+#else
         internal static Delegate GetTypeDeserializeDelegate(AutoCSer.Extensions.Metadata.GenericType genericType, out XmlSerializeAttribute attribute)
+#endif
         {
             attribute = XmlDeserializer.AllMemberAttribute;
-            Delegate deserializeDelegate = getTypeDeserializeDelegate(genericType.CurrentType, ref genericType);
+            Type type = genericType.CurrentType;
+            var genericTypeParameter = genericType;
+            var deserializeDelegate = getTypeDeserializeDelegate(type, ref genericTypeParameter);
             if (deserializeDelegate != null) return deserializeDelegate;
-            for (Type type = genericType.CurrentType, baseType = type; baseType != typeof(object);)
+            for (var baseType = type; baseType != typeof(object);)
             {
-                Attribute baseAttribute = baseType.GetCustomAttribute(typeof(XmlSerializeAttribute), false);
+                var baseAttribute = baseType.GetCustomAttribute(typeof(XmlSerializeAttribute), false);
                 if (baseAttribute != null)
                 {
                     attribute = (XmlSerializeAttribute)baseAttribute;
@@ -393,7 +422,7 @@ namespace AutoCSer.Xml
         {
             XmlSerializeAttribute attribute;
             AutoCSer.Extensions.Metadata.GenericType genericType = AutoCSer.Extensions.Metadata.GenericType.Get(type);
-            Delegate deserializeDelegate = GetTypeDeserializeDelegate(genericType, out attribute);
+            var deserializeDelegate = GetTypeDeserializeDelegate(genericType, out attribute);
             return deserializeDelegate ?? genericType.XmlDeserializeDelegate;
         }
         /// <summary>

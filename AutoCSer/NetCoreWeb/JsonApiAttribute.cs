@@ -11,7 +11,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 路由模板字符串，默认为 null 表示方法名称（一般用于 POST 请求），设置为空字符串则表示 GET 请求所有参数，/ 开始表示忽略代理控制器路由，非模板参数路由不允许包含 {} 这两个符号，模板参数必须放在最后，可以表示为 /{参数名称} 或者 {参数名称}
         /// </summary>
+#if NetStandard21
+        public string? Template;
+#else
         public string Template;
+#endif
         /// <summary>
         /// 单例实例配置，默认由控制器配置 JsonApiControllerAttribute.IsSingleton 决定
         /// </summary>
@@ -61,7 +65,11 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="isStaticVersion">默认为 false 表示不缓存 GET 返回数据，设置为 true 则根据静态版本信息检查结果缓存 GET 返回数据</param>
         /// <param name="isHelp">默认为 true 表示生成帮助文档视图数据信息，控制器生成帮助文档视图数据信息时有效</param>
         /// <param name="maxContentLength">最大 POST 字节数，默认为 1MB</param>
+#if NetStandard21
+        public JsonApiAttribute(string? template = null, JsonApiSingletonEnum singletonEnum = JsonApiSingletonEnum.Controller, JsonApiCheckRequestEnum checkRequestEnum = JsonApiCheckRequestEnum.Controller
+#else
         public JsonApiAttribute(string template = null, JsonApiSingletonEnum singletonEnum = JsonApiSingletonEnum.Controller, JsonApiCheckRequestEnum checkRequestEnum = JsonApiCheckRequestEnum.Controller
+#endif
             , bool onlyPost = false, bool isResponseJavaScript = false, bool checkReferer = true, bool isLog = false, bool isStaticVersion = false, bool isHelp = true, int maxContentLength = 1 << 20)
         {
             Template = template;

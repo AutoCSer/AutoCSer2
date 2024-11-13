@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -20,7 +21,11 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 程序集信息集合
         /// </summary>
+#if NetStandard21
+        private static Dictionary<HashObject<Assembly>, XmlDocumentAssembly?> assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly?>();
+#else
         private static Dictionary<HashObject<Assembly>, XmlDocumentAssembly> assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly>();
+#endif
         /// <summary>
         /// 程序集信息集合访问锁
         /// </summary>
@@ -28,16 +33,24 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 最后访问的程序集信息
         /// </summary>
+#if NetStandard21
+        private static XmlDocumentAssembly? lastAssembly;
+#else
         private static XmlDocumentAssembly lastAssembly;
+#endif
         /// <summary>
         /// 获取程序集信息
         /// </summary>
         /// <param name="assembly"></param>
         /// <returns></returns>
+#if NetStandard21
+        private unsafe static XmlDocumentAssembly? get(Assembly assembly)
+#else
         private unsafe static XmlDocumentAssembly get(Assembly assembly)
+#endif
         {
             if (assembly == null || assembly.IsDynamic) return null;
-            XmlDocumentAssembly value = lastAssembly;
+            var value = lastAssembly;
             if (value != null && value.Assembly.Value == assembly) return value;
             Monitor.Enter(assemblyLock);
             try
@@ -61,7 +74,7 @@ namespace AutoCSer.Reflection
                                     {
                                         if (node.Value.GetAttribute(nameFixed, 4, ref attribute) && attribute.Length > 2)
                                         {
-                                            value.LoadMember(new SubString(attribute.StartIndex, attribute.Length, node.Key.String), node.Value);
+                                            value.LoadMember(new SubString(attribute.StartIndex, attribute.Length, node.Key.String.notNull()), node.Value);
                                         }
                                     }
                                 }
@@ -87,7 +100,14 @@ namespace AutoCSer.Reflection
                 Monitor.Enter(assemblyLock);
                 try
                 {
-                    if (assemblys.Count != 0) assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly>();
+                    if (assemblys.Count != 0)
+                    {
+#if NetStandard21
+                        assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly?>();
+#else
+                        assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly>();
+#endif
+                    }
                 }
                 finally { Monitor.Exit(assemblyLock); }
             }
@@ -101,7 +121,7 @@ namespace AutoCSer.Reflection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string Get(Type type)
         {
-            XmlDocumentAssembly assembly = get(type.Assembly);
+            var assembly = get(type.Assembly);
             return assembly == null ? string.Empty : assembly.GetSummary(type);
         }
         /// <summary>
@@ -112,7 +132,7 @@ namespace AutoCSer.Reflection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string Get(FieldInfo field)
         {
-            XmlDocumentAssembly assembly = get(field.DeclaringType.Assembly);
+            var assembly = get(field.DeclaringType.notNull().Assembly);
             return assembly == null ? string.Empty : assembly.GetSummary(field);
         }
         /// <summary>
@@ -123,7 +143,7 @@ namespace AutoCSer.Reflection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string Get(PropertyInfo property)
         {
-            XmlDocumentAssembly assembly = get(property.DeclaringType.Assembly);
+            var assembly = get(property.DeclaringType.notNull().Assembly);
             return assembly == null ? string.Empty : assembly.GetSummary(property);
         }
         /// <summary>
@@ -134,7 +154,7 @@ namespace AutoCSer.Reflection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string Get(MethodInfo method)
         {
-            XmlDocumentAssembly assembly = get(method.DeclaringType.Assembly);
+            var assembly = get(method.DeclaringType.notNull().Assembly);
             return assembly == null ? string.Empty : assembly.GetSummary(method);
         }
         /// <summary>
@@ -145,7 +165,7 @@ namespace AutoCSer.Reflection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string GetReturn(MethodInfo method)
         {
-            XmlDocumentAssembly assembly = get(method.DeclaringType.Assembly);
+            var assembly = get(method.DeclaringType.notNull().Assembly);
             return assembly == null ? string.Empty : assembly.GetReturn(method);
         }
         /// <summary>
@@ -157,7 +177,7 @@ namespace AutoCSer.Reflection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string Get(MethodInfo method, ParameterInfo parameter)
         {
-            XmlDocumentAssembly assembly = get(method.DeclaringType.Assembly);
+            var assembly = get(method.DeclaringType.notNull().Assembly);
             return assembly == null ? string.Empty : assembly.Get(method, parameter);
         }
 

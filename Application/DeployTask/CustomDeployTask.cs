@@ -19,7 +19,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 获取取消任务
         /// </summary>
+#if NetStandard21
+        private readonly Func<Task>? getCancelTask;
+#else
         private readonly Func<Task> getCancelTask;
+#endif
         /// <summary>
         /// 操作类型
         /// </summary>
@@ -30,7 +34,11 @@ namespace AutoCSer.CommandService
         /// <param name="operationType">操作类型</param>
         /// <param name="getTask">获取执行任务</param>
         /// <param name="getCancelTask">获取取消任务</param>
+#if NetStandard21
+        internal CustomDeployTask(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task>? getCancelTask = null)
+#else
         internal CustomDeployTask(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task> getCancelTask = null)
+#endif
         {
             this.operationType = operationType;
             this.getTask = getTask;

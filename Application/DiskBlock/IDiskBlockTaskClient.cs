@@ -49,13 +49,21 @@ namespace AutoCSer.CommandService
         /// <param name="identity">磁盘块服务唯一编号</param>
         /// <param name="callback">null 表示失败</param>
         /// <returns></returns>
+#if NetStandard21
+        CallbackCommand GetBlocks(uint identity, Action<CommandClientReturnValue<BlockInfo[]?>> callback);
+#else
         CallbackCommand GetBlocks(uint identity, Action<CommandClientReturnValue<BlockInfo[]>> callback);
+#endif
         /// <summary>
         /// 获取磁盘块信息集合
         /// </summary>
         /// <param name="identity">磁盘块服务唯一编号</param>
         /// <returns>null 表示失败</returns>
+#if NetStandard21
+        ReturnCommand<BlockInfo[]?> GetBlocks(uint identity);
+#else
         ReturnCommand<BlockInfo[]> GetBlocks(uint identity);
+#endif
         /// <summary>
         /// 切换磁盘块（正常情况下，只有在需要清理历史垃圾数据时才需要切换磁盘块，切换磁盘块以后，需要自行处理掉所有历史引用，比如可以将数据写入新的磁盘块并更新历史引用，然后删除垃圾磁盘块）
         /// </summary>

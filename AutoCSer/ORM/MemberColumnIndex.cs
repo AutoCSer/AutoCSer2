@@ -32,7 +32,11 @@ namespace AutoCSer.ORM
         /// 获取数据列名称
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        internal string? ColumnName
+#else
         internal string ColumnName
+#endif
         {
             get
             {

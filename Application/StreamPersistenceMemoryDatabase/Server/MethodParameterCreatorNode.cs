@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -11,6 +12,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建调用方法与参数信息
         /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
         protected MethodParameterCreator<T> methodParameterCreator;
         /// <summary>
         /// 服务端节点上下文

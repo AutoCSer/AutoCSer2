@@ -1,9 +1,11 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Metadata;
 using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace AutoCSer.ORM.Excel
@@ -17,11 +19,22 @@ namespace AutoCSer.ORM.Excel
         /// <summary>
         /// 数据源
         /// </summary>
+#if NET8
+        public required string DataSource;
+#else
+#if NetStandard21
+        [AllowNull]
+#endif
         public string DataSource;
+#endif
         /// <summary>
         /// 密码
         /// </summary>
+#if NetStandard21
+        public string? Password;
+#else
         public string Password;
+#endif
         /// <summary>
         /// 数据接口属性，默认为 Ace12
         /// </summary>
@@ -80,19 +93,19 @@ namespace AutoCSer.ORM.Excel
         /// <returns></returns>
         public async Task<string[]> GetTableNames()
         {
-#if DotNet45 || NetStandard2
-            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
-#else
+#if NetStandard21
             await using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
+#else
+            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
 #endif
             {
                 await dbConnection.OpenAsync();
-                using (DataTable table = dbConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null))
+                using (DataTable table = dbConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).notNull())
                 {
                     DataRowCollection rows = table.Rows;
                     string[] names = new string[rows.Count];
                     int nameIndex = 0;
-                    foreach (DataRow row in rows) names[nameIndex++] = row[schemaTableName].ToString();
+                    foreach (DataRow row in rows) names[nameIndex++] = row[schemaTableName].ToString().notNull();
                     return names;
                 }
             }
@@ -106,12 +119,16 @@ namespace AutoCSer.ORM.Excel
         /// </summary>
         /// <param name="tableName">指定表格名称</param>
         /// <returns></returns>
-        public async Task<string> GetFirstTableName(string tableName = DefaultTableName)
-        {
-#if DotNet45 || NetStandard2
-            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
+#if NetStandard21
+        public async Task<string?> GetFirstTableName(string tableName = DefaultTableName)
 #else
+        public async Task<string> GetFirstTableName(string tableName = DefaultTableName)
+#endif
+        {
+#if NetStandard21
             await using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
+#else
+            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
 #endif
             {
                 await dbConnection.OpenAsync();
@@ -124,14 +141,18 @@ namespace AutoCSer.ORM.Excel
         /// <param name="dbConnection"></param>
         /// <param name="tableName"></param>
         /// <returns></returns>
+#if NetStandard21
+        private static string? getFirstTableName(OleDbConnection dbConnection, string tableName)
+#else
         private static string getFirstTableName(OleDbConnection dbConnection, string tableName)
+#endif
         {
-            string firstTableName = null;
-            using (DataTable table = dbConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null))
+            var firstTableName = default(string);
+            using (DataTable table = dbConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).notNull())
             {
                 foreach (DataRow row in table.Rows)
                 {
-                    string nextTableName = row[schemaTableName].ToString();
+                    string nextTableName = row[schemaTableName].ToString().notNull();
                     if (nextTableName == tableName) return tableName;
                     if (firstTableName == null) firstTableName = nextTableName;
                 }
@@ -146,10 +167,10 @@ namespace AutoCSer.ORM.Excel
         /// <returns></returns>
         public async Task<LeftArray<T>> Query<T>(string statement) where T : class
         {
-#if DotNet45 || NetStandard2
-            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
-#else
+#if NetStandard21
             await using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
+#else
+            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
 #endif
             {
                 await dbConnection.OpenAsync();
@@ -165,10 +186,10 @@ namespace AutoCSer.ORM.Excel
         /// <returns></returns>
         private static async Task<LeftArray<T>> query<T>(OleDbConnection dbConnection, string statement) where T : class
         {
-#if DotNet45 || NetStandard2
-            using (OleDbCommand command = dbConnection.CreateCommand())
-#else
+#if NetStandard21
             await using (OleDbCommand command = dbConnection.CreateCommand())
+#else
+            using (OleDbCommand command = dbConnection.CreateCommand())
 #endif
             {
                 ConnectionPool.SetCommand(command, statement);
@@ -183,10 +204,10 @@ namespace AutoCSer.ORM.Excel
         /// <returns></returns>
         public async Task<LeftArray<T>> QueryTable<T>(string tableName = DefaultTableName) where T : class
         {
-#if DotNet45 || NetStandard2
-            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
-#else
+#if NetStandard21
             await using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
+#else
+            using (OleDbConnection dbConnection = new OleDbConnection(ToString()))
 #endif
             {
                 await dbConnection.OpenAsync();

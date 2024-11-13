@@ -33,11 +33,19 @@ namespace AutoCSer.Extensions.Metadata
         /// <summary>
         /// XML 序列化
         /// </summary>
+#if NetStandard21
+        internal abstract Func<object, XmlSerializeConfig?, KeyValue<string, AutoCSer.TextSerialize.WarningEnum>> XmlSerializeObjectGenericDelegate { get; }
+#else
         internal abstract Func<object, XmlSerializeConfig, KeyValue<string, AutoCSer.TextSerialize.WarningEnum>> XmlSerializeObjectGenericDelegate { get; }
+#endif
         /// <summary>
         /// XML 序列化
         /// </summary>
+#if NetStandard21
+        internal abstract Func<object, CharStream, XmlSerializeConfig?, AutoCSer.TextSerialize.WarningEnum> XmlSerializeStreamObjectDelegate { get; }
+#else
         internal abstract Func<object, CharStream, XmlSerializeConfig, AutoCSer.TextSerialize.WarningEnum> XmlSerializeStreamObjectDelegate { get; }
+#endif
         /// <summary>
         /// 获取 XML 序列化函数信息
         /// </summary>
@@ -77,7 +85,11 @@ namespace AutoCSer.Extensions.Metadata
         /// <summary>
         /// 最后一次访问的泛型类型元数据
         /// </summary>
+#if NetStandard21
+        protected static GenericType? lastGenericType;
+#else
         protected static GenericType lastGenericType;
+#endif
         /// <summary>
         /// 获取泛型类型元数据
         /// </summary>
@@ -85,7 +97,7 @@ namespace AutoCSer.Extensions.Metadata
         /// <returns></returns>
         public static GenericType Get(Type type)
         {
-            GenericType value = lastGenericType;
+            var value = lastGenericType;
             if (value?.CurrentType == type) return value;
             value = get(type);
             lastGenericType = value;
@@ -131,11 +143,19 @@ namespace AutoCSer.Extensions.Metadata
         /// <summary>
         /// XML 序列化
         /// </summary>
+#if NetStandard21
+        internal override Func<object, XmlSerializeConfig?, KeyValue<string, AutoCSer.TextSerialize.WarningEnum>> XmlSerializeObjectGenericDelegate { get { return XmlSerializer.Serialize<T>; } }
+#else
         internal override Func<object, XmlSerializeConfig, KeyValue<string, AutoCSer.TextSerialize.WarningEnum>> XmlSerializeObjectGenericDelegate { get { return XmlSerializer.Serialize<T>; } }
+#endif
         /// <summary>
         /// XML 序列化
         /// </summary>
+#if NetStandard21
+        internal override Func<object, CharStream, XmlSerializeConfig?, AutoCSer.TextSerialize.WarningEnum> XmlSerializeStreamObjectDelegate { get { return XmlSerializer.Serialize<T>; } }
+#else
         internal override Func<object, CharStream, XmlSerializeConfig, AutoCSer.TextSerialize.WarningEnum> XmlSerializeStreamObjectDelegate { get { return XmlSerializer.Serialize<T>; } }
+#endif
         /// <summary>
         /// 获取 XML 序列化函数信息
         /// </summary>
@@ -143,22 +163,42 @@ namespace AutoCSer.Extensions.Metadata
         /// <summary>
         /// XML 反序列化数组
         /// </summary>
+#if NetStandard21
+        internal override Delegate XmlDeserializeArrayDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<T?[]?>)AutoCSer.XmlDeserializer.Array<T>; } }
+#else
         internal override Delegate XmlDeserializeArrayDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<T[]>)AutoCSer.XmlDeserializer.Array<T>; } }
+#endif
         /// <summary>
         /// XML 反序列化数组
         /// </summary>
+#if NetStandard21
+        internal override Delegate XmlDeserializeLeftArrayDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<LeftArray<T?>>)AutoCSer.XmlDeserializer.LeftArray<T>; } }
+#else
         internal override Delegate XmlDeserializeLeftArrayDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<LeftArray<T>>)AutoCSer.XmlDeserializer.LeftArray<T>; } }
+#endif
         /// <summary>
         /// XML 反序列化数组
         /// </summary>
+#if NetStandard21
+        internal override Delegate XmlDeserializeListArrayDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<ListArray<T?>?>)AutoCSer.XmlDeserializer.ListArray<T>; } }
+#else
         internal override Delegate XmlDeserializeListArrayDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<ListArray<T>>)AutoCSer.XmlDeserializer.ListArray<T>; } }
+#endif
         /// <summary>
         /// XML 自定义反序列化不支持类型
         /// </summary>
+#if NetStandard21
+        internal override Delegate XmlDeserializeNotSupportDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<T?>)AutoCSer.XmlDeserializer.NotSupport<T>; } }
+#else
         internal override Delegate XmlDeserializeNotSupportDelegate { get { return (AutoCSer.XmlDeserializer.DeserializeDelegate<T>)AutoCSer.XmlDeserializer.NotSupport<T>; } }
+#endif
         /// <summary>
         /// XML 反序列化类型
         /// </summary>
+#if NetStandard21
+        internal override Delegate XmlDeserializeDelegate { get { return (XmlDeserializer.DeserializeDelegate<T?>)AutoCSer.XmlDeserializer.Deserialize<T>; } }
+#else
         internal override Delegate XmlDeserializeDelegate { get { return (XmlDeserializer.DeserializeDelegate<T>)AutoCSer.XmlDeserializer.Deserialize<T>; } }
+#endif
     }
 }
