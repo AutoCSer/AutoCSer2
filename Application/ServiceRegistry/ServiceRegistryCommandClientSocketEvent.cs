@@ -37,7 +37,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="commandClient">命令客户端</param>
         /// <param name="config">注册服务命令客户端配置</param>
-        public ServiceRegistryCommandClientSocketEvent(CommandClient commandClient, ServiceRegistryCommandClientConfig config) : base(commandClient)
+        public ServiceRegistryCommandClientSocketEvent(ICommandClient commandClient, ServiceRegistryCommandClientConfig config) : base(commandClient)
         {
             this.config = config;
         }

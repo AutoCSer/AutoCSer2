@@ -37,7 +37,7 @@ namespace AutoCSer.TestCase.ServiceRegistryClient
         /// <param name="client">命令客户端</param>
         /// <param name="config">注册服务命令客户端配置</param>
         /// <param name="verifyString">服务认证验证字符串</param>
-        public ServiceRegistryCommandClientSocketEvent(CommandClient client, ServiceRegistryCommandClientConfig config, string verifyString) : base(client, config)
+        public ServiceRegistryCommandClientSocketEvent(ICommandClient client, ServiceRegistryCommandClientConfig config, string verifyString) : base(client, config)
         {
             this.verifyString = verifyString;
         }

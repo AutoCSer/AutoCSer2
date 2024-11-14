@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.TimestampVerifyClient
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public CommandClientSocketEvent(CommandClient client) : base(client) { }
+        public CommandClientSocketEvent(ICommandClient client) : base(client) { }
         /// <summary>
         /// 客户端创建套接字连接以后调用认证 API
         /// </summary>

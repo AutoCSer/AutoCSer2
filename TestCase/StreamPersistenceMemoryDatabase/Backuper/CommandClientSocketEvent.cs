@@ -40,7 +40,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
         /// </summary>
         /// <param name="client">命令客户端</param>
         /// <param name="slaveServiceConfig">日志流持久化内存数据库服务端从节点配置</param>
-        public CommandClientSocketEvent(CommandClient client, SlaveServiceConfig slaveServiceConfig) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
+        public CommandClientSocketEvent(ICommandClient client, SlaveServiceConfig slaveServiceConfig) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
         {
             this.slaveServiceConfig = slaveServiceConfig;
         }

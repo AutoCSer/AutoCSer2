@@ -156,7 +156,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.PortRegistryClient.SetCallback(AutoCSer.Net.CommandListener,AutoCSer.CommandService.PortIdentity)">
+        <member name="M:AutoCSer.CommandService.PortRegistryClient.SetCallback(AutoCSer.Net.CommandListenerBase,AutoCSer.CommandService.PortIdentity)">
             <summary>
             设置端口标识在线检查回调委托
             </summary>
@@ -170,7 +170,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.PortRegistryClient.Free(AutoCSer.Net.CommandListener)">
+        <member name="M:AutoCSer.CommandService.PortRegistryClient.Free(AutoCSer.Net.CommandListenerBase)">
             <summary>
             释放端口标识
             </summary>
@@ -196,7 +196,7 @@
             端口标识在线检查回调命令保持回调对象
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.PortRegistryClientData.#ctor(AutoCSer.Net.CommandListener,AutoCSer.CommandService.PortIdentity,AutoCSer.Net.CommandKeepCallback)">
+        <member name="M:AutoCSer.CommandService.PortRegistryClientData.#ctor(AutoCSer.Net.CommandListenerBase,AutoCSer.CommandService.PortIdentity,AutoCSer.Net.CommandKeepCallback)">
             <summary>
             端口注册客户端数据
             </summary>
@@ -784,7 +784,7 @@
             等待服务监听地址定时间隔秒数
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientServiceRegistrar.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.Net.CommandClientConfig)">
+        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientServiceRegistrar.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.Net.CommandClientConfig)">
             <summary>
             服务注册组件
             </summary>
@@ -823,7 +823,7 @@
             <param name="changedType"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientServiceRegistrar.Create(AutoCSer.Net.CommandClient,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.Net.CommandClientConfig)">
+        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientServiceRegistrar.Create(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.Net.CommandClientConfig)">
             <summary>
             创建服务注册客户端组件
             </summary>
@@ -1576,7 +1576,7 @@
             客户端控制器创建器参数集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.ServiceRegistryCommandClientConfig)">
+        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.ServiceRegistryCommandClientConfig)">
             <summary>
             注册服务命令客户端套接字事件
             </summary>

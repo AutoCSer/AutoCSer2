@@ -130,7 +130,7 @@ namespace AutoCSer.TestCase
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public CommandClientSocketEvent(CommandClient client) : base(client) { }
+        public CommandClientSocketEvent(ICommandClient client) : base(client) { }
         /// <summary>
         /// 调用客户端验证函数
         /// </summary>

@@ -48,7 +48,7 @@ namespace AutoCSer.CommandService.FileSynchronous
             directory = new DirectoryInfo(clientPath);
             UploaderInfo.Path = serverPath;
             isCombinePath = 2;
-            BufferSize = ((CommandClientSocketEvent)client).Client.SendBufferPool.Size;
+            BufferSize = ((CommandClientSocketEvent)client).Client.GetSendBufferPool().Size;
         }
         /// <summary>
         /// 开始上传目录文件

@@ -110,7 +110,7 @@ namespace AutoCSer.CommandService
         /// <param name="commandListener"></param>
         /// <param name="portIdentity"></param>
         /// <returns></returns>
-        internal async Task<bool> SetCallback(CommandListener commandListener, PortIdentity portIdentity)
+        internal async Task<bool> SetCallback(CommandListenerBase commandListener, PortIdentity portIdentity)
         {
             var commandKeepCallback = await socketEvent.IPortRegistryClient.SetCallback(portIdentity, CommandClientKeepCallback.EmptyCallback);
             if (commandKeepCallback == null) return false;
@@ -147,7 +147,7 @@ namespace AutoCSer.CommandService
         /// 释放端口标识
         /// </summary>
         /// <param name="commandListener"></param>
-        internal void Free(CommandListener commandListener)
+        internal void Free(CommandListenerBase commandListener)
         {
             PortRegistryClientData freeData = default(PortRegistryClientData);
             System.Threading.Monitor.Enter(dataLock);

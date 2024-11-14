@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 注册的命令服务
         /// </summary>
-        internal CommandListener CommandListener;
+        internal CommandListenerBase CommandListener;
         /// <summary>
         /// 端口标识
         /// </summary>
@@ -27,7 +27,7 @@ namespace AutoCSer.CommandService
         /// <param name="commandListener"></param>
         /// <param name="portIdentity"></param>
         /// <param name="commandKeepCallback"></param>
-        internal PortRegistryClientData(CommandListener commandListener, PortIdentity portIdentity, CommandKeepCallback commandKeepCallback)
+        internal PortRegistryClientData(CommandListenerBase commandListener, PortIdentity portIdentity, CommandKeepCallback commandKeepCallback)
         {
             this.CommandListener = commandListener;
             this.portIdentity = portIdentity;

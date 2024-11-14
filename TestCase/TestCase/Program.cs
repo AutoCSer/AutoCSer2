@@ -16,6 +16,7 @@ namespace AutoCSer.TestCase
                 if (!Json.TestCase()) { errorType = typeof(Json); break; }
                 if (!Xml.TestCase()) { errorType = typeof(Xml); break; }
                 if (!await CommandServer.TestCase()) { errorType = typeof(CommandServer); break; }
+                if (!await CommandReverseServer.TestCase()) { errorType = typeof(CommandReverseServer); break; }
                 Console.Write('.');
             }
             while (true);

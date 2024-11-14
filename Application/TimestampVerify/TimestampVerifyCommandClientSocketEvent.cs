@@ -37,7 +37,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="client">命令客户端</param>
         /// <param name="verifyString">服务认证验证字符串</param>
-        public TimestampVerifyCommandClientSocketEvent(CommandClient client, string verifyString) : base(client)
+        public TimestampVerifyCommandClientSocketEvent(ICommandClient client, string verifyString) : base(client)
         {
             this.verifyString = verifyString;
         }

@@ -15,6 +15,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.CommandReverseServer.TestCase">
+            <summary>
+            反向命令服务测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.CommandServer.TestCase">
             <summary>
             命令服务测试
@@ -136,7 +142,7 @@
             客户端控制器创建器参数集合
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
+        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
             <summary>
             命令客户端套接字事件
             </summary>

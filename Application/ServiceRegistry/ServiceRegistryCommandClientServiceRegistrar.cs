@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -42,7 +43,7 @@ namespace AutoCSer.CommandService
         /// <param name="commandClient"></param>
         /// <param name="client"></param>
         /// <param name="config"></param>
-        protected ServiceRegistryCommandClientServiceRegistrar(CommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config) : base(commandClient)
+        protected ServiceRegistryCommandClientServiceRegistrar(ICommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config) : base(commandClient)
         {
             serviceRegistryClient = client;
             commandClientConfig = config;
@@ -82,10 +83,11 @@ namespace AutoCSer.CommandService
         /// 等待服务监听地址
         /// </summary>
         /// <returns>是否需要取消定时任务</returns>
-        internal async Task<bool> WaitServerEndPoint()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal Task<bool> WaitServerEndPoint()
         {
             //if (Assembler.MainLog != null) return true;
-            return await client.WaitServerEndPoint();
+            return client.WaitServerEndPoint();
         }
         /// <summary>
         /// 触发服务更变回调（网络 IO 线程同步回调，不允许阻塞线程）
@@ -116,9 +118,9 @@ namespace AutoCSer.CommandService
         /// <param name="config"></param>
         /// <returns></returns>
 #if NetStandard21
-        public static async Task<ServiceRegistryCommandClientServiceRegistrar?> Create(CommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config)
+        public static async Task<ServiceRegistryCommandClientServiceRegistrar?> Create(ICommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config)
 #else
-        public static async Task<ServiceRegistryCommandClientServiceRegistrar> Create(CommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config)
+        public static async Task<ServiceRegistryCommandClientServiceRegistrar> Create(ICommandClient commandClient, ServiceRegistryClient client, CommandClientConfig config)
 #endif
         {
             if (config.ServiceName != null)

@@ -43,7 +43,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 if (!Program.Breakpoint(result)) return;
             }
             stopwatch.Stop();
-            Console.WriteLine($"{nameof(IGameNodeLocalClientNode)} pipeline {stopwatch.Elapsed.TotalSeconds}s");
+            Console.WriteLine($"{nameof(IGameNodeLocalClientNode)} loop {stopwatch.Elapsed.TotalSeconds}s");
 
             stopwatch.Restart();
             LeftArray<Monster> monsters = new LeftArray<Monster>(count);

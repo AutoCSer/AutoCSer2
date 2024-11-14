@@ -166,7 +166,7 @@
             客户端控制器创建器参数集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient,System.String)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient,System.String)">
             <summary>
             基于递增登录时间戳验证的服务认证客户端套接字事件
             </summary>

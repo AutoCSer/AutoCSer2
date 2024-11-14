@@ -28,7 +28,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                     do
                     {
                         //await GameNode.Test(client);
-                        //await Task.Delay(100);
+                        //await Task.Delay(10);
                         //continue;
 
                         await Task.WhenAll(

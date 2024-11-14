@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase
             try
             {
                 CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase) };
-                await using (CommandListener commandListener = new CommandListenerBuilder(16)
+                await using (CommandListener commandListener = new CommandListenerBuilder(32)
                     .Append<IServerSynchronousController>(new ServerSynchronousController())
                     .Append<IServerSendOnlyController>(new ServerSendOnlyController())
                     .Append<IServerQueueController>(new ServerQueueController())

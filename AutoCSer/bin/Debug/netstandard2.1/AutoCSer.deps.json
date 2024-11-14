@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "AutoCSer/2.0.11": {
+      "AutoCSer/2.0.12": {
         "dependencies": {
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
@@ -41,7 +41,7 @@
     }
   },
   "libraries": {
-    "AutoCSer/2.0.11": {
+    "AutoCSer/2.0.12": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
