@@ -63,7 +63,7 @@ namespace AutoCSer.CommandService.DeployTask
         internal async Task<DeployTaskUploadFileResult> UploadFileAsync(string path)
         {
             DirectoryInfo directory = new DirectoryInfo(path);
-            if (await AutoCSer.Common.Config.DirectoryExists(directory))
+            if (await AutoCSer.Common.DirectoryExists(directory))
             {
                 uploadTaskCount = 1;
                 await uploadFileAsync(directory, string.Empty);
@@ -80,7 +80,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <returns></returns>
         private async Task uploadFileAsync(DirectoryInfo directory, string path)
         {
-            FileInfo[] files = await AutoCSer.Common.Config.DirectoryGetFiles(directory);
+            FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(directory);
             if (files.Length == 0) return;
             FileTime[] fileTimes = files.getArray(p => new FileTime(p));
             var differents = await clientBuilder.Client.Client.DeployTaskClient.GetDifferent(clientBuilder.Identity, uploadIndex, serverPath, path, fileTimes);
@@ -105,7 +105,7 @@ namespace AutoCSer.CommandService.DeployTask
                 }
                 ++fileIndex;
             }
-            foreach (DirectoryInfo nextDirectory in await AutoCSer.Common.Config.GetDirectories(directory))
+            foreach (DirectoryInfo nextDirectory in await AutoCSer.Common.GetDirectories(directory))
             {
                 await uploadFileAsync(nextDirectory, path.Length == 0 ? path : Path.Combine(path, nextDirectory.Name));
                 if (result.State != DeployTaskUploadFileStateEnum.Success) return;
@@ -126,9 +126,9 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 if (result.State != DeployTaskUploadFileStateEnum.Success) return;
 #if NetStandard21
-                await using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                await using (FileStream fileStream = await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
 #else
-                using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (FileStream fileStream = await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
 #endif
                 {
                     if (fileStream.Length != fileTime.Length)
@@ -136,7 +136,7 @@ namespace AutoCSer.CommandService.DeployTask
                         result.State = DeployTaskUploadFileStateEnum.FileLengthChanged;
                         return;
                     }
-                    await AutoCSer.Common.Config.RefreshFileInfo(file);
+                    await AutoCSer.Common.RefreshFileInfo(file);
                     if (file.LastWriteTimeUtc != fileTime.LastWriteTimeUtc)
                     {
                         result.State = DeployTaskUploadFileStateEnum.FileTimeChanged;
@@ -157,7 +157,7 @@ namespace AutoCSer.CommandService.DeployTask
                     if (createResult.Value.Length == fileTime.Length) return;
                     if (createResult.Value.Length != 0)
                     {
-                        await AutoCSer.Common.Config.Seek(fileStream, createResult.Value.Length, SeekOrigin.Begin);
+                        await AutoCSer.Common.Seek(fileStream, createResult.Value.Length, SeekOrigin.Begin);
                         fileTime.Length -= createResult.Value.Length;
                     }
                     UploadFileBuffer uploadFileBuffer = new UploadFileBuffer(buffer = getBuffer());
@@ -212,7 +212,7 @@ namespace AutoCSer.CommandService.DeployTask
                 return buffer;
             }
             Monitor.Exit(bufferLock);
-            return AutoCSer.Common.Config.GetUninitializedArray<byte>(clientBuilder.Client.UploadFileBufferSize);
+            return AutoCSer.Common.GetUninitializedArray<byte>(clientBuilder.Client.UploadFileBufferSize);
         }
         /// <summary>
         /// 添加复制文件步骤

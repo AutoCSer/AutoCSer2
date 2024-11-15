@@ -38,15 +38,15 @@ namespace AutoCSer.TestCase.DatabaseBackup
                     foreach (Database database in configFile.DatabaseArray)
                     {
                         DirectoryInfo directory = new DirectoryInfo(Path.Combine(configFile.BackupPath, database.Name));
-                        if (await AutoCSer.Common.Config.DirectoryExists(directory))
+                        if (await AutoCSer.Common.DirectoryExists(directory))
                         {
-                            foreach (FileInfo fileInfo in await AutoCSer.Common.Config.DirectoryGetFiles(directory, "*.bak"))
+                            foreach (FileInfo fileInfo in await AutoCSer.Common.DirectoryGetFiles(directory, "*.bak"))
                             {
                                 if (fileInfo.CreationTimeUtc.AddHours(configFile.DeleteFileHours) <= SecondTimer.UtcNow)
                                 {
                                     try
                                     {
-                                        await AutoCSer.Common.Config.TryDeleteFile(fileInfo.FullName);
+                                        await AutoCSer.Common.TryDeleteFile(fileInfo.FullName);
                                     }
                                     catch (Exception exception)
                                     {

@@ -60,7 +60,7 @@ namespace AutoCSer.Search
         {
             if (CharTypeData.Data == DefaultCharTypeData.Data)
             {
-                AutoCSer.Memory.Common.CopyNotNull(DefaultCharTypeData.Byte, (CharTypeData = Unmanaged.GetPointer(1 << 16, false)).Byte, 1 << 16);
+                AutoCSer.Memory.Common.Copy(DefaultCharTypeData.Byte, (CharTypeData = Unmanaged.GetPointer(1 << 16, false)).Byte, 1 << 16);
             }
             TrieGraphNode<char> node = Boot;
             fixed (char* wordFixed = word)
@@ -156,7 +156,7 @@ namespace AutoCSer.Search
         static StringTrieGraph()
         {
             DefaultCharTypeData = AutoCSer.Search.Memory.Unmanaged.GetDefaultCharType();
-            AutoCSer.Common.Config.Clear(DefaultCharTypeData.ULong, (1 << 16) >> 3);
+            AutoCSer.Common.Clear(DefaultCharTypeData.ULong, (1 << 16) >> 3);
             byte* start = DefaultCharTypeData.Byte;
             char code = (char)0;
             do

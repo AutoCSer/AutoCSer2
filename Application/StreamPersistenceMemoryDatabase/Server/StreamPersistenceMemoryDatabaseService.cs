@@ -333,7 +333,7 @@ namespace AutoCSer.CommandService
         /// <param name="key"></param>
         internal void LoadCreateNode(NodeIndex index, string key)
         {
-            if (index.Index >= Nodes.Length) Nodes = AutoCSer.Common.Config.GetCopyArray(Nodes, Math.Max(Nodes.Length << 1, index.Index + 1));
+            if (index.Index >= Nodes.Length) Nodes = AutoCSer.Common.GetCopyArray(Nodes, Math.Max(Nodes.Length << 1, index.Index + 1));
             while (NodeIndex < index.Index) freeIndexs.Add(NodeIndex++);
             if (NodeIndex == index.Index) ++NodeIndex;
             else
@@ -396,7 +396,7 @@ namespace AutoCSer.CommandService
         {
             int index;
             if (freeIndexs.TryPop(out index)) return index;
-            if (NodeIndex == Nodes.Length) Nodes = AutoCSer.Common.Config.GetCopyArray(Nodes, NodeIndex << 1);
+            if (NodeIndex == Nodes.Length) Nodes = AutoCSer.Common.GetCopyArray(Nodes, NodeIndex << 1);
             return NodeIndex++;
         }
         /// <summary>

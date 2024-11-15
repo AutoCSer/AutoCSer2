@@ -53,7 +53,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
         private static async Task compare(string leftPath, string rightPath)
         {
             DirectoryInfo leftDirectory = new DirectoryInfo(leftPath), rightDirectory = new DirectoryInfo(rightPath);
-            if (await AutoCSer.Common.Config.DirectoryExists(rightDirectory)) await compare(leftDirectory, rightDirectory);
+            if (await AutoCSer.Common.DirectoryExists(rightDirectory)) await compare(leftDirectory, rightDirectory);
             else ConsoleWriteQueue.Breakpoint($"没有找到文件比较路径 {rightDirectory.FullName}");
         }
         private static readonly byte[] leftBuffer = new byte[1 << 20];
@@ -63,13 +63,13 @@ namespace AutoCSer.TestCase.FileSynchronousClient
         private static async Task compare(DirectoryInfo leftDirectory, DirectoryInfo rightDirectory)
         {
             Dictionary<HashString, FileInfo> rightFiles = emptyFiles;
-            FileInfo[] files = await AutoCSer.Common.Config.DirectoryGetFiles(rightDirectory);
+            FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(rightDirectory);
             if (files.Length != 0)
             {
                 rightFiles = DictionaryCreator.CreateHashString<FileInfo>(files.Length);
                 foreach (FileInfo file in files) rightFiles.Add(file.Name, file);
             }
-            foreach(FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(leftDirectory))
+            foreach(FileInfo file in await AutoCSer.Common.DirectoryGetFiles(leftDirectory))
             {
                 if (rightFiles.Remove(file.Name, out FileInfo rightFile))
                 {
@@ -80,15 +80,15 @@ namespace AutoCSer.TestCase.FileSynchronousClient
                             long unreadSize = file.Length;
                             if (unreadSize != 0)
                             {
-                                await using (FileStream leftStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.None, 4 << 10, FileOptions.SequentialScan))
-                                await using (FileStream rightStream = await AutoCSer.Common.Config.CreateFileStream(rightFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, 4 << 10, FileOptions.SequentialScan))
+                                await using (FileStream leftStream = await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.None, 4 << 10, FileOptions.SequentialScan))
+                                await using (FileStream rightStream = await AutoCSer.Common.CreateFileStream(rightFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, 4 << 10, FileOptions.SequentialScan))
                                 {
                                     do
                                     {
                                         int readSize = await leftStream.ReadAsync(leftBuffer, 0, leftBuffer.Length);
                                         await rightStream.ReadAsync(rightBuffer, 0, rightBuffer.Length);
                                         SubArray<byte> leftData = new SubArray<byte>(leftBuffer, 0, readSize), rightData = new SubArray<byte>(rightBuffer, 0, readSize);
-                                        if (!AutoCSer.Common.Config.Equal(ref leftData, ref rightData))
+                                        if (!AutoCSer.Common.SequenceEqual(ref leftData, ref rightData))
                                         {
                                             ConsoleWriteQueue.Breakpoint($"文件 {file.FullName} 对比 {rightFile.FullName} 数据不匹配 {file.Length - unreadSize}[{readSize}]");
                                             break;
@@ -111,13 +111,13 @@ namespace AutoCSer.TestCase.FileSynchronousClient
             }
 
             Dictionary<HashString, DirectoryInfo> rightDictionarys = emptyDirectorys;
-            DirectoryInfo[] directorys = await AutoCSer.Common.Config.GetDirectories(rightDirectory);
+            DirectoryInfo[] directorys = await AutoCSer.Common.GetDirectories(rightDirectory);
             if (directorys.Length != 0)
             {
                 rightDictionarys = DictionaryCreator.CreateHashString<DirectoryInfo>(directorys.Length);
                 foreach (DirectoryInfo directory in directorys) rightDictionarys.Add(directory.Name, directory);
             }
-            foreach (DirectoryInfo directory in await AutoCSer.Common.Config.GetDirectories(leftDirectory))
+            foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(leftDirectory))
             {
                 if (rightDictionarys.Remove(directory.Name, out DirectoryInfo right))
                 {

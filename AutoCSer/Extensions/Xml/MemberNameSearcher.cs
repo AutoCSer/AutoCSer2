@@ -56,7 +56,7 @@ namespace AutoCSer.Xml
                     {
                         *(short*)write = (short)((name.Length + 2) * sizeof(char));
                         *(char*)(write + sizeof(short)) = '<';
-                        AutoCSer.Common.Config.CopyTo(name, write += sizeof(short) + sizeof(char));
+                        AutoCSer.Common.CopyTo(name, write += sizeof(short) + sizeof(char));
                         * (char*)(write += name.Length << 1) = '>';
                         write += sizeof(char);
                     }

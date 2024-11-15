@@ -3,13 +3,16 @@ using AutoCSer.Memory;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.Versioning;
 
 namespace AutoCSer.Drawing.Gif
 {
     /// <summary>
     /// 图像数据块
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public sealed class Image : DataBlock
     {
         /// <summary>
@@ -82,7 +85,7 @@ namespace AutoCSer.Drawing.Gif
                 data += 10;
                 if ((localFlag & 0x80) != 0)
                 {
-                    Colors = AutoCSer.Common.Config.GetUninitializedArray<LockBitmapColor>(1 << ((localFlag & 7) + 1));
+                    Colors = AutoCSer.Common.GetUninitializedArray<LockBitmapColor>(1 << ((localFlag & 7) + 1));
                     int colorCount = Colors.Length;
                     if ((length -= (colorCount << 1) + colorCount) <= 0)
                     {

@@ -159,7 +159,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     }
                                     service.PersistenceCallbackExceptionPositionFileHeadVersion = *(uint*)start;
                                     if ((endIndex -= fileHeadSize) == 0) return;
-                                    AutoCSer.Common.Config.CopyTo(start + fileHeadSize, start, endIndex);
+                                    AutoCSer.Common.CopyTo(start + fileHeadSize, start, endIndex);
                                     fileHeadSize = 0;
                                 }
                                 readSize = endIndex & (int.MaxValue - (sizeof(long) - 1));

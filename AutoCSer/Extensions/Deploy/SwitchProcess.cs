@@ -210,7 +210,7 @@ namespace AutoCSer.Deploy
         public static async Task<System.Diagnostics.Process> GetStartProcessDirectoryAsync(FileInfo file, string arguments = null)
 #endif
         {
-            if (file != null && await AutoCSer.Common.Config.FileExists(file)) return getStartProcessDirectory(file, arguments);
+            if (file != null && await AutoCSer.Common.FileExists(file)) return getStartProcessDirectory(file, arguments);
             return null;
         }
         /// <summary>

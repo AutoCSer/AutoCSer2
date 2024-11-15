@@ -88,7 +88,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
             }
             string javaScriptFileName = htmlFileName.Substring(0, htmlFileName.Length - (isPage ? HtmlGenerator.PageHtmlFileExtension.Length : ViewMiddleware.HtmlFileExtension.Length)) + ViewMiddleware.JavaScriptFileExtension;
             FileInfo javaScriptFile = new FileInfo(javaScriptFileName);
-            if (await AutoCSer.Common.Config.FileExists(javaScriptFile))
+            if (await AutoCSer.Common.FileExists(javaScriptFile))
             {
                 this.javaScriptFile = await htmlGenerator.LoadJavaScriptFile(javaScriptFile);
                 if (this.javaScriptFile == null) return false;

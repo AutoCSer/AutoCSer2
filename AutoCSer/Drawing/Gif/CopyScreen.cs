@@ -2,13 +2,16 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.Versioning;
 
 namespace AutoCSer.Drawing.Gif
 {
     /// <summary>
     /// 定时截屏获取图片生成 GIF 文件数据
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public sealed class CopyScreen : TimerWriter
     {
         /// <summary>

@@ -54,7 +54,7 @@ namespace AutoCSer.ORM
                             if (!isColumn)
                             {
                                 isColumn = true;
-                                AutoCSer.Common.Config.Fill((ulong*)indexFixed, indexs.Length >> 1, ulong.MaxValue);
+                                AutoCSer.Common.Fill((ulong*)indexFixed, indexs.Length >> 1, ulong.MaxValue);
                             }
                             indexFixed[columnIndex] = index;
                         }

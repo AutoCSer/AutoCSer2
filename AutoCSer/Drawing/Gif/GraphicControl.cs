@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Runtime.Versioning;
 
 namespace AutoCSer.Drawing.Gif
 {
     /// <summary>
     /// 图形控制扩展
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public sealed class GraphicControl : DataBlock
     {
         /// <summary>

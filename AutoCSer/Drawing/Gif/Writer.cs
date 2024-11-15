@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 #if !NetStandard21
@@ -17,7 +18,9 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// GIF 文件数据写入器
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public class Writer : IDisposable, IAsyncDisposable
     {
         /// <summary>
@@ -107,7 +110,7 @@ namespace AutoCSer.Drawing.Gif
                 }
                 pixel |= 0x80;
             }
-            fileBuffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(UnmanagedPool.DefaultSize + (256 * 3) + 8);
+            fileBuffer = AutoCSer.Common.GetUninitializedArray<byte>(UnmanagedPool.DefaultSize + (256 * 3) + 8);
             fixed (byte* bufferFixed = fileBuffer)
             {
                 *(ulong*)bufferFixed = fileVersion | ((ulong)width << 48);
@@ -124,8 +127,8 @@ namespace AutoCSer.Drawing.Gif
                     bufferIndex += 3 << (pixel ^ 0x80);
                 }
             }
-            colors = AutoCSer.Common.Config.GetUninitializedArray<LockBitmapColor>((int)Width * Height);
-            colorCounts = AutoCSer.Common.Config.GetUninitializedArray<int>(colors.Length);
+            colors = AutoCSer.Common.GetUninitializedArray<LockBitmapColor>((int)Width * Height);
+            colorCounts = AutoCSer.Common.GetUninitializedArray<int>(colors.Length);
             colorIndexs = ReusableDictionary<LockBitmapColor>.Create<int>();
         }
         /// <summary>
@@ -185,7 +188,7 @@ namespace AutoCSer.Drawing.Gif
                 try
                 {
                     stream.Write(fileBuffer, 0, UnmanagedPool.DefaultSize);
-                    AutoCSer.Common.Config.CopyTo(bufferFixed + UnmanagedPool.DefaultSize, bufferFixed, bufferIndex = count);
+                    AutoCSer.Common.CopyTo(bufferFixed + UnmanagedPool.DefaultSize, bufferFixed, bufferIndex = count);
                     isWrite = true;
                 }
                 finally
@@ -507,7 +510,7 @@ namespace AutoCSer.Drawing.Gif
                 short clearIndex = (short)tableClearIndex, nextIndex = clearIndex;
                 tableClearIndex |= tableClearIndex << 16;
                 tableClearIndex |= tableClearIndex << 32;
-                AutoCSer.Common.Config.Fill((ulong*)lzwEncodeTable, ((4096 * 2) / sizeof(ulong)) << size, tableClearIndex);
+                AutoCSer.Common.Fill((ulong*)lzwEncodeTable, ((4096 * 2) / sizeof(ulong)) << size, tableClearIndex);
                 int outputSize = tableSize;
                 if (size == 1) ++outputSize;
                 int outputStart = outputSize, nextClearIndex = 1 << outputSize;
@@ -542,7 +545,7 @@ namespace AutoCSer.Drawing.Gif
                                 currentOutput += sizeof(ulong);
                                 outputValue = (uint)(int)clearIndex >> (12 - outputStart);
                             }
-                            AutoCSer.Common.Config.Fill((ulong*)lzwEncodeTable, ((4096 * 2) / sizeof(ulong)) << size, tableClearIndex);
+                            AutoCSer.Common.Fill((ulong*)lzwEncodeTable, ((4096 * 2) / sizeof(ulong)) << size, tableClearIndex);
                             outputSize = tableSize;
                             if (size == 1) ++outputSize;
                             nextClearIndex = 1 << outputSize;
@@ -591,18 +594,18 @@ namespace AutoCSer.Drawing.Gif
             {
                 byte* currentBuffer = bufferFixed + bufferIndex;
                 *currentBuffer = 255;
-                AutoCSer.Common.Config.CopyTo(outputFixed, currentBuffer + 1, 255);
+                AutoCSer.Common.CopyTo(outputFixed, currentBuffer + 1, 255);
                 *(currentBuffer + 256) = 255;
-                AutoCSer.Common.Config.CopyTo(outputFixed + 255, currentBuffer + 257, 255);
+                AutoCSer.Common.CopyTo(outputFixed + 255, currentBuffer + 257, 255);
                 *(currentBuffer + 512) = 255;
-                AutoCSer.Common.Config.CopyTo(outputFixed + 255 * 2, currentBuffer + 513, 255);
+                AutoCSer.Common.CopyTo(outputFixed + 255 * 2, currentBuffer + 513, 255);
                 checkBuffer(bufferFixed, 256 * 3);
             }
             for (outputEnd += 255 * 2; outputFixed <= outputEnd; outputFixed += 255)
             {
                 byte* currentBuffer = bufferFixed + bufferIndex;
                 *currentBuffer = 255;
-                AutoCSer.Common.Config.CopyTo(outputFixed, currentBuffer + 1, 255);
+                AutoCSer.Common.CopyTo(outputFixed, currentBuffer + 1, 255);
                 bufferIndex += 256;
             }
             int outputLength = (int)(outputEnd + 255 - outputFixed);
@@ -610,7 +613,7 @@ namespace AutoCSer.Drawing.Gif
             {
                 byte* currentBuffer = bufferFixed + bufferIndex;
                 *currentBuffer = (byte)outputLength;
-                AutoCSer.Common.Config.CopyTo(outputFixed, currentBuffer + 1, outputLength);
+                AutoCSer.Common.CopyTo(outputFixed, currentBuffer + 1, outputLength);
                 bufferIndex += outputLength + 1;
             }
             *(bufferFixed + bufferIndex++) = 0;

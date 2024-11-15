@@ -799,7 +799,7 @@ namespace AutoCSer.Expression
         {
             Bits = AutoCSer.Extensions.Memory.Unmanaged.GetRawExpressionBits();
             byte* bits = Bits.Byte;
-            AutoCSer.Common.Config.Fill(Bits.ULong, 256 >> 3, ulong.MaxValue);
+            AutoCSer.Common.Fill(Bits.ULong, 256 >> 3, ulong.MaxValue);
             bits['_'] &= (memberNameStartBit | memberNameBit) ^ 255;
             for (int value = '0'; value <= '9'; ++value) bits[value] &= (memberNameBit | hexBit) ^ 255;
             for (int value = 'A'; value <= 'F'; ++value)

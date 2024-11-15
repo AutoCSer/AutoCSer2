@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 
 namespace AutoCSer.Drawing.Gif
@@ -7,7 +8,9 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// GIF 文件解析数据
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public sealed class FileData
     {
         /// <summary>
@@ -75,7 +78,7 @@ namespace AutoCSer.Drawing.Gif
                     {
                         int colorCount = 1 << ((globalFlag & 7) + 1);
                         if (fileData.Length < 14 + (colorCount << 1) + colorCount) return;
-                        data = Decoder.FillColor(GlobalColors = AutoCSer.Common.Config.GetUninitializedArray<LockBitmapColor>(colorCount), data);
+                        data = Decoder.FillColor(GlobalColors = AutoCSer.Common.GetUninitializedArray<LockBitmapColor>(colorCount), data);
                     }
                     Decoder decoder = new Decoder(fileData, dataFixed, data);
                     while (!decoder.IsEnd)
@@ -118,9 +121,9 @@ namespace AutoCSer.Drawing.Gif
         public static async Task<FileData> Create(string filename)
 #endif
         {
-            if (await AutoCSer.Common.Config.FileExists(filename))
+            if (await AutoCSer.Common.FileExists(filename))
             {
-                return Create(await AutoCSer.Common.Config.ReadFileAllBytes(filename));
+                return Create(await AutoCSer.Common.ReadFileAllBytes(filename));
             }
             return null;
         }

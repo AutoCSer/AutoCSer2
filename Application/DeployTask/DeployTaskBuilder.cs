@@ -229,7 +229,7 @@ namespace AutoCSer.CommandService
             try
             {
                 DirectoryInfo taskDirectory = new DirectoryInfo(Path.Combine(service.UploadFilePath, Identity.toString(), index.toString(), path));
-                await AutoCSer.Common.Config.TryCreateDirectory(taskDirectory);
+                await AutoCSer.Common.TryCreateDirectory(taskDirectory);
                 if (fileTimes.Length == 0)
                 {
                     isDifferents = EmptyArray<bool>.Array;
@@ -243,7 +243,7 @@ namespace AutoCSer.CommandService
                 {
                     var file = fileTimes[--fileIndex].Check(checkFileDictionary, switchFileDictionary);
                     if (file == null) isDifferents[fileIndex] = true;
-                    else await AutoCSer.Common.Config.FileCopyTo(file, Path.Combine(taskPath, file.Name), true);
+                    else await AutoCSer.Common.FileCopyTo(file, Path.Combine(taskPath, file.Name), true);
                 }
             }
             catch (Exception exception)
@@ -264,8 +264,8 @@ namespace AutoCSer.CommandService
         private static async Task<Dictionary<HashString, FileInfo>> getFileNameDictionary(DirectoryInfo directory)
 #endif
         {
-            if (!await AutoCSer.Common.Config.DirectoryExists(directory)) return null;
-            FileInfo[] files = await AutoCSer.Common.Config.DirectoryGetFiles(directory);
+            if (!await AutoCSer.Common.DirectoryExists(directory)) return null;
+            FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(directory);
             Dictionary<HashString, FileInfo> fileDictionary = DictionaryCreator.CreateHashString<FileInfo>(files.Length);
             foreach (FileInfo file in files) fileDictionary.Add(file.Name, file);
             return fileDictionary;
@@ -286,7 +286,7 @@ namespace AutoCSer.CommandService
             {
                 if (this.callback != null) return;
                 FileInfo file = new FileInfo(Path.Combine(service.UploadFilePath, Identity.toString(), index.toString(), path, fileTime.FileName.notNull()));
-                if (await AutoCSer.Common.Config.FileExists(file))
+                if (await AutoCSer.Common.FileExists(file))
                 {
                     if (file.LastWriteTimeUtc == fileTime.LastWriteTimeUtc && file.Length <= fileTime.Length)
                     {
@@ -295,14 +295,14 @@ namespace AutoCSer.CommandService
                             result.Set(fileTime.Length, 0);
                             return;
                         }
-                        fileStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Write);
-                        await AutoCSer.Common.Config.Seek(fileStream, 0, SeekOrigin.End);
+                        fileStream = await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Write);
+                        await AutoCSer.Common.Seek(fileStream, 0, SeekOrigin.End);
                     }
-                    else await AutoCSer.Common.Config.DeleteFile(file);
+                    else await AutoCSer.Common.DeleteFile(file);
                 }
                 if (fileStream == null)
                 {
-                    fileStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Create, FileAccess.Write);
+                    fileStream = await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Create, FileAccess.Write);
                     if (fileTime.Length == 0)
                     {
                         file.LastWriteTimeUtc = fileTime.LastWriteTimeUtc;

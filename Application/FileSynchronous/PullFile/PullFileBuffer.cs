@@ -86,20 +86,20 @@ namespace AutoCSer.CommandService.FileSynchronous
         internal async Task<bool> Read(SynchronousFileInfo fileInfo, int bufferSize)
         {
             FileInfo file = new FileInfo(fileInfo.FullName);
-            if (await AutoCSer.Common.Config.FileExists(file))
+            if (await AutoCSer.Common.FileExists(file))
             {
                 long unreadSize = file.Length - fileInfo.Length;
                 if (bufferSize > unreadSize) bufferSize = (int)unreadSize;
 #if NetStandard21
-                await using (FileStream readStream = await AutoCSer.Common.Config.CreateFileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
+                await using (FileStream readStream = await AutoCSer.Common.CreateFileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
 #else
-                using (FileStream readStream = await AutoCSer.Common.Config.CreateFileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
+                using (FileStream readStream = await AutoCSer.Common.CreateFileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
 #endif
                 {
                     unreadSize = readStream.Length;
                     if (fileInfo.Length != 0)
                     {
-                        await AutoCSer.Common.Config.Seek(readStream, fileInfo.Length, SeekOrigin.Begin);
+                        await AutoCSer.Common.Seek(readStream, fileInfo.Length, SeekOrigin.Begin);
                         unreadSize -= fileInfo.Length;
                     }
                     if (unreadSize > 0)
@@ -159,7 +159,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                     if ((bufferSize -= serializeSize) != 0)
                     {
                         byte[] bufferArray = buffer.Buffer.notNull().Buffer;
-                        AutoCSer.Common.Config.CopyTo(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, bufferSize);
+                        System.Buffer.BlockCopy(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, bufferSize);
                     }
                     return true;
                 }

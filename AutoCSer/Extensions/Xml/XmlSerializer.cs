@@ -381,7 +381,7 @@ namespace AutoCSer
                             *(long*)write = '<' + ('!' << 16) + ((long)'[' << 32) + ((long)'C' << 48);
                             *(long*)(write + sizeof(long)) = 'D' + ('A' << 16) + ((long)'T' << 32) + ((long)'A' << 48);
                             *(char*)(write + sizeof(long) * 2) = '[';
-                            AutoCSer.Common.Config.CopyTo(start, write + (sizeof(long) * 2 + sizeof(char)), length << 1);
+                            AutoCSer.Common.CopyTo(start, write + (sizeof(long) * 2 + sizeof(char)), length << 1);
                             *(long*)(write + (sizeof(long) * 2 + sizeof(char)) + (length << 1)) = ']' + (']' << 16) + ((long)'>' << 32);
                             CharStream.Data.Pointer.CurrentIndex += (length + 12) * sizeof(char);
                         }

@@ -20,9 +20,9 @@ namespace AutoCSer.CommandService.FileSynchronous
         public virtual async Task GetFiles(CommandServerSocket socket, string path, CommandServerKeepCallbackCount<SynchronousFileInfo> callback)
         {
             DirectoryInfo directory = new DirectoryInfo(path);
-            if (await AutoCSer.Common.Config.DirectoryExists(directory))
+            if (await AutoCSer.Common.DirectoryExists(directory))
             {
-                foreach (FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(directory))
+                foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory))
                 {
                     if (!await callback.CallbackAsync(new SynchronousFileInfo(file))) return;
                 }
@@ -38,9 +38,9 @@ namespace AutoCSer.CommandService.FileSynchronous
         public virtual async Task GetDirectoryNames(CommandServerSocket socket, string path, CommandServerKeepCallbackCount<DirectoryName> callback)
         {
             DirectoryInfo directory = new DirectoryInfo(path);
-            if (await AutoCSer.Common.Config.DirectoryExists(directory))
+            if (await AutoCSer.Common.DirectoryExists(directory))
             {
-                foreach (DirectoryInfo directoryInfo in await AutoCSer.Common.Config.GetDirectories(directory))
+                foreach (DirectoryInfo directoryInfo in await AutoCSer.Common.GetDirectories(directory))
                 {
                     if (!await callback.CallbackAsync(new DirectoryName(directoryInfo))) return;
                 }
@@ -55,7 +55,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         public virtual async Task<SynchronousFileInfo> GetFile(CommandServerSocket socket, string fileName)
         {
             FileInfo file = new FileInfo(fileName);
-            if (await AutoCSer.Common.Config.FileExists(file)) return new SynchronousFileInfo(file);
+            if (await AutoCSer.Common.FileExists(file)) return new SynchronousFileInfo(file);
             return default(SynchronousFileInfo);
         }
         /// <summary>

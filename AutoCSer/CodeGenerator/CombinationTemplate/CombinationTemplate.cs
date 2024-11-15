@@ -34,12 +34,12 @@ namespace AutoCSer.CodeGenerator
                     foreach (string templatePath in config.TemplatePath)
                     {
                         DirectoryInfo directory = new DirectoryInfo(Path.Combine(parameter.ProjectPath, templatePath));
-                        if (!await AutoCSer.Common.Config.DirectoryExists(directory))
+                        if (!await AutoCSer.Common.DirectoryExists(directory))
                         {
                             Messages.Error("没有找到自定义模板相对项目路径" + config.TemplatePath);
                             return false;
                         }
-                        foreach (FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(directory, "*.cs"))
+                        foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory, "*.cs"))
                         {
                             LeftArray<string> newCodes = await getCode(file.FullName);
                             if (newCodes.Length == 0) return false;
@@ -59,7 +59,7 @@ namespace AutoCSer.CodeGenerator
         /// <returns>代码</returns>
         private static async Task<LeftArray<string>> getCode(string fileName)
         {
-            string code = await AutoCSer.Common.Config.ReadFileAllText(fileName, System.Text.Encoding.UTF8);
+            string code = await AutoCSer.Common.ReadFileAllText(fileName, System.Text.Encoding.UTF8);
             int startIndex = code.IndexOf("/*", StringComparison.Ordinal), endIndex = code.IndexOf(@"*/
 
 ", startIndex + 2, StringComparison.Ordinal);

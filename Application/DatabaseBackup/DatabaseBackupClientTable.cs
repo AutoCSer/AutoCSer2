@@ -104,7 +104,7 @@ namespace AutoCSer.CommandService
             bool isCompleted = false;
             try
             {
-                await AutoCSer.Common.Config.TryCreateDirectory(SavePath);
+                await AutoCSer.Common.TryCreateDirectory(SavePath);
 
                 var command = await getCommand(Database, TableName);
                 if (command != null)
@@ -181,12 +181,12 @@ namespace AutoCSer.CommandService
             {
                 Client.OnMessage($"数据库 {Database} 备份完毕");
                 ;
-                foreach (DirectoryInfo DirectoryInfo in (await AutoCSer.Common.Config.GetDirectories(new DirectoryInfo(SavePath).Parent.notNull(), "*.bak"))
+                foreach (DirectoryInfo DirectoryInfo in (await AutoCSer.Common.GetDirectories(new DirectoryInfo(SavePath).Parent.notNull(), "*.bak"))
                     .OrderByDescending(p => p.CreationTime).Skip(2))
                 {
                     try
                     {
-                        await AutoCSer.Common.Config.TryDeleteDirectory(DirectoryInfo);
+                        await AutoCSer.Common.TryDeleteDirectory(DirectoryInfo);
                     }
                     catch (Exception exception)
                     {
@@ -199,7 +199,7 @@ namespace AutoCSer.CommandService
                 await Client.OnError($"数据库 {Database} 备份失败");
                 try
                 {
-                    await AutoCSer.Common.Config.TryDeleteDirectory(SavePath);
+                    await AutoCSer.Common.TryDeleteDirectory(SavePath);
                 }
                 catch (Exception exception)
                 {

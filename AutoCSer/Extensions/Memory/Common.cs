@@ -36,7 +36,7 @@ namespace AutoCSer.Extensions.Memory
                     return;
                 }
             }
-            if ((start = count >> 6) != 0) AutoCSer.Common.Config.Fill((ulong*)data, start, ulong.MaxValue);
+            AutoCSer.Common.Fill((ulong*)data, start = count >> 6, ulong.MaxValue);
             if ((count = -count & ((sizeof(ulong) << 3) - 1)) != 0) *(ulong*)(data + (start << 3)) |= ulong.MaxValue >> count;
         }
         /// <summary>

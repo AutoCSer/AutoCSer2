@@ -308,7 +308,7 @@ namespace AutoCSer.Xml
                                 if (deserializer.CheckNameEnd(itemFixed, name.ByteSize) == 0) break;
                             }
                             if (index == 0) array = new T[deserializer.Config.NewArraySize];
-                            else array = AutoCSer.Common.Config.GetCopyArray(array, index << 1);
+                            else array = AutoCSer.Common.GetCopyArray(array, index << 1);
                             array[index++] = value;
                         }
                         else
@@ -327,7 +327,7 @@ namespace AutoCSer.Xml
                         if (index == array.Length)
                         {
                             if (index == 0) array = new T[deserializer.Config.NewArraySize];
-                            else array = AutoCSer.Common.Config.GetCopyArray(array, index << 1);
+                            else array = AutoCSer.Common.GetCopyArray(array, index << 1);
                         }
                         array[index++] = default(T);
                     }

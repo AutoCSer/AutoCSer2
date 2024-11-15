@@ -123,7 +123,7 @@ namespace AutoCSer
             AutoCSer.Memory.Pointer newHeap = isStaticUnmanaged ? Unmanaged.GetStaticPointer(newHeapSize, false) : Unmanaged.GetPointer(newHeapSize, false), oldHeap = Heap;
             int* newHeapFixed = newHeap.Int;
             Array.CopyTo(newArray, 0);
-            AutoCSer.Memory.Common.CopyNotNull(Heap.Byte, newHeapFixed, newHeapSize >> 1);
+            AutoCSer.Memory.Common.Copy(Heap.Byte, newHeapFixed, newHeapSize >> 1);
             do
             {
                 --newCount;

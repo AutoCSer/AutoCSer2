@@ -128,7 +128,7 @@ namespace AutoCSer.CodeGenerator
             if (fileName != null)
             {
                 string notepad = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), "notepad.exe");
-                if (await AutoCSer.Common.Config.FileExists(notepad)) Process.Start(notepad, fileName);
+                if (await AutoCSer.Common.FileExists(notepad)) Process.Start(notepad, fileName);
                 else Process.Start(fileName);
             }
             Clear();

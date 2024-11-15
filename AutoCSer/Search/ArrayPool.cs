@@ -104,7 +104,7 @@ namespace AutoCSer.Search
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void create()
         {
-            if (poolIndex == Pool.Length) Pool = AutoCSer.Common.Config.GetCopyArray(Pool, poolIndex << 1);
+            if (poolIndex == Pool.Length) Pool = AutoCSer.Common.GetCopyArray(Pool, poolIndex << 1);
             Pool[poolIndex++] = currentArray = new T[ArrayPool.ArraySize];
             currentArrayIndex = 1;
             currentArrayBaseIndex += ArrayPool.ArraySize;
@@ -116,7 +116,7 @@ namespace AutoCSer.Search
         internal unsafe void FreeNoLock<keyType>(KeyValue<keyType, int>[] indexs)
         {
             int count = freeIndex + indexs.Length;
-            if (count > freeIndexs.Length) freeIndexs = AutoCSer.Common.Config.GetUninitializedArray(freeIndexs, (int)((uint)count).upToPower2(), freeIndex);
+            if (count > freeIndexs.Length) freeIndexs = AutoCSer.Common.GetUninitializedArray(freeIndexs, (int)((uint)count).upToPower2(), freeIndex);
             fixed (int* indexFixed = freeIndexs)
             {
                 int* write = indexFixed + freeIndex;
@@ -131,7 +131,7 @@ namespace AutoCSer.Search
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe void FreeNoLock(int index)
         {
-            if (freeIndex == freeIndexs.Length) freeIndexs = AutoCSer.Common.Config.GetUninitializedArray(freeIndexs, freeIndex << 1); 
+            if (freeIndex == freeIndexs.Length) freeIndexs = AutoCSer.Common.GetUninitializedArray(freeIndexs, freeIndex << 1); 
             freeIndexs[freeIndex++] = index;
         }
         /// <summary>
@@ -143,7 +143,7 @@ namespace AutoCSer.Search
             int count = indexs.Count;
             if (count != 0)
             {
-                if ((count += freeIndex) > freeIndexs.Length) freeIndexs = AutoCSer.Common.Config.GetUninitializedArray(freeIndexs, (int)((uint)count).upToPower2(), freeIndex);
+                if ((count += freeIndex) > freeIndexs.Length) freeIndexs = AutoCSer.Common.GetUninitializedArray(freeIndexs, (int)((uint)count).upToPower2(), freeIndex);
                 foreach (int index in indexs) freeIndexs[freeIndex++] = index;
             }
         }

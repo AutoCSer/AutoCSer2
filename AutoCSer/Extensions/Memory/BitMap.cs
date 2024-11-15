@@ -28,7 +28,7 @@ namespace AutoCSer.Memory
         internal BitMap(ulong* map, int count)
         {
             Map = (byte*)map;
-            AutoCSer.Common.Config.Clear(map, count);
+            AutoCSer.Common.Clear(map, count);
         }
         /// <summary>
         /// 指针位图

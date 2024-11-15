@@ -79,15 +79,15 @@ namespace AutoCSer.CommandService.FileSynchronous
         public virtual async Task<UploaderInfo> CreateUploader(CommandServerSocket socket, string path, string backupPath)
         {
             DirectoryInfo directory = new DirectoryInfo(path), backupDirectory;
-            await AutoCSer.Common.Config.TryCreateDirectory(directory);
+            await AutoCSer.Common.TryCreateDirectory(directory);
             if (string.IsNullOrEmpty(backupPath))
             {
                 backupDirectory = new DirectoryInfo(Path.Combine(this.backupPath, AutoCSer.Threading.SecondTimer.Now.ToString("yyyyMMddHHmmss.") + ((uint)Interlocked.Increment(ref backupDirectoryIdentity)).toHex()));
-                await AutoCSer.Common.Config.TryCreateDirectory(backupDirectory);
+                await AutoCSer.Common.TryCreateDirectory(backupDirectory);
                 return new FileUploader(this, directory, backupDirectory).UploaderInfo;
             }
             backupDirectory = new DirectoryInfo(backupPath);
-            if (backupDirectory.Parent.notNull().FullName == this.backupPath && await AutoCSer.Common.Config.DirectoryExists(backupDirectory))
+            if (backupDirectory.Parent.notNull().FullName == this.backupPath && await AutoCSer.Common.DirectoryExists(backupDirectory))
             {
                 return new FileUploader(this, directory, backupDirectory).UploaderInfo;
             }
@@ -123,7 +123,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                 {
                     try
                     {
-                        uploaders = AutoCSer.Common.Config.GetCopyArray(uploaders, uploaderIndex << 1);
+                        uploaders = AutoCSer.Common.GetCopyArray(uploaders, uploaderIndex << 1);
                         uploaders[uploaderIndex].Set(fileUploader);
                         fileUploader.UploaderInfo.Index.Index = uploaderIndex++;
                     }

@@ -164,7 +164,7 @@ namespace AutoCSer.IO
             if (fileHeadSize == 0)
             {
                 if ((endIndex -= readIndex) == 0) endIndex = 0;
-                else AutoCSer.Common.Config.CopyTo(buffer2.ReadBufferStart + readIndex, buffer.ReadBufferStart, endIndex);
+                else AutoCSer.Common.CopyTo(buffer2.ReadBufferStart + readIndex, buffer.ReadBufferStart, endIndex);
                 readIndex = 0;
             }
             else
@@ -176,7 +176,7 @@ namespace AutoCSer.IO
                 fileHeadSize = 0;
 
                 if ((endIndex -= readIndex) == 0) endIndex = 0;
-                else AutoCSer.Common.Config.CopyTo(buffer.ReadBufferStart + readIndex, buffer.ReadBufferStart, endIndex);
+                else AutoCSer.Common.CopyTo(buffer.ReadBufferStart + readIndex, buffer.ReadBufferStart, endIndex);
                 readIndex = 0;
             }
             if (readFile(ref buffer, blockHeadSize)) return true;
@@ -217,7 +217,7 @@ namespace AutoCSer.IO
                     buffer.CopyBuffer.Free();
                     ByteArrayPool.GetBuffer(ref buffer.CopyBuffer, errorSize);
                     var errorCopyBuffer = buffer.CopyBuffer.Buffer.notNull();
-                    AutoCSer.Common.Config.CopyTo(buffer.ReadBufferStart, errorCopyBuffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
+                    AutoCSer.Common.CopyTo(buffer.ReadBufferStart, errorCopyBuffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
                     while (unreadSize != 0) unreadSize -= readStream.Read(errorCopyBuffer.Buffer, buffer.CopyBuffer.StartIndex + endIndex, (int)unreadSize);
                     string errorFileName = persistenceFileName + AutoCSer.Threading.SecondTimer.Now.ToString(".yyyyMMddHHmmss.") + ((ulong)position).toHex();
                     using (FileStream errorStream = new FileStream(errorFileName, FileMode.CreateNew, FileAccess.Write, FileShare.None, errorSize, FileOptions.None))
@@ -241,7 +241,7 @@ namespace AutoCSer.IO
             buffer.CopyBuffer.Free();
             ByteArrayPool.GetBuffer(ref buffer.CopyBuffer, size);
             var copyBuffer = buffer.CopyBuffer.Buffer.notNull();
-            AutoCSer.Common.Config.CopyTo(buffer.ReadBufferStart, copyBuffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
+            AutoCSer.Common.CopyTo(buffer.ReadBufferStart, copyBuffer.Buffer, buffer.CopyBuffer.StartIndex, endIndex);
             unreadSize -= readStream.Read(copyBuffer.Buffer, buffer.CopyBuffer.StartIndex + endIndex, size - endIndex);
             endIndex = 0;
             buffer.SetCopyBuffer(size);

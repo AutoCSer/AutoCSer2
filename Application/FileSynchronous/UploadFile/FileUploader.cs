@@ -144,9 +144,9 @@ namespace AutoCSer.CommandService.FileSynchronous
             string backupPath = UploaderInfo.BackupPath.notNull();
             DirectoryInfo backupDirectory = new DirectoryInfo(string.IsNullOrEmpty(path) ? backupPath : System.IO.Path.Combine(backupPath, path));
             var backupFiles = default(Dictionary<HashString, FileInfo>);
-            if (await AutoCSer.Common.Config.DirectoryExists(backupDirectory))
+            if (await AutoCSer.Common.DirectoryExists(backupDirectory))
             {
-                FileInfo[] files = await AutoCSer.Common.Config.DirectoryGetFiles(backupDirectory);
+                FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(backupDirectory);
                 if (files.Length != 0)
                 {
                     backupFiles = DictionaryCreator.CreateHashString<FileInfo>(files.Length);
@@ -158,10 +158,10 @@ namespace AutoCSer.CommandService.FileSynchronous
             }
             string uploadPath = UploaderInfo.Path.notNull();
             DirectoryInfo directory = new DirectoryInfo(string.IsNullOrEmpty(path) ? uploadPath : System.IO.Path.Combine(uploadPath, path));
-            if (await AutoCSer.Common.Config.DirectoryExists(directory))
+            if (await AutoCSer.Common.DirectoryExists(directory))
             {
                 var backupFile = default(FileInfo);
-                foreach (FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(directory))
+                foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory))
                 {
                     if (backupFiles != null && backupFiles.Remove(file.Name, out backupFile))
                     {
@@ -204,7 +204,7 @@ namespace AutoCSer.CommandService.FileSynchronous
             uploadTimestamp = Stopwatch.GetTimestamp();
             string backupPath = UploaderInfo.BackupPath.notNull();
             FileInfo backupFile = new FileInfo(System.IO.Path.Combine(backupPath, fileName)), file = new FileInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), fileName));
-            bool isBackupFile = await AutoCSer.Common.Config.FileExists(backupFile), isFile = await AutoCSer.Common.Config.FileExists(file);
+            bool isBackupFile = await AutoCSer.Common.FileExists(backupFile), isFile = await AutoCSer.Common.FileExists(file);
             return new UploadFileInfo(backupFile, backupPath, isFile, isBackupFile);
         }
         /// <summary>
@@ -218,9 +218,9 @@ namespace AutoCSer.CommandService.FileSynchronous
             uploadTimestamp = Stopwatch.GetTimestamp();
             string uploadPath = UploaderInfo.Path.notNull();
             DirectoryInfo directory = new DirectoryInfo(string.IsNullOrEmpty(path) ? uploadPath : System.IO.Path.Combine(uploadPath, path));
-            if (await AutoCSer.Common.Config.DirectoryExists(directory))
+            if (await AutoCSer.Common.DirectoryExists(directory))
             {
-                foreach (DirectoryInfo directoryInfo in await AutoCSer.Common.Config.GetDirectories(directory))
+                foreach (DirectoryInfo directoryInfo in await AutoCSer.Common.GetDirectories(directory))
                 {
                     if (!await callback.CallbackAsync(new DirectoryName(directoryInfo, uploadPath)))
                     {
@@ -239,7 +239,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         internal async Task CreateDirectory(string path)
         {
             uploadTimestamp = Stopwatch.GetTimestamp();
-            await AutoCSer.Common.Config.TryCreateDirectory(new DirectoryInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), path)));
+            await AutoCSer.Common.TryCreateDirectory(new DirectoryInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), path)));
         }
         /// <summary>
         /// 创建上传文件
@@ -255,36 +255,36 @@ namespace AutoCSer.CommandService.FileSynchronous
             FileInfo backupFile = new FileInfo(System.IO.Path.Combine(UploaderInfo.BackupPath.notNull(), fileInfo.FullName));
             try
             {
-                bool isFile = await AutoCSer.Common.Config.FileExists(backupFile);
+                bool isFile = await AutoCSer.Common.FileExists(backupFile);
                 if (isFile)
                 {
                     if (backupFile.LastWriteTimeUtc != fileInfo.LastWriteTime || backupFile.Length != serverFileLength)
                     {
-                        await AutoCSer.Common.Config.DeleteFile(backupFile);
+                        await AutoCSer.Common.DeleteFile(backupFile);
                         if (serverFileLength == 0) isFile = false;
                         else return new UploadFileIndex(UploadFileStateEnum.FileInfoNotMatch);
                     }
                     else
                     {
-                        writeStream = await AutoCSer.Common.Config.CreateFileStream(backupFile.FullName, FileMode.Open, FileAccess.Write);
+                        writeStream = await AutoCSer.Common.CreateFileStream(backupFile.FullName, FileMode.Open, FileAccess.Write);
                         if (writeStream.Length == serverFileLength && new FileInfo(backupFile.FullName).LastWriteTimeUtc == fileInfo.LastWriteTime)
                         {
-                            if (serverFileLength != 0) await AutoCSer.Common.Config.Seek(writeStream, 0, SeekOrigin.End);
+                            if (serverFileLength != 0) await AutoCSer.Common.Seek(writeStream, 0, SeekOrigin.End);
                         }
                         else
                         {
                             await writeStream.DisposeAsync();
                             writeStream = null;
-                            await AutoCSer.Common.Config.DeleteFile(backupFile);
+                            await AutoCSer.Common.DeleteFile(backupFile);
                             if (serverFileLength == 0) isFile = false;
                             else return new UploadFileIndex(UploadFileStateEnum.FileInfoNotMatch);
                         }
                     }
                 }
-                else await AutoCSer.Common.Config.TryCreateDirectory(backupFile.Directory.notNull());
+                else await AutoCSer.Common.TryCreateDirectory(backupFile.Directory.notNull());
                 if (!isFile)
                 {
-                    writeStream = await AutoCSer.Common.Config.CreateFileStream(backupFile.FullName, FileMode.CreateNew, FileAccess.Write);
+                    writeStream = await AutoCSer.Common.CreateFileStream(backupFile.FullName, FileMode.CreateNew, FileAccess.Write);
                     if(fileInfo.Length == 0)
                     {
                         await writeStream.DisposeAsync();
@@ -296,7 +296,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                 }
 
                 FileInfo file = new FileInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), fileInfo.FullName));
-                await AutoCSer.Common.Config.TryCreateDirectory(file.Directory.notNull());
+                await AutoCSer.Common.TryCreateDirectory(file.Directory.notNull());
 
                 uint identity;
                 int index;
@@ -308,7 +308,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                     {
                         try
                         {
-                            files = AutoCSer.Common.Config.GetCopyArray(files, fileIndex << 1);
+                            files = AutoCSer.Common.GetCopyArray(files, fileIndex << 1);
                             identity = files[index = fileIndex++].Set(writeStream.notNull(), backupFile, file, ref fileInfo);
                         }
                         finally { Monitor.Exit(uploadLock); }
@@ -423,7 +423,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         {
             uploadTimestamp = Stopwatch.GetTimestamp();
             FileInfo backupFile = new FileInfo(System.IO.Path.Combine(UploaderInfo.BackupPath.notNull(), fileInfo.FullName));
-            if(await AutoCSer.Common.Config.FileExists(backupFile))
+            if(await AutoCSer.Common.FileExists(backupFile))
             {
                 if (backupFile.LastWriteTimeUtc == fileInfo.LastWriteTime && backupFile.Length == fileInfo.Length)
                 {
@@ -443,7 +443,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         private async Task appendCompletedFile(SynchronousFileInfo fileInfo, FileInfo backupFile)
         {
             FileInfo file = new FileInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), fileInfo.FullName));
-            await AutoCSer.Common.Config.TryCreateDirectory(file.Directory.notNull());
+            await AutoCSer.Common.TryCreateDirectory(file.Directory.notNull());
             appendCompletedFile(file, backupFile);
             uploadTimestamp = Stopwatch.GetTimestamp();
         }
@@ -475,10 +475,10 @@ namespace AutoCSer.CommandService.FileSynchronous
         {
             uploadTimestamp = Stopwatch.GetTimestamp();
             FileInfo file = new FileInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), fileName));
-            if (await AutoCSer.Common.Config.FileExists(file))
+            if (await AutoCSer.Common.FileExists(file))
             {
                 FileInfo backupFile = new FileInfo(System.IO.Path.Combine(UploaderInfo.BackupPath.notNull(), fileName));
-                if (!await AutoCSer.Common.Config.TryDeleteFile(backupFile)) await AutoCSer.Common.Config.TryCreateDirectory(backupFile.Directory.notNull());
+                if (!await AutoCSer.Common.TryDeleteFile(backupFile)) await AutoCSer.Common.TryCreateDirectory(backupFile.Directory.notNull());
                 KeyValue<FileInfo, FileInfo> deleteFile = new KeyValue<FileInfo, FileInfo>(file, backupFile);
                 Monitor.Enter(uploadLock);
                 if (deleteFiles.TryAdd(deleteFile)) Monitor.Exit(uploadLock);
@@ -502,10 +502,10 @@ namespace AutoCSer.CommandService.FileSynchronous
         {
             uploadTimestamp = Stopwatch.GetTimestamp();
             DirectoryInfo directory = new DirectoryInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), path));
-            if (await AutoCSer.Common.Config.DirectoryExists(directory))
+            if (await AutoCSer.Common.DirectoryExists(directory))
             {
                 DirectoryInfo backupDirectory = new DirectoryInfo(System.IO.Path.Combine(UploaderInfo.BackupPath.notNull(), path));
-                await AutoCSer.Common.Config.TryDeleteDirectory(backupDirectory);
+                await AutoCSer.Common.TryDeleteDirectory(backupDirectory);
                 KeyValue<DirectoryInfo, string> deleteDirectory = new KeyValue<DirectoryInfo, string>(directory, backupDirectory.FullName);
                 Monitor.Enter(uploadLock);
                 if (deleteDirectorys.TryAdd(deleteDirectory)) Monitor.Exit(uploadLock);
@@ -549,27 +549,27 @@ namespace AutoCSer.CommandService.FileSynchronous
             while (uploadCompletedFileCount != 0)
             {
                 KeyValue<FileInfo, FileInfo> uploadFile = uploadCompletedFileArray[--uploadCompletedFileCount];
-                if (await AutoCSer.Common.Config.FileExists(uploadFile.Key))
+                if (await AutoCSer.Common.FileExists(uploadFile.Key))
                 {
                     string fileName = uploadFile.Key.FullName, backupFileName = uploadFile.Value.FullName, movBbackupFileName = backupFileName + AutoCSer.Threading.SecondTimer.Now.ToString(".yyyyMMddHHmmss") + ".bak";
-                    await AutoCSer.Common.Config.FileMove(uploadFile.Key, movBbackupFileName);
-                    await AutoCSer.Common.Config.FileMove(uploadFile.Value, fileName);
-                    await AutoCSer.Common.Config.FileMove(movBbackupFileName, backupFileName);
+                    await AutoCSer.Common.FileMove(uploadFile.Key, movBbackupFileName);
+                    await AutoCSer.Common.FileMove(uploadFile.Value, fileName);
+                    await AutoCSer.Common.FileMove(movBbackupFileName, backupFileName);
                 }
                 else
                 {
-                    await AutoCSer.Common.Config.FileMove(uploadFile.Value, uploadFile.Key.FullName);
+                    await AutoCSer.Common.FileMove(uploadFile.Value, uploadFile.Key.FullName);
                 }
             }
             while (deleteFileCount != 0)
             {
                 KeyValue<FileInfo, FileInfo> deleteFile = deleteFileArray[--deleteFileCount];
-                await AutoCSer.Common.Config.FileMove(deleteFile.Key, deleteFile.Value.FullName);
+                await AutoCSer.Common.FileMove(deleteFile.Key, deleteFile.Value.FullName);
             }
             while (deleteDirectoryCount != 0)
             {
                 KeyValue<DirectoryInfo, string> deleteDirectory = deleteDirectoryArray[--deleteDirectoryCount];
-                await AutoCSer.Common.Config.DirectoryMove(deleteDirectory.Key, deleteDirectory.Value);
+                await AutoCSer.Common.DirectoryMove(deleteDirectory.Key, deleteDirectory.Value);
             }
             return true;
         }

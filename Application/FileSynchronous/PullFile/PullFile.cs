@@ -54,7 +54,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         {
             try
             {
-                bool isFile = await AutoCSer.Common.Config.FileExists(ClientFile);
+                bool isFile = await AutoCSer.Common.FileExists(ClientFile);
                 if (isFile)
                 {
                     if (ClientFile.LastWriteTimeUtc == FileInfo.LastWriteTime)
@@ -67,14 +67,14 @@ namespace AutoCSer.CommandService.FileSynchronous
                         isFile = ClientFile.Length < FileInfo.Length;
                     }
                     else isFile = false;
-                    if (!isFile) await AutoCSer.Common.Config.DeleteFile(ClientFile);
+                    if (!isFile) await AutoCSer.Common.DeleteFile(ClientFile);
                 }
                 bool isFileChanged;
                 do
                 {
                     if (FileInfo.Length == 0)
                     {
-                        using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.CreateNew, FileAccess.Write)) AutoCSer.Common.EmptyFunction();
+                        using (FileStream fileStream = await AutoCSer.Common.CreateFileStream(ClientFile.FullName, FileMode.CreateNew, FileAccess.Write)) AutoCSer.Common.EmptyFunction();
                         ClientFile.LastWriteTimeUtc = FileInfo.LastWriteTime;
                         fileReadState = (byte)PullFileStateEnum.Success;
                         return;
@@ -82,13 +82,13 @@ namespace AutoCSer.CommandService.FileSynchronous
                     PullFileBuffer readFileBuffer = new PullFileBuffer(this);
                     if (isFile)
                     {
-                        writeStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Write);
-                        await AutoCSer.Common.Config.Seek(writeStream, 0, SeekOrigin.End);
+                        writeStream = await AutoCSer.Common.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Write);
+                        await AutoCSer.Common.Seek(writeStream, 0, SeekOrigin.End);
                         FileInfo.SetLength(writeStream.Length);
                     }
                     else
                     {
-                        writeStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.CreateNew, FileAccess.Write);
+                        writeStream = await AutoCSer.Common.CreateFileStream(ClientFile.FullName, FileMode.CreateNew, FileAccess.Write);
                         FileInfo.SetLength(0);
                     }
                     fileReadState = (byte)PullFileStateEnum.Success;
@@ -116,7 +116,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                                     writeStream.Dispose();
 #endif
                                     writeStream = null;
-                                    if (client.IsDelete) await AutoCSer.Common.Config.DeleteFile(ClientFile);
+                                    if (client.IsDelete) await AutoCSer.Common.DeleteFile(ClientFile);
                                     fileReadState = (byte)PullFileStateEnum.Success;
                                     return;
                                 case (byte)PullFileStateEnum.LengthLess:
@@ -127,7 +127,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                                     writeStream.Dispose();
 #endif
                                     writeStream = null;
-                                    await AutoCSer.Common.Config.DeleteFile(ClientFile);
+                                    await AutoCSer.Common.DeleteFile(ClientFile);
                                     CommandClientReturnValue<SynchronousFileInfo> fileInfo = await client.Client.PullFileClient.GetFile(FileInfo.FullName);
                                     if (fileInfo.IsSuccess)
                                     {

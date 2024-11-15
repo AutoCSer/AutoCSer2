@@ -166,9 +166,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             uint persistenceFileHeadVersion = 0;
             ulong rebuildPosition = 0;
-            if (await AutoCSer.Common.Config.FileExists(service.PersistenceCallbackExceptionPositionFileInfo, true) && service.PersistenceCallbackExceptionPositionFileInfo.Length >= ServiceLoader.ExceptionPositionFileHeadSize)
+            if (await AutoCSer.Common.FileExists(service.PersistenceCallbackExceptionPositionFileInfo, true) && service.PersistenceCallbackExceptionPositionFileInfo.Length >= ServiceLoader.ExceptionPositionFileHeadSize)
             {
-                persistenceCallbackExceptionPositionStream = await AutoCSer.Common.Config.CreateFileStream(service.PersistenceCallbackExceptionPositionFileInfo.FullName, FileMode.Open, FileAccess.ReadWrite);
+                persistenceCallbackExceptionPositionStream = await AutoCSer.Common.CreateFileStream(service.PersistenceCallbackExceptionPositionFileInfo.FullName, FileMode.Open, FileAccess.ReadWrite);
                 if (await persistenceCallbackExceptionPositionStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize) != ServiceLoader.ExceptionPositionFileHeadSize)
                 {
                     callState = CallStateEnum.ReadFileSizeError;
@@ -177,17 +177,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 persistenceFileHeadVersion = ServiceLoader.GetPersistenceFileHeadVersion(service.PersistenceDataPositionBuffer, out rebuildPosition);
                 CommandClientReturnValue<long> position = await masterClient.StreamPersistenceMemoryDatabaseClient.CheckPersistenceCallbackExceptionPositionFileHead(persistenceFileHeadVersion, rebuildPosition);
                 if (!check(ref position)) return false;
-                if (position.Value >= persistenceCallbackExceptionPositionStream.Position) await AutoCSer.Common.Config.Seek(persistenceCallbackExceptionPositionStream, 0, SeekOrigin.End);
+                if (position.Value >= persistenceCallbackExceptionPositionStream.Position) await AutoCSer.Common.Seek(persistenceCallbackExceptionPositionStream, 0, SeekOrigin.End);
                 else
                 {
                     await persistenceCallbackExceptionPositionStream.DisposeAsync();
-                    await AutoCSer.Common.Config.FileMove(service.PersistenceCallbackExceptionPositionFileInfo.FullName, service.PersistenceCallbackExceptionPositionFileInfo.FullName + service.Config.GetBackupFileNameSuffix() + ".bak");
+                    await AutoCSer.Common.FileMove(service.PersistenceCallbackExceptionPositionFileInfo.FullName, service.PersistenceCallbackExceptionPositionFileInfo.FullName + service.Config.GetBackupFileNameSuffix() + ".bak");
                     persistenceCallbackExceptionPositionStream = null;
                     persistenceFileHeadVersion = 0;
                     rebuildPosition = 0;
                 }
             }
-            if (persistenceCallbackExceptionPositionStream == null) persistenceCallbackExceptionPositionStream = await AutoCSer.Common.Config.CreateFileStream(service.PersistenceCallbackExceptionPositionFileInfo.FullName, FileMode.Create, FileAccess.Write);
+            if (persistenceCallbackExceptionPositionStream == null) persistenceCallbackExceptionPositionStream = await AutoCSer.Common.CreateFileStream(service.PersistenceCallbackExceptionPositionFileInfo.FullName, FileMode.Create, FileAccess.Write);
             getPersistenceCallbackExceptionPositionCommandKeepCallback = await masterClient.StreamPersistenceMemoryDatabaseClient.GetPersistenceCallbackExceptionPosition(timestamp, getPersistenceCallbackExceptionPosition);
             if (getPersistenceCallbackExceptionPositionCommandKeepCallback != null)
             {
@@ -300,9 +300,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             uint persistenceFileHeadVersion = 0;
             ulong rebuildPosition = 0;
-            if (await AutoCSer.Common.Config.FileExists(service.PersistenceFileInfo, true) && service.PersistenceFileInfo.Length >= ServiceLoader.FileHeadSize)
+            if (await AutoCSer.Common.FileExists(service.PersistenceFileInfo, true) && service.PersistenceFileInfo.Length >= ServiceLoader.FileHeadSize)
             {
-                persistenceStream = await AutoCSer.Common.Config.CreateFileStream(service.PersistenceFileInfo.FullName, FileMode.Open, FileAccess.ReadWrite);
+                persistenceStream = await AutoCSer.Common.CreateFileStream(service.PersistenceFileInfo.FullName, FileMode.Open, FileAccess.ReadWrite);
                 if (await persistenceStream.ReadAsync(service.PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize) != ServiceLoader.FileHeadSize)
                 {
                     callState = CallStateEnum.ReadFileSizeError;
@@ -311,17 +311,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 persistenceFileHeadVersion = ServiceLoader.GetPersistenceFileHeadVersion(service.PersistenceDataPositionBuffer, out rebuildPosition);
                 CommandClientReturnValue<long> position = await masterClient.StreamPersistenceMemoryDatabaseClient.CheckPersistenceFileHead(persistenceFileHeadVersion, rebuildPosition);
                 if (!check(ref position)) return false;
-                if (position.Value >= persistenceStream.Position) await AutoCSer.Common.Config.Seek(persistenceStream, 0, SeekOrigin.End);
+                if (position.Value >= persistenceStream.Position) await AutoCSer.Common.Seek(persistenceStream, 0, SeekOrigin.End);
                 else
                 {
                     await persistenceStream.DisposeAsync();
-                    await AutoCSer.Common.Config.FileMove(service.PersistenceFileInfo.FullName, service.PersistenceFileInfo.FullName + service.Config.GetBackupFileNameSuffix() + ".bak");
+                    await AutoCSer.Common.FileMove(service.PersistenceFileInfo.FullName, service.PersistenceFileInfo.FullName + service.Config.GetBackupFileNameSuffix() + ".bak");
                     persistenceStream = null;
                     persistenceFileHeadVersion = 0;
                     rebuildPosition = 0;
                 }
             }
-            if (persistenceStream == null) persistenceStream = await AutoCSer.Common.Config.CreateFileStream(service.PersistenceFileInfo.FullName, FileMode.Create, FileAccess.Write);
+            if (persistenceStream == null) persistenceStream = await AutoCSer.Common.CreateFileStream(service.PersistenceFileInfo.FullName, FileMode.Create, FileAccess.Write);
             getPersistenceFileCommandKeepCallback = await masterClient.StreamPersistenceMemoryDatabaseClient.GetPersistenceFile(timestamp, persistenceFileHeadVersion, rebuildPosition, persistenceStream.Position, getPersistenceFile);
             if (getPersistenceFileCommandKeepCallback != null) return true;
             callState = CallStateEnum.CallFail;
@@ -403,19 +403,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             RepairNodeMethodDirectory repairNodeMethodDirectoryKey = default(RepairNodeMethodDirectory);
             DirectoryInfo repairNodeMethodDirectory = new DirectoryInfo(Path.Combine(service.PersistenceFileInfo.Directory.notNull().FullName, service.Config.RepairNodeMethodDirectoryName));
-            if (!await AutoCSer.Common.Config.TryCreateDirectory(repairNodeMethodDirectory))
+            if (!await AutoCSer.Common.TryCreateDirectory(repairNodeMethodDirectory))
             {
-                foreach (DirectoryInfo typeDirectory in await AutoCSer.Common.Config.GetDirectories(repairNodeMethodDirectory))
+                foreach (DirectoryInfo typeDirectory in await AutoCSer.Common.GetDirectories(repairNodeMethodDirectory))
                 {
                     if (typeDirectory.Name.Length == 16 && ServerNodeCreator.GetNodeTypeHashCode(typeDirectory, out repairNodeMethodDirectoryKey.NodeTypeHashCode))
                     {
-                        foreach (DirectoryInfo methodDirectory in await AutoCSer.Common.Config.GetDirectories(typeDirectory))
+                        foreach (DirectoryInfo methodDirectory in await AutoCSer.Common.GetDirectories(typeDirectory))
                         {
                             if (methodDirectory.Name.Length == 16 + 14 + 8 && ServerNodeCreator.GetMethodDirectory(methodDirectory, ref repairNodeMethodDirectoryKey))
                             {
                                 FileInfo assemblyFile = new FileInfo(Path.Combine(methodDirectory.FullName, service.Config.RepairNodeMethodAssemblyFileName));
                                 FileInfo methodNameFile = new FileInfo(Path.Combine(methodDirectory.FullName, service.Config.RepairNodeMethodNameFileName));
-                                if (await AutoCSer.Common.Config.FileExists(assemblyFile) && await AutoCSer.Common.Config.FileExists(methodNameFile))
+                                if (await AutoCSer.Common.FileExists(assemblyFile) && await AutoCSer.Common.FileExists(methodNameFile))
                                 {
                                     if (!await masterClient.StreamPersistenceMemoryDatabaseClient.AppendRepairNodeMethodDirectoryFile(timestamp, repairNodeMethodDirectoryKey, new RepairNodeMethodFile(assemblyFile, methodNameFile)))
                                     {

@@ -83,7 +83,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             if (methodIndex >= Methods.Length)
             {
-                Methods = AutoCSer.Common.Config.GetCopyArray(Methods, methodIndex + 1);
+                Methods = AutoCSer.Common.GetCopyArray(Methods, methodIndex + 1);
                 foreach (KeyValue<int, string> enumValue in enumValues) Methods[enumValue.Key].EnumName = enumValue.Value;
             }
             methodIndex = 0;

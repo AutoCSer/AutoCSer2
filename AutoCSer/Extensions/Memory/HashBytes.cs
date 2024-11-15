@@ -59,7 +59,7 @@ namespace AutoCSer.Memory
         /// <returns>是否相等</returns>
         public unsafe bool Equals(HashBytes other)
         {
-            return HashCode == other.HashCode && AutoCSer.Common.Config.Equal(ref SubArray, ref other.SubArray);
+            return HashCode == other.HashCode && AutoCSer.Common.SequenceEqual(ref SubArray, ref other.SubArray);
         }
         /// <summary>
         /// 获取 HASH 值

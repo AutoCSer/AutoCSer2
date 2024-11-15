@@ -68,7 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoCSer.NET8" Version="2.0.2" />
+    <PackageReference Include="AutoCSer.NET8" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -98,7 +98,7 @@ namespace AutoCSer.CommandService.DeployTask
                     return buffer;
                 }
                 Monitor.Exit(bufferLock);
-                return AutoCSer.Common.Config.GetUninitializedArray<byte>(DeployTaskConfig.UploadFileBufferSize);
+                return AutoCSer.Common.GetUninitializedArray<byte>(DeployTaskConfig.UploadFileBufferSize);
             }
             return null;
         }

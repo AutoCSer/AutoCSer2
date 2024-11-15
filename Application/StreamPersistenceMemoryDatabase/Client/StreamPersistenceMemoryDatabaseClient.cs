@@ -109,7 +109,7 @@ namespace AutoCSer.CommandService
         public async Task<CommandClientReturnValue<CallStateEnum>> RepairNodeMethod(ClientNode node, MethodInfo method)
         {
             Assembly assembly = method.DeclaringType.notNull().Assembly;
-            byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
+            byte[] rawAssembly = await AutoCSer.Common.ReadFileAllBytes(assembly.Location);
             return await Client.StreamPersistenceMemoryDatabaseClient.RepairNodeMethod(node.Index, rawAssembly, new RepairNodeMethodName(method));
         }
         /// <summary>
@@ -132,7 +132,7 @@ namespace AutoCSer.CommandService
         public async Task<CommandClientReturnValue<CallStateEnum>> BindNodeMethod(ClientNode node, MethodInfo method)
         {
             Assembly assembly = method.DeclaringType.notNull().Assembly;
-            byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
+            byte[] rawAssembly = await AutoCSer.Common.ReadFileAllBytes(assembly.Location);
             return await Client.StreamPersistenceMemoryDatabaseClient.BindNodeMethod(node.Index, rawAssembly, new RepairNodeMethodName(method));
         }
         /// <summary>

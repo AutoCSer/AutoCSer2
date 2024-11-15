@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <returns></returns>
         public async Task<UploadFileStateEnum> Upload(bool checkSuccessState = true)
         {
-            if (await AutoCSer.Common.Config.DirectoryExists(directory))
+            if (await AutoCSer.Common.DirectoryExists(directory))
             {
                 UploadFileStateEnum state;
                 bool isUploader = false, isWaitCompleted = false;
@@ -144,7 +144,7 @@ namespace AutoCSer.CommandService.FileSynchronous
 #endif
         {
             FileInfo file = new FileInfo(Path.Combine(directory.FullName, fileName));
-            if (await AutoCSer.Common.Config.FileExists(file))
+            if (await AutoCSer.Common.FileExists(file))
             {
                 UploadFileStateEnum state;
                 bool isUploader = false;
@@ -226,7 +226,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                     {
                         string clientPath = clientDirectory.FullName;
                         clientFiles.Empty();
-                        foreach (FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(clientDirectory)) clientFiles.Set(file.Name, file);
+                        foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(clientDirectory)) clientFiles.Set(file.Name, file);
                         var fileCommand = await Client.UploadFileClient.GetFiles(UploaderInfo.Index, serverPath);
                         bool isSuccess;
                         if (fileCommand != null)
@@ -296,7 +296,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                         }
 
                         clientDirectorys.Empty();
-                        foreach (DirectoryInfo directory in await AutoCSer.Common.Config.GetDirectories(clientDirectory)) clientDirectorys.Set(directory.Name, directory);
+                        foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(clientDirectory)) clientDirectorys.Set(directory.Name, directory);
                         var directoryCommand = await Client.UploadFileClient.GetDirectoryNames(UploaderInfo.Index, serverPath);
                         if (directoryCommand != null)
                         {

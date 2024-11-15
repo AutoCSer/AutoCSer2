@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.Versioning;
 
 namespace AutoCSer.Drawing
 {
     /// <summary>
     /// 字符位图生成工具
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public sealed class CharMapBuilder : IDisposable
     {
         /// <summary>

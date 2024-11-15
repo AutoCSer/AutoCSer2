@@ -55,7 +55,7 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 ++index;
                 if (index != 0) data[index - 1] = (byte)index;
                 byte[] buffer = new byte[index];
-                AutoCSer.Common.Config.CopyTo(data, 0, buffer, 0, index);
+                Buffer.BlockCopy(data, 0, buffer, 0, index);
 
                 CommandClientReturnValue<BlockIndex> blockIndex = await client.WriteAsync(buffer);
                 bool isSuccess = ConsoleWriteQueue.Breakpoint(blockIndex);

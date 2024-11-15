@@ -222,7 +222,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value"></param>
         public void FillArray(T value)
         {
-            AutoCSer.Common.Config.Fill(array.Array, value, 0, array.Length);
+            AutoCSer.Common.Fill(array.Array, value, 0, array.Length);
         }
         /// <summary>
         /// 用数据填充数组指定位置 持久化参数检查
@@ -246,7 +246,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if ((uint)(startIndex + count) <= (uint)array.Length)
             {
-                AutoCSer.Common.Config.Fill(array.Array, value, startIndex, count);
+                AutoCSer.Common.Fill(array.Array, value, startIndex, count);
                 return true;
             }
             return false;

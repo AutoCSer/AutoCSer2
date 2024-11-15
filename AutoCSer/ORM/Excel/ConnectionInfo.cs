@@ -13,7 +13,9 @@ namespace AutoCSer.ORM.Excel
     /// <summary>
     /// Excel 连接信息
     /// </summary>
+#if NET8
     [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#endif
     public sealed class ConnectionInfo
     {
         /// <summary>

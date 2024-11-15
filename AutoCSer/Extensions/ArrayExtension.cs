@@ -40,7 +40,7 @@ namespace AutoCSer.Extensions
         public static T[] copy<T>(this T[] array)
         {
             if (array.isEmpty()) return EmptyArray<T>.Array;
-            return AutoCSer.Common.Config.GetCopyArray(array, array.Length);
+            return AutoCSer.Common.GetCopyArray(array, array.Length);
         }
         /// <summary>
         /// 连接数组
@@ -75,7 +75,7 @@ namespace AutoCSer.Extensions
                 {
                     if (value != null)
                     {
-                        AutoCSer.Common.Config.CopyTo(value, newValues, length);
+                        value.CopyTo(newValues, length);
                         length += value.Length;
                     }
                 }
@@ -94,8 +94,8 @@ namespace AutoCSer.Extensions
         {
             if (addArray.Length == 0) return array;
             if (array.Length == 0) return addArray;
-            T[] newArray = AutoCSer.Common.Config.GetCopyArray(array, array.Length + addArray.Length);
-            AutoCSer.Common.Config.CopyTo(addArray, newArray, array.Length);
+            T[] newArray = AutoCSer.Common.GetCopyArray(array, array.Length + addArray.Length);
+            addArray.CopyTo(newArray, array.Length);
             return newArray;
         }
         /// <summary>
@@ -183,7 +183,7 @@ namespace AutoCSer.Extensions
                     int size = nextString.Length;
                     if (size != 0)
                     {
-                        AutoCSer.Common.Config.CopyTo(nextString, write);
+                        AutoCSer.Common.CopyTo(nextString, write);
                         write += size;
                     }
                 }

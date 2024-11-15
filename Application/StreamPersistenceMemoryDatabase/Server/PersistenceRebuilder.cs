@@ -212,7 +212,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 string backupFileNameSuffix = Service.Config.GetBackupFileNameSuffix() + ".rb";
                 persistenceCallbackExceptionPositionFileInfo = new FileInfo(Service.PersistenceCallbackExceptionPositionSwitchFileInfo.FullName + backupFileNameSuffix);
                 persistenceFileInfo = new FileInfo(Service.PersistenceSwitchFileInfo.FullName + backupFileNameSuffix);
-                persistenceDataPositionBuffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
+                persistenceDataPositionBuffer = AutoCSer.Common.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
                 fixed (byte* bufferFixed = persistenceDataPositionBuffer)
                 {
                     *(uint*)bufferFixed = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;

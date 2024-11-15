@@ -44,7 +44,7 @@ namespace AutoCSer.CommandService.DiskBlock
         internal FileBlock(DiskBlockService service, FileInfo file, long startIndex, long position, int readBufferSize) : base(service, startIndex)
         {
             this.file = file;
-            buffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(readBufferSize);
+            buffer = AutoCSer.Common.GetUninitializedArray<byte>(readBufferSize);
             Position = position;
         }
         /// <summary>
@@ -103,7 +103,7 @@ namespace AutoCSer.CommandService.DiskBlock
                         FileInfo file = new FileInfo(Path.Combine(this.file.Directory.notNull().FullName, service.Identity.toHex() + ((ulong)Position).toHex() + FileBlockServiceConfig.ExtensionName));
                         try
                         {
-                            newWriteStream = await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Create, FileAccess.Write, FileShare.Read, writeBufferSize);
+                            newWriteStream = await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Create, FileAccess.Write, FileShare.Read, writeBufferSize);
                             block = new FileBlock(service, file, Position, Position, writeBufferSize, buffer.Length, newWriteStream);
                             newWriteStream = null;
                             service.SetSwitch(block);
@@ -137,7 +137,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <returns></returns>
         protected override async Task<object> getReadContext()
         {
-            return await AutoCSer.Common.Config.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, buffer.Length, FileOptions.RandomAccess);
+            return await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, buffer.Length, FileOptions.RandomAccess);
         }
         /// <summary>
         /// 读取数据
@@ -148,7 +148,7 @@ namespace AutoCSer.CommandService.DiskBlock
         protected override async Task read(ReadRequest request, object context)
         {
             FileStream fileStream = (FileStream)context;
-            await AutoCSer.Common.Config.Seek(fileStream, request.Index - StartIndex, SeekOrigin.Begin);
+            await AutoCSer.Common.Seek(fileStream, request.Index - StartIndex, SeekOrigin.Begin);
             int maxSize = request.GetMaxSize();
             int readSize = await fileStream.ReadAsync(this.buffer, 0, Math.Min(this.buffer.Length, maxSize + sizeof(int)));
             if (readSize < sizeof(int))
@@ -167,14 +167,14 @@ namespace AutoCSer.CommandService.DiskBlock
                 request.Buffer.Set(new SubArray<byte>(sizeof(int), size, this.buffer).GetArray());
                 return;
             }
-            byte[] buffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(size);
+            byte[] buffer = AutoCSer.Common.GetUninitializedArray<byte>(size);
             int index = readSize, count = size - readSize;
             do
             {
                 int nextReadSize = await fileStream.ReadAsync(buffer, index, count);
                 if ((count -= nextReadSize) == 0)
                 {
-                    AutoCSer.Common.Config.CopyTo(this.buffer, sizeof(int), buffer, 0, readSize);
+                    System.Buffer.BlockCopy(this.buffer, sizeof(int), buffer, 0, readSize);
                     request.Buffer.Set(buffer);
                     return;
                 }
@@ -202,7 +202,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <returns>是否删除成功</returns>
         internal override async Task<bool> Delete()
         {
-            await AutoCSer.Common.Config.DeleteFile(file);
+            await AutoCSer.Common.DeleteFile(file);
             return true;
         }
     }

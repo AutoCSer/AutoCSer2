@@ -70,9 +70,9 @@ namespace AutoCSer.NetCoreWeb
                         {
                             if (code == 0)
                             {
-                                if (await AutoCSer.Common.Config.FileExists(file))
+                                if (await AutoCSer.Common.FileExists(file))
                                 {
-                                    fileData = await AutoCSer.Common.Config.ReadFileAllBytes(file.FullName);
+                                    fileData = await AutoCSer.Common.ReadFileAllBytes(file.FullName);
                                     code = 1;
                                 }
                                 else

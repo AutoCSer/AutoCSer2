@@ -76,15 +76,15 @@ namespace AutoCSer.CommandService.FileSynchronous
                             long unreadSize = ClientFile.Length - serverFileLength;
                             int bufferSize = (int)Math.Min(unreadSize, client.BufferSize);
 #if NetStandard21
-                            await using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
+                            await using (FileStream fileStream = await AutoCSer.Common.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
 #else
-                            using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
+                            using (FileStream fileStream = await AutoCSer.Common.CreateFileStream(ClientFile.FullName, FileMode.Open, FileAccess.Read, FileShare.None, bufferSize, FileOptions.SequentialScan))
 #endif
                             {
                                 unreadSize = fileStream.Length;
                                 if (serverFileLength != 0)
                                 {
-                                    await AutoCSer.Common.Config.Seek(fileStream, serverFileLength, SeekOrigin.Begin);
+                                    await AutoCSer.Common.Seek(fileStream, serverFileLength, SeekOrigin.Begin);
                                     unreadSize -= serverFileLength;
                                 }
                                 buffer = ByteArrayPool.GetBuffer(bufferSize);
@@ -145,7 +145,7 @@ namespace AutoCSer.CommandService.FileSynchronous
             if (state.Value != UploadFileStateEnum.Success) return state.Value;
             if ((bufferSize -= uploadFileBuffer.SerializeSize) != 0)
             {
-                AutoCSer.Common.Config.CopyTo(bufferArray, buffer.StartIndex + uploadFileBuffer.SerializeSize, bufferArray, buffer.StartIndex, bufferSize);
+                System.Buffer.BlockCopy(bufferArray, buffer.StartIndex + uploadFileBuffer.SerializeSize, bufferArray, buffer.StartIndex, bufferSize);
             }
             return UploadFileStateEnum.Success;
         }

@@ -59,8 +59,8 @@ namespace AutoCSer.CommandService.DiskBlock
         {
             string identityHex = Identity.toHex();
             DirectoryInfo directory = string.IsNullOrEmpty(Path) ? AutoCSer.Common.ApplicationDirectory : new DirectoryInfo(Path);
-            await AutoCSer.Common.Config.TryCreateDirectory(directory);
-            LeftArray<KeyValue<FileInfo, long>> files = (await AutoCSer.Common.Config.DirectoryGetFiles(directory, identityHex + "*" + ExtensionName))
+            await AutoCSer.Common.TryCreateDirectory(directory);
+            LeftArray<KeyValue<FileInfo, long>> files = (await AutoCSer.Common.DirectoryGetFiles(directory, identityHex + "*" + ExtensionName))
                 .Select(p => getFileStartIndex(p))
                 .Where(p => p.Key != null)
                 .OrderByDescending(p => p.Value)
@@ -78,8 +78,8 @@ namespace AutoCSer.CommandService.DiskBlock
                 {
                     if (object.ReferenceEquals(service.Block, NullBlock.Null))
                     {
-                        writeStream = await AutoCSer.Common.Config.CreateFileStream(file.Key.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, writeBufferSize);
-                        await AutoCSer.Common.Config.Seek(writeStream, 0, SeekOrigin.End);
+                        writeStream = await AutoCSer.Common.CreateFileStream(file.Key.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, writeBufferSize);
+                        await AutoCSer.Common.Seek(writeStream, 0, SeekOrigin.End);
                         block = new FileBlock(service, file.Key, file.Value, file.Value + writeStream.Position, readBufferSize, writeBufferSize, writeStream);
                         writeStream = null;
                         service.Set(block);

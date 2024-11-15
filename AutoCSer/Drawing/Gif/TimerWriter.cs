@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +13,9 @@ namespace AutoCSer.Drawing.Gif
     /// <summary>
     /// 定时获取图片生成 GIF 文件数据
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public abstract class TimerWriter : Writer
     {
         /// <summary>
@@ -169,7 +172,7 @@ namespace AutoCSer.Drawing.Gif
                             width3 = (minWidth << 1) + minWidth;
                             for (byte* lastRow = lastBitmapFixed, currentRow = bitmapFixed; top != minHeight; ++top)
                             {
-                                if (!AutoCSer.Memory.Common.EqualNotNull(lastRow, currentRow, width3)) break;
+                                if (!AutoCSer.Memory.Common.SequenceEqual(lastRow, currentRow, width3)) break;
                                 lastRow += lastBitmapData.Stride;
                                 currentRow += bitmapData.Stride;
                             }
@@ -178,7 +181,7 @@ namespace AutoCSer.Drawing.Gif
                                 ++top;
                                 for (byte* lastRow = lastBitmapFixed + lastBitmapData.Stride * minHeight, currentRow = bitmapFixed + bitmapData.Stride * minHeight; top != bottom; --bottom)
                                 {
-                                    if (!AutoCSer.Memory.Common.EqualNotNull(lastRow -= lastBitmapData.Stride, currentRow -= bitmapData.Stride, width3)) break;
+                                    if (!AutoCSer.Memory.Common.SequenceEqual(lastRow -= lastBitmapData.Stride, currentRow -= bitmapData.Stride, width3)) break;
                                 }
                                 --top;
                             }

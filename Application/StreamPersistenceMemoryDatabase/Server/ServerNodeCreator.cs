@@ -174,8 +174,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             ServerMethodAttribute methodAttribute = methodInfo.GetCustomAttribute<ServerMethodAttribute>(false).notNull();
                             if (methodIndexs == null || methodIndexs.Add(methodAttribute.MethodIndex))
                             {
-                                if ((uint)methodAttribute.MethodIndex >= (uint)Methods.Length) Methods = AutoCSer.Common.Config.GetCopyArray(Methods, methodAttribute.MethodIndex + 1);
-                                if ((uint)methodAttribute.MethodIndex >= (uint)NodeMethods.Length) NodeMethods = AutoCSer.Common.Config.GetCopyArray(NodeMethods, methodAttribute.MethodIndex + 1);
+                                if ((uint)methodAttribute.MethodIndex >= (uint)Methods.Length) Methods = AutoCSer.Common.GetCopyArray(Methods, methodAttribute.MethodIndex + 1);
+                                if ((uint)methodAttribute.MethodIndex >= (uint)NodeMethods.Length) NodeMethods = AutoCSer.Common.GetCopyArray(NodeMethods, methodAttribute.MethodIndex + 1);
                                 var method = Methods[methodAttribute.MethodIndex];
                                 var nodeMethod = default(ServerNodeMethod);
                                 if (method != null)
@@ -266,20 +266,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             RepairNodeMethodDirectory repairNodeMethodDirectory = new RepairNodeMethodDirectory(Type.fullName().notNull(), methodAttribute.MethodIndex);
             DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(Service.PersistenceDirectory.FullName, Service.Config.RepairNodeMethodDirectoryName, repairNodeMethodDirectory.NodeTypeHashCode.toHex()));
-            await AutoCSer.Common.Config.TryCreateDirectory(typeDirectory);
+            await AutoCSer.Common.TryCreateDirectory(typeDirectory);
             DirectoryInfo methodDirectory = new DirectoryInfo(Path.Combine(typeDirectory.FullName, repairNodeMethodDirectory.RepairTime.toString() + repairNodeMethodDirectory.MethodIndex.toHex()));
-            await AutoCSer.Common.Config.TryCreateDirectory(methodDirectory);
+            await AutoCSer.Common.TryCreateDirectory(methodDirectory);
             FileInfo assemblyFile = new FileInfo(Path.Combine(methodDirectory.FullName, Service.Config.RepairNodeMethodAssemblyFileName));
 #if NetStandard21
-            await using (FileStream assemblyStream = await AutoCSer.Common.Config.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
+            await using (FileStream assemblyStream = await AutoCSer.Common.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
 #else
-            using (FileStream assemblyStream = await AutoCSer.Common.Config.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
+            using (FileStream assemblyStream = await AutoCSer.Common.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
 #endif
             {
                 await assemblyStream.WriteAsync(rawAssembly, 0, rawAssembly.Length);
             }
             FileInfo methodNameFile = new FileInfo(Path.Combine(methodDirectory.FullName, Service.Config.RepairNodeMethodNameFileName));
-            await AutoCSer.Common.Config.WriteFileAllText(methodNameFile.FullName, AutoCSer.JsonSerializer.Serialize(new RepairNodeMethodName(methodInfo, Type)), Encoding.UTF8);
+            await AutoCSer.Common.WriteFileAllText(methodNameFile.FullName, AutoCSer.JsonSerializer.Serialize(new RepairNodeMethodName(methodInfo, Type)), Encoding.UTF8);
             methodNameFile.LastWriteTimeUtc = assemblyFile.RefreshLastWriteTimeUtc();
             RepairNodeMethod repairNodeMethod = new RepairNodeMethod(Type, methodDirectory.Parent.notNull().Name, methodDirectory.FullName, rawAssembly, methodInfo, assemblyFile, methodNameFile);
             repairNodeMethod.RepairNodeMethodDirectory = repairNodeMethodDirectory;
@@ -307,8 +307,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         if ((uint)methodAttribute.MethodIndex >= (uint)Methods.Length)
                         {
-                            var methods = AutoCSer.Common.Config.GetCopyArray(Methods, methodAttribute.MethodIndex + 1);
-                            NodeMethods = AutoCSer.Common.Config.GetCopyArray(NodeMethods, methods.Length);
+                            var methods = AutoCSer.Common.GetCopyArray(Methods, methodAttribute.MethodIndex + 1);
+                            NodeMethods = AutoCSer.Common.GetCopyArray(NodeMethods, methods.Length);
                             Methods = methods;
                         }
                     }

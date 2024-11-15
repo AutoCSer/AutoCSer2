@@ -143,7 +143,7 @@ namespace AutoCSer.CodeGenerator
                         return new KeyValue<Exception, bool>(null, true);
                     }
                 }
-                if (isAssemblyPath = await Common.Config.FileExists(AssemblyPath))
+                if (isAssemblyPath = await AutoCSer.Common.FileExists(AssemblyPath))
                 {
                     Assembly = Assembly.LoadFrom(AssemblyPath);
                 }
@@ -167,7 +167,7 @@ namespace AutoCSer.CodeGenerator
         /// </summary>
         internal async Task Start()
         {
-            if (string.IsNullOrEmpty(ProjectPath) || !await Common.Config.DirectoryExists(ProjectPath))
+            if (string.IsNullOrEmpty(ProjectPath) || !await AutoCSer.Common.DirectoryExists(ProjectPath))
             {
                 Messages.Error($"项目路径不存在 : {ProjectPath}");
                 return;

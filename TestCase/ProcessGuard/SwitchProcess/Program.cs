@@ -63,12 +63,12 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
             else
             {
                 DirectoryInfo switchDirectory = new DirectoryInfo(Path.Combine(directory.FullName, SwitchProcess.DefaultSwitchDirectoryName));
-                if (!await AutoCSer.Common.Config.DirectoryExists(switchDirectory)) await AutoCSer.Common.Config.TryCreateDirectory(switchDirectory);
-                foreach(FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(directory))
+                if (!await AutoCSer.Common.DirectoryExists(switchDirectory)) await AutoCSer.Common.TryCreateDirectory(switchDirectory);
+                foreach(FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory))
                 {
                     try
                     {
-                        await AutoCSer.Common.Config.FileCopyTo(file, Path.Combine(switchDirectory.FullName, file.Name));
+                        await AutoCSer.Common.FileCopyTo(file, Path.Combine(switchDirectory.FullName, file.Name));
                     }
                     catch { }
                 }
@@ -76,7 +76,7 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
             }
             string switchFile = Path.Combine(directory.FullName, new FileInfo(System.Reflection.Assembly.GetEntryAssembly().Location).Name);
             Console.WriteLine(switchFile);
-            if (!await AutoCSer.Common.Config.FileExists(switchFile))
+            if (!await AutoCSer.Common.FileExists(switchFile))
             {
                 ConsoleWriteQueue.WriteLine("没有找到切换进程文件", ConsoleColor.Red);
                 return;

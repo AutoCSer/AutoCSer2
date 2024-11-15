@@ -34,7 +34,7 @@ namespace AutoCSer.Net
                     byte* start = dataFixed + buffer.StartIndex;
                     *(ulong*)start = randomPrefix;
                     *(long*)(start + sizeof(ulong)) = timestamp;
-                    AutoCSer.Common.Config.CopyTo(verifyString, start + (sizeof(ulong) + sizeof(long)));
+                    AutoCSer.Common.CopyTo(verifyString, start + (sizeof(ulong) + sizeof(long)));
                 }
                 return md5.ComputeHash(buffer.Buffer.notNull().Buffer, buffer.StartIndex, size);
             }

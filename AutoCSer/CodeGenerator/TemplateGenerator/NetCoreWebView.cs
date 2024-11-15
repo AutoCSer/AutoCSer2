@@ -145,7 +145,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 CurrentType = view.GetType();
                 string filePath = HtmlGenerator.ViewMiddleware.GetNamespaceTemplateFilePath(CurrentType.Type);
                 FileInfo file = new FileInfo(string.IsNullOrEmpty(filePath) ? Path.Combine(ProjectParameter.ProjectPath, $"{CurrentType.Type.Name}.html") : Path.Combine(ProjectParameter.ProjectPath, filePath, $"{CurrentType.Type.Name}.html"));
-                if (!await AutoCSer.Common.Config.FileExists(file))
+                if (!await AutoCSer.Common.FileExists(file))
                 {
                     Messages.Error($"没有找到 HTML 页面文件 {file.FullName}");
                     return false;

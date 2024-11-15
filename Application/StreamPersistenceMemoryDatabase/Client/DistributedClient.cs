@@ -120,7 +120,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             where T : class
         {
             Assembly assembly = method.DeclaringType.notNull().Assembly;
-            byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
+            byte[] rawAssembly = await AutoCSer.Common.ReadFileAllBytes(assembly.Location);
             RepairNodeMethodName nodeMethodName = new RepairNodeMethodName(method);
             foreach (StreamPersistenceMemoryDatabaseClient client in getAllClients())
             {
@@ -145,7 +145,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             where T : class
         {
             Assembly assembly = method.DeclaringType.notNull().Assembly;
-            byte[] rawAssembly = await AutoCSer.Common.Config.ReadFileAllBytes(assembly.Location);
+            byte[] rawAssembly = await AutoCSer.Common.ReadFileAllBytes(assembly.Location);
             RepairNodeMethodName nodeMethodName = new RepairNodeMethodName(method);
             foreach (StreamPersistenceMemoryDatabaseClient client in getAllClients())
             {

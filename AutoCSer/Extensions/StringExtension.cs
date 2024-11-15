@@ -67,6 +67,7 @@ namespace AutoCSer.Extensions
         /// <returns>字符位置,失败为null</returns>
         internal static char* FindNotNull(char* start, char* end, char value)
         {
+            //new Span<char>(start, (int)(end - start)).IndexOf(value);
             if (*--end == value)
             {
                 while (*start != value) ++start;

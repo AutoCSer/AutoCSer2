@@ -178,7 +178,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                 char* write = codeFixed;
                 foreach (SubString codeFragment in codes)
                 {
-                    AutoCSer.Common.Config.CopyTo(codeFragment.String, codeFragment.Start, write, codeFragment.Length);
+                    AutoCSer.Common.CopyTo(codeFragment.String, codeFragment.Start, write, codeFragment.Length);
                     write += codeFragment.Length;
                 }
             }
@@ -251,7 +251,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// <returns></returns>
         protected static async Task writeFile(FileInfo file, string code)
         {
-            if (!await AutoCSer.Common.Config.FileExists(file) || await File.ReadAllTextAsync(file.FullName, HtmlGenerator.ViewMiddleware.ResponseEncoding) != code)
+            if (!await AutoCSer.Common.FileExists(file) || await File.ReadAllTextAsync(file.FullName, HtmlGenerator.ViewMiddleware.ResponseEncoding) != code)
             {
                 await File.WriteAllTextAsync(file.FullName, code, HtmlGenerator.ViewMiddleware.ResponseEncoding);
             }

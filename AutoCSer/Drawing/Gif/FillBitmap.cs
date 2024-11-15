@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Runtime.Versioning;
 
 namespace AutoCSer.Drawing.Gif
 {
     /// <summary>
     /// 位图填充
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal unsafe struct FillBitmap
     {

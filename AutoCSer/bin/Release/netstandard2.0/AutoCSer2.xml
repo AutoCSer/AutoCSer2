@@ -7995,7 +7995,7 @@
             <param name="defaultNamespace"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.Config">
+        <member name="T:AutoCSer.Common">
             <summary>
             公共配置参数
             </summary>
@@ -8048,68 +8048,147 @@
             公共配置参数
             </summary>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.UInt64[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.UInt64[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="F:AutoCSer.Config.Encoding">
+        <member name="F:AutoCSer.Common.NamePrefix">
             <summary>
-            全局编码
+            名称前缀
             </summary>
         </member>
-        <member name="F:AutoCSer.Config.TimeoutCapacityBitSize">
+        <member name="F:AutoCSer.Common.Config">
             <summary>
-            二维秒级定时器数组容器二进制位长度，默认为最小值 8，最大值为 12
+            公共配置参数
             </summary>
         </member>
-        <member name="F:AutoCSer.Config.MemoryCacheClearSeconds">
+        <member name="F:AutoCSer.Common.DefaultConstructor">
             <summary>
-            临时性缓存清理时间间隔秒数，默认为 3600 秒
+            默认构造函数
             </summary>
         </member>
-        <member name="F:AutoCSer.Config.MaxByteArrayPoolSizeBits">
+        <member name="F:AutoCSer.Common.ProcessorCount">
             <summary>
-            字节数组缓冲区池最大缓冲区二进制位数，默认为 17 为 128KB，最小值为 4 为 16B，最大值为 30 为 1GB
+            CPU 逻辑处理器数量（线程数量）
             </summary>
         </member>
-        <member name="M:AutoCSer.Config.GetMemoryCacheClearSeconds">
+        <member name="M:AutoCSer.Common.SetCurrentProcessAffinity(System.Byte)">
             <summary>
-            获取临时性缓存清理时间间隔秒数
+            设置当前进程的 CPU 亲缘性
             </summary>
+            <param name="processorIndex">逻辑处理器编号，从 0 开始</param>
+            <returns>是否设置成功</returns>
+        </member>
+        <member name="M:AutoCSer.Common.SetCurrentProcessAffinity(System.Byte[])">
+            <summary>
+            设置当前进程的 CPU 亲缘性
+            </summary>
+            <param name="processorIndexs">逻辑处理器编号集合，从 0 开始</param>
+            <returns>是否设置成功</returns>
+        </member>
+        <member name="F:AutoCSer.Common.CpuCacheBlockSize">
+            <summary>
+            CPU 高速缓存块字节大小，影响 AutoCSer.Threading.BlockPool 硬编码填充大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.CpuCacheBlockObjectCount">
+            <summary>
+            每个 CPU 高速缓存块容纳对象引用数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.UnicodeCodePage">
+            <summary>
+            Encoding.Unicode.CodePage
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.ApplicationDirectory">
+            <summary>
+            程序执行主目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.IsCodeGenerator">
+            <summary>
+            是否代码生成环境
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.CheckDeserializeType(System.Type,System.Delegate)">
+            <summary>
+            获取自定义反序列化委托数据类型
+            </summary>
+            <param name="deserializerType"></param>
+            <param name="deserializeDelegate"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.OnLogFileException(AutoCSer.ILog,System.Exception)">
+        <member name="M:AutoCSer.Common.Wait(System.Threading.Tasks.Task)">
             <summary>
-            日志文件操作异常处理（因为没法写日志），注意应用层也不要调用该日志记录这个异常，也不要让两个异常的日志相互调用避免死循环
+            等待任务完成
             </summary>
-            <param name="log">日志处理接口</param>
-            <param name="exception"></param>
+            <param name="task"></param>
         </member>
-        <member name="M:AutoCSer.Config.GetLinkPoolParameter(System.Type)">
+        <member name="M:AutoCSer.Common.GetDefault``1">
             <summary>
-            默认链表缓存池参数
+            获取默认值，消除警告
             </summary>
-            <param name="type">缓存数据类型</param>
-            <returns>链表缓存池参数</returns>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetRingPoolType(System.Type)">
+        <member name="F:AutoCSer.Common.EmptyObject">
             <summary>
-            获取缓存环池参数重定向类型
+            空对象
             </summary>
-            <param name="type"></param>
-            <returns>重定向类型</returns>
         </member>
-        <member name="M:AutoCSer.Config.GetRingPoolParameter(System.Type)">
+        <member name="M:AutoCSer.Common.EmptyFunction">
             <summary>
-            默认缓存环池参数
+            空函数，用于消除空语句警告
             </summary>
-            <param name="type">缓存数据类型</param>
-            <returns>缓存环池参数</returns>
         </member>
-        <member name="M:AutoCSer.Config.getUninitializedArray``1(System.Int32)">
+        <member name="F:AutoCSer.Common.EmptyAction">
+            <summary>
+            空委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.NullMethodInfo">
+            <summary>
+            空方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.TrueCompletedTask">
+            <summary>
+            已完成任务返回 true
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.GetCompletedTask(System.Boolean)">
+            <summary>
+            根据逻辑值获取已完成任务
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Common.GetCompletedTask``1(``0[])">
+            <summary>
+            获取已完成任务
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+            <param name="value">任务返回值</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Common.GetCompletedTask``1(``0)">
+            <summary>
+            获取已完成任务
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+            <param name="value">任务返回值</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Common.CompletedTask">
+            <summary>
+            已完成任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.GetUninitializedArray``1(System.Int32)">
             <summary>
             获取数组，允许存在未初始化数组项
             </summary>
@@ -8117,15 +8196,7 @@
             <param name="capacity"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetUninitializedArray``1(System.Int32)">
-            <summary>
-            获取数组，允许存在未初始化数组项
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="capacity"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Config.GetUninitializedArray``1(``0[])">
+        <member name="M:AutoCSer.Common.GetUninitializedArray``1(``0[])">
             <summary>
             复制数组，允许存在未初始化数组项
             </summary>
@@ -8133,7 +8204,7 @@
             <param name="sourceArray"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetUninitializedArray``1(``0[],System.Int32)">
+        <member name="M:AutoCSer.Common.GetUninitializedArray``1(``0[],System.Int32)">
             <summary>
             复制数组，允许存在未初始化数组项
             </summary>
@@ -8142,7 +8213,7 @@
             <param name="capacity"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetUninitializedArray``1(``0[],System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Common.GetUninitializedArray``1(``0[],System.Int32,System.Int32)">
             <summary>
             复制数组，允许存在未初始化数组项
             </summary>
@@ -8152,7 +8223,7 @@
             <param name="copyCount"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetCopyArray``1(``0[],System.Int32)">
+        <member name="M:AutoCSer.Common.GetCopyArray``1(``0[],System.Int32)">
             <summary>
             复制数组
             </summary>
@@ -8161,7 +8232,7 @@
             <param name="capacity"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo``1(``0[],``0[])">
+        <member name="M:AutoCSer.Common.CopyTo``1(``0[],``0[])">
             <summary>
             数组复制
             </summary>
@@ -8169,16 +8240,7 @@
             <param name="sourceArray"></param>
             <param name="destinationArray"></param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo``1(``0[],``0[],System.Int32)">
-            <summary>
-            数组复制
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="sourceArray"></param>
-            <param name="destinationArray"></param>
-            <param name="destinationIndex"></param>
-        </member>
-        <member name="M:AutoCSer.Config.CopyTo``1(``0[],``0[],System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Common.CopyTo``1(``0[],``0[],System.Int32,System.Int32)">
             <summary>
             数组复制
             </summary>
@@ -8188,40 +8250,45 @@
             <param name="destinationIndex"></param>
             <param name="length"></param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo``1(``0[],System.Int32,``0[],System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Common.Clear(System.UInt64*,System.Int32)">
             <summary>
-            数组复制
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="sourceArray"></param>
-            <param name="sourceIndex"></param>
-            <param name="destinationArray"></param>
-            <param name="destinationIndex"></param>
-            <param name="length"></param>
-        </member>
-        <member name="M:AutoCSer.Config.Clear(System.UInt64*,System.Int32)">
-            <summary>
-            填充整数(用Buffer.BlockCopy可能比指针快)
+            填充整数
             </summary>
             <param name="src">串起始地址,不能为null</param>
-            <param name="count">整数数量,大于0</param>
+            <param name="count">ulong 整数数量</param>
         </member>
-        <member name="M:AutoCSer.Config.Clear(System.Void*,System.Int32)">
+        <member name="M:AutoCSer.Common.Clear(System.Void*,System.Int32)">
             <summary>
             数据全部设置为 0
             </summary>
             <param name="src">串起始地址，不能为 null</param>
-            <param name="size">字节数量，必须大于 0</param>
+            <param name="size">字节数量</param>
         </member>
-        <member name="M:AutoCSer.Config.Fill(System.Void*,System.Int32,System.UInt64)">
+        <member name="M:AutoCSer.Common.Fill(System.Void*,System.Int32,System.UInt64)">
             <summary>
             填充数据
             </summary>
             <param name="src">串起始地址,不能为null</param>
-            <param name="count">整数数量,大于0</param>
+            <param name="count">ulong 整数数量</param>
             <param name="value">填充整数</param>
         </member>
-        <member name="M:AutoCSer.Config.GetArray(System.Void*,System.Int32)">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Void*,System.Int32)">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址,不能为null</param>
+            <param name="destination">目标串起始地址,不能为null</param>
+            <param name="size">字节长度</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Void*,System.Int64)">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址,不能为null</param>
+            <param name="destination">目标串起始地址,不能为null</param>
+            <param name="size">字节长度</param>
+        </member>
+        <member name="M:AutoCSer.Common.GetArray(System.Void*,System.Int32)">
             <summary>
             内存数据转换成字节数组
             </summary>
@@ -8229,49 +8296,41 @@
             <param name="size">字节长度,必须大于0</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Void*,System.Int64)">
-            <summary>
-            复制数据
-            </summary>
-            <param name="source">原串起始地址,不能为null</param>
-            <param name="destination">目标串起始地址,不能为null</param>
-            <param name="size">字节长度,大于等于0</param>
-        </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Byte[],System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Byte[],System.Int32,System.Int32)">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址</param>
             <param name="destination">目标数据</param>
             <param name="destinationIndex">目标数据起始位置</param>
-            <param name="size">字节长度,大于0</param>
+            <param name="size">字节长度</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Byte[],System.Int32,System.Void*,System.Int32)">
+        <member name="M:AutoCSer.Common.CopyTo(System.Byte[],System.Int32,System.Void*,System.Int32)">
             <summary>
             复制数据
             </summary>
             <param name="source">原数据</param>
             <param name="sourceIndex">原数据起始位置</param>
             <param name="destination">目标串起始地址</param>
-            <param name="size">字节长度,大于0</param>
+            <param name="size">字节长度</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.String,System.Void*)">
+        <member name="M:AutoCSer.Common.CopyTo(System.String,System.Void*)">
             <summary>
             复制数据
             </summary>
             <param name="source">字符串，长度必须大于0</param>
             <param name="destination">目标串起始地址,不能为null</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.String,System.Int32,System.Void*,System.Int32)">
+        <member name="M:AutoCSer.Common.CopyTo(System.String,System.Int32,System.Void*,System.Int32)">
             <summary>
             复制数据
             </summary>
             <param name="source">字符串，长度必须大于0</param>
             <param name="index">字符串起始位置</param>
             <param name="destination">目标串起始地址,不能为null</param>
-            <param name="size">长度必须大于0</param>
+            <param name="size">字符长度</param>
         </member>
-        <member name="M:AutoCSer.Config.Fill``1(``0[],``0)">
+        <member name="M:AutoCSer.Common.Fill``1(``0[],``0)">
             <summary>
             用数据填充整个数组
             </summary>
@@ -8279,7 +8338,7 @@
             <param name="array"></param>
             <param name="value">填充数据</param>
         </member>
-        <member name="M:AutoCSer.Config.Fill``1(``0[],``0,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Common.Fill``1(``0[],``0,System.Int32,System.Int32)">
             <summary>
             用数据填充数组指定位置
             </summary>
@@ -8289,16 +8348,16 @@
             <param name="startIndex">起始位置</param>
             <param name="count">填充数据数量</param>
         </member>
-        <member name="M:AutoCSer.Config.EqualNotNull(System.Void*,System.Void*,System.Int32)">
+        <member name="M:AutoCSer.Common.SequenceEqual(System.Void*,System.Void*,System.Int32)">
             <summary>
             字节数组比较
             </summary>
             <param name="left">不能为null</param>
             <param name="right">不能为null</param>
-            <param name="size">比较字节数,必须大于等于0</param>
+            <param name="size">比较字节数</param>
             <returns>是否相等</returns>
         </member>
-        <member name="M:AutoCSer.Config.Equal(System.Byte[],AutoCSer.SubArray{System.Byte}@)">
+        <member name="M:AutoCSer.Common.SequenceEqual(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
             <summary>
             字节数组比较
             </summary>
@@ -8306,22 +8365,14 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.Equal(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
-            <summary>
-            字节数组比较
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Config.FileExists(System.String)">
+        <member name="M:AutoCSer.Common.FileExists(System.String)">
             <summary>
             判断文件是否存在
             </summary>
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.FileExists(System.IO.FileInfo,System.Boolean)">
+        <member name="M:AutoCSer.Common.FileExists(System.IO.FileInfo,System.Boolean)">
             <summary>
             判断文件是否存在
             </summary>
@@ -8329,28 +8380,28 @@
             <param name="isRefresh">是否刷新文件信息</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DeleteFile(System.IO.FileInfo)">
+        <member name="M:AutoCSer.Common.DeleteFile(System.IO.FileInfo)">
             <summary>
             删除文件
             </summary>
             <param name="file"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.TryDeleteFile(System.IO.FileInfo)">
+        <member name="M:AutoCSer.Common.TryDeleteFile(System.IO.FileInfo)">
             <summary>
             如果文件存在则删除文件
             </summary>
             <param name="file"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.RefreshFileInfo(System.IO.FileInfo)">
+        <member name="M:AutoCSer.Common.RefreshFileInfo(System.IO.FileInfo)">
             <summary>
             刷新文件状态数据
             </summary>
             <param name="file"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.FileMove(System.String,System.String)">
+        <member name="M:AutoCSer.Common.FileMove(System.String,System.String)">
             <summary>
             移动文件
             </summary>
@@ -8358,7 +8409,7 @@
             <param name="destFileName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.FileMove(System.IO.FileInfo,System.String)">
+        <member name="M:AutoCSer.Common.FileMove(System.IO.FileInfo,System.String)">
             <summary>
             移动文件
             </summary>
@@ -8366,7 +8417,7 @@
             <param name="destFileName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.CreateFileStream(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions)">
+        <member name="M:AutoCSer.Common.CreateFileStream(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions)">
             <summary>
             创建文件流
             </summary>
@@ -8378,7 +8429,7 @@
             <param name="options"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.Seek(System.IO.FileStream,System.Int64,System.IO.SeekOrigin)">
+        <member name="M:AutoCSer.Common.Seek(System.IO.FileStream,System.Int64,System.IO.SeekOrigin)">
             <summary>
             移动文件流位置
             </summary>
@@ -8387,7 +8438,7 @@
             <param name="seekOrigin"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.SetLength(System.IO.FileStream,System.Int64)">
+        <member name="M:AutoCSer.Common.SetLength(System.IO.FileStream,System.Int64)">
             <summary>
             设置文件流长度
             </summary>
@@ -8395,28 +8446,28 @@
             <param name="length"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.TryDeleteFile(System.String)">
+        <member name="M:AutoCSer.Common.TryDeleteFile(System.String)">
             <summary>
             如果文件存在则删除文件
             </summary>
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetMoveBakFileName(System.String)">
+        <member name="M:AutoCSer.Common.GetMoveBakFileName(System.String)">
             <summary>
             获取备份文件名称（不允许返回重复文件名称，否则相关调用可能陷入死循环）
             </summary>
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.ReadFileAllBytes(System.String)">
+        <member name="M:AutoCSer.Common.ReadFileAllBytes(System.String)">
             <summary>
             读取文件所有字节并返回文件数据
             </summary>
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.ReadFileAllText(System.String,System.Text.Encoding)">
+        <member name="M:AutoCSer.Common.ReadFileAllText(System.String,System.Text.Encoding)">
             <summary>
             读取文件并返回文件文本内容
             </summary>
@@ -8424,7 +8475,7 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.WriteFileAllText(System.String,System.String,System.Text.Encoding)">
+        <member name="M:AutoCSer.Common.WriteFileAllText(System.String,System.String,System.Text.Encoding)">
             <summary>
             将文本写入文件，文件不存在则创建文件
             </summary>
@@ -8433,7 +8484,7 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.FileCopyTo(System.IO.FileInfo,System.String,System.Boolean)">
+        <member name="M:AutoCSer.Common.FileCopyTo(System.IO.FileInfo,System.String,System.Boolean)">
             <summary>
             复制文件
             </summary>
@@ -8442,7 +8493,7 @@
             <param name="overwrite"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.FileCopyTo(System.String,System.String,System.Boolean)">
+        <member name="M:AutoCSer.Common.FileCopyTo(System.String,System.String,System.Boolean)">
             <summary>
             复制文件
             </summary>
@@ -8451,7 +8502,7 @@
             <param name="overwrite"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.SetFileAttributes(System.IO.FileInfo,System.IO.FileAttributes)">
+        <member name="M:AutoCSer.Common.SetFileAttributes(System.IO.FileInfo,System.IO.FileAttributes)">
             <summary>
             设置文件属性
             </summary>
@@ -8459,21 +8510,21 @@
             <param name="attributes"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryExists(System.String)">
+        <member name="M:AutoCSer.Common.DirectoryExists(System.String)">
             <summary>
             判断目录是否存在
             </summary>
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryExists(System.IO.DirectoryInfo)">
+        <member name="M:AutoCSer.Common.DirectoryExists(System.IO.DirectoryInfo)">
             <summary>
             判断目录是否存在
             </summary>
             <param name="directory"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryMove(System.IO.DirectoryInfo,System.String)">
+        <member name="M:AutoCSer.Common.DirectoryMove(System.IO.DirectoryInfo,System.String)">
             <summary>
              移动目录
             </summary>
@@ -8481,14 +8532,14 @@
             <param name="destDirectoryName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryGetFiles(System.IO.DirectoryInfo)">
+        <member name="M:AutoCSer.Common.DirectoryGetFiles(System.IO.DirectoryInfo)">
             <summary>
             搜索文件
             </summary>
             <param name="directory"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryGetFiles(System.IO.DirectoryInfo,System.String)">
+        <member name="M:AutoCSer.Common.DirectoryGetFiles(System.IO.DirectoryInfo,System.String)">
             <summary>
             搜索文件
             </summary>
@@ -8496,7 +8547,7 @@
             <param name="searchPattern"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryGetFiles(System.IO.DirectoryInfo,System.String,System.IO.SearchOption)">
+        <member name="M:AutoCSer.Common.DirectoryGetFiles(System.IO.DirectoryInfo,System.String,System.IO.SearchOption)">
             <summary>
             搜索文件
             </summary>
@@ -8505,7 +8556,7 @@
             <param name="searchOption"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryGetFiles(System.String,System.String,System.IO.SearchOption)">
+        <member name="M:AutoCSer.Common.DirectoryGetFiles(System.String,System.String,System.IO.SearchOption)">
             <summary>
             搜索文件名称
             </summary>
@@ -8514,21 +8565,21 @@
             <param name="searchOption"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.DirectoryGetFiles(System.String)">
+        <member name="M:AutoCSer.Common.DirectoryGetFiles(System.String)">
             <summary>
             搜索文件名称
             </summary>
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetDirectories(System.IO.DirectoryInfo)">
+        <member name="M:AutoCSer.Common.GetDirectories(System.IO.DirectoryInfo)">
             <summary>
             搜索目录
             </summary>
             <param name="directory"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetDirectories(System.IO.DirectoryInfo,System.String)">
+        <member name="M:AutoCSer.Common.GetDirectories(System.IO.DirectoryInfo,System.String)">
             <summary>
             搜索目录
             </summary>
@@ -8536,7 +8587,7 @@
             <param name="searchPattern"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetDirectories(System.IO.DirectoryInfo,System.String,System.IO.SearchOption)">
+        <member name="M:AutoCSer.Common.GetDirectories(System.IO.DirectoryInfo,System.String,System.IO.SearchOption)">
             <summary>
             搜索目录
             </summary>
@@ -8545,28 +8596,28 @@
             <param name="searchOption"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.GetDirectories(System.String)">
+        <member name="M:AutoCSer.Common.GetDirectories(System.String)">
             <summary>
             搜索目录
             </summary>
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.TryCreateDirectory(System.String)">
+        <member name="M:AutoCSer.Common.TryCreateDirectory(System.String)">
             <summary>
             创建目录
             </summary>
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.TryCreateDirectory(System.IO.DirectoryInfo)">
+        <member name="M:AutoCSer.Common.TryCreateDirectory(System.IO.DirectoryInfo)">
             <summary>
             创建目录
             </summary>
             <param name="directory"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.TryDeleteDirectory(System.String,System.Boolean)">
+        <member name="M:AutoCSer.Common.TryDeleteDirectory(System.String,System.Boolean)">
             <summary>
             删除目录
             </summary>
@@ -8574,7 +8625,7 @@
             <param name="recursive">是否删除子目录与文件夹中的文件</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.TryDeleteDirectory(System.IO.DirectoryInfo,System.Boolean)">
+        <member name="M:AutoCSer.Common.TryDeleteDirectory(System.IO.DirectoryInfo,System.Boolean)">
             <summary>
             删除目录
             </summary>
@@ -8582,140 +8633,117 @@
             <param name="recursive">是否删除子目录与文件夹中的文件</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.Compress(System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32,System.IO.Compression.CompressionLevel)">
+        <member name="M:AutoCSer.Common.allocateString(System.Int32)">
             <summary>
-            压缩数据
+            申请字符串空间
             </summary>
-            <param name="data">原始数据</param>
-            <param name="startIndex">原始数据起始位置</param>
-            <param name="count">原始数据待压缩字节数</param>
-            <param name="buffer">压缩输出缓冲区</param>
-            <param name="compressData">压缩后的数据</param>
-            <param name="seek">压缩输出起始位置</param>
-            <param name="compressHeadSize">压缩多余头部大小</param>
-            <param name="level"></param>
-            <returns>是否压缩成功</returns>
-        </member>
-        <member name="M:AutoCSer.Config.Decompress(AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
-            <summary>
-            解压数据
-            </summary>
-            <param name="compressData">压缩后的数据</param>
-            <param name="destinationData">等待写入的原始数据缓冲区</param>
-            <returns>是否解压成功</returns>
-        </member>
-        <member name="F:AutoCSer.Config.setMemoryStreamExpandable">
-            <summary>
-            内存流扩容设置
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Config.GetExpandableMemoryStream(AutoCSer.Memory.ByteArrayBuffer@,System.Int32)">
-            <summary>
-            获取可扩容内存流
-            </summary>
-            <param name="buffer"></param>
             <param name="size"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Int64[])">
+        <member name="F:AutoCSer.Common.AllocateString">
+            <summary>
+            申请字符串空间
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Int64[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.UInt32[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.UInt32[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Int32[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Int32[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.UInt16[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.UInt16[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Int16[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Int16[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Byte[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Byte[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.SByte[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.SByte[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Boolean[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Boolean[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Single[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Single[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Double[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Double[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Decimal[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Decimal[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Char[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Char[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.DateTime[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.DateTime[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.TimeSpan[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.TimeSpan[])">
             <summary>
             复制数据
             </summary>
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
-        <member name="M:AutoCSer.Config.CopyTo(System.Void*,System.Guid[])">
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Guid[])">
             <summary>
             复制数据
             </summary>
@@ -14215,27 +14243,35 @@
         </member>
         <member name="M:AutoCSer.Memory.Common.Clear(System.UInt64*,System.Int32)">
             <summary>
-            填充整数(用Buffer.BlockCopy可能比指针快)
+            填充整数
             </summary>
             <param name="src">串起始地址,不能为null</param>
             <param name="count">整数数量,大于0</param>
         </member>
         <member name="M:AutoCSer.Memory.Common.Clear(System.Byte*,System.Int32)">
             <summary>
-            填充整数(用Buffer.BlockCopy可能比指针快)
+            填充整数
             </summary>
             <param name="src">串起始地址，不能为 null</param>
             <param name="count">字节数量，必须大于 0</param>
         </member>
         <member name="M:AutoCSer.Memory.Common.Fill(System.UInt64*,System.Int32,System.UInt64)">
             <summary>
-            填充整数(用Buffer.BlockCopy可能比指针快)
+            填充整数
             </summary>
             <param name="src">串起始地址,不能为null</param>
             <param name="count">整数数量,大于0</param>
             <param name="value">填充整数</param>
         </member>
-        <member name="M:AutoCSer.Memory.Common.CopyNotNull(System.Void*,System.Void*,System.Int64)">
+        <member name="M:AutoCSer.Memory.Common.Copy(System.Void*,System.Void*,System.Int32)">
+            <summary>
+            复制字节数组
+            </summary>
+            <param name="source">原串起始地址,不能为null</param>
+            <param name="destination">目标串起始地址,不能为null</param>
+            <param name="length">字节长度,大于等于0</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Common.Copy(System.Void*,System.Void*,System.Int64)">
             <summary>
             复制字节数组
             </summary>
@@ -14259,16 +14295,16 @@
             <param name="destination">目标串起始地址,不能为null</param>
             <param name="length">字节长度,大于等于0</param>
         </member>
-        <member name="M:AutoCSer.Memory.Common.EqualNotNull(System.Void*,System.Void*,System.Int32)">
+        <member name="M:AutoCSer.Memory.Common.equal(System.Byte*,System.Byte*,System.Int32)">
             <summary>
             字节数组比较
             </summary>
             <param name="left">不能为null</param>
             <param name="right">不能为null</param>
-            <param name="count">比较字节数,必须大于等于0</param>
+            <param name="count">比较字节数</param>
             <returns>是否相等</returns>
         </member>
-        <member name="M:AutoCSer.Memory.Common.equal(System.Byte*,System.Byte*,System.Int32)">
+        <member name="M:AutoCSer.Memory.Common.SequenceEqual(System.Void*,System.Void*,System.Int32)">
             <summary>
             字节数组比较
             </summary>
@@ -18341,16 +18377,6 @@
             </summary>
             <param name="value"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.SupportedOSPlatformName">
-            <summary>
-            操作系统名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.SupportedOSPlatformName.Windows">
-            <summary>
-            Windows
-            </summary>
         </member>
         <member name="T:AutoCSer.IAsyncDisposable">
             <summary>
@@ -27276,6 +27302,11 @@
             最大命令控制器数量
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandListener.isSocketBuildOutputThread">
+            <summary>
+            是否已经启动套接字发送数据线程
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandListener.Config">
             <summary>
             命令服务配置
@@ -30747,9 +30778,9 @@
             最大认证失败次数，异步认证也可能当成失败处理，默认为 2
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.IsBuildOutputThread">
+        <member name="F:AutoCSer.Net.CommandServerConfig.BuildOutputThread">
             <summary>
-            输出是否采用新开线程模式建议默认为 true 以支持并发批量输出，纯同步输出或者低频输出场景可以设置为 false 以避免输出线程调度
+            默认为队列模式
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.IsOutputExceptionMessage">
@@ -31736,6 +31767,11 @@
             套接字关闭事件
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputThreadEnum">
+            <summary>
+            服务端套接字发送数据线程类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.closeLock">
             <summary>
             关闭套接字访问锁
@@ -32192,6 +32228,11 @@
             释放输出复制缓冲区
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.output">
+            <summary>
+            启动发送数据
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.buildOutput">
             <summary>
             尝试发送数据
@@ -32560,6 +32601,46 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.CommandServerSocketContext">
             <summary>
             空命令服务套接字，用于模拟服务端上下文
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.outputSockets">
+            <summary>
+            等待发送数据的套接字集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.socketOutputWaitHandle">
+            <summary>
+            套接字集合发送数据等待事件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.socketBuildOutput">
+            <summary>
+            套接字集合发送数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.StartSocketBuildOutputThread">
+            <summary>
+            启动套接字发送数据线程
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServerSocketBuildOutputThreadEnum">
+            <summary>
+            服务端套接字发送数据线程类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocketBuildOutputThreadEnum.Queue">
+            <summary>
+            队列模式，适合预期并发连接数量为 1 或者大量并发连接的场景
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocketBuildOutputThreadEnum.Thread">
+            <summary>
+            线程并发，适合预期并发连接数量不为 1 并且低于 CPU 线程数量的场景，可以充分利用 CPU 多线程并行处理
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocketBuildOutputThreadEnum.Synchronous">
+            <summary>
+            纯同步输出或者低频输出场景可以设置为 false 以避免输出线程调度，否则可能造成流程性阻塞对系统并发能力造成巨大影响
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServerTaskQueueService">
@@ -34087,141 +34168,99 @@
             自定义模板相对项目路径
             </summary>
         </member>
-        <member name="T:AutoCSer.Common">
+        <member name="T:AutoCSer.Config">
             <summary>
             公共配置参数
             </summary>
         </member>
-        <member name="F:AutoCSer.Common.NamePrefix">
+        <member name="F:AutoCSer.Config.Encoding">
             <summary>
-            名称前缀
+            全局编码
             </summary>
         </member>
-        <member name="F:AutoCSer.Common.Config">
+        <member name="F:AutoCSer.Config.TimeoutCapacityBitSize">
             <summary>
-            公共配置参数
+            二维秒级定时器数组容器二进制位长度，默认为最小值 8，最大值为 12
             </summary>
         </member>
-        <member name="F:AutoCSer.Common.DefaultConstructor">
+        <member name="F:AutoCSer.Config.MemoryCacheClearSeconds">
             <summary>
-            默认构造函数
+            临时性缓存清理时间间隔秒数，默认为 3600 秒
             </summary>
         </member>
-        <member name="F:AutoCSer.Common.ProcessorCount">
+        <member name="F:AutoCSer.Config.MaxByteArrayPoolSizeBits">
             <summary>
-            CPU 逻辑处理器数量（线程数量）
+            字节数组缓冲区池最大缓冲区二进制位数，默认为 17 为 128KB，最小值为 4 为 16B，最大值为 30 为 1GB
             </summary>
         </member>
-        <member name="F:AutoCSer.Common.CpuCacheBlockSize">
+        <member name="M:AutoCSer.Config.GetMemoryCacheClearSeconds">
             <summary>
-            CPU 高速缓存块字节大小，影响 AutoCSer.Threading.BlockPool 硬编码填充大小
+            获取临时性缓存清理时间间隔秒数
             </summary>
-        </member>
-        <member name="F:AutoCSer.Common.CpuCacheBlockObjectCount">
-            <summary>
-            每个 CPU 高速缓存块容纳对象引用数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Common.UnicodeCodePage">
-            <summary>
-            Encoding.Unicode.CodePage
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Common.ApplicationDirectory">
-            <summary>
-            程序执行主目录
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Common.IsCodeGenerator">
-            <summary>
-            是否代码生成环境
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Common.CheckDeserializeType(System.Type,System.Delegate)">
-            <summary>
-            获取自定义反序列化委托数据类型
-            </summary>
-            <param name="deserializerType"></param>
-            <param name="deserializeDelegate"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Common.Wait(System.Threading.Tasks.Task)">
+        <member name="M:AutoCSer.Config.OnLogFileException(AutoCSer.ILog,System.Exception)">
             <summary>
-            等待任务完成
+            日志文件操作异常处理（因为没法写日志），注意应用层也不要调用该日志记录这个异常，也不要让两个异常的日志相互调用避免死循环
             </summary>
-            <param name="task"></param>
+            <param name="log">日志处理接口</param>
+            <param name="exception"></param>
         </member>
-        <member name="M:AutoCSer.Common.GetDefault``1">
+        <member name="M:AutoCSer.Config.GetLinkPoolParameter(System.Type)">
             <summary>
-            获取默认值，消除警告
+            默认链表缓存池参数
             </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
+            <param name="type">缓存数据类型</param>
+            <returns>链表缓存池参数</returns>
         </member>
-        <member name="F:AutoCSer.Common.EmptyObject">
+        <member name="M:AutoCSer.Config.GetRingPoolType(System.Type)">
             <summary>
-            空对象
+            获取缓存环池参数重定向类型
             </summary>
+            <param name="type"></param>
+            <returns>重定向类型</returns>
         </member>
-        <member name="M:AutoCSer.Common.EmptyFunction">
+        <member name="M:AutoCSer.Config.GetRingPoolParameter(System.Type)">
             <summary>
-            空函数，用于消除空语句警告
+            默认缓存环池参数
             </summary>
+            <param name="type">缓存数据类型</param>
+            <returns>缓存环池参数</returns>
         </member>
-        <member name="F:AutoCSer.Common.EmptyAction">
+        <member name="M:AutoCSer.Config.Compress(System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32,System.IO.Compression.CompressionLevel)">
             <summary>
-            空委托
+            压缩数据
             </summary>
+            <param name="data">原始数据</param>
+            <param name="startIndex">原始数据起始位置</param>
+            <param name="count">原始数据待压缩字节数</param>
+            <param name="buffer">压缩输出缓冲区</param>
+            <param name="compressData">压缩后的数据</param>
+            <param name="seek">压缩输出起始位置</param>
+            <param name="compressHeadSize">压缩多余头部大小</param>
+            <param name="level"></param>
+            <returns>是否压缩成功</returns>
         </member>
-        <member name="F:AutoCSer.Common.NullMethodInfo">
+        <member name="M:AutoCSer.Config.Decompress(AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
             <summary>
-            空方法信息
+            解压数据
             </summary>
+            <param name="compressData">压缩后的数据</param>
+            <param name="destinationData">等待写入的原始数据缓冲区</param>
+            <returns>是否解压成功</returns>
         </member>
-        <member name="F:AutoCSer.Common.TrueCompletedTask">
+        <member name="F:AutoCSer.Config.setMemoryStreamExpandable">
             <summary>
-            已完成任务返回 true
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Common.GetCompletedTask(System.Boolean)">
-            <summary>
-            根据逻辑值获取已完成任务
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Common.GetCompletedTask``1(``0[])">
-            <summary>
-            获取已完成任务
-            </summary>
-            <typeparam name="T">返回值类型</typeparam>
-            <param name="value">任务返回值</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Common.GetCompletedTask``1(``0)">
-            <summary>
-            获取已完成任务
-            </summary>
-            <typeparam name="T">返回值类型</typeparam>
-            <param name="value">任务返回值</param>
-            <returns></returns>
-        </member>
-        <member name="P:AutoCSer.Common.CompletedTask">
-            <summary>
-            已完成任务
+            内存流扩容设置
             </summary>
         </member>
-        <member name="M:AutoCSer.Common.allocateString(System.Int32)">
+        <member name="M:AutoCSer.Config.GetExpandableMemoryStream(AutoCSer.Memory.ByteArrayBuffer@,System.Int32)">
             <summary>
-            申请字符串空间
+            获取可扩容内存流
             </summary>
+            <param name="buffer"></param>
             <param name="size"></param>
             <returns></returns>
-        </member>
-        <member name="F:AutoCSer.Common.AllocateString">
-            <summary>
-            申请字符串空间
-            </summary>
         </member>
         <member name="T:AutoCSer.Configuration.Cache">
             <summary>
@@ -42041,7 +42080,7 @@
             链表（用于冲突概率低的场景）
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldLink.Head">
+        <member name="F:AutoCSer.Threading.Link`1.YieldLink.head">
             <summary>
             链表头部
             </summary>
@@ -42067,6 +42106,13 @@
             添加节点
             </summary>
             <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.Link`1.YieldLink.IsPushHead(`0)">
+            <summary>
+            添加节点
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Threading.Link`1.YieldLink.Push(`0,`0)">
             <summary>
@@ -44770,22 +44816,6 @@
             </summary>
             <param name="value">匹配数据</param>
             <returns>是否存在数据</returns>
-        </member>
-        <member name="T:System.Runtime.Versioning.SupportedOSPlatformAttribute">
-            <summary>
-            操作系统支持
-            </summary>
-        </member>
-        <member name="P:System.Runtime.Versioning.SupportedOSPlatformAttribute.PlatformName">
-            <summary>
-            平台名称
-            </summary>
-        </member>
-        <member name="M:System.Runtime.Versioning.SupportedOSPlatformAttribute.#ctor(System.String)">
-            <summary>
-            操作系统支持
-            </summary>
-            <param name="platformName">平台名称</param>
         </member>
     </members>
 </doc>

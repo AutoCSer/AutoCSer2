@@ -63,13 +63,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         private async Task remove(DirectoryInfo directory, DateTime removeTime)
         {
-            foreach (FileInfo file in await AutoCSer.Common.Config.DirectoryGetFiles(directory, "*.bak"))
+            foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory, "*.bak"))
             {
                 if (file.LastWriteTimeUtc < removeTime && file.Name.StartsWith(persistenceFileName))
                 {
                     try
                     {
-                        await AutoCSer.Common.Config.DeleteFile(file);
+                        await AutoCSer.Common.DeleteFile(file);
                     }
                     catch (Exception exception)
                     {

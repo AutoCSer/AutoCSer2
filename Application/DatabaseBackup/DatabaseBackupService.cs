@@ -129,8 +129,8 @@ namespace AutoCSer.CommandService
                 {
                     if (startIndex != fileStream.Length)
                     {
-                        await AutoCSer.Common.Config.Seek(fileStream, startIndex, SeekOrigin.Begin);
-                        byte[][] buffers = new byte[][] { AutoCSer.Common.Config.GetUninitializedArray<byte>(1 << 20), AutoCSer.Common.Config.GetUninitializedArray<byte>(1 << 20), AutoCSer.Common.Config.GetUninitializedArray<byte>(1 << 20) };
+                        await AutoCSer.Common.Seek(fileStream, startIndex, SeekOrigin.Begin);
+                        byte[][] buffers = new byte[][] { AutoCSer.Common.GetUninitializedArray<byte>(1 << 20), AutoCSer.Common.GetUninitializedArray<byte>(1 << 20), AutoCSer.Common.GetUninitializedArray<byte>(1 << 20) };
                         int bufferIndex = 0;
                         do
                         {
@@ -157,7 +157,7 @@ namespace AutoCSer.CommandService
                 callback.CancelKeep(returnType, exception);
                 if (returnType == CommandClientReturnTypeEnum.Success)
                 {
-                    await AutoCSer.Common.Config.TryDeleteFile(backupFullName);
+                    await AutoCSer.Common.TryDeleteFile(backupFullName);
                     OnMessage($"数据库备份文件下载完成并删除 {backupFullName}");
                 }
                 else OnMessage($"数据库备份文件下载失败 {backupFullName}");

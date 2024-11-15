@@ -218,12 +218,12 @@ using AutoCSer;
         {
             try
             {
-                if (!await AutoCSer.Common.Config.FileExists(fileName))
+                if (!await AutoCSer.Common.FileExists(fileName))
                 {
-                    await AutoCSer.Common.Config.WriteFileAllText(fileName, content, Encoding.UTF8);
+                    await AutoCSer.Common.WriteFileAllText(fileName, content, Encoding.UTF8);
                     return true;
                 }
-                if (await AutoCSer.Common.Config.ReadFileAllText(fileName, Encoding.UTF8) != content) return await MoveFile(fileName, content);
+                if (await AutoCSer.Common.ReadFileAllText(fileName, Encoding.UTF8) != content) return await MoveFile(fileName, content);
             }
             catch (Exception exception)
             {
@@ -242,7 +242,7 @@ using AutoCSer;
             try
             {
                 await AutoCSer.IO.File.MoveBak(fileName);
-                await AutoCSer.Common.Config.WriteFileAllText(fileName, content, Encoding.UTF8);
+                await AutoCSer.Common.WriteFileAllText(fileName, content, Encoding.UTF8);
                 return true;
             }
             finally

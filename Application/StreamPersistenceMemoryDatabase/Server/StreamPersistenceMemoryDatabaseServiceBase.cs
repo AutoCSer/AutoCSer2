@@ -227,7 +227,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             nodeCreatorLock = new object();
             nodeCreators = DictionaryCreator.CreateHashObject<Type, ServerNodeCreator>();
             RepairNodeMethodLoaders = AutoCSer.Extensions.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
-            PersistenceDataPositionBuffer = AutoCSer.Common.Config.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
+            PersistenceDataPositionBuffer = AutoCSer.Common.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
             Nodes = new NodeIdentity[sizeof(int)];
         }
         /// <summary>
@@ -467,15 +467,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal async Task AppendRepairNodeMethod(RepairNodeMethod repairNodeMethod)
         {
             DirectoryInfo typeDirectory = new DirectoryInfo(Path.Combine(PersistenceDirectory.FullName, Config.RepairNodeMethodDirectoryName, repairNodeMethod.TypeDirectoryName));
-            await AutoCSer.Common.Config.TryCreateDirectory(typeDirectory);
+            await AutoCSer.Common.TryCreateDirectory(typeDirectory);
             DirectoryInfo methodDirectory = new DirectoryInfo(Path.Combine(typeDirectory.FullName, repairNodeMethod.MethodDirectoryName));
             DirectoryInfo backupMethodDirectory = new DirectoryInfo(methodDirectory.FullName + ".bak");
-            await AutoCSer.Common.Config.TryCreateDirectory(backupMethodDirectory);
+            await AutoCSer.Common.TryCreateDirectory(backupMethodDirectory);
             FileInfo assemblyFile = new FileInfo(Path.Combine(backupMethodDirectory.FullName, Config.RepairNodeMethodAssemblyFileName));
 #if NetStandard21
-            await using (FileStream assemblyStream = await AutoCSer.Common.Config.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
+            await using (FileStream assemblyStream = await AutoCSer.Common.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
 #else
-            using (FileStream assemblyStream = await AutoCSer.Common.Config.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
+            using (FileStream assemblyStream = await AutoCSer.Common.CreateFileStream(assemblyFile.FullName, FileMode.Create, FileAccess.Write))
 #endif
             {
                 SubArray<byte> rawAssembly = repairNodeMethod.RawAssembly;
@@ -483,10 +483,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             assemblyFile.LastWriteTimeUtc = repairNodeMethod.RepairNodeMethodFile.LastWriteTime;
             FileInfo methodNameFile = new FileInfo(Path.Combine(backupMethodDirectory.FullName, Config.RepairNodeMethodNameFileName));
-            await AutoCSer.Common.Config.WriteFileAllText(methodNameFile.FullName, AutoCSer.JsonSerializer.Serialize(repairNodeMethod.MethodName), Encoding.UTF8);
+            await AutoCSer.Common.WriteFileAllText(methodNameFile.FullName, AutoCSer.JsonSerializer.Serialize(repairNodeMethod.MethodName), Encoding.UTF8);
             methodNameFile.LastWriteTimeUtc = repairNodeMethod.RepairNodeMethodFile.LastWriteTime;
-            await AutoCSer.Common.Config.TryDeleteDirectory(methodDirectory);
-            await AutoCSer.Common.Config.DirectoryMove(backupMethodDirectory, methodDirectory.FullName);
+            await AutoCSer.Common.TryDeleteDirectory(methodDirectory);
+            await AutoCSer.Common.DirectoryMove(backupMethodDirectory, methodDirectory.FullName);
             if (!IsBackup)
             {
                 var type = default(Type);

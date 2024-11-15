@@ -367,7 +367,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 persistenceFileCallback = null;
                                 return;
                             }
-                            if ((readIndex -= serializeSize) != 0) AutoCSer.Common.Config.CopyTo(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
+                            if ((readIndex -= serializeSize) != 0) System.Buffer.BlockCopy(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
                             persistencePosition += readSize;
                         }
                         while (readIndex > 0)
@@ -386,7 +386,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 persistenceFileCallback = null;
                                 return;
                             }
-                            if ((readIndex -= serializeSize) != 0) AutoCSer.Common.Config.CopyTo(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
+                            if ((readIndex -= serializeSize) != 0) System.Buffer.BlockCopy(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
                         }
                         if (!readPersistenceWaitLock.WaitOne()) return;
                     }
@@ -495,7 +495,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     persistenceCallbackExceptionPositionFileCallback = null;
                                     return;
                                 }
-                                if ((readIndex -= serializeSize) != 0) AutoCSer.Common.Config.CopyTo(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
+                                if ((readIndex -= serializeSize) != 0) System.Buffer.BlockCopy(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
                                 persistenceCallbackExceptionFilePosition += readSize;
                             }
                             while (persistenceCallbackExceptionFilePosition < service.PersistenceCallbackExceptionFilePosition);
@@ -518,7 +518,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             persistenceCallbackExceptionPositionFileCallback = null;
                             return;
                         }
-                        if ((readIndex -= serializeSize) != 0) AutoCSer.Common.Config.CopyTo(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
+                        if ((readIndex -= serializeSize) != 0) System.Buffer.BlockCopy(bufferArray, buffer.StartIndex + serializeSize, bufferArray, buffer.StartIndex, readIndex);
                     }
                 }
                 while (persistenceCallbackExceptionFilePosition < service.PersistenceCallbackExceptionFilePosition);

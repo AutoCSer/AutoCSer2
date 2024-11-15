@@ -2502,7 +2502,7 @@ namespace AutoCSer
         {
             DeserializeBits = AutoCSer.Extensions.Memory.Unmanaged.GetXmlBits();
             byte* bits = DeserializeBits.Byte;
-            AutoCSer.Common.Config.Fill(DeserializeBits.ULong, 256 >> 3, ulong.MaxValue);
+            AutoCSer.Common.Fill(DeserializeBits.ULong, 256 >> 3, ulong.MaxValue);
             bits['\t'] &= (spaceBit | targetStartCheckBit | attributeNameSearchBit) ^ 255;
             bits['\r'] &= (spaceBit | targetStartCheckBit | attributeNameSearchBit) ^ 255;
             bits['\n'] &= (spaceBit | targetStartCheckBit | attributeNameSearchBit) ^ 255;

@@ -64,17 +64,17 @@ namespace AutoCSer.CommandService
             try
             {
                 int tryErrorCount = this.tryErrorCount;
-                await AutoCSer.Common.Config.TryCreateDirectory(new FileInfo(backupFileName).Directory.notNull());
+                await AutoCSer.Common.TryCreateDirectory(new FileInfo(backupFileName).Directory.notNull());
                 do
                 {
                     int lastBufferSize = 0;
 #if NetStandard21
-                    await using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
+                    await using (FileStream fileStream = await AutoCSer.Common.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
 #else
-                    using (FileStream fileStream = await AutoCSer.Common.Config.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
+                    using (FileStream fileStream = await AutoCSer.Common.CreateFileStream(backupFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 1 << 20, FileOptions.None))
 #endif
                     {
-                        await AutoCSer.Common.Config.Seek(fileStream, 0, SeekOrigin.End);
+                        await AutoCSer.Common.Seek(fileStream, 0, SeekOrigin.End);
 
                         var downloadCommand = await client.Client.DatabaseBackupClient.Download(backupFullName, fileStream.Length);
                         if (downloadCommand != null)
@@ -121,7 +121,7 @@ namespace AutoCSer.CommandService
             {
                 try
                 {
-                    await AutoCSer.Common.Config.TryDeleteFile(backupFileName);
+                    await AutoCSer.Common.TryDeleteFile(backupFileName);
                 }
                 catch (Exception exception)
                 {
@@ -129,12 +129,12 @@ namespace AutoCSer.CommandService
                 }
             }
             ;
-            foreach (FileInfo FileInfo in (await AutoCSer.Common.Config.DirectoryGetFiles(new FileInfo(backupFileName).Directory.notNull(), "*.bak"))
+            foreach (FileInfo FileInfo in (await AutoCSer.Common.DirectoryGetFiles(new FileInfo(backupFileName).Directory.notNull(), "*.bak"))
                 .OrderByDescending(p => p.CreationTime).Skip(2))
             {
                 try
                 {
-                    await AutoCSer.Common.Config.TryDeleteFile(FileInfo.FullName);
+                    await AutoCSer.Common.TryDeleteFile(FileInfo.FullName);
                 }
                 catch (Exception exception)
                 {

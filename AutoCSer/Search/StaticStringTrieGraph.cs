@@ -54,7 +54,7 @@ namespace AutoCSer.Search
                 {
                     CharTypeData = Unmanaged.GetPointer(1 << 16, false);
                     isCharTypeData = true;
-                    AutoCSer.Memory.Common.CopyNotNull(copyCharTypeData.Byte, CharTypeData.Byte, 1 << 16);
+                    AutoCSer.Memory.Common.Copy(copyCharTypeData.Byte, CharTypeData.Byte, 1 << 16);
                 }
                 finally
                 {

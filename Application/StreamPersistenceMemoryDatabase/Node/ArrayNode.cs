@@ -145,7 +145,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value"></param>
         public void FillArray(T value)
         {
-            AutoCSer.Common.Config.Fill(array, value);
+            AutoCSer.Common.Fill(array, value);
         }
         /// <summary>
         /// 用数据填充数组指定位置 持久化参数检查
@@ -167,7 +167,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>超出索引范围则返回 false</returns>
         public bool Fill(T value, int startIndex, int count)
         {
-            AutoCSer.Common.Config.Fill(array, value, startIndex, count);
+            AutoCSer.Common.Fill(array, value, startIndex, count);
             return true;
         }
         /// <summary>

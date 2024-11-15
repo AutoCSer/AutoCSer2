@@ -192,7 +192,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (streamDataSize <= bufferLength)
             {
                 byte* dataStart = OutputStream.Data.Pointer.Byte;
-                if (dataStart != start) AutoCSer.Common.Config.CopyTo(dataStart + MethodParameter.PersistenceStartIndex, start + MethodParameter.PersistenceStartIndex, dataSize);
+                if (dataStart != start) AutoCSer.Common.CopyTo(dataStart + MethodParameter.PersistenceStartIndex, start + MethodParameter.PersistenceStartIndex, dataSize);
                 SubArray<byte> outputData = new SubArray<byte>(OutputBuffer.StartIndex + MethodParameter.PersistenceStartIndex, dataSize, OutputBuffer.Buffer.notNull().Buffer);
                 if (dataSize >= minCompressSize && compress(ref outputData)) return outputData;
                 outputData.MoveStart(-MethodParameter.PersistenceStartIndex);

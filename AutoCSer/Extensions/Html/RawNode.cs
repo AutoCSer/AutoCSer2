@@ -288,7 +288,7 @@ namespace AutoCSer.Html
         {
             Bits = AutoCSer.Extensions.Memory.Unmanaged.GetHtmlBits();
             byte* bits = Bits.Byte;
-            AutoCSer.Common.Config.Fill(Bits.ULong, 256 >> 3, ulong.MaxValue);
+            AutoCSer.Common.Fill(Bits.ULong, 256 >> 3, ulong.MaxValue);
             bits['/'] &= (TagNameSplitBit | AttributeSplitBit | AttributeNameSplitBit | tagNameBit) ^ 255;
             bits['\t'] &= (SpaceBit | SpaceSplitBit | TagNameSplitBit | AttributeSplitBit) ^ 255;
             bits['\r'] &= (SpaceBit | SpaceSplitBit | TagNameSplitBit | AttributeSplitBit) ^ 255;

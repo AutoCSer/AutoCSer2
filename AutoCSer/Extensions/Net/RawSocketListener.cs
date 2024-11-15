@@ -4,13 +4,16 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
 
 namespace AutoCSer.Net
 {
     /// <summary>
     /// 原始套接字监听（仅支持 Windows）
     /// </summary>
-    [System.Runtime.Versioning.SupportedOSPlatform(AutoCSer.SupportedOSPlatformName.Windows)]
+#if NET8
+    [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+#endif
     public sealed class RawSocketListener : IDisposable
     {
         /// <summary>

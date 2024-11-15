@@ -29,7 +29,7 @@ namespace AutoCSer.Algorithm
             UnmanagedPoolPointer countPointer = UnmanagedPool.Default.GetPoolPointer();
             try
             {
-                AutoCSer.Common.Config.Clear(countPointer.Pointer.ULong, UnmanagedPool.DefaultSize >> 3);
+                AutoCSer.Common.Clear(countPointer.Pointer.ULong, UnmanagedPool.DefaultSize >> 3);
                 int* count0 = countPointer.Pointer.Int + 1, count8 = count0 + 256, count16 = count0 + 256 * 2, count24 = count0 + (256 * 3 - 1);
                 for (uint* start = arrayFixed, end = arrayFixed + length; start != end; ++start)
                 {
