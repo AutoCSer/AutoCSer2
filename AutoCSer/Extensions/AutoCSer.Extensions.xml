@@ -6147,6 +6147,58 @@
             <param name="start"></param>
             <param name="end"></param>
         </member>
+        <member name="T:AutoCSer.RingQueue`1">
+            <summary>
+            环状队列
+            </summary>
+            <typeparam name="T">队列元素数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.RingQueue`1.queue">
+            <summary>
+            队列数据集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RingQueue`1.readIndex">
+            <summary>
+            当前读取位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RingQueue`1.writeIndex">
+            <summary>
+            当前写入位置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RingQueue`1.#ctor(System.Int32)">
+            <summary>
+            环状队列
+            </summary>
+            <param name="capacity">队列数据数量</param>
+        </member>
+        <member name="M:AutoCSer.RingQueue`1.TryGetRead(`0@)">
+            <summary>
+            尝试获取当前读取数据
+            </summary>
+            <param name="value">当前读取数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RingQueue`1.TryRead(`0@)">
+            <summary>
+            尝试获取当前读取数据，读取成功则移动当前读取数据位置
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RingQueue`1.MoveRead">
+            <summary>
+            移动当前读取数据位置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RingQueue`1.Write(`0)">
+            <summary>
+            写入新数据
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.SearchTree.Dictionary`2">
             <summary>
             二叉搜索树字典
@@ -7649,6 +7701,58 @@
             调用委托
             </summary>
             <param name="_"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueue.threadHandle">
+            <summary>
+            线程句柄
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueue.queue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueue.waitHandle">
+            <summary>
+            等待事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueue.isDisposed">
+            <summary>
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.#ctor">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.run">
+            <summary>
+            任务线程处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.AddOnly(AutoCSer.Threading.QueueTaskNode)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.Add(AutoCSer.Net.CommandServerCallQueueCustomNode)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="node"></param>
         </member>
         <member name="T:AutoCSer.Threading.TaskRunTimer">
             <summary>

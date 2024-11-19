@@ -223,6 +223,8 @@
     <Compile Include="Server\MethodKeepCallback.cs" />
     <Compile Include="Server\MethodParameterCreator.cs" />
     <Compile Include="Server\MethodParameterCreatorNode.cs" />
+    <Compile Include="Server\ServerSnapshotCloneNode.cs" />
+    <Compile Include="Server\SnapshotCloneObject.cs" />
     <Compile Include="Server\ServerNode.cs" />
     <Compile Include="Server\ServerNodeCreator.cs" />
     <Compile Include="Server\NodeIdentity.cs" />

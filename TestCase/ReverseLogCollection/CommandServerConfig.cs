@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.ReverseLogCollection
         /// <returns></returns>
         public override async Task<AutoCSer.Net.CommandServiceRegistrar> GetRegistrar(CommandListener server)
         {
-            ServiceRegistryCommandClientConfig commandClientConfig = new ServiceRegistryCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry) };
+            ServiceRegistryCommandClientConfig commandClientConfig = new AutoCSer.TestCase.ReverseLogCollectionCommon.ServiceRegistryCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry) };
             ServiceRegistryClient client = await ServiceRegistryClient.Get(commandClientConfig, this);
             return await ServiceRegistryCommandServiceRegistrar.Create(server, client, this, null) ?? await base.GetRegistrar(server);
         }

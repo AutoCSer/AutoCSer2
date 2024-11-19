@@ -27,7 +27,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// MD5 加密
         /// </summary>
-        protected MD5 md5;
+        protected readonly MD5 md5;
         /// <summary>
         /// 是否已经释放资源
         /// </summary>

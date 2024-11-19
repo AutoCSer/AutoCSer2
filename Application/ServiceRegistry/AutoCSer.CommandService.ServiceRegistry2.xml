@@ -91,6 +91,18 @@
             <param name="portIdentity"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.IServiceRegistryCommandServerConfig">
+            <summary>
+            命令服务端配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IServiceRegistryCommandServerConfig.GetServiceRegisterLog(System.Net.IPEndPoint)">
+            <summary>
+            获取服务注册日志
+            </summary>
+            <param name="endPoint"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.PortIdentity">
             <summary>
             端口标识
@@ -854,7 +866,12 @@
             服务注册客户端
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.commandServerConfig">
+        <member name="F:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.baseConfig">
+            <summary>
+            命令服务端配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.config">
             <summary>
             命令服务端配置
             </summary>
@@ -874,12 +891,18 @@
             服务注册日志
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.#ctor(AutoCSer.Net.CommandListener,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.CommandService.ServiceRegistryCommandServerConfig,AutoCSer.CommandService.PortRegistryClient)">
+        <member name="F:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.IsServiceRegisterLog">
+            <summary>
+            是否已经发送服务注册日志
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.#ctor(AutoCSer.Net.CommandListenerBase,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.Net.CommandServerConfigBase,AutoCSer.CommandService.IServiceRegistryCommandServerConfig,AutoCSer.CommandService.PortRegistryClient)">
             <summary>
             服务注册组件
             </summary>
             <param name="server">命令服务</param>
             <param name="client"></param>
+            <param name="baseConfig"></param>
             <param name="config"></param>
             <param name="portRegistryClient"></param>
         </member>
@@ -934,12 +957,23 @@
             单例服务定时尝试上线
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.Create(AutoCSer.Net.CommandListener,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.CommandService.ServiceRegistryCommandServerConfig,AutoCSer.CommandService.PortRegistryClient)">
+        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.Create(AutoCSer.Net.CommandListenerBase,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.CommandService.ServiceRegistryCommandServerConfig,AutoCSer.CommandService.PortRegistryClient)">
             <summary>
             创建服务注册组件
             </summary>
             <param name="server"></param>
             <param name="client"></param>
+            <param name="config"></param>
+            <param name="portRegistryClient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar.Create(AutoCSer.Net.CommandListenerBase,AutoCSer.CommandService.ServiceRegistryClient,AutoCSer.Net.CommandServerConfigBase,AutoCSer.CommandService.IServiceRegistryCommandServerConfig,AutoCSer.CommandService.PortRegistryClient)">
+            <summary>
+            创建服务注册组件
+            </summary>
+            <param name="server"></param>
+            <param name="client"></param>
+            <param name="baseConfig"></param>
             <param name="config"></param>
             <param name="portRegistryClient"></param>
             <returns></returns>
@@ -1060,7 +1094,7 @@
             <param name="serviceName"></param>
             <param name="operationType"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegisterLog.#ctor(AutoCSer.Net.CommandServerConfig,System.Net.IPEndPoint,AutoCSer.CommandService.ServiceRegisterOperationTypeEnum,System.Byte,System.UInt32)">
+        <member name="M:AutoCSer.CommandService.ServiceRegisterLog.#ctor(AutoCSer.Net.CommandServerConfigBase,System.Net.IPEndPoint,AutoCSer.CommandService.ServiceRegisterOperationTypeEnum,System.Byte,System.UInt32)">
             <summary>
             服务注册日志
             </summary>
@@ -1194,6 +1228,12 @@
             添加服务注册服务端组件
             </summary>
             <param name="serviceRegistrar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ServiceRegisterLogClientAssembler.CheckServiceRegisterLog">
+            <summary>
+            检查服务注册日志发送状态
+            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.ServiceRegisterLogClientAssembler.Remove(AutoCSer.CommandService.ServiceRegistryCommandServiceRegistrar)">

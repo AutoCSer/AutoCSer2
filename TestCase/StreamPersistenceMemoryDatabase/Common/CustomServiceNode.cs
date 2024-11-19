@@ -355,7 +355,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public NodeIndex CreateGameNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return createNode<IGameNode, GameNode, Monster>(index, key, nodeInfo, () => new GameNode());
+            return createSnapshotCloneNode<IGameNode, GameNode, Monster>(index, key, nodeInfo, () => new GameNode());
         }
     }
 }

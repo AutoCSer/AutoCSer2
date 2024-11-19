@@ -20050,6 +20050,13 @@
             </summary>
             <param name="socket"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandReverseListener.verify(System.Net.Sockets.Socket)">
+            <summary>
+            套接字验证，一般用于验证 IP 地址，默认返回 true
+            </summary>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.Net.CommandReverseListener.currentClient">
             <summary>
             当前客户端
@@ -20058,6 +20065,20 @@
         <member name="M:AutoCSer.Net.CommandReverseListener.start(AutoCSer.Net.CommandClient)">
             <summary>
             反向客户端启动操作
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseListener.verify(AutoCSer.Net.CommandClient)">
+            <summary>
+            反向客户端验证，用于验证客户端的合法性，默认返回 true
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseListener.setCommandClient(AutoCSer.Net.CommandClient)">
+            <summary>
+            设置当前客户端
             </summary>
             <param name="client"></param>
             <returns></returns>
@@ -28146,15 +28167,22 @@
             <param name="isReside"></param>
             <param name="key"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue`1.Reside">
-            <summary>
-            申请队列驻留内存
-            </summary>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueue`1.ReleaseReside">
             <summary>
             释放队列驻留内存计数
             </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue`1.AddOnlyReside(AutoCSer.Net.CommandServerCallTaskQueueNode)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue`1.AddLowPriorityOnlyReside(AutoCSer.Net.CommandServerCallTaskQueueNode)">
+            <summary>
+            添加低优先级任务
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueue`1.appendRemove">
             <summary>
@@ -31092,9 +31120,74 @@
             命令客户端
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandClientSocket.Socket">
+            <summary>
+            套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.serverEndPoint">
+            <summary>
+            服务监听地址
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.Controller">
             <summary>
             主客户端控制器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.CommandPool">
+            <summary>
+            客户端命令池
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.receiveAsyncEventArgs">
+            <summary>
+            接收数据套接字异步事件对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.CreateVersion">
+            <summary>
+            服务更新版本号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.MaxInputSize">
+            <summary>
+            最大输入数据长度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.MaxMergeInputSize">
+            <summary>
+            最大合并输入数据长度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.commandQueueCount">
+            <summary>
+            客户端最大未处理命令数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.pad0">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.SessionObject">
+            <summary>
+            自定义会话对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.checkTimer">
+            <summary>
+            客户端心跳检测定时
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.controllerLock">
+            <summary>
+            命令控制器访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.controllerCreators">
+            <summary>
+            客户端控制器集合
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.ControllerArray">
@@ -31121,51 +31214,6 @@
             <param name="controllerType"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.controllerCreators">
-            <summary>
-            客户端控制器集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.controllerLock">
-            <summary>
-            命令控制器访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.serverEndPoint">
-            <summary>
-            服务监听地址
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.CreateVersion">
-            <summary>
-            服务更新版本号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.MaxInputSize">
-            <summary>
-            最大输入数据长度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.MaxMergeInputSize">
-            <summary>
-            最大合并输入数据长度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.commandQueueCount">
-            <summary>
-            客户端最大未处理命令数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.createErrorCount">
-            <summary>
-            创建套接字失败次数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.receiveAsyncEventArgs">
-            <summary>
-            接收数据套接字异步事件对象
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveDeserializer">
             <summary>
             接收数据二进制反序列化
@@ -31179,61 +31227,6 @@
         <member name="P:AutoCSer.Net.CommandClientSocket.ReceiveJsonDeserializer">
             <summary>
             接收数据 JSON 解析
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandClientSocket.Socket">
-            <summary>
-            套接字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.checkTimer">
-            <summary>
-            客户端心跳检测定时
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.CommandPool">
-            <summary>
-            客户端命令池
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.isClosed">
-            <summary>
-            是否已经关闭套接字
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandClientSocket.IsClosed">
-            <summary>
-            是否已经关闭套接字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.receiveSocketError">
-            <summary>
-            套接字接收数据错误
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.commands">
-            <summary>
-            TCP 客户端输出信息链表
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.waitPushCommands">
-            <summary>
-            等待添加到队列的命令集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.buildCommandCount">
-            <summary>
-            当前发送命令数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.commandCount">
-            <summary>
-            当前队列命令数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.SessionObject">
-            <summary>
-            自定义会话对象
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveBigBuffer">
@@ -31276,6 +31269,16 @@
             当前数据字节大小
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.receiveSocketError">
+            <summary>
+            套接字接收数据错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.createErrorCount">
+            <summary>
+            创建套接字失败次数
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveType">
             <summary>
             接收数据回调类型
@@ -31286,9 +31289,54 @@
             接收数据错误类型
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.receiveReserve">
+            <summary>
+            保留补白
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.pad1">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.commandCount">
+            <summary>
+            当前队列命令数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.commands">
+            <summary>
+            TCP 客户端输出信息链表
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.outputWaitHandle">
             <summary>
             等待事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.waitPushCommands">
+            <summary>
+            等待添加到队列的命令集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.isClosed">
+            <summary>
+            是否已经关闭套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClientSocket.IsClosed">
+            <summary>
+            是否已经关闭套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.pushReserve">
+            <summary>
+            保留补白
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.pad2">
+            <summary>
+            填充隔离数据
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.OutputSerializer">
@@ -31299,6 +31347,11 @@
         <member name="F:AutoCSer.Net.CommandClientSocket.outputJsonSerializer">
             <summary>
             输出数据 JSON 序列化
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.buildCommandCount">
+            <summary>
+            当前发送命令数量
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocket.#ctor">
@@ -33686,13 +33739,6 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueSet`1.getReside(`0)">
-            <summary>
-            获取队列
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueSet`1.Add(`0,AutoCSer.Net.CommandServerCallTaskQueueNode)">
             <summary>
             添加队列任务
@@ -34259,6 +34305,11 @@
             头节点
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandServerKeepCallback`1.Link.IsHead">
+            <summary>
+            判断是否存在头节点
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Link.PushHead(AutoCSer.Net.CommandServerKeepCallback{`0})">
             <summary>
             添加头节点
@@ -34267,9 +34318,10 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Link.Callback(`0)">
             <summary>
-            返回值回调，清理回调失败对象
+             返回值回调，清理回调失败对象
             </summary>
             <param name="value"></param>
+            <returns>回调输出次数（不保证回调成功）</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Link.CancelKeep">
             <summary>
@@ -34291,44 +34343,29 @@
             套接字
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputHandle">
-            <summary>
-            尝试发送数据委托
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.onReceiveAsyncCallback">
             <summary>
             接收数据异步回调
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.receiveAsyncEventArgs">
+        <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputHandle">
             <summary>
-            接收数据套接字异步事件对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.receiveDeserializer">
-            <summary>
-            接收数据二进制反序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.receiveJsonDeserializer">
-            <summary>
-            接收数据 JSON 解析
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.commandData">
-            <summary>
-            命令位图
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.keepCallbacks">
-            <summary>
-            异步保持回调集合
+            尝试发送数据委托
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.keepCallbackLock">
             <summary>
             异步保持回调集合访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.onClosedHashSet">
+            <summary>
+            套接字关闭事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.pad0">
+            <summary>
+            填充隔离数据
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.commandDataLock">
@@ -34346,29 +34383,24 @@
             套接字上下文绑定服务端实例集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.onClosedHashSet">
+        <member name="F:AutoCSer.Net.CommandServerSocket.commandData">
             <summary>
-            套接字关闭事件
+            命令位图
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputThreadEnum">
+        <member name="F:AutoCSer.Net.CommandServerSocket.receiveAsyncEventArgs">
             <summary>
-            服务端套接字发送数据线程类型
+            接收数据套接字异步事件对象
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.closeLock">
+        <member name="F:AutoCSer.Net.CommandServerSocket.receiveDeserializer">
             <summary>
-            关闭套接字访问锁
+            接收数据二进制反序列化
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandServerSocket.IsClose">
+        <member name="F:AutoCSer.Net.CommandServerSocket.receiveJsonDeserializer">
             <summary>
-            是否已经触发套接字关闭操作
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.outputs">
-            <summary>
-            服务端套接字输出信息
+            接收数据 JSON 解析
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.verifyTimeout">
@@ -34431,6 +34463,11 @@
             当前处理会话标识
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandServerSocket.customDataSize">
+            <summary>
+            自定义数据字节长度
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.outputHead">
             <summary>
             同步输出头节点
@@ -34439,11 +34476,6 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.outputEnd">
             <summary>
             同步输出尾节点
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServerSocket.customDataSize">
-            <summary>
-            自定义数据字节长度
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.commandMethodIndex">
@@ -34479,6 +34511,51 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.receiveErrorType">
             <summary>
             接收数据错误类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.receiveReserve">
+            <summary>
+            保留补白
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.pad1">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.nextOutputSocket">
+            <summary>
+            下一个输出套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.outputs">
+            <summary>
+            服务端套接字输出信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.isOutput">
+            <summary>
+            是否正在输出
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.closeLock">
+            <summary>
+            关闭套接字访问锁
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServerSocket.IsClose">
+            <summary>
+            是否已经触发套接字关闭操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.pad2">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.keepCallbacks">
+            <summary>
+            异步保持回调集合
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.OutputSerializer">
@@ -34521,11 +34598,6 @@
             发送数据
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.isOutput">
-            <summary>
-            是否正在输出
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.lastSendSize">
             <summary>
             上一次发送字节数量
@@ -34534,6 +34606,11 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.sendSocketError">
             <summary>
             发送数据套接字错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputThreadEnum">
+            <summary>
+            服务端套接字发送数据线程类型
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.#ctor">
@@ -34816,6 +34893,12 @@
             <summary>
             启动发送数据
             </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.getNextOutputSocket">
+            <summary>
+            获取并清除下一个节点
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.buildOutput">
             <summary>
@@ -35187,7 +35270,7 @@
             空命令服务套接字，用于模拟服务端上下文
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.outputSockets">
+        <member name="F:AutoCSer.Net.CommandServerSocket.outputSocketHead">
             <summary>
             等待发送数据的套接字集合
             </summary>
@@ -35262,6 +35345,11 @@
             服务端执行队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerCallQueue.ContextObject">
+            <summary>
+            队列自定义上下文对象
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerCallQueue.queue">
             <summary>
             任务队列
@@ -35285,11 +35373,6 @@
         <member name="F:AutoCSer.Net.CommandServerCallQueue.threadHandle">
             <summary>
             线程句柄
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallQueue.ContextObject">
-            <summary>
-            队列自定义上下文对象
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerCallQueue.currentTask">
@@ -39785,6 +39868,12 @@
             </summary>
             <param name="index"></param>
             <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.LeftArray`1.GetReverseIndexEnumerable">
+            <summary>
+            枚举数据
+            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.LeftArray`1.setCapacity(System.Int32)">

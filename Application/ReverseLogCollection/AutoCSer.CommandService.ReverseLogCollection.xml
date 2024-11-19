@@ -41,6 +41,17 @@
             获取日志回调委托集合
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollectionService`1.logs">
+            <summary>
+            待发送日志集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollectionService`1.#ctor(System.Int32)">
+            <summary>
+            反向日志收集服务
+            </summary>
+            <param name="logQueueCapacity">待发送日志队列数量默认为 1023 条，超出限制则抛弃日志</param>
+        </member>
         <member name="M:AutoCSer.CommandService.ReverseLogCollectionService`1.LogCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback{`0})">
             <summary>
             获取日志
@@ -87,6 +98,211 @@
             <summary>
             日志委托回调
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendCommandClientTaskNode`1">
+            <summary>
+            添加客户端
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendCommandClientTaskNode`1.listener">
+            <summary>
+            反向命令服务客户端监听
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendCommandClientTaskNode`1.client">
+            <summary>
+            客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendCommandClientTaskNode`1.#ctor(AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener{`0},AutoCSer.Net.CommandClient)">
+            <summary>
+            添加客户端
+            </summary>
+            <param name="listener">反向命令服务客户端监听</param>
+            <param name="client">客户端</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendCommandClientTaskNode`1.RunTask">
+            <summary>
+            添加客户端
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendLogTaskNode`1">
+            <summary>
+            添加日志
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendLogTaskNode`1.listener">
+            <summary>
+            反向命令服务客户端监听
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendLogTaskNode`1.log">
+            <summary>
+            日志记录
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendLogTaskNode`1.#ctor(AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener{`0},`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="listener">反向命令服务客户端监听</param>
+            <param name="log">日志记录</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendLogTaskNode`1.RunTask">
+            <summary>
+            添加日志
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener">
+            <summary>
+            日志收集反向命令服务客户端监听
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener.md5">
+            <summary>
+            MD5 加密
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener.queue">
+            <summary>
+            发送日志任务队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener.timestampVerifyChecker">
+            <summary>
+            递增登录时间戳检查器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener.#ctor(AutoCSer.CommandService.ReverseLogCollection.CommandReverseListenerConfig)">
+            <summary>
+            反向命令服务客户端监听
+            </summary>
+            <param name="config">反向命令服务客户端监听配置</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener.dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1">
+            <summary>
+            日志收集反向命令服务客户端监听
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.clients">
+            <summary>
+            客户端集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.logs">
+            <summary>
+            待发送日志集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.#ctor(AutoCSer.CommandService.ReverseLogCollection.CommandReverseListenerConfig)">
+            <summary>
+            反向命令服务客户端监听
+            </summary>
+            <param name="config">反向命令服务客户端监听配置</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.setCommandClient(AutoCSer.Net.CommandClient)">
+            <summary>
+            设置当前客户端
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.AppendCommandClient(AutoCSer.Net.CommandClient)">
+            <summary>
+            添加客户端
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.send(`0)">
+            <summary>
+            发送日志
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.Append(`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.AppendLog(`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListenerConfig">
+            <summary>
+            命令客户端配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListenerConfig.LogQueueCapacity">
+            <summary>
+            待发送日志队列数量默认为 1023 条，超出限制则抛弃日志
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ILogCollectionReverseClient`1">
+            <summary>
+            日志收集反向服务客户端
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.ILogCollectionReverseClient`1.Append(`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="log">日志数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.ILogCollectionReverseClient`1.AppendSendOnly(`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="log">日志数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.ILogCollectionReverseClientSocketEvent`1">
+            <summary>
+            日志收集反向服务客户端套接字事件
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="P:AutoCSer.CommandService.ILogCollectionReverseClientSocketEvent`1.LogCollectionReverseClient">
+            <summary>
+            日志收集反向服务客户端
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ILogCollectionReverseService`1">
+            <summary>
+            日志收集反向服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个监听客户端，家庭带宽电脑上启动服务端）
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.ILogCollectionReverseService`1.Append(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="log">日志数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ILogCollectionReverseService`1.AppendSendOnly(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="log">日志数据</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

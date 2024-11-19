@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 命令服务端配置
     /// </summary>
-    public class ServiceRegistryCommandServerConfig : AutoCSer.Net.CommandServerConfig
+    public class ServiceRegistryCommandServerConfig : AutoCSer.Net.CommandServerConfig, IServiceRegistryCommandServerConfig
     {
         /// <summary>
         /// 获取服务注册日志

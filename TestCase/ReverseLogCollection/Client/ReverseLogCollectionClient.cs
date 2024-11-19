@@ -1,6 +1,5 @@
 ﻿using AutoCSer.CommandService;
 using AutoCSer.Net;
-using AutoCSer.TestCase.ReverseLogCollection;
 using AutoCSer.TestCase.ReverseLogCollectionCommon;
 using System;
 using System.Threading.Tasks;

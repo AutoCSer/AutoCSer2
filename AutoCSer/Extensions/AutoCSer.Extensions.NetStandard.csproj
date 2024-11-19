@@ -122,6 +122,7 @@
     <Compile Include="Reflection\LoadAssemblyCache.cs" />
     <Compile Include="Reflection\XmlDocument.cs" />
     <Compile Include="Reflection\XmlDocumentAssembly.cs" />
+    <Compile Include="RingQueue.cs" />
     <Compile Include="SearchTree\Dictionary.cs" />
     <Compile Include="SearchTree\EnumerableCount.cs" />
     <Compile Include="SearchTree\FindArray.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Threading\ReentrantSemaphoreSlimLockManager.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockCount.cs" />
     <Compile Include="Threading\SynchronizationContextAction.cs" />
+    <Compile Include="Threading\TaskQueue.cs" />
     <Compile Include="Threading\TaskRunTimer.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.CustomConfig.cs" />

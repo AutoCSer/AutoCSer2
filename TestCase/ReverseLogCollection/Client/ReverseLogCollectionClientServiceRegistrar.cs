@@ -1,6 +1,5 @@
 ﻿using AutoCSer.CommandService;
 using AutoCSer.Net;
-using AutoCSer.TestCase.ReverseLogCollection;
 using AutoCSer.TestCase.ReverseLogCollectionCommon;
 using System;
 using System.Collections.Generic;
@@ -34,7 +33,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         /// <returns></returns>
         public override bool Callback(ServiceRegisterLog log, ServiceRegisterLogClientChangedTypeEnum changedType)
         {
-            if(log == null)
+            if (log == null)
             {
                 Console.WriteLine(changedType);
                 foreach(ServiceRegisterLog loadLog in ServiceRegisterLogs) callback(loadLog, changedType);
@@ -65,14 +64,15 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
             else if ((changedType & ServiceRegisterLogClientChangedTypeEnum.Delete) != 0)
             {
                 HostEndPoint hostEndPoint = log.HostEndPoint;
-                if (!clients.TryGetValue(hostEndPoint, out ReverseLogCollectionClient client))
+                if (clients.Remove(hostEndPoint, out ReverseLogCollectionClient client))
                 {
-                    foreach (ServiceRegisterLog checkLog in ServiceRegisterLogs)
+                    using (client)
                     {
-                        if (checkLog.CheckHostPort(log)) return;
+                        foreach (ServiceRegisterLog checkLog in ServiceRegisterLogs)
+                        {
+                            if (checkLog.CheckHostPort(log)) return;
+                        }
                     }
-                    clients.Remove(hostEndPoint);
-                    client.Dispose();
                 }
             }
         }
@@ -90,10 +90,10 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         /// </summary>
         /// <param name="commandClientConfig"></param>
         /// <returns></returns>
-        internal static async Task<ReverseLogCollectionClientServiceRegistrar> Create(ReverseLogCollection.ServiceRegistryCommandClientConfig commandClientConfig)
+        internal static async Task<ReverseLogCollectionClientServiceRegistrar> Create(ReverseLogCollectionCommon.ServiceRegistryCommandClientConfig commandClientConfig)
         {
             ServiceRegistryClient client = ServiceRegistryClient.Get(commandClientConfig);
-            ReverseLogCollectionClientServiceRegistrar serviceRegistrar = new ReverseLogCollectionClientServiceRegistrar(client, new AutoCSer.Net.CommandClientConfig { ServiceName = commandClientConfig.ServiceName });
+            ReverseLogCollectionClientServiceRegistrar serviceRegistrar = new ReverseLogCollectionClientServiceRegistrar(client, commandClientConfig);
             await serviceRegistrar.getAssembler();
             return serviceRegistrar;
         }

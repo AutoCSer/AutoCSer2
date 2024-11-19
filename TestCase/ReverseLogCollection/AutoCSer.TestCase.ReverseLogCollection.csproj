@@ -23,17 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Client\ServiceRegistryCommandClientConfig.cs" />
-    <Compile Include="Client\ServiceRegistryCommandClientSocketEvent.cs" />
     <Compile Include="CommandServerConfig.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.NET8.csproj" />
-    <ProjectReference Include="..\..\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NET8.csproj" />
-    <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
-    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
     <ProjectReference Include="Common\AutoCSer.TestCase.ReverseLogCollectionCommon.csproj" />
   </ItemGroup>
 
