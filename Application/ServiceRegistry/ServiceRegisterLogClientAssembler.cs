@@ -174,7 +174,22 @@ namespace AutoCSer.CommandService
                 serviceRegistrarsLock.Exit();
             }
             var log = serviceRegistrar.ServiceRegisterLog;
-            if (log != null) await append(log);
+            if (log != null) serviceRegistrar.IsServiceRegisterLog = await append(log);
+        }
+        /// <summary>
+        /// 检查服务注册日志发送状态
+        /// </summary>
+        /// <returns></returns>
+        internal async Task CheckServiceRegisterLog()
+        {
+            foreach(ServiceRegistryCommandServiceRegistrar serviceRegistrar in serviceRegistrars)
+            {
+                if (!serviceRegistrar.IsServiceRegisterLog)
+                {
+                    var log = serviceRegistrar.ServiceRegisterLog;
+                    if (log != null) serviceRegistrar.IsServiceRegisterLog = await append(log);
+                }
+            }
         }
         /// <summary>
         /// 移除服务注册服务端组件
@@ -283,18 +298,23 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="log"></param>
         /// <returns></returns>
-        private async Task append(ServiceRegisterLog log)
+        private async Task<bool> append(ServiceRegisterLog log)
         {
             if (serviceRegistryClient.Client != null)
             {
                 AutoCSer.Net.CommandClientReturnValue<ServiceRegisterResponse> serviceRegister = await serviceRegistryClient.Client.Append(log);
                 if (serviceRegister.IsSuccess)
                 {
-                    if (serviceRegister.Value.State == ServiceRegisterStateEnum.Success) log.ServiceID = serviceRegister.Value.ServiceID;
-                    else await serviceRegistryClient.ServiceRestierAgainFail(serviceName, serviceRegister.Value.State);
+                    if (serviceRegister.Value.State == ServiceRegisterStateEnum.Success)
+                    {
+                        log.ServiceID = serviceRegister.Value.ServiceID;
+                        return true;
+                    }
+                    await serviceRegistryClient.ServiceRestierAgainFail(serviceName, serviceRegister.Value.State);
                 }
-                else await serviceRegistryClient.ServiceRestierAgainFail(serviceName, serviceRegister.ReturnType);
+                await serviceRegistryClient.ServiceRestierAgainFail(serviceName, serviceRegister.ReturnType);
             }
+            return false;
         }
         /// <summary>
         /// 获取服务注册日志回调

@@ -66,6 +66,7 @@ namespace AutoCSer.CommandService
                 this.checkKeepCallback = checkKeepCallback;
                 if (logAssemblers.Count != 0)
                 {
+                    foreach(ServiceRegisterLogClientAssembler logAssembler in logAssemblers.Values) await logAssembler.CheckServiceRegisterLog();
                     foreach (KeyValuePair<HashString, ServiceRegisterLogClientAssembler> logAssembler in logAssemblers.getArray())
                     {
                         ServiceRegisterLogClientAssembler newLogAssembler = new ServiceRegisterLogClientAssembler(logAssembler.Value);

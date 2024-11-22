@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using System;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 

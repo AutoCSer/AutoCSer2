@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.CommandService.TimestampVerify;
+using AutoCSer.Net;
 using System;
 using System.Security.Cryptography;
 
@@ -74,6 +75,19 @@ namespace AutoCSer.CommandService
                 timestampLock.Exit();
             }
         }
+        /// <summary>
+        /// 获取可用时间戳
+        /// </summary>
+        /// <returns></returns>
+        public long GetTimestamp()
+        {
+            long timestamp = CurrentTimestamp;
+            timestampLock.EnterYield();
+            if (timestamp > lastTimestamp) lastTimestamp = timestamp;
+            else timestamp = ++lastTimestamp;
+            timestampLock.Exit();
+            return timestamp;
+        }
 
         /// <summary>
         /// 客户端创建套接字连接以后调用认证 API
@@ -84,7 +98,7 @@ namespace AutoCSer.CommandService
         public static CommandClientReturnValue<CommandServerVerifyStateEnum> Verify(CommandClientController controller, string verifyString)
         {
             ITimestampVerifyClient client = (ITimestampVerifyClient)controller;
-            long timestamp = TimestampVerifyChecker.CurrentTimestamp;
+            long timestamp = CurrentTimestamp;
             bool isRetry = false;
             using (MD5 md5 = MD5.Create())
             {
@@ -100,5 +114,6 @@ namespace AutoCSer.CommandService
                 while (true);
             }
         }
+
     }
 }

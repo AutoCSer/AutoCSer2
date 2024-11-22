@@ -9662,6 +9662,63 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotCloneNode`2">
+            <summary>
+            支持快照克隆的服务端节点
+            </summary>
+            <typeparam name="T">节点接口类型</typeparam>
+            <typeparam name="ST">快照数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotCloneNode`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,`0,System.Boolean)">
+            <summary>
+            支持快照克隆的服务端节点
+            </summary>
+            <param name="service"></param>
+            <param name="index"></param>
+            <param name="key">节点全局关键字</param>
+            <param name="target"></param>
+            <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotCloneNode`2.SetSnapshotArray">
+            <summary>
+            获取快照数据集合
+            </summary>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotCloneNode`2.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder)">
+            <summary>
+            持久化重建
+            </summary>
+            <param name="rebuilder"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneObject`1">
+            <summary>
+            快照克隆对象
+            </summary>
+            <typeparam name="T">目标对象类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneObject`1.SnapshotValue">
+            <summary>
+            快照对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneObject`1.GetSnapshotValue">
+            <summary>
+            持久化获取快照对象
+            </summary>
+            <returns>快照对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneObject`1.SnapshotClone">
+            <summary>
+            创建快照对象，默认为 MemberwiseClone 浅克隆，复杂对象需自行定义克隆行为
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneObject`1.CheckSnapshotValue">
+            <summary>
+            修改对象之前检查快照对象
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase">
             <summary>
             日志流持久化内存数据库服务端
@@ -12005,7 +12062,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,`0,System.Boolean)">
             <summary>
-            服务端节点
+            支持快照的服务端节点
             </summary>
             <param name="service"></param>
             <param name="index"></param>
@@ -12965,6 +13022,13 @@
             <typeparam name="T"></typeparam>
             <param name="array"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.RebuildSnapshotClone``1(AutoCSer.LeftArray{``0}@)">
+            <summary>
+            当前节点持久化操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.PushQueue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
             <summary>
             添加调用队列
@@ -13471,6 +13535,31 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.createNode``2(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``0})">
             <summary>
             创建支持快照的服务端节点（必须保证操作节点对象实现快照接口）
+            </summary>
+            <typeparam name="T">节点接口类型</typeparam>
+            <typeparam name="ST">快照数据类型</typeparam>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.createSnapshotCloneNode``3(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``1})">
+            <summary>
+            创建支持快照克隆的服务端节点
+            </summary>
+            <typeparam name="T">节点接口类型</typeparam>
+            <typeparam name="NT">节点接口操作对象类型</typeparam>
+            <typeparam name="ST">快照数据类型</typeparam>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="getNode">获取节点操作对象</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.createSnapshotCloneNode``2(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``0})">
+            <summary>
+            创建支持快照克隆的服务端节点（必须保证操作节点对象实现快照接口）
             </summary>
             <typeparam name="T">节点接口类型</typeparam>
             <typeparam name="ST">快照数据类型</typeparam>

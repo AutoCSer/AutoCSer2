@@ -1,7 +1,9 @@
 ﻿using AutoCSer.CommandService.ReverseLogCollection;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.CommandService
 {
@@ -17,6 +19,18 @@ namespace AutoCSer.CommandService
         /// </summary>
         private CommandServerKeepCallback<T>.Link callbacks;
         /// <summary>
+        /// 待发送日志集合
+        /// </summary>
+        private RingQueue<T> logs;
+        /// <summary>
+        /// 反向日志收集服务
+        /// </summary>
+        /// <param name="logQueueCapacity">待发送日志队列数量默认为 1023 条，超出限制则抛弃日志</param>
+        public ReverseLogCollectionService(int logQueueCapacity = (1 << 10) - 1)
+        {
+            logs = new RingQueue<T>(logQueueCapacity);
+        }
+        /// <summary>
         /// 获取日志
         /// </summary>
         /// <param name="socket"></param>
@@ -25,6 +39,8 @@ namespace AutoCSer.CommandService
         public virtual void LogCallback(CommandServerSocket socket, CommandServerCallQueue queue, CommandServerKeepCallback<T> callback)
         {
             callbacks.PushHead(callback);
+            var log = default(T);
+            while (logs.TryGetRead(out log) && callbacks.Callback(log) != 0) logs.MoveRead();
         }
         /// <summary>
         /// 添加日志
@@ -40,7 +56,7 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         internal virtual void Callback(T log)
         {
-            callbacks.Callback(log);
+            if (callbacks.Callback(log) == 0) logs.Write(log);
         }
     }
 }

@@ -138,6 +138,52 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             finally { service.RemoveFreeIndex(index); }
         }
         /// <summary>
+        /// 创建支持快照克隆的服务端节点
+        /// </summary>
+        /// <typeparam name="T">节点接口类型</typeparam>
+        /// <typeparam name="NT">节点接口操作对象类型</typeparam>
+        /// <typeparam name="ST">快照数据类型</typeparam>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="getNode">获取节点操作对象</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        protected virtual NodeIndex createSnapshotCloneNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
+            where T : class
+            where NT : T, ISnapshot<ST>
+            where ST : SnapshotCloneObject<ST>
+        {
+            try
+            {
+                NodeIndex nodeIndex;
+                if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
+                return new ServerSnapshotCloneNode<T, ST>(service, nodeIndex, key, getNode(), service.CurrentCallIsPersistence).Index;
+            }
+            finally { service.RemoveFreeIndex(index); }
+        }
+        /// <summary>
+        /// 创建支持快照克隆的服务端节点（必须保证操作节点对象实现快照接口）
+        /// </summary>
+        /// <typeparam name="T">节点接口类型</typeparam>
+        /// <typeparam name="ST">快照数据类型</typeparam>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        protected virtual NodeIndex createSnapshotCloneNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
+            where T : class
+            where ST : SnapshotCloneObject<ST>
+        {
+            try
+            {
+                NodeIndex nodeIndex;
+                if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
+                return new ServerSnapshotCloneNode<T, ST>(service, nodeIndex, key, getNode(), service.CurrentCallIsPersistence).Index;
+            }
+            finally { service.RemoveFreeIndex(index); }
+        }
+        /// <summary>
         /// 创建字典节点 FragmentHashStringDictionary256{HashString,string}
         /// </summary>
         /// <param name="index">节点索引信息</param>

@@ -856,6 +856,12 @@
             属性数据定义(值类型外壳)
             </summary>
         </member>
+        <member name="M:AutoCSer.TestCase.InterfaceControllerTaskQueue.TestCase">
+            <summary>
+            反向命令服务测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.TestCase.Xml.xmlSerializeConfig">
             <summary>
             带成员位图的XML序列化参数配置

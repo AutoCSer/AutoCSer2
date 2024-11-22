@@ -27,6 +27,7 @@
     <Compile Include="IPortRegistryClient.cs" />
     <Compile Include="IPortRegistryClientSocketEvent.cs" />
     <Compile Include="IPortRegistryService.cs" />
+    <Compile Include="IServiceRegistryCommandServerConfig.cs" />
     <Compile Include="PortIdentity.cs" />
     <Compile Include="PortRegistryClient.cs" />
     <Compile Include="PortRegistryClientData.cs" />

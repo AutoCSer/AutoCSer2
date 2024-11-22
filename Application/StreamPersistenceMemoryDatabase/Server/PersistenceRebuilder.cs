@@ -393,6 +393,93 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 当前节点持久化操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        internal unsafe void RebuildSnapshotClone<T>(ref LeftArray<T> array) where T : SnapshotCloneObject<T>
+        {
+            bool isPersistence = false;
+            var outputSerializer = default(BinarySerializer);
+            PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
+            try
+            {
+                if (isClosedOrServiceDisposed) return;
+                using (FileStream persistenceStream = new FileStream(persistenceFileInfo.FullName, FileMode.Open, FileAccess.Write, FileShare.None, persistenceBuffer.SendBufferMaxSize, FileOptions.None))
+                {
+                    if (!checkPersistencePosition(persistenceStream)) return;
+                    persistenceBuffer.GetBufferLength();
+                    SubArray<byte> outputData;
+                    using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
+                    {
+                        outputSerializer.SetDefault();
+                        persistenceBuffer.OutputStream = outputStream;
+                        fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                        {
+                            persistenceBuffer.SetStart(dataFixed);
+                            persistenceBuffer.Reset();
+                            node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
+                            outputData = persistenceBuffer.GetData();
+                        }
+                        if (isClosedOrServiceDisposed) return;
+                        persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
+
+                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull());
+                        for (int valueIndex = 0; valueIndex != array.Length;)
+                        {
+                            fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                            {
+                                persistenceBuffer.SetStart(dataFixed);
+                                do
+                                {
+                                    persistenceBuffer.Reset();
+                                    do
+                                    {
+                                        T value = array.Array[valueIndex].GetSnapshotValue();
+                                        if (persistenceBuffer.TrySetCurrentIndex())
+                                        {
+                                            if (!snapshotMethodSerializer.Serialize(value))
+                                            {
+                                                persistenceBuffer.RestoreCurrentIndex();
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            snapshotMethodSerializer.Serialize(value);
+                                            if (persistenceBuffer.CheckDataStart())
+                                            {
+                                                ++valueIndex;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    while (++valueIndex != array.Length);
+                                    if (isClosedOrServiceDisposed) return;
+                                    outputData = persistenceBuffer.GetData();
+                                    persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
+                                }
+                                while (valueIndex != array.Length && !persistenceBuffer.CheckNewBuffer());
+                            }
+                        }
+                    }
+                    persistencePosition = persistenceStream.Position;
+                }
+                Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
+                isPersistence = true;
+            }
+            finally
+            {
+                persistenceBuffer.Free();
+                outputSerializer?.FreeContext();
+                if (!isPersistence)
+                {
+                    foreach (T value in array) value.SnapshotValue = null;
+                    Close();
+                }
+            }
+        }
+        /// <summary>
         /// 添加调用队列
         /// </summary>
         /// <param name="methodParameter"></param>

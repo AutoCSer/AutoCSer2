@@ -1,6 +1,4 @@
-﻿using AutoCSer.TestCase.ReverseLogCollection;
-using AutoCSer.TestCase.ReverseLogCollectionCommon;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.ReverseLogCollectionClient
@@ -9,7 +7,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
     {
         static async Task Main(string[] args)
         {
-            ServiceRegistryCommandClientConfig commandClientConfig = new ServiceRegistryCommandClientConfig { Host = new Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry), ServiceName = LogInfo.ServiceName };
+            AutoCSer.TestCase.ReverseLogCollectionCommon.ServiceRegistryCommandClientConfig commandClientConfig = new AutoCSer.TestCase.ReverseLogCollectionCommon.ServiceRegistryCommandClientConfig { Host = new Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry), ServiceName = AutoCSer.TestCase.ReverseLogCollectionCommon.LogInfo.ServiceName };
             using (ReverseLogCollectionClientServiceRegistrar serviceRegistrar = await ReverseLogCollectionClientServiceRegistrar.Create(commandClientConfig))
             {
                 Console.WriteLine("Press quit to exit.");

@@ -28,6 +28,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseLogCollectionService.cs" />
     <Compile Include="LogCallback.cs" />
+    <Compile Include="ReverseService\AppendCommandClientTaskNode.cs" />
+    <Compile Include="ReverseService\AppendLogTaskNode.cs" />
+    <Compile Include="ReverseService\CommandReverseListener.cs" />
+    <Compile Include="ReverseService\CommandReverseListenerConfig.cs" />
+    <Compile Include="ReverseService\ILogCollectionReverseClient.cs" />
+    <Compile Include="ReverseService\ILogCollectionReverseClientSocketEvent.cs" />
+    <Compile Include="ReverseService\ILogCollectionReverseService.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard.csproj" />
   </ItemGroup>
 
   <ItemGroup>

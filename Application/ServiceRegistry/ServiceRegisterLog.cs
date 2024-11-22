@@ -80,7 +80,7 @@ namespace AutoCSer.CommandService
         /// <param name="operationType">服务注册日志操作类型</param>
         /// <param name="timeoutSeconds">单例服务强制上线等待秒数</param>
         /// <param name="version">服务版本号，高版本上线将踢掉所有低版本节点</param>
-        public ServiceRegisterLog(AutoCSer.Net.CommandServerConfig config, IPEndPoint endPoint, ServiceRegisterOperationTypeEnum operationType = ServiceRegisterOperationTypeEnum.ClusterMain, byte timeoutSeconds = 0, uint version = 0)
+        public ServiceRegisterLog(AutoCSer.Net.CommandServerConfigBase config, IPEndPoint endPoint, ServiceRegisterOperationTypeEnum operationType = ServiceRegisterOperationTypeEnum.ClusterMain, byte timeoutSeconds = 0, uint version = 0)
         {
             ServiceName = config.ServiceName.notNull();
             Host = endPoint.Address.ToString();

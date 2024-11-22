@@ -17,10 +17,10 @@ namespace AutoCSer.TestCase
                 if (!Xml.TestCase()) { errorType = typeof(Xml); break; }
                 if (!await CommandServer.TestCase()) { errorType = typeof(CommandServer); break; }
                 if (!await CommandReverseServer.TestCase()) { errorType = typeof(CommandReverseServer); break; }
+                if (!await InterfaceControllerTaskQueue.TestCase()) { errorType = typeof(InterfaceControllerTaskQueue); break; }
                 Console.Write('.');
             }
             while (true);
-
             ConsoleWriteQueue.WriteLine(errorType.FullName + " ERROR", ConsoleColor.Red);
             Console.ReadKey();
         }

@@ -599,7 +599,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="T">节点接口类型</typeparam>
     /// <typeparam name="ST">快照数据类型</typeparam>
-    public sealed class ServerNode<T, ST> : ServerNode<T>
+    public class ServerNode<T, ST> : ServerNode<T>
     {
         /// <summary>
         /// 当前节点是否支持重建
@@ -608,9 +608,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 快照数据集合
         /// </summary>
-        private LeftArray<ST> snapshotArray;
+        protected LeftArray<ST> snapshotArray;
         /// <summary>
-        /// 服务端节点
+        /// 支持快照的服务端节点
         /// </summary>
         /// <param name="service"></param>
         /// <param name="index"></param>

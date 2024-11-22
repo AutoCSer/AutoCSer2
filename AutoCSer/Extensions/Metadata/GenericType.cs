@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Memory;
+using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -71,6 +72,11 @@ namespace AutoCSer.Extensions.Metadata
         /// </summary>
         internal abstract Delegate XmlDeserializeDelegate { get; }
 
+        /// <summary>
+        /// 接口队列任务节点设置返回值
+        /// </summary>
+        internal abstract Delegate InterfaceControllerTaskQueueNodeSetReturn { get; }
+        
         /// <summary>
         /// 创建泛型类型元数据
         /// </summary>
@@ -200,5 +206,10 @@ namespace AutoCSer.Extensions.Metadata
 #else
         internal override Delegate XmlDeserializeDelegate { get { return (XmlDeserializer.DeserializeDelegate<T>)AutoCSer.XmlDeserializer.Deserialize<T>; } }
 #endif
+
+        /// <summary>
+        /// 接口队列任务节点设置返回值
+        /// </summary>
+        internal override Delegate InterfaceControllerTaskQueueNodeSetReturn { get { return (Action<InterfaceControllerTaskQueueNode<T>, T>)InterfaceControllerTaskQueueNode<T>.SetReturn; } }
     }
 }

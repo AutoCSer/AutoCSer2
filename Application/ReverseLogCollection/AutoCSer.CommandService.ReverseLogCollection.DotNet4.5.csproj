@@ -43,6 +43,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IReverseLogCollectionClient.cs" />
     <Compile Include="ReverseLogCollectionService.cs" />
+    <Compile Include="ReverseService\AppendCommandClientTaskNode.cs" />
+    <Compile Include="ReverseService\AppendLogTaskNode.cs" />
+    <Compile Include="ReverseService\CommandReverseListener.cs" />
+    <Compile Include="ReverseService\CommandReverseListenerConfig.cs" />
+    <Compile Include="ReverseService\ILogCollectionReverseClient.cs" />
+    <Compile Include="ReverseService\ILogCollectionReverseClientSocketEvent.cs" />
+    <Compile Include="ReverseService\ILogCollectionReverseService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimestampVerify\AutoCSer.CommandService.TimestampVerify.DotNet4.5.csproj">
+      <Project>{33a9605f-4ec2-4d7f-9d38-07965c4a9c51}</Project>
+      <Name>AutoCSer.CommandService.TimestampVerify.DotNet4.5</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

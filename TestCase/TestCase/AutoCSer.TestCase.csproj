@@ -82,6 +82,7 @@
     <Compile Include="Data\Property.cs" />
     <Compile Include="Data\StructField.cs" />
     <Compile Include="Data\StructProperty.cs" />
+    <Compile Include="InterfaceControllerTaskQueue.cs" />
     <Compile Include="Xml.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Program.cs" />
@@ -89,6 +90,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
     <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.NET8.csproj" />
     <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />

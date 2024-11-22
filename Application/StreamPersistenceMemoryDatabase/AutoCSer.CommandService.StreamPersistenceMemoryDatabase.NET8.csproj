@@ -179,6 +179,8 @@
     <Compile Include="Server\Backuper.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
+    <Compile Include="Server\ServerSnapshotCloneNode.cs" />
+    <Compile Include="Server\SnapshotCloneObject.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceBase.cs" />
     <Compile Include="Server\ContextNode.cs" />
     <Compile Include="Server\EmptyCommandServerCallback.cs" />

@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 #endif
 [assembly: Guid("13510310-674e-8c37-4e39-13510c060001")]
 
+[assembly: InternalsVisibleTo("AutoCSer.DynamicAssembly")]
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator")]
 [assembly: InternalsVisibleTo("AutoCSer.NetCoreWeb")]
 [assembly: InternalsVisibleTo("AutoCSer.Search")]

@@ -34,6 +34,166 @@
             <param name="timestamp">待验证时间戳</param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.ITimestampVerifyReverseClient`1">
+            <summary>
+            基于递增登录时间戳验证的反向服务认证客户端接口
+            </summary>
+            <typeparam name="T">附加数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.ITimestampVerifyReverseClient`1.GetVerifyData(System.Int64)">
+            <summary>
+            获取验证数据
+            </summary>
+            <param name="timestamp">待验证时间戳</param>
+            <returns>反向服务验证数据</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.ITimestampVerifyReverseService`1">
+            <summary>
+            基于递增登录时间戳验证的反向服务认证接口（配合 HASH 防止重放登录操作）
+            </summary>
+            <typeparam name="T">附加数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.ITimestampVerifyReverseService`1.GetVerifyData(AutoCSer.Net.CommandServerSocket,System.Int64)">
+            <summary>
+            获取验证数据
+            </summary>
+            <param name="socket"></param>
+            <param name="timestamp">待验证时间戳</param>
+            <returns>反向服务验证数据</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerify.ReverseServiceClientData`1">
+            <summary>
+            反向服务客户端验证原始数据
+            </summary>
+            <typeparam name="T">附加数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.ReverseServiceClientData`1.timestamp">
+            <summary>
+            待验证时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.ReverseServiceClientData`1.Random">
+            <summary>
+            随机值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.ReverseServiceClientData`1.data">
+            <summary>
+            附加数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.ReverseServiceClientData`1.#ctor(System.Int64,`0)">
+            <summary>
+            反向服务客户端验证原始数据
+            </summary>
+            <param name="timestamp">待验证时间戳</param>
+            <param name="data">附加数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.ReverseServiceClientData`1.#ctor(System.Int64,System.UInt64,`0@)">
+            <summary>
+            反向服务客户端验证原始数据
+            </summary>
+            <param name="timestamp">待验证时间戳</param>
+            <param name="random">随机值</param>
+            <param name="data">附加数据</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData`1">
+            <summary>
+            反向服务验证数据
+            </summary>
+            <typeparam name="T">附加数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData`1.random">
+            <summary>
+            随机值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData`1.Data">
+            <summary>
+            附加数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData`1.hashData">
+            <summary>
+            MD5 数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData`1.#ctor(System.Int64,`0)">
+            <summary>
+            反向服务验证数据
+            </summary>
+            <param name="timestamp">待验证时间戳</param>
+            <param name="data">附加数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData`1.Verify(System.Int64,System.Security.Cryptography.MD5)">
+            <summary>
+            验证数据
+            </summary>
+            <param name="timestamp">待验证时间戳</param>
+            <param name="md5"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData`1.Verify(System.Int64)">
+            <summary>
+            验证数据
+            </summary>
+            <param name="timestamp">待验证时间戳</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerify.CommandListenerSession">
+            <summary>
+            基于递增登录时间戳验证的服务认证会话对象操作对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.lastSession">
+            <summary>
+            最后访问的会话对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.AutoCSer#Net#ICommandListenerGetSession{AutoCSer#CommandService#ITimestampVerifySession}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            尝试从命令服务套接字自定义会话对象获取指定会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.AutoCSer#Net#ICommandListenerSession{AutoCSer#CommandService#ITimestampVerifySession}#CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            创建会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.Default">
+            <summary>
+            默认基于递增登录时间戳验证的服务认证会话对象操作对象
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerifyReverseService`1">
+            <summary>
+            基于递增登录时间戳验证的反向服务认证
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyReverseService`1.data">
+            <summary>
+            附加数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyReverseService`1.#ctor(`0)">
+            <summary>
+            基于递增登录时间戳验证的反向服务认证
+            </summary>
+            <param name="data">附加数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyReverseService`1.GetVerifyData(AutoCSer.Net.CommandServerSocket,System.Int64)">
+            <summary>
+            获取验证数据
+            </summary>
+            <param name="socket"></param>
+            <param name="timestamp">待验证时间戳</param>
+            <returns>反向服务验证数据</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.TimestampVerifyService">
             <summary>
             基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
@@ -138,6 +298,12 @@
             </summary>
             <param name="timestamp"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.GetTimestamp">
+            <summary>
+            获取可用时间戳
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.Verify(AutoCSer.Net.CommandClientController,System.String)">
             <summary>
             客户端创建套接字连接以后调用认证 API
@@ -179,35 +345,6 @@
             </summary>
             <param name="controller"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.TimestampVerify.CommandListenerSession">
-            <summary>
-            基于递增登录时间戳验证的服务认证会话对象操作对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.lastSession">
-            <summary>
-            最后访问的会话对象
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.AutoCSer#Net#ICommandListenerGetSession{AutoCSer#CommandService#ITimestampVerifySession}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            尝试从命令服务套接字自定义会话对象获取指定会话对象
-            </summary>
-            <param name="socket">命令服务套接字</param>
-            <returns>失败返回 null</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.AutoCSer#Net#ICommandListenerSession{AutoCSer#CommandService#ITimestampVerifySession}#CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            创建会话对象
-            </summary>
-            <param name="socket">命令服务套接字</param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.CommandService.TimestampVerify.CommandListenerSession.Default">
-            <summary>
-            默认基于递增登录时间戳验证的服务认证会话对象操作对象
-            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.ITimestampVerifySession">
             <summary>

@@ -5,7 +5,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.ReverseLogCollectionClient</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.ReverseLogCollectionClient</RootNamespace>
-    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -28,15 +27,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="ReverseLogCollectionClient.cs" />
     <Compile Include="ReverseLogCollectionClientServiceRegistrar.cs" />
-    <Compile Include="ServiceRegistryCommandClientConfig.cs" />
-    <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.NET8.csproj" />
-    <ProjectReference Include="..\..\..\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NET8.csproj" />
-    <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
-    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.ReverseLogCollectionCommon.csproj" />
   </ItemGroup>
 
