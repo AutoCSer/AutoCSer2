@@ -906,6 +906,11 @@
             XML 反序列化类型
             </summary>
         </member>
+        <member name="P:AutoCSer.Extensions.Metadata.GenericType.InterfaceControllerTaskQueueNodeSetReturn">
+            <summary>
+            接口队列任务节点设置返回值
+            </summary>
+        </member>
         <member name="M:AutoCSer.Extensions.Metadata.GenericType.create``1">
             <summary>
             创建泛型类型元数据
@@ -1000,6 +1005,11 @@
         <member name="P:AutoCSer.Extensions.Metadata.GenericType`1.XmlDeserializeDelegate">
             <summary>
             XML 反序列化类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Metadata.GenericType`1.InterfaceControllerTaskQueueNodeSetReturn">
+            <summary>
+            接口队列任务节点设置返回值
             </summary>
         </member>
         <member name="T:AutoCSer.Extensions.Metadata.GenericType2">
@@ -5240,19 +5250,9 @@
             原始套接字监听数据缓冲区处理队列线程
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.RawSocketQueue.threadHandle">
-            <summary>
-            线程句柄
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.RawSocketQueue.onPacket">
             <summary>
             数据包处理委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.RawSocketQueue.waitHandle">
-            <summary>
-            等待事件
             </summary>
         </member>
         <member name="F:AutoCSer.Net.RawSocketQueue.head">
@@ -5270,21 +5270,11 @@
             弹出节点访问锁
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.RawSocketQueue.isDisposed">
-            <summary>
-            是否已经释放资源
-            </summary>
-        </member>
         <member name="M:AutoCSer.Net.RawSocketQueue.#ctor(System.Action{AutoCSer.Net.RawSocketBuffer})">
             <summary>
             原始套接字监听数据缓冲区处理队列线程
             </summary>
             <param name="onPacket">数据包处理委托</param>
-        </member>
-        <member name="M:AutoCSer.Net.RawSocketQueue.Dispose">
-            <summary>
-            释放资源
-            </summary>
         </member>
         <member name="M:AutoCSer.Net.RawSocketQueue.Add(AutoCSer.Net.RawSocketBuffer)">
             <summary>
@@ -7583,6 +7573,342 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueue">
+            <summary>
+            接口任务队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueue.queue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueue.run">
+            <summary>
+            任务线程处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueue.AddOnly(AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueue.Add(AutoCSer.Threading.InterfaceControllerTaskQueue,AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="queue"></param>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueue.Add(AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueue.Add``1(AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode{``0})">
+            <summary>
+            添加任务
+            </summary>
+            <param name="node"></param>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueue.CreateController``2(``1)">
+            <summary>
+            创建接口任务队列调用接口实例
+            </summary>
+            <typeparam name="T">调用接口类型</typeparam>
+            <typeparam name="ST">服务实现实例</typeparam>
+            <param name="service">服务实现实例类型</param>
+            <returns>调用接口实例</returns>
+        </member>
+        <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode">
+            <summary>
+            自定义任务队列节点 await AutoCSer.Net.CommandClientReturnValue
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.isQueue">
+            <summary>
+            是否已经添加到队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.#ctor(AutoCSer.Net.CommandServer.ClientCallbackTypeEnum)">
+            <summary>
+            接口任务队列节点
+            </summary>
+            <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.CheckQueue">
+            <summary>
+            检查是否已经添加到队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.SetReturn">
+            <summary>
+            设置返回值
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1">
+            <summary>
+            自定义任务队列节点 await AutoCSer.Net.CommandClientReturnValue{T}
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.isQueue">
+            <summary>
+            是否已经添加到队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.#ctor(AutoCSer.Net.CommandServer.ClientCallbackTypeEnum)">
+            <summary>
+            接口任务队列节点
+            </summary>
+            <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.CheckQueue">
+            <summary>
+            检查是否已经添加到队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.SetReturn(`0)">
+            <summary>
+            设置返回值
+            </summary>
+            <param name="returnValue"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueueMethodAttribute">
+            <summary>
+            接口任务队列节点方法配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueMethodAttribute.CallbackType">
+            <summary>
+            数据回调线程模式，默认为 Task.Run
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueMethodAttribute.Default">
+            <summary>
+            默认接口任务队列节点方法配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueueNode">
+            <summary>
+            接口任务队列节点 await AutoCSer.Net.CommandClientReturnValue
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode.#ctor(AutoCSer.Net.CommandServer.ClientCallbackTypeEnum)">
+            <summary>
+            接口任务队列节点
+            </summary>
+            <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode.Wait">
+            <summary>
+            等待命令调用返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode.GetResult">
+            <summary>
+            获取命令调用结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode.GetAwaiter">
+            <summary>
+            获取 await
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode.SetReturnType(AutoCSer.Threading.InterfaceControllerTaskQueueNode)">
+            <summary>
+            设置返回值
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1">
+            <summary>
+            接口任务队列节点 await AutoCSer.Net.CommandClientReturnValue{T}
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.returnValue">
+            <summary>
+            返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.#ctor(AutoCSer.Net.CommandServer.ClientCallbackTypeEnum)">
+            <summary>
+            接口任务队列节点
+            </summary>
+            <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.Wait">
+            <summary>
+            等待命令调用返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.GetResult">
+            <summary>
+            获取命令调用结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.GetAwaiter">
+            <summary>
+            获取 await
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.SetReturn(`0)">
+            <summary>
+            设置返回值
+            </summary>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.SetReturn(AutoCSer.Threading.InterfaceControllerTaskQueueNode{`0},`0)">
+            <summary>
+            设置返回值
+            </summary>
+            <param name="node"></param>
+            <param name="returnValue"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase">
+            <summary>
+            接口任务队列节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.continuation">
+            <summary>
+            异步回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.IsCompleted">
+            <summary>
+            完成状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.returnType">
+            <summary>
+            返回类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.callbackType">
+            <summary>
+            客户端 await 等待返回值回调线程模式
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.#ctor(AutoCSer.Net.CommandServer.ClientCallbackTypeEnum)">
+            <summary>
+            接口任务队列节点
+            </summary>
+            <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+            <summary>
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.RunTask">
+            <summary>
+            执行任务（需要主动调用 SetReturn）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.RunTask(AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase@)">
+            <summary>
+            执行任务
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.SetReturnType(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            设置返回值类型
+            </summary>
+            <param name="returnType"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.Callback(System.Action)">
+            <summary>
+            异步回调
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod">
+            <summary>
+            接口任务队列节点匹配方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod.Method">
+            <summary>
+            接口任务队列节点方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod.Parameters">
+            <summary>
+            接口任务队列节点方法参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod.#ctor(System.Reflection.MethodInfo)">
+            <summary>
+            接口任务队列节点匹配方法
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod.Equals(AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod.Equals(System.Object)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod.GetHashCode">
+            <summary>
+            获取哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueueInterfaceControllerMethod">
+            <summary>
+            接口任务队列节点方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceControllerMethod.MethodAttribute">
+            <summary>
+            接口任务队列节点方法配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceControllerMethod.ServiceMethod">
+            <summary>
+            服务实例方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceControllerMethod.#ctor(System.Type,AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod,System.Reflection.MethodInfo)">
+            <summary>
+            接口任务队列节点方法
+            </summary>
+            <param name="type"></param>
+            <param name="method"></param>
+            <param name="serviceMethod"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceControllerMethod.GetMethod(System.Type,System.Collections.Generic.Dictionary{AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod,System.Reflection.MethodInfo},AutoCSer.LeftArray{AutoCSer.Threading.TaskQueueInterfaceControllerMethod}@)">
+            <summary>
+            获取接口方法集合
+            </summary>
+            <param name="type"></param>
+            <param name="serviceMethods"></param>
+            <param name="methods"></param>
+            <returns>错误信息</returns>
+        </member>
         <member name="T:AutoCSer.Threading.LocalMillisecondIdentityGenerator">
             <summary>
             本地毫秒ID生成器（毫秒内超出计算范围时自动移动到下一个毫秒数据）
@@ -7707,34 +8033,9 @@
             任务队列
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.TaskQueue.threadHandle">
-            <summary>
-            线程句柄
-            </summary>
-        </member>
         <member name="F:AutoCSer.Threading.TaskQueue.queue">
             <summary>
             任务队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueue.waitHandle">
-            <summary>
-            等待事件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueue.isDisposed">
-            <summary>
-            是否已经释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.#ctor">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.Dispose">
-            <summary>
-            释放资源
             </summary>
         </member>
         <member name="M:AutoCSer.Threading.TaskQueue.run">
@@ -7753,6 +8054,107 @@
             添加任务
             </summary>
             <param name="node"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueueInterfaceController">
+            <summary>
+            控制器接口信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController.ObjectConstructorInfo">
+            <summary>
+            object 构造函数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController.NodeConstructorParameterTypes">
+            <summary>
+            接口任务队列节点构造函数参数集合信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController.NodeConstructorInfo">
+            <summary>
+            接口任务队列节点构造函数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController.InterfaceControllerTaskQueueAdd">
+            <summary>
+            添加任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController.InterfaceControllerTaskQueueNodeSetReturnType">
+            <summary>
+            设置返回值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController.nodeTypeIndex">
+            <summary>
+            任务节点类型序号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceController.GetNodeTypeName">
+            <summary>
+            获取任务节点类型序号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueueInterfaceController`2">
+            <summary>
+            控制器接口信息
+            </summary>
+            <typeparam name="T">调用接口类型</typeparam>
+            <typeparam name="ST">服务实现实例</typeparam>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueInterfaceController`2.Create(AutoCSer.Threading.InterfaceControllerTaskQueue,`1)">
+            <summary>
+            创建接口任务队列控制器
+            </summary>
+            <param name="queue"></param>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController`2.callConstructor">
+            <summary>
+            控制器构造函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueInterfaceController`2.controllerConstructorException">
+            <summary>
+            控制器构造错误
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueueBase">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueBase.threadHandle">
+            <summary>
+            线程句柄
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueBase.waitHandle">
+            <summary>
+            等待事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueBase.isDisposed">
+            <summary>
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueBase.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueBase.#ctor">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueBase.run">
+            <summary>
+            任务线程处理
+            </summary>
         </member>
         <member name="T:AutoCSer.Threading.TaskRunTimer">
             <summary>
