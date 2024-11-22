@@ -1,22 +1,53 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace AutoCSer.Threading
 {
     /// <summary>
     /// 任务队列
     /// </summary>
-    public sealed class TaskQueue : TaskQueueBase
+    public sealed class TaskQueue : IDisposable
     {
+        /// <summary>
+        /// 线程句柄
+        /// </summary>
+        private readonly System.Threading.Thread threadHandle;
         /// <summary>
         /// 任务队列
         /// </summary>
         private Link<QueueTaskNode>.YieldQueue queue;
         /// <summary>
+        /// 等待事件
+        /// </summary>
+        private OnceAutoWaitHandle waitHandle;
+        /// <summary>
+        /// 是否已经释放资源
+        /// </summary>
+        private bool isDisposed;
+        /// <summary>
+        /// 任务队列
+        /// </summary>
+        public TaskQueue()
+        {
+            waitHandle.Set(this);
+            threadHandle = new System.Threading.Thread(run, AutoCSer.Threading.ThreadPool.TinyStackSize);
+            threadHandle.IsBackground = true;
+            threadHandle.Start();
+        }
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public void Dispose()
+        {
+            isDisposed = true;
+            if (queue.IsEmpty) waitHandle.Set();
+        }
+        /// <summary>
         /// 任务线程处理
         /// </summary>
-        protected override void run()
+        private void run()
         {
             do
             {
