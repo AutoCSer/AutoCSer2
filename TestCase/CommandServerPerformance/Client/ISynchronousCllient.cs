@@ -57,7 +57,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 客户端同步返回结果
     /// </summary>
-    internal sealed class SynchronousCllient : Client
+    internal sealed class SynchronousCllient : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
         /// 客户端同步返回结果测试
@@ -68,12 +68,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             CommandClientConfig<ISynchronousCllient> commandClientConfig = new CommandClientConfig<ISynchronousCllient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CommandPoolBits = 11, CheckSeconds = 0, CommandQueueCount = 1 << 10 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<ISynchronousCllient, IService>()))
             {
-                if (await commandClient.GetSocketAsync() == null)
+                CommandClientSocketEvent<ISynchronousCllient> client = (CommandClientSocketEvent<ISynchronousCllient>)await commandClient.GetSocketEvent();
+                if (client == null)
                 {
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
-                //CommandClientSocketEvent<ISynchronousCllient> client = (CommandClientSocketEvent<ISynchronousCllient>)commandClient.SocketEvent;
                 Left = AutoCSer.Random.Default.Next();
 
                 //int testCount = Reset(commandClient, 10000);

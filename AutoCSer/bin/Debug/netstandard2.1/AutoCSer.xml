@@ -24822,6 +24822,30 @@
             默认空命令客户端配置
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.CommandClientConfig`1">
+            <summary>
+            命令客户端配置
+            </summary>
+            <typeparam name="T">主控制器接口类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientConfig`1.IsSymmetryInterface">
+            <summary>
+            是否对称接口定义
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientConfig`1.GetSocketEvent(AutoCSer.Net.CommandClient)">
+            <summary>
+            获取命令客户端套接字事件（初始化时一次性调用）
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientConfig`1.CreateSymmetryClient">
+            <summary>
+            接口对称命令客户端
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandClientInterfaceControllerCreator">
             <summary>
             客户端控制器创建器
@@ -24864,6 +24888,14 @@
             </summary>
             <typeparam name="T">客户端接口类型</typeparam>
             <param name="controllerName">控制器名称</param>
+            <returns>客户端控制器创建器</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.GetSymmetryCreator``1(System.String)">
+            <summary>
+            获取接口对称服务客户端控制器创建器
+            </summary>
+            <typeparam name="T">接口类型</typeparam>
+            <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
             <returns>客户端控制器创建器</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.GetCreator``2(System.String)">
@@ -25552,11 +25584,22 @@
             当前套接字命令客户端控制器
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.#ctor(AutoCSer.Net.CommandClient)">
+        <member name="F:AutoCSer.Net.CommandClientSocketEvent`1.IsSymmetryInterface">
+            <summary>
+            是否对称接口定义
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClientSocketEvent`1.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient,System.Boolean)">
             <summary>
             命令客户端套接字事件
             </summary>
             <param name="client">命令客户端</param>
+            <param name="isSymmetryInterface">是否对称接口定义</param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.onMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
@@ -28630,7 +28673,19 @@
             <summary>
             尝试客户端套接字，获取失败返回 null
             </summary>
-            <returns></returns>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClient.GetSocketEvent">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClient.GetSocketEvent``1">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.OnCreateError(AutoCSer.Net.CommandClientSocket)">
             <summary>
@@ -28696,6 +28751,24 @@
             </summary>
             <param name="index"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandClient`1">
+            <summary>
+            接口对称命令客户端
+            </summary>
+            <typeparam name="T">控制器接口名称</typeparam>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClient`1.#ctor(AutoCSer.Net.CommandClientConfig{`0})">
+            <summary>
+            接口对称命令客户端
+            </summary>
+            <param name="config">命令服务配置</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClient`1.GetSocketEvent">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
         </member>
         <member name="T:AutoCSer.Net.CommandClientController">
             <summary>

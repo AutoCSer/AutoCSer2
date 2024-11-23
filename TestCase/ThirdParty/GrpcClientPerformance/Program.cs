@@ -6,9 +6,7 @@ namespace GrpcClientPerformance
     {
         static async Task Main(string[] args)
         {
-            var serverAddress = "http://localhost:5000";
-
-            using var channel = GrpcChannel.ForAddress(serverAddress);
+            using var channel = GrpcChannel.ForAddress("http://localhost:5000");
             {
                 do
                 {

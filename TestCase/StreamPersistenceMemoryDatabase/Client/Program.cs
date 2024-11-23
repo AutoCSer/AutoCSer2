@@ -23,14 +23,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                if (await commandClient.GetSocketAsync() == null)
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode>((IStreamPersistenceMemoryDatabaseClientSocketEvent)await commandClient.GetSocketEvent());
+                if (client == null)
                 {
                     ConsoleWriteQueue.Breakpoint("ERROR");
                     Console.ReadKey();
                     return;
                 }
 
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode>((IStreamPersistenceMemoryDatabaseClientSocketEvent)commandClient.SocketEvent);
                 do
                 {
                     await Task.WhenAll(

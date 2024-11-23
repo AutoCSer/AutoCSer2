@@ -18,13 +18,11 @@ namespace AutoCSer.TestCase.ServiceRegistryService
             commandClientConfig.GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, commandClientConfig, AutoCSer.TestCase.Common.Config.TimestampVerifyString);
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                CommandClientSocket socket = await commandClient.GetSocketAsync();
-                if (socket != null)
+                CommandClientSocketEvent client = (CommandClientSocketEvent)await commandClient.GetSocketEvent();
+                if (client != null)
                 {
-                    PortRegistryClient portRegistryClient = ((CommandClientSocketEvent)commandClient.SocketEvent).PortRegistryClient;
-
                     Console.WriteLine("Press quit to exit.");
-                    await new ServiceVersion(portRegistryClient, 0).Start();
+                    await new ServiceVersion(client, 0).Start();
                     while (Console.ReadLine() != "quit") ;
                 }
                 else

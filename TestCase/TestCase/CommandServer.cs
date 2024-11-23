@@ -57,11 +57,11 @@ namespace AutoCSer.TestCase
                     using (CommandClient commandClient = new CommandClient(commandClientConfig))
                     {
                         CommandServerSessionObject clientSessionObject = new CommandServerSessionObject();
-                        if (await commandClient.GetSocketAsync() == null)
+                        CommandClientSocketEvent client = (CommandClientSocketEvent)await commandClient.GetSocketEvent();
+                        if (client == null)
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
-                        CommandClientSocketEvent client = (CommandClientSocketEvent)commandClient.SocketEvent;
                         if (!ClientSynchronousController.TestCase(client, clientSessionObject))
                         {
                             return false;

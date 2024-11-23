@@ -12,6 +12,10 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         Example = 12900,
         /// <summary>
+        /// 文档测试端口
+        /// </summary>
+        Document,
+        /// <summary>
         /// 测试用例端口
         /// </summary>
         TestCase,

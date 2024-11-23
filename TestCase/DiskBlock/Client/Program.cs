@@ -22,20 +22,21 @@ namespace AutoCSer.TestCase.DiskBlockClient
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                if (await commandClient.GetSocketAsync() == null)
+                IDiskBlockClientSocketEvent client = (IDiskBlockClientSocketEvent)await commandClient.GetSocketEvent();
+                if (client == null)
                 {
                     ConsoleWriteQueue.Breakpoint("ERROR");
                     Console.ReadKey();
                     return;
                 }
 
+                AutoCSer.CommandService.DiskBlockClient diskBlockClient = new AutoCSer.CommandService.DiskBlockClient(client);
                 AutoCSer.FieldEquals.Comparor.IsBreakpoint = true;
-                AutoCSer.CommandService.DiskBlockClient client = new AutoCSer.CommandService.DiskBlockClient((IDiskBlockClientSocketEvent)commandClient.SocketEvent);
                 await Task.WhenAll(
-                    jsonTest(client)
-                    , binaryTest(client)
-                    , stringTest(client)
-                    , bufferTest(client)
+                    jsonTest(diskBlockClient)
+                    , binaryTest(diskBlockClient)
+                    , stringTest(diskBlockClient)
+                    , bufferTest(diskBlockClient)
                     );
                 Console.WriteLine("Press quit to exit.");
                 while (Console.ReadLine() != "quit") ;

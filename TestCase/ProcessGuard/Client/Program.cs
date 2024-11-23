@@ -13,8 +13,7 @@ namespace AutoCSer.TestCase.ProcessGuardClient
             CommandClientConfig commandClientConfig = new ProcessGuardCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ProcessGuard) };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                await commandClient.GetSocketAsync();
-                ProcessGuardClientSocketEvent client = (ProcessGuardClientSocketEvent)commandClient.SocketEvent;
+                ProcessGuardClientSocketEvent client = (ProcessGuardClientSocketEvent)await commandClient.GetSocketEvent();
                 Console.WriteLine("Press quit to exit.");
                 CatchTask.AddIgnoreException(check(client));
                 while (Console.ReadLine() != "quit") ;

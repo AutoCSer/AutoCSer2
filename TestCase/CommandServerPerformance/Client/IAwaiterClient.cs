@@ -90,7 +90,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 客户端 await 返回结果
     /// </summary>
-    internal sealed class AwaiterClient : Client
+    internal sealed class AwaiterClient : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
         /// 客户端 await 返回结果
@@ -101,7 +101,8 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             CommandClientConfig<IAwaiterClient> commandClientConfig = new CommandClientConfig<IAwaiterClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<IAwaiterClient, IService>()))
             {
-                if (await commandClient.GetSocketAsync() == null)
+                CommandClientSocketEvent<IAwaiterClient> client = (CommandClientSocketEvent<IAwaiterClient>)await commandClient.GetSocketEvent();
+                if (client == null)
                 {
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
@@ -114,8 +115,6 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new AwaiterClient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
-
-                CommandClientSocketEvent<IAwaiterClient> client = (CommandClientSocketEvent<IAwaiterClient>)commandClient.SocketEvent;
 
                 int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();

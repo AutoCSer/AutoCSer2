@@ -17,14 +17,14 @@ namespace AutoCSer.TestCase.TimestampVerifyClient
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                if (await commandClient.GetSocketAsync() == null)
+                CommandClientSocketEvent client = (CommandClientSocketEvent)await commandClient.GetSocketEvent();
+                if (client == null)
                 {
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     Console.ReadKey();
                     return;
                 }
 
-                CommandClientSocketEvent client = (CommandClientSocketEvent)commandClient.SocketEvent;
                 CommandClientReturnValue<int> returnValue = client.TimestampVerifyClient.Add(1, 2);
                 Console.WriteLine(returnValue.ReturnType.ToString());
                 Console.WriteLine(returnValue.Value.ToString());

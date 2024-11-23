@@ -97,7 +97,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 客户端回调返回结果
     /// </summary>
-    internal sealed class CallbackClient : Client
+    internal sealed class CallbackClient : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
         /// 客户端回调返回结果测试
@@ -108,12 +108,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             CommandClientConfig<ICallbackClient> commandClientConfig = new CommandClientConfig<ICallbackClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<ICallbackClient, IService>()))
             {
-                if (await commandClient.GetSocketAsync() == null)
+                CommandClientSocketEvent<ICallbackClient> client = (CommandClientSocketEvent<ICallbackClient>)await commandClient.GetSocketEvent();
+                if (client == null)
                 {
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
-                CommandClientSocketEvent<ICallbackClient> client = (CommandClientSocketEvent<ICallbackClient>)commandClient.SocketEvent;
                 Left = AutoCSer.Random.Default.Next();
 
                 int testCount = Reset(commandClient, maxTestCount);

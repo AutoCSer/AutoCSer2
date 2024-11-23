@@ -15,7 +15,7 @@ namespace AutoCSer.TestCase.ServiceRegistryService
         /// <summary>
         /// 端口注册客户端
         /// </summary>
-        public PortRegistryClient PortRegistryClient;
+        public CommandClientSocketEvent PortRegistryClient;
         /// <summary>
         /// 获取服务注册组件（初始化时一次性调用）
         /// </summary>
@@ -30,7 +30,7 @@ namespace AutoCSer.TestCase.ServiceRegistryService
             };
             commandClientConfig.GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, commandClientConfig, AutoCSer.TestCase.Common.Config.TimestampVerifyString);
             ServiceRegistryClient serviceRegistryClient = await ServiceRegistryClient.Get(commandClientConfig, this);
-            return await ServiceRegistryCommandServiceRegistrar.Create(server, serviceRegistryClient, this, PortRegistryClient) ?? await base.GetRegistrar(server);
+            return await ServiceRegistryCommandServiceRegistrar.Create(server, serviceRegistryClient, this, PortRegistryClient.PortRegistryClient) ?? await base.GetRegistrar(server);
         }
         /// <summary>
         /// 获取服务注册日志

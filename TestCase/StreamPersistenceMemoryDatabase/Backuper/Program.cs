@@ -23,18 +23,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, slaveServiceConfig)
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
+            using (CommandClientSocketEvent backuperClient = (CommandClientSocketEvent)await commandClient.GetSocketEvent())
             {
-                if (await commandClient.GetSocketAsync() == null)
+                if (backuperClient == null)
                 {
                     ConsoleWriteQueue.Breakpoint("ERROR");
                     Console.ReadKey();
                     return;
                 }
-                using (CommandClientSocketEvent backuperClient = (CommandClientSocketEvent)commandClient.SocketEvent)
-                {
-                    Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
-                }
+                Console.WriteLine("Press quit to exit.");
+                while (Console.ReadLine() != "quit") ;
             }
         }
     }

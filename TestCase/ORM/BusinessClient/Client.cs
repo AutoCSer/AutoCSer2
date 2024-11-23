@@ -104,13 +104,13 @@ namespace AutoCSer.TestCase.BusinessClient
                         GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
                     };
                     CommandClient commandClient = new CommandClient(commandClientConfig);
-                    CommandClientSocket commandClientSocket = await commandClient.GetSocketAsync();
-                    if (commandClientSocket == null)
+                    CommandClientSocketEvent client = (CommandClientSocketEvent)await commandClient.GetSocketEvent();
+                    if (client == null)
                     {
                         await LogHelper.Error("业务数据服务连接失败");
                         return null;
                     }
-                    instance = new Client(commandClient, (CommandClientSocketEvent)commandClient.SocketEvent);
+                    instance = new Client(commandClient, client);
                 }
             }
             finally { instanceLock.Exit(); }

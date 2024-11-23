@@ -21,7 +21,8 @@ namespace AutoCSer.TestCase.FileSynchronousClient
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                if (await commandClient.GetSocketAsync() == null)
+                IPullFileClientSocketEvent pullClient = (IPullFileClientSocketEvent)await commandClient.GetSocketEvent();
+                if (pullClient == null)
                 {
                     ConsoleWriteQueue.Breakpoint("ERROR");
                     Console.ReadKey();
@@ -30,7 +31,6 @@ namespace AutoCSer.TestCase.FileSynchronousClient
 
                 if (AutoCSer.TestCase.Common.Config.AutoCSerPath != null)
                 {
-                    IPullFileClientSocketEvent pullClient = (IPullFileClientSocketEvent)commandClient.SocketEvent;
                     PullFileClient pullFileClient = new PullFileClient(pullClient);
                     string serverPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, AutoCSer.Common.NamePrefix);
                     string clientPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(PullFileClient), AutoCSer.Common.NamePrefix);

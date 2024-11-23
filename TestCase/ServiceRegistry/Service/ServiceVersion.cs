@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.ServiceRegistryService
         /// <summary>
         /// 端口注册客户端
         /// </summary>
-        private readonly PortRegistryClient portRegistryClient;
+        private readonly CommandClientSocketEvent portRegistryClient;
         /// <summary>
         /// 服务版本
         /// </summary>
@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase.ServiceRegistryService
         /// 服务版本测试
         /// </summary>
         /// <param name="version"></param>
-        internal ServiceVersion(PortRegistryClient portRegistryClient, uint version)
+        internal ServiceVersion(CommandClientSocketEvent portRegistryClient, uint version)
         {
             this.portRegistryClient = portRegistryClient;
             this.version = version;
