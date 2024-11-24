@@ -370,6 +370,11 @@
             当前读取数据位置
             </summary>
         </member>
+        <member name="F:AutoCSer.BinaryDeserializer.realTypeCurrent">
+            <summary>
+            真实类型解析未知
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinaryDeserializer.objectReference">
             <summary>
             下一个对象引用位置
@@ -445,12 +450,13 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.CheckTryPush``1(``0@)">
+        <member name="M:AutoCSer.BinaryDeserializer.CheckTryPush``1(``0@,System.Boolean@)">
             <summary>
             获取历史对象
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
+            <param name="isRealType"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.Constructor``1(``0@)">
@@ -522,21 +528,34 @@
             <param name="deserializer"></param>
             <param name="value">目标数据</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.CheckRealType``1(``0@)">
+        <member name="M:AutoCSer.BinaryDeserializer.realTypeObject``1">
+            <summary>
+            真实类型反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.RealTypeObject``1(AutoCSer.BinaryDeserializer)">
+            <summary>
+            真实类型反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="deserializer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.RealType``1(``0@)">
             <summary>
             真实类型反序列化
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.RealTypeObject``1(AutoCSer.BinaryDeserializer,System.Object)">
+        <member name="M:AutoCSer.BinaryDeserializer.NotSupport``1(``0@)">
             <summary>
-            真实类型反序列化
+            自定义反序列化不支持类型
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="deserializer"></param>
-            <param name="objectValue"></param>
-            <returns></returns>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.NotSupport``1(AutoCSer.BinaryDeserializer,``0@)">
             <summary>
@@ -3234,12 +3253,12 @@
             是否检查相同对象引用，默认为 true
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerializeAttribute.IsJson">
+        <member name="F:AutoCSer.BinarySerializeAttribute.IsJsonMember">
             <summary>
             当没有 JSON 序列化成员时是否预留 JSON 序列化标记，默认为 false
             </summary>
         </member>
-        <member name="P:AutoCSer.BinarySerializeAttribute.GetIsJson">
+        <member name="P:AutoCSer.BinarySerializeAttribute.GetIsJsonMember">
             <summary>
             当没有 JSON 序列化成员时是否预留 JSON 序列化标记，默认为 false
             </summary>
@@ -3311,7 +3330,7 @@
         </member>
         <member name="F:AutoCSer.BinarySerializeConfig.IsRealType">
             <summary>
-            不支持类型是否尝试转换为真实类型处理
+            不支持类型是否尝试转换为真实类型处理默认为 false，只有在可信任环境中才允许设置为 true，否则将产生 new 任意类型的安全漏洞
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerializeConfig.CheckDepth">
@@ -3367,12 +3386,12 @@
             默认为 true 表示字段删除前用 public 修饰
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerializeMemberAttribute.IsJson">
+        <member name="F:AutoCSer.BinarySerializeMemberAttribute.IsJsonMember">
             <summary>
             是否采用 JSON 混合序列化
             </summary>
         </member>
-        <member name="P:AutoCSer.BinarySerializeMemberAttribute.GetIsJson">
+        <member name="P:AutoCSer.BinarySerializeMemberAttribute.GetIsJsonMember">
             <summary>
             是否采用 JSON 混合序列化
             </summary>
@@ -6758,6 +6777,11 @@
             最大数组长度
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.DeserializeConfig.IsRealType">
+            <summary>
+            不支持类型是否尝试转换为真实类型处理默认为 false，只有在可信任环境中才允许设置为 true，否则将产生 new 任意类型的安全漏洞
+            </summary>
+        </member>
         <member name="T:AutoCSer.BinarySerialize.DeserializeDelegate">
             <summary>
             自定义反序列化委托
@@ -6992,6 +7016,11 @@
             类型解析错误
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.NotSupport">
+            <summary>
+            不支持的类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.CustomBufferError">
             <summary>
             自定义缓冲区创建失败
@@ -7214,13 +7243,14 @@
             固定序列化字段字节数
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.Metadata.FieldIndex[],System.Boolean,System.Int32@)">
+        <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.Metadata.FieldIndex[],System.Boolean,System.Int32@,System.Boolean)">
             <summary>
             字段成员集合
             </summary>
             <param name="fieldIndexs"></param>
             <param name="isJson"></param>
             <param name="memberCountVerify"></param>
+            <param name="isAnonymousFields"></param>
             <returns>字段成员集合</returns>
         </member>
         <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.LeftArray{AutoCSer.BinarySerialize.FieldSize}@,AutoCSer.LeftArray{AutoCSer.BinarySerialize.FieldSize}@,AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex}@,System.Int32,System.Boolean,System.Int32@)">
@@ -16783,6 +16813,25 @@
             </summary>
             <param name="memberIndex">成员索引</param>
         </member>
+        <member name="M:AutoCSer.Metadata.MemberMapData`1.SetMember(System.String)">
+            <summary>
+            设置成员索引,忽略默认成员
+            </summary>
+            <param name="memberName">成员名称</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMapData`1.ClearMember(System.Int32)">
+            <summary>
+            清除成员索引,忽略默认成员
+            </summary>
+            <param name="memberIndex">成员索引</param>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMapData`1.ClearMember(System.String)">
+            <summary>
+            清除成员索引,忽略默认成员
+            </summary>
+            <param name="memberName">成员名称</param>
+        </member>
         <member name="M:AutoCSer.Metadata.MemberMapData`1.Copy">
             <summary>
             成员位图
@@ -16845,6 +16894,13 @@
             <param name="deserializer"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Metadata.MemberMap.GetMemberName(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            获取成员名称
+            </summary>
+            <param name="memberExpression"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Metadata.MemberMap`1">
             <summary>
             成员位图对象
@@ -16879,6 +16935,21 @@
             </summary>
             <param name="memberMap"></param>
         </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.ClearMember``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            清除成员索引,忽略默认成员
+            </summary>
+            <typeparam name="returnType"></typeparam>
+            <param name="member">成员</param>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.SetMember``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            设置成员索引,忽略默认成员
+            </summary>
+            <typeparam name="returnType"></typeparam>
+            <param name="member">成员</param>
+            <returns>是否成功</returns>
+        </member>
         <member name="M:AutoCSer.Metadata.MemberMap`1.IsMember(AutoCSer.Metadata.MemberMap{`0},System.Int32)">
             <summary>
             判断成员索引是否有效
@@ -16904,6 +16975,12 @@
         <member name="M:AutoCSer.Metadata.MemberMap`1.NewFull">
             <summary>
             成员所有成员位图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.NewEmpty">
+            <summary>
+            空成员位图
             </summary>
             <returns></returns>
         </member>
@@ -32111,17 +32188,17 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsJsonSerialize">
             <summary>
-            是否使用 JSON 序列化
+            是否使用 JSON 序列化，默认为 false 表示使用二进制序列化，否则采用 JSON 序列化（生效的前提是数据不适配简单序列化操作）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsSimpleSerializeInputParameter">
             <summary>
-            默认为 true 表示输入参数支持简单序列化操作
+            默认为 true 表示输入参数优先适配简单序列化操作
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsSimpleSerializeOutputParameter">
             <summary>
-            默认为 true 表示输出参数支持简单序列化操作
+            默认为 true 表示输出参数优先适配简单序列化操作
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.TaskQueueMaxConcurrent">

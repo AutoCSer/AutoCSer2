@@ -1,9 +1,12 @@
 ﻿using AutoCSer.Extensions;
 
-namespace SymmetryService
+namespace AutoCSer.Document.SymmetryService
 {
     internal class Program
     {
+        /// <summary>
+        /// https://zhuanlan.zhihu.com/p/8581138677
+        /// </summary>
         static async Task Main(string[] args)
         {
             AutoCSer.Net.CommandServerConfig config = new AutoCSer.Net.CommandServerConfig
