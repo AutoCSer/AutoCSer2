@@ -1,8 +1,10 @@
-﻿using AutoCSer.Document.ServiceDataSerialize.BinarySerialize;
-using System;
+﻿using System;
 
 namespace AutoCSer.Document.ServiceDataSerialize
 {
+    /// <summary>
+    /// https://zhuanlan.zhihu.com/p/8762985779
+    /// </summary>
     internal class Program
     {
         static void Main(string[] args)

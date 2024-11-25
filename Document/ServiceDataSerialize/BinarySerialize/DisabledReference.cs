@@ -3,13 +3,13 @@
 namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
 {
     /// <summary>
-    /// 禁用循环引用 示例
+    /// 禁用对象引用检查 示例
     /// </summary>
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     class DisabledReference
     {
         /// <summary>
-        /// 禁用循环引用 测试
+        /// 禁用对象引用检查 测试
         /// </summary>
         /// <returns></returns>
 #if TEST
