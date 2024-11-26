@@ -133,6 +133,8 @@
     <Compile Include="Threading\CallbackEnumerator.cs" />
     <Compile Include="Threading\CallbackEnumeratorMoveNext.cs" />
     <Compile Include="Threading\DistributedMillisecondIdentityGenerator.cs" />
+    <Compile Include="Threading\EnumerableValueTask.cs" />
+    <Compile Include="Threading\EnumerableTask.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueue.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueCustomNode.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueMethodAttribute.cs" />

@@ -416,6 +416,24 @@
             <param name="capacity">初始空间大小</param>
             <returns>数组</returns>
         </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtension.enumerableTask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            并发任务，用于替代 Parallel.ForEachAsync
+            </summary>
+            <param name="source">获取任务参数集合</param>
+            <param name="taskCount">最大并发任务数量，最小值为 1</param>
+            <param name="getTask">获取任务委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtension.enumerableValueTask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Threading.Tasks.ValueTask})">
+            <summary>
+            并发任务，用于替代 Parallel.ForEachAsync
+            </summary>
+            <param name="source">获取任务参数集合</param>
+            <param name="taskCount">最大并发任务数量，最小值为 1</param>
+            <param name="getTask">获取任务委托</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Extensions.IntegerExtension">
             <summary>
             数值相关扩展操作
@@ -1136,6 +1154,170 @@
             <summary>
             XML 反序列化可空类型
             </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Threading.EnumerableValueTask`1">
+            <summary>
+            并发任务
+            </summary>
+            <typeparam name="T">获取任务参数类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.source">
+            <summary>
+            获取任务参数集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.getTask">
+            <summary>
+            获取任务委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.taskLock">
+            <summary>
+            任务并发锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.waitLock">
+            <summary>
+            任务完成等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.taskCount">
+            <summary>
+            当前启动任务数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.completedCount">
+            <summary>
+            当前完成任务数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Threading.EnumerableValueTask`1.CompletedCount">
+            <summary>
+            /当前完成任务数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.errorCount">
+            <summary>
+            异常任务数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Threading.EnumerableValueTask`1.ErrorCount">
+            <summary>
+            异常任务数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.isCancel">
+            <summary>
+            是否已经取消任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Func{`0,System.Threading.Tasks.ValueTask})">
+            <summary>
+            并发任务
+            </summary>
+            <param name="source">获取任务参数集合</param>
+            <param name="taskCount">最大并发任务数量</param>
+            <param name="getTask">获取任务委托</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.Cancel">
+            <summary>
+            取消任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.Start">
+            <summary>
+            启动任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.run(`0)">
+            <summary>
+            运行任务
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.Threading.EnumerableTask`1">
+            <summary>
+            并发任务
+            </summary>
+            <typeparam name="T">获取任务参数类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.source">
+            <summary>
+            获取任务参数集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.getTask">
+            <summary>
+            获取任务委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.taskLock">
+            <summary>
+            任务并发锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.waitLock">
+            <summary>
+            任务完成等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.taskCount">
+            <summary>
+            当前启动任务数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.completedCount">
+            <summary>
+            当前完成任务数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Threading.EnumerableTask`1.CompletedCount">
+            <summary>
+            /当前完成任务数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.errorCount">
+            <summary>
+            异常任务数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Threading.EnumerableTask`1.ErrorCount">
+            <summary>
+            异常任务数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Threading.EnumerableTask`1.isCancel">
+            <summary>
+            是否已经取消任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableTask`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Func{`0,System.Threading.Tasks.Task})">
+            <summary>
+            并发任务
+            </summary>
+            <param name="source">获取任务参数集合</param>
+            <param name="taskCount">最大并发任务数量</param>
+            <param name="getTask">获取任务委托</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableTask`1.Cancel">
+            <summary>
+            取消任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableTask`1.Start">
+            <summary>
+            启动任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Threading.EnumerableTask`1.run(`0)">
+            <summary>
+            运行任务
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Extensions.Threading.MillisecondIdentityGenerator">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.TestCase.CommandServerPerformance;
+using AutoCSer.TestCase.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -109,8 +110,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
-                await s0611163(client, false);
-                await s0611163(client, true);
+                await forEachTask(client, false);
+                await forEachTask(client, true);
+                //await s0611163(client, false);
+                //await s0611163(client, true);
 
                 Left = AutoCSer.Random.Default.Next();
 
@@ -144,18 +147,43 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             while (await enumeratorCommand.MoveNext()) CheckSynchronous(enumeratorCommand.Current);
         }
         /// <summary>
-        /// https://www.zhihu.com/people/s0611163 提供的测试 https://www.zhihu.com/question/4877730905
+        /// https://www.zhihu.com/people/s0611163 在问题 https://www.zhihu.com/question/4877730905 评论中提供的测试
         /// </summary>
         /// <param name="client"></param>
-        /// <param name="isEmpty"></param>
-        /// <returns>Parallel.ForEachAsync 不适合做高性能并发测试</returns>
+        /// <param name="isEmpty">是否轮空测试，Parallel.ForEachAsync 不适合做高性能并发测试</param>
+        /// <returns></returns>
         private static async Task s0611163(CommandClientSocketEvent<IAwaiterClient> client, bool isEmpty)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             int count = 0;
-            //await Parallel.ForEachAsync(Enumerable.Range(1, maxTestCount >> 2), new ParallelOptions { MaxDegreeOfParallelism = 8192 }, async (index, c) => //14:20 测试轮空开销占比超过 2/3，Parallel.ForEachAsync 不适合做高性能并发测试
-            await Parallel.ForEachAsync(Enumerable.Range(1, 1000000), new ParallelOptions { MaxDegreeOfParallelism = 50 }, async (index, c) => //1.1:3.3 测试轮空开销占比 1/3，Parallel.ForEachAsync 不适合做高性能并发测试
+            //await Parallel.ForEachAsync(Enumerable.Range(1, maxTestCount >> 2), new ParallelOptions { MaxDegreeOfParallelism = 8192 }, async (index, c) => //14:20 轮空测试耗时占比超过 2/3，Parallel.ForEachAsync 不适合做高性能并发测试
+            await Parallel.ForEachAsync(Enumerable.Range(1, 1000000), new ParallelOptions { MaxDegreeOfParallelism = 50 }, async (index, c) => //1.1:3.3 轮空测试耗时占比 1/3，Parallel.ForEachAsync 不适合做高性能并发测试
+            {
+                if (!isEmpty)
+                {
+                    var reply = (await client.InterfaceController.Synchronous(200, 500)).IsSuccess;
+                }
+                if ((System.Threading.Interlocked.Increment(ref count) % 100000) == 0)
+                {
+                    Console.WriteLine($"已完成：{count.ToString()}");
+                }
+            });
+            Console.WriteLine($"耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒");
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="isEmpty">是否轮空测试，EnumerableTask{T} 自身开销对 AutoCSer RPC 测试影响不大</param>
+        /// <returns></returns>
+        private static async Task forEachTask(CommandClientSocketEvent<IAwaiterClient> client, bool isEmpty)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            int count = 0;
+            await Enumerable.Range(1, maxTestCount >> 1).enumerableTask(8192, async index => //3.8:25.4 轮空测试耗时占比 15%
+            //await Enumerable.Range(1, 1000000).enumerableTask(50, async index => //0.1:4.4 轮空测试耗时占比 2.3%
             {
                 if (!isEmpty)
                 {

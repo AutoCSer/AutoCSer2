@@ -1,6 +1,8 @@
-﻿using System;
+﻿using AutoCSer.Extensions.Threading;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AutoCSer.Extensions
 {
@@ -33,6 +35,31 @@ namespace AutoCSer.Extensions
         public static ListArray<T> getListArray<T>(this IEnumerable<T> values, int capacity = 0)
         {
             return new ListArray<T>(getLeftArray(values, capacity));
+        }
+
+        /// <summary>
+        /// 并发任务，用于替代 Parallel.ForEachAsync
+        /// </summary>
+        /// <param name="source">获取任务参数集合</param>
+        /// <param name="taskCount">最大并发任务数量，最小值为 1</param>
+        /// <param name="getTask">获取任务委托</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static Task<EnumerableTask<T>> enumerableTask<T>(this IEnumerable<T> source, int taskCount, Func<T, Task> getTask)
+        {
+            return new EnumerableTask<T>(source, taskCount, getTask).Start();
+        }
+        /// <summary>
+        /// 并发任务，用于替代 Parallel.ForEachAsync
+        /// </summary>
+        /// <param name="source">获取任务参数集合</param>
+        /// <param name="taskCount">最大并发任务数量，最小值为 1</param>
+        /// <param name="getTask">获取任务委托</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static Task<EnumerableValueTask<T>> enumerableValueTask<T>(this IEnumerable<T> source, int taskCount, Func<T, ValueTask> getTask)
+        {
+            return new EnumerableValueTask<T>(source, taskCount, getTask).Start();
         }
     }
 }

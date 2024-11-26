@@ -18,20 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AwaiterClient.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "RelativeDocumentMoniker": "TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "ToolTip": "C:\\AutoCSer2\\TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "RelativeToolTip": "TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAACIAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T12:43:22.998Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -40,10 +28,22 @@
               "RelativeDocumentMoniker": "TestCase\\CommandServerPerformance\\Client\\IAwaiterClient.cs",
               "ToolTip": "C:\\AutoCSer2\\TestCase\\CommandServerPerformance\\Client\\IAwaiterClient.cs",
               "RelativeToolTip": "TestCase\\CommandServerPerformance\\Client\\IAwaiterClient.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJoAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAQwLcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T12:23:39.759Z",
+              "WhenOpened": "2024-11-25T23:11:55.948Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AwaiterClient.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
+              "RelativeDocumentMoniker": "TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
+              "RelativeToolTip": "TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAADwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T23:11:08.948Z"
             }
           ]
         }
