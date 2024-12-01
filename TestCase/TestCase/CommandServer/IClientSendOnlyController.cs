@@ -25,8 +25,8 @@ namespace AutoCSer.TestCase
         SendOnlyCommand SendOnlyTask(int Value, int Ref);
         SendOnlyCommand SendOnlyTask();
 
-        SendOnlyCommand SendOnlyTaskQueueSocket(int Value, int Ref);
-        SendOnlyCommand SendOnlyTaskQueue(int Value, int Ref);
+        SendOnlyCommand SendOnlyTaskQueueSocket(int queueKey, int Ref);
+        SendOnlyCommand SendOnlyTaskQueue(int queueKey, int Ref);
     }
     /// <summary>
     /// 命令客户端测试

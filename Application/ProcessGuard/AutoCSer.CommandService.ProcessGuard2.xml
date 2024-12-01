@@ -103,12 +103,15 @@
             <param name="processId">进程标识</param>
             <param name="processName">进程名称</param>
         </member>
-        <member name="T:AutoCSer.CommandService.IProcessGuardClient">
+        <member name="T:AutoCSer.CommandService.IProcessGuardServiceClientController">
             <summary>
             进程守护客户端接口
             </summary>
+            <summary>
+            进程守护服务端接口（服务端需要以管理员身份运行） 客户端接口
+            </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuardClient.Guard(AutoCSer.CommandService.ProcessGuardInfo,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Boolean}})">
+        <member name="M:AutoCSer.CommandService.IProcessGuardServiceClientController.Guard(AutoCSer.CommandService.ProcessGuardInfo,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Boolean}})">
             <summary>
             添加待守护进程
             </summary>
@@ -116,14 +119,7 @@
             <param name="callback">是否添加成功 回调委托</param>
             <returns>await</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuardClient.Guard(AutoCSer.CommandService.ProcessGuardInfo)">
-            <summary>
-            添加待守护进程
-            </summary>
-            <param name="processInfo">进程信息</param>
-            <returns>是否添加成功</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuardClient.Remove(System.Int32,System.String,AutoCSer.Net.CommandClientCallback)">
+        <member name="M:AutoCSer.CommandService.IProcessGuardServiceClientController.Remove(System.Int32,System.String,AutoCSer.Net.CommandClientCallback)">
             <summary>
             删除被守护进程
             </summary>
@@ -132,13 +128,19 @@
             <param name="callback">回调委托</param>
             <returns>await</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.IProcessGuardClient.Remove(System.Int32,System.String)">
+        <member name="M:AutoCSer.CommandService.IProcessGuardServiceClientController.Guard(AutoCSer.CommandService.ProcessGuardInfo)">
+            <summary>
+            添加待守护进程
+            </summary>
+            <param name="processInfo">进程信息</param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IProcessGuardServiceClientController.Remove(System.Int32,System.String)">
             <summary>
             删除被守护进程
             </summary>
             <param name="processId">进程标识</param>
             <param name="processName">进程名称</param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.IProcessGuardClientSocketEvent">
             <summary>

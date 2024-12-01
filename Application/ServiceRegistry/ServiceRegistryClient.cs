@@ -21,9 +21,9 @@ namespace AutoCSer.CommandService
         /// 服务注册客户端接口
         /// </summary>
 #if NetStandard21
-        internal IServiceRegistryClient? Client;
+        internal IServiceRegistryServiceClientController? Client;
 #else
-        internal IServiceRegistryClient Client;
+        internal IServiceRegistryServiceClientController Client;
 #endif
         /// <summary>
         /// 会话在线检查保持回调
@@ -55,7 +55,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        internal async Task<bool> CheckCallback(IServiceRegistryClient client)
+        internal async Task<bool> CheckCallback(IServiceRegistryServiceClientController client)
         {
             var checkKeepCallback = await client.CheckCallback(CommandClientKeepCallback.EmptyCallback);
             if (checkKeepCallback == null) return false;

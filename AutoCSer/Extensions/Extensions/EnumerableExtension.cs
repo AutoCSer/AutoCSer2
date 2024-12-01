@@ -49,6 +49,7 @@ namespace AutoCSer.Extensions
         {
             return new EnumerableTask<T>(source, taskCount, getTask).Start();
         }
+#if NetStandard21
         /// <summary>
         /// 并发任务，用于替代 Parallel.ForEachAsync
         /// </summary>
@@ -61,5 +62,6 @@ namespace AutoCSer.Extensions
         {
             return new EnumerableValueTask<T>(source, taskCount, getTask).Start();
         }
+#endif
     }
 }

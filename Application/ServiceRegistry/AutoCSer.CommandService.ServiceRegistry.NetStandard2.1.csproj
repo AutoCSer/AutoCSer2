@@ -25,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="IPortRegistryClient.cs" />
+    <Compile Include="IPortRegistryServiceClientController.cs" />
+    <Compile Include="{AutoCSer.CommandService.ServiceRegistry}.AutoCSer.cs" />
+    <Compile Include="IServiceRegistryServiceClientController.cs" />
     <Compile Include="IPortRegistryClientSocketEvent.cs" />
     <Compile Include="IPortRegistryService.cs" />
     <Compile Include="IServiceRegistryCommandServerConfig.cs" />
@@ -39,7 +41,6 @@
     <Compile Include="ServiceRegistryCommandServerConfig.cs" />
     <Compile Include="ServiceRegistryCommandServiceRegistrar.cs" />
     <Compile Include="IServiceRegistryService.cs" />
-    <Compile Include="IServiceRegistryClient.cs" />
     <Compile Include="ServiceRegisterLog.cs" />
     <Compile Include="LogAssembler.cs" />
     <Compile Include="LogAssemblerQueueNode.cs" />

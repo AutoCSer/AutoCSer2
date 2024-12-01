@@ -10,7 +10,7 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 自定义属性列测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(CustomColumnPropertyModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath)]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(CustomColumnPropertyModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
     public interface ICustomColumnPropertyModelService : IPrimaryKeyService<CustomColumnPropertyModel, AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel, AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey>
     {
         /// <summary>

@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端定义非对称测试接口
     /// </summary>
-    [CommandServerControllerInterface(MethodIndexEnumType = typeof(DefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false)]
+    [CommandServerControllerInterface(MethodIndexEnumType = typeof(DefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
     public interface IDefinedDissymmetryClientController
     {
         /// <summary>

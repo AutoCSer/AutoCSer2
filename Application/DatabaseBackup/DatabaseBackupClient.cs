@@ -67,7 +67,7 @@ namespace AutoCSer.CommandService
                     var backupFullName = await Client.DatabaseBackupClient.Backup(database);
                     if (backupFullName.IsSuccess)
                     {
-                        if (backupFullName.Value != null)
+                        if (!string.IsNullOrEmpty(backupFullName.Value))
                         {
                             downloadTasks.Add(getDatabaseBackupClientDownloader(database, backupFullName.Value).Download());
                         }

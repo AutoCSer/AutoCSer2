@@ -250,26 +250,6 @@
             待发送日志队列数量默认为 1023 条，超出限制则抛弃日志
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.ILogCollectionReverseClient`1">
-            <summary>
-            日志收集反向服务客户端
-            </summary>
-            <typeparam name="T">日志数据类型</typeparam>
-        </member>
-        <member name="M:AutoCSer.CommandService.ILogCollectionReverseClient`1.Append(`0)">
-            <summary>
-            添加日志
-            </summary>
-            <param name="log">日志数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.ILogCollectionReverseClient`1.AppendSendOnly(`0)">
-            <summary>
-            添加日志
-            </summary>
-            <param name="log">日志数据</param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.CommandService.ILogCollectionReverseClientSocketEvent`1">
             <summary>
             日志收集反向服务客户端套接字事件
@@ -303,6 +283,23 @@
             <param name="queue"></param>
             <param name="log">日志数据</param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.ILogCollectionReverseServiceClientController`1">
+            <summary>
+            日志收集反向服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个监听客户端，家庭带宽电脑上启动服务端） 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ILogCollectionReverseServiceClientController`1.Append(`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="log">日志数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ILogCollectionReverseServiceClientController`1.AppendSendOnly(`0)">
+            <summary>
+            添加日志
+            </summary>
+            <param name="log">日志数据</param>
         </member>
     </members>
 </doc>

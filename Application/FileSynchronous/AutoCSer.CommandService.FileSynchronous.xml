@@ -449,122 +449,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.FileSynchronous.IUploadFileClient">
-            <summary>
-            文件上传服务客户端接口
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.CombinePath(System.String,System.String)">
-            <summary>
-            拼接路径
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.CreateUploader(System.String,System.String)">
-            <summary>
-            创建文件上传操作对象
-            </summary>
-            <param name="path">上传根目录</param>
-            <param name="backupPath">备份文件根目录</param>
-            <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.RemoveUploader(AutoCSer.CommandService.FileSynchronous.UploadFileIndex)">
-            <summary>
-            移除文件上传实例
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.GetFiles(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
-            <summary>
-            获取指定路径下的文件信息集合
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <returns>文件信息集合</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.GetFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
-            <summary>
-            获取指定文件信息集合
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileName">相对路径</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.GetDirectoryNames(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
-            <summary>
-            获取指定路径下的目录名称集合
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <returns>目录名称集合</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.CreateDirectory(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String,System.String)">
-            <summary>
-            创建目录
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <param name="directoryName">目录名称</param>
-            <returns>返回 null 表示失败</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.CreateFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,AutoCSer.CommandService.FileSynchronous.SynchronousFileInfo,System.Int64)">
-            <summary>
-            创建上传文件
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileInfo">文件信息</param>
-            <param name="serverFileLength">服务端文件匹配长度</param>
-            <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.RemoveFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,AutoCSer.CommandService.FileSynchronous.UploadFileIndex)">
-            <summary>
-            移除文件
-            </summary>
-            <param name="uploaderIndex">文件上传索引信息</param>
-            <param name="fileIndex">上传文件索引信息</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.UploadFileData(AutoCSer.CommandService.FileSynchronous.UploadFileBuffer)">
-            <summary>
-            上传文件写入数据
-            </summary>
-            <param name="buffer">文件上传数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.AppendCompletedFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,AutoCSer.CommandService.FileSynchronous.SynchronousFileInfo)">
-            <summary>
-            添加上传完成文件
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileInfo">对比文件信息</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.AppendDeleteFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
-            <summary>
-            添加待删除文件
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileName">相对路径文件名称</param>
-            <returns>返回 false 表示没有找到文件上传操作对象</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.AppendDeleteDirectory(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
-            <summary>
-            添加待删除目录
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <returns>返回 false 表示没有找到文件上传操作对象</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileClient.Completed(AutoCSer.CommandService.FileSynchronous.UploadFileIndex)">
-            <summary>
-            上传完成最后移动文件操作
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <returns>返回 false 表示没有找到文件上传操作对象</returns>
-        </member>
         <member name="T:AutoCSer.CommandService.FileSynchronous.IUploadFileService">
             <summary>
             文件上传服务接口
@@ -1578,39 +1462,49 @@
             </summary>
             <param name="state"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.FileSynchronous.IPullFileClient">
+        <member name="T:AutoCSer.CommandService.FileSynchronous.IPullFileServiceClientController">
             <summary>
             拉取文件客户端接口
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileClient.GetFiles(System.String)">
             <summary>
-            获取指定路径下的文件信息集合
+            文件拉取服务接口 客户端接口
             </summary>
-            <param name="path">指定路径</param>
-            <returns>文件信息集合</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileClient.GetDirectoryNames(System.String)">
-            <summary>
-            获取指定路径下的目录名称集合
-            </summary>
-            <param name="path">指定路径</param>
-            <returns>目录名称集合</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileClient.GetFile(System.String)">
-            <summary>
-            获取文件信息
-            </summary>
-            <param name="fileName">文件名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileClient.GetFileData(AutoCSer.CommandService.FileSynchronous.PullFileBuffer,AutoCSer.CommandService.FileSynchronous.SynchronousFileInfo)">
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileServiceClientController.GetFileData(AutoCSer.CommandService.FileSynchronous.PullFileBuffer,AutoCSer.CommandService.FileSynchronous.SynchronousFileInfo)">
             <summary>
             获取指定文件数据
             </summary>
             <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
             <param name="fileInfo">文件信息</param>
             <returns>文件数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileServiceClientController.GetDirectoryNames(System.String)">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="path">指定路径</param>
+            <returns>获取目录名称集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileServiceClientController.GetFile(System.String)">
+            <summary>
+            获取文件信息
+            </summary>
+            <param name="fileName">文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileServiceClientController.GetFileData(AutoCSer.CommandService.FileSynchronous.SynchronousFileInfo)">
+            <summary>
+            获取指定文件数据
+            </summary>
+            <param name="fileInfo">文件信息</param>
+            <returns>获取文件数据回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IPullFileServiceClientController.GetFiles(System.String)">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="path">指定路径</param>
+            <returns>获取文件信息集合回调委托</returns>
         </member>
         <member name="T:AutoCSer.CommandService.FileSynchronous.IPullFileClientSocketEvent">
             <summary>
@@ -1796,6 +1690,120 @@
             客户端反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController">
+            <summary>
+            文件上传服务接口 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.AppendCompletedFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,AutoCSer.CommandService.FileSynchronous.SynchronousFileInfo)">
+            <summary>
+            添加上传完成文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">对比文件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.AppendDeleteDirectory(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.AppendDeleteFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径文件名称</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.CombinePath(System.String,System.String)">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.Completed(AutoCSer.CommandService.FileSynchronous.UploadFileIndex)">
+            <summary>
+            上传完成最后移动文件操作
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.CreateDirectory(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String,System.String)">
+            <summary>
+            创建目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <param name="directoryName">目录名称</param>
+            <returns>返回 null 表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.CreateFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,AutoCSer.CommandService.FileSynchronous.SynchronousFileInfo,System.Int64)">
+            <summary>
+            创建上传文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">文件信息</param>
+            <param name="serverFileLength">服务端文件匹配长度</param>
+            <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.CreateUploader(System.String,System.String)">
+            <summary>
+            创建文件上传操作对象
+            </summary>
+            <param name="path">上传根目录</param>
+            <param name="backupPath">备份文件根目录</param>
+            <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.GetDirectoryNames(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取目录名称集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.GetFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
+            <summary>
+            获取指定文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.GetFiles(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取文件信息集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.RemoveFile(AutoCSer.CommandService.FileSynchronous.UploadFileIndex,AutoCSer.CommandService.FileSynchronous.UploadFileIndex)">
+            <summary>
+            移除文件
+            </summary>
+            <param name="uploaderIndex">文件上传索引信息</param>
+            <param name="fileIndex">上传文件索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.RemoveUploader(AutoCSer.CommandService.FileSynchronous.UploadFileIndex)">
+            <summary>
+            移除文件上传实例
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.FileSynchronous.IUploadFileServiceClientController.UploadFileData(AutoCSer.CommandService.FileSynchronous.UploadFileBuffer)">
+            <summary>
+            上传文件写入数据
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

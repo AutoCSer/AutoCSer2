@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
         /// <summary>
         /// 数据库备份客户端接口
         /// </summary>
-        public IDatabaseBackupClient DatabaseBackupClient { get; private set; }
+        public IDatabaseBackupServiceClientController DatabaseBackupClient { get; private set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -27,7 +27,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
             get
             {
                 yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IDatabaseBackupService), typeof(IDatabaseBackupClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IDatabaseBackupService), typeof(IDatabaseBackupServiceClientController));
             }
         }
         /// <summary>

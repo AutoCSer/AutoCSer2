@@ -54,6 +54,7 @@
     <Compile Include="NetCoreWebView\TreeBuilderTagTypeEnum.cs" />
     <Compile Include="NetCoreWebView\JavaScriptTreeTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateGenerator\CommandServerClientController.cs" />
     <Compile Include="TemplateGenerator\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\InterfaceMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\JavaScriptTypeDefinition.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseMethodIndexEnumType.cs" />
+    <Compile Include="Template\CommandServerClientController.cs" />
     <Compile Include="Template\NetCoreWebViewMiddleware.cs" />
     <Compile Include="Template\NetCoreWebView.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />

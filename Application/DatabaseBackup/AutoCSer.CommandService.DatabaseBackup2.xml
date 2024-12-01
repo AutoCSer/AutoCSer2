@@ -40,7 +40,7 @@
             </summary>
             <param name="queue"></param>
             <param name="database">数据库名称</param>
-            <param name="callback">重写必须保证回调执行</param>
+            <param name="callback">重写必须保证回调执行，返回空字符串表示没有找到数据库</param>
         </member>
         <member name="M:AutoCSer.CommandService.DatabaseBackupService.createDatabaseBackuper(AutoCSer.Net.CommandServerCallQueue,System.String)">
             <summary>
@@ -478,7 +478,7 @@
             </summary>
             <param name="queue"></param>
             <param name="database">数据库名称</param>
-            <param name="callback">重写必须保证回调执行，返回 null 表示没有找到数据库</param>
+            <param name="callback">重写必须保证回调执行，返回空字符串表示没有找到数据库</param>
         </member>
         <member name="M:AutoCSer.CommandService.IDatabaseBackupService.Download(System.String,System.Int64,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DatabaseBackupDownloadBuffer})">
             <summary>
@@ -497,70 +497,6 @@
             <param name="database">数据库名称</param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.IDatabaseBackupClient">
-            <summary>
-            数据库备份客户端接口
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetDatabase(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String[]}})">
-            <summary>
-            获取可备份数据库名称集合
-            </summary>
-            <param name="callback"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetDatabase">
-            <summary>
-            获取可备份数据库名称集合
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.Backup(System.String,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
-            <summary>
-            备份数据库并返回文件名称
-            </summary>
-            <param name="database">数据库名称</param>
-            <param name="callback">备份文件名称，返回 null 表示没有找到数据库</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.Backup(System.String)">
-            <summary>
-            备份数据库并返回文件名称
-            </summary>
-            <param name="database">数据库名称</param>
-            <returns>备份文件名称，返回 null 表示没有找到数据库</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.Download(System.String,System.Int64,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DatabaseBackupDownloadBuffer},AutoCSer.Net.KeepCallbackCommand})">
-            <summary>
-            下载备份文件
-            </summary>
-            <param name="backupFullName">备份文件名称</param>
-            <param name="startIndex">读取文件起始位置</param>
-            <param name="callback">下载备份文件缓冲区</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.Download(System.String,System.Int64)">
-            <summary>
-            下载备份文件
-            </summary>
-            <param name="backupFullName">备份文件名称</param>
-            <param name="startIndex">读取文件起始位置</param>
-            <returns>下载备份文件缓冲区</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetTableName(System.String,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String[]}})">
-            <summary>
-            获取可备份数据库表格名称集合
-            </summary>
-            <param name="database">数据库名称</param>
-            <param name="callback"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.IDatabaseBackupClient.GetTableName(System.String)">
-            <summary>
-            获取可备份数据库表格名称集合
-            </summary>
-            <param name="database">数据库名称</param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.CommandService.IDatabaseBackupClientSocketEvent">
             <summary>
             数据库备份客户端套接字事件
@@ -570,6 +506,39 @@
             <summary>
             数据库备份客户端接口
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.IDatabaseBackupServiceClientController">
+            <summary>
+            数据库备份服务接口 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDatabaseBackupServiceClientController.Backup(System.String)">
+            <summary>
+            备份数据库并返回文件名称
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns>重写必须保证回调执行，返回空字符串表示没有找到数据库</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDatabaseBackupServiceClientController.Download(System.String,System.Int64)">
+            <summary>
+            下载备份文件
+            </summary>
+            <param name="backupFullName">备份文件名称</param>
+            <param name="startIndex">读取文件起始位置</param>
+            <returns>下载文件数据回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDatabaseBackupServiceClientController.GetDatabase">
+            <summary>
+            获取可备份数据库名称集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDatabaseBackupServiceClientController.GetTableName(System.String)">
+            <summary>
+            获取可备份数据库表格名称集合
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

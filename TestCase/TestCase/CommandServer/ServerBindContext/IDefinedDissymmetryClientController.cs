@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 客户端定义非对称测试接口（套接字上下文绑定服务端）
     /// </summary>
-    [CommandServerControllerInterface(MethodIndexEnumType = typeof(ServerBindContextDefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false)]
+    [CommandServerControllerInterface(MethodIndexEnumType = typeof(ServerBindContextDefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
     public interface IDefinedDissymmetryClientController
     {
         /// <summary>

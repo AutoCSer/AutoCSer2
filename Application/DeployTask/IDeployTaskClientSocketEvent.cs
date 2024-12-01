@@ -10,6 +10,6 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 发布任务客户端接口
         /// </summary>
-        IDeployTaskClient DeployTaskClient { get; }
+        IDeployTaskServiceClientController DeployTaskClient { get; }
     }
 }

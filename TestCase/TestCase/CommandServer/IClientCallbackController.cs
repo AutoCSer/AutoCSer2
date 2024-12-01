@@ -62,11 +62,21 @@ namespace AutoCSer.TestCase
         /// <param name="client"></param>
         /// <param name="clientSessionObject"></param>
         /// <returns></returns>
-        internal static async Task<bool> TestCase(CommandClientSocketEvent client, CommandServerSessionObject clientSessionObject)
+        internal static Task<bool> TestCase(CommandClientSocketEvent client, CommandServerSessionObject clientSessionObject)
+        {
+            return TestCase(client.ClientCallbackController, clientSessionObject);
+        }
+        /// <summary>
+        /// 命令客户端测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="clientSessionObject"></param>
+        /// <returns></returns>
+        internal static async Task<bool> TestCase(IClientCallbackController client, CommandServerSessionObject clientSessionObject)
         {
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.CallbackSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            if (!await client.CallbackSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -80,7 +90,7 @@ namespace AutoCSer.TestCase
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.CallbackSocket(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            if (!await client.CallbackSocket(clientSessionObject.Value, clientSessionObject.Ref, Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -90,7 +100,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ClientCallbackController.CallbackSocketReturn(Callback))
+            if (!await client.CallbackSocketReturn(Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -102,7 +112,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ClientCallbackController.CallbackSocket(Callback))
+            if (!await client.CallbackSocket(Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -114,55 +124,7 @@ namespace AutoCSer.TestCase
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.CallbackReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            await CallbackWaitLock.WaitAsync();
-            if (!ReturnValue.IsSuccess
-                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || ReturnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-
-            clientSessionObject.Value = AutoCSer.Random.Default.Next();
-            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.Callback(clientSessionObject.Value, clientSessionObject.Ref, Callback))
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            await CallbackWaitLock.WaitAsync();
-            if (!ReturnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-
-            if (!await client.ClientCallbackController.CallbackReturn(Callback))
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            await CallbackWaitLock.WaitAsync();
-            if (!ReturnValue.IsSuccess
-                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || ReturnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-
-            if (!await client.ClientCallbackController.Callback(Callback))
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            await CallbackWaitLock.WaitAsync();
-            if (!ReturnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-
-            clientSessionObject.Value = AutoCSer.Random.Default.Next();
-            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.CallbackQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            if (!await client.CallbackReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -176,7 +138,7 @@ namespace AutoCSer.TestCase
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.CallbackQueueSocket(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            if (!await client.Callback(clientSessionObject.Value, clientSessionObject.Ref, Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -186,7 +148,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ClientCallbackController.CallbackQueueSocketReturn(Callback))
+            if (!await client.CallbackReturn(Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -198,7 +160,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ClientCallbackController.CallbackQueueSocket(Callback))
+            if (!await client.Callback(Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -210,7 +172,7 @@ namespace AutoCSer.TestCase
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.CallbackQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            if (!await client.CallbackQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -224,7 +186,7 @@ namespace AutoCSer.TestCase
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ClientCallbackController.CallbackQueue(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            if (!await client.CallbackQueueSocket(clientSessionObject.Value, clientSessionObject.Ref, Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -234,7 +196,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ClientCallbackController.CallbackQueueReturn(Callback))
+            if (!await client.CallbackQueueSocketReturn(Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -246,7 +208,55 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ClientCallbackController.CallbackQueue(Callback))
+            if (!await client.CallbackQueueSocket(Callback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            await CallbackWaitLock.WaitAsync();
+            if (!ReturnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            if (!await client.CallbackQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            await CallbackWaitLock.WaitAsync();
+            if (!ReturnValue.IsSuccess
+                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
+                || ReturnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            if (!await client.CallbackQueue(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            await CallbackWaitLock.WaitAsync();
+            if (!ReturnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (!await client.CallbackQueueReturn(Callback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            await CallbackWaitLock.WaitAsync();
+            if (!ReturnValue.IsSuccess
+                || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
+                || ReturnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (!await client.CallbackQueue(Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

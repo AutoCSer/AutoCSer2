@@ -10,6 +10,6 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 数据库备份客户端接口
         /// </summary>
-        IDatabaseBackupClient DatabaseBackupClient { get; }
+        IDatabaseBackupServiceClientController DatabaseBackupClient { get; }
     }
 }

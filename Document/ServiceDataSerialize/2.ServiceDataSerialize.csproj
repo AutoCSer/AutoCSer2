@@ -7,7 +7,40 @@
     <Nullable>enable</Nullable>
     <AssemblyName>AutoCSer.Document.ServiceDataSerialize</AssemblyName>
     <RootNamespace>AutoCSer.Document.ServiceDataSerialize</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BinarySerialize\AnonymousType.cs" />
+    <Compile Include="BinarySerialize\BaseType.cs" />
+    <Compile Include="BinarySerialize\Custom.cs" />
+    <Compile Include="BinarySerialize\DisabledMemberMap.cs" />
+    <Compile Include="BinarySerialize\DisabledReference.cs" />
+    <Compile Include="BinarySerialize\GlobalVersion.cs" />
+    <Compile Include="BinarySerialize\IgnoreMember.cs" />
+    <Compile Include="BinarySerialize\JsonMember.cs" />
+    <Compile Include="BinarySerialize\LoopReference.cs" />
+    <Compile Include="BinarySerialize\MemberMap.cs" />
+    <Compile Include="BinarySerialize\Property.cs" />
+    <Compile Include="BinarySerialize\PublicInstanceField.cs" />
+    <Compile Include="BinarySerialize\RealType.cs" />
+    <Compile Include="IJsonSerializeService.cs" />
+    <Compile Include="JsonSerialize\AnonymousType.cs" />
+    <Compile Include="JsonSerialize\BaseType.cs" />
+    <Compile Include="JsonSerialize\Custom.cs" />
+    <Compile Include="JsonSerialize\IgnoreMember.cs" />
+    <Compile Include="JsonSerialize\JsonNode.cs" />
+    <Compile Include="JsonSerialize\MemberMap.cs" />
+    <Compile Include="JsonSerialize\PublicInstanceField.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="{AutoCSer.Document.ServiceDataSerialize}.AutoCSer.cs" />
+  </ItemGroup>
   
   <ItemGroup>
     <Reference Include="AutoCSer">
@@ -18,5 +51,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
   </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
 
 </Project>

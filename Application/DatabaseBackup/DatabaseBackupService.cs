@@ -44,12 +44,8 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="queue"></param>
         /// <param name="database">数据库名称</param>
-        /// <param name="callback">重写必须保证回调执行</param>
-#if NetStandard21
-        public virtual void Backup(CommandServerCallQueue queue, string database, CommandServerCallback<string?> callback)
-#else
+        /// <param name="callback">重写必须保证回调执行，返回空字符串表示没有找到数据库</param>
         public virtual void Backup(CommandServerCallQueue queue, string database, CommandServerCallback<string> callback)
-#endif
         {
             HashString backuperKey = default(HashString);
             var exception = default(Exception);
@@ -57,25 +53,18 @@ namespace AutoCSer.CommandService
             bool isCallback = true;
             try
             {
-                if (databaseBackupers.TryGetValue(backuperKey = database, out backuper))
-                {
-#pragma warning disable CS8620
-                    backuper.Callback(callback, ref isCallback);
-#pragma warning restore CS8620
-                }
+                if (databaseBackupers.TryGetValue(backuperKey = database, out backuper)) backuper.Callback(callback, ref isCallback);
                 else
                 {
                     backuper = createDatabaseBackuper(queue, database);
                     if (backuper != null)
                     {
                         databaseBackupers.Add(backuperKey, backuper);
-#pragma warning disable CS8620
                         backuper.Start(callback, ref isCallback);
-#pragma warning restore CS8620
                     }
                     else
                     {
-                        callback.Callback(null);
+                        callback.Callback(string.Empty);
                         isCallback = false;
                     }
                 }

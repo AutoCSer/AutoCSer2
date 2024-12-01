@@ -33,8 +33,8 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueueContext
         /// <summary>
         /// 命令服务 Task 队列
         /// </summary>
-        /// <param name="task"></param>
-        /// <param name="key"></param>
+        /// <param name="task">服务端异步调用队列任务</param>
+        /// <param name="key">队列关键字</param>
         public SynchronousKeyController(CommandServerCallTaskQueueNode task, int key) : base(task, key) { }
         /// <summary>
         /// 同步返回数据

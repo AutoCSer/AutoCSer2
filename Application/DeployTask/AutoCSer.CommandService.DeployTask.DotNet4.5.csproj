@@ -55,7 +55,7 @@
     <Compile Include="DeployTaskUploadFileStateEnum.cs" />
     <Compile Include="FileTime.cs" />
     <Compile Include="IDeployTask.cs" />
-    <Compile Include="IDeployTaskClient.cs" />
+    <Compile Include="IDeployTaskServiceClientController.cs" />
     <Compile Include="IDeployTaskClientSocketEvent.cs" />
     <Compile Include="IDeployTaskService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +63,7 @@
     <Compile Include="TaskFileStream.cs" />
     <Compile Include="UploadFileBuffer.cs" />
     <Compile Include="UploadFileClient.cs" />
+    <Compile Include="{AutoCSer.CommandService.DeployTask}.AutoCSer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">

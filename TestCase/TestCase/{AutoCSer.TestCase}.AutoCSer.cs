@@ -7,6 +7,88 @@ using AutoCSer;
 #pragma warning disable
 namespace AutoCSer.TestCase
 {
+        /// <summary>
+        /// 服务端测试接口 客户端接口
+        /// </summary>
+        public partial interface IServerTaskQueueControllerClientController
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand TaskQueue();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.ReturnCommand TaskQueue(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskQueueReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskQueueReturn(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskQueueReturnSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskQueueReturnSocket(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand TaskQueueSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.ReturnCommand TaskQueueSocket(int Value, int Ref);
+        }
+}namespace AutoCSer.TestCase.ServerBindContext
+{
+        /// <summary>
+        /// 服务端测试接口（套接字上下文绑定服务端） 客户端接口
+        /// </summary>
+        public partial interface IServerTaskQueueControllerClientController
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand TaskQueue();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.ReturnCommand TaskQueue(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskQueueReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskQueueReturn(int Value, int Ref);
+        }
+}namespace AutoCSer.TestCase
+{
     public enum DefinedDissymmetryControllerMethodEnum
     {
             /// <summary>

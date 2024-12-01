@@ -14,6 +14,6 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 端口注册客户端接口
         /// </summary>
-        IPortRegistryClient IPortRegistryClient { get; }
+        IPortRegistryServiceClientController IPortRegistryClient { get; }
     }
 }

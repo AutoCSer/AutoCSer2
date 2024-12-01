@@ -31,7 +31,6 @@
     <Compile Include="SynchronousFile.cs" />
     <Compile Include="UploadFile\IUploadFileClientSocketEvent.cs" />
     <Compile Include="UploadFile\FileUploader.cs" />
-    <Compile Include="UploadFile\IUploadFileClient.cs" />
     <Compile Include="UploadFile\IUploadFileService.cs" />
     <Compile Include="UploadFile\UploaderIdentity.cs" />
     <Compile Include="UploadFile\UploaderInfo.cs" />
@@ -48,11 +47,12 @@
     <Compile Include="PullFile\PullFileStateEnum.cs" />
     <Compile Include="PullFile\PullFileService.cs" />
     <Compile Include="PullFile\PullFile.cs" />
-    <Compile Include="PullFile\IPullFileClient.cs" />
+    <Compile Include="PullFile\IPullFileServiceClientController.cs" />
     <Compile Include="PullFile\IPullFileClientSocketEvent.cs" />
     <Compile Include="PullFile\IPullFileService.cs" />
     <Compile Include="PullFile\PullFileClient.cs" />
     <Compile Include="PullFile\PullFileBuffer.cs" />
+    <Compile Include="{AutoCSer.CommandService.FileSynchronous}.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>

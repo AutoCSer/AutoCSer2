@@ -152,6 +152,7 @@
     <Compile Include="Threading\CallbackEnumerator.cs" />
     <Compile Include="Threading\CallbackEnumeratorMoveNext.cs" />
     <Compile Include="Threading\DistributedMillisecondIdentityGenerator.cs" />
+    <Compile Include="Threading\EnumerableTask.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceController.cs" />
     <Compile Include="Threading\LocalMillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\MillisecondIdentityGenerator.cs" />

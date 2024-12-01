@@ -36,6 +36,7 @@ namespace AutoCSer.TestCase
                         .Append<IServerSendOnlyController>(new ServerSendOnlyController())
                         .Append<IServerQueueController>(new ServerQueueController())
                         .Append<IServerCallbackController>(new ServerCallbackController())
+                        .Append<IServerCallbackTaskController>(new ServerCallbackTaskController())
                         .Append<IServerKeepCallbackController>(new ServerKeepCallbackController())
                         .Append<IServerTaskController>(new ServerTaskController())
                         .Append<IServerKeepCallbackTaskController>(new ServerKeepCallbackTaskController())
@@ -48,6 +49,7 @@ namespace AutoCSer.TestCase
                         .Append<ServerBindContext.IServerSendOnlyController>(server => new ServerBindContext.ServerSendOnlyController())
                         .Append<ServerBindContext.IServerQueueController>(server => new ServerBindContext.ServerQueueController())
                         .Append<ServerBindContext.IServerCallbackController>(server => new ServerBindContext.ServerCallbackController())
+                        .Append<ServerBindContext.IServerCallbackTaskController>(server => new ServerBindContext.ServerCallbackTaskController())
                         .Append<ServerBindContext.IServerKeepCallbackController>(server => new ServerBindContext.ServerKeepCallbackController())
                         .Append<ServerBindContext.IServerTaskController>(server => new ServerBindContext.ServerTaskController())
                         .Append<ServerBindContext.IServerKeepCallbackTaskController>(server => new ServerBindContext.ServerKeepCallbackTaskController())
@@ -77,6 +79,10 @@ namespace AutoCSer.TestCase
                             return false;
                         }
                         if (!await ClientCallbackController.TestCase(client, clientSessionObject))
+                        {
+                            return false;
+                        }
+                        if (!await ClientCallbackTaskController.TestCase(client, clientSessionObject))
                         {
                             return false;
                         }
@@ -122,6 +128,10 @@ namespace AutoCSer.TestCase
                             return false;
                         }
                         if (!await ServerBindContext.ClientCallbackController.TestCase(client, clientSessionObject))
+                        {
+                            return false;
+                        }
+                        if (!await ServerBindContext.ClientCallbackTaskController.TestCase(client, clientSessionObject))
                         {
                             return false;
                         }

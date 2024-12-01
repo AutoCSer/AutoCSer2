@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 字段测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(FieldModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath)]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(FieldModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
     public interface IFieldModelService : IPrimaryKeyService<FieldModel, AutoCSer.TestCase.CommonModel.TableModel.FieldModel, long>
     {
         /// <summary>

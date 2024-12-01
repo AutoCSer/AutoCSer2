@@ -48,8 +48,8 @@
     <Compile Include="DatabaseBackupClientTable.cs" />
     <Compile Include="DatabaseBackupDownloadBuffer.cs" />
     <Compile Include="DatabaseBackuper.cs" />
-    <Compile Include="IDatabaseBackupClient.cs" />
     <Compile Include="IDatabaseBackupClientSocketEvent.cs" />
+    <Compile Include="{AutoCSer.CommandService.DatabaseBackup}.AutoCSer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

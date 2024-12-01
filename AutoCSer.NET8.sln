@@ -187,7 +187,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.SymmetryService", "Docume
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.ServiceDataSerialize", "Document\ServiceDataSerialize\2.ServiceDataSerialize.csproj", "{2EAE6112-C417-44BE-95E2-C24E681A3C4B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3.DissymmetryService", "Document\DissymmetryService\3.DissymmetryService.csproj", "{604AA431-6C3F-440C-9616-BB5831C487EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3.ServiceThreadStrategy", "Document\ServiceThreadStrategy\3.ServiceThreadStrategy.csproj", "{281B58F6-678C-4775-831E-97E99E8A9B0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -431,10 +431,10 @@ Global
 		{2EAE6112-C417-44BE-95E2-C24E681A3C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EAE6112-C417-44BE-95E2-C24E681A3C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EAE6112-C417-44BE-95E2-C24E681A3C4B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{604AA431-6C3F-440C-9616-BB5831C487EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{604AA431-6C3F-440C-9616-BB5831C487EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{604AA431-6C3F-440C-9616-BB5831C487EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{604AA431-6C3F-440C-9616-BB5831C487EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{281B58F6-678C-4775-831E-97E99E8A9B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281B58F6-678C-4775-831E-97E99E8A9B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281B58F6-678C-4775-831E-97E99E8A9B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281B58F6-678C-4775-831E-97E99E8A9B0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -525,7 +525,7 @@ Global
 		{0E5D1A5B-1610-4BB6-B891-C0CB71A72A5D} = {2BC9F417-4753-49D6-9C65-ED3DE67869A9}
 		{F84B611A-3D1B-46F8-A640-844B15EFA230} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 		{2EAE6112-C417-44BE-95E2-C24E681A3C4B} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
-		{604AA431-6C3F-440C-9616-BB5831C487EE} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
+		{281B58F6-678C-4775-831E-97E99E8A9B0C} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

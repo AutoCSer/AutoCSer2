@@ -32,9 +32,9 @@
     <Compile Include="ReverseService\AppendLogTaskNode.cs" />
     <Compile Include="ReverseService\CommandReverseListener.cs" />
     <Compile Include="ReverseService\CommandReverseListenerConfig.cs" />
-    <Compile Include="ReverseService\ILogCollectionReverseClient.cs" />
     <Compile Include="ReverseService\ILogCollectionReverseClientSocketEvent.cs" />
     <Compile Include="ReverseService\ILogCollectionReverseService.cs" />
+    <Compile Include="{AutoCSer.CommandService.ReverseLogCollection}.AutoCSer.cs" />
   </ItemGroup>
   
   <ItemGroup>

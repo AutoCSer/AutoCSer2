@@ -7,6 +7,7 @@ namespace AutoCSer.CommandService.FileSynchronous
     /// <summary>
     /// 文件上传服务接口
     /// </summary>
+    [AutoCSer.Net.CommandServerControllerInterface]
     public interface IUploadFileService
     {
         /// <summary>

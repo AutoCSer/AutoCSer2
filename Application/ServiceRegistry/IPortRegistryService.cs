@@ -6,6 +6,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 端口注册服务
     /// </summary>
+    [AutoCSer.Net.CommandServerControllerInterface]
     public interface IPortRegistryService
     {
         /// <summary>

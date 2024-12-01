@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
     /// <summary>
     /// 命令服务性能测试服务端接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 16)]
+    [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 16, IsCodeGeneratorClientInterface = false)]
     public interface IService
     {
         /// <summary>
@@ -62,7 +62,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <returns></returns>
         //[CommandServerMethod(IsInitobj = false, IsControllerTaskQueue = false)]
         [CommandServerMethod(IsControllerTaskQueue = false)]
-        Task<int> TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right);
+        Task<int> TaskQueueKey(CommandServerCallTaskQueue<int> queue, int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
@@ -149,11 +149,10 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
         /// <param name="queue"></param>
-        /// <param name="queueKey">队列关键字</param>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        Task<int> IService.TaskQueueKey(CommandServerCallTaskQueue queue, int queueKey, int left, int right)
+        Task<int> IService.TaskQueueKey(CommandServerCallTaskQueue<int> queue, int left, int right)
         {
             return Task.FromResult(left + right);
         }

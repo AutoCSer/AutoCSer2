@@ -43,12 +43,13 @@
     <Compile Include="ProcessGuardService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GuardProcess.cs" />
-    <Compile Include="IProcessGuardClient.cs" />
+    <Compile Include="IProcessGuardServiceClientController.cs" />
     <Compile Include="IProcessGuardClientSocketEvent.cs" />
     <Compile Include="ProcessGuardCommandClientConfig.cs" />
     <Compile Include="ProcessGuardClientSocketEvent.cs" />
     <Compile Include="ProcessGuardInfo.cs" />
     <Compile Include="ProcessGuardSwitchProcess.cs" />
+    <Compile Include="{AutoCSer.CommandService.ProcessGuard}.AutoCSer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">

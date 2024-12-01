@@ -110,8 +110,8 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
-                await forEachTask(client, false);
-                await forEachTask(client, true);
+                //await forEachTask(client, false);
+                //await forEachTask(client, true);
                 //await s0611163(client, false);
                 //await s0611163(client, true);
 

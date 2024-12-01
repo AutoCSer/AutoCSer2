@@ -35,7 +35,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="parameter2">参数</param>
         /// <param name="callback">等待计数模式 保持回调委托包装，必须是最后一个参数</param>
         /// <returns>必须是 async Task</returns>
-        [CommandServerMethod(KeepCallbackOutputCount = 4)]
+        [CommandServerMethod(KeepCallbackOutputCount = 1 << 10)]
         Task CallbackCountReturn(CommandServerSocket socket, int parameter1, int parameter2, CommandServerKeepCallbackCount<int> callback);
         /// <summary>
         /// 保持回调委托无返回值，返回值类型必须为 void
@@ -52,7 +52,7 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTask
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task{IEnumerable{T}}</returns>
-        [CommandServerMethod(KeepCallbackOutputCount = 4)]
+        [CommandServerMethod(KeepCallbackOutputCount = 1 << 10)]
         Task<IEnumerable<int>> EnumerableCallbackCount(CommandServerSocket socket, int parameter1, int parameter2);
 
 #if NetStandard21

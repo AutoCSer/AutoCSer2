@@ -43,7 +43,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        internal async Task OnMethodVerified(IServiceRegistryClient client)
+        internal async Task OnMethodVerified(IServiceRegistryServiceClientController client)
         {
             if (Client != null && !await Client.CheckCallback(client))
             {

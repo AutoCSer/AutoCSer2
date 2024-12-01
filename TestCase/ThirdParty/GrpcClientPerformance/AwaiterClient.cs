@@ -21,8 +21,9 @@ namespace GrpcClientPerformance
         internal static async Task Test(GrpcChannel channel)
         {
             Greeter.GreeterClient client = new Greeter.GreeterClient(channel);
-            await forEachTask(client, false);
-            await forEachTask(client, true);
+
+            //await forEachTask(client, false);
+            //await forEachTask(client, true);
             //await s0611163(client, false);
             //await s0611163(client, true);
 

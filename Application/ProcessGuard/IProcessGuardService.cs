@@ -6,6 +6,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 进程守护服务端接口（服务端需要以管理员身份运行）
     /// </summary>
+    [AutoCSer.Net.CommandServerControllerInterface]
     public interface IProcessGuardService
     {
         /// <summary>

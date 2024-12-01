@@ -7,7 +7,21 @@
     <Nullable>enable</Nullable>
     <AssemblyName>AutoCSer.Document.SymmetryService</AssemblyName>
     <RootNamespace>AutoCSer.Document.SymmetryService</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ISymmetryService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="SymmetryService.cs" />
+    <Compile Include="{AutoCSer.Document.SymmetryService}.AutoCSer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
@@ -18,5 +32,9 @@
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
 
 </Project>

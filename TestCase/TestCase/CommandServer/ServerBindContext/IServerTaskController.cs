@@ -15,10 +15,10 @@ namespace AutoCSer.TestCase.ServerBindContext
         Task AsynchronousTask(int Value, int Ref);
         Task AsynchronousTask();
 
-        Task<string> TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref);
-        Task TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref);
+        Task<string> TaskQueueReturn(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);
+        Task TaskQueue(CommandServerCallTaskQueue<int> queue, int Ref);
 
-        Task<string> TaskQueueException(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref);
+        Task<string> TaskQueueException(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);
     }
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
@@ -43,19 +43,19 @@ namespace AutoCSer.TestCase.ServerBindContext
             return AutoCSer.Common.CompletedTask;
         }
 
-        Task<string> IServerTaskController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task<string> IServerTaskController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
-            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
+            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref).ToString());
         }
-        Task IServerTaskController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
+        Task IServerTaskController.TaskQueue(CommandServerCallTaskQueue<int> queue, int Ref)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
+            ((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref);
             return AutoCSer.Common.CompletedTask;
         }
 
-        Task<string> IServerTaskController.TaskQueueException(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task<string> IServerTaskController.TaskQueueException(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
-            throw new AutoCSer.Log.IgnoreException(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
+            throw new AutoCSer.Log.IgnoreException(((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref).ToString());
         }
     }
 }

@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.BusinessClient
     /// <summary>
     /// 字段测试模型业务数据服务客户端接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(FieldModelServiceMethodEnum), IsAutoMethodIndex = false)]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(FieldModelServiceMethodEnum), IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
     public interface IFieldModelClient : IPrimaryKeyClient<FieldModel, long>
     {
         /// <summary>

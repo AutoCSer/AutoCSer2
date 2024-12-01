@@ -31,11 +31,21 @@ namespace AutoCSer.TestCase.ServerBindContext
         /// <param name="client"></param>
         /// <param name="clientSessionObject"></param>
         /// <returns></returns>
-        internal static async Task<bool> TestCase(CommandClientSocketEvent client, CommandServerSessionObject clientSessionObject)
+        internal static Task<bool> TestCase(CommandClientSocketEvent client, CommandServerSessionObject clientSessionObject)
+        {
+            return TestCase(client.ServerBindContextClientCallbackController, clientSessionObject);
+        }
+        /// <summary>
+        /// 命令客户端测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="clientSessionObject"></param>
+        /// <returns></returns>
+        internal static async Task<bool> TestCase(ServerBindContext.IClientCallbackController client, CommandServerSessionObject clientSessionObject)
         {
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ServerBindContextClientCallbackController.CallbackReturn(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.CallbackReturn(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -49,7 +59,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ServerBindContextClientCallbackController.Callback(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.Callback(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -59,7 +69,7 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ServerBindContextClientCallbackController.CallbackReturn(AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.CallbackReturn(AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -71,7 +81,7 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ServerBindContextClientCallbackController.Callback(AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.Callback(AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -83,7 +93,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ServerBindContextClientCallbackController.CallbackQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.CallbackQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -97,7 +107,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
-            if (!await client.ServerBindContextClientCallbackController.CallbackQueue(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.CallbackQueue(clientSessionObject.Value, clientSessionObject.Ref, AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -107,7 +117,7 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ServerBindContextClientCallbackController.CallbackQueueReturn(AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.CallbackQueueReturn(AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -119,7 +129,7 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await client.ServerBindContextClientCallbackController.CallbackQueue(AutoCSer.TestCase.ClientCallbackController.Callback))
+            if (!await client.CallbackQueue(AutoCSer.TestCase.ClientCallbackController.Callback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

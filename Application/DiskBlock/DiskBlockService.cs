@@ -157,7 +157,6 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 释放资源
         /// </summary>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void DisposeCallback()
         {
             if(dataCache.Count != 0) indexCache.Clear();
@@ -282,7 +281,7 @@ namespace AutoCSer.CommandService.DiskBlock
                     {
                         Monitor.Exit(dataCacheLock);
                         index.Set(indexs.Head, size);
-                        indexCache.CheckNode(ref index.Index);
+                        CommandServerCallQueue.AddOnly(new BlockCallback(BlockCallbackTypeEnum.CheckServiceIndexCacheNode, Block, index.Index));
                         return;
                     }
                     Monitor.Exit(dataCacheLock);
@@ -331,6 +330,15 @@ namespace AutoCSer.CommandService.DiskBlock
                 request?.CancelCallback(ref index);
                 if (isCallback) callback.Callback(index);
             }
+        }
+        /// <summary>
+        /// 检查磁盘块服务缓存位置索引节点
+        /// </summary>
+        /// <param name="index"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void CheckIndexCacheNode(long index)
+        {
+            indexCache.CheckNode(ref index);
         }
         /// <summary>
         /// 写入数据

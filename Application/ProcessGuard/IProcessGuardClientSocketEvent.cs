@@ -14,6 +14,6 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 进程守护客户端接口
         /// </summary>
-        IProcessGuardClient IProcessGuardClient { get; }
+        IProcessGuardServiceClientController IProcessGuardClient { get; }
     }
 }

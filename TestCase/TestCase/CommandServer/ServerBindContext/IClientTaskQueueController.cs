@@ -6,16 +6,6 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.ServerBindContext
 {
     /// <summary>
-    /// 客户端测试接口（套接字上下文绑定服务端）
-    /// </summary>
-    public interface IClientTaskQueueController
-    {
-        ReturnQueueCommand<string> TaskQueueReturn();
-        ReturnQueueCommand<string> TaskQueueReturn(int Value, int Ref);
-        ReturnQueueCommand TaskQueue();
-        ReturnQueueCommand TaskQueue(int Value, int Ref);
-    }
-    /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）
     /// </summary>
     internal static class ClientTaskQueueController

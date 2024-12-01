@@ -33,9 +33,9 @@
     <Compile Include="DatabaseBackupDownloadBuffer.cs" />
     <Compile Include="DatabaseBackuper.cs" />
     <Compile Include="IDatabaseBackupService.cs" />
-    <Compile Include="IDatabaseBackupClient.cs" />
     <Compile Include="IDatabaseBackupClientSocketEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="{AutoCSer.CommandService.DatabaseBackup}.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,5 +43,9 @@
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
 
 </Project>

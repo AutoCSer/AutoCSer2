@@ -33,9 +33,9 @@
     <Compile Include="ReverseService\AppendLogTaskNode.cs" />
     <Compile Include="ReverseService\CommandReverseListener.cs" />
     <Compile Include="ReverseService\CommandReverseListenerConfig.cs" />
-    <Compile Include="ReverseService\ILogCollectionReverseClient.cs" />
     <Compile Include="ReverseService\ILogCollectionReverseClientSocketEvent.cs" />
     <Compile Include="ReverseService\ILogCollectionReverseService.cs" />
+    <Compile Include="{AutoCSer.CommandService.ReverseLogCollection}.AutoCSer.cs" />
   </ItemGroup>
   
   <ItemGroup>
@@ -47,5 +47,9 @@
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
   
 </Project>

@@ -43,7 +43,7 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         private static int callbackCount;
         /// <summary>
-        /// 计时开始时间错
+        /// 计时开始时间戳
         /// </summary>
         private static long startTimestamp;
         /// <summary>

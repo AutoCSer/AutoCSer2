@@ -249,10 +249,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public partial interface IDistributedLockNodeClientNode<T>
         {
             /// <summary>
-            /// 
+            /// 申请锁
             /// </summary>
-            /// <param name="key"></param>
-            /// <param name="timeoutSeconds"></param>
+            /// <param name="key">锁关键字</param>
+            /// <param name="timeoutSeconds">超时秒数</param>
             /// <returns></returns>
             System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Enter(T key, ushort timeoutSeconds);
             /// <summary>
@@ -1454,10 +1454,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public partial interface IDistributedLockNodeLocalClientNode<T>
         {
             /// <summary>
-            /// 
+            /// 申请锁
             /// </summary>
-            /// <param name="key"></param>
-            /// <param name="timeoutSeconds"></param>
+            /// <param name="key">锁关键字</param>
+            /// <param name="timeoutSeconds">超时秒数</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Enter(T key, ushort timeoutSeconds);
             /// <summary>
@@ -2778,10 +2778,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public enum DistributedLockNodeeMethodEnum
     {
             /// <summary>
-            /// [0] 
-            /// T key 
-            /// ushort timeoutSeconds 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{long} callback 
+            /// [0] 申请锁
+            /// T key 锁关键字
+            /// ushort timeoutSeconds 超时秒数
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{long} callback 失败返回 0
             /// 返回值 long 
             /// </summary>
             Enter = 0,

@@ -5,6 +5,7 @@ namespace AutoCSer.Document.SymmetryService
     /// <summary>
     /// 接口对称服务定义
     /// </summary>
+    [AutoCSer.Net.CommandServerControllerInterface]
     public interface ISymmetryService
     {
         /// <summary>

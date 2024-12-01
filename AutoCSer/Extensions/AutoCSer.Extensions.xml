@@ -94,6 +94,12 @@
             </summary>
             <param name="array"></param>
         </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.UInt64})">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
+        </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.BinaryIndexOfLess(AutoCSer.LeftArray{System.UInt64},System.UInt64)">
             <summary>
             二分查找匹配值之前的位置(用于查找插入值的位置)
@@ -125,12 +131,6 @@
             <param name="array">数组处于已排序状态</param>
             <param name="value">添加新数据</param>
             <returns>添加新数据位置，失败返回-1</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.UInt64})">
-            <summary>
-            数组排序
-            </summary>
-            <param name="array">长度大于 1</param>
         </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.Int32})">
             <summary>
@@ -374,24 +374,105 @@
             <typeparam name="T">数据类型</typeparam>
             <returns>字典</returns>
         </member>
-        <member name="T:AutoCSer.Extensions.FileInfoExtension">
+        <member name="T:AutoCSer.Extensions.SortedDictionaryExtension">
             <summary>
-            文件信息相关扩展
+            排序字典相关扩展
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.FileInfoExtension.RefreshExists(System.IO.FileInfo)">
+        <member name="M:AutoCSer.Extensions.SortedDictionaryExtension.TryAdd``2(System.Collections.Generic.SortedDictionary{``0,``1},``0,``1)">
             <summary>
-            刷新文件信息状态并返回文件是否存在状态
+            关键字不存在时添加数据
             </summary>
-            <param name="file"></param>
-            <returns></returns>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="dictionary"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>返回 false 表示已经存在关键字添加失败</returns>
         </member>
-        <member name="M:AutoCSer.Extensions.FileInfoExtension.RefreshLastWriteTimeUtc(System.IO.FileInfo)">
+        <member name="M:AutoCSer.Extensions.SortedDictionaryExtension.Remove``2(System.Collections.Generic.SortedDictionary{``0,``1},``0,``1@)">
             <summary>
-            刷新文件信息状态并返回文件最后修改时间
+            根据关键字删除数据并返回被删除数据
             </summary>
-            <param name="file"></param>
-            <returns></returns>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="dictionary"></param>
+            <param name="key"></param>
+            <param name="value">被删除数据</param>
+            <returns>返回 false 表示关键字不存在</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.SortedListExtension">
+            <summary>
+            排序数组相关扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SortedListExtension.TryAdd``2(System.Collections.Generic.SortedList{``0,``1},``0,``1)">
+            <summary>
+            关键字不存在时添加数据
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="list"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>返回 false 表示已经存在关键字添加失败</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SortedListExtension.Remove``2(System.Collections.Generic.SortedList{``0,``1},``0,``1@)">
+            <summary>
+            根据关键字删除数据并返回被删除数据
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="list"></param>
+            <param name="key"></param>
+            <param name="value">被删除数据</param>
+            <returns>返回 false 表示关键字不存在</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.QueueExtension">
+            <summary>
+            队列相关扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.QueueExtension.TryDequeue``1(System.Collections.Generic.Queue{``0},``0@)">
+            <summary>
+            从队列中弹出一个数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queue"></param>
+            <param name="value">弹出数据</param>
+            <returns>返回 false 表示没有数据可以弹出</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.QueueExtension.TryPeek``1(System.Collections.Generic.Queue{``0},``0@)">
+            <summary>
+            获取队列中下一个弹出数据（不弹出数据仅查看）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queue"></param>
+            <param name="value">下一个弹出数据</param>
+            <returns>返回 false 表示没有数据</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.StackExtension">
+            <summary>
+            栈相关扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.StackExtension.TryPop``1(System.Collections.Generic.Stack{``0},``0@)">
+            <summary>
+            从栈中弹出一个数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="stack"></param>
+            <param name="value">弹出数据</param>
+            <returns>返回 false 表示没有数据可以弹出</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.StackExtension.TryPeek``1(System.Collections.Generic.Stack{``0},``0@)">
+            <summary>
+            获取栈中下一个弹出数据（不弹出数据仅查看）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="stack"></param>
+            <param name="value">下一个弹出数据</param>
+            <returns>返回 false 表示没有数据</returns>
         </member>
         <member name="T:AutoCSer.Extensions.EnumerableExtension">
             <summary>
@@ -425,13 +506,23 @@
             <param name="getTask">获取任务委托</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Extensions.EnumerableExtension.enumerableValueTask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Threading.Tasks.ValueTask})">
+        <member name="T:AutoCSer.Extensions.FileInfoExtension">
             <summary>
-            并发任务，用于替代 Parallel.ForEachAsync
+            文件信息相关扩展
             </summary>
-            <param name="source">获取任务参数集合</param>
-            <param name="taskCount">最大并发任务数量，最小值为 1</param>
-            <param name="getTask">获取任务委托</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.FileInfoExtension.RefreshExists(System.IO.FileInfo)">
+            <summary>
+            刷新文件信息状态并返回文件是否存在状态
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.FileInfoExtension.RefreshLastWriteTimeUtc(System.IO.FileInfo)">
+            <summary>
+            刷新文件信息状态并返回文件最后修改时间
+            </summary>
+            <param name="file"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Extensions.IntegerExtension">
@@ -1155,88 +1246,6 @@
             XML 反序列化可空类型
             </summary>
         </member>
-        <member name="T:AutoCSer.Extensions.Threading.EnumerableValueTask`1">
-            <summary>
-            并发任务
-            </summary>
-            <typeparam name="T">获取任务参数类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.source">
-            <summary>
-            获取任务参数集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.getTask">
-            <summary>
-            获取任务委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.taskLock">
-            <summary>
-            任务并发锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.waitLock">
-            <summary>
-            任务完成等待锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.taskCount">
-            <summary>
-            当前启动任务数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.completedCount">
-            <summary>
-            当前完成任务数量
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Extensions.Threading.EnumerableValueTask`1.CompletedCount">
-            <summary>
-            /当前完成任务数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.errorCount">
-            <summary>
-            异常任务数量
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Extensions.Threading.EnumerableValueTask`1.ErrorCount">
-            <summary>
-            异常任务数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Extensions.Threading.EnumerableValueTask`1.isCancel">
-            <summary>
-            是否已经取消任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Func{`0,System.Threading.Tasks.ValueTask})">
-            <summary>
-            并发任务
-            </summary>
-            <param name="source">获取任务参数集合</param>
-            <param name="taskCount">最大并发任务数量</param>
-            <param name="getTask">获取任务委托</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.Cancel">
-            <summary>
-            取消任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.Start">
-            <summary>
-            启动任务
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.Threading.EnumerableValueTask`1.run(`0)">
-            <summary>
-            运行任务
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.Extensions.Threading.EnumerableTask`1">
             <summary>
             并发任务
@@ -1459,13 +1468,6 @@
             排序索引
             </summary>
         </member>
-        <member name="M:AutoCSer.Algorithm.ULongSortIndex.SortDesc(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
-            <summary>
-            索引快速排序子过程
-            </summary>
-            <param name="startIndex">起始位置</param>
-            <param name="endIndex">结束位置-1</param>
-        </member>
         <member name="F:AutoCSer.Algorithm.ULongSortIndex.Value">
             <summary>
             数值
@@ -1483,12 +1485,51 @@
             <param name="value">数值</param>
             <param name="index">位置索引</param>
         </member>
+        <member name="M:AutoCSer.Algorithm.ULongSortIndex.SortDesc(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            索引快速排序子过程
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="endIndex">结束位置-1</param>
+        </member>
         <member name="M:AutoCSer.Algorithm.ULongSortIndex.Sort(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
             <summary>
             索引快速排序子过程
             </summary>
             <param name="startIndex">起始位置</param>
             <param name="endIndex">结束位置-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.UnsafeQuickSort">
+            <summary>
+            指针快速排序
+            </summary>
+            <summary>
+            指针快速排序
+            </summary>
+            <summary>
+            指针快速排序
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortULong(System.Byte*,System.Byte*)">
+            <summary>
+            快速排序
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="endIndex">结束位置 - sizeof(ulong)</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortLong(System.Byte*,System.Byte*)">
+            <summary>
+            快速排序
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="endIndex">结束位置 - sizeof(long)</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortUInt(System.Byte*,System.Byte*)">
+            <summary>
+            快速排序
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="endIndex">结束位置 - sizeof(uint)</param>
         </member>
         <member name="T:AutoCSer.Algorithm.UnsafeSortArray">
             <summary>
@@ -1539,38 +1580,6 @@
             <param name="count">查找数据数量，大于 0</param>
             <param name="value">匹配值</param>
             <returns>匹配值之前的位置</returns>
-        </member>
-        <member name="T:AutoCSer.Algorithm.UnsafeQuickSort">
-            <summary>
-            指针快速排序
-            </summary>
-            <summary>
-            指针快速排序
-            </summary>
-            <summary>
-            指针快速排序
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortULong(System.Byte*,System.Byte*)">
-            <summary>
-            快速排序
-            </summary>
-            <param name="startIndex">起始位置</param>
-            <param name="endIndex">结束位置 - sizeof(ulong)</param>
-        </member>
-        <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortLong(System.Byte*,System.Byte*)">
-            <summary>
-            快速排序
-            </summary>
-            <param name="startIndex">起始位置</param>
-            <param name="endIndex">结束位置 - sizeof(long)</param>
-        </member>
-        <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortUInt(System.Byte*,System.Byte*)">
-            <summary>
-            快速排序
-            </summary>
-            <param name="startIndex">起始位置</param>
-            <param name="endIndex">结束位置 - sizeof(uint)</param>
         </member>
         <member name="T:AutoCSer.Algorithm.RadixSort">
             <summary>
@@ -2260,45 +2269,6 @@
             <param name="exception"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.Expression.ConstantTypeEnum">
-            <summary>
-            常量类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ConstantTypeEnum.None">
-            <summary>
-            非常量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ConstantTypeEnum.Number">
-            <summary>
-            数字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ConstantTypeEnum.String">
-            <summary>
-            字符串
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Expression.ContentNode">
-            <summary>
-            包含内容的取值表达式节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ContentNode.Content">
-            <summary>
-            节点内容字符串
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Expression.ContentNode.#ctor(AutoCSer.Expression.ValueTypeEnum,AutoCSer.SubString,AutoCSer.Expression.ValueNode,System.Byte)">
-            <summary>
-            包含内容的取值表达式节点
-            </summary>
-            <param name="valueType">取值类型</param>
-            <param name="content">节点内容字符串</param>
-            <param name="next">下一个节点</param>
-            <param name="memberDepth">成员回溯深度</param>
-        </member>
         <member name="T:AutoCSer.Expression.Builder">
             <summary>
             创建表达式
@@ -2469,6 +2439,180 @@
             </summary>
             <param name="valueType">取值类型</param>
             <param name="parameters">参数节点集合</param>
+        </member>
+        <member name="T:AutoCSer.Expression.ConstantTypeEnum">
+            <summary>
+            常量类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ConstantTypeEnum.None">
+            <summary>
+            非常量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ConstantTypeEnum.Number">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ConstantTypeEnum.String">
+            <summary>
+            字符串
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Expression.ContentNode">
+            <summary>
+            包含内容的取值表达式节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ContentNode.Content">
+            <summary>
+            节点内容字符串
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Expression.ContentNode.#ctor(AutoCSer.Expression.ValueTypeEnum,AutoCSer.SubString,AutoCSer.Expression.ValueNode,System.Byte)">
+            <summary>
+            包含内容的取值表达式节点
+            </summary>
+            <param name="valueType">取值类型</param>
+            <param name="content">节点内容字符串</param>
+            <param name="next">下一个节点</param>
+            <param name="memberDepth">成员回溯深度</param>
+        </member>
+        <member name="T:AutoCSer.Expression.IfElseNode">
+            <summary>
+            三元表达式节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.IfElseNode.Else">
+            <summary>
+            false 节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Expression.IfElseNode.#ctor(AutoCSer.Expression.ValueNode,AutoCSer.Expression.ValueNode)">
+            <summary>
+            三元表达式节点
+            </summary>
+            <param name="ifValue">true 节点</param>
+            <param name="elseValue">false 节点</param>
+        </member>
+        <member name="T:AutoCSer.Expression.NodeTypeEnum">
+            <summary>
+            表达式节点类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.NodeTypeEnum.Value">
+            <summary>
+            取值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.NodeTypeEnum.Content">
+            <summary>
+            内容节点，包括 成员/数字/字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.NodeTypeEnum.Call">
+            <summary>
+            方法调用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.NodeTypeEnum.Parenthesis">
+            <summary>
+            小括号 ()
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.NodeTypeEnum.IfElse">
+            <summary>
+            三元表达式 ?:
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Expression.ParenthesisNode">
+            <summary>
+            小括号表达式节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ParenthesisNode.Parenthesis">
+            <summary>
+            括号内节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Expression.ParenthesisNode.#ctor(AutoCSer.Expression.ValueNode,AutoCSer.Expression.ValueNode)">
+            <summary>
+            小括号表达式节点
+            </summary>
+            <param name="parenthesis">括号内节点</param>
+            <param name="next">下一个节点</param>
+        </member>
+        <member name="T:AutoCSer.Expression.ValueNode">
+            <summary>
+            取值表达式节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ValueNode.nodeType">
+            <summary>
+            节点类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ValueNode.ValueType">
+            <summary>
+            取值类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ValueNode.MemberDepth">
+            <summary>
+            成员回溯深度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Expression.ValueNode.Next">
+            <summary>
+            下一个节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Expression.ValueNode.#ctor">
+            <summary>
+            空表达式节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Expression.ValueNode.#ctor(AutoCSer.Expression.ValueTypeEnum,AutoCSer.Expression.ValueNode,System.Byte)">
+            <summary>
+            取值表达式节点
+            </summary>
+            <param name="valueType">取值类型</param>
+            <param name="next">下一个节点</param>
+            <param name="memberDepth">成员回溯深度</param>
+        </member>
+        <member name="M:AutoCSer.Expression.ValueNode.#ctor(AutoCSer.Expression.NodeTypeEnum,AutoCSer.Expression.ValueTypeEnum,AutoCSer.Expression.ValueNode,System.Byte)">
+            <summary>
+            取值表达式节点
+            </summary>
+            <param name="nodeType">节点类型</param>
+            <param name="valueType">取值类型</param>
+            <param name="next">下一个节点</param>
+            <param name="memberDepth">成员回溯深度</param>
+        </member>
+        <member name="M:AutoCSer.Expression.ValueNode.CheckNext">
+            <summary>
+            强制检查是否存在下一个节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Expression.ValueNode.CheckNextNull">
+            <summary>
+            检查下一个节点是否合法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Expression.ValueNode.SetNext(AutoCSer.Expression.ValueNode)">
+            <summary>
+            设置下一个节点
+            </summary>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Expression.ValueNode.Null">
+            <summary>
+            空表达式节点
+            </summary>
         </member>
         <member name="T:AutoCSer.Expression.ValueTypeEnum">
             <summary>
@@ -2670,141 +2814,6 @@
             非 null 索引 ?[
             </summary>
         </member>
-        <member name="T:AutoCSer.Expression.NodeTypeEnum">
-            <summary>
-            表达式节点类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.NodeTypeEnum.Value">
-            <summary>
-            取值
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.NodeTypeEnum.Content">
-            <summary>
-            内容节点，包括 成员/数字/字符串
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.NodeTypeEnum.Call">
-            <summary>
-            方法调用
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.NodeTypeEnum.Parenthesis">
-            <summary>
-            小括号 ()
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.NodeTypeEnum.IfElse">
-            <summary>
-            三元表达式 ?:
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Expression.IfElseNode">
-            <summary>
-            三元表达式节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.IfElseNode.Else">
-            <summary>
-            false 节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Expression.IfElseNode.#ctor(AutoCSer.Expression.ValueNode,AutoCSer.Expression.ValueNode)">
-            <summary>
-            三元表达式节点
-            </summary>
-            <param name="ifValue">true 节点</param>
-            <param name="elseValue">false 节点</param>
-        </member>
-        <member name="T:AutoCSer.Expression.ParenthesisNode">
-            <summary>
-            小括号表达式节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ParenthesisNode.Parenthesis">
-            <summary>
-            括号内节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Expression.ParenthesisNode.#ctor(AutoCSer.Expression.ValueNode,AutoCSer.Expression.ValueNode)">
-            <summary>
-            小括号表达式节点
-            </summary>
-            <param name="parenthesis">括号内节点</param>
-            <param name="next">下一个节点</param>
-        </member>
-        <member name="T:AutoCSer.Expression.ValueNode">
-            <summary>
-            取值表达式节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ValueNode.nodeType">
-            <summary>
-            节点类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ValueNode.ValueType">
-            <summary>
-            取值类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ValueNode.MemberDepth">
-            <summary>
-            成员回溯深度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Expression.ValueNode.Next">
-            <summary>
-            下一个节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Expression.ValueNode.#ctor">
-            <summary>
-            空表达式节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Expression.ValueNode.#ctor(AutoCSer.Expression.ValueTypeEnum,AutoCSer.Expression.ValueNode,System.Byte)">
-            <summary>
-            取值表达式节点
-            </summary>
-            <param name="valueType">取值类型</param>
-            <param name="next">下一个节点</param>
-            <param name="memberDepth">成员回溯深度</param>
-        </member>
-        <member name="M:AutoCSer.Expression.ValueNode.#ctor(AutoCSer.Expression.NodeTypeEnum,AutoCSer.Expression.ValueTypeEnum,AutoCSer.Expression.ValueNode,System.Byte)">
-            <summary>
-            取值表达式节点
-            </summary>
-            <param name="nodeType">节点类型</param>
-            <param name="valueType">取值类型</param>
-            <param name="next">下一个节点</param>
-            <param name="memberDepth">成员回溯深度</param>
-        </member>
-        <member name="M:AutoCSer.Expression.ValueNode.CheckNext">
-            <summary>
-            强制检查是否存在下一个节点
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Expression.ValueNode.CheckNextNull">
-            <summary>
-            检查下一个节点是否合法
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Expression.ValueNode.SetNext(AutoCSer.Expression.ValueNode)">
-            <summary>
-            设置下一个节点
-            </summary>
-            <param name="next"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.Expression.ValueNode.Null">
-            <summary>
-            空表达式节点
-            </summary>
-        </member>
         <member name="T:AutoCSer.FragmentHashSet256`1">
             <summary>
             256 基分片 哈希表
@@ -2974,51 +2983,6 @@
             长度为 0 的字符串
             </summary>
         </member>
-        <member name="T:AutoCSer.Html.RawNodeTypeEnum">
-            <summary>
-            原始 HTML 节点类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.StartTag">
-            <summary>
-            开始标签 {xxx}
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.Tag">
-            <summary>
-            自回合标签 {xxx/}
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.Html">
-            <summary>
-            原始 HTML 代码段
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.Note">
-            <summary>
-            普通注释 {!--} 或者 {!--xxx--}
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.DataNote">
-            <summary>
-            文本注释 {![CDATA[xxx]]}
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.NoteTag">
-            <summary>
-            注释标签 {!xxx}
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.RoundTag">
-            <summary>
-            回合标签 {/xxx}
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Html.RawNodeTypeEnum.NullTag">
-            <summary>
-            空标签 {}
-            </summary>
-        </member>
         <member name="T:AutoCSer.Html.RawNode">
             <summary>
             原始 HTML 节点，用于简单操作
@@ -3120,6 +3084,51 @@
         <member name="F:AutoCSer.Html.RawNode.Bits">
             <summary>
             字符状态位
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Html.RawNodeTypeEnum">
+            <summary>
+            原始 HTML 节点类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.StartTag">
+            <summary>
+            开始标签 {xxx}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.Tag">
+            <summary>
+            自回合标签 {xxx/}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.Html">
+            <summary>
+            原始 HTML 代码段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.Note">
+            <summary>
+            普通注释 {!--} 或者 {!--xxx--}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.DataNote">
+            <summary>
+            文本注释 {![CDATA[xxx]]}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.NoteTag">
+            <summary>
+            注释标签 {!xxx}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.RoundTag">
+            <summary>
+            回合标签 {/xxx}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Html.RawNodeTypeEnum.NullTag">
+            <summary>
+            空标签 {}
             </summary>
         </member>
         <member name="T:AutoCSer.IO.StreamPersistenceLoader">
@@ -6774,28 +6783,6 @@
             <param name="getCount">获取记录数</param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.SearchTree.FindArray`1">
-            <summary>
-            查找数据
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.SearchTree.FindArray`1.IsValue">
-            <summary>
-            数据匹配委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.SearchTree.FindArray`1.Array">
-            <summary>
-            数据集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.SearchTree.FindArray`1.Add(`0)">
-            <summary>
-            添加数据
-            </summary>
-            <param name="value"></param>
-        </member>
         <member name="T:AutoCSer.SearchTree.EnumerableCount">
             <summary>
             查找计数
@@ -6817,6 +6804,28 @@
             </summary>
             <param name="skipCount">跳过记录数量</param>
             <param name="getCount">获取记录数量</param>
+        </member>
+        <member name="T:AutoCSer.SearchTree.FindArray`1">
+            <summary>
+            查找数据
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.FindArray`1.IsValue">
+            <summary>
+            数据匹配委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.FindArray`1.Array">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.FindArray`1.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="T:AutoCSer.SearchTree.Node`2">
             <summary>
@@ -7587,7 +7596,7 @@
             </summary>
             <param name="isThreadPool">回调处理是否启动线程，回调无阻塞的情况应该设置为 false 直接同步回调</param>
         </member>
-        <member name="M:AutoCSer.Threading.CallbackEnumerator`1.System#IAsyncDisposable#DisposeAsync">
+        <member name="M:AutoCSer.Threading.CallbackEnumerator`1.AutoCSer#IAsyncDisposable#DisposeAsync">
             <summary>
             释放资源
             </summary>
@@ -7605,24 +7614,10 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.CallbackEnumerator`1.System#Collections#Generic#IAsyncEnumerator{T}#MoveNextAsync">
+        <member name="M:AutoCSer.Threading.CallbackEnumerator`1.AutoCSer#IEnumeratorTask#MoveNextAsync">
             <summary>
             判断是否存在下一个数据
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.CallbackEnumerator`1.GetAsyncEnumerator(System.Threading.CancellationToken)">
-            <summary>
-            获取 IAsyncEnumerator{T}
-            </summary>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.CallbackEnumerator`1.GetAsyncEnumerable(AutoCSer.Threading.CallbackEnumerator{`0})">
-            <summary>
-            获取 IAsyncEnumerable
-            </summary>
-            <param name="enumeratorCommand"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Threading.CallbackEnumeratorMoveNext">
@@ -7754,6 +7749,223 @@
             获取下一个ID
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.LocalMillisecondIdentityGenerator">
+            <summary>
+            本地毫秒ID生成器（毫秒内超出计算范围时自动移动到下一个毫秒数据）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.#ctor(System.Byte)">
+            <summary>
+            毫秒ID生成器
+            </summary>
+            <param name="bits">毫秒内计数 2 进制位数，默认为 20 表示支持持续 278 年每秒 10亿 个 ID</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.GetNext">
+            <summary>
+            获取下一个ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager">
+            <summary>
+            可重入异步锁管理（非线程安全，不支持多线程并发操作同一个异步上下文）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Manager">
+            <summary>
+            可重入异步锁管理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Get">
+            <summary>
+            获取可重入异步锁管理，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.locks">
+            <summary>
+            异步锁重入计数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Count">
+            <summary>
+            当前异步上下文锁数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.enter(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            申请锁计数
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            申请锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            申请锁
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            释放锁计数
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+            <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
+        </member>
+        <member name="T:AutoCSer.Threading.SynchronizationContextAction">
+            <summary>
+            同步上下文调用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SynchronizationContextAction.call">
+            <summary>
+            调用委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction.#ctor(System.Action)">
+            <summary>
+            同步上下文调用
+            </summary>
+            <param name="call">调用委托</param>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction.Call(System.Object)">
+            <summary>
+            调用委托
+            </summary>
+            <param name="_"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.SynchronizationContextAction`1">
+            <summary>
+            同步上下文调用
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.call">
+            <summary>
+            调用委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.parameter">
+            <summary>
+            调用参数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.#ctor(System.Action{`0},`0)">
+            <summary>
+            同步上下文调用
+            </summary>
+            <param name="call">调用委托</param>
+            <param name="parameter">调用参数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.Call(System.Object)">
+            <summary>
+            调用委托
+            </summary>
+            <param name="_"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueue.queue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.run">
+            <summary>
+            任务线程处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.AddOnly(AutoCSer.Threading.QueueTaskNode)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueue.Add(AutoCSer.Net.CommandServerCallQueueCustomNode)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskRunTimer">
+            <summary>
+            定时任务运行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskRunTimer.runTime">
+            <summary>
+            下一次运行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskRunTimer.intervalSeconds">
+            <summary>
+            运行间隔秒数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Double)">
+            <summary>
+            定时任务运行时间
+            </summary>
+            <param name="intervalSeconds">运行间隔秒数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
+            <summary>
+            按天运行的定时任务运行时间
+            </summary>
+            <param name="hour">开始执行小时</param>
+            <param name="minute">开始执行分钟</param>
+            <param name="second">开始执行秒数</param>
+            <param name="intervalSeconds">间隔执行秒数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.Delay">
+            <summary>
+            等待运行时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskQueueBase">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueBase.threadHandle">
+            <summary>
+            线程句柄
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueBase.waitHandle">
+            <summary>
+            等待事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskQueueBase.isDisposed">
+            <summary>
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueBase.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueBase.#ctor">
+            <summary>
+            任务队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskQueueBase.run">
+            <summary>
+            任务线程处理
+            </summary>
         </member>
         <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueue">
             <summary>
@@ -8091,152 +8303,6 @@
             <param name="methods"></param>
             <returns>错误信息</returns>
         </member>
-        <member name="T:AutoCSer.Threading.LocalMillisecondIdentityGenerator">
-            <summary>
-            本地毫秒ID生成器（毫秒内超出计算范围时自动移动到下一个毫秒数据）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.#ctor(System.Byte)">
-            <summary>
-            毫秒ID生成器
-            </summary>
-            <param name="bits">毫秒内计数 2 进制位数，默认为 20 表示支持持续 278 年每秒 10亿 个 ID</param>
-        </member>
-        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.GetNext">
-            <summary>
-            获取下一个ID
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager">
-            <summary>
-            可重入异步锁管理（非线程安全，不支持多线程并发操作同一个异步上下文）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Manager">
-            <summary>
-            可重入异步锁管理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Get">
-            <summary>
-            获取可重入异步锁管理，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.locks">
-            <summary>
-            异步锁重入计数
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Count">
-            <summary>
-            当前异步上下文锁数量
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.enter(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            申请锁计数
-            </summary>
-            <param name="semaphoreSlimLock"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            申请锁
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            申请锁
-            </summary>
-            <param name="semaphoreSlimLock"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            释放锁计数
-            </summary>
-            <param name="semaphoreSlimLock"></param>
-            <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
-        </member>
-        <member name="T:AutoCSer.Threading.SynchronizationContextAction">
-            <summary>
-            同步上下文调用
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.SynchronizationContextAction.call">
-            <summary>
-            调用委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction.#ctor(System.Action)">
-            <summary>
-            同步上下文调用
-            </summary>
-            <param name="call">调用委托</param>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction.Call(System.Object)">
-            <summary>
-            调用委托
-            </summary>
-            <param name="_"></param>
-        </member>
-        <member name="T:AutoCSer.Threading.SynchronizationContextAction`1">
-            <summary>
-            同步上下文调用
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.call">
-            <summary>
-            调用委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.parameter">
-            <summary>
-            调用参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.#ctor(System.Action{`0},`0)">
-            <summary>
-            同步上下文调用
-            </summary>
-            <param name="call">调用委托</param>
-            <param name="parameter">调用参数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.Call(System.Object)">
-            <summary>
-            调用委托
-            </summary>
-            <param name="_"></param>
-        </member>
-        <member name="T:AutoCSer.Threading.TaskQueue">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueue.queue">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.run">
-            <summary>
-            任务线程处理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.AddOnly(AutoCSer.Threading.QueueTaskNode)">
-            <summary>
-            添加任务
-            </summary>
-            <param name="node"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.Add(AutoCSer.Net.CommandServerCallQueueCustomNode)">
-            <summary>
-            添加任务
-            </summary>
-            <param name="node"></param>
-        </member>
         <member name="T:AutoCSer.Threading.TaskQueueInterfaceController">
             <summary>
             控制器接口信息
@@ -8302,77 +8368,6 @@
             <summary>
             控制器构造错误
             </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.TaskQueueBase">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.threadHandle">
-            <summary>
-            线程句柄
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.waitHandle">
-            <summary>
-            等待事件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.isDisposed">
-            <summary>
-            是否已经释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueueBase.Dispose">
-            <summary>
-            释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueueBase.#ctor">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueueBase.run">
-            <summary>
-            任务线程处理
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.TaskRunTimer">
-            <summary>
-            定时任务运行时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskRunTimer.runTime">
-            <summary>
-            下一次运行时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskRunTimer.intervalSeconds">
-            <summary>
-            运行间隔秒数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Double)">
-            <summary>
-            定时任务运行时间
-            </summary>
-            <param name="intervalSeconds">运行间隔秒数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
-            <summary>
-            按天运行的定时任务运行时间
-            </summary>
-            <param name="hour">开始执行小时</param>
-            <param name="minute">开始执行分钟</param>
-            <param name="second">开始执行秒数</param>
-            <param name="intervalSeconds">间隔执行秒数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskRunTimer.Delay">
-            <summary>
-            等待运行时间
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.XmlDeserializer">
             <summary>
@@ -8460,18 +8455,6 @@
             XML 反序列化
             </summary>
         </member>
-        <member name="M:AutoCSer.XmlDeserializer.PrimitiveDeserialize(System.Decimal@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.XmlDeserializer.PrimitiveDeserialize(System.UInt64@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
         <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.UInt64@)">
             <summary>
             数字转换
@@ -8491,6 +8474,18 @@
             </summary>
             <param name="serializer"></param>
             <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.PrimitiveDeserialize(System.Decimal@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.PrimitiveDeserialize(System.UInt64@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
         </member>
         <member name="F:AutoCSer.XmlDeserializer.AllMemberAttribute">
             <summary>
@@ -11118,6 +11113,26 @@
             XML 序列化
             </summary>
         </member>
+        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Decimal)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Decimal)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Nullable{System.Decimal})">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
         <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.DateTime)">
             <summary>
             数据转换
@@ -11138,39 +11153,20 @@
             <param name="serializer"></param>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Char)">
+        <member name="M:AutoCSer.XmlSerializer.enumULong``1(``0)">
             <summary>
-            数据转换
+            枚举值序列化
             </summary>
-            <param name="serializer"></param>
-            <param name="value">数据</param>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Nullable{System.Char})">
+        <member name="M:AutoCSer.XmlSerializer.EnumULong``1(AutoCSer.XmlSerializer,``0)">
             <summary>
-            数据转换
+            枚举值序列化
             </summary>
+            <typeparam name="T"></typeparam>
             <param name="serializer"></param>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Decimal)">
-            <summary>
-            数字转换
-            </summary>
-            <param name="value">数字</param>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Decimal)">
-            <summary>
-            数字转换
-            </summary>
-            <param name="serializer"></param>
-            <param name="value">数字</param>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Nullable{System.Decimal})">
-            <summary>
-            数字转换
-            </summary>
-            <param name="serializer"></param>
-            <param name="value">数字</param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.UInt64)">
             <summary>
@@ -11192,20 +11188,19 @@
             <param name="serializer"></param>
             <param name="value">数字</param>
         </member>
-        <member name="M:AutoCSer.XmlSerializer.enumULong``1(``0)">
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Char)">
             <summary>
-            枚举值序列化
+            数据转换
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.EnumULong``1(AutoCSer.XmlSerializer,``0)">
-            <summary>
-            枚举值序列化
-            </summary>
-            <typeparam name="T"></typeparam>
             <param name="serializer"></param>
-            <param name="value"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Nullable{System.Char})">
+            <summary>
+            数据转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
         </member>
         <member name="F:AutoCSer.XmlSerializer.CustomConfig">
             <summary>
@@ -12044,6 +12039,26 @@
             <param name="serializer"></param>
             <param name="value">数据</param>
         </member>
+        <member name="T:AutoCSer.XmlDeserializeConfig">
+            <summary>
+            XML 解析配置参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.XmlDeserializeConfig.BootNodeName">
+            <summary>
+            根节点名称默认为 xml (不能包含非法字符)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.XmlDeserializeConfig.ItemName">
+            <summary>
+            集合子节点名称默认为 item (不能包含非法字符)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.XmlDeserializeConfig.IsAttribute">
+            <summary>
+            是否保存属性索引
+            </summary>
+        </member>
         <member name="T:AutoCSer.XmlNode">
             <summary>
             XML节点
@@ -12163,26 +12178,6 @@
         <member name="F:AutoCSer.XmlNodeTypeEnum.ErrorString">
             <summary>
             字符串解析失败
-            </summary>
-        </member>
-        <member name="T:AutoCSer.XmlDeserializeConfig">
-            <summary>
-            XML 解析配置参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.XmlDeserializeConfig.BootNodeName">
-            <summary>
-            根节点名称默认为 xml (不能包含非法字符)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.XmlDeserializeConfig.ItemName">
-            <summary>
-            集合子节点名称默认为 item (不能包含非法字符)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.XmlDeserializeConfig.IsAttribute">
-            <summary>
-            是否保存属性索引
             </summary>
         </member>
         <member name="T:AutoCSer.XmlSerializeAttribute">

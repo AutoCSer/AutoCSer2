@@ -26,7 +26,7 @@ namespace AutoCSer.TestCase.ServiceRegistryService
         /// <summary>
         /// 端口注册客户端接口
         /// </summary>
-        public IPortRegistryClient IPortRegistryClient { get; private set; }
+        public IPortRegistryServiceClientController IPortRegistryClient { get; private set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -35,8 +35,8 @@ namespace AutoCSer.TestCase.ServiceRegistryService
             get
             {
                 yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IPortRegistryService), typeof(IPortRegistryClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IServiceRegistryService), typeof(IServiceRegistryClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IPortRegistryService), typeof(IPortRegistryServiceClientController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServiceRegistryService), typeof(IServiceRegistryServiceClientController));
             }
         }
         /// <summary>

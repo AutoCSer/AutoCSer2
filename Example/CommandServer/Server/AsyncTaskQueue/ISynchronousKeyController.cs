@@ -14,20 +14,18 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         /// </summary>
         /// <param name="socket">当前套接字连接上下文，必须是第一个参数，允许不定义该参数</param>
         /// <param name="queue">当前执行队列上下文，必须定义在所有数据参数之前</param>
-        /// <param name="queueKey">默认第一个数据参数为队列关键字</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        Task<int> SynchronousReturn(CommandServerSocket socket, CommandServerCallTaskQueue queue, int queueKey, int parameter1, int parameter2);
+        Task<int> SynchronousReturn(CommandServerSocket socket, CommandServerCallTaskQueue<int> queue, int parameter1, int parameter2);
         /// <summary>
         /// 无返回值同步调用
         /// </summary>
         /// <param name="queue">当前执行队列上下文，必须定义在所有数据参数之前</param>
-        /// <param name="queueKey">默认第一个数据参数为队列关键字</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        Task SynchronousCall(CommandServerCallTaskLowPriorityQueue queue, int queueKey, int parameter1, int parameter2);
+        Task SynchronousCall(CommandServerCallTaskLowPriorityQueue<int> queue, int parameter1, int parameter2);
     }
     /// <summary>
     /// 服务端 async Task 读写队列调用 同步返回数据 示例接口实例
@@ -39,11 +37,10 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         /// </summary>
         /// <param name="socket">当前套接字连接上下文，必须是第一个参数，允许不定义该参数</param>
         /// <param name="queue">当前执行队列上下文，必须定义在所有数据参数之前</param>
-        /// <param name="queueKey">默认第一个数据参数为队列关键字</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
         /// <returns>必须是 async Task</returns>
-        Task<int> ISynchronousKeyController.SynchronousReturn(CommandServerSocket socket, CommandServerCallTaskQueue queue, int queueKey, int parameter1, int parameter2)
+        Task<int> ISynchronousKeyController.SynchronousReturn(CommandServerSocket socket, CommandServerCallTaskQueue<int> queue, int parameter1, int parameter2)
         {
             return Task.FromResult(parameter1 + parameter2);
         }
@@ -51,10 +48,9 @@ namespace AutoCSer.Example.CommandServer.Server.AsyncTaskQueue
         /// 无返回值同步调用
         /// </summary>
         /// <param name="queue">当前执行队列上下文，必须定义在所有数据参数之前</param>
-        /// <param name="queueKey">默认第一个数据参数为队列关键字</param>
         /// <param name="parameter1">参数</param>
         /// <param name="parameter2">参数</param>
-        Task ISynchronousKeyController.SynchronousCall(CommandServerCallTaskLowPriorityQueue queue, int queueKey, int parameter1, int parameter2)
+        Task ISynchronousKeyController.SynchronousCall(CommandServerCallTaskLowPriorityQueue<int> queue, int parameter1, int parameter2)
         {
             Console.WriteLine(parameter1 + parameter2);
             return AutoCSer.Common.CompletedTask;

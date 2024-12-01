@@ -39,20 +39,18 @@ namespace AutoCSer.TestCase.ServerBindContext
         [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn))]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync();
 
-        EnumeratorQueueCommand<string> KeepCallbackTaskQueueReturn(int Value, int Ref);
-        EnumeratorQueueCommand KeepCallbackTaskQueue(int Value, int Ref);
+        EnumeratorQueueCommand<string> KeepCallbackTaskQueueReturn(int queueKey, int Ref);
+        EnumeratorQueueCommand KeepCallbackTaskQueue(int queueKey, int Ref);
 
-        EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueReturn(int Value, int Ref);
-        EnumeratorQueueCommand KeepCallbackCountTaskQueue(int Value, int Ref);
+        EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueReturn(int queueKey, int Ref);
+        EnumeratorQueueCommand KeepCallbackCountTaskQueue(int queueKey, int Ref);
 
-        EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int Value, int Ref);
+        EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int queueKey, int Ref);
 
-#if NetStandard21
         EnumeratorCommand<string> AsyncEnumerableReturn(int Value, int Ref);
         EnumeratorCommand<string> AsyncEnumerableReturn();
 
-        EnumeratorCommand<string> AsyncEnumerableQueueReturn(int Value, int Ref);
-#endif
+        EnumeratorCommand<string> AsyncEnumerableQueueReturn(int queueKey, int Ref);
     }
     /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）
@@ -137,7 +135,6 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             IAsyncEnumerable<string> asyncEnumerable = client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
@@ -179,7 +176,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-#endif
+
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             EnumeratorQueueCommand<string> enumeratorQueueCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.KeepCallbackTaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
@@ -220,7 +217,6 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ServerBindContextClientKeepCallbackTaskController.AsyncEnumerableReturn(clientSessionObject.Value, clientSessionObject.Ref);
@@ -242,7 +238,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-#endif
+
             return true;
         }
     }

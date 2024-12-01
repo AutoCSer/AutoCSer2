@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService
 #if NetStandard21
         [AllowNull]
 #endif
-        public IProcessGuardClient IProcessGuardClient { get; protected set; }
+        public IProcessGuardServiceClientController IProcessGuardClient { get; protected set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -30,7 +30,7 @@ namespace AutoCSer.CommandService
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(IProcessGuardService), typeof(IProcessGuardClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IProcessGuardService), typeof(IProcessGuardServiceClientController));
             }
         }
         /// <summary>

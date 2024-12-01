@@ -49,11 +49,13 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
             /// </summary>
             [AutoCSer.BinarySerializeMember(GlobalVersion = 1, RemoveGlobalVersion = 2)]
             public int Value8;
+#pragma warning disable CS0169
             /// <summary>
             /// 版本 2 增加了一个数据
             /// </summary>
             [AutoCSer.BinarySerializeMember(GlobalVersion = 2, RemoveGlobalVersion = 3, IsRemovePublic = true)]
             static int Value7;
+#pragma warning restore CS0169
             /// <summary>
             /// 版本 3 增加了一个数据
             /// </summary>

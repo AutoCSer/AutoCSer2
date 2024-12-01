@@ -19,7 +19,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         SendOnlyCommand SendOnlyTask(int Value, int Ref);
         SendOnlyCommand SendOnlyTask();
 
-        SendOnlyCommand SendOnlyTaskQueue(int Value, int Ref);
+        SendOnlyCommand SendOnlyTaskQueue(int queueKey, int Ref);
     }
     /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）

@@ -1,5 +1,6 @@
 ﻿using System;
 
+#pragma warning disable
 namespace AutoCSer.CodeGenerator.Template
 {
     internal sealed class StreamPersistenceMemoryDatabaseMethodIndexEnumType : Pub

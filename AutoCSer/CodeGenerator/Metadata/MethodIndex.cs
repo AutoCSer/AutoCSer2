@@ -92,11 +92,7 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-#if NetStandard21
-        public override object? GetValue(object? value)
-#else
         public override object GetValue(object value)
-#endif
         {
             return Method.Invoke(value, null);
         }

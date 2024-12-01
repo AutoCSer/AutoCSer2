@@ -38,7 +38,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPortRegistryClient.cs" />
+    <Compile Include="{AutoCSer.CommandService.ServiceRegistry}.AutoCSer.cs" />
+    <Compile Include="IPortRegistryServiceClientController.cs" />
+    <Compile Include="IServiceRegistryServiceClientController.cs" />
     <Compile Include="IPortRegistryClientSocketEvent.cs" />
     <Compile Include="IPortRegistryService.cs" />
     <Compile Include="IServiceRegistryCommandServerConfig.cs" />
@@ -58,7 +60,6 @@
     <Compile Include="ServiceRegistryCommandClientServiceRegistrar.cs" />
     <Compile Include="ServiceRegistryCommandServerConfig.cs" />
     <Compile Include="ServiceRegistryCommandServiceRegistrar.cs" />
-    <Compile Include="IServiceRegistryClient.cs" />
     <Compile Include="ServiceRegisterLog.cs" />
     <Compile Include="ServiceRegisterLogClientAssembler.cs" />
     <Compile Include="ServiceRegisterResponse.cs" />

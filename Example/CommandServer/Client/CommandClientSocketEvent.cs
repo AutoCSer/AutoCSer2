@@ -82,14 +82,14 @@ namespace AutoCSer.Example.CommandServer.Client
         /// 服务端 async Task 读写队列调用上下文 同步返回数据 示例接口
         /// </summary>
         public CommandClientController<AsyncTaskQueueContext.ISynchronousKeyController, int> AsyncTaskQueueContext_SynchronousKeyController { get; private set; }
-        /// <summary>
-        /// 服务端 async Task 读写队列调用上下文 不返回数据（不应答客户端）
-        /// </summary>
-        public CommandClientController<AsyncTaskQueueContext.ISendOnlyController, int> AsyncTaskQueueContext_SendOnlyController { get; private set; }
-        /// <summary>
-        /// 服务端 async Task 读写队列调用上下文 保持回调委托返回数据 示例接口
-        /// </summary>
-        public CommandClientController<AsyncTaskQueueContext.IKeepCallbackController, int> AsyncTaskQueueContext_KeepCallbackController { get; private set; }
+        ///// <summary>
+        ///// 服务端 async Task 读写队列调用上下文 不返回数据（不应答客户端）
+        ///// </summary>
+        //public CommandClientController<AsyncTaskQueueContext.ISendOnlyController, int> AsyncTaskQueueContext_SendOnlyController { get; private set; }
+        ///// <summary>
+        ///// 服务端 async Task 读写队列调用上下文 保持回调委托返回数据 示例接口
+        ///// </summary>
+        //public CommandClientController<AsyncTaskQueueContext.IKeepCallbackController, int> AsyncTaskQueueContext_KeepCallbackController { get; private set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -122,8 +122,8 @@ namespace AutoCSer.Example.CommandServer.Client
                 yield return new CommandClientControllerCreatorParameter(typeof(Server.AsyncTaskQueue.IKeepCallbackController), typeof(AsyncTaskQueue.IKeepCallbackController));
 
                 yield return new CommandClientControllerCreatorParameter(typeof(Server.AsyncTaskQueueContext.ISynchronousKeyController), typeof(int), typeof(AsyncTaskQueueContext.ISynchronousKeyController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.AsyncTaskQueueContext.ISendOnlyController), typeof(int), typeof(AsyncTaskQueueContext.ISendOnlyController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.AsyncTaskQueueContext.IKeepCallbackController), typeof(int), typeof(AsyncTaskQueueContext.IKeepCallbackController));
+                //yield return new CommandClientControllerCreatorParameter(typeof(Server.AsyncTaskQueueContext.ISendOnlyController), typeof(int), typeof(AsyncTaskQueueContext.ISendOnlyController));
+                //yield return new CommandClientControllerCreatorParameter(typeof(Server.AsyncTaskQueueContext.IKeepCallbackController), typeof(int), typeof(AsyncTaskQueueContext.IKeepCallbackController));
             }
         }
 

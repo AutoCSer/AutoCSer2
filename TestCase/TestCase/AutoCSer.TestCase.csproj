@@ -28,6 +28,7 @@
     <Compile Include="CommandReverseServer.cs" />
     <Compile Include="CommandServer.cs" />
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
+    <Compile Include="CommandServer\IClientCallbackTaskController.cs" />
     <Compile Include="CommandServer\IClientCallbackController.cs" />
     <Compile Include="CommandServer\IClientKeepCallbackController.cs" />
     <Compile Include="CommandServer\IClientKeepCallbackTaskController.cs" />
@@ -40,6 +41,7 @@
     <Compile Include="CommandServer\IDefinedDissymmetryClientController.cs" />
     <Compile Include="CommandServer\IDefinedDissymmetryServerController.cs" />
     <Compile Include="CommandServer\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\IServerCallbackTaskController.cs" />
     <Compile Include="CommandServer\IServerCallbackController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="CommandServer\IServerTaskQueueController.cs" />
     <Compile Include="CommandServer\IServerTaskController.cs" />
     <Compile Include="CommandServer\CommandServerSessionObject.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientCallbackTaskController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryClientController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryServerController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IClientCallbackController.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="CommandServer\ServerBindContext\IClientTaskController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IClientTaskQueueController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerCallbackTaskController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerCallbackController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackTaskController.cs" />
@@ -101,5 +105,9 @@
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
   
 </Project>

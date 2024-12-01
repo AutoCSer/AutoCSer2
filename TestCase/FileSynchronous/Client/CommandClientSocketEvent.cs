@@ -15,11 +15,11 @@ namespace AutoCSer.TestCase.FileSynchronousClient
         /// <summary>
         /// 拉取文件客户端接口
         /// </summary>
-        public IPullFileClient PullFileClient { get; private set; }
+        public IPullFileServiceClientController PullFileClient { get; private set; }
         /// <summary>
         /// 文件上传客户端接口
         /// </summary>
-        public IUploadFileClient UploadFileClient { get; private set; }
+        public IUploadFileServiceClientController UploadFileClient { get; private set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -28,8 +28,8 @@ namespace AutoCSer.TestCase.FileSynchronousClient
             get
             {
                 yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IPullFileService), typeof(IPullFileClient));
-                yield return new CommandClientControllerCreatorParameter(typeof(IUploadFileService), typeof(IUploadFileClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IPullFileService), typeof(IPullFileServiceClientController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IUploadFileService), typeof(IUploadFileServiceClientController));
             }
         }
         /// <summary>

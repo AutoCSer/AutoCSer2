@@ -10,6 +10,6 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <summary>
         /// 拉取文件客户端接口
         /// </summary>
-        IPullFileClient PullFileClient { get; }
+        IPullFileServiceClientController PullFileClient { get; }
     }
 }

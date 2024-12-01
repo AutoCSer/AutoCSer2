@@ -6,6 +6,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 服务注册接口
     /// </summary>
+    [AutoCSer.Net.CommandServerControllerInterface]
     public interface IServiceRegistryService
     {
         /// <summary>

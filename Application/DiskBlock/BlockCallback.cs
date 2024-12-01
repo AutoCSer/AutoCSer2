@@ -23,6 +23,10 @@ namespace AutoCSer.CommandService.DiskBlock
         private readonly ReadRequest readRequest;
 #endif
         /// <summary>
+        /// 磁盘块索引位置
+        /// </summary>
+        private readonly long index;
+        /// <summary>
         /// 操作类型
         /// </summary>
         private readonly BlockCallbackTypeEnum type;
@@ -43,6 +47,18 @@ namespace AutoCSer.CommandService.DiskBlock
             this.readRequest = readRequest;
         }
         /// <summary>
+        /// 磁盘块队列回调操作
+        /// </summary>
+        /// <param name="type">操作类型</param>
+        /// <param name="blockManager">磁盘块</param>
+        /// <param name="index">磁盘块索引位置</param>
+        internal BlockCallback(BlockCallbackTypeEnum type, Block blockManager, long index)
+        {
+            this.type = type;
+            this.blockManager = blockManager;
+            this.index = index;
+        }
+        /// <summary>
         /// 回调操作
         /// </summary>
         public override void RunTask()
@@ -51,6 +67,7 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 case BlockCallbackTypeEnum.Flush: blockManager.FlushCallback(); return;
                 case BlockCallbackTypeEnum.Read: blockManager.ReadCallback(readRequest.notNull()); return;
+                case BlockCallbackTypeEnum.CheckServiceIndexCacheNode: blockManager.Service.CheckIndexCacheNode(index); return;
                 case BlockCallbackTypeEnum.Dispose: blockManager.ServiceDisposeCallback(); return;
             }
         }

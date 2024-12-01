@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.BusinessClient
     /// <summary>
     /// 属性测试模型业务数据服务客户端接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(PropertyModelServiceMethodEnum), IsAutoMethodIndex = false)]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(PropertyModelServiceMethodEnum), IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
     public interface IPropertyModelClient : IPrimaryKeyClient<PropertyModel, string>
     {
         /// <summary>

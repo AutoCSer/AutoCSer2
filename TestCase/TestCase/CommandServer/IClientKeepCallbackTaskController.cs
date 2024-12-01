@@ -61,28 +61,26 @@ namespace AutoCSer.TestCase
         [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn))]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync();
 
-        EnumeratorQueueCommand<string> KeepCallbackTaskQueueSocketReturn(int Value, int Ref);
-        EnumeratorQueueCommand KeepCallbackTaskQueueSocket(int Value, int Ref);
-        EnumeratorQueueCommand<string> KeepCallbackTaskQueueReturn(int Value, int Ref);
-        EnumeratorQueueCommand KeepCallbackTaskQueue(int Value, int Ref);
+        EnumeratorQueueCommand<string> KeepCallbackTaskQueueSocketReturn(int queueKey, int Ref);
+        EnumeratorQueueCommand KeepCallbackTaskQueueSocket(int queueKey, int Ref);
+        EnumeratorQueueCommand<string> KeepCallbackTaskQueueReturn(int queueKey, int Ref);
+        EnumeratorQueueCommand KeepCallbackTaskQueue(int queueKey, int Ref);
 
-        EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueSocketReturn(int Value, int Ref);
-        EnumeratorQueueCommand KeepCallbackCountTaskQueueSocket(int Value, int Ref);
-        EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueReturn(int Value, int Ref);
-        EnumeratorQueueCommand KeepCallbackCountTaskQueue(int Value, int Ref);
+        EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueSocketReturn(int queueKey, int Ref);
+        EnumeratorQueueCommand KeepCallbackCountTaskQueueSocket(int queueKey, int Ref);
+        EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueReturn(int queueKey, int Ref);
+        EnumeratorQueueCommand KeepCallbackCountTaskQueue(int queueKey, int Ref);
 
-        EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueSocketReturn(int Value, int Ref);
-        EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int Value, int Ref);
+        EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueSocketReturn(int queueKey, int Ref);
+        EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int queueKey, int Ref);
 
-#if NetStandard21
         EnumeratorCommand<string> AsyncEnumerableSocketReturn(int Value, int Ref);
         EnumeratorCommand<string> AsyncEnumerableSocketReturn();
         EnumeratorCommand<string> AsyncEnumerableReturn(int Value, int Ref);
         EnumeratorCommand<string> AsyncEnumerableReturn();
 
-        EnumeratorCommand<string> AsyncEnumerableQueueSocketReturn(int Value, int Ref);
-        EnumeratorCommand<string> AsyncEnumerableQueueReturn(int Value, int Ref);
-#endif
+        EnumeratorCommand<string> AsyncEnumerableQueueSocketReturn(int queueKey, int Ref);
+        EnumeratorCommand<string> AsyncEnumerableQueueReturn(int queueKey, int Ref);
     }
     /// <summary>
     /// 命令客户端测试
@@ -337,7 +335,6 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             IAsyncEnumerable<string> asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
@@ -421,7 +418,6 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-#endif
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
@@ -504,7 +500,6 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
@@ -548,7 +543,7 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-#endif
+
             return true;
         }
     }

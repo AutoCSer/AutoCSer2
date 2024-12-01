@@ -16,6 +16,10 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         Read,
         /// <summary>
+        /// 检查磁盘块服务缓存位置索引节点
+        /// </summary>
+        CheckServiceIndexCacheNode,
+        /// <summary>
         /// 释放资源
         /// </summary>
         Dispose,

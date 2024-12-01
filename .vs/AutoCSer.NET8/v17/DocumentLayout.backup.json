@@ -1,53 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{0056E9A8-99B3-471B-88B3-8994C9E3036C}|TestCase\\CommandServerPerformance\\Client\\AutoCSer.TestCase.CommandClientPerformance.csproj|c:\\autocser2\\testcase\\commandserverperformance\\client\\iawaiterclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0056E9A8-99B3-471B-88B3-8994C9E3036C}|TestCase\\CommandServerPerformance\\Client\\AutoCSer.TestCase.CommandClientPerformance.csproj|solutionrelative:testcase\\commandserverperformance\\client\\iawaiterclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0E5D1A5B-1610-4BB6-B891-C0CB71A72A5D}|TestCase\\ThirdParty\\GrpcClientPerformance\\GrpcClientPerformance.csproj|c:\\autocser2\\testcase\\thirdparty\\grpcclientperformance\\awaiterclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0E5D1A5B-1610-4BB6-B891-C0CB71A72A5D}|TestCase\\ThirdParty\\GrpcClientPerformance\\GrpcClientPerformance.csproj|solutionrelative:testcase\\thirdparty\\grpcclientperformance\\awaiterclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IAwaiterClient.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\CommandServerPerformance\\Client\\IAwaiterClient.cs",
-              "RelativeDocumentMoniker": "TestCase\\CommandServerPerformance\\Client\\IAwaiterClient.cs",
-              "ToolTip": "C:\\AutoCSer2\\TestCase\\CommandServerPerformance\\Client\\IAwaiterClient.cs",
-              "RelativeToolTip": "TestCase\\CommandServerPerformance\\Client\\IAwaiterClient.cs",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAQwLcAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T23:11:55.948Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AwaiterClient.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "RelativeDocumentMoniker": "TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "ToolTip": "C:\\AutoCSer2\\TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "RelativeToolTip": "TestCase\\ThirdParty\\GrpcClientPerformance\\AwaiterClient.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAAADwAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T23:11:08.948Z"
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

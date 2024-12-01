@@ -14352,10 +14352,10 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode`1.Enter(`0,System.UInt16)">
             <summary>
-            
+            申请锁
             </summary>
-            <param name="key"></param>
-            <param name="timeoutSeconds"></param>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode`1.Release(`0,System.Int64)">
@@ -15664,10 +15664,10 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode`1.Enter(`0,System.UInt16)">
             <summary>
-            
+            申请锁
             </summary>
-            <param name="key"></param>
-            <param name="timeoutSeconds"></param>
+            <param name="key">锁关键字</param>
+            <param name="timeoutSeconds">超时秒数</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode`1.Release(`0,System.Int64)">
@@ -17117,10 +17117,10 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNodeeMethodEnum.Enter">
             <summary>
-            [0] 
-            T key 
-            ushort timeoutSeconds 
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{long} callback 
+            [0] 申请锁
+            T key 锁关键字
+            ushort timeoutSeconds 超时秒数
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{long} callback 失败返回 0
             返回值 long 
             </summary>
         </member>

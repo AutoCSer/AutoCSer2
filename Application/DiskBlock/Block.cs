@@ -19,7 +19,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 磁盘块服务
         /// </summary>
-        protected readonly DiskBlockService service;
+        public readonly DiskBlockService Service;
         /// <summary>
         /// 读取数据请求缓存
         /// </summary>
@@ -55,7 +55,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         internal Block()
         {
-            service = new DiskBlockService(this);
+            Service = new DiskBlockService(this);
             StartIndex = long.MaxValue;
             Position = long.MinValue;
         }
@@ -66,7 +66,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="startIndex">文件流起始写入位置</param>
         protected Block(DiskBlockService service, long startIndex)
         {
-            this.service = service;
+            this.Service = service;
             StartIndex = startIndex;
         }
         /// <summary>
@@ -84,7 +84,7 @@ namespace AutoCSer.CommandService.DiskBlock
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void ServiceDisposeCallback()
         {
-            service.DisposeCallback();
+            Service.DisposeCallback();
         }
         /// <summary>
         /// 写入数据
@@ -103,7 +103,7 @@ namespace AutoCSer.CommandService.DiskBlock
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void FlushCallback()
         {
-            service.FlushCallback(Position);
+            Service.FlushCallback(Position);
         }
         /// <summary>
         /// 读取数据
@@ -157,14 +157,14 @@ namespace AutoCSer.CommandService.DiskBlock
                         {
                             do
                             {
-                                if (!service.IsDisposed)
+                                if (!Service.IsDisposed)
                                 {
                                     if (context == null) context = await getReadContext();
                                     isQueue = false;
                                     await read(request, context);
                                 }
                                 isQueue = true;
-                                service.CommandServerCallQueue.AddOnly(request.BlockCallback);
+                                Service.CommandServerCallQueue.AddOnly(request.BlockCallback);
                                 request = request.LinkNext;
                             }
                             while (request != null);
@@ -174,7 +174,7 @@ namespace AutoCSer.CommandService.DiskBlock
                         {
                             if (!exceptionRepeat.IsRepeat(exception)) await AutoCSer.LogHelper.Exception(exception);
                         }
-                        if(!isQueue) service.CommandServerCallQueue.AddOnly(request.notNull().BlockCallback);
+                        if(!isQueue) Service.CommandServerCallQueue.AddOnly(request.notNull().BlockCallback);
                         request = request.notNull().LinkNext;
                     }
                     while (request != null);
@@ -224,7 +224,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 readCache.Remove(request.Index);
                 request.Callback();
             }
-            finally { service.ReadCallback(request); }
+            finally { Service.ReadCallback(request); }
         }
         /// <summary>
         /// 删除磁盘块

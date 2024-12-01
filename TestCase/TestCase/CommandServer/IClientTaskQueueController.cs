@@ -6,20 +6,6 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase
 {
     /// <summary>
-    /// 客户端测试接口
-    /// </summary>
-    public interface IClientTaskQueueController
-    {
-        ReturnQueueCommand<string> TaskQueueReturnSocket();
-        ReturnQueueCommand<string> TaskQueueReturnSocket(int Value, int Ref);
-        ReturnQueueCommand TaskQueueSocket();
-        ReturnQueueCommand TaskQueueSocket(int Value, int Ref);
-        ReturnQueueCommand<string> TaskQueueReturn();
-        ReturnQueueCommand<string> TaskQueueReturn(int Value, int Ref);
-        ReturnQueueCommand TaskQueue();
-        ReturnQueueCommand TaskQueue(int Value, int Ref);
-    }
-    /// <summary>
     /// 命令客户端测试
     /// </summary>
     internal static class ClientTaskQueueController

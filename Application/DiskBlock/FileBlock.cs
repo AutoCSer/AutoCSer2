@@ -94,19 +94,19 @@ namespace AutoCSer.CommandService.DiskBlock
                     await writeStream.WriteAsync(request.Buffer.Buffer.notNull().Buffer, request.Buffer.StartIndex, size);
                     return writeStream.Position + StartIndex;
                 case WriteOperationTypeEnum.SwitchBlock:
-                    if(writeStream.Position >= service.MinSwitchSize)
+                    if(writeStream.Position >= Service.MinSwitchSize)
                     {
                         await Flush();
 
                         var block = default(Block);
                         var newWriteStream = default(FileStream);
-                        FileInfo file = new FileInfo(Path.Combine(this.file.Directory.notNull().FullName, service.Identity.toHex() + ((ulong)Position).toHex() + FileBlockServiceConfig.ExtensionName));
+                        FileInfo file = new FileInfo(Path.Combine(this.file.Directory.notNull().FullName, Service.Identity.toHex() + ((ulong)Position).toHex() + FileBlockServiceConfig.ExtensionName));
                         try
                         {
                             newWriteStream = await AutoCSer.Common.CreateFileStream(file.FullName, FileMode.Create, FileAccess.Write, FileShare.Read, writeBufferSize);
-                            block = new FileBlock(service, file, Position, Position, writeBufferSize, buffer.Length, newWriteStream);
+                            block = new FileBlock(Service, file, Position, Position, writeBufferSize, buffer.Length, newWriteStream);
                             newWriteStream = null;
-                            service.SetSwitch(block);
+                            Service.SetSwitch(block);
                             block = null;
                             await writeStream.DisposeAsync();
                         }

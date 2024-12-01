@@ -76,6 +76,17 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// </summary>
         public bool IsOut { get; private set; }
         /// <summary>
+        /// ref / out 前缀字符串
+        /// </summary>
+        public string RefOutString
+        {
+            get
+            {
+                if (IsOut) return "out ";
+                return IsRef ? "ref " : null;
+            }
+        }
+        /// <summary>
         /// 参数信息
         /// </summary>
         /// <param name="method">函数信息</param>

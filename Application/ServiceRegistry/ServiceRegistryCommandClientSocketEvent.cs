@@ -21,7 +21,7 @@ namespace AutoCSer.CommandService
 #if NetStandard21
         [AllowNull]
 #endif
-        public IServiceRegistryClient ServiceRegistryClient { get; protected set; }
+        public IServiceRegistryServiceClientController ServiceRegistryClient { get; protected set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -29,7 +29,7 @@ namespace AutoCSer.CommandService
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(IServiceRegistryService), typeof(IServiceRegistryClient));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServiceRegistryService), typeof(IServiceRegistryServiceClientController));
             }
         }
         /// <summary>

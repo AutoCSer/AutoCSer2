@@ -14,11 +14,11 @@ namespace AutoCSer.TestCase.LogCollectionReverseService
         /// <summary>
         /// 基于递增登录时间戳验证的反向服务认证客户端接口
         /// </summary>
-        public ITimestampVerifyReverseClient<string> TimestampVerifyReverseClient { get; private set; }
+        public ITimestampVerifyReverseServiceClientController<string> TimestampVerifyReverseClient { get; private set; }
         /// <summary>
         /// 日志收集反向服务客户端
         /// </summary>
-        public ILogCollectionReverseClient<LogInfo> LogCollectionReverseClient { get; private set; }
+        public ILogCollectionReverseServiceClientController<LogInfo> LogCollectionReverseClient { get; private set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -26,8 +26,8 @@ namespace AutoCSer.TestCase.LogCollectionReverseService
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyReverseService<string>), typeof(ITimestampVerifyReverseClient<string>));
-                yield return new CommandClientControllerCreatorParameter(typeof(ILogCollectionReverseService<LogInfo>), typeof(ILogCollectionReverseClient<LogInfo>));
+                yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyReverseService<string>), typeof(ITimestampVerifyReverseServiceClientController<string>));
+                yield return new CommandClientControllerCreatorParameter(typeof(ILogCollectionReverseService<LogInfo>), typeof(ILogCollectionReverseServiceClientController<LogInfo>));
             }
         }
         /// <summary>

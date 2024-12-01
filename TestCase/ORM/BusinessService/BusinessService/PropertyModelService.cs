@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 属性测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(PropertyModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath)]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(PropertyModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
     public interface IPropertyModelService : IPrimaryKeyService<PropertyModel, AutoCSer.TestCase.CommonModel.TableModel.PropertyModel, string>
     {
         /// <summary>

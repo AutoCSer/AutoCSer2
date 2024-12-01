@@ -27,6 +27,10 @@ namespace AutoCSer.TestCase
         /// </summary>
         public IClientCallbackController ClientCallbackController { get; private set; }
         /// <summary>
+        /// 回调接口测试
+        /// </summary>
+        public IClientCallbackTaskController ClientCallbackTaskController { get; private set; }
+        /// <summary>
         /// 保持回调接口测试
         /// </summary>
         public IClientKeepCallbackController ClientKeepCallbackController { get; private set; }
@@ -37,7 +41,7 @@ namespace AutoCSer.TestCase
         /// <summary>
         /// 控制器异步队列接口测试
         /// </summary>
-        public IClientTaskQueueController ClientTaskQueueController { get; private set; }
+        public IServerTaskQueueControllerClientController ClientTaskQueueController { get; private set; }
         /// <summary>
         /// 保持回调异步任务接口测试
         /// </summary>
@@ -72,6 +76,10 @@ namespace AutoCSer.TestCase
         /// </summary>
         public ServerBindContext.IClientCallbackController ServerBindContextClientCallbackController { get; private set; }
         /// <summary>
+        /// 回调接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientCallbackTaskController ServerBindContextClientCallbackTaskController { get; private set; }
+        /// <summary>
         /// 保持回调接口测试（套接字上下文绑定服务端）
         /// </summary>
         public ServerBindContext.IClientKeepCallbackController ServerBindContextClientKeepCallbackController { get; private set; }
@@ -86,7 +94,7 @@ namespace AutoCSer.TestCase
         /// <summary>
         /// 控制器异步队列接口测试（套接字上下文绑定服务端）
         /// </summary>
-        public ServerBindContext.IClientTaskQueueController ServerBindContextClientTaskQueueController { get; private set; }
+        public ServerBindContext.IServerTaskQueueControllerClientController ServerBindContextClientTaskQueueController { get; private set; }
         /// <summary>
         /// 定义对称接口测试（套接字上下文绑定服务端）
         /// </summary>
@@ -106,10 +114,11 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerSendOnlyController), typeof(IClientSendOnlyController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerQueueController), typeof(IClientQueueController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerCallbackController), typeof(IClientCallbackController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerCallbackTaskController), typeof(IClientCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackController), typeof(IClientKeepCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskController), typeof(IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackTaskController), typeof(IClientKeepCallbackTaskController));
-                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueController), typeof(IClientTaskQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueController), typeof(IServerTaskQueueControllerClientController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueContextController), typeof(int), typeof(IClientTaskQueueContextController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IDefinedSymmetryController), typeof(IDefinedSymmetryController));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(IDefinedDissymmetryClientController));
@@ -118,10 +127,11 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerSendOnlyController), typeof(ServerBindContext.IClientSendOnlyController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerQueueController), typeof(ServerBindContext.IClientQueueController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerCallbackController), typeof(ServerBindContext.IClientCallbackController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerCallbackTaskController), typeof(ServerBindContext.IClientCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackController), typeof(ServerBindContext.IClientKeepCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskController), typeof(ServerBindContext.IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackTaskController), typeof(ServerBindContext.IClientKeepCallbackTaskController));
-                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IClientTaskQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IServerTaskQueueControllerClientController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IDefinedSymmetryController), typeof(ServerBindContext.IDefinedSymmetryController));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(ServerBindContext.IDefinedDissymmetryClientController));
             }

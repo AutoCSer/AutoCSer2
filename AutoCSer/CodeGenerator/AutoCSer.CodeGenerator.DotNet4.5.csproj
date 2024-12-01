@@ -59,6 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProjectParameter.cs" />
     <Compile Include="TemplateGenerator\AttributeGenerator.cs" />
+    <Compile Include="TemplateGenerator\CommandServerClientController.cs" />
     <Compile Include="TemplateGenerator\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\CSharpTypeDefinition.cs" />
     <Compile Include="TemplateGenerator\Generator.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\TypeDefinition.cs" />
+    <Compile Include="Template\CommandServerClientController.cs" />
     <Compile Include="Template\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseClientNode.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
@@ -88,6 +90,10 @@
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5.csproj">
       <Project>{16850f6e-850a-46e4-af12-cf48e9e771b1}</Project>
       <Name>AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoCSer.DotNet4.5.csproj">
+      <Project>{C941BD13-25AA-4F36-8C3B-873BA299F237}</Project>
+      <Name>AutoCSer.DotNet4.5</Name>
     </ProjectReference>
     <ProjectReference Include="..\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
       <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>

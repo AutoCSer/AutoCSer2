@@ -12,7 +12,7 @@ namespace AutoCSer.Reflection
     /// <summary>
     /// XML 文档注释
     /// </summary>
-    internal static class XmlDocument
+    public static class XmlDocument
     {
         /// <summary>
         /// XML解析配置
@@ -82,7 +82,7 @@ namespace AutoCSer.Reflection
                         }
                         else AutoCSer.LogHelper.ErrorIgnoreException("XML文档解析失败 " + fileName, LogLevelEnum.Error | LogLevelEnum.AutoCSer);
                     }
-                    else AutoCSer.LogHelper.ErrorIgnoreException("没有找到XML文档注释 " + fileName, LogLevelEnum.Error | LogLevelEnum.AutoCSer);
+                    //else AutoCSer.LogHelper.InfoIgnoreException("没有找到XML文档注释 " + fileName, LogLevelEnum.Info | LogLevelEnum.AutoCSer);
                 }
                 assemblys.Add(assembly, value);
             }

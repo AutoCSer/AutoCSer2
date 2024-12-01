@@ -24,10 +24,10 @@ namespace AutoCSer.TestCase.ServerBindContext
         [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTask))]
         Task AsynchronousTaskAsync();
 
-        ReturnQueueCommand<string> TaskQueueReturn(int Value, int Ref);
-        ReturnQueueCommand TaskQueue(int Value, int Ref);
+        ReturnQueueCommand<string> TaskQueueReturn(int queueKey, int Ref);
+        ReturnQueueCommand TaskQueue(int queueKey, int Ref);
 
-        ReturnCommand<string> TaskQueueException(int Value, int Ref);
+        ReturnCommand<string> TaskQueueException(int queueKey, int Ref);
     }
     /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）

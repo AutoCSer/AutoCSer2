@@ -42,6 +42,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
             return true;
         }
     }
+#pragma warning disable CS0649
     /// <summary>
     /// JSON 序列化扩展 示例 反序列化定义
     /// </summary>

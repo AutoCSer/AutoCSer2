@@ -34,19 +34,6 @@
             <param name="timestamp">待验证时间戳</param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.ITimestampVerifyReverseClient`1">
-            <summary>
-            基于递增登录时间戳验证的反向服务认证客户端接口
-            </summary>
-            <typeparam name="T">附加数据类型</typeparam>
-        </member>
-        <member name="M:AutoCSer.CommandService.ITimestampVerifyReverseClient`1.GetVerifyData(System.Int64)">
-            <summary>
-            获取验证数据
-            </summary>
-            <param name="timestamp">待验证时间戳</param>
-            <returns>反向服务验证数据</returns>
-        </member>
         <member name="T:AutoCSer.CommandService.ITimestampVerifyReverseService`1">
             <summary>
             基于递增登录时间戳验证的反向服务认证接口（配合 HASH 防止重放登录操作）
@@ -376,6 +363,18 @@
             <summary>
             默认空会话对象
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ITimestampVerifyReverseServiceClientController`1">
+            <summary>
+            基于递增登录时间戳验证的反向服务认证接口（配合 HASH 防止重放登录操作） 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ITimestampVerifyReverseServiceClientController`1.GetVerifyData(System.Int64)">
+            <summary>
+            获取验证数据
+            </summary>
+            <param name="timestamp">待验证时间戳</param>
+            <returns>反向服务验证数据</returns>
         </member>
     </members>
 </doc>

@@ -25,8 +25,8 @@ namespace AutoCSer.TestCase
         Task<CommandServerSendOnly> SendOnlyTask(int Value, int Ref);
         Task<CommandServerSendOnly> SendOnlyTask();
 
-        Task<CommandServerSendOnly> SendOnlyTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref);
-        Task<CommandServerSendOnly> SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref);
+        Task<CommandServerSendOnly> SendOnlyTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue<int> queue, int Ref);
+        Task<CommandServerSendOnly> SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);
     }
     /// <summary>
     /// 服务端测试接口
@@ -97,15 +97,15 @@ namespace AutoCSer.TestCase
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
 
-        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue<int> queue, int Ref)
         {
-            ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
+            ((CommandServerSessionObject)socket.SessionObject).Xor(queue.Key, Ref);
             SendOnly();
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
-        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
-            ServerSynchronousController.SessionObject.Xor(Value, Ref);
+            ServerSynchronousController.SessionObject.Xor(queue.Key, Ref);
             SendOnly();
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }

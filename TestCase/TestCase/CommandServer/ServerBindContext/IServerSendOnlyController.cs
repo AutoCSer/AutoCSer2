@@ -19,7 +19,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         Task<CommandServerSendOnly> SendOnlyTask(int Value, int Ref);
         Task<CommandServerSendOnly> SendOnlyTask();
 
-        Task<CommandServerSendOnly> SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref);
+        Task<CommandServerSendOnly> SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);
     }
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
@@ -59,9 +59,9 @@ namespace AutoCSer.TestCase.ServerBindContext
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
 
-        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
+            ((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref);
             SendOnly();
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }

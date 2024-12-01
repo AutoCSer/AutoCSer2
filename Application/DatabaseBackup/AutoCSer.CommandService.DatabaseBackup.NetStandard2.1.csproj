@@ -34,8 +34,8 @@
     <Compile Include="DatabaseBackupDownloadBuffer.cs" />
     <Compile Include="DatabaseBackuper.cs" />
     <Compile Include="IDatabaseBackupService.cs" />
-    <Compile Include="IDatabaseBackupClient.cs" />
     <Compile Include="IDatabaseBackupClientSocketEvent.cs" />
+    <Compile Include="{AutoCSer.CommandService.DatabaseBackup}.AutoCSer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 

@@ -35,7 +35,7 @@
     <Compile Include="IDeployTask.cs" />
     <Compile Include="IDeployTaskClientSocketEvent.cs" />
     <Compile Include="IDeployTaskService.cs" />
-    <Compile Include="IDeployTaskClient.cs" />
+    <Compile Include="IDeployTaskServiceClientController.cs" />
     <Compile Include="DeployTaskAppendStateEnum.cs" />
     <Compile Include="DeployTaskConfig.cs" />
     <Compile Include="DeployTaskLog.cs" />
@@ -48,6 +48,7 @@
     <Compile Include="UploadFileBuffer.cs" />
     <Compile Include="CreateUploadFileResult.cs" />
     <Compile Include="UploadFileClient.cs" />
+    <Compile Include="{AutoCSer.CommandService.DeployTask}.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>

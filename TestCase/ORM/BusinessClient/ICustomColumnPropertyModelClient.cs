@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.BusinessClient
     /// <summary>
     /// 自定义属性列测试模型业务数据服务客户端接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(CustomColumnPropertyModelServiceMethodEnum), IsAutoMethodIndex = false)]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(CustomColumnPropertyModelServiceMethodEnum), IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
     public interface ICustomColumnPropertyModelClient : IPrimaryKeyClient<CustomColumnPropertyModel, AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey>
     {
         /// <summary>

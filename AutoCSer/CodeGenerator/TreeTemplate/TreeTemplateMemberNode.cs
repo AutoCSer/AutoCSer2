@@ -41,10 +41,16 @@ namespace AutoCSer.CodeGenerator
         /// 成员类型
         /// </summary>
         internal ExtensionType Type { get; private set; }
+#if !DotNet45
         /// <summary>
         /// await 成员原类型
         /// </summary>
         internal readonly ExtensionType AwaitType;
+        /// <summary>
+        /// 默认为 false 表示不忽略默认值输出，基于 IEquatable{T}
+        /// </summary>
+        internal readonly bool IsIgnoreDefault;
+#endif
         /// <summary>
         /// 当前节点成员名称
         /// </summary>
@@ -60,7 +66,11 @@ namespace AutoCSer.CodeGenerator
         {
             get
             {
+#if DotNet45
+                return Path;
+#else
                 return AwaitType != null ? "(await " + Path + ")" : Path;
+#endif
             }
         }
         /// <summary>
@@ -91,10 +101,6 @@ namespace AutoCSer.CodeGenerator
                 return template.memberPaths.TryGetValue(this, out paths) && paths.Count != 0;
             }
         }
-        /// <summary>
-        /// 默认为 false 表示不忽略默认值输出，基于 IEquatable{T}
-        /// </summary>
-        internal readonly bool IsIgnoreDefault;
         /// <summary>
         /// 成员树节点
         /// </summary>

@@ -36,12 +36,12 @@ namespace AutoCSer.TestCase
         [CommandClientMethod(MatchMethodName = nameof(IServerTaskController.AsynchronousTask))]
         Task AsynchronousTaskAsync();
 
-        ReturnQueueCommand<string> TaskQueueReturnSocket(int Value, int Ref);
-        ReturnQueueCommand TaskQueueSocket(int Value, int Ref);
-        ReturnQueueCommand<string> TaskQueueReturn(int Value, int Ref);
-        ReturnQueueCommand TaskQueue(int Value, int Ref);
+        ReturnQueueCommand<string> TaskQueueReturnSocket(int queueKey, int Ref);
+        ReturnQueueCommand TaskQueueSocket(int queueKey, int Ref);
+        ReturnQueueCommand<string> TaskQueueReturn(int queueKey, int Ref);
+        ReturnQueueCommand TaskQueue(int queueKey, int Ref);
 
-        ReturnCommand<string> TaskQueueException(int Value, int Ref);
+        ReturnCommand<string> TaskQueueException(int queueKey, int Ref);
     }
     /// <summary>
     /// 命令客户端测试

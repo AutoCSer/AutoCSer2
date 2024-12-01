@@ -27,7 +27,6 @@
     <Compile Include="ITimestampVerifyService.cs" />
     <Compile Include="ITimestampVerifyClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReverseService\ITimestampVerifyReverseClient.cs" />
     <Compile Include="ReverseService\ITimestampVerifyReverseService.cs" />
     <Compile Include="ReverseService\ReverseServiceClientData.cs" />
     <Compile Include="ReverseService\ReverseServiceVerifyData.cs" />
@@ -36,6 +35,7 @@
     <Compile Include="TimestampVerifyChecker.cs" />
     <Compile Include="TimestampVerifyCommandClientSocketEvent.cs" />
     <Compile Include="TimestampVerifySession.cs" />
+    <Compile Include="{AutoCSer.CommandService.TimestampVerify}.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,5 +47,9 @@
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
 
 </Project>

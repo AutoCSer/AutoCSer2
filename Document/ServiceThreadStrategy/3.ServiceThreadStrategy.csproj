@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AutoCSer.Document.ServiceThreadStrategy</AssemblyName>
+    <RootNamespace>AutoCSer.Document.ServiceThreadStrategy</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Client\CommandClientSocketEvent.cs" />
+    <Compile Include="Client\ICallbackController.cs" />
+    <Compile Include="Client\ICallbackQueueController.cs" />
+    <Compile Include="Client\ICommandClientReturnValueController.cs" />
+    <Compile Include="Client\IEnumeratorCommandController.cs" />
+    <Compile Include="Client\IEnumeratorQueueCommandController.cs" />
+    <Compile Include="Client\IKeepCallbackController.cs" />
+    <Compile Include="Client\IKeepCallbackQueueController.cs" />
+    <Compile Include="Client\IReturnCommandController.cs" />
+    <Compile Include="Client\IReturnQueueCommandController.cs" />
+    <Compile Include="Client\ISendOnlyCommandController.cs" />
+    <Compile Include="Client\TaskQueue\ICallbackController.cs" />
+    <Compile Include="Client\TaskQueue\ICallbackQueueController.cs" />
+    <Compile Include="Client\TaskQueue\ICommandClientReturnValueController.cs" />
+    <Compile Include="Client\TaskQueue\IEnumeratorCommandController.cs" />
+    <Compile Include="Client\TaskQueue\IEnumeratorQueueCommandController.cs" />
+    <Compile Include="Client\TaskQueue\IKeepCallbackController.cs" />
+    <Compile Include="Client\TaskQueue\IKeepCallbackQueueController.cs" />
+    <Compile Include="Client\TaskQueue\IReturnCommandController.cs" />
+    <Compile Include="Client\TaskQueue\IReturnQueueCommandController.cs" />
+    <Compile Include="Client\TaskQueue\ISendOnlyCommandController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Server\Queue\ICallbackController.cs" />
+    <Compile Include="Server\Queue\IKeepCallbackController.cs" />
+    <Compile Include="Server\Queue\ISendOnlyController.cs" />
+    <Compile Include="Server\Queue\ISynchronousController.cs" />
+    <Compile Include="Server\Synchronous\ICallbackController.cs" />
+    <Compile Include="Server\Synchronous\IKeepCallbackController.cs" />
+    <Compile Include="Server\Synchronous\ISendOnlyController.cs" />
+    <Compile Include="Server\Synchronous\ISynchronousController.cs" />
+    <Compile Include="Server\TaskQueueController\IKeepCallbackController.cs" />
+    <Compile Include="Server\TaskQueueController\ISendOnlyController.cs" />
+    <Compile Include="Server\TaskQueueController\ISynchronousController.cs" />
+    <Compile Include="Server\TaskQueue\IKeepCallbackController.cs" />
+    <Compile Include="Server\TaskQueue\ISendOnlyController.cs" />
+    <Compile Include="Server\TaskQueue\ICallbackController.cs" />
+    <Compile Include="Server\TaskQueue\ISynchronousController.cs" />
+    <Compile Include="Server\TaskQueue\ITaskQueueController.cs" />
+    <Compile Include="Server\Task\IKeepCallbackController.cs" />
+    <Compile Include="Server\Task\ISendOnlyController.cs" />
+    <Compile Include="Server\Task\ICallbackController.cs" />
+    <Compile Include="Server\Task\ISynchronousController.cs" />
+    <Compile Include="{AutoCSer.Document.ServiceThreadStrategy}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+
+</Project>

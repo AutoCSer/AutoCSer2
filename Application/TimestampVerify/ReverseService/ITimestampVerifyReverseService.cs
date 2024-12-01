@@ -8,6 +8,7 @@ namespace AutoCSer.CommandService
     /// 基于递增登录时间戳验证的反向服务认证接口（配合 HASH 防止重放登录操作）
     /// </summary>
     /// <typeparam name="T">附加数据类型</typeparam>
+    [AutoCSer.Net.CommandServerControllerInterface]
     public interface ITimestampVerifyReverseService<T>
     {
         /// <summary>

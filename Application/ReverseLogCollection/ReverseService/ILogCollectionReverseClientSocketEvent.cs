@@ -11,6 +11,6 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 日志收集反向服务客户端
         /// </summary>
-        ILogCollectionReverseClient<T> LogCollectionReverseClient { get; }
+        ILogCollectionReverseServiceClientController<T> LogCollectionReverseClient { get; }
     }
 }

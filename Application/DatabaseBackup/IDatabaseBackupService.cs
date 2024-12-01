@@ -7,6 +7,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 数据库备份服务接口
     /// </summary>
+    [AutoCSer.Net.CommandServerControllerInterface]
     public interface IDatabaseBackupService
     {
         /// <summary>
@@ -20,12 +21,8 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="queue"></param>
         /// <param name="database">数据库名称</param>
-        /// <param name="callback">重写必须保证回调执行，返回 null 表示没有找到数据库</param>
-#if NetStandard21
-        void Backup(CommandServerCallQueue queue, string database, CommandServerCallback<string?> callback);
-#else
+        /// <param name="callback">重写必须保证回调执行，返回空字符串表示没有找到数据库</param>
         void Backup(CommandServerCallQueue queue, string database, CommandServerCallback<string> callback);
-#endif
         /// <summary>
         /// 下载备份文件
         /// </summary>

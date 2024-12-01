@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 自增ID与其它混合测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(AutoIdentityModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath)]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(AutoIdentityModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
     public interface IAutoIdentityModelService : IAutoIdentityService<AutoIdentityModel, AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel>
     {
         /// <summary>
