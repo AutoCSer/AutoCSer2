@@ -18426,14 +18426,14 @@
             <typeparam name="ST">服务端接口类型</typeparam>
             <typeparam name="KT"></typeparam>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientTaskQueueInterfaceController`3.Create(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientTaskQueueInterfaceController`3.Create(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,System.String[])">
             <summary>
             创建命令客户端控制器
             </summary>
             <param name="socket"></param>
             <param name="controllerName"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
+            <param name="serverMethodNames"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientTaskQueueInterfaceController`3.create(AutoCSer.Net.CommandClientController{`0,`2},`2)">
@@ -18739,26 +18739,20 @@
             <typeparam name="T">客户端接口类型</typeparam>
             <typeparam name="ST">服务端接口类型</typeparam>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceController`2.Create(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceController`2.Create(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,System.String[])">
             <summary>
             创建命令客户端控制器
             </summary>
             <param name="socket"></param>
             <param name="controllerName"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
+            <param name="serverMethodNames"></param>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`2.methods">
             <summary>
             客户端接口方法信息集合
             </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceController`2.GetMethods">
-            <summary>
-            获取客户端接口方法信息集合
-            </summary>
-            <returns></returns>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`2.callConstructor">
             <summary>
@@ -21369,6 +21363,24 @@
             <param name="isServer"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetServerMethodIndexs(System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.String[])">
+            <summary>
+            获取服务端方法编号集合
+            </summary>
+            <param name="methodStartIndex"></param>
+            <param name="methods"></param>
+            <param name="serverMethodNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetServerMethodIndexs(System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.String[],System.Int32[])">
+            <summary>
+            获取服务端方法编号集合
+            </summary>
+            <param name="methodStartIndex"></param>
+            <param name="methods"></param>
+            <param name="serverMethodNames"></param>
+            <param name="serverMethodIndexs"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.ThrowException(System.String)">
             <summary>
             抛出异常
@@ -21387,14 +21399,15 @@
             <param name="socket"></param>
             <param name="controllerName"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.NullCommandClientController.Get(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandServer.NullCommandClientController.Get(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.Int32[])">
             <summary>
             获取默认空命令客户端控制器
             </summary>
             <param name="socket"></param>
             <param name="controllerName"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
+            <param name="methods"></param>
+            <param name="serverMethodIndexs"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.NullCommandServerController">
@@ -21463,14 +21476,14 @@
             临时接收数据不足
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.DataDecompressError">
+        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.DataDecodeError">
             <summary>
-            数据解压缩失败
+            数据解码失败
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.BigDataDecompressError">
+        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.BigDataDecodeError">
             <summary>
-            临时数据解压缩失败
+            临时数据解码失败
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.OnReceiveInvalidOperation">
@@ -21548,9 +21561,9 @@
             命令控制器序号
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.CommandControllerOutputData.MethodCount">
+        <member name="F:AutoCSer.Net.CommandServer.CommandControllerOutputData.MethodNames">
             <summary>
-            命令数量
+            方法名称集合
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandControllerOutputData.Set(System.Int32,AutoCSer.Net.CommandServerController)">
@@ -23912,9 +23925,9 @@
             验证数据长度超出解析长度
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.VerifyDataDecompressError">
+        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.VerifyDataDecodeError">
             <summary>
-            验证数据解压缩失败
+            验证数据解码失败
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.VerifyError">
@@ -23947,14 +23960,14 @@
             命令数据超出最大限制
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.DataDecompressError">
+        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.DataDecodeError">
             <summary>
-            数据解压缩失败
+            数据解码失败
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.BigDataDecompressError">
+        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.BigDataDecodeError">
             <summary>
-            临时数据解压缩失败
+            临时数据解码失败
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.MergeDataSizeLimitError">
@@ -24853,6 +24866,82 @@
             </summary>
             <param name="queue"></param>
         </member>
+        <member name="T:AutoCSer.Net.CommandClientCompressConfig">
+            <summary>
+            支持传输数据默认压缩的命令客户端配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientCompressConfig.MinCompressSize">
+            <summary>
+            发送数据启用压缩最低字节数量，默认为 0 表示不压缩数据；压缩数据需要消耗一定的 CPU 资源降低带宽使用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientCompressConfig.CompressionLevel">
+            <summary>
+            压缩级别默认为快速压缩，如果是大数据量传输建议用 CPU 换带宽修改为默认压缩
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCompressConfig.TransferEncode(AutoCSer.Net.CommandClientSocket,System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+            <summary>
+            发送数据编码
+            </summary>
+            <param name="socket">命令客户端套接字</param>
+            <param name="data">原始数据</param>
+            <param name="dataIndex">原始数据起始位置</param>
+            <param name="dataSize">原始数据字节数</param>
+            <param name="buffer">输出数据缓冲区</param>
+            <param name="outputData">输出数据</param>
+            <param name="outputSeek">输出数据起始位置</param>
+            <param name="outputHeadSize">输出数据多余头部大小</param>
+            <returns>发送数据是否编码</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCompressConfig.TransferDecode(AutoCSer.Net.CommandClientSocket,AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            接收数据解码
+            </summary>
+            <param name="socket">命令客户端套接字</param>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServerCompressConfig">
+            <summary>
+            支持传输数据默认压缩的命令服务端配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCompressConfig.MinCompressSize">
+            <summary>
+            发送数据启用压缩最低字节数量，默认为 0 表示不压缩数据；压缩数据需要消耗一定的 CPU 资源降低带宽使用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCompressConfig.CompressionLevel">
+            <summary>
+            压缩级别默认为快速压缩，如果是大数据量传输建议用 CPU 换带宽修改为默认压缩
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCompressConfig.TransferEncode(AutoCSer.Net.CommandServerSocket,System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+            <summary>
+            发送数据编码
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <param name="data">原始数据</param>
+            <param name="dataIndex">原始数据起始位置</param>
+            <param name="dataSize">原始数据字节数</param>
+            <param name="buffer">输出数据缓冲区</param>
+            <param name="outputData">输出数据</param>
+            <param name="outputSeek">输出数据起始位置</param>
+            <param name="outputHeadSize">输出数据多余头部大小</param>
+            <returns>发送数据是否编码</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCompressConfig.TransferDecode(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            接收数据解码
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandClientConfig">
             <summary>
             命令客户端配置
@@ -24896,6 +24985,11 @@
         <member name="F:AutoCSer.Net.CommandClientConfig.CommandPoolBits">
             <summary>
             命令池初始化二进制大小，最大值为 16，最小值为 2，默认为 14 容器大小为 16384，开放服务建议值为 3 容器大小为 8
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientConfig.IsServerController">
+            <summary>
+            默认为 true 表示只有 1 个命令控制器也获取服务端控制器数据用于匹配客户端控制器信息，设置为 true 表示只有 1 个命令控制器时不获取服务端控制器数据
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.IsAutoSocket">
@@ -24945,6 +25039,29 @@
             获取二进制反序列化配置参数，客户端初始化时一次性调用
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientConfig.TransferEncode(AutoCSer.Net.CommandClientSocket,System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+            <summary>
+            发送数据编码
+            </summary>
+            <param name="socket">命令客户端套接字</param>
+            <param name="data">原始数据</param>
+            <param name="dataIndex">原始数据起始位置</param>
+            <param name="dataSize">原始数据字节数</param>
+            <param name="buffer">输出数据缓冲区</param>
+            <param name="outputData">输出数据</param>
+            <param name="outputSeek">输出数据起始位置</param>
+            <param name="outputHeadSize">输出数据多余头部大小</param>
+            <returns>发送数据是否编码</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientConfig.TransferDecode(AutoCSer.Net.CommandClientSocket,AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            接收数据解码
+            </summary>
+            <param name="socket">命令客户端套接字</param>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientConfig.OnCustomData(AutoCSer.Net.CommandClientSocket,AutoCSer.SubArray{System.Byte}@)">
             <summary>
@@ -25012,13 +25129,13 @@
             </summary>
             <param name="controllerName"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.Create(AutoCSer.Net.CommandClientSocket,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.Create(AutoCSer.Net.CommandClientSocket,System.Int32,System.String[])">
             <summary>
             创建服务控制器
             </summary>
             <param name="socket"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
+            <param name="serverMethodNames"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.Check">
@@ -25089,13 +25206,13 @@
             </summary>
             <param name="controllerName"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.Create(AutoCSer.Net.CommandClientSocket,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.Create(AutoCSer.Net.CommandClientSocket,System.Int32,System.String[])">
             <summary>
             创建服务控制器
             </summary>
             <param name="socket"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
+            <param name="serverMethodNames"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.Check">
@@ -25123,13 +25240,13 @@
             </summary>
             <param name="controllerName"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`3.Create(AutoCSer.Net.CommandClientSocket,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`3.Create(AutoCSer.Net.CommandClientSocket,System.Int32,System.String[])">
             <summary>
             创建服务控制器
             </summary>
             <param name="socket"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
+            <param name="serverMethodNames"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`3.Check">
@@ -25478,6 +25595,14 @@
             <param name="controllerName">控制器名称，默认为 serverInterfaceType.Name</param>
             <param name="propertyName">绑定属性名称，客户端接口与服务端接口 1 对多的场景识别绑定属性</param>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.#ctor(System.Type,System.String,System.String)">
+            <summary>
+            客户端控制器创建器参数
+            </summary>
+            <param name="interfaceType">对称服务接口类型</param>
+            <param name="controllerName">控制器名称，默认为 serverInterfaceType.Name</param>
+            <param name="propertyName">绑定属性名称，客户端接口与服务端接口 1 对多的场景识别绑定属性</param>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.#ctor(System.Type,System.Type,System.Type,System.String,System.String)">
             <summary>
             客户端控制器创建器参数
@@ -25639,12 +25764,6 @@
             </summary>
             <param name="controller"></param>
             <param name="controllerName"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent.ControllerMethodCountError(AutoCSer.Net.CommandClientController)">
-            <summary>
-            控制器方法数量超出服务端限制通知
-            </summary>
-            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocketEvent.OnCreateSocketRetrySuccess(AutoCSer.Net.CommandClientSocket,System.Net.IPEndPoint,System.Int32)">
             <summary>
@@ -25908,12 +26027,30 @@
             </summary>
             <param name="creatorCapacity">服务控制器创建器集合初始化容器大小</param>
         </member>
+        <member name="M:AutoCSer.Net.CommandListenerBuilder.AppendInstance``1(``0,System.String)">
+            <summary>
+            添加控制器创建器
+            </summary>
+            <typeparam name="T">服务实例类型，通过 AutoCSer.Net.CommandServerControllerAttribute.InterfaceType 指定服务接口类型</typeparam>
+            <param name="controller">控制器接口操作实例</param>
+            <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
+            <returns>控制器创建器</returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandListenerBuilder.Append``1(``0,System.String)">
             <summary>
             添加控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <param name="controller">控制器接口操作实例</param>
+            <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
+            <returns>控制器创建器</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListenerBuilder.AppendInstance``1(System.Func{``0},System.String)">
+            <summary>
+            添加控制器创建器
+            </summary>
+            <typeparam name="T">服务实例类型，通过 AutoCSer.Net.CommandServerControllerAttribute.InterfaceType 指定服务接口类型</typeparam>
+            <param name="controllerCreator">创建控制器接口操作实例委托</param>
             <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
             <returns>控制器创建器</returns>
         </member>
@@ -25921,7 +26058,16 @@
             <summary>
             添加控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
+            <param name="controllerCreator">创建控制器接口操作实例委托</param>
+            <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
+            <returns>控制器创建器</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListenerBuilder.AppendInstance``1(System.Func{AutoCSer.Net.CommandListener,``0},System.String)">
+            <summary>
+            添加控制器创建器
+            </summary>
+            <typeparam name="T">服务实例类型，通过 AutoCSer.Net.CommandServerControllerAttribute.InterfaceType 指定服务接口类型</typeparam>
             <param name="controllerCreator">创建控制器接口操作实例委托</param>
             <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
             <returns>控制器创建器</returns>
@@ -25930,7 +26076,7 @@
             <summary>
             添加控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <param name="controllerCreator">创建控制器接口操作实例委托</param>
             <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
             <returns>控制器创建器</returns>
@@ -25939,26 +26085,53 @@
             <summary>
             添加控制器创建器
             </summary>
-            <typeparam name="T">控制器接口类型</typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <typeparam name="KT">队列关键字类型</typeparam>
             <param name="getTaskQueue">获取队列上下文委托</param>
             <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
+            <returns>控制器创建器</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListenerBuilder.AppendInstance``1(System.String,``0)">
+            <summary>
+            添加定义非对称控制器创建器
+            </summary>
+            <typeparam name="T">服务实例类型，通过 AutoCSer.Net.CommandServerControllerAttribute.InterfaceType 指定服务接口类型</typeparam>
+            <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
+            <param name="controller">控制器接口操作实例</param>
             <returns>控制器创建器</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandListenerBuilder.Append``1(System.String,``0)">
             <summary>
             添加定义非对称控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
             <param name="controller">控制器接口操作实例</param>
+            <returns>控制器创建器</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListenerBuilder.AppendInstance``1(System.String,System.Func{``0})">
+            <summary>
+            添加定义非对称控制器创建器
+            </summary>
+            <typeparam name="T">服务实例类型，通过 AutoCSer.Net.CommandServerControllerAttribute.InterfaceType 指定服务接口类型</typeparam>
+            <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
+            <param name="controllerCreator">创建控制器接口操作实例委托</param>
             <returns>控制器创建器</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandListenerBuilder.Append``1(System.String,System.Func{``0})">
             <summary>
             添加定义非对称控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
+            <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
+            <param name="controllerCreator">创建控制器接口操作实例委托</param>
+            <returns>控制器创建器</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListenerBuilder.AppendInstance``1(System.String,System.Func{AutoCSer.Net.CommandListener,``0})">
+            <summary>
+            添加定义非对称控制器创建器
+            </summary>
+            <typeparam name="T">服务实例类型，通过 AutoCSer.Net.CommandServerControllerAttribute.InterfaceType 指定服务接口类型</typeparam>
             <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
             <param name="controllerCreator">创建控制器接口操作实例委托</param>
             <returns>控制器创建器</returns>
@@ -25967,7 +26140,7 @@
             <summary>
             添加定义非对称控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
             <param name="controllerCreator">创建控制器接口操作实例委托</param>
             <returns>控制器创建器</returns>
@@ -25976,7 +26149,7 @@
             <summary>
             添加定义非对称控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <typeparam name="KT"></typeparam>
             <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
             <param name="getTaskQueue">获取队列上下文委托</param>
@@ -27667,14 +27840,14 @@
             同步队列任务执行超时检查秒数默认为 5 ，用于检查队列任务是否存在长时间阻塞或者死锁问题
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.MaxVerifyMethodErrorCount">
-            <summary>
-            最大认证失败次数，异步认证也可能当成失败处理，默认为 2
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.BuildOutputThread">
             <summary>
             默认为队列模式
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.IsOutputControllerMethodName">
+            <summary>
+            默认为 true 表示命令控制器查询输出数据包含方法名称用于客户端匹配验证
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.IsOutputExceptionMessage">
@@ -27725,6 +27898,29 @@
             获取二进制反序列化配置参数，默认返回 new AutoCSer.BinarySerialize.DeserializeConfig { IsDisposeMemberMap = true, MaxArraySize = BinaryDeserializeMaxArraySize 小于等于 0 ? int.MaxValue : BinaryDeserializeMaxArraySize }，服务初始化时一次性调用
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerConfig.TransferEncode(AutoCSer.Net.CommandServerSocket,System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+            <summary>
+            发送数据编码
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <param name="data">原始数据</param>
+            <param name="dataIndex">原始数据起始位置</param>
+            <param name="dataSize">原始数据字节数</param>
+            <param name="buffer">输出数据缓冲区</param>
+            <param name="outputData">输出数据</param>
+            <param name="outputSeek">输出数据起始位置</param>
+            <param name="outputHeadSize">输出数据多余头部大小</param>
+            <returns>发送数据是否编码</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerConfig.TransferDecode(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            接收数据解码
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerConfig.GetTaskQueueTypeSet(AutoCSer.Net.CommandListener)">
             <summary>
@@ -27805,19 +28001,9 @@
             发送数据缓存区池字节大小二进制位数量，默认为 17 为 128KB，开放服务建议值不大于 12 避免内存占用过多
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerConfigBase.MinCompressSize">
-            <summary>
-            发送数据启用压缩最低字节数量，默认为 0 表示不压缩数据；压缩数据需要消耗一定的 CPU 资源降低带宽使用
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerConfigBase.MaxInputSize">
             <summary>
             最大输入数据字节数，默认为 0 表示不限制，开放服务建议值小于 2^ReceiveBufferSizeBis - 12 而且不建议 API 产生大对象传输行为
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerConfigBase.CompressionLevel">
-            <summary>
-            压缩级别默认为快速压缩，如果是大数据量传输建议用 CPU 换带宽修改为默认压缩
             </summary>
         </member>
         <member name="P:AutoCSer.Net.CommandServerConfigBase.Log">
@@ -29080,6 +29266,11 @@
             客户端接口方法信息集合
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientController.serverMethodIndexs">
+            <summary>
+            服务端方法编号集合
+            </summary>
+        </member>
         <member name="P:AutoCSer.Net.CommandClientController.ErrorMethods">
             <summary>
             获取错误方法集合
@@ -29095,17 +29286,6 @@
             验证方法序号
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientController.MaxMethodCount">
-            <summary>
-            最大命令数量
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.SetMaxMethodCount(System.Int32)">
-            <summary>
-            主控制器设置最大命令数量
-            </summary>
-            <param name="maxMethodCount"></param>
-        </member>
         <member name="M:AutoCSer.Net.CommandClientController.#ctor(AutoCSer.Net.CommandClientSocket,System.String)">
             <summary>
             默认空命令客户端控制器
@@ -29113,15 +29293,15 @@
             <param name="socket"></param>
             <param name="controllerName"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientController.#ctor(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.Int32)">
+        <member name="M:AutoCSer.Net.CommandClientController.#ctor(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.Int32[],System.Int32)">
             <summary>
             命令客户端控制器
             </summary>
             <param name="socket"></param>
             <param name="controllerName"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
             <param name="methods"></param>
+            <param name="serverMethodIndexs"></param>
             <param name="verifyMethodIndex"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.GetMethodIndex(System.Int32)">
@@ -29130,6 +29310,12 @@
             </summary>
             <param name="methodIndex"></param>
             <returns>超出范围返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientController.SetServerMethodIndexs(System.String[])">
+            <summary>
+            设置服务端方法编号集合
+            </summary>
+            <param name="MethodNames"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.Synchronous(AutoCSer.Net.CommandClientController,System.Int32)">
             <summary>
@@ -29607,15 +29793,15 @@
             创建客户端控制器
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientController`2.#ctor(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.Int32,System.Func{AutoCSer.Net.CommandClientController{`0,`1},`1,`0})">
+        <member name="M:AutoCSer.Net.CommandClientController`2.#ctor(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.Int32[],System.Int32,System.Func{AutoCSer.Net.CommandClientController{`0,`1},`1,`0})">
             <summary>
             服务端 Task 队列命令客户端控制器
             </summary>
             <param name="socket"></param>
             <param name="controllerName"></param>
             <param name="startMethodIndex"></param>
-            <param name="maxMethodCount"></param>
             <param name="methods"></param>
+            <param name="serverMethodIndexs"></param>
             <param name="verifyMethodIndex"></param>
             <param name="createQueueController"></param>
         </member>
@@ -29775,9 +29961,9 @@
             当前处理接收数据字节数
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.compressionDataSize">
+        <member name="F:AutoCSer.Net.CommandClientSocket.transferDataSize">
             <summary>
-            当前数据压缩后的字节大小
+            当前数据编码后的字节大小
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.dataSize">
@@ -30683,11 +30869,6 @@
             发送数据缓存区最大字节大小
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandListener.MinCompressSize">
-            <summary>
-            压缩启用最低字节数量
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandListener.SessionObject">
             <summary>
             命令服务套接字自定义会话对象操作接口
@@ -30822,7 +31003,7 @@
             <summary>
             添加命令控制器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <typeparam name="KT"></typeparam>
             <param name="getTaskQueue">获取队列上下文委托</param>
             <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
@@ -30859,7 +31040,7 @@
             <summary>
             添加定义非对称命令控制器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <typeparam name="KT"></typeparam>
             <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
             <param name="getTaskQueue">获取队列上下文委托</param>
@@ -30870,6 +31051,26 @@
             添加命令控制器
             </summary>
             <param name="controller"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.GetControllers">
+            <summary>
+            获取命令服务控制器集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.GetController(System.String)">
+            <summary>
+            根据控制器名称获取控制器
+            </summary>
+            <param name="controllerName">控制器名称</param>
+            <returns>没有找到匹配名称返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.GetController(System.Type)">
+            <summary>
+            根据控制器名称获取控制器
+            </summary>
+            <param name="interfaceType">控制器接口类型</param>
+            <returns>没有找到匹配名称返回 null</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandListener.Start">
             <summary>
@@ -31331,7 +31532,7 @@
             <summary>
             获取控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <typeparam name="KT"></typeparam>
             <param name="getTaskQueue">获取队列上下文委托</param>
             <param name="controllerName">控制器名称，默认为 typeof(T).FullName</param>
@@ -31368,7 +31569,7 @@
             <summary>
             获取定义非对称控制器创建器
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">服务接口类型</typeparam>
             <typeparam name="KT"></typeparam>
             <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
             <param name="getTaskQueue">获取队列上下文委托</param>
@@ -33192,7 +33393,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.commandData">
             <summary>
-            命令位图
+            允许访问的命令位图
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.receiveAsyncEventArgs">
@@ -33240,9 +33441,9 @@
             当前处理接收数据字节数
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.compressionDataSize">
+        <member name="F:AutoCSer.Net.CommandServerSocket.transferDataSize">
             <summary>
-            当前数据压缩后的字节大小
+            当前数据编码后的字节大小
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.dataSize">
@@ -33300,11 +33501,6 @@
             接收数据套接字错误
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.verifyMethodErrorCount">
-            <summary>
-            允许验证失败次数
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.VerifyState">
             <summary>
             是否通过函数验证
@@ -33318,6 +33514,11 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.receiveErrorType">
             <summary>
             接收数据错误类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.receiveReserveByte">
+            <summary>
+            保留补白
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.receiveReserve">
@@ -33390,9 +33591,9 @@
             输出数据缓冲区
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.sendCompressBuffer">
+        <member name="F:AutoCSer.Net.CommandServerSocket.sendTransferBuffer">
             <summary>
-            输出压缩数据缓冲区
+            输出编码数据缓冲区
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.sendCopyBuffer">
@@ -33446,12 +33647,53 @@
             <param name="index"></param>
             <param name="controller"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.SetCommandData">
+            <summary>
+            设置允许访问的命令位图
+            </summary>
+            <returns>是否设置成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.ClearCommandData">
+            <summary>
+            清除允许访问的命令
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.setCommand(AutoCSer.Net.CommandServerController,System.Int32)">
+            <summary>
+            设置允许访问的命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.SetCommand(System.Int32,AutoCSer.Net.CommandServerController)">
             <summary>
-            设置命令索引信息
+            设置允许访问的命令
             </summary>
-            <param name="methodIndex"></param>
-            <param name="controller"></param>
+            <param name="methodIndex">命令服务控制器中的方法编号</param>
+            <param name="controller">命令服务控制器</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.SetCommand(System.String,AutoCSer.Net.CommandServerController)">
+            <summary>
+            设置允许访问的命令
+            </summary>
+            <param name="methodName">命令服方法名称</param>
+            <param name="controller">命令服务控制器</param>
+            <returns>是否设置成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.SetCommand(System.Collections.Generic.HashSet{AutoCSer.HashString},AutoCSer.Net.CommandServerController)">
+            <summary>
+            设置允许访问的命令
+            </summary>
+            <param name="methodNames">命令服方法名称集合</param>
+            <param name="controller">命令服务控制器</param>
+            <returns>匹配方法数量</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.SetVerifyState(AutoCSer.Net.CommandServerVerifyStateEnum)">
+            <summary>
+            设置命令服务验证结果状态
+            </summary>
+            <param name="verifyState"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.SetVerifyState(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerVerifyStateEnum)">
             <summary>
@@ -34659,7 +34901,7 @@
             <param name="level"></param>
             <returns>是否压缩成功</returns>
         </member>
-        <member name="M:AutoCSer.Config.Decompress(AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
+        <member name="M:AutoCSer.Config.Decompress(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
             <summary>
             解压数据
             </summary>
@@ -35150,6 +35392,11 @@
         <member name="F:AutoCSer.Date.ZoneMinuteString">
             <summary>
             时区f分钟字符串 mm"
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Date.isTimestampTicks">
+            <summary>
+            时钟周期与时间戳是否一致
             </summary>
         </member>
         <member name="F:AutoCSer.Date.Div60_32Mul">
@@ -42302,7 +42549,7 @@
         </member>
         <member name="F:AutoCSer.SubArray`1.Length">
             <summary>
-            长度
+            数据长度
             </summary>
         </member>
         <member name="P:AutoCSer.SubArray`1.EndIndex">
@@ -42343,6 +42590,14 @@
             隐式转换
             </summary>
             <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SubArray`1.GetArray(System.Int32@,System.Int32@)">
+            <summary>
+            获取数组子串原始数组数据
+            </summary>
+            <param name="dataIndex">原数组中的起始位置</param>
+            <param name="dataSize">数据长度</param>
+            <returns>原数组</returns>
         </member>
         <member name="M:AutoCSer.SubArray`1.SetEmpty">
             <summary>

@@ -49,6 +49,7 @@
     <Compile Include="Server\Synchronous\ISynchronousController.cs" />
     <Compile Include="Server\TaskQueueController\IKeepCallbackController.cs" />
     <Compile Include="Server\TaskQueueController\ISendOnlyController.cs" />
+    <Compile Include="Server\TaskQueueController\ICallbackController.cs" />
     <Compile Include="Server\TaskQueueController\ISynchronousController.cs" />
     <Compile Include="Server\TaskQueue\IKeepCallbackController.cs" />
     <Compile Include="Server\TaskQueue\ISendOnlyController.cs" />

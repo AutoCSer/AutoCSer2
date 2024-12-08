@@ -279,7 +279,21 @@
             <param name="serverTimestamp">服务端分配的时间戳</param>
             <returns>时间戳是否验证成功</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.CheckQueue(System.Int64@,System.Int64@)">
+            <summary>
+            检测当前时间戳
+            </summary>
+            <param name="timestamp">客户端请求的时间戳</param>
+            <param name="serverTimestamp">服务端分配的时间戳</param>
+            <returns>时间戳是否验证成功</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.Set(System.Int64)">
+            <summary>
+            设置最后一次验证时间戳
+            </summary>
+            <param name="timestamp"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.SetQueue(System.Int64)">
             <summary>
             设置最后一次验证时间戳
             </summary>

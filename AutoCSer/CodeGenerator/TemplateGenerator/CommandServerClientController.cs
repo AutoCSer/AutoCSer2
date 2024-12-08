@@ -97,6 +97,9 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case ServerMethodTypeEnum.SendOnlyTaskQueue:
                             MethodReturnType = typeof(SendOnlyCommand);
                             break;
+                        case ServerMethodTypeEnum.Unknown:
+                            Messages.Error($"{interfaceMethod.Method.DeclaringType.fullName()}.{interfaceMethod.Method.Name} 不可识别的 API {interfaceMethod.Error}");
+                            break;
                         //case ServerMethodTypeEnum.Synchronous:
                         //case ServerMethodTypeEnum.Callback:
                         //case ServerMethodTypeEnum.Queue:

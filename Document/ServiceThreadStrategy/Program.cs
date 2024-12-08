@@ -5,6 +5,9 @@ namespace AutoCSer.Document.ServiceThreadStrategy
 {
     internal class Program
     {
+        /// <summary>
+        /// https://zhuanlan.zhihu.com/p/10102634904
+        /// </summary>
         static async Task Main(string[] args)
         {
             AutoCSer.Net.CommandServerConfig config = new AutoCSer.Net.CommandServerConfig

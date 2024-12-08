@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                     CanCreateSlave = true
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                    .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
+                    .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                     .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                     .CreateCommandListener(commandServerConfig))
                 {

@@ -338,7 +338,7 @@ namespace AutoCSer.IO
                         try
                         {
                             SubArray<byte> nextData = compressBuffer.GetSubArray(dataSize);
-                            if (!AutoCSer.Common.Config.Decompress(compressionData, ref nextData))
+                            if (!AutoCSer.Common.Config.Decompress(ref compressionData, ref nextData))
                             {
                                 throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position + (start - compressionDataStart)} 处数据解压缩失败");
                             }

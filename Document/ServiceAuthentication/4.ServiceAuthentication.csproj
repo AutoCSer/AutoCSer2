@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AutoCSer.Document.ServiceAuthentication</AssemblyName>
+    <RootNamespace>AutoCSer.Document.ServiceAuthentication</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CustomVerify\CommandClientSocketEvent.cs" />
+    <Compile Include="CustomVerify\CustomVerifyData.cs" />
+    <Compile Include="CustomVerify\CustomVerifyService.cs" />
+    <Compile Include="CustomVerify\ICustomVerifyService.cs" />
+    <Compile Include="CustomVerify\UserVerifyInfo.cs" />
+    <Compile Include="ITestService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="SetCommand\CustomVerifyService.cs" />
+    <Compile Include="TestService.cs" />
+    <Compile Include="TimestampVerify\CommandClientSocketEvent.cs" />
+    <Compile Include="TransferEncoding\CommandClientCompressConfig.cs" />
+    <Compile Include="TransferEncoding\CommandServerCompressConfig.cs" />
+    <Compile Include="{AutoCSer.Document.ServiceAuthentication}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+
+</Project>

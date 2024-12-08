@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase.DiskBlock
                 DiskBlockService diskBlockService = await fileBlockServiceConfig.CreateFileBlockService();
                 CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock) };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                    .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
+                    .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                     .Append<IDiskBlockService>(diskBlockService)
                     .CreateCommandListener(commandServerConfig))
                 {

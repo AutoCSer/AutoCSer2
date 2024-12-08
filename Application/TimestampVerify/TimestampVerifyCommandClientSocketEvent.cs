@@ -46,7 +46,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
+        public override Task<AutoCSer.Net.CommandClientReturnValue<AutoCSer.Net.CommandServerVerifyStateEnum>> CallVerifyMethod(AutoCSer.Net.CommandClientController controller)
         {
             return getCompletedTask(TimestampVerifyChecker.Verify(controller, verifyString));
         }

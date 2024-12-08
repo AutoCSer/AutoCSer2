@@ -14,9 +14,9 @@ namespace AutoCSer.TestCase.ServiceRegistry
                 SessionObject = new CommandListenerSession()
             };
             await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                .Append(server => new AutoCSer.CommandService.PortRegistryService(60000, 0))
-                .Append(server => new AutoCSer.CommandService.ServiceRegistryService(server))
+                .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
+                .Append<AutoCSer.CommandService.IPortRegistryService>(server => new AutoCSer.CommandService.PortRegistryService(60000, 0))
+                .Append<AutoCSer.CommandService.IServiceRegistryService>(server => new AutoCSer.CommandService.ServiceRegistryService(server))
                 .CreateCommandListener(commandServerConfig))
             {
                 if (await commandListener.Start())

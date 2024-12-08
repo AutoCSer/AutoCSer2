@@ -20,9 +20,9 @@ namespace AutoCSer.TestCase.BusinessService
         {
             await Persistence.Initialize();
 
-            commandServerConfig = new CommandServerConfig { MinCompressSize = 1024, Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ORM, null) };
+            commandServerConfig = new CommandServerCompressConfig { MinCompressSize = 1024, Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ORM, null) };
             commandListener = new CommandListenerBuilder(0)
-                .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString)) //添加服务认证接口
+                .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString)) //添加服务认证接口
                 .Append<IAutoIdentityModelService>(string.Empty, server => new AutoIdentityModelService())
                 .Append<IFieldModelService>(string.Empty, server => new FieldModelService())
                 .Append<IPropertyModelService>(string.Empty, server => new PropertyModelService())

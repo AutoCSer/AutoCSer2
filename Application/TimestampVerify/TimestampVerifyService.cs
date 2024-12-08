@@ -73,7 +73,7 @@ namespace AutoCSer.CommandService
                 if (session == null)
                 {
                     long serverTimestamp = 0;
-                    switch(timestampChecker.Check(ref timestamp, ref serverTimestamp))
+                    switch(timestampChecker.CheckQueue(ref timestamp, ref serverTimestamp))
                     {
                         case CommandServerVerifyStateEnum.Success: break;
                         case CommandServerVerifyStateEnum.Retry:
@@ -88,7 +88,7 @@ namespace AutoCSer.CommandService
                 else
                 {
                     long serverTimestamp = session.ServerTimestamp;
-                    switch (timestampChecker.Check(ref timestamp, ref serverTimestamp))
+                    switch (timestampChecker.CheckQueue(ref timestamp, ref serverTimestamp))
                     {
                         case CommandServerVerifyStateEnum.Success: break;
                         case CommandServerVerifyStateEnum.Retry:
@@ -101,7 +101,7 @@ namespace AutoCSer.CommandService
                 }
                 if (AutoCSer.Net.TimestampVerify.Md5Equals(AutoCSer.Net.TimestampVerify.Md5(md5, verifyString, randomPrefix, timestamp), hashData) == 0)
                 {
-                    timestampChecker.Set(timestamp);
+                    timestampChecker.SetQueue(timestamp);
                     return CommandServerVerifyStateEnum.Success;
                 }
             }

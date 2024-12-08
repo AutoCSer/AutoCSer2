@@ -1,6 +1,7 @@
 ﻿using AutoCSer.CommandService.TimestampVerify;
 using AutoCSer.Net;
 using System;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace AutoCSer.CommandService
@@ -63,6 +64,24 @@ namespace AutoCSer.CommandService
             return CommandServerVerifyStateEnum.Retry;
         }
         /// <summary>
+        /// 检测当前时间戳
+        /// </summary>
+        /// <param name="timestamp">客户端请求的时间戳</param>
+        /// <param name="serverTimestamp">服务端分配的时间戳</param>
+        /// <returns>时间戳是否验证成功</returns>
+        internal CommandServerVerifyStateEnum CheckQueue(ref long timestamp, ref long serverTimestamp)
+        {
+            if (serverTimestamp != 0) return timestamp == serverTimestamp ? CommandServerVerifyStateEnum.Success : CommandServerVerifyStateEnum.Fail;
+            if (timestamp > lastTimestamp && timestamp < CurrentTimestamp + maxTimestampDifference)
+            {
+                serverTimestamp = timestamp;
+                return CommandServerVerifyStateEnum.Success;
+            }
+            serverTimestamp = ++lastTimestamp;
+            timestamp = serverTimestamp;
+            return CommandServerVerifyStateEnum.Retry;
+        }
+        /// <summary>
         /// 设置最后一次验证时间戳
         /// </summary>
         /// <param name="timestamp"></param>
@@ -74,6 +93,15 @@ namespace AutoCSer.CommandService
                 if (timestamp > lastTimestamp) lastTimestamp = timestamp;
                 timestampLock.Exit();
             }
+        }
+        /// <summary>
+        /// 设置最后一次验证时间戳
+        /// </summary>
+        /// <param name="timestamp"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetQueue(long timestamp)
+        {
+            if (timestamp > lastTimestamp) lastTimestamp = timestamp;
         }
         /// <summary>
         /// 获取可用时间戳

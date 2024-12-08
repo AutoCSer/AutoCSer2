@@ -98,7 +98,7 @@ namespace AutoCSer.TestCase.BusinessClient
             {
                 if (instance == null)
                 {
-                    CommandClientConfig commandClientConfig = new CommandClientConfig
+                    CommandClientConfig commandClientConfig = new CommandClientCompressConfig
                     {
                         MinCompressSize = 1024, Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ORM),
                         GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)

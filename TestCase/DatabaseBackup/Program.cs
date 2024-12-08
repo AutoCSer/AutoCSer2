@@ -15,13 +15,13 @@ namespace AutoCSer.TestCase.DatabaseBackup
                 Console.ReadKey();
                 return;
             }
-            CommandServerConfig commandServerConfig = new CommandServerConfig
+            CommandServerConfig commandServerConfig = new CommandServerCompressConfig
             {
                 MinCompressSize = 1024,
                 Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost)
             };
             await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                .Append(server => new AutoCSer.CommandService.TimestampVerifyService(server, configFile.VerifyString))
+                .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, configFile.VerifyString))
                 .Append<IDatabaseBackupService>(server => new DatabaseBackupService())
                 .CreateCommandListener(commandServerConfig))
             {
