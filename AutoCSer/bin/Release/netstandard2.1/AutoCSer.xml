@@ -1109,7 +1109,7 @@
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.String@)">
+        <member name="M:AutoCSer.BinaryDeserializer.PrimitiveDeserialize(System.String@)">
             <summary>
             字符串反序列化
             </summary>
@@ -4322,7 +4322,7 @@
             <param name="binarySerializer"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(System.String)">
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveSerialize(System.String)">
             <summary>
             字符串序列化
             </summary>
@@ -35881,6 +35881,18 @@
             转换成字符串
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.HashString.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#HashString}#Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            序列化
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:AutoCSer.HashString.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#HashString}#Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
         </member>
         <member name="F:AutoCSer.HashString.Empty">
             <summary>

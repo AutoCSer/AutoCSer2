@@ -27,20 +27,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             return createNode<ICallbackNode, int>(index, key, nodeInfo, () => new CallbackNode());
         }
         /// <summary>
-        /// 创建字符串消息节点 IMessageNode{StringMessage}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="arraySize">正在处理消息数组大小</param>
-        /// <param name="timeoutSeconds">消息处理超时秒数</param>
-        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateStringMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
-        {
-            return createNode<IMessageNode<StringMessage>, StringMessage>(index, key, nodeInfo, () => MessageNode<StringMessage>.Create(service, arraySize, timeoutSeconds, checkTimeoutSeconds));
-        }
-        /// <summary>
         /// 创建服务端 JSON 字符串 / 客户端对象 消息节点 IMessageNode{ServerJsonBinaryMessage{TestClass}}
         /// </summary>
         /// <param name="index">节点索引信息</param>
@@ -108,30 +94,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             return createNode<IDistributedLockNode<int>, DistributedLockIdentity<int>>(index, key, nodeInfo, () => new DistributedLockNode<int>());
         }
         /// <summary>
-        /// 创建数组节点 ArrayNode{string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="length">数组长度</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, int length)
-        {
-            return createNode<IArrayNode<string>, ArrayNode<string>, KeyValue<int, string>>(index, key, nodeInfo, () => new ArrayNode<string>(length));
-        }
-        /// <summary>
-        /// 创建位图节点 BitmapNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">二进制位数量</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateBitmapNode(NodeIndex index, string key, NodeInfo nodeInfo, uint capacity)
-        {
-            return createNode<IBitmapNode, BitmapNode, byte[]>(index, key, nodeInfo, () => new BitmapNode(capacity));
-        }
-        /// <summary>
         /// 创建字典节点 DictionaryNode{string,string}
         /// </summary>
         /// <param name="index">节点索引信息</param>
@@ -175,30 +137,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         public NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
             return createNode<IHashSetNode<string>, HashSetNode<string>, string>(index, key, nodeInfo, () => new HashSetNode<string>());
-        }
-        /// <summary>
-        /// 创建数组节点 LeftArrayNode{string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateLeftArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<ILeftArrayNode<string>, LeftArrayNode<string>, string>(index, key, nodeInfo, () => new LeftArrayNode<string>(capacity));
-        }
-        /// <summary>
-        /// 创建队列节点（先进先出） QueueNode{string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IQueueNode<string>, QueueNode<string>, string>(index, key, nodeInfo, () => new QueueNode<string>(capacity));
         }
         /// <summary>
         /// 创建二叉搜索树字典节点 SearchTreeDictionaryNode{long,string}
@@ -255,18 +193,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         public NodeIndex CreateSortedSetNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
             return createNode<ISortedSetNode<long>, SortedSetNode<long>, long>(index, key, nodeInfo, () => new SortedSetNode<long>());
-        }
-        /// <summary>
-        /// 创建栈节点（后进先出） StackNode{string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IStackNode<string>, StackNode<string>, string>(index, key, nodeInfo, () => new StackNode<string>(capacity));
         }
 
         #region 吞吐性能测试

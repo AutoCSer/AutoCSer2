@@ -991,6 +991,159 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建位图节点 BitmapNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">二进制位数量</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, uint capacity);
+            /// <summary>
+            /// 创建数组节点 ArrayNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="length">数组长度</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int length);
+            /// <summary>
+            /// 创建数组节点 LeftArrayNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="arraySize">正在处理消息数组大小</param>
+            /// <param name="timeoutSeconds">消息处理超时秒数</param>
+            /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+            /// <summary>
+            /// 创建队列节点（先进先出） QueueNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建栈节点（后进先出） StackNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建字典节点 DictionaryNode{HashString,byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">二进制位数量</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字典节点 DictionaryNode{HashString,string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">二进制位数量</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建分布式锁节点节点 DistributedLockNode{HashString}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建哈希表节点 HashSetNode{HashString}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建数组节点 ArrayNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="length">数组长度</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int length);
+            /// <summary>
+            /// 创建数组节点 LeftArrayNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字符串消息节点 IMessageNode{StringMessage}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="arraySize">正在处理消息数组大小</param>
+            /// <param name="timeoutSeconds">消息处理超时秒数</param>
+            /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+            /// <summary>
+            /// 创建队列节点（先进先出） QueueNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建栈节点（后进先出） StackNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2196,6 +2349,159 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建位图节点 BitmapNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">二进制位数量</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, uint capacity);
+            /// <summary>
+            /// 创建数组节点 ArrayNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="length">数组长度</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int length);
+            /// <summary>
+            /// 创建数组节点 LeftArrayNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="arraySize">正在处理消息数组大小</param>
+            /// <param name="timeoutSeconds">消息处理超时秒数</param>
+            /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+            /// <summary>
+            /// 创建队列节点（先进先出） QueueNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建栈节点（后进先出） StackNode{byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建字典节点 DictionaryNode{HashString,byte[]}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">二进制位数量</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字典节点 DictionaryNode{HashString,string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">二进制位数量</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建分布式锁节点节点 DistributedLockNode{HashString}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建哈希表节点 HashSetNode{HashString}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            /// <summary>
+            /// 创建数组节点 ArrayNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="length">数组长度</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int length);
+            /// <summary>
+            /// 创建数组节点 LeftArrayNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建字符串消息节点 IMessageNode{StringMessage}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="arraySize">正在处理消息数组大小</param>
+            /// <param name="timeoutSeconds">消息处理超时秒数</param>
+            /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+            /// <summary>
+            /// 创建队列节点（先进先出） QueueNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
+            /// 创建栈节点（后进先出） StackNode{string}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">容器初始化大小</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStringStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3799,6 +4105,159 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 无返回值表示需要继续调用持久化方法
             /// </summary>
             RemoveNodeBeforePersistence = 2,
+            /// <summary>
+            /// [3] 创建位图节点 BitmapNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// uint capacity 二进制位数量
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateBitmapNode = 3,
+            /// <summary>
+            /// [4] 创建数组节点 ArrayNode{byte[]}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int length 数组长度
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateByteArrayArrayNode = 4,
+            /// <summary>
+            /// [5] 创建数组节点 LeftArrayNode{byte[]}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 容器初始化大小
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateByteArrayLeftArrayNode = 5,
+            /// <summary>
+            /// [6] 创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int arraySize 正在处理消息数组大小
+            /// int timeoutSeconds 消息处理超时秒数
+            /// int checkTimeoutSeconds 消息超时检查间隔秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateByteArrayMessageNode = 6,
+            /// <summary>
+            /// [7] 创建队列节点（先进先出） QueueNode{byte[]}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 容器初始化大小
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateByteArrayQueueNode = 7,
+            /// <summary>
+            /// [8] 创建栈节点（后进先出） StackNode{byte[]}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 容器初始化大小
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateByteArrayStackNode = 8,
+            /// <summary>
+            /// [9] 创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateFragmentHashStringByteArrayDictionaryNode = 9,
+            /// <summary>
+            /// [10] 创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateFragmentHashStringHashSetNode = 10,
+            /// <summary>
+            /// [11] 创建字典节点 DictionaryNode{HashString,byte[]}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 二进制位数量
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateHashStringByteArrayDictionaryNode = 11,
+            /// <summary>
+            /// [12] 创建字典节点 DictionaryNode{HashString,string}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 二进制位数量
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateHashStringDictionaryNode = 12,
+            /// <summary>
+            /// [13] 创建分布式锁节点节点 DistributedLockNode{HashString}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateHashStringDistributedLockNode = 13,
+            /// <summary>
+            /// [14] 创建哈希表节点 HashSetNode{HashString}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateHashStringHashSetNode = 14,
+            /// <summary>
+            /// [15] 创建数组节点 ArrayNode{string}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int length 数组长度
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateStringArrayNode = 15,
+            /// <summary>
+            /// [16] 创建数组节点 LeftArrayNode{string}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 容器初始化大小
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateStringLeftArrayNode = 16,
+            /// <summary>
+            /// [17] 创建字符串消息节点 IMessageNode{StringMessage}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int arraySize 正在处理消息数组大小
+            /// int timeoutSeconds 消息处理超时秒数
+            /// int checkTimeoutSeconds 消息超时检查间隔秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateStringMessageNode = 17,
+            /// <summary>
+            /// [18] 创建队列节点（先进先出） QueueNode{string}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 容器初始化大小
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateStringQueueNode = 18,
+            /// <summary>
+            /// [19] 创建栈节点（后进先出） StackNode{string}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 容器初始化大小
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateStringStackNode = 19,
     }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

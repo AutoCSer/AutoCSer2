@@ -6641,6 +6641,61 @@
             <param name="message"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage">
+            <summary>
+            字节数组消息，如果是确定类型的二进制序列化数据建议使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerBinaryMessage{T} 以减少反序列化开销
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage.message">
+            <summary>
+            字节数组消息数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage.#ctor(System.Byte[])">
+            <summary>
+            字节数组消息
+            </summary>
+            <param name="message">字节数组消息数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage.op_Implicit(System.Byte[])~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage)~System.Byte[]">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessageConsumer">
+            <summary>
+            字节数组消息节点消费者
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessageConsumer.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage},System.Int32)">
+            <summary>
+            字节数组消息消费者
+            </summary>
+            <param name="commandClient">客户端</param>
+            <param name="node">字节数组消息客户端节点</param>
+            <param name="delayMilliseconds">重试间隔毫秒数，默认为 1000，最小值为 1</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessageConsumer.onMessage(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessage)">
+            <summary>
+            消息处理，异常则表示消息执行失败
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayMessageConsumer.onMessage(System.Byte[])">
+            <summary>
+            消息处理，异常则表示消息执行失败
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StringMessageConsumer">
             <summary>
             字符串消息节点消费者
@@ -9660,6 +9715,176 @@
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateFragmentHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashStringDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateStringArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.UInt32)">
+            <summary>
+            创建位图节点 BitmapNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateFragmentHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建哈希表节点 HashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateStringLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateStringQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateStringStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateStringMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{StringMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotCloneNode`2">
@@ -13578,6 +13803,176 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateFragmentHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashStringDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateStringArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.UInt32)">
+            <summary>
+            创建位图节点 BitmapNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateFragmentHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建哈希表节点 HashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateStringLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateStringQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateStringStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateStringMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{StringMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateServiceNode``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService,``0)">
             <summary>
             创建服务基础操作节点
@@ -15164,6 +15559,176 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.UInt32)">
+            <summary>
+            创建位图节点 BitmapNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateFragmentHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateFragmentHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashStringDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建哈希表节点 HashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateStringArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateStringLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateStringMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{StringMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateStringQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateStringStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNodeClientNode`2">
             <summary>
             排序字典节点 客户端节点接口
@@ -16474,6 +17039,176 @@
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.UInt32)">
+            <summary>
+            创建位图节点 BitmapNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateFragmentHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateFragmentHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashStringByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,byte[]}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashStringDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建字典节点 DictionaryNode{HashString,string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">二进制位数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashStringDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建分布式锁节点节点 DistributedLockNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashStringHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建哈希表节点 HashSetNode{HashString}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateStringArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 ArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateStringLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建数组节点 LeftArrayNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateStringMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建字符串消息节点 IMessageNode{StringMessage}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="arraySize">正在处理消息数组大小</param>
+            <param name="timeoutSeconds">消息处理超时秒数</param>
+            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateStringQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） QueueNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateStringStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） StackNode{string}
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNodeLocalClientNode`2">
@@ -18264,6 +18999,176 @@
             [2] 删除节点持久化参数检查
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 无返回值表示需要继续调用持久化方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateBitmapNode">
+            <summary>
+            [3] 创建位图节点 BitmapNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            uint capacity 二进制位数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateByteArrayArrayNode">
+            <summary>
+            [4] 创建数组节点 ArrayNode{byte[]}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int length 数组长度
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateByteArrayLeftArrayNode">
+            <summary>
+            [5] 创建数组节点 LeftArrayNode{byte[]}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateByteArrayMessageNode">
+            <summary>
+            [6] 创建字符串消息节点 IMessageNode{ByteArrayMessage}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int arraySize 正在处理消息数组大小
+            int timeoutSeconds 消息处理超时秒数
+            int checkTimeoutSeconds 消息超时检查间隔秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateByteArrayQueueNode">
+            <summary>
+            [7] 创建队列节点（先进先出） QueueNode{byte[]}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateByteArrayStackNode">
+            <summary>
+            [8] 创建栈节点（后进先出） StackNode{byte[]}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateFragmentHashStringByteArrayDictionaryNode">
+            <summary>
+            [9] 创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateFragmentHashStringHashSetNode">
+            <summary>
+            [10] 创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateHashStringByteArrayDictionaryNode">
+            <summary>
+            [11] 创建字典节点 DictionaryNode{HashString,byte[]}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 二进制位数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateHashStringDictionaryNode">
+            <summary>
+            [12] 创建字典节点 DictionaryNode{HashString,string}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 二进制位数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateHashStringDistributedLockNode">
+            <summary>
+            [13] 创建分布式锁节点节点 DistributedLockNode{HashString}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateHashStringHashSetNode">
+            <summary>
+            [14] 创建哈希表节点 HashSetNode{HashString}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateStringArrayNode">
+            <summary>
+            [15] 创建数组节点 ArrayNode{string}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int length 数组长度
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateStringLeftArrayNode">
+            <summary>
+            [16] 创建数组节点 LeftArrayNode{string}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateStringMessageNode">
+            <summary>
+            [17] 创建字符串消息节点 IMessageNode{StringMessage}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int arraySize 正在处理消息数组大小
+            int timeoutSeconds 消息处理超时秒数
+            int checkTimeoutSeconds 消息超时检查间隔秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateStringQueueNode">
+            <summary>
+            [18] 创建队列节点（先进先出） QueueNode{string}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodEnum.CreateStringStackNode">
+            <summary>
+            [19] 创建栈节点（后进先出） StackNode{string}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SortedDictionaryNodeMethodEnum">
@@ -20151,6 +21056,44 @@
             <param name="key"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Extensions.HashStringFragmentDictionaryNodeClientNodeExtension.TryAddBinarySerialize``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNodeClientNode{System.Byte[]},System.String,``0)">
+            <summary>
+            如果关键字不存在则添加数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>是否添加成功，否则表示关键字已经存在</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.HashStringFragmentDictionaryNodeClientNodeExtension.SetBinarySerialize``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNodeClientNode{System.Byte[]},System.String,``0)">
+            <summary>
+            强制设置数据，如果关键字已存在则覆盖
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>是否设置成功</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.HashStringFragmentDictionaryNodeClientNodeExtension.TryGetFromBinarySerialize``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNodeClientNode{System.Byte[]},System.String)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="node"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.HashStringFragmentDictionaryNodeClientNodeExtension.GetRemoveFromBinarySerialize``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashStringFragmentDictionaryNodeClientNode{System.Byte[]},System.String)">
+            <summary>
+            删除关键字并返回被删除数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="node"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Extensions.KeepCallbackResponseExtension">
             <summary>
             保持回调输出扩展
@@ -20230,6 +21173,22 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ResponseResultExtension.FromBinary``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{System.Byte[]})">
+            <summary>
+            二进制序列化数据转换为对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ResponseResultExtension.FromBinary``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{System.Byte[]}})">
+            <summary>
+            二进制序列化数据转换为对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.ResponseResultExtension.ToBool(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{System.Int32}})">

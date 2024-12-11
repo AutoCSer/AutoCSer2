@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BeetleX.Redis" Version="1.4.24.425" />
+    <PackageReference Include="CSRedisCore" Version="3.8.803" />
+    <PackageReference Include="FreeRedis" Version="1.3.4" />
+    <PackageReference Include="Microsoft.Garnet" Version="1.0.46" />
+    <PackageReference Include="NewLife.Redis" Version="6.0.2024.1205" />
+    <PackageReference Include="ServiceStack.Redis" Version="8.5.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -61,5 +61,56 @@ namespace AutoCSer.Extensions
             if (key != null) return (await node.GetRemove(key)).FromJson<T>();
             return CallStateEnum.NullKey;
         }
+
+        /// <summary>
+        /// 如果关键字不存在则添加数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns>是否添加成功，否则表示关键字已经存在</returns>
+        public static async Task<ResponseResult<bool>> TryAddBinarySerialize<T>(this IHashStringFragmentDictionaryNodeClientNode<byte[]> node, string key, T value)
+        {
+            if (key != null) return await node.TryAdd(key, AutoCSer.BinarySerializer.Serialize(value));
+            return false;
+        }
+        /// <summary>
+        /// 强制设置数据，如果关键字已存在则覆盖
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns>是否设置成功</returns>
+        public static async Task<ResponseResult<bool>> SetBinarySerialize<T>(this IHashStringFragmentDictionaryNodeClientNode<byte[]> node, string key, T value)
+        {
+            if (key != null) return await node.Set(key, AutoCSer.BinarySerializer.Serialize(value));
+            return false;
+        }
+        /// <summary>
+        /// 根据关键字获取数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static async Task<ResponseResult<T>> TryGetFromBinarySerialize<T>(this IHashStringFragmentDictionaryNodeClientNode<byte[]> node, string key)
+        {
+            if (key != null) return (await node.TryGetValue(key)).FromBinary<T>();
+            return CallStateEnum.NullKey;
+        }
+        /// <summary>
+        /// 删除关键字并返回被删除数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static async Task<ResponseResult<T>> GetRemoveFromBinarySerialize<T>(this IHashStringFragmentDictionaryNodeClientNode<byte[]> node, string key)
+        {
+            if (key != null) return (await node.GetRemove(key)).FromBinary<T>();
+            return CallStateEnum.NullKey;
+        }
     }
 }

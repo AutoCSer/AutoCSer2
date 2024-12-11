@@ -49,6 +49,44 @@ namespace AutoCSer.Extensions
             return json.Cast<T>();
         }
         /// <summary>
+        /// 二进制序列化数据转换为对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static ResponseResult<T> FromBinary<T>(this ResponseResult<byte[]> data)
+        {
+            if (data.IsSuccess)
+            {
+                var value = default(T);
+                AutoCSer.BinarySerialize.DeserializeResult result = AutoCSer.BinaryDeserializer.Deserialize(data.Value.notNull(), ref value);
+                if (result.State == AutoCSer.BinarySerialize.DeserializeStateEnum.Success) return value;
+                return CommandClientReturnTypeEnum.ClientDeserializeError;
+            }
+            return data.Cast<T>();
+        }
+        /// <summary>
+        /// 二进制序列化数据转换为对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static ResponseResult<T> FromBinary<T>(this ResponseResult<ValueResult<byte[]>> data)
+        {
+            if (data.IsSuccess)
+            {
+                if (data.Value.IsValue)
+                {
+                    var value = default(T);
+                    AutoCSer.BinarySerialize.DeserializeResult result = AutoCSer.BinaryDeserializer.Deserialize(data.Value.Value, ref value);
+                    if (result.State == AutoCSer.BinarySerialize.DeserializeStateEnum.Success) return value;
+                    return CommandClientReturnTypeEnum.ClientDeserializeError;
+                }
+                return CallStateEnum.NoReturnValue;
+            }
+            return data.Cast<T>();
+        }
+        /// <summary>
         /// 二进制位数据转 bool
         /// </summary>
         /// <param name="value"></param>

@@ -168,7 +168,11 @@ namespace AutoCSer.TestCase.Common
         public static void CheckLock(int success, int error)
         {
             Interlocked.Add(ref errorCount, error);
-            if(Interlocked.Add(ref callbackCount, -(success + error)) == 0) waitLock.Release();
+            int count = success + error;
+            if (count != 0)
+            {
+                if (Interlocked.Add(ref callbackCount, -count) == 0) waitLock.Release();
+            }
         }
         /// <summary>
         /// 循环完成输出

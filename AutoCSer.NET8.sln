@@ -191,6 +191,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3.ServiceThreadStrategy", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4.ServiceAuthentication", "Document\ServiceAuthentication\4.ServiceAuthentication.csproj", "{0C4F0961-3A47-49CA-98E6-2B4188EFA19A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisPerformance", "TestCase\ThirdParty\RedisPerformance\RedisPerformance.csproj", "{CD796A3C-2678-40CB-A5BC-AD8D94117C87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance", "TestCase\StreamPersistenceMemoryDatabase\Performance\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.csproj", "{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -441,6 +445,14 @@ Global
 		{0C4F0961-3A47-49CA-98E6-2B4188EFA19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C4F0961-3A47-49CA-98E6-2B4188EFA19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C4F0961-3A47-49CA-98E6-2B4188EFA19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD796A3C-2678-40CB-A5BC-AD8D94117C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD796A3C-2678-40CB-A5BC-AD8D94117C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD796A3C-2678-40CB-A5BC-AD8D94117C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD796A3C-2678-40CB-A5BC-AD8D94117C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -533,6 +545,8 @@ Global
 		{2EAE6112-C417-44BE-95E2-C24E681A3C4B} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 		{281B58F6-678C-4775-831E-97E99E8A9B0C} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 		{0C4F0961-3A47-49CA-98E6-2B4188EFA19A} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
+		{CD796A3C-2678-40CB-A5BC-AD8D94117C87} = {2BC9F417-4753-49D6-9C65-ED3DE67869A9}
+		{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

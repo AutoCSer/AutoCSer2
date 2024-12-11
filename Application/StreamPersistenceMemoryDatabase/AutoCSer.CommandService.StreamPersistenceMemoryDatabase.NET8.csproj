@@ -134,6 +134,8 @@
     <Compile Include="Node\MessageNode\StringMessage.cs" />
     <Compile Include="Node\MessageNode\ServerBinaryMessageConsumer.cs" />
     <Compile Include="Node\MessageNode\BinaryMessageConsumer.cs" />
+    <Compile Include="Node\MessageNode\ByteArrayMessage.cs" />
+    <Compile Include="Node\MessageNode\ByteArrayMessageConsumer.cs" />
     <Compile Include="Node\MessageNode\StringMessageConsumer.cs" />
     <Compile Include="Node\QueueNode.cs" />
     <Compile Include="Node\RebuildResult.cs" />
