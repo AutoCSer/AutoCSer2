@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <Compile Include="ArrayNode.cs" />
-    <Compile Include="BinaryMessageConsumer.cs" />
+    <Compile Include="MessageConsumer.cs" />
     <Compile Include="BitmapNode.cs" />
     <Compile Include="CallbackNode.cs" />
     <Compile Include="DictionaryNode.cs" />
@@ -43,15 +43,11 @@
     <Compile Include="QueueNode.cs" />
     <Compile Include="SearchTreeDictionaryNode.cs" />
     <Compile Include="SearchTreeSetNode.cs" />
-    <Compile Include="ServerBinaryMessageConsumer.cs" />
-    <Compile Include="ServerJsonBinaryMessageConsumer.cs" />
-    <Compile Include="ServerJsonMessageConsumer.cs" />
     <Compile Include="ServiceConfig.cs" />
     <Compile Include="SortedDictionaryNode.cs" />
     <Compile Include="SortedListNode.cs" />
     <Compile Include="SortedSetNode.cs" />
     <Compile Include="StackNode.cs" />
-    <Compile Include="StringMessageConsumer.cs" />
   </ItemGroup>
 
   <ItemGroup>

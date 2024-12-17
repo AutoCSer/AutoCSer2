@@ -10,7 +10,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
             uint capacity = 10;
-            ResponseResult<IBitmapNodeLocalClientNode> node = await client.GetOrCreateNode<IBitmapNodeLocalClientNode, uint>(typeof(IBitmapNodeLocalClientNode).FullName, capacity, client.ClientNode.CreateBitmapNode);
+            ResponseResult<IBitmapNodeLocalClientNode> node = await client.GetOrCreateBitmapNode(typeof(IBitmapNodeLocalClientNode).FullName, capacity);
             if (!Program.Breakpoint(node)) return;
             ResponseResult<uint> uintResult = await node.Value.GetCapacity();
             if (!Program.Breakpoint(uintResult)) return;

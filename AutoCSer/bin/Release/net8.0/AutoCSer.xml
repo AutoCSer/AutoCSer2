@@ -824,12 +824,46 @@
             </summary>
             <param name="result"></param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJsonString``1(System.Byte*,System.Int32,``0@)">
+            <summary>
+            JSON 对象反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="start"></param>
+            <param name="size">4 的倍数</param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.deserializeJson``1(System.Char*,System.Int32,``0@)">
+            <summary>
+            JSON 对象反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="start"></param>
+            <param name="length"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.CommandClientDeserializeJson``1(``0@)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.DeserializeJson``1(AutoCSer.JsonDeserializer,``0@)">
             <summary>
             JSON 反序列化
             </summary>
             <typeparam name="T"></typeparam>
             <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJsonBuffer``1(``0@)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.DeserializeJson``1(``0@)">
@@ -1186,7 +1220,22 @@
             <param name="buffer"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeString(System.Byte*,System.Int32,System.String@)">
+            <summary>
+            字符串反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="size">4 的倍数</param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.String@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="value">字符串</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeOnly(System.String@)">
             <summary>
             从数据缓冲区反序列化（不检查对象引用直接读取）
             </summary>
@@ -1207,6 +1256,15 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.IndependentDeserialize``1(AutoCSer.SubArray{System.Byte}@,``0@)">
+            <summary>
+            从独立数据缓冲区反序列化独立对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.IndependentDeserialize``1(System.Byte[],``0@)">
             <summary>
             从独立数据缓冲区反序列化独立对象
             </summary>
@@ -1287,6 +1345,15 @@
             <param name="size"></param>
             <param name="value"></param>
             <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.IndependentDeserializeBuffer``1(System.Byte[],``0@)">
+            <summary>
+            从独立数据缓冲区反序列化独立对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="buffer"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.ThreadStaticDeserialize``1(System.Byte[],AutoCSer.BinarySerialize.DeserializeConfig)">
@@ -3864,6 +3931,29 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.JsonSerializeBuffer``1(``0@)">
+            <summary>
+            JSON 序列化到缓冲区
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.JsonSerializeCommandServerBufferEnd``1(System.Int32,``0@)">
+            <summary>
+            JSON 序列化到缓冲区
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.JsonSerializeCommandClientBufferEnd``1(System.Int32,``0@)">
+            <summary>
+            JSON 序列化到缓冲区
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.JsonSerialize``1(``0@,AutoCSer.Metadata.MemberMap{``0})">
             <summary>
             JSON 成员序列化
@@ -4413,6 +4503,13 @@
             <param name="value"></param>
             <returns>不包括补白的字节数，0 表示序列化失败</returns>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeOnly(System.String)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="value"></param>
+            <returns>不包括补白的字节数，0 表示序列化失败</returns>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.SerializeBufferStart">
             <summary>
             自定义序列化数据缓冲区开始处理
@@ -4440,6 +4537,13 @@
             <param name="value">数据对象</param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.InternalIndependentSerializeNotReference``1(``0@)">
+            <summary>
+            内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.InternalIndependentSerializeNotNull``1(``0@)">
             <summary>
             内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）
             </summary>
@@ -8394,6 +8498,14 @@
             <param name="right">不能为null</param>
             <param name="size">比较字节数</param>
             <returns>是否相等</returns>
+        </member>
+        <member name="M:AutoCSer.Common.SequenceEqual(System.Byte[],System.Byte[])">
+            <summary>
+            字节数组比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Common.SequenceEqual(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
             <summary>

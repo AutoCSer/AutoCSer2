@@ -61,6 +61,8 @@ namespace RedisPerformance
 
                         //await ServiceStack.Test(data);//由于免费客户端版本无法满足测试需求，商业版本存在版权问题放弃测试
 
+                        //await SharpRedis.Test(data);//SharpRedis.RedisConnectionException: Failed to connect to Redis, please check the network and Redis configuration.
+
                         Console.WriteLine("Press quit to exit.");
                         if (Console.ReadLine() == "quit") return;
                     }

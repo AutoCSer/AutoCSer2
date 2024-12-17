@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -23,6 +24,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly bool isSimpleSerialize;
         /// <summary>
+        /// 返回值类型是否 ResponseParameter
+        /// </summary>
+        private readonly bool isResponseParameter;
+        /// <summary>
         /// 保留
         /// </summary>
         internal ushort Reserve;
@@ -39,6 +44,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.callback = callback;
             this.isSimpleSerialize = isSimpleSerialize;
+            isResponseParameter = typeof(T) == typeof(ResponseParameter);
+        }
+        /// <summary>
+        /// 成功回调
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Callback(ResponseParameter value)
+        {
+            if (callback != null)
+            {
+                if (isResponseParameter) return callback.Callback(value);
+                throw new InvalidCastException();
+            }
+            return true;
         }
         /// <summary>
         /// 成功回调
@@ -49,14 +69,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (callback != null)
             {
-                bool isCallback;
-                ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
-                try
+                if (!isResponseParameter)
                 {
-                    responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
+                    bool isCallback;
+                    ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
+                    try
+                    {
+                        responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
+                    }
+                    finally { isCallback = callback.Callback(responseParameter); }
+                    return isCallback;
                 }
-                finally { isCallback = callback.Callback(responseParameter); }
-                return isCallback;
+                return callback.Callback(value.notNullCastType<ResponseParameter>());
             }
             return true;
         }

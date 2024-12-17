@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal readonly bool IsSimpleSerialize;
         /// <summary>
+        /// 返回值类型是否 ResponseParameterSerializer
+        /// </summary>
+        private readonly bool isResponseParameter;
+        /// <summary>
         /// 保留
         /// </summary>
         internal int Reserve;
@@ -45,6 +50,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.callback = callback;
             this.IsSimpleSerialize = isSimpleSerialize;
+            isResponseParameter = typeof(T) == typeof(ResponseParameterSerializer);
+        }
+        /// <summary>
+        /// 成功回调
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Callback(ResponseParameterSerializer value)
+        {
+            if (callback != null)
+            {
+                if (isResponseParameter)
+                {
+                    try
+                    {
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value));
+                    }
+                    catch (Exception exception)
+                    {
+                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    }
+                    return false;
+                }
+                throw new InvalidCastException();
+            }
+            return true;
         }
         /// <summary>
         /// 成功回调
@@ -55,22 +86,62 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (callback != null)
             {
-                bool isParameter = false, isCallback = false;
-                try
+                if (!isResponseParameter)
                 {
-                    KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
-                    isParameter = true;
-                    isCallback = callback.VirtualCallback(responseParameter);
+                    bool isParameter = false;
+                    try
+                    {
+                        KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
+                        isParameter = true;
+                        return callback.VirtualCallback(responseParameter);
+                    }
+                    catch (Exception exception)
+                    {
+                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    }
+                    finally
+                    {
+                        if (!isParameter) CallbackCancelKeep(CallStateEnum.Unknown);
+                    }
                 }
-                catch(Exception exception)
+                else
                 {
-                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    try
+                    {
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>()));
+                    }
+                    catch (Exception exception)
+                    {
+                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    }
                 }
-                finally
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 成功回调
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool Callback(CommandServerCallQueue queue, ResponseParameterSerializer value)
+        {
+            if (callback != null)
+            {
+                if (isResponseParameter)
                 {
-                    if (!isParameter) CallbackCancelKeep(CallStateEnum.Unknown);
+                    try
+                    {
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value));
+                    }
+                    catch (Exception exception)
+                    {
+                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    }
+                    return false;
                 }
-                return isCallback;
+                throw new InvalidCastException();
             }
             return true;
         }
@@ -84,22 +155,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (callback != null)
             {
-                bool isParameter = false, isCallback = false;
-                try
+                if (!isResponseParameter)
                 {
-                    KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
-                    isParameter = true;
-                    isCallback = callback.VirtualCallback(responseParameter);
+                    bool isParameter = false;
+                    try
+                    {
+                        KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
+                        isParameter = true;
+                        return callback.VirtualCallback(responseParameter);
+                    }
+                    catch (Exception exception)
+                    {
+                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    }
+                    finally
+                    {
+                        if (!isParameter) CallbackCancelKeep(CallStateEnum.Unknown);
+                    }
                 }
-                catch (Exception exception)
+                else
                 {
-                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    try
+                    {
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>()));
+                    }
+                    catch (Exception exception)
+                    {
+                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    }
                 }
-                finally
-                {
-                    if (!isParameter) CallbackCancelKeep(CallStateEnum.Unknown);
-                }
-                return isCallback;
+                return false;
             }
             return true;
         }

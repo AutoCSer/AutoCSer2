@@ -148,23 +148,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             //持久化成功，回调程序产生异常，在没有写入忽略序列化异常位置以前被意外中断，会导致重新初始化的时候节点会变成异常不可用状态
         }
 
-        private ServerJsonBinary<TestClass> serverJsonBinary;
-        public void SetServerJsonBinary(ServerJsonBinary<TestClass> value)
+        private ServerByteArray serverByteArray;
+        public void SetServerByteArray(ServerByteArray value)
         {
-            serverJsonBinary = value;
+            serverByteArray = value;
         }
-        public ServerJsonBinary<TestClass> GetServerJsonBinary()
+        public ServerByteArray GetServerByteArray()
         {
-            return serverJsonBinary;
-        }
-        private ServerJson<TestClass> serverJson;
-        public void SetServerJson(ServerJson<TestClass> value)
-        {
-            serverJson = value;
-        }
-        public ServerJson<TestClass> GetServerJson()
-        {
-            return serverJson;
+            return serverByteArray;
         }
         private TestClass jsonValue;
         public void SetJsonValue(JsonValue<TestClass> value)
@@ -174,15 +165,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         public JsonValue<TestClass> GetJsonValue()
         {
             return jsonValue;
-        }
-        private ServerBinary<TestClass> serverBinary;
-        public void SetServerBinary(ServerBinary<TestClass> value)
-        {
-            serverBinary = value;
-        }
-        public ServerBinary<TestClass> GetServerBinary()
-        {
-            return serverBinary;
         }
     }
 }

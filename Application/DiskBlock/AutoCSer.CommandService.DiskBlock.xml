@@ -103,41 +103,12 @@
             <param name="result"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.BlockIndex.deserializeString(System.Byte*,System.Int32,System.String@)">
-            <summary>
-            字符串反序列化
-            </summary>
-            <param name="start"></param>
-            <param name="size"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.BlockIndex.GetJsonResult``1(AutoCSer.CommandService.DiskBlock.ReadResult{``0}@)">
             <summary>
             获取读取数据结果
             </summary>
             <typeparam name="T"></typeparam>
             <param name="result"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.BlockIndex.deserializeJson``1(System.Byte*,System.Int32,``0@)">
-            <summary>
-            JSON 对象反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="start"></param>
-            <param name="size"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.BlockIndex.deserializeJson``1(System.Char*,System.Int32,``0@)">
-            <summary>
-            JSON 对象反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="start"></param>
-            <param name="length"></param>
-            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.BlockIndex.GetBinaryResult``1(AutoCSer.CommandService.DiskBlock.ReadResult{``0}@)">

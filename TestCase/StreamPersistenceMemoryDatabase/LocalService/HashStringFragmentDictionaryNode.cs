@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<IHashStringFragmentDictionaryNodeLocalClientNode<string>> node = await client.GetOrCreateFragmentHashStringDictionaryNode(typeof(IHashStringFragmentDictionaryNodeLocalClientNode<string>).FullName);
+            ResponseResult<IFragmentDictionaryNodeLocalClientNode<HashString, string>> node = await client.GetOrCreateFragmentDictionaryNode<HashString, string>(typeof(IFragmentDictionaryNodeLocalClientNode<HashString, string>).FullName);
             if (!Program.Breakpoint(node)) return;
             ResponseResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;

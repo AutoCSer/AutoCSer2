@@ -170,7 +170,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (index != 0)
             {
                 if (method.IsSimpleDeserializeParamter) serializer.SimpleSerialize(ref parameter);
-                else serializer.InternalIndependentSerializeNotReference(ref parameter);
+                else serializer.InternalIndependentSerializeNotNull(ref parameter);
                 if (!stream.IsResizeError)
                 {
                     byte* data = stream.Data.Pointer.Byte + (index - (sizeof(NodeIndex) + sizeof(int)));

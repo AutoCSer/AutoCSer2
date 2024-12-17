@@ -34,11 +34,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                         await Task.WhenAll(
                             CallbackNode.Test(client)
                             , DistributedLockNode.Test(client)
-                            , ServerJsonBinaryMessageConsumer.Test(client)
-                            , ServerBinaryMessageConsumer.Test(client)
-                            , StringMessageConsumer.Test(client)
-                            , BinaryMessageConsumer.Test(client)
-                            , ServerJsonMessageConsumer.Test(client)
+                            , MessageConsumer.Test(client)
                             , HashStringFragmentDictionaryNode.Test(client)
                             , FragmentDictionaryNode.Test(client)
                             , DictionaryNode.Test(client)
@@ -55,12 +51,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                             , LeftArrayNode.Test(client)
                             , ArrayNode.Test(client)
                             );
-                        await new PerformanceDictionaryNode().Test(client, false);
-                        await new PerformanceDictionaryNode().Test(client, true);
-                        await new PerformanceSearchTreeDictionaryNode().Test(client, false);
-                        await new PerformanceSearchTreeDictionaryNode().Test(client, true);
-                        await new PerformanceMessageNode().Test(client, false);
-                        await new PerformanceMessageNode().Test(client, true);
+                        await new PerformanceDictionaryNode().Test(client);
+                        await new PerformanceSearchTreeDictionaryNode().Test(client);
+                        await new PerformanceMessageNode().Test(client);
                     }
                     while (true);
                 }

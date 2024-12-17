@@ -2870,13 +2870,13 @@
             </summary>
             <returns>数据集合</returns>
         </member>
-        <member name="T:AutoCSer.FragmentHashStringDictionary256`1">
+        <member name="T:AutoCSer.HashBytesFragmentDictionary256`1">
             <summary>
-            256 基分片 HashString 字典
+            256 基分片 HashBytes 字典
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:AutoCSer.FragmentHashStringDictionary256`1.GetIndex(AutoCSer.HashString)">
+        <member name="M:AutoCSer.HashBytesFragmentDictionary256`1.GetIndex(AutoCSer.Memory.HashBytes)">
             <summary>
             获取分片索引
             </summary>
@@ -3496,6 +3496,13 @@
             </summary>
             <param name="data">字节数组</param>
             <returns>HASH字节数组</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.op_Implicit(AutoCSer.Memory.HashBytes)~AutoCSer.SubArray{System.Byte}">
+            <summary>
+            HASH字节数组隐式转换
+            </summary>
+            <param name="data">HASH字节数组</param>
+            <returns>字节数组</returns>
         </member>
         <member name="M:AutoCSer.Memory.HashBytes.Equals(AutoCSer.Memory.HashBytes)">
             <summary>

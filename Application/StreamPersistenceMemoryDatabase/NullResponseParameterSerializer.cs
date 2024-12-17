@@ -11,7 +11,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        internal override void Serialize(AutoCSer.BinarySerializer serializer) { throw new InvalidOperationException(); }
+        public override void Serialize(AutoCSer.BinarySerializer serializer) { throw new InvalidOperationException(); }
         /// <summary>
         /// 反序列化
         /// </summary>

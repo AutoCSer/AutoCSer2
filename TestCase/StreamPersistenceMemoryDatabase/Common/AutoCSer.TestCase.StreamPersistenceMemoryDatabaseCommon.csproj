@@ -31,6 +31,7 @@
     <Compile Include="ICustomServiceNodeLocalClientNode.cs" />
     <Compile Include="PerformanceMessage.cs" />
     <Compile Include="TestClass.cs" />
+    <Compile Include="TestClassMessage.cs" />
     <Compile Include="{AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon}.AutoCSer.cs" />
   </ItemGroup>
 

@@ -102,6 +102,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 调用回调
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="callback"></param>
+#if NetStandard21
+        internal static void CallbackResponseParameter(ResponseParameter value, ref CommandServerCallback<ResponseParameter>? callback)
+#else
+        internal static void CallbackResponseParameter(ResponseParameter value, ref CommandServerCallback<ResponseParameter> callback)
+#endif
+        {
+            var callbackCopy = callback;
+            if (callbackCopy != null)
+            {
+                callback = null;
+                try
+                {
+                    callbackCopy.SynchronousCallback(value);
+                }
+                catch (Exception exception)
+                {
+                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                }
+            }
+        }
+        /// <summary>
         /// 获取持久化检查方法返回值
         /// </summary>
         /// <typeparam name="T"></typeparam>

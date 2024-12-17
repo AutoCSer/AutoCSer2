@@ -1,5 +1,8 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Reflection;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -16,14 +19,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库服务端
         /// </summary>
-        protected readonly StreamPersistenceMemoryDatabaseService service;
+        internal readonly StreamPersistenceMemoryDatabaseService Service;
         /// <summary>
         /// 服务基础操作
         /// </summary>
         /// <param name="service"></param>
         public ServiceNode(StreamPersistenceMemoryDatabaseService service)
         {
-            this.service = service;
+            this.Service = service;
         }
         /// <summary>
         /// 删除节点持久化参数检查
@@ -33,7 +36,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual ValueResult<bool> RemoveNodeBeforePersistence(NodeIndex index)
         {
             if (index.Index == 0) return false;
-            return service.RemoveNodeBeforePersistence(index);
+            return Service.RemoveNodeBeforePersistence(index);
         }
         /// <summary>
         /// 删除节点
@@ -42,7 +45,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         public virtual bool RemoveNode(NodeIndex index)
         {
-            return index.Index != 0 && service.RemoveNode(index);
+            return index.Index != 0 && Service.RemoveNode(index);
         }
         /// <summary>
         /// 创建服务端节点（不支持持久化，只有支持快照的节点才支持持久化）
@@ -57,14 +60,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                if (!service.IsLoaded) service.LoadCreateNode(index, key);
-                ServerNodeCreator nodeCreator = service.GetNodeCreator<T>();
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
+                ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
                 if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
-                NodeIndex nodeIndex = service.CheckCreateNodeIndex(index, key, ref nodeInfo);
+                NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
                 if (nodeIndex.Index < 0 || !nodeIndex.GetFree()) return nodeIndex;
-                return new ServerNode<T>(service, nodeIndex, key, getNode()).Index;
+                return new ServerNode<T>(Service, nodeIndex, key, getNode()).Index;
             }
-            finally { service.RemoveFreeIndex(index); }
+            finally { Service.RemoveFreeIndex(index); }
         }
         /// <summary>
         /// 创建支持快照的服务端节点 参数检查
@@ -78,8 +81,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>返回 true 表示直接返回无需继续操作</returns>
         protected virtual bool checkCreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, out NodeIndex nodeIndex)
         {
-            if (!service.IsLoaded) service.LoadCreateNode(index, key);
-            ServerNodeCreator nodeCreator = service.GetNodeCreator<T>();
+            if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
+            ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
             if (nodeCreator == null)
             {
                 nodeIndex = new NodeIndex(CallStateEnum.NotFoundNodeCreator);
@@ -90,7 +93,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 nodeIndex = new NodeIndex(CallStateEnum.SnapshotTypeNotMatch);
                 return true;
             }
-            nodeIndex = service.CheckCreateNodeIndex(index, key, ref nodeInfo);
+            nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
             return nodeIndex.Index < 0 || !nodeIndex.GetFree();
         }
         /// <summary>
@@ -104,7 +107,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="getNode">获取节点操作对象</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        protected virtual NodeIndex createNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
+        public virtual NodeIndex CreateNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
             where T : class
             where NT : T, ISnapshot<ST>
         {
@@ -112,9 +115,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 NodeIndex nodeIndex;
                 if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerNode<T, ST>(service, nodeIndex, key, getNode(), service.CurrentCallIsPersistence).Index;
+                return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
             }
-            finally { service.RemoveFreeIndex(index); }
+            finally { Service.RemoveFreeIndex(index); }
         }
         /// <summary>
         /// 创建支持快照的服务端节点（必须保证操作节点对象实现快照接口）
@@ -126,16 +129,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        protected virtual NodeIndex createNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
+        public virtual NodeIndex CreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
             where T : class
         {
             try
             {
                 NodeIndex nodeIndex;
                 if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerNode<T, ST>(service, nodeIndex, key, getNode(), service.CurrentCallIsPersistence).Index;
+                return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
             }
-            finally { service.RemoveFreeIndex(index); }
+            finally { Service.RemoveFreeIndex(index); }
         }
         /// <summary>
         /// 创建支持快照克隆的服务端节点
@@ -157,9 +160,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 NodeIndex nodeIndex;
                 if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerSnapshotCloneNode<T, ST>(service, nodeIndex, key, getNode(), service.CurrentCallIsPersistence).Index;
+                return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
             }
-            finally { service.RemoveFreeIndex(index); }
+            finally { Service.RemoveFreeIndex(index); }
         }
         /// <summary>
         /// 创建支持快照克隆的服务端节点（必须保证操作节点对象实现快照接口）
@@ -179,66 +182,497 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 NodeIndex nodeIndex;
                 if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerSnapshotCloneNode<T, ST>(service, nodeIndex, key, getNode(), service.CurrentCallIsPersistence).Index;
+                return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
             }
-            finally { service.RemoveFreeIndex(index); }
+            finally { Service.RemoveFreeIndex(index); }
         }
         /// <summary>
-        /// 创建字典节点 FragmentHashStringDictionary256{HashString,string}
+        /// 创建消息处理节点 MessageNode{ServerByteArrayMessage}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="arraySize">正在处理消息数组大小</param>
+        /// <param name="timeoutSeconds">消息处理超时秒数</param>
+        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateServerByteArrayMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
+        {
+            return CreateNode<IMessageNode<ServerByteArrayMessage>, ServerByteArrayMessage>(index, key, nodeInfo, () => MessageNode<ServerByteArrayMessage>.Create(Service, arraySize, timeoutSeconds, checkTimeoutSeconds));
+        }
+        /// <summary>
+        /// 创建消息处理节点 MessageNode{T}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="messageType">消息数据类型</param>
+        /// <param name="arraySize">正在处理消息数组大小</param>
+        /// <param name="timeoutSeconds">消息处理超时秒数</param>
+        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType messageType, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
+        {
+            var type = default(Type);
+            if (messageType.TryGet(out type))
+            {
+                if (typeof(Message<>).MakeGenericType(type).IsAssignableFrom(type))
+                {
+                    return new MessageNodeCreator(this, index, key, nodeInfo, arraySize, timeoutSeconds, checkTimeoutSeconds).Create(type);
+                }
+                return new NodeIndex(CallStateEnum.RemoteTypeError);
+            }
+            return new NodeIndex(CallStateEnum.NotFoundRemoteType);
+        }
+        /// <summary>
+        /// 创建分布式锁节点 DistributedLockNode{KT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateDistributedLockNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+        {
+            var type = default(Type);
+            CallStateEnum state = getEquatableType(ref keyType, ref type);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateDistributedLockNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建字典节点 IHashBytesFragmentDictionaryNode
         /// </summary>
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateFragmentHashStringDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo)
+        public virtual NodeIndex CreateHashBytesFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return createNode<IHashStringFragmentDictionaryNode<string>, HashStringFragmentDictionaryNode<string>, KeyValue<string, string>>(index, key, nodeInfo, () => new HashStringFragmentDictionaryNode<string>());
+#if NetStandard21
+            return CreateNode<IHashBytesFragmentDictionaryNode, HashBytesFragmentDictionaryNode, KeyValue<byte[], byte[]?>>(index, key, nodeInfo, () => new HashBytesFragmentDictionaryNode());
+#else
+            return CreateNode<IHashBytesFragmentDictionaryNode, HashBytesFragmentDictionaryNode, KeyValue<byte[], byte[]>>(index, key, nodeInfo, () => new HashBytesFragmentDictionaryNode());
+#endif
         }
         /// <summary>
-        /// 创建字典节点 FragmentHashStringDictionary256{HashString,byte[]}
+        /// 创建字典节点 IByteArrayFragmentDictionaryNode{KT}
         /// </summary>
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateFragmentHashStringByteArrayDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo)
+        public virtual NodeIndex CreateByteArrayFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
         {
-            return createNode<IHashStringFragmentDictionaryNode<byte[]>, HashStringFragmentDictionaryNode<byte[]>, KeyValue<string, byte[]>>(index, key, nodeInfo, () => new HashStringFragmentDictionaryNode<byte[]>());
+            var type = default(Type);
+            CallStateEnum state = getEquatableType(ref keyType, ref type);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateByteArrayFragmentDictionaryNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
         }
         /// <summary>
-        /// 创建分布式锁节点节点 DistributedLockNode{HashString}
+        /// 获取 IEquatable{T} 类型
+        /// </summary>
+        /// <param name="remoteType"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+#if NetStandard21
+        protected CallStateEnum getEquatableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type? type)
+#else
+        protected CallStateEnum getEquatableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type type)
+#endif
+        {
+            if (remoteType.TryGet(out type))
+            {
+                if (typeof(IEquatable<>).MakeGenericType(type).IsAssignableFrom(type)) return CallStateEnum.Success;
+                return CallStateEnum.RemoteTypeError;
+            }
+            return CallStateEnum.NotFoundRemoteType;
+        }
+        /// <summary>
+        /// 获取 IEquatable{T} 类型
+        /// </summary>
+        /// <param name="remoteType"></param>
+        /// <param name="type"></param>
+        /// <param name="remoteType2"></param>
+        /// <param name="type2"></param>
+        /// <returns></returns>
+#if NetStandard21
+        protected CallStateEnum getEquatableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type? type, ref AutoCSer.Reflection.RemoteType remoteType2, ref Type? type2)
+#else
+        protected CallStateEnum getEquatableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type type, ref AutoCSer.Reflection.RemoteType remoteType2, ref Type type2)
+#endif
+        {
+            CallStateEnum state = getEquatableType(ref remoteType, ref type);
+            if (state == CallStateEnum.Success) return remoteType2.TryGet(out type2) ? CallStateEnum.Success : CallStateEnum.NotFoundRemoteType;
+            return state;
+        }
+        /// <summary>
+        /// 创建字典节点 FragmentDictionaryNode{KT,VT}
         /// </summary>
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="valueType">数据类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashStringDistributedLockNode(NodeIndex index, string key, NodeInfo nodeInfo)
+        public virtual NodeIndex CreateFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType)
         {
-            return createNode<IDistributedLockNode<HashString>, DistributedLockIdentity<HashString>>(index, key, nodeInfo, () => new DistributedLockNode<HashString>());
+            var type = default(Type);
+            var type2 = default(Type);
+            CallStateEnum state = getEquatableType(ref keyType, ref type, ref valueType, ref type2);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.Get(type.notNull(), type2.notNull()).CreateFragmentDictionaryNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
         }
         /// <summary>
-        /// 创建数组节点 ArrayNode{string}
+        /// 创建字典节点 HashBytesDictionaryNode
         /// </summary>
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+#if NetStandard21
+            return CreateNode<IHashBytesDictionaryNode, HashBytesDictionaryNode, KeyValue<byte[], byte[]?>>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity));
+#else
+            return CreateNode<IHashBytesDictionaryNode, HashBytesDictionaryNode, KeyValue<byte[], byte[]>>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity));
+#endif
+        }
+        /// <summary>
+        /// 创建字典节点 ByteArrayDictionaryNode{KT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateByteArrayDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
+        {
+            var type = default(Type);
+            CallStateEnum state = getEquatableType(ref keyType, ref type);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateByteArrayDictionaryNode(this, index, key, nodeInfo, capacity);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建字典节点 DictionaryNode{KT,VT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="valueType">数据类型</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity)
+        {
+            var type = default(Type);
+            var type2 = default(Type);
+            CallStateEnum state = getEquatableType(ref keyType, ref type, ref valueType, ref type2);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.Get(type.notNull(), type2.notNull()).CreateDictionaryNode(this, index, key, nodeInfo, capacity);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 获取 IComparable{T} 类型
+        /// </summary>
+        /// <param name="remoteType"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+#if NetStandard21
+        protected CallStateEnum getComparableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type? type)
+#else
+        protected CallStateEnum getComparableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type type)
+#endif
+        {
+            if (remoteType.TryGet(out type))
+            {
+                if (typeof(IComparable<>).MakeGenericType(type).IsAssignableFrom(type)) return CallStateEnum.Success;
+                return CallStateEnum.RemoteTypeError;
+            }
+            return CallStateEnum.NotFoundRemoteType;
+        }
+        /// <summary>
+        /// 获取 IComparable{T} 类型
+        /// </summary>
+        /// <param name="remoteType"></param>
+        /// <param name="type"></param>
+        /// <param name="remoteType2"></param>
+        /// <param name="type2"></param>
+        /// <returns></returns>
+#if NetStandard21
+        protected CallStateEnum getComparableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type? type, ref AutoCSer.Reflection.RemoteType remoteType2, ref Type? type2)
+#else
+        protected CallStateEnum getComparableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type type, ref AutoCSer.Reflection.RemoteType remoteType2, ref Type type2)
+#endif
+        {
+            CallStateEnum state = getComparableType(ref remoteType, ref type);
+            if (state == CallStateEnum.Success) return remoteType2.TryGet(out type2) ? CallStateEnum.Success : CallStateEnum.NotFoundRemoteType;
+            return state;
+        }
+        /// <summary>
+        /// 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="valueType">数据类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateSearchTreeDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType)
+        {
+            var type = default(Type);
+            var type2 = default(Type);
+            CallStateEnum state = getComparableType(ref keyType, ref type, ref valueType, ref type2);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.ComparableGenericType2.Get(type.notNull(), type2.notNull()).CreateSearchTreeDictionaryNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建排序字典节点 SortedDictionaryNode{KT,VT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="valueType">数据类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateSortedDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType)
+        {
+            var type = default(Type);
+            var type2 = default(Type);
+            CallStateEnum state = getComparableType(ref keyType, ref type, ref valueType, ref type2);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.ComparableGenericType2.Get(type.notNull(), type2.notNull()).CreateSortedDictionaryNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建排序列表节点 SortedListNode{KT,VT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="valueType">数据类型</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateSortedListNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity)
+        {
+            var type = default(Type);
+            var type2 = default(Type);
+            CallStateEnum state = getComparableType(ref keyType, ref type, ref valueType, ref type2);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.ComparableGenericType2.Get(type.notNull(), type2.notNull()).CreateSortedListNode(this, index, key, nodeInfo, capacity);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建 256 基分片哈希表节点 FragmentHashSetNode{KT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateFragmentHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+        {
+            var type = default(Type);
+            CallStateEnum state = getEquatableType(ref keyType, ref type);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateFragmentHashSetNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建哈希表节点 HashSetNode{KT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+        {
+            var type = default(Type);
+            CallStateEnum state = getEquatableType(ref keyType, ref type);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateHashSetNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateSearchTreeSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+        {
+            var type = default(Type);
+            CallStateEnum state = getComparableType(ref keyType, ref type);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.ComparableGenericType.Get(type.notNull()).CreateSearchTreeSetNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建排序集合节点 SortedSetNode{KT}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateSortedSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+        {
+            var type = default(Type);
+            CallStateEnum state = getComparableType(ref keyType, ref type);
+            if (state == CallStateEnum.Success)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.ComparableGenericType.Get(type.notNull()).CreateSortedSetNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(state);
+        }
+        /// <summary>
+        /// 创建队列节点（先进先出） ByteArrayQueueNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateByteArrayQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+#if NetStandard21
+            return CreateNode<IByteArrayQueueNode, ByteArrayQueueNode, byte[]?>(index, key, nodeInfo, () => new ByteArrayQueueNode(capacity));
+#else
+            return CreateNode<IByteArrayQueueNode, ByteArrayQueueNode, byte[]>(index, key, nodeInfo, () => new ByteArrayQueueNode(capacity));
+#endif
+        }
+        /// <summary>
+        /// 创建队列节点（先进先出） QueueNode{T}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
+        {
+            var type = default(Type);
+            if (keyType.TryGet(out type))
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateQueueNode(this, index, key, nodeInfo, capacity);
+            }
+            return new NodeIndex(CallStateEnum.NotFoundRemoteType);
+        }
+        /// <summary>
+        /// 创建栈节点（后进先出） ByteArrayStackNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+#if NetStandard21
+            return CreateNode<IByteArrayStackNode, ByteArrayStackNode, byte[]?>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
+#else
+            return CreateNode<IByteArrayStackNode, ByteArrayStackNode, byte[]>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
+#endif
+        }
+        /// <summary>
+        /// 创建栈节点（后进先出） StackNode{T}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateStackNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
+        {
+            var type = default(Type);
+            if (keyType.TryGet(out type))
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateStackNode(this, index, key, nodeInfo, capacity);
+            }
+            return new NodeIndex(CallStateEnum.NotFoundRemoteType);
+        }
+        /// <summary>
+        /// 创建数组节点 LeftArrayNode{T}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateLeftArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
+        {
+            var type = default(Type);
+            if (keyType.TryGet(out type))
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateLeftArrayNode(this, index, key, nodeInfo, capacity);
+            }
+            return new NodeIndex(CallStateEnum.NotFoundRemoteType);
+        }
+        /// <summary>
+        /// 创建数组节点 ArrayNode{T}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="keyType">关键字类型</param>
         /// <param name="length">数组长度</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateStringArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, int length)
+        public virtual NodeIndex CreateArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int length)
         {
-            return createNode<IArrayNode<string>, ArrayNode<string>, KeyValue<int, string>>(index, key, nodeInfo, () => new ArrayNode<string>(length));
+            var type = default(Type);
+            if (keyType.TryGet(out type))
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateArrayNode(this, index, key, nodeInfo, length);
+            }
+            return new NodeIndex(CallStateEnum.NotFoundRemoteType);
         }
         /// <summary>
-        /// 创建数组节点 ArrayNode{byte[]}
+        /// 创建 64 位自增ID 节点 IdentityGeneratorNode
         /// </summary>
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
-        /// <param name="length">数组长度</param>
+        /// <param name="identity">起始分配 ID</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, int length)
+        public virtual NodeIndex CreateIdentityGeneratorNode(NodeIndex index, string key, NodeInfo nodeInfo, long identity)
         {
-            return createNode<IArrayNode<byte[]>, ArrayNode<byte[]>, KeyValue<int, byte[]>>(index, key, nodeInfo, () => new ArrayNode<byte[]>(length));
+            return CreateNode<IIdentityGeneratorNode, IdentityGeneratorNode, long>(index, key, nodeInfo, () => new IdentityGeneratorNode(identity));
         }
         /// <summary>
         /// 创建位图节点 BitmapNode
@@ -250,153 +684,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateBitmapNode(NodeIndex index, string key, NodeInfo nodeInfo, uint capacity)
         {
-            return createNode<IBitmapNode, BitmapNode, byte[]>(index, key, nodeInfo, () => new BitmapNode(capacity));
-        }
-        /// <summary>
-        /// 创建字典节点 DictionaryNode{HashString,string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">二进制位数量</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashStringDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IDictionaryNode<HashString, string>, DictionaryNode<HashString, string>, KeyValue<HashString, string>>(index, key, nodeInfo, () => new DictionaryNode<HashString, string>(capacity));
-        }
-        /// <summary>
-        /// 创建字典节点 DictionaryNode{HashString,byte[]}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">二进制位数量</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashStringByteArrayDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IDictionaryNode<HashString, byte[]>, DictionaryNode<HashString, byte[]>, KeyValue<HashString, byte[]>>(index, key, nodeInfo, () => new DictionaryNode<HashString, byte[]>(capacity));
-        }
-        /// <summary>
-        /// 创建 256 基分片哈希表节点 FragmentHashSetNode{HashString}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateFragmentHashStringHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo)
-        {
-            return createNode<IFragmentHashSetNode<HashString>, FragmentHashSetNode<HashString>, HashString>(index, key, nodeInfo, () => new FragmentHashSetNode<HashString>());
-        }
-        /// <summary>
-        /// 创建哈希表节点 HashSetNode{HashString}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashStringHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo)
-        {
-            return createNode<IHashSetNode<HashString>, HashSetNode<HashString>, HashString>(index, key, nodeInfo, () => new HashSetNode<HashString>());
-        }
-        /// <summary>
-        /// 创建数组节点 LeftArrayNode{string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateStringLeftArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<ILeftArrayNode<string>, LeftArrayNode<string>, string>(index, key, nodeInfo, () => new LeftArrayNode<string>(capacity));
-        }
-        /// <summary>
-        /// 创建数组节点 LeftArrayNode{byte[]}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayLeftArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<ILeftArrayNode<byte[]>, LeftArrayNode<byte[]>, byte[]>(index, key, nodeInfo, () => new LeftArrayNode<byte[]>(capacity));
-        }
-        /// <summary>
-        /// 创建队列节点（先进先出） QueueNode{string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateStringQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IQueueNode<string>, QueueNode<string>, string>(index, key, nodeInfo, () => new QueueNode<string>(capacity));
-        }
-        /// <summary>
-        /// 创建队列节点（先进先出） QueueNode{byte[]}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IQueueNode<byte[]>, QueueNode<byte[]>, byte[]>(index, key, nodeInfo, () => new QueueNode<byte[]>(capacity));
-        }
-        /// <summary>
-        /// 创建栈节点（后进先出） StackNode{string}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateStringStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IStackNode<string>, StackNode<string>, string>(index, key, nodeInfo, () => new StackNode<string>(capacity));
-        }
-        /// <summary>
-        /// 创建栈节点（后进先出） StackNode{byte[]}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return createNode<IStackNode<byte[]>, StackNode<byte[]>, byte[]>(index, key, nodeInfo, () => new StackNode<byte[]>(capacity));
-        }
-        /// <summary>
-        /// 创建字符串消息节点 IMessageNode{StringMessage}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="arraySize">正在处理消息数组大小</param>
-        /// <param name="timeoutSeconds">消息处理超时秒数</param>
-        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateStringMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
-        {
-            return createNode<IMessageNode<StringMessage>, StringMessage>(index, key, nodeInfo, () => MessageNode<StringMessage>.Create(service, arraySize, timeoutSeconds, checkTimeoutSeconds));
-        }
-        /// <summary>
-        /// 创建字符串消息节点 IMessageNode{ByteArrayMessage}
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="arraySize">正在处理消息数组大小</param>
-        /// <param name="timeoutSeconds">消息处理超时秒数</param>
-        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
-        {
-            return createNode<IMessageNode<ByteArrayMessage>, ByteArrayMessage>(index, key, nodeInfo, () => MessageNode<ByteArrayMessage>.Create(service, arraySize, timeoutSeconds, checkTimeoutSeconds));
+            return CreateNode<IBitmapNode, BitmapNode, byte[]>(index, key, nodeInfo, () => new BitmapNode(capacity));
         }
 
         /// <summary>

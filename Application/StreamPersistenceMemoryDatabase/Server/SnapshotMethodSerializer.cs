@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 
                 ServerReturnValue<T> returnValue = new ServerReturnValue<T>(parameter);
                 if (isSimpleSerializeParamter) serializer.SimpleSerialize(ref returnValue);
-                else serializer.InternalIndependentSerializeNotReference(ref returnValue);
+                else serializer.InternalIndependentSerializeNotNull(ref returnValue);
                 return !stream.IsResizeError;
             }
             return false;

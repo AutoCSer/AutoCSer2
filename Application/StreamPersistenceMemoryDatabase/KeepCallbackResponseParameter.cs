@@ -52,6 +52,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 返回参数序列化
         /// </summary>
         /// <param name="serializer">返回参数序列化</param>
+        internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer)
+        {
+            State = CallStateEnum.Success;
+            IsSimpleSerialize = false;
+            this.Serializer = serializer;
+            DeserializeValue = null;
+        }
+        /// <summary>
+        /// 返回参数序列化
+        /// </summary>
+        /// <param name="serializer">返回参数序列化</param>
         /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
         internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer, bool isSimpleSerialize)
         {
@@ -115,7 +126,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 foreach (T value in values)
                 {
-                    yield return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value), false);
+                    yield return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value));
                 }
             }
         }

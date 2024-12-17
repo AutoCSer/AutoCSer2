@@ -37,33 +37,35 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                     await Task.WhenAll(
                         CallbackNode.Test(clientNode)
                         , DistributedLockNode.Test(clientNode)
-                        , ServerJsonBinaryMessageConsumer.Test(commandClient, clientNode)
-                        , ServerBinaryMessageConsumer.Test(commandClient, clientNode)
-                        , StringMessageConsumer.Test(commandClient, clientNode)
                         , BinaryMessageConsumer.Test(commandClient, clientNode)
-                        , ServerJsonMessageConsumer.Test(commandClient, clientNode)
-                        , HashStringFragmentDictionaryNode.Test(clientNode)
+                        , ServerByteArrayMessageConsumer.Test(commandClient, clientNode)
+                        , ServerByteArrayMessageStringConsumer.Test(commandClient, clientNode)
+                        , ServerByteArrayMessageJsonConsumer.Test(commandClient, clientNode)
+                        , ServerByteArrayMessageBinaryConsumer.Test(commandClient, clientNode)
+                        , HashBytesFragmentDictionaryNode.Test(clientNode)
+                        , ByteArrayFragmentDictionaryNode.Test(clientNode)
                         , FragmentDictionaryNode.Test(clientNode)
+                        , HashBytesDictionaryNode.Test(clientNode)
+                        , ByteArrayDictionaryNode.Test(clientNode)
                         , DictionaryNode.Test(clientNode)
                         , SearchTreeDictionaryNode.Test(clientNode)
-                        , SearchTreeSetNode.Test(clientNode)
                         , SortedDictionaryNode.Test(clientNode)
                         , SortedListNode.Test(clientNode)
-                        , SortedSetNode.Test(clientNode)
                         , FragmentHashSetNode.Test(clientNode)
                         , HashSetNode.Test(clientNode)
-                        , BitmapNode.Test(clientNode)
+                        , SearchTreeSetNode.Test(clientNode)
+                        , SortedSetNode.Test(clientNode)
+                        , ByteArrayQueueNode.Test(clientNode)
                         , QueueNode.Test(clientNode)
+                        , ByteArrayStackNode.Test(clientNode)
                         , StackNode.Test(clientNode)
                         , LeftArrayNode.Test(clientNode)
                         , ArrayNode.Test(clientNode)
+                        , BitmapNode.Test(clientNode)
                         );
-                    await new PerformanceDictionaryNode().Test(commandClientConfig, clientNode, false);
-                    await new PerformanceDictionaryNode().Test(commandClientConfig, clientNode, true);
-                    await new PerformanceSearchTreeDictionaryNode().Test(commandClientConfig, clientNode, false);
-                    await new PerformanceSearchTreeDictionaryNode().Test(commandClientConfig, clientNode, true);
-                    await new PerformanceMessageNode().Test(commandClientConfig, clientNode, false);
-                    await new PerformanceMessageNode().Test(commandClientConfig, clientNode, true);
+                    await new PerformanceDictionaryNode().Test(commandClientConfig, clientNode);
+                    await new PerformanceSearchTreeDictionaryNode().Test(commandClientConfig, clientNode);
+                    await new PerformanceMessageNode().Test(commandClientConfig, clientNode);
                 }
                 while (true);
             }

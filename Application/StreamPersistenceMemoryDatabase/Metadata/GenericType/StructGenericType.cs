@@ -17,6 +17,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputResponseParameterDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientInputKeepCallbackResponseParameterDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal abstract Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputDelegate { get; }
         /// <summary>
         /// 调用节点方法
@@ -100,6 +108,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 调用节点方法
         /// </summary>
         internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputDelegate { get { return (Func<ClientNode, int, T, Task<ResponseResult>>)StreamPersistenceMemoryDatabaseClient.CallInput<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputResponseParameterDelegate { get { return (Func<ClientNode, int, ResponseParameter, MethodFlagsEnum, T, Task<ResponseResult<ResponseParameter>>>)StreamPersistenceMemoryDatabaseClient.CallInputOutputResponseParameter<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientInputKeepCallbackResponseParameterDelegate { get { return (Func<ClientNode, int, ResponseParameterSerializer, MethodFlagsEnum, T, Task<KeepCallbackResponse<ResponseParameterSerializer>>>)StreamPersistenceMemoryDatabaseClient.InputKeepCallbackResponseParameter<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>

@@ -6,12 +6,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 返回参数
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class BinarySerializeResponseParameter<T> : ResponseParameter<T>
+    public sealed class BinarySerializeResponseParameter<T> : ResponseParameter<T>
     {
         /// <summary>
         /// 返回参数
         /// </summary>
-        internal BinarySerializeResponseParameter() { }
+        public BinarySerializeResponseParameter() { }
         /// <summary>
         /// 返回参数
         /// </summary>
@@ -23,7 +23,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="serializer"></param>
         protected override void serialize(AutoCSer.BinarySerializer serializer)
         {
-            serializer.InternalIndependentSerializeNotReference(ref Value);
+            serializer.InternalIndependentSerializeNotNull(ref Value);
         }
         /// <summary>
         /// 反序列化
@@ -39,7 +39,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override KeepCallbackResponseParameter CreateKeepCallback()
         {
-            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(Value.ReturnValue), false);
+            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(Value.ReturnValue));
         }
     }
 }

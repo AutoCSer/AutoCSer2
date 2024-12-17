@@ -100,12 +100,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 int index = serializer.SerializeBufferStart();
                 if (index >= 0)
                 {
-                    serializer.SerializeBuffer(RemoteType.AssemblyName);
-                    serializer.SerializeBuffer(RemoteType.Name);
-                    serializer.SerializeBuffer(TypeDirectoryName);
-                    serializer.SerializeBuffer(MethodDirectoryName);
-                    serializer.SerializeBuffer(MethodName.DeclaringTypeFullName);
-                    serializer.SerializeBuffer(MethodName.Name);
+                    serializer.SerializeOnly(RemoteType.AssemblyName);
+                    serializer.SerializeOnly(RemoteType.Name);
+                    serializer.SerializeOnly(TypeDirectoryName);
+                    serializer.SerializeOnly(MethodDirectoryName);
+                    serializer.SerializeOnly(MethodName.DeclaringTypeFullName);
+                    serializer.SerializeOnly(MethodName.Name);
                     serializer.SerializeBuffer(ref RawAssembly);
                     stream.Write(RepairNodeMethodFile.LastWriteTime);
                     stream.Write(RepairNodeMethodDirectory.NodeTypeHashCode);
@@ -135,9 +135,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     var methodDirectoryName = default(string);
                     var methodTypeName = default(string);
                     var methodName = default(string);
-                    if (deserializer.DeserializeBuffer(ref assemblyName) && deserializer.DeserializeBuffer(ref typeName) &&
-                        deserializer.DeserializeBuffer(ref typeDirectoryName) && deserializer.DeserializeBuffer(ref methodDirectoryName)
-                        && deserializer.DeserializeBuffer(ref methodTypeName) && deserializer.DeserializeBuffer(ref methodName))
+                    if (deserializer.DeserializeOnly(ref assemblyName) && deserializer.DeserializeOnly(ref typeName) &&
+                        deserializer.DeserializeOnly(ref typeDirectoryName) && deserializer.DeserializeOnly(ref methodDirectoryName)
+                        && deserializer.DeserializeOnly(ref methodTypeName) && deserializer.DeserializeOnly(ref methodName))
                     {
                         if (assemblyName != null && typeName != null && typeDirectoryName != null && methodDirectoryName != null && methodTypeName != null && methodName != null
                             && deserializer.DeserializeBuffer(ref RawAssembly, true) && deserializer.Read(out RepairNodeMethodFile.LastWriteTime)

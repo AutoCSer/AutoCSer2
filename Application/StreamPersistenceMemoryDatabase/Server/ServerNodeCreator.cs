@@ -587,6 +587,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly MethodInfo CallOutputMethodCallbackMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
+        /// 调用回调
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="callback"></param>
+#if NetStandard21
+        internal delegate void CallOutputMethodCallbackResponseParameterDelegate(ResponseParameter value, ref CommandServerCallback<ResponseParameter>? callback);
+#else
+        internal delegate void CallOutputMethodCallbackResponseParameterDelegate(ResponseParameter value, ref CommandServerCallback<ResponseParameter> callback);
+#endif
+        /// <summary>
+        /// 调用回调
+        /// </summary>
+        internal static readonly CallOutputMethodCallbackResponseParameterDelegate CallOutputMethodCallbackResponseParameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallbackResponseParameter;
+        /// <summary>
         /// 获取持久化检查方法返回值
         /// </summary>
         internal static readonly MethodInfo CallOutputMethodGetBeforePersistenceResponseParameterMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.GetBeforePersistenceResponseParameter), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -598,6 +612,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用回调
         /// </summary>
         internal static readonly MethodInfo CallInputOutputMethodParameterCallbackMethod = typeof(CallInputOutputMethodParameter).GetMethod(nameof(CallInputOutputMethodParameter.Callback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
+        /// <summary>
+        /// 调用回调
+        /// </summary>
+        internal static readonly Action<CallInputOutputMethodParameter, ResponseParameter> CallInputOutputMethodParameterCallbackResponseParameter = CallInputOutputMethodParameter.CallbackResponseParameter;
         /// <summary>
         /// 获取持久化检查方法返回值
         /// </summary>

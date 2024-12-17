@@ -56,6 +56,46 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// </summary>
         internal abstract Delegate LocalServiceKeepCallbackNodeCreateDelegate { get; }
 
+        /// <summary>
+        /// 创建队列节点（先进先出） IQueueNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal abstract NodeIndex CreateQueueNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        /// <summary>
+        /// 创建栈节点（后进先出） IStackNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal abstract NodeIndex CreateStackNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        /// <summary>
+        /// 创建数组节点 ILeftArrayNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal abstract NodeIndex CreateLeftArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        /// <summary>
+        /// 创建数组节点 IArrayNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="length">数组长度</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal abstract NodeIndex CreateArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int length);
 
         /// <summary>
         /// 创建泛型类型元数据
@@ -145,5 +185,58 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 调用节点方法
         /// </summary>
         internal override Delegate LocalServiceKeepCallbackNodeCreateDelegate { get { return (Func<LocalClientNode, int, LocalServiceQueueNode<KeepCallbackResponse<T>>>)LocalServiceKeepCallbackNode<T>.Create; } }
+
+        /// <summary>
+        /// 创建队列节点（先进先出） IQueueNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal override NodeIndex CreateQueueNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+            return node.CreateNode<IQueueNode<T>, QueueNode<T>, T>(index, key, nodeInfo, () => new QueueNode<T>(capacity));
+        }
+        /// <summary>
+        /// 创建栈节点（后进先出） IStackNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal override NodeIndex CreateStackNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+            return node.CreateNode<IStackNode<T>, StackNode<T>, T>(index, key, nodeInfo, () => new StackNode<T>(capacity));
+        }
+        /// <summary>
+        /// 创建数组节点 ILeftArrayNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal override NodeIndex CreateLeftArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+            return node.CreateNode<ILeftArrayNode<T>, LeftArrayNode<T>, T>(index, key, nodeInfo, () => new LeftArrayNode<T>(capacity));
+        }
+        /// <summary>
+        /// 创建数组节点 IArrayNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="length">数组长度</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal override NodeIndex CreateArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int length)
+        {
+            return node.CreateNode<IArrayNode<T>, ArrayNode<T>, KeyValue<int, T>>(index, key, nodeInfo, () => new ArrayNode<T>(length));
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<ISortedListNodeLocalClientNode<long, string>> node = await client.GetOrCreateNode<ISortedListNodeLocalClientNode<long, string>, int>(typeof(ISortedListNodeLocalClientNode<long, string>).FullName, 0, client.ClientNode.CreateSortedListNode);
+            ResponseResult<ISortedListNodeLocalClientNode<long, string>> node = await client.GetOrCreateSortedListNode<long, string>(typeof(ISortedListNodeLocalClientNode<long, string>).FullName, 0);
             if (!Program.Breakpoint(node)) return;
             ResponseResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;

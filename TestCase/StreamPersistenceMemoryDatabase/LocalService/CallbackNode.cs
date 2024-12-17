@@ -149,43 +149,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             if (!Program.Breakpoint(result)) return;
 
             TestClass data = new TestClass { Int = value, String = "D" };
-            result = await node.Value.SetServerJsonBinary(data);
+            ServerByteArray serverByteArray = AutoCSer.BinarySerializer.Serialize(data);
+            result = await node.Value.SetServerByteArray(serverByteArray);
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<ServerJsonBinary<TestClass>> serverJsonBinaryResult = await node.Value.GetServerJsonBinary();
+            ResponseResult<ServerByteArray> serverJsonBinaryResult = await node.Value.GetServerByteArray();
             if (!Program.Breakpoint(serverJsonBinaryResult)) return;
-            if (!object.ReferenceEquals(data, serverJsonBinaryResult.Value.Value))
+            if (!object.ReferenceEquals((byte[])serverByteArray, (byte[])serverJsonBinaryResult.Value))
             {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{serverJsonBinaryResult.Value.Value?.Int}.{serverJsonBinaryResult.Value.Value?.String}+ERROR*");
-                return;
-            }
-
-            result = await node.Value.SetServerJson(data = new TestClass { Int = value, String = "A" });
-            if (!Program.Breakpoint(result)) return;
-            ResponseResult<ServerJson<TestClass>> serverJsonResult = await node.Value.GetServerJson();
-            if (!Program.Breakpoint(serverJsonResult)) return;
-            if (!object.ReferenceEquals(data, serverJsonResult.Value.Value))
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{serverJsonResult.Value.Value?.Int}.{serverJsonResult.Value.Value?.String}+ERROR*");
-                return;
-            }
-
-            result = await node.Value.SetJsonValue(data = new TestClass { Int = value, String = "B" });
-            if (!Program.Breakpoint(result)) return;
-            ResponseResult<JsonValue<TestClass>> jsonValueResult = await node.Value.GetJsonValue();
-            if (!Program.Breakpoint(jsonValueResult)) return;
-            if (!object.ReferenceEquals(data, jsonValueResult.Value.Value))
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{jsonValueResult.Value.Value?.Int}.{jsonValueResult.Value.Value?.String}+ERROR*");
-                return;
-            }
-
-            result = await node.Value.SetServerBinary(data = new TestClass { Int = value, String = "C" });
-            if (!Program.Breakpoint(result)) return;
-            ResponseResult<ServerBinary<TestClass>> serverBinaryResult = await node.Value.GetServerBinary();
-            if (!Program.Breakpoint(serverBinaryResult)) return;
-            if (!object.ReferenceEquals(data, serverBinaryResult.Value.Value))
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{serverBinaryResult.Value.Value?.Int}.{serverBinaryResult.Value.Value?.String}+ERROR*");
+                ConsoleWriteQueue.Breakpoint($"*ERROR*");
                 return;
             }
 

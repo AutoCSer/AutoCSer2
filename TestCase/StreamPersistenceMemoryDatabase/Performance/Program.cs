@@ -26,7 +26,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                     CanCreateSlave = true
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
+                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create<IServiceNode>(p => new ServiceNode(p)))
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())
@@ -55,13 +55,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                 if (client != null)
                 {
                     Data.Address data = AutoCSer.RandomObject.Creator<Data.Address>.CreateNotNull();
-                    AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> clientNode = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode>(client);
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<IServiceNodeClientNode> clientNode = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<IServiceNodeClientNode>(client);
                     do
                     {
-                        await ServerBinaryAddressFragmentDictionaryNode.Test(clientNode, data);
-                        await AddressFragmentDictionaryNode.Test(clientNode, data);
-                        await HashStringByteArrayFragmentDictionaryNode.Test(clientNode, data);
-                        await HashStringFragmentDictionaryNode.Test(clientNode, data);
+                        await IntByteArrayFragmentDictionaryNode.Test(clientNode, data);
+                        await StringByteArrayFragmentDictionaryNode.Test(clientNode, data);
 
                         Console.WriteLine("Press quit to exit.");
                         if (Console.ReadLine() == "quit") return;

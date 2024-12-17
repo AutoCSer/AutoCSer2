@@ -14,21 +14,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     {
         private IDictionaryNodeClientNode<int, int> node;
         internal PerformanceDictionaryNode() { }
-        internal async Task Test(CommandClientConfig config, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client, bool isPersistence)
+        internal async Task Test(CommandClientConfig config, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<IDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateNode<IDictionaryNodeClientNode<int, int>, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName + isPersistence.ToString(), 0, isPersistence ? (Func<NodeIndex, string, NodeInfo, int, Task<ResponseResult<NodeIndex>>>)client.ClientNode.CreatePerformancePersistenceDictionaryNode : client.ClientNode.CreatePerformanceDictionaryNode);
+            ResponseResult<IDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName, 0);
             if (!Program.Breakpoint(node)) return;
             this.node = node.Value;
             ResponseResult result = await this.node.Renew(maxTestCount);
             if (!Program.Breakpoint(result)) return;
 
             int taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, isPersistence, taskCount);
+            testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
             await wait(nameof(PerformanceDictionaryNode), nameof(Set));
 
             taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, isPersistence, taskCount);
+            testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
             await wait(nameof(PerformanceDictionaryNode), nameof(TryGetValue));
 

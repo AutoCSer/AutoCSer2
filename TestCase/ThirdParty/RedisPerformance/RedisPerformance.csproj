@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Garnet" Version="1.0.46" />
     <PackageReference Include="NewLife.Redis" Version="6.0.2024.1205" />
     <PackageReference Include="ServiceStack.Redis" Version="8.5.2" />
+    <PackageReference Include="SharpRedis" Version="0.0.8.3" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
   </ItemGroup>
 

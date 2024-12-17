@@ -27,12 +27,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="deserializer"></param>
         internal unsafe void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            byte* end = deserializer.DeserializeBufferStart();
-            if (end != null)
-            {
-                deserializer.DeserializeBuffer(ref value);
-                deserializer.DeserializeBufferEnd(end);
-            }
+            deserializer.DeserializeBuffer(ref value);
         }
     }
 }

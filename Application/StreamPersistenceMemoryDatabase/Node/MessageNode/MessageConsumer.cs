@@ -37,7 +37,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.commandClient = commandClient;
             this.delayMilliseconds = Math.Max(delayMilliseconds, 1);
         }
-
     }
     /// <summary>
     /// 消息节点消费者
@@ -158,8 +157,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isMessage = false;
             try
             {
-                await onMessage(message);
-                isMessage = true;
+                isMessage = await onMessage(message);
             }
             catch (Exception exception)
             {
@@ -175,7 +173,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 消息处理，异常则表示消息执行失败
         /// </summary>
         /// <param name="message"></param>
-        /// <returns></returns>
-        protected abstract Task onMessage(T message);
+        /// <returns>消息是否执行成功</returns>
+        protected abstract Task<bool> onMessage(T message);
     }
 }

@@ -14,21 +14,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         private ISearchTreeDictionaryNodeLocalClientNode<int, int> node;
         internal PerformanceSearchTreeDictionaryNode() { }
-        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isPersistence)
+        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<ISearchTreeDictionaryNodeLocalClientNode<int, int>> node = await client.GetOrCreateNode<ISearchTreeDictionaryNodeLocalClientNode<int, int>>(typeof(ISearchTreeDictionaryNodeLocalClientNode<int, int>).FullName + isPersistence.ToString(), isPersistence ? (Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>)client.ClientNode.CreatePerformancePersistenceSearchTreeDictionaryNode : client.ClientNode.CreatePerformanceSearchTreeDictionaryNode);
+            ResponseResult<ISearchTreeDictionaryNodeLocalClientNode<int, int>> node = await client.GetOrCreateSearchTreeDictionaryNode<int, int>(typeof(ISearchTreeDictionaryNodeLocalClientNode<int, int>).FullName);
             if (!Program.Breakpoint(node)) return;
             this.node = node.Value;
             ResponseResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
             int taskCount = getTaskCount();
-            testValue = reset(maxTestCount, isPersistence, taskCount);
+            testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(Set));
 
             taskCount = getTaskCount();
-            testValue = reset(maxTestCount, isPersistence, taskCount);
+            testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(TryGetValue));
 

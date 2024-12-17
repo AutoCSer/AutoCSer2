@@ -175,11 +175,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             if (PersistenceMethodName.Length == 0)
             {
-                if (ReturnValueType != typeof(void)) IsSimpleSerializeParamter = SimpleSerialize.Serializer.IsType(ReturnValueType);
+                if (ReturnValueType != typeof(void) && ReturnValueType != typeof(ResponseParameter)) IsSimpleSerializeParamter = SimpleSerialize.Serializer.IsType(ReturnValueType);
             }
             else
             {
-                if (persistenceMethodReturnType != typeof(void)) IsSimpleSerializeParamter = SimpleSerialize.Serializer.IsType(persistenceMethodReturnType);
+                if (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter)) IsSimpleSerializeParamter = SimpleSerialize.Serializer.IsType(persistenceMethodReturnType);
             }
         }
         /// <summary>
@@ -430,6 +430,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             switch (CallType)
             {
                 case CallTypeEnum.CallInputOutput:
+                    if (PersistenceMethodName.Length == 0 || (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))) callMethodGenerator.ldarg(1);
+                    break;
                 case CallTypeEnum.InputEnumerable:
                     if (PersistenceMethodName.Length == 0 || persistenceMethodReturnType != typeof(void)) callMethodGenerator.ldarg(1);
                     break;
@@ -492,11 +494,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         #region CallOutputMethod.Callback(X, ref callback, isSimpleSerialize);
                         callMethodGenerator.ldarg(2);
-                        callMethodGenerator.int32(IsSimpleSerializeParamter);
-                        callMethodGenerator.call(ServerNodeCreator.CallOutputMethodCallbackMethod.MakeGenericMethod(ReturnValueType));
+                        if (ReturnValueType == typeof(ResponseParameter)) callMethodGenerator.call(ServerNodeCreator.CallOutputMethodCallbackResponseParameter.Method);
+                        else
+                        {
+                            callMethodGenerator.int32(IsSimpleSerializeParamter);
+                            callMethodGenerator.call(ServerNodeCreator.CallOutputMethodCallbackMethod.MakeGenericMethod(ReturnValueType));
+                        }
                         #endregion
                     }
-                    else if (persistenceMethodReturnType != typeof(void))
+                    else if (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))
                     {
                         #region CallOutputMethod.GetBeforePersistenceResponseParameter(X, isSimpleSerialize);
                         callMethodGenerator.int32(IsSimpleSerializeParamter);
@@ -514,10 +520,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (PersistenceMethodName.Length == 0)
                     {
                         #region CallInputOutputMethodParameter.Callback(methodParameter, X);
-                        callMethodGenerator.call(ServerNodeCreator.CallInputOutputMethodParameterCallbackMethod.MakeGenericMethod(ReturnValueType));
+                        if (ReturnValueType == typeof(ResponseParameter))
+                        {
+                            callMethodGenerator.call(ServerNodeCreator.CallInputOutputMethodParameterCallbackResponseParameter.Method);
+                        }
+                        else
+                        {
+                            callMethodGenerator.call(ServerNodeCreator.CallInputOutputMethodParameterCallbackMethod.MakeGenericMethod(ReturnValueType));
+                        }
                         #endregion
                     }
-                    else if (persistenceMethodReturnType != typeof(void))
+                    else if (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))
                     {
                         #region CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter(methodParameter, X);
                         callMethodGenerator.call(ServerNodeCreator.CallInputOutputMethodParameterGetBeforePersistenceResponseParameterMethod.MakeGenericMethod(persistenceMethodReturnType));

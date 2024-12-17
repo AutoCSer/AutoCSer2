@@ -54,8 +54,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="serializer"></param>
         void AutoCSer.BinarySerialize.ICustomSerialize<JsonValue<T>>.Serialize(AutoCSer.BinarySerializer serializer)
         {
-            int index = serializer.SerializeBufferStart();
-            if (index >= 0) serializer.SerializeBufferEnd(index, serializer.GetJsonSerializer().SerializeCommandServerBuffer(ref Value, serializer.Stream));
+            serializer.JsonSerializeBuffer(ref Value);
         }
         /// <summary>
         /// 反序列化
@@ -63,12 +62,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         unsafe void AutoCSer.BinarySerialize.ICustomSerialize<JsonValue<T>>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            byte* end = deserializer.DeserializeBufferStart();
-            if (end != null)
-            {
-                deserializer.DeserializeJson(out Value);
-                deserializer.DeserializeBufferEnd(end);
-            }
+            deserializer.DeserializeJsonBuffer(ref Value);
         }
     }
 }

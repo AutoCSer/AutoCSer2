@@ -235,62 +235,12 @@ namespace AutoCSer.CommandService.DiskBlock
                     {
                         var value = default(string);
                         BlockIndex index = this;
-                        if (deserializeString((byte*)&index, size + (-size & 3), out value)) result.Set(value);
+                        if (AutoCSer.BinaryDeserializer.DeserializeString((byte*)&index, size + (-size & 3), out value)) result.Set(value);
                         else result.ReturnType = CommandClientReturnTypeEnum.ClientDeserializeError;
                     }
                     return true;
                 default: result.ReturnType = CommandClientReturnTypeEnum.Success; return true;
             }
-        }
-        /// <summary>
-        /// 字符串反序列化
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="size"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-#if NetStandard21
-        private unsafe static bool deserializeString(byte* start, int size, out string? value)
-#else
-        private unsafe static bool deserializeString(byte* start, int size, out string value)
-#endif
-        {
-            if (*(int*)start == BinarySerializer.NullValue)
-            {
-                value = null;
-                return size == sizeof(int);
-            }
-            int length = *(int*)start;
-            if ((length & 1) == 0)
-            {
-                if (length == 0)
-                {
-                    value = string.Empty;
-                    return size == sizeof(int);
-                }
-                if (length == 10 && size == 14) size = 16;
-                if (size == (((long)length + (3 + sizeof(int))) & (long.MaxValue - 3)))
-                {
-                    value = new string((char*)(start + sizeof(int)), 0, length >> 1);
-                    return true;
-                }
-            }
-            else
-            {
-                length >>= 1;
-                int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
-                if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= size)
-                {
-                    value = AutoCSer.Common.AllocateString(length);
-                    fixed (char* valueFixed = value)
-                    {
-                        byte* end = start + size;
-                        return BinaryDeserializer.Deserialize(start, end, valueFixed, length, lengthSize) == end;
-                    }
-                }
-            }
-            value = null;
-            return false;
         }
         /// <summary>
         /// 获取读取数据结果
@@ -320,75 +270,12 @@ namespace AutoCSer.CommandService.DiskBlock
                     {
                         BlockIndex index = this;
                         var value = default(T);
-                        if (deserializeJson((byte*)&index, size + (-size & 3), out value)) result.Set(value);
+                        if (AutoCSer.BinaryDeserializer.DeserializeJsonString((byte*)&index, size + (-size & 3), out value)) result.Set(value);
                         else result.ReturnType = CommandClientReturnTypeEnum.ClientDeserializeError;
                     }
                     return true;
                 default: result.ReturnType = CommandClientReturnTypeEnum.Success; return true;
             }
-        }
-        /// <summary>
-        /// JSON 对象反序列化
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="start"></param>
-        /// <param name="size"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-#if NetStandard21
-        private unsafe static bool deserializeJson<T>(byte* start, int size, out T? value)
-#else
-        private unsafe static bool deserializeJson<T>(byte* start, int size, out T value)
-#endif
-        {
-            int length = *(int*)start;
-            if ((length & 1) == 0)
-            {
-                if (size == (((long)length + (3 + sizeof(int))) & (long.MaxValue - 3)))
-                {
-                    if (length != 0) return deserializeJson((char*)(start + sizeof(int)), length >> 1, out value);
-                    value = default(T);
-                    return true;
-                }
-            }
-            else
-            {
-                length >>= 1;
-                int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
-                if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= size)
-                {
-                    ByteArrayBuffer buffer = ByteArrayPool.GetBuffer(length << 1);
-                    try
-                    {
-                        fixed (byte* bufferFixed = buffer.GetFixedBuffer())
-                        {
-                            byte* bufferStart = bufferFixed + buffer.StartIndex, end = start + size;
-                            if (BinaryDeserializer.Deserialize(start, end, (char*)bufferStart, length, lengthSize) == end) return deserializeJson((char*)bufferStart, length, out value);
-                        }
-                    }
-                    finally { buffer.Free(); }
-                }
-            }
-            value = default(T);
-            return false;
-        }
-        /// <summary>
-        /// JSON 对象反序列化
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="start"></param>
-        /// <param name="length"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-#if NetStandard21
-        private unsafe static bool deserializeJson<T>(char* start, int length, out T? value)
-#else
-        private unsafe static bool deserializeJson<T>(char* start, int length, out T value)
-#endif
-        {
-            value = default(T);
-            if (length == 4 && *(long*)start == JsonDeserializer.NullStringValue) return true;
-            return JsonDeserializer.UnsafeDeserialize(start, length, ref value).State == Json.DeserializeStateEnum.Success;
         }
         /// <summary>
         /// 获取读取数据结果

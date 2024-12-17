@@ -49,6 +49,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public bool MethodIsReturn { get { return interfaceMethod.ReturnValueType != typeof(void); } }
             /// <summary>
+            /// 返回参数类型
+            /// </summary>
+            public ExtensionType ReturnRequestParameterType;
+            /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
             /// <param name="nodeAttribute"></param>
@@ -70,9 +74,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.Enumerable:
                         case CallTypeEnum.InputEnumerable:
                             MethodReturnType = typeof(Task<>).MakeGenericType(typeof(KeepCallbackResponse<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                            if (interfaceMethod.ReturnValueType == typeof(ResponseParameterSerializer)) ReturnRequestParameterType = typeof(ResponseParameterSerializer);
                             break;
                         default:
                             MethodReturnType = interfaceMethod.ReturnValueType == typeof(void) ? typeof(Task<ResponseResult>) : typeof(Task<>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                            if (interfaceMethod.ReturnValueType == typeof(ResponseParameter)) ReturnRequestParameterType = typeof(ResponseParameter);
                             break;
                     }
                 }

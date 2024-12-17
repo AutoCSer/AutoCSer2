@@ -18,6 +18,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// </summary>
     /// <typeparam name="T">数据类型</typeparam>
     internal sealed class WriteBufferSerializer<T> : WriteBufferSerializer
+        where T : struct
     {
         /// <summary>
         /// 数据
@@ -37,7 +38,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="serializer"></param>
         internal override void Serialize(AutoCSer.BinarySerializer serializer)
         {
-            serializer.InternalIndependentSerializeNotReference(ref value);
+            serializer.InternalIndependentSerializeNotNull(ref value);
         }
     }
 }

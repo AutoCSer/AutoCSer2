@@ -148,43 +148,129 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             result = await node.Value.CallCustomPersistence(value);
             if (!Program.Breakpoint(result)) return;
 
-            result = await node.Value.SetServerJsonBinary(new TestClass { Int = value, String = "D" });
-            if (!Program.Breakpoint(result)) return;
-            ResponseResult<ServerJsonBinary<TestClass>> serverJsonBinaryResult = await node.Value.GetServerJsonBinary();
-            if (!Program.Breakpoint(serverJsonBinaryResult)) return;
-            if (serverJsonBinaryResult.Value.Value == null || serverJsonBinaryResult.Value.Value.Int != value || serverJsonBinaryResult.Value.Value.String != "D")
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{serverJsonBinaryResult.Value.Value?.Int}.{serverJsonBinaryResult.Value.Value?.String}+ERROR*");
-                return;
-            }
-
-            result = await node.Value.SetServerJson(new TestClass { Int = value, String = "A" });
-            if (!Program.Breakpoint(result)) return;
-            ResponseResult<ServerJson<TestClass>> serverJsonResult = await node.Value.GetServerJson();
-            if (!Program.Breakpoint(serverJsonResult)) return;
-            if (serverJsonResult.Value.Value == null || serverJsonResult.Value.Value.Int != value || serverJsonResult.Value.Value.String != "A")
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{serverJsonResult.Value.Value?.Int}.{serverJsonResult.Value.Value?.String}+ERROR*");
-                return;
-            }
-
-            result = await node.Value.SetJsonValue(new TestClass { Int = value, String = "B" });
+            result = await node.Value.SetJsonValue(new TestClass { Int = ++value, String = "J" });
             if (!Program.Breakpoint(result)) return;
             ResponseResult<JsonValue<TestClass>> jsonValueResult = await node.Value.GetJsonValue();
             if (!Program.Breakpoint(jsonValueResult)) return;
-            if (jsonValueResult.Value.Value == null || jsonValueResult.Value.Value.Int != value || jsonValueResult.Value.Value.String != "B")
+            if (jsonValueResult.Value.Value == null || jsonValueResult.Value.Value.Int != value || jsonValueResult.Value.Value.String != "J")
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{jsonValueResult.Value.Value?.Int}.{jsonValueResult.Value.Value?.String}+ERROR*");
                 return;
             }
 
-            result = await node.Value.SetServerBinary(new TestClass { Int = value, String = "C" });
+            result = await node.Value.SetServerByteArray(ServerByteArray.BinarySerialize(new TestClass { Int = value, String = "D" }));
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<ServerBinary<TestClass>> serverBinaryResult = await node.Value.GetServerBinary();
-            if (!Program.Breakpoint(serverBinaryResult)) return;
-            if (serverBinaryResult.Value.Value == null || serverBinaryResult.Value.Value.Int != value || serverBinaryResult.Value.Value.String != "C")
+            ResponseResult<ServerByteArray> serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            TestClass resultValue = null;
+            if (!serverByteArrayResult.Value.BinaryDeserialize(ref resultValue) || resultValue == null || resultValue.Int != value || resultValue.String != "D")
             {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{serverBinaryResult.Value.Value?.Int}.{serverBinaryResult.Value.Value?.String}+ERROR*");
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray(ServerByteArray.BinarySerialize((TestClass)null));
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            if (!serverByteArrayResult.Value.BinaryDeserialize(ref resultValue) || resultValue != null)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray(ServerByteArray.JsonSerialize(new TestClass { Int = ++value, String = "A" }));
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            if (!serverByteArrayResult.Value.JsonDeserialize(ref resultValue) || resultValue == null || resultValue.Int != value || resultValue.String != "A")
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray(ServerByteArray.JsonSerialize((TestClass)null));
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            if (!serverByteArrayResult.Value.JsonDeserialize(ref resultValue) || resultValue != null)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray(AutoCSer.JsonSerializer.Serialize(new TestClass { Int = ++value, String = "B" }));
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            string json = null;
+            if (!serverByteArrayResult.Value.GetString(ref json) || string.IsNullOrEmpty(json))
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{json}+ERROR*");
+                return;
+            }
+            resultValue = AutoCSer.JsonDeserializer.Deserialize<TestClass>(json);
+            if (resultValue == null || resultValue.Int != value || resultValue.String != "B")
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray((string)null);
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            if (!serverByteArrayResult.Value.GetString(ref json) || json != null)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{json}+ERROR*");
+                return;
+            }
+            result = await node.Value.SetServerByteArray(string.Empty);
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            if (!serverByteArrayResult.Value.GetString(ref json) || json != string.Empty)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{json}+ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray(AutoCSer.BinarySerializer.Serialize(new TestClass { Int = ++value, String = "C" }));
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            byte[] data = serverByteArrayResult.Value;
+            if (data == null)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR*");
+                return;
+            }
+            resultValue = AutoCSer.BinaryDeserializer.Deserialize<TestClass>(data);
+            if (resultValue == null || resultValue.Int != value || resultValue.String != "C")
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray((byte[])null);
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            data = serverByteArrayResult.Value;
+            if (data != null)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR*");
+                return;
+            }
+
+            result = await node.Value.SetServerByteArray(EmptyArray<byte>.Array);
+            if (!Program.Breakpoint(result)) return;
+            serverByteArrayResult = await node.Value.GetServerByteArray();
+            if (!Program.Breakpoint(serverByteArrayResult)) return;
+            data = serverByteArrayResult.Value;
+            if (data?.Length != 0)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR*");
                 return;
             }
 

@@ -15,9 +15,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     {
         private IMessageNodeClientNode<PerformanceMessage> node;
         internal PerformanceMessageNode() { }
-        internal async Task Test(CommandClientConfig config, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client, bool isPersistence)
+        internal async Task Test(CommandClientConfig config, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<IMessageNodeClientNode<PerformanceMessage>> node = await client.GetOrCreateNode<IMessageNodeClientNode<PerformanceMessage>>(typeof(IMessageNodeClientNode<PerformanceMessage>).FullName + isPersistence.ToString(), isPersistence ? (Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>)((nodeIndex, key, nodeInfo) => client.ClientNode.CreatePerformancePersistenceMessageNode(nodeIndex, key, nodeInfo, config.CommandQueueCount, 5, 1)) : (nodeIndex, key, nodeInfo) => client.ClientNode.CreatePerformanceMessageNode(nodeIndex, key, nodeInfo, config.CommandQueueCount, 5, 1));
+            ResponseResult<IMessageNodeClientNode<PerformanceMessage>> node = await client.GetOrCreateMessageNode<PerformanceMessage>(typeof(IMessageNodeClientNode<PerformanceMessage>).FullName, config.CommandQueueCount, 5, 1);
             if (!Program.Breakpoint(node)) return;
             this.node = node.Value;
             ResponseResult result = await this.node.Clear();
@@ -27,7 +27,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             {
                 GetMessage(keepCallback).NotWait();
 
-                await Task.WhenAll(getAppendMessageTask(config, isPersistence));
+                await Task.WhenAll(getAppendMessageTask(config, true));
                 await loopCompleted(nameof(PerformanceMessageNode), nameof(AppendMessage), nameof(this.node.Completed));
 
                 ResponseResult<int> intResult = await this.node.GetCount();

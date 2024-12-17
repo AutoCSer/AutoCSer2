@@ -13,18 +13,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     internal class BinaryMessageConsumer : BinaryMessageConsumer<TestClass>
     {
         internal BinaryMessageConsumer(CommandClient commandClient, IMessageNodeClientNode<BinaryMessage<TestClass>> node) : base(commandClient, node) { }
-        protected override Task onMessage(TestClass message)
+        protected override Task<bool> onMessage(TestClass message)
         {
-            if (isCompleted) throw new IgnoreException();
+            if (isCompleted) AutoCSer.Common.GetCompletedTask(false);
             lock (messageLock) messages.Remove(message);
-            return AutoCSer.Common.CompletedTask;
+            return AutoCSer.Common.GetCompletedTask(true);
         }
         private static bool isCompleted;
         private static HashSet<TestClass> messages;
         private static readonly object messageLock = new object();
         internal static async Task Test(CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<IMessageNodeClientNode<BinaryMessage<TestClass>>> node = await client.GetOrCreateNode<IMessageNodeClientNode<BinaryMessage<TestClass>>>(typeof(IMessageNodeClientNode<BinaryMessage<TestClass>>).FullName, (index, key, nodeInfo) => client.ClientNode.CreateBinaryMessageNode(index, key, nodeInfo, 1 << 10, 5, 1));
+            ResponseResult<IMessageNodeClientNode<BinaryMessage<TestClass>>> node = await client.GetOrCreateMessageNode<BinaryMessage<TestClass>>(typeof(IMessageNodeClientNode<BinaryMessage<TestClass>>).FullName, 1 << 10, 5, 1);
             if (!Program.Breakpoint(node)) return;
             ResponseResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;

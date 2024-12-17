@@ -14,21 +14,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     {
         private ISearchTreeDictionaryNodeClientNode<int, int> node;
         internal PerformanceSearchTreeDictionaryNode() { }
-        internal async Task Test(CommandClientConfig config, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client, bool isPersistence)
+        internal async Task Test(CommandClientConfig config, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<ISearchTreeDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateNode<ISearchTreeDictionaryNodeClientNode<int, int>>(typeof(ISearchTreeDictionaryNodeClientNode<int, int>).FullName + isPersistence.ToString(), isPersistence ? (Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>)client.ClientNode.CreatePerformancePersistenceSearchTreeDictionaryNode : client.ClientNode.CreatePerformanceSearchTreeDictionaryNode);
+            ResponseResult<ISearchTreeDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateSearchTreeDictionaryNode<int, int>(typeof(ISearchTreeDictionaryNodeClientNode<int, int>).FullName);
             if (!Program.Breakpoint(node)) return;
             this.node = node.Value;
             ResponseResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
             int taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, isPersistence, taskCount);
+            testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(Set));
 
             taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, isPersistence, taskCount);
+            testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(TryGetValue));
 

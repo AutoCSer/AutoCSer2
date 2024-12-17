@@ -1,6 +1,7 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 
 #pragma warning disable
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -51,18 +52,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void PersistenceCallbackException();
 
-        void SetServerJsonBinary(ServerJsonBinary<TestClass> value);
+        void SetServerByteArray(ServerByteArray value);
         [ServerMethod(IsPersistence = false)]
-        ServerJsonBinary<TestClass> GetServerJsonBinary();
-        void SetServerJson(ServerJson<TestClass> value);
-        [ServerMethod(IsPersistence = false)]
-        ServerJson<TestClass> GetServerJson();
-        [ServerMethod(IsPersistence = false)]
+        ServerByteArray GetServerByteArray();
         void SetJsonValue(JsonValue<TestClass> value);
         [ServerMethod(IsPersistence = false)]
         JsonValue<TestClass> GetJsonValue();
-        void SetServerBinary(ServerBinary<TestClass> value);
-        [ServerMethod(IsPersistence = false)]
-        ServerBinary<TestClass> GetServerBinary();
     }
 }

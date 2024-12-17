@@ -219,5 +219,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 客户端调用失败
         /// </summary>
         CallFail,
+        /// <summary>
+        /// 没有找到泛型类型
+        /// </summary>
+        NotFoundRemoteType,
+        /// <summary>
+        /// 泛型类型不满足要求
+        /// </summary>
+        RemoteTypeError,
+        /// <summary>
+        /// 没有返回数据
+        /// </summary>
+        NullResponseParameter,
+
+        /// <summary>
+        /// 保留用于计数
+        /// </summary>
+        Count,
     }
 }

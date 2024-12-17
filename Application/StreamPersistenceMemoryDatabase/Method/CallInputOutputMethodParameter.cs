@@ -195,7 +195,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
             }
         }
-
         /// <summary>
         /// 调用回调
         /// </summary>
@@ -204,6 +203,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Callback<T>(CallInputOutputMethodParameter methodParameter, T value)
+        {
+            methodParameter.SuccessCallback(value);
+        }
+        /// <summary>
+        /// 调用回调
+        /// </summary>
+        /// <param name="value"></param>
+        internal void SuccessCallback(ResponseParameter value)
+        {
+            var callback = this.callback;
+            if (callback != null)
+            {
+                this.callback = null;
+                try
+                {
+                    callback.SynchronousCallback(value);
+                }
+                catch (Exception exception)
+                {
+                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                }
+            }
+        }
+        /// <summary>
+        /// 调用回调
+        /// </summary>
+        /// <param name="methodParameter"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static void CallbackResponseParameter(CallInputOutputMethodParameter methodParameter, ResponseParameter value)
         {
             methodParameter.SuccessCallback(value);
         }

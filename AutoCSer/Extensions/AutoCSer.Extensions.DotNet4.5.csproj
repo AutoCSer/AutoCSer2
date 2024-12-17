@@ -74,7 +74,7 @@
     <Compile Include="Extensions\SubStringExtension.cs" />
     <Compile Include="Extensions\SynchronizationContextExtension.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
-    <Compile Include="FragmentHashStringDictionary256.cs" />
+    <Compile Include="HashBytesFragmentDictionary256.cs" />
     <Compile Include="HashSubString.cs" />
     <Compile Include="Html\RawNode.cs" />
     <Compile Include="Html\RawNodeTypeEnum.cs" />

@@ -30,6 +30,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallback), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly Func<ClientNode, int, ResponseParameter, Task<ResponseResult<ResponseParameter>>> StreamPersistenceMemoryDatabaseClientCallOutputResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputResponseParameter;
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly Func<ClientNode, int, ResponseParameterSerializer, Task<KeepCallbackResponse<ResponseParameterSerializer>>> StreamPersistenceMemoryDatabaseClientKeepCallbackResponseParameter = StreamPersistenceMemoryDatabaseClient.KeepCallbackResponseParameter;
     }
     /// <summary>
     /// 生成客户端节点
@@ -163,6 +171,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             #region return StreamPersistenceMemoryDatabaseClient.CallInput(this, 0, new p0 { key = key, value = value });
                             methodGenerator.Emit(OpCodes.Ldarg_0);
                             methodGenerator.int32(method.MethodIndex);
+                            if (method.IsReturnResponseParameter) methodGenerator.Emit(OpCodes.Ldarg_1);
                             switch (method.CallType)
                             {
                                 case CallTypeEnum.CallInputOutput:
@@ -193,7 +202,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientCall.Method);
                                     break;
                                 case CallTypeEnum.CallOutput:
-                                    if (method.IsSimpleDeserializeParamter) methodGenerator.call(GenericType.Get(method.ReturnValueType).StreamPersistenceMemoryDatabaseClientSimpleDeserializeCallOutputDelegate.Method);
+                                    if (method.IsReturnResponseParameter) methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientCallOutputResponseParameter.Method);
+                                    else if (method.IsSimpleDeserializeParamter) methodGenerator.call(GenericType.Get(method.ReturnValueType).StreamPersistenceMemoryDatabaseClientSimpleDeserializeCallOutputDelegate.Method);
                                     else methodGenerator.call(GenericType.Get(method.ReturnValueType).StreamPersistenceMemoryDatabaseClientCallOutputDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInput:
@@ -201,18 +211,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     else methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).StreamPersistenceMemoryDatabaseClientCallInputDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInputOutput:
-                                    methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientCallInputOutputMethod.MakeGenericMethod(method.InputParameterType.notNull().Type, method.ReturnValueType));
+                                    if (method.IsReturnResponseParameter) methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).StreamPersistenceMemoryDatabaseClientCallInputOutputResponseParameterDelegate.Method);
+                                    else methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientCallInputOutputMethod.MakeGenericMethod(method.InputParameterType.notNull().Type, method.ReturnValueType));
                                     break;
                                 case CallTypeEnum.SendOnly:
                                     if (method.IsSimpleSerializeParamter) methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).StreamPersistenceMemoryDatabaseClientSimpleSerializeSendOnlyDelegate.Method);
                                     else methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).StreamPersistenceMemoryDatabaseClientSendOnlyDelegate.Method);
                                     break;
                                 case CallTypeEnum.KeepCallback:
-                                    if (method.IsSimpleDeserializeParamter) methodGenerator.call(GenericType.Get(method.ReturnValueType).StreamPersistenceMemoryDatabaseClientSimpleDeserializeKeepCallbackDelegate.Method);
+                                    if (method.IsReturnResponseParameter) methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientKeepCallbackResponseParameter.Method);
+                                    else if (method.IsSimpleDeserializeParamter) methodGenerator.call(GenericType.Get(method.ReturnValueType).StreamPersistenceMemoryDatabaseClientSimpleDeserializeKeepCallbackDelegate.Method);
                                     else methodGenerator.call(GenericType.Get(method.ReturnValueType).StreamPersistenceMemoryDatabaseClientKeepCallbackDelegate.Method);
                                     break;
                                 case CallTypeEnum.InputKeepCallback:
-                                    methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientInputKeepCallbackMethod.MakeGenericMethod(method.InputParameterType.notNull().Type, method.ReturnValueType));
+                                    if (method.IsReturnResponseParameter) methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).StreamPersistenceMemoryDatabaseClientInputKeepCallbackResponseParameterDelegate.Method);
+                                    else methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientInputKeepCallbackMethod.MakeGenericMethod(method.InputParameterType.notNull().Type, method.ReturnValueType));
                                     break;
                             }
                             #endregion

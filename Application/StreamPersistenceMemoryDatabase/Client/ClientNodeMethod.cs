@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -16,6 +17,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 本地客户端 SendOnly 方法返回值类型
         /// </summary>
         internal static readonly Type LocalClientSendOnlyMethodReturnType = typeof(MethodParameter);
+        /// <summary>
+        /// 是否返回参数类型
+        /// </summary>
+        internal readonly bool IsReturnResponseParameter;
 
         /// <summary>
         /// 客户端节点方法信息
@@ -69,6 +74,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     Type awaitType = isLocalClient ? typeof(LocalServiceQueueNode<ResponseResult>) : typeof(Task<ResponseResult>);
                     Error = $"节点方法 {type.fullName()}.{method.Name} 返回值类型必须是 {awaitType.fullName()}";
                     return;
+                }
+                if (!isLocalClient)
+                {
+                    if (ParameterStartIndex != ParameterEndIndex && ReturnValueType == (isKeepCallback ? typeof(ResponseParameterSerializer) : typeof(ResponseParameter)))
+                    {
+                        ParameterInfo parameter = Parameters[ParameterStartIndex];
+                        if (parameter.ParameterType == ReturnValueType && string.Equals(parameter.Name, nameof(ServerReturnValue<int>.ReturnValue), StringComparison.OrdinalIgnoreCase))
+                        {
+                            IsReturnResponseParameter = true;
+                            ++ParameterStartIndex;
+                        }
+                    }
                 }
                 setCallType();
                 if (isKeepCallback)

@@ -5,13 +5,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 返回参数序列化
     /// </summary>
-    internal abstract class ResponseParameterSerializer
+    public abstract class ResponseParameterSerializer
     {
         /// <summary>
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        internal abstract void Serialize(AutoCSer.BinarySerializer serializer);
+        public abstract void Serialize(AutoCSer.BinarySerializer serializer);
         /// <summary>
         /// 反序列化
         /// </summary>

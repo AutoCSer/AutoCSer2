@@ -53,6 +53,12 @@ namespace AutoCSer.Memory
         /// <returns>HASH字节数组</returns>
         public static implicit operator HashBytes(byte[] data) { return new HashBytes(new SubArray<byte>(data)); }
         /// <summary>
+        /// HASH字节数组隐式转换
+        /// </summary>
+        /// <param name="data">HASH字节数组</param>
+        /// <returns>字节数组</returns>
+        public static implicit operator SubArray<byte>(HashBytes data) { return data.SubArray; }
+        /// <summary>
         /// 比较字节数组是否相等
         /// </summary>
         /// <param name="other">用于HASH的字节数组</param>

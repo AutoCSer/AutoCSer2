@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     {
         internal static async Task Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<ISortedSetNodeClientNode<long>> node = await client.GetOrCreateNode<ISortedSetNodeClientNode<long>>(typeof(ISortedSetNodeClientNode<long>).FullName, client.ClientNode.CreateSortedSetNode);
+            ResponseResult<ISortedSetNodeClientNode<long>> node = await client.GetOrCreateSortedSetNode<long>(typeof(ISortedSetNodeClientNode<long>).FullName);
             if (!Program.Breakpoint(node)) return;
             ResponseResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;

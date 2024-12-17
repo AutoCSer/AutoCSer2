@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
 
         internal static async Task Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<IDistributedLockNodeClientNode<int>> node = await client.GetOrCreateNode<IDistributedLockNodeClientNode<int>>(typeof(IDistributedLockNodeClientNode<int>).FullName, client.ClientNode.CreateDistributedLockNode);
+            ResponseResult<IDistributedLockNodeClientNode<int>> node = await client.GetOrCreateDistributedLockNode<int>(typeof(IDistributedLockNodeClientNode<int>).FullName);
             if (!Program.Breakpoint(node)) return;
 
             Task[] tasks = new Task[10];

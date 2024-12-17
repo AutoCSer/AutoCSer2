@@ -15,10 +15,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         private IMessageNodeLocalClientNode<PerformanceMessage> node;
         internal PerformanceMessageNode() { }
-        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isPersistence)
+        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
             int taskCount = getTaskCount();
-            ResponseResult<IMessageNodeLocalClientNode<PerformanceMessage>> node = await client.GetOrCreateNode<IMessageNodeLocalClientNode<PerformanceMessage>>(typeof(IMessageNodeLocalClientNode<PerformanceMessage>).FullName + isPersistence.ToString(), isPersistence ? (Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>)((nodeIndex, key, nodeInfo) => client.ClientNode.CreatePerformancePersistenceMessageNode(nodeIndex, key, nodeInfo, taskCount, 5, 1)) : (nodeIndex, key, nodeInfo) => client.ClientNode.CreatePerformanceMessageNode(nodeIndex, key, nodeInfo, taskCount, 5, 1));
+            ResponseResult<IMessageNodeLocalClientNode<PerformanceMessage>> node = await client.GetOrCreateMessageNode<PerformanceMessage>(typeof(IMessageNodeLocalClientNode<PerformanceMessage>).FullName, taskCount, 5, 1);
             if (!Program.Breakpoint(node)) return;
             this.node = node.Value;
             ResponseResult result = await this.node.Clear();
@@ -28,7 +28,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             {
                 GetMessage(keepCallback).NotWait();
 
-                await Task.WhenAll(getAppendMessageTask(isPersistence));
+                await Task.WhenAll(getAppendMessageTask(true));
                 await loopCompleted(nameof(PerformanceMessageNode), nameof(AppendMessage), nameof(this.node.Completed));
 
                 ResponseResult<int> intResult = await this.node.GetCount();

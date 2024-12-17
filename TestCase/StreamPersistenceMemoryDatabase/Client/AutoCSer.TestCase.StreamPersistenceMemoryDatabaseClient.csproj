@@ -23,22 +23,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ByteArrayDictionaryNode.cs" />
+    <Compile Include="ByteArrayStackNode.cs" />
     <Compile Include="CommandClientSocketEventTaskClient.cs" />
     <Compile Include="DistributedLockNode.cs" />
+    <Compile Include="ByteArrayFragmentDictionaryNode.cs" />
+    <Compile Include="HashBytesDictionaryNode.cs" />
+    <Compile Include="HashBytesFragmentDictionaryNode.cs" />
     <Compile Include="PerformanceClient.cs" />
     <Compile Include="PerformanceMessageNode.cs" />
     <Compile Include="PerformanceSearchTreeDictionaryNode.cs" />
     <Compile Include="PerformanceDictionaryNode.cs" />
-    <Compile Include="ServerBinaryMessageConsumer.cs" />
+    <Compile Include="ByteArrayQueueNode.cs" />
+    <Compile Include="ServerByteArrayMessageConsumer.cs" />
     <Compile Include="SearchTreeDictionaryNode.cs" />
     <Compile Include="BinaryMessageConsumer.cs" />
-    <Compile Include="ServerJsonBinaryMessageConsumer.cs" />
+    <Compile Include="ServerByteArrayMessageBinaryConsumer.cs" />
     <Compile Include="SortedListNode.cs" />
     <Compile Include="SortedDictionaryNode.cs" />
     <Compile Include="SearchTreeSetNode.cs" />
     <Compile Include="SortedSetNode.cs" />
-    <Compile Include="ServerJsonMessageConsumer.cs" />
-    <Compile Include="StringMessageConsumer.cs" />
+    <Compile Include="ServerByteArrayMessageJsonConsumer.cs" />
+    <Compile Include="ServerByteArrayMessageStringConsumer.cs" />
     <Compile Include="StackNode.cs" />
     <Compile Include="QueueNode.cs" />
     <Compile Include="LeftArrayNode.cs" />
@@ -50,7 +56,6 @@
     <Compile Include="FragmentHashSetNode.cs" />
     <Compile Include="FragmentDictionaryNode.cs" />
     <Compile Include="DictionaryNode.cs" />
-    <Compile Include="HashStringFragmentDictionaryNode.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 

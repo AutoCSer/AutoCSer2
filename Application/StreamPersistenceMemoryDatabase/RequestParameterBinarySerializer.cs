@@ -17,6 +17,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 内部成员对象序列化为一个可独立反序列化的数据
         /// </summary>
         /// <param name="value">数据</param>
+        internal RequestParameterBinarySerializer(T value)
+        {
+            this.value = value;
+        }
+        /// <summary>
+        /// 内部成员对象序列化为一个可独立反序列化的数据
+        /// </summary>
+        /// <param name="value">数据</param>
         internal RequestParameterBinarySerializer(ref T value)
         {
             this.value = value;
@@ -27,7 +35,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="serializer"></param>
         internal override void Serialize(AutoCSer.BinarySerializer serializer)
         {
-            serializer.InternalIndependentSerializeNotReference(ref value);
+            serializer.InternalIndependentSerializeNotNull(ref value);
         }
     }
 }

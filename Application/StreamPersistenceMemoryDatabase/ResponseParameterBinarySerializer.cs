@@ -29,9 +29,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        internal override void Serialize(AutoCSer.BinarySerializer serializer)
+        public override void Serialize(AutoCSer.BinarySerializer serializer)
         {
-            serializer.InternalIndependentSerializeNotReference(ref Value);
+            serializer.InternalIndependentSerializeNotNull(ref Value);
         }
         /// <summary>
         /// 反序列化
