@@ -3,14 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <AssemblyName>AutoCSer.TestCase.CommandServerPerformance</AssemblyName>
-    <RootNamespace>AutoCSer.TestCase.CommandServerPerformance</RootNamespace>
-    <LangVersion>8.0</LangVersion>
-    <ServerGarbageCollection>true</ServerGarbageCollection>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AutoCSer.Document.MemoryDatabaseNode</AssemblyName>
+    <RootNamespace>AutoCSer.Document.MemoryDatabaseNode</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,18 +17,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Client\IService.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Reference Include="AutoCSer">
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Server\" />
   </ItemGroup>
 
 </Project>

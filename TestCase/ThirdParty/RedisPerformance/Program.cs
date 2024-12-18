@@ -49,12 +49,14 @@ namespace RedisPerformance
 
                         await CSRedisCore.Test(data);
                         //在高并发环境下该组件有一定崩溃概率，一旦组件崩溃异常各种各样，无法恢复
+                        //修改为单例模式以后没有出现异常
                         //CSRedisCore+Server.Set 1024 Concurrent Completed 19048ms 13/ms
                         //CSRedisCore+Server.Get 1024 Concurrent Completed 17468ms 15/ms
                         //CSRedisCore+Server.Remove 1024 Concurrent Completed 16021ms 16/ms
 
                         await FreeRedis.Test(data);
                         //偶发性 convert failed 异常，异常以后无法恢复，应该是和 CSRedisCore 存在一样的网络数据解析 BUG
+                        //修改为单例模式以后没有出现异常
                         //FreeRedis+Server.Set 8192 Concurrent Completed 27980ms 9/ms
                         //FreeRedis+Server.Get 8192 Concurrent Completed 26136ms 10/ms
                         //FreeRedis+Server.Remove 8192 Concurrent Completed 47175ms 5/ms

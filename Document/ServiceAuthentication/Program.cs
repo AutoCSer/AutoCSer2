@@ -5,6 +5,11 @@ namespace AutoCSer.Document.ServiceAuthentication
 {
     internal class Program
     {
+        /// <summary>
+        /// https://zhuanlan.zhihu.com/p/11427440200
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         static async Task Main(string[] args)
         {
             Console.WriteLine($"{nameof(TimestampVerify)} {await TimestampVerify.CommandClientSocketEvent.Test()}");

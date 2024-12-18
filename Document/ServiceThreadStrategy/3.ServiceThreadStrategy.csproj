@@ -65,6 +65,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+    <ProjectReference Include="..\ServiceAuthentication\4.ServiceAuthentication.csproj" />
   </ItemGroup>
   
   <ItemGroup>

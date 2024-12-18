@@ -1,6 +1,7 @@
 ﻿using AutoCSer;
 using AutoCSer.Extensions;
 using FreeRedis;
+using Newtonsoft.Json;
 using System;
 
 namespace RedisPerformance
@@ -20,9 +21,16 @@ namespace RedisPerformance
         {
             Left = AutoCSer.Random.Default.Next();
 
-            await test(nameof(FreeRedis.Set), data, taskCount);
-            await test(nameof(FreeRedis.Get), data, taskCount);
-            await test(nameof(FreeRedis.Remove), data, taskCount);
+            //测试代码样例由 https://www.zhihu.com/people/xie-xiang-qin-75 提供
+            using (RedisClient client = new RedisClient("127.0.0.1:6379"))//,poolsize=1
+            {
+                client.Serialize = obj => JsonConvert.SerializeObject(obj);
+                client.Deserialize = (json, type) => JsonConvert.DeserializeObject(json, type);
+
+                await test(client, nameof(FreeRedis.Set), data, taskCount);
+                await test(client, nameof(FreeRedis.Get), data, taskCount);
+                await test(client, nameof(FreeRedis.Remove), data, taskCount);
+            }
         }
         /// <summary>
         /// 测试请求次数
@@ -35,10 +43,10 @@ namespace RedisPerformance
         /// <param name="data"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        private static async Task test(string serverMethodName, Data.Address data, int taskCount = 1 << 13)
+        private static async Task test(RedisClient client, string serverMethodName, Data.Address data, int taskCount = 1 << 13)
         {
             FreeRedis[] tasks = new FreeRedis[taskCount];
-            for (int index = 0; index != tasks.Length; tasks[index++] = new FreeRedis(data)) ;
+            for (int index = 0; index != tasks.Length; tasks[index++] = new FreeRedis(client, data)) ;
             switch (serverMethodName)
             {
                 case nameof(FreeRedis.Set):
@@ -69,10 +77,10 @@ namespace RedisPerformance
         /// 
         /// </summary>
         /// <param name="data"></param>
-        private FreeRedis(Data.Address data)
+        private FreeRedis(RedisClient client, Data.Address data)
         {
             this.data = data.Clone();
-            client = new RedisClient("127.0.0.1:6379");
+            this.client = client;
         }
         /// <summary>
         /// 
@@ -81,7 +89,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using (client)
+            //using (client)
             {
                 try
                 {
@@ -122,7 +130,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using (client)
+            //using (client)
             {
                 try
                 {
@@ -161,7 +169,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using(client)
+            //using(client)
             {
                 try
                 {

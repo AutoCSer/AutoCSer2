@@ -16,13 +16,16 @@ namespace RedisPerformance
         /// <param name="data"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        internal static async Task Test(Data.Address data, int taskCount = 1 << 10)
+        internal static async Task Test(Data.Address data, int taskCount = 1 << 13)
         {
             Left = AutoCSer.Random.Default.Next();
 
-            await test(nameof(CSRedisCore.Set), data, taskCount);
-            await test(nameof(CSRedisCore.Get), data, taskCount);
-            await test(nameof(CSRedisCore.Remove), data, taskCount);
+            using (CSRedisClient client = new CSRedisClient("127.0.0.1:6379"))
+            {
+                await test(client, nameof(CSRedisCore.Set), data, taskCount);
+                await test(client, nameof(CSRedisCore.Get), data, taskCount);
+                await test(client, nameof(CSRedisCore.Remove), data, taskCount);
+            }
         }
         /// <summary>
         /// 测试请求次数
@@ -35,10 +38,10 @@ namespace RedisPerformance
         /// <param name="data"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        private static async Task test(string serverMethodName, Data.Address data, int taskCount = 1 << 10)
+        private static async Task test(CSRedisClient client, string serverMethodName, Data.Address data, int taskCount = 1 << 10)
         {
             CSRedisCore[] tasks = new CSRedisCore[taskCount];
-            for (int index = 0; index != tasks.Length; tasks[index++] = new CSRedisCore(data)) ;
+            for (int index = 0; index != tasks.Length; tasks[index++] = new CSRedisCore(client, data)) ;
             switch (serverMethodName)
             {
                 case nameof(CSRedisCore.Set):
@@ -68,11 +71,12 @@ namespace RedisPerformance
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="client"></param>
         /// <param name="data"></param>
-        private CSRedisCore(Data.Address data)
+        private CSRedisCore(CSRedisClient client, Data.Address data)
         {
             this.data = data.Clone();
-            client = new CSRedisClient("127.0.0.1:6379");
+            this.client = client;
         }
         /// <summary>
         /// 
@@ -81,7 +85,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using (client)
+            //using (client)
             {
                 try
                 {
@@ -120,7 +124,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using (client)
+            //using (client)
             {
                 try
                 {
@@ -159,7 +163,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using(client)
+            //using(client)
             {
                 try
                 {

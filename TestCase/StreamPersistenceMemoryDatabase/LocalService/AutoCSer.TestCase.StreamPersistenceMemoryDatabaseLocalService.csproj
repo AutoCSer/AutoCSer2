@@ -6,6 +6,7 @@
     <AssemblyName>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService</RootNamespace>
     <LangVersion>8.0</LangVersion>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
