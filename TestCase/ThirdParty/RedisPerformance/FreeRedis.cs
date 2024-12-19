@@ -19,13 +19,12 @@ namespace RedisPerformance
         /// <returns></returns>
         internal static async Task Test(Data.Address data, int taskCount = 1 << 13)
         {
-            Left = AutoCSer.Random.Default.Next();
-
             //测试代码样例由 https://www.zhihu.com/people/xie-xiang-qin-75 提供
-            using (RedisClient client = new RedisClient("127.0.0.1:6379"))//,poolsize=1
+            using (RedisClient client = new RedisClient("127.0.0.1:6379,poolsize=200,min poolsize=50"))
             {
                 client.Serialize = obj => JsonConvert.SerializeObject(obj);
                 client.Deserialize = (json, type) => JsonConvert.DeserializeObject(json, type);
+                client.Ping();
 
                 await test(client, nameof(FreeRedis.Set), data, taskCount);
                 await test(client, nameof(FreeRedis.Get), data, taskCount);

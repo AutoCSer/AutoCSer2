@@ -25,7 +25,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                 ConsoleWriteQueue.Breakpoint();
                 return;
             }
-            Left = AutoCSer.Random.Default.Next();
 
             await node.Value.ClearArray();
             await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.SetBinarySerialize), data);

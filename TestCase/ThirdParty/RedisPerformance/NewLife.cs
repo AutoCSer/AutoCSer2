@@ -18,8 +18,6 @@ namespace RedisPerformance
         /// <returns></returns>
         internal static async Task Test(Data.Address data, int taskCount = 1 << 13)
         {
-            Left = AutoCSer.Random.Default.Next();
-
             using (FullRedis client = new FullRedis("127.0.0.1:6379", string.Empty, 0))
             {
                 await test(client, nameof(NewLife.Set), data, taskCount);

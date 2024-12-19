@@ -18,9 +18,7 @@ namespace RedisPerformance
         /// <returns></returns>
         internal static async Task Test(Data.Address data, int taskCount = 1 << 13)
         {
-            Left = AutoCSer.Random.Default.Next();
-
-            using (CSRedisClient client = new CSRedisClient("127.0.0.1:6379"))
+            using (CSRedisClient client = new CSRedisClient("127.0.0.1:6379,poolsize=200,min poolsize=50"))
             {
                 await test(client, nameof(CSRedisCore.Set), data, taskCount);
                 await test(client, nameof(CSRedisCore.Get), data, taskCount);

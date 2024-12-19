@@ -18,11 +18,15 @@ namespace RedisPerformance
         /// <returns></returns>
         internal static async Task Test(Data.Address data, int taskCount = 1 << 13)
         {
-            Left = AutoCSer.Random.Default.Next();
+            using (RedisDB client = new RedisDB())
+            {
+                client.DataFormater = new JsonFormater();
+                client.Host.AddWriteHost("127.0.0.1", 6379);
 
-            await test(nameof(BeetleX.Set), data, taskCount);
-            await test(nameof(BeetleX.Get), data, taskCount);
-            await test(nameof(BeetleX.Remove), data, taskCount);
+                await test(client, nameof(BeetleX.Set), data, taskCount);
+                await test(client, nameof(BeetleX.Get), data, taskCount);
+                await test(client, nameof(BeetleX.Remove), data, taskCount);
+            }
         }
         /// <summary>
         /// 测试请求次数
@@ -31,14 +35,15 @@ namespace RedisPerformance
         /// <summary>
         /// BeetleX.Redis 客户端测试
         /// </summary>
+        /// <param name="client"></param>
         /// <param name="serverMethodName"></param>
         /// <param name="data"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        private static async Task test(string serverMethodName, Data.Address data, int taskCount = 1 << 13)
+        private static async Task test(RedisDB client, string serverMethodName, Data.Address data, int taskCount = 1 << 13)
         {
             BeetleX[] tasks = new BeetleX[taskCount];
-            for (int index = 0; index != tasks.Length; tasks[index++] = new BeetleX(data)) ;
+            for (int index = 0; index != tasks.Length; tasks[index++] = new BeetleX(client, data)) ;
             switch (serverMethodName)
             {
                 case nameof(BeetleX.Set):
@@ -68,13 +73,12 @@ namespace RedisPerformance
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="client"></param>
         /// <param name="data"></param>
-        private BeetleX(Data.Address data)
+        private BeetleX(RedisDB client, Data.Address data)
         {
+            this.client = client;
             this.data = data.Clone();
-            client = new RedisDB();
-            client.DataFormater = new JsonFormater();
-            client.Host.AddWriteHost("127.0.0.1", 6379);
         }
         /// <summary>
         /// 
@@ -83,7 +87,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using (client)
+            //using (client)
             {
                 try
                 {
@@ -123,7 +127,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using (client)
+            //using (client)
             {
                 try
                 {
@@ -162,7 +166,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            using (client)
+            //using (client)
             {
                 try
                 {

@@ -16,13 +16,16 @@ namespace RedisPerformance
         /// <param name="data"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        internal static async Task Test(Data.Address data, int taskCount = 1 << 11)
+        internal static async Task Test(Data.Address data, int taskCount = 1 << 13)
         {
-            Left = AutoCSer.Random.Default.Next();
+            await using (ConnectionMultiplexer connect = ConnectionMultiplexer.Connect("127.0.0.1:6379"))
+            {
+                IDatabase client = connect.GetDatabase(0);
 
-            await test(nameof(StackExchange.Set), data, taskCount);
-            await test(nameof(StackExchange.Get), data, taskCount);
-            await test(nameof(StackExchange.Remove), data, taskCount);
+                await test(client, nameof(StackExchange.Set), data, taskCount);
+                await test(client, nameof(StackExchange.Get), data, taskCount);
+                await test(client, nameof(StackExchange.Remove), data, taskCount);
+            }
         }
         /// <summary>
         /// 测试请求次数
@@ -31,36 +34,33 @@ namespace RedisPerformance
         /// <summary>
         /// StackExchange.Redis 客户端测试
         /// </summary>
+        /// <param name="client"></param>
         /// <param name="serverMethodName"></param>
         /// <param name="data"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        private static async Task test(string serverMethodName, Data.Address data, int taskCount = 1 << 11)
+        private static async Task test(IDatabase client, string serverMethodName, Data.Address data, int taskCount = 1 << 11)
         {
             StackExchange[] tasks = new StackExchange[taskCount];
-            for (int index = 0; index != tasks.Length; tasks[index++] = new StackExchange(data)) ;
+            for (int index = 0; index != tasks.Length; tasks[index++] = new StackExchange(client, data)) ;
             switch (serverMethodName)
             {
                 case nameof(StackExchange.Set):
-                    right = Reset(null, maxTestCount >> 6, taskCount) >> LoopCountBit;
+                    right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
                     foreach (StackExchange task in tasks) task.Set().NotWait();
                     break;
                 case nameof(StackExchange.Get):
-                    right = Reset(null, maxTestCount >> 6, taskCount) >> LoopCountBit;
+                    right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
                     foreach (StackExchange task in tasks) task.Get().NotWait();
                     break;
                 case nameof(StackExchange.Remove):
-                    right = Reset(null, maxTestCount >> 6, taskCount) >> LoopCountBit;
+                    right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
                     foreach (StackExchange task in tasks) task.Get().NotWait();
                     break;
             }
             await Wait(nameof(StackExchange), serverMethodName);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly ConnectionMultiplexer connect;
         /// <summary>
         /// 
         /// </summary>
@@ -72,12 +72,12 @@ namespace RedisPerformance
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="client"></param>
         /// <param name="data"></param>
-        private StackExchange(Data.Address data)
+        private StackExchange(IDatabase client, Data.Address data)
         {
+            this.client = client;
             this.data = data.Clone();
-            connect = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-            client = connect.GetDatabase(0);
         }
         /// <summary>
         /// 
@@ -86,7 +86,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            await using (connect)
+            //await using (connect)
             {
                 try
                 {
@@ -125,7 +125,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            await using (connect)
+            //await using (connect)
             {
                 try
                 {
@@ -165,7 +165,7 @@ namespace RedisPerformance
         {
             int left = Left, success = 0, error = 0;
             await System.Threading.Tasks.Task.Yield();
-            await using(connect)
+            //await using(connect)
             {
                 try
                 {

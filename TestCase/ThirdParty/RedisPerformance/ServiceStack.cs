@@ -18,7 +18,6 @@ namespace RedisPerformance
         internal static async Task Test(Data.Address data)
         {
             //ServiceStack.LicenseException: The free-quota limit on '6000 Redis requests per hour' has been reached. Please see https://servicestack.net to upgrade to a commercial license or visit https://github.com/ServiceStackV3/ServiceStackV3 to revert back to the free ServiceStack v3.
-            Left = AutoCSer.Random.Default.Next();
 
             await test(nameof(ServiceStack.Set), data);
             await test(nameof(ServiceStack.Get), data);

@@ -18,8 +18,6 @@ namespace RedisPerformance
         /// <returns></returns>
         internal static async Task Test(Data.Address data, int taskCount = 1 << 10)
         {
-            Left = AutoCSer.Random.Default.Next();
-
             using (Redis client = Redis.UseStandalone(option =>
             {
                 option.Host = "127.0.0.1";
