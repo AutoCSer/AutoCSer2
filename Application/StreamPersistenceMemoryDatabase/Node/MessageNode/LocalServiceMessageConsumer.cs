@@ -32,7 +32,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.service = client.Service;
             this.delayMilliseconds = Math.Max(delayMilliseconds, 1);
         }
-
     }
     /// <summary>
     /// 消息节点消费者

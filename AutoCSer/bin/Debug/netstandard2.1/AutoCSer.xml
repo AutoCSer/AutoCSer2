@@ -866,7 +866,7 @@
             <typeparam name="T"></typeparam>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJson``1(``0@)">
+        <member name="M:AutoCSer.BinaryDeserializer.CommandClientDeserializeJsonBuffer``1(``0@)">
             <summary>
             JSON 反序列化
             </summary>
@@ -9290,6 +9290,21 @@
             <param name="task"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Extensions.TaskExtension.getResult``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtension.wait(System.Threading.Tasks.Task)">
+            <summary>
+            从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Extensions.NullableReferenceExtension">
             <summary>
             可空引用类型扩展操作
@@ -13554,6 +13569,41 @@
             当指针匹配时清空数据
             </summary>
             <param name="data"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.MoveData(System.Int32)">
+            <summary>
+            移动临时指针位置并返回移动后有的当前数据操作位置
+            </summary>
+            <param name="count"></param>
+            <returns>移动后有的当前数据操作位置</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetMoveData(System.Int32,System.Int32@)">
+            <summary>
+            移动临时指针位置并返回移动后的指针
+            </summary>
+            <param name="count"></param>
+            <param name="index">移动前的当前数据操作位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.CopyMoveData(AutoCSer.Memory.Pointer@,System.Int32)">
+            <summary>
+            临时指针复制并移动位置
+            </summary>
+            <param name="pointer"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetReadOnlySpan">
+            <summary>
+            获取 ReadOnlySpan
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetReadOnlySpan(System.Int32)">
+            <summary>
+            获取 ReadOnlySpan
+            </summary>
+            <param name="start"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.Slice(System.Int32,System.Int32)">
             <summary>
@@ -19527,12 +19577,12 @@
             完成状态
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.BaseReturnCommand.returnType">
+        <member name="F:AutoCSer.Net.CommandServer.BaseReturnCommand.ReturnType">
             <summary>
             返回类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.BaseReturnCommand.errorMessage">
+        <member name="F:AutoCSer.Net.CommandServer.BaseReturnCommand.ErrorMessage">
             <summary>
             错误信息
             </summary>
@@ -19551,7 +19601,7 @@
             <param name="buildInfo">TCP 客户端创建命令参数</param>
             <returns>是否成功</returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+        <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.OnCompleted(System.Action)">
             <summary>
             设置异步回调
             </summary>
@@ -24993,14 +25043,12 @@
             压缩级别默认为快速压缩，如果是大数据量传输建议用 CPU 换带宽修改为默认压缩
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientCompressConfig.TransferEncode(AutoCSer.Net.CommandClientSocket,System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandClientCompressConfig.TransferEncode(AutoCSer.Net.CommandClientSocket,System.ReadOnlySpan{System.Byte},AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
             <summary>
             发送数据编码
             </summary>
             <param name="socket">命令客户端套接字</param>
             <param name="data">原始数据</param>
-            <param name="dataIndex">原始数据起始位置</param>
-            <param name="dataSize">原始数据字节数</param>
             <param name="buffer">输出数据缓冲区</param>
             <param name="outputData">输出数据</param>
             <param name="outputSeek">输出数据起始位置</param>
@@ -25152,14 +25200,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientConfig.TransferEncode(AutoCSer.Net.CommandClientSocket,System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandClientConfig.TransferEncode(AutoCSer.Net.CommandClientSocket,System.ReadOnlySpan{System.Byte},AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
             <summary>
             发送数据编码
             </summary>
             <param name="socket">命令客户端套接字</param>
             <param name="data">原始数据</param>
-            <param name="dataIndex">原始数据起始位置</param>
-            <param name="dataSize">原始数据字节数</param>
             <param name="buffer">输出数据缓冲区</param>
             <param name="outputData">输出数据</param>
             <param name="outputSeek">输出数据起始位置</param>
@@ -28874,7 +28920,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.Net.ReturnCommand`1.returnValue">
+        <member name="F:AutoCSer.Net.ReturnCommand`1.ReturnValue">
             <summary>
             返回值
             </summary>
@@ -30075,12 +30121,12 @@
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.transferDataSize">
             <summary>
-            当前数据编码后的字节大小
+            当前接收数据编码后的字节大小
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.dataSize">
             <summary>
-            当前数据字节大小
+            当前接收数据字节大小
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveSocketError">
@@ -34998,6 +35044,18 @@
             <summary>
             锁超时检查时间戳，默认为 60s
             </summary>
+        </member>
+        <member name="M:AutoCSer.Config.Compress(System.ReadOnlySpan{System.Byte},AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32,System.IO.Compression.CompressionLevel)">
+            <summary>
+            压缩数据
+            </summary>
+            <param name="data">原始数据</param>
+            <param name="buffer">压缩输出缓冲区</param>
+            <param name="compressData">压缩后的数据</param>
+            <param name="seek">压缩输出起始位置</param>
+            <param name="compressHeadSize">压缩多余头部大小</param>
+            <param name="level"></param>
+            <returns>是否压缩成功</returns>
         </member>
         <member name="M:AutoCSer.Config.Compress(System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32,System.IO.Compression.CompressionLevel)">
             <summary>
@@ -40508,6 +40566,77 @@
             匿名类型序列化配置
             </summary>
         </member>
+        <member name="T:AutoCSer.WaitTask">
+            <summary>
+            开启线程调用 Task.Wait() 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask.task">
+            <summary>
+            被调度任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask.waitLock">
+            <summary>
+            返回值等待锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask.#ctor(System.Threading.Tasks.Task)">
+            <summary>
+            获取 Task.Result
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.WaitTask.wait">
+            <summary>
+            获取返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask.Wait">
+            <summary>
+            获取返回值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.WaitTask`1">
+            <summary>
+            开启线程获取 Task.Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.WaitTask`1.task">
+            <summary>
+            被调度任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask`1.waitLock">
+            <summary>
+            返回值等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask`1.result">
+            <summary>
+            任务返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask`1.#ctor(System.Threading.Tasks.Task{`0})">
+            <summary>
+            获取 Task.Result
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.WaitTask`1.getResult">
+            <summary>
+            获取返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask`1.GetResult(System.Exception@)">
+            <summary>
+            获取返回值
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TextDeserializeConfig">
             <summary>
             文本反序列化配置参数
@@ -42754,6 +42883,13 @@
             修改起始位置
             </summary>
             <param name="size"></param>
+        </member>
+        <member name="M:AutoCSer.SubArray`1.GetMoveStartLength(System.Int32)">
+            <summary>
+            修改起始位置并返回数据长度
+            </summary>
+            <param name="size"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.SubArray`1.GetArray">
             <summary>

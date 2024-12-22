@@ -1,5 +1,7 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Threading;
 using System;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CodeGenerator
 {

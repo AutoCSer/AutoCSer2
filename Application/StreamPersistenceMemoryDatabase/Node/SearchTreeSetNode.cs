@@ -37,23 +37,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return searchTreeSet.Count;
         }
         /// <summary>
-        /// 添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> AddBeforePersistence(T value)
-        {
-            if (value == null || searchTreeSet.Contains(value)) return false;
-            return default(ValueResult<bool>);
-        }
-        /// <summary>
         /// 添加数据
         /// </summary>
         /// <param name="value">关键字</param>
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         public bool Add(T value)
         {
-            return searchTreeSet.Add(value);
+            return value != null && searchTreeSet.Add(value);
         }
         /// <summary>
         /// 清除所有数据
@@ -72,23 +62,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return value != null && searchTreeSet.Contains(value);
         }
         /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> RemoveBeforePersistence(T value)
-        {
-            if (value == null || !searchTreeSet.Contains(value)) return false;
-            return default(ValueResult<bool>);
-        }
-        /// <summary>
         /// 删除关键字
         /// </summary>
         /// <param name="value">关键字</param>
         /// <returns>是否删除成功</returns>
         public bool Remove(T value)
         {
-            return searchTreeSet.Remove(value);
+            return value != null && searchTreeSet.Remove(value);
         }
         /// <summary>
         /// 获取第一个数据

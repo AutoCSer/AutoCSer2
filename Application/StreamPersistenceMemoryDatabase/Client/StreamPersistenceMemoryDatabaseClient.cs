@@ -32,7 +32,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="node">客户端节点</param>
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
-        public abstract Task<ResponseResult<bool>> RemoveNode(ClientNode node);
+        public abstract ResponseParameterAwaiter<bool> RemoveNode(ClientNode node);
         /// <summary>
         /// 获取节点，不存在则创建节点
         /// </summary>
@@ -41,7 +41,7 @@ namespace AutoCSer.CommandService
         /// <param name="creator">创建客户端节点委托</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点接口对象派生自 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode{T}</returns>
-        public async Task<ResponseResult<T>> GetOrCreateNode<T>(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
+        public async Task<ResponseResult<T>> GetOrCreateNode<T>(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
             ResponseResult<NodeIndex> nodeIndex = await GetOrCreateNodeIndex<T>(key, creator);
             if (nodeIndex.IsSuccess) return ClientNodeCreator<T>.Create(key, creator, this, nodeIndex.Value, isPersistenceCallbackExceptionRenewNode);
@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点接口对象派生自 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode{T}</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<T>> GetOrCreateNode<T, PT>(string key, PT parameter, Func<NodeIndex, string, NodeInfo, PT, Task<ResponseResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
+        public Task<ResponseResult<T>> GetOrCreateNode<T, PT>(string key, PT parameter, Func<NodeIndex, string, NodeInfo, PT, ResponseParameterAwaiter<NodeIndex>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
             return GetOrCreateNode<T>(key, (nodexIndex, nodeKey, nodeInfo) => creator(nodexIndex, nodeKey, nodeInfo, parameter), isPersistenceCallbackExceptionRenewNode);
         }
@@ -69,7 +69,7 @@ namespace AutoCSer.CommandService
         /// <param name="key">节点全局关键字</param>
         /// <param name="creator">创建客户端节点委托</param>
         /// <returns></returns>
-        internal async Task<ResponseResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator) where T : class
+        internal async Task<ResponseResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator) where T : class
         {
             var exception = default(Exception);
             NodeInfo nodeInfo = ClientNodeCreator<T>.GetNodeInfo(out exception);
@@ -153,12 +153,10 @@ namespace AutoCSer.CommandService
         /// <param name="node"></param>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
-        internal static async Task<ResponseResult> Call(ClientNode node, int methodIndex)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static ResponseResultAwaiter Call(ClientNode node, int methodIndex)
         {
-            NodeIndex nodeIndex = node.Index;
-            CommandClientReturnValue<CallStateEnum> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.Call(nodeIndex, methodIndex);
-            if (returnValue.ReturnType == CommandClientReturnTypeEnum.Success && returnValue.Value != CallStateEnum.Success) await node.CheckStateAsync(nodeIndex, returnValue.Value);
-            return new ResponseResult(returnValue);
+            return new ResponseResultAwaiter(node, node.Client.Client.StreamPersistenceMemoryDatabaseClient.Call(node.Index, methodIndex));
         }
         /// <summary>
         /// 调用节点方法
@@ -168,12 +166,10 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="parameter">调用方法请求参数</param>
         /// <returns></returns>
-        internal static async Task<ResponseResult> CallInput<T>(ClientNode node, int methodIndex, T parameter) where T : struct
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static ResponseResultAwaiter CallInput<T>(ClientNode node, int methodIndex, T parameter) where T : struct
         {
-            NodeIndex nodeIndex = node.Index;
-            CommandClientReturnValue<CallStateEnum> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(nodeIndex, methodIndex, new RequestParameterBinarySerializer<T>(ref parameter)));
-            if (returnValue.ReturnType == CommandClientReturnTypeEnum.Success && returnValue.Value != CallStateEnum.Success) await node.CheckStateAsync(nodeIndex, returnValue.Value);
-            return new ResponseResult(returnValue);
+            return new ResponseResultAwaiter(node, node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterBinarySerializer<T>(ref parameter))));
         }
         /// <summary>
         /// 调用节点方法
@@ -183,12 +179,10 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="parameter">调用方法请求参数</param>
         /// <returns></returns>
-        internal static async Task<ResponseResult> SimpleSerializeCallInput<T>(ClientNode node, int methodIndex, T parameter) where T : struct
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static ResponseResultAwaiter SimpleSerializeCallInput<T>(ClientNode node, int methodIndex, T parameter) where T : struct
         {
-            NodeIndex nodeIndex = node.Index;
-            CommandClientReturnValue<CallStateEnum> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(nodeIndex, methodIndex, new RequestParameterSimpleSerializer<T> (ref parameter)));
-            if (returnValue.ReturnType == CommandClientReturnTypeEnum.Success && returnValue.Value != CallStateEnum.Success) await node.CheckStateAsync(nodeIndex, returnValue.Value);
-            return new ResponseResult(returnValue);
+            return new ResponseResultAwaiter(node, node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterSimpleSerializer<T>(ref parameter))));
         }
         /// <summary>
         /// 调用节点方法
@@ -197,24 +191,11 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="responseParameter">返回参数</param>
         /// <returns></returns>
-        internal static async Task<ResponseResult<ResponseParameter>> CallOutputResponseParameter(ClientNode node, int methodIndex, ResponseParameter responseParameter)
+        internal static ResponseParameterAwaiter<ResponseParameter> CallOutputResponseParameter(ClientNode node, int methodIndex, ResponseParameter responseParameter)
         {
-            NodeIndex nodeIndex = node.Index;
-            CommandClientReturnValue<ResponseParameter> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, nodeIndex, methodIndex);
-            if (returnValue.IsSuccess)
-            {
-                switch (responseParameter.State)
-                {
-                    case CallStateEnum.Success: return new ResponseResult<ResponseParameter>(responseParameter);
-                    case CallStateEnum.PersistenceCallbackException: await node.Renew(nodeIndex); break;
-                    case CallStateEnum.NodeIndexOutOfRange:
-                    case CallStateEnum.NodeIdentityNotMatch:
-                        await node.Reindex(nodeIndex);
-                        break;
-                }
-                return returnValue.Value.State;
-            }
-            return new ResponseResult<ResponseParameter>(returnValue.ReturnType, returnValue.ErrorMessage);
+            ResponseParameterAwaiter<ResponseParameter> responseParameterAwaiter = new ResponseParameterAwaiter<ResponseParameter>(node, responseParameter);
+            responseParameterAwaiter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, node.Index, methodIndex));
+            return responseParameterAwaiter;
         }
         /// <summary>
         /// 调用节点方法
@@ -223,25 +204,11 @@ namespace AutoCSer.CommandService
         /// <param name="node">客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <returns></returns>
-        internal static async Task<ResponseResult<T>> CallOutput<T>(ClientNode node, int methodIndex)
+        internal static ResponseParameterAwaiter<T> CallOutput<T>(ClientNode node, int methodIndex)
         {
-            NodeIndex nodeIndex = node.Index;
-            ResponseParameter<T> responseParameter = new BinarySerializeResponseParameter<T>();
-            CommandClientReturnValue<ResponseParameter> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, nodeIndex, methodIndex);
-            if (returnValue.IsSuccess)
-            {
-                switch (returnValue.Value.State)
-                {
-                    case CallStateEnum.Success: return new ResponseResult<T>(responseParameter.Value.ReturnValue);
-                    case CallStateEnum.PersistenceCallbackException: await node.Renew(nodeIndex); break;
-                    case CallStateEnum.NodeIndexOutOfRange:
-                    case CallStateEnum.NodeIdentityNotMatch:
-                        await node.Reindex(nodeIndex);
-                        break;
-                }
-                return returnValue.Value.State;
-            }
-            return new ResponseResult<T>(returnValue.ReturnType, returnValue.ErrorMessage);
+            ResponseParameterAwaiter<T> responseParameter = new BinarySerializeResponseParameterAwaiter<T>(node);
+            responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, node.Index, methodIndex));
+            return responseParameter;
         }
         /// <summary>
         /// 调用节点方法
@@ -250,25 +217,11 @@ namespace AutoCSer.CommandService
         /// <param name="node">客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <returns></returns>
-        internal static async Task<ResponseResult<T>> SimpleDeserializeCallOutput<T>(ClientNode node, int methodIndex)
+        internal static ResponseParameterAwaiter<T> SimpleDeserializeCallOutput<T>(ClientNode node, int methodIndex)
         {
-            NodeIndex nodeIndex = node.Index;
-            ResponseParameter<T> responseParameter = new SimpleSerializeResponseParameter<T>();
-            CommandClientReturnValue<ResponseParameter> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, nodeIndex, methodIndex);
-            if (returnValue.IsSuccess)
-            {
-                switch (returnValue.Value.State)
-                {
-                    case CallStateEnum.Success: return new ResponseResult<T>(responseParameter.Value.ReturnValue);
-                    case CallStateEnum.PersistenceCallbackException: await node.Renew(nodeIndex); break;
-                    case CallStateEnum.NodeIndexOutOfRange:
-                    case CallStateEnum.NodeIdentityNotMatch:
-                        await node.Reindex(nodeIndex);
-                        break;
-                }
-                return returnValue.Value.State;
-            }
-            return new ResponseResult<T>(returnValue.ReturnType, returnValue.ErrorMessage);
+            ResponseParameterAwaiter<T> responseParameter = new SimpleSerializeResponseParameterAwaiter<T>(node);
+            responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, node.Index, methodIndex));
+            return responseParameter;
         }
         /// <summary>
         /// 调用节点方法
@@ -280,25 +233,12 @@ namespace AutoCSer.CommandService
         /// <param name="flags">服务端节点方法标记</param>
         /// <param name="parameter">调用方法请求参数</param>
         /// <returns></returns>
-        internal static async Task<ResponseResult<ResponseParameter>> CallInputOutputResponseParameter<T>(ClientNode node, int methodIndex, ResponseParameter responseParameter, MethodFlagsEnum flags, T parameter)
+        internal static ResponseParameterAwaiter<ResponseParameter> CallInputOutputResponseParameter<T>(ClientNode node, int methodIndex, ResponseParameter responseParameter, MethodFlagsEnum flags, T parameter)
             where T : struct
         {
-            NodeIndex nodeIndex = node.Index;
-            CommandClientReturnValue<ResponseParameter> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(nodeIndex, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
-            if (returnValue.IsSuccess)
-            {
-                switch (responseParameter.State)
-                {
-                    case CallStateEnum.Success: return new ResponseResult<ResponseParameter>(responseParameter);
-                    case CallStateEnum.PersistenceCallbackException: await node.Renew(nodeIndex); break;
-                    case CallStateEnum.NodeIndexOutOfRange:
-                    case CallStateEnum.NodeIdentityNotMatch:
-                        await node.Reindex(nodeIndex);
-                        break;
-                }
-                return returnValue.Value.State;
-            }
-            return new ResponseResult<ResponseParameter>(returnValue.ReturnType, returnValue.ErrorMessage);
+            ResponseParameterAwaiter<ResponseParameter> responseParameterAwaiter = new ResponseParameterAwaiter<ResponseParameter>(node, responseParameter);
+            responseParameterAwaiter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter))));
+            return responseParameterAwaiter;
         }
         /// <summary>
         /// 调用节点方法
@@ -310,26 +250,21 @@ namespace AutoCSer.CommandService
         /// <param name="flags">服务端节点方法标记</param>
         /// <param name="parameter">调用方法请求参数</param>
         /// <returns></returns>
-        internal static async Task<ResponseResult<RT>> CallInputOutput<T, RT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, T parameter)
+        internal static ResponseParameterAwaiter<RT> CallInputOutput<T, RT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, T parameter)
             where T : struct
         {
-            NodeIndex nodeIndex = node.Index;
-            ResponseParameter<RT> responseParameter = (flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0 ? (ResponseParameter<RT>)new SimpleSerializeResponseParameter<RT>() : new BinarySerializeResponseParameter<RT>();
-            CommandClientReturnValue<ResponseParameter> returnValue = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(nodeIndex, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
-            if (returnValue.IsSuccess)
+            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
             {
-                switch (returnValue.Value.State)
-                {
-                    case CallStateEnum.Success: return new ResponseResult<RT>(responseParameter.Value.ReturnValue);
-                    case CallStateEnum.PersistenceCallbackException: await node.Renew(nodeIndex); break;
-                    case CallStateEnum.NodeIndexOutOfRange:
-                    case CallStateEnum.NodeIdentityNotMatch:
-                        await node.Reindex(nodeIndex);
-                        break;
-                }
-                return returnValue.Value.State;
+                ResponseParameterAwaiter<RT> responseParameter = new SimpleSerializeResponseParameterAwaiter<RT>(node);
+                responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter))));
+                return responseParameter;
             }
-            return new ResponseResult<RT>(returnValue.ReturnType, returnValue.ErrorMessage);
+            else
+            {
+                ResponseParameterAwaiter<RT> responseParameter = new BinarySerializeResponseParameterAwaiter<RT>(node);
+                responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter))));
+                return responseParameter;
+            }
         }
         /// <summary>
         /// 调用节点方法
@@ -507,7 +442,7 @@ namespace AutoCSer.CommandService
         /// <param name="index">节点索引信息</param>
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<bool>> RemoveNode(NodeIndex index)
+        public ResponseParameterAwaiter<bool> RemoveNode(NodeIndex index)
         {
             return ClientNode.RemoveNode(index);
         }
@@ -517,7 +452,7 @@ namespace AutoCSer.CommandService
         /// <param name="node">客户端节点</param>
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public override Task<ResponseResult<bool>> RemoveNode(ClientNode node)
+        public override ResponseParameterAwaiter<bool> RemoveNode(ClientNode node)
         {
             return ClientNode.RemoveNode(node.Index);
         }
@@ -534,6 +469,20 @@ namespace AutoCSer.CommandService
         public Task<ResponseResult<IMessageNodeClientNode<ServerByteArrayMessage>>> GetOrCreateServerByteArrayMessageNode(string key, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IMessageNodeClientNode<ServerByteArrayMessage>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateServerByteArrayMessageNode(index, nodeKey, nodeInfo, arraySize, timeoutSeconds, checkTimeoutSeconds), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
+        /// 获取消息处理节点，不存在则创建节点 MessageNode{BinaryMessage{T}}
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="arraySize">正在处理消息数组大小</param>
+        /// <param name="timeoutSeconds">消息处理超时秒数</param>
+        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IMessageNodeClientNode<BinaryMessage<T>>>> GetOrCreateBinaryMessageNode<T>(string key, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1, bool isPersistenceCallbackExceptionRenewNode = false)
+        {
+            return GetOrCreateNode<IMessageNodeClientNode<BinaryMessage<T>>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateMessageNode(index, nodeKey, nodeInfo, typeof(BinaryMessage<T>), arraySize, timeoutSeconds, checkTimeoutSeconds), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取消息处理节点，不存在则创建节点 MessageNode{T}

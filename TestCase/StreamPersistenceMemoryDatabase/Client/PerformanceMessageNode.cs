@@ -40,7 +40,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         private IEnumerable<Task> getAppendMessageTask(CommandClientConfig config, bool isPersistence)
         {
             int taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, isPersistence, taskCount);
+            testValue = reset(maxTestCount >> 1, isPersistence, taskCount);
             while (--taskCount >= 0) yield return AppendMessage();
         }
         internal async Task AppendMessage()

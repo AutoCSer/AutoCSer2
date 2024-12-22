@@ -17,11 +17,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 客户端节点方法构造函数参数
         /// </summary>
-        internal static readonly Type[] NodeConstructorParameterTypes = new Type[] { typeof(string), typeof(Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>), typeof(StreamPersistenceMemoryDatabaseClient), typeof(NodeIndex), typeof(bool) };
+        internal static readonly Type[] NodeConstructorParameterTypes = new Type[] { typeof(string), typeof(Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>), typeof(StreamPersistenceMemoryDatabaseClient), typeof(NodeIndex), typeof(bool) };
+        //internal static readonly Type[] NodeConstructorParameterTypes = new Type[] { typeof(string), typeof(Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>), typeof(StreamPersistenceMemoryDatabaseClient), typeof(NodeIndex), typeof(bool) };
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly Func<ClientNode, int, Task<ResponseResult>> StreamPersistenceMemoryDatabaseClientCall = StreamPersistenceMemoryDatabaseClient.Call;
+        internal static readonly Func<ClientNode, int, ResponseResultAwaiter> StreamPersistenceMemoryDatabaseClientCall = StreamPersistenceMemoryDatabaseClient.Call;
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -33,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly Func<ClientNode, int, ResponseParameter, Task<ResponseResult<ResponseParameter>>> StreamPersistenceMemoryDatabaseClientCallOutputResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputResponseParameter;
+        internal static readonly Func<ClientNode, int, ResponseParameter, ResponseParameterAwaiter<ResponseParameter>> StreamPersistenceMemoryDatabaseClientCallOutputResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputResponseParameter;
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -55,9 +56,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns></returns>
 #if NetStandard21
-        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>? creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>? creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
 #else
-        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
 #endif
         {
             if (creatorException == null)
@@ -96,9 +97,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
 #if NetStandard21
         [AllowNull]
-        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T> creator;
+        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T> creator;
 #else
-        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T> creator;
+        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T> creator;
 #endif
         /// <summary>
         /// 节点构造错误
@@ -251,9 +252,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(ClientNodeCreator.NodeConstructorParameterTypes).notNull());
                 callConstructorGenerator.Emit(OpCodes.Ret);
 #if NetStandard21
-                creator = (Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>));
+                creator = (Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>));
 #else
-                creator = (Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>));
+                creator = (Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>));
 #endif
                 NodeInfo = new NodeInfo(serverType);
             }
@@ -266,15 +267,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public interface IDictionary<KT, VT>
             where KT : IEquatable<KT>
         {
-            Task<ResponseResult> Clear();
-            Task<ResponseResult> Add(KT key, VT value);
-            Task<ResponseResult> Set(KT key, VT value);
-            Task<ResponseResult<VT>> Get(KT key);
+            ResponseParameterAwaiter Clear();
+            ResponseParameterAwaiter Add(KT key, VT value);
+            ResponseParameterAwaiter Set(KT key, VT value);
+            ResponseParameterAwaiter<VT> Get(KT key);
         }
         internal sealed class Dictionary<KT, VT> : ClientNode<IDictionary<KT, VT>>, IDictionary<KT, VT>
             where KT : IEquatable<KT>
         {
-            public Dictionary(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode) : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
+            public Dictionary(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode) : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
             private struct p0
             {
                 public KT key;
@@ -284,23 +285,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 public KT key;
             }
-            Task<ResponseResult> IDictionary<KT, VT>.Clear()
+            ResponseParameterAwaiter IDictionary<KT, VT>.Clear()
             {
                 return StreamPersistenceMemoryDatabaseClient.Call(this, 0);
             }
-            Task<ResponseResult> IDictionary<KT, VT>.Add(KT key, VT value)
+            ResponseParameterAwaiter IDictionary<KT, VT>.Add(KT key, VT value)
             {
                 return StreamPersistenceMemoryDatabaseClient.CallInput(this, 0, new p0 { key = key, value = value });
             }
-            Task<ResponseResult> IDictionary<KT, VT>.Set(KT key, VT value)
+            ResponseParameterAwaiter IDictionary<KT, VT>.Set(KT key, VT value)
             {
                 return StreamPersistenceMemoryDatabaseClient.CallInput(this, 1, new p0 { key = key, value = value });
             }
-            Task<ResponseResult<VT>> IDictionary<KT, VT>.Get(KT key)
+            ResponseParameterAwaiter<VT> IDictionary<KT, VT>.Get(KT key)
             {
                 return StreamPersistenceMemoryDatabaseClient.CallInputOutput<p1, VT>(this, 2, 0, new p1 { key = key });
             }
-            public static IDictionary<KT, VT> Create(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+            public static IDictionary<KT, VT> Create(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
             {
                 return new Dictionary<KT, VT>(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
             }

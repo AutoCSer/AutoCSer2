@@ -18,7 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建节点操作对象委托
         /// </summary>
-        internal readonly Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> Creator;
+        internal readonly Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> Creator;
         /// <summary>
         /// 日志流持久化内存数据库客户端
         /// </summary>
@@ -47,7 +47,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="client">日志流持久化内存数据库客户端</param>
         /// <param name="index">节点索引信息</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
-        protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        //protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
         {
             this.Creator = creator;
             this.Key = key;
@@ -154,7 +155,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="client">日志流持久化内存数据库客户端</param>
         /// <param name="index">节点索引信息</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
-        protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator,  StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        //protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator,  StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
             : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
         /// <summary>
         /// 节点重建

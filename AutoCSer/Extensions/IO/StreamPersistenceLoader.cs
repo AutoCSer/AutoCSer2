@@ -338,7 +338,7 @@ namespace AutoCSer.IO
                         try
                         {
                             SubArray<byte> nextData = compressBuffer.GetSubArray(dataSize);
-                            if (!AutoCSer.Common.Config.Decompress(ref compressionData, ref nextData))
+                            if (!Decompress(ref compressionData, ref nextData))
                             {
                                 throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position + (start - compressionDataStart)} 处数据解压缩失败");
                             }
@@ -354,6 +354,16 @@ namespace AutoCSer.IO
                     }
                 }
             }
+        }
+        /// <summary>
+        /// 解压数据
+        /// </summary>
+        /// <param name="compressData">压缩后的数据</param>
+        /// <param name="destinationData">等待写入的原始数据缓冲区</param>
+        /// <returns>是否解压成功</returns>
+        internal virtual bool Decompress(ref SubArray<byte> compressData, ref SubArray<byte> destinationData)
+        {
+            return AutoCSer.Common.Config.Decompress(ref compressData, ref destinationData);
         }
         /// <summary>
         /// 加载数据

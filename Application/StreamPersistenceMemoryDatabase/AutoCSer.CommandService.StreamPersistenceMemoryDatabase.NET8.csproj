@@ -31,6 +31,8 @@
 
   <ItemGroup>
     <Compile Include="BinarySerializeResponseParameter.cs" />
+    <Compile Include="BinarySerializeResponseParameterAwaiter.cs" />
+    <Compile Include="BinarySerializeResponseParameterValueResultAwaiter.cs" />
     <Compile Include="CallStateEnum.cs" />
     <Compile Include="Client\DistributedClient.cs" />
     <Compile Include="Client\DistributedClientRepairNodeMethodState.cs" />
@@ -61,7 +63,7 @@
     <Compile Include="Extensions\MethodKeepCallbackExtension.cs" />
     <Compile Include="Extensions\ResponseResultExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
-    <Compile Include="JsonResponseParameter.cs" />
+    <Compile Include="JsonResponseParameterAwaiter.cs" />
     <Compile Include="JsonValue.cs" />
     <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
     <Compile Include="KeepCallbackResponseParameter.cs" />
@@ -137,6 +139,8 @@
     <Compile Include="Node\IByteArrayStackNode.cs" />
     <Compile Include="Node\MessageNode\BinaryMessage.cs" />
     <Compile Include="Node\IIdentityGeneratorNode.cs" />
+    <Compile Include="Node\MessageNode\LocalServiceOnBinaryMessageConsumer.cs" />
+    <Compile Include="Node\MessageNode\OnBinaryMessageConsumer.cs" />
     <Compile Include="Node\MessageNode\IMessageNode.cs" />
     <Compile Include="Node\IArrayNode.cs" />
     <Compile Include="Node\IBitmapNode.cs" />
@@ -165,6 +169,9 @@
     <Compile Include="Node\MessageNode\MessageNodeCheckTimer.cs" />
     <Compile Include="Node\MessageNode\MessageNodeCreator.cs" />
     <Compile Include="Node\MessageNode\MessageNodeLoader.cs" />
+    <Compile Include="Node\MessageNode\OnServerByteArrayMessageConsumer.cs" />
+    <Compile Include="Node\MessageNode\OnServerByteArrayMessageJsonConsumer.cs" />
+    <Compile Include="Node\MessageNode\OnServerByteArrayMessageStringConsumer.cs" />
     <Compile Include="Node\MessageNode\ServerByteArrayMessage.cs" />
     <Compile Include="Node\MessageNode\ServerByteArrayMessageConsumer.cs" />
     <Compile Include="Node\MessageNode\BinaryMessageConsumer.cs" />
@@ -206,11 +213,14 @@
     <Compile Include="CallTypeEnum.cs" />
     <Compile Include="Node\DictionaryNode.cs" />
     <Compile Include="Node\IDictionaryNode.cs" />
+    <Compile Include="ResponseParameterAwaiter.cs" />
     <Compile Include="ResponseParameterBinarySerializer.cs" />
     <Compile Include="ResponseParameterSerializer.cs" />
     <Compile Include="ResponseParameterSimpleSerializer.cs" />
+    <Compile Include="ResponseResultAwaiter.cs" />
     <Compile Include="ResponseServerByteArray.cs" />
     <Compile Include="ResponseServerByteArraySerializer.cs" />
+    <Compile Include="ResponseValueResult.cs" />
     <Compile Include="ServerByteArray.cs" />
     <Compile Include="Server\Backuper.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
@@ -278,8 +288,9 @@
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceConfig.cs" />
     <Compile Include="Server\SlaveService.cs" />
     <Compile Include="SimpleSerializeResponseParameter.cs" />
+    <Compile Include="SimpleSerializeResponseParameterAwaiter.cs" />
     <Compile Include="StringRequestParameterSerializer.cs" />
-    <Compile Include="StringResponseParameter.cs" />
+    <Compile Include="StringResponseParameterAwaiter.cs" />
     <Compile Include="ValueResult.cs" />
     <Compile Include="{AutoCSer.CommandService.StreamPersistenceMemoryDatabase}.AutoCSer.cs" />
   </ItemGroup>

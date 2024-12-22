@@ -89,6 +89,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             ConsoleWriteQueue.Breakpoint($"*ERROR+{result.Value.IsValue}+ERROR*", callerMemberName, callerFilePath, callerLineNumber);
             return false;
         }
+        internal static bool Breakpoint<T>(ResponseValueResult<T> result, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        {
+            if (result.IsSuccess)
+            {
+                if (result.IsValue) return true;
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{result.IsValue}+ERROR*", callerMemberName, callerFilePath, callerLineNumber);
+            }
+            else ConsoleWriteQueue.Breakpoint($"*ERROR+{result.ReturnType}+{result.CallState}+ERROR*", callerMemberName, callerFilePath, callerLineNumber);
+            return false;
+        }
         internal static bool Breakpoint(CommandClientReturnValue<CallStateEnum> result, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
         {
             if (ConsoleWriteQueue.Breakpoint<CallStateEnum>(result, callerMemberName, callerFilePath, callerLineNumber)) return true;

@@ -107,11 +107,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputDelegate { get { return (Func<ClientNode, int, T, Task<ResponseResult>>)StreamPersistenceMemoryDatabaseClient.CallInput<T>; } }
+        internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputDelegate { get { return (Func<ClientNode, int, T, ResponseResultAwaiter>)StreamPersistenceMemoryDatabaseClient.CallInput<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputResponseParameterDelegate { get { return (Func<ClientNode, int, ResponseParameter, MethodFlagsEnum, T, Task<ResponseResult<ResponseParameter>>>)StreamPersistenceMemoryDatabaseClient.CallInputOutputResponseParameter<T>; } }
+        internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputResponseParameterDelegate { get { return (Func<ClientNode, int, ResponseParameter, MethodFlagsEnum, T, ResponseParameterAwaiter<ResponseParameter>>)StreamPersistenceMemoryDatabaseClient.CallInputOutputResponseParameter<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -119,7 +119,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputDelegate { get { return (Func<ClientNode, int, T, Task<ResponseResult>>)StreamPersistenceMemoryDatabaseClient.SimpleSerializeCallInput<T>; } }
+        internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputDelegate { get { return (Func<ClientNode, int, T, ResponseResultAwaiter>)StreamPersistenceMemoryDatabaseClient.SimpleSerializeCallInput<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>

@@ -10,12 +10,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public interface IServiceNode
     {
         /// <summary>
-        /// 删除节点持久化参数检查
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> RemoveNodeBeforePersistence(NodeIndex index);
-        /// <summary>
         /// 删除节点
         /// </summary>
         /// <param name="index">节点索引信息</param>

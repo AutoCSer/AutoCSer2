@@ -21,12 +21,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                 };
                 ServiceConfig cacheServiceConfig = new ServiceConfig
                 {
-                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase)),
-                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(ServiceConfig.PersistenceSwitchPath)),
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance)),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance) + nameof(ServiceConfig.PersistenceSwitchPath)),
                     CanCreateSlave = true
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create<IServiceNode>(p => new ServiceNode(p)))
+                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create())
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())
@@ -60,21 +60,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                     {
                         AutoCSer.TestCase.Common.ClientPerformance.Left = AutoCSer.Random.Default.Next();
 
-                        await IntByteArrayFragmentDictionaryNode.Test(clientNode, data);
-                        //IntByteArrayFragmentDictionaryNode+Server.SetBinarySerialize 8192 Concurrent Completed 10714ms 391/ms
-                        //IntByteArrayFragmentDictionaryNode+Server.GetBinarySerialize 8192 Concurrent Completed 14934ms 280/ms
-                        //IntByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 5887ms 712/ms
-                        //IntByteArrayFragmentDictionaryNode+Server.SetJsonSerialize 8192 Concurrent Completed 11534ms 363/ms
-                        //IntByteArrayFragmentDictionaryNode+Server.GetJsonSerialize 8192 Concurrent Completed 21640ms 193/ms
-                        //IntByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 5724ms 732/ms
-
                         await StringByteArrayFragmentDictionaryNode.Test(clientNode, data);
-                        //StringByteArrayFragmentDictionaryNode+Server.SetBinarySerialize 8192 Concurrent Completed 15118ms 277/ms
-                        //StringByteArrayFragmentDictionaryNode+Server.GetBinarySerialize 8192 Concurrent Completed 15326ms 273/ms
-                        //StringByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 7192ms 583/ms
-                        //StringByteArrayFragmentDictionaryNode+Server.SetJsonSerialize 8192 Concurrent Completed 13405ms 312/ms
-                        //StringByteArrayFragmentDictionaryNode+Server.GetJsonSerialize 8192 Concurrent Completed 22298ms 188/ms
-                        //StringByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 7195ms 582/ms
+                        //StringByteArrayFragmentDictionaryNode+Server.SetBinarySerialize 8192 Concurrent Completed 11370ms 368/ms
+                        //StringByteArrayFragmentDictionaryNode+Server.GetBinarySerialize 8192 Concurrent Completed 9409ms 445/ms
+                        //StringByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 6956ms 602/ms
+                        //StringByteArrayFragmentDictionaryNode+Server.SetJsonSerialize 8192 Concurrent Completed 11429ms 366/ms
+                        //StringByteArrayFragmentDictionaryNode+Server.GetJsonSerialize 8192 Concurrent Completed 13955ms 300/ms
+                        //StringByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 8334ms 503/ms
+
+                        await IntByteArrayFragmentDictionaryNode.Test(clientNode, data);
+                        //IntByteArrayFragmentDictionaryNode+Server.SetBinarySerialize 8192 Concurrent Completed 8072ms 519/ms
+                        //IntByteArrayFragmentDictionaryNode+Server.GetBinarySerialize 8192 Concurrent Completed 9220ms 454/ms
+                        //IntByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 4931ms 850/ms
+                        //IntByteArrayFragmentDictionaryNode+Server.SetJsonSerialize 8192 Concurrent Completed 9318ms 450/ms
+                        //IntByteArrayFragmentDictionaryNode+Server.GetJsonSerialize 8192 Concurrent Completed 13438ms 312/ms
+                        //IntByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 4784ms 876/ms
 
                         Console.WriteLine("Press quit to exit.");
                         if (Console.ReadLine() == "quit") return;

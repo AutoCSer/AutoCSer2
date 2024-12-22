@@ -32,37 +32,41 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否成功
         /// </summary>
         public bool IsSuccess { get { return CallState == CallStateEnum.Success && ReturnType == CommandClientReturnTypeEnum.Success; } }
+        ///// <summary>
+        ///// 返回结果
+        ///// </summary>
+        ///// <param name="returnValue"></param>
+        //internal ResponseResult(CommandClientReturnValue<CallStateEnum> returnValue)
+        //{
+        //    ReturnType = returnValue.ReturnType;
+        //    CallState = returnValue.Value;
+        //    ErrorMessage = returnValue.ErrorMessage;
+        //}
         /// <summary>
         /// 返回结果
         /// </summary>
-        /// <param name="returnValue"></param>
-        internal ResponseResult(CommandClientReturnValue<CallStateEnum> returnValue)
+        /// <param name="state"></param>
+        internal ResponseResult(CallStateEnum state)
         {
-            ReturnType = returnValue.ReturnType;
-            CallState = returnValue.Value;
-            ErrorMessage = returnValue.ErrorMessage;
+            ReturnType = CommandClientReturnTypeEnum.Success;
+            CallState = state;
+            ErrorMessage = null;
         }
-        ///// <summary>
-        ///// 返回结果
-        ///// </summary>
-        ///// <param name="state"></param>
-        //internal ResponseResult(CallStateEnum state)
-        //{
-        //    ReturnType = CommandClientReturnTypeEnum.Success;
-        //    CallState = state;
-        //    ErrorMessage = null;
-        //}
-        ///// <summary>
-        ///// 返回结果
-        ///// </summary>
-        ///// <param name="returnType"></param>
-        ///// <param name="errorMessage"></param>
-        //internal ResponseResult(CommandClientReturnTypeEnum returnType, string? errorMessage)
-        //{
-        //    ReturnType = returnType;
-        //    CallState = CallStateEnum.Unknown;
-        //    ErrorMessage = errorMessage;
-        //}
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="returnType"></param>
+        /// <param name="errorMessage"></param>
+#if NetStandard21
+        internal ResponseResult(CommandClientReturnTypeEnum returnType, string? errorMessage)
+#else
+        internal ResponseResult(CommandClientReturnTypeEnum returnType, string errorMessage)
+#endif
+        {
+            ReturnType = returnType;
+            CallState = CallStateEnum.Unknown;
+            ErrorMessage = errorMessage;
+        }
         /// <summary>
         /// 返回结果
         /// </summary>
@@ -194,38 +198,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (IsSuccess) return defaultValue;
             if (ReturnType == CommandClientReturnTypeEnum.Success) return CallState;
             return new ResponseResult<VT>(ReturnType, ErrorMessage);
-        }
-        /// <summary>
-        /// 返回结果类型转换
-        /// </summary>
-        /// <typeparam name="VT">目标类型</typeparam>
-        /// <param name="defaultValue">成功状态默认值</param>
-        /// <returns></returns>
-#if NetStandard21
-        public ResponseResult<ValueResult<VT?>> CastValueResult<VT>(VT? defaultValue)
-#else
-        public ResponseResult<ValueResult<VT>> CastValueResult<VT>(VT defaultValue)
-#endif
-        {
-#if NetStandard21
-            if (IsSuccess) return (ValueResult<VT?>)defaultValue;
-#else
-            if (IsSuccess) return (ValueResult<VT>)defaultValue;
-#endif
-            if (ReturnType == CommandClientReturnTypeEnum.Success)
-            {
-#if NetStandard21
-                if (CallState == CallStateEnum.NullResponseParameter) return default(ValueResult<VT?>);
-#else
-                if (CallState == CallStateEnum.NullResponseParameter) return default(ValueResult<VT>);
-#endif
-                return CallState;
-            }
-#if NetStandard21
-            return new ResponseResult<ValueResult<VT?>>(ReturnType, ErrorMessage);
-#else
-            return new ResponseResult<ValueResult<VT>>(ReturnType, ErrorMessage);
-#endif
         }
         /// <summary>
         /// 返回结果

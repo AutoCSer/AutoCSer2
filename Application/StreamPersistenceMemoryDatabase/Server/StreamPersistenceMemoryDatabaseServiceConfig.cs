@@ -93,14 +93,6 @@ namespace AutoCSer.CommandService
         /// </summary>
         public BufferSizeBitsEnum BufferSizeBits = BufferSizeBitsEnum.Kilobyte128;
         /// <summary>
-        /// 持久化数据启用压缩最低字节数量，默认为 4KB
-        /// </summary>
-        public int MinCompressSize = 4 << 10;
-        /// <summary>
-        /// 压缩级别默认为快速压缩
-        /// </summary>
-        public CompressionLevel CompressionLevel = CompressionLevel.Fastest;
-        /// <summary>
         /// 默认为 false 表示不允许创建从节点，如果没有从节点需求设置为 true 会导致内存空间浪费
         /// </summary>
         public bool CanCreateSlave;
@@ -134,6 +126,31 @@ namespace AutoCSer.CommandService
         {
             long persistencePosition = service.GetPersistencePosition();
             return (persistencePosition >> 1) >= service.RebuildSnapshotPosition && persistencePosition > 100 << 20;
+        }
+        /// <summary>
+        /// 压缩数据
+        /// </summary>
+        /// <param name="data">原始数据</param>
+        /// <param name="startIndex">原始数据起始位置</param>
+        /// <param name="dataSize">原始数据待压缩字节数</param>
+        /// <param name="buffer">压缩输出缓冲区</param>
+        /// <param name="compressData">压缩后的数据</param>
+        /// <param name="seek">压缩输出起始位置</param>
+        /// <param name="compressHeadSize">压缩多余头部大小</param>
+        /// <returns>是否压缩成功</returns>
+        public virtual bool Compress(byte[] data, int startIndex, int dataSize, ref ByteArrayBuffer buffer, ref SubArray<byte> compressData, int seek, int compressHeadSize)
+        {
+            return dataSize >= 4 << 10 && AutoCSer.Common.Config.Compress(data, startIndex, dataSize, ref buffer, ref compressData, seek, compressHeadSize, CompressionLevel.Fastest);
+        }
+        /// <summary>
+        /// 解压数据
+        /// </summary>
+        /// <param name="compressData">压缩后的数据</param>
+        /// <param name="destinationData">等待写入的原始数据缓冲区</param>
+        /// <returns>是否解压成功</returns>
+        public virtual bool Decompress(ref SubArray<byte> compressData, ref SubArray<byte> destinationData)
+        {
+            return AutoCSer.Common.Config.Decompress(ref compressData, ref destinationData);
         }
 
         /// <summary>

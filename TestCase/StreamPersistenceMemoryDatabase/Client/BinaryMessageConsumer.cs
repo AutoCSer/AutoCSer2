@@ -24,7 +24,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         private static readonly object messageLock = new object();
         internal static async Task Test(CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<IMessageNodeClientNode<BinaryMessage<TestClass>>> node = await client.GetOrCreateMessageNode<BinaryMessage<TestClass>>(typeof(IMessageNodeClientNode<BinaryMessage<TestClass>>).FullName, 1 << 10, 5, 1);
+            ResponseResult<IMessageNodeClientNode<BinaryMessage<TestClass>>> node = await client.GetOrCreateBinaryMessageNode<TestClass>(typeof(IMessageNodeClientNode<BinaryMessage<TestClass>>).FullName, 1 << 10, 5, 1);
             if (!Program.Breakpoint(node)) return;
             ResponseResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;

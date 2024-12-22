@@ -34,7 +34,7 @@ namespace AutoCSer.Search
         internal TrieGraphBuilderThread(TrieGraphNode<T> boot, AutoCSer.Threading.AutoWaitCount waitCount) : base(boot)
         {
             this.waitCount = waitCount;
-            threadWait.Set(0);
+            threadWait.Set(new object(), 0);
             AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(build);
         }
         /// <summary>

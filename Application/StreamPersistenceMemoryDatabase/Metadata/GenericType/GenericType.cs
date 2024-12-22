@@ -143,7 +143,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate StreamPersistenceMemoryDatabaseClientCallOutputDelegate { get { return (Func<ClientNode, int, Task<ResponseResult<T>>>)StreamPersistenceMemoryDatabaseClient.CallOutput<T>; } }
+        internal override Delegate StreamPersistenceMemoryDatabaseClientCallOutputDelegate { get { return (Func<ClientNode, int, ResponseParameterAwaiter<T>>)StreamPersistenceMemoryDatabaseClient.CallOutput<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -151,7 +151,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeCallOutputDelegate { get { return (Func<ClientNode, int, Task<ResponseResult<T>>>)StreamPersistenceMemoryDatabaseClient.SimpleDeserializeCallOutput<T>; } }
+        internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeCallOutputDelegate { get { return (Func<ClientNode, int, ResponseParameterAwaiter<T>>)StreamPersistenceMemoryDatabaseClient.SimpleDeserializeCallOutput<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>

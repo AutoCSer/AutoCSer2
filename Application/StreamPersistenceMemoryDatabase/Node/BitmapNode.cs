@@ -64,34 +64,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return default(ValueResult<int>);
         }
         /// <summary>
-        /// 设置位状态 持久化参数检查
-        /// </summary>
-        /// <param name="index">位索引</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> SetBitBeforePersistence(uint index)
-        {
-            if (index < capacity) return default(ValueResult<bool>);
-            return false;
-        }
-        /// <summary>
         /// 设置位状态
         /// </summary>
         /// <param name="index">位索引</param>
         /// <returns>是否设置成功，失败表示索引超出范围</returns>
         public bool SetBit(uint index)
         {
-            map[(int)(index >> 3)] |= (byte)(1 << (int)(index & 7));
-            return true;
-        }
-        /// <summary>
-        /// 设置位状态并返回设置之前的状态 持久化参数检查
-        /// </summary>
-        /// <param name="index">位索引</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<int>> GetBitSetBitBeforePersistence(uint index)
-        {
-            if (index < capacity) return default(ValueResult<ValueResult<int>>);
-            return default(ValueResult<int>);
+            if (index < capacity)
+            {
+                map[(int)(index >> 3)] |= (byte)(1 << (int)(index & 7));
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 设置位状态并返回设置之前的状态
@@ -100,18 +84,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>设置之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
         public ValueResult<int> GetBitSetBit(uint index)
         {
-            int mapIndex = (int)(index >> 3), bitValue = 1 << (int)(index & 7), value = map[mapIndex] & bitValue;
-            map[mapIndex] |= (byte)bitValue;
-            return value;
-        }
-        /// <summary>
-        /// 清除位状态 持久化参数检查
-        /// </summary>
-        /// <param name="index">位索引</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> ClearBitBeforePersistence(uint index)
-        {
-            return SetBitBeforePersistence(index);
+            if (index < capacity)
+            {
+                int mapIndex = (int)(index >> 3), bitValue = 1 << (int)(index & 7), value = map[mapIndex] & bitValue;
+                map[mapIndex] |= (byte)bitValue;
+                return value;
+            }
+            return default(ValueResult<int>);
         }
         /// <summary>
         /// 清除位状态
@@ -120,17 +99,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否设置成功，失败表示索引超出范围</returns>
         public bool ClearBit(uint index)
         {
-            map[(int)(index >> 3)] &= (byte)((1 << (int)(index & 7)) ^ byte.MaxValue);
-            return true;
-        }
-        /// <summary>
-        /// 清除位状态并返回设置之前的状态 持久化参数检查
-        /// </summary>
-        /// <param name="index">位索引</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<int>> GetBitClearBitBeforePersistence(uint index)
-        {
-            return GetBitSetBitBeforePersistence(index);
+            if (index < capacity)
+            {
+                map[(int)(index >> 3)] &= (byte)((1 << (int)(index & 7)) ^ byte.MaxValue);
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 清除位状态并返回设置之前的状态
@@ -139,18 +113,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>清除操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
         public ValueResult<int> GetBitClearBit(uint index)
         {
-            int mapIndex = (int)(index >> 3), bitValue = 1 << (int)(index & 7), value = map[mapIndex] & bitValue;
-            map[mapIndex] &= (byte)(bitValue ^ byte.MaxValue);
-            return value;
-        }
-        /// <summary>
-        /// 状态取反 持久化参数检查
-        /// </summary>
-        /// <param name="index">位索引</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> InvertBitBeforePersistence(uint index)
-        {
-            return SetBitBeforePersistence(index);
+            if (index < capacity)
+            {
+                int mapIndex = (int)(index >> 3), bitValue = 1 << (int)(index & 7), value = map[mapIndex] & bitValue;
+                map[mapIndex] &= (byte)(bitValue ^ byte.MaxValue);
+                return value;
+            }
+            return default(ValueResult<int>);
         }
         /// <summary>
         /// 状态取反
@@ -159,17 +128,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否设置成功，失败表示索引超出范围</returns>
         public bool InvertBit(uint index)
         {
-            map[(int)(index >> 3)] ^= (byte)(1 << (int)(index & 7));
-            return true;
-        }
-        /// <summary>
-        /// 状态取反并返回操作之前的状态 持久化参数检查
-        /// </summary>
-        /// <param name="index">位索引</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<int>> GetBitInvertBitBeforePersistence(uint index)
-        {
-            return GetBitSetBitBeforePersistence(index);
+            if (index < capacity)
+            {
+                map[(int)(index >> 3)] ^= (byte)(1 << (int)(index & 7));
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 状态取反并返回操作之前的状态
@@ -178,9 +142,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
         public ValueResult<int> GetBitInvertBit(uint index)
         {
-            int mapIndex = (int)(index >> 3), bitValue = 1 << (int)(index & 7), value = map[mapIndex] & bitValue;
-            map[mapIndex] ^= (byte)bitValue;
-            return value;
+            if (index < capacity)
+            {
+                int mapIndex = (int)(index >> 3), bitValue = 1 << (int)(index & 7), value = map[mapIndex] & bitValue;
+                map[mapIndex] ^= (byte)bitValue;
+                return value;
+            }
+            return default(ValueResult<int>);
         }
     }
 }

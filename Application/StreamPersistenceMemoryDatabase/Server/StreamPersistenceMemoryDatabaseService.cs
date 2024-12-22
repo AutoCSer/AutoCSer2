@@ -343,17 +343,17 @@ namespace AutoCSer.CommandService
             }
             if (Nodes[index.Index].SetFreeIdentity(index.Identity)) createKeys.Add(key);
         }
-        /// <summary>
-        /// 删除节点持久化参数检查
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> RemoveNodeBeforePersistence(NodeIndex index)
-        {
-            if (Nodes[index.Index].CheckGet(index.Identity) == null) return false;
-            freeIndexs.PrepLength(1);
-            return default(ValueResult<bool>);
-        }
+        ///// <summary>
+        ///// 删除节点持久化参数检查
+        ///// </summary>
+        ///// <param name="index">节点索引信息</param>
+        ///// <returns>无返回值表示需要继续调用持久化方法</returns>
+        //public ValueResult<bool> RemoveNodeBeforePersistence(NodeIndex index)
+        //{
+        //    if (Nodes[index.Index].CheckGet(index.Identity) == null) return false;
+        //    freeIndexs.PrepLength(1);
+        //    return default(ValueResult<bool>);
+        //}
         /// <summary>
         /// 删除节点
         /// </summary>

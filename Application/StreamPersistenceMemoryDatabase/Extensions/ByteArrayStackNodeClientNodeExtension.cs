@@ -19,9 +19,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult> PushBinarySerialize<T>(this IByteArrayStackNodeClientNode node, T? value)
+        public static ResponseResultAwaiter PushBinarySerialize<T>(this IByteArrayStackNodeClientNode node, T? value)
 #else
-        public static Task<ResponseResult> PushBinarySerialize<T>(this IByteArrayStackNodeClientNode node, T value)
+        public static ResponseParameterAwaiter PushBinarySerialize<T>(this IByteArrayStackNodeClientNode node, T value)
 #endif
         {
             return node.Push(ServerByteArray.BinarySerialize(value));
@@ -35,9 +35,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult> PushJsonSerialize<T>(this IByteArrayStackNodeClientNode node, T? value)
+        public static ResponseResultAwaiter PushJsonSerialize<T>(this IByteArrayStackNodeClientNode node, T? value)
 #else
-        public static Task<ResponseResult> PushJsonSerialize<T>(this IByteArrayStackNodeClientNode node, T value)
+        public static ResponseParameterAwaiter PushJsonSerialize<T>(this IByteArrayStackNodeClientNode node, T value)
 #endif
         {
             return node.Push(ServerByteArray.JsonSerialize(value));
@@ -48,42 +48,36 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<string?>>> TryPopString(this IByteArrayStackNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<string>>> TryPopString(this IByteArrayStackNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static StringResponseParameterAwaiter TryPopString(this IByteArrayStackNodeClientNode node)
         {
-            StringResponseParameter responseParameter = new StringResponseParameter();
-            return responseParameter.Get(await node.TryPopResponseParameter(responseParameter));
+            StringResponseParameterAwaiter responseParameter = new StringResponseParameterAwaiter();
+            responseParameter.Set(node.TryPopResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 从栈中弹出一个数据
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryPopBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryPopBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BinarySerializeResponseParameterValueResultAwaiter<T> TryPopBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {
-            BinarySerializeResponseParameter<T> responseParameter = new BinarySerializeResponseParameter<T>();
-            return responseParameter.Get(await node.TryPopResponseParameter(responseParameter));
+            BinarySerializeResponseParameterValueResultAwaiter<T> responseParameter = new BinarySerializeResponseParameterValueResultAwaiter<T>();
+            responseParameter.Set(node.TryPopResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 从栈中弹出一个数据
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryPopJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryPopJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static JsonResponseParameterAwaiter<T> TryPopJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {
-            JsonResponseParameter<T> responseParameter = new JsonResponseParameter<T>();
-            return responseParameter.Get(await node.TryPopResponseParameter(responseParameter));
+            JsonResponseParameterAwaiter<T> responseParameter = new JsonResponseParameterAwaiter<T>();
+            responseParameter.Set(node.TryPopResponseParameter(responseParameter));
+            return responseParameter;
         }
 
         /// <summary>
@@ -91,42 +85,36 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<string?>>> TryPeekString(this IByteArrayStackNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<string>>> TryPeekString(this IByteArrayStackNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static StringResponseParameterAwaiter TryPeekString(this IByteArrayStackNodeClientNode node)
         {
-            StringResponseParameter responseParameter = new StringResponseParameter();
-            return responseParameter.Get(await node.TryPeekResponseParameter(responseParameter));
+            StringResponseParameterAwaiter responseParameter = new StringResponseParameterAwaiter();
+            responseParameter.Set(node.TryPeekResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 获取栈中下一个弹出数据（不弹出数据仅查看）
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryPeekBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryPeekBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BinarySerializeResponseParameterValueResultAwaiter<T> TryPeekBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {
-            BinarySerializeResponseParameter<T> responseParameter = new BinarySerializeResponseParameter<T>();
-            return responseParameter.Get(await node.TryPeekResponseParameter(responseParameter));
+            BinarySerializeResponseParameterValueResultAwaiter<T> responseParameter = new BinarySerializeResponseParameterValueResultAwaiter<T>();
+            responseParameter.Set(node.TryPeekResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 获取栈中下一个弹出数据（不弹出数据仅查看）
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryPeekJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryPeekJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static JsonResponseParameterAwaiter<T> TryPeekJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {
-            JsonResponseParameter<T> responseParameter = new JsonResponseParameter<T>();
-            return responseParameter.Get(await node.TryPeekResponseParameter(responseParameter));
+            JsonResponseParameterAwaiter<T> responseParameter = new JsonResponseParameterAwaiter<T>();
+            responseParameter.Set(node.TryPeekResponseParameter(responseParameter));
+            return responseParameter;
         }
     }
 }

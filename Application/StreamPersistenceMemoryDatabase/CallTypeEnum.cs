@@ -41,7 +41,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         Callback,
         /// <summary>
-        /// 有输入有返回（服务端调用类型，客户端对应 CallInputOutput）
+        /// 有输入有返回（服务端调用类型，客户端对应 CallInputOutput） 
         /// </summary>
         InputCallback,
         /// <summary>

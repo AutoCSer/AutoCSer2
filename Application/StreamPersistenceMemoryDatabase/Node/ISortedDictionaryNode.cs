@@ -28,13 +28,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         void Clear();
         /// <summary>
-        /// 添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> TryAddBeforePersistence(KT key, VT value);
-        /// <summary>
         /// 添加数据
         /// </summary>
         /// <param name="key"></param>
@@ -57,23 +50,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsPersistence = false)]
         bool ContainsValue(VT value);
         /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> RemoveBeforePersistence(KT key);
-        /// <summary>
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
         /// <returns>是否删除成功</returns>
         bool Remove(KT key);
-        /// <summary>
-        /// 删除关键字并返回被删除数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<ValueResult<VT>> GetRemoveBeforePersistence(KT key);
         /// <summary>
         /// 删除关键字并返回被删除数据
         /// </summary>

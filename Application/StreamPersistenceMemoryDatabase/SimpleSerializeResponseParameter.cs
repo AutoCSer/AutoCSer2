@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net;
+using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -6,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 返回参数
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class SimpleSerializeResponseParameter<T> : ResponseParameter<T>
+    internal class SimpleSerializeResponseParameter<T> : ResponseParameter<T>
     {
         /// <summary>
         /// 返回参数

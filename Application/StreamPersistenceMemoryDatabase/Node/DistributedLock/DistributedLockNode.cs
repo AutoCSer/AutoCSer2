@@ -74,46 +74,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">锁关键字</param>
         /// <param name="timeoutSeconds">超时秒数</param>
-        /// <returns>失败返回 0</returns>
-        public ValueResult<long> EnterBeforePersistence(T key, ushort timeoutSeconds)
-        {
-            if (key != null && timeoutSeconds != 0) return default(ValueResult<long>);
-            return 0;
-        }
-        /// <summary>
-        /// 申请锁
-        /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="timeoutSeconds">超时秒数</param>
         /// <param name="callback">失败返回 0</param>
         public void Enter(T key, ushort timeoutSeconds, MethodCallback<long> callback)
-        {
-            var distributedLock = default(DistributedLock<T>);
-            if (!locks.TryGetValue(key, out distributedLock))
-            {
-                locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
-                callback.SynchronousCallback(distributedLock.Identity.Identity);
-            }
-            else
-            {
-                callback.Reserve = timeoutSeconds;
-                distributedLock.Enter(callback);
-            }
-        }
-        /// <summary>
-        /// 尝试申请锁
-        /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="timeoutSeconds">超时秒数</param>
-        /// <returns>失败返回 0</returns>
-        public ValueResult<long> TryEnterBeforePersistence(T key, ushort timeoutSeconds)
         {
             if (key != null && timeoutSeconds != 0)
             {
                 var distributedLock = default(DistributedLock<T>);
-                if (!locks.TryGetValue(key, out distributedLock)) return default(ValueResult<long>);
+                if (!locks.TryGetValue(key, out distributedLock))
+                {
+                    locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
+                    callback.SynchronousCallback(distributedLock.Identity.Identity);
+                }
+                else
+                {
+                    callback.Reserve = timeoutSeconds;
+                    distributedLock.Enter(callback);
+                }
             }
-            return 0;
+            else callback.SynchronousCallback(0);
         }
         /// <summary>
         /// 尝试申请锁
@@ -123,11 +101,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>失败返回 0</returns>
         public long TryEnter(T key, ushort timeoutSeconds)
         {
-            var distributedLock = default(DistributedLock<T>);
-            if (!locks.TryGetValue(key, out distributedLock))
+            if (key != null && timeoutSeconds != 0)
             {
-                locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
-                return distributedLock.Identity.Identity;
+                var distributedLock = default(DistributedLock<T>);
+                if (!locks.TryGetValue(key, out distributedLock))
+                {
+                    locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
+                    return distributedLock.Identity.Identity;
+                }
             }
             return 0;
         }
@@ -136,25 +117,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">锁关键字</param>
         /// <param name="identity">锁操作标识</param>
-        /// <returns></returns>
-        bool ReleaseBeforePersistence(T key, long identity)
+        public void Release(T key, long identity)
         {
             if (key != null)
             {
                 var distributedLock = default(DistributedLock<T>);
-                return locks.TryGetValue(key, out distributedLock) && distributedLock.Identity.Identity == identity;
+                if (locks.TryGetValue(key, out distributedLock)) distributedLock.Release(identity);
             }
-            return false;
-        }
-        /// <summary>
-        /// 释放锁
-        /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="identity">锁操作标识</param>
-        public void Release(T key, long identity)
-        {
-            var distributedLock = default(DistributedLock<T>);
-            if (locks.TryGetValue(key, out distributedLock)) distributedLock.Release(identity);
         }
     }
 }

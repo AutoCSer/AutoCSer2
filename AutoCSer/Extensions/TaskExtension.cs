@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 #if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
@@ -31,6 +33,31 @@ namespace AutoCSer.Extensions
 #else
             return task;
 #endif
+        }
+        /// <summary>
+        /// 从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+        /// </summary>
+        /// <typeparam name="T">返回值类型</typeparam>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static T getResult<T>(this Task<T> task)
+        {
+            if (task.IsCompleted) return task.Result;
+            var exception = default(Exception);
+            T value = new WaitTask<T>(task).GetResult(out exception);
+            if (exception == null) return value;
+            throw exception;
+        }
+        /// <summary>
+        /// 从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static void wait(this Task task)
+        {
+            if (task.IsCompleted) return;
+            var exception = new WaitTask(task).Wait();
+            if (exception != null) throw exception;
         }
     }
 }

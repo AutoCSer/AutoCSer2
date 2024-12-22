@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 
 namespace AutoCSer.Document.ServiceThreadStrategy.Server.Queue
 {
@@ -54,7 +55,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Server.Queue
         /// <returns>返回值类型必须为 Task</returns>
         void IKeepCallbackController.CallbackCount(AutoCSer.Net.CommandServerCallQueue queue, int left, int right, AutoCSer.Net.CommandServerKeepCallbackCount<int> callback)
         {
-            Task.KeepCallbackController.CallbackCount(left, right, callback).Wait();
+            Task.KeepCallbackController.CallbackCount(left, right, callback).wait();
         }
     }
 }

@@ -104,17 +104,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             dictionary.ClearArray();
         }
         /// <summary>
-        /// 添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> TryAddBeforePersistence(KT key, ServerByteArray value)
-        {
-            if (key == null || dictionary.ContainsKey(key)) return false;
-            return default(ValueResult<bool>);
-        }
-        /// <summary>
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <param name="key"></param>
@@ -122,18 +111,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         public bool TryAdd(KT key, ServerByteArray value)
         {
-            return dictionary.TryAdd(key, value);
-        }
-        /// <summary>
-        /// 强制设置数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> SetBeforePersistence(KT key, ServerByteArray value)
-        {
-            if (key == null) return false;
-            return default(ValueResult<bool>);
+            return key != null && dictionary.TryAdd(key, value);
         }
         /// <summary>
         /// 强制设置数据，如果关键字已存在则覆盖
@@ -143,8 +121,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否设置成功</returns>
         public bool Set(KT key, ServerByteArray value)
         {
-            dictionary[key] = value;
-            return true;
+            if (key != null)
+            {
+                dictionary[key] = value;
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 判断关键字是否存在
@@ -156,33 +138,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return key != null && dictionary.ContainsKey(key);
         }
         /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> RemoveBeforePersistence(KT key)
-        {
-            if (key == null || !dictionary.ContainsKey(key)) return false;
-            return default(ValueResult<bool>);
-        }
-        /// <summary>
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
         /// <returns>是否存在关键字</returns>
         public bool Remove(KT key)
         {
-            return dictionary.Remove(key);
-        }
-        /// <summary>
-        /// 删除关键字并返回被删除数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<byte[]>> GetRemoveBeforePersistence(KT key)
-        {
-            if (key == null || !dictionary.ContainsKey(key)) return default(ValueResult<byte[]>);
-            return default(ValueResult<ValueResult<byte[]>>);
+            return key != null && dictionary.Remove(key);
         }
         /// <summary>
         /// 删除关键字并返回被删除数据
@@ -195,23 +157,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public ValueResult<byte[]> GetRemove(KT key)
 #endif
         {
-            var value = default(byte[]);
-            if (dictionary.Remove(key, out value)) return value;
+            if (key != null)
+            {
+                var value = default(byte[]);
+                if (dictionary.Remove(key, out value)) return value;
+            }
 #if NetStandard21
             return default(ValueResult<byte[]?>);
 #else
             return default(ValueResult<byte[]>);
 #endif
-        }
-        /// <summary>
-        /// 删除关键字并返回被删除数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ResponseParameter> GetRemoveResponseParameterBeforePersistence(KT key)
-        {
-            if (key == null || !dictionary.ContainsKey(key)) return (ResponseServerByteArray)CallStateEnum.NullResponseParameter;
-            return default(ValueResult<ResponseParameter>);
         }
         /// <summary>
         /// 删除关键字并返回被删除数据
@@ -220,8 +175,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>被删除数据</returns>
         public ResponseParameter GetRemoveResponseParameter(KT key)
         {
-            var value = default(byte[]);
-            if (dictionary.Remove(key, out value)) return (ResponseServerByteArray)value;
+            if (key != null)
+            {
+                var value = default(byte[]);
+                if (dictionary.Remove(key, out value)) return (ResponseServerByteArray)value;
+            }
             return (ResponseServerByteArray)CallStateEnum.NullResponseParameter;
         }
     }

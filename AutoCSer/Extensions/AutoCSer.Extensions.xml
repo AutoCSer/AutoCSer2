@@ -3261,6 +3261,14 @@
             <param name="data"></param>
             <param name="position"></param>
         </member>
+        <member name="M:AutoCSer.IO.StreamPersistenceLoader.Decompress(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            解压数据
+            </summary>
+            <param name="compressData">压缩后的数据</param>
+            <param name="destinationData">等待写入的原始数据缓冲区</param>
+            <returns>是否解压成功</returns>
+        </member>
         <member name="M:AutoCSer.IO.StreamPersistenceLoader.load(AutoCSer.SubArray{System.Byte},System.Int64)">
             <summary>
             加载数据

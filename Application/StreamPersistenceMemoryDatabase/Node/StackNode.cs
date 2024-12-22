@@ -63,15 +63,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             stack.Push(value);
         }
         /// <summary>
-        /// 从栈中弹出一个数据 持久化参数检查
-        /// </summary>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<T>> TryPopBeforePersistence()
-        {
-            if (stack.Count != 0) return default(ValueResult<ValueResult<T>>);
-            return default(ValueResult<T>);
-        }
-        /// <summary>
         /// 从栈中弹出一个数据
         /// </summary>
         /// <returns>没有可弹出数据则返回无数据</returns>

@@ -128,15 +128,15 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 for (int right = testCount; right != 0; await client.InterfaceController.Queue(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Queue));
 
-                testCount = Reset(commandClient, maxTestCount >> 3);
+                testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueue));
 
-                testCount = Reset(commandClient, maxTestCount >> 3);
+                testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueueKey(0, Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueueKey));
 
-                testCount = Reset(commandClient, maxTestCount >> 1);
+                testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.Task(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Task));
 

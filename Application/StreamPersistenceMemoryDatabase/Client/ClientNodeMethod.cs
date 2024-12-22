@@ -68,10 +68,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             }
                         }
                     }
+                    else if (!isLocalClient && genericTypeDefinition == typeof(ResponseParameterAwaiter<>))
+                    {
+                        ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                        isReturnType = true;
+                    }
+                }
+                else if (!isLocalClient && ReturnValueType == typeof(ResponseResultAwaiter))
+                {
+                    ReturnValueType = typeof(void);
+                    isReturnType = true;
                 }
                 if (!isReturnType)
                 {
-                    Type awaitType = isLocalClient ? typeof(LocalServiceQueueNode<ResponseResult>) : typeof(Task<ResponseResult>);
+                    Type awaitType = isLocalClient ? typeof(LocalServiceQueueNode<ResponseResult>) : typeof(ResponseResultAwaiter);
                     Error = $"节点方法 {type.fullName()}.{method.Name} 返回值类型必须是 {awaitType.fullName()}";
                     return;
                 }

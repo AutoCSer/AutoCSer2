@@ -76,9 +76,20 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             MethodReturnType = typeof(Task<>).MakeGenericType(typeof(KeepCallbackResponse<>).MakeGenericType(interfaceMethod.ReturnValueType));
                             if (interfaceMethod.ReturnValueType == typeof(ResponseParameterSerializer)) ReturnRequestParameterType = typeof(ResponseParameterSerializer);
                             break;
-                        default:
-                            MethodReturnType = interfaceMethod.ReturnValueType == typeof(void) ? typeof(Task<ResponseResult>) : typeof(Task<>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
-                            if (interfaceMethod.ReturnValueType == typeof(ResponseParameter)) ReturnRequestParameterType = typeof(ResponseParameter);
+                        case CallTypeEnum.Call:
+                        case CallTypeEnum.CallInput:
+                            MethodReturnType = typeof(ResponseResultAwaiter);
+                            break;
+                        case CallTypeEnum.InputCallback:
+                        case CallTypeEnum.CallInputOutput:
+                        case CallTypeEnum.Callback:
+                        case CallTypeEnum.CallOutput:
+                            if (interfaceMethod.ReturnValueType == typeof(ResponseParameter))
+                            {
+                                ReturnRequestParameterType = typeof(ResponseParameter);
+                                MethodReturnType = typeof(ResponseParameterAwaiter<ResponseParameter>);
+                            }
+                            else MethodReturnType = typeof(ResponseParameterAwaiter<>).MakeGenericType(interfaceMethod.ReturnValueType);
                             break;
                     }
                 }

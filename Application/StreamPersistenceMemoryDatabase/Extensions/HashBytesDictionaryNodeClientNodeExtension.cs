@@ -20,9 +20,9 @@ namespace AutoCSer.Extensions
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult<bool>> TryAddBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
+        public static ResponseParameterAwaiter<bool> TryAddBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
 #else
-        public static Task<ResponseResult<bool>> TryAddBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
+        public static ResponseParameterAwaiter<bool> TryAddBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
 #endif
         {
             return node.TryAdd(key, ServerByteArray.BinarySerialize(value));
@@ -37,9 +37,9 @@ namespace AutoCSer.Extensions
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult<bool>> TryAddJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
+        public static ResponseParameterAwaiter<bool> TryAddJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
 #else
-        public static Task<ResponseResult<bool>> TryAddJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
+        public static ResponseParameterAwaiter<bool> TryAddJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
 #endif
         {
             return node.TryAdd(key, ServerByteArray.JsonSerialize(value));
@@ -55,9 +55,9 @@ namespace AutoCSer.Extensions
         /// <returns>是否设置成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult<bool>> SetBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
+        public static ResponseParameterAwaiter<bool> SetBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
 #else
-        public static Task<ResponseResult<bool>> SetBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
+        public static ResponseParameterAwaiter<bool> SetBinarySerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
 #endif
         {
             return node.Set(key, ServerByteArray.BinarySerialize(value));
@@ -72,9 +72,9 @@ namespace AutoCSer.Extensions
         /// <returns>是否设置成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult<bool>> SetJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
+        public static ResponseParameterAwaiter<bool> SetJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T? value)
 #else
-        public static Task<ResponseResult<bool>> SetJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
+        public static ResponseParameterAwaiter<bool> SetJsonSerialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key, T value)
 #endif
         {
             return node.Set(key, ServerByteArray.JsonSerialize(value));
@@ -86,14 +86,12 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<string?>>> TryGetString(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#else
-        public static async Task<ResponseResult<ValueResult<string>>> TryGetString(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static StringResponseParameterAwaiter TryGetString(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
         {
-            StringResponseParameter responseParameter = new StringResponseParameter();
-            return responseParameter.Get(await node.TryGetResponseParameter(responseParameter, key));
+            StringResponseParameterAwaiter responseParameter = new StringResponseParameterAwaiter();
+            responseParameter.Set(node.TryGetResponseParameter(responseParameter, key));
+            return responseParameter;
         }
         /// <summary>
         /// 根据关键字获取数据
@@ -101,14 +99,12 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryGetBinaryDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryGetBinaryDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BinarySerializeResponseParameterValueResultAwaiter<T> TryGetBinaryDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
         {
-            BinarySerializeResponseParameter<T> responseParameter = new BinarySerializeResponseParameter<T>();
-            return responseParameter.Get(await node.TryGetResponseParameter(responseParameter, key));
+            BinarySerializeResponseParameterValueResultAwaiter<T> responseParameter = new BinarySerializeResponseParameterValueResultAwaiter<T>();
+            responseParameter.Set(node.TryGetResponseParameter(responseParameter, key));
+            return responseParameter;
         }
         /// <summary>
         /// 根据关键字获取数据
@@ -116,14 +112,12 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryGetJsonDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryGetJsonDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static JsonResponseParameterAwaiter<T> TryGetJsonDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
         {
-            JsonResponseParameter<T> responseParameter = new JsonResponseParameter<T>();
-            return responseParameter.Get(await node.TryGetResponseParameter(responseParameter, key));
+            JsonResponseParameterAwaiter<T> responseParameter = new JsonResponseParameterAwaiter<T>();
+            responseParameter.Set(node.TryGetResponseParameter(responseParameter, key));
+            return responseParameter;
         }
 
         /// <summary>
@@ -132,14 +126,12 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<string?>>> GetRemoveString(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#else
-        public static async Task<ResponseResult<ValueResult<string>>> GetRemoveString(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static StringResponseParameterAwaiter GetRemoveString(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
         {
-            StringResponseParameter responseParameter = new StringResponseParameter();
-            return responseParameter.Get(await node.GetRemoveResponseParameter(responseParameter, key));
+            StringResponseParameterAwaiter responseParameter = new StringResponseParameterAwaiter();
+            responseParameter.Set(node.GetRemoveResponseParameter(responseParameter, key));
+            return responseParameter;
         }
         /// <summary>
         /// 根据关键字获取数据
@@ -147,14 +139,12 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> GetRemoveBinaryDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> GetRemoveBinaryDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BinarySerializeResponseParameterValueResultAwaiter<T> GetRemoveBinaryDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
         {
-            BinarySerializeResponseParameter<T> responseParameter = new BinarySerializeResponseParameter<T>();
-            return responseParameter.Get(await node.GetRemoveResponseParameter(responseParameter, key));
+            BinarySerializeResponseParameterValueResultAwaiter<T> responseParameter = new BinarySerializeResponseParameterValueResultAwaiter<T>();
+            responseParameter.Set(node.GetRemoveResponseParameter(responseParameter, key));
+            return responseParameter;
         }
         /// <summary>
         /// 根据关键字获取数据
@@ -162,14 +152,12 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> GetRemoveJsonDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> GetRemoveJsonDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static JsonResponseParameterAwaiter<T> GetRemoveJsonDeserialize<T>(this IHashBytesDictionaryNodeClientNode node, ServerByteArray key)
         {
-            JsonResponseParameter<T> responseParameter = new JsonResponseParameter<T>();
-            return responseParameter.Get(await node.GetRemoveResponseParameter(responseParameter, key));
+            JsonResponseParameterAwaiter<T> responseParameter = new JsonResponseParameterAwaiter<T>();
+            responseParameter.Set(node.GetRemoveResponseParameter(responseParameter, key));
+            return responseParameter;
         }
     }
 }

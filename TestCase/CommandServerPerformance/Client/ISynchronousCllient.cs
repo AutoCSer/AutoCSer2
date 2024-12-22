@@ -121,7 +121,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             }
             this.client = (CommandClientSocketEvent<ISynchronousCllient>)commandClient.SocketEvent;
             this.serverMethodName = serverMethodName;
-            right = Reset(commandClient, maxTestCount >> 3, threadCount);
+            right = Reset(commandClient, maxTestCount >> 4, threadCount);
             while (--threadCount >= 0) AutoCSer.Threading.ThreadPool.TinyBackground.Start(task);
         }
         /// <summary>

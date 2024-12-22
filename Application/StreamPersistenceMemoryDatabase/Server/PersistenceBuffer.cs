@@ -32,10 +32,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal readonly int SendBufferMaxSize;
         /// <summary>
-        /// 启用压缩最低字节数量
-        /// </summary>
-        private readonly int minCompressSize;
-        /// <summary>
         /// 输出数据流
         /// </summary>
         internal UnmanagedStream OutputStream;
@@ -70,8 +66,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             outputCopyBuffer = default(ByteArrayBuffer);
             outputCompressBuffer = default(ByteArrayBuffer);
             SendBufferMaxSize = Math.Max(service.Config.BufferMaxSize, 4 << 10);
-            minCompressSize = service.Config.MinCompressSize;
-            if (minCompressSize <= 0) minCompressSize = int.MaxValue;
             bufferLength = service.PersistenceBufferPool.Size;
             Count = currentIndex = 0;
             OutputStream = UnmanagedStream.Null;
@@ -194,7 +188,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 byte* dataStart = OutputStream.Data.Pointer.Byte;
                 if (dataStart != start) AutoCSer.Common.CopyTo(dataStart + MethodParameter.PersistenceStartIndex, start + MethodParameter.PersistenceStartIndex, dataSize);
                 SubArray<byte> outputData = new SubArray<byte>(OutputBuffer.StartIndex + MethodParameter.PersistenceStartIndex, dataSize, OutputBuffer.Buffer.notNull().Buffer);
-                if (dataSize >= minCompressSize && compress(ref outputData)) return outputData;
+                if (compress(ref outputData)) return outputData;
                 outputData.MoveStart(-MethodParameter.PersistenceStartIndex);
                 *(int*)start = dataSize;
                 return outputData;
@@ -209,7 +203,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     OutputBuffer.CopyFromFree(ref outputCopyBuffer);
                     isNewBuffer = true;
                 }
-                if (dataSize >= minCompressSize && compress(ref outputData)) return outputData;
+                if (compress(ref outputData)) return outputData;
                 outputData.MoveStart(-MethodParameter.PersistenceStartIndex);
                 fixed (byte* sendDataFixed = outputData.GetFixedBuffer()) *(int*)(sendDataFixed + outputData.Start) = dataSize;
                 return outputData;
@@ -223,7 +217,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private bool compress(ref SubArray<byte> outputData)
         {
             int dataSize = outputData.Length;
-            if (AutoCSer.Common.Config.Compress(outputData.Array, outputData.Start, dataSize, ref outputCompressBuffer, ref outputData, MethodParameter.CompressPersistenceStartIndex, sizeof(int) * 2, service.Config.CompressionLevel))
+            if (service.Config.Compress(outputData.Array, outputData.Start, dataSize, ref outputCompressBuffer, ref outputData, MethodParameter.CompressPersistenceStartIndex, sizeof(int) * 2))
             {
                 int compressionDataSize = outputData.Length;
                 outputData.MoveStart(-MethodParameter.CompressPersistenceStartIndex);

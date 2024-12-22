@@ -16,12 +16,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsPersistence = false)]
         int Count();
         /// <summary>
-        /// 添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> AddBeforePersistence(T value);
-        /// <summary>
         /// 添加数据
         /// </summary>
         /// <param name="value">关键字</param>
@@ -39,12 +33,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [ServerMethod(IsPersistence = false)]
         bool Contains(T value);
-        /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> RemoveBeforePersistence(T value);
         /// <summary>
         /// 删除关键字
         /// </summary>

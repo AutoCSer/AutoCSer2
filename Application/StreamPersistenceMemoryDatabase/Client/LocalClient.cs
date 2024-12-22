@@ -159,6 +159,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return ClientNode.RemoveNode(node.Index);
         }
         /// <summary>
+        /// 获取消息处理节点，不存在则创建节点 MessageNode{BinaryMessage{T}}
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="arraySize">正在处理消息数组大小</param>
+        /// <param name="timeoutSeconds">消息处理超时秒数</param>
+        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IMessageNodeLocalClientNode<BinaryMessage<T>>>> GetOrCreateBinaryMessageNode<T>(string key, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1, bool isPersistenceCallbackExceptionRenewNode = false)
+        {
+            return GetOrCreateNode<IMessageNodeLocalClientNode<BinaryMessage<T>>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateMessageNode(index, nodeKey, nodeInfo, typeof(BinaryMessage<T>), arraySize, timeoutSeconds, checkTimeoutSeconds), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
         /// 获取消息处理节点，不存在则创建节点 MessageNode{T}
         /// </summary>
         /// <param name="key">节点全局关键字</param>

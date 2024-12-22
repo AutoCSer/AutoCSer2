@@ -41,23 +41,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             hashSet.ClearArray();
         }
         /// <summary>
-        /// 如果关键字不存在则添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> AddBeforePersistence(T value)
-        {
-            if (value == null || hashSet.Contains(value)) return false;
-            return default(ValueResult<bool>);
-        }
-        /// <summary>
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         public bool Add(T value)
         {
-            return hashSet.Add(value);
+            return value != null && hashSet.Add(value);
         }
         /// <summary>
         /// 判断关键字是否存在
@@ -69,23 +59,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return value != null && hashSet.Contains(value);
         }
         /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> RemoveBeforePersistence(T value)
-        {
-            if (value == null || !hashSet.Contains(value)) return false;
-            return default(ValueResult<bool>);
-        }
-        /// <summary>
         /// 删除关键字
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否存在关键字</returns>
         public bool Remove(T value)
         {
-            return hashSet.Remove(value);
+            return value != null && hashSet.Remove(value);
         }
     }
 }

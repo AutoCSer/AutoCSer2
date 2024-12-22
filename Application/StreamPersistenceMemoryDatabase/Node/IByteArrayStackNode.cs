@@ -31,11 +31,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void Push(ServerByteArray value);
         /// <summary>
-        /// 从栈中弹出一个数据 持久化参数检查
-        /// </summary>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<ValueResult<byte[]>> TryPopBeforePersistence();
-        /// <summary>
         /// 从栈中弹出一个数据
         /// </summary>
         /// <returns>没有可弹出数据则返回无数据</returns>
@@ -44,11 +39,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
         ValueResult<byte[]> TryPop();
 #endif
-        /// <summary>
-        /// 从栈中弹出一个数据 持久化参数检查
-        /// </summary>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<ResponseParameter> TryPopResponseParameterBeforePersistence();
         /// <summary>
         /// 从栈中弹出一个数据
         /// </summary>

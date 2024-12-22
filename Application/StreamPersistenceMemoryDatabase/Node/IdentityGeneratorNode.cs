@@ -41,17 +41,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>下一个自增ID，失败返回负数</returns>
         public long Next()
         {
-            return identity > 0 ? identity : long.MinValue;
-        }
-        /// <summary>
-        /// 获取自增 ID 分段 持久化参数检查
-        /// </summary>
-        /// <param name="count">排序数据数量</param>
-        /// <returns>自增 ID 分段</returns>
-        public ValueResult<IdentityFragment> NextFragmentBeforePersistence(int count)
-        {
-            if (count > 0 && identity + count > 0) return default(ValueResult<IdentityFragment>);
-            return default(IdentityFragment);
+            return identity > 0 ? identity++ : long.MinValue;
         }
         /// <summary>
         /// 获取自增 ID 分段
@@ -60,7 +50,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>自增 ID 分段</returns>
         public IdentityFragment NextFragment(int count)
         {
-            if (identity + count > 0) return new IdentityFragment(ref identity, count);
+            if (count > 0 && identity + count > 0) return new IdentityFragment(ref identity, count);
             return default(IdentityFragment);
         }
     }

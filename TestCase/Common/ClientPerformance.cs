@@ -183,7 +183,7 @@ namespace AutoCSer.TestCase.Common
         public static async Task LoopCompleted(string clientTypeName, string serverMethodName)
         {
             long milliseconds = AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp);
-            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName} Loop Completed {milliseconds.toString()}ms");
+            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName} Loop Completed {testCount.toString()}/{milliseconds.toString()}ms");
             await Wait(clientTypeName, serverMethodName);
         }
         /// <summary>
@@ -197,7 +197,7 @@ namespace AutoCSer.TestCase.Common
             await waitLock.WaitAsync();
             long milliseconds = AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp);
             string concurrentMessasge = concurrent == 1 ? null : $" {concurrent.toString()} Concurrent";
-            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName}{concurrentMessasge} Completed {milliseconds.toString()}ms {(testCount / milliseconds).toString()}/ms");
+            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName}{concurrentMessasge} Completed {testCount.toString()}/{milliseconds.toString()}ms = {(testCount / milliseconds).toString()}/ms");
             if (errorCount != 0) ConsoleWriteQueue.WriteLine($"ERROR {errorCount}", ConsoleColor.Red);
             await Task.Delay(1000);
         }

@@ -34,13 +34,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         void Clear();
         /// <summary>
-        /// 设置数据 持久化参数检查
-        /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">数据</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> SetBeforePersistence(KT key, VT value);
-        /// <summary>
         /// 设置数据
         /// </summary>
         /// <param name="key">关键字</param>
@@ -48,13 +41,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加了关键字</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Set(KT key, VT value);
-        /// <summary>
-        /// 添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> TryAddBeforePersistence(KT key, VT value);
         /// <summary>
         /// 添加数据
         /// </summary>
@@ -64,23 +50,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool TryAdd(KT key, VT value);
         /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> RemoveBeforePersistence(KT key);
-        /// <summary>
         /// 根据关键字删除节点
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否存在关键字</returns>
         bool Remove(KT key);
-        /// <summary>
-        /// 删除关键字并返回被删除数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<ValueResult<VT>> GetRemoveBeforePersistence(KT key);
         /// <summary>
         /// 根据关键字删除节点
         /// </summary>

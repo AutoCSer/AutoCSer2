@@ -67,35 +67,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         void GetMessage(int maxCount, MethodKeepCallback<T> callback);
 #endif
         /// <summary>
-        /// 生产者添加新消息 持久化参数检查
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        bool AppendMessageBeforePersistence(T message);
-        /// <summary>
         /// 生产者添加新消息
         /// </summary>
         /// <param name="message"></param>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void AppendMessage(T message);
         /// <summary>
-        /// 消息完成处理 持久化参数检查
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        bool CompletedBeforePersistence(MessageIdeneity identity);
-        /// <summary>
         /// 消息完成处理
         /// </summary>
         /// <param name="identity"></param>
         [ServerMethod(IsIgnorePersistenceCallbackException = true, IsSendOnly = true)]
         void Completed(MessageIdeneity identity);
-        /// <summary>
-        /// 消息失败处理 持久化参数检查
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        bool FailedBeforePersistence(MessageIdeneity identity);
         /// <summary>
         /// 消息失败处理
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -51,19 +52,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Array.Clear(array, 0, array.Length);
         }
         /// <summary>
-        /// 清除指定位置数据 持久化参数检查
+        /// 检查索引范围
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">清除数据数量</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> ClearBeforePersistence(int startIndex, int count)
+        /// <param name="startIndex"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private NullableBoolEnum checkRange(int startIndex, int count)
         {
             if (count != 0)
             {
-                if (startIndex >= 0 && count > 0 && (uint)(startIndex + count) <= (uint)array.Length) return default(ValueResult<bool>);
-                return false;
+                if (startIndex >= 0 && count > 0 && (uint)(startIndex + count) <= (uint)array.Length) return NullableBoolEnum.Null;
+                return NullableBoolEnum.False;
             }
-            return (uint)startIndex <= (uint)array.Length;
+            return (uint)startIndex <= (uint)array.Length ? NullableBoolEnum.True : NullableBoolEnum.False;
         }
         /// <summary>
         /// 清除指定位置数据
@@ -73,8 +75,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>超出索引范围则返回 false</returns>
         public bool Clear(int startIndex, int count)
         {
-            Array.Clear(array, startIndex, count);
-            return true;
+            switch (checkRange(startIndex, count))
+            {
+                case NullableBoolEnum.Null:
+                    Array.Clear(array, startIndex, count);
+                    return true;
+                case NullableBoolEnum.True: return true;
+                default: return false;
+            }
         }
         /// <summary>
         /// 获取数组长度
@@ -95,17 +103,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return default(ValueResult<T>);
         }
         /// <summary>
-        /// 根据索引位置设置数据 持久化参数检查
-        /// </summary>
-        /// <param name="index">索引位置</param>
-        /// <param name="value">数据</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> SetValueBeforePersistence(int index, T value)
-        {
-            if ((uint)index < (uint)array.Length) return default(ValueResult<bool>);
-            return false;
-        }
-        /// <summary>
         /// 根据索引位置设置数据
         /// </summary>
         /// <param name="index">索引位置</param>
@@ -113,19 +110,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>超出索引范围则返回 false</returns>
         public bool SetValue(int index, T value)
         {
-            array[index] = value;
-            return true;
-        }
-        /// <summary>
-        /// 根据索引位置设置数据并返回设置之前的数据 持久化参数检查
-        /// </summary>
-        /// <param name="index">索引位置</param>
-        /// <param name="value">数据</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<T>> GetValueSetBeforePersistence(int index, T value)
-        {
-            if ((uint)index < (uint)array.Length) return default(ValueResult<ValueResult<T>>);
-            return default(ValueResult<T>);
+            if ((uint)index < (uint)array.Length)
+            {
+                array[index] = value;
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 根据索引位置设置数据并返回设置之前的数据
@@ -135,9 +125,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>设置之前的数据，超出索引返回则无返回值</returns>
         public ValueResult<T> GetValueSet(int index, T value)
         {
-            T arrayValue = array[index];
-            array[index] = value;
-            return arrayValue;
+            if ((uint)index < (uint)array.Length)
+            {
+                T arrayValue = array[index];
+                array[index] = value;
+                return arrayValue;
+            }
+            return default(ValueResult<T>);
         }
         /// <summary>
         /// 用数据填充整个数组
@@ -148,17 +142,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             AutoCSer.Common.Fill(array, value);
         }
         /// <summary>
-        /// 用数据填充数组指定位置 持久化参数检查
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">填充数据数量</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> FillBeforePersistence(T value, int startIndex, int count)
-        {
-            return ClearBeforePersistence(startIndex, count);
-        }
-        /// <summary>
         /// 用数据填充数组指定位置
         /// </summary>
         /// <param name="value"></param>
@@ -167,8 +150,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>超出索引范围则返回 false</returns>
         public bool Fill(T value, int startIndex, int count)
         {
-            AutoCSer.Common.Fill(array, value, startIndex, count);
-            return true;
+            switch (checkRange(startIndex, count))
+            {
+                case NullableBoolEnum.Null:
+                    AutoCSer.Common.Fill(array, value, startIndex, count);
+                    return true;
+                case NullableBoolEnum.True: return true;
+                default: return false;
+            }
         }
         /// <summary>
         /// 从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
@@ -220,16 +209,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Array.Reverse(array);
         }
         /// <summary>
-        /// 反转指定位置数组数据 持久化参数检查
-        /// </summary>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">反转数据数量</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> ReverseBeforePersistence(int startIndex, int count)
-        {
-            return ClearBeforePersistence(startIndex, count);
-        }
-        /// <summary>
         /// 反转指定位置数组数据
         /// </summary>
         /// <param name="startIndex">起始位置</param>
@@ -237,8 +216,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>超出索引范围则返回 false</returns>
         public bool Reverse(int startIndex, int count)
         {
-            Array.Reverse(array, startIndex, count);
-            return true;
+            switch (checkRange(startIndex, count))
+            {
+                case NullableBoolEnum.Null:
+                    Array.Reverse(array, startIndex, count);
+                    return true;
+                case NullableBoolEnum.True: return true;
+                default: return false;
+            }
         }
         /// <summary>
         /// 数组排序
@@ -248,16 +233,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Array.Sort(array);
         }
         /// <summary>
-        /// 排序指定位置数组数据 持久化参数检查
-        /// </summary>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">排序数据数量</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> SortBeforePersistence(int startIndex, int count)
-        {
-            return ClearBeforePersistence(startIndex, count);
-        }
-        /// <summary>
         /// 排序指定位置数组数据
         /// </summary>
         /// <param name="startIndex">起始位置</param>
@@ -265,8 +240,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>超出索引范围则返回 false</returns>
         public bool Sort(int startIndex, int count)
         {
-            Array.Sort(array, startIndex, count);
-            return true;
+            switch (checkRange(startIndex, count))
+            {
+                case NullableBoolEnum.Null:
+                    Array.Sort(array, startIndex, count);
+                    return true;
+                case NullableBoolEnum.True: return true;
+                default: return false;
+            }
         }
     }
 }

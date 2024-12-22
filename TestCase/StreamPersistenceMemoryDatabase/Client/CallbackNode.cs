@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 return;
             }
             value = AutoCSer.Random.Default.Next();
-            Task<ResponseResult<int>> callbackTask = node.Value.SetCallback();
+            ResponseParameterAwaiter<int> callbackTask = node.Value.SetCallback();
             node.Value.SetValueSendOnly(value).Discard();
             intResult = await callbackTask;
             if (!Program.Breakpoint(intResult)) return;

@@ -17,10 +17,41 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Client\BitmapNode.cs" />
+    <Compile Include="Client\SortedListNode.cs" />
+    <Compile Include="Client\LeftArrayNode.cs" />
+    <Compile Include="Client\ByteArrayFragmentDictionaryNode.cs" />
+    <Compile Include="Client\ByteArrayStackNode.cs" />
+    <Compile Include="Client\CommandClientSocketEvent.cs" />
+    <Compile Include="Client\ByteArrayDictionaryNode.cs" />
+    <Compile Include="Client\FragmentHashSetNode.cs" />
+    <Compile Include="Client\ByteArrayQueueNode.cs" />
+    <Compile Include="Client\ArrayNode.cs" />
+    <Compile Include="Client\StackNode.cs" />
+    <Compile Include="Client\QueueNode.cs" />
+    <Compile Include="Client\IdentityGeneratorNode.cs" />
+    <Compile Include="Client\SearchTreeSetNode.cs" />
+    <Compile Include="Client\SearchTreeDictionaryNode.cs" />
+    <Compile Include="Client\HashSetNode.cs" />
+    <Compile Include="Client\SortedSetNode.cs" />
+    <Compile Include="Client\SortedDictionaryNode.cs" />
+    <Compile Include="Client\DistributedLockNode.cs" />
+    <Compile Include="Client\FragmentDictionaryNode.cs" />
+    <Compile Include="Client\DictionaryNode.cs" />
+    <Compile Include="Client\HashBytesFragmentDictionaryNode.cs" />
+    <Compile Include="Client\HashBytesDictionaryNode.cs" />
+    <Compile Include="Client\MessageNode\ServerByteArrayMessageConsumer.cs" />
+    <Compile Include="Client\MessageNode\ServerByteArrayBinaryMessageConsumer.cs" />
+    <Compile Include="Client\MessageNode\ServerByteArrayMessageStringConsumer.cs" />
+    <Compile Include="Client\MessageNode\ServerByteArrayMessageJsonConsumer.cs" />
+    <Compile Include="Client\MessageNode\BinaryMessageConsumer.cs" />
+    <Compile Include="Data\TestClass.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Server\ServiceConfig.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
     <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
   
@@ -28,10 +59,6 @@
     <Reference Include="AutoCSer">
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Server\" />
   </ItemGroup>
 
 </Project>

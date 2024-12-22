@@ -234,15 +234,15 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     while (--taskCount >= 0) Queue().NotWait();
                     break;
                 case nameof(TaskQueue):
-                    right = Reset(commandClient, maxTestCount >> 1, taskCount) >> LoopCountBit;
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) TaskQueue().NotWait();
                     break;
                 case nameof(TaskQueueKey):
-                    right = Reset(commandClient, maxTestCount >> 1, taskCount) >> LoopCountBit;
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) TaskQueueKey().NotWait();
                     break;
                 case nameof(Task):
-                    right = Reset(commandClient, maxTestCount >> 1, taskCount) >> LoopCountBit;
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) Task().NotWait();
                     break;
             }

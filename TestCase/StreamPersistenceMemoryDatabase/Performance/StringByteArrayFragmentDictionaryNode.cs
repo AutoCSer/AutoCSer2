@@ -153,7 +153,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         do
                         {
                             var result = await client.TryGetBinaryDeserialize<string, Data.Address>((Left + next).toString());
-                            if (result.Value.Value != null) ++success;
+                            if (result.Value != null) ++success;
                             else ++error;
                         }
                         while ((--next & (LoopCount - 1)) != 0);
@@ -263,7 +263,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         do
                         {
                             var result = await client.TryGetJsonDeserialize<string, Data.Address>((Left + next).toString());
-                            if (result.Value.Value != null) ++success;
+                            if (result.Value != null) ++success;
                             else ++error;
                         }
                         while ((--next & (LoopCount - 1)) != 0);

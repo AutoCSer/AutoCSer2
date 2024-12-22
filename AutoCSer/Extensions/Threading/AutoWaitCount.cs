@@ -22,7 +22,7 @@ namespace AutoCSer.Threading
         /// <param name="count">当前计数</param>
         public AutoWaitCount(int count)
         {
-            waitHandle.Set(0);
+            waitHandle.Set(new object(), 0);
             this.count = count + 1;
         }
         /// <summary>

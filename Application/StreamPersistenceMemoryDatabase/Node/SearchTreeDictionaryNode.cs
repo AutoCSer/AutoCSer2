@@ -62,17 +62,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             dictionary.Clear();
         }
         /// <summary>
-        /// 设置数据 持久化参数检查
-        /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">数据</param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> SetBeforePersistence(KT key, VT value)
-        {
-            if (key != null) return default(ValueResult<bool>);
-            return false;
-        }
-        /// <summary>
         /// 设置数据
         /// </summary>
         /// <param name="key">关键字</param>
@@ -80,18 +69,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加了关键字</returns>
         public bool Set(KT key, VT value)
         {
-            return dictionary.Set(key, value);
-        }
-        /// <summary>
-        /// 添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> TryAddBeforePersistence(KT key, VT value)
-        {
-            if (key == null || dictionary.ContainsKey(key)) return false;
-            return default(ValueResult<bool>);
+            return key != null && dictionary.Set(key, value);
         }
         /// <summary>
         /// 添加数据
@@ -101,17 +79,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加了数据</returns>
         public bool TryAdd(KT key, VT value)
         {
-            return dictionary.TryAdd(key, value);
-        }
-        /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<bool> RemoveBeforePersistence(KT key)
-        {
-            if (key == null || !dictionary.ContainsKey(key)) return false;
-            return default(ValueResult<bool>);
+            return key != null && dictionary.TryAdd(key, value);
         }
         /// <summary>
         /// 根据关键字删除节点
@@ -120,17 +88,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否存在关键字</returns>
         public bool Remove(KT key)
         {
-            return dictionary.Remove(key);
-        }
-        /// <summary>
-        /// 删除关键字并返回被删除数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<VT>> GetRemoveBeforePersistence(KT key)
-        {
-            if (key == null || !dictionary.ContainsKey(key)) return default(ValueResult<VT>);
-            return default(ValueResult<ValueResult<VT>>);
+            return key != null && dictionary.Remove(key);
         }
         /// <summary>
         /// 根据关键字删除节点
@@ -139,8 +97,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>被删除数据</returns>
         public ValueResult<VT> GetRemove(KT key)
         {
-            var value = default(VT);
-            if (dictionary.Remove(ref key, out value)) return value;
+            if (key != null)
+            {
+                var value = default(VT);
+                if (dictionary.Remove(ref key, out value)) return value;
+            }
             return default(ValueResult<VT>);
         }
         /// <summary>

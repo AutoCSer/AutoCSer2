@@ -50,13 +50,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         void ClearArray();
         /// <summary>
-        /// 添加数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> TryAddBeforePersistence(KT key, ServerByteArray value);
-        /// <summary>
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <param name="key"></param>
@@ -64,13 +57,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool TryAdd(KT key, ServerByteArray value);
-        /// <summary>
-        /// 强制设置数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> SetBeforePersistence(KT key, ServerByteArray value);
         /// <summary>
         /// 强制设置数据，如果关键字已存在则覆盖
         /// </summary>
@@ -87,23 +73,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsPersistence = false)]
         bool ContainsKey(KT key);
         /// <summary>
-        /// 删除关键字 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<bool> RemoveBeforePersistence(KT key);
-        /// <summary>
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
         /// <returns>是否存在关键字</returns>
         bool Remove(KT key);
-        /// <summary>
-        /// 删除关键字并返回被删除数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<ValueResult<byte[]>> GetRemoveBeforePersistence(KT key);
         /// <summary>
         /// 删除关键字并返回被删除数据
         /// </summary>
@@ -114,12 +88,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
         ValueResult<byte[]> GetRemove(KT key);
 #endif
-        /// <summary>
-        /// 删除关键字并返回被删除数据 持久化参数检查
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        ValueResult<ResponseParameter> GetRemoveResponseParameterBeforePersistence(KT key);
         /// <summary>
         /// 删除关键字并返回被删除数据
         /// </summary>

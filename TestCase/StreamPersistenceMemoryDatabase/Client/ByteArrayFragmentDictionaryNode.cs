@@ -47,9 +47,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return false;
             }
-            ResponseResult<ValueResult<string>> valueResult = await node.TryGetString(key);
+            ResponseValueResult<string> valueResult = await node.TryGetString(key);
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value != value)
+            if (valueResult.Value != value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
@@ -128,7 +128,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             }
             valueResult = await node.GetRemoveString(key);
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value != value)
+            if (valueResult.Value != value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
@@ -305,9 +305,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return false;
             }
-            ResponseResult<ValueResult<TestClass>> valueResult = await node.TryGetBinaryDeserialize<string, TestClass>(key);
+            ResponseValueResult<TestClass> valueResult = await node.TryGetBinaryDeserialize<string, TestClass>(key);
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
@@ -386,7 +386,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             }
             valueResult = await node.GetRemoveBinaryDeserialize<string, TestClass>(key);
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
@@ -434,9 +434,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return false;
             }
-            ResponseResult<ValueResult<TestClass>> valueResult = await node.TryGetJsonDeserialize<string, TestClass>(key);
+            ResponseValueResult<TestClass> valueResult = await node.TryGetJsonDeserialize<string, TestClass>(key);
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
@@ -515,7 +515,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             }
             valueResult = await node.GetRemoveJsonDeserialize<string, TestClass>(key);
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;

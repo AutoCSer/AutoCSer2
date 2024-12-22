@@ -24,7 +24,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
 #if DEBUG
         protected const int maxTestCount = 1 << 10;
 #else
-        protected const int maxTestCount = 1 << 23;
+        protected const int maxTestCount = 1 << 24;
 #endif
         /// <summary>
         /// 测试验证位图

@@ -19,9 +19,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult> EnqueueBinarySerialize<T>(this IByteArrayQueueNodeClientNode node, T? value)
+        public static ResponseResultAwaiter EnqueueBinarySerialize<T>(this IByteArrayQueueNodeClientNode node, T? value)
 #else
-        public static Task<ResponseResult> EnqueueBinarySerialize<T>(this IByteArrayQueueNodeClientNode node, T value)
+        public static ResponseParameterAwaiter EnqueueBinarySerialize<T>(this IByteArrayQueueNodeClientNode node, T value)
 #endif
         {
             return node.Enqueue(ServerByteArray.BinarySerialize(value));
@@ -35,9 +35,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static Task<ResponseResult> EnqueueJsonSerialize<T>(this IByteArrayQueueNodeClientNode node, T? value)
+        public static ResponseResultAwaiter EnqueueJsonSerialize<T>(this IByteArrayQueueNodeClientNode node, T? value)
 #else
-        public static Task<ResponseResult> EnqueueJsonSerialize<T>(this IByteArrayQueueNodeClientNode node, T value)
+        public static ResponseParameterAwaiter EnqueueJsonSerialize<T>(this IByteArrayQueueNodeClientNode node, T value)
 #endif
         {
             return node.Enqueue(ServerByteArray.JsonSerialize(value));
@@ -48,42 +48,36 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<string?>>> TryDequeueString(this IByteArrayQueueNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<string>>> TryDequeueString(this IByteArrayQueueNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static StringResponseParameterAwaiter TryDequeueString(this IByteArrayQueueNodeClientNode node)
         {
-            StringResponseParameter responseParameter = new StringResponseParameter();
-            return responseParameter.Get(await node.TryDequeueResponseParameter(responseParameter));
+            StringResponseParameterAwaiter responseParameter = new StringResponseParameterAwaiter();
+            responseParameter.Set(node.TryDequeueResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 从队列中弹出一个数据
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryDequeueBinaryDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryDequeueBinaryDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BinarySerializeResponseParameterValueResultAwaiter<T> TryDequeueBinaryDeserialize<T>(this IByteArrayQueueNodeClientNode node)
         {
-            BinarySerializeResponseParameter<T> responseParameter = new BinarySerializeResponseParameter<T>();
-            return responseParameter.Get(await node.TryDequeueResponseParameter(responseParameter));
+            BinarySerializeResponseParameterValueResultAwaiter<T> responseParameter = new BinarySerializeResponseParameterValueResultAwaiter<T>();
+            responseParameter.Set(node.TryDequeueResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 从队列中弹出一个数据
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryDequeueJsonDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryDequeueJsonDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static JsonResponseParameterAwaiter<T> TryDequeueJsonDeserialize<T>(this IByteArrayQueueNodeClientNode node)
         {
-            JsonResponseParameter<T> responseParameter = new JsonResponseParameter<T>();
-            return responseParameter.Get(await node.TryDequeueResponseParameter(responseParameter));
+            JsonResponseParameterAwaiter<T> responseParameter = new JsonResponseParameterAwaiter<T>();
+            responseParameter.Set(node.TryDequeueResponseParameter(responseParameter));
+            return responseParameter;
         }
 
         /// <summary>
@@ -91,42 +85,36 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<string?>>> TryPeekString(this IByteArrayQueueNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<string>>> TryPeekString(this IByteArrayQueueNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static StringResponseParameterAwaiter TryPeekString(this IByteArrayQueueNodeClientNode node)
         {
-            StringResponseParameter responseParameter = new StringResponseParameter();
-            return responseParameter.Get(await node.TryPeekResponseParameter(responseParameter));
+            StringResponseParameterAwaiter responseParameter = new StringResponseParameterAwaiter();
+            responseParameter.Set(node.TryPeekResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 获取队列中下一个弹出数据（不弹出数据仅查看）
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryPeekBinaryDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryPeekBinaryDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BinarySerializeResponseParameterValueResultAwaiter<T> TryPeekBinaryDeserialize<T>(this IByteArrayQueueNodeClientNode node)
         {
-            BinarySerializeResponseParameter<T> responseParameter = new BinarySerializeResponseParameter<T>();
-            return responseParameter.Get(await node.TryPeekResponseParameter(responseParameter));
+            BinarySerializeResponseParameterValueResultAwaiter<T> responseParameter = new BinarySerializeResponseParameterValueResultAwaiter<T>();
+            responseParameter.Set(node.TryPeekResponseParameter(responseParameter));
+            return responseParameter;
         }
         /// <summary>
         /// 获取队列中下一个弹出数据（不弹出数据仅查看）
         /// </summary>
         /// <param name="node"></param>
         /// <returns>没有可弹出数据则返回无数据</returns>
-#if NetStandard21
-        public static async Task<ResponseResult<ValueResult<T?>>> TryPeekJsonDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#else
-        public static async Task<ResponseResult<ValueResult<T>>> TryPeekJsonDeserialize<T>(this IByteArrayQueueNodeClientNode node)
-#endif
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static JsonResponseParameterAwaiter<T> TryPeekJsonDeserialize<T>(this IByteArrayQueueNodeClientNode node)
         {
-            JsonResponseParameter<T> responseParameter = new JsonResponseParameter<T>();
-            return responseParameter.Get(await node.TryPeekResponseParameter(responseParameter));
+            JsonResponseParameterAwaiter<T> responseParameter = new JsonResponseParameterAwaiter<T>();
+            responseParameter.Set(node.TryPeekResponseParameter(responseParameter));
+            return responseParameter;
         }
     }
 }

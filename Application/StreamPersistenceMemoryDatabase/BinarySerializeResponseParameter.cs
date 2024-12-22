@@ -1,4 +1,9 @@
-﻿using System;
+﻿using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -8,10 +13,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <typeparam name="T"></typeparam>
     public sealed class BinarySerializeResponseParameter<T> : ResponseParameter<T>
     {
-        /// <summary>
-        /// 返回参数
-        /// </summary>
-        public BinarySerializeResponseParameter() { }
         /// <summary>
         /// 返回参数
         /// </summary>

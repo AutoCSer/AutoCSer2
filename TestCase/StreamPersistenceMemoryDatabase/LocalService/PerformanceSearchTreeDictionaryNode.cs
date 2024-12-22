@@ -23,12 +23,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             if (!Program.Breakpoint(result)) return;
 
             int taskCount = getTaskCount();
-            testValue = reset(maxTestCount, true, taskCount);
+            testValue = reset(maxTestCount >> 1, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(Set));
 
             taskCount = getTaskCount();
-            testValue = reset(maxTestCount, true, taskCount);
+            testValue = reset(maxTestCount >> 1, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(TryGetValue));
 

@@ -25,8 +25,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             ResponseResult<IDistributedLockNodeClientNode<int>> node = await client.GetOrCreateDistributedLockNode<int>(typeof(IDistributedLockNodeClientNode<int>).FullName);
             if (!Program.Breakpoint(node)) return;
 
-            Task[] tasks = new Task[10];
-            for (int index = 0; index != 10; ++index) tasks[index] = Test(node.Value);
+            Task[] tasks = new Task[Math.Max(AutoCSer.Common.ProcessorCount, 4)];
+            for (int index = 0; index != tasks.Length; ++index) tasks[index] = Test(node.Value);
             await Task.WhenAll(tasks);
 
             completed();

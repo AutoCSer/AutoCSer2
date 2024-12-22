@@ -83,15 +83,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             stack.Push(value);
         }
         /// <summary>
-        /// 从栈中弹出一个数据 持久化参数检查
-        /// </summary>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ValueResult<byte[]>> TryPopBeforePersistence()
-        {
-            if (stack.Count != 0) return default(ValueResult<ValueResult<byte[]>>);
-            return default(ValueResult<byte[]>);
-        }
-        /// <summary>
         /// 从栈中弹出一个数据
         /// </summary>
         /// <returns>没有可弹出数据则返回无数据</returns>
@@ -108,15 +99,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
             return default(ValueResult<byte[]>);
 #endif
-        }
-        /// <summary>
-        /// 从栈中弹出一个数据 持久化参数检查
-        /// </summary>
-        /// <returns>无返回值表示需要继续调用持久化方法</returns>
-        public ValueResult<ResponseParameter> TryPopResponseParameterBeforePersistence()
-        {
-            if (stack.Count != 0) return default(ValueResult<ResponseParameter>);
-            return (ResponseServerByteArray)CallStateEnum.NullResponseParameter;
         }
         /// <summary>
         /// 从栈中弹出一个数据

@@ -1,8 +1,11 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -16,6 +19,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用状态
         /// </summary>
         internal CallStateEnum State;
+        /// <summary>
+        /// 完成状态
+        /// </summary>
+        public bool IsCompleted { get; protected set; }
         /// <summary>
         /// 返回参数序列化
         /// </summary>
@@ -103,23 +110,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ResponseParameter(T value)
         {
             Value.ReturnValue = value;
-        }
-        /// <summary>
-        /// 获取返回参数结果
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
-#if NetStandard21
-        public ResponseResult<ValueResult<T?>> Get(ResponseResult<ResponseParameter> result)
-#else
-        public ResponseResult<ValueResult<T>> Get(ResponseResult<ResponseParameter> result)
-#endif
-        {
-#if NetStandard21
-            return result.CastValueResult<T?>(Value.ReturnValue);
-#else
-            return result.CastValueResult<T>(Value.ReturnValue);
-#endif
         }
     }
 }

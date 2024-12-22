@@ -17,27 +17,27 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// 
             /// </summary>
             /// <param name="monster"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster monster);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster monster);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="monsters"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[] monsters);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter AddMonsters(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster[] monsters);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="id"></param>
             /// <param name="speed"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetSpeed(int id, int speed);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetSpeed(int id, int speed);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="speeds"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetSpeeds(AutoCSer.KeyValue<int,int>[] speeds);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetSpeeds(AutoCSer.KeyValue<int,int>[] speeds);
             /// <summary>
             /// 
             /// </summary>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Clear();
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
@@ -50,12 +50,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// <summary>
             /// 
             /// </summary>
-            /// <param name="value"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> CallCustomPersistence(int value);
-            /// <summary>
-            /// 
-            /// </summary>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Callback();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Callback();
             /// <summary>
             /// 
             /// </summary>
@@ -65,12 +60,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// 
             /// </summary>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray>> GetServerByteArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>> GetJsonValue();
             /// <summary>
             /// 
             /// </summary>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetValue();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray> GetServerByteArray();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> GetValue();
             /// <summary>
             /// 
             /// </summary>
@@ -93,39 +93,44 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// <summary>
             /// 
             /// </summary>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> PersistenceCallbackException();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter PersistenceCallbackException();
             /// <summary>
             /// 
             /// </summary>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> SetCallback();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> SetCallback();
             /// <summary>
             /// 
             /// </summary>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> SetCallbackPersistence();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> SetCallbackPersistence();
             /// <summary>
             /// 
             /// </summary>
             /// <param name="value"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetServerByteArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass> value);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="value"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetValue(int value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetServerByteArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetValue(int value);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> SetValueCallback(int value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> SetValueCallback(int value);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> SetValueCallbackPersistence(int value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> SetValueCallbackPersistence(int value);
             /// <summary>
             /// 
             /// </summary>
@@ -139,13 +144,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// <summary>
             /// 
             /// </summary>
-            /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>>> GetJsonValue();
-            /// <summary>
-            /// 
-            /// </summary>
             /// <param name="value"></param>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass> value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter CallCustomPersistence(int value);
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
@@ -162,7 +162,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// <param name="key"></param>
             /// <param name="nodeInfo"></param>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
             /// <summary>
             /// 
             /// </summary>
@@ -170,7 +170,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// <param name="key"></param>
             /// <param name="nodeInfo"></param>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 {
@@ -217,17 +217,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// <summary>
             /// 
             /// </summary>
-            /// <param name="value"></param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> CallCustomPersistence(int value);
-            /// <summary>
-            /// 
-            /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Callback();
             /// <summary>
             /// 
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse<int>> Enumerable();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>>> GetJsonValue();
             /// <summary>
             /// 
             /// </summary>
@@ -275,6 +275,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// 
             /// </summary>
             /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass> value);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetServerByteArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value);
             /// <summary>
             /// 
@@ -306,13 +311,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// <summary>
             /// 
             /// </summary>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>>> GetJsonValue();
-            /// <summary>
-            /// 
-            /// </summary>
             /// <param name="value"></param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass> value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> CallCustomPersistence(int value);
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
@@ -376,33 +376,33 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             BindNodeMethodTest = 0,
             /// <summary>
             /// [1] 
-            /// int value 
             /// </summary>
-            CallCustomPersistence = 1,
+            Callback = 1,
             /// <summary>
             /// [2] 
-            /// </summary>
-            Callback = 2,
-            /// <summary>
-            /// [3] 
             /// 返回值 bool 
             /// </summary>
-            CallbackBeforePersistence = 3,
+            CallbackBeforePersistence = 2,
             /// <summary>
-            /// [4] 
+            /// [3] 
             /// int value 
             /// </summary>
-            CustomPersistence = 4,
+            CustomPersistence = 3,
             /// <summary>
-            /// [5] 
+            /// [4] 
             /// 返回值 int 
             /// </summary>
-            Enumerable = 5,
+            Enumerable = 4,
             /// <summary>
-            /// [6] 
+            /// [5] 
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int} 
             /// </summary>
-            EnumerableBeforePersistence = 6,
+            EnumerableBeforePersistence = 5,
+            /// <summary>
+            /// [6] 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} 
+            /// </summary>
+            GetJsonValue = 6,
             /// <summary>
             /// [7] 
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray 
@@ -481,71 +481,71 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             SetCallbackPersistenceBeforePersistence = 19,
             /// <summary>
             /// [20] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} value 
             /// </summary>
-            SetServerByteArray = 20,
+            SetJsonValue = 20,
             /// <summary>
             /// [21] 
-            /// int value 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value 
             /// </summary>
-            SetValue = 21,
+            SetServerByteArray = 21,
             /// <summary>
             /// [22] 
             /// int value 
-            /// 返回值 bool 
             /// </summary>
-            SetValueBeforePersistence = 22,
+            SetValue = 22,
             /// <summary>
             /// [23] 
             /// int value 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{int} callback 
-            /// 返回值 int 
+            /// 返回值 bool 
             /// </summary>
-            SetValueCallback = 23,
+            SetValueBeforePersistence = 23,
             /// <summary>
             /// [24] 
             /// int value 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{int} callback 
             /// 返回值 int 
             /// </summary>
-            SetValueCallbackPersistence = 24,
+            SetValueCallback = 24,
             /// <summary>
             /// [25] 
             /// int value 
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int} 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{int} callback 
+            /// 返回值 int 
             /// </summary>
-            SetValueCallbackPersistenceBeforePersistence = 25,
+            SetValueCallbackPersistence = 25,
             /// <summary>
             /// [26] 
             /// int value 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int} 
             /// </summary>
-            SetValuePersistenceSendOnly = 26,
+            SetValueCallbackPersistenceBeforePersistence = 26,
             /// <summary>
             /// [27] 
             /// int value 
-            /// 返回值 bool 
             /// </summary>
-            SetValuePersistenceSendOnlyBeforePersistence = 27,
+            SetValuePersistenceSendOnly = 27,
             /// <summary>
             /// [28] 
             /// int value 
+            /// 返回值 bool 
             /// </summary>
-            SetValueSendOnly = 28,
+            SetValuePersistenceSendOnlyBeforePersistence = 28,
             /// <summary>
             /// [29] 
             /// int value 
             /// </summary>
-            SnapshotSet = 29,
+            SetValueSendOnly = 29,
             /// <summary>
             /// [30] 
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} 
+            /// int value 
             /// </summary>
-            GetJsonValue = 30,
+            SnapshotSet = 30,
             /// <summary>
             /// [31] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} value 
+            /// int value 
             /// </summary>
-            SetJsonValue = 31,
+            CallCustomPersistence = 31,
     }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
@@ -673,7 +673,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// </summary>
             CreateHashSetNode = 12,
             /// <summary>
-            /// [13] 创建数组节点 LeftArrayNode{T}
+            /// [13] 创建 64 位自增ID 节点 IdentityGeneratorNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// long identity 起始分配 ID
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateIdentityGeneratorNode = 13,
+            /// <summary>
+            /// [14] 创建数组节点 LeftArrayNode{T}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -681,9 +690,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateLeftArrayNode = 13,
+            CreateLeftArrayNode = 14,
             /// <summary>
-            /// [14] 创建消息处理节点 MessageNode{T}
+            /// [15] 创建消息处理节点 MessageNode{T}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -693,9 +702,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// int checkTimeoutSeconds 消息超时检查间隔秒数
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateMessageNode = 14,
+            CreateMessageNode = 15,
             /// <summary>
-            /// [15] 创建队列节点（先进先出） QueueNode{T}
+            /// [16] 创建队列节点（先进先出） QueueNode{T}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -703,9 +712,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateQueueNode = 15,
+            CreateQueueNode = 16,
             /// <summary>
-            /// [16] 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
+            /// [17] 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -713,18 +722,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// AutoCSer.Reflection.RemoteType valueType 数据类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateSearchTreeDictionaryNode = 16,
+            CreateSearchTreeDictionaryNode = 17,
             /// <summary>
-            /// [17] 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
+            /// [18] 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateSearchTreeSetNode = 17,
+            CreateSearchTreeSetNode = 18,
             /// <summary>
-            /// [18] 创建消息处理节点 MessageNode{ServerByteArrayMessage}
+            /// [19] 创建消息处理节点 MessageNode{ServerByteArrayMessage}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -733,9 +742,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// int checkTimeoutSeconds 消息超时检查间隔秒数
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateServerByteArrayMessageNode = 18,
+            CreateServerByteArrayMessageNode = 19,
             /// <summary>
-            /// [19] 创建排序字典节点 SortedDictionaryNode{KT,VT}
+            /// [20] 创建排序字典节点 SortedDictionaryNode{KT,VT}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -743,9 +752,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// AutoCSer.Reflection.RemoteType valueType 数据类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateSortedDictionaryNode = 19,
+            CreateSortedDictionaryNode = 20,
             /// <summary>
-            /// [20] 创建排序列表节点 SortedListNode{KT,VT}
+            /// [21] 创建排序列表节点 SortedListNode{KT,VT}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -754,18 +763,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateSortedListNode = 20,
+            CreateSortedListNode = 21,
             /// <summary>
-            /// [21] 创建排序集合节点 SortedSetNode{KT}
+            /// [22] 创建排序集合节点 SortedSetNode{KT}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateSortedSetNode = 21,
+            CreateSortedSetNode = 22,
             /// <summary>
-            /// [22] 创建栈节点（后进先出） StackNode{T}
+            /// [23] 创建栈节点（后进先出） StackNode{T}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -773,19 +782,13 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateStackNode = 22,
+            CreateStackNode = 23,
             /// <summary>
-            /// [23] 删除节点
+            /// [24] 删除节点
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// 返回值 bool 是否成功删除节点，否则表示没有找到节点
             /// </summary>
-            RemoveNode = 23,
-            /// <summary>
-            /// [24] 删除节点持久化参数检查
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 无返回值表示需要继续调用持久化方法
-            /// </summary>
-            RemoveNodeBeforePersistence = 24,
+            RemoveNode = 24,
             /// <summary>
             /// [25] 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
@@ -802,15 +805,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
             /// </summary>
             CreateGameNode = 26,
-            /// <summary>
-            /// [27] 创建 64 位自增ID 节点 IdentityGeneratorNode
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
-            /// string key 节点全局关键字
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            /// long identity 起始分配 ID
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
-            /// </summary>
-            CreateIdentityGeneratorNode = 27,
     }
 }
 #endif

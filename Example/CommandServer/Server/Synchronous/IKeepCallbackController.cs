@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 
 namespace AutoCSer.Example.CommandServer.Server.Synchronous
@@ -74,7 +75,7 @@ namespace AutoCSer.Example.CommandServer.Server.Synchronous
         /// <param name="callback">等待计数模式 保持回调委托包装，必须是最后一个参数</param>
         void IKeepCallbackController.CallbackCountReturn(CommandServerSocket socket, int parameter1, int parameter2, CommandServerKeepCallbackCount<int> callback)
         {
-            for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue; callback.CallbackAsync(value++).Wait()) ;
+            for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue; callback.CallbackAsync(value++).wait()) ;
             callback.CancelKeep();
         }
         /// <summary>
@@ -85,7 +86,7 @@ namespace AutoCSer.Example.CommandServer.Server.Synchronous
         void IKeepCallbackController.CallbackCountCall(int parameter, CommandServerKeepCallbackCount callback)
         {
             Console.WriteLine(parameter);
-            for (int value = 4; value != 0; --value) callback.CallbackAsync().Wait();
+            for (int value = 4; value != 0; --value) callback.CallbackAsync().wait();
             callback.CancelKeep();
         }
     }

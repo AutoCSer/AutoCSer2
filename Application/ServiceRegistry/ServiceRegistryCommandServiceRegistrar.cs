@@ -81,7 +81,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         public override void Dispose()
         {
-            Assembler.Remove(this).Wait();
+            Assembler.Remove(this).wait();
             if (portRegistryClient != null) portRegistryClient.Free(server);
         }
         /// <summary>

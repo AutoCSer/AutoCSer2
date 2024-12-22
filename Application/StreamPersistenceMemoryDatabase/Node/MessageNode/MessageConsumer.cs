@@ -102,7 +102,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 开始接收并处理消息
         /// </summary>
-        /// <param name="maxCallbackCount">单个连接最大并发数量</param>
+        /// <param name="maxCallbackCount">单个消费者最大并发数量</param>
         /// <returns></returns>
         public virtual async Task Start(int maxCallbackCount)
         {

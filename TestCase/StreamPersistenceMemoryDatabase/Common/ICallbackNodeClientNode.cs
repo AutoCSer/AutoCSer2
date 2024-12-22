@@ -8,6 +8,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// </summary>
     public partial interface ICallbackNodeClientNode
     {
-        System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> BindNodeMethodTest(int value);
+        AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> BindNodeMethodTest(int value);
     }
 }

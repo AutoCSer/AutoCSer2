@@ -4,6 +4,7 @@ using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
 {
@@ -153,7 +154,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         do
                         {
                             var result = await client.TryGetBinaryDeserialize<int, Data.Address>(Left + next);
-                            if (result.Value.Value != null) ++success;
+                            if (result.Value != null) ++success;
                             else ++error;
                         }
                         while ((--next & (LoopCount - 1)) != 0);
@@ -263,7 +264,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         do
                         {
                             var result = await client.TryGetJsonDeserialize<int, Data.Address>(Left + next);
-                            if (result.Value.Value != null) ++success;
+                            if (result.Value != null) ++success;
                             else ++error;
                         }
                         while ((--next & (LoopCount - 1)) != 0);

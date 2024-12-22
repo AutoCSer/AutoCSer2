@@ -149,14 +149,8 @@
             客户端节点接口扩展，用于服务端动态绑定新接口方法测试
             </summary>
             <summary>
-             客户端节点接口
+            回调测试节点 客户端节点接口
             </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.CallCustomPersistence(System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.Callback">
             <summary>
@@ -164,6 +158,12 @@
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.Enumerable">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.GetJsonValue">
             <summary>
             
             </summary>
@@ -220,6 +220,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.SetServerByteArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray)">
             <summary>
             
@@ -258,13 +264,7 @@
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.GetJsonValue">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass})">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.CallCustomPersistence(System.Int32)">
             <summary>
             
             </summary>
@@ -298,52 +298,52 @@
              客户端节点接口
             </summary>
             <summary>
-             客户端节点接口
+            服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeClientNode.CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
-            
+            创建回调测试节点 ICallbackNode
             </summary>
-            <param name="index"></param>
-            <param name="key"></param>
-            <param name="nodeInfo"></param>
-            <returns></returns>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeClientNode.CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
-            
+            创建游戏测试节点 GameNode
             </summary>
-            <param name="index"></param>
-            <param name="key"></param>
-            <param name="nodeInfo"></param>
-            <returns></returns>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode">
             <summary>
             本地客户端节点接口
             </summary>
             <summary>
-             客户端节点接口
+            服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode.CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
-            
+            创建回调测试节点 ICallbackNode
             </summary>
-            <param name="index"></param>
-            <param name="key"></param>
-            <param name="nodeInfo"></param>
-            <returns></returns>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode.CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
-            
+            创建游戏测试节点 GameNode
             </summary>
-            <param name="index"></param>
-            <param name="key"></param>
-            <param name="nodeInfo"></param>
-            <returns></returns>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage">
             <summary>
@@ -357,14 +357,8 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode">
             <summary>
-             客户端节点接口
+            回调测试节点 客户端节点接口
             </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.CallCustomPersistence(System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.Callback">
             <summary>
@@ -372,6 +366,12 @@
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.Enumerable">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.GetJsonValue">
             <summary>
             
             </summary>
@@ -428,6 +428,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass})">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.SetServerByteArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray)">
             <summary>
             
@@ -466,51 +472,45 @@
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.GetJsonValue">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.SetJsonValue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass})">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.CallCustomPersistence(System.Int32)">
             <summary>
             
             </summary>
             <param name="value"></param>
         </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.CallCustomPersistence">
-            <summary>
-            [1] 
-            int value 
-            </summary>
-        </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.Callback">
             <summary>
-            [2] 
+            [1] 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.CallbackBeforePersistence">
             <summary>
-            [3] 
+            [2] 
             返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.CustomPersistence">
             <summary>
-            [4] 
+            [3] 
             int value 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.Enumerable">
             <summary>
-            [5] 
+            [4] 
             返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.EnumerableBeforePersistence">
             <summary>
-            [6] 
+            [5] 
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.GetJsonValue">
+            <summary>
+            [6] 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.GetServerByteArray">
@@ -602,34 +602,32 @@
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int} 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetServerByteArray">
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetJsonValue">
             <summary>
             [20] 
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetServerByteArray">
+            <summary>
+            [21] 
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray value 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValue">
             <summary>
-            [21] 
+            [22] 
             int value 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValueBeforePersistence">
             <summary>
-            [22] 
+            [23] 
             int value 
             返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValueCallback">
-            <summary>
-            [23] 
-            int value 
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{int} callback 
-            返回值 int 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValueCallbackPersistence">
             <summary>
             [24] 
             int value 
@@ -637,48 +635,50 @@
             返回值 int 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValueCallbackPersistenceBeforePersistence">
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValueCallbackPersistence">
             <summary>
             [25] 
+            int value 
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{int} callback 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValueCallbackPersistenceBeforePersistence">
+            <summary>
+            [26] 
             int value 
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int} 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValuePersistenceSendOnly">
             <summary>
-            [26] 
+            [27] 
             int value 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValuePersistenceSendOnlyBeforePersistence">
             <summary>
-            [27] 
+            [28] 
             int value 
             返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetValueSendOnly">
             <summary>
-            [28] 
+            [29] 
             int value 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SnapshotSet">
             <summary>
-            [29] 
+            [30] 
             int value 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.GetJsonValue">
-            <summary>
-            [30] 
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.SetJsonValue">
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodEnum.CallCustomPersistence">
             <summary>
             [31] 
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.JsonValue{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass} value 
+            int value 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateArrayNode">
@@ -815,9 +815,19 @@
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateIdentityGeneratorNode">
+            <summary>
+            [13] 创建 64 位自增ID 节点 IdentityGeneratorNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            long identity 起始分配 ID
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateLeftArrayNode">
             <summary>
-            [13] 创建数组节点 LeftArrayNode{T}
+            [14] 创建数组节点 LeftArrayNode{T}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -828,7 +838,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateMessageNode">
             <summary>
-            [14] 创建消息处理节点 MessageNode{T}
+            [15] 创建消息处理节点 MessageNode{T}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -841,7 +851,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateQueueNode">
             <summary>
-            [15] 创建队列节点（先进先出） QueueNode{T}
+            [16] 创建队列节点（先进先出） QueueNode{T}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -852,7 +862,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateSearchTreeDictionaryNode">
             <summary>
-            [16] 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
+            [17] 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -863,7 +873,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateSearchTreeSetNode">
             <summary>
-            [17] 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
+            [18] 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -873,7 +883,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateServerByteArrayMessageNode">
             <summary>
-            [18] 创建消息处理节点 MessageNode{ServerByteArrayMessage}
+            [19] 创建消息处理节点 MessageNode{ServerByteArrayMessage}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -885,7 +895,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateSortedDictionaryNode">
             <summary>
-            [19] 创建排序字典节点 SortedDictionaryNode{KT,VT}
+            [20] 创建排序字典节点 SortedDictionaryNode{KT,VT}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -896,7 +906,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateSortedListNode">
             <summary>
-            [20] 创建排序列表节点 SortedListNode{KT,VT}
+            [21] 创建排序列表节点 SortedListNode{KT,VT}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -908,7 +918,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateSortedSetNode">
             <summary>
-            [21] 创建排序集合节点 SortedSetNode{KT}
+            [22] 创建排序集合节点 SortedSetNode{KT}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -918,7 +928,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateStackNode">
             <summary>
-            [22] 创建栈节点（后进先出） StackNode{T}
+            [23] 创建栈节点（后进先出） StackNode{T}
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -929,43 +939,26 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.RemoveNode">
             <summary>
-            [23] 删除节点
+            [24] 删除节点
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             返回值 bool 是否成功删除节点，否则表示没有找到节点
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.RemoveNodeBeforePersistence">
-            <summary>
-            [24] 删除节点持久化参数检查
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 无返回值表示需要继续调用持久化方法
-            </summary>
-        </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateCallbackNode">
             <summary>
-            [25] 
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
-            string key 
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            [25] 创建回调测试节点 ICallbackNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateGameNode">
             <summary>
-            [26] 
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
-            string key 
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodEnum.CreateIdentityGeneratorNode">
-            <summary>
-            [27] 创建 64 位自增ID 节点 IdentityGeneratorNode
+            [26] 创建游戏测试节点 GameNode
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            long identity 起始分配 ID
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>

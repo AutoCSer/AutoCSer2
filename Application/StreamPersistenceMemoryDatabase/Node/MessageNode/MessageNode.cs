@@ -510,24 +510,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return next;
         }
         /// <summary>
-        /// 生产者添加新消息 持久化参数检查
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        public bool AppendMessageBeforePersistence(T message)
-        {
-            return message != null;
-        }
-        /// <summary>
         /// 生产者添加新消息
         /// </summary>
         /// <param name="message"></param>
         public void AppendMessage(T message)
         {
-            streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
-            message.MessageIdeneity.SetNew(++CurrentIdentity);
-            AppendLinkCount(message);
-            if (currentCallback != null && messageArrayFreeIndex >= 0) sendNewMessage();
+            if (message != null)
+            {
+                streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
+                message.MessageIdeneity.SetNew(++CurrentIdentity);
+                AppendLinkCount(message);
+                if (currentCallback != null && messageArrayFreeIndex >= 0) sendNewMessage();
+            }
         }
         /// <summary>
         /// 发送新消息
@@ -549,35 +543,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             //while (currentCallback != null);
         }
         /// <summary>
-        /// 消息完成处理 持久化参数检查
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        public bool CompletedBeforePersistence(MessageIdeneity identity)
-        {
-            return (uint)identity.ArrayIndex < (uint)MessageArray.Length && (ulong)(identity.Identity - 1) < (ulong)CurrentIdentity;
-        }
-        /// <summary>
         /// 消息完成处理
         /// </summary>
         /// <param name="identity"></param>
         public void Completed(MessageIdeneity identity)
         {
-            int nextIndex;
-            var message = MessageArray[identity.ArrayIndex].GetMessage(out nextIndex);
-            if (message != null && message.MessageIdeneity.Identity == identity.Identity)
+            if ((uint)identity.ArrayIndex < (uint)MessageArray.Length && (ulong)(identity.Identity - 1) < (ulong)CurrentIdentity)
             {
-                streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
-                if (identity.ArrayIndex != sendFailedIndex) --count;
-                else
+                int nextIndex;
+                var message = MessageArray[identity.ArrayIndex].GetMessage(out nextIndex);
+                if (message != null && message.MessageIdeneity.Identity == identity.Identity)
                 {
-                    --failedCount;
-                    sendFailedIndex = -1;
+                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
+                    if (identity.ArrayIndex != sendFailedIndex) --count;
+                    else
+                    {
+                        --failedCount;
+                        sendFailedIndex = -1;
+                    }
+                    freeArrayIndex(message, nextIndex);
+                    sendMessage();
                 }
-                freeArrayIndex(message, nextIndex);
-                sendMessage();
+                else if (timeoutMessages.Remove(identity.Identity, out message)) message.MessageIdeneity.Flags |= MessageFlagsEnum.Completed;
             }
-            else if (timeoutMessages.Remove(identity.Identity, out message)) message.MessageIdeneity.Flags |= MessageFlagsEnum.Completed;
         }
         /// <summary>
         /// 释放消息处理状态
@@ -620,33 +608,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 消息失败处理 持久化参数检查
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        public bool FailedBeforePersistence(MessageIdeneity identity)
-        {
-            return (uint)identity.ArrayIndex < (uint)MessageArray.Length && (ulong)(identity.Identity - 1) < (ulong)CurrentIdentity;
-        }
-        /// <summary>
         /// 消息失败处理
         /// </summary>
         /// <param name="identity"></param>
         public void Failed(MessageIdeneity identity)
         {
-            int nextIndex;
-            var message = MessageArray[identity.ArrayIndex].GetMessage(out nextIndex);
-            if (message != null && message.MessageIdeneity.Identity == identity.Identity)
+            if ((uint)identity.ArrayIndex < (uint)MessageArray.Length && (ulong)(identity.Identity - 1) < (ulong)CurrentIdentity)
             {
-                streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
-                if ((message.MessageIdeneity.Flags & MessageFlagsEnum.FailedOrTimeout) == 0)
+                int nextIndex;
+                var message = MessageArray[identity.ArrayIndex].GetMessage(out nextIndex);
+                if (message != null && message.MessageIdeneity.Identity == identity.Identity)
                 {
-                    --count;
-                    ++failedCount;
+                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
+                    if ((message.MessageIdeneity.Flags & MessageFlagsEnum.FailedOrTimeout) == 0)
+                    {
+                        --count;
+                        ++failedCount;
+                    }
+                    message.MessageIdeneity.Flags |= MessageFlagsEnum.Failed;
+                    failed(message, nextIndex);
+                    sendMessage();
                 }
-                message.MessageIdeneity.Flags |= MessageFlagsEnum.Failed;
-                failed(message, nextIndex);
-                sendMessage();
             }
         }
         /// <summary>

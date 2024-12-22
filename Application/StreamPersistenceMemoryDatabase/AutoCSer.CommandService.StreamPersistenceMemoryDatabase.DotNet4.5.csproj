@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinarySerializeResponseParameter.cs" />
+    <Compile Include="BinarySerializeResponseParameterAwaiter.cs" />
+    <Compile Include="BinarySerializeResponseParameterValueResultAwaiter.cs" />
     <Compile Include="CallStateEnum.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseTaskClient.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClientBase.cs" />
@@ -71,7 +73,7 @@
     <Compile Include="Extensions\MethodKeepCallbackExtension.cs" />
     <Compile Include="Extensions\ResponseResultExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
-    <Compile Include="JsonResponseParameter.cs" />
+    <Compile Include="JsonResponseParameterAwaiter.cs" />
     <Compile Include="JsonValue.cs" />
     <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
     <Compile Include="KeepCallbackResponseParameter.cs" />
@@ -166,6 +168,11 @@
     <Compile Include="Node\LeftArrayNode.cs" />
     <Compile Include="Node\MessageNode\LocalServiceBinaryMessageConsumer.cs" />
     <Compile Include="Node\MessageNode\LocalServiceMessageConsumer.cs" />
+    <Compile Include="Node\MessageNode\LocalServiceOnBinaryMessageConsumer.cs" />
+    <Compile Include="Node\MessageNode\OnBinaryMessageConsumer.cs" />
+    <Compile Include="Node\MessageNode\OnServerByteArrayMessageConsumer.cs" />
+    <Compile Include="Node\MessageNode\OnServerByteArrayMessageJsonConsumer.cs" />
+    <Compile Include="Node\MessageNode\OnServerByteArrayMessageStringConsumer.cs" />
     <Compile Include="Node\MessageNode\Message.cs" />
     <Compile Include="Node\MessageNode\MessageConsumer.cs" />
     <Compile Include="Node\MessageNode\MessageIdeneity.cs" />
@@ -216,11 +223,14 @@
     <Compile Include="CallTypeEnum.cs" />
     <Compile Include="Node\DictionaryNode.cs" />
     <Compile Include="Node\IDictionaryNode.cs" />
+    <Compile Include="ResponseParameterAwaiter.cs" />
     <Compile Include="ResponseParameterBinarySerializer.cs" />
     <Compile Include="ResponseParameterSerializer.cs" />
     <Compile Include="ResponseParameterSimpleSerializer.cs" />
+    <Compile Include="ResponseResultAwaiter.cs" />
     <Compile Include="ResponseServerByteArray.cs" />
     <Compile Include="ResponseServerByteArraySerializer.cs" />
+    <Compile Include="ResponseValueResult.cs" />
     <Compile Include="ServerByteArray.cs" />
     <Compile Include="Server\Backuper.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
@@ -288,8 +298,9 @@
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceConfig.cs" />
     <Compile Include="Server\SlaveService.cs" />
     <Compile Include="SimpleSerializeResponseParameter.cs" />
+    <Compile Include="SimpleSerializeResponseParameterAwaiter.cs" />
     <Compile Include="StringRequestParameterSerializer.cs" />
-    <Compile Include="StringResponseParameter.cs" />
+    <Compile Include="StringResponseParameterAwaiter.cs" />
     <Compile Include="ValueResult.cs" />
     <Compile Include="{AutoCSer.CommandService.StreamPersistenceMemoryDatabase}.AutoCSer.cs" />
   </ItemGroup>

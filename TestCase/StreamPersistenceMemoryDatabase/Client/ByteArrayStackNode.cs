@@ -39,16 +39,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            ResponseResult<ValueResult<string>> valueResult = await node.TryPeekString();
+            ResponseValueResult<string> valueResult = await node.TryPeekString();
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value != value)
+            if (valueResult.Value != value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
             }
             valueResult = await node.TryPopString();
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value != value)
+            if (valueResult.Value != value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
@@ -131,16 +131,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            ResponseResult<ValueResult<TestClass>> valueResult = await node.TryPeekJsonDeserialize<TestClass>();
+            ResponseValueResult<TestClass> valueResult = await node.TryPeekJsonDeserialize<TestClass>();
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
             }
             valueResult = await node.TryPopJsonDeserialize<TestClass>();
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
@@ -177,16 +177,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            ResponseResult<ValueResult<TestClass>> valueResult = await node.TryPeekBinaryDeserialize<TestClass>();
+            ResponseValueResult<TestClass> valueResult = await node.TryPeekBinaryDeserialize<TestClass>();
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;
             }
             valueResult = await node.TryPopBinaryDeserialize<TestClass>();
             if (!Program.Breakpoint(valueResult)) return false;
-            if (valueResult.Value.Value.String != value.String)
+            if (valueResult.Value.String != value.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{valueResult.Value}+ERROR*");
                 return false;

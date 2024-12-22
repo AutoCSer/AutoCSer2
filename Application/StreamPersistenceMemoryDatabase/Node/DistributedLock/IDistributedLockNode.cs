@@ -20,22 +20,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">锁关键字</param>
         /// <param name="timeoutSeconds">超时秒数</param>
-        /// <returns>失败返回 0</returns>
-        ValueResult<long> EnterBeforePersistence(T key, ushort timeoutSeconds);
-        /// <summary>
-        /// 申请锁
-        /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="timeoutSeconds">超时秒数</param>
         /// <param name="callback">失败返回 0</param>
         void Enter(T key, ushort timeoutSeconds, MethodCallback<long> callback);
-        /// <summary>
-        /// 尝试申请锁
-        /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="timeoutSeconds">超时秒数</param>
-        /// <returns>失败返回 0</returns>
-        ValueResult<long> TryEnterBeforePersistence(T key, ushort timeoutSeconds);
         /// <summary>
         /// 尝试申请锁
         /// </summary>
