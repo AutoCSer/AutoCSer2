@@ -53,7 +53,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 if (Parameters[parameterIndex].ParameterType.IsByRef)
                 {
-                    SetError(CallStateEnum.NodeMethodParameterIsByRef, $"节点方法 {type.fullName()}.{Method.Name} 不允许下 ref / out 参数 {Parameters[parameterIndex].Name}");
+                    SetError(CallStateEnum.NodeMethodParameterIsByRef, $"节点方法 {Type.fullName()}.{Method.Name} 不允许下 ref / out 参数 {Parameters[parameterIndex].Name}");
                     return false;
                 }
             }

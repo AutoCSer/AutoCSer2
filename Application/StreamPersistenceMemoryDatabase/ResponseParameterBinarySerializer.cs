@@ -21,7 +21,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 返回参数序列化
         /// </summary>
         /// <param name="value">数据</param>
+#if NetStandard21
+        internal ResponseParameterBinarySerializer(T? value)
+#else
         internal ResponseParameterBinarySerializer(T value)
+#endif
         {
             this.Value = new ServerReturnValue<T>(value);
         }
@@ -44,8 +48,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal override object Deserialize(AutoCSer.BinaryDeserializer deserializer)
 #endif
         {
-            deserializer.InternalIndependentDeserializeNotReference(ref Value);
-            return this;
+            return deserializer.InternalIndependentDeserializeNotReference(ref Value) ? this : null;
         }
     }
 }

@@ -73,6 +73,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 result = await node.Value.AppendMessage(new TestClass { Int = '0', String = "0" });
                 if (!Program.Breakpoint(result)) return;
             }
+            result = await node.Value.AppendMessage((TestClass)null);
+            if (!Program.Breakpoint(result)) return;
 
             completed();
         }

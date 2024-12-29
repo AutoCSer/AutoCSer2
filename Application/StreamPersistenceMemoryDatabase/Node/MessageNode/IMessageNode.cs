@@ -6,14 +6,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 消息处理节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(MessageNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IMessageNode<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IMessageNode<T>
     {
         /// <summary>
         /// 快照设置数据
         /// </summary>
         /// <param name="value">数据</param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotAdd(T value);
         /// <summary>
         /// 获取未处理完成消息数量（包括失败消息）

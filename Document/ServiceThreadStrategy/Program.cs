@@ -1,5 +1,4 @@
 ﻿using AutoCSer.Extensions;
-using AutoCSer.Net;
 
 namespace AutoCSer.Document.ServiceThreadStrategy
 {
@@ -14,7 +13,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy
             {
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document)
             };
-            await using (AutoCSer.Net.CommandListener commandListener = new CommandListenerBuilder(32)
+            await using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(32)
                 .Append<Server.Task.ISynchronousController>(new Server.Task.SynchronousController())
                 .Append<Server.Task.ICallbackController>(new Server.Task.CallbackController())
                 .Append<Server.Task.IKeepCallbackController>(new Server.Task.KeepCallbackController())
@@ -54,124 +53,116 @@ namespace AutoCSer.Document.ServiceThreadStrategy
         {
             try
             {
-                CommandClientConfig commandClientConfig = new CommandClientConfig
+                var client = await Client.CommandClientSocketEvent.CommandClient.SocketEvent.Wait();
+                if (client == null)
                 {
-                    Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-                    GetSocketEventDelegate = (client) => new Client.CommandClientSocketEvent(client),
-                };
-                using (CommandClient commandClient = new CommandClient(commandClientConfig))
-                {
-                    var client = (Client.CommandClientSocketEvent?)await commandClient.GetSocketEvent();
-                    if (client == null)
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-
-                    await client.ServerTask_SendOnlyCommandController.Call(1);
-                    await client.ServerTaskQueue_SendOnlyCommandController.Call(-1, 2);
-                    //await client.ServerTaskQueueController_SendOnlyCommandController.CreateQueueController(-1).Call(3);
-                    await client.ServerQueue_SendOnlyCommandController.Call(4);
-                    await client.ServerSynchronous_SendOnlyCommandController.Call(5);
-                    await client.TaskQueueController.Call(6);
-
-                    int left, right;
-                    await client.ServerTask_CallbackController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
-                    {
-                        Console.WriteLine($"{nameof(client.ServerTask_CallbackController)} {callbackValue.Value}");
-                    });
-                    await client.ServerTaskQueue_CallbackController.Add(-1, left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
-                    {
-                        Console.WriteLine($"{nameof(client.ServerTaskQueue_CallbackController)} {callbackValue.Value}");
-                    });
-                    await client.ServerQueue_CallbackController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
-                    {
-                        Console.WriteLine($"{nameof(client.ServerQueue_CallbackController)} {callbackValue.Value}");
-                    });
-                    await client.ServerSynchronous_CallbackController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
-                    {
-                        Console.WriteLine($"{nameof(client.ServerSynchronous_CallbackController)} {callbackValue.Value}");
-                    });
-
-                    var result = await client.ServerTask_ReturnCommandController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
-                    if (result.Value != left + right)
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    result = await client.ServerTaskQueue_ReturnCommandController.Add(-1, left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
-                    if (result.Value != left + right)
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    result = await client.ServerTaskQueueController_ReturnCommandController.CreateQueueController(-1).Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
-                    if (result.Value != left + right)
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    result = await client.ServerQueue_ReturnCommandController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
-                    if (result.Value != left + right)
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    result = await client.ServerSynchronous_ReturnCommandController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
-                    if (result.Value != left + right)
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    result = await client.TaskQueueController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
-                    if (result.Value != left + right)
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-
-                    var enumeratorCommand = await client.ServerTask_EnumeratorCommandController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    enumeratorCommand = await client.ServerTaskQueue_EnumeratorCommandController.Callback(-1, left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    //enumeratorCommand = await client.ServerTaskQueueController_EnumeratorCommandController.CreateQueueController(-1).Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    //if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    //{
-                    //    return AutoCSer.Breakpoint.ReturnFalse();
-                    //}
-                    enumeratorCommand = await client.ServerQueue_EnumeratorCommandController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    enumeratorCommand = await client.ServerSynchronous_EnumeratorCommandController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-
-                    enumeratorCommand = await client.TaskQueueController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    enumeratorCommand = await client.TaskQueueController.CallbackCount(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    enumeratorCommand = await client.TaskQueueController.Enumerable(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-                    enumeratorCommand = await client.TaskQueueController.AsyncEnumerable(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
-                    if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
-                    {
-                        return AutoCSer.Breakpoint.ReturnFalse();
-                    }
-
-                    await Task.Delay(1000);
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
+
+                await client.ServerTask_SendOnlyCommandController.Call(1);
+                await client.ServerTaskQueue_SendOnlyCommandController.Call(-1, 2);
+                //await client.ServerTaskQueueController_SendOnlyCommandController.CreateQueueController(-1).Call(3);
+                await client.ServerQueue_SendOnlyCommandController.Call(4);
+                await client.ServerSynchronous_SendOnlyCommandController.Call(5);
+                await client.TaskQueueController.Call(6);
+
+                int left, right;
+                await client.ServerTask_CallbackController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
+                {
+                    Console.WriteLine($"{nameof(client.ServerTask_CallbackController)} {callbackValue.Value}");
+                });
+                await client.ServerTaskQueue_CallbackController.Add(-1, left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
+                {
+                    Console.WriteLine($"{nameof(client.ServerTaskQueue_CallbackController)} {callbackValue.Value}");
+                });
+                await client.ServerQueue_CallbackController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
+                {
+                    Console.WriteLine($"{nameof(client.ServerQueue_CallbackController)} {callbackValue.Value}");
+                });
+                await client.ServerSynchronous_CallbackController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next(), callbackValue =>
+                {
+                    Console.WriteLine($"{nameof(client.ServerSynchronous_CallbackController)} {callbackValue.Value}");
+                });
+
+                var result = await client.ServerTask_ReturnCommandController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
+                if (result.Value != left + right)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                result = await client.ServerTaskQueue_ReturnCommandController.Add(-1, left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
+                if (result.Value != left + right)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                result = await client.ServerTaskQueueController_ReturnCommandController.CreateQueueController(-1).Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
+                if (result.Value != left + right)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                result = await client.ServerQueue_ReturnCommandController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
+                if (result.Value != left + right)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                result = await client.ServerSynchronous_ReturnCommandController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
+                if (result.Value != left + right)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                result = await client.TaskQueueController.Add(left = AutoCSer.Random.Default.Next(), right = AutoCSer.Random.Default.Next());
+                if (result.Value != left + right)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                var enumeratorCommand = await client.ServerTask_EnumeratorCommandController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                enumeratorCommand = await client.ServerTaskQueue_EnumeratorCommandController.Callback(-1, left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                //enumeratorCommand = await client.ServerTaskQueueController_EnumeratorCommandController.CreateQueueController(-1).Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                //if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                //{
+                //    return AutoCSer.Breakpoint.ReturnFalse();
+                //}
+                enumeratorCommand = await client.ServerQueue_EnumeratorCommandController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                enumeratorCommand = await client.ServerSynchronous_EnumeratorCommandController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                enumeratorCommand = await client.TaskQueueController.Callback(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                enumeratorCommand = await client.TaskQueueController.CallbackCount(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                enumeratorCommand = await client.TaskQueueController.Enumerable(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                enumeratorCommand = await client.TaskQueueController.AsyncEnumerable(left = AutoCSer.Random.Default.Next(), right = left + AutoCSer.Random.Default.Next(10) + 1);
+                if (!await checkEnumeratorCommand(enumeratorCommand, left, right))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                await Task.Delay(1000);
             }
             catch(Exception exception)
             {
@@ -187,7 +178,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        private static async Task<bool> checkEnumeratorCommand(EnumeratorCommand<int>? command, int left, int right)
+        private static async Task<bool> checkEnumeratorCommand(AutoCSer.Net.EnumeratorCommand<int>? command, int left, int right)
         {
             if (command == null)
             {
@@ -201,7 +192,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy
                 }
                 ++left;
             }
-            if (left != right + 1 || command.ReturnType != CommandClientReturnTypeEnum.Success)
+            if (left != right + 1 || command.ReturnType != AutoCSer.Net.CommandClientReturnTypeEnum.Success)
             {
                 return false;
             }

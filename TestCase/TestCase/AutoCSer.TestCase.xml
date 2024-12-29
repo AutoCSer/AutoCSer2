@@ -903,6 +903,21 @@
             继承属性数据定义(引用类型外壳)
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.Data.JsonEmpty">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.JsonField">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.JsonProperty">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.Data.MemberClass">
             <summary>
             引用类型定义
@@ -949,9 +964,19 @@
             属性数据定义(引用类型外壳)
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.Data.JsonStructField">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.Data.StructField">
             <summary>
             字段数据定义(值类型外壳)
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.Data.JsonStructProperty">
+            <summary>
+            二进制混杂 JSON 序列化
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.StructProperty">

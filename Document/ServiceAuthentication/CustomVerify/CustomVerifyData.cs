@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService;
-using System;
+﻿using System;
 using System.Security.Cryptography;
 
 namespace AutoCSer.Document.ServiceAuthentication.CustomVerify
@@ -36,7 +35,7 @@ namespace AutoCSer.Document.ServiceAuthentication.CustomVerify
             UserName = userName;
             Key = key;
             Random = AutoCSer.Random.Default.SecureNextULongNotZero();
-            Timestamp = TimestampVerifyChecker.CurrentTimestamp;
+            Timestamp = AutoCSer.CommandService.TimestampVerifyChecker.CurrentTimestamp;
         }
         /// <summary>
         /// 客户端获取 MD5 数据并清除验证用户密钥信息

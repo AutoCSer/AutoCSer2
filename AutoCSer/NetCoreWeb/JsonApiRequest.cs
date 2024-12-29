@@ -287,13 +287,13 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="requestPath">请求路径</param>
         /// <param name="startIndex">模板解析开始位置</param>
         /// <returns></returns>
-        internal async Task Request(HttpContext httpContext, string requestPath, int startIndex)
+        internal Task Request(HttpContext httpContext, string requestPath, int startIndex)
         {
             RouteParameter routeParameter = new RouteParameter(requestPath, startIndex);
             GetRouteParameter(ref routeParameter);
             ResponseResult result = routeParameter.End();
-            if (result.IsSuccess) await Request(httpContext, ViewRequestTypeEnum.JsonApi);
-            else await ViewMiddleware.ResponseError(httpContext, result, Attribute.IsResponseJavaScript, true);
+            if (result.IsSuccess) return Request(httpContext, ViewRequestTypeEnum.JsonApi);
+            return ViewMiddleware.ResponseError(httpContext, result, Attribute.IsResponseJavaScript, true);
         }
         /// <summary>
         /// 获取路由参数

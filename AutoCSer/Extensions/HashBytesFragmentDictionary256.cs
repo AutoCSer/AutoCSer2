@@ -7,6 +7,7 @@ namespace AutoCSer
     /// 256 基分片 HashBytes 字典
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [RemoteType]
     public sealed class HashBytesFragmentDictionary256<T> : FragmentDictionary256<HashBytes, T>
     {
         /// <summary>

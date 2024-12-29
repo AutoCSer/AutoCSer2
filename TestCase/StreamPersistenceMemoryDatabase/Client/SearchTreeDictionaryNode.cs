@@ -20,56 +20,56 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<bool> boolResult = await node.Value.TryAdd(6, "F");
+            ResponseResult<bool> boolResult = await node.Value.TryAdd(6, TestClass.String6);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.Set(4, "D");
+            boolResult = await node.Value.Set(4, TestClass.String4);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.Set(1, "A");
+            boolResult = await node.Value.Set(1, TestClass.String1);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.Set(3, "C");
+            boolResult = await node.Value.Set(3, TestClass.String3);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.Set(5, "E");
+            boolResult = await node.Value.Set(5, TestClass.String5);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.Set(7, "G");
+            boolResult = await node.Value.Set(7, TestClass.String7);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.Set(2, "B");
+            boolResult = await node.Value.Set(2, TestClass.String2);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.TryAdd(6, "F");
+            boolResult = await node.Value.TryAdd(6, TestClass.String6);
             if (!Program.Breakpoint(boolResult)) return;
             if (boolResult.Value)
             {
@@ -92,7 +92,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             }
             ResponseResult<ValueResult<string>> stringResult = await node.Value.TryGetValue(6);
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "F")
+            if (stringResult.Value.Value != TestClass.String6)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value}+ERROR*");
                 return;
@@ -106,28 +106,28 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             }
             ResponseResult<ValueResult<KeyValue<long, string>>> keyValueResult = await node.Value.TryGetKeyValueByIndex(2);
             if (!Program.Breakpoint(keyValueResult)) return;
-            if (keyValueResult.Value.Value.Key != 3 || keyValueResult.Value.Value.Value != "C")
+            if (keyValueResult.Value.Value.Key != 3 || keyValueResult.Value.Value.Value != TestClass.String3)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{keyValueResult.Value.Value.Key}.{keyValueResult.Value.Value.Value}+ERROR*");
                 return;
             }
             stringResult =  await node.Value.TryGetValueByIndex(4);
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "E")
+            if (stringResult.Value.Value != TestClass.String5)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value}+ERROR*");
                 return;
             }
             keyValueResult = await node.Value.TryGetFirstKeyValue();
             if (!Program.Breakpoint(keyValueResult)) return;
-            if (keyValueResult.Value.Value.Key != 1 || keyValueResult.Value.Value.Value != "A")
+            if (keyValueResult.Value.Value.Key != 1 || keyValueResult.Value.Value.Value != TestClass.String1)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{keyValueResult.Value.Value.Key}.{keyValueResult.Value.Value.Value}+ERROR*");
                 return;
             }
             keyValueResult = await node.Value.TryGetLastKeyValue();
             if (!Program.Breakpoint(keyValueResult)) return;
-            if (keyValueResult.Value.Value.Key != 7 || keyValueResult.Value.Value.Value != "G")
+            if (keyValueResult.Value.Value.Key != 7 || keyValueResult.Value.Value.Value != TestClass.String7)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{keyValueResult.Value.Value.Key}.{keyValueResult.Value.Value.Value}+ERROR*");
                 return;
@@ -148,21 +148,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             }
             stringResult = await node.Value.TryGetFirstValue();
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "A")
+            if (stringResult.Value.Value != TestClass.String1)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value}+ERROR*");
                 return;
             }
             stringResult = await node.Value.TryGetLastValue();
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "G")
+            if (stringResult.Value.Value != TestClass.String7)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value}+ERROR*");
                 return;
             }
             stringResult = await node.Value.GetRemove(6);
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "F")
+            if (stringResult.Value.Value != TestClass.String6)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value.Value}+ERROR*");
                 return;
@@ -200,7 +200,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             await foreach (ResponseResult<ValueResult<string>> value in keepCallbackResponse.GetAsyncEnumerable())
             {
                 if (!Program.Breakpoint(value)) return;
-                if (value.Value.Value != checkValue.ToString())
+                if (value.Value.Value[0] != checkValue)
                 {
                     ConsoleWriteQueue.Breakpoint($"*ERROR+{value.Value}+ERROR*");
                     return;

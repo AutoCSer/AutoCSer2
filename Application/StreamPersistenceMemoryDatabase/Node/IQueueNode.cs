@@ -6,8 +6,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 队列节点接口（先进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(QueueNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IQueueNode<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IQueueNode<T>
     {
         /// <summary>
         /// 获取队列数据数量
@@ -30,7 +30,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 将数据添加到队列
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsSnapshotMethod = true, IsIgnorePersistenceCallbackException = true)]
+        [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         void Enqueue(T value);
         /// <summary>
         /// 从队列中弹出一个数据

@@ -165,13 +165,13 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        async Task<VT?> ICachePersistence<T, VT, KT>.Update(MemberMapValue<T, VT> value, bool isClone, Transaction? transaction)
+        Task<VT?> ICachePersistence<T, VT, KT>.Update(MemberMapValue<T, VT> value, bool isClone, Transaction? transaction)
 #else
-        async Task<VT> ICachePersistence<T, VT, KT>.Update(MemberMapValue<T, VT> value, bool isClone, Transaction transaction)
+        Task<VT> ICachePersistence<T, VT, KT>.Update(MemberMapValue<T, VT> value, bool isClone, Transaction transaction)
 #endif
         {
             tableWriter.CheckReadOnly(ref transaction);
-            return await ((ICachePersistence<T, VT, KT>)this).Update(value.Value.notNull(), value.MemberMap, isClone, transaction);
+            return ((ICachePersistence<T, VT, KT>)this).Update(value.Value.notNull(), value.MemberMap, isClone, transaction);
         }
         /// <summary>
         /// 根据关键字删除数据（缓存操作必须在队列中调用）

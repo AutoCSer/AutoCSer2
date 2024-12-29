@@ -25,30 +25,47 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly HashBytesFragmentDictionary256<byte[]> dictionary = new HashBytesFragmentDictionary256<byte[]>();
 #endif
         /// <summary>
+        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// </summary>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据集合容器大小</returns>
+        public int GetSnapshotCapacity(ref object customObject)
+        {
+            return dictionary.Count;
+        }
+        /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <returns>快照数据集合</returns>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据信息</returns>
 #if NetStandard21
-        public LeftArray<KeyValue<byte[], byte[]?>> GetSnapshotArray()
+        public SnapshotResult<KeyValue<byte[], byte[]?>> GetSnapshotResult(KeyValue<byte[], byte[]?>[] snapshotArray, object customObject)
 #else
-        public LeftArray<KeyValue<byte[], byte[]>> GetSnapshotArray()
+        public SnapshotResult<KeyValue<byte[], byte[]>> GetSnapshotResult(KeyValue<byte[], byte[]>[] snapshotArray, object customObject)
 #endif
         {
-#if NetStandard21
-            if (dictionary.Count == 0) return new LeftArray<KeyValue<byte[], byte[]?>>(0);
-            LeftArray<KeyValue<byte[], byte[]?>> array = new LeftArray<KeyValue<byte[], byte[]?>>(dictionary.Count);
-#else
-            if (dictionary.Count == 0) return new LeftArray<KeyValue<byte[], byte[]>>(0);
-            LeftArray<KeyValue<byte[], byte[]>> array = new LeftArray<KeyValue<byte[], byte[]>>(dictionary.Count);
-#endif
-            foreach (var value in dictionary.KeyValues) array.Array[array.Length++].Set(value.Key.SubArray.Array, value.Value);
-            return array;
+            return ServerNode.GetSnapshotResult(dictionary, snapshotArray);
         }
+        /// <summary>
+        /// 持久化之前重组快照数据
+        /// </summary>
+        /// <param name="array">预申请快照容器数组</param>
+        /// <param name="newArray">超预申请快照数据</param>
+#if NetStandard21
+        public void SetSnapshotResult(ref LeftArray<KeyValue<byte[], byte[]?>> array, ref LeftArray<KeyValue<byte[], byte[]?>> newArray) { }
+#else
+        public void SetSnapshotResult(ref LeftArray<KeyValue<byte[], byte[]>> array, ref LeftArray<KeyValue<byte[], byte[]>> newArray) { }
+#endif
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
+#if NetStandard21
+        public void SnapshotAdd(KeyValue<byte[], byte[]?> value)
+#else
         public void SnapshotAdd(KeyValue<byte[], byte[]> value)
+#endif
         {
             dictionary[value.Key] = value.Value;
         }

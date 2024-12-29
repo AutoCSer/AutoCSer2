@@ -36,6 +36,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 case PersistenceRebuilderCallbackTypeEnum.Close: rebuilder.Close(); return;
                 case PersistenceRebuilderCallbackTypeEnum.NextNode: rebuilder.NextNode(); return;
+                case PersistenceRebuilderCallbackTypeEnum.GetSnapshotResult: rebuilder.GetSnapshotResult(); return;
                 case PersistenceRebuilderCallbackTypeEnum.CheckQueue: rebuilder.CheckQueue(); return;
                 case PersistenceRebuilderCallbackTypeEnum.Completed: rebuilder.Service.RebuildCompleted(); return;
             }

@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.DiskBlock
@@ -13,13 +14,13 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 客户端集合
         /// </summary>
-        protected readonly Dictionary<uint, DiskBlockClient> clients;
+        protected readonly Dictionary<uint, KeyValue<DiskBlockClient, Task<DiskBlockClient>>> clients;
         /// <summary>
         /// 分布式客户端
         /// </summary>
         private DistributedClient()
         {
-            clients = DictionaryCreator<uint>.Create<DiskBlockClient>();
+            clients = DictionaryCreator<uint>.Create<KeyValue<DiskBlockClient, Task<DiskBlockClient>>>();
         }
         /// <summary>
         /// 根据磁盘块服务唯一编号创建客户端
@@ -35,7 +36,7 @@ namespace AutoCSer.CommandService.DiskBlock
         private async Task<DiskBlockClient> getClient(uint identity)
         {
             DiskBlockClient client = await createClient(identity);
-            clients.Add(identity, client);
+            clients.Add(identity, new KeyValue<DiskBlockClient, Task<DiskBlockClient>>(client, Task.FromResult(client)));
             return client;
         }
         /// <summary>
@@ -43,10 +44,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="identity">磁盘块服务唯一编号</param>
         /// <returns>磁盘块客户端</returns>
-        public async Task<DiskBlockClient> GetClient(uint identity)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<DiskBlockClient> GetClient(uint identity)
         {
-            var client = default(DiskBlockClient);
-            return clients.TryGetValue(identity, out client) ? client : await getClient(identity);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            return clients.TryGetValue(identity, out client) ? client.Value : getClient(identity);
         }
 
         /// <summary>
@@ -61,10 +63,10 @@ namespace AutoCSer.CommandService.DiskBlock
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
             {
-                var client = default(DiskBlockClient);
-                if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
+                var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
                 returnType = CommandClientReturnTypeEnum.Success;
-                await client.Write(data, callback);
+                await client.Key.Write(data, callback);
             }
             finally
             {
@@ -79,9 +81,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteAsync(uint identity, SubArray<byte> data)
         {
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
-            return await client.WriteAsync(data);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
+            return await client.Key.WriteAsync(data);
         }
         /// <summary>
         /// 写入字符串
@@ -95,10 +97,10 @@ namespace AutoCSer.CommandService.DiskBlock
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
             {
-                var client = default(DiskBlockClient);
-                if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
+                var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
                 returnType = CommandClientReturnTypeEnum.Success;
-                await client.WriteString(data, callback);
+                await client.Key.WriteString(data, callback);
             }
             finally
             {
@@ -113,9 +115,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteStringAsync(uint identity, string data)
         {
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
-            return await client.WriteStringAsync(data);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
+            return await client.Key.WriteStringAsync(data);
         }
         /// <summary>
         /// 写入 JSON
@@ -130,10 +132,10 @@ namespace AutoCSer.CommandService.DiskBlock
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
             {
-                var client = default(DiskBlockClient);
-                if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
+                var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
                 returnType = CommandClientReturnTypeEnum.Success;
-                await client.WriteJson(data, callback);
+                await client.Key.WriteJson(data, callback);
             }
             finally
             {
@@ -150,9 +152,9 @@ namespace AutoCSer.CommandService.DiskBlock
         public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonAsync<T>(uint identity, T data)
         {
             if (data == null) return BlockIndex.JsonNull;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
-            return await client.WriteJsonAsync(data);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
+            return await client.Key.WriteJsonAsync(data);
         }
         /// <summary>
         /// 写入 JSON
@@ -167,10 +169,10 @@ namespace AutoCSer.CommandService.DiskBlock
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
             {
-                var client = default(DiskBlockClient);
-                if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
+                var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
                 returnType = CommandClientReturnTypeEnum.Success;
-                await client.WriteJsonMemberMap(data, callback);
+                await client.Key.WriteJsonMemberMap(data, callback);
             }
             finally
             {
@@ -187,9 +189,9 @@ namespace AutoCSer.CommandService.DiskBlock
         public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonMemberMapAsync<T>(uint identity, AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return BlockIndex.JsonNull;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
-            return await client.WriteJsonMemberMapAsync(data);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
+            return await client.Key.WriteJsonMemberMapAsync(data);
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -204,10 +206,10 @@ namespace AutoCSer.CommandService.DiskBlock
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
             {
-                var client = default(DiskBlockClient);
-                if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
+                var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
                 returnType = CommandClientReturnTypeEnum.Success;
-                await client.WriteBinary(data, callback);
+                await client.Key.WriteBinary(data, callback);
             }
             finally
             {
@@ -224,9 +226,9 @@ namespace AutoCSer.CommandService.DiskBlock
         public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryAsync<T>(uint identity, T data)
         {
             if (data == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
-            return await client.WriteBinaryAsync(data);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
+            return await client.Key.WriteBinaryAsync(data);
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -241,10 +243,10 @@ namespace AutoCSer.CommandService.DiskBlock
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
             {
-                var client = default(DiskBlockClient);
-                if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
+                var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
                 returnType = CommandClientReturnTypeEnum.Success;
-                await client.WriteBinaryMemberMap(data, callback);
+                await client.Key.WriteBinaryMemberMap(data, callback);
             }
             finally
             {
@@ -261,9 +263,9 @@ namespace AutoCSer.CommandService.DiskBlock
         public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryMemberMapAsync<T>(uint identity, AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
-            return await client.WriteBinaryMemberMapAsync(data);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
+            return await client.Key.WriteBinaryMemberMapAsync(data);
         }
 
         /// <summary>
@@ -287,10 +289,10 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 if (!index.GetResult(out result))
                 {
-                    var client = default(DiskBlockClient);
-                    if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
+                    var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                    if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
                     result.ReturnType = CommandClientReturnTypeEnum.Success;
-                    await client.Read(index, callback);
+                    await client.Key.Read(index, callback);
                 }
             }
             finally
@@ -315,9 +317,9 @@ namespace AutoCSer.CommandService.DiskBlock
             ReadResult<byte[]> result;
 #endif
             if (index.GetResult(out result)) return result;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
-            return await client.ReadAsync(index);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
+            return await client.Key.ReadAsync(index);
         }
         /// <summary>
         /// 读取字符串
@@ -340,10 +342,10 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 if (!index.GetResult(out result))
                 {
-                    var client = default(DiskBlockClient);
-                    if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
+                    var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                    if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
                     result.ReturnType = CommandClientReturnTypeEnum.Success;
-                    await client.ReadString(index, callback);
+                    await client.Key.ReadString(index, callback);
                 }
             }
             finally
@@ -368,9 +370,9 @@ namespace AutoCSer.CommandService.DiskBlock
             ReadResult<string> result;
 #endif
             if (index.GetResult(out result)) return result;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
-            return await client.ReadStringAsync(index);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
+            return await client.Key.ReadStringAsync(index);
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -394,10 +396,10 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 if (!index.GetJsonResult(out result))
                 {
-                    var client = default(DiskBlockClient);
-                    if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
+                    var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                    if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
                     result.ReturnType = CommandClientReturnTypeEnum.Success;
-                    await client.ReadJson(index, callback);
+                    await client.Key.ReadJson(index, callback);
                 }
             }
             finally
@@ -423,9 +425,9 @@ namespace AutoCSer.CommandService.DiskBlock
             ReadResult<T> result;
 #endif
             if (index.GetJsonResult(out result)) return result;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
-            return await client.ReadJsonAsync<T>(index);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
+            return await client.Key.ReadJsonAsync<T>(index);
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -441,10 +443,10 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 if (!index.GetJsonResult(out result))
                 {
-                    var client = default(DiskBlockClient);
-                    if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
+                    var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                    if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
                     result.ReturnType = CommandClientReturnTypeEnum.Success;
-                    await client.ReadJsonMemberMap(index, callback);
+                    await client.Key.ReadJsonMemberMap(index, callback);
                 }
             }
             finally
@@ -462,9 +464,9 @@ namespace AutoCSer.CommandService.DiskBlock
         {
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
             if (index.GetJsonResult(out result)) return result;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
-            return await client.ReadJsonMemberMapAsync<T>(index);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
+            return await client.Key.ReadJsonMemberMapAsync<T>(index);
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -488,10 +490,10 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 if (!index.GetBinaryResult(out result))
                 {
-                    var client = default(DiskBlockClient);
-                    if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
+                    var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                    if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
                     result.ReturnType = CommandClientReturnTypeEnum.Success;
-                    await client.ReadBinary(index, callback);
+                    await client.Key.ReadBinary(index, callback);
                 }
             }
             finally
@@ -517,9 +519,9 @@ namespace AutoCSer.CommandService.DiskBlock
             ReadResult<T> result;
 #endif
             if (index.GetBinaryResult(out result)) return result;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
-            return await client.ReadBinaryAsync<T>(index);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
+            return await client.Key.ReadBinaryAsync<T>(index);
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -535,10 +537,10 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 if (!index.GetBinaryResult(out result))
                 {
-                    var client = default(DiskBlockClient);
-                    if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
+                    var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                    if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
                     result.ReturnType = CommandClientReturnTypeEnum.Success;
-                    await client.ReadBinaryMemberMap(index, callback);
+                    await client.Key.ReadBinaryMemberMap(index, callback);
                 }
             }
             finally
@@ -556,9 +558,9 @@ namespace AutoCSer.CommandService.DiskBlock
         {
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
             if (index.GetBinaryResult(out result)) return result;
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(index.Identity, out client)) client = await getClient(index.Identity);
-            return await client.ReadBinaryMemberMapAsync<T>(index);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(index.Identity, out client)) client.Key = await getClient(index.Identity);
+            return await client.Key.ReadBinaryMemberMapAsync<T>(index);
         }
 
         /// <summary>
@@ -572,10 +574,10 @@ namespace AutoCSer.CommandService.DiskBlock
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
             {
-                var client = default(DiskBlockClient);
-                if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
+                var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+                if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
                 returnType = CommandClientReturnTypeEnum.Success;
-                await client.SwitchBlock(identity, callback);
+                await client.Key.SwitchBlock(identity, callback);
             }
             finally
             {
@@ -589,9 +591,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <returns>磁盘块当前写入位置</returns>
         public async Task<CommandClientReturnValue<long>> SwitchBlockAsync(uint identity)
         {
-            var client = default(DiskBlockClient);
-            if (!clients.TryGetValue(identity, out client)) client = await getClient(identity);
-            return await client.SwitchBlockAsync(identity);
+            var client = default(KeyValue<DiskBlockClient, Task<DiskBlockClient>>);
+            if (!clients.TryGetValue(identity, out client)) client.Key = await getClient(identity);
+            return await client.Key.SwitchBlockAsync(identity);
         }
     }
 }

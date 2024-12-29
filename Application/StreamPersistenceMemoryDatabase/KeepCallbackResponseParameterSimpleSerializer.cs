@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net.CommandServer;
+using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -27,8 +28,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal override object Deserialize(AutoCSer.BinaryDeserializer deserializer)
 #endif
         {
-            KeepCallbackResponseDeserializeValue<T> value = new KeepCallbackResponseDeserializeValue<T>();
-            return deserializer.SimpleDeserialize(ref value.Value) ? value : null;
+            ServerReturnValue<T> value = default(ServerReturnValue<T>);
+            return deserializer.SimpleDeserialize(ref value) ? new KeepCallbackResponseDeserializeValue<T>(value.ReturnValue) : null;
         }
 
         /// <summary>

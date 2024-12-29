@@ -33,13 +33,13 @@ namespace AutoCSer.TestCase.FileSynchronousClient
                 {
                     PullFileClient pullFileClient = new PullFileClient(pullClient);
                     string serverPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, AutoCSer.Common.NamePrefix);
-                    string clientPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(PullFileClient), AutoCSer.Common.NamePrefix);
+                    string clientPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(PullFileClient), AutoCSer.Common.NamePrefix);
                     PullFileStateEnum pullState = await pullFileClient.PullDirectory(serverPath, clientPath);
                     if (pullState == PullFileStateEnum.Success) await compare(serverPath, clientPath);
                     else AutoCSer.ConsoleWriteQueue.Breakpoint($"拉取文件失败 {pullState}");
 
                     IUploadFileClientSocketEvent uploadClient = (IUploadFileClientSocketEvent)commandClient.SocketEvent;
-                    serverPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(UploadFileClient), AutoCSer.Common.NamePrefix);
+                    serverPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(UploadFileClient), AutoCSer.Common.NamePrefix);
                     UploadFileClient uploadFileClient = new UploadFileClient(uploadClient, clientPath, serverPath);
                     UploadFileStateEnum uploadState = await uploadFileClient.Upload();
                     if (uploadState == UploadFileStateEnum.Success) await compare(clientPath, serverPath);
@@ -58,15 +58,15 @@ namespace AutoCSer.TestCase.FileSynchronousClient
         }
         private static readonly byte[] leftBuffer = new byte[1 << 20];
         private static readonly byte[] rightBuffer = new byte[1 << 20];
-        private static readonly Dictionary<HashString, FileInfo> emptyFiles = DictionaryCreator.CreateHashString<FileInfo>(0);
-        private static readonly Dictionary<HashString, DirectoryInfo> emptyDirectorys = DictionaryCreator.CreateHashString<DirectoryInfo>(0);
+        private static readonly Dictionary<string, FileInfo> emptyFiles = DictionaryCreator.CreateAny<string, FileInfo>(0);
+        private static readonly Dictionary<string, DirectoryInfo> emptyDirectorys = DictionaryCreator.CreateAny<string, DirectoryInfo>(0);
         private static async Task compare(DirectoryInfo leftDirectory, DirectoryInfo rightDirectory)
         {
-            Dictionary<HashString, FileInfo> rightFiles = emptyFiles;
+            Dictionary<string, FileInfo> rightFiles = emptyFiles;
             FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(rightDirectory);
             if (files.Length != 0)
             {
-                rightFiles = DictionaryCreator.CreateHashString<FileInfo>(files.Length);
+                rightFiles = DictionaryCreator.CreateAny<string, FileInfo>(files.Length);
                 foreach (FileInfo file in files) rightFiles.Add(file.Name, file);
             }
             foreach(FileInfo file in await AutoCSer.Common.DirectoryGetFiles(leftDirectory))
@@ -110,11 +110,11 @@ namespace AutoCSer.TestCase.FileSynchronousClient
                 ConsoleWriteQueue.Breakpoint($"没有找到对比原文件 {Path.Combine(leftDirectory.FullName, file.Name)}");
             }
 
-            Dictionary<HashString, DirectoryInfo> rightDictionarys = emptyDirectorys;
+            Dictionary<string, DirectoryInfo> rightDictionarys = emptyDirectorys;
             DirectoryInfo[] directorys = await AutoCSer.Common.GetDirectories(rightDirectory);
             if (directorys.Length != 0)
             {
-                rightDictionarys = DictionaryCreator.CreateHashString<DirectoryInfo>(directorys.Length);
+                rightDictionarys = DictionaryCreator.CreateAny<string, DirectoryInfo>(directorys.Length);
                 foreach (DirectoryInfo directory in directorys) rightDictionarys.Add(directory.Name, directory);
             }
             foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(leftDirectory))

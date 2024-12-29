@@ -25,13 +25,13 @@ namespace AutoCSer.TestCase.Common
         /// <summary>
         /// 临时文件路径
         /// </summary>
-        public static readonly string AutoCSerTemporaryPath;
+        public static readonly string AutoCSerTemporaryFilePath;
         static Config()
         {
             DirectoryInfo directory = AutoCSer.Common.ApplicationDirectory, parentDirectory = directory.Parent;
             while (parentDirectory != null && parentDirectory.Name != "AutoCSer2") parentDirectory = parentDirectory.Parent;
             AutoCSerPath = parentDirectory?.FullName;
-            AutoCSerTemporaryPath = Path.Combine(parentDirectory?.Parent.FullName ?? directory.FullName, nameof(AutoCSerTemporaryPath));
+            AutoCSerTemporaryFilePath = Path.Combine(parentDirectory?.Parent.FullName ?? directory.FullName, nameof(AutoCSerTemporaryFilePath));
         }
     }
 }

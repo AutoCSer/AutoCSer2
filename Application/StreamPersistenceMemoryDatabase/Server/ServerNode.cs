@@ -1,4 +1,6 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
@@ -38,9 +40,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 快照事务关系节点集合
         /// </summary>
 #if NetStandard21
-        internal Dictionary<HashString, ServerNode>? SnapshotTransactionNodes;
+        internal Dictionary<string, ServerNode>? SnapshotTransactionNodes;
 #else
-        internal Dictionary<HashString, ServerNode> SnapshotTransactionNodes;
+        internal Dictionary<string, ServerNode> SnapshotTransactionNodes;
 #endif
         /// <summary>
         /// 快照事务关系节点数量
@@ -116,8 +118,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsRemoved = true;
             if (SnapshotTransactionNodes != null)
             {
-                HashString key = Key;
-                foreach (ServerNode node in SnapshotTransactionNodes.Values) node.SnapshotTransactionNodes.notNull().Remove(key);
+                foreach (ServerNode node in SnapshotTransactionNodes.Values) node.SnapshotTransactionNodes.notNull().Remove(Key);
             }
         }
         /// <summary>
@@ -127,9 +128,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal ServerNode? GetSnapshotTransactionNode(ref HashString key)
+        internal ServerNode? GetSnapshotTransactionNode(string key)
 #else
-        internal ServerNode GetSnapshotTransactionNode(ref HashString key)
+        internal ServerNode GetSnapshotTransactionNode(string key)
 #endif
         {
             var node = default(ServerNode);
@@ -140,10 +141,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key"></param>
         /// <param name="node"></param>
-        internal void AppendSnapshotTransaction(ref HashString key, ServerNode node)
+        internal void AppendSnapshotTransaction(string key, ServerNode node)
         {
             ++NodeCreator.Service.SnapshotTransactionNodeVersion;
-            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = new Dictionary<HashString, ServerNode>();
+            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = DictionaryCreator.CreateAny<string, ServerNode>();
             SnapshotTransactionNodes.Add(key, node);
             node.appendSnapshotTransaction(this);
         }
@@ -154,7 +155,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void appendSnapshotTransaction(ServerNode node)
         {
-            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = new Dictionary<HashString, ServerNode>();
+            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = DictionaryCreator.CreateAny<string, ServerNode>();
             SnapshotTransactionNodes.Add(node.Key, node);
         }
         /// <summary>
@@ -379,19 +380,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal virtual void CloseRebuild() { Rebuilding = false; }
         /// <summary>
+        /// 检查快照重建状态
+        /// </summary>
+        /// <returns></returns>
+        internal virtual bool CheckSnapshot()
+        {
+            Rebuilding = false;
+            return false;
+        }
+        /// <summary>
+        /// 预申请快照容器数组
+        /// </summary>
+        internal virtual void GetSnapshotArray() { }
+        /// <summary>
         /// 获取快照数据集合
         /// </summary>
         /// <returns>是否成功</returns>
-        internal virtual bool SetSnapshotArray()
+        internal virtual bool GetSnapshotResult()
         {
-            Rebuilding = false;
             return false;
         }
         /// <summary>
         /// 持久化重建
         /// </summary>
         /// <param name="rebuilder"></param>
-        internal virtual void Rebuild(PersistenceRebuilder rebuilder) { }
+        /// <returns></returns>
+        internal virtual bool Rebuild(PersistenceRebuilder rebuilder) { return false; }
         /// <summary>
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
         /// </summary>
@@ -413,37 +427,131 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 获取快照数据集合
         /// </summary>
         /// <param name="values"></param>
-        /// <returns>快照数据集合</returns>
-        internal static LeftArray<KeyValue<KT, VT>> GetSnapshotArray<KT, VT>(ICollection<KeyValuePair<KT, VT>> values)
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        public static SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, VT>> values, KeyValue<KT, VT>[] snapshotArray)
         {
-            if (values.Count == 0) return new LeftArray<KeyValue<KT, VT>>(0);
-            LeftArray<KeyValue<KT, VT>> array = new LeftArray<KeyValue<KT, VT>>(values.Count);
-            foreach (KeyValuePair<KT, VT> value in values) array.Array[array.Length++].Set(value.Key, value.Value);
-            return array;
+            if (values.Count == 0) return new SnapshotResult<KeyValue<KT, VT>>(0);
+            SnapshotResult<KeyValue<KT, VT>> result = new SnapshotResult<KeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<KT, VT> value in values)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+            }
+            return result;
         }
         /// <summary>
         /// 获取快照数据集合
         /// </summary>
-        /// <param name="count"></param>
         /// <param name="values"></param>
-        /// <returns>快照数据集合</returns>
-        internal static LeftArray<T> GetSnapshotArray<T>(int count, IEnumerable<T> values)
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        public static SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, CheckSnapshotCloneObject<VT>>> values, KeyValue<KT, VT>[] snapshotArray)
+            where VT : SnapshotCloneObject<VT>
         {
-            if (count == 0) return new LeftArray<T>(0);
-            LeftArray<T> array = new LeftArray<T>(count);
-            foreach (T value in values) array.Array[array.Length++] = value;
-            return array;
+            if (values.Count == 0) return new SnapshotResult<KeyValue<KT, VT>>(0);
+            SnapshotResult<KeyValue<KT, VT>> result = new SnapshotResult<KeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<KT, CheckSnapshotCloneObject<VT>> value in values)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value.NoCheckNotNull());
+                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value.NoCheckNotNull());
+            }
+            return result;
         }
+        /// <summary>
+        /// 获取快照数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        internal static SnapshotResult<KeyValue<byte[], VT>> GetSnapshotResult<VT>(ICollection<KeyValuePair<HashBytes, VT>> values, KeyValue<byte[], VT>[] snapshotArray)
+        {
+            if (values.Count == 0) return new SnapshotResult<KeyValue<byte[], VT>>(0);
+            SnapshotResult<KeyValue<byte[], VT>> result = new SnapshotResult<KeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<HashBytes, VT> value in values)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
+                else result.Array.Array[result.Array.Length++].Set(value.Key.SubArray.Array, value.Value);
+            }
+            return result;
+        }
+        /// <summary>
+        /// 获取快照数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        internal static SnapshotResult<KeyValue<byte[], VT>> GetSnapshotResult<VT>(ICollection<KeyValuePair<HashBytes, CheckSnapshotCloneObject<VT>>> values, KeyValue<byte[], VT>[] snapshotArray)
+            where VT : SnapshotCloneObject<VT>
+        {
+            if (values.Count == 0) return new SnapshotResult<KeyValue<byte[], VT>>(0);
+            SnapshotResult<KeyValue<byte[], VT>> result = new SnapshotResult<KeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<HashBytes, CheckSnapshotCloneObject<VT>> value in values)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value.NoCheckNotNull());
+                else result.Array.Array[result.Array.Length++].Set(value.Key.SubArray.Array, value.Value.NoCheckNotNull());
+            }
+            return result;
+        }
+        /// <summary>
+        /// 获取快照数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        internal static SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult<KT, VT>(FragmentDictionary256<KT, VT> values, KeyValue<KT, VT>[] snapshotArray)
+            where KT : IEquatable<KT>
+        {
+            if (values.Count == 0) return new SnapshotResult<KeyValue<KT, VT>>(0);
+            SnapshotResult<KeyValue<KT, VT>> result = new SnapshotResult<KeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<KT, VT> value in values.KeyValues)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+            }
+            return result;
+        }
+        /// <summary>
+        /// 获取快照数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        internal static SnapshotResult<KeyValue<byte[], VT>> GetSnapshotResult<VT>(HashBytesFragmentDictionary256<VT> values, KeyValue<byte[], VT>[] snapshotArray)
+        {
+            if (values.Count == 0) return new SnapshotResult<KeyValue<byte[], VT>>(0);
+            SnapshotResult<KeyValue<byte[], VT>> result = new SnapshotResult<KeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<HashBytes, VT> value in values.KeyValues)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
+                else result.Array.Array[result.Array.Length++].Set(value.Key.SubArray.Array, value.Value);
+            }
+            return result;
+        }
+        ///// <summary>
+        ///// 获取快照数据集合
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <param name="snapshotArray"></param>
+        ///// <param name="count"></param>
+        ///// <returns>快照数据集合</returns>
+        //internal static LeftArray<T> GetSnapshotResult<T>(IEnumerable<T> values, T[] snapshotArray, int count)
+        //{
+        //    LeftArray<T> leftArray = count > snapshotArray.Length ? new LeftArray<T>(count) : new LeftArray<T>(0, snapshotArray);
+        //    foreach (T value in values) leftArray.Add(value);
+        //    return leftArray;
+        //}
         /// <summary>
         /// 获取二叉搜索树快照数据集合
         /// </summary>
-        /// <param name="count"></param>
-        /// <param name="values"></param>
-        /// <returns>快照数据集合</returns>
-        internal static LeftArray<T> GetSearchTreeSnapshotArray<T>(int count, IEnumerable<T> values)
+        /// <param name="array">预申请快照容器数组</param>
+        /// <param name="newArray">超预申请快照数据</param>
+        internal static void SetSearchTreeSnapshotResult<T>(ref LeftArray<T> array, ref LeftArray<T> newArray)
         {
-            LeftArray<T> array = GetSnapshotArray(count, values);
-            if (array.Length < 2) return array;
+            array.Add(ref newArray);
+            newArray.SetEmpty();
+            if (array.Length < 2) return;
+
             T[] treeArray = new T[array.Length];
             KeyValue<int, int>[] framents = new KeyValue<int, int>[array.Length];
             framents[0].Set(0, array.Length);
@@ -469,13 +577,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
             }
             while (framentIndex != framentEndIndex);
-            return new LeftArray<T>(treeArray);
+            array.Set(treeArray);
         }
 
         /// <summary>
         /// 默认节点接口配置
         /// </summary>
         internal static readonly ServerNodeAttribute DefaultAttribute = new ServerNodeAttribute();
+        /// <summary>
+        /// 默认节点接口配置
+        /// </summary>
+        internal static readonly ServerNodeMethodIndexAttribute DefaultMethodIndexAttribute = new ServerNodeMethodIndexAttribute();
     }
     /// <summary>
     /// 服务端节点
@@ -524,7 +636,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 try
                 {
                     var newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
-                    if (newTarget != null) target = newTarget;
+                    if (newTarget != null && !object.ReferenceEquals(target, newTarget)) target = checkNewTarget(newTarget);
                 }
                 catch (Exception exception)
                 {
@@ -532,6 +644,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.LogHelper.ExceptionIgnoreException(exception);
                 }
             }
+        }
+        /// <summary>
+        /// 检查操作节点对象是否合法
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        protected virtual T checkNewTarget(T target)
+        {
+            return target;
         }
         /// <summary>
         /// 服务端节点移除后处理
@@ -594,95 +715,111 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return node.target;
         }
     }
-    /// <summary>
-    /// 支持快照的服务端节点
-    /// </summary>
-    /// <typeparam name="T">节点接口类型</typeparam>
-    /// <typeparam name="ST">快照数据类型</typeparam>
-    public class ServerNode<T, ST> : ServerNode<T>
-    {
-        /// <summary>
-        /// 当前节点是否支持重建
-        /// </summary>
-        internal override bool IsRebuild { get { return IsPersistence; } }
-        /// <summary>
-        /// 快照数据集合
-        /// </summary>
-        protected LeftArray<ST> snapshotArray;
-        /// <summary>
-        /// 支持快照的服务端节点
-        /// </summary>
-        /// <param name="service"></param>
-        /// <param name="index"></param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="target"></param>
-        /// <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
-        internal ServerNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, bool isPersistence = true) : base(service, index, key, checkTarget(target), isPersistence)
-        {
-        }
-        /// <summary>
-        /// 检查操作节点对象是否实现快照接口
-        /// </summary>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        private static T checkTarget(T target)
-        {
-            if (target is ISnapshot<ST>) return target;
-#pragma warning disable CS8602
-            throw new InvalidCastException($"服务端节点类型 {target.GetType().fullName()} 缺少快照接口实现 {typeof(ISnapshot<ST>).fullName()}");
-#pragma warning restore CS8602
-        }
-        /// <summary>
-        /// 初始化加载完毕处理
-        /// </summary>
-        internal override void Loaded()
-        {
-            var node = target as INode<T>;
-            if (node != null)
-            {
-                try
-                {
-                    var newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
-                    if (newTarget != null) checkTarget(target = newTarget);
-                }
-                catch (Exception exception)
-                {
-                    SetPersistenceCallbackException();
-                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
-                }
-            }
-        }
-        /// <summary>
-        /// 关闭重建
-        /// </summary>
-        internal override void CloseRebuild()
-        {
-            Rebuilding = false;
-            snapshotArray.SetEmpty();
-        }
-        /// <summary>
-        /// 获取快照数据集合
-        /// </summary>
-        /// <returns>是否成功</returns>
-        internal override bool SetSnapshotArray()
-        {
-            Rebuilding = false;
-            if (!IsLoadException)
-            {
-                snapshotArray = (target as ISnapshot<ST>).notNull().GetSnapshotArray();
-                return true;
-            }
-            return false;
-        }
-        /// <summary>
-        /// 持久化重建
-        /// </summary>
-        /// <param name="rebuilder"></param>
-        internal override void Rebuild(PersistenceRebuilder rebuilder)
-        {
-            LeftArray<ST> array = snapshotArray;
-            snapshotArray.SetEmpty();
-            rebuilder.Rebuild(ref array);
-        }
-    }
+//    /// <summary>
+//    /// 支持快照的服务端节点
+//    /// </summary>
+//    /// <typeparam name="T">节点接口类型</typeparam>
+//    /// <typeparam name="ST">快照数据类型</typeparam>
+//    public class ServerNode<T, ST> : ServerNode<T>
+//    {
+//        /// <summary>
+//        /// 当前节点是否支持重建
+//        /// </summary>
+//        internal override bool IsRebuild { get { return IsPersistence; } }
+//        /// <summary>
+//        /// 快照接口节点
+//        /// </summary>
+//        private readonly SnapshotNode snapshot;
+//        /// <summary>
+//        /// 支持快照的服务端节点
+//        /// </summary>
+//        /// <param name="service"></param>
+//        /// <param name="index"></param>
+//        /// <param name="key">节点全局关键字</param>
+//        /// <param name="target"></param>
+//        /// <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+//        internal ServerNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, bool isPersistence = true) : base(service, index, key, checkSnapshot(target), isPersistence)
+//        {
+//            snapshot = new SnapshotNode<ST>((ISnapshot<ST>)target.castObject());
+//        }
+//        /// <summary>
+//        /// 支持快照的服务端节点
+//        /// </summary>
+//        /// <param name="service"></param>
+//        /// <param name="index"></param>
+//        /// <param name="key">节点全局关键字</param>
+//        /// <param name="target"></param>
+//        /// <param name="snapshot">快照接口节点</param>
+//        /// <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+//        internal ServerNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, SnapshotNode snapshot, bool isPersistence) : base(service, index, key, target, isPersistence)
+//        {
+//            this.snapshot = snapshot;
+//        }
+//        /// <summary>
+//        /// 检查操作节点对象是否实现快照接口
+//        /// </summary>
+//        /// <param name="target"></param>
+//        /// <returns></returns>
+//        protected override T checkTarget(T target)
+//        {
+//            return checkSnapshot(target);
+//        }
+//        /// <summary>
+//        /// 检查操作节点对象是否实现快照接口
+//        /// </summary>
+//        /// <param name="target"></param>
+//        /// <returns></returns>
+//        private static T checkSnapshot(T target)
+//        {
+//            if (target is ISnapshot<ST>) return target;
+//#pragma warning disable CS8602
+//            throw new InvalidCastException($"服务端节点类型 {target.GetType().fullName()} 缺少快照接口实现 {typeof(ISnapshot<ST>).fullName()}");
+//#pragma warning restore CS8602
+//        }
+//        /// <summary>
+//        /// 关闭重建
+//        /// </summary>
+//        internal override void CloseRebuild()
+//        {
+//            Rebuilding = false;
+//            snapshot.Close();
+//        }
+//        /// <summary>
+//        /// 检查快照重建状态
+//        /// </summary>
+//        /// <returns></returns>
+//        internal override bool CheckSnapshot()
+//        {
+//            Rebuilding = false;
+//            return !IsLoadException;
+//        }
+//        /// <summary>
+//        /// 预申请快照容器数组
+//        /// </summary>
+//        internal override void GetSnapshotArray()
+//        {
+//            snapshot.GetArray();
+//        }
+//        /// <summary>
+//        /// 获取快照数据集合
+//        /// </summary>
+//        /// <returns>是否成功</returns>
+//        internal override bool GetSnapshotResult()
+//        {
+//            if (!IsLoadException)
+//            {
+//                snapshot.GetResult();
+//                return true;
+//            }
+//            return false;
+//        }
+//        /// <summary>
+//        /// 持久化重建
+//        /// </summary>
+//        /// <param name="rebuilder"></param>
+//        internal override void Rebuild(PersistenceRebuilder rebuilder)
+//        {
+//            snapshot.Rebuild(rebuilder);
+//        }
+//    }
 }

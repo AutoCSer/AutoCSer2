@@ -29,7 +29,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="deserializer"></param>
         internal unsafe void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            deserializer.CommandClientDeserializeJson(ref value);
+            deserializer.DeserializeJsonBuffer(ref value);
         }
     }
 }

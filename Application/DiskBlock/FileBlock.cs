@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 #if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;

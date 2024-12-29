@@ -2,6 +2,7 @@
 using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -139,9 +140,10 @@ namespace AutoCSer.CommandService
         /// 获取端口标识
         /// </summary>
         /// <returns></returns>
-        internal async Task<CommandClientReturnValue<PortIdentity>> GetPortIdentity()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal ReturnCommand<PortIdentity> GetPortIdentity()
         {
-            return await socketEvent.IPortRegistryClient.GetPort();
+            return socketEvent.IPortRegistryClient.GetPort();
         }
         /// <summary>
         /// 释放端口标识

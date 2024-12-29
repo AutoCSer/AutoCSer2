@@ -56,6 +56,21 @@ namespace AutoCSer.CodeGenerator.Metadata
             }
         }
         /// <summary>
+        /// 类型名称
+        /// </summary>
+        private string typeOnlyName;
+        /// <summary>
+        /// 类型名称
+        /// </summary>
+        public string TypeOnlyName
+        {
+            get
+            {
+                if (typeOnlyName == null) typeOnlyName =Type?.getOnlyName();
+                return typeOnlyName;
+            }
+        }
+        /// <summary>
         /// 类型全名
         /// </summary>
         private string xmlFullName;

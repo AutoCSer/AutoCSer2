@@ -29,7 +29,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务名称集合
         /// </summary>
-        private readonly Dictionary<HashString, LogAssembler> services = DictionaryCreator.CreateHashString<LogAssembler>();
+        private readonly Dictionary<string, LogAssembler> services = DictionaryCreator.CreateAny<string, LogAssembler>();
         /// <summary>
         /// 获取服务注册日志回调集合
         /// </summary>
@@ -95,7 +95,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="serviceName"></param>
         /// <returns></returns>
-        private bool checkServiceName(ref HashString serviceName) { return !string.IsNullOrEmpty(serviceName.ToString()); }
+        private bool checkServiceName(string serviceName) { return !string.IsNullOrEmpty(serviceName.ToString()); }
         /// <summary>
         /// 获取服务注册日志组装
         /// </summary>
@@ -108,13 +108,12 @@ namespace AutoCSer.CommandService
         private ServiceRegisterResponse getAssembler(string serviceName, out LogAssembler assembler)
 #endif
         {
-            HashString serviceNameHashString = serviceName;
-            if (!checkServiceName(ref serviceNameHashString))
+            if (!checkServiceName(serviceName))
             {
                 assembler = null;
                 return new ServiceRegisterResponse(ServiceRegisterStateEnum.UnsupportedServiceName);
             }
-            if (!services.TryGetValue(serviceNameHashString, out assembler)) services.Add(serviceNameHashString, assembler = createAssembler());
+            if (!services.TryGetValue(serviceName, out assembler)) services.Add(serviceName, assembler = createAssembler());
             return new ServiceRegisterResponse(ServiceRegisterStateEnum.Success);
         }
         /// <summary>

@@ -20,7 +20,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            string value = "value";
+            string value = TestClass.RandomString();
             ResponseResult<bool> boolResult = await node.Value.Add(value);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)

@@ -18,29 +18,10 @@ namespace AutoCSer.Document.SymmetryService
             {
                 if (await commandListener.Start())
                 {
-                    client().NotWait();
+                    Client.Test().NotWait();
+
                     Console.WriteLine("Press quit to exit.");
                     while (Console.ReadLine() != "quit") ;
-                }
-            }
-        }
-        /// <summary>
-        /// 客户端测试
-        /// </summary>
-        /// <returns></returns>
-        private static async Task client()
-        {
-            var config = new AutoCSer.Net.CommandClientConfig<ISymmetryService>
-            {
-                Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-            };
-            using (AutoCSer.Net.CommandClient<ISymmetryService> commandClient = config.CreateSymmetryClient())
-            {
-                var client = await commandClient.GetSocketEvent();
-                if (client != null)
-                {
-                    Console.WriteLine($"2 + 3 = {await client.InterfaceController.AddAsync(2, 3)}");
-                    Console.WriteLine($"1 + 2 = {client.InterfaceController.Add(1, 2)}");
                 }
             }
         }

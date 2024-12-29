@@ -330,6 +330,11 @@
             反序列化配置参数
             </summary>
         </member>
+        <member name="F:AutoCSer.BinaryDeserializer.jsonDeserializer">
+            <summary>
+            JSON 反序列化
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinaryDeserializer.MemberMap">
             <summary>
             成员位图
@@ -343,11 +348,6 @@
         <member name="F:AutoCSer.BinaryDeserializer.Buffer">
             <summary>
             数据字节数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinaryDeserializer.GlobalVersion">
-            <summary>
-            全局版本编号
             </summary>
         </member>
         <member name="F:AutoCSer.BinaryDeserializer.bufferFixed">
@@ -378,6 +378,11 @@
         <member name="F:AutoCSer.BinaryDeserializer.objectReference">
             <summary>
             下一个对象引用位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinaryDeserializer.GlobalVersion">
+            <summary>
+            全局版本编号
             </summary>
         </member>
         <member name="F:AutoCSer.BinaryDeserializer.objectReferencePoint">
@@ -527,6 +532,36 @@
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
             <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.json``1(``0@)">
+            <summary>
+            二进制混杂 JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Json``1(AutoCSer.BinaryDeserializer,``0@)">
+            <summary>
+            二进制混杂 JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.structJson``1(``0@)">
+            <summary>
+            二进制混杂 JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.StructJson``1(AutoCSer.BinaryDeserializer,``0@)">
+            <summary>
+            二进制混杂 JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="deserializer"></param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.realTypeObject``1">
             <summary>
@@ -811,12 +846,21 @@
             <param name="deserializer"></param>
             <param name="dictionary"></param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJsonString``1(``0@)">
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJsonNotNullCheckZore``1(``0@)">
             <summary>
             JSON 反序列化
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.deserializeJson``1(``0@,System.Int32)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="size"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.checkJsonDeserializeResult(AutoCSer.Json.DeserializeResult)">
             <summary>
@@ -834,6 +878,12 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.createJsonDeserializer">
+            <summary>
+            获取 JSON 反序列化
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.deserializeJson``1(System.Char*,System.Int32,``0@)">
             <summary>
             JSON 对象反序列化
@@ -844,19 +894,11 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.CommandClientDeserializeJson``1(``0@)">
+        <member name="M:AutoCSer.BinaryDeserializer.deserializeJsonBuffer``1(``0@)">
             <summary>
             JSON 反序列化
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJson``1(AutoCSer.JsonDeserializer,``0@)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="jsonDeserializer"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.DeserializeJsonBuffer``1(``0@)">
@@ -865,13 +907,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.BinaryDeserializer.CommandClientDeserializeJsonBuffer``1(``0@)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumByte``1(AutoCSer.BinaryDeserializer,``0@)">
             <summary>
@@ -1309,12 +1345,6 @@
             设置反序列化自定义错误状态
             </summary>
             <param name="customError">自定义错误</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.BinaryDeserializer.SetCustomError(AutoCSer.JsonDeserializer)">
-            <summary>
-            设置反序列化自定义错误状态
-            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.Deserialize``1(System.Byte[],AutoCSer.BinarySerialize.DeserializeConfig)">
@@ -3320,6 +3350,11 @@
             是否检查相同对象引用，默认为 true
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerializeAttribute.IsMixJsonSerialize">
+            <summary>
+            默认为 false 表示不转换为二进制混杂 JSON 序列化，否则忽略其它二进制序列化配置使用二进制混杂 JSON 序列化整个对象
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinarySerializeAttribute.IsJsonMember">
             <summary>
             当没有 JSON 序列化成员时是否预留 JSON 序列化标记，默认为 false
@@ -3397,7 +3432,7 @@
         </member>
         <member name="F:AutoCSer.BinarySerializeConfig.IsRealType">
             <summary>
-            不支持类型是否尝试转换为真实类型处理默认为 false，只有在可信任环境中才允许设置为 true，否则将产生 new 任意类型的安全漏洞
+            不支持类型是否尝试转换为真实类型处理默认为 false，设置为 true 需要反序列化端配置允许该远程类型，否则将导致反序列化失败
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerializeConfig.CheckDepth">
@@ -3925,11 +3960,18 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.GetJsonSerializer">
+        <member name="M:AutoCSer.BinarySerializer.createJsonSerializer">
             <summary>
             获取 JSON 序列化
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.JsonSerializeBufferNotNull``1(``0@)">
+            <summary>
+            JSON 序列化到缓冲区
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.JsonSerializeBuffer``1(``0@)">
             <summary>
@@ -3938,25 +3980,9 @@
             <typeparam name="T"></typeparam>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.JsonSerializeCommandServerBufferEnd``1(System.Int32,``0@)">
-            <summary>
-            JSON 序列化到缓冲区
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="index"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.BinarySerializer.JsonSerializeCommandClientBufferEnd``1(System.Int32,``0@)">
-            <summary>
-            JSON 序列化到缓冲区
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="index"></param>
-            <param name="value"></param>
-        </member>
         <member name="M:AutoCSer.BinarySerializer.JsonSerialize``1(``0@,AutoCSer.Metadata.MemberMap{``0})">
             <summary>
-            JSON 成员序列化
+            二进制混杂 JSON 序列化
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -3977,6 +4003,29 @@
             </summary>
             <param name="binarySerializer"></param>
             <param name="value">数据对象</param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.json``1(``0)">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.Json``1(AutoCSer.BinarySerializer,``0)">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.StructJson``1(AutoCSer.BinarySerializer,``0)">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.NotSupport``1(AutoCSer.BinarySerializer,``0)">
             <summary>
@@ -6928,7 +6977,23 @@
             <param name="attribute"></param>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.Common.memberSerializeDelegates">
+            <summary>
+            成员序列化委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.Common.memberSerializeDelegateLock">
+            <summary>
+            成员序列化委托集合访问锁
+            </summary>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.Common.GetMemberSerializeDelegate(System.Type)">
+            <summary>
+            获取成员序列化委托
+            </summary>
+            <param name="type">成员类型</param>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.Common.getMemberSerializeDelegate(System.Type)">
             <summary>
             获取成员序列化委托
             </summary>
@@ -6960,7 +7025,24 @@
             <param name="fieldIndexs"></param>
             <param name="anonymousDepth"></param>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.Common.memberDeserializeDelegates">
+            <summary>
+            成员反序列化委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.Common.memberDeserializeDelegateLock">
+            <summary>
+            成员反序列化委托集合访问锁
+            </summary>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.Common.GetMemberDeserializeDelegate(System.Type)">
+            <summary>
+            获取成员反序列化委托
+            </summary>
+            <param name="type">成员类型</param>
+            <returns>成员反序列化委托</returns>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.Common.getMemberDeserializeDelegate(System.Type)">
             <summary>
             获取成员反序列化委托
             </summary>
@@ -7012,6 +7094,13 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.CustomConfig.IsJsonSerialize(System.Type)">
+            <summary>
+            判断类型是否采用 JSON 序列化
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.CustomConfig.NotSupport``1(AutoCSer.BinarySerializer,``0)">
             <summary>
             自定义序列化不支持类型
@@ -7049,11 +7138,6 @@
         <member name="F:AutoCSer.BinarySerialize.DeserializeConfig.MaxArraySize">
             <summary>
             最大数组长度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeConfig.IsRealType">
-            <summary>
-            不支持类型是否尝试转换为真实类型处理默认为 false，只有在可信任环境中才允许设置为 true，否则将产生 new 任意类型的安全漏洞
             </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.DeserializeDelegate">
@@ -8913,7 +8997,24 @@
             默认值已完成任务
             </summary>
         </member>
-        <member name="F:AutoCSer.CompletedTask`1.EmptyArray">
+        <member name="T:AutoCSer.EmptyArrayCompletedTask`1">
+            <summary>
+            0 长度空数组已完成任务
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.EmptyArrayCompletedTask`1.EmptyArray">
+            <summary>
+            0 长度空数组已完成任务
+            </summary>
+        </member>
+        <member name="T:AutoCSer.EmptyLeftArrayCompletedTask`1">
+            <summary>
+            0 长度空数组已完成任务
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.EmptyLeftArrayCompletedTask`1.EmptyArray">
             <summary>
             0 长度空数组已完成任务
             </summary>
@@ -10489,12 +10590,6 @@
             <param name="dictionary"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.FragmentDictionary256`2.GetKeyValueArray">
-            <summary>
-            获取数据集合
-            </summary>
-            <returns>数据集合</returns>
-        </member>
         <member name="T:AutoCSer.HashObject`1">
             <summary>
             包装 IEquatable 对象，用于 Hash 比较
@@ -10623,6 +10718,1892 @@
             获取当前数据
             </summary>
         </member>
+        <member name="T:AutoCSer.JsonDeserializer">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumULong``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.NullStringValue">
+            <summary>
+            字符串 null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.AllMemberAttribute">
+            <summary>
+            默认解析所有成员
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.DefaultConfig">
+            <summary>
+            公共默认配置参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.escapeChars">
+            <summary>
+            转义字符集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.Config">
+            <summary>
+            配置参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.endChar">
+            <summary>
+            最后一个字符
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.Quote">
+            <summary>
+            当前字符串引号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.State">
+            <summary>
+            解析状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.IsBinaryMix">
+            <summary>
+            是否二进制混杂模式
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.isEndSpace">
+            <summary>
+            是否以空格字符结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.isEndDigital">
+            <summary>
+            是否以10进制数字字符结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.isEndHex">
+            <summary>
+            是否以16进制数字字符结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.isEndNumber">
+            <summary>
+            是否以数字字符结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.#ctor">
+            <summary>
+            JSON 解析器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserialize``1(AutoCSer.SubString@,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 解析
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="json">Json字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>解析状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserialize``1(System.String,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 解析
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="json">Json字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>解析状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(System.Char*,System.Int32,``0@)">
+            <summary>
+            Json解析
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="json">Json字符串</param>
+            <param name="length">Json长度</param>
+            <param name="value">目标数据</param>
+            <returns>解析状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserialize``1(``0@)">
+            <summary>
+            JSON 解析
+            </summary>
+            <typeparam name="T">目标类型</typeparam>
+            <param name="value">目标数据</param>
+            <returns>解析状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.freeThreadStatic">
+            <summary>
+            释放 JSON 解析器（线程静态实例模式）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Free">
+            <summary>
+            释放 JSON 解析器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.FreeBinaryMix">
+            <summary>
+            释放 JSON 解析器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SetBinaryMix">
+            <summary>
+            设置二进制混杂模式
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.space">
+            <summary>
+            扫描空格字符
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsNull">
+            <summary>
+            是否null
+            </summary>
+            <returns>是否null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.tryNull">
+            <summary>
+            是否null
+            </summary>
+            <returns>是否null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.NotSupport``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            自定义反序列化不支持类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Constructor``1(``0@)">
+            <summary>
+            构造函数调用
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.baseeSerialize``2(``0@)">
+            <summary>
+            基类转换
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="BT"></typeparam>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Base``2(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            基类转换
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="BT"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.arrayIndex``1(``0[]@)">
+            <summary>
+            数组解析
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array">目标数据</param>
+            <returns>数据数量,-1表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Array``1(AutoCSer.JsonDeserializer,``0[]@)">
+            <summary>
+            数组解析
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.nullable``1(System.Nullable{``0}@)">
+            <summary>
+            值类型对象解析
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Nullable``1(AutoCSer.JsonDeserializer,System.Nullable{``0}@)">
+            <summary>
+            值类型对象解析
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.collection``2(``0@)">
+            <summary>
+            集合反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="collection"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Collection``2(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            集合反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="collection"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.keyValuePair``2(System.Collections.Generic.KeyValuePair{``0,``1}@)">
+            <summary>
+            键值对解析
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.KeyValuePair``2(AutoCSer.JsonDeserializer,System.Collections.Generic.KeyValuePair{``0,``1}@)">
+            <summary>
+            键值对解析
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.dictionary``2(System.Collections.Generic.Dictionary{``0,``1}@)">
+            <summary>
+            字典解析
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="dictionary">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Dictionary``2(AutoCSer.JsonDeserializer,System.Collections.Generic.Dictionary{``0,``1}@)">
+            <summary>
+            字典解析
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="dictionary">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.dictionary``3(``0@)">
+            <summary>
+            字典反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="dictionary"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Dictionary``3(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            字典反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="dictionary"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Boolean@)">
+            <summary>
+            逻辑值解析
+            </summary>
+            <param name="value">数据</param>
+            <returns>解析状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Boolean}@)">
+            <summary>
+            逻辑值解析
+            </summary>
+            <param name="value">数据</param>
+            <returns>解析状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.Byte@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Byte@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMixNull(System.Byte@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Byte}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.SByte@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.SByte}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.UInt16@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt16@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMixNull(System.UInt16@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.UInt16}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int16@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Int16}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.UInt32@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt32@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMixNull(System.UInt32@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.UInt32}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int32@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Int32}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.UInt64@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt64@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMixNull(System.UInt64@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.UInt64}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int64@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.getLong(System.UInt64,System.Int32)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value"></param>
+            <param name="sign"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Int64}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Single@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Single}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Double@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Double}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Decimal@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Decimal}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Char@)">
+            <summary>
+            字符解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Char}@)">
+            <summary>
+            字符解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.DateTime@)">
+            <summary>
+            时间解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.DateTime}@)">
+            <summary>
+            时间解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.TimeSpan@)">
+            <summary>
+            时间解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.TimeSpan}@)">
+            <summary>
+            时间解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeTimeSpan(System.TimeSpan@)">
+            <summary>
+            时间值解析
+            </summary>
+            <param name="value"></param>
+            <returns>是否 null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeTimeSpanString(System.TimeSpan@)">
+            <summary>
+            时间值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Guid@)">
+            <summary>
+            Guid解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Guid}@)">
+            <summary>
+            Guid解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMixStringLength">
+            <summary>
+            二进制混杂模式反序列化字符串长度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.String@)">
+            <summary>
+            字符串解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(System.String@)">
+            <summary>
+            字符串解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(AutoCSer.SubString@)">
+            <summary>
+            字符串解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Object@)">
+            <summary>
+            对象解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Type@)">
+            <summary>
+            类型解析
+            </summary>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(AutoCSer.JsonNode@)">
+            <summary>
+            JSON节点解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonNode@)">
+            <summary>
+            JSON节点解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeStringNode(AutoCSer.JsonNode@)">
+            <summary>
+            解析字符串节点
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchEscapeEnd">
+            <summary>
+            查找转义字符串结束位置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsFirstObject">
+            <summary>
+            判断是否存在第一个成员
+            </summary>
+            <returns>是否存在第一个成员</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsFirstArrayValue">
+            <summary>
+            是否存在下一个数组数据
+            </summary>
+            <returns>是否存在下一个数组数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchNameEnd">
+            <summary>
+            查找名称直到结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchColon">
+            <summary>
+            查找冒号
+            </summary>
+            <returns>是否找到</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsNextObject">
+            <summary>
+            判断是否存在下一个成员
+            </summary>
+            <returns>是否存在下一个成员</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsNextArrayValue">
+            <summary>
+            是否存在下一个数组数据
+            </summary>
+            <returns>是否存在下一个数组数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchArray``1(``0[]@)">
+            <summary>
+            查找数组起始位置
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="value">目标数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchArraySize``1(``0[]@)">
+            <summary>
+            获取数组长度
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsEnumNumberUnsigned">
+            <summary>
+            查找枚举数字
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsEnumNumberSigned">
+            <summary>
+            查找枚举数字
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.GetFirstName">
+            <summary>
+            获取成员名称第一个字符
+            </summary>
+            <returns>第一个字符,0表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.NextStringChar">
+            <summary>
+            读取下一个字符
+            </summary>
+            <returns>字符,结束或者错误返回0</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.GetNextName">
+            <summary>
+            获取成员名称下一个字符
+            </summary>
+            <returns>第一个字符,0表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchQuote">
+            <summary>
+            查找字符串引号并返回第一个字符
+            </summary>
+            <returns>第一个字符,0表示null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchEnumQuote">
+            <summary>
+            查找枚举引号并返回第一个字符
+            </summary>
+            <returns>第一个字符,0表示null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.NextEnumChar">
+            <summary>
+            获取下一个枚举字符
+            </summary>
+            <returns>下一个枚举字符,0表示null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchNextEnum">
+            <summary>
+            查找下一个枚举字符
+            </summary>
+            <returns>下一个枚举字符,0表示null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchStringEnd">
+            <summary>
+            查找字符串直到结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.CheckMatchEnum">
+            <summary>
+            检查强制匹配枚举值配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.CheckMatchEnumIgnore">
+            <summary>
+            检查强制匹配枚举值配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.CheckQuote">
+            <summary>
+            检查字符串引号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Ignore">
+            <summary>
+            忽略对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ignoreString">
+            <summary>
+            忽略字符串
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ignoreNumber">
+            <summary>
+            忽略数字
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ignoreName">
+            <summary>
+            忽略成员名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SearchObject">
+            <summary>
+            查找对象起始位置
+            </summary>
+            <returns>是否查找到</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchDictionary">
+            <summary>
+            查找字典起始位置
+            </summary>
+            <returns>是否查找到</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.isDictionaryObjectEnd">
+            <summary>
+            对象是否结束
+            </summary>
+            <returns>对象是否结束</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.isName(AutoCSer.Memory.Pointer@)">
+            <summary>
+            是否匹配默认顺序名称
+            </summary>
+            <param name="names"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.IsName(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@)">
+            <summary>
+            是否匹配默认顺序名称
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="names"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.NextNameIndex(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@)">
+            <summary>
+            移动到下一个名称
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="names"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.JsonDeserializer.NameDelegate">
+            <summary>
+            是否匹配默认顺序名称
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="names"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.NoConstructorIgnoreObject">
+            <summary>
+            找不到构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ignoreObject">
+            <summary>
+            忽略对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserialize(System.Boolean@)">
+            <summary>
+            逻辑值解析
+            </summary>
+            <param name="value"></param>
+            <returns>是否 null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeHex32">
+            <summary>
+            解析16进制数字
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeUInt32(System.UInt32)">
+            <summary>
+            解析10进制数字
+            </summary>
+            <param name="value">第一位数字</param>
+            <returns>数字</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeUInt">
+            <summary>
+            数字解析
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeInt">
+            <summary>
+            数字解析
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeUIntNull">
+            <summary>
+            数字解析
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeIntNull">
+            <summary>
+            数字解析
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeHex64">
+            <summary>
+            解析16进制数字
+            </summary>
+            <returns>数字</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeUInt64(System.UInt32)">
+            <summary>
+            解析10进制数字
+            </summary>
+            <param name="value">第一位数字</param>
+            <returns>数字</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeHex2">
+            <summary>
+            解析16进制字符
+            </summary>
+            <returns>字符</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeHex4">
+            <summary>
+            解析16进制字符
+            </summary>
+            <returns>字符</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.isNegativeInfinity">
+            <summary>
+            是否 -Infinity
+            </summary>
+            <returns>是否 -Infinity</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.isNaNPositiveInfinity">
+            <summary>
+            是否非数字 NaN / Infinity
+            </summary>
+            <returns>是否非数字NaN</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchNumber(System.Char*@)">
+            <summary>
+            查找数字结束位置
+            </summary>
+            <param name="numberEnd">数字结束位置</param>
+            <returns>数字类型</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchNumberNull(System.Char*@)">
+            <summary>
+            查找数字结束位置
+            </summary>
+            <param name="numberEnd">数字结束位置</param>
+            <returns>数字类型</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeInt32Next(System.UInt32@)">
+            <summary>
+            解析10进制数字
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTime">
+            <summary>
+            时间片段值解析
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTimeTicks">
+            <summary>
+            时间时钟周期解析
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTimeMillisecond(System.DateTime@)">
+            <summary>
+            时间值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTimeString(System.DateTime@)">
+            <summary>
+            时间值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTime(System.DateTime@)">
+            <summary>
+            时间值解析
+            </summary>
+            <param name="value"></param>
+            <returns>是否 null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.GetQuoteStringBuffer">
+            <summary>
+            临时字符串解析（不处理转义）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserialize(AutoCSer.GuidCreator@)">
+            <summary>
+            Guid解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchEscape">
+            <summary>
+            查找字符串中的转义符
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeString">
+            <summary>
+            字符串解析
+            </summary>
+            <returns>字符串,失败返回null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeEscapeSize">
+            <summary>
+            获取转义后的字符串长度
+            </summary>
+            <returns>字符串长度</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeEscapeUnsafe(System.Char*)">
+            <summary>
+            字符串转义解析
+            </summary>
+            <param name="write">当前写入位置</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeEscape(System.Char*)">
+            <summary>
+            字符串解析
+            </summary>
+            <param name="start"></param>
+            <returns>字符串,失败返回null</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeEscape">
+            <summary>
+            字符串转义解析
+            </summary>
+            <returns>写入结束位置</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.deserializeQuoteString(AutoCSer.SubString@,System.Int32,System.Char,System.Int32)">
+            <summary>
+            字符串转义解析
+            </summary>
+            <param name="value"></param>
+            <param name="escapeIndex">未解析字符串起始位置</param>
+            <param name="quote">字符串引号</param>
+            <param name="isTempString"></param>
+            <returns>解析是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.DeserializeQuoteString(AutoCSer.SubString@,System.Int32,System.Char,System.Int32)">
+            <summary>
+            字符串转义解析
+            </summary>
+            <param name="value"></param>
+            <param name="escapeIndex">未解析字符串起始位置</param>
+            <param name="quote">字符串引号</param>
+            <param name="isTempString"></param>
+            <returns>解析是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.DeserializeQuoteString(AutoCSer.SubString@,AutoCSer.Memory.CharStream,System.Int32,System.Char)">
+            <summary>
+            字符串转义解析
+            </summary>
+            <param name="value"></param>
+            <param name="charStream"></param>
+            <param name="escapeIndex">未解析字符串起始位置</param>
+            <param name="quote">字符串引号</param>
+            <returns>解析是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.CustomDeserialize``1(``0@)">
+            <summary>
+            自定义反序列化调用
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.SetCustomError(System.String)">
+            <summary>
+            设置反序列化自定义错误状态
+            </summary>
+            <param name="customError">自定义错误</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(System.String,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="config">配置参数</param>
+            <returns>目标数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(System.String,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>反序列化状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="config">配置参数</param>
+            <returns>目标数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>反序列化状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="config">配置参数</param>
+            <returns>目标数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString@,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>反序列化状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.UnsafeDeserialize``1(System.Char*,System.Int32,``0@)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">Json 字符串</param>
+            <param name="length">Json 长度</param>
+            <param name="value">目标数据</param>
+            <returns>是否解析成功</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.UnsafeDeserializeBinaryMix``1(System.Char*,System.Int32,``0@)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">Json 字符串</param>
+            <param name="length">Json 长度</param>
+            <param name="value">目标数据</param>
+            <returns>是否解析成功</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(System.String,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化（线程静态实例模式）
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="config">配置参数</param>
+            <returns>目标数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(System.String,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化（线程静态实例模式）
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>反序列化状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化（线程静态实例模式）
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="config">配置参数</param>
+            <returns>目标数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化（线程静态实例模式）
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>反序列化状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化（线程静态实例模式）
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="config">配置参数</param>
+            <returns>目标数据</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString@,``0@,AutoCSer.JsonDeserializeConfig)">
+            <summary>
+            JSON 反序列化（线程静态实例模式）
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="json">JSON 字符串</param>
+            <param name="value">目标数据</param>
+            <param name="config">配置参数</param>
+            <returns>反序列化状态</returns>
+        </member>
+        <member name="T:AutoCSer.JsonDeserializer.DeserializeDelegate`1">
+            <summary>
+            解析委托
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="deserializer">JSON 反序列化</param>
+            <param name="value">目标数据</param>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.deserializeDelegates">
+            <summary>
+            基本类型转换函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.GetDeserializeDelegate(System.Type)">
+            <summary>
+            获取基本类型转换函数
+            </summary>
+            <param name="type">基本类型</param>
+            <returns>转换函数</returns>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.JavaScriptLocalMinTime">
+            <summary>
+            JSON 转换时间差
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.JavaScriptLocalMinTimeTicks">
+            <summary>
+             JSON 转换时间差
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.EscapeCharSize">
+            <summary>
+            转义字符集合尺寸
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.escapeCharData">
+            <summary>
+            转义字符集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.DeserializeNumberBit">
+            <summary>
+            JSON 解析数字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.DeserializeNameBit">
+            <summary>
+            JSON 解析键值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.DeserializeNameStartBit">
+            <summary>
+            JSON 解析键值开始
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.DeserializeSpaceBit">
+            <summary>
+            JSON 解析空格[ ,\t,\r,\n,160]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.DeserializeEscapeSearchBit">
+            <summary>
+            JSON 解析转义查找
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.EscapeBit">
+            <summary>
+            JavaScript 转义位[\0,\b,\t,\f,\r,\n,\\,"]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.DeserializeBits">
+            <summary>
+            JSON 解析字符状态位
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt64[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt64[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt64@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.String@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.UInt64}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumLong``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumUInt``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumInt``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumUShort``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumShort``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumByte``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumSByte``1(``0@)">
+            <summary>
+            枚举数值解析
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int64[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int64[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt32[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt32[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int32[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int32[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt16[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt16[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int16[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int16[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Byte[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Byte[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.SByte[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.SByte[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Boolean[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Boolean[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.DateTime[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.DateTime[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.TimeSpan[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.TimeSpan[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Object@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Type@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int64@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt32@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int32@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt16@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int16@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Byte@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.SByte@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Boolean@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Single@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Double@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Decimal@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Guid@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Char@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.DateTime@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.TimeSpan@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SubString@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,AutoCSer.JsonNode@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Int64}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.UInt32}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Int32}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.UInt16}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Int16}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Byte}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.SByte}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Boolean}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Single}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Double}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Decimal}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Char}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.DateTime}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.TimeSpan}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Guid}@)">
+            <summary>
+            可空类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.Json.EnumULongDeserialize`1">
             <summary>
             枚举值解析
@@ -10632,14 +12613,6 @@
             <summary>
             枚举值集合
             </summary>
-        </member>
-        <member name="M:AutoCSer.Json.EnumULongDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Json.EnumULongDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
@@ -10950,6 +12923,76 @@
         <member name="F:AutoCSer.Json.NumberTypeEnum.Error">
             <summary>
             错误
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Json.BinaryMixTypeEnum">
+            <summary>
+            二进制混杂类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Byte">
+            <summary>
+            byte
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.UShort">
+            <summary>
+            ushort
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.UInt">
+            <summary>
+            uint
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.ULong">
+            <summary>
+            ulong
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Float">
+            <summary>
+            float
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Double">
+            <summary>
+            double
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Decimal">
+            <summary>
+            decimal
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.DateTime">
+            <summary>
+            DateTime
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.TimeSpan">
+            <summary>
+            TimeSpan
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Guid">
+            <summary>
+            Guid
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.StringByte">
+            <summary>
+            长度用 1 Byte 表示的字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.StringByte3">
+            <summary>
+            长度用 3 Byte 表示的字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.String">
+            <summary>
+            长度用 4 Byte 表示的字符串
             </summary>
         </member>
         <member name="T:AutoCSer.Json.DeserializeDynamicMethod">
@@ -11480,7 +13523,23 @@
             <param name="attribute"></param>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Json.Common.memberSerializeDelegates">
+            <summary>
+            成员序列化委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.Common.memberSerializeDelegateLock">
+            <summary>
+            成员序列化委托集合访问锁
+            </summary>
+        </member>
         <member name="M:AutoCSer.Json.Common.GetMemberSerializeDelegate(System.Type)">
+            <summary>
+            获取成员序列化委托
+            </summary>
+            <param name="type">成员类型</param>
+        </member>
+        <member name="M:AutoCSer.Json.Common.getMemberSerializeDelegate(System.Type)">
             <summary>
             获取成员序列化委托
             </summary>
@@ -11518,7 +13577,24 @@
             <param name="attribute"></param>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Json.Common.memberDeserializeDelegates">
+            <summary>
+            成员反序列化委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.Common.memberDeserializeDelegateLock">
+            <summary>
+            成员反序列化委托集合访问锁
+            </summary>
+        </member>
         <member name="M:AutoCSer.Json.Common.GetMemberDeserializeDelegate(System.Type)">
+            <summary>
+            获取成员反序列化委托
+            </summary>
+            <param name="type">成员类型</param>
+            <returns>成员反序列化委托</returns>
+        </member>
+        <member name="M:AutoCSer.Json.Common.getMemberDeserializeDelegate(System.Type)">
             <summary>
             获取成员反序列化委托
             </summary>
@@ -12066,14 +14142,6 @@
             枚举值集合
             </summary>
         </member>
-        <member name="M:AutoCSer.Json.EnumLongDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Json.EnumLongDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
             枚举值解析
@@ -12097,14 +14165,6 @@
             <summary>
             枚举值集合
             </summary>
-        </member>
-        <member name="M:AutoCSer.Json.EnumUIntDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Json.EnumUIntDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
@@ -12130,14 +14190,6 @@
             枚举值集合
             </summary>
         </member>
-        <member name="M:AutoCSer.Json.EnumIntDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Json.EnumIntDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
             枚举值解析
@@ -12161,14 +14213,6 @@
             <summary>
             枚举值集合
             </summary>
-        </member>
-        <member name="M:AutoCSer.Json.EnumUShortDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Json.EnumUShortDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
@@ -12194,14 +14238,6 @@
             枚举值集合
             </summary>
         </member>
-        <member name="M:AutoCSer.Json.EnumShortDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Json.EnumShortDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
             枚举值解析
@@ -12226,14 +14262,6 @@
             枚举值集合
             </summary>
         </member>
-        <member name="M:AutoCSer.Json.EnumByteDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Json.EnumByteDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
             枚举值解析
@@ -12257,14 +14285,6 @@
             <summary>
             枚举值集合
             </summary>
-        </member>
-        <member name="M:AutoCSer.Json.EnumSByteDeserialize`1.tryDeserializeNumber(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            数值解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Json.EnumSByteDeserialize`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
             <summary>
@@ -12543,6 +14563,11 @@
             字典
             </summary>
         </member>
+        <member name="T:AutoCSer.RemoteTypeAttribute">
+            <summary>
+            合法远程类型标记（程序集在配置中时生效）
+            </summary>
+        </member>
         <member name="T:AutoCSer.Log.IgnoreException">
             <summary>
             日志忽略异常，不输出日志，用于测试
@@ -12676,6 +14701,7 @@
             <param name="callerMemberName">调用成员名称</param>
             <param name="callerFilePath">调用源代码文件路径</param>
             <param name="callerLineNumber">调用源代码行号</param>
+            <returns>是否写入日志</returns>
         </member>
         <member name="M:AutoCSer.Log.File.Flush">
             <summary>
@@ -13243,6 +15269,12 @@
             <param name="value">字符串</param>
         </member>
         <member name="M:AutoCSer.Memory.CharStream.WriteNotNull(System.String)">
+            <summary>
+            写字符串
+            </summary>
+            <param name="value">字符串</param>
+        </member>
+        <member name="M:AutoCSer.Memory.CharStream.WriteNotEmpty(System.String)">
             <summary>
             写字符串
             </summary>
@@ -15116,6 +17148,11 @@
             析构释放资源
             </summary>
         </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Reset">
+            <summary>
+            强制重置数据缓冲区
+            </summary>
+        </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Dispose">
             <summary>
             释放数据容器
@@ -15163,23 +17200,31 @@
             </summary>
             <param name="data"></param>
         </member>
-        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Exchange(AutoCSer.Memory.UnmanagedStreamBase,AutoCSer.Memory.UnmanagedPoolPointer@,System.Boolean@,System.Boolean@)">
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.CopyFromStart(AutoCSer.Memory.UnmanagedStreamBase)">
+            <summary>
+            复制数据缓冲区
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.CopyFromEnd(AutoCSer.Memory.UnmanagedStreamBase)">
+            <summary>
+            恢复数据缓冲区
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.ExchangeToBuffer(AutoCSer.Memory.UnmanagedStreamBase,AutoCSer.Memory.UnmanagedStreamExchangeBuffer@)">
             <summary>
             复制数据缓冲区并返回原数据缓冲区信息
             </summary>
             <param name="stream"></param>
-            <param name="data"></param>
-            <param name="isUnmanaged"></param>
-            <param name="canResize"></param>
+            <param name="buffer"></param>
         </member>
-        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Exchange(AutoCSer.Memory.UnmanagedStreamBase,AutoCSer.Memory.UnmanagedPoolPointer@,System.Boolean,System.Boolean)">
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.ExchangeFromBuffer(AutoCSer.Memory.UnmanagedStreamBase,AutoCSer.Memory.UnmanagedStreamExchangeBuffer@)">
             <summary>
             恢复设置数据缓冲区
             </summary>
             <param name="stream"></param>
-            <param name="data"></param>
-            <param name="isUnmanaged"></param>
-            <param name="canResize"></param>
+            <param name="buffer"></param>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.SetCanResize(System.Boolean)">
             <summary>
@@ -15470,6 +17515,37 @@
             </summary>
             <param name="value">数据</param>
             <returns>是否写入成功</returns>
+        </member>
+        <member name="T:AutoCSer.Memory.UnmanagedStreamExchangeBuffer">
+            <summary>
+            非托管内存数据流切换数据缓冲区信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.Data">
+            <summary>
+            非托管内存池指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.IsUnmanaged">
+            <summary>
+            是否非托管内存数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.CanResize">
+            <summary>
+            是否允许扩展缓存区大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.IsResizeError">
+            <summary>
+            在不允许扩展缓存区大小的情况下是否产生了扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.#ctor(AutoCSer.Memory.UnmanagedStreamBase)">
+            <summary>
+            非托管内存数据流切换数据缓冲区信息
+            </summary>
+            <param name="stream"></param>
         </member>
         <member name="T:AutoCSer.Metadata.DefaultConstructorTypeEnum">
             <summary>
@@ -17002,6 +19078,16 @@
             二进制序列化
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.BinarySerializeJsonDelegate">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.BinarySerializeStructJsonDelegate">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.BinarySerializeNotSupportDelegate">
             <summary>
             二进制自定义序列化不支持类型
@@ -17043,6 +19129,16 @@
         <member name="P:AutoCSer.Metadata.GenericType.BinaryDeserializeDelegate">
             <summary>
             二进制反序列化类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.BinaryDeserializeJsonDelegate">
+            <summary>
+            二进制混杂 JSON 反序列化
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.BinaryDeserializeStructJsonDelegate">
+            <summary>
+            二进制混杂 JSON 反序列化
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.TaskType">
@@ -17451,6 +19547,16 @@
             二进制序列化
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.BinarySerializeJsonDelegate">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.BinarySerializeStructJsonDelegate">
+            <summary>
+            二进制混杂 JSON 序列化
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.BinarySerializeNotSupportDelegate">
             <summary>
             二进制自定义序列化不支持类型
@@ -17492,6 +19598,16 @@
         <member name="P:AutoCSer.Metadata.GenericType`1.BinaryDeserializeDelegate">
             <summary>
             二进制反序列化类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.BinaryDeserializeJsonDelegate">
+            <summary>
+            二进制混杂 JSON 反序列化
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.BinaryDeserializeStructJsonDelegate">
+            <summary>
+            二进制混杂 JSON 反序列化
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.TaskType">
@@ -18671,11 +20787,6 @@
             缺省空参数标志
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.CallbackFlagsEnum.JsonSerialize">
-            <summary>
-            是否采用JSON序列化,否则使用二进制序列化
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServer.CallbackFlagsEnum.SendData">
             <summary>
             是否发送数据
@@ -19444,11 +21555,6 @@
             缺省空参数标志
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.CommandFlagsEnum.JsonSerialize">
-            <summary>
-            是否采用JSON序列化,否则使用二进制序列化
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServer.CommandFlagsEnum.SendData">
             <summary>
             是否发送数据
@@ -20168,6 +22274,11 @@
         <member name="F:AutoCSer.Net.CommandServer.BaseReturnCommand.ErrorMessage">
             <summary>
             错误信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.#ctor">
+            <summary>
+            返回值命令
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.#ctor(AutoCSer.Net.CommandClientController,System.Int32)">
@@ -22336,11 +24447,6 @@
             输出参数字段集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.InterfaceMethod.IsJsonSerializeParamter">
-            <summary>
-            非简单序列化时是否采用 JSON 序列化数据，否则采用二进制序列化
-            </summary>
-        </member>
         <member name="M:AutoCSer.Net.CommandServer.InterfaceMethod.#ctor">
             <summary>
             服务端接口方法信息
@@ -22390,7 +24496,7 @@
             接口方法信息
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodBase.type">
+        <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodBase.Type">
             <summary>
             接口类型
             </summary>
@@ -22489,13 +24595,14 @@
             <param name="methodGenerator"></param>
             <param name="newInputParameterLocalBuilder"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs``1(System.Type,AutoCSer.Net.CommandServer.InterfaceMethodIndexAttribute,AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{System.String}@,``0[]@)">
+        <member name="M:AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs``1(System.Type,AutoCSer.Net.CommandServer.InterfaceMethodIndexAttribute,System.Type,AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{System.String}@,``0[]@)">
             <summary>
             检查方法编号
             </summary>
             <typeparam name="T"></typeparam>
             <param name="type"></param>
             <param name="methodIndexAttribute"></param>
+            <param name="methodIndexEnumType"></param>
             <param name="methodArray"></param>
             <param name="messages"></param>
             <param name="methods"></param>
@@ -22520,11 +24627,6 @@
         <member name="T:AutoCSer.Net.CommandServer.InterfaceMethodIndexAttribute">
             <summary>
             接口方法编号配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodIndexAttribute.MethodIndexEnumType">
-            <summary>
-            方法序号映射枚举类型，必须为 enum 且字段定义必须与 API 方法名称一致（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodIndexAttribute.IsAutoMethodIndex">
@@ -24640,6 +26742,16 @@
             获取当前客户端套接字
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClient.socketTask">
+            <summary>
+            当前客户端套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClient.socketEventTask">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClient.createSocket">
             <summary>
             正在创建的客户端套接字
@@ -24707,11 +26819,23 @@
         </member>
         <member name="M:AutoCSer.Net.CommandClient.GetSocketAsync">
             <summary>
+            尝试等待客户端套接字，获取失败返回 null
+            </summary>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClient.getSocketAsync">
+            <summary>
             尝试客户端套接字，获取失败返回 null
             </summary>
             <returns>失败返回 null</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.GetSocketEvent">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClient.getSocketEvent">
             <summary>
             获取命令客户端套接字事件
             </summary>
@@ -27074,16 +29198,6 @@
             接收数据二进制反序列化
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.receiveJsonDeserializer">
-            <summary>
-            接收数据 JSON 解析
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandClientSocket.ReceiveJsonDeserializer">
-            <summary>
-            接收数据 JSON 解析
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveBigBuffer">
             <summary>
             临时接收数据缓冲区
@@ -27197,11 +29311,6 @@
         <member name="F:AutoCSer.Net.CommandClientSocket.OutputSerializer">
             <summary>
             输出数据二进制序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.outputJsonSerializer">
-            <summary>
-            输出数据 JSON 序列化
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.buildCommandCount">
@@ -27406,6 +29515,12 @@
             <param name="isSimpleSerialize"></param>
             <returns>是否成功</returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientSocket.createReceiveDeserializer">
+            <summary>
+            接收数据二进制反序列化
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientSocket.CheckSynchronousIO(AutoCSer.BinaryDeserializer)">
             <summary>
             检查当前序列化是否 IO 同步环境
@@ -27417,22 +29532,6 @@
             <summary>
             发送数据
             </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientSocket.JsonSerialize``1(``0@)">
-            <summary>
-            JSON 序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="value">数据对象</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientSocket.JsonSerializeBuffer``1(``0@,AutoCSer.Memory.UnmanagedStream)">
-            <summary>
-            JSON 序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="value">数据对象</param>
-            <param name="stream"></param>
-            <returns>返回不包括补白的字节数</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocket.PushNotCheckCount(AutoCSer.Net.CommandServer.Command)">
             <summary>
@@ -27793,6 +29892,127 @@
             当前套接字通过验证方法，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
             <param name="socket"></param>
+        </member>
+        <member name="T:AutoCSer.Net.CommandClientSocketEventCache`1">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <typeparam name="T">命令客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocketEventCache`1.SocketEvent">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocketEventCache`1.Client">
+            <summary>
+            命令客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventCache`1.#ctor(AutoCSer.Net.CommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventCache`1.#ctor(AutoCSer.Net.CommandClientConfig)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="config">命令客户端配置</param>
+        </member>
+        <member name="T:AutoCSer.Net.CommandClientSocketEventTask`1">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <typeparam name="T">命令客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocketEventTask`1.socketEventTask">
+            <summary>
+            命令客户端套接字事件任务缓存
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocketEventTask`1.currentSocketEventTask">
+            <summary>
+            当前命令客户端套接字事件任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`1.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`1.OnClosed(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            关闭命令客户端当前套接字通知，默认操作为通知等待当前连接的调用者，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`1.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            命令客户端套接字通过认证 API 以后的客户端初始化操作，默认操作为重置当前套接字与自动绑定客户端控制器操作并通知等待连接的调用者，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`1.Wait">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`1.wait">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandClientSocketEventTask`2">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <typeparam name="T">命令客户端套接字事件类型</typeparam>
+            <typeparam name="CT">客户端主控制器接口类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocketEventTask`2.socketEventTask">
+            <summary>
+            命令客户端套接字事件任务缓存
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocketEventTask`2.currentSocketEventTask">
+            <summary>
+            当前命令客户端套接字事件任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`2.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`2.OnClosed(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            关闭命令客户端当前套接字通知，默认操作为通知等待当前连接的调用者，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`2.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            命令客户端套接字通过认证 API 以后的客户端初始化操作，默认操作为重置当前套接字与自动绑定客户端控制器操作并通知等待连接的调用者，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`2.Wait">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`2.wait">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandClientSocketReceiveStateEnum">
             <summary>
@@ -32200,6 +34420,11 @@
             命令控制器接口配置
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.MethodIndexEnumType">
+            <summary>
+            方法序号映射枚举类型，必须为 enum 且字段定义必须与 API 方法名称一致（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.MethodIndexEnumTypeCodeGeneratorPath">
             <summary>
             生成方法序号映射枚举类型代码相对路径，需要同时设置 MethodIndexEnumType。默认为 null 表示不生成代码，设置为空字符串 "" 表示代码生成到默认文件 {xxx}.AutoCSer.cs 中 
@@ -32208,11 +34433,6 @@
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsCodeGeneratorClientInterface">
             <summary>
             默认为 true 表示代码生成器生成客户端控制器接口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsJsonSerialize">
-            <summary>
-            是否使用 JSON 序列化，默认为 false 表示使用二进制序列化，否则采用 JSON 序列化（生效的前提是数据不适配简单序列化操作）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsSimpleSerializeInputParameter">
@@ -32715,9 +34935,9 @@
             接收数据错误类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.receiveReserveByte">
+        <member name="F:AutoCSer.Net.CommandServerSocket.isCloseSocket">
             <summary>
-            保留补白
+            是否触发套接字关闭操作
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.receiveReserve">
@@ -32768,11 +34988,6 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.OutputSerializer">
             <summary>
             输出数据二进制序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.outputJsonSerializer">
-            <summary>
-            输出数据 JSON 序列化
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.onSendAsyncCallback">
@@ -32879,7 +35094,7 @@
             <param name="controller">命令服务控制器</param>
             <returns>是否设置成功</returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerSocket.SetCommand(System.Collections.Generic.HashSet{AutoCSer.HashString},AutoCSer.Net.CommandServerController)">
+        <member name="M:AutoCSer.Net.CommandServerSocket.SetCommand(System.Collections.Generic.HashSet{System.String},AutoCSer.Net.CommandServerController)">
             <summary>
             设置允许访问的命令
             </summary>
@@ -32952,6 +35167,12 @@
             <param name="value">目标对象</param>
             <param name="isSimpleSerialize"></param>
             <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.createReceiveDeserializer">
+            <summary>
+            接收数据二进制反序列化
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.Deserialize``1(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte}@,``0@,System.Boolean)">
             <summary>
@@ -33114,13 +35335,6 @@
             </summary>
             <param name="data"></param>
             <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerSocket.JsonSerialize``1(``0@)">
-            <summary>
-            JSON 序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="value">数据对象</param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.sendError">
             <summary>
@@ -33507,11 +35721,6 @@
             <param name="callbackIdentity"></param>
             <param name="returnType"></param>
             <param name="exception"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.JsonSerializeConfig">
-            <summary>
-            JSON 序列化配置
-            </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.CommandServerSocketContext">
             <summary>
@@ -34368,6 +36577,12 @@
             返回值
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.ReturnCommand`1.#ctor(`0@)">
+            <summary>
+            已完成返回值命令
+            </summary>
+            <param name="returnValue"></param>
+        </member>
         <member name="M:AutoCSer.Net.ReturnCommand`1.#ctor(AutoCSer.Net.CommandClientController,System.Int32)">
             <summary>
             返回值命令
@@ -34411,6 +36626,24 @@
             </summary>
             <param name="returnCommand"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CompletedReturnCommand`1">
+            <summary>
+            已完成返回值命令
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.Net.CompletedReturnCommand`1.#ctor(`0)">
+            <summary>
+            返回值命令
+            </summary>
+            <param name="returnValue">返回值</param>
+        </member>
+        <member name="M:AutoCSer.Net.CompletedReturnCommand`1.#ctor(`0@)">
+            <summary>
+            返回值命令
+            </summary>
+            <param name="returnValue">返回值</param>
         </member>
         <member name="T:AutoCSer.Net.ReturnQueueCommand">
             <summary>
@@ -34534,6 +36767,12 @@
             服务端监听地址更新通知
             </summary>
             <param name="endPoint"></param>
+        </member>
+        <member name="M:AutoCSer.Net.ICommandClient.GetSocketEvent">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
         </member>
         <member name="M:AutoCSer.Net.ICommandClient.GetSendBufferPool">
             <summary>
@@ -34668,6 +36907,11 @@
             命令客户端套接字事件
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandReverseClient.socketEventTask">
+            <summary>
+            命令客户端套接字事件任务缓存
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandReverseClient.serverEndPoint">
             <summary>
             服务监听地址
@@ -34718,6 +36962,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandReverseClient.create(System.Int32)">
+            <summary>
+            启动连接
+            </summary>
+            <param name="createVersion"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandReverseClient.AutoCSer#Net#ICommandClient#WaitServerEndPoint">
             <summary>
             等待服务监听地址
@@ -34741,6 +36992,12 @@
             获取发送数据缓存区池
             </summary>
             <returns>发送数据缓存区池</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseClient.AutoCSer#Net#ICommandClient#GetSocketEvent">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
         </member>
         <member name="T:AutoCSer.Net.CommandReverseClientConfig">
             <summary>
@@ -35128,6 +37385,31 @@
             字节数组缓冲区池最大缓冲区二进制位数，默认为 17 为 128KB，最小值为 4 为 16B，最大值为 30 为 1GB
             </summary>
         </member>
+        <member name="F:AutoCSer.Config.remoteTypes">
+            <summary>
+            基础合法远程类型集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Config.RemoteTypes">
+            <summary>
+            基础合法远程类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Config.remoteTypeAssemblys">
+            <summary>
+            验证合法远程类型标记的程序集集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Config.RemoteTypeAssemblys">
+            <summary>
+            验证合法远程类型标记的程序集集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Config.#ctor">
+            <summary>
+            公共配置参数
+            </summary>
+        </member>
         <member name="M:AutoCSer.Config.GetMemoryCacheClearSeconds">
             <summary>
             获取临时性缓存清理时间间隔秒数
@@ -35166,6 +37448,43 @@
             <summary>
             锁超时检查时间戳，默认为 60s
             </summary>
+        </member>
+        <member name="M:AutoCSer.Config.CheckRemoteType(System.Type)">
+            <summary>
+            检查远程类型是否合法
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Config.AppendRemoteType(System.Type)">
+            <summary>
+            添加基础合法远程类型
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:AutoCSer.Config.AppendRemoteTypeAssembly(System.Reflection.Assembly)">
+            <summary>
+            添加验证合法远程类型标记的程序集
+            </summary>
+            <param name="assembly"></param>
+        </member>
+        <member name="M:AutoCSer.Config.AppendRemoteTypeAsync(System.Type,System.String,System.String,System.Int32)">
+            <summary>
+            添加基础合法远程类型（默认写日志）
+            </summary>
+            <param name="type">基础合法远程类型</param>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerFilePath">调用源代码文件路径</param>
+            <param name="callerLineNumber">调用源代码行号</param>
+        </member>
+        <member name="M:AutoCSer.Config.AppendRemoteTypeAssemblyAsync(System.Reflection.Assembly,System.String,System.String,System.Int32)">
+            <summary>
+            添加验证合法远程类型标记的程序集（默认写日志）
+            </summary>
+            <param name="assembly">验证合法远程类型标记的程序集</param>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerFilePath">调用源代码文件路径</param>
+            <param name="callerLineNumber">调用源代码行号</param>
         </member>
         <member name="M:AutoCSer.Config.Compress(System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32,System.IO.Compression.CompressionLevel)">
             <summary>
@@ -35856,26 +38175,20 @@
             <typeparam name="VT">数据类型</typeparam>
             <returns>字典</returns>
         </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateAny``2(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
         <member name="M:AutoCSer.DictionaryCreator.CreateInt``1">
             <summary>
             创建字典
             </summary>
             <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.DictionaryCreator.CreateHashString``1">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.DictionaryCreator.CreateHashString``1(System.Int32)">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <param name="capacity">初始化容器尺寸</param>
             <returns>字典</returns>
         </member>
         <member name="M:AutoCSer.DictionaryCreator.CreateHashObject``2">
@@ -36183,12 +38496,6 @@
             </summary>
             <returns>HASH表</returns>
         </member>
-        <member name="M:AutoCSer.HashSetCreator.CreateHashString">
-            <summary>
-            创建HASH表
-            </summary>
-            <returns>HASH表</returns>
-        </member>
         <member name="M:AutoCSer.HashSetCreator.CreateHashObject``1">
             <summary>
             创建HASH表
@@ -36207,95 +38514,6 @@
             创建 HashSet 表
             </summary>
             <returns>HashSet 表</returns>
-        </member>
-        <member name="T:AutoCSer.HashString">
-            <summary>
-            字符串 HASH
-            </summary>
-        </member>
-        <member name="F:AutoCSer.HashString.String">
-            <summary>
-            字符子串
-            </summary>
-        </member>
-        <member name="F:AutoCSer.HashString.HashCode">
-            <summary>
-            哈希值
-            </summary>
-        </member>
-        <member name="M:AutoCSer.HashString.#ctor(System.String)">
-            <summary>
-            字符串 HASH
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.HashString.op_Implicit(System.String)~AutoCSer.HashString">
-            <summary>
-            隐式转换
-            </summary>
-            <param name="value">字符串</param>
-            <returns>字符串</returns>
-        </member>
-        <member name="M:AutoCSer.HashString.SetEmpty">
-            <summary>
-            清空数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.HashString.GetHashCode">
-            <summary>
-            HASH值
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.HashString.getHashCode64(System.String)">
-            <summary>
-            HASH值
-            </summary>
-            <returns>HASH值</returns>
-        </member>
-        <member name="M:AutoCSer.HashString.Equals(AutoCSer.HashString)">
-            <summary>
-            判断字符串是否相等
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.HashString.Equals(AutoCSer.HashString@)">
-            <summary>
-            判断字符串是否相等
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.HashString.Equals(System.Object)">
-            <summary>
-            判断字符串是否相等
-            </summary>
-            <param name="obj"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.HashString.ToString">
-            <summary>
-            转换成字符串
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.HashString.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#HashString}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.HashString.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#HashString}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.HashString.Empty">
-            <summary>
-            长度为 0 的字符串
-            </summary>
         </member>
         <member name="T:AutoCSer.IO.File">
             <summary>
@@ -36320,1719 +38538,6 @@
             </summary>
             <param name="fileName">源文件名</param>
             <returns>备份文件名称</returns>
-        </member>
-        <member name="T:AutoCSer.JsonDeserializer">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.NullStringValue">
-            <summary>
-            字符串 null
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.AllMemberAttribute">
-            <summary>
-            默认解析所有成员
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.DefaultConfig">
-            <summary>
-            公共默认配置参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.escapeChars">
-            <summary>
-            转义字符集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.Config">
-            <summary>
-            配置参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.endChar">
-            <summary>
-            最后一个字符
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.Quote">
-            <summary>
-            当前字符串引号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.State">
-            <summary>
-            解析状态
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.isEndSpace">
-            <summary>
-            是否以空格字符结束
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.isEndDigital">
-            <summary>
-            是否以10进制数字字符结束
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.isEndHex">
-            <summary>
-            是否以16进制数字字符结束
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.isEndNumber">
-            <summary>
-            是否以数字字符结束
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.#ctor">
-            <summary>
-            JSON 解析器
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserialize``1(AutoCSer.SubString@,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 解析
-            </summary>
-            <typeparam name="T">目标类型</typeparam>
-            <param name="json">Json字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>解析状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserialize``1(System.String,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 解析
-            </summary>
-            <typeparam name="T">目标类型</typeparam>
-            <param name="json">Json字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>解析状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(System.Char*,System.Int32,``0@)">
-            <summary>
-            Json解析
-            </summary>
-            <typeparam name="T">目标类型</typeparam>
-            <param name="json">Json字符串</param>
-            <param name="length">Json长度</param>
-            <param name="value">目标数据</param>
-            <returns>解析状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserialize``1(``0@)">
-            <summary>
-            JSON 解析
-            </summary>
-            <typeparam name="T">目标类型</typeparam>
-            <param name="value">目标数据</param>
-            <returns>解析状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.DeserializeCommandServer``1(AutoCSer.SubArray{System.Byte}@,``0@)">
-            <summary>
-            命令服务反序列化
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <param name="data">数据</param>
-            <param name="value">目标对象</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.DeserializeCommandServer``1(AutoCSer.BinaryDeserializer,``0@)">
-            <summary>
-            命令服务反序列化
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <param name="deserializer"></param>
-            <param name="value">目标对象</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.freeThreadStatic">
-            <summary>
-            释放 JSON 解析器（线程静态实例模式）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Free">
-            <summary>
-            释放 JSON 解析器
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.space">
-            <summary>
-            扫描空格字符
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsNull">
-            <summary>
-            是否null
-            </summary>
-            <returns>是否null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.tryNull">
-            <summary>
-            是否null
-            </summary>
-            <returns>是否null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.JsonDeserializer,``0@)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.NotSupport``1(AutoCSer.JsonDeserializer,``0@)">
-            <summary>
-            自定义反序列化不支持类型
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Constructor``1(``0@)">
-            <summary>
-            构造函数调用
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.baseeSerialize``2(``0@)">
-            <summary>
-            基类转换
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="BT"></typeparam>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Base``2(AutoCSer.JsonDeserializer,``0@)">
-            <summary>
-            基类转换
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="BT"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.arrayIndex``1(``0[]@)">
-            <summary>
-            数组解析
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="array">目标数据</param>
-            <returns>数据数量,-1表示失败</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Array``1(AutoCSer.JsonDeserializer,``0[]@)">
-            <summary>
-            数组解析
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.nullable``1(System.Nullable{``0}@)">
-            <summary>
-            值类型对象解析
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Nullable``1(AutoCSer.JsonDeserializer,System.Nullable{``0}@)">
-            <summary>
-            值类型对象解析
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.collection``2(``0@)">
-            <summary>
-            集合反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="collection"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Collection``2(AutoCSer.JsonDeserializer,``0@)">
-            <summary>
-            集合反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="collection"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.keyValuePair``2(System.Collections.Generic.KeyValuePair{``0,``1}@)">
-            <summary>
-            键值对解析
-            </summary>
-            <typeparam name="KT"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.KeyValuePair``2(AutoCSer.JsonDeserializer,System.Collections.Generic.KeyValuePair{``0,``1}@)">
-            <summary>
-            键值对解析
-            </summary>
-            <typeparam name="KT"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.dictionary``2(System.Collections.Generic.Dictionary{``0,``1}@)">
-            <summary>
-            字典解析
-            </summary>
-            <typeparam name="KT"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="dictionary">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Dictionary``2(AutoCSer.JsonDeserializer,System.Collections.Generic.Dictionary{``0,``1}@)">
-            <summary>
-            字典解析
-            </summary>
-            <typeparam name="KT"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="dictionary">目标数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.dictionary``3(``0@)">
-            <summary>
-            字典反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="KT"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="dictionary"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Dictionary``3(AutoCSer.JsonDeserializer,``0@)">
-            <summary>
-            字典反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="KT"></typeparam>
-            <typeparam name="VT"></typeparam>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="dictionary"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Boolean@)">
-            <summary>
-            逻辑值解析
-            </summary>
-            <param name="value">数据</param>
-            <returns>解析状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Boolean}@)">
-            <summary>
-            逻辑值解析
-            </summary>
-            <param name="value">数据</param>
-            <returns>解析状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Byte@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Byte}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.SByte@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.SByte}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt16@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.UInt16}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int16@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Int16}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt32@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.UInt32}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int32@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Int32}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt64@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.UInt64}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int64@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.getLong(System.UInt64,System.Int32)">
-            <summary>
-            数字转换
-            </summary>
-            <param name="value"></param>
-            <param name="sign"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Int64}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Single@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Single}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Double@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Double}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Decimal@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Decimal}@)">
-            <summary>
-            数字解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Char@)">
-            <summary>
-            字符解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Char}@)">
-            <summary>
-            字符解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.DateTime@)">
-            <summary>
-            时间解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.DateTime}@)">
-            <summary>
-            时间解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.TimeSpan@)">
-            <summary>
-            时间解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.TimeSpan}@)">
-            <summary>
-            时间解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeTimeSpan(System.TimeSpan@)">
-            <summary>
-            时间值解析
-            </summary>
-            <param name="value"></param>
-            <returns>是否 null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeTimeSpanString(System.TimeSpan@)">
-            <summary>
-            时间值解析
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Guid@)">
-            <summary>
-            Guid解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Nullable{System.Guid}@)">
-            <summary>
-            Guid解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.String@)">
-            <summary>
-            字符串解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(AutoCSer.SubString@)">
-            <summary>
-            字符串解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Object@)">
-            <summary>
-            对象解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Type@)">
-            <summary>
-            类型解析
-            </summary>
-            <param name="type">类型</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(AutoCSer.JsonNode@)">
-            <summary>
-            JSON节点解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeStringNode(AutoCSer.JsonNode@)">
-            <summary>
-            解析字符串节点
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.searchEscapeEnd">
-            <summary>
-            查找转义字符串结束位置
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsFirstObject">
-            <summary>
-            判断是否存在第一个成员
-            </summary>
-            <returns>是否存在第一个成员</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsFirstArrayValue">
-            <summary>
-            是否存在下一个数组数据
-            </summary>
-            <returns>是否存在下一个数组数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchNameEnd">
-            <summary>
-            查找名称直到结束
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchColon">
-            <summary>
-            查找冒号
-            </summary>
-            <returns>是否找到</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsNextObject">
-            <summary>
-            判断是否存在下一个成员
-            </summary>
-            <returns>是否存在下一个成员</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsNextArrayValue">
-            <summary>
-            是否存在下一个数组数据
-            </summary>
-            <returns>是否存在下一个数组数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchArray``1(``0[]@)">
-            <summary>
-            查找数组起始位置
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <param name="value">目标数组</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.searchArraySize``1(``0[]@)">
-            <summary>
-            获取数组长度
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="array"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsEnumNumberUnsigned">
-            <summary>
-            查找枚举数字
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsEnumNumberSigned">
-            <summary>
-            查找枚举数字
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.GetFirstName">
-            <summary>
-            获取成员名称第一个字符
-            </summary>
-            <returns>第一个字符,0表示失败</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.NextStringChar">
-            <summary>
-            读取下一个字符
-            </summary>
-            <returns>字符,结束或者错误返回0</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.GetNextName">
-            <summary>
-            获取成员名称下一个字符
-            </summary>
-            <returns>第一个字符,0表示失败</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchQuote">
-            <summary>
-            查找字符串引号并返回第一个字符
-            </summary>
-            <returns>第一个字符,0表示null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchEnumQuote">
-            <summary>
-            查找枚举引号并返回第一个字符
-            </summary>
-            <returns>第一个字符,0表示null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.NextEnumChar">
-            <summary>
-            获取下一个枚举字符
-            </summary>
-            <returns>下一个枚举字符,0表示null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchNextEnum">
-            <summary>
-            查找下一个枚举字符
-            </summary>
-            <returns>下一个枚举字符,0表示null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchStringEnd">
-            <summary>
-            查找字符串直到结束
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Ignore">
-            <summary>
-            忽略对象
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ignoreString">
-            <summary>
-            忽略字符串
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ignoreNumber">
-            <summary>
-            忽略数字
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ignoreName">
-            <summary>
-            忽略成员名称
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SearchObject">
-            <summary>
-            查找对象起始位置
-            </summary>
-            <returns>是否查找到</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.searchDictionary">
-            <summary>
-            查找字典起始位置
-            </summary>
-            <returns>是否查找到</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.isDictionaryObjectEnd">
-            <summary>
-            对象是否结束
-            </summary>
-            <returns>对象是否结束</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.isName(AutoCSer.Memory.Pointer@)">
-            <summary>
-            是否匹配默认顺序名称
-            </summary>
-            <param name="names"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.IsName(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@)">
-            <summary>
-            是否匹配默认顺序名称
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="names"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.NextNameIndex(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@)">
-            <summary>
-            移动到下一个名称
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="names"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.JsonDeserializer.NameDelegate">
-            <summary>
-            是否匹配默认顺序名称
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="names"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.NoConstructorIgnoreObject">
-            <summary>
-            找不到构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ignoreObject">
-            <summary>
-            忽略对象
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserialize(System.Boolean@)">
-            <summary>
-            逻辑值解析
-            </summary>
-            <param name="value"></param>
-            <returns>是否 null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeHex32">
-            <summary>
-            解析16进制数字
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeUInt32(System.UInt32)">
-            <summary>
-            解析10进制数字
-            </summary>
-            <param name="value">第一位数字</param>
-            <returns>数字</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeUInt">
-            <summary>
-            数字解析
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeInt">
-            <summary>
-            数字解析
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeUIntNull">
-            <summary>
-            数字解析
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserializeIntNull">
-            <summary>
-            数字解析
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeHex64">
-            <summary>
-            解析16进制数字
-            </summary>
-            <returns>数字</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeUInt64(System.UInt32)">
-            <summary>
-            解析10进制数字
-            </summary>
-            <param name="value">第一位数字</param>
-            <returns>数字</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeHex2">
-            <summary>
-            解析16进制字符
-            </summary>
-            <returns>字符</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeHex4">
-            <summary>
-            解析16进制字符
-            </summary>
-            <returns>字符</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.isNegativeInfinity">
-            <summary>
-            是否 -Infinity
-            </summary>
-            <returns>是否 -Infinity</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.isNaNPositiveInfinity">
-            <summary>
-            是否非数字 NaN / Infinity
-            </summary>
-            <returns>是否非数字NaN</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.searchNumber(System.Char*@)">
-            <summary>
-            查找数字结束位置
-            </summary>
-            <param name="numberEnd">数字结束位置</param>
-            <returns>数字类型</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.searchNumberNull(System.Char*@)">
-            <summary>
-            查找数字结束位置
-            </summary>
-            <param name="numberEnd">数字结束位置</param>
-            <returns>数字类型</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeInt32Next(System.UInt32@)">
-            <summary>
-            解析10进制数字
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTime">
-            <summary>
-            时间片段值解析
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTimeTicks">
-            <summary>
-            时间时钟周期解析
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTimeMillisecond(System.DateTime@)">
-            <summary>
-            时间值解析
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTimeString(System.DateTime@)">
-            <summary>
-            时间值解析
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeDateTime(System.DateTime@)">
-            <summary>
-            时间值解析
-            </summary>
-            <param name="value"></param>
-            <returns>是否 null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.GetQuoteStringBuffer">
-            <summary>
-            临时字符串解析（不处理转义）
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserialize(AutoCSer.GuidCreator@)">
-            <summary>
-            Guid解析
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.searchEscape">
-            <summary>
-            查找字符串中的转义符
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeString">
-            <summary>
-            字符串解析
-            </summary>
-            <returns>字符串,失败返回null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeEscapeSize">
-            <summary>
-            获取转义后的字符串长度
-            </summary>
-            <returns>字符串长度</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeEscapeUnsafe(System.Char*)">
-            <summary>
-            字符串转义解析
-            </summary>
-            <param name="write">当前写入位置</param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeEscape(System.Char*)">
-            <summary>
-            字符串解析
-            </summary>
-            <param name="start"></param>
-            <returns>字符串,失败返回null</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeEscape">
-            <summary>
-            字符串转义解析
-            </summary>
-            <returns>写入结束位置</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.deserializeQuoteString(AutoCSer.SubString@,System.Int32,System.Char,System.Int32)">
-            <summary>
-            字符串转义解析
-            </summary>
-            <param name="value"></param>
-            <param name="escapeIndex">未解析字符串起始位置</param>
-            <param name="quote">字符串引号</param>
-            <param name="isTempString"></param>
-            <returns>解析是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.DeserializeQuoteString(AutoCSer.SubString@,System.Int32,System.Char,System.Int32)">
-            <summary>
-            字符串转义解析
-            </summary>
-            <param name="value"></param>
-            <param name="escapeIndex">未解析字符串起始位置</param>
-            <param name="quote">字符串引号</param>
-            <param name="isTempString"></param>
-            <returns>解析是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.DeserializeQuoteString(AutoCSer.SubString@,AutoCSer.Memory.CharStream,System.Int32,System.Char)">
-            <summary>
-            字符串转义解析
-            </summary>
-            <param name="value"></param>
-            <param name="charStream"></param>
-            <param name="escapeIndex">未解析字符串起始位置</param>
-            <param name="quote">字符串引号</param>
-            <returns>解析是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.CustomDeserialize``1(``0@)">
-            <summary>
-            自定义反序列化调用
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.SetCustomError(System.String)">
-            <summary>
-            设置反序列化自定义错误状态
-            </summary>
-            <param name="customError">自定义错误</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(System.String,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="config">配置参数</param>
-            <returns>目标数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(System.String,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>反序列化状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="config">配置参数</param>
-            <returns>目标数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>反序列化状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="config">配置参数</param>
-            <returns>目标数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(AutoCSer.SubString@,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>反序列化状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.UnsafeDeserialize``1(System.Char*,System.Int32,``0@)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">Json 字符串</param>
-            <param name="length">Json 长度</param>
-            <param name="value">目标数据</param>
-            <returns>是否解析成功</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(System.String,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化（线程静态实例模式）
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="config">配置参数</param>
-            <returns>目标数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(System.String,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化（线程静态实例模式）
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>反序列化状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化（线程静态实例模式）
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="config">配置参数</param>
-            <returns>目标数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化（线程静态实例模式）
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>反序列化状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化（线程静态实例模式）
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="config">配置参数</param>
-            <returns>目标数据</returns>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.ThreadStaticDeserialize``1(AutoCSer.SubString@,``0@,AutoCSer.JsonDeserializeConfig)">
-            <summary>
-            JSON 反序列化（线程静态实例模式）
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="json">JSON 字符串</param>
-            <param name="value">目标数据</param>
-            <param name="config">配置参数</param>
-            <returns>反序列化状态</returns>
-        </member>
-        <member name="T:AutoCSer.JsonDeserializer.DeserializeDelegate`1">
-            <summary>
-            解析委托
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="deserializer">JSON 反序列化</param>
-            <param name="value">目标数据</param>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.deserializeDelegates">
-            <summary>
-            基本类型转换函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.GetDeserializeDelegate(System.Type)">
-            <summary>
-            获取基本类型转换函数
-            </summary>
-            <param name="type">基本类型</param>
-            <returns>转换函数</returns>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.JavaScriptLocalMinTime">
-            <summary>
-            JSON 转换时间差
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.JavaScriptLocalMinTimeTicks">
-            <summary>
-             JSON 转换时间差
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.EscapeCharSize">
-            <summary>
-            转义字符集合尺寸
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.escapeCharData">
-            <summary>
-            转义字符集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.DeserializeNumberBit">
-            <summary>
-            JSON 解析数字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.DeserializeNameBit">
-            <summary>
-            JSON 解析键值
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.DeserializeNameStartBit">
-            <summary>
-            JSON 解析键值开始
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.DeserializeSpaceBit">
-            <summary>
-            JSON 解析空格[ ,\t,\r,\n,160]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.DeserializeEscapeSearchBit">
-            <summary>
-            JSON 解析转义查找
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.EscapeBit">
-            <summary>
-            JavaScript 转义位[\0,\b,\t,\f,\r,\n,\\,"]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.DeserializeBits">
-            <summary>
-            JSON 解析字符状态位
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt64[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt64[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt64@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.String@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.UInt64}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int64[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int64[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt32[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt32[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int32[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int32[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.UInt16[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt16[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int16[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int16[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Byte[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Byte[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.SByte[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.SByte[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Boolean[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Boolean[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.DateTime[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.DateTime[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.TimeSpan[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.TimeSpan[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Object@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Type@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int64@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt32@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int32@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt16@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int16@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Byte@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.SByte@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Boolean@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Single@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Double@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Decimal@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Guid@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Char@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.DateTime@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.TimeSpan@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SubString@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,AutoCSer.JsonNode@)">
-            <summary>
-            基础类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Int64}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.UInt32}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Int32}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.UInt16}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Int16}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Byte}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.SByte}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Boolean}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Single}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Double}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Decimal}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Char}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.DateTime}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.TimeSpan}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Guid}@)">
-            <summary>
-            可空类型解析
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
         </member>
         <member name="T:AutoCSer.JsonSerializeMemberAttribute">
             <summary>
@@ -38340,9 +38845,14 @@
             释放资源
             </summary>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.FreeDisposeStream">
+        <member name="M:AutoCSer.JsonSerializer.FreeBinaryMix">
             <summary>
             释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.SetBinaryMix">
+            <summary>
+            设置二进制混杂模式
             </summary>
         </member>
         <member name="M:AutoCSer.JsonSerializer.Serialize``1(``0@,AutoCSer.Memory.UnmanagedStream,AutoCSer.Metadata.MemberMap{``0})">
@@ -38354,12 +38864,7 @@
             <param name="stream">二进制缓冲区</param>
             <param name="memberMap"></param>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.SetCommandServer">
-            <summary>
-            设置命令服务参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.SerializeCommandServer``1(``0@,AutoCSer.Memory.UnmanagedStream)">
+        <member name="M:AutoCSer.JsonSerializer.serializeNotNull``1(``0@,AutoCSer.Memory.UnmanagedStream)">
             <summary>
             命令服务序列化
             </summary>
@@ -38367,15 +38872,7 @@
             <param name="value"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.serializeCommandServer``1(``0@,AutoCSer.Memory.UnmanagedStream)">
-            <summary>
-            命令服务序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-            <param name="stream"></param>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.SerializeCommandServerBuffer``1(``0@,AutoCSer.Memory.UnmanagedStream)">
+        <member name="M:AutoCSer.JsonSerializer.SerializeBufferNotNull``1(``0@,AutoCSer.Memory.UnmanagedStream)">
             <summary>
             命令服务序列化
             </summary>
@@ -38581,6 +39078,12 @@
             </summary>
             <param name="value">逻辑值</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMix(System.Byte)">
+            <summary>
+            二进制混杂序列化
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.Byte)">
             <summary>
             数字转换
@@ -38592,6 +39095,12 @@
             数字转换
             </summary>
             <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMix(System.UInt16)">
+            <summary>
+            二进制混杂序列化
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.Int16)">
             <summary>
@@ -38605,6 +39114,12 @@
             </summary>
             <param name="value">数字</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMix(System.UInt32)">
+            <summary>
+            二进制混杂序列化
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.Int32)">
             <summary>
             数字转换
@@ -38616,6 +39131,12 @@
             数字转换
             </summary>
             <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMix(System.UInt64)">
+            <summary>
+            二进制混杂序列化
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.Int64)">
             <summary>
@@ -38701,6 +39222,12 @@
             字符串转换
             </summary>
             <param name="value">字符串</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMixStringLength(System.Int32)">
+            <summary>
+            二进制混杂序列化字符串长度
+            </summary>
+            <param name="length"></param>
         </member>
         <member name="M:AutoCSer.JsonSerializer.primitiveSerializeNotEmpty(System.String)">
             <summary>
@@ -40380,11 +40907,12 @@
             <param name="type">类型</param>
             <returns>远程类型</returns>
         </member>
-        <member name="M:AutoCSer.Reflection.RemoteType.TryGet(System.Type@)">
+        <member name="M:AutoCSer.Reflection.RemoteType.TryGet(System.Type@,System.Boolean)">
             <summary>
             尝试获取类型
             </summary>
             <param name="type">类型</param>
+            <param name="checkType">是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性</param>
             <returns>是否成功</returns>
         </member>
         <member name="M:AutoCSer.Reflection.RemoteType.Equals(AutoCSer.Reflection.RemoteType)">
@@ -42747,6 +43275,11 @@
             节点层级计数
             </summary>
         </member>
+        <member name="F:AutoCSer.TextSerializer`2.IsBinaryMix">
+            <summary>
+            是否二进制混杂模式
+            </summary>
+        </member>
         <member name="P:AutoCSer.TextSerializer`2.Warning">
             <summary>
             警告提示状态
@@ -44314,6 +44847,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.appendTaskArrayAsync(AutoCSer.Threading.SecondTimerAppendTaskStateEnum)">
+            <summary>
+            任务添加到二维定时任务数组
+            </summary>
+            <param name="appendTaskState"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.AppendTaskArrayAsync(AutoCSer.Threading.SecondTimerAppendTaskStateEnum)">
             <summary>
             任务添加到二维定时任务数组
@@ -45309,12 +45849,6 @@
             <summary>
             逻辑值是否转换成 1/0 输出
             </summary>
-        </member>
-        <member name="M:AutoCSer.JsonSerializeConfig.CreateInternal">
-            <summary>
-            创建内部配置参数
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.Random">
             <summary>

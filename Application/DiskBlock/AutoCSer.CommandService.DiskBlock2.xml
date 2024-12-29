@@ -124,6 +124,16 @@
             JSON null
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.BlockIndex.JsonNullCompletedReturnCommand">
+            <summary>
+            JSON null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.BlockIndex.BinarySerializeNullValueCompletedReturnCommand">
+            <summary>
+            二进制序列化 null
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.Block">
             <summary>
             磁盘块

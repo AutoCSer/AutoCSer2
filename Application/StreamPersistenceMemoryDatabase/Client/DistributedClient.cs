@@ -3,6 +3,7 @@ using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -15,13 +16,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 客户端集合
         /// </summary>
-        protected readonly Dictionary<HashString, StreamPersistenceMemoryDatabaseClient> clients;
+        protected readonly Dictionary<string, KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>>> clients;
         /// <summary>
         /// 分布式客户端
         /// </summary>
         private DistributedClient()
         {
-            clients = DictionaryCreator.CreateHashString<StreamPersistenceMemoryDatabaseClient>();
+            clients = DictionaryCreator.CreateAny<string, KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>>>();
         }
         /// <summary>
         /// 根据节点全局关键字创建客户端
@@ -34,10 +35,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <returns></returns>
-        private async Task<StreamPersistenceMemoryDatabaseClient> getClient(HashString key)
+        private async Task<StreamPersistenceMemoryDatabaseClient> getClient(string key)
         {
-            StreamPersistenceMemoryDatabaseClient client = await createClient(key.String);
-            clients.Add(key, client);
+            StreamPersistenceMemoryDatabaseClient client = await createClient(key);
+            clients.Add(key, new KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>>(client, Task.FromResult(client)));
             return client;
         }
         /// <summary>
@@ -45,11 +46,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">日志流持久化内存数据库客户端</param>
         /// <returns>磁盘块客户端</returns>
-        public async Task<StreamPersistenceMemoryDatabaseClient> GetClient(string key)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<StreamPersistenceMemoryDatabaseClient> GetClient(string key)
         {
-            var client = default(StreamPersistenceMemoryDatabaseClient);
-            HashString hashKey = key;
-            return clients.TryGetValue(hashKey, out client) ? client : await getClient(hashKey);
+            var client = default(KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>>);
+            return clients.TryGetValue(key, out client) ? client.Value : getClient(key);
         }
 
         /// <summary>
@@ -59,10 +60,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         public async Task<ResponseResult<bool>> RemoveNode(ClientNode node)
         {
-            HashString key = node.Key;
-            var client = default(StreamPersistenceMemoryDatabaseClient);
-            if (!clients.TryGetValue(key, out client)) client = await getClient(key);
-            return await client.RemoveNode(node);
+            string key = node.Key;
+            var client = default(KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>>);
+            if (!clients.TryGetValue(key, out client)) client.Key = await getClient(key);
+            return await client.Key.RemoveNode(node);
         }
         /// <summary>
         /// 获取节点，不存在则创建节点
@@ -74,10 +75,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点接口对象派生自 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode{T}</returns>
         public async Task<ResponseResult<T>> GetOrCreateNode<T>(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
-            HashString hashKey = key;
-            var client = default(StreamPersistenceMemoryDatabaseClient);
-            if (!clients.TryGetValue(hashKey, out client)) client = await getClient(hashKey);
-            return await client.GetOrCreateNode<T>(key, creator, isPersistenceCallbackExceptionRenewNode);
+            var client = default(KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>>);
+            if (!clients.TryGetValue(key, out client)) client.Key = await getClient(key);
+            return await client.Key.GetOrCreateNode<T>(key, creator, isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取节点，不存在则创建节点
@@ -91,10 +91,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点接口对象派生自 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode{T}</returns>
         public async Task<ResponseResult<T>> GetOrCreateNode<T, PT>(string key, PT parameter, Func<NodeIndex, string, NodeInfo, PT, ResponseParameterAwaiter<NodeIndex>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
-            HashString hashKey = key;
-            var client = default(StreamPersistenceMemoryDatabaseClient);
-            if (!clients.TryGetValue(hashKey, out client)) client = await getClient(hashKey);
-            return await client.GetOrCreateNode<T, PT>(key, parameter, creator, isPersistenceCallbackExceptionRenewNode);
+            var client = default(KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>>);
+            if (!clients.TryGetValue(key, out client)) client.Key = await getClient(key);
+            return await client.Key.GetOrCreateNode<T, PT>(key, parameter, creator, isPersistenceCallbackExceptionRenewNode);
         }
 
         /// <summary>
@@ -104,9 +103,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected virtual IEnumerable<StreamPersistenceMemoryDatabaseClient> getAllClients()
         {
             HashSet<HashObject<StreamPersistenceMemoryDatabaseClient>> clientHash = HashSetCreator.CreateHashObject<StreamPersistenceMemoryDatabaseClient>();
-            foreach (StreamPersistenceMemoryDatabaseClient client in clients.Values)
+            foreach (KeyValue<StreamPersistenceMemoryDatabaseClient, Task<StreamPersistenceMemoryDatabaseClient>> client in clients.Values)
             {
-                if (clientHash.Add(client)) yield return client;
+                if (clientHash.Add(client.Key)) yield return client.Key;
             }
         }
         /// <summary>

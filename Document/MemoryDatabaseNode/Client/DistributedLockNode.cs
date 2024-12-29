@@ -9,13 +9,16 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
     internal static class DistributedLockNode
     {
         /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode<string>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateDistributedLockNode<string>(nameof(DistributedLockNode)));
+        /// <summary>
         /// 分布式锁客户端示例
         /// </summary>
-        /// <param name="client"></param>
         /// <returns></returns>
-        internal static async Task<bool> Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode> client)
+        internal static async Task<bool> Test()
         {
-            var nodeResult = await client.GetOrCreateDistributedLockNode<string>(nameof(DistributedLockNode));
+            var nodeResult = await nodeCache.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

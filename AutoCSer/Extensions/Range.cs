@@ -7,6 +7,7 @@ namespace AutoCSer
     /// <summary>
     /// 索引范围
     /// </summary>
+    [RemoteType]
     [StructLayout(LayoutKind.Explicit, Size = sizeof(int) * 2)]
     internal struct Range
     {

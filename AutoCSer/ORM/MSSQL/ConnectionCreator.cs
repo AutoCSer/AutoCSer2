@@ -135,7 +135,7 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
         /// </summary>
         /// <param name="tableWriter"></param>
         /// <returns></returns>
-        private async Task createTable(TableWriter tableWriter)
+        private Task createTable(TableWriter tableWriter)
         {
             string statement;
             CharStream charStream = GetCharStreamCache();
@@ -170,7 +170,7 @@ select indid,colid,(select top 1 status from sysindexes where id=@id and indid=s
                 statement = charStream.ToString();
             }
             finally { FreeCharStreamCache(charStream); }
-            await tableWriter.ConnectionPool.ExecuteNonQueryTransaction(statement, 0, null);
+            return tableWriter.ConnectionPool.ExecuteNonQueryTransaction(statement, 0, null);
         }
         /// <summary>
         /// 写入列信息
@@ -314,7 +314,7 @@ exec dbo.sp_addextendedproperty @name=N'MS_Description',@value=N");
         /// <param name="tableWriter"></param>
         /// <param name="columns"></param>
         /// <returns></returns>
-        private async Task createColumn(TableWriter tableWriter, LeftArray<CustomColumnName> columns)
+        private Task createColumn(TableWriter tableWriter, LeftArray<CustomColumnName> columns)
         {
             string statement;
             CharStream charStream = GetCharStreamCache();
@@ -351,14 +351,14 @@ update ");
                 statement = charStream.ToString();
             }
             finally { FreeCharStreamCache(charStream); }
-            await tableWriter.ConnectionPool.ExecuteNonQueryTransaction(statement, 0, null);
+            return tableWriter.ConnectionPool.ExecuteNonQueryTransaction(statement, 0, null);
         }
         /// <summary>
         /// 自动不全创建主键
         /// </summary>
         /// <param name="tableWriter"></param>
         /// <returns></returns>
-        private async Task createPrimaryKey(TableWriter tableWriter)
+        private Task createPrimaryKey(TableWriter tableWriter)
         {
             string statement;
             CharStream charStream = GetCharStreamCache();
@@ -400,7 +400,7 @@ update ");
                 statement = charStream.ToString();
             }
             finally { FreeCharStreamCache(charStream); }
-            await tableWriter.ConnectionPool.ExecuteNonQueryTransaction(statement, 0, null);
+            return tableWriter.ConnectionPool.ExecuteNonQueryTransaction(statement, 0, null);
         }
         /// <summary>
         /// 创建表格索引

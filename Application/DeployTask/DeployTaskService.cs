@@ -83,15 +83,11 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="taskIdentity">任务ID</param>
         /// <returns>返回 false 表示没有找到任务或者任务已经启动不允许取消</returns>
-        public virtual async Task<bool> Cancel(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity)
+        public virtual Task<bool> Cancel(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity)
         {
             var builder = default(DeployTaskBuilder);
-            if (Tasks.TryGetValue(taskIdentity, out builder))
-            {
-                await builder.Cancel();
-                return true;
-            }
-            return false;
+            if (Tasks.TryGetValue(taskIdentity, out builder)) return builder.Cancel();
+            return AutoCSer.Common.GetCompletedTask(false);
         }
         /// <summary>
         /// 启动任务
@@ -102,7 +98,7 @@ namespace AutoCSer.CommandService
         /// <param name="startTime">运行任务时间</param>
         /// <param name="callback">任务状态变更回调委托</param>
         /// <returns>返回 false 表示没有找到任务、任务已经取消或者任务已经调用启动</returns>
-        public virtual async Task Start(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, DateTime startTime, CommandServerKeepCallback<DeployTaskLog> callback)
+        public virtual Task Start(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, DateTime startTime, CommandServerKeepCallback<DeployTaskLog> callback)
         {
             bool IsCallback = false;
             try
@@ -111,7 +107,7 @@ namespace AutoCSer.CommandService
                 if (Tasks.TryGetValue(taskIdentity, out builder))
                 {
                     IsCallback = true;
-                    await builder.Start(startTime, callback);
+                    return builder.Start(startTime, callback);
                 }
                 else
                 {
@@ -123,6 +119,7 @@ namespace AutoCSer.CommandService
             {
                 if (!IsCallback) DeployTaskLog.CallbackError(callback, DeployTaskOperationStateEnum.Exception);
             }
+            return AutoCSer.Common.CompletedTask;
         }
 
         /// <summary>
@@ -135,14 +132,14 @@ namespace AutoCSer.CommandService
         /// <param name="arguments">运行程序参数</param>
         /// <param name="isWait">执行任务流程是否等待程序运行结束</param>
         /// <returns></returns>
-        public virtual async Task<DeployTaskAppendResult> AppendStartProcess(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, string startFileName, string arguments, bool isWait)
+        public virtual Task<DeployTaskAppendResult> AppendStartProcess(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, string startFileName, string arguments, bool isWait)
         {
             var builder = default(DeployTaskBuilder);
             if (Tasks.TryGetValue(taskIdentity, out builder))
             {
-                return await builder.Append(new DeployTask.StartProcessTask(startFileName, arguments, isWait));
+                return builder.Append(new DeployTask.StartProcessTask(startFileName, arguments, isWait));
             }
-            return new DeployTaskAppendResult { AppendState = DeployTaskAppendStateEnum.NotFound };
+            return Task.FromResult(new DeployTaskAppendResult { AppendState = DeployTaskAppendStateEnum.NotFound });
         }
         /// <summary>
         /// 添加复制文件步骤
@@ -155,14 +152,14 @@ namespace AutoCSer.CommandService
         /// <param name="checkSwitchFileName">切换检测文件名称，null 表示不检测</param>
         /// <param name="isBackup">是否备份历史文件</param>
         /// <returns></returns>
-        public virtual async Task<DeployTaskAppendResult> AppendCopyUploadFile(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string destinationPath, string checkSwitchFileName, bool isBackup)
+        public virtual Task<DeployTaskAppendResult> AppendCopyUploadFile(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string destinationPath, string checkSwitchFileName, bool isBackup)
         {
             var builder = default(DeployTaskBuilder);
             if (Tasks.TryGetValue(taskIdentity, out builder))
             {
-                return await builder.Append(new DeployTask.CopyFileTask(this, taskIdentity, index, destinationPath, checkSwitchFileName, isBackup));
+                return builder.Append(new DeployTask.CopyFileTask(this, taskIdentity, index, destinationPath, checkSwitchFileName, isBackup));
             }
-            return new DeployTaskAppendResult { AppendState = DeployTaskAppendStateEnum.NotFound };
+            return Task.FromResult(new DeployTaskAppendResult { AppendState = DeployTaskAppendStateEnum.NotFound });
         }
 
         /// <summary>
@@ -202,15 +199,12 @@ namespace AutoCSer.CommandService
         /// <param name="fileTime">文件信息</param>
         /// <param name="callback">初始化上传文件结果回调委托</param>
         /// <returns></returns>
-        public virtual async Task CreateUploadFile(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string path, DeployTask.FileTime fileTime, CommandServerCallback<DeployTask.CreateUploadFileResult> callback)
+        public virtual Task CreateUploadFile(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue queue, long taskIdentity, int index, string path, DeployTask.FileTime fileTime, CommandServerCallback<DeployTask.CreateUploadFileResult> callback)
         {
             var builder = default(DeployTaskBuilder);
-            if (Tasks.TryGetValue(taskIdentity, out builder))
-            {
-                await builder.CreateUploadFile(index, path, fileTime, callback);
-                return;
-            }
+            if (Tasks.TryGetValue(taskIdentity, out builder)) return builder.CreateUploadFile(index, path, fileTime, callback);
             callback.Callback(default(DeployTask.CreateUploadFileResult));
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 上传文件数据

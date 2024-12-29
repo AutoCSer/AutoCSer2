@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace AutoCSer.Xml
 {
@@ -111,10 +112,37 @@ namespace AutoCSer.Xml
             return false;
         }
         /// <summary>
+        /// 成员序列化委托集合
+        /// </summary>
+        private static readonly Dictionary<HashObject<Type>, Delegate> memberSerializeDelegates = DictionaryCreator<HashObject<Type>>.Create<Delegate>();
+        /// <summary>
+        /// 成员序列化委托集合访问锁
+        /// </summary>
+        private static readonly object memberSerializeDelegateLock = new object();
+        /// <summary>
         /// 获取成员序列化委托
         /// </summary>
         /// <param name="type">成员类型</param>
         internal static Delegate GetMemberSerializeDelegate(Type type)
+        {
+            var memberSerializeDelegate = default(Delegate);
+            HashObject<Type> hashType = type;
+            Monitor.Enter(memberSerializeDelegateLock);
+            try
+            {
+                if (!memberSerializeDelegates.TryGetValue(hashType, out memberSerializeDelegate))
+                {
+                    memberSerializeDelegates.Add(hashType, memberSerializeDelegate = getMemberSerializeDelegate(type));
+                }
+            }
+            finally { Monitor.Exit(memberSerializeDelegateLock); }
+            return memberSerializeDelegate;
+        }
+        /// <summary>
+        /// 获取成员序列化委托
+        /// </summary>
+        /// <param name="type">成员类型</param>
+        private static Delegate getMemberSerializeDelegate(Type type)
         {
             var genericType = default(AutoCSer.Extensions.Metadata.GenericType);
             AutoCSer.TextSerialize.DelegateReference serializeDelegateReference;
@@ -414,6 +442,34 @@ namespace AutoCSer.Xml
             return null;
         }
         /// <summary>
+        /// 成员反序列化委托集合
+        /// </summary>
+        private static readonly Dictionary<HashObject<Type>, Delegate> memberDeserializeDelegates = DictionaryCreator<HashObject<Type>>.Create<Delegate>();
+        /// <summary>
+        /// 成员反序列化委托集合访问锁
+        /// </summary>
+        private static readonly object memberDeserializeDelegateLock = new object();
+        /// <summary>
+        /// 获取成员反序列化委托
+        /// </summary>
+        /// <param name="type">成员类型</param>
+        /// <returns></returns>
+        internal static Delegate GetMemberDeserializeDelegate(Type type)
+        {
+            var memberDeserializeDelegate = default(Delegate);
+            HashObject<Type> hashType = type;
+            Monitor.Enter(memberDeserializeDelegateLock);
+            try
+            {
+                if (!memberDeserializeDelegates.TryGetValue(hashType, out memberDeserializeDelegate))
+                {
+                    memberDeserializeDelegates.Add(hashType, memberDeserializeDelegate = getMemberDeserializeDelegate(type));
+                }
+            }
+            finally { Monitor.Exit(memberDeserializeDelegateLock); }
+            return memberDeserializeDelegate;
+        }
+        /// <summary>
         /// 获取成员反序列化委托
         /// </summary>
         /// <param name="type">成员类型</param>
@@ -435,7 +491,7 @@ namespace AutoCSer.Xml
         {
             DynamicMethod dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "XmlDeserializer" + field.Name, null, new Type[] { typeof(XmlDeserializer), type.MakeByRefType() }, type, true);
             ILGenerator generator = dynamicMethod.GetILGenerator();
-            Delegate deserializeDelegate = getMemberDeserializeDelegate(field.FieldType);
+            Delegate deserializeDelegate = GetMemberDeserializeDelegate(field.FieldType);
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldarg_1);
             if (!type.IsValueType) generator.Emit(OpCodes.Ldind_Ref);
@@ -458,7 +514,7 @@ namespace AutoCSer.Xml
             Type memberType = property.PropertyType;
             LocalBuilder loadMember = generator.DeclareLocal(memberType);
             generator.initobjShort(memberType, loadMember);
-            Delegate deserializeDelegate = getMemberDeserializeDelegate(memberType);
+            Delegate deserializeDelegate = GetMemberDeserializeDelegate(memberType);
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldloca_S, loadMember);
             generator.call(deserializeDelegate.Method);

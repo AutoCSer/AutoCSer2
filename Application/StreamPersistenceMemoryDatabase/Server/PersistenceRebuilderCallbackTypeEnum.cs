@@ -16,6 +16,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         NextNode,
         /// <summary>
+        /// 获取节点快照数据
+        /// </summary>
+        GetSnapshotResult,
+        /// <summary>
         /// 检查调用队列
         /// </summary>
         CheckQueue,

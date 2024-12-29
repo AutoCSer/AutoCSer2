@@ -135,7 +135,7 @@ using AutoCSer;
         /// <summary>
         /// CSharp代码树节点缓存
         /// </summary>
-        private static readonly Dictionary<HashString, TreeBuilderNode> nodeCache = DictionaryCreator.CreateHashString<TreeBuilderNode>();
+        private static readonly Dictionary<string, TreeBuilderNode> nodeCache = DictionaryCreator.CreateAny<string, TreeBuilderNode>();
         /// <summary>
         /// 添加代码
         /// </summary>

@@ -42,7 +42,7 @@ namespace AutoCSer.ORM
         ///// 提交当前异步上下文数据库事务
         ///// </summary>
         ///// <returns></returns>
-        //public static async Task AsyncLocalCommitAsync()
+        //public static Task AsyncLocalCommitAsync()
         //{
         //    Transaction transaction = AsyncLocal.Value;
         //    if (transaction != null) await transaction.CommitAsync();

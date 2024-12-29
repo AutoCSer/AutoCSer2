@@ -9,13 +9,16 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
     internal static class SearchTreeDictionaryNode
     {
         /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode<int, Data.TestClass>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateSearchTreeDictionaryNode<int, Data.TestClass>(nameof(SearchTreeDictionaryNode)));
+        /// <summary>
         /// 平衡树客户端示例
         /// </summary>
-        /// <param name="client"></param>
         /// <returns></returns>
-        internal static async Task<bool> Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode> client)
+        internal static async Task<bool> Test()
         {
-            var nodeResult = await client.GetOrCreateSearchTreeDictionaryNode<int, Data.TestClass>(nameof(SearchTreeDictionaryNode));
+            var nodeResult = await nodeCache.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

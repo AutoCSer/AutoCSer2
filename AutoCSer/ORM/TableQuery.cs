@@ -134,13 +134,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<T?> SingleOrDefault(Query<T> query, Transaction? transaction = null)
+        public Task<T?> SingleOrDefault(Query<T> query, Transaction? transaction = null)
 #else
-        public async Task<T> SingleOrDefault(Query<T> query, Transaction transaction = null)
+        public Task<T> SingleOrDefault(Query<T> query, Transaction transaction = null)
 #endif
         {
-            return await SingleOrDefault<T>(query, transaction);
+            return SingleOrDefault<T>(query, transaction);
         }
         /// <summary>
         /// 查询第一个表格数据
@@ -150,15 +151,15 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        public async Task<VT?> SingleOrDefault<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
+        public Task<VT?> SingleOrDefault<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<VT> SingleOrDefault<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
+        public Task<VT> SingleOrDefault<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
 #endif
         {
             if (query != null)
             {
                 ConnectionPool.CheckTransaction(ref transaction);
-                return await Writer.SingleOrDefault<VT>(query, transaction);
+                return Writer.SingleOrDefault<VT>(query, transaction);
             }
             throw new ArgumentNullException();
         }
@@ -168,13 +169,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<T>> Query(Query<T> query, Transaction? transaction = null)
+        public Task<LeftArray<T>> Query(Query<T> query, Transaction? transaction = null)
 #else
-        public async Task<LeftArray<T>> Query(Query<T> query, Transaction transaction = null)
+        public Task<LeftArray<T>> Query(Query<T> query, Transaction transaction = null)
 #endif
         {
-            return await Query<T>(query, transaction);
+            return Query<T>(query, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -184,15 +186,15 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        public async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
+        public Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
+        public Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
 #endif
         {
             if (query != null)
             {
                 ConnectionPool.CheckTransaction(ref transaction);
-                return await Writer.Query<VT>(query, transaction);
+                return Writer.Query<VT>(query, transaction);
             }
             throw new ArgumentNullException();
         }
@@ -204,13 +206,14 @@ namespace AutoCSer.ORM
         /// <param name="getValue">数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<CT>> Query<CT>(Query<T> query, Func<T, CT> getValue, Transaction? transaction = null)
+        public Task<LeftArray<CT>> Query<CT>(Query<T> query, Func<T, CT> getValue, Transaction? transaction = null)
 #else
-        public async Task<LeftArray<CT>> Query<CT>(Query<T> query, Func<T, CT> getValue, Transaction transaction = null)
+        public Task<LeftArray<CT>> Query<CT>(Query<T> query, Func<T, CT> getValue, Transaction transaction = null)
 #endif
         {
-            return await Query<T, CT>(query, getValue, transaction);
+            return Query<T, CT>(query, getValue, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -222,15 +225,15 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        public async Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction? transaction = null) where VT : class, T
+        public Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction transaction = null) where VT : class, T
+        public Task<LeftArray<CT>> Query<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction transaction = null) where VT : class, T
 #endif
         {
             if (query != null)
             {
                 ConnectionPool.CheckTransaction(ref transaction);
-                return await Writer.Query(query, getValue, transaction);
+                return Writer.Query(query, getValue, transaction);
             }
             throw new ArgumentNullException();
         }
@@ -241,15 +244,15 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        public async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction? transaction = null)
+        public Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction? transaction = null)
 #else
-        public async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction transaction = null)
+        public Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction transaction = null)
 #endif
         {
             if (query != null)
             {
                 ConnectionPool.CheckTransaction(ref transaction);
-                return await Writer.Select(query, transaction);
+                return Writer.Select(query, transaction);
             }
             throw new ArgumentNullException();
         }
@@ -261,15 +264,15 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        public async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
+        public Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
+        public Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction transaction = null) where VT : class, T
 #endif
         {
             if (query != null)
             {
                 ConnectionPool.CheckTransaction(ref transaction);
-                return await Writer.Select<VT>(query, transaction);
+                return Writer.Select<VT>(query, transaction);
             }
             throw new ArgumentNullException();
         }
@@ -409,14 +412,15 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<T?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null)
+        public Task<T?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null)
 #else
-        public async Task<T> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null)
+        public Task<T> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null)
 #endif
         {
             ConnectionPool.CheckTransaction(ref transaction);
-            return await Writer.GetByPrimaryKey(primaryKey, memberMap, transaction);
+            return Writer.GetByPrimaryKey(primaryKey, memberMap, transaction);
         }
         /// <summary>
         /// 根据关键字查询表格数据
@@ -426,14 +430,15 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, T
+        public Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, T
+        public Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, T
 #endif
         {
             ConnectionPool.CheckTransaction(ref transaction);
-            return await Writer.GetByPrimaryKey<VT>(primaryKey, memberMap, transaction);
+            return Writer.GetByPrimaryKey<VT>(primaryKey, memberMap, transaction);
         }
         /// <summary>
         /// 获取表格关键字数据字典

@@ -13,6 +13,13 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             ResponseResult<ICallbackNodeClientNode> node = await client.GetOrCreateNode<ICallbackNodeClientNode>(typeof(ICallbackNodeClientNode).FullName, client.ClientNode.CreateCallbackNode);
             if (!Program.Breakpoint(node)) return;
+            var boolResult = await node.Value.CheckSnapshot();
+            if (!boolResult.Value)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.CallState}+{boolResult.Value}+ERROR*");
+                return;
+            }
+
             int value = AutoCSer.Random.Default.Next();
             ResponseResult<int> intResult = await node.Value.SetValueCallback(value);
             if (!Program.Breakpoint(intResult)) return;
@@ -148,22 +155,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             result = await node.Value.CallCustomPersistence(value);
             if (!Program.Breakpoint(result)) return;
 
-            result = await node.Value.SetJsonValue(new TestClass { Int = ++value, String = "J" });
+            AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster monster = AutoCSer.RandomObject.Creator<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster>.CreateNotNull();
+            result = await node.Value.SetJsonValue(monster);
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<JsonValue<TestClass>> jsonValueResult = await node.Value.GetJsonValue();
-            if (!Program.Breakpoint(jsonValueResult)) return;
-            if (jsonValueResult.Value.Value == null || jsonValueResult.Value.Value.Int != value || jsonValueResult.Value.Value.String != "J")
+            ResponseResult<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster> monsterResult = await node.Value.GetJsonValue();
+            if (!Program.Breakpoint(monsterResult)) return;
+            if (monsterResult.Value == null
+                || monster.id != monsterResult.Value.id || monster.speed != monsterResult.Value.speed || monster.type != monsterResult.Value.type
+                || monster.pos.x != monsterResult.Value.pos.x || monster.pos.y != monsterResult.Value.pos.y)
             {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{jsonValueResult.Value.Value?.Int}.{jsonValueResult.Value.Value?.String}+ERROR*");
+                ConsoleWriteQueue.Breakpoint($"*ERROR*");
                 return;
             }
 
-            result = await node.Value.SetServerByteArray(ServerByteArray.BinarySerialize(new TestClass { Int = value, String = "D" }));
+            TestClass testClass = AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull();
+            result = await node.Value.SetServerByteArray(ServerByteArray.BinarySerialize(testClass));
             if (!Program.Breakpoint(result)) return;
             ResponseResult<ServerByteArray> serverByteArrayResult = await node.Value.GetServerByteArray();
             if (!Program.Breakpoint(serverByteArrayResult)) return;
             TestClass resultValue = null;
-            if (!serverByteArrayResult.Value.BinaryDeserialize(ref resultValue) || resultValue == null || resultValue.Int != value || resultValue.String != "D")
+            if (!serverByteArrayResult.Value.BinaryDeserialize(ref resultValue) || resultValue == null || resultValue.Int != testClass.Int || resultValue.String != testClass.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
                 return;
@@ -179,11 +190,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 return;
             }
 
-            result = await node.Value.SetServerByteArray(ServerByteArray.JsonSerialize(new TestClass { Int = ++value, String = "A" }));
+            result = await node.Value.SetServerByteArray(ServerByteArray.JsonSerialize(testClass = AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull()));
             if (!Program.Breakpoint(result)) return;
             serverByteArrayResult = await node.Value.GetServerByteArray();
             if (!Program.Breakpoint(serverByteArrayResult)) return;
-            if (!serverByteArrayResult.Value.JsonDeserialize(ref resultValue) || resultValue == null || resultValue.Int != value || resultValue.String != "A")
+            if (!serverByteArrayResult.Value.JsonDeserialize(ref resultValue) || resultValue == null || resultValue.Int != testClass.Int || resultValue.String != testClass.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
                 return;
@@ -199,7 +210,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 return;
             }
 
-            result = await node.Value.SetServerByteArray(AutoCSer.JsonSerializer.Serialize(new TestClass { Int = ++value, String = "B" }));
+            result = await node.Value.SetServerByteArray(AutoCSer.JsonSerializer.Serialize(testClass = AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull()));
             if (!Program.Breakpoint(result)) return;
             serverByteArrayResult = await node.Value.GetServerByteArray();
             if (!Program.Breakpoint(serverByteArrayResult)) return;
@@ -210,7 +221,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 return;
             }
             resultValue = AutoCSer.JsonDeserializer.Deserialize<TestClass>(json);
-            if (resultValue == null || resultValue.Int != value || resultValue.String != "B")
+            if (resultValue == null || resultValue.Int != testClass.Int || resultValue.String != testClass.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
                 return;
@@ -235,7 +246,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 return;
             }
 
-            result = await node.Value.SetServerByteArray(AutoCSer.BinarySerializer.Serialize(new TestClass { Int = ++value, String = "C" }));
+            result = await node.Value.SetServerByteArray(AutoCSer.BinarySerializer.Serialize(testClass = AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull()));
             if (!Program.Breakpoint(result)) return;
             serverByteArrayResult = await node.Value.GetServerByteArray();
             if (!Program.Breakpoint(serverByteArrayResult)) return;
@@ -246,7 +257,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 return;
             }
             resultValue = AutoCSer.BinaryDeserializer.Deserialize<TestClass>(data);
-            if (resultValue == null || resultValue.Int != value || resultValue.String != "C")
+            if (resultValue == null || resultValue.Int != testClass.Int || resultValue.String != testClass.String)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{resultValue?.Int}.{resultValue?.String}+ERROR*");
                 return;

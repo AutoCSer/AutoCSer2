@@ -6,6 +6,7 @@ namespace AutoCSer.Memory
     /// <summary>
     /// 用于 HASH 的字节数组
     /// </summary>
+    [RemoteType]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct HashBytes : IEquatable<HashBytes>
     {

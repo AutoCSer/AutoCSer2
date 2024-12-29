@@ -5,15 +5,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 队列节点接口（先进先出）
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(ByteArrayQueueNodeMethodEnum), IsAutoMethodIndex = false)]
-    public interface IByteArrayQueueNode
+    [ServerNode(IsAutoMethodIndex = false)]
+    public partial interface IByteArrayQueueNode
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
+#if NetStandard21
+        void SnapshotAdd(byte[]? value);
+#else
         void SnapshotAdd(byte[] value);
+#endif
         /// <summary>
         /// 获取队列数据数量
         /// </summary>

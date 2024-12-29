@@ -32,7 +32,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            string key = "key", value = "value";
+            string key = TestClass.RandomString(), value = TestClass.RandomString();
             ResponseResult<bool> boolResult = await node.TryAdd(key, value);
             if (!Program.Breakpoint(boolResult)) return false;
             if (!boolResult.Value)
@@ -160,8 +160,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            string key = "key";
-            byte[] value = System.Text.Encoding.UTF8.GetBytes("value");
+            string key = TestClass.RandomString();
+            byte[] value = System.Text.Encoding.UTF8.GetBytes(TestClass.RandomString());
             ResponseResult<bool> boolResult = await node.TryAdd(key, value);
             if (!Program.Breakpoint(boolResult)) return false;
             if (!boolResult.Value)
@@ -289,8 +289,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            string key = "key";
-            TestClass value = new TestClass { String = "value" };
+            string key = TestClass.RandomString();
+            TestClass value = new TestClass { String = TestClass.RandomString() };
             ResponseResult<bool> boolResult = await node.TryAddBinarySerialize(key, value);
             if (!Program.Breakpoint(boolResult)) return false;
             if (!boolResult.Value)
@@ -418,8 +418,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            string key = "key";
-            TestClass value = new TestClass { String = "value" };
+            string key = TestClass.RandomString();
+            TestClass value = new TestClass { String = TestClass.RandomString() };
             ResponseResult<bool> boolResult = await node.TryAddJsonSerialize(key, value);
             if (!Program.Breakpoint(boolResult)) return false;
             if (!boolResult.Value)

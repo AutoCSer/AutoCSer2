@@ -95,7 +95,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateFragmentDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return node.CreateNode<IFragmentDictionaryNode<T1, T2>, FragmentDictionaryNode<T1, T2>, KeyValue<T1, T2>>(index, key, nodeInfo, () => new FragmentDictionaryNode<T1, T2>());
+            return node.CreateSnapshotNode<IFragmentDictionaryNode<T1, T2>>(index, key, nodeInfo, () => new FragmentDictionaryNode<T1, T2>());
         }
         /// <summary>
         /// 创建字典节点 IDictionaryNode{KT,T}
@@ -108,7 +108,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-            return node.CreateNode<IDictionaryNode<T1, T2>, DictionaryNode<T1, T2>, KeyValue<T1, T2>>(index, key, nodeInfo, () => new DictionaryNode<T1, T2>(capacity));
+            return node.CreateSnapshotNode<IDictionaryNode<T1, T2>>(index, key, nodeInfo, () => new DictionaryNode<T1, T2>(capacity));
         }
     }
 }

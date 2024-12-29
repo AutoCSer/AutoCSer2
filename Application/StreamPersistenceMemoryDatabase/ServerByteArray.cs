@@ -9,6 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端字节数组 / 客户端序列化对象（客户端 string / byte[] 传参可隐式转换，序列化可调用静态方法 BinarySerialize / JsonSerialize）
     /// </summary>
+    [RemoteType]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     public struct ServerByteArray : AutoCSer.BinarySerialize.ICustomSerialize<ServerByteArray>
@@ -131,11 +132,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static ServerByteArray BinarySerialize<T>(T value)
 #endif
         {
-#if NetStandard21
-            return new ServerByteArray(new RequestParameterBinarySerializer<ServerReturnValue<T?>>(new ServerReturnValue<T?>(value)));
-#else
             return new ServerByteArray(new RequestParameterBinarySerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
-#endif
         }
         /// <summary>
         /// 获取二进制反序列化对象
@@ -150,13 +147,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (Buffer?.Length > 0)
             {
-#if NetStandard21
-                ServerReturnValue<T?> returnValue = new ServerReturnValue<T?>(value);
-                if (AutoCSer.BinaryDeserializer.IndependentDeserializeBuffer<ServerReturnValue<T?>>(Buffer, ref returnValue))
-#else
                 ServerReturnValue<T> returnValue = new ServerReturnValue<T>(value);
                 if (AutoCSer.BinaryDeserializer.IndependentDeserializeBuffer<ServerReturnValue<T>>(Buffer, ref returnValue))
-#endif
                 {
                     value = returnValue.ReturnValue;
                     return true;
@@ -177,11 +169,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static ServerByteArray JsonSerialize<T>(T value)
 #endif
         {
-#if NetStandard21
-            return new ServerByteArray(new RequestParameterJsonSerializer<T?>(value));
-#else
             return new ServerByteArray(new RequestParameterJsonSerializer<T>(value));
-#endif
         }
         /// <summary>
         /// 获取 JSON 反序列化对象
@@ -194,9 +182,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public unsafe bool JsonDeserialize<T>(ref T value)
 #endif
         {
-            if (Buffer?.Length > 0)
+            if (Buffer != null)
             {
-                fixed (byte* bufferFixed = Buffer) return AutoCSer.BinaryDeserializer.DeserializeJsonString(bufferFixed, Buffer.Length + (-Buffer.Length & 3), out value);
+                if (Buffer.Length != 0)
+                {
+                    fixed (byte* bufferFixed = Buffer) return AutoCSer.BinaryDeserializer.DeserializeJsonString(bufferFixed, Buffer.Length + (-Buffer.Length & 3), out value);
+                }
+                value = default(T);
+                return true;
             }
             return false;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.DeployTask
@@ -37,9 +38,11 @@ namespace AutoCSer.CommandService.DeployTask
         /// 关闭文件流
         /// </summary>
         /// <returns></returns>
-        internal async Task Close()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal Task Close()
         {
-            if (stream != null) await close();
+            if (stream != null) return close();
+            return AutoCSer.Common.CompletedTask;
         }
 #if NetStandard21
         /// <summary>

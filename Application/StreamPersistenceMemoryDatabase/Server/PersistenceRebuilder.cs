@@ -38,7 +38,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 快照事务关系节点集合
         /// </summary>
-        private readonly Dictionary<HashString, ServerNode> snapshotTransactionNodes;
+        private readonly Dictionary<string, ServerNode> snapshotTransactionNodes;
         /// <summary>
         /// 初始化加载执行异常节点
         /// </summary>
@@ -103,7 +103,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             Service = service;
             nodes = new KeyValue<ServerNode, int>[service.NodeIndex];
-            snapshotTransactionNodes = DictionaryCreator.CreateHashString<ServerNode>();
+            snapshotTransactionNodes = DictionaryCreator.CreateAny<string, ServerNode>();
             snapshotTransactionNodeVersion = Service.SnapshotTransactionNodeVersion;
             service.Rebuilder = this;
 #if NetStandard21
@@ -130,15 +130,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             LoadExceptionNode = node;
                             isLoaded = true;
-                            Free();
+                            while (nodeCount != 0) nodes[--nodeCount].Key.CloseRebuild();
+                            Service.Rebuilder = null;
                             return;
                         }
                     }
                 }
                 while (snapshotTransactionNodes.Count != 0)
                 {
-                    KeyValuePair<HashString, ServerNode> node = default(KeyValuePair<HashString, ServerNode>);
-                    foreach (KeyValuePair<HashString, ServerNode> snapshotTransactionNode in snapshotTransactionNodes)
+                    KeyValuePair<string, ServerNode> node = default(KeyValuePair<string, ServerNode>);
+                    foreach (KeyValuePair<string, ServerNode> snapshotTransactionNode in snapshotTransactionNodes)
                     {
                         node = snapshotTransactionNode;
                         break;
@@ -159,14 +160,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 添加快照事务关系节点
         /// </summary>
         /// <param name="serverNode"></param>
-        private void appendSnapshotTransactionNode(KeyValuePair<HashString, ServerNode> serverNode)
+        private void appendSnapshotTransactionNode(KeyValuePair<string, ServerNode> serverNode)
         {
             if (snapshotTransactionNodes.Remove(serverNode.Key))
             {
                 ServerNode node = serverNode.Value;
                 nodes[nodeCount++].Key = node;
                 node.Rebuilding = true;
-                foreach (KeyValuePair<HashString, ServerNode> snapshotTransactionNode in node.SnapshotTransactionNodes.notNull())
+                foreach (KeyValuePair<string, ServerNode> snapshotTransactionNode in node.SnapshotTransactionNodes.notNull())
                 {
                     appendSnapshotTransactionNode(snapshotTransactionNode);
                 }
@@ -175,31 +176,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 关闭重建操作
         /// </summary>
-        internal void Close()
+        /// <param name="isNodeLog"></param>
+        internal void Close(bool isNodeLog = false)
         {
-            isClosed = true;
-            try
+            if (!isClosed)
             {
-                Free();
-                if (persistenceCallbackExceptionPositionFileInfo.RefreshExists()) persistenceCallbackExceptionPositionFileInfo.Delete();
-                if (persistenceFileInfo.RefreshExists()) persistenceFileInfo.Delete();
+                isClosed = true;
+                try
+                {
+                    if (object.ReferenceEquals(Service.Rebuilder, this))
+                    {
+                        node?.CloseRebuild();
+                        while (nodeCount != 0) nodes[--nodeCount].Key.CloseRebuild();
+                        if (persistenceCallbackExceptionPositionFileInfo.RefreshExists()) persistenceCallbackExceptionPositionFileInfo.Delete();
+                        if (persistenceFileInfo.RefreshExists()) persistenceFileInfo.Delete();
+                        Service.Rebuilder = null;
+                        if (isNodeLog && node != null) AutoCSer.LogHelper.FatalIgnoreException(node.Key);
+                    }
+                }
+                finally { Service.RebuildError(); }
             }
-            finally { Service.RebuildError(); }
-        }
-        /// <summary>
-        /// 释放重建操作
-        /// </summary>
-        /// <returns></returns>
-        internal bool Free()
-        {
-            if (object.ReferenceEquals(Service.Rebuilder, this))
-            {
-                Service.Rebuilder = null;
-                node?.CloseRebuild();
-                while (nodeCount != 0) nodes[--nodeCount].Key.CloseRebuild();
-                return true;
-            }
-            return false;
         }
         /// <summary>
         /// 创建重建文件
@@ -233,25 +229,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 检查快照事务关系节点版本
+        /// </summary>
+        /// <returns></returns>
+        private bool checkSnapshotTransactionNodeVersion()
+        {
+            if (snapshotTransactionNodeVersion == Service.SnapshotTransactionNodeVersion) return true;
+            if (Interlocked.CompareExchange(ref isSnapshotTransactionNodeVersionRebuild, 1, 0) == 0)
+            {
+                try
+                {
+                    Close();
+                }
+                finally
+                {
+                    Service = new PersistenceRebuilder(Service).Service;
+                }
+            }
+            return false;
+        }
+        /// <summary>
         /// 持久化下一个节点
         /// </summary>
         internal void NextNode()
         {
-            if (snapshotTransactionNodeVersion != Service.SnapshotTransactionNodeVersion)
-            {
-                if (Interlocked.CompareExchange(ref isSnapshotTransactionNodeVersionRebuild, 1, 0) == 0)
-                {
-                    try
-                    {
-                        Close();
-                    }
-                    finally
-                    {
-                        Service = new PersistenceRebuilder(Service).Service;
-                    }
-                }
-                return;
-            }
+            if (!checkSnapshotTransactionNodeVersion()) return;
             while (nodeCount != 0)
             {
                 if (!isClosedOrServiceDisposed)
@@ -266,11 +268,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             for (int nodeIndex = nodeCount - setCount; nodeIndex != nodeCount;)
                             {
-                                if (!nodes[++nodeIndex].Key.SetSnapshotArray()) return;
+                                if (!nodes[++nodeIndex].Key.CheckSnapshot()) return;
                             }
                             if (!node.IsRemoved)
                             {
-                                AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(nodePersistence);
+                                AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(getSnapshotArray);
                                 isPersistence = true;
                                 return;
                             }
@@ -278,7 +280,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                         finally
                         {
-                            if (!isPersistence) Close();
+                            if (!isPersistence) Close(true);
                         }
                     }
                 }
@@ -288,11 +290,68 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CheckQueue();
         }
         /// <summary>
+        /// 预申请快照容器数组
+        /// </summary>
+        private void getSnapshotArray()
+        {
+            bool isPersistence = false;
+            try
+            {
+                for (int nodeIndex = nodeCount - nodes[nodeCount].Value; nodeIndex != nodeCount; nodes[++nodeIndex].Key.GetSnapshotArray()) ;
+                Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.GetSnapshotResult));
+                isPersistence = true;
+            }
+            finally
+            {
+                if (!isPersistence) Close(true);
+            }
+        }
+        /// <summary>
+        /// 获取节点快照数据
+        /// </summary>
+        internal void GetSnapshotResult()
+        {
+            if (!checkSnapshotTransactionNodeVersion()) return;
+            bool isPersistence = false;
+            try
+            {
+                for (int nodeIndex = nodeCount - nodes[nodeCount].Value; nodeIndex != nodeCount;)
+                {
+                    if (!nodes[++nodeIndex].Key.GetSnapshotResult()) return;
+                }
+                if (!node.notNull().IsRemoved)
+                {
+                    AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(nodePersistence);
+                    isPersistence = true;
+                    return;
+                }
+                isPersistence = true;
+            }
+            finally
+            {
+                if (!isPersistence) Close(true);
+            }
+            NextNode();
+        }
+        /// <summary>
         /// 当前节点持久化操作
         /// </summary>
         private void nodePersistence()
         {
-            node.notNull().Rebuild(this);
+            bool isPersistence = false;
+            try
+            {
+                if (node.notNull().Rebuild(this))
+                {
+                    Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
+                    isPersistence = true;
+                    return;
+                }
+            }
+            finally
+            {
+                if (!isPersistence) Close(true);
+            }
         }
         /// <summary>
         /// 检查持久化流已写入位置是否匹配
@@ -314,17 +373,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
-        internal unsafe void Rebuild<T>(ref LeftArray<T> array)
+        /// <param name="newArray"></param>
+        /// <returns></returns>
+        internal unsafe bool Rebuild<T>(ref LeftArray<T> array, ref LeftArray<T> newArray)
         {
-            bool isPersistence = false;
             var outputSerializer = default(BinarySerializer);
             PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
             try
             {
-                if (isClosedOrServiceDisposed) return;
+                if (isClosedOrServiceDisposed) return false;
                 using (FileStream persistenceStream = new FileStream(persistenceFileInfo.FullName, FileMode.Open, FileAccess.Write, FileShare.None, persistenceBuffer.SendBufferMaxSize, FileOptions.None))
                 {
-                    if (!checkPersistencePosition(persistenceStream)) return;
+                    if (!checkPersistencePosition(persistenceStream)) return false;
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData;
                     using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
@@ -338,10 +398,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
                             outputData = persistenceBuffer.GetData();
                         }
-                        if (isClosedOrServiceDisposed) return;
+                        if (isClosedOrServiceDisposed) return false;
                         persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
 
-                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull());
+                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull(), typeof(T));
                         for (int valueIndex = 0; valueIndex != array.Length;)
                         {
                             fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
@@ -372,60 +432,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                         }
                                     }
                                     while (++valueIndex != array.Length);
-                                    if (isClosedOrServiceDisposed) return;
+                                    if (isClosedOrServiceDisposed) return false;
                                     outputData = persistenceBuffer.GetData();
                                     persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
                                 }
                                 while (valueIndex != array.Length && !persistenceBuffer.CheckNewBuffer());
                             }
                         }
-                    }
-                    persistencePosition = persistenceStream.Position;
-                }
-                Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
-                isPersistence = true;
-            }
-            finally
-            {
-                persistenceBuffer.Free();
-                outputSerializer?.FreeContext();
-                if (!isPersistence) Close();
-            }
-        }
-        /// <summary>
-        /// 当前节点持久化操作
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="array"></param>
-        internal unsafe void RebuildSnapshotClone<T>(ref LeftArray<T> array) where T : SnapshotCloneObject<T>
-        {
-            bool isPersistence = false;
-            var outputSerializer = default(BinarySerializer);
-            PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
-            try
-            {
-                if (isClosedOrServiceDisposed) return;
-                using (FileStream persistenceStream = new FileStream(persistenceFileInfo.FullName, FileMode.Open, FileAccess.Write, FileShare.None, persistenceBuffer.SendBufferMaxSize, FileOptions.None))
-                {
-                    if (!checkPersistencePosition(persistenceStream)) return;
-                    persistenceBuffer.GetBufferLength();
-                    SubArray<byte> outputData;
-                    using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
-                    {
-                        outputSerializer.SetDefault();
-                        persistenceBuffer.OutputStream = outputStream;
-                        fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
-                        {
-                            persistenceBuffer.SetStart(dataFixed);
-                            persistenceBuffer.Reset();
-                            node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
-                            outputData = persistenceBuffer.GetData();
-                        }
-                        if (isClosedOrServiceDisposed) return;
-                        persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
-
-                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull());
-                        for (int valueIndex = 0; valueIndex != array.Length;)
+                        for (int valueIndex = 0; valueIndex != newArray.Length;)
                         {
                             fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
                             {
@@ -435,7 +449,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     persistenceBuffer.Reset();
                                     do
                                     {
-                                        T value = array.Array[valueIndex].GetSnapshotValue();
+                                        T value = newArray.Array[valueIndex];
                                         if (persistenceBuffer.TrySetCurrentIndex())
                                         {
                                             if (!snapshotMethodSerializer.Serialize(value))
@@ -454,28 +468,180 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                             }
                                         }
                                     }
+                                    while (++valueIndex != newArray.Length);
+                                    if (isClosedOrServiceDisposed) return false;
+                                    outputData = persistenceBuffer.GetData();
+                                    persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
+                                }
+                                while (valueIndex != newArray.Length && !persistenceBuffer.CheckNewBuffer());
+                            }
+                        }
+                    }
+                    persistencePosition = persistenceStream.Position;
+                }
+                return true;
+            }
+            finally
+            {
+                persistenceBuffer.Free();
+                outputSerializer?.FreeContext();
+            }
+        }
+        /// <summary>
+        /// 当前节点持久化操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="newArray"></param>
+        /// <returns></returns>
+        internal unsafe bool RebuildSnapshotClone<T>(ref LeftArray<T> array, ref LeftArray<T> newArray) where T : SnapshotCloneObject<T>
+        {
+            bool isPersistence = false;
+            var outputSerializer = default(BinarySerializer);
+            object snapshotLock = this;
+            PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
+            try
+            {
+                if (isClosedOrServiceDisposed) return false;
+                using (FileStream persistenceStream = new FileStream(persistenceFileInfo.FullName, FileMode.Open, FileAccess.Write, FileShare.None, persistenceBuffer.SendBufferMaxSize, FileOptions.None))
+                {
+                    if (!checkPersistencePosition(persistenceStream)) return false;
+                    persistenceBuffer.GetBufferLength();
+                    SubArray<byte> outputData;
+                    using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
+                    {
+                        outputSerializer.SetDefault();
+                        persistenceBuffer.OutputStream = outputStream;
+                        fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                        {
+                            persistenceBuffer.SetStart(dataFixed);
+                            persistenceBuffer.Reset();
+                            node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
+                            outputData = persistenceBuffer.GetData();
+                        }
+                        if (isClosedOrServiceDisposed) return false;
+                        persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
+
+                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull(), typeof(T));
+                        for (int valueIndex = 0; valueIndex != array.Length;)
+                        {
+                            fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                            {
+                                persistenceBuffer.SetStart(dataFixed);
+                                do
+                                {
+                                    persistenceBuffer.Reset();
+                                    do
+                                    {
+                                        T value = array.Array[valueIndex];
+                                        if (persistenceBuffer.TrySetCurrentIndex())
+                                        {
+                                            Monitor.Enter(value);
+                                            snapshotLock = value;
+                                            if (snapshotMethodSerializer.Serialize(value.SnapshotValue))
+                                            {
+                                                value.SnapshotValue = null;
+                                                Monitor.Exit(value);
+                                                snapshotLock = this;
+                                            }
+                                            else
+                                            {
+                                                Monitor.Exit(value);
+                                                snapshotLock = this;
+                                                persistenceBuffer.RestoreCurrentIndex();
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Monitor.Enter(value);
+                                            snapshotLock = value;
+                                            snapshotMethodSerializer.Serialize(value.SnapshotValue);
+                                            value.SnapshotValue = null;
+                                            Monitor.Exit(value);
+                                            snapshotLock = this;
+                                            if (persistenceBuffer.CheckDataStart())
+                                            {
+                                                ++valueIndex;
+                                                break;
+                                            }
+                                        }
+                                    }
                                     while (++valueIndex != array.Length);
-                                    if (isClosedOrServiceDisposed) return;
+                                    if (isClosedOrServiceDisposed) return false;
                                     outputData = persistenceBuffer.GetData();
                                     persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
                                 }
                                 while (valueIndex != array.Length && !persistenceBuffer.CheckNewBuffer());
                             }
                         }
+                        for (int valueIndex = 0; valueIndex != newArray.Length;)
+                        {
+                            fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                            {
+                                persistenceBuffer.SetStart(dataFixed);
+                                do
+                                {
+                                    persistenceBuffer.Reset();
+                                    do
+                                    {
+                                        T value = newArray.Array[valueIndex];
+                                        if (persistenceBuffer.TrySetCurrentIndex())
+                                        {
+                                            Monitor.Enter(value);
+                                            snapshotLock = value;
+                                            if (snapshotMethodSerializer.Serialize(value.SnapshotValue))
+                                            {
+                                                value.SnapshotValue = null;
+                                                Monitor.Exit(value);
+                                                snapshotLock = this;
+                                            }
+                                            else
+                                            {
+                                                Monitor.Exit(value);
+                                                snapshotLock = this;
+                                                persistenceBuffer.RestoreCurrentIndex();
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Monitor.Enter(value);
+                                            snapshotLock = value;
+                                            snapshotMethodSerializer.Serialize(value.SnapshotValue);
+                                            value.SnapshotValue = null;
+                                            Monitor.Exit(value);
+                                            snapshotLock = this;
+                                            if (persistenceBuffer.CheckDataStart())
+                                            {
+                                                ++valueIndex;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    while (++valueIndex != newArray.Length);
+                                    if (isClosedOrServiceDisposed) return false;
+                                    outputData = persistenceBuffer.GetData();
+                                    persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
+                                }
+                                while (valueIndex != newArray.Length && !persistenceBuffer.CheckNewBuffer());
+                            }
+                        }
                     }
                     persistencePosition = persistenceStream.Position;
                 }
-                Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
                 isPersistence = true;
+                return true;
             }
             finally
             {
+                if (!object.ReferenceEquals(snapshotLock, this)) Monitor.Exit(snapshotLock);
                 persistenceBuffer.Free();
                 outputSerializer?.FreeContext();
                 if (!isPersistence)
                 {
-                    foreach (T value in array) value.SnapshotValue = null;
-                    Close();
+                    foreach (T value in array) value.CancelSnapshotValue();
+                    foreach (T value in newArray) value.CancelSnapshotValue();
                 }
             }
         }

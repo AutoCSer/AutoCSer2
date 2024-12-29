@@ -60,23 +60,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal bool IsClientCall;
         /// <summary>
-        /// 是否当前接口定义方法
-        /// </summary>
-        internal readonly bool IsDeclaringMethod;
-        /// <summary>
         /// 服务端节点方法信息
         /// </summary>
         /// <param name="type"></param>
         /// <param name="method"></param>
         /// <param name="methodAttribute"></param>
-        /// <param name="isDeclaringMethod"></param>
-        internal unsafe ServerNodeMethod(Type type, MethodInfo method, ServerMethodAttribute methodAttribute, bool isDeclaringMethod) : base(type, method)
+        internal unsafe ServerNodeMethod(Type type, MethodInfo method, ServerMethodAttribute methodAttribute) : base(type, method)
         {
             MethodAttribute = methodAttribute;
             MethodIndex = MethodAttribute.MethodIndex;
             IsClientCall = MethodAttribute.IsClientCall;
             IsPersistence = MethodAttribute.IsPersistence;
-            IsDeclaringMethod = isDeclaringMethod;
 #if NetStandard21
             persistenceMethodReturnType = typeof(void);
             RepairNodeMethod = AutoCSer.Common.NullMethodInfo;
@@ -203,9 +197,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         beforePersistenceMethodIndex = beforePersistenceMethod.setIsPersistenceMethod();
                         return true;
                     }
-                    error = $"{type.fullName()} 持久化检查方法 {beforePersistenceMethod.Method.Name} 返回值类型不匹配 {typeof(ValueResult<>).MakeGenericType(ReturnValueType)}";
+                    error = $"{Type.fullName()} 持久化检查方法 {beforePersistenceMethod.Method.Name} 返回值类型不匹配 {typeof(ValueResult<>).MakeGenericType(ReturnValueType)}";
                 }
-                else error = $"{type.fullName()} 持久化检查方法 {beforePersistenceMethod.Method.Name} 与 {Method.Name} 输入参数不匹配";
+                else error = $"{Type.fullName()} 持久化检查方法 {beforePersistenceMethod.Method.Name} 与 {Method.Name} 输入参数不匹配";
             }
             return false;
         }
@@ -375,7 +369,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     getParameterMethod = typeof(InputKeepCallbackMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(InputKeepCallbackMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                     break;
             }
-            string methodName = AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase." + type.FullName + "." + Method.Name + "." + MethodIndex.toString() + "." + Interlocked.Increment(ref createMethodIndex).toString();
+            string methodName = AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase." + Type.FullName + "." + Method.Name + "." + MethodIndex.toString() + "." + Interlocked.Increment(ref createMethodIndex).toString();
             if (repairMethod != null) methodName += ".Repair." + repairMethod.Name;
             TypeBuilder typeBuilder = AutoCSer.Reflection.Emit.Module.Builder.DefineType(methodName, TypeAttributes.Class | TypeAttributes.Sealed, parentType);
             #region 构造函数
@@ -456,14 +450,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case CallTypeEnum.Callback:
                     #region MethodCallback<T>.Create(ref callback, false)
                     callMethodGenerator.ldarg(2);
-                    callMethodGenerator.int32(IsSimpleSerializeParamter);
+                    callMethodGenerator.int32((byte)flags);
                     callMethodGenerator.call(GenericType.Get(ReturnValueType).CreateMethodCallbackDelegate.Method);
                     #endregion
                     break;
                 case CallTypeEnum.KeepCallback:
                     #region MethodCallback<T>.Create(ref callback, false)
                     callMethodGenerator.ldarg(2);
-                    callMethodGenerator.int32(IsSimpleSerializeParamter);
+                    callMethodGenerator.int32((byte)flags);
                     callMethodGenerator.call(GenericType.Get(ReturnValueType).CreateMethodKeepCallbackDelegate.Method);
                     #endregion
                     break;
@@ -497,7 +491,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         if (ReturnValueType == typeof(ResponseParameter)) callMethodGenerator.call(ServerNodeCreator.CallOutputMethodCallbackResponseParameter.Method);
                         else
                         {
-                            callMethodGenerator.int32(IsSimpleSerializeParamter);
+                            callMethodGenerator.int32((byte)flags);
                             callMethodGenerator.call(ServerNodeCreator.CallOutputMethodCallbackMethod.MakeGenericMethod(ReturnValueType));
                         }
                         #endregion
@@ -505,7 +499,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     else if (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))
                     {
                         #region CallOutputMethod.GetBeforePersistenceResponseParameter(X, isSimpleSerialize);
-                        callMethodGenerator.int32(IsSimpleSerializeParamter);
+                        callMethodGenerator.int32((byte)flags);
                         callMethodGenerator.call(ServerNodeCreator.CallOutputMethodGetBeforePersistenceResponseParameterMethod.MakeGenericMethod(persistenceMethodReturnType));
                         #endregion
                     }
@@ -540,7 +534,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case CallTypeEnum.Enumerable:
                     #region KeepCallbackMethod.EnumerableCallback(X, ref callback, false)
                     callMethodGenerator.ldarg(2);
-                    callMethodGenerator.int32(IsSimpleSerializeParamter);
+                    callMethodGenerator.int32((byte)flags);
                     callMethodGenerator.call(ServerNodeCreator.KeepCallbackMethodEnumerableCallbackMethod.MakeGenericMethod(ReturnValueType));
                     #endregion
                     break;
@@ -561,12 +555,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="type"></param>
         /// <param name="methods"></param>
-        /// <param name="isDeclaringMethod"></param>
         /// <returns>错误信息</returns>
 #if NetStandard21
-        internal static string? GetMethod(Type type, ref LeftArray<ServerNodeMethod> methods, bool isDeclaringMethod)
+        internal static string? GetMethod(Type type, ref LeftArray<ServerNodeMethod> methods)
 #else
-        internal static string GetMethod(Type type, ref LeftArray<ServerNodeMethod> methods, bool isDeclaringMethod)
+        internal static string GetMethod(Type type, ref LeftArray<ServerNodeMethod> methods)
 #endif
         {
             foreach (MethodInfo method in type.GetMethods())
@@ -574,7 +567,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 var error = AutoCSer.Net.CommandServer.InterfaceController.CheckMethod(type, method);
                 if (error != null) return error;
                 ServerMethodAttribute methodAttribute = method.GetCustomAttribute<ServerMethodAttribute>(false) ?? ServerMethodAttribute.Default;
-                ServerNodeMethod serverMethod = new ServerNodeMethod(type, method, methodAttribute, isDeclaringMethod);
+                ServerNodeMethod serverMethod = new ServerNodeMethod(type, method, methodAttribute);
                 if (serverMethod.CallType == CallTypeEnum.Unknown) return serverMethod.Error ?? $"{type.fullName()}.{method.Name} 未知节点方法调用类型";
                 methods.Add(serverMethod);
             }

@@ -50,13 +50,13 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// <param name="codes">代码</param>
         /// <param name="javaScriptVersion">脚本文件版本号，用于去重</param>
         /// <returns></returns>
-        internal async Task CreateFile(ListArray<SubString> codes, int javaScriptVersion)
+        internal Task CreateFile(ListArray<SubString> codes, int javaScriptVersion)
         {
             GetScriptCode(codes, javaScriptVersion);
             string fileName = file.FullName;
             fileName = fileName.Substring(0, fileName.Length - HtmlGenerator.PageJavaScriptFileExtension.Length);
             FileInfo javaScriptFile = new FileInfo(fileName + ViewMiddleware.JavaScriptFileExtension);
-            await writeFile(javaScriptFile, getJavaScriptCode(codes));
+            return writeFile(javaScriptFile, getJavaScriptCode(codes));
         }
     }
 }

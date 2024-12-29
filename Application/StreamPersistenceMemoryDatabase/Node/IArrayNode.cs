@@ -6,14 +6,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 数组节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(ArrayNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IArrayNode<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IArrayNode<T>
     {
         /// <summary>
         /// 快照设置数据
         /// </summary>
         /// <param name="value">数据</param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(KeyValue<int, T> value);
         /// <summary>
         /// 清除所有数据

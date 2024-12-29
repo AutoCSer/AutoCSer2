@@ -7,15 +7,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">排序关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(SortedDictionaryNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface ISortedDictionaryNode<KT, VT>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface ISortedDictionaryNode<KT, VT>
         where KT : IComparable<KT>
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotAdd(KeyValue<KT, VT> value);
         /// <summary>
         /// 获取数据数量

@@ -208,9 +208,9 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal ServerNode? GetServerNode(ref HashString key)
+        internal ServerNode? GetServerNode(string key)
 #else
-        internal ServerNode GetServerNode(ref HashString key)
+        internal ServerNode GetServerNode(string key)
 #endif
         {
             var node = default(ServerNode);
@@ -263,11 +263,10 @@ namespace AutoCSer.CommandService
             if (key != null)
             {
                 var node = default(ServerNode);
-                HashString hashKey = key;
-                if (nodeDictionary.TryGetValue(hashKey, out node)) return check(node, ref nodeInfo);
+                if (nodeDictionary.TryGetValue(key, out node)) return check(node, ref nodeInfo);
                 if (isCreate)
                 {
-                    if (!createKeys.Add(hashKey)) return new NodeIndex(CallStateEnum.NodeCreating);
+                    if (!createKeys.Add(key)) return new NodeIndex(CallStateEnum.NodeCreating);
                     int index = GetFreeIndex();
                     return new NodeIndex(index, Nodes[index].GetFreeIdentity());
                 }
@@ -407,7 +406,10 @@ namespace AutoCSer.CommandService
         internal void RemoveFreeIndex(NodeIndex index)
         {
             freeIndexs.PrepLength(1);
-            if (Nodes[index.Index].FreeIdentity(index.Identity)) freeIndexs.Add(index.Index);
+            if (Nodes[index.Index].FreeIdentity(index.Identity))
+            {
+                freeIndexs.Add(index.Index);
+            }
         }
         /// <summary>
         /// 调用节点方法
@@ -685,30 +687,34 @@ namespace AutoCSer.CommandService
                                 if (IsDisposed) return;
                                 if (isRebuilderPersistenceWaitting)
                                 {
-                                    PersistenceRebuilder rebuilder = Rebuilder.notNull();
-                                    var completedCallback = CanCreateSlave ? new PersistenceRebuilderCallback(rebuilder, PersistenceRebuilderCallbackTypeEnum.Completed) : null;
-                                    serviceCallbackWait.WaitOne();
-                                    if (Slave != null)
+                                    var rebuilder = Rebuilder;
+                                    if (rebuilder != null)
                                     {
-                                        CommandServerCallQueue.AddOnly(completedCallback.notNull());
-                                        rebuildCompletedWaitHandle.Wait();
-                                    }
-                                    persistenceStream.Dispose();
-
-                                    if (rebuilder.QueuePersistence())
-                                    {
-                                        if (head != null)
+                                        var completedCallback = CanCreateSlave ? new PersistenceRebuilderCallback(rebuilder, PersistenceRebuilderCallbackTypeEnum.Completed) : null;
+                                        serviceCallbackWait.WaitOne();
+                                        if (Slave != null)
                                         {
-                                            PersistenceQueue.IsPushHead(head, end.notNull());
-                                            head = null;
+                                            CommandServerCallQueue.AddOnly(completedCallback.notNull());
+                                            rebuildCompletedWaitHandle.Wait();
                                         }
-                                        if (!PersistenceQueue.IsEmpty) PersistenceWaitHandle.IsWait = 1;
-                                        isRebuilderPersistenceWaitting = false;
-                                        Rebuilder = null;
-                                        AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
-                                        isRebuild = true;
+                                        persistenceStream.Dispose();
+
+                                        if (rebuilder.QueuePersistence())
+                                        {
+                                            if (head != null)
+                                            {
+                                                PersistenceQueue.IsPushHead(head, end.notNull());
+                                                head = null;
+                                            }
+                                            if (!PersistenceQueue.IsEmpty) PersistenceWaitHandle.IsWait = 1;
+                                            isRebuilderPersistenceWaitting = false;
+                                            Rebuilder = null;
+                                            AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
+                                            isRebuild = true;
+                                        }
+                                        return;
                                     }
-                                    return;
+                                    isRebuilderPersistenceWaitting = false;
                                 }
                                 if (head == null)
                                 {

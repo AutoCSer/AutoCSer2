@@ -186,7 +186,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 this.callback = null;
                 if (values != null)
                 {
-                    if (!callback.Callback(KeepCallbackResponseParameter.CreateValues(values, Method.IsSimpleSerializeParamter))) return;
+                    if (!callback.Callback(KeepCallbackResponseParameter.CreateValues(values, Method.Flags))) return;
                 }
                 callback.CancelKeep();
             }
@@ -216,7 +216,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (callback != null)
             {
-                MethodKeepCallback<T> methodKeepCallback = new MethodKeepCallback<T>(callback, Method.IsSimpleSerializeParamter);
+                MethodKeepCallback<T> methodKeepCallback = new MethodKeepCallback<T>(callback, Method.Flags);
                 callback = null;
                 return methodKeepCallback;
             }
@@ -278,8 +278,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            if (Method.IsSimpleDeserializeParamter) deserializer.SimpleDeserialize(ref Parameter);
-            else deserializer.InternalIndependentDeserializeNotReference(ref Parameter);
+            Deserialize(deserializer, Method, ref Parameter);
         }
         /// <summary>
         /// 输入参数反序列化
@@ -289,8 +288,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override bool Deserialize(AutoCSer.BinaryDeserializer deserializer, ref SubArray<byte> buffer)
         {
-            if (Method.IsSimpleDeserializeParamter) return deserializer.SimpleDeserialize(ref buffer, ref Parameter);
-            return deserializer.InternalIndependentDeserializeNotReference(ref buffer, ref Parameter);
+            return Deserialize(deserializer, ref buffer, Method, ref Parameter);
         }
         /// <summary>
         /// 持久化序列化

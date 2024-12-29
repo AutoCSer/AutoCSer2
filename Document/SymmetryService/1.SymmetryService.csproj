@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Client.cs" />
     <Compile Include="ISymmetryService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SymmetryService.cs" />

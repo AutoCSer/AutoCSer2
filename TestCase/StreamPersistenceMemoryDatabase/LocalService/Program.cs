@@ -19,8 +19,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             {
                 ServiceConfig cacheServiceConfig = new ServiceConfig
                 {
-                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)),
-                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(ServiceConfig.PersistenceSwitchPath)),
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(ServiceConfig.PersistenceSwitchPath)),
                 };
                 using (LocalService cacheService = cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                 {
@@ -35,7 +35,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                             CallbackNode.Test(client)
                             , DistributedLockNode.Test(client)
                             , MessageConsumer.Test(client)
-                            , HashStringFragmentDictionaryNode.Test(client)
                             , FragmentDictionaryNode.Test(client)
                             , DictionaryNode.Test(client)
                             , SearchTreeDictionaryNode.Test(client)

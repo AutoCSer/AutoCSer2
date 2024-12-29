@@ -4,6 +4,7 @@ using System;
 #pragma warning disable
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 {
+    [AutoCSer.BinarySerialize(IsMixJsonSerialize = true)]
     public class Monster : SnapshotCloneObject<Monster>
     {
         public int id;

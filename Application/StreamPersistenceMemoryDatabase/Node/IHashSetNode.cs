@@ -6,8 +6,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 哈希表节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(HashSetNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IHashSetNode<T> where T : IEquatable<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IHashSetNode<T> where T : IEquatable<T>
     {
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
@@ -25,7 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-        [ServerMethod(IsSnapshotMethod = true, IsIgnorePersistenceCallbackException = true)]
+        [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         bool Add(T value);
         /// <summary>
         /// 清除所有数据

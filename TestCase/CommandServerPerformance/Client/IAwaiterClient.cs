@@ -117,12 +117,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
 
                 Left = AutoCSer.Random.Default.Next();
 
-                await new AwaiterClient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
 
                 int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
@@ -154,8 +154,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         private static async Task s0611163(CommandClientSocketEvent<IAwaiterClient> client, bool isEmpty)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            long startTimestamp = Stopwatch.GetTimestamp();
             int count = 0;
             //await Parallel.ForEachAsync(Enumerable.Range(1, maxTestCount >> 2), new ParallelOptions { MaxDegreeOfParallelism = 8192 }, async (index, c) => //14:20 轮空测试耗时占比超过 2/3，Parallel.ForEachAsync 不适合做高性能并发测试
             await Parallel.ForEachAsync(Enumerable.Range(1, 1000000), new ParallelOptions { MaxDegreeOfParallelism = 50 }, async (index, c) => //1.1:3.3 轮空测试耗时占比 1/3，Parallel.ForEachAsync 不适合做高性能并发测试
@@ -169,7 +168,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     Console.WriteLine($"已完成：{count.ToString()}");
                 }
             });
-            Console.WriteLine($"耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒");
+            Console.WriteLine($"耗时：{Stopwatch.GetElapsedTime(startTimestamp).TotalSeconds.ToString("0.000")} 秒");
         }
         /// <summary>
         /// 
@@ -179,8 +178,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         private static async Task forEachTask(CommandClientSocketEvent<IAwaiterClient> client, bool isEmpty)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            long startTimestamp = Stopwatch.GetTimestamp();
             int count = 0;
             await Enumerable.Range(1, maxTestCount >> 1).enumerableTask(8192, async index => //3.8:25.4 轮空测试耗时占比 15%
             //await Enumerable.Range(1, 1000000).enumerableTask(50, async index => //0.1:4.4 轮空测试耗时占比 2.3%
@@ -194,7 +192,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     Console.WriteLine($"已完成：{count.ToString()}");
                 }
             });
-            Console.WriteLine($"耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒");
+            Console.WriteLine($"耗时：{Stopwatch.GetElapsedTime(startTimestamp).TotalSeconds.ToString("0.000")} 秒");
         }
 
         /// <summary>

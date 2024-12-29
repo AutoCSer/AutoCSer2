@@ -36,7 +36,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务注册日志客户端组装集合
         /// </summary>
-        private readonly Dictionary<HashString, ServiceRegisterLogClientAssembler> logAssemblers = DictionaryCreator.CreateHashString<ServiceRegisterLogClientAssembler>();
+        private readonly Dictionary<string, ServiceRegisterLogClientAssembler> logAssemblers = DictionaryCreator.CreateAny<string, ServiceRegisterLogClientAssembler>();
         /// <summary>
         /// 服务注册日志客户端组装集合访问锁
         /// </summary>
@@ -67,7 +67,7 @@ namespace AutoCSer.CommandService
                 if (logAssemblers.Count != 0)
                 {
                     foreach(ServiceRegisterLogClientAssembler logAssembler in logAssemblers.Values) await logAssembler.CheckServiceRegisterLog();
-                    foreach (KeyValuePair<HashString, ServiceRegisterLogClientAssembler> logAssembler in logAssemblers.getArray())
+                    foreach (KeyValuePair<string, ServiceRegisterLogClientAssembler> logAssembler in logAssemblers.getArray())
                     {
                         ServiceRegisterLogClientAssembler newLogAssembler = new ServiceRegisterLogClientAssembler(logAssembler.Value);
                         await newLogAssembler.LogCallback();
@@ -85,16 +85,15 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async Task<ServiceRegisterLogClientAssembler> GetAssembler(string serviceName)
         {
-            HashString serviceNameKey = serviceName;
             var logAssembler = default(ServiceRegisterLogClientAssembler);
             await logAssemblersLock.EnterAsync();
             try
             {
-                if (!logAssemblers.TryGetValue(serviceNameKey, out logAssembler))
+                if (!logAssemblers.TryGetValue(serviceName, out logAssembler))
                 {
                     logAssembler = new ServiceRegisterLogClientAssembler(this, serviceName);
                     await logAssembler.LogCallback();
-                    logAssemblers.Add(serviceNameKey, logAssembler);
+                    logAssemblers.Add(serviceName, logAssembler);
                 }
             }
             finally { logAssemblersLock.Exit(); }
@@ -105,9 +104,9 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="serviceName"></param>
         /// <returns></returns>
-        public virtual async Task ServiceRestierAgainLogCallbackFail(string serviceName)
+        public virtual Task ServiceRestierAgainLogCallbackFail(string serviceName)
         {
-            await CommandClient.Log.Error($"服务注册客户端重连获取服务 {serviceName} 注册日志失败", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
+            return CommandClient.Log.Error($"服务注册客户端重连获取服务 {serviceName} 注册日志失败", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
         }
         /// <summary>
         /// 服务注册客户端重连注册服务失败
@@ -115,9 +114,9 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName"></param>
         /// <param name="returnValue"></param>
         /// <returns></returns>
-        public virtual async Task ServiceRestierAgainFail(string serviceName, CommandClientReturnValue returnValue)
+        public virtual Task ServiceRestierAgainFail(string serviceName, CommandClientReturnValue returnValue)
         {
-            await CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {returnValue.IsSuccess} {returnValue.ErrorMessage}", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
+            return CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {returnValue.IsSuccess} {returnValue.ErrorMessage}", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
         }
         /// <summary>
         /// 服务注册客户端重连注册服务失败
@@ -125,9 +124,9 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        public virtual async Task ServiceRestierAgainFail(string serviceName, ServiceRegisterStateEnum state)
+        public virtual Task ServiceRestierAgainFail(string serviceName, ServiceRegisterStateEnum state)
         {
-            await CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {state}", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
+            return CommandClient.Log.Error($"服务注册客户端重连注册服务 {serviceName} 失败 {state}", LogLevelEnum.AutoCSer | LogLevelEnum.Fatal | LogLevelEnum.Error);
         }
         /// <summary>
         /// 不可识别服务注册日志操作类型
@@ -143,9 +142,9 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName"></param>
         /// <param name="returnValue"></param>
         /// <returns></returns>
-        public virtual async Task ServiceRestierLogoutFail(string serviceName, CommandClientReturnValue returnValue)
+        public virtual Task ServiceRestierLogoutFail(string serviceName, CommandClientReturnValue returnValue)
         {
-            await CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {returnValue.ReturnType} {returnValue.ErrorMessage}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn | LogLevelEnum.Info);
+            return CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {returnValue.ReturnType} {returnValue.ErrorMessage}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn | LogLevelEnum.Info);
         }
         /// <summary>
         /// 服务注册客户端重连注册服务失败
@@ -153,9 +152,9 @@ namespace AutoCSer.CommandService
         /// <param name="serviceName"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        public virtual async Task ServiceRestierLogoutFail(string serviceName, ServiceRegisterStateEnum state)
+        public virtual Task ServiceRestierLogoutFail(string serviceName, ServiceRegisterStateEnum state)
         {
-            await CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {state}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn | LogLevelEnum.Info);
+            return CommandClient.Log.Debug($"服务 {serviceName} 注销失败 {state}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn | LogLevelEnum.Info);
         }
 
         /// <summary>

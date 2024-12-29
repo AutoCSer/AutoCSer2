@@ -16,7 +16,7 @@ namespace AutoCSer.TestCase.DiskBlock
                 FileBlockServiceConfig fileBlockServiceConfig = new FileBlockServiceConfig 
                 {
                     Identity = 1,
-                    Path = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(AutoCSer.CommandService.DiskBlock))
+                    Path = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.DiskBlock))
                 };
                 DiskBlockService diskBlockService = await fileBlockServiceConfig.CreateFileBlockService();
                 CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock) };

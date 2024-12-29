@@ -230,11 +230,11 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 请求实例集合
         /// </summary>
-        private readonly Dictionary<HashString, KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>> requests;
+        private readonly Dictionary<string, KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>> requests;
         /// <summary>
         /// 数据视图帮助文档类型集合
         /// </summary>
-        private readonly Dictionary<HashString, ViewHelpView> viewHelpTypes;
+        private readonly Dictionary<string, ViewHelpView> viewHelpTypes;
         /// <summary>
         /// 数据视图帮助文档类型集合
         /// </summary>
@@ -246,7 +246,7 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// JSON API 控制器帮助文档视图数据集合
         /// </summary>
-        private readonly Dictionary<HashString, JsonApiControllerHelpView> controllerHelpViews;
+        private readonly Dictionary<string, JsonApiControllerHelpView> controllerHelpViews;
         /// <summary>
         /// JSON API 控制器帮助文档视图数据集合
         /// </summary>
@@ -258,7 +258,7 @@ namespace AutoCSer.NetCoreWeb
         /// <summary>
         /// 帮助文档类型信息集合
         /// </summary>
-        private readonly Dictionary<HashString, TypeHelpView> typeHelpViewNames;
+        private readonly Dictionary<string, TypeHelpView> typeHelpViewNames;
         /// <summary>
         /// 帮助信息访问锁
         /// </summary>
@@ -286,11 +286,11 @@ namespace AutoCSer.NetCoreWeb
             helpLock = new object();
             LoadLock = new SemaphoreSlim(1, 1);
             routeNode = new JsonApiRouteNode(null, 1);
-            requests = DictionaryCreator.CreateHashString<KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>>();
-            viewHelpTypes = DictionaryCreator.CreateHashString<ViewHelpView>();
-            controllerHelpViews = DictionaryCreator.CreateHashString<JsonApiControllerHelpView>();
+            requests = DictionaryCreator.CreateAny<string, KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>>();
+            viewHelpTypes = DictionaryCreator.CreateAny<string, ViewHelpView>();
+            controllerHelpViews = DictionaryCreator.CreateAny<string, JsonApiControllerHelpView>();
             typeHelpViews = DictionaryCreator.CreateHashObject<Type, TypeHelpView>();
-            typeHelpViewNames = DictionaryCreator.CreateHashString<TypeHelpView>();
+            typeHelpViewNames = DictionaryCreator.CreateAny<string, TypeHelpView>();
         }
         /// <summary>
         /// 添加数据视图
@@ -299,13 +299,12 @@ namespace AutoCSer.NetCoreWeb
         protected void appendView(ViewRequest view)
         {
             string path = view.RequestPath;
-            HashString pathKey = path;
-            if (requests.TryAdd(pathKey, new KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>(view, ViewRequestTypeEnum.ViewData)))
+            if (requests.TryAdd(path, new KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>(view, ViewRequestTypeEnum.ViewData)))
             {
                 if (view.Attribute.IsHelp) viewHelpTypes.Add(view.Type.fullName().notNull(), new ViewHelpView(view));
                 return;
             }
-            KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum> request = requests[pathKey];
+            KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum> request = requests[path];
             string messgae = $"数据视图 {view.Type.fullName()} 与 {request.Value} {request.Key.RequestInfo} 请求路径冲突 {path}";
             AutoCSer.LogHelper.ErrorIgnoreException(messgae);
             throw new InvalidOperationException(messgae);
@@ -1051,9 +1050,9 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="httpContext"></param>
         /// <param name="size">输出数据字节数</param>
         /// <returns></returns>
-        protected virtual async Task responseSizeLog(HttpContext httpContext, int size)
+        protected virtual Task responseSizeLog(HttpContext httpContext, int size)
         {
-            await AutoCSer.LogHelper.Warn($"{httpContext.Request.GetDisplayUrl()} {(size >> 10).toString()}KB");
+            return AutoCSer.LogHelper.Warn($"{httpContext.Request.GetDisplayUrl()} {(size >> 10).toString()}KB");
         }
         /// <summary>
         /// 检查来源页面，用于跨域验证，默认返回 false
@@ -1215,9 +1214,8 @@ namespace AutoCSer.NetCoreWeb
         public TypeHelpView GetTypeHelpView(string typeFullName)
 #endif
         {
-            HashString key = typeFullName;
             Monitor.Enter(helpLock);
-            typeHelpViewNames.TryGetValue(key, out var view);
+            typeHelpViewNames.TryGetValue(typeFullName, out var view);
             Monitor.Exit(helpLock);
             return view;
         }

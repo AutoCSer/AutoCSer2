@@ -23,7 +23,7 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 数据列名称集合
         /// </summary>
-        private static readonly Dictionary<HashString, int> columnIndexs;
+        private static readonly Dictionary<string, int> columnIndexs;
         /// <summary>
         /// 数据列索引集合 临时缓存
         /// </summary>
@@ -84,7 +84,7 @@ namespace AutoCSer.ORM
             {
                 if (member.CustomColumnAttribute != null) columnIndexCount += member.CustomColumnNames.Length;
             }
-            Dictionary<HashString, int> columnIndexs = DictionaryCreator.CreateHashString<int>(columnIndexCount);
+            Dictionary<string, int> columnIndexs = DictionaryCreator.CreateAny<string, int>(columnIndexCount);
             foreach (Member member in members)
             {
                 if (member.ReaderDataType != ReaderDataTypeEnum.CustomColumn) columnIndexs.Add(member.MemberIndex.Member.Name, columnIndexs.Count);

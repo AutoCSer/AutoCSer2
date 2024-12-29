@@ -49,14 +49,14 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// <param name="codes">代码</param>
         /// <param name="cssVersion">css 文件版本号，用于去重</param>
         /// <returns></returns>
-        internal async Task CreateFile(ListArray<SubString> codes, int cssVersion)
+        internal Task CreateFile(ListArray<SubString> codes, int cssVersion)
         {
             GetScriptCode(codes, cssVersion);
             string fileName = file.FullName;
             FileInfo cssFile = new FileInfo(fileName.Substring(0, fileName.Length - HtmlGenerator.PageCssFileExtension.Length) + HtmlGenerator.CssFileExtension);
             string code = getCode(codes);
             code = ReplaceMarkName(code);
-            await writeFile(cssFile, HtmlGenerator.ViewMiddleware.CodeGeneratorCssCode(code));
+            return writeFile(cssFile, HtmlGenerator.ViewMiddleware.CodeGeneratorCssCode(code));
         }
     }
 }

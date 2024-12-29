@@ -1,8 +1,5 @@
-﻿using AutoCSer.CommandService;
-using AutoCSer.Net;
-using System;
+﻿using System;
 using System.IO.Compression;
-using System.Reflection;
 
 namespace AutoCSer.Document.ServiceAuthentication.TransferEncoding
 {
@@ -71,60 +68,6 @@ namespace AutoCSer.Document.ServiceAuthentication.TransferEncoding
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// 支持传输数据压缩的配置测试
-        /// </summary>
-        /// <returns></returns>
-        internal static async Task<bool> Test()
-        {
-            CommandServerConfig commandServerConfig = new CommandServerCompressConfig
-            {
-                MinCompressSize = 1 << 10,
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-            };
-            await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                .Append<ITestService>(new TestService())
-                .CreateCommandListener(commandServerConfig))
-            {
-                if (!await commandListener.Start())
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
-
-                return await client();
-            }
-        }
-        /// <summary>
-        /// 支持传输数据压缩的配置客户端测试
-        /// </summary>
-        /// <returns></returns>
-        private static async Task<bool> client()
-        {
-            CommandClientConfig commandClientConfig = new CommandClientCompressConfig
-            {
-                MinCompressSize = 1 << 10,
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
-                GetSocketEventDelegate = (client) => new TimestampVerify.CommandClientSocketEvent(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
-            };
-            using (CommandClient commandClient = new CommandClient(commandClientConfig))
-            {
-                TimestampVerify.CommandClientSocketEvent? client = (TimestampVerify.CommandClientSocketEvent?)await commandClient.GetSocketEvent();
-                if (client == null)
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
-
-                var result = await client.TestService.Add(1, 2);
-                if (result.Value != 1 + 2)
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
-            }
-            return true;
         }
     }
 }

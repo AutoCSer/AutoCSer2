@@ -11,7 +11,7 @@ namespace AutoCSer.CodeGenerator.Template
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(@CurrentType.GenericDefinitionFullName))]
         /*NOTE*/
-        public partial interface /*NOTE*/@TypeNameDefinition
+        public partial interface /*NOTE*/@TypeNameDefinition/*IF:IsCustomServiceNode*/ : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode/*IF:IsCustomServiceNode*/
         {
             #region LOOP Methods
             #region IF Method

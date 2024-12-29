@@ -73,11 +73,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="callback"></param>
-        /// <param name="isSimpleSerialize"></param>
+        /// <param name="flag">服务端节点方法标记</param>
 #if NetStandard21
-        internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter>? callback, bool isSimpleSerialize)
+        internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag)
 #else
-        internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter> callback, bool isSimpleSerialize)
+        internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter> callback, MethodFlagsEnum flag)
 #endif
         {
             var callbackCopy = callback;
@@ -87,7 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 bool isCallback = false;
                 try
                 {
-                    ResponseParameter responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
+                    ResponseParameter responseParameter = ResponseParameter.Create(value, flag);
                     isCallback = true;
                     callbackCopy.SynchronousCallback(responseParameter);
                 }
@@ -131,12 +131,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="isSimpleSerialize"></param>
+        /// <param name="flag">服务端节点方法标记</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static ValueResult<ResponseParameter> GetBeforePersistenceResponseParameter<T>(ValueResult<T> value, bool isSimpleSerialize)
+        internal static ValueResult<ResponseParameter> GetBeforePersistenceResponseParameter<T>(ValueResult<T> value, MethodFlagsEnum flag)
         {
-            if (value.IsValue) return ResponseParameter.Create(value.Value, isSimpleSerialize);
+            if (value.IsValue) return ResponseParameter.Create(value.Value, flag);
             return default(ValueResult<ResponseParameter>);
         }
     }

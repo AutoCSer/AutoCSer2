@@ -58,6 +58,8 @@
     <Compile Include="Client\LocalClientNodeCreator.cs" />
     <Compile Include="Client\ResponseResult.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClient.cs" />
+    <Compile Include="Client\StreamPersistenceMemoryDatabaseClientCache.cs" />
+    <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClient.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClientSocketEvent.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseTaskClient.cs" />
@@ -74,7 +76,6 @@
     <Compile Include="Extensions\ResponseResultExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
     <Compile Include="JsonResponseParameterAwaiter.cs" />
-    <Compile Include="JsonValue.cs" />
     <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
     <Compile Include="KeepCallbackResponseParameter.cs" />
     <Compile Include="KeepCallbackResponseParameterBinarySerializer.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Metadata\GenericType\ComparableGenericType2.cs" />
     <Compile Include="Metadata\GenericType\EquatableGenericType.cs" />
     <Compile Include="Metadata\GenericType\EquatableGenericType2.cs" />
+    <Compile Include="Metadata\GenericType\SnapshotCloneObjectGenericType.cs" />
     <Compile Include="Metadata\GenericType\StructGenericType.cs" />
     <Compile Include="Metadata\GenericType\GenericType.cs" />
     <Compile Include="MethodFlagsEnum.cs" />
@@ -270,13 +272,19 @@
     <Compile Include="Server\MethodKeepCallback.cs" />
     <Compile Include="Server\MethodParameterCreator.cs" />
     <Compile Include="Server\MethodParameterCreatorNode.cs" />
-    <Compile Include="Server\ServerSnapshotCloneNode.cs" />
+    <Compile Include="Server\CheckSnapshotCloneObject.cs" />
+    <Compile Include="Server\ServerSnapshotNode.cs" />
+    <Compile Include="Server\SnapshotCloneNode.cs" />
+    <Compile Include="Server\SnapshotMethod.cs" />
+    <Compile Include="Server\SnapshotNode.cs" />
     <Compile Include="Server\SnapshotCloneObject.cs" />
+    <Compile Include="Server\SnapshotResult.cs" />
     <Compile Include="Server\ServerNode.cs" />
     <Compile Include="Server\ServerNodeCreator.cs" />
     <Compile Include="Server\NodeIdentity.cs" />
     <Compile Include="Server\ServerNodeAttribute.cs" />
     <Compile Include="Server\ServerNodeMethod.cs" />
+    <Compile Include="Server\ServerNodeMethodIndexAttribute.cs" />
     <Compile Include="Server\NodeType.cs" />
     <Compile Include="Server\PersistenceBuffer.cs" />
     <Compile Include="Server\PersistenceRebuilder.cs" />

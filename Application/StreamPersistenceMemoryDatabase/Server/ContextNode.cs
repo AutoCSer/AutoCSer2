@@ -67,16 +67,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected ServerNode getServerNode(string key, bool isSnapshotTransaction = true)
 #endif
         {
-            HashString hashKey = key;
             if (isSnapshotTransaction)
             {
-                var node = streamPersistenceMemoryDatabaseNode.GetSnapshotTransactionNode(ref hashKey);
+                var node = streamPersistenceMemoryDatabaseNode.GetSnapshotTransactionNode(key);
                 if (node != null) return node;
-                node = streamPersistenceMemoryDatabaseService.GetServerNode(ref hashKey);
-                if (node != null) streamPersistenceMemoryDatabaseNode.AppendSnapshotTransaction(ref hashKey, node);
+                node = streamPersistenceMemoryDatabaseService.GetServerNode(key);
+                if (node != null) streamPersistenceMemoryDatabaseNode.AppendSnapshotTransaction(key, node);
                 return node;
             }
-            return streamPersistenceMemoryDatabaseService.GetServerNode(ref hashKey);
+            return streamPersistenceMemoryDatabaseService.GetServerNode(key);
         }
+    }
+    /// <summary>
+    /// 服务端节点上下文
+    /// </summary>
+    /// <typeparam name="T">服务节点类型</typeparam>
+    /// <typeparam name="ST">快照数据类型</typeparam>
+    public abstract class ContextNode<T, ST> : ContextNode<T>
+    {
+        /// <summary>
+        /// 持久化之前重组快照数据
+        /// </summary>
+        /// <param name="array">预申请快照容器数组</param>
+        /// <param name="newArray">超预申请快照数据</param>
+        public virtual void SetSnapshotResult(ref LeftArray<ST> array, ref LeftArray<ST> newArray) { }
     }
 }

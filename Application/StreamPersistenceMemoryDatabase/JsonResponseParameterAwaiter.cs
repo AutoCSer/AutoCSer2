@@ -46,7 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         protected override void deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            deserializer.CommandClientDeserializeJsonBuffer(ref value);
+            deserializer.DeserializeJsonBuffer(ref value);
         }
 
         /// <summary>

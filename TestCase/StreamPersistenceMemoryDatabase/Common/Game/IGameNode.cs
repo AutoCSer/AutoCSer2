@@ -5,11 +5,11 @@ using System;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 {
     /// <summary>
-    [ServerNode(MethodIndexEnumType = typeof(GameNodeMethodEnum), IsAutoMethodIndex = false, IsMethodParameterCreator = true, IsLocalClient = true)]
-    public interface IGameNode
+    [ServerNode(IsAutoMethodIndex = false, IsMethodParameterCreator = true, IsLocalClient = true)]
+    public partial interface IGameNode
     {
         void Clear();
-        [ServerMethod(IsSnapshotMethod = true)]
+        [ServerMethod(SnapshotMethodSort = 1)]
         void AddMonster(Monster monster);
         void AddMonsters(Monster[] monsters);
         void SetSpeed(int id, int speed);

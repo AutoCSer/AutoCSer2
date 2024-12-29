@@ -80,12 +80,12 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //for (int right = testCount; right != 0; CheckSynchronous(client.InterfaceController.Synchronous(Left, --right))) ;
                 //await LoopCompleted(nameof(SynchronousCllient), nameof(client.InterfaceController.Synchronous));
 
-                await new SynchronousCllient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
             }
         }
 

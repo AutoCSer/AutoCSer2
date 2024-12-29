@@ -2,7 +2,9 @@
 using AutoCSer.Reflection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -46,11 +48,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="getNode">获取节点操作对象</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        protected virtual NodeIndex createNode<T>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode) where T : class
+        public virtual NodeIndex CreateNode<T>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode) where T : class
         {
             try
             {
                 if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
+                if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
                 ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
                 if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
                 NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
@@ -60,122 +63,157 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             finally { Service.RemoveFreeIndex(index); }
         }
         /// <summary>
-        /// 创建支持快照的服务端节点 参数检查
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="ST"></typeparam>
-        /// <param name="index"></param>
-        /// <param name="key"></param>
-        /// <param name="nodeInfo"></param>
-        /// <param name="nodeIndex"></param>
-        /// <returns>返回 true 表示直接返回无需继续操作</returns>
-        protected virtual bool checkCreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, out NodeIndex nodeIndex)
-        {
-            if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
-            ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
-            if (nodeCreator == null)
-            {
-                nodeIndex = new NodeIndex(CallStateEnum.NotFoundNodeCreator);
-                return true;
-            }
-            if (nodeCreator.SnapshotType != typeof(ST))
-            {
-                nodeIndex = new NodeIndex(CallStateEnum.SnapshotTypeNotMatch);
-                return true;
-            }
-            nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
-            return nodeIndex.Index < 0 || !nodeIndex.GetFree();
-        }
-        /// <summary>
-        /// 创建支持快照的服务端节点
+        /// 创建支持快照接口的服务端节点（必须保证操作节点对象实现快照接口）
         /// </summary>
         /// <typeparam name="T">节点接口类型</typeparam>
-        /// <typeparam name="NT">节点接口操作对象类型</typeparam>
-        /// <typeparam name="ST">快照数据类型</typeparam>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="getNode">获取节点操作对象</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
-            where T : class
-            where NT : T, ISnapshot<ST>
-        {
-            try
-            {
-                NodeIndex nodeIndex;
-                if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
-            }
-            finally { Service.RemoveFreeIndex(index); }
-        }
-        /// <summary>
-        /// 创建支持快照的服务端节点（必须保证操作节点对象实现快照接口）
-        /// </summary>
-        /// <typeparam name="T">节点接口类型</typeparam>
-        /// <typeparam name="ST">快照数据类型</typeparam>
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
+        public virtual NodeIndex CreateSnapshotNode<T>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
             where T : class
         {
+            var disposable = default(IDisposable);
             try
             {
-                NodeIndex nodeIndex;
-                if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
+                if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
+                ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
+                if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
+                T node = getNode();
+                disposable = node as IDisposable;
+                CallStateEnum state = nodeCreator.CheckSnapshotNode(node.GetType());
+                if (state != CallStateEnum.Success) return new NodeIndex(state);
+                NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
+                if (nodeIndex.Index < 0 || !nodeIndex.GetFree()) return nodeIndex;
+                index = new ServerSnapshotNode<T>(Service, nodeIndex, key, node, Service.CurrentCallIsPersistence).Index;
+                disposable = null;
+                return index;
             }
-            finally { Service.RemoveFreeIndex(index); }
-        }
-        /// <summary>
-        /// 创建支持快照克隆的服务端节点
-        /// </summary>
-        /// <typeparam name="T">节点接口类型</typeparam>
-        /// <typeparam name="NT">节点接口操作对象类型</typeparam>
-        /// <typeparam name="ST">快照数据类型</typeparam>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="getNode">获取节点操作对象</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        protected virtual NodeIndex createSnapshotCloneNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
-            where T : class
-            where NT : T, ISnapshot<ST>
-            where ST : SnapshotCloneObject<ST>
-        {
-            try
+            finally 
             {
-                NodeIndex nodeIndex;
-                if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
+                Service.RemoveFreeIndex(index);
+                disposable?.Dispose();
             }
-            finally { Service.RemoveFreeIndex(index); }
         }
-        /// <summary>
-        /// 创建支持快照克隆的服务端节点（必须保证操作节点对象实现快照接口）
-        /// </summary>
-        /// <typeparam name="T">节点接口类型</typeparam>
-        /// <typeparam name="ST">快照数据类型</typeparam>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        protected virtual NodeIndex createSnapshotCloneNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
-            where T : class
-            where ST : SnapshotCloneObject<ST>
-        {
-            try
-            {
-                NodeIndex nodeIndex;
-                if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-                return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
-            }
-            finally { Service.RemoveFreeIndex(index); }
-        }
+        ///// <summary>
+        ///// 创建支持快照的服务端节点 参数检查
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <typeparam name="ST"></typeparam>
+        ///// <param name="index"></param>
+        ///// <param name="key"></param>
+        ///// <param name="nodeInfo"></param>
+        ///// <param name="nodeIndex"></param>
+        ///// <returns>返回 true 表示直接返回无需继续操作</returns>
+        //protected virtual bool checkCreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, out NodeIndex nodeIndex)
+        //{
+        //    if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
+        //    ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
+        //    if (nodeCreator == null)
+        //    {
+        //        nodeIndex = new NodeIndex(CallStateEnum.NotFoundNodeCreator);
+        //        return true;
+        //    }
+        //    if (nodeCreator.SnapshotType != typeof(ST))
+        //    {
+        //        nodeIndex = new NodeIndex(CallStateEnum.SnapshotTypeNotMatch);
+        //        return true;
+        //    }
+        //    nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
+        //    return nodeIndex.Index < 0 || !nodeIndex.GetFree();
+        //}
+        ///// <summary>
+        ///// 创建支持快照的服务端节点
+        ///// </summary>
+        ///// <typeparam name="T">节点接口类型</typeparam>
+        ///// <typeparam name="NT">节点接口操作对象类型</typeparam>
+        ///// <typeparam name="ST">快照数据类型</typeparam>
+        ///// <param name="index">节点索引信息</param>
+        ///// <param name="key">节点全局关键字</param>
+        ///// <param name="nodeInfo">节点信息</param>
+        ///// <param name="getNode">获取节点操作对象</param>
+        ///// <returns>节点标识，已经存在节点则直接返回</returns>
+        //public virtual NodeIndex CreateNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
+        //    where T : class
+        //    where NT : T, ISnapshot<ST>
+        //{
+        //    try
+        //    {
+        //        NodeIndex nodeIndex;
+        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
+        //        return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
+        //    }
+        //    finally { Service.RemoveFreeIndex(index); }
+        //}
+        ///// <summary>
+        ///// 创建支持快照的服务端节点（必须保证操作节点对象实现快照接口）
+        ///// </summary>
+        ///// <typeparam name="T">节点接口类型</typeparam>
+        ///// <typeparam name="ST">快照数据类型</typeparam>
+        ///// <param name="index">节点索引信息</param>
+        ///// <param name="key">节点全局关键字</param>
+        ///// <param name="nodeInfo">节点信息</param>
+        ///// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
+        ///// <returns>节点标识，已经存在节点则直接返回</returns>
+        //public virtual NodeIndex CreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
+        //    where T : class
+        //{
+        //    try
+        //    {
+        //        NodeIndex nodeIndex;
+        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
+        //        return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
+        //    }
+        //    finally { Service.RemoveFreeIndex(index); }
+        //}
+        ///// <summary>
+        ///// 创建支持快照克隆的服务端节点
+        ///// </summary>
+        ///// <typeparam name="T">节点接口类型</typeparam>
+        ///// <typeparam name="NT">节点接口操作对象类型</typeparam>
+        ///// <typeparam name="ST">快照数据类型</typeparam>
+        ///// <param name="index">节点索引信息</param>
+        ///// <param name="key">节点全局关键字</param>
+        ///// <param name="nodeInfo">节点信息</param>
+        ///// <param name="getNode">获取节点操作对象</param>
+        ///// <returns>节点标识，已经存在节点则直接返回</returns>
+        //protected virtual NodeIndex createSnapshotCloneNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
+        //    where T : class
+        //    where NT : T, ISnapshot<ST>
+        //    where ST : SnapshotCloneObject<ST>
+        //{
+        //    try
+        //    {
+        //        NodeIndex nodeIndex;
+        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
+        //        return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
+        //    }
+        //    finally { Service.RemoveFreeIndex(index); }
+        //}
+        ///// <summary>
+        ///// 创建支持快照克隆的服务端节点（必须保证操作节点对象实现快照接口）
+        ///// </summary>
+        ///// <typeparam name="T">节点接口类型</typeparam>
+        ///// <typeparam name="ST">快照数据类型</typeparam>
+        ///// <param name="index">节点索引信息</param>
+        ///// <param name="key">节点全局关键字</param>
+        ///// <param name="nodeInfo">节点信息</param>
+        ///// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
+        ///// <returns>节点标识，已经存在节点则直接返回</returns>
+        //protected virtual NodeIndex createSnapshotCloneNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
+        //    where T : class
+        //    where ST : SnapshotCloneObject<ST>
+        //{
+        //    try
+        //    {
+        //        NodeIndex nodeIndex;
+        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
+        //        return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
+        //    }
+        //    finally { Service.RemoveFreeIndex(index); }
+        //}
         /// <summary>
         /// 创建消息处理节点 MessageNode{ServerByteArrayMessage}
         /// </summary>
@@ -188,7 +226,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateServerByteArrayMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
         {
-            return CreateNode<IMessageNode<ServerByteArrayMessage>, ServerByteArrayMessage>(index, key, nodeInfo, () => MessageNode<ServerByteArrayMessage>.Create(Service, arraySize, timeoutSeconds, checkTimeoutSeconds));
+            return CreateSnapshotNode(index, key, nodeInfo, () => MessageNode<ServerByteArrayMessage>.Create(Service, arraySize, timeoutSeconds, checkTimeoutSeconds));
         }
         /// <summary>
         /// 创建消息处理节点 MessageNode{T}
@@ -241,11 +279,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateHashBytesFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
-#if NetStandard21
-            return CreateNode<IHashBytesFragmentDictionaryNode, HashBytesFragmentDictionaryNode, KeyValue<byte[], byte[]?>>(index, key, nodeInfo, () => new HashBytesFragmentDictionaryNode());
-#else
-            return CreateNode<IHashBytesFragmentDictionaryNode, HashBytesFragmentDictionaryNode, KeyValue<byte[], byte[]>>(index, key, nodeInfo, () => new HashBytesFragmentDictionaryNode());
-#endif
+            return CreateSnapshotNode<IHashBytesFragmentDictionaryNode>(index, key, nodeInfo, () => new HashBytesFragmentDictionaryNode());
         }
         /// <summary>
         /// 创建字典节点 IByteArrayFragmentDictionaryNode{KT}
@@ -332,11 +366,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-#if NetStandard21
-            return CreateNode<IHashBytesDictionaryNode, HashBytesDictionaryNode, KeyValue<byte[], byte[]?>>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity));
-#else
-            return CreateNode<IHashBytesDictionaryNode, HashBytesDictionaryNode, KeyValue<byte[], byte[]>>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity));
-#endif
+            return CreateSnapshotNode<IHashBytesDictionaryNode>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity));
         }
         /// <summary>
         /// 创建字典节点 ByteArrayDictionaryNode{KT}
@@ -558,11 +588,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateByteArrayQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-#if NetStandard21
-            return CreateNode<IByteArrayQueueNode, ByteArrayQueueNode, byte[]?>(index, key, nodeInfo, () => new ByteArrayQueueNode(capacity));
-#else
-            return CreateNode<IByteArrayQueueNode, ByteArrayQueueNode, byte[]>(index, key, nodeInfo, () => new ByteArrayQueueNode(capacity));
-#endif
+            return CreateSnapshotNode<IByteArrayQueueNode>(index, key, nodeInfo, () => new ByteArrayQueueNode(capacity));
         }
         /// <summary>
         /// 创建队列节点（先进先出） QueueNode{T}
@@ -592,11 +618,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-#if NetStandard21
-            return CreateNode<IByteArrayStackNode, ByteArrayStackNode, byte[]?>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
-#else
-            return CreateNode<IByteArrayStackNode, ByteArrayStackNode, byte[]>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
-#endif
+            return CreateSnapshotNode<IByteArrayStackNode>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
         }
         /// <summary>
         /// 创建栈节点（后进先出） StackNode{T}
@@ -662,7 +684,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateIdentityGeneratorNode(NodeIndex index, string key, NodeInfo nodeInfo, long identity)
         {
-            return CreateNode<IIdentityGeneratorNode, IdentityGeneratorNode, long>(index, key, nodeInfo, () => new IdentityGeneratorNode(identity));
+            return CreateSnapshotNode<IIdentityGeneratorNode>(index, key, nodeInfo, () => new IdentityGeneratorNode(identity));
         }
         /// <summary>
         /// 创建位图节点 BitmapNode
@@ -674,7 +696,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateBitmapNode(NodeIndex index, string key, NodeInfo nodeInfo, uint capacity)
         {
-            return CreateNode<IBitmapNode, BitmapNode, byte[]>(index, key, nodeInfo, () => new BitmapNode(capacity));
+            return CreateSnapshotNode<IBitmapNode>(index, key, nodeInfo, () => new BitmapNode(capacity));
         }
 
         /// <summary>

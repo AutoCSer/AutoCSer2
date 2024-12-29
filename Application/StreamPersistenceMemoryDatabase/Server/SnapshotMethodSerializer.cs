@@ -32,11 +32,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="serializer">二进制序列化</param>
         /// <param name="node">节点信息</param>
-        internal SnapshotMethodSerializer(AutoCSer.BinarySerializer serializer, ServerNode node)
+        /// <param name="snapshotType">快照数据类型</param>
+        internal SnapshotMethodSerializer(AutoCSer.BinarySerializer serializer, ServerNode node, Type snapshotType)
         {
             this.serializer = serializer;
             nodeIndex = node.Index;
-            Method method = node.NodeCreator.SnapshotMethod.notNull();
+            Method method = node.NodeCreator.GetSnapshotMethod(snapshotType);
             methodIndex = method.Index;
             isSimpleSerializeParamter = method.IsSimpleDeserializeParamter;
         }
@@ -55,9 +56,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 *(NodeIndex*)data = nodeIndex;
                 *(int*)(data + sizeof(NodeIndex)) = methodIndex;
 
-                ServerReturnValue<T> returnValue = new ServerReturnValue<T>(parameter);
-                if (isSimpleSerializeParamter) serializer.SimpleSerialize(ref returnValue);
-                else serializer.InternalIndependentSerializeNotNull(ref returnValue);
+                if (isSimpleSerializeParamter)
+                {
+                    ServerReturnValue<T> snapshotMethodParameter = new ServerReturnValue<T>(parameter);
+                    serializer.SimpleSerialize(ref snapshotMethodParameter);
+                }
+                else
+                {
+                    ServerReturnValue<T> snapshotMethodParameter = new ServerReturnValue<T>(parameter);
+                    serializer.InternalIndependentSerializeNotNull(ref snapshotMethodParameter);
+                }
                 return !stream.IsResizeError;
             }
             return false;

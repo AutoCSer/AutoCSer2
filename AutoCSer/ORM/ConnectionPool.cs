@@ -129,9 +129,10 @@ namespace AutoCSer.ORM
         /// 创建数据库连接
         /// </summary>
         /// <returns></returns>
-        internal async Task<DbConnection> CreateConnection()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal Task<DbConnection> CreateConnection()
         {
-            return await Creator.CreateConnection();
+            return Creator.CreateConnection();
         }
 #if DotNet45
         /// <summary>
@@ -220,14 +221,15 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> ExecuteNonQuery(string statement, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<int> ExecuteNonQuery(string statement, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<int> ExecuteNonQuery(string statement, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<int> ExecuteNonQuery(string statement, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
             CheckTransaction(ref transaction);
-            return await ExecuteNonQueryTransaction(statement, timeoutSeconds, transaction);
+            return ExecuteNonQueryTransaction(statement, timeoutSeconds, transaction);
         }
         /// <summary>
         /// 执行 SQL 语句返回受影响数据行数
@@ -377,14 +379,15 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<T?> SingleOrDefault<T>(string statement, int timeoutSeconds = 0, Transaction? transaction = null) where T : class
+        public Task<T?> SingleOrDefault<T>(string statement, int timeoutSeconds = 0, Transaction? transaction = null) where T : class
 #else
-        public async Task<T> SingleOrDefault<T>(string statement, int timeoutSeconds = 0, Transaction transaction = null) where T : class
+        public Task<T> SingleOrDefault<T>(string statement, int timeoutSeconds = 0, Transaction transaction = null) where T : class
 #endif
         {
             CheckTransaction(ref transaction);
-            return await SingleOrDefaultTransaction<T>(statement, timeoutSeconds, transaction);
+            return SingleOrDefaultTransaction<T>(statement, timeoutSeconds, transaction);
         }
         /// <summary>
         /// 查询第一个数据
@@ -685,9 +688,10 @@ namespace AutoCSer.ORM
         /// <param name="tableName"></param>
         /// <param name="identity"></param>
         /// <returns></returns>
-        internal async Task UpdateAutoIdentity(string tableName, long identity)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal Task UpdateAutoIdentity(string tableName, long identity)
         {
-            await Creator.AutoIdentityWriter.notNull().Update(new AutoIdentity { TableName = tableName, Identity = identity }, null, p => p.TableName == tableName && p.Identity < identity);
+            return Creator.AutoIdentityWriter.notNull().Update(new AutoIdentity { TableName = tableName, Identity = identity }, null, p => p.TableName == tableName && p.Identity < identity);
         }
 
         /// <summary>

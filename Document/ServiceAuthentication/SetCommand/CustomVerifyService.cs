@@ -1,5 +1,4 @@
 ﻿using AutoCSer.Document.ServiceAuthentication.CustomVerify;
-using AutoCSer.Net;
 using System;
 
 namespace AutoCSer.Document.ServiceAuthentication.SetCommand
@@ -23,58 +22,35 @@ namespace AutoCSer.Document.ServiceAuthentication.SetCommand
         }
 
         /// <summary>
-        /// 自定义服务认证测试
+        /// 客户端单例
         /// </summary>
-        /// <returns></returns>
-        internal static new async Task<bool> Test()
+        public static readonly AutoCSer.Net.CommandClientSocketEventCache<CustomVerify.CommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<CustomVerify.CommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
         {
-            CommandServerConfig commandServerConfig = new CommandServerConfig
-            {
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-            };
-            await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                .Append<ICustomVerifyService>(new CustomVerifyService())
-                .Append<ITestService>(new TestService())
-                .CreateCommandListener(commandServerConfig))
-            {
-                if (!await commandListener.Start())
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
-
-                return await client();
-            }
-        }
+            Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
+            GetSocketEventDelegate = (client) => new CustomVerify.CommandClientSocketEvent(client, nameof(CustomVerifyData.UserName), AutoCSer.TestCase.Common.Config.TimestampVerifyString)
+        });
         /// <summary>
         /// 自定义服务认证客户端测试
         /// </summary>
         /// <returns></returns>
-        private static async Task<bool> client()
+        internal static async Task<bool> Test()
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig
+            CustomVerify.CommandClientSocketEvent? client = await CommandClient.SocketEvent.Wait();
+            if (client == null)
             {
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-                GetSocketEventDelegate = (client) => new CustomVerify.CommandClientSocketEvent(client, nameof(CustomVerifyData.UserName), AutoCSer.TestCase.Common.Config.TimestampVerifyString)
-            };
-            using (CommandClient commandClient = new CommandClient(commandClientConfig))
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            var result = await client.TestService.Add(1, 2);
+            if (result.Value != 1 + 2)
             {
-                CustomVerify.CommandClientSocketEvent? client = (CustomVerify.CommandClientSocketEvent?)await commandClient.GetSocketEvent();
-                if (client == null)
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
 
-                var result = await client.TestService.Add(1, 2);
-                if (result.Value != 1 + 2)
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
-
-                var returnType = await client.TestService.NotSetCommand();
-                if (returnType.IsSuccess)
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
+            var returnType = await client.TestService.NotSetCommand();
+            if (returnType.IsSuccess)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             return true;
         }

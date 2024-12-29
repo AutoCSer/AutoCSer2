@@ -34,7 +34,6 @@
     <Compile Include="FragmentHashSetNode.cs" />
     <Compile Include="GameNode.cs" />
     <Compile Include="HashSetNode.cs" />
-    <Compile Include="HashStringFragmentDictionaryNode.cs" />
     <Compile Include="LeftArrayNode.cs" />
     <Compile Include="PerformanceClient.cs" />
     <Compile Include="PerformanceDictionaryNode.cs" />
@@ -52,6 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.csproj" />
   </ItemGroup>

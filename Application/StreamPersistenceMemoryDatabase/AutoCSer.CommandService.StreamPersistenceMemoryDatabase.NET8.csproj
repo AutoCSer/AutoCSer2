@@ -50,6 +50,8 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClient.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClient.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClientSocketEvent.cs" />
+    <Compile Include="Client\StreamPersistenceMemoryDatabaseClientCache.cs" />
+    <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseTaskClient.cs" />
     <Compile Include="Extensions\BitmapNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\ByteArrayStackNodeClientNodeExtension.cs" />
@@ -64,11 +66,11 @@
     <Compile Include="Extensions\ResponseResultExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
     <Compile Include="JsonResponseParameterAwaiter.cs" />
-    <Compile Include="JsonValue.cs" />
     <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
     <Compile Include="KeepCallbackResponseParameter.cs" />
     <Compile Include="KeepCallbackResponseParameterBinarySerializer.cs" />
     <Compile Include="KeepCallbackResponseParameterSimpleSerializer.cs" />
+    <Compile Include="Metadata\GenericType\SnapshotCloneObjectGenericType.cs" />
     <Compile Include="Metadata\GenericType\ComparableGenericType2.cs" />
     <Compile Include="Metadata\GenericType\ComparableGenericType.cs" />
     <Compile Include="Metadata\GenericType\EquatableGenericType2.cs" />
@@ -225,8 +227,14 @@
     <Compile Include="Server\Backuper.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
-    <Compile Include="Server\ServerSnapshotCloneNode.cs" />
+    <Compile Include="Server\CheckSnapshotCloneObject.cs" />
+    <Compile Include="Server\ServerNodeMethodIndexAttribute.cs" />
+    <Compile Include="Server\ServerSnapshotNode.cs" />
+    <Compile Include="Server\SnapshotCloneNode.cs" />
     <Compile Include="Server\SnapshotCloneObject.cs" />
+    <Compile Include="Server\SnapshotMethod.cs" />
+    <Compile Include="Server\SnapshotNode.cs" />
+    <Compile Include="Server\SnapshotResult.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceBase.cs" />
     <Compile Include="Server\ContextNode.cs" />
     <Compile Include="Server\EmptyCommandServerCallback.cs" />

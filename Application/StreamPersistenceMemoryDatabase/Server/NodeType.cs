@@ -17,6 +17,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal ServerNodeAttribute NodeAttribute;
         /// <summary>
+        /// 节点方法序号映射枚举类型配置
+        /// </summary>
+        internal ServerNodeMethodIndexAttribute ServerNodeMethodIndexAttribute;
+        /// <summary>
         /// 服务端接口方法信息集合
         /// </summary>
 #if NetStandard21
@@ -44,15 +48,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             Methods = EmptyArray<ServerNodeMethod>.Array;
             Messages = new LeftArray<string>(0);
-            Error = CheckType(type, out NodeAttribute);
+            Error = CheckType(type, out NodeAttribute, out ServerNodeMethodIndexAttribute);
             if (Error != null) return;
 
             LeftArray<ServerNodeMethod> methodArray = new LeftArray<ServerNodeMethod>(0);
-            Error = ServerNodeMethod.GetMethod(type, ref methodArray, true);
+            Error = ServerNodeMethod.GetMethod(type, ref methodArray);
             if (Error != null) return;
             foreach (Type interfaceType in type.GetInterfaces())
             {
-                Error = ServerNodeMethod.GetMethod(interfaceType, ref methodArray, false);
+                Error = ServerNodeMethod.GetMethod(interfaceType, ref methodArray);
                 if (Error != null) return;
             }
             if (methodArray.Length == 0)
@@ -62,7 +66,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
 
             methodArray.Sort(AutoCSer.Net.CommandServer.InterfaceMethodBase.Compare);
-            Error = AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs(type, NodeAttribute, ref methodArray, ref Messages, out Methods);
+            Error = AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs(type, NodeAttribute, ServerNodeMethodIndexAttribute.MethodIndexEnumType, ref methodArray, ref Messages, out Methods);
             if (Error != null) return;
             foreach (var beforePersistenceMethod in Methods)
             {
@@ -155,20 +159,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             if (checkEnum)
             {
-                var enumNames = default(Dictionary<HashString, object>);
-                if (NodeAttribute.MethodIndexEnumType != null)
+                var enumNames = default(Dictionary<string, object>);
+                if (ServerNodeMethodIndexAttribute.MethodIndexEnumType != null)
                 {
-                    Array enums = System.Enum.GetValues(NodeAttribute.MethodIndexEnumType);
-                    enumNames = DictionaryCreator.CreateHashString<object>(enums.Length);
+                    Array enums = System.Enum.GetValues(ServerNodeMethodIndexAttribute.MethodIndexEnumType);
+                    enumNames = DictionaryCreator.CreateAny<string, object>(enums.Length);
                     foreach (object value in enums) enumNames.Add(value.ToString().notNull(), value);
                 }
-                else enumNames = DictionaryCreator.CreateHashString<object>();
+                else enumNames = DictionaryCreator.CreateAny<string, object>();
                 foreach (ClientNodeMethod method in methodArray)
                 {
                     if (method.MethodIndex < 0)
                     {
                         var value = default(object);
-                        HashString hashKey = method.Method.Name;
+                        string hashKey = method.Method.Name;
                         if (enumNames.TryGetValue(hashKey, out value))
                         {
                             method.MethodIndex = ((IConvertible)value).ToInt32(null);
@@ -235,21 +239,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="type"></param>
         /// <param name="nodeAttribute"></param>
+        /// <param name="serverNodeMethodIndexAttribute"></param>
         /// <returns>错误信息</returns>
 #if NetStandard21
-        internal static string? CheckType(Type type, out ServerNodeAttribute nodeAttribute)
+        internal static string? CheckType(Type type, out ServerNodeAttribute nodeAttribute, out ServerNodeMethodIndexAttribute serverNodeMethodIndexAttribute)
 #else
-        internal static string CheckType(Type type, out ServerNodeAttribute nodeAttribute)
+        internal static string CheckType(Type type, out ServerNodeAttribute nodeAttribute, out ServerNodeMethodIndexAttribute serverNodeMethodIndexAttribute)
 #endif
         {
             var error = CheckType(type);
             if (error == null)
             {
                 nodeAttribute = type.GetCustomAttribute<ServerNodeAttribute>(false) ?? ServerNode.DefaultAttribute;
-                if (nodeAttribute.MethodIndexEnumType == null) return $"{type.fullName()} 缺少配置方法序号映射枚举类型 {typeof(ServerNodeAttribute).fullName()}.{nameof(ServerNodeAttribute.MethodIndexEnumType)}";
+                serverNodeMethodIndexAttribute = type.GetCustomAttribute<ServerNodeMethodIndexAttribute>(false) ?? ServerNode.DefaultMethodIndexAttribute;
+                if (serverNodeMethodIndexAttribute.MethodIndexEnumType == null && typeof(IServiceNode).IsAssignableFrom(type))
+                {
+                    serverNodeMethodIndexAttribute = new ServerNodeMethodIndexAttribute(typeof(IServiceNodeMethodEnum));
+                }
+                //if (serverNodeMethodIndexAttribute.MethodIndexEnumType == null) return $"{type.fullName()} 缺少配置方法序号映射枚举类型 {typeof(ServerNodeAttribute).fullName()}.{nameof(ServerNodeAttribute.MethodIndexEnumType)}";
                 return null;
             }
             nodeAttribute = ServerNode.DefaultAttribute;
+            serverNodeMethodIndexAttribute = ServerNode.DefaultMethodIndexAttribute;
             return error;
         }
     }

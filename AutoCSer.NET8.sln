@@ -197,6 +197,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.StreamPer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6.MemoryDatabaseNode", "Document\MemoryDatabaseNode\6.MemoryDatabaseNode.csproj", "{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7.MemoryDatabaseCustomNode", "Document\MemoryDatabaseCustomNode\7.MemoryDatabaseCustomNode.csproj", "{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -459,6 +461,10 @@ Global
 		{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -554,6 +560,7 @@ Global
 		{CD796A3C-2678-40CB-A5BC-AD8D94117C87} = {2BC9F417-4753-49D6-9C65-ED3DE67869A9}
 		{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
 		{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
+		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

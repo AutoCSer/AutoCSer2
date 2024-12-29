@@ -96,6 +96,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="length">数组长度</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal abstract NodeIndex CreateArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int length);
+        /// <summary>
+        /// 快照接口节点
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        internal abstract SnapshotNode CreateSnapshotNode(object target);
 
         /// <summary>
         /// 创建泛型类型元数据
@@ -197,7 +203,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateQueueNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-            return node.CreateNode<IQueueNode<T>, QueueNode<T>, T>(index, key, nodeInfo, () => new QueueNode<T>(capacity));
+            return node.CreateSnapshotNode<IQueueNode<T>>(index, key, nodeInfo, () => new QueueNode<T>(capacity));
         }
         /// <summary>
         /// 创建栈节点（后进先出） IStackNode{T}
@@ -210,7 +216,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateStackNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-            return node.CreateNode<IStackNode<T>, StackNode<T>, T>(index, key, nodeInfo, () => new StackNode<T>(capacity));
+            return node.CreateSnapshotNode<IStackNode<T>>(index, key, nodeInfo, () => new StackNode<T>(capacity));
         }
         /// <summary>
         /// 创建数组节点 ILeftArrayNode{T}
@@ -223,7 +229,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateLeftArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-            return node.CreateNode<ILeftArrayNode<T>, LeftArrayNode<T>, T>(index, key, nodeInfo, () => new LeftArrayNode<T>(capacity));
+            return node.CreateSnapshotNode<ILeftArrayNode<T>>(index, key, nodeInfo, () => new LeftArrayNode<T>(capacity));
         }
         /// <summary>
         /// 创建数组节点 IArrayNode{T}
@@ -236,7 +242,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int length)
         {
-            return node.CreateNode<IArrayNode<T>, ArrayNode<T>, KeyValue<int, T>>(index, key, nodeInfo, () => new ArrayNode<T>(length));
+            return node.CreateSnapshotNode<IArrayNode<T>>(index, key, nodeInfo, () => new ArrayNode<T>(length));
+        }
+        /// <summary>
+        /// 快照接口节点
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        internal override SnapshotNode CreateSnapshotNode(object target)
+        {
+            return new SnapshotNode<T>((ISnapshot<T>)target);
         }
     }
 }

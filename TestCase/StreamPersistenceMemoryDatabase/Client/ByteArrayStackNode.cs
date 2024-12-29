@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            string value = "value";
+            string value = TestClass.RandomString();
             result = await node.Push(value);
             if (!Program.Breakpoint(result)) return false;
             intResult = await node.Count();
@@ -75,7 +75,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            byte[] value = System.Text.Encoding.UTF8.GetBytes("value");
+            byte[] value = System.Text.Encoding.UTF8.GetBytes(TestClass.RandomString());
             result = await node.Push(value);
             if (!Program.Breakpoint(result)) return false;
             intResult = await node.Count();
@@ -121,7 +121,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            TestClass value = new TestClass { String = "value" };
+            TestClass value = new TestClass { String = TestClass.RandomString() };
             result = await node.PushJsonSerialize(value);
             if (!Program.Breakpoint(result)) return false;
             intResult = await node.Count();
@@ -167,7 +167,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return false;
             }
-            TestClass value = new TestClass { String = "value" };
+            TestClass value = new TestClass { String = TestClass.RandomString() };
             result = await node.PushBinarySerialize(value);
             if (!Program.Breakpoint(result)) return false;
             intResult = await node.Count();

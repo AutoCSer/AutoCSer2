@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 消息处理节点初始化加载节点
     /// </summary>
     /// <typeparam name="T">消息数据类型</typeparam>
-    internal sealed class MessageNodeLoader<T> : ContextNode<IMessageNode<T>>, IMessageNode<T>, ISnapshot<T>
+    internal sealed class MessageNodeLoader<T> : ContextNode<IMessageNode<T>, T>, IMessageNode<T>, ISnapshot<T>
         where T : Message<T>
     {
         /// <summary>
@@ -49,10 +49,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return messageNode.StreamPersistenceMemoryDatabaseServiceLoaded();
         }
         /// <summary>
+        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// </summary>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据集合容器大小</returns>
+        public int GetSnapshotCapacity(ref object customObject)
+        {
+            throw new InvalidOperationException();
+        }
+        /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <returns>快照数据集合</returns>
-        public LeftArray<T> GetSnapshotArray()
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据信息</returns>
+        public SnapshotResult<T> GetSnapshotResult(T[] snapshotArray, object customObject)
         {
             throw new InvalidOperationException();
         }

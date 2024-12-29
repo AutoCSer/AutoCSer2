@@ -50,7 +50,7 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 数据表格模型字段成员集合
         /// </summary>
-        internal readonly Dictionary<HashString, MemberColumnIndex> ColumnNames;
+        internal readonly Dictionary<string, MemberColumnIndex> ColumnNames;
         /// <summary>
         /// 数据列对象集合 临时缓存
         /// </summary>
@@ -90,7 +90,7 @@ namespace AutoCSer.ORM
             }
             columnCount += columnIndexCount;
             Columns = new CustomColumnName[columnCount];
-            ColumnNames = DictionaryCreator.CreateHashString<MemberColumnIndex>(columnIndexCount);
+            ColumnNames = DictionaryCreator.CreateAny<string, MemberColumnIndex>(columnIndexCount);
             columnCount = 0;
             MemberColumnIndex memberColumnIndex;
             foreach (Member member in Members)
@@ -465,9 +465,9 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <returns>指定的索引名称已经存在则返回 false</returns>
 #if NetStandard21
-        public async Task<bool> CreateIndex(string[] columnNames, string? indexNameSuffix = null, bool isUnique = false, int timeoutSeconds = 0)
+        public Task<bool> CreateIndex(string[] columnNames, string? indexNameSuffix = null, bool isUnique = false, int timeoutSeconds = 0)
 #else
-        public async Task<bool> CreateIndex(string[] columnNames, string indexNameSuffix = null, bool isUnique = false, int timeoutSeconds = 0)
+        public Task<bool> CreateIndex(string[] columnNames, string indexNameSuffix = null, bool isUnique = false, int timeoutSeconds = 0)
 #endif
         {
             CustomColumnName[] columns = new CustomColumnName[columnNames.Length];
@@ -478,7 +478,7 @@ namespace AutoCSer.ORM
                 if (!ColumnNames.TryGetValue(name, out columnIndex)) throw new InvalidCastException($"{TableName} 没有找到数据列 {name}");
                 columns[index++].Set(columnIndex.Member, name);
             }
-            return await ConnectionPool.Creator.CreateIndex(this, columns, indexNameSuffix, isUnique, timeoutSeconds);
+            return ConnectionPool.Creator.CreateIndex(this, columns, indexNameSuffix, isUnique, timeoutSeconds);
         }
         /// <summary>
         /// 查询第一个表格数据
@@ -486,13 +486,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal async Task<T?> SingleOrDefault(Query<T> query, Transaction? transaction)
+        internal Task<T?> SingleOrDefault(Query<T> query, Transaction? transaction)
 #else
-        internal async Task<T> SingleOrDefault(Query<T> query, Transaction transaction)
+        internal Task<T> SingleOrDefault(Query<T> query, Transaction transaction)
 #endif
         {
-            return await SingleOrDefault<T>(query, transaction);
+            return SingleOrDefault<T>(query, transaction);
         }
         /// <summary>
         /// 查询第一个表格数据
@@ -737,13 +738,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction? transaction)
+        internal Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction? transaction)
 #else
-        internal async Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction transaction)
+        internal Task<SelectEnumerator<T, T>> Select(Query<T> query, Transaction transaction)
 #endif
         {
-            return await Select<T>(query, transaction);
+            return Select<T>(query, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -823,15 +825,16 @@ namespace AutoCSer.ORM
         /// <param name="isClone">默认为 true 表示浅复制缓存数据对象，避免缓存数据对象数据被意外修改</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, VT value, MemberMap<T>? memberMap = null, bool isClone = true, Transaction? transaction = null)
+        public Task<VT?> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, VT value, MemberMap<T>? memberMap = null, bool isClone = true, Transaction? transaction = null)
 #else
-        public async Task<VT> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, VT value, MemberMap<T> memberMap = null, bool isClone = true, Transaction transaction = null)
+        public Task<VT> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, VT value, MemberMap<T> memberMap = null, bool isClone = true, Transaction transaction = null)
 #endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
-            return await cache.Update(value, memberMap, isClone, transaction);
+            return cache.Update(value, memberMap, isClone, transaction);
         }
         /// <summary>
         /// 根据缓存更新数据（缓存操作必须在队列中调用）
@@ -843,15 +846,16 @@ namespace AutoCSer.ORM
         /// <param name="isClone">默认为 true 表示浅复制缓存数据对象，避免缓存数据对象数据被意外修改</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, MemberMapValue<T, VT> value, bool isClone = true, Transaction? transaction = null)
+        public Task<VT?> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, MemberMapValue<T, VT> value, bool isClone = true, Transaction? transaction = null)
 #else
-        public async Task<VT> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, MemberMapValue<T, VT> value, bool isClone = true, Transaction transaction = null)
+        public Task<VT> Update<VT, KT>(ICachePersistence<T, VT, KT> cache, MemberMapValue<T, VT> value, bool isClone = true, Transaction transaction = null)
 #endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
-            return await cache.Update(value.Value.notNull(), value.MemberMap, isClone, transaction);
+            return cache.Update(value.Value.notNull(), value.MemberMap, isClone, transaction);
         }
         /// <summary>
         /// 更新数据
@@ -876,15 +880,16 @@ namespace AutoCSer.ORM
         /// <param name="key"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction? transaction = null)
+        public Task<VT?> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction? transaction = null)
 #else
-        public async Task<VT> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction transaction = null)
+        public Task<VT> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction transaction = null)
 #endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
-            return await cache.Delete(key, transaction);
+            return cache.Delete(key, transaction);
         }
         /// <summary>
         /// 删除数据
@@ -969,13 +974,14 @@ namespace AutoCSer.ORM
         /// <param name="memberMap"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal async Task<T?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap, Transaction? transaction)
+        internal Task<T?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap, Transaction? transaction)
 #else
-        internal async Task<T> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap, Transaction transaction)
+        internal Task<T> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap, Transaction transaction)
 #endif
         {
-            return await GetByPrimaryKey<T>(primaryKey, memberMap, transaction);
+            return GetByPrimaryKey<T>(primaryKey, memberMap, transaction);
         }
         /// <summary>
         /// 根据关键字查询表格数据
@@ -985,14 +991,15 @@ namespace AutoCSer.ORM
         /// <param name="memberMap"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap, Transaction? transaction) where VT : class, T
+        internal Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap, Transaction? transaction) where VT : class, T
 #else
-        internal async Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap, Transaction transaction) where VT : class, T
+        internal Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap, Transaction transaction) where VT : class, T
 #endif
         {
             Query<T> query = (new QueryBuilder<T>(this, transaction != null, new PrimaryKeyCondition<T, KT>(this, primaryKey), memberMap)).GetQueryData(1);
-            return await SingleOrDefault<VT>(query, transaction);
+            return SingleOrDefault<VT>(query, transaction);
         }
         /// <summary>
         /// 根据关键字查询表格数据
@@ -1000,13 +1007,14 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal async Task<T?> GetByPrimaryKey(KT primaryKey, Transaction? transaction)
+        internal Task<T?> GetByPrimaryKey(KT primaryKey, Transaction? transaction)
 #else
-        internal async Task<T> GetByPrimaryKey(KT primaryKey, Transaction transaction)
+        internal Task<T> GetByPrimaryKey(KT primaryKey, Transaction transaction)
 #endif
         {
-            return await GetByPrimaryKey<T>(primaryKey, transaction);
+            return GetByPrimaryKey<T>(primaryKey, transaction);
         }
         /// <summary>
         /// 根据关键字查询表格数据
@@ -1015,14 +1023,15 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, Transaction? transaction) where VT : class, T
+        internal Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, Transaction? transaction) where VT : class, T
 #else
-        internal async Task<VT> GetByPrimaryKey<VT>(KT primaryKey, Transaction transaction) where VT : class, T
+        internal Task<VT> GetByPrimaryKey<VT>(KT primaryKey, Transaction transaction) where VT : class, T
 #endif
         {
             Query<T> query = (new QueryBuilder<T>(this, transaction != null, new PrimaryKeyCondition<T, KT>(this, primaryKey))).GetQueryData(1);
-            return await SingleOrDefault<VT>(query, transaction);
+            return SingleOrDefault<VT>(query, transaction);
         }
         /// <summary>
         /// 根据关键字查询表格数据
@@ -1030,13 +1039,14 @@ namespace AutoCSer.ORM
         /// <typeparam name="VT"></typeparam>
         /// <param name="primaryKey"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey) where VT : class, T
+        internal Task<VT?> GetByPrimaryKey<VT>(KT primaryKey) where VT : class, T
 #else
-        internal async Task<VT> GetByPrimaryKey<VT>(KT primaryKey) where VT : class, T
+        internal Task<VT> GetByPrimaryKey<VT>(KT primaryKey) where VT : class, T
 #endif
         {
-            return await GetByPrimaryKey<VT>(primaryKey, null);
+            return GetByPrimaryKey<VT>(primaryKey, null);
         }
         /// <summary>
         /// 获取表格关键字数据字典
@@ -1086,14 +1096,15 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<bool> Insert<VT>(VT value, Transaction? transaction = null) where VT : class, T
+        public Task<bool> Insert<VT>(VT value, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<bool> Insert<VT>(VT value, Transaction transaction = null) where VT : class, T
+        public Task<bool> Insert<VT>(VT value, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await insert(value, transaction);
+            return insert(value, transaction);
         }
         /// <summary>
         /// 添加表格数据
@@ -1192,14 +1203,15 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<bool> Update<VT>(VT value, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, T
+        public Task<bool> Update<VT>(VT value, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<bool> Update<VT>(VT value, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, T
+        public Task<bool> Update<VT>(VT value, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value, memberMap, transaction);
+            return update(value, memberMap, transaction);
         }
         /// <summary>
         /// 更新表格数据
@@ -1208,14 +1220,15 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<bool> Update<VT>(MemberMapValue<T, VT> value, Transaction? transaction = null) where VT : class, T
+        public Task<bool> Update<VT>(MemberMapValue<T, VT> value, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<bool> Update<VT>(MemberMapValue<T, VT> value, Transaction transaction = null) where VT : class, T
+        public Task<bool> Update<VT>(MemberMapValue<T, VT> value, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value.Value.notNull(), value.MemberMap, transaction);
+            return update(value.Value.notNull(), value.MemberMap, transaction);
         }
         /// <summary>
         /// 更新数据
@@ -1227,12 +1240,12 @@ namespace AutoCSer.ORM
         /// <param name="cacheValue"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal override async Task<bool> Update<VT>(VT value, MemberMap<T>? memberMap, VT cacheValue, Transaction? transaction)
+        internal override Task<bool> Update<VT>(VT value, MemberMap<T>? memberMap, VT cacheValue, Transaction? transaction)
 #else
-        internal override async Task<bool> Update<VT>(VT value, MemberMap<T> memberMap, VT cacheValue, Transaction transaction)
+        internal override Task<bool> Update<VT>(VT value, MemberMap<T> memberMap, VT cacheValue, Transaction transaction)
 #endif
         {
-            return await update(value, memberMap, transaction);
+            return update(value, memberMap, transaction);
         }
         /// <summary>
         /// 更新表格数据
@@ -1339,14 +1352,15 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <returns>更新数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Update<VT>(VT value, MemberMap<T>? memberMap, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+        public Task<int> Update<VT>(VT value, MemberMap<T>? memberMap, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<int> Update<VT>(VT value, MemberMap<T> memberMap, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+        public Task<int> Update<VT>(VT value, MemberMap<T> memberMap, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value, memberMap, new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
+            return update(value, memberMap, new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件更新数据
@@ -1358,14 +1372,15 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <returns>更新数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Update<VT>(MemberMapValue<T, VT> value, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+        public Task<int> Update<VT>(MemberMapValue<T, VT> value, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<int> Update<VT>(MemberMapValue<T, VT> value, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+        public Task<int> Update<VT>(MemberMapValue<T, VT> value, Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value.Value.notNull(), value.MemberMap, new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
+            return update(value.Value.notNull(), value.MemberMap, new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件更新数据
@@ -1378,14 +1393,15 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>更新数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Update<VT>(VT value, MemberMap<T>? memberMap, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+        public Task<int> Update<VT>(VT value, MemberMap<T>? memberMap, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<int> Update<VT>(VT value, MemberMap<T> memberMap, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+        public Task<int> Update<VT>(VT value, MemberMap<T> memberMap, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value, memberMap, query, timeoutSeconds, ignoreFail, transaction);
+            return update(value, memberMap, query, timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件更新数据
@@ -1397,14 +1413,15 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>更新数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Update<VT>(MemberMapValue<T, VT> value, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+        public Task<int> Update<VT>(MemberMapValue<T, VT> value, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<int> Update<VT>(MemberMapValue<T, VT> value, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+        public Task<int> Update<VT>(MemberMapValue<T, VT> value, QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await update(value.Value.notNull(), value.MemberMap, query, timeoutSeconds, ignoreFail, transaction);
+            return update(value.Value.notNull(), value.MemberMap, query, timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件更新数据
@@ -1497,14 +1514,15 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<bool> Delete(KT primaryKey, Transaction? transaction = null)
+        public Task<bool> Delete(KT primaryKey, Transaction? transaction = null)
 #else
-        public async Task<bool> Delete(KT primaryKey, Transaction transaction = null)
+        public Task<bool> Delete(KT primaryKey, Transaction transaction = null)
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete<T>(primaryKey, transaction);
+            return delete<T>(primaryKey, transaction);
         }
         /// <summary>
         /// 根据关键字删除表格数据
@@ -1513,14 +1531,15 @@ namespace AutoCSer.ORM
         /// <param name="primaryKey"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<bool> Delete<VT>(KT primaryKey, Transaction? transaction = null) where VT : class, T
+        public Task<bool> Delete<VT>(KT primaryKey, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<bool> Delete<VT>(KT primaryKey, Transaction transaction = null) where VT : class, T
+        public Task<bool> Delete<VT>(KT primaryKey, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete<VT>(primaryKey, transaction);
+            return delete<VT>(primaryKey, transaction);
         }
         /// <summary>
         /// 根据关键字删除表格数据
@@ -1546,14 +1565,15 @@ namespace AutoCSer.ORM
         /// <param name="value"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<bool> Delete<VT>(VT value, Transaction? transaction = null) where VT : class, T
+        public Task<bool> Delete<VT>(VT value, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<bool> Delete<VT>(VT value, Transaction transaction = null) where VT : class, T
+        public Task<bool> Delete<VT>(VT value, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete(value, false, transaction);
+            return delete(value, false, transaction);
         }
         /// <summary>
         /// 删除数据
@@ -1563,14 +1583,15 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <param name="isEventAvailable"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal override async Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction? transaction)
+        internal override Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction? transaction)
 #else
-        internal override async Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction transaction)
+        internal override Task<bool> Delete<VT>(VT value, bool isEventAvailable, Transaction transaction)
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete(value, isEventAvailable, transaction);
+            return delete(value, isEventAvailable, transaction);
         }
         /// <summary>
         /// 根据关键字删除表格数据
@@ -1630,13 +1651,14 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量，失败返回 -1</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Delete(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction? transaction = null)
+        public Task<int> Delete(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction? transaction = null)
 #else
-        public async Task<int> Delete(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction transaction = null)
+        public Task<int> Delete(IEnumerable<KT> primaryKeys, bool ignoreFail = false, Transaction transaction = null)
 #endif
         {
-            return await Delete<T>(primaryKeys, ignoreFail, transaction);
+            return Delete<T>(primaryKeys, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据关键字删除表格数据
@@ -1736,14 +1758,15 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Delete(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
+        public Task<int> Delete(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
 #else
-        public async Task<int> Delete(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null)
+        public Task<int> Delete(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null)
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete<T>(new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
+            return delete<T>(new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件删除数据
@@ -1753,14 +1776,15 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Delete<VT>(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+        public Task<int> Delete<VT>(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<int> Delete<VT>(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+        public Task<int> Delete<VT>(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete<VT>(new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
+            return delete<VT>(new QueryBuilder<T>(this, condition, transaction != null), timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件删除数据
@@ -1770,14 +1794,15 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Delete(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
+        public Task<int> Delete(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
 #else
-        public async Task<int> Delete(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null)
+        public Task<int> Delete(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null)
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete<T>(query, timeoutSeconds, ignoreFail, transaction);
+            return delete<T>(query, timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件删除数据
@@ -1787,14 +1812,15 @@ namespace AutoCSer.ORM
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
         /// <returns>删除数据数量</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<int> Delete<VT>(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
+        public Task<int> Delete<VT>(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, T
 #else
-        public async Task<int> Delete<VT>(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
+        public Task<int> Delete<VT>(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction transaction = null) where VT : class, T
 #endif
         {
             CheckReadOnly(ref transaction);
-            return await delete<VT>(query, timeoutSeconds, ignoreFail, transaction);
+            return delete<VT>(query, timeoutSeconds, ignoreFail, transaction);
         }
         /// <summary>
         /// 根据查询条件删除数据

@@ -5,14 +5,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 64 位自增ID 节点接口
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(IdentityGeneratorNodeMethodEnum) , IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IIdentityGeneratorNode
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IIdentityGeneratorNode
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="identity"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(long identity);
         /// <summary>
         /// 获取下一个自增ID

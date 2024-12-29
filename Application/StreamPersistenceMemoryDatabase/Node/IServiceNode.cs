@@ -6,8 +6,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务基础操作接口方法映射枚举
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(ServiceNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IServiceNode
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IServiceNode
     {
         /// <summary>
         /// 删除节点

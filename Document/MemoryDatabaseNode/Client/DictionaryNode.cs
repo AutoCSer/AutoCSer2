@@ -9,13 +9,16 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
     internal static class DictionaryNode
     {
         /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode<string, string>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateDictionaryNode<string, string>(nameof(DictionaryNode)));
+        /// <summary>
         /// 泛型字典客户端示例
         /// </summary>
-        /// <param name="client"></param>
         /// <returns></returns>
-        internal static async Task<bool> Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode> client)
+        internal static async Task<bool> Test()
         {
-            var nodeResult = await client.GetOrCreateDictionaryNode<string, string>(nameof(DictionaryNode));
+            var nodeResult = await nodeCache.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

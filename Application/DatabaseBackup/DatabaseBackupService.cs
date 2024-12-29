@@ -16,10 +16,10 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="exception"></param>
         /// <returns></returns>
-        public virtual async Task OnException(Exception exception)
+        public virtual Task OnException(Exception exception)
         {
             Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.toString()} {exception.Message}");
-            await AutoCSer.LogHelper.Exception(exception);
+            return AutoCSer.LogHelper.Exception(exception);
         }
         /// <summary>
         /// 输出信息
@@ -38,7 +38,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 当前处理的数据库备份器
         /// </summary>
-        protected readonly Dictionary<HashString, DatabaseBackuper> databaseBackupers = DictionaryCreator.CreateHashString<DatabaseBackuper>();
+        protected readonly Dictionary<string, DatabaseBackuper> databaseBackupers = DictionaryCreator.CreateAny<string, DatabaseBackuper>();
         /// <summary>
         /// 备份数据库并返回文件名称
         /// </summary>
@@ -47,19 +47,18 @@ namespace AutoCSer.CommandService
         /// <param name="callback">重写必须保证回调执行，返回空字符串表示没有找到数据库</param>
         public virtual void Backup(CommandServerCallQueue queue, string database, CommandServerCallback<string> callback)
         {
-            HashString backuperKey = default(HashString);
             var exception = default(Exception);
             var backuper = default(DatabaseBackuper);
             bool isCallback = true;
             try
             {
-                if (databaseBackupers.TryGetValue(backuperKey = database, out backuper)) backuper.Callback(callback, ref isCallback);
+                if (databaseBackupers.TryGetValue(database, out backuper)) backuper.Callback(callback, ref isCallback);
                 else
                 {
                     backuper = createDatabaseBackuper(queue, database);
                     if (backuper != null)
                     {
-                        databaseBackupers.Add(backuperKey, backuper);
+                        databaseBackupers.Add(database, backuper);
                         backuper.Start(callback, ref isCallback);
                     }
                     else
@@ -78,7 +77,7 @@ namespace AutoCSer.CommandService
                 if (isCallback)
                 {
                     callback.Callback(CommandClientReturnTypeEnum.ServerException, exception);
-                    if (backuper != null && backuper.CallbackCount == 0) databaseBackupers.Remove(backuperKey);
+                    if (backuper != null && backuper.CallbackCount == 0) databaseBackupers.Remove(database);
                 }
             }
         }

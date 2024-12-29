@@ -27,8 +27,6 @@
     <Compile Include="ICallbackNode.cs" />
     <Compile Include="ICallbackNodeClientNode.cs" />
     <Compile Include="ICustomServiceNode.cs" />
-    <Compile Include="ICustomServiceNodeClientNode.cs" />
-    <Compile Include="ICustomServiceNodeLocalClientNode.cs" />
     <Compile Include="PerformanceMessage.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="TestClassMessage.cs" />

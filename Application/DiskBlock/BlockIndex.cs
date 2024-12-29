@@ -326,6 +326,14 @@ namespace AutoCSer.CommandService.DiskBlock
         /// JSON null
         /// </summary>
         internal static readonly BlockIndex JsonNull;
+        /// <summary>
+        /// JSON null
+        /// </summary>
+        internal static readonly CompletedReturnCommand<BlockIndex> JsonNullCompletedReturnCommand;
+        /// <summary>
+        /// 二进制序列化 null
+        /// </summary>
+        internal static readonly CompletedReturnCommand<BlockIndex> BinarySerializeNullValueCompletedReturnCommand;
         unsafe static BlockIndex()
         {
             byte* buffer = stackalloc byte[sizeof(BlockIndex)];
@@ -334,6 +342,8 @@ namespace AutoCSer.CommandService.DiskBlock
             BlockIndex index = *(BlockIndex*)buffer;
             index.SetSize(-12);
             JsonNull = index;
+            JsonNullCompletedReturnCommand = new CompletedReturnCommand<BlockIndex>(ref index);
+            BinarySerializeNullValueCompletedReturnCommand = new CompletedReturnCommand<BlockIndex>(new BlockIndex(BinarySerializer.NullValue, -4));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.SearchTree;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 哈希表节点
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    public class HashSetNode<T> : ContextNode<IHashSetNode<T>>, IHashSetNode<T>, ISnapshot<T>
+    public class HashSetNode<T> : IHashSetNode<T>, ISnapshot<T>
         where T : IEquatable<T>
     {
         /// <summary>
@@ -23,13 +24,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             hashSet = HashSetCreator<T>.Create();
         }
         /// <summary>
+        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// </summary>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据集合容器大小</returns>
+        public int GetSnapshotCapacity(ref object customObject)
+        {
+            return hashSet.Count;
+        }
+        /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <returns>快照数据集合</returns>
-        public LeftArray<T> GetSnapshotArray()
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据信息</returns>
+        public SnapshotResult<T> GetSnapshotResult(T[] snapshotArray, object customObject)
         {
-            return hashSet.getLeftArray();
+            return new SnapshotResult<T>(snapshotArray, hashSet);
         }
+        /// <summary>
+        /// 持久化之前重组快照数据
+        /// </summary>
+        /// <param name="array">预申请快照容器数组</param>
+        /// <param name="newArray">超预申请快照数据</param>
+        public void SetSnapshotResult(ref LeftArray<T> array, ref LeftArray<T> newArray) { }
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>

@@ -3122,10 +3122,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 数组节点接口方法映射枚举
+        /// 数组节点接口
         /// </summary>
-    public enum ArrayNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IArrayNodeMethodEnum))]
+        public partial interface IArrayNode<T> { }
+        /// <summary>
+        /// 数组节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IArrayNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除指定位置数据
             /// int startIndex 起始位置
@@ -3230,14 +3235,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// [16] 数组排序
             /// </summary>
             SortArray = 16,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 位图节点接口方法映射枚举
+        /// 位图节点接口
         /// </summary>
-    public enum BitmapNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IBitmapNodeMethodEnum))]
+        public partial interface IBitmapNode { }
+        /// <summary>
+        /// 位图节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IBitmapNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除位状态
             /// uint index 位索引
@@ -3294,14 +3304,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// byte[] map 
             /// </summary>
             SnapshotSet = 9,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 字典节点接口方法映射枚举
+        /// 字典节点接口
         /// </summary>
-    public enum ByteArrayDictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IByteArrayDictionaryNodeMethodEnum))]
+        public partial interface IByteArrayDictionaryNode<KT> { }
+        /// <summary>
+        /// 字典节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IByteArrayDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -3371,14 +3386,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{byte[]} 
             /// </summary>
             TryGetValue = 11,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 256 基分片字典 节点接口方法映射枚举
+        /// 256 基分片字典 节点接口
         /// </summary>
-    public enum ByteArrayFragmentDictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IByteArrayFragmentDictionaryNodeMethodEnum))]
+        public partial interface IByteArrayFragmentDictionaryNode<KT> { }
+        /// <summary>
+        /// 256 基分片字典 节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IByteArrayFragmentDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除数据（保留分片数组）
             /// </summary>
@@ -3447,14 +3467,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{byte[]} 
             /// </summary>
             TryGetValue = 11,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 数组节点接口方法映射枚举
+        /// 队列节点接口（先进先出）
         /// </summary>
-    public enum ByteArrayQueueNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IByteArrayQueueNodeMethodEnum))]
+        public partial interface IByteArrayQueueNode { }
+        /// <summary>
+        /// 队列节点接口（先进先出） 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IByteArrayQueueNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -3494,14 +3519,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter 没有可弹出数据则返回无数据
             /// </summary>
             TryPeekResponseParameter = 7,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 栈节点接口方法映射枚举
+        /// 栈节点（后进先出）
         /// </summary>
-    public enum ByteArrayStackNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IByteArrayStackNodeMethodEnum))]
+        public partial interface IByteArrayStackNode { }
+        /// <summary>
+        /// 栈节点（后进先出） 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IByteArrayStackNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -3541,14 +3571,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter 没有可弹出数据则返回无数据
             /// </summary>
             TryPopResponseParameter = 7,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 字典节点接口方法映射枚举
+        /// 字典节点接口
         /// </summary>
-    public enum DictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IDictionaryNodeMethodEnum))]
+        public partial interface IDictionaryNode<KT,VT> { }
+        /// <summary>
+        /// 字典节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -3612,16 +3647,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             /// </summary>
             TryGetValue = 10,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
-    public enum DistributedLockNodeeMethodEnum
-    {
+        /// <summary>
+        /// 分布式锁节点
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IDistributedLockNodeMethodEnum))]
+        public partial interface IDistributedLockNode<T> { }
+        /// <summary>
+        /// 分布式锁节点 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IDistributedLockNodeMethodEnum
+        {
             /// <summary>
             /// [0] 申请锁
             /// T key 锁关键字
             /// ushort timeoutSeconds 超时秒数
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{long} callback 失败返回 0
             /// 返回值 long 
             /// </summary>
             Enter = 0,
@@ -3643,14 +3685,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 long 失败返回 0
             /// </summary>
             TryEnter = 3,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 256 基分片字典 节点接口方法映射枚举
+        /// 256 基分片字典 节点接口
         /// </summary>
-    public enum FragmentDictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IFragmentDictionaryNodeMethodEnum))]
+        public partial interface IFragmentDictionaryNode<KT,VT> { }
+        /// <summary>
+        /// 256 基分片字典 节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IFragmentDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除数据（保留分片数组）
             /// </summary>
@@ -3707,14 +3754,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             /// </summary>
             TryGetValue = 9,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 256 基分片 哈希表 节点接口方法映射枚举
+        /// 256 基分片 哈希表 节点接口
         /// </summary>
-    public enum FragmentHashSetNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IFragmentHashSetNodeMethodEnum))]
+        public partial interface IFragmentHashSetNode<T> { }
+        /// <summary>
+        /// 256 基分片 哈希表 节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IFragmentHashSetNodeMethodEnum
+        {
             /// <summary>
             /// [0] 如果关键字不存在则添加数据
             /// T value 
@@ -3746,14 +3798,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否存在关键字
             /// </summary>
             Remove = 5,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 字典节点接口方法映射枚举
+        /// 字典节点接口
         /// </summary>
-    public enum HashBytesDictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IHashBytesDictionaryNodeMethodEnum))]
+        public partial interface IHashBytesDictionaryNode { }
+        /// <summary>
+        /// 字典节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IHashBytesDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -3823,14 +3880,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{byte[]} 
             /// </summary>
             TryGetValue = 11,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 256 基分片 HashBytes 字典 节点接口方法映射枚举
+        /// 256 基分片 HashBytes 字典 节点接口
         /// </summary>
-    public enum HashBytesFragmentDictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IHashBytesFragmentDictionaryNodeMethodEnum))]
+        public partial interface IHashBytesFragmentDictionaryNode { }
+        /// <summary>
+        /// 256 基分片 HashBytes 字典 节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IHashBytesFragmentDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除数据（保留分片数组）
             /// </summary>
@@ -3899,14 +3961,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{byte[]} 
             /// </summary>
             TryGetValue = 11,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 哈希表节点接口方法映射枚举
+        /// 哈希表节点接口
         /// </summary>
-    public enum HashSetNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IHashSetNodeMethodEnum))]
+        public partial interface IHashSetNode<T> { }
+        /// <summary>
+        /// 哈希表节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IHashSetNodeMethodEnum
+        {
             /// <summary>
             /// [0] 添加数据
             /// T value 
@@ -3938,14 +4005,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// [5] 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
             Renew = 5,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 空节点接口方法映射枚举（用于节点初始化绑定 MethodIndexEnumType ）
+        /// 64 位自增ID 节点接口
         /// </summary>
-    public enum IdentityGeneratorNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IIdentityGeneratorNodeMethodEnum))]
+        public partial interface IIdentityGeneratorNode { }
+        /// <summary>
+        /// 64 位自增ID 节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IIdentityGeneratorNodeMethodEnum
+        {
             /// <summary>
             /// [0] 获取下一个自增ID
             /// 返回值 long 下一个自增ID，失败返回负数
@@ -3962,14 +4034,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// long identity 
             /// </summary>
             SnapshotSet = 2,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 数组节点接口方法映射枚举
+        /// 数组节点接口
         /// </summary>
-    public enum LeftArrayNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ILeftArrayNodeMethodEnum))]
+        public partial interface ILeftArrayNode<T> { }
+        /// <summary>
+        /// 数组节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ILeftArrayNodeMethodEnum
+        {
             /// <summary>
             /// [0] 添加数据
             /// T value 数据
@@ -4141,14 +4218,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否存在可移除数据
             /// </summary>
             TryPop = 28,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 消息处理节点接口方法映射枚举
+        /// 消息处理节点
         /// </summary>
-    public enum MessageNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IMessageNodeMethodEnum))]
+        public partial interface IMessageNode<T> { }
+        /// <summary>
+        /// 消息处理节点 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IMessageNodeMethodEnum
+        {
             /// <summary>
             /// [0] 生产者添加新消息
             /// T message 
@@ -4190,7 +4272,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [8] 
             /// int maxCount 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{T} callback 
             /// 返回值 T 
             /// </summary>
             GetMessage = 8,
@@ -4209,14 +4290,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// T value 数据
             /// </summary>
             SnapshotAdd = 11,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 数组节点接口方法映射枚举
+        /// 队列节点接口（先进先出）
         /// </summary>
-    public enum QueueNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IQueueNodeMethodEnum))]
+        public partial interface IQueueNode<T> { }
+        /// <summary>
+        /// 队列节点接口（先进先出） 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IQueueNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -4247,14 +4333,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{T} 没有可弹出数据则返回无数据
             /// </summary>
             TryPeek = 5,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 二叉搜索树节点接口方法映射枚举
+        /// 二叉搜索树节点
         /// </summary>
-    public enum SearchTreeDictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISearchTreeDictionaryNodeMethodEnum))]
+        public partial interface ISearchTreeDictionaryNode<KT,VT> { }
+        /// <summary>
+        /// 二叉搜索树节点 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ISearchTreeDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除数据
             /// </summary>
@@ -4379,14 +4470,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 数据
             /// </summary>
             TryGetValueByIndex = 21,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 二叉搜索树集合节点接口方法映射枚举
+        /// 二叉搜索树集合节点接口
         /// </summary>
-    public enum SearchTreeSetNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISearchTreeSetNodeMethodEnum))]
+        public partial interface ISearchTreeSetNode<T> { }
+        /// <summary>
+        /// 二叉搜索树集合节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ISearchTreeSetNodeMethodEnum
+        {
             /// <summary>
             /// [0] 添加数据
             /// T value 关键字
@@ -4448,14 +4544,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否删除成功
             /// </summary>
             Remove = 10,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
         /// 服务基础操作接口方法映射枚举
         /// </summary>
-    public enum ServiceNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IServiceNodeMethodEnum))]
+        public partial interface IServiceNode { }
+        /// <summary>
+        /// 服务基础操作接口方法映射枚举 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IServiceNodeMethodEnum
+        {
             /// <summary>
             /// [0] 创建数组节点 ArrayNode{T}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
@@ -4694,14 +4795,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否成功删除节点，否则表示没有找到节点
             /// </summary>
             RemoveNode = 24,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 排序字典节点接口方法映射枚举
+        /// 排序字典节点
         /// </summary>
-    public enum SortedDictionaryNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISortedDictionaryNodeMethodEnum))]
+        public partial interface ISortedDictionaryNode<KT,VT> { }
+        /// <summary>
+        /// 排序字典节点 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ISortedDictionaryNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -4753,14 +4859,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             /// </summary>
             TryGetValue = 8,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 排序列表节点接口方法映射枚举
+        /// 排序列表节点
         /// </summary>
-    public enum SortedListNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISortedListNodeMethodEnum))]
+        public partial interface ISortedListNode<KT,VT> { }
+        /// <summary>
+        /// 排序列表节点 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ISortedListNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -4835,14 +4946,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             /// </summary>
             TryGetValue = 12,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 哈希表节点接口方法映射枚举
+        /// 排序集合节点接口
         /// </summary>
-    public enum SortedSetNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISortedSetNodeMethodEnum))]
+        public partial interface ISortedSetNode<T> { }
+        /// <summary>
+        /// 排序集合节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ISortedSetNodeMethodEnum
+        {
             /// <summary>
             /// [0] 添加数据
             /// T value 
@@ -4880,14 +4996,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否删除成功
             /// </summary>
             Remove = 6,
-    }
+        }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 栈节点接口方法映射枚举
+        /// 栈节点（后进先出）
         /// </summary>
-    public enum StackNodeMethodEnum
-    {
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IStackNodeMethodEnum))]
+        public partial interface IStackNode<T> { }
+        /// <summary>
+        /// 栈节点（后进先出） 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IStackNodeMethodEnum
+        {
             /// <summary>
             /// [0] 清除所有数据
             /// </summary>
@@ -4918,6 +5039,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{T} 没有可弹出数据则返回无数据
             /// </summary>
             TryPop = 5,
-    }
+        }
 }
 #endif

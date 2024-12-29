@@ -36,18 +36,15 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public async Task Invoke(HttpContext httpContext)
+        public Task Invoke(HttpContext httpContext)
         {
             IHeaderDictionary headers = httpContext.Response.Headers;
             headers["Access-Control-Allow-Origin"] = accessOrigin;
-            if (string.Compare(httpContext.Request.Method, "OPTIONS", true) == 0)
-            {
-                headers["Access-Control-Allow-Methods"] = accessMethods;
-                headers["Access-Control-Allow-Headers"] = accessHeaders;
-                headers["Access-Control-Max-Age"] = accessMaxAge;
-                return;
-            }
-            await nextRequest(httpContext);
+            if (string.Compare(httpContext.Request.Method, "OPTIONS", true) != 0) return nextRequest(httpContext);
+            headers["Access-Control-Allow-Methods"] = accessMethods;
+            headers["Access-Control-Allow-Headers"] = accessHeaders;
+            headers["Access-Control-Max-Age"] = accessMaxAge;
+            return AutoCSer.Common.CompletedTask;
         }
     }
 }

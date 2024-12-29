@@ -20,7 +20,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            string value = "value";
+            string value = TestClass.RandomString();
             result = await node.Value.Push(value);
             if (!Program.Breakpoint(result)) return;
             intResult = await node.Value.Count();

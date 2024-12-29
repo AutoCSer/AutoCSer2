@@ -22,9 +22,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal CommandServerKeepCallback<KeepCallbackResponseParameter> callback;
 #endif
         /// <summary>
-        /// 是否简单序列化输出数据
+        /// 服务端节点方法标记
         /// </summary>
-        internal readonly bool IsSimpleSerialize;
+        internal readonly MethodFlagsEnum flag;
         /// <summary>
         /// 返回值类型是否 ResponseParameterSerializer
         /// </summary>
@@ -45,11 +45,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 方法调用回调包装
         /// </summary>
         /// <param name="callback">服务接口回调委托</param>
-        /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
-        internal MethodKeepCallback(CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize)
+        /// <param name="flag">服务端节点方法标记</param>
+        internal MethodKeepCallback(CommandServerKeepCallback<KeepCallbackResponseParameter> callback, MethodFlagsEnum flag)
         {
             this.callback = callback;
-            this.IsSimpleSerialize = isSimpleSerialize;
+            this.flag = flag;
             isResponseParameter = typeof(T) == typeof(ResponseParameterSerializer);
         }
         /// <summary>
@@ -65,7 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     try
                     {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value));
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value, 0));
                     }
                     catch (Exception exception)
                     {
@@ -91,7 +91,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     bool isParameter = false;
                     try
                     {
-                        KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
+                        KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, flag);
                         isParameter = true;
                         return callback.VirtualCallback(responseParameter);
                     }
@@ -108,7 +108,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     try
                     {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>()));
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>(), 0));
                     }
                     catch (Exception exception)
                     {
@@ -133,7 +133,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     try
                     {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value));
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value, 0));
                     }
                     catch (Exception exception)
                     {
@@ -160,7 +160,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     bool isParameter = false;
                     try
                     {
-                        KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, IsSimpleSerialize);
+                        KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, flag);
                         isParameter = true;
                         return callback.VirtualCallback(responseParameter);
                     }
@@ -177,7 +177,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     try
                     {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>()));
+                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>(), 0));
                     }
                     catch (Exception exception)
                     {
@@ -200,7 +200,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 bool isParameter = false, isCallback = false;
                 try
                 {
-                    IEnumerable<KeepCallbackResponseParameter> responseParameter = KeepCallbackResponseParameter.CreateValues(values, IsSimpleSerialize);
+                    IEnumerable<KeepCallbackResponseParameter> responseParameter = KeepCallbackResponseParameter.CreateValues(values, flag);
                     isParameter = true;
                     isCallback = callback.Callback(responseParameter, false);
                 }
@@ -258,29 +258,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 创建方法调用回调包装对象委托类型
         /// </summary>
         /// <param name="callback"></param>
-        /// <param name="isSimpleSerialize"></param>
+        /// <param name="flag">服务端节点方法标记</param>
         /// <returns></returns>
 #if NetStandard21
-        internal delegate MethodKeepCallback<T> CreateDelegate(ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, bool isSimpleSerialize);
+        internal delegate MethodKeepCallback<T> CreateDelegate(ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, MethodFlagsEnum flag);
 #else
-        internal delegate MethodKeepCallback<T> CreateDelegate(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize);
+        internal delegate MethodKeepCallback<T> CreateDelegate(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, MethodFlagsEnum flag);
 #endif
         /// <summary>
         /// 创建方法调用回调包装对象
         /// </summary>
         /// <param name="callback"></param>
-        /// <param name="isSimpleSerialize"></param>
+        /// <param name="flag"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static MethodKeepCallback<T> Create(ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, bool isSimpleSerialize)
+        internal static MethodKeepCallback<T> Create(ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, MethodFlagsEnum flag)
 #else
-        internal static MethodKeepCallback<T> Create(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize)
+        internal static MethodKeepCallback<T> Create(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, MethodFlagsEnum flag)
 #endif
         {
             if (callback != null)
             {
-                MethodKeepCallback<T> methodKeepCallback = new MethodKeepCallback<T>(callback, isSimpleSerialize);
+                MethodKeepCallback<T> methodKeepCallback = new MethodKeepCallback<T>(callback, flag);
                 callback = null;
                 return methodKeepCallback;
             }

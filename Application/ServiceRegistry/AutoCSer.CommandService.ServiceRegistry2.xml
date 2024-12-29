@@ -1433,7 +1433,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.ServiceRegistryService.checkServiceName(AutoCSer.HashString@)">
+        <member name="M:AutoCSer.CommandService.ServiceRegistryService.checkServiceName(System.String)">
             <summary>
             检查服务名称是否可用
             </summary>

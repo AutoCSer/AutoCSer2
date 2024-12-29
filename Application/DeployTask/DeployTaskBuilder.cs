@@ -84,23 +84,24 @@ namespace AutoCSer.CommandService
         /// <param name="getTask">获取执行任务</param>
         /// <param name="getCancelTask">获取取消任务</param>
 #if NetStandard21
-        public virtual async Task<DeployTaskAppendResult> AppendCustom(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task>? getCancelTask = null)
+        public virtual Task<DeployTaskAppendResult> AppendCustom(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task>? getCancelTask = null)
 #else
-        public virtual async Task<DeployTaskAppendResult> AppendCustom(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task> getCancelTask = null)
+        public virtual Task<DeployTaskAppendResult> AppendCustom(ushort operationType, Func<Task<DeployTaskLog>> getTask, Func<Task> getCancelTask = null)
 #endif
         {
-            return await Append(new CustomDeployTask(operationType, getTask, getCancelTask));
+            return Append(new CustomDeployTask(operationType, getTask, getCancelTask));
         }
         /// <summary>
         /// 取消任务
         /// </summary>
         /// <returns></returns>
-        public virtual async Task Cancel()
+        public virtual async Task<bool> Cancel()
         {
             service.Tasks.Remove(Identity);
             await disposeFiles();
             if (callback != null) callback.CallbackCancelKeep(new DeployTaskLog { TaskIdentity = Identity, OperationState = DeployTaskOperationStateEnum.Cancel });
             AutoCSer.Threading.CatchTask.Add(cancel());
+            return true;
         }
         /// <summary>
         /// 取消任务
@@ -259,14 +260,14 @@ namespace AutoCSer.CommandService
         /// <param name="directory"></param>
         /// <returns></returns>
 #if NetStandard21
-        private static async Task<Dictionary<HashString, FileInfo>?> getFileNameDictionary(DirectoryInfo directory)
+        private static async Task<Dictionary<string, FileInfo>?> getFileNameDictionary(DirectoryInfo directory)
 #else
-        private static async Task<Dictionary<HashString, FileInfo>> getFileNameDictionary(DirectoryInfo directory)
+        private static async Task<Dictionary<string, FileInfo>> getFileNameDictionary(DirectoryInfo directory)
 #endif
         {
             if (!await AutoCSer.Common.DirectoryExists(directory)) return null;
             FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(directory);
-            Dictionary<HashString, FileInfo> fileDictionary = DictionaryCreator.CreateHashString<FileInfo>(files.Length);
+            Dictionary<string, FileInfo> fileDictionary = DictionaryCreator.CreateAny<string, FileInfo>(files.Length);
             foreach (FileInfo file in files) fileDictionary.Add(file.Name, file);
             return fileDictionary;
         }

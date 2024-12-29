@@ -20,9 +20,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly CommandServerCallback<ResponseParameter> callback;
 #endif
         /// <summary>
-        /// 是否简单序列化输出数据
+        /// 服务端节点方法标记
         /// </summary>
-        private readonly bool isSimpleSerialize;
+        private readonly MethodFlagsEnum flag;
         /// <summary>
         /// 返回值类型是否 ResponseParameter
         /// </summary>
@@ -39,11 +39,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 方法调用回调包装
         /// </summary>
         /// <param name="callback">服务接口回调委托</param>
-        /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
-        internal MethodCallback(CommandServerCallback<ResponseParameter> callback, bool isSimpleSerialize)
+        /// <param name="flag">服务端节点方法标记</param>
+        internal MethodCallback(CommandServerCallback<ResponseParameter> callback, MethodFlagsEnum flag)
         {
             this.callback = callback;
-            this.isSimpleSerialize = isSimpleSerialize;
+            this.flag = flag;
             isResponseParameter = typeof(T) == typeof(ResponseParameter);
         }
         /// <summary>
@@ -75,7 +75,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
                     try
                     {
-                        responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
+                        responseParameter = ResponseParameter.Create(value, flag);
                     }
                     finally { isCallback = callback.Callback(responseParameter); }
                     return isCallback;
@@ -97,7 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
                 try
                 {
-                    responseParameter = ResponseParameter.Create(value, isSimpleSerialize);
+                    responseParameter = ResponseParameter.Create(value, flag);
                 }
                 finally { isCallback = callback.SynchronousCallback(responseParameter); }
                 return isCallback;
@@ -129,29 +129,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 创建方法调用回调包装对象委托类型
         /// </summary>
         /// <param name="callback"></param>
-        /// <param name="isSimpleSerialize"></param>
+        /// <param name="flag"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal delegate MethodCallback<T> CreateDelegate(ref CommandServerCallback<ResponseParameter>? callback, bool isSimpleSerialize);
+        internal delegate MethodCallback<T> CreateDelegate(ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag);
 #else
-        internal delegate MethodCallback<T> CreateDelegate(ref CommandServerCallback<ResponseParameter> callback, bool isSimpleSerialize);
+        internal delegate MethodCallback<T> CreateDelegate(ref CommandServerCallback<ResponseParameter> callback,MethodFlagsEnum flag);
 #endif
         /// <summary>
         /// 创建方法调用回调包装对象
         /// </summary>
         /// <param name="callback"></param>
-        /// <param name="isSimpleSerialize"></param>
+        /// <param name="flag">服务端节点方法标记</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static MethodCallback<T> Create(ref CommandServerCallback<ResponseParameter>? callback, bool isSimpleSerialize)
+        internal static MethodCallback<T> Create(ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag)
 #else
-        internal static MethodCallback<T> Create(ref CommandServerCallback<ResponseParameter> callback, bool isSimpleSerialize)
+        internal static MethodCallback<T> Create(ref CommandServerCallback<ResponseParameter> callback, MethodFlagsEnum flag)
 #endif
         {
             if (callback != null)
             {
-                MethodCallback<T> methodCallback = new MethodCallback<T>(callback, isSimpleSerialize);
+                MethodCallback<T> methodCallback = new MethodCallback<T>(callback, flag);
                 callback = null;
                 return methodCallback;
             }

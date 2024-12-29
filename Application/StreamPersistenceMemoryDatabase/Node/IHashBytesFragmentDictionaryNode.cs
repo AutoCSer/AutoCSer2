@@ -7,15 +7,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 256 基分片 HashBytes 字典 节点接口
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(HashBytesFragmentDictionaryNodeMethodEnum), IsAutoMethodIndex = false)]
-    public interface IHashBytesFragmentDictionaryNode
+    [ServerNode(IsAutoMethodIndex = false)]
+    public partial interface IHashBytesFragmentDictionaryNode
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
+#if NetStandard21
+        void SnapshotAdd(KeyValue<byte[], byte[]?> value);
+#else
         void SnapshotAdd(KeyValue<byte[], byte[]> value);
+#endif
         /// <summary>
         /// 获取数据数量
         /// </summary>

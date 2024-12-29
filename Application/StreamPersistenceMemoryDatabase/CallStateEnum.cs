@@ -52,6 +52,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         NotFoundNodeKey,
         /// <summary>
+        /// 创建服务端节点仅支持接口类型，说明调用泛型类型参数不正确
+        /// </summary>
+        OnlySupportInterface,
+        /// <summary>
         /// 服务端节点生成失败，说明该接口类型不符合节点定义
         /// </summary>
         NotFoundNodeCreator,
@@ -112,9 +116,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         PersistenceRebuilding,
         /// <summary>
-        /// 快照数据类型不匹配
+        /// 没有找到快照接口
         /// </summary>
-        SnapshotTypeNotMatch,
+        NotFoundSnapshotNode,
+        /// <summary>
+        /// 没有找到与快照接口类型匹配的方法
+        /// </summary>
+        NotFoundSnapshotMethod,
         /// <summary>
         /// 调用无返回值，表示 ValueResult{T}.IsValue 为 false
         /// </summary>
@@ -220,7 +228,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         CallFail,
         /// <summary>
-        /// 没有找到泛型类型
+        /// 没有找到泛型类型，或者泛型类型不满足 AutoCSer.Common.Config.CheckRemoteType 合法性检查条件
         /// </summary>
         NotFoundRemoteType,
         /// <summary>

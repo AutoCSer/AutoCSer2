@@ -20,13 +20,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.InterfaceMethodIndexEnumType<AutoCSer.Net.CommandServerControllerInterfaceAttribute>.MethodInfo[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerMethodIndexEnumType.MethodInfo[] _value1_;
                     _value1_ = Methods;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.InterfaceMethodIndexEnumType<AutoCSer.Net.CommandServerControllerInterfaceAttribute>.MethodInfo _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerMethodIndexEnumType.MethodInfo _value2_ in _value1_)
                         {
             _if_ = false;
                     if (_value2_.EnumName != default(string))
@@ -824,6 +824,167 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 }
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
+    internal partial class StreamPersistenceMemoryDatabaseNode
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            {
+                
+            _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.XmlDocument);
+                    }
+                }
+            _code_.Add(@"
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(");
+            _code_.Add(MethodIndexEnumTypeName);
+            _code_.Add(@"))]
+        ");
+            _code_.Add(TypeNameDefinition);
+            _code_.Add(@" { }
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.XmlDocument);
+                    }
+                }
+            _code_.Add(@" 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ");
+            _code_.Add(MethodIndexEnumTypeName);
+            _code_.Add(@"
+        {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseNode.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseNode.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.EnumName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// [");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@"] ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.XmlDocument);
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.XmlFullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.ParameterName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.XmlDocument);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.MethodIsReturn)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// 返回值 ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.XmlFullName);
+                    }
+                }
+            _code_.Add(@" ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.ReturnXmlDocument);
+                    }
+                }
+            }
+            _code_.Add(@"
+            /// </summary>");
+            }
+            _code_.Add(@"
+            ");
+            _code_.Add(_value2_.EnumName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@",");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+        }");
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
     internal partial class StreamPersistenceMemoryDatabaseLocalClientNode
     {
         /// <summary>
@@ -858,6 +1019,15 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"))]
         ");
             _code_.Add(TypeNameDefinition);
+            _if_ = false;
+                    if (IsCustomServiceNode)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode");
+            }
             _code_.Add(@"
         {");
                 {
@@ -1023,6 +1193,15 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"))]
         ");
             _code_.Add(TypeNameDefinition);
+            _if_ = false;
+                    if (IsCustomServiceNode)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode");
+            }
             _code_.Add(@"
         {");
                 {
@@ -1182,132 +1361,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             _code_.Add(@"
         }");
-                if (_isOut_) outEnd();
-            }
-        }
-    }
-}
-namespace AutoCSer.CodeGenerator.TemplateGenerator
-{
-    internal partial class StreamPersistenceMemoryDatabaseMethodIndexEnumType
-    {
-        /// <summary>
-        /// 生成代码
-        /// </summary>
-        /// <param name="isOut">是否输出类定义代码</param>
-        protected override void create(bool _isOut_)
-        {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
-            {
-                
-                {
-                    AutoCSer.CodeGenerator.TemplateGenerator.InterfaceMethodIndexEnumType<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute>.MethodInfo[] _value1_;
-                    _value1_ = Methods;
-                    if (_value1_ != null)
-                    {
-                        int _loopIndex1_ = _loopIndex_;
-                        _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.InterfaceMethodIndexEnumType<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute>.MethodInfo _value2_ in _value1_)
-                        {
-            _if_ = false;
-                    if (_value2_.EnumName != default(string))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _if_ = false;
-                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-            /// <summary>
-            /// [");
-            _code_.Add(_value2_.MethodIndex.ToString());
-            _code_.Add(@"] ");
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
-                    {
-            _code_.Add(_value3_.XmlDocument);
-                    }
-                }
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
-                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
-                    {
-                    _value3_ = _value4_.Parameters;
-                    }
-                }
-                    if (_value3_ != null)
-                    {
-                        int _loopIndex3_ = _loopIndex_;
-                        _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
-                        {
-            _code_.Add(@"
-            /// ");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
-                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value5_.XmlFullName);
-                    }
-                }
-            _code_.Add(@" ");
-            _code_.Add(_value4_.ParameterName);
-            _code_.Add(@" ");
-            _code_.Add(_value4_.XmlDocument);
-                            ++_loopIndex_;
-                        }
-                        _loopIndex_ = _loopIndex3_;
-                    }
-                }
-            _if_ = false;
-                    if (_value2_.MethodIsReturn)
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-            /// 返回值 ");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value3_.XmlFullName);
-                    }
-                }
-            _code_.Add(@" ");
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
-                    {
-            _code_.Add(_value3_.ReturnXmlDocument);
-                    }
-                }
-            }
-            _code_.Add(@"
-            /// </summary>");
-            }
-            _code_.Add(@"
-            ");
-            _code_.Add(_value2_.EnumName);
-            _code_.Add(@" = ");
-            _code_.Add(_value2_.MethodIndex.ToString());
-            _code_.Add(@",");
-            }
-                            ++_loopIndex_;
-                        }
-                        _loopIndex_ = _loopIndex1_;
-                    }
-                }
                 if (_isOut_) outEnd();
             }
         }

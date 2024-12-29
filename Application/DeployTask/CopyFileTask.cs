@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.DeployTask
@@ -119,9 +120,10 @@ namespace AutoCSer.CommandService.DeployTask
         /// 取消任务
         /// </summary>
         /// <returns></returns>
-        public async Task Cancel() 
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task Cancel() 
         {
-            await AutoCSer.Common.TryDeleteDirectory(sourcePath, true);
+            return AutoCSer.Common.TryDeleteDirectory(sourcePath, true);
         }
     }
 }

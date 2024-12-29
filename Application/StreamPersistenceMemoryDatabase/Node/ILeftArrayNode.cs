@@ -6,8 +6,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 数组节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(LeftArrayNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface ILeftArrayNode<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface ILeftArrayNode<T>
     {
         /// <summary>
         /// 获取有效数组长度
@@ -46,7 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 添加数据
         /// </summary>
         /// <param name="value">数据</param>
-        [ServerMethod(IsSnapshotMethod = true, IsIgnorePersistenceCallbackException = true)]
+        [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         void Add(T value);
         /// <summary>
         /// 当有空闲位置时添加数据

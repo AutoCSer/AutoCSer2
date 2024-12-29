@@ -19,13 +19,14 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static async Task<bool> Info(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Info(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
-        public static async Task<bool> Info(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Info(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
-            return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
+            return log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
         /// 添加普通日志
@@ -101,13 +102,14 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static async Task<bool> Error(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Error(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
-        public static async Task<bool> Error(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Error(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
-            return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
+            return log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
         /// 添加一般错误日志
@@ -140,13 +142,14 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static async Task<bool> Warn(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Warn(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
-        public static async Task<bool> Warn(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Warn(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
-            return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
+            return log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
         /// 添加警告日志
@@ -179,13 +182,14 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static async Task<bool> Fatal(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Fatal(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
-        public static async Task<bool> Fatal(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Fatal(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
-            return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
+            return log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
         /// 添加致命错误日志
@@ -218,13 +222,14 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">调用源代码文件路径</param>
         /// <param name="callerLineNumber">调用源代码行号</param>
         /// <returns>是否写入日志</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static async Task<bool> Breakpoint(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Breakpoint(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
-        public static async Task<bool> Breakpoint(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+        public static Task<bool> Breakpoint(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
-            return await log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
+            return log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
         /// 添加测试断点日志

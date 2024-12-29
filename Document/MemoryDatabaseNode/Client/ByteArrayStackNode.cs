@@ -9,13 +9,16 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
     internal static class ByteArrayStackNode
     {
         /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayStackNodeClientNode> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateByteArrayStackNode(nameof(ByteArrayStackNode)));
+        /// <summary>
         /// byte[] 栈客户端示例
         /// </summary>
-        /// <param name="client"></param>
         /// <returns></returns>
-        internal static async Task<bool> Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode> client)
+        internal static async Task<bool> Test()
         {
-            var nodeResult = await client.GetOrCreateByteArrayStackNode(nameof(ByteArrayStackNode));
+            var nodeResult = await nodeCache.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

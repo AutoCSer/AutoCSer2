@@ -46,12 +46,12 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="switchFileDictionary"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal FileInfo? Check(Dictionary<HashString, FileInfo>? checkFileDictionary, Dictionary<HashString, FileInfo>? switchFileDictionary)
+        internal FileInfo? Check(Dictionary<string, FileInfo>? checkFileDictionary, Dictionary<string, FileInfo>? switchFileDictionary)
 #else
-        internal FileInfo Check(Dictionary<HashString, FileInfo> checkFileDictionary, Dictionary<HashString, FileInfo> switchFileDictionary)
+        internal FileInfo Check(Dictionary<string, FileInfo> checkFileDictionary, Dictionary<string, FileInfo> switchFileDictionary)
 #endif
         {
-            HashString fileName = FileName.notNull();
+            string fileName = FileName.notNull();
             FileName = null;
             var file = default(FileInfo);
             if (checkFileDictionary != null && checkFileDictionary.TryGetValue(fileName, out file)

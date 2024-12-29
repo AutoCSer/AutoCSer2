@@ -94,7 +94,7 @@ namespace AutoCSer.Threading
         /// <returns></returns>
 #endif
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public async Task EnterAsync(SemaphoreSlimLock semaphoreSlimLock
+        public Task EnterAsync(SemaphoreSlimLock semaphoreSlimLock
 #if DEBUG
 #if NetStandard21
              , [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0
@@ -106,9 +106,9 @@ namespace AutoCSer.Threading
         {
             enter(semaphoreSlimLock);
 #if DEBUG
-            await semaphoreSlimLock.EnterAsync(callerMemberName, callerFilePath, callerLineNumber);
+            return semaphoreSlimLock.EnterAsync(callerMemberName, callerFilePath, callerLineNumber);
 #else
-            await semaphoreSlimLock.EnterAsync();
+            return semaphoreSlimLock.EnterAsync();
 #endif
         }
         /// <summary>

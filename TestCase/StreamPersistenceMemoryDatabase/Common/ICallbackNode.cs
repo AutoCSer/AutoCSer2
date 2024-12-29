@@ -9,11 +9,15 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 回调测试节点
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(CallbackNodeMethodEnum), IsAutoMethodIndex = false, IsMethodParameterCreator = true, IsLocalClient = true)]
-    public interface ICallbackNode
+    [ServerNode(IsAutoMethodIndex = false, IsMethodParameterCreator = true, IsLocalClient = true)]
+    public partial interface ICallbackNode
     {
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(int value);
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 2)]
+        void SnapshotSet64(long value);
+        [ServerMethod(IsPersistence = false)]
+        bool CheckSnapshot();
         [ServerMethod(IsPersistence = false)]
         void SetValueCallback(int value, MethodCallback<int> callback);
         [ServerMethod(IsPersistence = false)]
@@ -55,8 +59,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         void SetServerByteArray(ServerByteArray value);
         [ServerMethod(IsPersistence = false)]
         ServerByteArray GetServerByteArray();
-        void SetJsonValue(JsonValue<TestClass> value);
+        void SetJsonValue(Game.Monster value);
         [ServerMethod(IsPersistence = false)]
-        JsonValue<TestClass> GetJsonValue();
+        Game.Monster GetJsonValue();
     }
 }

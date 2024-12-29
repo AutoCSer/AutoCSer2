@@ -1,16 +1,13 @@
-﻿using AutoCSer.CommandService;
-using AutoCSer.Net;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Xml.Serialization;
 
 namespace AutoCSer.Document.ServiceAuthentication.TimestampVerify
 {
     /// <summary>
     /// 无身份认证（字符串匹配认证）命令客户端套接字事件
     /// </summary>
-    internal sealed class CommandClientSocketEvent : TimestampVerifyCommandClientSocketEvent
+    internal sealed class CommandClientSocketEvent : AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent<CommandClientSocketEvent>
     {
         /// <summary>
         /// 测试接口
@@ -20,15 +17,15 @@ namespace AutoCSer.Document.ServiceAuthentication.TimestampVerify
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
-        public override IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters
+        public override IEnumerable<AutoCSer.Net.CommandClientControllerCreatorParameter> ControllerCreatorParameters
         {
             get
             {
-                foreach (CommandClientControllerCreatorParameter creatorParameter in base.ControllerCreatorParameters)
+                foreach (AutoCSer.Net.CommandClientControllerCreatorParameter creatorParameter in base.ControllerCreatorParameters)
                 {
                     yield return creatorParameter;
                 }
-                yield return new CommandClientControllerCreatorParameter(typeof(ITestService), typeof(ITestServiceClientController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(ITestService), typeof(ITestServiceClientController));
             }
         }
         /// <summary>
@@ -36,56 +33,33 @@ namespace AutoCSer.Document.ServiceAuthentication.TimestampVerify
         /// </summary>
         /// <param name="client">命令客户端</param>
         /// <param name="verifyString">服务认证验证字符串</param>
-        public CommandClientSocketEvent(ICommandClient client, string verifyString) : base(client, verifyString) { }
+        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client, string verifyString) : base(client, verifyString) { }
 
         /// <summary>
-        /// 无身份认证（字符串匹配认证）测试
+        /// 客户端单例
         /// </summary>
-        /// <returns></returns>
-        internal static async Task<bool> Test()
+        public static readonly AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
         {
-            CommandServerConfig commandServerConfig = new CommandServerConfig
-            {
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-            };
-            await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                .Append<ITestService>(new TestService())
-                .CreateCommandListener(commandServerConfig))
-            {
-                if (!await commandListener.Start())
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
-
-                return await client();
-            }
-        }
+            Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
+            ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+            GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
+        });
         /// <summary>
         /// 无身份认证（字符串匹配认证）客户端测试
         /// </summary>
         /// <returns></returns>
-        private static async Task<bool> client()
+        public static async Task<bool> Test()
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig
+            CommandClientSocketEvent? client = await CommandClient.SocketEvent.Wait();
+            if (client == null)
             {
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
-                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
-            };
-            using (CommandClient commandClient = new CommandClient(commandClientConfig))
-            {
-                CommandClientSocketEvent? client = (CommandClientSocketEvent?)await commandClient.GetSocketEvent();
-                if (client == null)
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
 
-                var result = await client.TestService.Add(1, 2);
-                if (result.Value != 1 + 2)
-                {
-                    return AutoCSer.Breakpoint.ReturnFalse();
-                }
+            var result = await client.TestService.Add(1, 2);
+            if (result.Value != 1 + 2)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             return true;
         }

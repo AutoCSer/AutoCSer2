@@ -11,6 +11,7 @@ namespace AutoCSer.SearchTree
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
+    [RemoteType]
     public sealed partial class Dictionary<KT, VT> where KT : IComparable<KT>
     {
         /// <summary>

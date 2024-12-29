@@ -21,44 +21,44 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            result = await node.Value.FillArray("A");
+            result = await node.Value.FillArray(TestClass.String1);
             if (!Program.Breakpoint(result)) return;
-            intResult = await node.Value.IndexOfArray("A");
+            intResult = await node.Value.IndexOfArray(TestClass.String1);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 0)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.LastIndexOfArray("A");
+            intResult = await node.Value.LastIndexOfArray(TestClass.String1);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != length - 1)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<bool> boolResult = await node.Value.Fill("B", 1, length - 2);
+            ResponseResult<bool> boolResult = await node.Value.Fill(TestClass.String2, 1, length - 2);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.IndexOfArray("B");
+            intResult = await node.Value.IndexOfArray(TestClass.String2);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 1)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.LastIndexOfArray("B");
+            intResult = await node.Value.LastIndexOfArray(TestClass.String2);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != length - 2)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.SetValue(2, "C");
+            boolResult = await node.Value.SetValue(2, TestClass.String3);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
@@ -67,21 +67,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
             ResponseResult<ValueResult<string>> stringResult = await node.Value.GetValue(2);
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "C")
+            if (stringResult.Value.Value != TestClass.String3)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value}+ERROR*");
                 return;
             }
             result = await node.Value.SortArray();
             if (!Program.Breakpoint(result)) return;
-            intResult = await node.Value.LastIndexOfArray("A");
+            intResult = await node.Value.LastIndexOfArray(TestClass.String1);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 1)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.IndexOfArray("C");
+            intResult = await node.Value.IndexOfArray(TestClass.String3);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != length - 1)
             {
@@ -90,30 +90,30 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
             result = await node.Value.ReverseArray();
             if (!Program.Breakpoint(result)) return;
-            intResult = await node.Value.IndexOfArray("A");
+            intResult = await node.Value.IndexOfArray(TestClass.String1);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != length - 2)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.LastIndexOfArray("C");
+            intResult = await node.Value.LastIndexOfArray(TestClass.String3);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 0)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            stringResult = await node.Value.GetValueSet(1, "C");
+            stringResult = await node.Value.GetValueSet(1, TestClass.String3);
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "B")
+            if (stringResult.Value.Value != TestClass.String2)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value}+ERROR*");
                 return;
             }
             stringResult = await node.Value.GetValue(1);
             if (!Program.Breakpoint(stringResult)) return;
-            if (stringResult.Value.Value != "C")
+            if (stringResult.Value.Value != TestClass.String3)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{stringResult.Value}+ERROR*");
                 return;
@@ -125,21 +125,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.IndexOfArray("B");
+            intResult = await node.Value.IndexOfArray(TestClass.String2);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != -1)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.Fill("B", 1, length - 2);
+            boolResult = await node.Value.Fill(TestClass.String2, 1, length - 2);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.LastIndexOfArray("B");
+            intResult = await node.Value.LastIndexOfArray(TestClass.String2);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != length - 2)
             {
@@ -153,7 +153,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.LastIndexOfArray("C");
+            intResult = await node.Value.LastIndexOfArray(TestClass.String3);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 2)
             {
@@ -167,7 +167,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            intResult = await node.Value.LastIndexOfArray("B");
+            intResult = await node.Value.LastIndexOfArray(TestClass.String2);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 2)
             {

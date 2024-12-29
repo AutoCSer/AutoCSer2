@@ -97,7 +97,7 @@
             </summary>
             <param name="file"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.FileTime.Check(System.Collections.Generic.Dictionary{AutoCSer.HashString,System.IO.FileInfo},System.Collections.Generic.Dictionary{AutoCSer.HashString,System.IO.FileInfo})">
+        <member name="M:AutoCSer.CommandService.DeployTask.FileTime.Check(System.Collections.Generic.Dictionary{System.String,System.IO.FileInfo},System.Collections.Generic.Dictionary{System.String,System.IO.FileInfo})">
             <summary>
             检查返回匹配的文件
             </summary>

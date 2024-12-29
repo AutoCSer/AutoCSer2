@@ -114,7 +114,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateDistributedLockNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return node.CreateNode<IDistributedLockNode<T>, DistributedLockNode<T>, DistributedLockIdentity<T>>(index, key, nodeInfo, () => new DistributedLockNode<T>());
+            return node.CreateSnapshotNode<IDistributedLockNode<T>>(index, key, nodeInfo, () => new DistributedLockNode<T>());
         }
         /// <summary>
         /// 创建字典节点 IByteArrayFragmentDictionaryNode{KT}
@@ -126,11 +126,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateByteArrayFragmentDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
-#if NetStandard21
-            return node.CreateNode<IByteArrayFragmentDictionaryNode<T>, ByteArrayFragmentDictionaryNode<T>, KeyValue<T, byte[]?>>(index, key, nodeInfo, () => new ByteArrayFragmentDictionaryNode<T>());
-#else
-            return node.CreateNode<IByteArrayFragmentDictionaryNode<T>, ByteArrayFragmentDictionaryNode<T>, KeyValue<T, byte[]>>(index, key, nodeInfo, () => new ByteArrayFragmentDictionaryNode<T>());
-#endif
+            return node.CreateSnapshotNode<IByteArrayFragmentDictionaryNode<T>>(index, key, nodeInfo, () => new ByteArrayFragmentDictionaryNode<T>());
         }
         /// <summary>
         /// 创建字典节点 IByteArrayDictionaryNode{KT}
@@ -143,11 +139,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateByteArrayDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-#if NetStandard21
-            return node.CreateNode<IByteArrayDictionaryNode<T>, ByteArrayDictionaryNode<T>, KeyValue<T, byte[]?>>(index, key, nodeInfo, () => new ByteArrayDictionaryNode<T>(capacity));
-#else
-            return node.CreateNode<IByteArrayDictionaryNode<T>, ByteArrayDictionaryNode<T>, KeyValue<T, byte[]>>(index, key, nodeInfo, () => new ByteArrayDictionaryNode<T>(capacity));
-#endif
+            return node.CreateSnapshotNode<IByteArrayDictionaryNode<T>>(index, key, nodeInfo, () => new ByteArrayDictionaryNode<T>(capacity));
         }
         /// <summary>
         /// 创建 256 基分片哈希表节点 IFragmentHashSetNode{KT}
@@ -159,7 +151,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateFragmentHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return node.CreateNode<IFragmentHashSetNode<T>, FragmentHashSetNode<T>, T>(index, key, nodeInfo, () => new FragmentHashSetNode<T>());
+            return node.CreateSnapshotNode<IFragmentHashSetNode<T>>(index, key, nodeInfo, () => new FragmentHashSetNode<T>());
         }
         /// <summary>
         /// 创建哈希表节点 IHashSetNode{KT}
@@ -171,7 +163,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return node.CreateNode<IHashSetNode<T>, HashSetNode<T>, T>(index, key, nodeInfo, () => new HashSetNode<T>());
+            return node.CreateSnapshotNode<IHashSetNode<T>>(index, key, nodeInfo, () => new HashSetNode<T>());
         }
     }
 }

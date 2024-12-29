@@ -1,7 +1,6 @@
-﻿using AutoCSer.Memory;
-using AutoCSer.Net;
-using System;
+﻿using System;
 using System.IO.Compression;
+using System.Reflection;
 
 namespace AutoCSer.Document.ServiceAuthentication.TransferEncoding
 {
@@ -68,6 +67,36 @@ namespace AutoCSer.Document.ServiceAuthentication.TransferEncoding
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 客户端单例
+        /// </summary>
+        public static readonly AutoCSer.Net.CommandClientSocketEventCache<TimestampVerify.CommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<TimestampVerify.CommandClientSocketEvent>(new CommandClientCompressConfig
+        {
+            MinCompressSize = 1 << 10,
+            Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
+            ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+            GetSocketEventDelegate = (client) => new TimestampVerify.CommandClientSocketEvent(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
+        });
+        /// <summary>
+        /// 支持传输数据压缩的配置客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> Test()
+        {
+            TimestampVerify.CommandClientSocketEvent? client = await CommandClient.SocketEvent.Wait();
+            if (client == null)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            var result = await client.TestService.Add(1, 2);
+            if (result.Value != 1 + 2)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            return true;
         }
     }
 }

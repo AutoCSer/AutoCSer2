@@ -6,8 +6,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 栈节点（后进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(StackNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IStackNode<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IStackNode<T>
     {
         /// <summary>
         /// 获取数据数量
@@ -30,7 +30,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 将数据添加到栈
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsSnapshotMethod = true, IsIgnorePersistenceCallbackException = true)]
+        [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         void Push(T value);
         /// <summary>
         /// 从栈中弹出一个数据

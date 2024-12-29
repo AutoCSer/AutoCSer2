@@ -3,6 +3,7 @@ using AutoCSer.CommandService.DiskBlock;
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -72,12 +73,12 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
-        public async Task<CommandClientReturnValue<BlockIndex>> WriteAsync(SubArray<byte> data)
+        public ReturnCommand<BlockIndex> WriteAsync(SubArray<byte> data)
         {
             bool isIndex;
             BlockIndex index = BlockIndex.GetIndexSize(ref data, out isIndex);
-            if (isIndex) return index;
-            return await Client.Write(data);
+            if (isIndex) return new CompletedReturnCommand<BlockIndex>(ref index);
+            return Client.Write(data);
         }
         /// <summary>
         /// 写入字符串
@@ -122,12 +123,12 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
-        public async Task<CommandClientReturnValue<BlockIndex>> WriteStringAsync(string data)
+        public ReturnCommand<BlockIndex> WriteStringAsync(string data)
         {
             bool isIndex;
             BlockIndex index = BlockIndex.GetIndexSize(data, out isIndex);
-            if (isIndex) return index;
-            return await Client.Write(data);
+            if (isIndex) return new CompletedReturnCommand<BlockIndex>(ref index);
+            return Client.Write(data);
         }
         /// <summary>
         /// 写入 JSON
@@ -171,10 +172,10 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
-        public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonAsync<T>(T data)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ReturnCommand<BlockIndex> WriteJsonAsync<T>(T data)
         {
-            if (data == null) return BlockIndex.JsonNull;
-            return await Client.Write(new WriteBuffer(new JsonSerializer<T>(data)));
+            return data == null ? BlockIndex.JsonNullCompletedReturnCommand : Client.Write(new WriteBuffer(new JsonSerializer<T>(data)));
         }
         /// <summary>
         /// 写入 JSON
@@ -218,10 +219,11 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
-        public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ReturnCommand<BlockIndex> WriteJsonMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
-            if (data.Value == null) return BlockIndex.JsonNull;
-            return await Client.Write(new WriteBuffer(new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data)));
+            if (data.Value == null) return BlockIndex.JsonNullCompletedReturnCommand;
+            return Client.Write(new WriteBuffer(new JsonSerializer<AutoCSer.Metadata.MemberMapValue<T>>(data)));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -265,10 +267,11 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
-        public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryAsync<T>(T data)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ReturnCommand<BlockIndex> WriteBinaryAsync<T>(T data)
         {
-            if (data == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))));
+            if (data == null) return BlockIndex.BinarySerializeNullValueCompletedReturnCommand;
+            return Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -312,10 +315,11 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
-        public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ReturnCommand<BlockIndex> WriteBinaryMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
-            if (data.Value == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))));
+            if (data.Value == null) return BlockIndex.BinarySerializeNullValueCompletedReturnCommand;
+            return Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))));
         }
 
         /// <summary>

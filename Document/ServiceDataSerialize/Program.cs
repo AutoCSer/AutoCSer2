@@ -7,8 +7,12 @@ namespace AutoCSer.Document.ServiceDataSerialize
     /// </summary>
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            //允许的反射创建非明确对象的类型
+            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(AutoCSer.Document.ServiceDataSerialize.BinarySerialize.RealType));
+
+            Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.Json)} {BinarySerialize.Json.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.LoopReference)} {BinarySerialize.LoopReference.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.DisabledReference)} {BinarySerialize.DisabledReference.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.PublicInstanceField)} {BinarySerialize.PublicInstanceField.TestCase()}");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -48,17 +49,19 @@ namespace AutoCSer.CommandService
         /// 执行任务
         /// </summary>
         /// <returns>错误日志</returns>
-        async Task<DeployTaskLog> IDeployTask.Run()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        Task<DeployTaskLog> IDeployTask.Run()
         {
-            return await getTask();
+            return getTask();
         }
         /// <summary>
         /// 取消任务
         /// </summary>
         /// <returns></returns>
-        async Task IDeployTask.Cancel()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        Task IDeployTask.Cancel()
         {
-            if (getCancelTask != null) await getCancelTask();
+            return getCancelTask != null ? getCancelTask() : AutoCSer.Common.CompletedTask;
         }
     }
 }

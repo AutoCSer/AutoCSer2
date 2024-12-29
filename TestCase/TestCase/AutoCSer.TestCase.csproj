@@ -15,6 +15,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.xml</DocumentationFile>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -76,6 +77,9 @@
     <Compile Include="Data\Field.cs" />
     <Compile Include="Data\Float.cs" />
     <Compile Include="Data\InheritProperty.cs" />
+    <Compile Include="Data\JsonEmpty.cs" />
+    <Compile Include="Data\JsonField.cs" />
+    <Compile Include="Data\JsonProperty.cs" />
     <Compile Include="Data\MemberClass.cs" />
     <Compile Include="Data\NoMemberClass.cs" />
     <Compile Include="Data\ORM\BusinessModel.cs" />
@@ -84,7 +88,9 @@
     <Compile Include="Data\ORM\ModelAssociated.cs" />
     <Compile Include="Data\ORM\ModelGeneric.cs" />
     <Compile Include="Data\Property.cs" />
+    <Compile Include="Data\JsonStructField.cs" />
     <Compile Include="Data\StructField.cs" />
+    <Compile Include="Data\JsonStructProperty.cs" />
     <Compile Include="Data\StructProperty.cs" />
     <Compile Include="InterfaceControllerTaskQueue.cs" />
     <Compile Include="Xml.cs" />

@@ -6,14 +6,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 字典节点接口
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(ByteArrayDictionaryNodeMethodEnum), IsAutoMethodIndex = false)]
-    public interface IByteArrayDictionaryNode<KT> where KT : IEquatable<KT>
+    [ServerNode(IsAutoMethodIndex = false)]
+    public partial interface IByteArrayDictionaryNode<KT> where KT : IEquatable<KT>
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotAdd(KeyValue<KT, byte[]> value);
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）

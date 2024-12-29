@@ -6,14 +6,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 分布式锁节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(DistributedLockNodeeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IDistributedLockNode<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IDistributedLockNode<T>
     {
         /// <summary>
         /// 快照设置数据
         /// </summary>
         /// <param name="value">数据</param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(DistributedLockIdentity<T> value);
         /// <summary>
         /// 申请锁

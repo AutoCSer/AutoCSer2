@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 消息处理节点
     /// </summary>
     /// <typeparam name="T">消息数据类型</typeparam>
-    public class MessageNode<T> : ContextNode<IMessageNode<T>>, IMessageNode<T>, ISnapshot<T>
+    public class MessageNode<T> : ContextNode<IMessageNode<T>, T>, IMessageNode<T>, ISnapshot<T>
         where T : Message<T>
     {
         /// <summary>
@@ -157,23 +157,34 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             while (callbacks.Length != 0) callbacks.Array[--callbacks.Length].Callback.notNull().CancelKeep();
         }
         /// <summary>
+        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// </summary>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据集合容器大小</returns>
+        public int GetSnapshotCapacity(ref object customObject)
+        {
+            return count + failedCount + 1;
+        }
+        /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <returns>快照数据集合</returns>
-        public LeftArray<T> GetSnapshotArray()
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据信息</returns>
+        public SnapshotResult<T> GetSnapshotResult(T[] snapshotArray, object customObject)
         {
-            LeftArray<T> array = new LeftArray<T>(count + failedCount + 1);
+            SnapshotResult<T> result = new SnapshotResult<T>(count + failedCount + 1, snapshotArray.Length);
             if (!object.ReferenceEquals(linkHead, failedHead))
             {
-                for (var message = linkHead; message != null; message = message.LinkNext) array.Add(message);
+                for (var message = linkHead; message != null; message = message.LinkNext) result.Add(snapshotArray, message);
             }
             for (var message = failedHead.LinkNext; message != null; message = message.LinkNext)
             {
-                if ((message.MessageIdeneity.Flags & MessageFlagsEnum.Completed) != 0) array.Add(message);
+                if ((message.MessageIdeneity.Flags & MessageFlagsEnum.Completed) != 0) result.Add(snapshotArray, message);
             }
             failedHead.MessageIdeneity.Identity = CurrentIdentity;
-            array.Add(failedHead);
-            return array;
+            result.Add(snapshotArray, failedHead);
+            return result;
         }
         /// <summary>
         /// 快照设置数据

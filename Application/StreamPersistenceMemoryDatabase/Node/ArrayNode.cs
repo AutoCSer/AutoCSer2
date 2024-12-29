@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -22,20 +23,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             array = new T[length];
         }
         /// <summary>
+        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// </summary>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据集合容器大小</returns>
+        public int GetSnapshotCapacity(ref object customObject)
+        {
+            return array.Length;
+        }
+        /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <returns>快照数据集合</returns>
-        public LeftArray<KeyValue<int, T>> GetSnapshotArray()
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据信息</returns>
+        public SnapshotResult<KeyValue<int, T>> GetSnapshotResult(KeyValue<int, T>[] snapshotArray, object customObject)
         {
-            LeftArray<KeyValue<int, T>> snapshotArray = new LeftArray<KeyValue<int, T>>(array.Length);
-            int index = 0;
+            int index = 0, snapshotIndex = 0;
             foreach (T value in array)
             {
-                if (value != null) snapshotArray.Array[snapshotArray.Length++].Set(index, value);
+                if (value != null) snapshotArray[snapshotIndex++].Set(index, value);
                 ++index;
             }
-            return snapshotArray;
+            return new SnapshotResult<KeyValue<int, T>>(snapshotIndex);
         }
+        /// <summary>
+        /// 持久化之前重组快照数据
+        /// </summary>
+        /// <param name="array">预申请快照容器数组</param>
+        /// <param name="newArray">超预申请快照数据</param>
+        public void SetSnapshotResult(ref LeftArray<KeyValue<int, T>> array, ref LeftArray<KeyValue<int, T>> newArray) { }
         /// <summary>
         /// 快照设置数据
         /// </summary>

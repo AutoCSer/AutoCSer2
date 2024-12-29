@@ -67,13 +67,14 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<BT?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null)
+        public Task<BT?> GetByPrimaryKey(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null)
 #else
-        public async Task<BT> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null)
+        public Task<BT> GetByPrimaryKey(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null)
 #endif
         {
-            return await TableQuery.GetByPrimaryKey<BT>(primaryKey, memberMap, transaction);
+            return TableQuery.GetByPrimaryKey<BT>(primaryKey, memberMap, transaction);
         }
         /// <summary>
         /// 根据关键字查询表格数据
@@ -83,13 +84,14 @@ namespace AutoCSer.ORM
         /// <param name="memberMap">查询成员位图，默认为所有成员</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, BT
+        public Task<VT?> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T>? memberMap = null, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, BT
+        public Task<VT> GetByPrimaryKey<VT>(KT primaryKey, MemberMap<T> memberMap = null, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await TableQuery.GetByPrimaryKey<VT>(primaryKey, memberMap, transaction);
+            return TableQuery.GetByPrimaryKey<VT>(primaryKey, memberMap, transaction);
         }
         /// <summary>
         /// 查询第一个表格数据
@@ -98,13 +100,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<BT?> SingleOrDefault(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<BT?> SingleOrDefault(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<BT> SingleOrDefault(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<BT> SingleOrDefault(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction, condition).SingleOrDefault<BT>(timeoutSeconds, transaction);
+            return CreateQuery(ref transaction, condition).SingleOrDefault<BT>(timeoutSeconds, transaction);
         }
         /// <summary>
         /// 查询第一个表格数据
@@ -112,13 +115,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<BT?> SingleOrDefault(Query<T> query, Transaction? transaction = null)
+        public Task<BT?> SingleOrDefault(Query<T> query, Transaction? transaction = null)
 #else
-        public async Task<BT> SingleOrDefault(Query<T> query, Transaction transaction = null)
+        public Task<BT> SingleOrDefault(Query<T> query, Transaction transaction = null)
 #endif
         {
-            return await TableQuery.SingleOrDefault<BT>(query, transaction);
+            return TableQuery.SingleOrDefault<BT>(query, transaction);
         }
         /// <summary>
         /// 查询第一个表格数据
@@ -128,13 +132,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> SingleOrDefault<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
+        public Task<VT?> SingleOrDefault<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<VT> SingleOrDefault<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
+        public Task<VT> SingleOrDefault<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await CreateQuery(ref transaction, condition).SingleOrDefault<VT>(timeoutSeconds, transaction);
+            return CreateQuery(ref transaction, condition).SingleOrDefault<VT>(timeoutSeconds, transaction);
         }
         /// <summary>
         /// 查询第一个表格数据
@@ -143,13 +148,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> SingleOrDefault<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
+        public Task<VT?> SingleOrDefault<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<VT> SingleOrDefault<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
+        public Task<VT> SingleOrDefault<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await TableQuery.SingleOrDefault<VT>(query, transaction);
+            return TableQuery.SingleOrDefault<VT>(query, transaction);
         }
         /// <summary>
         /// 判断是否存在表格记录（设置查询列为表格主键）
@@ -158,13 +164,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<bool> Exists(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<bool> Exists(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<bool> Exists(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<bool> Exists(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Exists(timeoutSeconds, transaction);
+            return CreateQuery(ref transaction, condition).Exists(timeoutSeconds, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -173,13 +180,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<BT>> Query(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<LeftArray<BT>> Query(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<LeftArray<BT>> Query(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<LeftArray<BT>> Query(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Query<BT>(0, timeoutSeconds, 0, transaction);
+            return CreateQuery(ref transaction, condition).Query<BT>(0, timeoutSeconds, 0, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -187,13 +195,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<BT>> Query(Query<T> query, Transaction? transaction = null)
+        public Task<LeftArray<BT>> Query(Query<T> query, Transaction? transaction = null)
 #else
-        public async Task<LeftArray<BT>> Query(Query<T> query, Transaction transaction = null)
+        public Task<LeftArray<BT>> Query(Query<T> query, Transaction transaction = null)
 #endif
         {
-            return await TableQuery.Query<BT>(query, transaction);
+            return TableQuery.Query<BT>(query, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -202,13 +211,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<VT>> Query<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
+        public Task<LeftArray<VT>> Query<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<LeftArray<VT>> Query<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
+        public Task<LeftArray<VT>> Query<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Query<VT>(0, timeoutSeconds, 0, transaction);
+            return CreateQuery(ref transaction, condition).Query<VT>(0, timeoutSeconds, 0, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -217,13 +227,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
+        public Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
+        public Task<LeftArray<VT>> Query<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await TableQuery.Query<VT>(query, transaction);
+            return TableQuery.Query<VT>(query, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -234,13 +245,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<CT>> QueryCast<CT>(Func<T, CT> getValue, Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<LeftArray<CT>> QueryCast<CT>(Func<T, CT> getValue, Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<LeftArray<CT>> QueryCast<CT>(Func<T, CT> getValue, Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<LeftArray<CT>> QueryCast<CT>(Func<T, CT> getValue, Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Query<CT>(getValue, 0, timeoutSeconds, 0, transaction);
+            return CreateQuery(ref transaction, condition).Query<CT>(getValue, 0, timeoutSeconds, 0, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -250,13 +262,14 @@ namespace AutoCSer.ORM
         /// <param name="getValue">数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<CT>> QueryCast<CT>(Query<T> query, Func<T, CT> getValue, Transaction? transaction = null)
+        public Task<LeftArray<CT>> QueryCast<CT>(Query<T> query, Func<T, CT> getValue, Transaction? transaction = null)
 #else
-        public async Task<LeftArray<CT>> QueryCast<CT>(Query<T> query, Func<T, CT> getValue, Transaction transaction = null)
+        public Task<LeftArray<CT>> QueryCast<CT>(Query<T> query, Func<T, CT> getValue, Transaction transaction = null)
 #endif
         {
-            return await TableQuery.Query<BT, CT>(query, getValue, transaction);
+            return TableQuery.Query<BT, CT>(query, getValue, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -268,13 +281,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<CT>> QueryCast<VT, CT>(Func<VT, CT> getValue, Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
+        public Task<LeftArray<CT>> QueryCast<VT, CT>(Func<VT, CT> getValue, Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<LeftArray<CT>> QueryCast<VT, CT>(Func<VT, CT> getValue, Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
+        public Task<LeftArray<CT>> QueryCast<VT, CT>(Func<VT, CT> getValue, Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Query<VT, CT>(getValue, 0, timeoutSeconds, 0, transaction);
+            return CreateQuery(ref transaction, condition).Query<VT, CT>(getValue, 0, timeoutSeconds, 0, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -285,13 +299,14 @@ namespace AutoCSer.ORM
         /// <param name="getValue">数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<LeftArray<CT>> QueryCast<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction? transaction = null) where VT : class, BT
+        public Task<LeftArray<CT>> QueryCast<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<LeftArray<CT>> QueryCast<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction transaction = null) where VT : class, BT
+        public Task<LeftArray<CT>> QueryCast<VT, CT>(Query<T> query, Func<VT, CT> getValue, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await TableQuery.Query<VT, CT>(query, getValue, transaction);
+            return TableQuery.Query<VT, CT>(query, getValue, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -300,13 +315,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<SelectEnumerator<T, BT>> Select(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<SelectEnumerator<T, BT>> Select(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<SelectEnumerator<T, BT>> Select(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<SelectEnumerator<T, BT>> Select(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Select<BT>(0, timeoutSeconds, 0, transaction);
+            return CreateQuery(ref transaction, condition).Select<BT>(0, timeoutSeconds, 0, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -314,14 +330,15 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<SelectEnumerator<T, BT>> Select(Query<T> query, Transaction? transaction = null)
+        public Task<SelectEnumerator<T, BT>> Select(Query<T> query, Transaction? transaction = null)
 #else
-        public async Task<SelectEnumerator<T, BT>> Select(Query<T> query, Transaction transaction = null)
+        public Task<SelectEnumerator<T, BT>> Select(Query<T> query, Transaction transaction = null)
 #endif
         {
             TableQuery.Writer.ConnectionPool.CheckTransaction(ref transaction);
-            return await TableQuery.Writer.Select<BT>(query, transaction);
+            return TableQuery.Writer.Select<BT>(query, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -331,13 +348,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<SelectEnumerator<T, VT>> Select<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
+        public Task<SelectEnumerator<T, VT>> Select<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<SelectEnumerator<T, VT>> Select<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
+        public Task<SelectEnumerator<T, VT>> Select<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Select<VT>(0, timeoutSeconds, 0, transaction);
+            return CreateQuery(ref transaction, condition).Select<VT>(0, timeoutSeconds, 0, transaction);
         }
         /// <summary>
         /// 查询表格数据
@@ -346,14 +364,15 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
+        public Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
+        public Task<SelectEnumerator<T, VT>> Select<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
 #endif
         {
             TableQuery.Writer.ConnectionPool.CheckTransaction(ref transaction);
-            return await TableQuery.Writer.Select<VT>(query, transaction);
+            return TableQuery.Writer.Select<VT>(query, transaction);
         }
         /// <summary>
         /// 查询表格数据数量
@@ -362,13 +381,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<long> Count(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<long> Count(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<long> Count(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<long> Count(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction, condition).Count(timeoutSeconds, transaction);
+            return CreateQuery(ref transaction, condition).Count(timeoutSeconds, transaction);
         }
         /// <summary>
         /// 查询字段求和结果
@@ -379,13 +399,14 @@ namespace AutoCSer.ORM
         /// <param name="defaultValue">查询失败返回的默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> Sum<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
+        public Task<VT?> Sum<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
 #else
-        public async Task<VT> Sum<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
+        public Task<VT> Sum<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction).Sum<VT>(member, timeoutSeconds, defaultValue, transaction);
+            return CreateQuery(ref transaction).Sum<VT>(member, timeoutSeconds, defaultValue, transaction);
         }
         /// <summary>
         /// 查询字段最大值
@@ -396,13 +417,14 @@ namespace AutoCSer.ORM
         /// <param name="defaultValue">查询失败返回的默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> Max<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
+        public Task<VT?> Max<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
 #else
-        public async Task<VT> Max<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
+        public Task<VT> Max<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction).Max<VT>(member, timeoutSeconds, defaultValue, transaction);
+            return CreateQuery(ref transaction).Max<VT>(member, timeoutSeconds, defaultValue, transaction);
         }
         /// <summary>
         /// 查询字段最小值
@@ -413,13 +435,14 @@ namespace AutoCSer.ORM
         /// <param name="defaultValue">查询失败返回的默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<VT?> Min<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
+        public Task<VT?> Min<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT? defaultValue = default(VT), Transaction? transaction = null)
 #else
-        public async Task<VT> Min<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
+        public Task<VT> Min<VT>(Expression<Func<T, VT>> member, int timeoutSeconds = 0, VT defaultValue = default(VT), Transaction transaction = null)
 #endif
         {
-            return await CreateQuery(ref transaction).Min<VT>(member, timeoutSeconds, defaultValue, transaction);
+            return CreateQuery(ref transaction).Min<VT>(member, timeoutSeconds, defaultValue, transaction);
         }
         /// <summary>
         /// 获取表格关键字数据字典
@@ -428,13 +451,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<Dictionary<KT, BT>> GetDictionary(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
+        public Task<Dictionary<KT, BT>> GetDictionary(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null)
 #else
-        public async Task<Dictionary<KT, BT>> GetDictionary(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
+        public Task<Dictionary<KT, BT>> GetDictionary(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null)
 #endif
         {
-            return await TableQuery.GetDictionary<BT>(CreateQuery(ref transaction, condition).GetQuery(0, timeoutSeconds, 0), transaction);
+            return TableQuery.GetDictionary<BT>(CreateQuery(ref transaction, condition).GetQuery(0, timeoutSeconds, 0), transaction);
         }
         /// <summary>
         /// 获取表格关键字数据字典
@@ -442,13 +466,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<Dictionary<KT, BT>> GetDictionary(Query<T> query, Transaction? transaction = null)
+        public Task<Dictionary<KT, BT>> GetDictionary(Query<T> query, Transaction? transaction = null)
 #else
-        public async Task<Dictionary<KT, BT>> GetDictionary(Query<T> query, Transaction transaction = null)
+        public Task<Dictionary<KT, BT>> GetDictionary(Query<T> query, Transaction transaction = null)
 #endif
         {
-            return await TableQuery.GetDictionary<BT>(query, transaction);
+            return TableQuery.GetDictionary<BT>(query, transaction);
         }
         /// <summary>
         /// 获取表格关键字数据字典
@@ -458,13 +483,14 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<Dictionary<KT, VT>> GetDictionary<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
+        public Task<Dictionary<KT, VT>> GetDictionary<VT>(Expression<Func<T, bool>>? condition = null, int timeoutSeconds = 0, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<Dictionary<KT, VT>> GetDictionary<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
+        public Task<Dictionary<KT, VT>> GetDictionary<VT>(Expression<Func<T, bool>> condition = null, int timeoutSeconds = 0, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await TableQuery.GetDictionary<VT>(CreateQuery(ref transaction, condition).GetQuery(0, timeoutSeconds, 0), transaction);
+            return TableQuery.GetDictionary<VT>(CreateQuery(ref transaction, condition).GetQuery(0, timeoutSeconds, 0), transaction);
         }
         /// <summary>
         /// 获取表格关键字数据字典
@@ -473,13 +499,14 @@ namespace AutoCSer.ORM
         /// <param name="query"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public async Task<Dictionary<KT, VT>> GetDictionary<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
+        public Task<Dictionary<KT, VT>> GetDictionary<VT>(Query<T> query, Transaction? transaction = null) where VT : class, BT
 #else
-        public async Task<Dictionary<KT, VT>> GetDictionary<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
+        public Task<Dictionary<KT, VT>> GetDictionary<VT>(Query<T> query, Transaction transaction = null) where VT : class, BT
 #endif
         {
-            return await TableQuery.GetDictionary<VT>(query, transaction);
+            return TableQuery.GetDictionary<VT>(query, transaction);
         }
         /// <summary>
         /// 根据数据库关键字创建字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -488,9 +515,10 @@ namespace AutoCSer.ORM
         /// <param name="reserveCapacity">字典初始预留容器大小</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<DictionaryEventCache<T, BT, KT>> CreateDictionaryCache(Action<Func<Task>> appendQueue, int reserveCapacity = 256, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<DictionaryEventCache<T, BT, KT>> CreateDictionaryCache(Action<Func<Task>> appendQueue, int reserveCapacity = 256, bool isEventAvailable = true)
         {
-            return await TableQuery.CreateDictionaryCache<BT>(appendQueue, reserveCapacity, isEventAvailable);
+            return TableQuery.CreateDictionaryCache<BT>(appendQueue, reserveCapacity, isEventAvailable);
         }
         /// <summary>
         /// 根据数据库关键字创建字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -500,10 +528,11 @@ namespace AutoCSer.ORM
         /// <param name="reserveCapacity">字典初始预留容器大小</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<DictionaryEventCache<T, VT, KT>> CreateDictionaryCache<VT>(Action<Func<Task>> appendQueue, int reserveCapacity = 256, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<DictionaryEventCache<T, VT, KT>> CreateDictionaryCache<VT>(Action<Func<Task>> appendQueue, int reserveCapacity = 256, bool isEventAvailable = true)
             where VT : class, BT
         {
-            return await TableQuery.CreateDictionaryCache<VT>(appendQueue, reserveCapacity, isEventAvailable);
+            return TableQuery.CreateDictionaryCache<VT>(appendQueue, reserveCapacity, isEventAvailable);
         }
         /// <summary>
         /// 创建字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -514,10 +543,11 @@ namespace AutoCSer.ORM
         /// <param name="reserveCapacity">字典初始预留容器大小</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<DictionaryEventCache<T, BT, CKT>> CreateDictionaryCache<CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, int reserveCapacity = 256, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<DictionaryEventCache<T, BT, CKT>> CreateDictionaryCache<CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, int reserveCapacity = 256, bool isEventAvailable = true)
             where CKT : IEquatable<CKT>
         {
-            return await TableQuery.CreateDictionaryCache<BT, CKT>(appendQueue, getKey, reserveCapacity, isEventAvailable);
+            return TableQuery.CreateDictionaryCache<BT, CKT>(appendQueue, getKey, reserveCapacity, isEventAvailable);
         }
         /// <summary>
         /// 创建字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -529,11 +559,12 @@ namespace AutoCSer.ORM
         /// <param name="reserveCapacity">字典初始预留容器大小</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<DictionaryEventCache<T, VT, CKT>> CreateDictionaryCache<VT, CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, int reserveCapacity = 256, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<DictionaryEventCache<T, VT, CKT>> CreateDictionaryCache<VT, CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, int reserveCapacity = 256, bool isEventAvailable = true)
             where VT : class, BT
             where CKT : IEquatable<CKT>
         {
-            return await TableQuery.CreateDictionaryCache<VT, CKT>(appendQueue, getKey, reserveCapacity, isEventAvailable);
+            return TableQuery.CreateDictionaryCache<VT, CKT>(appendQueue, getKey, reserveCapacity, isEventAvailable);
         }
         /// <summary>
         /// 根据数据库关键字创建 256 基分片 字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -541,9 +572,10 @@ namespace AutoCSer.ORM
         /// <param name="appendQueue">添加队列任务</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<FragmentDictionaryEventCache<T, BT, KT>> CreateFragmentDictionaryCache(Action<Func<Task>> appendQueue, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<FragmentDictionaryEventCache<T, BT, KT>> CreateFragmentDictionaryCache(Action<Func<Task>> appendQueue, bool isEventAvailable = true)
         {
-            return await TableQuery.CreateFragmentDictionaryCache<BT>(appendQueue, isEventAvailable);
+            return TableQuery.CreateFragmentDictionaryCache<BT>(appendQueue, isEventAvailable);
         }
         /// <summary>
         /// 根据数据库关键字创建 256 基分片 字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -552,10 +584,11 @@ namespace AutoCSer.ORM
         /// <param name="appendQueue">添加队列任务</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<FragmentDictionaryEventCache<T, VT, KT>> CreateFragmentDictionaryCache<VT>(Action<Func<Task>> appendQueue, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<FragmentDictionaryEventCache<T, VT, KT>> CreateFragmentDictionaryCache<VT>(Action<Func<Task>> appendQueue, bool isEventAvailable = true)
             where VT : class, BT
         {
-            return await TableQuery.CreateFragmentDictionaryCache<VT>(appendQueue, isEventAvailable);
+            return TableQuery.CreateFragmentDictionaryCache<VT>(appendQueue, isEventAvailable);
         }
         /// <summary>
         /// 创建字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -565,10 +598,11 @@ namespace AutoCSer.ORM
         /// <param name="getKey">获取缓存数据关键字委托</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<FragmentDictionaryEventCache<T, BT, CKT>> CreateFragmentDictionaryCache<CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<FragmentDictionaryEventCache<T, BT, CKT>> CreateFragmentDictionaryCache<CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, bool isEventAvailable = true)
             where CKT : IEquatable<CKT>
         {
-            return await TableQuery.CreateFragmentDictionaryCache<BT, CKT>(appendQueue, getKey, isEventAvailable);
+            return TableQuery.CreateFragmentDictionaryCache<BT, CKT>(appendQueue, getKey, isEventAvailable);
         }
         /// <summary>
         /// 创建字典事件缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -579,11 +613,12 @@ namespace AutoCSer.ORM
         /// <param name="getKey">获取缓存数据关键字委托</param>
         /// <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
         /// <returns></returns>
-        public async Task<FragmentDictionaryEventCache<T, VT, CKT>> CreateFragmentDictionaryCache<VT, CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, bool isEventAvailable = true)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<FragmentDictionaryEventCache<T, VT, CKT>> CreateFragmentDictionaryCache<VT, CKT>(Action<Func<Task>> appendQueue, Func<T, CKT> getKey, bool isEventAvailable = true)
             where VT : class, BT
             where CKT : IEquatable<CKT>
         {
-            return await TableQuery.CreateFragmentDictionaryCache<VT, CKT>(appendQueue, getKey, isEventAvailable);
+            return TableQuery.CreateFragmentDictionaryCache<VT, CKT>(appendQueue, getKey, isEventAvailable);
         }
         /// <summary>
         /// 根据数据库关键字创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）

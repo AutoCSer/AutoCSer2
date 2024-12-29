@@ -2,6 +2,7 @@
 using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
+using AutoCSer.SimpleSerialize;
 using System;
 using System.IO;
 using System.Reflection;
@@ -224,6 +225,20 @@ namespace AutoCSer.CommandService
             return responseParameter;
         }
         /// <summary>
+        /// 获取请求参数序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="flags"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static RequestParameterSerializer getRequestParameterSerializer<T>(MethodFlagsEnum flags, ref T parameter)
+            where T : struct
+        {
+            if ((flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) return new RequestParameterSimpleSerializer<T>(ref parameter);
+            return new RequestParameterBinarySerializer<T>(ref parameter);
+        }
+        /// <summary>
         /// 调用节点方法
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -237,7 +252,7 @@ namespace AutoCSer.CommandService
             where T : struct
         {
             ResponseParameterAwaiter<ResponseParameter> responseParameterAwaiter = new ResponseParameterAwaiter<ResponseParameter>(node, responseParameter);
-            responseParameterAwaiter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter))));
+            responseParameterAwaiter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter))));
             return responseParameterAwaiter;
         }
         /// <summary>
@@ -253,18 +268,11 @@ namespace AutoCSer.CommandService
         internal static ResponseParameterAwaiter<RT> CallInputOutput<T, RT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, T parameter)
             where T : struct
         {
-            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
-            {
-                ResponseParameterAwaiter<RT> responseParameter = new SimpleSerializeResponseParameterAwaiter<RT>(node);
-                responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter))));
-                return responseParameter;
-            }
-            else
-            {
-                ResponseParameterAwaiter<RT> responseParameter = new BinarySerializeResponseParameterAwaiter<RT>(node);
-                responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter))));
-                return responseParameter;
-            }
+            ResponseParameterAwaiter<RT> responseParameter;
+            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0) responseParameter = new SimpleSerializeResponseParameterAwaiter<RT>(node);
+            else responseParameter = new BinarySerializeResponseParameterAwaiter<RT>(node);
+            responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter))));
+            return responseParameter;
         }
         /// <summary>
         /// 调用节点方法
@@ -299,7 +307,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static async Task<KeepCallbackResponse<ResponseParameterSerializer>> KeepCallbackResponseParameter(ClientNode node, int methodIndex, ResponseParameterSerializer responseParameter)
         {
-            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(responseParameter), node.Index, methodIndex);
+            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(responseParameter, 0), node.Index, methodIndex);
             if (enumeratorCommand == null) return KeepCallbackResponse<ResponseParameterSerializer>.NullResponse;
             try
             {
@@ -321,7 +329,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static async Task<KeepCallbackResponse<T>> KeepCallback<T>(ClientNode node, int methodIndex)
         {
-            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<T>.Default), node.Index, methodIndex);
+            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<T>.Default, 0), node.Index, methodIndex);
             if (enumeratorCommand == null) return KeepCallbackResponse<T>.NullResponse;
             try
             {
@@ -343,7 +351,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal static async Task<KeepCallbackResponse<T>> SimpleDeserializeKeepCallback<T>(ClientNode node, int methodIndex)
         {
-            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<T>.Default, true), node.Index, methodIndex);
+            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.KeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<T>.Default, MethodFlagsEnum.IsSimpleSerializeParamter), node.Index, methodIndex);
             if (enumeratorCommand == null) return KeepCallbackResponse<T>.NullResponse;
             try
             {
@@ -369,7 +377,7 @@ namespace AutoCSer.CommandService
         internal static async Task<KeepCallbackResponse<ResponseParameterSerializer>> InputKeepCallbackResponseParameter<T>(ClientNode node, int methodIndex, ResponseParameterSerializer responseParameter, MethodFlagsEnum flags, T parameter)
             where T : struct
         {
-            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(responseParameter), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
+            var enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(responseParameter, 0), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter)));
             if (enumeratorCommand == null) return KeepCallbackResponse<ResponseParameterSerializer>.NullResponse;
             try
             {
@@ -398,13 +406,13 @@ namespace AutoCSer.CommandService
             var enumeratorCommand = default(AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter>);
             if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
             {
-                enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<RT>.Default, true), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
+                enumeratorCommand = node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<RT>.Default, MethodFlagsEnum.IsSimpleSerializeParamter), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer(flags, ref parameter)));
             }
             else
             {
-                enumeratorCommand = await node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<RT>.Default), new RequestParameter(node.Index, methodIndex, (flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0 ? (RequestParameterSerializer)new RequestParameterSimpleSerializer<T>(ref parameter) : new RequestParameterBinarySerializer<T>(ref parameter)));
+                enumeratorCommand = node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<RT>.Default, 0), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer(flags, ref parameter)));
             }
-            if (enumeratorCommand == null) return KeepCallbackResponse<RT>.NullResponse;
+            if (await enumeratorCommand == null) return KeepCallbackResponse<RT>.NullResponse;
             try
             {
                 KeepCallbackResponse<RT> response = new KeepCallbackResponse<RT>(node, enumeratorCommand);

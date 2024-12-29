@@ -9,6 +9,7 @@ namespace AutoCSer.SearchTree
     /// 二叉搜索树集合
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
+    [RemoteType]
     public sealed class Set<T> where T : IComparable<T>
     {
         /// <summary>

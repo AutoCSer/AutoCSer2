@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override KeepCallbackResponseParameter CreateKeepCallback()
         {
-            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(Value.ReturnValue));
+            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(Value.ReturnValue), 0);
         }
     }
 }

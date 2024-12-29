@@ -4,8 +4,8 @@
     /// 256 基分片 哈希表 节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(FragmentHashSetNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IFragmentHashSetNode<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IFragmentHashSetNode<T>
     {
         /// <summary>
         /// 获取数据数量
@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-        [ServerMethod(IsSnapshotMethod = true, IsIgnorePersistenceCallbackException = true)]
+        [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         bool Add(T value);
         /// <summary>
         /// 判断关键字是否存在

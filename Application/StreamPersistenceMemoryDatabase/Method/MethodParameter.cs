@@ -151,37 +151,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return this;
         }
         /// <summary>
-        /// 持久化序列化
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="serializer"></param>
-        /// <param name="method"></param>
-        /// <param name="parameter"></param>
-        /// <returns></returns>
-#if NetStandard21
-        internal unsafe MethodParameter? PersistenceSerialize<T>(AutoCSer.BinarySerializer serializer, Method method, ref T parameter)
-#else
-        internal unsafe MethodParameter PersistenceSerialize<T>(AutoCSer.BinarySerializer serializer, Method method, ref T parameter)
-#endif
-            where T : struct
-        {
-            UnmanagedStream stream = serializer.Stream;
-            int index = stream.GetMoveSize(sizeof(NodeIndex) + sizeof(int));
-            if (index != 0)
-            {
-                if (method.IsSimpleDeserializeParamter) serializer.SimpleSerialize(ref parameter);
-                else serializer.InternalIndependentSerializeNotNull(ref parameter);
-                if (!stream.IsResizeError)
-                {
-                    byte* data = stream.Data.Pointer.Byte + (index - (sizeof(NodeIndex) + sizeof(int)));
-                    *(NodeIndex*)data = Node.Index;
-                    *(int*)(data + sizeof(NodeIndex)) = method.Index;
-                    return LinkNext;
-                }
-            }
-            return this;
-        }
-        /// <summary>
         /// 设置自定义状态对象
         /// </summary>
         /// <param name="sessionObject">自定义状态对象</param>

@@ -7,6 +7,7 @@ namespace AutoCSer
     /// <summary>
     /// 字符串 HASH
     /// </summary>
+    [RemoteType]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct HashSubString : IEquatable<HashSubString>
     {

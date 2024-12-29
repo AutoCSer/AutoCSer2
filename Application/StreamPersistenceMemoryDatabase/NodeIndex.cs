@@ -37,7 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 错误信息
         /// </summary>
         /// <param name="state"></param>
-        internal NodeIndex(CallStateEnum state)
+        public NodeIndex(CallStateEnum state)
         {
             Index = -(int)(byte)state;
             Identity = 0;

@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -65,10 +66,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             switch (state)
             {
-                case CallStateEnum.PersistenceCallbackException: Renew(nodeIndex).Start(); break;
+                case CallStateEnum.PersistenceCallbackException: Renew(nodeIndex).NotWait(); break;
                 case CallStateEnum.NodeIndexOutOfRange:
                 case CallStateEnum.NodeIdentityNotMatch:
-                    Reindex(nodeIndex).Start();
+                    Reindex(nodeIndex).NotWait();
                     break;
             }
         }
@@ -78,7 +79,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         ///// <param name="nodeIndex"></param>
         ///// <param name="state"></param>
         ///// <returns></returns>
-        //internal async Task CheckStateAsync(NodeIndex nodeIndex, CallStateEnum state)
+        //internal Task CheckStateAsync(NodeIndex nodeIndex, CallStateEnum state)
         //{
         //    switch (state)
         //    {

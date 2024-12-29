@@ -59,13 +59,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 开始加载数据
         /// </summary>
         /// <returns></returns>
-        internal async Task Load()
+        internal Task Load()
         {
             if (Interlocked.CompareExchange(ref isLoad, 1, 0) == 0)
             {
                 loader = new SlaveLoader(this, masterClient);
-                await loader.Load();
+                return loader.Load();
             }
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 关闭数据加载

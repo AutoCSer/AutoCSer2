@@ -67,7 +67,7 @@ namespace AutoCSer.CodeGenerator
         /// <summary>
         /// 子段程序代码集合
         /// </summary>
-        internal Dictionary<HashString, string> PartCodes = DictionaryCreator.CreateHashString<string>();
+        internal Dictionary<string, string> PartCodes = DictionaryCreator.CreateAny<string, string>();
         /// <summary>
         /// 截断代码字符串
         /// </summary>
@@ -301,7 +301,7 @@ namespace AutoCSer.CodeGenerator
         /// <summary>
         /// 模板command+解析器
         /// </summary>
-        protected readonly Dictionary<HashString, Action<T>> creators = DictionaryCreator.CreateHashString<Action<T>>();
+        protected readonly Dictionary<string, Action<T>> creators = DictionaryCreator.CreateAny<string, Action<T>>();
         /// <summary>
         /// 引用代码树节点
         /// </summary>

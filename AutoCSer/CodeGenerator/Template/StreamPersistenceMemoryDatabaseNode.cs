@@ -1,13 +1,23 @@
-﻿using System;
+﻿using AutoCSer.CodeGenerator.Metadata;
+using System;
 
 #pragma warning disable
 namespace AutoCSer.CodeGenerator.Template
 {
-    internal sealed class StreamPersistenceMemoryDatabaseMethodIndexEnumType : Pub
+    internal sealed class StreamPersistenceMemoryDatabaseNode : Pub
     {
-        public enum MethodIndexEnum
+        #region PART CLASS
+        /// <summary>
+        /// @CurrentType.XmlDocument
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(@MethodIndexEnumTypeName))]
+        /*NOTE*/
+        public partial interface /*NOTE*/@TypeNameDefinition { }
+        /// <summary>
+        /// @CurrentType.XmlDocument 节点方法序号映射枚举类型
+        /// </summary>
+        public enum @MethodIndexEnumTypeName
         {
-            #region PART CLASS
             #region LOOP Methods
             #region IF EnumName
             #region IF Method
@@ -24,7 +34,7 @@ namespace AutoCSer.CodeGenerator.Template
             @EnumName = @MethodIndex,
             #endregion IF EnumName
             #endregion LOOP Methods
-            #endregion PART CLASS
         }
+        #endregion PART CLASS
     }
 }

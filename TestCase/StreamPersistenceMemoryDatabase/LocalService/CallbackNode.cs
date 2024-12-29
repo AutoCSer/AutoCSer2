@@ -13,6 +13,13 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         {
             ResponseResult<ICallbackNodeLocalClientNode> node = await client.GetOrCreateNode<ICallbackNodeLocalClientNode>(typeof(ICallbackNodeLocalClientNode).FullName, client.ClientNode.CreateCallbackNode);
             if (!Program.Breakpoint(node)) return;
+            var boolResult = await node.Value.CheckSnapshot();
+            if (!boolResult.Value)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.CallState}+{boolResult.Value}+ERROR*");
+                return;
+            }
+
             int value = AutoCSer.Random.Default.Next();
             ResponseResult<int> intResult = await node.Value.SetValueCallback(value);
             if (!Program.Breakpoint(intResult)) return;
@@ -148,8 +155,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             result = await node.Value.CallCustomPersistence(value);
             if (!Program.Breakpoint(result)) return;
 
-            TestClass data = new TestClass { Int = value, String = "D" };
-            ServerByteArray serverByteArray = AutoCSer.BinarySerializer.Serialize(data);
+            TestClass testClass = AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull();
+            ServerByteArray serverByteArray = AutoCSer.BinarySerializer.Serialize(testClass);
             result = await node.Value.SetServerByteArray(serverByteArray);
             if (!Program.Breakpoint(result)) return;
             ResponseResult<ServerByteArray> serverJsonBinaryResult = await node.Value.GetServerByteArray();

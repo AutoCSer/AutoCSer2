@@ -50,21 +50,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ServerNodeMethod[] NodeMethods;
 #endif
         /// <summary>
-        /// 快照方法
+        /// 快照方法集合
         /// </summary>
-#if NetStandard21
-        internal Method? SnapshotMethod;
-#else
-        internal Method SnapshotMethod;
-#endif
-        /// <summary>
-        /// 快照数据类型
-        /// </summary>
-#if NetStandard21
-        internal readonly Type? SnapshotType;
-#else
-        internal readonly Type SnapshotType;
-#endif
+        internal SnapshotMethod[] SnapshotMethods;
         /// <summary>
         /// 节点状态
         /// </summary>
@@ -76,22 +64,69 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="type">节点接口类型</param>
         /// <param name="methods">节点方法集合</param>
         /// <param name="nodeMethods">节点方法信息集合</param>
-        /// <param name="snapshotMethod">快照方法</param>
-        /// <param name="snapshotType">快照数据类型</param>
+        /// <param name="snapshotMethods">快照方法集合</param>
 #if NetStandard21
-        unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method?[] methods, ServerNodeMethod?[] nodeMethods, Method? snapshotMethod, Type? snapshotType)
+        unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method?[] methods, ServerNodeMethod?[] nodeMethods, SnapshotMethod[] snapshotMethods)
 #else
-        unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method[] methods, ServerNodeMethod[] nodeMethods, Method snapshotMethod, Type snapshotType)
+        unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method[] methods, ServerNodeMethod[] nodeMethods, SnapshotMethod[] snapshotMethods)
 #endif
         {
             Service = service;
             Type = type;
             Methods = methods;
             NodeMethods = nodeMethods;
-            SnapshotMethod = snapshotMethod;
-            SnapshotType = snapshotType;
+            SnapshotMethods = snapshotMethods;
+            //SnapshotType = snapshotType;
             State = CallStateEnum.Success;
             methodLock = new object();
+        }
+        /// <summary>
+        /// 获取快照方法索引位置
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        private int getSnapshotMethodIndex(Method method)
+        {
+            int index = 0;
+            foreach (SnapshotMethod snapshotMethod in SnapshotMethods)
+            {
+                if (object.ReferenceEquals(snapshotMethod.Method, method)) return index;
+                ++index;
+            }
+            return -1;
+        }
+        /// <summary>
+        /// 获取快照方法索引
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        internal Method GetSnapshotMethod(Type type)
+        {
+            foreach (SnapshotMethod snapshotMethod in SnapshotMethods)
+            {
+                if (snapshotMethod.Type == type) return snapshotMethod.Method;
+            }
+            throw new MissingMethodException(Type.fullName() + @"
+" + type.fullName());
+        }
+        /// <summary>
+        /// 快照节点检查
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        internal CallStateEnum CheckSnapshotNode(Type type)
+        {
+            bool isSnapshot = false;
+            foreach (Type checkType in type.GetInterfaces())
+            {
+                if (checkType.IsGenericType && checkType.GetGenericTypeDefinition() == typeof(ISnapshot<>))
+                {
+                    Type snapshotType = checkType.GetGenericArguments()[0];
+                    if (GetSnapshotMethod(snapshotType) == null) return CallStateEnum.NotFoundSnapshotMethod;
+                    isSnapshot = true;
+                }
+            }
+            return isSnapshot ? CallStateEnum.Success : CallStateEnum.NotFoundSnapshotNode;
         }
         /// <summary>
         /// 初始化节点加载修复方法
@@ -188,12 +223,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                         Method newMethod = nodeMethod.CreateMethod<T>(methodInfo);
                                         Methods[methodAttribute.MethodIndex] = newMethod;
                                         nodeMethod.RepairNodeMethod = methodInfo;
-                                        if (SnapshotMethod == method) SnapshotMethod = newMethod;
+                                        int snapshotMethodIndex = getSnapshotMethodIndex(method);
+                                        if (snapshotMethodIndex >= 0) SnapshotMethods[snapshotMethodIndex].Method = newMethod;
                                         return repairNodeMethod;
                                     }
                                     throw new InvalidCastException(state.ToString());
                                 }
-                                nodeMethod = new ServerNodeMethod(Type, methodInfo, methodAttribute, false);
+                                nodeMethod = new ServerNodeMethod(Type, methodInfo, methodAttribute);
                                 if (nodeMethod.CallType != CallTypeEnum.Unknown)
                                 {
                                     var repairNodeMethod = Service.CanCreateSlave ? new RepairNodeMethod(Type, methodDirectory.Parent.notNull().Name, methodDirectory.Name, rawAssembly, methodInfo, assemblyFile, methodNameFile) : null;
@@ -317,7 +353,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 var nodeMethod = NodeMethods[methodAttribute.MethodIndex];
                 if(nodeMethod == null)
                 {
-                    nodeMethod = new ServerNodeMethod(Type, methodInfo, methodAttribute, false);
+                    nodeMethod = new ServerNodeMethod(Type, methodInfo, methodAttribute);
                     if (nodeMethod.CallType != CallTypeEnum.Unknown)
                     {
                         Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
@@ -372,7 +408,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 else NodeMethods[methodIndex] = nodeMethod;
                 Methods[methodIndex] = method;
                 nodeMethod.RepairNodeMethod = methodInfo;
-                if (object.ReferenceEquals(SnapshotMethod, historyMethod)) SnapshotMethod = method;
+                if (historyMethod != null)
+                {
+                    int snapshotMethodIndex = getSnapshotMethodIndex(historyMethod);
+                    if (snapshotMethodIndex >= 0) SnapshotMethods[snapshotMethodIndex].Method = method;
+                }
                 state = CallStateEnum.Success;
                 Service.AppendLoadedRepairNodeMethod(repairNodeMethod);
             }
@@ -489,6 +529,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             methodAttribute = null;
             return state;
         }
+        /// <summary>
+        /// 快照方法排序
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        private static int snapshotMethodSort(SnapshotMethod left, SnapshotMethod right)
+        {
+            return left.NodeMethod.MethodAttribute.SnapshotMethodSort - right.NodeMethod.MethodAttribute.SnapshotMethodSort;
+        }
+        /// <summary>
+        /// 快照方法排序
+        /// </summary>
+        internal static readonly Func<SnapshotMethod, SnapshotMethod, int> SnapshotMethodSort = snapshotMethodSort;
 
         /// <summary>
         /// 服务端节点方法构造函数参数
@@ -681,21 +735,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private static ServerNodeMethod[] nodeMethods;
 #endif
         /// <summary>
-        /// 快照方法
+        /// 快照方法集合
         /// </summary>
-#if NetStandard21
-        private static Method? snapshotMethod;
-#else
-        private static Method snapshotMethod;
-#endif
-        /// <summary>
-        /// 快照数据类型
-        /// </summary>
-#if NetStandard21
-        private static Type? snapshotType;
-#else
-        private static Type snapshotType = null;
-#endif
+        private static SnapshotMethod[] snapshotMethods;
         /// <summary>
         /// 生成服务端节点
         /// </summary>
@@ -710,7 +752,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.LogHelper.DebugIgnoreException($"{typeof(T).fullName()} 节点服务端生成警告\r\n{string.Join("\r\n", creatorMessages)}");
                     creatorMessages = null;
                 }
-                ServerNodeCreator nodeCreator = new ServerNodeCreator(service, typeof(T), methods.copy(), nodeMethods.copy(), snapshotMethod, snapshotType);
+                ServerNodeCreator nodeCreator = new ServerNodeCreator(service, typeof(T), methods.copy(), nodeMethods.copy(), snapshotMethods);
                 nodeCreator.LoadRepairNodeMethod<T>();
                 return nodeCreator;
             }
@@ -730,6 +772,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             NodeType nodeType = default(NodeType);
             methods = EmptyArray<Method>.Array;
             nodeMethods = EmptyArray<ServerNodeMethod>.Array;
+            snapshotMethods = EmptyArray<SnapshotMethod>.Array;
             try
             {
                 nodeType = new NodeType(type);
@@ -744,9 +787,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
                 Method[] methods = new Method[nodeMethods.Length];
 #endif
-                var snapshotNodeMethod = default(ServerNodeMethod);
-                var snapshotMethod = default(Method);
-                var snapshotType = default(Type);
+                LeftArray<SnapshotMethod> snapshotMethods = new LeftArray<SnapshotMethod>(0);
                 int methodIndex = 0;
                 foreach (var nodeMethod in nodeMethods)
                 {
@@ -754,17 +795,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         Method method = nodeMethod.CreateMethod<T>(null);
                         methods[methodIndex] = method;
-                        if (nodeMethod.MethodAttribute.IsSnapshotMethod)
+                        if (nodeMethod.MethodAttribute.SnapshotMethodSort != 0)
                         {
                             if (nodeMethod.ParameterCount == 1)
                             {
-                                if (snapshotMethod == null)
+                                var snapshotType = nodeMethod.Parameters[nodeMethod.ParameterStartIndex].ParameterType;
+                                int snapshotMethodIndex = 0;
+                                foreach (SnapshotMethod snapshotMethod in snapshotMethods)
                                 {
-                                    snapshotNodeMethod = nodeMethod;
-                                    snapshotMethod = method;
-                                    snapshotType = nodeMethod.Parameters[nodeMethod.ParameterStartIndex].ParameterType;
+                                    if (snapshotMethod.Type == snapshotType)
+                                    {
+                                        snapshotType = null;
+                                        nodeType.Messages.Add($"{type.fullName()} 节点快照方法 {nodeMethod.Method.Name} 冲突 {snapshotMethod.NodeMethod.Method.Name}");
+                                        break;
+                                    }
+                                    ++snapshotMethodIndex;
                                 }
-                                else nodeType.Messages.Add($"{type.fullName()} 节点快照方法 {nodeMethod.Method.Name} 冲突 {snapshotNodeMethod.notNull().Method.Name}");
+                                if (snapshotType != null) snapshotMethods.Add(new SnapshotMethod(snapshotType, method, nodeMethod));
                             }
                             else nodeType.Messages.Add($"{type.fullName()} 节点快照方法 {nodeMethod.Method.Name} 有效输入参数数量 {nodeMethod.ParameterCount} 必须为 1");
                         }
@@ -864,8 +911,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 ServerNodeCreator<T>.methods = methods;
                 ServerNodeCreator<T>.nodeMethods = nodeMethods;
-                ServerNodeCreator<T>.snapshotMethod = snapshotMethod;
-                ServerNodeCreator<T>.snapshotType = snapshotType;
+                snapshotMethods.Sort(ServerNodeCreator.SnapshotMethodSort);
+                ServerNodeCreator<T>.snapshotMethods = snapshotMethods.ToArray();
+                //ServerNodeCreator<T>.snapshotType = snapshotType;
             }
             catch (Exception exception)
             {
@@ -873,7 +921,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (nodeType.Messages.Length != 0) creatorMessages = nodeType.Messages.ToArray();
             }
         }
-
 #if DEBUG && NetStandard21
         public interface IDictionary<KT, VT>
             where KT : IEquatable<KT>
@@ -998,11 +1045,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public m3() : base(0, int.MinValue, 0) { }
                 public override void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter>? callback)
                 {
-                    CallOutputMethod.Callback(ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput(), ref callback, false);
+                    CallOutputMethod.Callback(ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput(), ref callback, 0);
                 }
                 public override ValueResult<ResponseParameter> CallOutputBeforePersistence(ServerNode node)
                 {
-                    return CallOutputMethod.GetBeforePersistenceResponseParameter((ValueResult<VT?>)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput(), false);
+                    return CallOutputMethod.GetBeforePersistenceResponseParameter((ValueResult<VT?>)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).CallOutput(), 0);
                 }
                 public override bool CallBeforePersistence(ServerNode node)
                 {
@@ -1016,7 +1063,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public m4() : base(0, int.MinValue, CallTypeEnum.Callback, 0) { }
                 public override void CallOutput(ServerNode node, ref CommandServerCallback<ResponseParameter>? callback)
                 {
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).Callback(MethodCallback<VT?>.Create(ref callback, false));
+                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).Callback(MethodCallback<VT?>.Create(ref callback, 0));
                 }
             }
             public sealed class m5 : CallInputOutputMethod<p1>
@@ -1042,7 +1089,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public m7() : base(0, int.MinValue, 0) { }
                 public override void KeepCallback(ServerNode node, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback)
                 {
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).KeepCallback(MethodKeepCallback<VT>.Create(ref callback, false));
+                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)node)).KeepCallback(MethodKeepCallback<VT>.Create(ref callback, 0));
                 }
             }
             public sealed class m8 : InputKeepCallbackMethod<p1>

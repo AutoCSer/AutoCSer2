@@ -44,7 +44,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// <summary>
         /// 数据视图集合
         /// </summary>
-        internal static Dictionary<HashString, View> Views = DictionaryCreator.CreateHashString<View>();
+        internal static Dictionary<string, View> Views = DictionaryCreator.CreateAny<string, View>();
 
         /// <summary>
         /// 安装参数
@@ -53,15 +53,15 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// <summary>
         /// 嵌入 HTML 文件集合
         /// </summary>
-        private Dictionary<HashString, HtmlFile> includeHtmlFiles;
+        private Dictionary<string, HtmlFile> includeHtmlFiles;
         /// <summary>
         /// JavaScript 文件集合
         /// </summary>
-        private Dictionary<HashString, JavaScriptFile> javaScriptFiles;
+        private Dictionary<string, JavaScriptFile> javaScriptFiles;
         /// <summary>
         /// 嵌入 Css 文件集合
         /// </summary>
-        private Dictionary<HashString, CssFile> includeCssFiles;
+        private Dictionary<string, CssFile> includeCssFiles;
         /// <summary>
         /// 代码生成入口
         /// </summary>
@@ -93,7 +93,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                             return false;
                         }
                         string pageFileName = pageFile.FullName;
-                        HashString viewKey = ViewMiddleware.FileNameIgnoreCase ? pageFileName.ToLower() : pageFileName;
+                        string viewKey = ViewMiddleware.FileNameIgnoreCase ? pageFileName.ToLower() : pageFileName;
                         if (Views.TryGetValue(viewKey, out View keyView))
                         {
                             Messages.Error($"数据视图 {type.fullName()} 与 {keyView.GetType().fullName()} HTML 模板文件名称冲突 {pageFile.FullName}");
@@ -115,8 +115,8 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                 if (directory != null && await AutoCSer.Common.DirectoryExists(directory)) await copyAutoCSerScript(directory);
                 else Messages.Message($"没有找到 AutoCSer TypeScript / JavaScript 文件目录 {directory?.FullName ?? "Script"}");
 
-                includeHtmlFiles = DictionaryCreator.CreateHashString<HtmlFile>();
-                javaScriptFiles = DictionaryCreator.CreateHashString<JavaScriptFile>();
+                includeHtmlFiles = DictionaryCreator.CreateAny<string, HtmlFile>();
+                javaScriptFiles = DictionaryCreator.CreateAny<string, JavaScriptFile>();
                 FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(new DirectoryInfo(parameter.ProjectPath), "*" + PageHtmlFileExtension, SearchOption.AllDirectories);
                 LeftArray<HtmlFile> pages = new LeftArray<HtmlFile>(files.Length);
                 foreach (FileInfo htmlPageFile in files)
@@ -145,7 +145,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                     await page.CreateFile(codes, ++scriptVersion);
                 }
 
-                includeCssFiles = DictionaryCreator.CreateHashString<CssFile>();
+                includeCssFiles = DictionaryCreator.CreateAny<string, CssFile>();
                 files = await AutoCSer.Common.DirectoryGetFiles(new DirectoryInfo(parameter.ProjectPath), "*" + PageCssFileExtension, SearchOption.AllDirectories);
                 LeftArray<CssFile> cssFiles = new LeftArray<CssFile>(files.Length);
                 foreach (FileInfo cssFile in files)
@@ -166,10 +166,10 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// </summary>
         /// <param name="scriptDirectory">AutoCSer TypeScript / JavaScript 文件目录</param>
         /// <returns></returns>
-        private async Task copyAutoCSerScript(DirectoryInfo scriptDirectory)
+        private Task copyAutoCSerScript(DirectoryInfo scriptDirectory)
         {
             string scriptPath = Path.Combine(ProjectParameter.ProjectPath, ViewMiddleware.AutoCSerScriptPath);
-            await copyAutoCSerScript(scriptDirectory, scriptPath);
+            return copyAutoCSerScript(scriptDirectory, scriptPath);
             //foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(scriptDirectory))
             //{
             //    switch (directory.Name)
@@ -275,7 +275,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         internal async Task<HtmlFile> LoadIncludeHtmlFile(FileInfo htmlFile, SubString include)
         {
             FileInfo includeFile = new FileInfo(include[0] == '\\' ? Path.Combine(ProjectParameter.ProjectPath, IncludeFile.ReplaceMarkName(include.GetSub(1)) + ViewMiddleware.HtmlFileExtension) : Path.Combine(htmlFile.Directory.FullName, IncludeFile.ReplaceMarkName(include) + ViewMiddleware.HtmlFileExtension));
-            HashString fileKey = ViewMiddleware.FileNameIgnoreCase ? includeFile.FullName.ToLower() : includeFile.FullName;
+            string fileKey = ViewMiddleware.FileNameIgnoreCase ? includeFile.FullName.ToLower() : includeFile.FullName;
             if (includeHtmlFiles.TryGetValue(fileKey, out HtmlFile includeHtmlFile)) return includeHtmlFile;
             if (await AutoCSer.Common.FileExists(includeFile))
             {
@@ -292,7 +292,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// <returns></returns>
         internal async Task<JavaScriptFile> LoadJavaScriptFile(FileInfo file)
         {
-            HashString fileKey = ViewMiddleware.FileNameIgnoreCase ? file.FullName.ToLower() : file.FullName;
+            string fileKey = ViewMiddleware.FileNameIgnoreCase ? file.FullName.ToLower() : file.FullName;
             if (javaScriptFiles.TryGetValue(fileKey, out JavaScriptFile javaScriptFile)) return javaScriptFile;
             javaScriptFiles.Add(fileKey, javaScriptFile = new JavaScriptFile(this, file));
             if (await javaScriptFile.Load()) return javaScriptFile;
@@ -307,7 +307,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         internal async Task<JavaScriptFile> LoadIncludeJavaScriptFile(FileInfo file, SubString include)
         {
             FileInfo includeFile = new FileInfo(include[0] == '\\' ? Path.Combine(ProjectParameter.ProjectPath, IncludeFile.ReplaceMarkName(include.GetSub(1)) + ViewMiddleware.JavaScriptFileExtension) : Path.Combine(file.Directory.FullName, IncludeFile.ReplaceMarkName(include) + ViewMiddleware.JavaScriptFileExtension));
-            HashString fileKey = ViewMiddleware.FileNameIgnoreCase ? includeFile.FullName.ToLower() : includeFile.FullName;
+            string fileKey = ViewMiddleware.FileNameIgnoreCase ? includeFile.FullName.ToLower() : includeFile.FullName;
             if (javaScriptFiles.TryGetValue(fileKey, out JavaScriptFile javaScriptFile)) return javaScriptFile;
             if (await AutoCSer.Common.FileExists(includeFile))
             {
@@ -326,7 +326,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         internal async Task<CssFile> LoadIncludeCssFile(FileInfo file, SubString include)
         {
             FileInfo includeFile = new FileInfo(Path.Combine(include[0] == '/' ? ProjectParameter.ProjectPath : file.Directory.FullName, include + CssFileExtension));
-            HashString fileKey = ViewMiddleware.FileNameIgnoreCase ? includeFile.FullName.ToLower() : includeFile.FullName;
+            string fileKey = ViewMiddleware.FileNameIgnoreCase ? includeFile.FullName.ToLower() : includeFile.FullName;
             if (includeCssFiles.TryGetValue(fileKey, out CssFile cssFile)) return cssFile;
             if (await AutoCSer.Common.FileExists(includeFile))
             {
@@ -344,7 +344,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         internal static View GetView(FileInfo pageFile)
         {
             string pageFileName = pageFile.FullName;
-            HashString viewKey = ViewMiddleware.FileNameIgnoreCase ? pageFileName.ToLower() : pageFileName;
+            string viewKey = ViewMiddleware.FileNameIgnoreCase ? pageFileName.ToLower() : pageFileName;
             return Views.TryGetValue(viewKey, out View view) ? view : null;
         }
     }

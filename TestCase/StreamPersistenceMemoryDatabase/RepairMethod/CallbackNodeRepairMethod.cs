@@ -8,18 +8,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// </summary>
     public static class CallbackNodeRepairMethod
     {
-        [ServerMethod(MethodIndex = (int)CallbackNodeMethodEnum.SetValueCallbackPersistence)]
+        [ServerMethod(MethodIndex = (int)ICallbackNodeMethodEnum.SetValueCallbackPersistence)]
         public static void SetValueCallbackPersistenceV1(CallbackNode node, int value, MethodCallback<int> callback)
         {
             Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.toString()} : {nameof(CallbackNodeRepairMethod)}.{nameof(SetValueCallbackPersistenceV1)}({value})");
-            node.Value = value;
+            node.SetValue64(value);
             callback.Callback(value + 1);
         }
-        [ServerMethod(MethodIndex = (int)CallbackNodeMethodEnum.BindNodeMethodTest, IsPersistence = false)]
+        [ServerMethod(MethodIndex = (int)ICallbackNodeMethodEnum.BindNodeMethodTest, IsPersistence = false)]
         public static void BindNodeMethodTestV1(CallbackNode node, int value, MethodCallback<int> callback)
         {
             Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.toString()} : {nameof(CallbackNodeRepairMethod)}.{nameof(BindNodeMethodTestV1)}({value})");
-            node.Value = value;
+            node.SetValue64(value);
             callback.Callback(value + 1);
         }
     }

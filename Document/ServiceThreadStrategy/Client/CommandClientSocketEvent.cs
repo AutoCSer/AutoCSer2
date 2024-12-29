@@ -1,5 +1,4 @@
-﻿using AutoCSer.Net;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.Document.ServiceThreadStrategy.Client
@@ -7,7 +6,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Client
     /// <summary>
     /// 命令客户端套接字事件
     /// </summary>
-    internal sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent
+    internal sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEventTask<CommandClientSocketEvent>
     {
         /// <summary>
         /// 服务端一次性响应 API 客户端示例接口（服务端 Task 异步 API 一次性响应 示例接口）
@@ -23,7 +22,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Client
         /// 服务端一次性响应 API 客户端示例接口（服务端 Task 异步队列控制器 API 一次性响应 示例接口）
         /// </summary>
         [AllowNull]
-        public CommandClientController<IReturnCommandController, int> ServerTaskQueueController_ReturnCommandController { get; private set; }
+        public AutoCSer.Net.CommandClientController<IReturnCommandController, int> ServerTaskQueueController_ReturnCommandController { get; private set; }
         /// <summary>
         /// 服务端一次性响应 API 客户端示例接口（服务端 同步队列线程 API 一次性响应 示例接口）
         /// </summary>
@@ -121,41 +120,50 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Client
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
-        public override IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters
+        public override IEnumerable<AutoCSer.Net.CommandClientControllerCreatorParameter> ControllerCreatorParameters
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Task.ISynchronousController), typeof(IReturnCommandController), null, nameof(ServerTask_ReturnCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ISynchronousController), typeof(TaskQueue.IReturnCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.ISynchronousController), typeof(int), typeof(IReturnCommandController), null, nameof(ServerTaskQueueController_ReturnCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Queue.ISynchronousController), typeof(IReturnCommandController), null, nameof(ServerQueue_ReturnCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ISynchronousController), typeof(IReturnCommandController), null, nameof(ServerSynchronous_ReturnCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Task.ISynchronousController), typeof(IReturnCommandController), null, nameof(ServerTask_ReturnCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ISynchronousController), typeof(TaskQueue.IReturnCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.ISynchronousController), typeof(int), typeof(IReturnCommandController), null, nameof(ServerTaskQueueController_ReturnCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Queue.ISynchronousController), typeof(IReturnCommandController), null, nameof(ServerQueue_ReturnCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ISynchronousController), typeof(IReturnCommandController), null, nameof(ServerSynchronous_ReturnCommandController));
 
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Task.ICallbackController), typeof(ICallbackController), null, nameof(ServerTask_CallbackController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ICallbackController), typeof(TaskQueue.ICallbackController));
-                //yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.ICallbackController), typeof(int), typeof(ICallbackController), null, nameof(ServerTaskQueueController_CallbackController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Queue.ICallbackController), typeof(ICallbackController), null, nameof(ServerQueue_CallbackController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ICallbackController), typeof(ICallbackController), null, nameof(ServerSynchronous_CallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Task.ICallbackController), typeof(ICallbackController), null, nameof(ServerTask_CallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ICallbackController), typeof(TaskQueue.ICallbackController));
+                //yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.ICallbackController), typeof(int), typeof(ICallbackController), null, nameof(ServerTaskQueueController_CallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Queue.ICallbackController), typeof(ICallbackController), null, nameof(ServerQueue_CallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ICallbackController), typeof(ICallbackController), null, nameof(ServerSynchronous_CallbackController));
 
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Task.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerTask_EnumeratorCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.IKeepCallbackController), typeof(TaskQueue.IEnumeratorCommandController));
-                //yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.IKeepCallbackController), typeof(int), typeof(IEnumeratorCommandController), null, nameof(ServerTaskQueueController_EnumeratorCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Queue.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerQueue_EnumeratorCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Synchronous.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerSynchronous_EnumeratorCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Task.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerTask_EnumeratorCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.IKeepCallbackController), typeof(TaskQueue.IEnumeratorCommandController));
+                //yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.IKeepCallbackController), typeof(int), typeof(IEnumeratorCommandController), null, nameof(ServerTaskQueueController_EnumeratorCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Queue.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerQueue_EnumeratorCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Synchronous.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerSynchronous_EnumeratorCommandController));
 
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Task.ISendOnlyController), typeof(ISendOnlyCommandController), null, nameof(ServerTask_SendOnlyCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ISendOnlyController), typeof(TaskQueue.ISendOnlyCommandController));
-                //yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.ISendOnlyController), typeof(int), typeof(SendOnlyCommand.ISendOnlyCommandController), null, nameof(ServerTaskQueueController_SendOnlyCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Queue.ISendOnlyController), typeof(ISendOnlyCommandController), null, nameof(ServerQueue_SendOnlyCommandController));
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ISendOnlyController), typeof(ISendOnlyCommandController), null, nameof(ServerSynchronous_SendOnlyCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Task.ISendOnlyController), typeof(ISendOnlyCommandController), null, nameof(ServerTask_SendOnlyCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ISendOnlyController), typeof(TaskQueue.ISendOnlyCommandController));
+                //yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueueController.ISendOnlyController), typeof(int), typeof(SendOnlyCommand.ISendOnlyCommandController), null, nameof(ServerTaskQueueController_SendOnlyCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Queue.ISendOnlyController), typeof(ISendOnlyCommandController), null, nameof(ServerQueue_SendOnlyCommandController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ISendOnlyController), typeof(ISendOnlyCommandController), null, nameof(ServerSynchronous_SendOnlyCommandController));
 
-                yield return new CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ITaskQueueController), typeof(Server.TaskQueue.ITaskQueueControllerClientController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ITaskQueueController), typeof(Server.TaskQueue.ITaskQueueControllerClientController));
             }
         }
         /// <summary>
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public CommandClientSocketEvent(ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+
+        /// <summary>
+        /// 客户端单例
+        /// </summary>
+        public static readonly AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
+        {
+            Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
+            GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
+        });
     }
 }

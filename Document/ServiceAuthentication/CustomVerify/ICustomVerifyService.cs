@@ -1,5 +1,4 @@
-﻿using AutoCSer.Net;
-using System;
+﻿using System;
 
 namespace AutoCSer.Document.ServiceAuthentication.CustomVerify
 {

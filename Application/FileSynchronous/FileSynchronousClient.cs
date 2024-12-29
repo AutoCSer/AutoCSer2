@@ -32,11 +32,11 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 同步目录处理客户端文件集合
         /// </summary>
-        protected ReusableDictionary<HashString, FileInfo> clientFiles;
+        protected ReusableDictionary<string, FileInfo> clientFiles;
         /// <summary>
         /// 同步目录处理客户端目录集合
         /// </summary>
-        protected ReusableDictionary<HashString, DirectoryInfo> clientDirectorys;
+        protected ReusableDictionary<string, DirectoryInfo> clientDirectorys;
         /// <summary>
         /// 正在同步的文件数量
         /// </summary>
@@ -67,8 +67,8 @@ namespace AutoCSer.CommandService
             fileLock = new object();
             synchronousLock = new AutoCSer.Threading.SemaphoreSlimLock(1, 1);
             completedLock = new AutoCSer.Threading.SemaphoreSlimLock(0, 1);
-            clientFiles = new ReusableDictionary<HashString, FileInfo>();
-            clientDirectorys = new ReusableDictionary<HashString, DirectoryInfo>();
+            clientFiles = new ReusableDictionary<string, FileInfo>();
+            clientDirectorys = new ReusableDictionary<string, DirectoryInfo>();
             waitPaths.SetEmpty();
         }
         /// <summary>

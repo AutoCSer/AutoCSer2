@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 字典节点
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
-    public class ByteArrayDictionaryNode<KT> : ContextNode<IByteArrayDictionaryNode<KT>>, IByteArrayDictionaryNode<KT>
+    public class ByteArrayDictionaryNode<KT> : IByteArrayDictionaryNode<KT>
 #if NetStandard21
         , ISnapshot<KeyValue<KT, byte[]?>>
 #else
@@ -37,17 +37,38 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         }
         /// <summary>
+        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// </summary>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据集合容器大小</returns>
+        public int GetSnapshotCapacity(ref object customObject)
+        {
+            return dictionary.Count;
+        }
+        /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <returns>快照数据集合</returns>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据信息</returns>
 #if NetStandard21
-        public LeftArray<KeyValue<KT, byte[]?>> GetSnapshotArray()
+        public SnapshotResult<KeyValue<KT, byte[]?>> GetSnapshotResult(KeyValue<KT, byte[]?>[] snapshotArray, object customObject)
 #else
-        public LeftArray<KeyValue<KT, byte[]>> GetSnapshotArray()
+        public SnapshotResult<KeyValue<KT, byte[]>> GetSnapshotResult(KeyValue<KT, byte[]>[] snapshotArray, object customObject)
 #endif
         {
-            return ServerNode.GetSnapshotArray(dictionary);
+            return ServerNode.GetSnapshotResult(dictionary, snapshotArray);
         }
+        /// <summary>
+        /// 持久化之前重组快照数据
+        /// </summary>
+        /// <param name="array">预申请快照容器数组</param>
+        /// <param name="newArray">超预申请快照数据</param>
+#if NetStandard21
+        public void SetSnapshotResult(ref LeftArray<KeyValue<KT, byte[]?>> array, ref LeftArray<KeyValue<KT, byte[]?>> newArray) { }
+#else
+        public void SetSnapshotResult(ref LeftArray<KeyValue<KT, byte[]>> array, ref LeftArray<KeyValue<KT, byte[]>> newArray) { }
+#endif
         /// <summary>
         /// 快照添加数据
         /// </summary>

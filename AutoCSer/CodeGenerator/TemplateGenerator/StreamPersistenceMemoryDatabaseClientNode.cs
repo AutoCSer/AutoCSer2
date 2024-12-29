@@ -57,10 +57,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             /// <param name="nodeAttribute"></param>
             /// <param name="interfaceMethod"></param>
-            public NodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute nodeAttribute, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod interfaceMethod)
+            /// <param name="isServiceNode"></param>
+            public NodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute nodeAttribute, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod interfaceMethod, bool isServiceNode)
             {
                 if (interfaceMethod != null && interfaceMethod.IsClientCall
-                    && (interfaceMethod.IsDeclaringMethod || !nodeAttribute.IsClientCodeGeneratorOnlyDeclaringMethod))
+                    && (isServiceNode || interfaceMethod.Type != typeof(IServiceNode)))
                 {
                     this.interfaceMethod = interfaceMethod;
                     Method = new MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex, interfaceMethod.ParameterStartIndex, interfaceMethod.ParameterEndIndex);
@@ -95,7 +96,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             }
         }
-
+        /// <summary>
+        /// 是否自定义基础服务节点
+        /// </summary>
+        public bool IsCustomServiceNode { get { return CurrentType.Type != typeof(IServiceNode) && typeof(IServiceNode).IsAssignableFrom(CurrentType.Type); } }
         /// <summary>
         /// 节点方法集合
         /// </summary>
@@ -110,7 +114,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType type = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType(CurrentType.Type);
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[] methods = type.Methods;
             if (methods == null || methods.Length == 0) return AutoCSer.Common.CompletedTask;
-            Methods = methods.getArray(p => new NodeMethod(type.NodeAttribute, p));
+            Methods = methods.getArray(p => new NodeMethod(type.NodeAttribute, p, CurrentType.Type == typeof(IServiceNode)));
 
             create(true);
             return AutoCSer.Common.CompletedTask;

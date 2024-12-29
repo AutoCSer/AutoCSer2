@@ -16,12 +16,12 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
         /// JSON 序列化字段
         /// </summary>
         [AutoCSer.BinarySerializeMember(IsJsonMember = true)]
-        public string? Json1;
+        public short? Json1;
         /// <summary>
         /// JSON 序列化字段
         /// </summary>
         [AutoCSer.BinarySerializeMember(IsJsonMember = true)]
-        public string? Json2;
+        public short? Json2;
 
         /// <summary>
         /// JSON 序列化扩展 测试
@@ -30,12 +30,12 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
         [AutoCSer.Metadata.TestMethod]
         internal static bool TestCase()
         {
-            JsonMember value = new JsonMember { Value = 1, Json1 = "1", Json2 = "2" };
+            JsonMember value = new JsonMember { Value = 1, Json1 = 2, Json2 = 3 };
 
             byte[] data = AutoCSer.BinarySerializer.Serialize(value);
-            var newValue = AutoCSer.BinaryDeserializer.Deserialize<JsonJsonMemberDeserialize>(data);
+            var newValue = AutoCSer.BinaryDeserializer.Deserialize<JsonMemberDeserialize>(data);
 
-            if (newValue == null || newValue.Value != 1 || newValue.Json1 != 1 || newValue.Json2 != 2 || newValue.Json3 != 0)
+            if (newValue == null || newValue.Value != 1 || newValue.Json1 != 2 || newValue.Json2 != 3 || newValue.Json3 != 0)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -47,7 +47,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
     /// JSON 序列化扩展 示例 反序列化定义
     /// </summary>
     [AutoCSer.BinarySerialize(IsJsonMember = true)]
-    class JsonJsonMemberDeserialize
+    class JsonMemberDeserialize
     {
         /// <summary>
         /// 二进制序列化字段

@@ -5,14 +5,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 位图节点接口
     /// </summary>
-    [ServerNode(MethodIndexEnumType = typeof(BitmapNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IBitmapNode
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IBitmapNode
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="map"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(byte[] map);
         /// <summary>
         /// 获取二进制位数量

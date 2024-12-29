@@ -51,6 +51,23 @@ namespace AutoCSer.CodeGenerator.Extensions
             return type.Name;
         }
         /// <summary>
+        /// 根据类型获取可用名称
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <returns>类型名称</returns>
+        internal static string getOnlyName(this Type type)
+        {
+            string value;
+            if (AutoCSer.Reflection.TypeNameBuilder.TypeNames.TryGetValue(type, out value)) return value;
+            value = type.Name;
+            if (type.IsGenericTypeDefinition)
+            {
+                int index = value.IndexOf(AutoCSer.Reflection.TypeNameBuilder.GenericSplit);
+                if (index != -1) value = value.Substring(0, index);
+            }
+            return value;
+        }
+        /// <summary>
         /// 获取代码生成类型定义字符串
         /// </summary>
         /// <param name="type"></param>

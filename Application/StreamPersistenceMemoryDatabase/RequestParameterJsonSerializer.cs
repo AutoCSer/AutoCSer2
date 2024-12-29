@@ -11,12 +11,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 数据
         /// </summary>
+#if NetStandard21
+        private T? value;
+#else
         private T value;
+#endif
         /// <summary>
         /// 内部成员对象序列化为一个可独立反序列化的数据
         /// </summary>
         /// <param name="value">数据</param>
+#if NetStandard21
+        internal RequestParameterJsonSerializer(T? value)
+#else
         internal RequestParameterJsonSerializer(T value)
+#endif
         {
             this.value = value;
         }

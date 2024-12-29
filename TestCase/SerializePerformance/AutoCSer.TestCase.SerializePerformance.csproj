@@ -28,6 +28,8 @@
     <Compile Include="FloatFieldData.cs" />
     <Compile Include="BinaryPropertyData.cs" />
     <Compile Include="FloatPropertyData.cs" />
+    <Compile Include="JsonFloatFieldData.cs" />
+    <Compile Include="JsonFloatPropertyData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PropertyData.cs" />
   </ItemGroup>

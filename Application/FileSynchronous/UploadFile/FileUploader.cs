@@ -101,7 +101,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// 释放资源
         /// </summary>
         /// <returns></returns>
-        internal async Task Free()
+        internal async Task<CommandServerSendOnly> Free()
         {
             KeepSeconds = 0;
             while (fileIndex != 0)
@@ -123,6 +123,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                 }
                 else Monitor.Exit(uploadLock);
             }
+            return CommandServerSendOnly.Null;
         }
         /// <summary>
         /// 触发定时操作
@@ -143,13 +144,13 @@ namespace AutoCSer.CommandService.FileSynchronous
             uploadTimestamp = Stopwatch.GetTimestamp();
             string backupPath = UploaderInfo.BackupPath.notNull();
             DirectoryInfo backupDirectory = new DirectoryInfo(string.IsNullOrEmpty(path) ? backupPath : System.IO.Path.Combine(backupPath, path));
-            var backupFiles = default(Dictionary<HashString, FileInfo>);
+            var backupFiles = default(Dictionary<string, FileInfo>);
             if (await AutoCSer.Common.DirectoryExists(backupDirectory))
             {
                 FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(backupDirectory);
                 if (files.Length != 0)
                 {
-                    backupFiles = DictionaryCreator.CreateHashString<FileInfo>(files.Length);
+                    backupFiles = DictionaryCreator.CreateAny<string, FileInfo>(files.Length);
                     foreach (FileInfo file in files)
                     {
                         backupFiles.Add(file.Name, file);
@@ -236,10 +237,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        internal async Task CreateDirectory(string path)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal Task CreateDirectory(string path)
         {
             uploadTimestamp = Stopwatch.GetTimestamp();
-            await AutoCSer.Common.TryCreateDirectory(new DirectoryInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), path)));
+            return AutoCSer.Common.TryCreateDirectory(new DirectoryInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), path)));
         }
         /// <summary>
         /// 创建上传文件
@@ -332,7 +334,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// </summary>
         /// <param name="fileIndex"></param>
         /// <returns></returns>
-        internal async Task RemoveFile(UploadFileIndex fileIndex)
+        internal async Task<CommandServerSendOnly> RemoveFile(UploadFileIndex fileIndex)
         {
             int index = fileIndex.Index;
             if ((uint)index < (uint)this.fileIndex)
@@ -365,6 +367,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                 }
                 else Monitor.Exit(uploadLock);
             }
+            return CommandServerSendOnly.Null;
         }
         /// <summary>
         /// 上传文件写入数据
@@ -471,7 +474,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// </summary>
         /// <param name="fileName">相对路径文件名称</param>
         /// <returns></returns>
-        internal async Task AppendDeleteFile(string fileName)
+        internal async Task<bool> AppendDeleteFile(string fileName)
         {
             uploadTimestamp = Stopwatch.GetTimestamp();
             FileInfo file = new FileInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), fileName));
@@ -492,13 +495,14 @@ namespace AutoCSer.CommandService.FileSynchronous
                 }
             }
             uploadTimestamp = Stopwatch.GetTimestamp();
+            return true;
         }
         /// <summary>
         /// 添加待删除目录
         /// </summary>
         /// <param name="path">相对路径</param>
         /// <returns></returns>
-        internal async Task AppendDeleteDirectory(string path)
+        internal async Task<bool> AppendDeleteDirectory(string path)
         {
             uploadTimestamp = Stopwatch.GetTimestamp();
             DirectoryInfo directory = new DirectoryInfo(System.IO.Path.Combine(UploaderInfo.Path.notNull(), path));
@@ -519,6 +523,7 @@ namespace AutoCSer.CommandService.FileSynchronous
                 }
             }
             uploadTimestamp = Stopwatch.GetTimestamp();
+            return true;
         }
         /// <summary>
         /// 上传完成最后移动文件操作

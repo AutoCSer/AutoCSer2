@@ -21,8 +21,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             int count = 10000;
             LeftArray<LocalServiceQueueNode<ResponseResult>> requests = new LeftArray<LocalServiceQueueNode<ResponseResult>>(count);
 
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            long startTimestamp = Stopwatch.GetTimestamp();
             for (int id = 1; id <= count; ++id)
             {
                 requests.Add(nodeValue.AddMonster(new Monster { id = id, pos = new Pos { x = 1, y = 1 }, speed = 20, type = 101 }));
@@ -42,10 +41,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 result = await request;
                 if (!Program.Breakpoint(result)) return;
             }
-            stopwatch.Stop();
-            Console.WriteLine($"{nameof(IGameNodeLocalClientNode)} loop {stopwatch.Elapsed.TotalSeconds}s");
+            Console.WriteLine($"{nameof(IGameNodeLocalClientNode)} loop {Stopwatch.GetElapsedTime(startTimestamp).TotalSeconds}s");
 
-            stopwatch.Restart();
+            startTimestamp = Stopwatch.GetTimestamp();
             LeftArray<Monster> monsters = new LeftArray<Monster>(count);
             for (int id = 1; id <= count; ++id)
             {
@@ -62,8 +60,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             result = await nodeValue.SetSpeeds(speeds.ToArray());
             if (!Program.Breakpoint(result)) return;
 
-            stopwatch.Stop();
-            Console.WriteLine($"{nameof(IGameNodeLocalClientNode)} array {stopwatch.Elapsed.TotalSeconds}s");
+            Console.WriteLine($"{nameof(IGameNodeLocalClientNode)} array {Stopwatch.GetElapsedTime(startTimestamp).TotalSeconds}s");
 
             completed();
         }

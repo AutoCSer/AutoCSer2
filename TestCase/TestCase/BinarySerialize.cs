@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoCSer.Extensions;
+using AutoCSer.TestCase.Data;
 
 namespace AutoCSer.TestCase
 {
@@ -19,6 +20,7 @@ namespace AutoCSer.TestCase
 #endif
         internal static bool TestCase()
         {
+
             #region 引用类型二进制序列化测试
             Data.Field fieldData = AutoCSer.RandomObject.Creator<Data.Field>.Create();
             byte[] data = AutoCSer.BinarySerializer.Serialize(fieldData);
@@ -78,6 +80,49 @@ namespace AutoCSer.TestCase
             if (!AutoCSer.FieldEquals.Comparor.Equals(inheritPropertyData, newInheritProperty))
             {
                 return false;
+            }
+            #endregion
+
+            #region 二进制混杂 JSON 序列化
+            Data.JsonField jsonFieldData = AutoCSer.RandomObject.Creator<Data.JsonField>.Create();
+            data = AutoCSer.BinarySerializer.Serialize(jsonFieldData);
+            Data.JsonField newJsonFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonField>(data);
+            if (!AutoCSer.FieldEquals.Comparor.Equals(jsonFieldData, newJsonFieldData))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            var jsonEmptyData = default(JsonEmpty);
+            AutoCSer.BinarySerialize.DeserializeResult result = AutoCSer.BinaryDeserializer.Deserialize<JsonEmpty>(data, ref jsonEmptyData);
+            if(result.State != AutoCSer.BinarySerialize.DeserializeStateEnum.Success || jsonEmptyData == null)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            data = AutoCSer.BinarySerializer.Serialize(default(Data.JsonField));
+            result = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonField>(data, ref newJsonFieldData);
+            if (result.State != AutoCSer.BinarySerialize.DeserializeStateEnum.Success || newJsonFieldData != null)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            Data.JsonProperty jsonPropertyData = AutoCSer.RandomObject.Creator<Data.JsonProperty>.Create();
+            data = AutoCSer.BinarySerializer.Serialize(jsonPropertyData);
+            Data.JsonProperty newJsonPropertyData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonProperty>(data);
+            if (!AutoCSer.FieldEquals.Comparor.Equals(jsonPropertyData, newJsonPropertyData))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            Data.JsonStructField jsonStructFieldData = AutoCSer.RandomObject.Creator<Data.JsonStructField>.Create();
+            data = AutoCSer.BinarySerializer.Serialize(jsonStructFieldData);
+            Data.JsonStructField newJsonStructFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonStructField>(data);
+            if (!AutoCSer.FieldEquals.Comparor.Equals(jsonStructFieldData, newJsonStructFieldData))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            Data.JsonStructProperty jsonStructPropertyData = AutoCSer.RandomObject.Creator<Data.JsonStructProperty>.Create();
+            data = AutoCSer.BinarySerializer.Serialize(jsonStructPropertyData);
+            Data.JsonStructProperty newJsonStructPropertyData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonStructProperty>(data);
+            if (!AutoCSer.FieldEquals.Comparor.Equals(jsonStructPropertyData, newJsonStructPropertyData))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 

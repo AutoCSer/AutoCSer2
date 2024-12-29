@@ -14,7 +14,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
         /// </summary>
         /// <param name="commandClient">客户端</param>
         /// <param name="node">二进制序列化消息消息客户端节点</param>
-        internal BinaryMessageConsumer(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node) : base(commandClient, node) { }
+        internal BinaryMessageConsumer(AutoCSer.Net.ICommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node) : base(commandClient, node) { }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>
@@ -27,6 +27,10 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
         }
 
         /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateBinaryMessageNode<Data.TestClass>(nameof(BinaryMessageConsumer)));
+        /// <summary>
         /// 未完成消息集合
         /// </summary>
         private static Dictionary<int, Data.TestClass> messages = new Dictionary<int, Data.TestClass>();
@@ -37,12 +41,10 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
         /// <summary>
         /// 服务端泛型消息客户端消费者示例
         /// </summary>
-        /// <param name="commandClient"></param>
-        /// <param name="client"></param>
         /// <returns></returns>
-        internal static async Task<bool> Test(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode> client)
+        internal static async Task<bool> Test()
         {
-            var nodeResult = await client.GetOrCreateBinaryMessageNode<Data.TestClass>(nameof(BinaryMessageConsumer));
+            var nodeResult = await nodeCache.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -67,7 +69,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
                 }
             }
 
-            using (BinaryMessageConsumer consumer = new BinaryMessageConsumer(commandClient, node))
+            using (BinaryMessageConsumer consumer = new BinaryMessageConsumer(CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.Client, node))
             {
                 consumer.Start(1 << 10).NotWait(); //启动客户端消费测试
 

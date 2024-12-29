@@ -29,8 +29,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <param name="serializer"></param>
         internal override void Serialize(AutoCSer.BinarySerializer serializer)
         {
-            int index = serializer.SerializeBufferStart();
-            if (index >= 0) serializer.JsonSerializeCommandClientBufferEnd(index, ref value);
+            serializer.JsonSerializeBufferNotNull(ref value);
         }
     }
 }

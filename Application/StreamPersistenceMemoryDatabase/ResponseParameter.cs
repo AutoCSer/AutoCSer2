@@ -80,13 +80,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
+        /// <param name="flag">服务端节点方法标记</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static ResponseParameter Create<T>(T value, bool isSimpleSerialize)
+        internal static ResponseParameter Create<T>(T value, MethodFlagsEnum flag)
         {
-            if (isSimpleSerialize) return new SimpleSerializeResponseParameter<T>(value);
-            return new BinarySerializeResponseParameter<T>(value);
+            if ((flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) return new SimpleSerializeResponseParameter<T>(value);
+            return new BinarySerializeResponseParameter<T>(value); 
         }
     }
     /// <summary>

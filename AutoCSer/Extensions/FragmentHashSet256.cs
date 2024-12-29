@@ -8,6 +8,7 @@ namespace AutoCSer
     /// 256 基分片 哈希表
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [RemoteType]
     public class FragmentHashSet256<T> where T : IEquatable<T>
     {
         /// <summary>

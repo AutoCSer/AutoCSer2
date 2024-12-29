@@ -8,14 +8,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 256 基分片字典 节点接口
     /// </summary>
     /// <typeparam name="KT"></typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(ByteArrayFragmentDictionaryNodeMethodEnum), IsAutoMethodIndex = false)]
-    public interface IByteArrayFragmentDictionaryNode<KT> where KT : IEquatable<KT>
+    [ServerNode(IsAutoMethodIndex = false)]
+    public partial interface IByteArrayFragmentDictionaryNode<KT> where KT : IEquatable<KT>
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotAdd(KeyValue<KT, byte[]> value);
         /// <summary>
         /// 获取数据数量

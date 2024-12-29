@@ -18,9 +18,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal CallStateEnum State;
         /// <summary>
-        /// 是否简单序列化输出数据
+        /// 服务端节点方法标记
         /// </summary>
-        internal readonly bool IsSimpleSerialize;
+        internal readonly MethodFlagsEnum flag;
         /// <summary>
         /// 返回参数序列化
         /// </summary>
@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal KeepCallbackResponseParameter(CallStateEnum state)
         {
             this.State = state;
-            IsSimpleSerialize = false;
+            flag = 0;
 #if NetStandard21
             Serializer = NullResponseParameterSerializer.Null;
 #else
@@ -48,26 +48,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
             DeserializeValue = null;
         }
+        ///// <summary>
+        ///// 返回参数序列化
+        ///// </summary>
+        ///// <param name="serializer">返回参数序列化</param>
+        //internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer)
+        //{
+        //    State = CallStateEnum.Success;
+        //    flag = 0;
+        //    this.Serializer = serializer;
+        //    DeserializeValue = null;
+        //}
         /// <summary>
         /// 返回参数序列化
         /// </summary>
         /// <param name="serializer">返回参数序列化</param>
-        internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer)
+        /// <param name="flag">服务端节点方法标记</param>
+        internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer, MethodFlagsEnum flag)
         {
             State = CallStateEnum.Success;
-            IsSimpleSerialize = false;
-            this.Serializer = serializer;
-            DeserializeValue = null;
-        }
-        /// <summary>
-        /// 返回参数序列化
-        /// </summary>
-        /// <param name="serializer">返回参数序列化</param>
-        /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
-        internal KeepCallbackResponseParameter(ResponseParameterSerializer serializer, bool isSimpleSerialize)
-        {
-            State = CallStateEnum.Success;
-            IsSimpleSerialize = isSimpleSerialize;
+            this.flag = flag;
             this.Serializer = serializer;
             DeserializeValue = null;
         }
@@ -98,35 +98,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
+        /// <param name="flag">服务端节点方法标记</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static KeepCallbackResponseParameter Create<T>(T value, bool isSimpleSerialize)
+        internal static KeepCallbackResponseParameter Create<T>(T value, MethodFlagsEnum flag)
         {
-            if (isSimpleSerialize) return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value), isSimpleSerialize);
-            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value), isSimpleSerialize);
+            if ((flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value), flag);
+            return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value), flag);
         }
         /// <summary>
         /// 创建返回参数
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="values"></param>
-        /// <param name="isSimpleSerialize">是否简单序列化输出数据</param>
+        /// <param name="flag">服务端节点方法标记</param>
         /// <returns></returns>
-        internal static IEnumerable<KeepCallbackResponseParameter> CreateValues<T>(IEnumerable<T> values, bool isSimpleSerialize)
+        internal static IEnumerable<KeepCallbackResponseParameter> CreateValues<T>(IEnumerable<T> values, MethodFlagsEnum flag)
         {
-            if (isSimpleSerialize)
+            if ((flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0)
             {
                 foreach (T value in values)
                 {
-                    yield return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value), true);
+                    yield return new KeepCallbackResponseParameter(new ResponseParameterSimpleSerializer<T>(value), flag);
                 }
             }
             else
             {
                 foreach (T value in values)
                 {
-                    yield return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value));
+                    yield return new KeepCallbackResponseParameter(new ResponseParameterBinarySerializer<T>(value), flag);
                 }
             }
         }

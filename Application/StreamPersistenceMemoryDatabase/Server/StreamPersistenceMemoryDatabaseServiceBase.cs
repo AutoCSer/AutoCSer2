@@ -1,5 +1,6 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
 using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
@@ -72,11 +73,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 根节点集合
         /// </summary>
-        protected readonly Dictionary<HashString, ServerNode> nodeDictionary;
+        protected readonly Dictionary<string, ServerNode> nodeDictionary;
         /// <summary>
         /// 正在创建节点的关键字
         /// </summary>
-        protected readonly HashSet<HashString> createKeys;
+        protected readonly HashSet<string> createKeys;
         /// <summary>
         /// 持久化回调完成等待
         /// </summary>
@@ -222,8 +223,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CanCreateSlave = isMaster & config.CanCreateSlave;
             NodeIndex = 1;
             CurrentCallIsPersistence = true;
-            nodeDictionary = DictionaryCreator.CreateHashString<ServerNode>();
-            createKeys = HashSetCreator.CreateHashString();
+            nodeDictionary = DictionaryCreator.CreateAny<string, ServerNode>();
+            createKeys = HashSetCreator.CreateAny<string>();
             nodeCreatorLock = new object();
             nodeCreators = DictionaryCreator.CreateHashObject<Type, ServerNodeCreator>();
             RepairNodeMethodLoaders = AutoCSer.Extensions.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
@@ -266,10 +267,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal MethodParameter AppendNode(ServerNode node, string key)
 #endif
         {
-            HashString hashKey = key;
-            nodeDictionary.Add(hashKey, node);
-            if (Nodes[node.Index.Index].Set(node, node.Index.Identity)) createKeys.Remove(hashKey);
-            else nodeDictionary.Remove(hashKey);
+            nodeDictionary.Add(key, node);
+            if (Nodes[node.Index.Index].Set(node, node.Index.Identity)) createKeys.Remove(key);
+            else nodeDictionary.Remove(key);
             return CurrentMethodParameter;
         }
         /// <summary>
@@ -598,5 +598,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="loader"></param>
         /// <param name="isRetry"></param>
         internal abstract void CloseLoader(SlaveLoader loader, bool isRetry);
+
+        static StreamPersistenceMemoryDatabaseServiceBase()
+        {
+            AutoCSer.Common.Config.AppendRemoteType(typeof(ServerByteArrayMessage));
+            AutoCSer.Common.Config.AppendRemoteType(typeof(BinaryMessage<>));
+            AutoCSer.Common.Config.AppendRemoteType(typeof(HashBytes));
+            AutoCSer.Common.Config.AppendRemoteType(typeof(HashSubString));
+            AutoCSer.Common.Config.AppendRemoteType(typeof(HashBytesFragmentDictionary256<>));
+            AutoCSer.Common.Config.AppendRemoteType(typeof(FragmentHashSet256<>));
+            AutoCSer.Common.Config.AppendRemoteType(typeof(AutoCSer.SearchTree.Set<>));
+            AutoCSer.Common.Config.AppendRemoteType(typeof(AutoCSer.SearchTree.PageArray<>));
+            AutoCSer.Common.Config.AppendRemoteTypeAssembly(typeof(HashBytes).Assembly);
+            //AutoCSer.Common.Config.AppendRemoteTypeAssembly(typeof(StreamPersistenceMemoryDatabaseServiceBase));
+        }
     }
 }

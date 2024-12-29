@@ -71,6 +71,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 result = await node.Value.AppendMessage(ServerByteArrayMessage.BinarySerialize(new TestClass { Int = '0', String = "0" }));
                 if (!Program.Breakpoint(result)) return;
             }
+            result = await node.Value.AppendMessage(ServerByteArrayMessage.BinarySerialize((TestClass)null));
+            if (!Program.Breakpoint(result)) return;
+
             completed();
         }
         private static void completed()

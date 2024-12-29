@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.SerializePerformance
         static void Main(string[] args)
         {
             int count = 100 * 10000;
-            bool isJson = true, isJsonThreadStatic = true, isXml = true, isXmlThreadStatic = true, isBinary = true;
+            bool isJson = true, isJsonThreadStatic = true, isXml = true, isXmlThreadStatic = true, isBinary = true, isBinaryJson = true;
             AutoCSer.RandomObject.Config randomConfig = new AutoCSer.RandomObject.Config { IsSecondDateTime = true, IsParseFloat = true };
             AutoCSer.BinarySerializeConfig PropertySerializeConfig = new BinarySerializeConfig { };
             do
@@ -51,6 +51,17 @@ namespace AutoCSer.TestCase.SerializePerformance
                     BinaryPropertyData binaryPropertyData = AutoCSer.RandomObject.Creator<BinaryPropertyData>.CreateNotNull();
                     binary(binaryPropertyData, count);
                     binarThreadStatic(binaryPropertyData, count);
+                }
+
+                if (isBinaryJson)
+                {
+                    JsonFloatPropertyData jsonFloatPropertyData = AutoCSer.RandomObject.Creator<JsonFloatPropertyData>.CreateNotNull();
+                    binary(jsonFloatPropertyData, count);
+                    binarThreadStatic(jsonFloatPropertyData, count);
+
+                    JsonFloatFieldData jsonFloatFieldData = AutoCSer.RandomObject.Creator<JsonFloatFieldData>.CreateNotNull();
+                    binary(jsonFloatFieldData, count);
+                    binarThreadStatic(jsonFloatFieldData, count);
                 }
 
                 Console.WriteLine(@"Sleep 3000ms

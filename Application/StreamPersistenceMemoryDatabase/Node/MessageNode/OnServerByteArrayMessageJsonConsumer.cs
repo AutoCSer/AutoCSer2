@@ -26,7 +26,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="onMessage">消息处理，异常或者返回 false 则表示消息执行失败</param>
         /// <param name="delayMilliseconds">重试间隔毫秒数，默认为 1000，最小值为 1</param>
 #if NetStandard21
-        public OnServerByteArrayMessageJsonConsumer(CommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, Func<T?, Task<bool>> onMessage, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds)
+        public OnServerByteArrayMessageJsonConsumer(ICommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, Func<T?, Task<bool>> onMessage, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds)
 #else
         public OnServerByteArrayMessageJsonConsumer(CommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, Func<T, Task<bool>> onMessage, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds)
 #endif

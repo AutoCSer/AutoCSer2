@@ -33,10 +33,10 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public virtual async Task OnError(string message)
+        public virtual Task OnError(string message)
         {
             Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.toString()} {message}");
-            await AutoCSer.LogHelper.Error(message);
+            return AutoCSer.LogHelper.Error(message);
         }
         /// <summary>
         /// 输出信息

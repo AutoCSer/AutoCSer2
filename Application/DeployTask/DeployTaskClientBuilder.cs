@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Net;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 #if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
@@ -89,9 +90,10 @@ namespace AutoCSer.CommandService
         /// <param name="path">客户端路径</param>
         /// <param name="serverPath">服务端路径</param>
         /// <returns></returns>
-        public async Task<DeployTaskUploadFileResult> UploadFileAsync(string path, string serverPath)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<DeployTaskUploadFileResult> UploadFileAsync(string path, string serverPath)
         {
-            return await new DeployTask.UploadFileClient(this, serverPath).UploadFileAsync(path);
+            return new DeployTask.UploadFileClient(this, serverPath).UploadFileAsync(path);
         }
     }
 }

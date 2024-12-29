@@ -1,5 +1,7 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 #pragma warning disable
@@ -8,24 +10,51 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 回调测试节点
     /// </summary>
-    public class CallbackNode : MethodParameterCreatorNode<ICallbackNode>, ICallbackNode, ISnapshot<int>
+    public class CallbackNode : MethodParameterCreatorNode<ICallbackNode>, ICallbackNode
+        , ISnapshot<int>
+        , ISnapshot<long>
     {
-        public int Value;
+        private int value;
+        private long value64;
         public MethodCallback<int> MethodCallback;
-        public LeftArray<int> GetSnapshotArray()
+        public int GetSnapshotCapacity(ref object customObject)
         {
-            LeftArray<int> snapshotArray = new LeftArray<int>(1);
-            snapshotArray.Add(Value);
-            return snapshotArray;
+            return 1;
         }
+        public SnapshotResult<int> GetSnapshotResult(int[] snapshotArray, object customObject)
+        {
+            snapshotArray[0] = value;
+            return new SnapshotResult<int>(1);
+        }
+        public void SetSnapshotResult(ref LeftArray<int> array, ref LeftArray<int> newArray) { }
         public void SnapshotSet(int value)
         {
-            Value = value;
+            SetValue64(value);
+        }
+        public SnapshotResult<long> GetSnapshotResult(long[] snapshotArray, object customObject)
+        {
+            snapshotArray[0] = value64;
+            return new SnapshotResult<long>(1);
+        }
+        public void SetSnapshotResult(ref LeftArray<long> array, ref LeftArray<long> newArray) { }
+        public void SnapshotSet64(long value)
+        {
+            this.value64 = value;
+        }
+        public void SetValue64(int value)
+        {
+            this.value = value;
+            value64 = value;
+        }
+
+        public bool CheckSnapshot()
+        {
+            return value == value64;
         }
 
         public void SetValueCallback(int value, MethodCallback<int> callback)
         {
-            this.Value = value;
+            SetValue64(value);
             callback.Callback(value + 1);
         }
         public void SetCallback(MethodCallback<int> callback)
@@ -42,7 +71,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
         public void SetValueCallbackPersistence(int value, MethodCallback<int> callback)
         {
-            this.Value = value;
+            SetValue64(value);
             callback.Callback(value + 1);
         }
         public ValueResult<int> SetCallbackPersistenceBeforePersistence()
@@ -69,7 +98,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         public void InputKeepCallback(int value, int count, MethodKeepCallback<int> callback)
         {
             if (callback.IsCancelKeepCallback) return;
-            this.Value = value;
+            SetValue64(value);
             for (int end = value + count; value != end; ++value)
             {
                 if (!callback.Callback(value)) return;
@@ -83,7 +112,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         public void KeepCallback(MethodKeepCallback<int> callback)
         {
             if (callback.IsCancelKeepCallback) return;
-            int value = this.Value;
+            int value = this.value;
             for (int end = value + 10; value != end; ++value)
             {
                 if (!callback.Callback(value)) return;
@@ -96,7 +125,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
         public IEnumerable<int> InputEnumerable(int value, int count)
         {
-            this.Value = value;
+            SetValue64(value);
             for (int end = value + count; value != end; ++value) yield return value;
         }
         public ValueResult<int> EnumerableBeforePersistence()
@@ -105,7 +134,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
         public IEnumerable<int> Enumerable()
         {
-            int value = this.Value;
+            int value = this.value;
             for (int end = value + 10; value != end; ++value) yield return value;
         }
 
@@ -115,7 +144,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
         public void Callback()
         {
-            MethodCallback?.Callback(Value + 1);
+            MethodCallback?.Callback(value + 1);
         }
         public bool SetValueBeforePersistence(int value)
         {
@@ -123,7 +152,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
         public void SetValue(int value)
         {
-            this.Value = value;
+            SetValue64(value);
         }
         public ValueResult<int> GetValueBeforePersistence()
         {
@@ -131,12 +160,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
         public int GetValue()
         {
-            return Value + 1;
+            return value + 1;
         }
 
         public void CustomPersistence(int value)
         {
-            this.Value = value;
+            SetValue64(value);
         }
         public void CallCustomPersistence(int value)
         {
@@ -157,12 +186,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             return serverByteArray;
         }
-        private TestClass jsonValue;
-        public void SetJsonValue(JsonValue<TestClass> value)
+        private Game.Monster jsonValue;
+        public void SetJsonValue(Game.Monster value)
         {
             jsonValue = value;
         }
-        public JsonValue<TestClass> GetJsonValue()
+        public Game.Monster GetJsonValue()
         {
             return jsonValue;
         }

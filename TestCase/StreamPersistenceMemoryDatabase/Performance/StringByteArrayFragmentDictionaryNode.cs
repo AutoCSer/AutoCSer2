@@ -13,13 +13,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
     internal sealed class StringByteArrayFragmentDictionaryNode : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayFragmentDictionaryNodeClientNode<string>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateByteArrayFragmentDictionaryNode<string>(typeof(IByteArrayFragmentDictionaryNodeClientNode<string>).FullName));
+        /// <summary>
         /// 字典客户端测试
         /// </summary>
-        /// <param name="data"></param>
         /// <returns></returns>
-        internal static async Task Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<IServiceNodeClientNode> client, Data.Address data)
+        internal static async Task Test(Data.Address data)
         {
-            ResponseResult<IByteArrayFragmentDictionaryNodeClientNode<string>> node = await client.GetOrCreateByteArrayFragmentDictionaryNode<string>(typeof(IByteArrayFragmentDictionaryNodeClientNode<string>).FullName);
+            var node = await nodeCache.GetNode();
             if (!node.IsSuccess)
             {
                 ConsoleWriteQueue.Breakpoint();

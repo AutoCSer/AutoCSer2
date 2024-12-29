@@ -54,8 +54,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 if (current.State == CallStateEnum.Success)
                 {
-                    if (current.IsSimpleSerialize) return ((ResponseParameterSimpleSerializer<T>)current.Serializer).Value.ReturnValue;
-                    return ((ResponseParameterBinarySerializer<T>)current.Serializer).Value.ReturnValue;
+                    if ((current.flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) return ((ResponseParameterSimpleSerializer<T>)current.Serializer).Value.ReturnValue;
+                    return ((ResponseParameterBinarySerializer<T>)current.Serializer).Value.ReturnValue; 
                 }
                 return current.State;
             }

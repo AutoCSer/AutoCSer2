@@ -1,7 +1,9 @@
 ﻿using AutoCSer.CommandService;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
 using AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game;
 using System;
+using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
@@ -24,7 +26,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public NodeIndex CreateCallbackNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return CreateNode<ICallbackNode, int>(index, key, nodeInfo, () => new CallbackNode());
+            return CreateSnapshotNode<ICallbackNode>(index, key, nodeInfo, () => new CallbackNode());
         }
         /// <summary>
         /// 创建游戏测试节点 GameNode
@@ -35,7 +37,22 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public NodeIndex CreateGameNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return createSnapshotCloneNode<IGameNode, GameNode, Monster>(index, key, nodeInfo, () => new GameNode());
+            return CreateSnapshotNode<IGameNode>(index, key, nodeInfo, () => new GameNode());
+        }
+
+        /// <summary>
+        /// 添加基础合法远程类型
+        /// </summary>
+        /// <returns></returns>
+        private static async Task appendRemoteType()
+        {
+            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClass));
+            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClassMessage));
+            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(PerformanceMessage));
+        }
+        static CustomServiceNode()
+        {
+            appendRemoteType().wait();
         }
     }
 }

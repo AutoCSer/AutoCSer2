@@ -9,15 +9,20 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
     public class GameNode : IGameNode, ISnapshot<Monster>
     {
         private readonly Dictionary<int, Monster> monsters = DictionaryCreator.CreateInt<Monster>();
-        public LeftArray<Monster> GetSnapshotArray()
+        public int GetSnapshotCapacity(ref object customObject)
         {
-            return monsters.Values.getLeftArray();
+            return monsters.Count;
         }
+        public SnapshotResult<Monster> GetSnapshotResult(Monster[] snapshotArray, object customObject)
+        {
+            return new SnapshotResult<Monster>(snapshotArray, monsters.Values);
+        }
+        public void SetSnapshotResult(ref LeftArray<Monster> array, ref LeftArray<Monster> newArray) { }
         public void Clear()
         {
             monsters.Clear();
         }
-        [ServerMethod(IsSnapshotMethod = true)]
+        [ServerMethod(SnapshotMethodSort = 1)]
         public void AddMonster(Monster monster)
         {
             monsters[monster.id] = monster;

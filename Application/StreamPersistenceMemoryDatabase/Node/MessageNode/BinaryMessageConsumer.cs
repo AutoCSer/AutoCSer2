@@ -16,7 +16,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="commandClient">客户端</param>
         /// <param name="node">二进制序列化消息消息客户端节点</param>
         /// <param name="delayMilliseconds">重试间隔毫秒数，默认为 1000，最小值为 1</param>
-        protected BinaryMessageConsumer(CommandClient commandClient, IMessageNodeClientNode<BinaryMessage<T>> node, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds) { }
+        protected BinaryMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<BinaryMessage<T>> node, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds) { }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>

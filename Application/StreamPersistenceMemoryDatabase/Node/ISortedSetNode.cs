@@ -6,8 +6,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 排序集合节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(SortedSetNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface ISortedSetNode<T> where T : IComparable<T>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface ISortedSetNode<T> where T : IComparable<T>
     {
         /// <summary>
         /// 获取数据数量
@@ -20,7 +20,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-        [ServerMethod(IsSnapshotMethod = true, IsIgnorePersistenceCallbackException = true)]
+        [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         bool Add(T value);
         /// <summary>
         /// 清除所有数据

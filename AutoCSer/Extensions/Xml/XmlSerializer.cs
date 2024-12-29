@@ -116,14 +116,13 @@ namespace AutoCSer
         {
             isProcessing = true;
             Config = config ?? DefaultConfig;
-            UnmanagedPoolPointer data;
-            bool isUnmanaged, canResize;
-            CharStream.Exchange(charStream, out data, out isUnmanaged, out canResize);
+            UnmanagedStreamExchangeBuffer buffer;
+            CharStream.ExchangeToBuffer(charStream, out buffer);
             try
             {
                 serialize(ref value);
             }
-            finally { CharStream.Exchange(charStream, ref data, isUnmanaged, canResize); }
+            finally { CharStream.ExchangeFromBuffer(charStream, ref buffer); }
         }
         /// <summary>
         /// 对象转换XML字符串（线程静态实例模式）

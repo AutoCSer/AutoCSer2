@@ -244,8 +244,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            if (method.IsSimpleDeserializeParamter) deserializer.SimpleDeserialize(ref Parameter);
-            else deserializer.InternalIndependentDeserializeNotReference(ref Parameter);
+            Deserialize(deserializer, method, ref Parameter);
         }
         /// <summary>
         /// 输入参数反序列化
@@ -255,8 +254,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override bool Deserialize(AutoCSer.BinaryDeserializer deserializer, ref SubArray<byte> buffer)
         {
-            if (method.IsSimpleDeserializeParamter) return deserializer.SimpleDeserialize(ref buffer, ref Parameter);
-            return deserializer.InternalIndependentDeserializeNotReference(ref buffer, ref Parameter);
+            return Deserialize(deserializer, ref buffer, method, ref Parameter);
         }
         /// <summary>
         /// 持久化序列化

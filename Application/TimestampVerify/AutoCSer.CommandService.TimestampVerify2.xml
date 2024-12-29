@@ -347,6 +347,41 @@
             <param name="controller"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端套接字事件
+            </summary>
+            <typeparam name="T">命令客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.verifyString">
+            <summary>
+            服务认证验证字符串
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.TimestampVerifyClient">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端示例接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient,System.String)">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+            <param name="verifyString">服务认证验证字符串</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.CallVerifyMethod(AutoCSer.Net.CommandClientController)">
+            <summary>
+            客户端创建套接字连接以后调用认证 API
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.ITimestampVerifySession">
             <summary>
             基于递增登录时间戳验证的服务认证会话对象

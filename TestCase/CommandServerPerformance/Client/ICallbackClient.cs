@@ -117,28 +117,28 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 Left = AutoCSer.Random.Default.Next();
 
                 int testCount = Reset(commandClient, maxTestCount);
-                for (int right = testCount; right != 0; await client.InterfaceController.Synchronous(Left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Synchronous));
+                for (int right = testCount; right != 0; await client.InterfaceController.Queue(Left, --right, CheckSynchronousHandle)) ;
+                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Queue));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.Callback(Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Callback));
 
                 testCount = Reset(commandClient, maxTestCount);
-                for (int right = testCount; right != 0; await client.InterfaceController.Queue(Left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Queue));
-
-                testCount = Reset(commandClient, maxTestCount);
-                for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(Left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueue));
+                for (int right = testCount; right != 0; await client.InterfaceController.Task(Left, --right, CheckSynchronousHandle)) ;
+                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Task));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueueKey(0, Left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueueKey));
 
                 testCount = Reset(commandClient, maxTestCount);
-                for (int right = testCount; right != 0; await client.InterfaceController.Task(Left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Task));
+                for (int right = testCount; right != 0; await client.InterfaceController.Synchronous(Left, --right, CheckSynchronousHandle)) ;
+                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Synchronous));
+
+                testCount = Reset(commandClient, maxTestCount);
+                for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(Left, --right, CheckSynchronousHandle)) ;
+                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueue));
 
                 testCount = Reset(commandClient, maxTestCount);
                 using (CommandKeepCallback commandKeepCallback = await client.InterfaceController.KeepCallback(CheckSynchronousKeepCallbackHandle))

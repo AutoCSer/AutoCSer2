@@ -27,10 +27,10 @@
     <Compile Include="BinarySerialize\JsonMember.cs" />
     <Compile Include="BinarySerialize\LoopReference.cs" />
     <Compile Include="BinarySerialize\MemberMap.cs" />
+    <Compile Include="BinarySerialize\Json.cs" />
     <Compile Include="BinarySerialize\Property.cs" />
     <Compile Include="BinarySerialize\PublicInstanceField.cs" />
     <Compile Include="BinarySerialize\RealType.cs" />
-    <Compile Include="IJsonSerializeService.cs" />
     <Compile Include="JsonSerialize\AnonymousType.cs" />
     <Compile Include="JsonSerialize\BaseType.cs" />
     <Compile Include="JsonSerialize\Custom.cs" />

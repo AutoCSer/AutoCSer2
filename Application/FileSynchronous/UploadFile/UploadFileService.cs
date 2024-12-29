@@ -142,7 +142,7 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="socket"></param>
         /// <param name="uploaderIndex">上传文件索引信息</param>
         /// <returns></returns>
-        public virtual async Task<CommandServerSendOnly> RemoveUploader(CommandServerSocket socket, UploadFileIndex uploaderIndex)
+        public virtual Task<CommandServerSendOnly> RemoveUploader(CommandServerSocket socket, UploadFileIndex uploaderIndex)
         {
             if ((uint)uploaderIndex.Index < (uint)this.uploaderIndex)
             {
@@ -151,12 +151,11 @@ namespace AutoCSer.CommandService.FileSynchronous
                 if (fileUploader != null)
                 {
                     removeUploader(uploaderIndex.Index);
-                    await fileUploader.Free();
-                    return CommandServerSendOnly.Null;
+                    return fileUploader.Free();
                 }
                 Monitor.Exit(uploaderLock);
             }
-            return CommandServerSendOnly.Null;
+            return CommandServerSendOnly.NullTask;
         }
         /// <summary>
         /// 移除文件上传实例
@@ -184,16 +183,17 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// </summary>
         /// <param name="fileUploader"></param>
         /// <returns></returns>
-        internal async Task RemoveUploader(FileUploader fileUploader)
+        internal Task RemoveUploader(FileUploader fileUploader)
         {
             UploadFileIndex index = fileUploader.UploaderInfo.Index;
             Monitor.Enter(uploaderLock);
             if (object.ReferenceEquals(uploaders[index.Index].Get(index.Identity), fileUploader))
             {
                 removeUploader(index.Index);
-                await fileUploader.Free();
+                return fileUploader.Free();
             }
-            else Monitor.Exit(uploaderLock);
+            Monitor.Exit(uploaderLock);
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 获取文件上传操作对象
@@ -223,10 +223,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="path">相对路径</param>
         /// <param name="callback">获取文件信息集合回调委托</param>
         /// <returns></returns>
-        public virtual async Task GetFiles(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path, CommandServerKeepCallbackCount<UploadFileInfo> callback)
+        public virtual Task GetFiles(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path, CommandServerKeepCallbackCount<UploadFileInfo> callback)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null) await uploader.GetFiles(path, callback);
+            if (uploader != null) return uploader.GetFiles(path, callback);
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 获取指定文件信息集合
@@ -235,11 +236,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="uploaderIndex">上传文件索引信息</param>
         /// <param name="fileName">相对路径</param>
         /// <returns></returns>
-        public virtual async Task<UploadFileInfo> GetFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, string fileName)
+        public virtual Task<UploadFileInfo> GetFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, string fileName)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null) await uploader.GetFile(fileName);
-            return new UploadFileInfo { State = UploadFileStateEnum.NotFoundUploader };
+            if (uploader != null) return uploader.GetFile(fileName);
+            return Task.FromResult(new UploadFileInfo { State = UploadFileStateEnum.NotFoundUploader });
         }
         /// <summary>
         /// 获取指定路径下的目录名称集合
@@ -249,10 +250,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="path">相对路径</param>
         /// <param name="callback">获取目录名称集合回调委托</param>
         /// <returns></returns>
-        public virtual async Task GetDirectoryNames(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path, CommandServerKeepCallbackCount<DirectoryName> callback)
+        public virtual Task GetDirectoryNames(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path, CommandServerKeepCallbackCount<DirectoryName> callback)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null) await uploader.GetDirectoryNames(path, callback);
+            if (uploader != null) return uploader.GetDirectoryNames(path, callback);
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 创建目录
@@ -285,11 +287,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="fileInfo">文件信息</param>
         /// <param name="serverFileLength">服务端文件匹配长度</param>
         /// <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
-        public virtual async Task<UploadFileIndex> CreateFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, SynchronousFileInfo fileInfo, long serverFileLength)
+        public virtual Task<UploadFileIndex> CreateFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, SynchronousFileInfo fileInfo, long serverFileLength)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null) return await uploader.CreateFile(fileInfo, serverFileLength);
-            return new UploadFileIndex(UploadFileStateEnum.NotFoundUploader);
+            if (uploader != null) return uploader.CreateFile(fileInfo, serverFileLength);
+            return Task.FromResult(new UploadFileIndex(UploadFileStateEnum.NotFoundUploader));
         }
         /// <summary>
         /// 移除文件
@@ -298,11 +300,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="uploaderIndex">文件上传索引信息</param>
         /// <param name="fileIndex">上传文件索引信息</param>
         /// <returns></returns>
-        public virtual async Task<CommandServerSendOnly> RemoveFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, UploadFileIndex fileIndex)
+        public virtual Task<CommandServerSendOnly> RemoveFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, UploadFileIndex fileIndex)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null) await uploader.RemoveFile(fileIndex);
-            return CommandServerSendOnly.Null;
+            if (uploader != null) return uploader.RemoveFile(fileIndex);
+            return CommandServerSendOnly.NullTask;
         }
         /// <summary>
         /// 上传文件写入数据
@@ -332,11 +334,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="uploaderIndex">上传文件索引信息</param>
         /// <param name="fileInfo">对比文件信息</param>
         /// <returns></returns>
-        public virtual async Task<UploadFileInfo> AppendCompletedFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, SynchronousFileInfo fileInfo)
+        public virtual Task<UploadFileInfo> AppendCompletedFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, SynchronousFileInfo fileInfo)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null) return await uploader.AppendCompletedFile(fileInfo);
-            return new UploadFileInfo { State = UploadFileStateEnum.NotFoundUploader };
+            if (uploader != null) return uploader.AppendCompletedFile(fileInfo);
+            return Task.FromResult(new UploadFileInfo { State = UploadFileStateEnum.NotFoundUploader });
         }
         /// <summary>
         /// 添加待删除文件
@@ -345,15 +347,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="uploaderIndex">上传文件索引信息</param>
         /// <param name="fileName">相对路径文件名称</param>
         /// <returns>返回 false 表示没有找到文件上传操作对象</returns>
-        public virtual async Task<bool> AppendDeleteFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, string fileName)
+        public virtual Task<bool> AppendDeleteFile(CommandServerSocket socket, UploadFileIndex uploaderIndex, string fileName)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null)
-            {
-                await uploader.AppendDeleteFile(fileName);
-                return true;
-            }
-            return false;
+            if (uploader != null) return uploader.AppendDeleteFile(fileName);
+            return AutoCSer.Common.GetCompletedTask(false);
         }
         /// <summary>
         /// 添加待删除目录
@@ -362,15 +360,11 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// <param name="uploaderIndex">上传文件索引信息</param>
         /// <param name="path">相对路径</param>
         /// <returns>返回 false 表示没有找到文件上传操作对象</returns>
-        public virtual async Task<bool> AppendDeleteDirectory(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path)
+        public virtual Task<bool> AppendDeleteDirectory(CommandServerSocket socket, UploadFileIndex uploaderIndex, string path)
         {
             var uploader = getFileUploader(uploaderIndex);
-            if (uploader != null)
-            {
-                await uploader.AppendDeleteDirectory(path);
-                return true;
-            }
-            return false;
+            if (uploader != null) return uploader.AppendDeleteDirectory(path);
+            return AutoCSer.Common.GetCompletedTask(false);
         }
         /// <summary>
         /// 上传完成最后移动文件操作

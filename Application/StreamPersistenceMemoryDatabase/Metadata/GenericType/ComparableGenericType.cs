@@ -86,7 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateSearchTreeSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return node.CreateNode<ISearchTreeSetNode<T>, SearchTreeSetNode<T>, T>(index, key, nodeInfo, () => new SearchTreeSetNode<T>());
+            return node.CreateSnapshotNode<ISearchTreeSetNode<T>>(index, key, nodeInfo, () => new SearchTreeSetNode<T>());
         }
         /// <summary>
         /// 创建排序集合节点 ISortedSetNode{KT}
@@ -98,7 +98,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateSortedSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
-            return node.CreateNode<ISortedSetNode<T>, SortedSetNode<T>, T>(index, key, nodeInfo, () => new SortedSetNode<T>());
+            return node.CreateSnapshotNode<ISortedSetNode<T>>(index, key, nodeInfo, () => new SortedSetNode<T>());
         }
     }
 }

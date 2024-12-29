@@ -100,9 +100,10 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="primaryKey"></param>
         /// <returns></returns>
-        internal override async Task CheckUpdateAutoIdentity(int primaryKey)
+        internal override Task CheckUpdateAutoIdentity(int primaryKey)
         {
-            if (primaryKey == (int)currentIdentity) await ConnectionPool.UpdateAutoIdentity(TableName, currentIdentity);
+            if (primaryKey == (int)currentIdentity) return ConnectionPool.UpdateAutoIdentity(TableName, currentIdentity);
+            return AutoCSer.Common.CompletedTask;
         }
     }
     /// <summary>
@@ -147,9 +148,10 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="primaryKey"></param>
         /// <returns></returns>
-        internal override async Task CheckUpdateAutoIdentity(long primaryKey)
+        internal override Task CheckUpdateAutoIdentity(long primaryKey)
         {
-            if (primaryKey == currentIdentity) await ConnectionPool.UpdateAutoIdentity(TableName, currentIdentity);
+            if (primaryKey == currentIdentity) return ConnectionPool.UpdateAutoIdentity(TableName, currentIdentity);
+            return AutoCSer.Common.CompletedTask;
         }
     }
 }

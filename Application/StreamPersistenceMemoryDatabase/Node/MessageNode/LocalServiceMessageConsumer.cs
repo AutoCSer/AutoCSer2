@@ -83,16 +83,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="error"></param>
         /// <returns></returns>
-        protected virtual async Task onError(ResponseResult<T> error)
+        protected virtual Task onError(ResponseResult<T> error)
         {
             if (!isDisposed && !service.IsDisposed)
             {
                 if (error.ReturnType != lastError.ReturnType || error.CallState != lastError.CallState)
                 {
                     lastError.Set(error.ReturnType, error.CallState, error.ErrorMessage);
-                    await AutoCSer.LogHelper.Error($"字符串消息节点 {((ClientNode)node).Key} 接收消息失败，RPC 通讯状态为 {error.ReturnType} {error.ErrorMessage}，服务端节点调用状态为 {error.CallState}");
+                    return AutoCSer.LogHelper.Error($"字符串消息节点 {((ClientNode)node).Key} 接收消息失败，RPC 通讯状态为 {error.ReturnType} {error.ErrorMessage}，服务端节点调用状态为 {error.CallState}");
                 }
             }
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 开始接收并处理消息

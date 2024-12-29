@@ -3,6 +3,7 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 using AutoCSer.TestCase.StreamPersistenceMemoryDatabase;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -34,8 +35,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> clientNode = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode>(client);
                 do
                 {
-                    await Task.WhenAll(
-                        CallbackNode.Test(clientNode)
+                    await Task.WhenAll(AutoCSer.Common.CompletedTask
+                        , CallbackNode.Test(clientNode)
                         , DistributedLockNode.Test(clientNode)
                         , BinaryMessageConsumer.Test(commandClient, clientNode)
                         , ServerByteArrayMessageConsumer.Test(commandClient, clientNode)

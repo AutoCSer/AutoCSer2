@@ -13,6 +13,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public int MethodIndex = int.MinValue;
         /// <summary>
+        /// 快照数据恢复方法执行顺序，默认为 0 表示非快照数据恢复方法，每一个快照接口类型仅允许定义一个 SnapshotMethodSort 不为 0 的 API 方法作为快照数据恢复的 API 方法
+        /// </summary>
+        public int SnapshotMethodSort;
+        /// <summary>
         /// 默认为 true 表示调用需要持久化，如果调用不涉及数据变更操作则应该手动设置为 false 避免垃圾数据被持久化（只有在节点支持快照的场景下才有效，不支持快照的节点不支持持久化，即使设置为 true 也无效）
         /// </summary>
         public bool IsPersistence = true;
@@ -20,10 +24,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 默认为 true 表示允许客户端调用，否则为服务端内存调用方法
         /// </summary>
         public bool IsClientCall = true;
-        /// <summary>
-        /// 是否快照调用方法，该方法必须只有 1 个参数且类型匹配快照数据
-        /// </summary>
-        public bool IsSnapshotMethod;
         /// <summary>
         /// 默认为 false 表示服务端应答客户端请求，设置为 true 表示服务端仅接收请求不做应答操作
         /// </summary>

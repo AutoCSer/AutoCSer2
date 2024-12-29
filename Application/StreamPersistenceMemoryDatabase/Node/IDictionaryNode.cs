@@ -7,14 +7,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    [ServerNode(MethodIndexEnumType = typeof(DictionaryNodeMethodEnum), IsAutoMethodIndex = false, IsLocalClient = true)]
-    public interface IDictionaryNode<KT, VT> where KT : IEquatable<KT>
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    public partial interface IDictionaryNode<KT, VT> where KT : IEquatable<KT>
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
-        [ServerMethod(IsClientCall = false, IsSnapshotMethod = true)]
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotAdd(KeyValue<KT, VT> value);
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）

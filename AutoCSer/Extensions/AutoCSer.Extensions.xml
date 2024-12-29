@@ -9719,7 +9719,23 @@
             <param name="attribute"></param>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Xml.Common.memberSerializeDelegates">
+            <summary>
+            成员序列化委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Xml.Common.memberSerializeDelegateLock">
+            <summary>
+            成员序列化委托集合访问锁
+            </summary>
+        </member>
         <member name="M:AutoCSer.Xml.Common.GetMemberSerializeDelegate(System.Type)">
+            <summary>
+            获取成员序列化委托
+            </summary>
+            <param name="type">成员类型</param>
+        </member>
+        <member name="M:AutoCSer.Xml.Common.getMemberSerializeDelegate(System.Type)">
             <summary>
             获取成员序列化委托
             </summary>
@@ -9784,6 +9800,23 @@
             </summary>
             <param name="genericType"></param>
             <param name="attribute"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Xml.Common.memberDeserializeDelegates">
+            <summary>
+            成员反序列化委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Xml.Common.memberDeserializeDelegateLock">
+            <summary>
+            成员反序列化委托集合访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Xml.Common.GetMemberDeserializeDelegate(System.Type)">
+            <summary>
+            获取成员反序列化委托
+            </summary>
+            <param name="type">成员类型</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Xml.Common.getMemberDeserializeDelegate(System.Type)">

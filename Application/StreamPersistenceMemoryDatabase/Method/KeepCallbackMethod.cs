@@ -59,16 +59,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="T"></typeparam>
         /// <param name="values"></param>
         /// <param name="callback"></param>
-        /// <param name="isSimpleSerialize"></param>
+        /// <param name="flag">服务端节点方法标记</param>
 #if NetStandard21
-        internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, bool isSimpleSerialize)
+        internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, MethodFlagsEnum flag)
 #else
-        internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, bool isSimpleSerialize)
+        internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, MethodFlagsEnum flag)
 #endif
         {
             if (callback != null)
             {
-                if (values == null || callback.Callback(KeepCallbackResponseParameter.CreateValues(values, isSimpleSerialize)))
+                if (values == null || callback.Callback(KeepCallbackResponseParameter.CreateValues(values, flag)))
                 {
                     callback.CancelKeep();
                     callback = null;

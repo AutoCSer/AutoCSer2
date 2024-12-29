@@ -27,6 +27,10 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
         }
 
         /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateServerByteArrayMessageNode(nameof(ServerByteArrayBinaryMessageConsumer)));
+        /// <summary>
         /// 未完成消息集合
         /// </summary>
         private static Dictionary<int, Data.TestClass> messages = new Dictionary<int, Data.TestClass>();
@@ -37,12 +41,10 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
         /// <summary>
         /// 客户端二进制序列化消息客户端消费者示例
         /// </summary>
-        /// <param name="commandClient"></param>
-        /// <param name="client"></param>
         /// <returns></returns>
-        internal static async Task<bool> Test(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode> client)
+        internal static async Task<bool> Test()
         {
-            var nodeResult = await client.GetOrCreateServerByteArrayMessageNode(nameof(ServerByteArrayBinaryMessageConsumer));
+            var nodeResult = await nodeCache.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -67,7 +69,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
                 }
             }
 
-            using (ServerByteArrayBinaryMessageConsumer consumer = new ServerByteArrayBinaryMessageConsumer(commandClient, node))
+            using (ServerByteArrayBinaryMessageConsumer consumer = new ServerByteArrayBinaryMessageConsumer(CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.Client, node))
             {
                 consumer.Start(1 << 10).NotWait(); //启动客户端消费测试
 

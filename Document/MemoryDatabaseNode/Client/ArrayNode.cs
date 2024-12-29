@@ -9,14 +9,20 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
     internal static class ArrayNode
     {
         /// <summary>
+        /// 测试数组长度
+        /// </summary>
+        private const int length = 4;
+        /// <summary>
+        /// 客户端节点单例
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeClientNode<int>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateArrayNode<int>(nameof(ArrayNode), length));
+        /// <summary>
         /// 数组客户端示例
         /// </summary>
-        /// <param name="client"></param>
         /// <returns></returns>
-        internal static async Task<bool> Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode> client)
+        internal static async Task<bool> Test()
         {
-            int length = 4;
-            var nodeResult = await client.GetOrCreateArrayNode<int>(nameof(ArrayNode), length);
+            var nodeResult = await nodeCache.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

@@ -22,13 +22,38 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             array = new LeftArray<T>(capacity);
         }
         /// <summary>
+        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// </summary>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据集合容器大小</returns>
+        public int GetSnapshotCapacity(ref object customObject)
+        {
+            return array.Count;
+        }
+        /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <returns>快照数据集合</returns>
-        public LeftArray<T> GetSnapshotArray()
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
+        /// <returns>快照数据信息</returns>
+        public SnapshotResult<T> GetSnapshotResult(T[] snapshotArray, object customObject)
         {
-            return new LeftArray<T>(array.GetArray());
+            if (array.Count <= snapshotArray.Length)
+            {
+                array.CopyTo(snapshotArray, 0);
+                return new SnapshotResult<T>(array.Count);
+            }
+            AutoCSer.Common.CopyTo(array.Array, snapshotArray, 0, snapshotArray.Length);
+            T[] newArray = new T[array.Count - snapshotArray.Length];
+            Array.Copy(array.Array, snapshotArray.Length, newArray, 0, newArray.Length);
+            return new SnapshotResult<T>(snapshotArray.Length, newArray);
         }
+        /// <summary>
+        /// 持久化之前重组快照数据
+        /// </summary>
+        /// <param name="array">预申请快照容器数组</param>
+        /// <param name="newArray">超预申请快照数据</param>
+        public void SetSnapshotResult(ref LeftArray<T> array, ref LeftArray<T> newArray) { }
         /// <summary>
         /// 获取有效数组长度
         /// </summary>

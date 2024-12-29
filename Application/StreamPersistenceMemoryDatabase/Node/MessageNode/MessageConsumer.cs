@@ -18,7 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 客户端
         /// </summary>
-        protected readonly CommandClient commandClient;
+        protected readonly ICommandClient commandClient;
         /// <summary>
         /// 重试间隔毫秒数
         /// </summary>
@@ -32,7 +32,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="commandClient">客户端</param>
         /// <param name="delayMilliseconds">重试间隔毫秒数</param>
-        protected MessageConsumer(CommandClient commandClient, int delayMilliseconds)
+        protected MessageConsumer(ICommandClient commandClient, int delayMilliseconds)
         {
             this.commandClient = commandClient;
             this.delayMilliseconds = Math.Max(delayMilliseconds, 1);
@@ -67,7 +67,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="commandClient">客户端</param>
         /// <param name="node">消息客户端节点</param>
         /// <param name="delayMilliseconds">重试间隔毫秒数</param>
-        protected MessageConsumer(CommandClient commandClient, IMessageNodeClientNode<T> node, int delayMilliseconds) : base(commandClient, delayMilliseconds)
+        protected MessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<T> node, int delayMilliseconds) : base(commandClient, delayMilliseconds)
         {
             this.node = node;
             lastError.Set(CommandClientReturnTypeEnum.Success, CallStateEnum.Success, null);
@@ -88,16 +88,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="error"></param>
         /// <returns></returns>
-        protected virtual async Task onError(ResponseResult<T> error)
+        protected virtual Task onError(ResponseResult<T> error)
         {
             if (!isDisposed && !commandClient.IsDisposed)
             {
                 if (error.ReturnType != lastError.ReturnType || error.CallState != lastError.CallState)
                 {
                     lastError.Set(error.ReturnType, error.CallState, error.ErrorMessage);
-                    await AutoCSer.LogHelper.Error($"字符串消息节点 {((ClientNode)node).Key} 接收消息失败，RPC 通讯状态为 {error.ReturnType} {error.ErrorMessage}，服务端节点调用状态为 {error.CallState}");
+                    return AutoCSer.LogHelper.Error($"字符串消息节点 {((ClientNode)node).Key} 接收消息失败，RPC 通讯状态为 {error.ReturnType} {error.ErrorMessage}，服务端节点调用状态为 {error.CallState}");
                 }
             }
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 开始接收并处理消息

@@ -49,7 +49,7 @@ namespace AutoCSer.Extensions
                         {
                             do
                             {
-                                ServerReturnValue<KeepCallbackResponseParameter> outputParameter = new ServerReturnValue<KeepCallbackResponseParameter>(KeepCallbackResponseParameter.Create(next, methodCallback.IsSimpleSerialize));
+                                ServerReturnValue<KeepCallbackResponseParameter> outputParameter = new ServerReturnValue<KeepCallbackResponseParameter>(KeepCallbackResponseParameter.Create(next, methodCallback.flag));
                                 queue.Send(socket, socket.GetOutput(callback.CallbackIdentity, callback.Method, ref outputParameter));
                             }
                             while ((next = next.notNull().LinkNext) != end);
@@ -60,7 +60,7 @@ namespace AutoCSer.Extensions
                     {//本地模式
                         do
                         {
-                            if (!callback.VirtualCallback(KeepCallbackResponseParameter.Create(next, methodCallback.IsSimpleSerialize))) return false;
+                            if (!callback.VirtualCallback(KeepCallbackResponseParameter.Create(next, methodCallback.flag))) return false;
                         }
                         while ((next = next.notNull().LinkNext) != end);
                         return isPush = true;
