@@ -1,4 +1,6 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -13,10 +15,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 保持回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class KeepCallbackResponse<T> : IDisposable
-#if !NetStandard21
-, IEnumeratorTask<ResponseResult<T>>
-#endif
+    public sealed class KeepCallbackResponse<T> : IDisposable, IEnumeratorTask<ResponseResult<T>>
     {
         /// <summary>
         /// 客户端节点
@@ -29,22 +28,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 回调命令
         /// </summary>
 #if NetStandard21
-        private readonly AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter>? enumeratorCommand;
+        public readonly AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter>? EnumeratorCommand;
 #else
-        private readonly AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand;
+        public readonly AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> EnumeratorCommand;
 #endif
         /// <summary>
         /// 命令客户端套接字
         /// </summary>
 #if NetStandard21
-        public CommandClientSocket? Socket { get { return enumeratorCommand?.Socket; } }
+        public CommandClientSocket? Socket { get { return EnumeratorCommand?.Socket; } }
 #else
-        public CommandClientSocket Socket { get { return enumeratorCommand?.Socket; } }
+        public CommandClientSocket Socket { get { return EnumeratorCommand?.Socket; } }
 #endif
         /// <summary>
         /// 命令是否提交成功
         /// </summary>
-        public bool IsSuccess { get { return enumeratorCommand != null; } }
+        public bool IsSuccess { get { return EnumeratorCommand != null; } }
         /// <summary>
         /// 回调命令返回值类型
         /// </summary>
@@ -52,13 +51,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             get
             {
-                return enumeratorCommand != null ? enumeratorCommand.ReturnType : CommandClientReturnTypeEnum.Unknown; 
+                return EnumeratorCommand != null ? EnumeratorCommand.ReturnType : CommandClientReturnTypeEnum.Unknown; 
             }
         }
         /// <summary>
         /// 空响应（命令提交失败）
         /// </summary>
-        protected KeepCallbackResponse() { }
+        private KeepCallbackResponse() { }
         /// <summary>
         /// 保持回调输出
         /// </summary>
@@ -66,67 +65,69 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="enumeratorCommand">回调命令</param>
         internal KeepCallbackResponse(ClientNode node, AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand)
         {
-            this.enumeratorCommand = enumeratorCommand;
+            this.EnumeratorCommand = enumeratorCommand;
             this.node = node;
-#if !NetStandard21
             nodeIndex = node.Index;
-#endif
         }
         /// <summary>
         /// 释放资源
         /// </summary>
-        public virtual void Dispose()
+        public void Dispose()
         {
-            if (enumeratorCommand != null) ((IDisposable)enumeratorCommand).Dispose();
+            if (EnumeratorCommand != null) ((IDisposable)EnumeratorCommand).Dispose();
         }
 #if NetStandard21
         /// <summary>
         /// 获取 IAsyncEnumerable
         /// </summary>
         /// <returns></returns>
-        public virtual async IAsyncEnumerable<ResponseResult<T>> GetAsyncEnumerable()
+        public async IAsyncEnumerable<ResponseResult<T>> GetAsyncEnumerable()
         {
-            if (enumeratorCommand != null)
+            if (EnumeratorCommand != null)
             {
-                if (!enumeratorCommand.IsDisposed)
+                if (!EnumeratorCommand.IsDisposed)
                 {
-                    bool isError = false;
-                    NodeIndex nodeIndex = node.Index;
-                    while (await enumeratorCommand.MoveNext())
+                    try
                     {
-                        KeepCallbackResponseParameter response = enumeratorCommand.Current;
-                        if (response.State == CallStateEnum.Success)
+                        bool isError = false;
+                        while (await EnumeratorCommand.MoveNext())
                         {
-                            if (enumeratorCommand.ReturnType == AutoCSer.Net.CommandClientReturnTypeEnum.Success)
+                            KeepCallbackResponseParameter response = EnumeratorCommand.Current;
+                            if (response.State == CallStateEnum.Success)
                             {
-                                if (response.DeserializeValue != null)
+                                if (EnumeratorCommand.ReturnType == AutoCSer.Net.CommandClientReturnTypeEnum.Success)
                                 {
-                                    yield return new ResponseResult<T>(KeepCallbackResponseDeserializeValue<T>.GetValue(response.DeserializeValue));
+                                    if (response.DeserializeValue != null)
+                                    {
+                                        yield return new ResponseResult<T>(KeepCallbackResponseDeserializeValue<T>.GetValue(response.DeserializeValue));
+                                    }
+                                    else
+                                    {
+                                        isError = true;
+                                        yield return AutoCSer.Net.CommandClientReturnTypeEnum.ClientDeserializeError;
+                                        break;
+                                    }
                                 }
                                 else
                                 {
                                     isError = true;
-                                    yield return AutoCSer.Net.CommandClientReturnTypeEnum.ClientDeserializeError;
+                                    yield return EnumeratorCommand.ReturnType;
                                     break;
                                 }
                             }
                             else
                             {
                                 isError = true;
-                                yield return enumeratorCommand.ReturnType;
+                                yield return response.State;
+                                await node.CheckStateAsync(nodeIndex, response.State);
                                 break;
                             }
                         }
-                        else
-                        {
-                            isError = true;
-                            yield return response.State;
-                            await node.CheckStateAsync(nodeIndex, response.State);
-                            break;
-                        }
+                        //if (isError) Dispose();
+                        //else if (enumeratorCommand.ReturnType != Net.CommandClientReturnTypeEnum.Success) yield return enumeratorCommand.ReturnType;
+                        if (!isError && EnumeratorCommand.ReturnType != Net.CommandClientReturnTypeEnum.Success) yield return EnumeratorCommand.ReturnType;
                     }
-                    if (isError) Dispose();
-                    else if (enumeratorCommand.ReturnType != Net.CommandClientReturnTypeEnum.Success) yield return enumeratorCommand.ReturnType;
+                    finally { Dispose(); }
                 }
                 else yield return AutoCSer.Net.CommandClientReturnTypeEnum.KeepCallbackDisposed;
             }
@@ -138,7 +139,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="VT">目标数据类型</typeparam>
         /// <param name="getValue">数据转换委托</param>
         /// <returns></returns>
-        public virtual async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T?, VT> getValue)
+        public async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T?, VT> getValue)
         {
             await foreach (ResponseResult<T> value in GetAsyncEnumerable())
             {
@@ -147,6 +148,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
 #else
+#endif
         /// <summary>
         /// 节点索引信息
         /// </summary>
@@ -157,7 +159,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public async Task<bool> MoveNextAsync()
         {
-            if (enumeratorCommand != null) return await enumeratorCommand.MoveNext();
+            if (EnumeratorCommand != null) return await EnumeratorCommand.MoveNext();
             return false;
         }
         /// <summary>
@@ -167,19 +169,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             get
             {
-                if (enumeratorCommand != null)
+                if (EnumeratorCommand != null)
                 {
-                    if (!enumeratorCommand.IsDisposed)
+                    if (!EnumeratorCommand.IsDisposed)
                     {
-                        KeepCallbackResponseParameter response = enumeratorCommand.Current;
+                        KeepCallbackResponseParameter response = EnumeratorCommand.Current;
                         if (response.State == CallStateEnum.Success)
                         {
-                            if (enumeratorCommand.ReturnType == Net.CommandClientReturnTypeEnum.Success) return new ResponseResult<T>(KeepCallbackResponseDeserializeValue<T>.GetValue(response.DeserializeValue));
+                            if (EnumeratorCommand.ReturnType == Net.CommandClientReturnTypeEnum.Success)
+                            {
+                                if (response.DeserializeValue != null)
+                                {
+                                    return new ResponseResult<T>(KeepCallbackResponseDeserializeValue<T>.GetValue(response.DeserializeValue));
+                                }
+                                Dispose();
+                                return AutoCSer.Net.CommandClientReturnTypeEnum.ClientDeserializeError;
+                            }
                             Dispose();
-                            return enumeratorCommand.ReturnType;
+                            return EnumeratorCommand.ReturnType;
                         }
                         Dispose();
-                        node.CheckState(nodeIndex, response.State);
+                        //node.CheckState(nodeIndex, response.State);
+                        node.CheckStateAsync(nodeIndex, response.State).NotWait();
                         return response.State;
                     }
                     return AutoCSer.Net.CommandClientReturnTypeEnum.KeepCallbackDisposed;
@@ -193,9 +204,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
-            if (enumeratorCommand != null) await ((IAsyncDisposable)enumeratorCommand).DisposeAsync();
+            if (EnumeratorCommand != null) await ((IAsyncDisposable)EnumeratorCommand).DisposeAsync();
         }
-#endif
+
         /// <summary>
         /// 空响应（命令提交失败）
         /// </summary>

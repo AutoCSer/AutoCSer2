@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
-using AutoCSer.Extensions;
+﻿using AutoCSer.Extensions;
 using System;
 
 namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
@@ -24,6 +23,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+
             ICounterNodeClientNode node = nodeResult.Value.notNull();
             var valueResult = await node.GetCount();
             if (!valueResult.IsSuccess)

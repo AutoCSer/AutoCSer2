@@ -25,6 +25,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientInputKeepCallbackCommandResponseParameterDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal abstract Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputDelegate { get; }
         /// <summary>
         /// 调用节点方法
@@ -119,6 +123,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientInputKeepCallbackCommandResponseParameterDelegate { get { return (Func<ClientNode, int, ResponseParameterSerializer, MethodFlagsEnum, T, Action<ResponseResult<ResponseParameterSerializer>, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand>)StreamPersistenceMemoryDatabaseClient.InputKeepCallbackCommandResponseParameter<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputDelegate { get { return (Func<ClientNode, int, T, ResponseResultAwaiter>)StreamPersistenceMemoryDatabaseClient.SimpleSerializeCallInput<T>; } }
         /// <summary>
         /// 调用节点方法
@@ -148,7 +156,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate LocalServiceCallInputNodeCreateDelegate { get { return (Func<LocalClientNode, int, T, LocalServiceQueueNode<ResponseResult>>)LocalServiceCallInputNode.Create<T>; } }
+        internal override Delegate LocalServiceCallInputNodeCreateDelegate { get { return (Func<LocalClientNode, int, T, LocalServiceQueueNode<LocalResult>>)LocalServiceCallInputNode.Create<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>

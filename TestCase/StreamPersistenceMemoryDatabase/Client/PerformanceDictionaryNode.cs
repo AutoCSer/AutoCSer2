@@ -13,12 +13,13 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     internal class PerformanceDictionaryNode : PerformanceClient
     {
         private IDictionaryNodeClientNode<int, int> node;
+        private IDictionaryNodeClientNode<int, int> synchronousNode;
         internal PerformanceDictionaryNode() { }
         internal async Task Test(CommandClientConfig config, AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
             ResponseResult<IDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName, 0);
             if (!Program.Breakpoint(node)) return;
-            this.node = node.Value;
+            synchronousNode =  ClientNode<IDictionaryNodeClientNode<int, int>>.GetSynchronousCallback(this.node = node.Value);
             ResponseResult result = await this.node.Renew(maxTestCount);
             if (!Program.Breakpoint(result)) return;
 
@@ -48,7 +49,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             do
             {
                 int value = System.Threading.Interlocked.Decrement(ref testValue);
-                if (value >= 0) checkReturnValue(await node.Set(value, value + 1));
+                if (value >= 0) checkReturnValue(await synchronousNode.Set(value, value + 1));
                 else return;
             }
             while (true);

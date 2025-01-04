@@ -31,7 +31,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 接口方法信息
             /// </summary>
-            private InterfaceMethodBase interfaceMethod;
+            private AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod interfaceMethod;
             /// <summary>
             /// 接口方法信息
             /// </summary>
@@ -52,6 +52,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// 返回参数类型
             /// </summary>
             public ExtensionType ReturnRequestParameterType;
+            /// <summary>
+            /// 回调委托类型
+            /// </summary>
+            public ExtensionType KeepCallbackType;
             /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
@@ -74,7 +78,15 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputKeepCallback:
                         case CallTypeEnum.Enumerable:
                         case CallTypeEnum.InputEnumerable:
-                            MethodReturnType = typeof(Task<>).MakeGenericType(typeof(KeepCallbackResponse<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                            if (interfaceMethod.MethodAttribute.IsKeepCallbackCommand)
+                            {
+                                KeepCallbackType = typeof(Action<,>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType), typeof(AutoCSer.Net.KeepCallbackCommand));
+                                MethodReturnType = typeof(AutoCSer.Net.KeepCallbackCommand);
+                            }
+                            else
+                            {
+                                MethodReturnType = typeof(Task<>).MakeGenericType(typeof(KeepCallbackResponse<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                            }
                             if (interfaceMethod.ReturnValueType == typeof(ResponseParameterSerializer)) ReturnRequestParameterType = typeof(ResponseParameterSerializer);
                             break;
                         case CallTypeEnum.Call:
@@ -110,7 +122,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         protected override Task nextCreate()
         {
-            if (!CurrentType.Type.IsInterface) return AutoCSer.Common.CompletedTask;
+            if (!CurrentAttribute.IsClient || !CurrentType.Type.IsInterface) return AutoCSer.Common.CompletedTask;
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType type = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType(CurrentType.Type);
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[] methods = type.Methods;
             if (methods == null || methods.Length == 0) return AutoCSer.Common.CompletedTask;

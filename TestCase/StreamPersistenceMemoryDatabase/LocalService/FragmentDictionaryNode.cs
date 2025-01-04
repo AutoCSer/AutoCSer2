@@ -9,11 +9,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<IFragmentDictionaryNodeLocalClientNode<string, string>> node = await client.GetOrCreateFragmentDictionaryNode<string, string>(typeof(IFragmentDictionaryNodeLocalClientNode<string, string>).FullName);
+            LocalResult<IFragmentDictionaryNodeLocalClientNode<string, string>> node = await client.GetOrCreateFragmentDictionaryNode<string, string>(typeof(IFragmentDictionaryNodeLocalClientNode<string, string>).FullName);
             if (!Program.Breakpoint(node)) return;
-            ResponseResult result = await node.Value.Clear();
+            LocalResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<int> intResult = await node.Value.Count();
+            LocalResult<int> intResult = await node.Value.Count();
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 0)
             {
@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 return;
             }
             string key = TestClass.RandomString(), value = TestClass.RandomString();
-            ResponseResult<bool> boolResult = await node.Value.TryAdd(key, value);
+            LocalResult<bool> boolResult = await node.Value.TryAdd(key, value);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
@@ -35,7 +35,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<ValueResult<string>> stringResult = await node.Value.TryGetValue(key);
+            LocalResult<ValueResult<string>> stringResult = await node.Value.TryGetValue(key);
             if (!Program.Breakpoint(stringResult)) return;
             if (stringResult.Value.Value != value)
             {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -9,19 +10,34 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用节点方法队列节点回调对象
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class LocalServiceKeepCallbackNodeCallback<T> : CommandServerKeepCallback<KeepCallbackResponseParameter>
+    public sealed class LocalServiceKeepCallbackNodeCallback<T> : CommandServerKeepCallback<KeepCallbackResponseParameter>, IDisposable
     {
         /// <summary>
-        /// 本地服务调用节点方法队列节点回调输出
+        /// 回调委托
         /// </summary>
-        internal readonly LocalServiceKeepCallbackNodeKeepCallbackResponse<T> Response;
+        private readonly Action<LocalResult<T>> callback;
+        /// <summary>
+        /// 是否 IO 线程同步回调
+        /// </summary>
+        private readonly bool isSynchronousCallback;
         /// <summary>
         /// 本地服务调用节点方法队列节点回调对象
         /// </summary>
-        internal LocalServiceKeepCallbackNodeCallback()
+        /// <param name="callback">回调委托</param>
+        /// <param name="isSynchronousCallback">是否 IO 线程同步回调</param>
+        internal LocalServiceKeepCallbackNodeCallback(Action<LocalResult<T>> callback, bool isSynchronousCallback)
         {
             IsCancelKeep = 0;
-            Response = new LocalServiceKeepCallbackNodeKeepCallbackResponse<T>(this);
+            this.callback = callback;
+            this.isSynchronousCallback = isSynchronousCallback;
+        }
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Dispose()
+        {
+            SetCancelKeep();
         }
         /// <summary>
         /// 取消保持回调命令
@@ -37,19 +53,48 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (IsCancelKeep == 0)
             {
                 SetCancelKeep();
-                Response.CancelKeep(returnType, exception);
+                if (returnType != CommandClientReturnTypeEnum.Success) callbackResult(new LocalResult<T>(CallStateEnum.Unknown, exception));
+            }
+        }
+        /// <summary>
+        /// 回调操作
+        /// </summary>
+        /// <param name="reuslt"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private void callbackResult(LocalResult<T> reuslt)
+        {
+            if (isSynchronousCallback) callbackTask(reuslt);
+            else Task.Run(() => callbackTask(reuslt));
+        }
+        /// <summary>
+        /// 回调任务操作
+        /// </summary>
+        /// <param name="reuslt"></param>
+        private void callbackTask(LocalResult<T> reuslt)
+        {
+            try
+            {
+                callback(reuslt);
+            }
+            catch (Exception excepption)
+            {
+                AutoCSer.LogHelper.ExceptionIgnoreException(excepption);
             }
         }
         /// <summary>
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private bool callback(ref KeepCallbackResponseParameter returnValue)
+        private bool callbackResponseParameter(ref KeepCallbackResponseParameter returnValue)
         {
             if (IsCancelKeep == 0)
             {
-                Response.Callback(returnValue);
+                if (returnValue.State == CallStateEnum.Success)
+                {
+                    if ((returnValue.flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) callbackResult(((ResponseParameterSimpleSerializer<T>)returnValue.Serializer).Value.ReturnValue);
+                    else callbackResult(((ResponseParameterBinarySerializer<T>)returnValue.Serializer).Value.ReturnValue);
+                }
+                else callbackResult(returnValue.State);
                 return true;
             }
             return false;
@@ -60,7 +105,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="returnValue"></param>
         public override void VirtualCallbackCancelKeep(KeepCallbackResponseParameter returnValue)
         {
-            if (callback(ref returnValue)) CancelKeep();
+            if (callbackResponseParameter(ref returnValue)) CancelKeep();
         }
         /// <summary>
         /// 返回值回调
@@ -68,7 +113,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="returnValue"></param>
         public override bool VirtualCallback(KeepCallbackResponseParameter returnValue)
         {
-            return callback(ref returnValue);
+            return callbackResponseParameter(ref returnValue);
         }
         /// <summary>
         /// 返回值回调
@@ -78,7 +123,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override bool Callback(CommandServerCallQueue queue, KeepCallbackResponseParameter returnValue)
         {
-            return callback(ref returnValue);
+            return callbackResponseParameter(ref returnValue);
         }
         /// <summary>
         /// 返回数据集合
@@ -90,26 +135,39 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (IsCancelKeep == 0)
             {
+                if (isCancel) SetCancelKeep();
                 if (values != null)
                 {
-                    try
-                    {
-                        foreach(KeepCallbackResponseParameter response in values) Response.Callback(response);
-                    }
-                    catch (Exception exception)
-                    {
-                        SetCancelKeep();
-                        Response.CancelKeep(CommandClientReturnTypeEnum.ClientException, exception);
-                    }
-                }
-                if (isCancel && IsCancelKeep == 0)
-                {
-                    SetCancelKeep();
-                    Response.CancelKeep(CommandClientReturnTypeEnum.Success);
+                    if (isSynchronousCallback) callbackTask(values);
+                    else Task.Run(() => callbackTask(values));
                 }
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// 回调任务操作
+        /// </summary>
+        /// <param name="values"></param>
+        private void callbackTask(IEnumerable<KeepCallbackResponseParameter> values)
+        {
+            try
+            {
+                foreach (KeepCallbackResponseParameter returnValue in values)
+                {
+                    if (returnValue.State == CallStateEnum.Success)
+                    {
+                        if ((returnValue.flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) callbackTask(((ResponseParameterSimpleSerializer<T>)returnValue.Serializer).Value.ReturnValue);
+                        else callbackTask(((ResponseParameterBinarySerializer<T>)returnValue.Serializer).Value.ReturnValue);
+                    }
+                    else callbackTask(returnValue.State);
+                }
+            }
+            catch (Exception exception)
+            {
+                SetCancelKeep();
+                callbackTask(new LocalResult<T>(CallStateEnum.Unknown, exception));
+            }
         }
     }
 }

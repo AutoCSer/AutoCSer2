@@ -12,7 +12,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 {
     internal class MessageConsumer : LocalServiceMessageConsumer<TestClassMessage>
     {
-        internal MessageConsumer(LocalClient client, IMessageNodeLocalClientNode<TestClassMessage> node) : base(client, node) { }
+        internal MessageConsumer(LocalClient client, IMessageNodeLocalClientNode<TestClassMessage> node) : base(client, node, 1 << 10) { }
         protected override Task<bool> onMessage(TestClassMessage message)
         {
             if (isCompleted) AutoCSer.Common.GetCompletedTask(false);
@@ -24,9 +24,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         private static readonly object messageLock = new object();
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<IMessageNodeLocalClientNode<TestClassMessage>> node = await client.GetOrCreateMessageNode<TestClassMessage>(typeof(IMessageNodeLocalClientNode<TestClassMessage>).FullName, 1 << 10, 5, 1);
+            LocalResult<IMessageNodeLocalClientNode<TestClassMessage>> node = await client.GetOrCreateMessageNode<TestClassMessage>(typeof(IMessageNodeLocalClientNode<TestClassMessage>).FullName, 1 << 10, 5, 1);
             if (!Program.Breakpoint(node)) return;
-            ResponseResult result = await node.Value.Clear();
+            LocalResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;
 
             messages = new HashSet<TestClassMessage>();
@@ -43,8 +43,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             isCompleted = false;
             using (MessageConsumer consumer = new MessageConsumer(client, node.Value))
             {
-                consumer.Start(1 << 10).NotWait();
-
                 long timeout = Stopwatch.GetTimestamp() + AutoCSer.Date.GetTimestampBySeconds(10);
                 while (messages.Count != 0)
                 {
@@ -57,7 +55,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 }
                 do
                 {
-                    ResponseResult<int> intResult = await node.Value.GetTotalCount();
+                    LocalResult<int> intResult = await node.Value.GetTotalCount();
                     if (!Program.Breakpoint(intResult)) return;
                     if (intResult.Value == 0) break;
                     if (timeout < Stopwatch.GetTimestamp())

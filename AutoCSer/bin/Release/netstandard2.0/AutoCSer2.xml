@@ -390,6 +390,11 @@
             下一个对象引用位置
             </summary>
         </member>
+        <member name="F:AutoCSer.BinaryDeserializer.isCheckRemoteType">
+            <summary>
+            是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinaryDeserializer.State">
             <summary>
             反序列化状态
@@ -432,6 +437,13 @@
             <param name="context"></param>
             <param name="config"></param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SetContextNoCheckRemoteType(System.Object,AutoCSer.BinarySerialize.DeserializeConfig)">
+            <summary>
+            设置上下文信息
+            </summary>
+            <param name="context"></param>
+            <param name="config"></param>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.freeThreadStatic">
             <summary>
             释放资源（线程静态实例模式）
@@ -443,6 +455,11 @@
             </summary>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.FreeContext">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.FreeContextCheckRemoteType">
             <summary>
             释放资源
             </summary>
@@ -6788,7 +6805,7 @@
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.ErrorType">
             <summary>
-            类型解析错误
+            类型解析错误，或者泛型类型不满足 AutoCSer.Common.Config.CheckRemoteType 合法性检查条件
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.NotSupport">
@@ -10936,6 +10953,11 @@
             是否以数字字符结束
             </summary>
         </member>
+        <member name="F:AutoCSer.JsonDeserializer.isCheckRemoteType">
+            <summary>
+            是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
+            </summary>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.#ctor">
             <summary>
             JSON 解析器
@@ -10994,10 +11016,11 @@
             释放 JSON 解析器
             </summary>
         </member>
-        <member name="M:AutoCSer.JsonDeserializer.SetBinaryMix">
+        <member name="M:AutoCSer.JsonDeserializer.SetBinaryMix(System.Boolean)">
             <summary>
             设置二进制混杂模式
             </summary>
+            <param name="isCheckRemoteType"></param>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.space">
             <summary>
@@ -22009,11 +22032,6 @@
             命令客户端套接字
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.BaseCommand.Method">
-            <summary>
-            客户端命令信息
-            </summary>
-        </member>
         <member name="M:AutoCSer.Net.CommandServer.BaseCommand.#ctor(AutoCSer.Net.CommandClientSocket,AutoCSer.Net.CommandServer.ClientInterfaceMethod)">
             <summary>
             基本命令，和控制器无关
@@ -22222,6 +22240,12 @@
             <summary>
             返回值命令
             </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.#ctor(AutoCSer.Net.CommandClientController)">
+            <summary>
+            返回值命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.#ctor(AutoCSer.Net.CommandClientController,System.Int32)">
             <summary>
@@ -22642,9 +22666,9 @@
             命令客户端套接字
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.Command.MethodIndex">
+        <member name="F:AutoCSer.Net.CommandServer.Command.Method">
             <summary>
-            命令方法序号
+            客户端接口方法信息
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.Command.TimeoutSeconds">
@@ -22666,6 +22690,18 @@
             <summary>
             客户端命令
             </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.Command.#ctor(AutoCSer.Net.CommandServer.ClientInterfaceMethod)">
+            <summary>
+            客户端命令
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.Command.#ctor(AutoCSer.Net.CommandClientController)">
+            <summary>
+            客户端命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.Command.#ctor(AutoCSer.Net.CommandClientController,System.Int32)">
             <summary>
@@ -23179,10 +23215,11 @@
             <param name="command"></param>
             <param name="isNextValue"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.SetNextValue(System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.SetNextValue(System.Boolean,System.Boolean)">
             <summary>
             设置是否存在下一个数据
             </summary>
+            <param name="isSynchronousCallback"></param>
             <param name="isNextValue"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.MoveNext">
@@ -24869,7 +24906,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterface.GetClientMethods(System.Type,System.Type,System.Exception@,System.String[]@,AutoCSer.Net.CommandServer.ClientInterfaceMethod[]@,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterface.GetClientMethods(System.Type,System.Type,System.Exception@,System.String[]@,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@)">
             <summary>
             获取客户端方法集合
             </summary>
@@ -24878,7 +24915,6 @@
             <param name="controllerConstructorException"></param>
             <param name="controllerConstructorMessages"></param>
             <param name="methodArray"></param>
-            <param name="methods"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerInterfaceMethod">
@@ -28482,11 +28518,11 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientController.AppendQueue(System.Int32,AutoCSer.Net.CommandClientCallQueueNode)">
+        <member name="M:AutoCSer.Net.CommandClientController.AppendQueue(AutoCSer.Net.CommandServer.ClientInterfaceMethod,AutoCSer.Net.CommandClientCallQueueNode)">
             <summary>
             添加到回调队列
             </summary>
-            <param name="methodIndex"></param>
+            <param name="method"></param>
             <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.CallbackQueue(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallbackQueueNode)">
@@ -28640,11 +28676,11 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientController.AppendQueue(System.Int32,System.Action)">
+        <member name="M:AutoCSer.Net.CommandClientController.AppendQueue(AutoCSer.Net.CommandServer.ClientInterfaceMethod,System.Action)">
             <summary>
             添加到回调队列
             </summary>
-            <param name="methodIndex"></param>
+            <param name="method"></param>
             <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.ReturnTypeQueue(AutoCSer.Net.CommandClientController,System.Int32)">
@@ -36012,7 +36048,12 @@
         </member>
         <member name="M:AutoCSer.Net.CommandKeepCallback.Dispose">
             <summary>
-            释放资源
+            释放资源（定时向服务器发送取消命令）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandKeepCallback.Close">
+            <summary>
+            强制关闭（立即向服务器发送取消命令）
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandKeepCallback.Cancel(System.Boolean)">
@@ -36516,6 +36557,12 @@
             返回值
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.ReturnCommand`1.#ctor(AutoCSer.Net.CommandClientController)">
+            <summary>
+            默认空命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.ReturnCommand`1.#ctor(`0@)">
             <summary>
             已完成返回值命令
@@ -36571,6 +36618,12 @@
             已完成返回值命令
             </summary>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.Net.CompletedReturnCommand`1.#ctor(AutoCSer.Net.CommandClientController)">
+            <summary>
+            默认空命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CompletedReturnCommand`1.#ctor(`0)">
             <summary>

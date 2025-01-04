@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AutoCSer.Document.MemoryDatabaseLocalService</AssemblyName>
+    <RootNamespace>AutoCSer.Document.MemoryDatabaseLocalService</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Client\BitmapNode.cs" />
+    <Compile Include="Client\SortedListNode.cs" />
+    <Compile Include="Client\LeftArrayNode.cs" />
+    <Compile Include="Client\FragmentHashSetNode.cs" />
+    <Compile Include="Client\ArrayNode.cs" />
+    <Compile Include="Client\StackNode.cs" />
+    <Compile Include="Client\QueueNode.cs" />
+    <Compile Include="Client\IdentityGeneratorNode.cs" />
+    <Compile Include="Client\SearchTreeSetNode.cs" />
+    <Compile Include="Client\SearchTreeDictionaryNode.cs" />
+    <Compile Include="Client\HashSetNode.cs" />
+    <Compile Include="Client\SortedSetNode.cs" />
+    <Compile Include="Client\SortedDictionaryNode.cs" />
+    <Compile Include="Client\DistributedLockNode.cs" />
+    <Compile Include="Client\FragmentDictionaryNode.cs" />
+    <Compile Include="Client\DictionaryNode.cs" />
+    <Compile Include="Client\MessageConsumer.cs" />
+    <Compile Include="CustomNode\Client\CounterNode.cs" />
+    <Compile Include="CustomNode\CounterNode\CounterNode.cs" />
+    <Compile Include="CustomNode\CounterNode\ICounterNode.cs" />
+    <Compile Include="CustomNode\CustomServiceNode.cs" />
+    <Compile Include="CustomNode\ICustomServiceNode.cs" />
+    <Compile Include="CustomNode\ServiceConfig.cs" />
+    <Compile Include="Data\TestClass.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Server\ServiceConfig.cs" />
+    <Compile Include="{AutoCSer.Document.MemoryDatabaseLocalService}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+
+</Project>

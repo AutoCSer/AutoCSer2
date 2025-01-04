@@ -21,11 +21,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientKeepCallbackCommandDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal abstract Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeCallOutputDelegate { get; }
         /// <summary>
         /// 调用节点方法
         /// </summary>
         internal abstract Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeKeepCallbackDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeKeepCallbackCommandDelegate { get; }
         /// <summary>
         /// 创建回调对象
         /// </summary>
@@ -51,6 +59,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 调用节点方法
         /// </summary>
         internal abstract Delegate LocalServiceCallOutputNodeCreateDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate LocalServiceKeepCallbackEnumeratorNodeCreateDelegate { get; }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -157,11 +169,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientKeepCallbackCommandDelegate { get { return (Func<ClientNode, int, Action<ResponseResult<T>, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand>)StreamPersistenceMemoryDatabaseClient.KeepCallbackCommand<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeCallOutputDelegate { get { return (Func<ClientNode, int, ResponseParameterAwaiter<T>>)StreamPersistenceMemoryDatabaseClient.SimpleDeserializeCallOutput<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>
         internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeKeepCallbackDelegate { get { return (Func<ClientNode, int, Task<KeepCallbackResponse<T>>>)StreamPersistenceMemoryDatabaseClient.SimpleDeserializeKeepCallback<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleDeserializeKeepCallbackCommandDelegate { get { return (Func<ClientNode, int, Action<ResponseResult<T>, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand>)StreamPersistenceMemoryDatabaseClient.SimpleDeserializeKeepCallbackCommand<T>; } }
         /// <summary>
         /// 创建回调对象
         /// </summary>
@@ -186,11 +206,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate LocalServiceCallOutputNodeCreateDelegate { get { return (Func<LocalClientNode, int, LocalServiceQueueNode<ResponseResult<T>>>)LocalServiceCallOutputNode<T>.Create; } }
+        internal override Delegate LocalServiceCallOutputNodeCreateDelegate { get { return (Func<LocalClientNode, int, LocalServiceQueueNode<LocalResult<T>>>)LocalServiceCallOutputNode<T>.Create; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal override Delegate LocalServiceKeepCallbackNodeCreateDelegate { get { return (Func<LocalClientNode, int, LocalServiceQueueNode<KeepCallbackResponse<T>>>)LocalServiceKeepCallbackNode<T>.Create; } }
+        internal override Delegate LocalServiceKeepCallbackEnumeratorNodeCreateDelegate { get { return (Func<LocalClientNode, int, LocalServiceQueueNode<LocalKeepCallback<T>>>)LocalServiceKeepCallbackEnumeratorNode<T>.Create; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate LocalServiceKeepCallbackNodeCreateDelegate { get { return (Func<LocalClientNode, int, Action<LocalResult<T>>, LocalServiceQueueNode<IDisposable>>)LocalServiceKeepCallbackNode<T>.Create; } }
 
         /// <summary>
         /// 创建队列节点（先进先出） IQueueNode{T}

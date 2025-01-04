@@ -9,18 +9,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<ISortedSetNodeLocalClientNode<long>> node = await client.GetOrCreateSortedSetNode<long>(typeof(ISortedSetNodeLocalClientNode<long>).FullName);
+            LocalResult<ISortedSetNodeLocalClientNode<long>> node = await client.GetOrCreateSortedSetNode<long>(typeof(ISortedSetNodeLocalClientNode<long>).FullName);
             if (!Program.Breakpoint(node)) return;
-            ResponseResult result = await node.Value.Clear();
+            LocalResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<int> intResult = await node.Value.Count();
+            LocalResult<int> intResult = await node.Value.Count();
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 0)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<bool> boolResult = await node.Value.Add(2);
+            LocalResult<bool> boolResult = await node.Value.Add(2);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
@@ -62,7 +62,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<ValueResult<long>> longResult = await node.Value.GetMin();
+            LocalResult<ValueResult<long>> longResult = await node.Value.GetMin();
             if (!Program.Breakpoint(longResult)) return;
             if (longResult.Value.Value != 1)
             {

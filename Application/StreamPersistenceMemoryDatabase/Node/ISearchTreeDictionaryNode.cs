@@ -60,6 +60,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>被删除数据</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         ValueResult<VT> GetRemove(KT key);
         /// <summary>
         /// 判断是否包含关键字

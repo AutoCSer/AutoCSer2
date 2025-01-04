@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Net;
+using System;
 
 #pragma warning disable
 namespace AutoCSer.CodeGenerator.Template
@@ -24,7 +26,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF MethodIsReturn
             /// <returns>@Method.ReturnXmlDocument</returns>
             #endregion IF MethodIsReturn
-            @MethodReturnType.FullName @MethodName(/*PUSH:ReturnRequestParameterType*/@FullName returnValue/*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*//*PUSH:ReturnRequestParameterType*//*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*/);
+            @MethodReturnType.FullName @MethodName(/*PUSH:ReturnRequestParameterType*/@FullName returnValue/*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*//*PUSH:ReturnRequestParameterType*//*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:KeepCallbackType*//*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*/@FullName callback/*PUSH:KeepCallbackType*/);
             #endregion IF Method
             #endregion LOOP Methods
         }

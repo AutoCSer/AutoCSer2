@@ -39,20 +39,5 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             return CreateSnapshotNode<IGameNode>(index, key, nodeInfo, () => new GameNode());
         }
-
-        /// <summary>
-        /// 添加基础合法远程类型
-        /// </summary>
-        /// <returns></returns>
-        private static async Task appendRemoteType()
-        {
-            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClass));
-            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClassMessage));
-            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(PerformanceMessage));
-        }
-        static CustomServiceNode()
-        {
-            appendRemoteType().wait();
-        }
     }
 }

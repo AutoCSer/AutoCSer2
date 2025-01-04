@@ -11,15 +11,15 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<IGameNodeLocalClientNode> node = await client.GetOrCreateNode<IGameNodeLocalClientNode>(typeof(IGameNodeLocalClientNode).FullName, client.ClientNode.CreateGameNode);
+            LocalResult<IGameNodeLocalClientNode> node = await client.GetOrCreateNode<IGameNodeLocalClientNode>(typeof(IGameNodeLocalClientNode).FullName, client.ClientNode.CreateGameNode);
             if (!Program.Breakpoint(node)) return;
-            IGameNodeLocalClientNode nodeValue = node.Value;
-            ResponseResult result = await nodeValue.Clear();
+            IGameNodeLocalClientNode nodeValue = LocalClientNode<IGameNodeLocalClientNode>.GetSynchronousCallback(node.Value);
+            LocalResult result = await nodeValue.Clear();
             if (!Program.Breakpoint(result)) return;
 
             //https://www.zhihu.com/question/595091316
             int count = 10000;
-            LeftArray<LocalServiceQueueNode<ResponseResult>> requests = new LeftArray<LocalServiceQueueNode<ResponseResult>>(count);
+            LeftArray<LocalServiceQueueNode<LocalResult>> requests = new LeftArray<LocalServiceQueueNode<LocalResult>>(count);
 
             long startTimestamp = Stopwatch.GetTimestamp();
             for (int id = 1; id <= count; ++id)

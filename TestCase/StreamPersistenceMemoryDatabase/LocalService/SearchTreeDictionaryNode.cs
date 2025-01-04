@@ -9,18 +9,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<ISearchTreeDictionaryNodeLocalClientNode<long, string>> node = await client.GetOrCreateSearchTreeDictionaryNode<long, string>(typeof(ISearchTreeDictionaryNodeLocalClientNode<long, string>).FullName);
+            LocalResult<ISearchTreeDictionaryNodeLocalClientNode<long, string>> node = await client.GetOrCreateSearchTreeDictionaryNode<long, string>(typeof(ISearchTreeDictionaryNodeLocalClientNode<long, string>).FullName);
             if (!Program.Breakpoint(node)) return;
-            ResponseResult result = await node.Value.Clear();
+            LocalResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<int> intResult = await node.Value.Count();
+            LocalResult<int> intResult = await node.Value.Count();
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 0)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<bool> boolResult = await node.Value.TryAdd(6, TestClass.String6);
+            LocalResult<bool> boolResult = await node.Value.TryAdd(6, TestClass.String6);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
@@ -90,7 +90,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<ValueResult<string>> stringResult = await node.Value.TryGetValue(6);
+            LocalResult<ValueResult<string>> stringResult = await node.Value.TryGetValue(6);
             if (!Program.Breakpoint(stringResult)) return;
             if (stringResult.Value.Value != TestClass.String6)
             {
@@ -104,7 +104,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<ValueResult<KeyValue<long, string>>> keyValueResult = await node.Value.TryGetKeyValueByIndex(2);
+            LocalResult<ValueResult<KeyValue<long, string>>> keyValueResult = await node.Value.TryGetKeyValueByIndex(2);
             if (!Program.Breakpoint(keyValueResult)) return;
             if (keyValueResult.Value.Value.Key != 3 || keyValueResult.Value.Value.Value != TestClass.String3)
             {
@@ -132,7 +132,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{keyValueResult.Value.Value.Key}.{keyValueResult.Value.Value.Value}+ERROR*");
                 return;
             }
-            ResponseResult<ValueResult<long>> longResult = await node.Value.TryGetFirstKey();
+            LocalResult<ValueResult<long>> longResult = await node.Value.TryGetFirstKey();
             if (!Program.Breakpoint(longResult)) return;
             if (longResult.Value.Value != 1)
             {
@@ -195,9 +195,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            KeepCallbackResponse<ValueResult<string>> keepCallbackResponse = await node.Value.GetValues(1,3);
+            LocalKeepCallback<ValueResult<string>> keepCallbackResponse = await node.Value.GetValues(1,3);
             char checkValue = 'C';
-            await foreach (ResponseResult<ValueResult<string>> value in keepCallbackResponse.GetAsyncEnumerable())
+            await foreach (LocalResult<ValueResult<string>> value in keepCallbackResponse.GetAsyncEnumerable())
             {
                 if (!Program.Breakpoint(value)) return;
                 if (value.Value.Value[0] != checkValue)

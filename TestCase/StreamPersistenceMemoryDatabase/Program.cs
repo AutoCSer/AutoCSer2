@@ -10,6 +10,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClass));
+            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClassMessage));
+            await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(PerformanceMessage));
+
             try
             {
                 CommandServerConfig commandServerConfig = new CommandServerConfig

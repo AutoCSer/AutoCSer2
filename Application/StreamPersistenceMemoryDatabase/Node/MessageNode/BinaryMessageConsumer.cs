@@ -15,8 +15,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="commandClient">客户端</param>
         /// <param name="node">二进制序列化消息消息客户端节点</param>
+        /// <param name="maxMessageCount">服务端单次最大回调消息数量</param>
         /// <param name="delayMilliseconds">重试间隔毫秒数，默认为 1000，最小值为 1</param>
-        protected BinaryMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<BinaryMessage<T>> node, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds) { }
+        protected BinaryMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<BinaryMessage<T>> node, int maxMessageCount, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, maxMessageCount, delayMilliseconds) { }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>

@@ -199,6 +199,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6.MemoryDatabaseNode", "Doc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7.MemoryDatabaseCustomNode", "Document\MemoryDatabaseCustomNode\7.MemoryDatabaseCustomNode.csproj", "{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8.MemoryDatabaseLocalService", "Document\MemoryDatabaseLocalService\8.MemoryDatabaseLocalService.csproj", "{04FE5CED-D71D-4E37-8F1D-87F2F17703BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -465,6 +467,10 @@ Global
 		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FE5CED-D71D-4E37-8F1D-87F2F17703BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FE5CED-D71D-4E37-8F1D-87F2F17703BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FE5CED-D71D-4E37-8F1D-87F2F17703BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FE5CED-D71D-4E37-8F1D-87F2F17703BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -561,6 +567,7 @@ Global
 		{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
 		{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 		{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
+		{04FE5CED-D71D-4E37-8F1D-87F2F17703BE} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

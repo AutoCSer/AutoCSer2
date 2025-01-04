@@ -10,11 +10,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
             int length = 5;
-            ResponseResult<IArrayNodeLocalClientNode<string>> node = await client.GetOrCreateArrayNode<string>(typeof(IArrayNodeLocalClientNode<string>).FullName, length);
+            LocalResult<IArrayNodeLocalClientNode<string>> node = await client.GetOrCreateArrayNode<string>(typeof(IArrayNodeLocalClientNode<string>).FullName, length);
             if (!Program.Breakpoint(node)) return;
-            ResponseResult result = await node.Value.ClearArray();
+            LocalResult result = await node.Value.ClearArray();
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<int> intResult = await node.Value.GetLength();
+            LocalResult<int> intResult = await node.Value.GetLength();
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != length)
             {
@@ -37,7 +37,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<bool> boolResult = await node.Value.Fill(TestClass.String2, 1, length - 2);
+            LocalResult<bool> boolResult = await node.Value.Fill(TestClass.String2, 1, length - 2);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
@@ -65,7 +65,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<ValueResult<string>> stringResult = await node.Value.GetValue(2);
+            LocalResult<ValueResult<string>> stringResult = await node.Value.GetValue(2);
             if (!Program.Breakpoint(stringResult)) return;
             if (stringResult.Value.Value != TestClass.String3)
             {

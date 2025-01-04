@@ -26,7 +26,6 @@
   <ItemGroup>
     <Compile Include="ByteArrayDictionaryNode.cs" />
     <Compile Include="ByteArrayStackNode.cs" />
-    <Compile Include="CommandClientSocketEventTaskClient.cs" />
     <Compile Include="DistributedLockNode.cs" />
     <Compile Include="ByteArrayFragmentDictionaryNode.cs" />
     <Compile Include="HashBytesDictionaryNode.cs" />

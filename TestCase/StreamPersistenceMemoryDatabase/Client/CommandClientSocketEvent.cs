@@ -23,7 +23,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             get
             {
                 yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
-                //IO 线程同步回调接口避免线程调度开销，必须保证客户端调用 await 后续操作无阻塞，否则可能严重影响性能甚至死锁，如果不能保证无阻塞环境请替换为 IStreamPersistenceMemoryDatabaseTaskClient 接口避免死锁
                 yield return new CommandClientControllerCreatorParameter(typeof(IStreamPersistenceMemoryDatabaseService), typeof(IStreamPersistenceMemoryDatabaseClient));
             }
         }
@@ -31,6 +30,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public CommandClientSocketEvent(CommandClient client) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString) { }
+        public CommandClientSocketEvent(ICommandClient client) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString) { }
     }
 }

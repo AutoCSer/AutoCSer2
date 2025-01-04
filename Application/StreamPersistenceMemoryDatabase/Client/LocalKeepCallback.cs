@@ -14,17 +14,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用节点方法队列节点回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class LocalServiceKeepCallbackNodeKeepCallbackResponse<T> : KeepCallbackResponse<T>
+    public sealed class LocalKeepCallback<T> : IDisposable, IEnumeratorTask<LocalResult<T>>
 #if NetStandard21
-, IAsyncEnumerator<ResponseResult<T>>
-#else
-, IEnumeratorTask<ResponseResult<T>>
+, IAsyncEnumerator<LocalResult<T>>
 #endif
     {
         /// <summary>
         /// 本地服务调用节点方法队列节点回调对象
         /// </summary>
-        private readonly LocalServiceKeepCallbackNodeCallback<T> callback;
+        private readonly LocalServiceKeepCallbackEnumeratorNodeCallback<T> callback;
         /// <summary>
         /// 枚举命令是否存在下一个数据
         /// </summary>
@@ -44,11 +42,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 当前返回数据
         /// </summary>
-#if NetStandard21
-        public ResponseResult<T> Current
-#else
-        public new ResponseResult<T> Current
-#endif
+        public LocalResult<T> Current
         {
             get
             {
@@ -63,7 +57,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 回调命令返回值类型
         /// </summary>
-        public new CommandClientReturnTypeEnum ReturnType { get; private set; }
+        public CommandClientReturnTypeEnum ReturnType { get; private set; }
+        /// <summary>
+        /// 是否 IO 线程同步回调
+        /// </summary>
+        private readonly bool isSynchronousCallback;
         /// <summary>
         /// 异常信息
         /// </summary>
@@ -76,15 +74,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 本地服务调用节点方法队列节点回调输出
         /// </summary>
         /// <param name="callback">本地服务调用节点方法队列节点回调对象</param>
-        internal LocalServiceKeepCallbackNodeKeepCallbackResponse(LocalServiceKeepCallbackNodeCallback<T> callback)
+        /// <param name="isSynchronousCallback">是否 IO 线程同步回调</param>
+        internal LocalKeepCallback(LocalServiceKeepCallbackEnumeratorNodeCallback<T> callback, bool isSynchronousCallback)
         {
             this.callback = callback;
+            this.isSynchronousCallback = isSynchronousCallback;
             ReturnType = CommandClientReturnTypeEnum.Success;
         }
         /// <summary>
         /// 释放资源
         /// </summary>
-        public override void Dispose()
+        public void Dispose()
         {
             callback.SetCancelKeep();
         }
@@ -92,11 +92,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 异步释放资源
         /// </summary>
         /// <returns></returns>
-#if NetStandard21
         public ValueTask DisposeAsync()
-#else
-        public new ValueTask DisposeAsync()
-#endif
         {
             callback.SetCancelKeep();
 #if NET8
@@ -124,7 +120,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (moveNext.Cancel() == 0)
                     {
                         queueLock.Exit();
-                        moveNext.SetNextValue(false);
+                        moveNext.SetNextValue(isSynchronousCallback, false);
                     }
                     else queueLock.Exit();
                 }
@@ -144,7 +140,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (moveNext.Close() == 0)
                 {
                     queueLock.Exit();
-                    moveNext.SetNextValue(false);
+                    moveNext.SetNextValue(isSynchronousCallback, false);
                 }
                 else queueLock.Exit();
             }
@@ -168,7 +164,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case 1:
                     current = response;
                     queueLock.Exit();
-                    moveNext.SetNextValue(true);
+                    moveNext.SetNextValue(isSynchronousCallback, true);
                     return;
                 default: queueLock.Exit(); return;
             }
@@ -177,7 +173,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 判断是否存在下一个数据
         /// </summary>
         /// <returns></returns>
-        internal EnumeratorCommandMoveNext MoveNext()
+        public EnumeratorCommandMoveNext MoveNext()
         {
             queueLock.EnterYield();
             if (returnValueQueue.Count != 0)
@@ -198,20 +194,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 判断是否存在下一个数据
         /// </summary>
         /// <returns></returns>
-#if NetStandard21
-        async ValueTask<bool> IAsyncEnumerator<ResponseResult<T>>.MoveNextAsync()
-#else
         async Task<bool> IEnumeratorTask.MoveNextAsync()
-#endif
         {
             return await MoveNext();
         }
 #if NetStandard21
         /// <summary>
+        /// 判断是否存在下一个数据
+        /// </summary>
+        /// <returns></returns>
+        async ValueTask<bool> IAsyncEnumerator<LocalResult<T>>.MoveNextAsync()
+        {
+            return await MoveNext();
+        }
+        /// <summary>
         /// 获取 IAsyncEnumerable
         /// </summary>
         /// <returns></returns>
-        public override async IAsyncEnumerable<ResponseResult<T>> GetAsyncEnumerable()
+        public async IAsyncEnumerable<LocalResult<T>> GetAsyncEnumerable()
         {
             bool isError = false;
             do
@@ -232,7 +232,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     queueLock.Exit();
                     break;
                 }
-                ResponseResult<T> response = Current;
+                LocalResult<T> response = Current;
                 yield return response;
                 if (response.CallState != CallStateEnum.Success)
                 {
@@ -243,7 +243,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             while (true);
 
             if (isError) Dispose();
-            else if (ReturnType != Net.CommandClientReturnTypeEnum.Success) yield return ReturnType;
+            else if (ReturnType != Net.CommandClientReturnTypeEnum.Success) yield return new LocalResult<T>(CallStateEnum.Unknown, Exception);
         }
         /// <summary>
         /// 数据转换获取 IAsyncEnumerable
@@ -251,9 +251,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="VT">目标数据类型</typeparam>
         /// <param name="getValue">数据转换委托</param>
         /// <returns></returns>
-        public override async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T?, VT> getValue)
+        public async IAsyncEnumerable<LocalResult<VT>> GetAsyncEnumerable<VT>(Func<T?, VT> getValue)
         {
-            await foreach (ResponseResult<T> value in GetAsyncEnumerable())
+            await foreach (LocalResult<T> value in GetAsyncEnumerable())
             {
                 if (value.IsSuccess) yield return getValue(value.Value);
                 else yield return value.Cast<VT>();

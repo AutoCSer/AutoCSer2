@@ -19,7 +19,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建节点操作对象委托
         /// </summary>
-        internal readonly Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> Creator;
+        internal readonly Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> Creator;
         /// <summary>
         /// 日志流持久化内存数据库客户端
         /// </summary>
@@ -37,6 +37,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private int isReindex;
         /// <summary>
+        /// 是否 IO 线程同步回调
+        /// </summary>
+        internal bool IsSynchronousCallback;
+        /// <summary>
         /// 服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失
         /// </summary>
         private bool isPersistenceCallbackExceptionRenewNode;
@@ -48,7 +52,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="client">日志流持久化内存数据库客户端</param>
         /// <param name="index">节点索引信息</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
-        internal LocalClientNode(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        internal LocalClientNode(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
         {
             this.Creator = creator;
             this.Key = key;
@@ -141,6 +145,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
          where T : class
     {
         /// <summary>
+        /// IO 线程同步客户端节点
+        /// </summary>
+#if NetStandard21
+        private LocalClientNode<T>? synchronousNode;
+#else
+        private LocalClientNode<T> synchronousNode;
+#endif
+        /// <summary>
         /// 客户端节点
         /// </summary>
         /// <param name="key">节点全局关键字</param>
@@ -148,7 +160,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="client">日志流持久化内存数据库客户端</param>
         /// <param name="index">节点索引信息</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
-        internal LocalClientNode(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        internal LocalClientNode(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
             : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
         /// <summary>
         /// 节点重建
@@ -156,8 +168,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         protected override async Task renew()
         {
-            ResponseResult<bool> isRemove = await Client.RemoveNode(this);
-            if (isRemove.ReturnType == AutoCSer.Net.CommandClientReturnTypeEnum.Success) await reindex();
+            LocalResult<bool> isRemove = await Client.RemoveNode(this);
+            if (isRemove.IsSuccess) await reindex();
         }
         /// <summary>
         /// 索引失效重新获取
@@ -165,8 +177,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         protected override async Task reindex()
         {
-            ResponseResult<NodeIndex> nodeIndex = await Client.GetOrCreateNodeIndex<T>(Key, Creator);
+            LocalResult<NodeIndex> nodeIndex = await Client.GetOrCreateNodeIndex<T>(Key, Creator);
             if (nodeIndex.IsSuccess) Index = nodeIndex.Value;
+        }
+        /// <summary>
+        /// 创建 IO 线程同步回调节点
+        /// </summary>
+        /// <returns></returns>
+        private LocalClientNode<T> createSynchronousCallback()
+        {
+            LocalClientNode<T> node = (LocalClientNode<T>)this.MemberwiseClone();
+            node.IsSynchronousCallback = true;
+            synchronousNode = node;
+            return node;
+        }
+        /// <summary>
+        /// 获取 IO 线程同步回调节点，节点调用 await 后续操作不允许存在同步阻塞逻辑或者长时间占用 CPU 运算
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static T GetSynchronousCallback(T node)
+        {
+            LocalClientNode<T> clientNode = node.notNullCastType<LocalClientNode<T>>();
+            if (!clientNode.IsSynchronousCallback) return (T)(object)clientNode.createSynchronousCallback();
+            return node;
         }
     }
 }

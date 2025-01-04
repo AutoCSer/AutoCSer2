@@ -80,12 +80,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key"></param>
         /// <returns>是否存在关键字</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(ServerByteArray key);
         /// <summary>
         /// 删除关键字并返回被删除数据
         /// </summary>
         /// <param name="key"></param>
         /// <returns>被删除数据</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
 #if NetStandard21
         ValueResult<byte[]?> GetRemove(ServerByteArray key);
 #else
@@ -96,6 +98,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key"></param>
         /// <returns>被删除数据</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         ResponseParameter GetRemoveResponseParameter(ServerByteArray key);
     }
 }

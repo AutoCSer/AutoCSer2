@@ -24,7 +24,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 正在处理的消息集合
         /// </summary>
-        internal MessageArrayItem<T>[] MessageArray;
+        internal readonly MessageArrayItem<T>[] MessageArray;
         /// <summary>
         /// 消息处理客户端回调集合
         /// </summary>
@@ -110,7 +110,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private MessageNode(int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1)
         {
             timeoutTimestamp = AutoCSer.Date.GetTimestampBySeconds(Math.Max(timeoutSeconds, 1));
-            checkTimeoutSeconds = Math.Max(checkTimeoutSeconds, 1);
             checkTimer = new MessageNodeCheckTimer<T>(this, Math.Max(checkTimeoutSeconds, 1));
             MessageArray = new MessageArrayItem<T>[Math.Max(arraySize, 1)];
             callbacks = new LeftArray<MessageNodeCallbackCount<T>>(sizeof(int));
@@ -266,7 +265,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             clearFailed();
             sendFailedIndex = -1;
-            linkEnd = linkHead = nextFailed = failedEnd = failedHead;
+            linkEnd = linkHead = failedEnd = failedHead;
             arrayHead = null;
             messageArrayFreeIndex = arrayMessageCount = count = 0;
             timeoutMessages.Clear();
@@ -288,7 +287,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private void clearFailed()
         {
-            streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
             nextFailed = failedHead;
             failedCount = 0;
             failedHead.LinkNext = null;
@@ -385,7 +383,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else sendFailedMessage();
         }
         /// <summary>
-        /// 发送多条新消息
+        /// 发送多条新消息（currentCallback 不允许为 null）
         /// </summary>
         private void sendMessageLink()
         {
@@ -528,8 +526,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (message != null)
             {
-                streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                 message.MessageIdeneity.SetNew(++CurrentIdentity);
+                streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                 AppendLinkCount(message);
                 if (currentCallback != null && messageArrayFreeIndex >= 0) sendNewMessage();
             }
@@ -565,13 +563,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 var message = MessageArray[identity.ArrayIndex].GetMessage(out nextIndex);
                 if (message != null && message.MessageIdeneity.Identity == identity.Identity)
                 {
-                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
-                    if (identity.ArrayIndex != sendFailedIndex) --count;
+                    if ((message.MessageIdeneity.Flags & MessageFlagsEnum.FailedOrTimeout) == 0) --count;
                     else
                     {
                         --failedCount;
-                        sendFailedIndex = -1;
+                        if (identity.ArrayIndex == sendFailedIndex) sendFailedIndex = -1;
                     }
+                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     freeArrayIndex(message, nextIndex);
                     sendMessage();
                 }
@@ -630,12 +628,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 var message = MessageArray[identity.ArrayIndex].GetMessage(out nextIndex);
                 if (message != null && message.MessageIdeneity.Identity == identity.Identity)
                 {
-                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     if ((message.MessageIdeneity.Flags & MessageFlagsEnum.FailedOrTimeout) == 0)
                     {
                         --count;
                         ++failedCount;
                     }
+                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     message.MessageIdeneity.Flags |= MessageFlagsEnum.Failed;
                     failed(message, nextIndex);
                     sendMessage();
@@ -716,7 +714,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     case 0: break;
                     case 1: sendMessage(); break;
-                    default: sendMessageLink(); break;
+                    default:
+                        if (currentCallback != null) sendMessageLink();
+                        break;
                 }
             }
         }

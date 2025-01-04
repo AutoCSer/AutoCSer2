@@ -16,10 +16,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         internal PerformanceSearchTreeDictionaryNode() { }
         internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<ISearchTreeDictionaryNodeLocalClientNode<int, int>> node = await client.GetOrCreateSearchTreeDictionaryNode<int, int>(typeof(ISearchTreeDictionaryNodeLocalClientNode<int, int>).FullName);
+            LocalResult<ISearchTreeDictionaryNodeLocalClientNode<int, int>> node = await client.GetOrCreateSearchTreeDictionaryNode<int, int>(typeof(ISearchTreeDictionaryNodeLocalClientNode<int, int>).FullName);
             if (!Program.Breakpoint(node)) return;
-            this.node = node.Value;
-            ResponseResult result = await this.node.Clear();
+            this.node = LocalClientNode<ISearchTreeDictionaryNodeLocalClientNode<int, int>>.GetSynchronousCallback(node.Value);
+            LocalResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
             int taskCount = getTaskCount();
@@ -35,7 +35,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
-            ResponseResult<bool> boolResult = await this.node.Set(0, 0);
+            LocalResult<bool> boolResult = await this.node.Set(0, 0);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
@@ -51,7 +51,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 int value = System.Threading.Interlocked.Decrement(ref testValue);
                 if (value >= 0)
                 {
-                    ResponseResult<bool> result = await node.Set(value, value + 1);
+                    LocalResult<bool> result = await node.Set(value, value + 1);
                     if (result.IsSuccess && result.Value) ++success;
                     else ++error;
                 }
@@ -72,7 +72,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 int value = System.Threading.Interlocked.Decrement(ref testValue);
                 if (value >= 0)
                 {
-                    ResponseResult<ValueResult<int>> result = await node.TryGetValue(value);
+                    LocalResult<ValueResult<int>> result = await node.TryGetValue(value);
                     if (result.IsSuccess && result.Value.IsValue && result.Value.Value == value + 1) ++success;
                     else ++error;
                 }

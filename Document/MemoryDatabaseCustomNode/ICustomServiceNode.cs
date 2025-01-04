@@ -1,6 +1,4 @@
-﻿using AutoCSer.Extensions;
-using System;
-using System.Reflection;
+﻿using System;
 
 namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {

@@ -38,6 +38,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value">关键字</param>
         /// <returns>是否删除成功</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(T value);
         /// <summary>
         /// 获取第一个数据

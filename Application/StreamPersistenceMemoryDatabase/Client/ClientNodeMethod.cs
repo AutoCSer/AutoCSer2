@@ -18,6 +18,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type LocalClientSendOnlyMethodReturnType = typeof(MethodParameter);
         /// <summary>
+        /// 持续回调是否委托回调 KeepCallbackCommand 客户端
+        /// </summary>
+        public bool IsKeepCallbackCommand;
+        /// <summary>
         /// 是否返回参数类型
         /// </summary>
         internal readonly bool IsReturnResponseParameter;
@@ -42,46 +46,95 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             else
             {
-                if (ReturnValueType.IsGenericType)
+                if (isLocalClient)
                 {
-                    Type genericTypeDefinition = ReturnValueType.GetGenericTypeDefinition();
-                    if (genericTypeDefinition == (isLocalClient ? typeof(LocalServiceQueueNode<>) : typeof(Task<>)))
+                    if (ReturnValueType.IsGenericType)
                     {
-                        ReturnValueType = ReturnValueType.GetGenericArguments()[0];
-                        if (ReturnValueType == typeof(ResponseResult))
+                        Type genericTypeDefinition = ReturnValueType.GetGenericTypeDefinition();
+                        if (genericTypeDefinition == typeof(LocalServiceQueueNode<>))
                         {
-                            ReturnValueType = typeof(void);
-                            isReturnType = true;
-                        }
-                        else if (ReturnValueType.IsGenericType)
-                        {
-                            genericTypeDefinition = ReturnValueType.GetGenericTypeDefinition();
-                            if (genericTypeDefinition == typeof(ResponseResult<>))
+                            ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                            if (ReturnValueType.IsGenericType)
                             {
-                                ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                genericTypeDefinition = ReturnValueType.GetGenericTypeDefinition();
+                                if (genericTypeDefinition == typeof(LocalResult<>))
+                                {
+                                    ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                    isReturnType = true;
+                                }
+                                else if (genericTypeDefinition == typeof(LocalKeepCallback<>))
+                                {
+                                    ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                    isReturnType = isKeepCallback = true;
+                                }
+                            }
+                            else if (ReturnValueType == typeof(LocalResult))
+                            {
+                                ReturnValueType = typeof(void);
                                 isReturnType = true;
                             }
-                            else if (genericTypeDefinition == typeof(KeepCallbackResponse<>))
+                            else if (ReturnValueType == typeof(IDisposable) && ParameterStartIndex != ParameterEndIndex)
+                            {
+                                ReturnValueType = Parameters[ParameterEndIndex - 1].ParameterType;
+                                if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(Action<>))
+                                {
+                                    ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                    if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(LocalResult<>))
+                                    {
+                                        ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                        isReturnType = isKeepCallback = IsKeepCallbackCommand = true;
+                                        --ParameterEndIndex;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (ReturnValueType.IsGenericType)
+                    {
+                        Type genericTypeDefinition = ReturnValueType.GetGenericTypeDefinition();
+                        if (genericTypeDefinition == typeof(Task<>))
+                        {
+                            ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                            if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(KeepCallbackResponse<>))
                             {
                                 ReturnValueType = ReturnValueType.GetGenericArguments()[0];
                                 isReturnType = isKeepCallback = true;
                             }
                         }
+                        else if (genericTypeDefinition == typeof(ResponseParameterAwaiter<>))
+                        {
+                            ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                            isReturnType = true;
+                        }
                     }
-                    else if (!isLocalClient && genericTypeDefinition == typeof(ResponseParameterAwaiter<>))
+                    else if (ReturnValueType == typeof(ResponseResultAwaiter))
                     {
-                        ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                        ReturnValueType = typeof(void);
                         isReturnType = true;
                     }
-                }
-                else if (!isLocalClient && ReturnValueType == typeof(ResponseResultAwaiter))
-                {
-                    ReturnValueType = typeof(void);
-                    isReturnType = true;
+                    else if(ReturnValueType == typeof(AutoCSer.Net.KeepCallbackCommand) && ParameterStartIndex != ParameterEndIndex)
+                    {
+                        ReturnValueType = Parameters[ParameterEndIndex - 1].ParameterType;
+                        if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(Action<,>))
+                        {
+                            Type[] types = ReturnValueType.GetGenericArguments();
+                            ReturnValueType = types[0];
+                            if (types[1] == typeof(AutoCSer.Net.KeepCallbackCommand)
+                                && ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(ResponseResult<>))
+                            {
+                                ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                isReturnType = isKeepCallback = IsKeepCallbackCommand = true;
+                                --ParameterEndIndex;
+                            }
+                        }
+                    }
                 }
                 if (!isReturnType)
                 {
-                    Type awaitType = isLocalClient ? typeof(LocalServiceQueueNode<ResponseResult>) : typeof(ResponseResultAwaiter);
+                    Type awaitType = isLocalClient ? typeof(LocalServiceQueueNode<LocalResult>) : typeof(ResponseResultAwaiter);
                     Error = $"节点方法 {type.fullName()}.{method.Name} 返回值类型必须是 {awaitType.fullName()}";
                     return;
                 }

@@ -49,6 +49,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public bool MethodIsReturn { get { return interfaceMethod.ReturnValueType != typeof(void); } }
             /// <summary>
+            /// 回调委托类型
+            /// </summary>
+            public ExtensionType KeepCallbackType;
+            /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
             /// <param name="nodeAttribute"></param>
@@ -70,10 +74,15 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputKeepCallback:
                         case CallTypeEnum.Enumerable:
                         case CallTypeEnum.InputEnumerable:
-                            MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(KeepCallbackResponse<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                            if (interfaceMethod.MethodAttribute.IsKeepCallbackCommand)
+                            {
+                                KeepCallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                                MethodReturnType = typeof(LocalServiceQueueNode<IDisposable>);
+                            }
+                            else MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalKeepCallback<>).MakeGenericType(interfaceMethod.ReturnValueType));
                             break;
                         default:
-                            MethodReturnType = interfaceMethod.ReturnValueType == typeof(void) ? typeof(LocalServiceQueueNode<ResponseResult>) : typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                            MethodReturnType = interfaceMethod.ReturnValueType == typeof(void) ? typeof(LocalServiceQueueNode<LocalResult>) : typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
                             break;
                     }
                 }

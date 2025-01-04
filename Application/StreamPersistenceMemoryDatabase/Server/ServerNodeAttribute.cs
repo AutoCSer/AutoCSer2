@@ -13,6 +13,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         ///// </summary>
         //public bool IsClientCodeGeneratorOnlyDeclaringMethod;
         /// <summary>
+        /// 默认为 true 表示生成远程客户端接口代码
+        /// </summary>
+        public bool IsClient = true;
+        /// <summary>
         /// 默认为 false 表示不生成本地客户端接口代码
         /// </summary>
         public bool IsLocalClient;

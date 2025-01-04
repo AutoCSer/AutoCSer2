@@ -29,6 +29,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public bool IsSendOnly;
         /// <summary>
+        /// 默认为 false 表示持续响应 API 生成 EnumeratorCommand 客户端 API，设置为 true 则生成委托回调 KeepCallbackCommand 客户端 API
+        /// </summary>
+        public bool IsKeepCallbackCommand;
+        /// <summary>
         /// 默认为 false 表示持久化回调异常时将节点设置为不可用状态，设置为 true 则在 Node.IsPersistenceCallbackChanged 为 false 时避免该问题，但是节点方法必须保证异常时还原恢复内存数据状态，必须关心 new 产生的内存不足异常，在修改数据以前应该将完成所有 new 操作
         /// </summary>
         public bool IsIgnorePersistenceCallbackException;

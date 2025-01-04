@@ -25,6 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="startIndex">起始位置</param>
         /// <param name="count">清除数据数量</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Clear(int startIndex, int count);
         /// <summary>
         /// 获取数组长度
@@ -45,6 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">索引位置</param>
         /// <param name="value">数据</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool SetValue(int index, T value);
         /// <summary>
         /// 根据索引位置设置数据并返回设置之前的数据
@@ -52,6 +54,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">索引位置</param>
         /// <param name="value">数据</param>
         /// <returns>设置之前的数据，超出索引返回则无返回值</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         ValueResult<T> GetValueSet(int index, T value);
         /// <summary>
         /// 用数据填充整个数组
@@ -65,6 +68,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="startIndex">起始位置</param>
         /// <param name="count">填充数据数量</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Fill(T value, int startIndex, int count);
         /// <summary>
         /// 从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
@@ -108,6 +112,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="startIndex">起始位置</param>
         /// <param name="count">反转数据数量</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Reverse(int startIndex, int count);
         /// <summary>
         /// 数组排序

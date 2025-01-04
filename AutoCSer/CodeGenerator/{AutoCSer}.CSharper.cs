@@ -1143,6 +1143,41 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         _loopIndex_ = _loopIndex3_;
                     }
                 }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value3_ = _value2_.KeepCallbackType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = _value4_.Parameters;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]))
+                    {
+                    if (_value5_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value3_.FullName);
+            _code_.Add(@" callback");
+            }
+                }
             _code_.Add(@");");
             }
                             ++_loopIndex_;
@@ -1351,6 +1386,41 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         }
                         _loopIndex_ = _loopIndex3_;
                     }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value3_ = _value2_.KeepCallbackType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = _value4_.Parameters;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]))
+                    {
+                    if (_value5_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value3_.FullName);
+            _code_.Add(@" callback");
+            }
                 }
             _code_.Add(@");");
             }

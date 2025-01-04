@@ -1,6 +1,8 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
@@ -21,6 +23,14 @@ namespace AutoCSer.CommandService
         protected Task<ResponseResult<T>> nodeTask;
 #endif
         /// <summary>
+        /// IO 线程同步回调客户端节点
+        /// </summary>
+#if NetStandard21
+        protected Task<ResponseResult<T>>? synchronousNodeTask;
+#else
+        protected Task<ResponseResult<T>> synchronousNodeTask;
+#endif
+        /// <summary>
         /// 客户端节点访问锁
         /// </summary>
         protected readonly System.Threading.SemaphoreSlim nodeLock = new System.Threading.SemaphoreSlim(1, 1);
@@ -38,6 +48,30 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <returns></returns>
         protected abstract Task<ResponseResult<T>> getNode();
+        /// <summary>
+        /// 获取 IO 线程同步回调客户端节点，节点调用 await 后续操作不允许存在同步阻塞逻辑或者长时间占用 CPU 运算
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<T>> GetSynchronousNode()
+        {
+            return synchronousNodeTask ?? getSynchronousNode();
+        }
+        /// <summary>
+        /// 获取 IO 线程同步回调客户端节点
+        /// </summary>
+        /// <returns></returns>
+        private async Task<ResponseResult<T>> getSynchronousNode()
+        {
+            ResponseResult<T> node = await GetNode();
+            if (node.IsSuccess)
+            {
+                if (synchronousNodeTask != null) return synchronousNodeTask.Result;
+                node = ClientNode<T>.GetSynchronousCallback(node.Value.notNull());
+                synchronousNodeTask = Task.FromResult(node);
+            }
+            return node;
+        }
     }
     /// <summary>
     /// 日志流持久化内存数据库客户端节点缓存，用于客户端单例

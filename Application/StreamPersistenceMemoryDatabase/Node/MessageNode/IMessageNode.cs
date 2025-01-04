@@ -48,19 +48,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 清除所有消息
         /// </summary>
-        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void Clear();
         /// <summary>
         /// 清除所有失败消息
         /// </summary>
-        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void ClearFailed();
         /// <summary>
         /// 消费客户端获取消息
         /// </summary>
         /// <param name="maxCount">当前客户端最大并发消息数量</param>
         /// <param name="callback">null 表示心跳测试数据，客户端应该忽略该消息</param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsKeepCallbackCommand = true)]
 #if NetStandard21
         void GetMessage(int maxCount, MethodKeepCallback<T?> callback);
 #else

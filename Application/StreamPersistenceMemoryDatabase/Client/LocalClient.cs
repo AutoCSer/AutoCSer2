@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net.Packet;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="node">客户端节点</param>
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
-        public abstract LocalServiceQueueNode<ResponseResult<bool>> RemoveNode(LocalClientNode node);
+        public abstract LocalServiceQueueNode<LocalResult<bool>> RemoveNode(LocalClientNode node);
         /// <summary>
         /// 获取节点，不存在则创建节点
         /// </summary>
@@ -43,9 +44,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="creator">创建客户端节点委托</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点接口对象派生自 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode{T}</returns>
-        public async Task<ResponseResult<T>> GetOrCreateNode<T>(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
+        public async Task<LocalResult<T>> GetOrCreateNode<T>(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
-            ResponseResult<NodeIndex> nodeIndex = await GetOrCreateNodeIndex<T>(key, creator);
+            LocalResult<NodeIndex> nodeIndex = await GetOrCreateNodeIndex<T>(key, creator);
             if (nodeIndex.IsSuccess) return LocalClientNodeCreator<T>.Create(key, creator, this, nodeIndex.Value, isPersistenceCallbackExceptionRenewNode);
             return nodeIndex.Cast<T>();
         }
@@ -60,7 +61,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点接口对象派生自 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode{T}</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<T>> GetOrCreateNode<T, PT>(string key, PT parameter, Func<NodeIndex, string, NodeInfo, PT, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
+        public Task<LocalResult<T>> GetOrCreateNode<T, PT>(string key, PT parameter, Func<NodeIndex, string, NodeInfo, PT, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator, bool isPersistenceCallbackExceptionRenewNode = false) where T : class
         {
             return GetOrCreateNode<T>(key, (nodexIndex, nodeKey, nodeInfo) => creator(nodexIndex, nodeKey, nodeInfo, parameter), isPersistenceCallbackExceptionRenewNode);
         }
@@ -71,7 +72,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">节点全局关键字</param>
         /// <param name="creator">创建客户端节点委托</param>
         /// <returns></returns>
-        internal async Task<ResponseResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator) where T : class
+        internal async Task<LocalResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator) where T : class
         {
             var exception = default(Exception);
             NodeInfo nodeInfo = LocalClientNodeCreator<T>.GetNodeInfo(out exception);
@@ -83,7 +84,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (index.GetFree())
                     {
-                        ResponseResult<NodeIndex> nodeIndex = await creator(index, key, nodeInfo);
+                        LocalResult<NodeIndex> nodeIndex = await creator(index, key, nodeInfo);
                         if (nodeIndex.IsSuccess)
                         {
                             state = nodeIndex.Value.GetState();
@@ -96,7 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 return state;
             }
-            return new ResponseResult<NodeIndex>(CallStateEnum.NotFoundClientNodeCreator, exception.Message);
+            return new LocalResult<NodeIndex>(CallStateEnum.NotFoundClientNodeCreator, exception);
         }
         /// <summary>
         /// 重建持久化文件（清除无效数据），注意不支持快照的节点将被抛弃
@@ -144,7 +145,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">节点索引信息</param>
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public LocalServiceQueueNode<ResponseResult<bool>> RemoveNode(NodeIndex index)
+        public LocalServiceQueueNode<LocalResult<bool>> RemoveNode(NodeIndex index)
         {
             return ClientNode.RemoveNode(index);
         }
@@ -154,7 +155,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="node">客户端节点</param>
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public override LocalServiceQueueNode<ResponseResult<bool>> RemoveNode(LocalClientNode node)
+        public override LocalServiceQueueNode<LocalResult<bool>> RemoveNode(LocalClientNode node)
         {
             return ClientNode.RemoveNode(node.Index);
         }
@@ -168,7 +169,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IMessageNodeLocalClientNode<BinaryMessage<T>>>> GetOrCreateBinaryMessageNode<T>(string key, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IMessageNodeLocalClientNode<BinaryMessage<T>>>> GetOrCreateBinaryMessageNode<T>(string key, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IMessageNodeLocalClientNode<BinaryMessage<T>>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateMessageNode(index, nodeKey, nodeInfo, typeof(BinaryMessage<T>), arraySize, timeoutSeconds, checkTimeoutSeconds), isPersistenceCallbackExceptionRenewNode);
         }
@@ -182,7 +183,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IMessageNodeLocalClientNode<T>>> GetOrCreateMessageNode<T>(string key, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IMessageNodeLocalClientNode<T>>> GetOrCreateMessageNode<T>(string key, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1, bool isPersistenceCallbackExceptionRenewNode = false)
             where T : Message<T>
         {
             return GetOrCreateNode<IMessageNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateMessageNode(index, nodeKey, nodeInfo, typeof(T), arraySize, timeoutSeconds, checkTimeoutSeconds), isPersistenceCallbackExceptionRenewNode);
@@ -194,7 +195,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IDistributedLockNodeLocalClientNode<KT>>> GetOrCreateDistributedLockNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IDistributedLockNodeLocalClientNode<KT>>> GetOrCreateDistributedLockNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
             return GetOrCreateNode<IDistributedLockNodeLocalClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateDistributedLockNode(index, nodeKey, nodeInfo, typeof(KT)), isPersistenceCallbackExceptionRenewNode);
@@ -206,7 +207,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IFragmentDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateFragmentDictionaryNode<KT, VT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IFragmentDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateFragmentDictionaryNode<KT, VT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
             return GetOrCreateNode<IFragmentDictionaryNodeLocalClientNode<KT, VT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateFragmentDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), typeof(VT)), isPersistenceCallbackExceptionRenewNode);
@@ -219,7 +220,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateDictionaryNode<KT, VT>(string key, int capacity, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateDictionaryNode<KT, VT>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
             return GetOrCreateNode<IDictionaryNodeLocalClientNode<KT, VT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), typeof(VT), capacity), isPersistenceCallbackExceptionRenewNode);
@@ -231,7 +232,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<ISearchTreeDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateSearchTreeDictionaryNode<KT, VT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<ISearchTreeDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateSearchTreeDictionaryNode<KT, VT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IComparable<KT>
         {
             return GetOrCreateNode<ISearchTreeDictionaryNodeLocalClientNode<KT, VT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateSearchTreeDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), typeof(VT)), isPersistenceCallbackExceptionRenewNode);
@@ -243,7 +244,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<ISortedDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateSortedDictionaryNode<KT, VT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<ISortedDictionaryNodeLocalClientNode<KT, VT>>> GetOrCreateSortedDictionaryNode<KT, VT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IComparable<KT>
         {
             return GetOrCreateNode<ISortedDictionaryNodeLocalClientNode<KT, VT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateSortedDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), typeof(VT)), isPersistenceCallbackExceptionRenewNode);
@@ -256,7 +257,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<ISortedListNodeLocalClientNode<KT, VT>>> GetOrCreateSortedListNode<KT, VT>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<ISortedListNodeLocalClientNode<KT, VT>>> GetOrCreateSortedListNode<KT, VT>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IComparable<KT>
         {
             return GetOrCreateNode<ISortedListNodeLocalClientNode<KT, VT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateSortedListNode(index, nodeKey, nodeInfo, typeof(KT), typeof(VT), capacity), isPersistenceCallbackExceptionRenewNode);
@@ -268,7 +269,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IFragmentHashSetNodeLocalClientNode<KT>>> GetOrCreateFragmentHashSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IFragmentHashSetNodeLocalClientNode<KT>>> GetOrCreateFragmentHashSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
             return GetOrCreateNode<IFragmentHashSetNodeLocalClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateFragmentHashSetNode(index, nodeKey, nodeInfo, typeof(KT)), isPersistenceCallbackExceptionRenewNode);
@@ -280,7 +281,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IHashSetNodeLocalClientNode<KT>>> GetOrCreateHashSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IHashSetNodeLocalClientNode<KT>>> GetOrCreateHashSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
             return GetOrCreateNode<IHashSetNodeLocalClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateHashSetNode(index, nodeKey, nodeInfo, typeof(KT)), isPersistenceCallbackExceptionRenewNode);
@@ -292,7 +293,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<ISearchTreeSetNodeLocalClientNode<KT>>> GetOrCreateSearchTreeSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<ISearchTreeSetNodeLocalClientNode<KT>>> GetOrCreateSearchTreeSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IComparable<KT>
         {
             return GetOrCreateNode<ISearchTreeSetNodeLocalClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateSearchTreeSetNode(index, nodeKey, nodeInfo, typeof(KT)), isPersistenceCallbackExceptionRenewNode);
@@ -304,7 +305,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<ISortedSetNodeLocalClientNode<KT>>> GetOrCreateSortedSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<ISortedSetNodeLocalClientNode<KT>>> GetOrCreateSortedSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IComparable<KT>
         {
             return GetOrCreateNode<ISortedSetNodeLocalClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateSortedSetNode(index, nodeKey, nodeInfo, typeof(KT)), isPersistenceCallbackExceptionRenewNode);
@@ -317,7 +318,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IQueueNodeLocalClientNode<T>>> GetOrCreateQueueNode<T>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IQueueNodeLocalClientNode<T>>> GetOrCreateQueueNode<T>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IQueueNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateQueueNode(index, nodeKey, nodeInfo, typeof(T), capacity), isPersistenceCallbackExceptionRenewNode);
         }
@@ -329,7 +330,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IStackNodeLocalClientNode<T>>> GetOrCreateStackNode<T>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IStackNodeLocalClientNode<T>>> GetOrCreateStackNode<T>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IStackNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateStackNode(index, nodeKey, nodeInfo, typeof(T), capacity), isPersistenceCallbackExceptionRenewNode);
         }
@@ -341,7 +342,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<ILeftArrayNodeLocalClientNode<T>>> GetOrCreateLeftArrayNode<T>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<ILeftArrayNodeLocalClientNode<T>>> GetOrCreateLeftArrayNode<T>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<ILeftArrayNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateLeftArrayNode(index, nodeKey, nodeInfo, typeof(T), capacity), isPersistenceCallbackExceptionRenewNode);
         }
@@ -353,7 +354,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IArrayNodeLocalClientNode<T>>> GetOrCreateArrayNode<T>(string key, int length, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IArrayNodeLocalClientNode<T>>> GetOrCreateArrayNode<T>(string key, int length, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IArrayNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateArrayNode(index, nodeKey, nodeInfo, typeof(T), length), isPersistenceCallbackExceptionRenewNode);
         }
@@ -365,7 +366,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IIdentityGeneratorNodeLocalClientNode>> GetOrCreateIdentityGeneratorNode(string key, long identity = 1, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IIdentityGeneratorNodeLocalClientNode>> GetOrCreateIdentityGeneratorNode(string key, long identity = 1, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IIdentityGeneratorNodeLocalClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateIdentityGeneratorNode(index, nodeKey, nodeInfo, identity), isPersistenceCallbackExceptionRenewNode);
         }
@@ -377,9 +378,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IBitmapNodeLocalClientNode>> GetOrCreateBitmapNode(string key, uint capacity, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<LocalResult<IBitmapNodeLocalClientNode>> GetOrCreateBitmapNode(string key, uint capacity, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IBitmapNodeLocalClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateBitmapNode(index, nodeKey, nodeInfo, capacity), isPersistenceCallbackExceptionRenewNode);
+        }
+
+        /// <summary>
+        /// 获取日志流持久化内存数据库客户端节点
+        /// </summary>
+        /// <typeparam name="NT">客户端节点类型</typeparam>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public StreamPersistenceMemoryDatabaseLocalClientNodeCache<NT> CreateNode<NT>(Func<LocalClient<CT>, Task<LocalResult<NT>>> getNodeTask)
+            where NT : class
+        {
+            return new StreamPersistenceMemoryDatabaseLocalClientNodeCache<NT, CT>(this, getNodeTask);
         }
     }
 }

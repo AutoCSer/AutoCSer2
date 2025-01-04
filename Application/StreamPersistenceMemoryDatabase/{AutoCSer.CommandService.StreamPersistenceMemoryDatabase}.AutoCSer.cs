@@ -7,6 +7,205 @@ using AutoCSer;
 #pragma warning disable
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
+    public enum ServiceMethodEnum
+    {
+            /// <summary>
+            /// [0] 从节点添加修复方法目录与文件信息
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long timestamp 创建从节点客户端信息时间戳
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory directory 修复方法目录信息
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodFile file 修复方法文件信息
+            /// </summary>
+            AppendRepairNodeMethodDirectoryFile = 0,
+            /// <summary>
+            /// [1] 绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
+            /// byte[] rawAssembly 程序集文件数据
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodName methodName 修复方法名称，必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号与其他必要配置信息
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum 
+            /// </summary>
+            BindNodeMethod = 1,
+            /// <summary>
+            /// [2] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// int methodIndex 调用方法编号
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum 
+            /// </summary>
+            Call = 2,
+            /// <summary>
+            /// [3] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum 
+            /// </summary>
+            CallInput = 3,
+            /// <summary>
+            /// [4] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter 
+            /// </summary>
+            CallInputOutput = 4,
+            /// <summary>
+            /// [5] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// int methodIndex 调用方法编号
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter 
+            /// </summary>
+            CallOutput = 5,
+            /// <summary>
+            /// [6] 检查持久化回调异常位置文件头部是否匹配
+            /// uint fileHeadVersion 持久化回调异常位置文件头部版本信息
+            /// ulong rebuildPosition 持久化流重建起始位置
+            /// 返回值 long 持久化回调异常位置文件已写入位置，失败返回 -1
+            /// </summary>
+            CheckPersistenceCallbackExceptionPositionFileHead = 6,
+            /// <summary>
+            /// [7] 检查持久化文件头部是否匹配
+            /// uint fileHeadVersion 持久化文件头部版本信息
+            /// ulong rebuildPosition 持久化流重建起始位置
+            /// 返回值 long 持久化流已写入位置，失败返回 -1
+            /// </summary>
+            CheckPersistenceFileHead = 7,
+            /// <summary>
+            /// [8] 创建从节点
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// bool isBackup 是否备份客户端
+            /// 返回值 long 从节点验证时间戳，负数表示 CallStateEnum 错误状态
+            /// </summary>
+            CreateSlave = 8,
+            /// <summary>
+            /// [9] 获取节点标识
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// bool isCreate 关键字不存在时创建空闲节点标识
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 关键字不存在时返回一个空闲节点标识用于创建节点
+            /// </summary>
+            GetNodeIndex = 9,
+            /// <summary>
+            /// [10] 获取持久化回调异常位置数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long timestamp 创建从节点客户端信息时间戳
+            /// AutoCSer.Net.CommandServerKeepCallback{long} callback 
+            /// 返回值 long 
+            /// </summary>
+            GetPersistenceCallbackExceptionPosition = 10,
+            /// <summary>
+            /// [11] 获取持久化回调异常位置文件数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long timestamp 创建从节点客户端信息时间戳
+            /// uint fileHeadVersion 持久化回调异常位置文件头部版本信息
+            /// ulong rebuildPosition 持久化流重建起始位置
+            /// long position 读取文件起始位置
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFileBuffer} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFileBuffer 
+            /// </summary>
+            GetPersistenceCallbackExceptionPositionFile = 11,
+            /// <summary>
+            /// [12] 获取持久化文件数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long timestamp 创建从节点客户端信息时间戳
+            /// uint fileHeadVersion 持久化文件头部版本信息
+            /// ulong rebuildPosition 持久化流重建起始位置
+            /// long position 读取文件起始位置
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFileBuffer} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFileBuffer 
+            /// </summary>
+            GetPersistenceFile = 12,
+            /// <summary>
+            /// [13] 获取持久化流已当前写入位置
+            /// 返回值 long 
+            /// </summary>
+            GetPersistencePosition = 13,
+            /// <summary>
+            /// [14] 获取重建快照结束位置
+            /// 返回值 long 重建快照结束位置
+            /// </summary>
+            GetRebuildSnapshotPosition = 14,
+            /// <summary>
+            /// [15] 从节点获取修复节点方法信息
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long timestamp 创建从节点客户端信息时间戳
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodPosition} callback 获取修复节点方法信息委托
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodPosition 
+            /// </summary>
+            GetRepairNodeMethodPosition = 15,
+            /// <summary>
+            /// [16] 获取服务端 UTC 时间
+            /// 返回值 System.DateTime 
+            /// </summary>
+            GetUtcNow = 16,
+            /// <summary>
+            /// [17] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            InputKeepCallback = 17,
+            /// <summary>
+            /// [18] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// int methodIndex 调用方法编号
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            KeepCallback = 18,
+            /// <summary>
+            /// [19] 重建持久化文件（清除无效数据），注意不支持快照的节点将被抛弃
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult 
+            /// </summary>
+            Rebuild = 19,
+            /// <summary>
+            /// [20] 移除从节点客户端信息
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long timestamp 创建从节点客户端信息时间戳
+            /// </summary>
+            RemoveSlave = 20,
+            /// <summary>
+            /// [21] 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
+            /// byte[] rawAssembly 程序集文件数据
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodName methodName 修复方法名称，必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum 
+            /// </summary>
+            RepairNodeMethod = 21,
+            /// <summary>
+            /// [22] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// </summary>
+            SendOnly = 22,
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
         /// <summary>
         /// 数组节点接口 客户端节点接口
         /// </summary>
@@ -1036,7 +1235,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="maxCount"></param>
             /// <returns></returns>
-            System.Threading.Tasks.Task<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse<T>> GetMessage(int maxCount);
+            AutoCSer.Net.KeepCallbackCommand GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> callback);
             /// <summary>
             /// 获取未完成处理超时消息数量
             /// </summary>
@@ -1764,11 +1963,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">清除数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Clear(int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Clear(int startIndex, int count);
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ClearArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ClearArray();
             /// <summary>
             /// 用数据填充数组指定位置
             /// </summary>
@@ -1776,30 +1975,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">填充数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Fill(T value, int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Fill(T value, int startIndex, int count);
             /// <summary>
             /// 用数据填充整个数组
             /// </summary>
             /// <param name="value"></param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> FillArray(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> FillArray(T value);
             /// <summary>
             /// 获取数组长度
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetLength();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetLength();
             /// <summary>
             /// 根据索引位置获取数据
             /// </summary>
             /// <param name="index">索引位置</param>
             /// <returns>超出索引返回则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValue(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValue(int index);
             /// <summary>
             /// 根据索引位置设置数据并返回设置之前的数据
             /// </summary>
             /// <param name="index">索引位置</param>
             /// <param name="value">数据</param>
             /// <returns>设置之前的数据，超出索引返回则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueSet(int index, T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueSet(int index, T value);
             /// <summary>
             /// 从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
@@ -1807,13 +2006,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">查找匹配数据数量</param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOf(T value, int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOf(T value, int startIndex, int count);
             /// <summary>
             /// 从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOfArray(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOfArray(T value);
             /// <summary>
             /// 从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
@@ -1821,42 +2020,42 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="startIndex">最后一个匹配位置（起始位置）</param>
             /// <param name="count">查找匹配数据数量</param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> LastIndexOf(T value, int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> LastIndexOf(T value, int startIndex, int count);
             /// <summary>
             /// 从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> LastIndexOfArray(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> LastIndexOfArray(T value);
             /// <summary>
             /// 反转指定位置数组数据
             /// </summary>
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">反转数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Reverse(int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Reverse(int startIndex, int count);
             /// <summary>
             /// 反转整个数组数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ReverseArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReverseArray();
             /// <summary>
             /// 根据索引位置设置数据
             /// </summary>
             /// <param name="index">索引位置</param>
             /// <param name="value">数据</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> SetValue(int index, T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> SetValue(int index, T value);
             /// <summary>
             /// 排序指定位置数组数据
             /// </summary>
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">排序数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Sort(int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Sort(int startIndex, int count);
             /// <summary>
             /// 数组排序
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SortArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> SortArray();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1871,52 +2070,52 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="index">位索引</param>
             /// <returns>是否设置成功，失败表示索引超出范围</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ClearBit(uint index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ClearBit(uint index);
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ClearMap();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ClearMap();
             /// <summary>
             /// 读取位状态
             /// </summary>
             /// <param name="index">位索引</param>
             /// <returns>非 0 表示二进制位为已设置状态，索引超出则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBit(uint index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBit(uint index);
             /// <summary>
             /// 清除位状态并返回设置之前的状态
             /// </summary>
             /// <param name="index">位索引</param>
             /// <returns>清除操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBitClearBit(uint index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBitClearBit(uint index);
             /// <summary>
             /// 状态取反并返回操作之前的状态
             /// </summary>
             /// <param name="index">位索引</param>
             /// <returns>取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBitInvertBit(uint index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBitInvertBit(uint index);
             /// <summary>
             /// 设置位状态并返回设置之前的状态
             /// </summary>
             /// <param name="index">位索引</param>
             /// <returns>设置之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBitSetBit(uint index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>>> GetBitSetBit(uint index);
             /// <summary>
             /// 获取二进制位数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<uint>> GetCapacity();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<uint>> GetCapacity();
             /// <summary>
             /// 状态取反
             /// </summary>
             /// <param name="index">位索引</param>
             /// <returns>是否设置成功，失败表示索引超出范围</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> InvertBit(uint index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> InvertBit(uint index);
             /// <summary>
             /// 设置位状态
             /// </summary>
             /// <param name="index">位索引</param>
             /// <returns>是否设置成功，失败表示索引超出范围</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> SetBit(uint index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> SetBit(uint index);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1929,61 +2128,61 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsKey(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsKey(KT key);
             /// <summary>
             /// 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsValue(VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsValue(VT value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 删除关键字并返回被删除数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns>被删除数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="key"></param>
             /// <returns>是否删除成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(KT key);
             /// <summary>
             /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
             /// <param name="capacity">新容器初始化大小</param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Renew(int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Renew(int capacity);
             /// <summary>
             /// 强制设置数据，如果关键字已存在则覆盖
             /// </summary>
             /// <param name="key"></param>
             /// <param name="value"></param>
             /// <returns>是否设置成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Set(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Set(KT key, VT value);
             /// <summary>
             /// 尝试添加数据
             /// </summary>
             /// <param name="key"></param>
             /// <param name="value"></param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> TryAdd(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryAdd(KT key, VT value);
             /// <summary>
             /// 根据关键字获取数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1999,7 +2198,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">锁关键字</param>
             /// <param name="timeoutSeconds">超时秒数</param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Enter(T key, ushort timeoutSeconds);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<long>> Enter(T key, ushort timeoutSeconds);
             /// <summary>
             /// 释放锁
             /// </summary>
@@ -2012,7 +2211,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">锁关键字</param>
             /// <param name="timeoutSeconds">超时秒数</param>
             /// <returns>失败返回 0</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> TryEnter(T key, ushort timeoutSeconds);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<long>> TryEnter(T key, ushort timeoutSeconds);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2025,54 +2224,54 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除数据（保留分片数组）
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ClearArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ClearArray();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsKey(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsKey(KT key);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 删除关键字并返回被删除数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="key"></param>
             /// <returns>是否存在关键字</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(KT key);
             /// <summary>
             /// 强制设置数据，如果关键字已存在则覆盖
             /// </summary>
             /// <param name="key"></param>
             /// <param name="value"></param>
             /// <returns>是否设置成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Set(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Set(KT key, VT value);
             /// <summary>
             /// 如果关键字不存在则添加数据
             /// </summary>
             /// <param name="key"></param>
             /// <param name="value"></param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> TryAdd(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryAdd(KT key, VT value);
             /// <summary>
             /// 根据关键字获取数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2087,32 +2286,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="value"></param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Add(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Add(T value);
             /// <summary>
             /// 清除数据（保留分片数组）
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ClearArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ClearArray();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Contains(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Contains(T value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="value"></param>
             /// <returns>是否存在关键字</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2127,32 +2326,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="value"></param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Add(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Add(T value);
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Contains(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Contains(T value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="value"></param>
             /// <returns>是否删除成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
             /// <summary>
             /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Renew();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Renew();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2166,13 +2365,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 获取下一个自增ID
             /// </summary>
             /// <returns>下一个自增ID，失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<long>> Next();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<long>> Next();
             /// <summary>
             /// 获取自增 ID 分段
             /// </summary>
             /// <param name="count">获取数量</param>
             /// <returns>自增 ID 分段</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment>> NextFragment(int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment>> NextFragment(int count);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2186,18 +2385,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 添加数据
             /// </summary>
             /// <param name="value">数据</param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Add(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Add(T value);
             /// <summary>
             /// 清除指定位置数据
             /// </summary>
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">清除数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Clear(int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Clear(int startIndex, int count);
             /// <summary>
             /// 清除所有数据并将数据有效长度设置为 0
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ClearLength();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ClearLength();
             /// <summary>
             /// 用数据填充数组指定位置
             /// </summary>
@@ -2205,57 +2404,57 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">填充数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Fill(T value, int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Fill(T value, int startIndex, int count);
             /// <summary>
             /// 用数据填充整个数组
             /// </summary>
             /// <param name="value"></param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> FillArray(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> FillArray(T value);
             /// <summary>
             /// 获取数组容器初大小
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetCapacity();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetCapacity();
             /// <summary>
             /// 获取容器空闲数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetFreeCount();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetFreeCount();
             /// <summary>
             /// 获取有效数组长度
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetLength();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetLength();
             /// <summary>
             /// 移除最后一个数据并返回该数据
             /// </summary>
             /// <returns>没有可移除数据则无数据返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetTryPopValue();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetTryPopValue();
             /// <summary>
             /// 根据索引位置获取数据
             /// </summary>
             /// <param name="index">索引位置</param>
             /// <returns>超出索引返回则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValue(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValue(int index);
             /// <summary>
             /// 移除指定索引位置数据并返回被移除的数据
             /// </summary>
             /// <param name="index">数据位置</param>
             /// <returns>超出索引范围则无数据返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueRemoveAt(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueRemoveAt(int index);
             /// <summary>
             /// 移除指定索引位置数据，将最后一个数据移动到该指定位置，并返回被移除的数据
             /// </summary>
             /// <param name="index"></param>
             /// <returns>超出索引范围则无数据返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueRemoveToEnd(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueRemoveToEnd(int index);
             /// <summary>
             /// 根据索引位置设置数据并返回设置之前的数据
             /// </summary>
             /// <param name="index">索引位置</param>
             /// <param name="value">数据</param>
             /// <returns>设置之前的数据，超出索引返回则无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueSet(int index, T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetValueSet(int index, T value);
             /// <summary>
             /// 从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
@@ -2263,20 +2462,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">查找匹配数据数量</param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOf(T value, int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOf(T value, int startIndex, int count);
             /// <summary>
             /// 从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOfArray(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOfArray(T value);
             /// <summary>
             /// 插入数据
             /// </summary>
             /// <param name="index">插入位置</param>
             /// <param name="value">数据</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Insert(int index, T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Insert(int index, T value);
             /// <summary>
             /// 从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
@@ -2284,75 +2483,75 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="startIndex">最后一个匹配位置（起始位置）</param>
             /// <param name="count">查找匹配数据数量</param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> LastIndexOf(T value, int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> LastIndexOf(T value, int startIndex, int count);
             /// <summary>
             /// 从数组中查找最后一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns>失败返回负数</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> LastIndexOfArray(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> LastIndexOfArray(T value);
             /// <summary>
             /// 移除第一个匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value">数据</param>
             /// <returns>是否存在移除数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
             /// <summary>
             /// 移除指定索引位置数据
             /// </summary>
             /// <param name="index">数据位置</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> RemoveAt(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> RemoveAt(int index);
             /// <summary>
             /// 移除指定索引位置数据并将最后一个数据移动到该指定位置
             /// </summary>
             /// <param name="index"></param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> RemoveToEnd(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> RemoveToEnd(int index);
             /// <summary>
             /// 反转指定位置数组数据
             /// </summary>
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">反转数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Reverse(int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Reverse(int startIndex, int count);
             /// <summary>
             /// 反转整个数组数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ReverseArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReverseArray();
             /// <summary>
             /// 置空并释放数组
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SetEmpty();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> SetEmpty();
             /// <summary>
             /// 根据索引位置设置数据
             /// </summary>
             /// <param name="index">索引位置</param>
             /// <param name="value">数据</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> SetValue(int index, T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> SetValue(int index, T value);
             /// <summary>
             /// 排序指定位置数组数据
             /// </summary>
             /// <param name="startIndex">起始位置</param>
             /// <param name="count">排序数据数量</param>
             /// <returns>超出索引范围则返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Sort(int startIndex, int count);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Sort(int startIndex, int count);
             /// <summary>
             /// 数组排序
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> SortArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> SortArray();
             /// <summary>
             /// 当有空闲位置时添加数据
             /// </summary>
             /// <param name="value"></param>
             /// <returns>如果数组已满则添加失败并返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> TryAdd(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryAdd(T value);
             /// <summary>
             /// 移除最后一个数据
             /// </summary>
             /// <returns>是否存在可移除数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> TryPop();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryPop();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2366,15 +2565,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 生产者添加新消息
             /// </summary>
             /// <param name="message"></param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> AppendMessage(T message);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendMessage(T message);
             /// <summary>
             /// 清除所有消息
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 清除所有失败消息
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> ClearFailed();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ClearFailed();
             /// <summary>
             /// 消息完成处理
             /// </summary>
@@ -2389,33 +2588,33 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 获取消费者回调数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetCallbackCount();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetCallbackCount();
             /// <summary>
             /// 获取未处理完成消息数量（不包括失败消息）
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetCount();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetCount();
             /// <summary>
             /// 获取失败消息数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetFailedCount();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetFailedCount();
             /// <summary>
             /// 
             /// </summary>
             /// <param name="maxCount"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse<T>> GetMessage(int maxCount);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> callback);
             /// <summary>
             /// 获取未完成处理超时消息数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetTimeoutCount();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetTimeoutCount();
             /// <summary>
             /// 获取未处理完成消息数量（包括失败消息）
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetTotalCount();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetTotalCount();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2428,33 +2627,33 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断队列中是否存在匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value">匹配数据</param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Contains(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Contains(T value);
             /// <summary>
             /// 获取队列数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 将数据添加到队列
             /// </summary>
             /// <param name="value"></param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Enqueue(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Enqueue(T value);
             /// <summary>
             /// 从队列中弹出一个数据
             /// </summary>
             /// <returns>没有可弹出数据则返回无数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryDequeue();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryDequeue();
             /// <summary>
             /// 获取队列中下一个弹出数据（不弹出数据仅查看）
             /// </summary>
             /// <returns>没有可弹出数据则返回无数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPeek();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPeek();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2467,122 +2666,122 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断是否包含关键字
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>是否包含关键字</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsKey(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsKey(KT key);
             /// <summary>
             /// 获取节点数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 根据关键字比它小的节点数量
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>节点数量，失败返回 -1</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> CountLess(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> CountLess(KT key);
             /// <summary>
             /// 根据关键字比它大的节点数量
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>节点数量，失败返回 -1</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> CountThan(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> CountThan(KT key);
             /// <summary>
             /// 获取树高度，时间复杂度 O(n)
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetHeight();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetHeight();
             /// <summary>
             /// 根据关键字删除节点
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>被删除数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
             /// <summary>
             /// 获取范围数据集合
             /// </summary>
             /// <param name="skipCount">跳过记录数</param>
             /// <param name="getCount">获取记录数</param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetValues(int skipCount, byte getCount);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetValues(int skipCount, byte getCount);
             /// <summary>
             /// 根据关键字获取一个匹配节点位置
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>一个匹配节点位置,失败返回-1</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOf(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOf(KT key);
             /// <summary>
             /// 根据关键字删除节点
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>是否存在关键字</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(KT key);
             /// <summary>
             /// 设置数据
             /// </summary>
             /// <param name="key">关键字</param>
             /// <param name="value">数据</param>
             /// <returns>是否添加了关键字</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Set(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Set(KT key, VT value);
             /// <summary>
             /// 添加数据
             /// </summary>
             /// <param name="key">关键字</param>
             /// <param name="value">数据</param>
             /// <returns>是否添加了数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> TryAdd(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryAdd(KT key, VT value);
             /// <summary>
             /// 获取第一个关键字数据
             /// </summary>
             /// <returns>第一个关键字数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>>> TryGetFirstKey();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>>> TryGetFirstKey();
             /// <summary>
             /// 获取第一组数据
             /// </summary>
             /// <returns>第一组数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>>> TryGetFirstKeyValue();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>>> TryGetFirstKeyValue();
             /// <summary>
             /// 获取第一个数据
             /// </summary>
             /// <returns>第一个数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetFirstValue();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetFirstValue();
             /// <summary>
             /// 根据节点位置获取数据
             /// </summary>
             /// <param name="index">节点位置</param>
             /// <returns>数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>>> TryGetKeyValueByIndex(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>>> TryGetKeyValueByIndex(int index);
             /// <summary>
             /// 获取最后一个关键字数据
             /// </summary>
             /// <returns>最后一个关键字数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>>> TryGetLastKey();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<KT>>> TryGetLastKey();
             /// <summary>
             /// 获取最后一组数据
             /// </summary>
             /// <returns>最后一组数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>>> TryGetLastKeyValue();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.KeyValue<KT,VT>>>> TryGetLastKeyValue();
             /// <summary>
             /// 获取最后一个数据
             /// </summary>
             /// <returns>最后一个数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetLastValue();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetLastValue();
             /// <summary>
             /// 根据关键字获取数据
             /// </summary>
             /// <param name="key">关键字</param>
             /// <returns>目标数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
             /// <summary>
             /// 根据节点位置获取数据
             /// </summary>
             /// <param name="index">节点位置</param>
             /// <returns>数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValueByIndex(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValueByIndex(int index);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2597,62 +2796,62 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="value">关键字</param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Add(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Add(T value);
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="value">关键字</param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Contains(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Contains(T value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 根据关键字比它小的节点数量
             /// </summary>
             /// <param name="value">关键字</param>
             /// <returns>节点数量，失败返回 -1</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> CountLess(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> CountLess(T value);
             /// <summary>
             /// 根据关键字比它大的节点数量
             /// </summary>
             /// <param name="value">关键字</param>
             /// <returns>节点数量，失败返回 -1</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> CountThan(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> CountThan(T value);
             /// <summary>
             /// 根据节点位置获取数据
             /// </summary>
             /// <param name="index">节点位置</param>
             /// <returns>数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetByIndex(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetByIndex(int index);
             /// <summary>
             /// 获取第一个数据
             /// </summary>
             /// <returns>没有数据时返回无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetFrist();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetFrist();
             /// <summary>
             /// 获取最后一个数据
             /// </summary>
             /// <returns>没有数据时返回无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetLast();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetLast();
             /// <summary>
             /// 根据关键字获取一个匹配节点位置
             /// </summary>
             /// <param name="value">关键字</param>
             /// <returns>一个匹配节点位置,失败返回-1</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOf(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOf(T value);
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="value">关键字</param>
             /// <returns>是否删除成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2671,7 +2870,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="length">数组长度</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int length);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int length);
             /// <summary>
             /// 创建位图节点 BitmapNode
             /// </summary>
@@ -2680,7 +2879,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="capacity">二进制位数量</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, uint capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, uint capacity);
             /// <summary>
             /// 创建字典节点 ByteArrayDictionaryNode{KT}
             /// </summary>
@@ -2690,7 +2889,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
             /// <summary>
             /// 创建字典节点 ByteArrayFragmentDictionaryNode{KT}
             /// </summary>
@@ -2699,7 +2898,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">节点信息</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
             /// <summary>
             /// 创建队列节点（先进先出） ByteArrayQueueNode
             /// </summary>
@@ -2708,7 +2907,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
             /// <summary>
             /// 创建栈节点（后进先出） ByteArrayStackNode
             /// </summary>
@@ -2717,7 +2916,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
             /// <summary>
             /// 创建字典节点 DictionaryNode{KT,VT}
             /// </summary>
@@ -2728,7 +2927,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="valueType">数据类型</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
             /// <summary>
             /// 创建分布式锁节点 DistributedLockNode{KT}
             /// </summary>
@@ -2737,7 +2936,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
             /// <summary>
             /// 创建字典节点 FragmentDictionaryNode{KT,VT}
             /// </summary>
@@ -2747,7 +2946,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="valueType">数据类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
             /// <summary>
             /// 创建 256 基分片哈希表节点 FragmentHashSetNode{KT}
             /// </summary>
@@ -2756,7 +2955,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateFragmentHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
             /// <summary>
             /// 创建字典节点 HashBytesDictionaryNode
             /// </summary>
@@ -2765,7 +2964,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
             /// <summary>
             /// 创建字典节点 HashBytesFragmentDictionaryNode
             /// </summary>
@@ -2773,7 +2972,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">节点全局关键字</param>
             /// <param name="nodeInfo">节点信息</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
             /// <summary>
             /// 创建哈希表节点 HashSetNode{KT}
             /// </summary>
@@ -2782,7 +2981,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
             /// <summary>
             /// 创建 64 位自增ID 节点 IdentityGeneratorNode
             /// </summary>
@@ -2791,7 +2990,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="identity">起始分配 ID</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, long identity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, long identity);
             /// <summary>
             /// 创建数组节点 LeftArrayNode{T}
             /// </summary>
@@ -2801,7 +3000,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateLeftArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
             /// <summary>
             /// 创建消息处理节点 MessageNode{T}
             /// </summary>
@@ -2813,7 +3012,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="timeoutSeconds">消息处理超时秒数</param>
             /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType messageType, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType messageType, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
             /// <summary>
             /// 创建队列节点（先进先出） QueueNode{T}
             /// </summary>
@@ -2823,7 +3022,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
             /// <summary>
             /// 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
             /// </summary>
@@ -2833,7 +3032,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="valueType">数据类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSearchTreeDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSearchTreeDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
             /// <summary>
             /// 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
             /// </summary>
@@ -2842,7 +3041,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSearchTreeSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSearchTreeSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
             /// <summary>
             /// 创建消息处理节点 MessageNode{ServerByteArrayMessage}
             /// </summary>
@@ -2853,7 +3052,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="timeoutSeconds">消息处理超时秒数</param>
             /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateServerByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateServerByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
             /// <summary>
             /// 创建排序字典节点 SortedDictionaryNode{KT,VT}
             /// </summary>
@@ -2863,7 +3062,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="valueType">数据类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSortedDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSortedDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
             /// <summary>
             /// 创建排序列表节点 SortedListNode{KT,VT}
             /// </summary>
@@ -2874,7 +3073,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="valueType">数据类型</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSortedListNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSortedListNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
             /// <summary>
             /// 创建排序集合节点 SortedSetNode{KT}
             /// </summary>
@@ -2883,7 +3082,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSortedSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateSortedSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
             /// <summary>
             /// 创建栈节点（后进先出） StackNode{T}
             /// </summary>
@@ -2893,13 +3092,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
             /// <summary>
             /// 删除节点
             /// </summary>
             /// <param name="index">节点索引信息</param>
             /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> RemoveNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> RemoveNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2912,49 +3111,49 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsKey(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsKey(KT key);
             /// <summary>
             /// 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsValue(VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsValue(VT value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 删除关键字并返回被删除数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="key"></param>
             /// <returns>是否删除成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(KT key);
             /// <summary>
             /// 添加数据
             /// </summary>
             /// <param name="key"></param>
             /// <param name="value"></param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> TryAdd(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryAdd(KT key, VT value);
             /// <summary>
             /// 根据关键字获取数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2967,72 +3166,72 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsKey(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsKey(KT key);
             /// <summary>
             /// 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> ContainsValue(VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsValue(VT value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 获取容器大小
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> GetCapacity();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetCapacity();
             /// <summary>
             /// 删除关键字并返回被删除数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> GetRemove(KT key);
             /// <summary>
             /// 获取关键字排序位置
             /// </summary>
             /// <param name="key"></param>
             /// <returns>负数表示没有找到关键字</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOfKey(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOfKey(KT key);
             /// <summary>
             /// 获取第一个匹配数据排序位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value"></param>
             /// <returns>负数表示没有找到匹配数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> IndexOfValue(VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IndexOfValue(VT value);
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="key"></param>
             /// <returns>是否删除成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(KT key);
             /// <summary>
             /// 删除指定排序索引位置数据
             /// </summary>
             /// <param name="index"></param>
             /// <returns>索引超出范围返回 false</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> RemoveAt(int index);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> RemoveAt(int index);
             /// <summary>
             /// 添加数据
             /// </summary>
             /// <param name="key"></param>
             /// <param name="value"></param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> TryAdd(KT key, VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> TryAdd(KT key, VT value);
             /// <summary>
             /// 根据关键字获取数据
             /// </summary>
             /// <param name="key"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3047,38 +3246,38 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="value"></param>
             /// <returns>是否添加成功，否则表示关键字已经存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Add(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Add(T value);
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断关键字是否存在
             /// </summary>
             /// <param name="value"></param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Contains(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Contains(T value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 获取最大值
             /// </summary>
             /// <returns>没有数据时返回无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetMax();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetMax();
             /// <summary>
             /// 获取最小值
             /// </summary>
             /// <returns>没有数据时返回无返回值</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetMin();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> GetMin();
             /// <summary>
             /// 删除关键字
             /// </summary>
             /// <param name="value"></param>
             /// <returns>是否删除成功</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Remove(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3091,33 +3290,33 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除所有数据
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Clear();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Clear();
             /// <summary>
             /// 判断是否存在匹配数据（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
             /// </summary>
             /// <param name="value">匹配数据</param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<bool>> Contains(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Contains(T value);
             /// <summary>
             /// 获取数据数量
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> Count();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> Count();
             /// <summary>
             /// 将数据添加到栈
             /// </summary>
             /// <param name="value"></param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> Push(T value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Push(T value);
             /// <summary>
             /// 获取栈中下一个弹出数据（不弹出数据仅查看）
             /// </summary>
             /// <returns>没有可弹出数据则返回无数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPeek();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPeek();
             /// <summary>
             /// 从栈中弹出一个数据
             /// </summary>
             /// <returns>没有可弹出数据则返回无数据</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPop();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<T>>> TryPop();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

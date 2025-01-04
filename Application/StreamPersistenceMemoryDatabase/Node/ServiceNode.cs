@@ -23,12 +23,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal readonly StreamPersistenceMemoryDatabaseService Service;
         /// <summary>
+        /// 是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
+        /// </summary>
+        protected readonly bool isCheckRemoveType;
+        /// <summary>
         /// 服务基础操作
         /// </summary>
         /// <param name="service"></param>
         public ServiceNode(StreamPersistenceMemoryDatabaseService service)
         {
             this.Service = service;
+            isCheckRemoveType = !(service is LocalService);
         }
         /// <summary>
         /// 删除节点
@@ -242,7 +247,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual NodeIndex CreateMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType messageType, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
         {
             var type = default(Type);
-            if (messageType.TryGet(out type))
+            if (messageType.TryGet(out type, isCheckRemoveType))
             {
                 if (typeof(Message<>).MakeGenericType(type).IsAssignableFrom(type))
                 {
@@ -311,7 +316,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected CallStateEnum getEquatableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type type)
 #endif
         {
-            if (remoteType.TryGet(out type))
+            if (remoteType.TryGet(out type, isCheckRemoveType))
             {
                 if (typeof(IEquatable<>).MakeGenericType(type).IsAssignableFrom(type)) return CallStateEnum.Success;
                 return CallStateEnum.RemoteTypeError;
@@ -333,7 +338,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             CallStateEnum state = getEquatableType(ref remoteType, ref type);
-            if (state == CallStateEnum.Success) return remoteType2.TryGet(out type2) ? CallStateEnum.Success : CallStateEnum.NotFoundRemoteType;
+            if (state == CallStateEnum.Success) return remoteType2.TryGet(out type2, isCheckRemoveType) ? CallStateEnum.Success : CallStateEnum.NotFoundRemoteType;
             return state;
         }
         /// <summary>
@@ -420,7 +425,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected CallStateEnum getComparableType(ref AutoCSer.Reflection.RemoteType remoteType, ref Type type)
 #endif
         {
-            if (remoteType.TryGet(out type))
+            if (remoteType.TryGet(out type, isCheckRemoveType))
             {
                 if (typeof(IComparable<>).MakeGenericType(type).IsAssignableFrom(type)) return CallStateEnum.Success;
                 return CallStateEnum.RemoteTypeError;
@@ -442,7 +447,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             CallStateEnum state = getComparableType(ref remoteType, ref type);
-            if (state == CallStateEnum.Success) return remoteType2.TryGet(out type2) ? CallStateEnum.Success : CallStateEnum.NotFoundRemoteType;
+            if (state == CallStateEnum.Success) return remoteType2.TryGet(out type2, isCheckRemoveType) ? CallStateEnum.Success : CallStateEnum.NotFoundRemoteType;
             return state;
         }
         /// <summary>
@@ -602,7 +607,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual NodeIndex CreateQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
         {
             var type = default(Type);
-            if (keyType.TryGet(out type))
+            if (keyType.TryGet(out type, isCheckRemoveType))
             {
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateQueueNode(this, index, key, nodeInfo, capacity);
             }
@@ -632,7 +637,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual NodeIndex CreateStackNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
         {
             var type = default(Type);
-            if (keyType.TryGet(out type))
+            if (keyType.TryGet(out type, isCheckRemoveType))
             {
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateStackNode(this, index, key, nodeInfo, capacity);
             }
@@ -650,7 +655,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual NodeIndex CreateLeftArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
         {
             var type = default(Type);
-            if (keyType.TryGet(out type))
+            if (keyType.TryGet(out type, isCheckRemoveType))
             {
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateLeftArrayNode(this, index, key, nodeInfo, capacity);
             }
@@ -668,7 +673,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual NodeIndex CreateArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int length)
         {
             var type = default(Type);
-            if (keyType.TryGet(out type))
+            if (keyType.TryGet(out type, isCheckRemoveType))
             {
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateArrayNode(this, index, key, nodeInfo, length);
             }

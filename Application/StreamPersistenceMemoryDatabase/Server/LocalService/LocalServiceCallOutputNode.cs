@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用节点方法队列节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class LocalServiceCallOutputNode<T> : LocalServiceQueueNode<ResponseResult<T>>
+    internal sealed class LocalServiceCallOutputNode<T> : LocalServiceQueueNode<LocalResult<T>>
     {
         /// <summary>
         /// 本地服务客户端节点
@@ -53,8 +53,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal bool Callback(ResponseParameter result)
         {
             if (result.State == CallStateEnum.Success) this.result = ((ResponseParameter<T>)result).Value.ReturnValue;
-            else this.result = new ResponseResult<T>(result.State);
-            completed();
+            else this.result = new LocalResult<T>(result.State);
+            completed(clientNode.IsSynchronousCallback);
             if (result.State != CallStateEnum.Success) clientNode.CheckState(nodeIndex, result.State);
             return true;
         }
@@ -65,7 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex">调用方法编号</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static LocalServiceQueueNode<ResponseResult<T>> Create(LocalClientNode clientNode, int methodIndex)
+        internal static LocalServiceQueueNode<LocalResult<T>> Create(LocalClientNode clientNode, int methodIndex)
         {
             return new LocalServiceCallOutputNode<T>(clientNode, methodIndex);
         }

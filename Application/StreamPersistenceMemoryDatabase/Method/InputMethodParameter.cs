@@ -50,7 +50,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         internal abstract void Deserialize(AutoCSer.BinaryDeserializer deserializer);
         /// <summary>
-        /// 输入参数反序列化
+        /// 输入参数反序列化（初始化加载持久化数据）
         /// </summary>
         /// <param name="deserializer"></param>
         /// <param name="buffer"></param>

@@ -247,7 +247,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Deserialize(deserializer, method, ref Parameter);
         }
         /// <summary>
-        /// 输入参数反序列化
+        /// 输入参数反序列化（初始化加载持久化数据）
         /// </summary>
         /// <param name="deserializer"></param>
         /// <param name="buffer"></param>

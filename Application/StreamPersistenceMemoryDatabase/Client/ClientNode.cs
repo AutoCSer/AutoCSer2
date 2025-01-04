@@ -37,6 +37,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private int isReindex;
         /// <summary>
+        /// 是否 IO 线程同步回调
+        /// </summary>
+        internal bool IsSynchronousCallback;
+        /// <summary>
         /// 服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失
         /// </summary>
         private bool isPersistenceCallbackExceptionRenewNode;
@@ -48,7 +52,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="client">日志流持久化内存数据库客户端</param>
         /// <param name="index">节点索引信息</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
-        //protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
         protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
         {
             this.Creator = creator;
@@ -150,6 +153,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
          where T : class
     {
         /// <summary>
+        /// IO 线程同步客户端节点
+        /// </summary>
+#if NetStandard21
+        private ClientNode<T>? synchronousNode;
+#else
+        private ClientNode<T> synchronousNode;
+#endif
+        /// <summary>
         /// 客户端节点
         /// </summary>
         /// <param name="key">节点全局关键字</param>
@@ -177,6 +188,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             ResponseResult<NodeIndex> nodeIndex = await Client.GetOrCreateNodeIndex<T>(Key, Creator);
             if (nodeIndex.IsSuccess) Index = nodeIndex.Value;
+        }
+        /// <summary>
+        /// 创建 IO 线程同步回调节点
+        /// </summary>
+        /// <returns></returns>
+        private ClientNode<T> createSynchronousCallback()
+        {
+            ClientNode<T> node = (ClientNode<T>)this.MemberwiseClone();
+            node.IsSynchronousCallback = true;
+            synchronousNode = node;
+            return node;
+        }
+        /// <summary>
+        /// 获取 IO 线程同步回调节点，节点调用 await 后续操作不允许存在同步阻塞逻辑或者长时间占用 CPU 运算
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static T GetSynchronousCallback(T node)
+        {
+            ClientNode<T> clientNode = node.notNullCastType<ClientNode<T>>();
+            if (!clientNode.IsSynchronousCallback) return (T)(object)clientNode.createSynchronousCallback();
+            return node;
         }
     }
 }

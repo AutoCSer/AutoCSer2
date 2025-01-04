@@ -48,14 +48,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 完成处理
         /// </summary>
+        /// <param name="isSynchronousCallback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        protected void completed(bool isSynchronousCallback)
+        {
+            IsCompleted = true;
+            if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null)
+            {
+                if (isSynchronousCallback) continuation();
+                else Task.Run(continuation);
+            }
+        }
+        /// <summary>
+        /// 完成处理
+        /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void completed()
         {
             IsCompleted = true;
             if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null)
             {
-                if (!service.IsSynchronousCallback) Task.Run(continuation);
-                else continuation();
+                Task.Run(continuation);
             }
         }
         /// <summary>

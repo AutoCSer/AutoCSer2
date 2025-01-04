@@ -19,7 +19,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
         /// <param name="capacity">初始化容器尺寸</param>
         internal DictionaryCounterNode(int capacity)
         {
-            counts = DictionaryCreator<T>.Create<long>();
+            counts = DictionaryCreator<T>.Create<long>(capacity);
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器

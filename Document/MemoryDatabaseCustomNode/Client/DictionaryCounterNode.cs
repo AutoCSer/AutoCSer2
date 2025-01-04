@@ -23,8 +23,8 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            IDictionaryCounterNodeClientNode<int> node = nodeResult.Value.notNull();
 
+            IDictionaryCounterNodeClientNode<int> node = nodeResult.Value.notNull();
             int key = 1;//测试用户ID 为 1 的计数器
             var valueResult = await node.GetCount(key);
             if (!valueResult.IsSuccess)

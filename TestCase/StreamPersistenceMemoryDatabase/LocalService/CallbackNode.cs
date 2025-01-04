@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<ICallbackNodeLocalClientNode> node = await client.GetOrCreateNode<ICallbackNodeLocalClientNode>(typeof(ICallbackNodeLocalClientNode).FullName, client.ClientNode.CreateCallbackNode);
+            LocalResult<ICallbackNodeLocalClientNode> node = await client.GetOrCreateNode<ICallbackNodeLocalClientNode>(typeof(ICallbackNodeLocalClientNode).FullName, client.ClientNode.CreateCallbackNode);
             if (!Program.Breakpoint(node)) return;
             var boolResult = await node.Value.CheckSnapshot();
             if (!boolResult.Value)
@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
 
             int value = AutoCSer.Random.Default.Next();
-            ResponseResult<int> intResult = await node.Value.SetValueCallback(value);
+            LocalResult<int> intResult = await node.Value.SetValueCallback(value);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != value + 1)
             {
@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 return;
             }
             value = AutoCSer.Random.Default.Next();
-            LocalServiceQueueNode<ResponseResult<int>> callbackTask = node.Value.SetCallback();
+            LocalServiceQueueNode<LocalResult<int>> callbackTask = node.Value.SetCallback();
             node.Value.SetValueSendOnly(value);
             intResult = await callbackTask;
             if (!Program.Breakpoint(intResult)) return;
@@ -59,8 +59,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 
             value = AutoCSer.Random.Default.Next();
             int count = 10, currentValue = value;
-            KeepCallbackResponse<int> keepCallback = await node.Value.InputKeepCallback(value, count);
-            await foreach (ResponseResult<int> nextValue in keepCallback.GetAsyncEnumerable())
+            LocalKeepCallback<int> keepCallback = await node.Value.InputKeepCallback(value, count);
+            await foreach (LocalResult<int> nextValue in keepCallback.GetAsyncEnumerable())
             {
                 if (!Program.Breakpoint(nextValue)) return;
                 if (nextValue.Value != currentValue)
@@ -77,7 +77,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
             currentValue = value;
             keepCallback = await node.Value.KeepCallback();
-            await foreach (ResponseResult<int> nextValue in keepCallback.GetAsyncEnumerable())
+            await foreach (LocalResult<int> nextValue in keepCallback.GetAsyncEnumerable())
             {
                 if (!Program.Breakpoint(nextValue)) return;
                 if (nextValue.Value != currentValue)
@@ -97,7 +97,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             count = 10;
             currentValue = value;
             keepCallback = await node.Value.InputEnumerable(value, count);
-            await foreach (ResponseResult<int> nextValue in keepCallback.GetAsyncEnumerable())
+            await foreach (LocalResult<int> nextValue in keepCallback.GetAsyncEnumerable())
             {
                 if (!Program.Breakpoint(nextValue)) return;
                 if (nextValue.Value != currentValue)
@@ -114,7 +114,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
             currentValue = value;
             keepCallback = await node.Value.Enumerable();
-            await foreach (ResponseResult<int> nextValue in keepCallback.GetAsyncEnumerable())
+            await foreach (LocalResult<int> nextValue in keepCallback.GetAsyncEnumerable())
             {
                 if (!Program.Breakpoint(nextValue)) return;
                 if (nextValue.Value != currentValue)
@@ -131,7 +131,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
 
             value = AutoCSer.Random.Default.Next();
-            ResponseResult result = await node.Value.SetValue(value);
+            LocalResult result = await node.Value.SetValue(value);
             if (!Program.Breakpoint(result)) return;
             intResult = await node.Value.GetValue();
             if (!Program.Breakpoint(intResult)) return;
@@ -159,7 +159,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             ServerByteArray serverByteArray = AutoCSer.BinarySerializer.Serialize(testClass);
             result = await node.Value.SetServerByteArray(serverByteArray);
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<ServerByteArray> serverJsonBinaryResult = await node.Value.GetServerByteArray();
+            LocalResult<ServerByteArray> serverJsonBinaryResult = await node.Value.GetServerByteArray();
             if (!Program.Breakpoint(serverJsonBinaryResult)) return;
             if (!object.ReferenceEquals((byte[])serverByteArray, (byte[])serverJsonBinaryResult.Value))
             {
@@ -168,9 +168,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
 
             result = await node.Value.PersistenceCallbackException();
-            if (result.ReturnType != CommandClientReturnTypeEnum.Success || result.CallState != CallStateEnum.IgnorePersistenceCallbackException)
+            if (result.CallState != CallStateEnum.IgnorePersistenceCallbackException)
             {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{result.ReturnType}+{result.CallState}+ERROR*");
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{result.CallState}+ERROR*");
                 return;
             }
 

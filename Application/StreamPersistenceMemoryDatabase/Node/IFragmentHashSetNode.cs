@@ -40,6 +40,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否存在关键字</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(T value);
     }
 }

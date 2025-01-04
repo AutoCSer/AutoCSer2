@@ -1,13 +1,13 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 using System;
-using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
 {
     /// <summary>
     /// 日志流持久化内存数据库服务端接口
     /// </summary>
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(ServiceMethodEnum), MethodIndexEnumTypeCodeGeneratorPath = "", IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
     public interface IStreamPersistenceMemoryDatabaseService
     {
         /// <summary>

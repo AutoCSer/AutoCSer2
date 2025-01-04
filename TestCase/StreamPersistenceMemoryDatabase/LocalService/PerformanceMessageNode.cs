@@ -4,6 +4,7 @@ using AutoCSer.Net;
 using AutoCSer.TestCase.StreamPersistenceMemoryDatabase;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
@@ -14,24 +15,23 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     internal class PerformanceMessageNode : PerformanceClient
     {
         private IMessageNodeLocalClientNode<PerformanceMessage> node;
+        private IMessageNodeLocalClientNode<PerformanceMessage> synchronousNode;
         internal PerformanceMessageNode() { }
         internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
             int taskCount = getTaskCount();
-            ResponseResult<IMessageNodeLocalClientNode<PerformanceMessage>> node = await client.GetOrCreateMessageNode<PerformanceMessage>(typeof(IMessageNodeLocalClientNode<PerformanceMessage>).FullName, taskCount, 5, 1);
+            LocalResult<IMessageNodeLocalClientNode<PerformanceMessage>> node = await client.GetOrCreateMessageNode<PerformanceMessage>(typeof(IMessageNodeLocalClientNode<PerformanceMessage>).FullName, taskCount, 5, 1);
             if (!Program.Breakpoint(node)) return;
-            this.node = node.Value;
-            ResponseResult result = await this.node.Clear();
+            this.synchronousNode = LocalClientNode<IMessageNodeLocalClientNode<PerformanceMessage>>.GetSynchronousCallback(this.node = node.Value);
+            LocalResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
-            using (KeepCallbackResponse<PerformanceMessage> keepCallback = await this.node.GetMessage(taskCount))
+            using (IDisposable keepCallback = await this.synchronousNode.GetMessage(taskCount, onMessage))
             {
-                GetMessage(keepCallback).NotWait();
-
                 await Task.WhenAll(getAppendMessageTask(true));
                 await loopCompleted(nameof(PerformanceMessageNode), nameof(AppendMessage), nameof(this.node.Completed));
 
-                ResponseResult<int> intResult = await this.node.GetCount();
+                LocalResult<int> intResult = await this.node.GetCount();
                 if (!Program.Breakpoint(result)) return;
                 if (intResult.Value != 0) Console.WriteLine($"未完成消息数量 {intResult.Value}");
                 result = await this.node.Clear();
@@ -41,19 +41,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         private IEnumerable<Task> getAppendMessageTask(bool isPersistence)
         {
             int taskCount = getTaskCount();
-            testValue = reset(maxTestCount >> 2, isPersistence, taskCount);
+            testValue = reset(maxTestCount, isPersistence, taskCount);
             while (--taskCount >= 0) yield return AppendMessage();
         }
         internal async Task AppendMessage()
         {
             await Task.Yield();
-            PerformanceMessage message = new PerformanceMessage();
             do
             {
-                message.Message = System.Threading.Interlocked.Decrement(ref testValue);
-                if (message.Message >= 0)
+                int message = System.Threading.Interlocked.Decrement(ref testValue);
+                if (message >= 0)
                 {
-                    ResponseResult result = await node.AppendMessage(message);
+                    LocalResult result = await synchronousNode.AppendMessage(new PerformanceMessage { Message = message });
                     if (!result.IsSuccess)
                     {
                         Program.Breakpoint(result);
@@ -64,24 +63,53 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
             while (true);
         }
-        internal async Task GetMessage(KeepCallbackResponse<PerformanceMessage> keepCallback)
+        private void onMessage(LocalResult<PerformanceMessage> message)
         {
-            await foreach (ResponseResult<PerformanceMessage> message in keepCallback.GetAsyncEnumerable())
+            if (message.IsSuccess)
             {
-                if (message.IsSuccess)
+                if (message.Value != null)
                 {
-                    if (message.Value != null)
-                    {
-                        node.Completed(message.Value.MessageIdeneity);
-                        if (checkMapBit(message.Value.Message)) return;
-                    }
-                }
-                else
-                {
-                    checkCallbackCount();
-                    return;
+                    node.Completed(message.Value.MessageIdeneity);
+                    checkMapBit(message.Value.Message);
                 }
             }
+            else checkCallbackCount();
         }
+        //internal async Task GetMessage(LocalKeepCallback<PerformanceMessage> keepCallback)
+        //{
+        //    while (await keepCallback.MoveNext())
+        //    {
+        //        LocalResult<PerformanceMessage> message = keepCallback.Current;
+        //        if (message.IsSuccess)
+        //        {
+        //            if (message.Value != null)
+        //            {
+        //                node.Completed(message.Value.MessageIdeneity);
+        //                if (checkMapBit(message.Value.Message)) return;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            checkCallbackCount();
+        //            return;
+        //        }
+        //    }
+        //    //await foreach (LocalResult<PerformanceMessage> message in keepCallback.GetAsyncEnumerable())
+        //    //{
+        //    //    if (message.IsSuccess)
+        //    //    {
+        //    //        if (message.Value != null)
+        //    //        {
+        //    //            node.Completed(message.Value.MessageIdeneity);
+        //    //            if (checkMapBit(message.Value.Message)) return;
+        //    //        }
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        checkCallbackCount();
+        //    //        return;
+        //    //    }
+        //    //}
+        //}
     }
 }

@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用节点方法队列节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class LocalServiceCallInputOutputNode<T> : LocalServiceQueueNode<ResponseResult<T>>
+    internal sealed class LocalServiceCallInputOutputNode<T> : LocalServiceQueueNode<LocalResult<T>>
     {
         /// <summary>
         /// 本地服务客户端节点
@@ -48,7 +48,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal LocalServiceCallInputOutputNode(LocalClientNode clientNode, CallStateEnum result) : base(clientNode.Client.Service)
         {
             this.clientNode = clientNode;
-            this.result = new ResponseResult<T>(result);
+            this.result = new LocalResult<T>(result);
             IsCompleted = true;
         }
         /// <summary>
@@ -66,8 +66,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal bool Callback(ResponseParameter result)
         {
             if (result.State == CallStateEnum.Success) this.result = ((ResponseParameter<T>)result).Value.ReturnValue;
-            else this.result = new ResponseResult<T>(result.State);
-            completed();
+            else this.result = new LocalResult<T>(result.State);
+            completed(clientNode.IsSynchronousCallback);
             if (result.State != CallStateEnum.Success) clientNode.CheckState(parameter.Node.Index, result.State);
             return true;
         }
@@ -86,7 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="parameter">调用参数</param>
         /// <returns></returns>
-        internal static LocalServiceQueueNode<ResponseResult<T>> Create<T, PT>(LocalClientNode clientNode, int methodIndex, PT parameter) where PT : struct
+        internal static LocalServiceQueueNode<LocalResult<T>> Create<T, PT>(LocalClientNode clientNode, int methodIndex, PT parameter) where PT : struct
         {
             CallStateEnum state;
             NodeIndex nodeIndex = clientNode.Index;

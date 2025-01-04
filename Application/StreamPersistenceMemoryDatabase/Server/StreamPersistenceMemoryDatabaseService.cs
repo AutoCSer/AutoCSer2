@@ -504,7 +504,6 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
         /// <param name="callback"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void CallInput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
@@ -527,7 +526,6 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
         /// <param name="callback">返回参数</param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void CallInputOutput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
@@ -609,6 +607,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
         /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void InputKeepCallback(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;

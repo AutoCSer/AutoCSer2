@@ -21,6 +21,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">锁关键字</param>
         /// <param name="timeoutSeconds">超时秒数</param>
         /// <param name="callback">失败返回 0</param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void Enter(T key, ushort timeoutSeconds, MethodCallback<long> callback);
         /// <summary>
         /// 尝试申请锁
@@ -28,6 +29,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">锁关键字</param>
         /// <param name="timeoutSeconds">超时秒数</param>
         /// <returns>失败返回 0</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         long TryEnter(T key, ushort timeoutSeconds);
         /// <summary>
         /// 释放锁

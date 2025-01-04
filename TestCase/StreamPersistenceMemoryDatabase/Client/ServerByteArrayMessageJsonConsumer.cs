@@ -12,7 +12,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
 {
     internal class ServerByteArrayMessageJsonConsumer : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessageJsonConsumer<TestClass>
     {
-        internal ServerByteArrayMessageJsonConsumer(CommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node) : base(commandClient, node) { }
+        internal ServerByteArrayMessageJsonConsumer(CommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node) : base(commandClient, node, 1 << 10) { }
         protected override Task<bool> onMessage(TestClass message)
         {
             if (isCompleted) AutoCSer.Common.GetCompletedTask(false);
@@ -35,8 +35,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             isCompleted = false;
             using (ServerByteArrayMessageJsonConsumer consumer = new ServerByteArrayMessageJsonConsumer(commandClient, node.Value))
             {
-                consumer.Start(1 << 10).NotWait();
-
                 foreach (TestClass message in messages.getLeftArray())
                 {
                     result = await node.Value.AppendMessage(ServerByteArrayMessage.JsonSerialize(message));

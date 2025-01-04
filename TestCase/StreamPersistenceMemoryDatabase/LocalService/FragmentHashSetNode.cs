@@ -9,11 +9,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<IFragmentHashSetNodeLocalClientNode<string>> node = await client.GetOrCreateFragmentHashSetNode<string>(typeof(IFragmentHashSetNodeLocalClientNode<string>).FullName);
+            LocalResult<IFragmentHashSetNodeLocalClientNode<string>> node = await client.GetOrCreateFragmentHashSetNode<string>(typeof(IFragmentHashSetNodeLocalClientNode<string>).FullName);
             if (!Program.Breakpoint(node)) return;
-            ResponseResult result = await node.Value.Clear();
+            LocalResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<int> intResult = await node.Value.Count();
+            LocalResult<int> intResult = await node.Value.Count();
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value != 0)
             {
@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 return;
             }
             string value = TestClass.RandomString();
-            ResponseResult<bool> boolResult = await node.Value.Add(value);
+            LocalResult<bool> boolResult = await node.Value.Add(value);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {

@@ -2,6 +2,9 @@
 
 namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {
+    /// <summary>
+    /// https://zhuanlan.zhihu.com/p/15454610569
+    /// </summary>
     internal class Program
     {
         static async Task Main(string[] args)

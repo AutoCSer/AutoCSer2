@@ -94,10 +94,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (!locks.TryGetValue(key, out distributedLock))
                 {
                     locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
+                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     callback.SynchronousCallback(distributedLock.Identity.Identity);
                 }
                 else
                 {
+                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     callback.Reserve = timeoutSeconds;
                     distributedLock.Enter(callback);
                 }

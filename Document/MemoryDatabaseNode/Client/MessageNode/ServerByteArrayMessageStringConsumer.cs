@@ -14,7 +14,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
         /// </summary>
         /// <param name="commandClient">客户端</param>
         /// <param name="node">服务端字节数组消息客户端节点</param>
-        internal ServerByteArrayMessageStringConsumer(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage> node) : base(commandClient, node) { }
+        internal ServerByteArrayMessageStringConsumer(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage> node) : base(commandClient, node, 1 << 10) { }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>
@@ -71,8 +71,6 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.MessageNode
 
             using (ServerByteArrayMessageStringConsumer consumer = new ServerByteArrayMessageStringConsumer(CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.Client, node))
             {
-                consumer.Start(1 << 10).NotWait(); //启动客户端消费测试
-
                 #region 等待测试消息完成
                 long timeout = Stopwatch.GetTimestamp() + AutoCSer.Date.GetTimestampBySeconds(10);
                 while (messages.Count != 0)

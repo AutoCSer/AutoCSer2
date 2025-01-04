@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
-            ResponseResult<IDistributedLockNodeLocalClientNode<int>> node = await client.GetOrCreateDistributedLockNode<int>(typeof(IDistributedLockNodeLocalClientNode<int>).FullName);
+            LocalResult<IDistributedLockNodeLocalClientNode<int>> node = await client.GetOrCreateDistributedLockNode<int>(typeof(IDistributedLockNodeLocalClientNode<int>).FullName);
             if (!Program.Breakpoint(node)) return;
 
             Task[] tasks = new Task[10];
@@ -35,7 +35,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         {
             for (int count = loopCount; count != 0; --count)
             {
-                ResponseResult<long> identity = await node.Enter(lockKey, 5);
+                LocalResult<long> identity = await node.Enter(lockKey, 5);
                 if (!Program.Breakpoint(identity)) return;
                 int checkValue = System.Threading.Interlocked.Increment(ref checkLock);
                 if (checkValue != 1)

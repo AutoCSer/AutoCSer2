@@ -73,6 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="returnType"></param>
         /// <param name="state"></param>
         /// <param name="errorMessage"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         internal void Set(CommandClientReturnTypeEnum returnType, CallStateEnum state, string? errorMessage)
 #else
@@ -80,6 +81,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             ReturnType = returnType;
+            CallState = state;
+            ErrorMessage = errorMessage;
+        }
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="errorMessage"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal void Set(CallStateEnum state, string? errorMessage)
+#else
+        internal void Set(CallStateEnum state, string errorMessage)
+#endif
+        {
             CallState = state;
             ErrorMessage = errorMessage;
         }

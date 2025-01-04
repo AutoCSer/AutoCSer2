@@ -28,15 +28,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                 ConsoleWriteQueue.Breakpoint();
                 return;
             }
+            var synchronousNode = await nodeCache.GetSynchronousNode();//适合轻量级回调操作
 
             await node.Value.ClearArray();
-            await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.SetBinarySerialize), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetBinarySerialize), data);
             await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.GetBinarySerialize), data);
-            await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
             await node.Value.ClearArray();
-            await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.SetJsonSerialize), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetJsonSerialize), data);
             await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.GetJsonSerialize), data);
-            await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
             await node.Value.ClearArray();
             Console.WriteLine();
         }

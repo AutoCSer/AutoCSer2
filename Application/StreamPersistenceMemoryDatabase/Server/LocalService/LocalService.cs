@@ -10,17 +10,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class LocalService : StreamPersistenceMemoryDatabaseService
     {
         /// <summary>
-        /// 默认为 false 表示回调采用 Task.Run，如果确认调用客户端 await 无阻塞可以设置为 true 可以大幅降低 CPU 资源占用
-        /// </summary>
-        internal bool IsSynchronousCallback;
-        /// <summary>
         /// 日志流持久化内存数据库本地服务
         /// </summary>
         /// <param name="config">日志流持久化内存数据库服务端配置</param>
         /// <param name="createServiceNode">创建服务基础操作节点委托</param>
-        internal LocalService(LocalServiceConfig config, Func<StreamPersistenceMemoryDatabaseService, ServerNode> createServiceNode) : base(config, createServiceNode, true)
+        internal LocalService(LocalServiceConfig config, Func<LocalService, ServerNode> createServiceNode) : base(config, p => createServiceNode((LocalService)p), true)
         {
-            IsSynchronousCallback = config.IsSynchronousCallback;
             if (config.OnlyLocalService)
             {
                 CommandServerCallQueue = new AutoCSer.Net.CommandServerCallQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null, 0);

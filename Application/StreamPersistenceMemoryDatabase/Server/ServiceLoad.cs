@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 加载数据
     /// </summary>
-    internal sealed class ServiceLoad : QueueTaskNode
+    public sealed class ServiceLoad : QueueTaskNode
     {
         /// <summary>
         /// 日志流持久化内存数据库服务端

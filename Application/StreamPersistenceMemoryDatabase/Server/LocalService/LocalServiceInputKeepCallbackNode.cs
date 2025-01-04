@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用节点方法队列节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class LocalServiceInputKeepCallbackNode<T> : LocalServiceQueueNode<KeepCallbackResponse<T>>
+    internal sealed class LocalServiceInputKeepCallbackNode<T> : LocalServiceQueueNode<IDisposable>
     {
         /// <summary>
         /// 调用方法与参数信息
@@ -18,6 +18,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         private readonly InputKeepCallbackMethodParameter parameter;
         /// <summary>
+        /// 本地服务客户端节点
+        /// </summary>
+        private readonly LocalClientNode clientNode;
+        /// <summary>
         /// 本地服务调用节点方法队列节点回调对象
         /// </summary>
         private readonly LocalServiceKeepCallbackNodeCallback<T> callback;
@@ -26,11 +30,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="parameter">调用方法与参数信息</param>
-        internal LocalServiceInputKeepCallbackNode(LocalClientNode clientNode, InputKeepCallbackMethodParameter parameter) : base(clientNode.Client.Service)
+        /// <param name="callback">回调委托</param>
+        internal LocalServiceInputKeepCallbackNode(LocalClientNode clientNode, InputKeepCallbackMethodParameter parameter, Action<LocalResult<T>> callback) : base(clientNode.Client.Service)
         {
+            this.clientNode = clientNode;
             this.parameter = parameter;
-            callback = new LocalServiceKeepCallbackNodeCallback<T>();
-            result = callback.Response;
+            this.callback = new LocalServiceKeepCallbackNodeCallback<T>(callback, clientNode.IsSynchronousCallback);
+            result = this.callback;
             service.CommandServerCallQueue.AddOnly(this);
         }
         /// <summary>
@@ -38,12 +44,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="result"></param>
-        internal LocalServiceInputKeepCallbackNode(LocalClientNode clientNode, CallStateEnum result) : base(clientNode.Client.Service)
+        /// <param name="callback">回调委托</param>
+        internal LocalServiceInputKeepCallbackNode(LocalClientNode clientNode, CallStateEnum result, Action<LocalResult<T>> callback) : base(clientNode.Client.Service)
         {
-            callback = new LocalServiceKeepCallbackNodeCallback<T>();
-            callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(result));
-            this.result = callback.Response;
             IsCompleted = true;
+            this.clientNode = clientNode;
+            this.callback = new LocalServiceKeepCallbackNodeCallback<T>(callback, clientNode.IsSynchronousCallback);
+            this.callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(result));
+            this.result = this.callback;
         }
         /// <summary>
         /// 调用节点方法
@@ -67,8 +75,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="parameter">调用参数</param>
+        /// <param name="callback">回调委托</param>
         /// <returns></returns>
-        internal static LocalServiceQueueNode<KeepCallbackResponse<T>> Create<T, PT>(LocalClientNode clientNode, int methodIndex, PT parameter) where PT : struct
+        internal static LocalServiceQueueNode<IDisposable> Create<T, PT>(LocalClientNode clientNode, int methodIndex, PT parameter, Action<LocalResult<T>> callback) where PT : struct
         {
             CallStateEnum state;
             NodeIndex nodeIndex = clientNode.Index;
@@ -77,10 +86,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 var methodParameter = inputKeepCallbackMethodParameter.notNull();
                 methodParameter.Parameter = parameter;
-                return new LocalServiceInputKeepCallbackNode<T>(clientNode, methodParameter);
+                return new LocalServiceInputKeepCallbackNode<T>(clientNode, methodParameter, callback);
             }
             clientNode.CheckState(nodeIndex, state);
-            return new LocalServiceInputKeepCallbackNode<T>(clientNode, state);
+            return new LocalServiceInputKeepCallbackNode<T>(clientNode, state, callback);
         }
     }
 }

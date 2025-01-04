@@ -14,8 +14,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="commandClient">客户端</param>
         /// <param name="node">服务端字节数组消息客户端节点</param>
+        /// <param name="maxMessageCount">服务端单次最大回调消息数量</param>
         /// <param name="delayMilliseconds">重试间隔毫秒数，默认为 1000，最小值为 1</param>
-        protected ServerByteArrayMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds) { }
+        protected ServerByteArrayMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, int maxMessageCount, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, maxMessageCount, delayMilliseconds) { }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>
@@ -51,8 +52,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="commandClient">客户端</param>
         /// <param name="node">服务端字节数组消息客户端节点</param>
+        /// <param name="maxMessageCount">服务端单次最大回调消息数量</param>
         /// <param name="delayMilliseconds">重试间隔毫秒数，默认为 1000，最小值为 1</param>
-        protected ServerByteArrayMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds) { }
+        protected ServerByteArrayMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, int maxMessageCount, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, maxMessageCount, delayMilliseconds) { }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>

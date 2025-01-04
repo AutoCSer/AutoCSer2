@@ -39,8 +39,6 @@
     <Compile Include="Client\DistributedClientRepairNodeMethodState.cs" />
     <Compile Include="Client\LocalClientNode.cs" />
     <Compile Include="Client\LocalClientNodeCreator.cs" />
-    <Compile Include="Client\IStreamPersistenceMemoryDatabaseTaskClient.cs" />
-    <Compile Include="Client\IStreamPersistenceMemoryDatabaseClientBase.cs" />
     <Compile Include="Client\KeepCallbackResponse.cs" />
     <Compile Include="Client\ClientNode.cs" />
     <Compile Include="Client\ClientNodeAttribute.cs" />
@@ -53,7 +51,10 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClient.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClientSocketEvent.cs" />
-    <Compile Include="Client\StreamPersistenceMemoryDatabaseTaskClient.cs" />
+    <Compile Include="Client\KeepCallbackCommandResponse.cs" />
+    <Compile Include="Client\LocalKeepCallback.cs" />
+    <Compile Include="Client\LocalResult.cs" />
+    <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
     <Compile Include="Extensions\BitmapNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\ByteArrayDictionaryNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\ByteArrayFragmentDictionaryNodeClientNodeExtension.cs" />
@@ -66,6 +67,8 @@
     <Compile Include="Extensions\MethodKeepCallbackExtension.cs" />
     <Compile Include="Extensions\ResponseResultExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
+    <Compile Include="Extensions\LocalKeepCallbackExtension.cs" />
+    <Compile Include="Extensions\SearchTreeDictionaryNodeLocalClientNodeExtension.cs" />
     <Compile Include="JsonResponseParameterAwaiter.cs" />
     <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
     <Compile Include="KeepCallbackResponseParameter.cs" />
@@ -241,7 +244,6 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNodeCallback.cs" />
-    <Compile Include="Server\LocalService\LocalServiceKeepCallbackNodeKeepCallbackResponse.cs" />
     <Compile Include="Server\LocalService\LocalServiceSendOnlyNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallInputNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallInputNodeCallback.cs" />
@@ -254,6 +256,9 @@
     <Compile Include="Server\LocalService\LocalServiceConfig.cs" />
     <Compile Include="Server\LocalService\LocalServiceGetNodeIndex.cs" />
     <Compile Include="Server\LocalService\LocalServiceQueueNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackEnumeratorNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNodeCallback.cs" />
     <Compile Include="Server\RemoveHistoryFile.cs" />
     <Compile Include="Server\RepairNodeMethodLoader.cs" />
     <Compile Include="Server\RepairNodeMethodCallback.cs" />

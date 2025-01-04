@@ -41,6 +41,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="startIndex">起始位置</param>
         /// <param name="count">清除数据数量</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Clear(int startIndex, int count);
         /// <summary>
         /// 添加数据
@@ -53,6 +54,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         /// <returns>如果数组已满则添加失败并返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool TryAdd(T value);
         /// <summary>
         /// 根据索引位置设置数据
@@ -60,6 +62,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">索引位置</param>
         /// <param name="value">数据</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool SetValue(int index, T value);
         /// <summary>
         /// 插入数据
@@ -82,6 +85,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">索引位置</param>
         /// <param name="value">数据</param>
         /// <returns>设置之前的数据，超出索引返回则无返回值</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         ValueResult<T> GetValueSet(int index, T value);
         /// <summary>
         /// 用数据填充整个数组
@@ -95,6 +99,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="startIndex">起始位置</param>
         /// <param name="count">填充数据数量</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Fill(T value, int startIndex, int count);
         /// <summary>
         /// 从数组中查找第一个匹配数据的位置（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
@@ -138,6 +143,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="startIndex">起始位置</param>
         /// <param name="count">反转数据数量</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Reverse(int startIndex, int count);
         /// <summary>
         /// 数组排序
@@ -155,30 +161,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value">数据</param>
         /// <returns>是否存在移除数据</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(T value);
         /// <summary>
         /// 移除指定索引位置数据
         /// </summary>
         /// <param name="index">数据位置</param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool RemoveAt(int index);
         /// <summary>
         /// 移除指定索引位置数据并返回被移除的数据
         /// </summary>
         /// <param name="index">数据位置</param>
         /// <returns>超出索引范围则无数据返回</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         ValueResult<T> GetValueRemoveAt(int index);
         /// <summary>
         /// 移除指定索引位置数据并将最后一个数据移动到该指定位置
         /// </summary>
         /// <param name="index"></param>
         /// <returns>超出索引范围则返回 false</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool RemoveToEnd(int index);
         /// <summary>
         /// 移除指定索引位置数据，将最后一个数据移动到该指定位置，并返回被移除的数据
         /// </summary>
         /// <param name="index"></param>
         /// <returns>超出索引范围则无数据返回</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         ValueResult<T> GetValueRemoveToEnd(int index);
         /// <summary>
         /// 移除最后一个数据并返回该数据

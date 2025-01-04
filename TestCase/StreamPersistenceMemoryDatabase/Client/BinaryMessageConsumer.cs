@@ -12,7 +12,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
 {
     internal class BinaryMessageConsumer : BinaryMessageConsumer<TestClass>
     {
-        internal BinaryMessageConsumer(CommandClient commandClient, IMessageNodeClientNode<BinaryMessage<TestClass>> node) : base(commandClient, node) { }
+        internal BinaryMessageConsumer(CommandClient commandClient, IMessageNodeClientNode<BinaryMessage<TestClass>> node) : base(commandClient, node, 1 << 10) { }
         protected override Task<bool> onMessage(TestClass message)
         {
             if (isCompleted) AutoCSer.Common.GetCompletedTask(false);
@@ -43,8 +43,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             isCompleted = false;
             using (BinaryMessageConsumer consumer = new BinaryMessageConsumer(commandClient, node.Value))
             {
-                consumer.Start(1 << 10).NotWait();
-
                 long timeout = Stopwatch.GetTimestamp() + AutoCSer.Date.GetTimestampBySeconds(10);
                 while (messages.Count != 0)
                 {

@@ -17,15 +17,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 客户端节点方法构造函数参数
         /// </summary>
-        internal static readonly Type[] NodeConstructorParameterTypes = new Type[] { typeof(string), typeof(Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>), typeof(LocalClient), typeof(NodeIndex), typeof(bool) };
+        internal static readonly Type[] NodeConstructorParameterTypes = new Type[] { typeof(string), typeof(Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>), typeof(LocalClient), typeof(NodeIndex), typeof(bool) };
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly Func<LocalClientNode, int, LocalServiceQueueNode<ResponseResult>> LocalServiceCallNodeCreate = LocalServiceCallNode.Create;
+        internal static readonly Func<LocalClientNode, int, LocalServiceQueueNode<LocalResult>> LocalServiceCallNodeCreate = LocalServiceCallNode.Create;
         /// <summary>
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo LocalServiceCallInputOutputNodeCreateMethod = typeof(LocalServiceCallInputOutputNode).GetMethod(nameof(LocalServiceCallInputOutputNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo LocalServiceInputKeepCallbackEnumeratorNodeCreateMethod = typeof(LocalServiceInputKeepCallbackEnumeratorNode).GetMethod(nameof(LocalServiceInputKeepCallbackEnumeratorNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -47,9 +51,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns></returns>
 #if NetStandard21
-        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>? creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>? creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
 #else
-        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        internal static T Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
 #endif
         {
             if (creatorException == null)
@@ -88,9 +92,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
 #if NetStandard21
         [AllowNull]
-        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T> creator;
+        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T> creator;
 #else
-        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T> creator;
+        private static readonly Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T> creator;
 #endif
         /// <summary>
         /// 节点构造错误
@@ -195,10 +199,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceSendOnlyNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.KeepCallback:
-                                    methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackNodeCreateDelegate.Method);
+                                    if (method.IsKeepCallbackCommand)
+                                    {
+                                        methodGenerator.ldarg(method.Parameters.Length);
+                                        methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackNodeCreateDelegate.Method);
+                                    }
+                                    else methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackEnumeratorNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.InputKeepCallback:
-                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
+                                    if (method.IsKeepCallbackCommand)
+                                    {
+                                        methodGenerator.ldarg(method.Parameters.Length);
+                                        methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
+                                    }
+                                    else methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackEnumeratorNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     break;
                             }
                             #endregion
@@ -224,9 +238,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(LocalClientNodeCreator.NodeConstructorParameterTypes).notNull());
                 callConstructorGenerator.Emit(OpCodes.Ret);
 #if NetStandard21
-                creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>));
+                creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>));
 #else
-                creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>));
+                creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>));
 #endif
                 nodeInfo = new NodeInfo(serverType);
             }
@@ -239,15 +253,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public interface IDictionary<KT, VT>
             where KT : IEquatable<KT>
         {
-            LocalServiceQueueNode<ResponseResult> Clear();
-            LocalServiceQueueNode<ResponseResult> Add(KT key, VT value);
-            LocalServiceQueueNode<ResponseResult> Set(KT key, VT value);
-            LocalServiceQueueNode<ResponseResult<VT>> Get(KT key);
+            LocalServiceQueueNode<LocalResult> Clear();
+            LocalServiceQueueNode<LocalResult> Add(KT key, VT value);
+            LocalServiceQueueNode<LocalResult> Set(KT key, VT value);
+            LocalServiceQueueNode<LocalResult<VT>> Get(KT key);
         }
         internal sealed class Dictionary<KT, VT> : LocalClientNode<IDictionary<KT, VT>>, IDictionary<KT, VT>
             where KT : IEquatable<KT>
         {
-            public Dictionary(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode) : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
+            public Dictionary(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode) : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
             private struct p0
             {
                 public KT key;
@@ -257,23 +271,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 public KT key;
             }
-            LocalServiceQueueNode<ResponseResult> IDictionary<KT, VT>.Clear()
+            LocalServiceQueueNode<LocalResult> IDictionary<KT, VT>.Clear()
             {
                 return LocalServiceCallNode.Create(this, 0);
             }
-            LocalServiceQueueNode<ResponseResult> IDictionary<KT, VT>.Add(KT key, VT value)
+            LocalServiceQueueNode<LocalResult> IDictionary<KT, VT>.Add(KT key, VT value)
             {
                 return LocalServiceCallInputNode.Create(this, 0, new p0 { key = key, value = value });
             }
-            LocalServiceQueueNode<ResponseResult> IDictionary<KT, VT>.Set(KT key, VT value)
+            LocalServiceQueueNode<LocalResult> IDictionary<KT, VT>.Set(KT key, VT value)
             {
                 return LocalServiceCallInputNode.Create(this, 1, new p0 { key = key, value = value });
             }
-            LocalServiceQueueNode<ResponseResult<VT>> IDictionary<KT, VT>.Get(KT key)
+            LocalServiceQueueNode<LocalResult<VT>> IDictionary<KT, VT>.Get(KT key)
             {
                 return LocalServiceCallInputOutputNode.Create<VT, p1>(this, 2, new p1 { key = key });
             }
-            public static IDictionary<KT, VT> Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<ResponseResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+            public static IDictionary<KT, VT> Create(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator, LocalClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
             {
                 return new Dictionary<KT, VT>(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
             }

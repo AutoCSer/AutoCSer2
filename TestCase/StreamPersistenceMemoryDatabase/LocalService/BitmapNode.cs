@@ -10,25 +10,25 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
         {
             uint capacity = 10;
-            ResponseResult<IBitmapNodeLocalClientNode> node = await client.GetOrCreateBitmapNode(typeof(IBitmapNodeLocalClientNode).FullName, capacity);
+            LocalResult<IBitmapNodeLocalClientNode> node = await client.GetOrCreateBitmapNode(typeof(IBitmapNodeLocalClientNode).FullName, capacity);
             if (!Program.Breakpoint(node)) return;
-            ResponseResult<uint> uintResult = await node.Value.GetCapacity();
+            LocalResult<uint> uintResult = await node.Value.GetCapacity();
             if (!Program.Breakpoint(uintResult)) return;
             if (uintResult.Value != capacity)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{uintResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult result = await node.Value.ClearMap();
+            LocalResult result = await node.Value.ClearMap();
             if (!Program.Breakpoint(result)) return;
-            ResponseResult<ValueResult<int>> intResult = await node.Value.GetBit(capacity - 1);
+            LocalResult<ValueResult<int>> intResult = await node.Value.GetBit(capacity - 1);
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value.Value != 0)
             {
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            ResponseResult<bool> boolResult = await node.Value.SetBit(capacity - 1);
+            LocalResult<bool> boolResult = await node.Value.SetBit(capacity - 1);
             if (!Program.Breakpoint(boolResult)) return;
             if (!boolResult.Value)
             {
