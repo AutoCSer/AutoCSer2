@@ -51,7 +51,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 回调委托类型
             /// </summary>
-            public ExtensionType KeepCallbackType;
+            public ExtensionType CallbackType;
             /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
@@ -74,15 +74,20 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputKeepCallback:
                         case CallTypeEnum.Enumerable:
                         case CallTypeEnum.InputEnumerable:
-                            if (interfaceMethod.MethodAttribute.IsKeepCallbackCommand)
+                            if (interfaceMethod.MethodAttribute.IsCallbackClient)
                             {
-                                KeepCallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                                CallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
                                 MethodReturnType = typeof(LocalServiceQueueNode<IDisposable>);
                             }
                             else MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalKeepCallback<>).MakeGenericType(interfaceMethod.ReturnValueType));
                             break;
                         default:
-                            MethodReturnType = interfaceMethod.ReturnValueType == typeof(void) ? typeof(LocalServiceQueueNode<LocalResult>) : typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                            if (interfaceMethod.MethodAttribute.IsCallbackClient)
+                            {
+                                CallbackType = interfaceMethod.ReturnValueType == typeof(void) ? typeof(Action<LocalResult>) : typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                                MethodReturnType = typeof(void);
+                            }
+                            else MethodReturnType = interfaceMethod.ReturnValueType == typeof(void) ? typeof(LocalServiceQueueNode<LocalResult>) : typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
                             break;
                     }
                 }

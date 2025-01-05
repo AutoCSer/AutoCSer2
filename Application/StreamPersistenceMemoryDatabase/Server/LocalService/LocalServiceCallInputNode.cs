@@ -15,6 +15,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly LocalClientNode clientNode;
         /// <summary>
+        /// 请求节点索引信息
+        /// </summary>
+        private readonly NodeIndex nodeIndex;
+        /// <summary>
         /// 调用方法与参数信息
         /// </summary>
 #if NetStandard21
@@ -36,6 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private LocalServiceCallInputNode(LocalClientNode clientNode, CallInputMethodParameter parameter) : base(clientNode.Client.Service)
         {
             this.clientNode = clientNode;
+            nodeIndex = clientNode.Index;
             this.parameter = parameter;
             callback = new LocalServiceCallInputNodeCallback(this);
             service.CommandServerCallQueue.AddOnly(this);
@@ -48,6 +53,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private LocalServiceCallInputNode(LocalClientNode clientNode, CallStateEnum result) : base(clientNode.Client.Service)
         {
             this.clientNode = clientNode;
+            nodeIndex = clientNode.Index;
             this.result = new LocalResult(result);
             IsCompleted = true;
         }
@@ -67,7 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.result = new LocalResult(result);
             completed(clientNode.IsSynchronousCallback);
-            if (result != CallStateEnum.Success) clientNode.CheckState(parameter.Node.Index, result);
+            if (result != CallStateEnum.Success) clientNode.CheckState(nodeIndex, result);
             return true;
         }
 

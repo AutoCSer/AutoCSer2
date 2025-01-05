@@ -18,9 +18,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type LocalClientSendOnlyMethodReturnType = typeof(MethodParameter);
         /// <summary>
-        /// 持续回调是否委托回调 KeepCallbackCommand 客户端
+        ///客户端是否委托回调 API
         /// </summary>
-        public bool IsKeepCallbackCommand;
+        public bool IsCallback;
         /// <summary>
         /// 是否返回参数类型
         /// </summary>
@@ -82,10 +82,33 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(LocalResult<>))
                                     {
                                         ReturnValueType = ReturnValueType.GetGenericArguments()[0];
-                                        isReturnType = isKeepCallback = IsKeepCallbackCommand = true;
+                                        isReturnType = isKeepCallback = IsCallback = true;
                                         --ParameterEndIndex;
                                     }
                                 }
+                            }
+                        }
+                    }
+                    else if (ReturnValueType == typeof(void) && ParameterStartIndex != ParameterEndIndex)
+                    {
+                        ReturnValueType = Parameters[ParameterEndIndex - 1].ParameterType;
+                        if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(Action<>))
+                        {
+                            ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                            if (ReturnValueType.IsGenericType)
+                            {
+                                if (ReturnValueType.GetGenericTypeDefinition() == typeof(LocalResult<>))
+                                {
+                                    ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                    isReturnType = IsCallback = true;
+                                    --ParameterEndIndex;
+                                }
+                            }
+                            else if (ReturnValueType == typeof(LocalResult))
+                            {
+                                ReturnValueType = typeof(void);
+                                isReturnType = IsCallback = true;
+                                --ParameterEndIndex;
                             }
                         }
                     }
@@ -115,19 +138,45 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         ReturnValueType = typeof(void);
                         isReturnType = true;
                     }
-                    else if(ReturnValueType == typeof(AutoCSer.Net.KeepCallbackCommand) && ParameterStartIndex != ParameterEndIndex)
+                    else if(ParameterStartIndex != ParameterEndIndex)
                     {
-                        ReturnValueType = Parameters[ParameterEndIndex - 1].ParameterType;
-                        if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(Action<,>))
+                        if (ReturnValueType == typeof(AutoCSer.Net.KeepCallbackCommand))
                         {
-                            Type[] types = ReturnValueType.GetGenericArguments();
-                            ReturnValueType = types[0];
-                            if (types[1] == typeof(AutoCSer.Net.KeepCallbackCommand)
-                                && ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(ResponseResult<>))
+                            ReturnValueType = Parameters[ParameterEndIndex - 1].ParameterType;
+                            if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(Action<,>))
+                            {
+                                Type[] types = ReturnValueType.GetGenericArguments();
+                                ReturnValueType = types[0];
+                                if (types[1] == typeof(AutoCSer.Net.KeepCallbackCommand)
+                                    && ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(ResponseResult<>))
+                                {
+                                    ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                    isReturnType = isKeepCallback = IsCallback = true;
+                                    --ParameterEndIndex;
+                                }
+                            }
+                        }
+                        else if (ReturnValueType == typeof(AutoCSer.Net.CallbackCommand))
+                        {
+                            ReturnValueType = Parameters[ParameterEndIndex - 1].ParameterType;
+                            if (ReturnValueType.IsGenericType && ReturnValueType.GetGenericTypeDefinition() == typeof(Action<>))
                             {
                                 ReturnValueType = ReturnValueType.GetGenericArguments()[0];
-                                isReturnType = isKeepCallback = IsKeepCallbackCommand = true;
-                                --ParameterEndIndex;
+                                if (ReturnValueType.IsGenericType)
+                                {
+                                    if (ReturnValueType.GetGenericTypeDefinition() == typeof(ResponseResult<>))
+                                    {
+                                        ReturnValueType = ReturnValueType.GetGenericArguments()[0];
+                                        isReturnType = IsCallback = true;
+                                        --ParameterEndIndex;
+                                    }
+                                }
+                                else if (ReturnValueType == typeof(ResponseResult))
+                                {
+                                    ReturnValueType = typeof(void);
+                                    isReturnType = IsCallback = true;
+                                    --ParameterEndIndex;
+                                }
                             }
                         }
                     }

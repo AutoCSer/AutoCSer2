@@ -537,8 +537,8 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             /// </summary>
             Increment = 1,
             /// <summary>
-            /// [2] 
-            /// AutoCSer.KeyValue{T,long} value 
+            /// [2] 快照设置数据，从快照数据恢复内存数据
+            /// AutoCSer.KeyValue{T,long} value 数据
             /// </summary>
             SnapshotSet = 2,
         }
@@ -567,8 +567,8 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             /// </summary>
             Increment = 1,
             /// <summary>
-            /// [2] 
-            /// AutoCSer.Document.MemoryDatabaseCustomNode.SnapshotCloneCounter{T} value 
+            /// [2] 快照设置数据，从快照数据恢复内存数据
+            /// AutoCSer.Document.MemoryDatabaseCustomNode.SnapshotCloneCounter{T} value 数据
             /// </summary>
             SnapshotSet = 2,
         }

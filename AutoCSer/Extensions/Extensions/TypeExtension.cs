@@ -35,11 +35,22 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="type"></param>
         /// <param name="typeNameBuilder"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void typeFullName(this Type type, ref TypeNameBuilder typeNameBuilder)
         {
-            if (type.IsArray) typeNameBuilder.Array(type, true);
-            else if (type.IsGenericType) typeNameBuilder.GenericFullName(type);
-            else
+            typeFullName(type, ref typeNameBuilder, EmptyArray<Type>.Array);
+        }
+        /// <summary>
+        /// 写入类型名称
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="typeNameBuilder"></param>
+        /// <param name="genericArguments">泛型类型参数集合</param>
+        internal static void typeFullName(this Type type, ref TypeNameBuilder typeNameBuilder, Type[] genericArguments)
+        {
+            if (type.IsArray) typeNameBuilder.Array(type, genericArguments, true);
+            else if (type.IsGenericType) typeNameBuilder.GenericFullName(type, genericArguments);
+            else if (!typeNameBuilder.XmlDocumentGenericTypeParameter(type, genericArguments))
             {
                 var reflectedType = type.ReflectedType;
                 if (reflectedType == null)

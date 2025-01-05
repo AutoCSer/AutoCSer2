@@ -34,6 +34,9 @@
     <Compile Include="BinarySerializeResponseParameter.cs" />
     <Compile Include="BinarySerializeResponseParameterAwaiter.cs" />
     <Compile Include="BinarySerializeResponseParameterValueResultAwaiter.cs" />
+    <Compile Include="CallbackCommandBinarySerializeResponseParameter.cs" />
+    <Compile Include="CallbackCommandResponseParameter.cs" />
+    <Compile Include="CallbackCommandSimpleSerializeResponseParameter.cs" />
     <Compile Include="CallStateEnum.cs" />
     <Compile Include="Client\DistributedClient.cs" />
     <Compile Include="Client\DistributedClientRepairNodeMethodState.cs" />
@@ -239,6 +242,14 @@
     <Compile Include="Server\IStreamPersistenceMemoryDatabaseService.cs" />
     <Compile Include="Method\Method.cs" />
     <Compile Include="Server\LocalService\LocalService.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackOutputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackOutputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackNodeCallback.cs" />
     <Compile Include="Server\LocalService\LocalServiceCustomQueueNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceRebuild.cs" />
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />

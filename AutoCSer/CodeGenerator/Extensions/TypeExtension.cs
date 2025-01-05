@@ -35,7 +35,7 @@ namespace AutoCSer.CodeGenerator.Extensions
                 TypeNameBuilder typeNameBuilder = new TypeNameBuilder();
                 using (typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Tiny))
                 {
-                    typeNameBuilder.Array(type, false);
+                    typeNameBuilder.Array(type, EmptyArray<Type>.Array, false);
                     return typeNameBuilder.NameStream.ToString();
                 }
             }

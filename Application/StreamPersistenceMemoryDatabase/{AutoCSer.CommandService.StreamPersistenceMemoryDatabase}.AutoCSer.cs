@@ -1231,9 +1231,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> GetFailedCount();
             /// <summary>
-            /// 
+            /// 消费客户端获取消息
             /// </summary>
-            /// <param name="maxCount"></param>
+            /// <param name="maxCount">当前客户端最大并发消息数量</param>
             /// <returns></returns>
             AutoCSer.Net.KeepCallbackCommand GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> callback);
             /// <summary>
@@ -2600,9 +2600,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetFailedCount();
             /// <summary>
-            /// 
+            /// 消费客户端获取消息
             /// </summary>
-            /// <param name="maxCount"></param>
+            /// <param name="maxCount">当前客户端最大并发消息数量</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> callback);
             /// <summary>
@@ -3419,8 +3419,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             SetValue = 13,
             /// <summary>
-            /// [14] 
-            /// AutoCSer.KeyValue{int,T} value 
+            /// [14] 快照设置数据
+            /// AutoCSer.KeyValue{int,T} value 数据
             /// </summary>
             SnapshotSet = 14,
             /// <summary>
@@ -3562,7 +3562,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             Set = 7,
             /// <summary>
-            /// [8] 
+            /// [8] 快照添加数据
             /// AutoCSer.KeyValue{KT,byte[]} value 
             /// </summary>
             SnapshotAdd = 8,
@@ -3643,7 +3643,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             Set = 7,
             /// <summary>
-            /// [8] 
+            /// [8] 快照添加数据
             /// AutoCSer.KeyValue{KT,byte[]} value 
             /// </summary>
             SnapshotAdd = 8,
@@ -3829,7 +3829,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             Set = 7,
             /// <summary>
-            /// [8] 
+            /// [8] 快照添加数据
             /// AutoCSer.KeyValue{KT,VT} value 
             /// </summary>
             SnapshotAdd = 8,
@@ -3873,8 +3873,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             Release = 1,
             /// <summary>
-            /// [2] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{T} value 
+            /// [2] 快照设置数据
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{T} value 数据
             /// </summary>
             SnapshotSet = 2,
             /// <summary>
@@ -3936,7 +3936,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             Set = 6,
             /// <summary>
-            /// [7] 
+            /// [7] 快照添加数据
             /// AutoCSer.KeyValue{KT,VT} value 
             /// </summary>
             SnapshotAdd = 7,
@@ -4469,8 +4469,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             GetFailedCount = 7,
             /// <summary>
-            /// [8] 
-            /// int maxCount 
+            /// [8] 消费客户端获取消息
+            /// int maxCount 当前客户端最大并发消息数量
             /// 返回值 T 
             /// </summary>
             GetMessage = 8,
@@ -4610,7 +4610,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             Set = 10,
             /// <summary>
-            /// [11] 
+            /// [11] 快照添加数据
             /// AutoCSer.KeyValue{KT,VT} value 
             /// </summary>
             SnapshotAdd = 11,
@@ -5041,7 +5041,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             Remove = 5,
             /// <summary>
-            /// [6] 
+            /// [6] 快照添加数据
             /// AutoCSer.KeyValue{KT,VT} value 
             /// </summary>
             SnapshotAdd = 6,
@@ -5128,7 +5128,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             RemoveAt = 9,
             /// <summary>
-            /// [10] 
+            /// [10] 快照添加数据
             /// AutoCSer.KeyValue{KT,VT} value 
             /// </summary>
             SnapshotAdd = 10,

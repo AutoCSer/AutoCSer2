@@ -1145,7 +1145,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
                 {
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
-                    _value3_ = _value2_.KeepCallbackType;
+                    _value3_ = _value2_.CallbackType;
             _if_ = false;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
@@ -1389,7 +1389,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
                 {
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
-                    _value3_ = _value2_.KeepCallbackType;
+                    _value3_ = _value2_.CallbackType;
             _if_ = false;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {

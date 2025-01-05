@@ -55,7 +55,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 回调委托类型
             /// </summary>
-            public ExtensionType KeepCallbackType;
+            public ExtensionType CallbackType;
             /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
@@ -78,9 +78,9 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputKeepCallback:
                         case CallTypeEnum.Enumerable:
                         case CallTypeEnum.InputEnumerable:
-                            if (interfaceMethod.MethodAttribute.IsKeepCallbackCommand)
+                            if (interfaceMethod.MethodAttribute.IsCallbackClient)
                             {
-                                KeepCallbackType = typeof(Action<,>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType), typeof(AutoCSer.Net.KeepCallbackCommand));
+                                CallbackType = typeof(Action<,>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType), typeof(AutoCSer.Net.KeepCallbackCommand));
                                 MethodReturnType = typeof(AutoCSer.Net.KeepCallbackCommand);
                             }
                             else
@@ -91,18 +91,36 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             break;
                         case CallTypeEnum.Call:
                         case CallTypeEnum.CallInput:
-                            MethodReturnType = typeof(ResponseResultAwaiter);
+                            if (interfaceMethod.MethodAttribute.IsCallbackClient)
+                            {
+                                CallbackType = typeof(Action<ResponseResult>);
+                                MethodReturnType = typeof(AutoCSer.Net.CallbackCommand);
+                            }
+                            else MethodReturnType = typeof(ResponseResultAwaiter);
                             break;
                         case CallTypeEnum.InputCallback:
                         case CallTypeEnum.CallInputOutput:
                         case CallTypeEnum.Callback:
                         case CallTypeEnum.CallOutput:
-                            if (interfaceMethod.ReturnValueType == typeof(ResponseParameter))
+                            if (interfaceMethod.MethodAttribute.IsCallbackClient)
                             {
-                                ReturnRequestParameterType = typeof(ResponseParameter);
-                                MethodReturnType = typeof(ResponseParameterAwaiter<ResponseParameter>);
+                                if (interfaceMethod.ReturnValueType == typeof(ResponseParameter))
+                                {
+                                    ReturnRequestParameterType = typeof(ResponseParameter);
+                                    CallbackType = typeof(Action<ResponseResult<ResponseParameter>>);
+                                }
+                                else CallbackType = typeof(Action<>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType));
+                                MethodReturnType = typeof(AutoCSer.Net.CallbackCommand);
                             }
-                            else MethodReturnType = typeof(ResponseParameterAwaiter<>).MakeGenericType(interfaceMethod.ReturnValueType);
+                            else
+                            {
+                                if (interfaceMethod.ReturnValueType == typeof(ResponseParameter))
+                                {
+                                    ReturnRequestParameterType = typeof(ResponseParameter);
+                                    MethodReturnType = typeof(ResponseParameterAwaiter<ResponseParameter>);
+                                }
+                                else MethodReturnType = typeof(ResponseParameterAwaiter<>).MakeGenericType(interfaceMethod.ReturnValueType);
+                            }
                             break;
                     }
                 }

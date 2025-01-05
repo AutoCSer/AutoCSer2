@@ -146,6 +146,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             MethodCallback?.Callback(value + 1);
         }
+        public void CallbackCommand()
+        {
+            MethodCallback?.Callback(value + 1);
+        }
         public bool SetValueBeforePersistence(int value)
         {
             return true;
@@ -154,11 +158,23 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             SetValue64(value);
         }
+        public void SetValueCommand(int value)
+        {
+            SetValue64(value);
+        }
         public ValueResult<int> GetValueBeforePersistence()
         {
             return default(ValueResult<int>);
         }
         public int GetValue()
+        {
+            return value + 1;
+        }
+        public int GetValueCommand()
+        {
+            return value + 1;
+        }
+        public int CallInoutOutputCommand(int value)
         {
             return value + 1;
         }

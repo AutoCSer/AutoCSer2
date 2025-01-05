@@ -40998,7 +40998,7 @@
             名称缓存
             </summary>
         </member>
-        <member name="P:AutoCSer.Reflection.TypeNameBuilder.typeNameEnum">
+        <member name="P:AutoCSer.Reflection.TypeNameBuilder.TypeNameEnum">
             <summary>
             类型名称输出类型
             </summary>
@@ -41014,26 +41014,29 @@
             </summary>
             <param name="typeNameEnum"></param>
         </member>
-        <member name="M:AutoCSer.Reflection.TypeNameBuilder.GetTypeFullName(System.Type,System.Boolean)">
+        <member name="M:AutoCSer.Reflection.TypeNameBuilder.GetTypeFullName(System.Type,System.Type[],System.Boolean)">
             <summary>
             获取类型名称
             </summary>
             <param name="type">类型</param>
+            <param name="genericArguments">泛型类型参数集合</param>
             <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
             <returns>类型名称</returns>
         </member>
-        <member name="M:AutoCSer.Reflection.TypeNameBuilder.Array(System.Type,System.Boolean)">
+        <member name="M:AutoCSer.Reflection.TypeNameBuilder.Array(System.Type,System.Type[],System.Boolean)">
             <summary>
             数组处理
             </summary>
             <param name="type">类型</param>
+            <param name="genericArguments">泛型类型参数集合</param>
             <param name="isFullName">是否全称</param>
         </member>
-        <member name="M:AutoCSer.Reflection.TypeNameBuilder.getFullName(System.Type)">
+        <member name="M:AutoCSer.Reflection.TypeNameBuilder.getFullName(System.Type,System.Type[])">
             <summary>
             任意类型处理
             </summary>
             <param name="type">类型</param>
+            <param name="genericArguments">泛型类型参数集合</param>
         </member>
         <member name="M:AutoCSer.Reflection.TypeNameBuilder.getNameNoArray(System.Type)">
             <summary>
@@ -41048,18 +41051,28 @@
             <param name="type">类型</param>
             <param name="nameSuffix">类名称后缀</param>
         </member>
-        <member name="M:AutoCSer.Reflection.TypeNameBuilder.GenericFullName(System.Type,System.Boolean)">
+        <member name="M:AutoCSer.Reflection.TypeNameBuilder.GenericFullName(System.Type,System.Type[],System.Boolean)">
             <summary>
             泛型处理
             </summary>
             <param name="type">类型</param>
             <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
+            <param name="genericArguments">泛型类型参数集合</param>
         </member>
-        <member name="M:AutoCSer.Reflection.TypeNameBuilder.genericParameter(System.Type,System.Boolean)">
+        <member name="M:AutoCSer.Reflection.TypeNameBuilder.XmlDocumentGenericTypeParameter(System.Type,System.Type[])">
+            <summary>
+            XML 文档泛型类型参数
+            </summary>
+            <param name="type"></param>
+            <param name="genericArguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Reflection.TypeNameBuilder.genericParameter(System.Type,System.Type[],System.Boolean)">
             <summary>
             泛型参数处理
             </summary>
             <param name="type">类型</param>
+            <param name="genericArguments">泛型类型参数集合</param>
             <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         </member>
         <member name="M:AutoCSer.Reflection.TypeNameBuilder.genericParameter(System.Type[],System.Int32,System.Int32,System.Boolean)">

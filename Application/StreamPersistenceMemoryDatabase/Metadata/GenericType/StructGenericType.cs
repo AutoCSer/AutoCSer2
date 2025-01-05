@@ -17,7 +17,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientCallInputCommandDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal abstract Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputResponseParameterDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputCommandResponseParameterDelegate { get; }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -30,6 +38,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 调用节点方法
         /// </summary>
         internal abstract Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputCommandDelegate { get; }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -59,6 +71,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 调用节点方法
         /// </summary>
         internal abstract Delegate LocalServiceCallInputNodeCreateDelegate { get; }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal abstract Delegate LocalServiceCallbackInputNodeCreateDelegate { get; }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -115,7 +131,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputCommandDelegate { get { return (Func<ClientNode, int, T, Action<ResponseResult>, AutoCSer.Net.CallbackCommand>)StreamPersistenceMemoryDatabaseClient.CallInputCommand<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputResponseParameterDelegate { get { return (Func<ClientNode, int, ResponseParameter, MethodFlagsEnum, T, ResponseParameterAwaiter<ResponseParameter>>)StreamPersistenceMemoryDatabaseClient.CallInputOutputResponseParameter<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientCallInputOutputCommandResponseParameterDelegate { get { return (Func<ClientNode, int, ResponseParameter, MethodFlagsEnum, T, Action<ResponseResult<ResponseParameter>>, AutoCSer.Net.CallbackCommand>)StreamPersistenceMemoryDatabaseClient.CallInputOutputCommandResponseParameter<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -128,6 +152,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 调用节点方法
         /// </summary>
         internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputDelegate { get { return (Func<ClientNode, int, T, ResponseResultAwaiter>)StreamPersistenceMemoryDatabaseClient.SimpleSerializeCallInput<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate StreamPersistenceMemoryDatabaseClientSimpleSerializeCallInputCommandDelegate { get { return (Func<ClientNode, int, T, Action<ResponseResult>, AutoCSer.Net.CallbackCommand>)StreamPersistenceMemoryDatabaseClient.SimpleSerializeCallInputCommand<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -157,6 +185,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 调用节点方法
         /// </summary>
         internal override Delegate LocalServiceCallInputNodeCreateDelegate { get { return (Func<LocalClientNode, int, T, LocalServiceQueueNode<LocalResult>>)LocalServiceCallInputNode.Create<T>; } }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal override Delegate LocalServiceCallbackInputNodeCreateDelegate { get { return (Action<LocalClientNode, int, T, Action<LocalResult>>)LocalServiceCallbackInputNode.Create<T>; } }
         /// <summary>
         /// 调用节点方法
         /// </summary>

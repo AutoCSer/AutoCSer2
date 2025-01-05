@@ -25,7 +25,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        internal static readonly Action<LocalClientNode, int, Action<LocalResult>> LocalServiceCallbackNodeCreate = LocalServiceCallbackNode.Create;
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         internal static readonly MethodInfo LocalServiceCallInputOutputNodeCreateMethod = typeof(LocalServiceCallInputOutputNode).GetMethod(nameof(LocalServiceCallInputOutputNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo LocalServiceCallbackInputOutputNodeCreateMethod = typeof(LocalServiceCallbackInputOutputNode).GetMethod(nameof(LocalServiceCallbackInputOutputNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -181,37 +189,34 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 methodGenerator.Emit(OpCodes.Ldloc_S, inputParameterLocalBuilder);
                             }
                             #endregion
+                            if (method.IsCallback) methodGenerator.ldarg(method.Parameters.Length);
                             switch (method.CallType)
                             {
                                 case CallTypeEnum.Call:
-                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceCallNodeCreate.Method);
+                                    if (method.IsCallback) methodGenerator.call(LocalClientNodeCreator.LocalServiceCallbackNodeCreate.Method);
+                                    else methodGenerator.call(LocalClientNodeCreator.LocalServiceCallNodeCreate.Method);
                                     break;
                                 case CallTypeEnum.CallOutput:
-                                    methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceCallOutputNodeCreateDelegate.Method);
+                                    if (method.IsCallback) methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceCallbackOutputNodeCreateDelegate.Method);
+                                    else methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceCallOutputNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInput:
-                                    methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceCallInputNodeCreateDelegate.Method);
+                                    if (method.IsCallback) methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceCallbackInputNodeCreateDelegate.Method);
+                                    else methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceCallInputNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInputOutput:
-                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceCallInputOutputNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
+                                    if (method.IsCallback) methodGenerator.call(LocalClientNodeCreator.LocalServiceCallbackInputOutputNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
+                                    else methodGenerator.call(LocalClientNodeCreator.LocalServiceCallInputOutputNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     break;
                                 case CallTypeEnum.SendOnly:
                                     methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceSendOnlyNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.KeepCallback:
-                                    if (method.IsKeepCallbackCommand)
-                                    {
-                                        methodGenerator.ldarg(method.Parameters.Length);
-                                        methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackNodeCreateDelegate.Method);
-                                    }
+                                    if (method.IsCallback) methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackNodeCreateDelegate.Method);
                                     else methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackEnumeratorNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.InputKeepCallback:
-                                    if (method.IsKeepCallbackCommand)
-                                    {
-                                        methodGenerator.ldarg(method.Parameters.Length);
-                                        methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
-                                    }
+                                    if (method.IsCallback) methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     else methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackEnumeratorNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     break;
                             }

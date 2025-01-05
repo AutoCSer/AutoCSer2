@@ -151,6 +151,57 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 return;
             }
 
+            System.Threading.AutoResetEvent callbackWait = new System.Threading.AutoResetEvent(false);
+            value = AutoCSer.Random.Default.Next();
+            node.Value.SetValueCommand(value, p =>
+            {
+                result = p;
+                callbackWait.Set();
+            });
+            callbackWait.WaitOne();
+            if (!Program.Breakpoint(result)) return;
+            node.Value.GetValueCommand(p =>
+            {
+                intResult = p;
+                callbackWait.Set();
+            });
+            callbackWait.WaitOne();
+            if (!Program.Breakpoint(intResult)) return;
+            if (intResult.Value != value + 1)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                return;
+            }
+
+            callbackTask = node.Value.SetCallback();
+            node.Value.CallbackCommand(p =>
+            {
+                result = p;
+                callbackWait.Set();
+            });
+            callbackWait.WaitOne();
+            if (!Program.Breakpoint(result)) return;
+            intResult = await callbackTask;
+            if (!Program.Breakpoint(intResult)) return;
+            if (intResult.Value != value + 1)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                return;
+            }
+
+            node.Value.CallInoutOutputCommand(value, p =>
+            {
+                intResult = p;
+                callbackWait.Set();
+            });
+            callbackWait.WaitOne();
+            if (!Program.Breakpoint(intResult)) return;
+            if (intResult.Value != value + 1)
+            {
+                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                return;
+            }
+
             value = AutoCSer.Random.Default.Next();
             result = await node.Value.CallCustomPersistence(value);
             if (!Program.Breakpoint(result)) return;

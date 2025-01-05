@@ -43,10 +43,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 
         bool CallbackBeforePersistence();
         void Callback();
+        [ServerMethod(IsCallbackClient = true)]
+        void CallbackCommand();
         bool SetValueBeforePersistence(int value);
         void SetValue(int value);
+        [ServerMethod(IsCallbackClient = true)]
+        void SetValueCommand(int value);
         ValueResult<int> GetValueBeforePersistence();
         int GetValue();
+        [ServerMethod(IsCallbackClient = true)]
+        int GetValueCommand();
+        [ServerMethod(IsCallbackClient = true)]
+        int CallInoutOutputCommand(int value);
 
         [ServerMethod(IsPersistence = false, IsClientCall = false)]
         void CustomPersistence(int value);

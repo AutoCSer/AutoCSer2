@@ -151,6 +151,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> CheckSnapshot();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand CallInoutOutputCommand(int value, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> callback);
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.CallbackCommand CallbackCommand(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> callback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand GetValueCommand(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>> callback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.Net.CallbackCommand SetValueCommand(int value, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult> callback);
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
@@ -323,6 +343,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> CheckSnapshot();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns></returns>
+            void CallInoutOutputCommand(int value, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> callback);
+            /// <summary>
+            /// 
+            /// </summary>
+            void CallbackCommand(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> callback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            void GetValueCommand(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> callback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            void SetValueCommand(int value, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> callback);
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
@@ -576,6 +616,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// long value 
             /// </summary>
             SnapshotSet64 = 33,
+            /// <summary>
+            /// [34] 
+            /// int value 
+            /// 返回值 int 
+            /// </summary>
+            CallInoutOutputCommand = 34,
+            /// <summary>
+            /// [35] 
+            /// </summary>
+            CallbackCommand = 35,
+            /// <summary>
+            /// [36] 
+            /// 返回值 int 
+            /// </summary>
+            GetValueCommand = 36,
+            /// <summary>
+            /// [37] 
+            /// int value 
+            /// </summary>
+            SetValueCommand = 37,
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {

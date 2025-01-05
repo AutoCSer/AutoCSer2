@@ -223,19 +223,13 @@ namespace AutoCSer.Reflection
                             if (parameters.Length != 0)
                             {
                                 bool isFirst = true;
-                                var genericArguments = declaringType.IsGenericTypeDefinition ? declaringType.GetGenericArguments() : null;
+                                Type[] genericArguments = declaringType.IsGenericTypeDefinition ? declaringType.GetGenericArguments() : EmptyArray<Type>.Array;
                                 nameStream.Write('(');
                                 foreach (ParameterInfo parameter in parameters)
                                 {
                                     if (isFirst) isFirst = false;
                                     else nameStream.Write(',');
-                                    int typeIndex = genericArguments == null ? -1 : Array.IndexOf(genericArguments, parameter.ParameterType);
-                                    if (typeIndex >= 0)
-                                    {
-                                        nameStream.Write(AutoCSer.Reflection.TypeNameBuilder.GenericSplit);
-                                        nameStream.WriteString(typeIndex);
-                                    }
-                                    else parameter.ParameterType.typeFullName(ref typeNameBuilder);
+                                    parameter.ParameterType.typeFullName(ref typeNameBuilder, genericArguments);
                                 }
                                 nameStream.Write(')');
                             }

@@ -566,6 +566,14 @@
             <param name="type"></param>
             <param name="typeNameBuilder"></param>
         </member>
+        <member name="M:AutoCSer.Extensions.TypeNameExtension.typeFullName(System.Type,AutoCSer.Reflection.TypeNameBuilder@,System.Type[])">
+            <summary>
+            写入类型名称
+            </summary>
+            <param name="type"></param>
+            <param name="typeNameBuilder"></param>
+            <param name="genericArguments">泛型类型参数集合</param>
+        </member>
         <member name="M:AutoCSer.Extensions.TypeNameExtension.GetName(AutoCSer.Reflection.TypeNameBuilder@,System.String,System.Char*)">
             <summary>
             获取类型名称

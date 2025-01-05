@@ -163,6 +163,19 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 调用节点方法
         /// </summary>
+        /// <param name="node"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static AutoCSer.Net.CallbackCommand CallCommand(ClientNode node, int methodIndex, Action<ResponseResult> callback)
+        {
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCall(node.Index, methodIndex, new CallbackCommandResponseParameter(node, callback).Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.Call(node.Index, methodIndex, new CallbackCommandResponseParameter(node, callback).Callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="node">客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
@@ -187,6 +200,36 @@ namespace AutoCSer.CommandService
         {
             if (node.IsSynchronousCallback) return new ResponseResultAwaiter(node, node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterSimpleSerializer<T>(ref parameter))));
             return new ResponseResultAwaiter(node, node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterSimpleSerializer<T>(ref parameter))));
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node">客户端节点</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="parameter">调用方法请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static AutoCSer.Net.CallbackCommand CallInputCommand<T>(ClientNode node, int methodIndex, T parameter, Action<ResponseResult> callback) where T : struct
+        {
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterBinarySerializer<T>(ref parameter)), new CallbackCommandResponseParameter(node, callback).Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterBinarySerializer<T>(ref parameter)), new CallbackCommandResponseParameter(node, callback).Callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node">客户端节点</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="parameter">调用方法请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static AutoCSer.Net.CallbackCommand SimpleSerializeCallInputCommand<T>(ClientNode node, int methodIndex, T parameter, Action<ResponseResult> callback) where T : struct
+        {
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterSimpleSerializer<T>(ref parameter)), new CallbackCommandResponseParameter(node, callback).Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInput(new RequestParameter(node.Index, methodIndex, new RequestParameterSimpleSerializer<T>(ref parameter)), new CallbackCommandResponseParameter(node, callback).Callback);
         }
         /// <summary>
         /// 调用节点方法
@@ -229,6 +272,48 @@ namespace AutoCSer.CommandService
             if (node.IsSynchronousCallback) responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallOutput(responseParameter, node.Index, methodIndex));
             else responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, node.Index, methodIndex));
             return responseParameter;
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="node">客户端节点</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="responseParameter">返回参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.CallbackCommand CallOutputCommandResponseParameter(ClientNode node, int methodIndex, ResponseParameter responseParameter, Action<ResponseResult<ResponseParameter>> callback)
+        {
+            CallbackCommandResponseParameter<ResponseParameter> callbackCommandResponseParameter = new CallbackCommandResponseParameter<ResponseParameter>(node, responseParameter, callback);
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallOutput(responseParameter, node.Index, methodIndex, callbackCommandResponseParameter.Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, node.Index, methodIndex, callbackCommandResponseParameter.Callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node">客户端节点</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.CallbackCommand CallOutputCommand<T>(ClientNode node, int methodIndex, Action<ResponseResult<T>> callback)
+        {
+            CallbackCommandResponseParameter<T> responseParameter = new CallbackCommandBinarySerializeResponseParameter<T>(node, callback);
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallOutput(responseParameter, node.Index, methodIndex, responseParameter.Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, node.Index, methodIndex, responseParameter.Callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node">客户端节点</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.CallbackCommand SimpleDeserializeCallOutputCommand<T>(ClientNode node, int methodIndex, Action<ResponseResult<T>> callback)
+        {
+            CallbackCommandResponseParameter<T> responseParameter = new CallbackCommandSimpleSerializeResponseParameter<T>(node, callback);
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallOutput(responseParameter, node.Index, methodIndex, responseParameter.Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallOutput(responseParameter, node.Index, methodIndex, responseParameter.Callback);
         }
         /// <summary>
         /// 获取请求参数序列化
@@ -281,6 +366,44 @@ namespace AutoCSer.CommandService
             if (node.IsSynchronousCallback) responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter))));
             else responseParameter.Set(node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter))));
             return responseParameter;
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="node">客户端节点</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="responseParameter">返回参数</param>
+        /// <param name="flags">服务端节点方法标记</param>
+        /// <param name="parameter">调用方法请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.CallbackCommand CallInputOutputCommandResponseParameter<T>(ClientNode node, int methodIndex, ResponseParameter responseParameter, MethodFlagsEnum flags, T parameter, Action<ResponseResult<ResponseParameter>> callback)
+            where T : struct
+        {
+            CallbackCommandResponseParameter<ResponseParameter> callbackCommandResponseParameter = new CallbackCommandResponseParameter<ResponseParameter>(node, responseParameter, callback);
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter)), callbackCommandResponseParameter.Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter)), callbackCommandResponseParameter.Callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="RT"></typeparam>
+        /// <param name="node">客户端节点</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="flags">服务端节点方法标记</param>
+        /// <param name="parameter">调用方法请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.CallbackCommand CallInputOutputCommand<T, RT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, T parameter, Action<ResponseResult<RT>> callback)
+            where T : struct
+        {
+            CallbackCommandResponseParameter<RT> responseParameter;
+            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0) responseParameter = new CallbackCommandSimpleSerializeResponseParameter<RT>(node, callback);
+            else responseParameter = new CallbackCommandBinarySerializeResponseParameter<RT>(node, callback);
+            if (node.IsSynchronousCallback) return node.Client.Client.StreamPersistenceMemoryDatabaseClient.ClientSynchronousCallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter)), responseParameter.Callback);
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.CallInputOutput(responseParameter, new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer<T>(flags, ref parameter)), responseParameter.Callback);
         }
         /// <summary>
         /// 调用节点方法

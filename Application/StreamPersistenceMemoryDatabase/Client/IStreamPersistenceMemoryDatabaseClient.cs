@@ -46,6 +46,14 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         ReturnCommand<CallStateEnum> Call(NodeIndex index, int methodIndex);
         /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        CallbackCommand Call(NodeIndex index, int methodIndex, Action<CommandClientReturnValue<CallStateEnum>> callback);
+        /// <summary>
         /// 调用节点方法（客户端 IO 线程同步回调）
         /// </summary>
         /// <param name="index">节点索引信息</param>
@@ -54,6 +62,15 @@ namespace AutoCSer.CommandService
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(Call))]
         ReturnCommand<CallStateEnum> ClientSynchronousCall(NodeIndex index, int methodIndex);
         /// <summary>
+        /// 调用节点方法（客户端 IO 线程同步回调）
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(Call))]
+        CallbackCommand ClientSynchronousCall(NodeIndex index, int methodIndex, Action<CommandClientReturnValue<CallStateEnum>> callback);
+        /// <summary>
         /// 调用节点方法
         /// </summary>
         /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
@@ -61,6 +78,15 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex">调用方法编号</param>
         /// <returns></returns>
         ReturnCommand<ResponseParameter> CallOutput(ResponseParameter returnValue, NodeIndex index, int methodIndex);
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        CallbackCommand CallOutput(ResponseParameter returnValue, NodeIndex index, int methodIndex, Action<CommandClientReturnValue<ResponseParameter>> callback);
         /// <summary>
         /// 调用节点方法（客户端 IO 线程同步回调）
         /// </summary>
@@ -71,11 +97,28 @@ namespace AutoCSer.CommandService
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(CallOutput))]
         ReturnCommand<ResponseParameter> ClientSynchronousCallOutput(ResponseParameter returnValue, NodeIndex index, int methodIndex);
         /// <summary>
+        /// 调用节点方法（客户端 IO 线程同步回调）
+        /// </summary>
+        /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(CallOutput))]
+        CallbackCommand ClientSynchronousCallOutput(ResponseParameter returnValue, NodeIndex index, int methodIndex, Action<CommandClientReturnValue<ResponseParameter>> callback);
+        /// <summary>
         /// 调用节点方法
         /// </summary>
         /// <param name="parameter">请求参数</param>
         /// <returns></returns>
         ReturnCommand<CallStateEnum> CallInput(RequestParameter parameter);
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        CallbackCommand CallInput(RequestParameter parameter, Action<CommandClientReturnValue<CallStateEnum>> callback);
         /// <summary>
         /// 调用节点方法（客户端 IO 线程同步回调）
         /// </summary>
@@ -84,12 +127,28 @@ namespace AutoCSer.CommandService
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(CallInput))]
         ReturnCommand<CallStateEnum> ClientSynchronousCallInput(RequestParameter parameter);
         /// <summary>
+        /// 调用节点方法（客户端 IO 线程同步回调）
+        /// </summary>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(CallInput))]
+        CallbackCommand ClientSynchronousCallInput(RequestParameter parameter, Action<CommandClientReturnValue<CallStateEnum>> callback);
+        /// <summary>
         /// 调用节点方法
         /// </summary>
         /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
         /// <param name="parameter">请求参数</param>
         /// <returns></returns>
         ReturnCommand<ResponseParameter> CallInputOutput(ResponseParameter returnValue, RequestParameter parameter);
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        CallbackCommand CallInputOutput(ResponseParameter returnValue, RequestParameter parameter, Action<CommandClientReturnValue<ResponseParameter>> callback);
         /// <summary>
         /// 调用节点方法（客户端 IO 线程同步回调）
         /// </summary>
@@ -98,6 +157,15 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(CallInputOutput))]
         ReturnCommand<ResponseParameter> ClientSynchronousCallInputOutput(ResponseParameter returnValue, RequestParameter parameter);
+        /// <summary>
+        /// 调用节点方法（客户端 IO 线程同步回调）
+        /// </summary>
+        /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, MatchMethodName = nameof(CallInputOutput))]
+        CallbackCommand ClientSynchronousCallInputOutput(ResponseParameter returnValue, RequestParameter parameter, Action<CommandClientReturnValue<ResponseParameter>> callback);
         /// <summary>
         /// 调用节点方法
         /// </summary>
