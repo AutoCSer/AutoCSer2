@@ -27,7 +27,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        internal void Deserialize(AutoCSer.BinaryDeserializer deserializer)
+        internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             deserializer.DeserializeBuffer(ref value);
         }
@@ -36,7 +36,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// 读取数据回调
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal abstract class ReadCallback<T>
+    internal abstract class ReadCallback<T> : ReadBufferDeserializer
     {
         /// <summary>
         /// 回调数据

@@ -19,9 +19,9 @@ namespace AutoCSer.Threading
         private Action continuation;
 #endif
         /// <summary>
-        /// 回调处理是否启动线程
+        /// 回调是否调用 Task.Run 处理处理
         /// </summary>
-        private readonly bool isThreadPool;
+        private readonly bool isTaskRun;
         /// <summary>
         /// 完成状态
         /// </summary>
@@ -29,10 +29,10 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 异步回调 await 包装
         /// </summary>
-        /// <param name="isThreadPool">回调处理是否启动线程，回调无阻塞的情况应该设置为 false 直接同步回调</param>
-        public AwaitCallBack(bool isThreadPool = true)
+        /// <param name="isTaskRun">默认为 false 同步回调，设置为 true 调用 Task.Run 处理</param>
+        public AwaitCallBack(bool isTaskRun = false)
         {
-            this.isThreadPool = isThreadPool;
+            this.isTaskRun = isTaskRun;
         }
         /// <summary>
         /// await 支持
@@ -73,7 +73,7 @@ namespace AutoCSer.Threading
             IsCompleted = true;
             if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null)
             {
-                if (isThreadPool) AutoCSer.Threading.ThreadPool.TinyBackground.Start(continuation);
+                if (isTaskRun) Task.Run(continuation);
                 else continuation();
             }
         }
@@ -100,9 +100,9 @@ namespace AutoCSer.Threading
 #endif
         private T returnValue;
         /// <summary>
-        /// 回调处理是否启动线程
+        /// 回调是否调用 Task.Run 处理处理
         /// </summary>
-        private readonly bool isThreadPool;
+        private readonly bool isTaskRun;
         /// <summary>
         /// 完成状态
         /// </summary>
@@ -110,10 +110,10 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 异步回调 await 包装
         /// </summary>
-        /// <param name="isThreadPool">回调处理是否启动线程，回调无阻塞的情况应该设置为 false 直接同步回调</param>
-        public AwaitCallBack(bool isThreadPool = true) 
+        /// <param name="isTaskRun">默认为 false 同步回调，设置为 true 调用 Task.Run 处理</param>
+        public AwaitCallBack(bool isTaskRun = false) 
         {
-            this.isThreadPool = isThreadPool;
+            this.isTaskRun = isTaskRun;
         }
         /// <summary>
         /// await 支持
@@ -160,7 +160,7 @@ namespace AutoCSer.Threading
             IsCompleted = true;
             if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null)
             {
-                if (isThreadPool) AutoCSer.Threading.ThreadPool.TinyBackground.Start(continuation);
+                if (isTaskRun) Task.Run(continuation);
                 else continuation();
             }
         }

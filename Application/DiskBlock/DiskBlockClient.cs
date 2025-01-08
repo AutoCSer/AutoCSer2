@@ -345,7 +345,7 @@ namespace AutoCSer.CommandService
                 if (!index.GetResult(out result))
                 {
                     ReadCallback readCallback = new ReadCallback(callback);
-                    isCallback = await Client.Read((ReadBuffer)readCallback.Deserialize, index, readCallback.Callback);
+                    isCallback = await Client.Read(readCallback, index, readCallback.Callback);
                 }
             }
             finally
@@ -371,7 +371,7 @@ namespace AutoCSer.CommandService
 #endif
             if (index.GetResult(out result)) return result;
             ReadCallback readCallback = new ReadCallback();
-            return readCallback.GetResult(Client.WaitRead((ReadBuffer)readCallback.Deserialize, index));
+            return readCallback.GetResult(Client.WaitRead(readCallback, index));
         }
         /// <summary>
         /// 读取数据
@@ -379,19 +379,21 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
 #if NetStandard21
-        public async Task<ReadResult<byte[]?>> ReadAsync(BlockIndex index)
+        public ReadAwaiter<byte[]?> ReadAsync(BlockIndex index)
 #else
-        public async Task<ReadResult<byte[]>> ReadAsync(BlockIndex index)
+        public ReadAwaiter<byte[]> ReadAsync(BlockIndex index)
 #endif
         {
 #if NetStandard21
             ReadResult<byte[]?> result;
+            if (index.GetResult(out result)) return new CompletedReadAwaiter<byte[]?>(result);
 #else
             ReadResult<byte[]> result;
+            if (index.GetResult(out result)) return new CompletedReadAwaiter<byte[]>(result);
 #endif
-            if (index.GetResult(out result)) return result;
-            ReadCallback readCallback = new ReadCallback();
-            return readCallback.GetResult(await Client.Read((ReadBuffer)readCallback.Deserialize, index));
+            ReadAwaiter readCallback = new ReadAwaiter();
+            readCallback.Set(Client.Read(readCallback, index));
+            return readCallback;
         }
         /// <summary>
         /// 读取字符串
@@ -416,7 +418,7 @@ namespace AutoCSer.CommandService
                 if (!index.GetResult(out result))
                 {
                     ReadStringCallback readStringCallback = new ReadStringCallback(callback);
-                    isCallback = await Client.Read((ReadBuffer)readStringCallback.Deserialize, index, readStringCallback.Callback);
+                    isCallback = await Client.Read(readStringCallback, index, readStringCallback.Callback);
                 }
             }
             finally
@@ -442,7 +444,7 @@ namespace AutoCSer.CommandService
 #endif
             if (index.GetResult(out result)) return result;
             ReadStringCallback readStringCallback = new ReadStringCallback();
-            return readStringCallback.GetResult(Client.WaitRead((ReadBuffer)readStringCallback.Deserialize, index));
+            return readStringCallback.GetResult(Client.WaitRead(readStringCallback, index));
         }
         /// <summary>
         /// 读取字符串
@@ -450,19 +452,21 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
 #if NetStandard21
-        public async Task<ReadResult<string?>> ReadStringAsync(BlockIndex index)
+        public ReadAwaiter<string?> ReadStringAsync(BlockIndex index)
 #else
-        public async Task<ReadResult<string>> ReadStringAsync(BlockIndex index)
+        public ReadAwaiter<string> ReadStringAsync(BlockIndex index)
 #endif
         {
 #if NetStandard21
             ReadResult<string?> result;
+            if (index.GetResult(out result)) return new CompletedReadAwaiter<string?>(result);
 #else
             ReadResult<string> result;
+            if (index.GetResult(out result)) return new CompletedReadAwaiter<string>(result);
 #endif
-            if (index.GetResult(out result)) return result;
-            ReadStringCallback readStringCallback = new ReadStringCallback();
-            return readStringCallback.GetResult(await Client.Read((ReadBuffer)readStringCallback.Deserialize, index));
+            ReadStringAwaiter readStringCallback = new ReadStringAwaiter();
+            readStringCallback.Set(Client.Read(readStringCallback, index));
+            return readStringCallback;
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -488,7 +492,7 @@ namespace AutoCSer.CommandService
                 if (!index.GetJsonResult(out result))
                 {
                     ReadJsonCallback<T> readJsonCallback = new ReadJsonCallback<T>(callback);
-                    isCallback = await Client.Read((ReadBuffer)readJsonCallback.Deserialize, index, readJsonCallback.Callback);
+                    isCallback = await Client.Read(readJsonCallback, index, readJsonCallback.Callback);
                 }
             }
             finally
@@ -515,7 +519,7 @@ namespace AutoCSer.CommandService
 #endif
             if (index.GetJsonResult(out result)) return result;
             ReadJsonCallback<T> readJsonCallback = new ReadJsonCallback<T>();
-            return readJsonCallback.GetResult(Client.WaitRead((ReadBuffer)readJsonCallback.Deserialize, index));
+            return readJsonCallback.GetResult(Client.WaitRead(readJsonCallback, index));
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -524,19 +528,22 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
 #if NetStandard21
-        public async Task<ReadResult<T?>> ReadJsonAsync<T>(BlockIndex index)
+        public ReadAwaiter<T?> ReadJsonAsync<T>(BlockIndex index)
 #else
-        public async Task<ReadResult<T>> ReadJsonAsync<T>(BlockIndex index)
+        public ReadAwaiter<T> ReadJsonAsync<T>(BlockIndex index)
 #endif
         {
 #if NetStandard21
             ReadResult<T?> result;
+            if (index.GetJsonResult(out result)) return new CompletedReadAwaiter<T?>(result);
+            ReadJsonAwaiter<T?> readJsonCallback = new ReadJsonAwaiter<T?>();
 #else
             ReadResult<T> result;
+            if (index.GetJsonResult(out result)) return new CompletedReadAwaiter<T>(result);
+            ReadJsonAwaiter<T> readJsonCallback = new ReadJsonAwaiter<T>();
 #endif
-            if (index.GetJsonResult(out result)) return result;
-            ReadJsonCallback<T> readJsonCallback = new ReadJsonCallback<T>();
-            return readJsonCallback.GetResult(await Client.Read((ReadBuffer)readJsonCallback.Deserialize, index));
+            readJsonCallback.Set(Client.Read(readJsonCallback, index));
+            return readJsonCallback;
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -554,7 +561,7 @@ namespace AutoCSer.CommandService
                 if (!index.GetJsonResult(out result))
                 {
                     ReadJsonCallback<AutoCSer.Metadata.MemberMapValue<T>> readJsonCallback = new ReadJsonCallback<AutoCSer.Metadata.MemberMapValue<T>>(callback);
-                    isCallback = await Client.Read((ReadBuffer)readJsonCallback.Deserialize, index, readJsonCallback.Callback);
+                    isCallback = await Client.Read(readJsonCallback, index, readJsonCallback.Callback);
                 }
             }
             finally
@@ -573,7 +580,7 @@ namespace AutoCSer.CommandService
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
             if (index.GetJsonResult(out result)) return result;
             ReadJsonCallback<AutoCSer.Metadata.MemberMapValue<T>> readJsonCallback = new ReadJsonCallback<AutoCSer.Metadata.MemberMapValue<T>>();
-            return readJsonCallback.GetResult(Client.WaitRead((ReadBuffer)readJsonCallback.Deserialize, index));
+            return readJsonCallback.GetResult(Client.WaitRead(readJsonCallback, index));
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -581,12 +588,13 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
-        public async Task<ReadResult<AutoCSer.Metadata.MemberMapValue<T>>> ReadJsonMemberMapAsync<T>(BlockIndex index)
+        public ReadAwaiter<AutoCSer.Metadata.MemberMapValue<T>> ReadJsonMemberMapAsync<T>(BlockIndex index)
         {
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
-            if (index.GetJsonResult(out result)) return result;
-            ReadJsonCallback<AutoCSer.Metadata.MemberMapValue<T>> readJsonCallback = new ReadJsonCallback<AutoCSer.Metadata.MemberMapValue<T>>();
-            return readJsonCallback.GetResult(await Client.Read((ReadBuffer)readJsonCallback.Deserialize, index));
+            if (index.GetJsonResult(out result)) return new CompletedReadAwaiter<AutoCSer.Metadata.MemberMapValue<T>>(result);
+            ReadJsonAwaiter<AutoCSer.Metadata.MemberMapValue<T>> readJsonCallback = new ReadJsonAwaiter<AutoCSer.Metadata.MemberMapValue<T>>();
+            readJsonCallback.Set(Client.Read(readJsonCallback, index));
+            return readJsonCallback;
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -612,7 +620,7 @@ namespace AutoCSer.CommandService
                 if (!index.GetBinaryResult(out result))
                 {
                     ReadBinaryCallback<T> readBinaryCallback = new ReadBinaryCallback<T>(callback);
-                    isCallback = await Client.Read((ReadBuffer)readBinaryCallback.DeserializeNotReference, index, readBinaryCallback.Callback);
+                    isCallback = await Client.Read(readBinaryCallback, index, readBinaryCallback.Callback);
                 }
             }
             finally
@@ -639,7 +647,7 @@ namespace AutoCSer.CommandService
 #endif
             if (index.GetBinaryResult(out result)) return result;
             ReadBinaryCallback<T> readBinaryCallback = new ReadBinaryCallback<T>();
-            return readBinaryCallback.GetResult(Client.WaitRead((ReadBuffer)readBinaryCallback.DeserializeNotReference, index));
+            return readBinaryCallback.GetResult(Client.WaitRead(readBinaryCallback, index));
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -648,19 +656,22 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
 #if NetStandard21
-        public async Task<ReadResult<T?>> ReadBinaryAsync<T>(BlockIndex index)
+        public ReadAwaiter<T?> ReadBinaryAsync<T>(BlockIndex index)
 #else
-        public async Task<ReadResult<T>> ReadBinaryAsync<T>(BlockIndex index)
+        public ReadAwaiter<T> ReadBinaryAsync<T>(BlockIndex index)
 #endif
         {
 #if NetStandard21
             ReadResult<T?> result;
+            if (index.GetBinaryResult(out result)) return new CompletedReadAwaiter<T?>(result);
+            ReadBinaryAwaiter<T?> readBinaryCallback = new ReadBinaryAwaiter<T?>();
 #else
             ReadResult<T> result;
+            if (index.GetBinaryResult(out result)) return new CompletedReadAwaiter<T>(result);
+            ReadBinaryAwaiter<T> readBinaryCallback = new ReadBinaryAwaiter<T>();
 #endif
-            if (index.GetBinaryResult(out result)) return result;
-            ReadBinaryCallback<T> readBinaryCallback = new ReadBinaryCallback<T>();
-            return readBinaryCallback.GetResult(await Client.Read((ReadBuffer)readBinaryCallback.DeserializeNotReference, index));
+            readBinaryCallback.Set(Client.Read(readBinaryCallback, index));
+            return readBinaryCallback;
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -678,7 +689,7 @@ namespace AutoCSer.CommandService
                 if (!index.GetBinaryResult(out result))
                 {
                     ReadBinaryCallback<AutoCSer.Metadata.MemberMapValue<T>> readBinaryCallback = new ReadBinaryCallback<AutoCSer.Metadata.MemberMapValue<T>>(callback);
-                    isCallback = await Client.Read((ReadBuffer)readBinaryCallback.DeserializeNotReference, index, readBinaryCallback.Callback);
+                    isCallback = await Client.Read(readBinaryCallback, index, readBinaryCallback.Callback);
                 }
             }
             finally
@@ -697,7 +708,7 @@ namespace AutoCSer.CommandService
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
             if (index.GetBinaryResult(out result)) return result;
             ReadBinaryCallback<AutoCSer.Metadata.MemberMapValue<T>> readBinaryCallback = new ReadBinaryCallback<AutoCSer.Metadata.MemberMapValue<T>>();
-            return readBinaryCallback.GetResult(Client.WaitRead((ReadBuffer)readBinaryCallback.DeserializeNotReference, index));
+            return readBinaryCallback.GetResult(Client.WaitRead(readBinaryCallback, index));
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -705,12 +716,13 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
         /// <returns>读取数据结果</returns>
-        public async Task<ReadResult<AutoCSer.Metadata.MemberMapValue<T>>> ReadBinaryMemberMapAsync<T>(BlockIndex index)
+        public ReadAwaiter<AutoCSer.Metadata.MemberMapValue<T>> ReadBinaryMemberMapAsync<T>(BlockIndex index)
         {
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
-            if (index.GetBinaryResult(out result)) return result;
-            ReadBinaryCallback<AutoCSer.Metadata.MemberMapValue<T>> readBinaryCallback = new ReadBinaryCallback<AutoCSer.Metadata.MemberMapValue<T>>();
-            return readBinaryCallback.GetResult(await Client.Read((ReadBuffer)readBinaryCallback.DeserializeNotReference, index));
+            if (index.GetBinaryResult(out result)) return new CompletedReadAwaiter<AutoCSer.Metadata.MemberMapValue<T>>(result);
+            ReadBinaryAwaiter<AutoCSer.Metadata.MemberMapValue<T>> readBinaryCallback = new ReadBinaryAwaiter<AutoCSer.Metadata.MemberMapValue<T>>();
+            readBinaryCallback.Set(Client.Read(readBinaryCallback, index));
+            return readBinaryCallback;
         }
 
         /// <summary>

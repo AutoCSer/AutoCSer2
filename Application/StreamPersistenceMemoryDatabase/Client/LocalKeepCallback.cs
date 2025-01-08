@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用节点方法队列节点回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class LocalKeepCallback<T> : IDisposable, IEnumeratorTask<LocalResult<T>>
+    public sealed class LocalKeepCallback<T> : IDisposable, IEnumeratorCommand<LocalResult<T>>
 #if NetStandard21
 , IAsyncEnumerator<LocalResult<T>>
 #endif
@@ -95,11 +95,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public ValueTask DisposeAsync()
         {
             callback.SetCancelKeep();
-#if NET8
-            return ValueTask.CompletedTask;
-#else
-            return AutoCSer.Common.CompletedTask.ToValueTask();
-#endif
+            return AutoCSer.Common.CompletedValueTask;
         }
         /// <summary>
         /// 取消输出

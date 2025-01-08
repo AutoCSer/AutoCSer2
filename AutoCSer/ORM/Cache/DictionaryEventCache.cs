@@ -182,7 +182,7 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        async Task<VT?> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction? transaction)
+        async ValueTask<VT?> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction? transaction)
 #else
         async Task<VT> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction transaction)
 #endif

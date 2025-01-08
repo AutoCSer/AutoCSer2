@@ -5,6 +5,9 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+#if !NetStandard21
+using ValueTask = System.Threading.Tasks.Task;
+#endif
 
 namespace AutoCSer.CommandService.ReverseLogCollection
 {
@@ -73,10 +76,10 @@ namespace AutoCSer.CommandService.ReverseLogCollection
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        protected override Task setCommandClient(CommandClient client)
+        protected override ValueTask setCommandClient(CommandClient client)
         {
             queue.Add(new ReverseService.AppendCommandClientTaskNode<T>(this, client));
-            return AutoCSer.Common.CompletedTask;
+            return AutoCSer.Common.CompletedValueTask;
         }
         /// <summary>
         /// 添加客户端

@@ -98,6 +98,7 @@
     <Compile Include="NodeMethod.cs" />
     <Compile Include="Node\ArrayNode.cs" />
     <Compile Include="Node\BitmapNode.cs" />
+    <Compile Include="Node\BitmapNodeResponseAwaiter.cs" />
     <Compile Include="Node\ClientNode\IByteArrayDictionaryNodeClientNode.cs" />
     <Compile Include="Node\ClientNode\IByteArrayFragmentDictionaryNodeClientNode.cs" />
     <Compile Include="Node\ClientNode\IDistributedLockNodeClientNode.cs" />

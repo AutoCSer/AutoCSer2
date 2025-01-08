@@ -33,6 +33,7 @@
     <Compile Include="BlockCallbackTypeEnum.cs" />
     <Compile Include="BlockInfo.cs" />
     <Compile Include="BlockSize.cs" />
+    <Compile Include="CompletedReadAwaiter.cs" />
     <Compile Include="DiskBlockClient.cs" />
     <Compile Include="DiskBlockService.cs" />
     <Compile Include="DiskBlockServiceConfig.cs" />
@@ -55,6 +56,11 @@
     <Compile Include="ReadRequest.cs" />
     <Compile Include="ReadResult.cs" />
     <Compile Include="ReadStringCallback.cs" />
+    <Compile Include="ReadAwaiter.cs" />
+    <Compile Include="ReadBinaryAwaiter.cs" />
+    <Compile Include="ReadBufferDeserializer.cs" />
+    <Compile Include="ReadJsonAwaiter.cs" />
+    <Compile Include="ReadStringAwaiter.cs" />
     <Compile Include="StringSerializer.cs" />
     <Compile Include="WriteBuffer.cs" />
     <Compile Include="IDiskBlockService.cs" />

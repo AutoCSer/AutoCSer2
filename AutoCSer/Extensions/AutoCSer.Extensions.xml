@@ -7471,9 +7471,9 @@
             await 异步回调
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.AwaitCallBack.isThreadPool">
+        <member name="F:AutoCSer.Threading.AwaitCallBack.isTaskRun">
             <summary>
-            回调处理是否启动线程
+            回调是否调用 Task.Run 处理处理
             </summary>
         </member>
         <member name="P:AutoCSer.Threading.AwaitCallBack.IsCompleted">
@@ -7485,7 +7485,7 @@
             <summary>
             异步回调 await 包装
             </summary>
-            <param name="isThreadPool">回调处理是否启动线程，回调无阻塞的情况应该设置为 false 直接同步回调</param>
+            <param name="isTaskRun">默认为 false 同步回调，设置为 true 调用 Task.Run 处理</param>
         </member>
         <member name="M:AutoCSer.Threading.AwaitCallBack.Wait">
             <summary>
@@ -7532,9 +7532,9 @@
             返回值
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.AwaitCallBack`1.isThreadPool">
+        <member name="F:AutoCSer.Threading.AwaitCallBack`1.isTaskRun">
             <summary>
-            回调处理是否启动线程
+            回调是否调用 Task.Run 处理处理
             </summary>
         </member>
         <member name="P:AutoCSer.Threading.AwaitCallBack`1.IsCompleted">
@@ -7546,7 +7546,7 @@
             <summary>
             异步回调 await 包装
             </summary>
-            <param name="isThreadPool">回调处理是否启动线程，回调无阻塞的情况应该设置为 false 直接同步回调</param>
+            <param name="isTaskRun">默认为 false 同步回调，设置为 true 调用 Task.Run 处理</param>
         </member>
         <member name="M:AutoCSer.Threading.AwaitCallBack`1.Wait">
             <summary>
@@ -8181,6 +8181,50 @@
             </summary>
             <param name="semaphoreSlimLock"></param>
             <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
+        </member>
+        <member name="T:AutoCSer.Threading.SwitchAwaiter">
+            <summary>
+            await 强制 Task.Run 操作
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.SwitchAwaiter.IsCompleted">
+            <summary>
+            完成状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SwitchAwaiter.#ctor">
+            <summary>
+            await 强制 Task.Run 操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SwitchAwaiter.Wait">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.SwitchAwaiter.GetResult">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.SwitchAwaiter.GetAwaiter">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.SwitchAwaiter.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+            <summary>
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="F:AutoCSer.Threading.SwitchAwaiter.Default">
+            <summary>
+            await 强制 Task.Run 操作
+            </summary>
         </member>
         <member name="T:AutoCSer.Threading.SynchronizationContextAction">
             <summary>

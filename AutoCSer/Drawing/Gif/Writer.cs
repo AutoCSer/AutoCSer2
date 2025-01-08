@@ -173,7 +173,7 @@ namespace AutoCSer.Drawing.Gif
                 using (stream) await stream.WriteAsync(fileBuffer, 0, bufferIndex);
 #endif
             }
-            else stream.Write(fileBuffer, 0, bufferIndex);
+            else await stream.WriteAsync(fileBuffer, 0, bufferIndex);
         }
         /// <summary>
         /// 检测文件缓存

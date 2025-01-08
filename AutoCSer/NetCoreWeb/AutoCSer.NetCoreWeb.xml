@@ -2761,6 +2761,17 @@
             <param name="checkVersion"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.responseSuccess``1(Microsoft.AspNetCore.Http.HttpContext,``0,System.Boolean,System.Boolean)">
+            <summary>
+            输出成功数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="httpContext"></param>
+            <param name="result"></param>
+            <param name="isResponseJavaScript"></param>
+            <param name="checkVersion"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.responseSizeLog(Microsoft.AspNetCore.Http.HttpContext,System.Int32)">
             <summary>
             输出大小超出警告阈值日志

@@ -75,7 +75,7 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="connectionPool"></param>
         /// <returns></returns>
-        protected async Task getReader(ConnectionPool connectionPool)
+        protected async ValueTask getReader(ConnectionPool connectionPool)
         {
             if (transaction == null)
             {

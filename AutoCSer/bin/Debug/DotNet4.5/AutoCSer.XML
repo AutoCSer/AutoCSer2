@@ -8443,6 +8443,23 @@
             已完成任务
             </summary>
         </member>
+        <member name="P:AutoCSer.Common.CompletedValueTask">
+            <summary>
+            已完成任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.TrueCompletedAwaiter">
+            <summary>
+            已完成 Awaiter 返回 true
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.GetCompletedAwaiter(System.Boolean)">
+            <summary>
+            根据逻辑值获取已完成 Awaiter
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Common.GetUninitializedArray``1(System.Int32)">
             <summary>
             获取数组，允许存在未初始化数组项
@@ -9436,13 +9453,6 @@
             不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
             </summary>
             <param name="task">任务</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.TaskExtension.ToValueTask(System.Threading.Tasks.Task)">
-            <summary>
-            ValueTask 兼容
-            </summary>
-            <param name="task"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.TaskExtension.getResult``1(System.Threading.Tasks.Task{``0})">
             <summary>
@@ -20475,10 +20485,12 @@
             发送返回值数据
             </summary>
         </member>
-        <member name="M:AutoCSer.Metadata.GenericType.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerMethodTypeEnum)">
+        <member name="M:AutoCSer.Metadata.GenericType.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             TCP 服务器端异步回调类型
             </summary>
+            <param name="method"></param>
+            <returns></returns>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.CommandServerCallbackDelegate">
             <summary>
@@ -20944,10 +20956,12 @@
             发送返回值数据
             </summary>
         </member>
-        <member name="M:AutoCSer.Metadata.GenericType`1.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerMethodTypeEnum)">
+        <member name="M:AutoCSer.Metadata.GenericType`1.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             TCP 服务器端异步回调类型
             </summary>
+            <param name="method"></param>
+            <returns></returns>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerCallbackDelegate">
             <summary>
@@ -22854,6 +22868,38 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter">
+            <summary>
+            TCP 服务器端异步保持回调计数回调 Awaiter
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.count">
+            <summary>
+            TCP 服务器端异步保持回调计数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.output">
+            <summary>
+            服务端套接字输出信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.Exception">
+            <summary>
+            不支持，直接抛出异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.#ctor(AutoCSer.Net.CommandServerKeepCallbackCount,AutoCSer.Net.CommandServer.ServerOutput)">
+            <summary>
+            TCP 服务器端异步保持回调计数回调 Awaiter
+            </summary>
+            <param name="count">TCP 服务器端异步保持回调计数</param>
+            <param name="output"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.onCompleted">
+            <summary>
+            输出数据访问锁申请完成
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.SetClientControllerDynamicMethod">
             <summary>
             设置客户端控制器
@@ -23886,7 +23932,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext">
             <summary>
-            枚举命令是否存在下一个数据
+            枚举命令是否存在下一个数据 await bool
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.ReturnCount">
@@ -27416,13 +27462,12 @@
             <param name="inputParameterFieldBuilder"></param>
             <param name="outputParameterLocalBuilder"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CallMethodParameter(System.Reflection.Emit.ILGenerator,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CallMethodParameter(System.Reflection.Emit.ILGenerator,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder)">
             <summary>
             方法调用传参
             </summary>
             <param name="asynchronousMethodGenerator"></param>
             <param name="asynchronousControllerFieldBuilder"></param>
-            <param name="controllerLocalBuilder"></param>
             <param name="commandServerSocketLocalBuilder"></param>
             <param name="queueLocalBuilder"></param>
             <param name="inputParameterFieldBuilder"></param>
@@ -27441,14 +27486,6 @@
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.Compare(AutoCSer.Net.CommandServer.ServerInterfaceMethod,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             服务端接口方法排序
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.compare(System.Reflection.ParameterInfo,System.Reflection.ParameterInfo)">
-            <summary>
-            参数排序
             </summary>
             <param name="left"></param>
             <param name="right"></param>
@@ -27487,6 +27524,15 @@
             <param name="returnGenericType"></param>
             <param name="commandServerCallTaskQueueTaskType"></param>
             <param name="isVerifyMethodIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetTaskQueueControllerFieldBuilder(System.Reflection.Emit.TypeBuilder,System.Reflection.Emit.ILGenerator,System.Type)">
+            <summary>
+            Task 队列调用代理类型控制器定义
+            </summary>
+            <param name="asynchronousTypeBuilder"></param>
+            <param name="asynchronousConstructorGenerator"></param>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetTaskQueueInputParameterFieldBuilder(System.Reflection.Emit.TypeBuilder,System.Reflection.Emit.ILGenerator)">
@@ -28984,6 +29030,11 @@
             <param name="seconds">当前任务执行秒数</param>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientConfig.Null">
+            <summary>
+            默认空命令客户端配置
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandClientConfig`1">
             <summary>
             命令客户端配置
@@ -30457,7 +30508,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerCallTask`1.method">
+        <member name="F:AutoCSer.Net.CommandServerCallTask`1.Method">
             <summary>
             服务端接口方法信息
             </summary>
@@ -31750,13 +31801,6 @@
             <param name="isPush"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.callbackAsync(AutoCSer.Net.CommandServer.ServerOutputKeepCallbackCount{AutoCSer.Net.CommandServer.ServerReturnValue{`0}})">
-            <summary>
-            返回值回调，保持回调计数等待
-            </summary>
-            <param name="output"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.CallbackAsync(`0)">
             <summary>
             返回值回调，保持回调计数等待
@@ -31779,13 +31823,6 @@
             <param name="values"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.EnumerableCallbackAsync(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            返回数据集合以后关闭保持回调，保持回调计数等待
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.CallbackAsync(AutoCSer.IEnumeratorTask{`0})">
             <summary>
             返回数据集合以后关闭保持回调，保持回调计数等待
             </summary>
@@ -32245,6 +32282,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CompletedReturnCommand">
+            <summary>
+            已完成返回值命令
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CompletedReturnCommand.#ctor(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            返回值命令
+            </summary>
+            <param name="returnType">返回值</param>
+        </member>
+        <member name="F:AutoCSer.Net.CompletedReturnCommand.Unknown">
+            <summary>
+            未知返回值
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CompletedReturnCommand`1">
             <summary>
             已完成返回值命令
@@ -32268,6 +32321,11 @@
             返回值命令
             </summary>
             <param name="returnValue">返回值</param>
+        </member>
+        <member name="F:AutoCSer.Net.CompletedReturnCommand`1.Default">
+            <summary>
+            默认值已完成返回值命令
+            </summary>
         </member>
         <member name="T:AutoCSer.Net.EnumeratorCommand">
             <summary>
@@ -32655,6 +32713,28 @@
             取消回调
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.IEnumeratorCommand">
+            <summary>
+            枚举命令接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.IEnumeratorCommand.MoveNext">
+            <summary>
+            判断是否存在下一个数据 await bool
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.IEnumeratorCommand`1">
+            <summary>
+            枚举命令接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.Net.IEnumeratorCommand`1.Current">
+            <summary>
+            获取当前数据
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CallbackCommand">
             <summary>
             回调命令 await bool 是否自动触发回调
@@ -32763,6 +32843,12 @@
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
+        </member>
+        <member name="M:AutoCSer.Net.ReturnCommand.#ctor(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            已完成返回值命令
+            </summary>
+            <param name="returnType"></param>
         </member>
         <member name="M:AutoCSer.Net.ReturnCommand.Wait">
             <summary>
@@ -36348,6 +36434,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback.SynchronousCallback">
+            <summary>
+            无输出成功队列同步回调
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
             <summary>
             取消保持回调命令
@@ -37173,13 +37265,6 @@
             返回值回调
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.Callback(AutoCSer.IEnumeratorTask)">
-            <summary>
-            返回数据集合以后关闭保持回调
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
             <summary>
             取消保持回调命令
@@ -37320,13 +37405,6 @@
             <param name="values"></param>
             <param name="isCancel">回调完成之后是否关闭</param>
             <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackAsync(AutoCSer.IEnumeratorTask{`0})">
-            <summary>
-            返回数据集合以后关闭保持回调
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CreateServerKeepCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
@@ -42664,763 +42742,189 @@
             fixed 之前检查数据
             </summary>
         </member>
-        <member name="T:AutoCSer.WaitTask">
+        <member name="T:AutoCSer.Threading.CompletedTaskCastAwaiter`1">
             <summary>
-            开启线程调用 Task.Wait() 防止后续操作出现同步阻塞 Task 调度线程
+            已完成 Awaiter
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.Threading.CompletedTaskCastAwaiter`1.Exception">
+            <summary>
+            不支持，直接抛出异常
             </summary>
         </member>
-        <member name="F:AutoCSer.WaitTask.task">
+        <member name="M:AutoCSer.Threading.CompletedTaskCastAwaiter`1.#ctor">
             <summary>
-            被调度任务
+            已完成默认值 Awaiter
             </summary>
         </member>
-        <member name="F:AutoCSer.WaitTask.waitLock">
+        <member name="M:AutoCSer.Threading.CompletedTaskCastAwaiter`1.#ctor(`0)">
             <summary>
-            返回值等待锁
+            已完成 Awaiter
+            </summary>
+            <param name="result">任务执行结果</param>
+        </member>
+        <member name="F:AutoCSer.Threading.CompletedTaskCastAwaiter`1.Default">
+            <summary>
+            默认值已完成 Awaiter
             </summary>
         </member>
-        <member name="M:AutoCSer.WaitTask.#ctor(System.Threading.Tasks.Task)">
+        <member name="T:AutoCSer.Threading.TaskCastAwaiter`1">
             <summary>
-            获取 Task.Result
+            Task 返回值类型转换 await T
+            </summary>
+            <typeparam name="T">await 返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`1.continuation">
+            <summary>
+            异步回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`1.result">
+            <summary>
+            任务执行结果
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`1.IsResult">
+            <summary>
+            是否存在执行结果
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`1.IsCompleted">
+            <summary>
+            完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`1.Exception">
+            <summary>
+            执行异常信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.Wait">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.GetResult">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.GetAwaiter">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+            <summary>
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.setResult(`0)">
+            <summary>
+            设置返回结果
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.setCompleted">
+            <summary>
+            设置完成状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.onCompleted(`0)">
+            <summary>
+            设置返回结果并尝试回调操作
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.onCompleted">
+            <summary>
+            设置错误结果并尝试回调操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskCastAwaiter`2">
+            <summary>
+            Task 返回值类型转换 Awaiter
+            </summary>
+            <typeparam name="T">await 返回值类型</typeparam>
+            <typeparam name="TT">Task 返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`2.task">
+            <summary>
+            执行 Task
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`2.exception">
+            <summary>
+            数据转换异常信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`2.Exception">
+            <summary>
+            执行异常信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.#ctor(System.Threading.Tasks.Task{`1},System.Boolean)">
+            <summary>
+            Task 返回值类型转换 Awaiter
+            </summary>
+            <param name="task"></param>
+            <param name="isCheck"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.#ctor(System.Threading.Tasks.Task{`1})">
+            <summary>
+            Task 返回值类型转换 Awaiter
             </summary>
             <param name="task"></param>
         </member>
-        <member name="M:AutoCSer.WaitTask.wait">
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.check">
             <summary>
-            获取返回值
+            检查 Task 是否完成
             </summary>
         </member>
-        <member name="M:AutoCSer.WaitTask.Wait">
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.onCompleted">
             <summary>
-            获取返回值
+            Task 执行完成
             </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.GetResult(`1)">
+            <summary>
+            类型转换
+            </summary>
+            <param name="result"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.WaitTask`1">
+        <member name="T:AutoCSer.Threading.TaskReturnAwaiter`1">
             <summary>
-            开启线程获取 Task.Result 防止后续操作出现同步阻塞 Task 调度线程
+            Task 执行完以后返回固定值
             </summary>
-            <typeparam name="T">返回值类型</typeparam>
+            <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.WaitTask`1.task">
+        <member name="F:AutoCSer.Threading.TaskReturnAwaiter`1.task">
             <summary>
-            被调度任务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.WaitTask`1.waitLock">
-            <summary>
-            返回值等待锁
+            执行 Task
             </summary>
         </member>
-        <member name="F:AutoCSer.WaitTask`1.result">
+        <member name="P:AutoCSer.Threading.TaskReturnAwaiter`1.Exception">
             <summary>
-            任务返回值
+            执行异常信息
             </summary>
         </member>
-        <member name="M:AutoCSer.WaitTask`1.#ctor(System.Threading.Tasks.Task{`0})">
+        <member name="M:AutoCSer.Threading.TaskReturnAwaiter`1.#ctor(System.Threading.Tasks.Task,`0)">
             <summary>
-            获取 Task.Result
+            Task 执行完以后返回固定值
             </summary>
             <param name="task"></param>
+            <param name="result">返回值</param>
         </member>
-        <member name="M:AutoCSer.WaitTask`1.getResult">
+        <member name="M:AutoCSer.Threading.TaskReturnAwaiter`1.onCompleted">
             <summary>
-            获取返回值
+            Task 执行完成
             </summary>
-        </member>
-        <member name="M:AutoCSer.WaitTask`1.GetResult(System.Exception@)">
-            <summary>
-            获取返回值
-            </summary>
-            <param name="exception"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.Common">
-            <summary>
-            公共调用
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.Common.StringBufferSize">
-            <summary>
-            字符串缓存区大小
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeFields``1(AutoCSer.Metadata.FieldIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
-            <summary>
-            获取字段成员集合
-            </summary>
-            <typeparam name="T">序列化成员配置类型</typeparam>
-            <param name="fields"></param>
-            <param name="typeAttribute">类型配置</param>
-            <returns>字段成员集合</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeProperties``1(AutoCSer.Metadata.PropertyIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
-            <summary>
-            获取属性成员集合
-            </summary>
-            <typeparam name="T">序列化成员配置类型</typeparam>
-            <param name="properties">属性成员集合</param>
-            <param name="typeAttribute">类型配置</param>
-            <returns>属性成员集合</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeFields``1(AutoCSer.Metadata.FieldIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
-            <summary>
-            获取字段成员集合
-            </summary>
-            <typeparam name="T">序列化成员配置类型</typeparam>
-            <param name="fields"></param>
-            <param name="typeAttribute">类型配置</param>
-            <returns>字段成员集合</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeProperties``1(AutoCSer.Metadata.PropertyIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
-            <summary>
-            获取属性成员集合
-            </summary>
-            <typeparam name="T">序列化成员配置类型</typeparam>
-            <param name="properties">属性成员集合</param>
-            <param name="typeAttribute">类型配置</param>
-            <returns>属性成员集合</returns>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.CustomConfig">
-            <summary>
-            自定义全局配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.CustomConfig.customSerializeDelegate">
-            <summary>
-            自定义序列化委托集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.CustomConfig.customSerializeDelegateLock">
-            <summary>
-            自定义序列化委托集合访问锁
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.AppendCustomSerializeDelegate(System.Type,AutoCSer.TextSerialize.SerializeDelegate,System.Delegate)">
-            <summary>
-            添加自定义序列化委托（应该在该类型的静态构造函数中调用，否则可能无法生效）
-            </summary>
-            <param name="type"></param>
-            <param name="serializeDelegate"></param>
-            <param name="deserializeDelegate">必须是静态方法，第一个参数类型为 AutoCSer.JsonDeserializer / AutoCSer.XmlDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void</param>
-            <returns>如果已经存在该类型的自定义序列化委托则添加失败并返回 false</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.getCustomSerializeDelegate(System.Type,AutoCSer.TextSerialize.SerializeDelegate@)">
-            <summary>
-            根据类型获取自定义序列化委托
-            </summary>
-            <param name="type"></param>
-            <param name="serializeDelegate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.geteCustomDeserializDelegate(System.Type,System.Delegate@)">
-            <summary>
-            根据类型获取自定义反序列化委托
-            </summary>
-            <param name="type"></param>
-            <param name="deserializDelegate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.getCustomSerializeReferenceTypes``1(System.Type)">
-            <summary>
-            根据类型获取自定义序列化需要循环引用检查的类型
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="P:AutoCSer.TextSerialize.CustomConfig.PrimitiveSerializeDelegates">
-            <summary>
-            获取自定义类型序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlDeserializer，第二参数类型为具体数据类型，返回值类型为 void
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.Write(AutoCSer.Memory.CharStream,System.Single)">
-            <summary>
-            写入浮点数
-            </summary>
-            <param name="charStream"></param>
-            <param name="value"></param>
-            <returns>未写入字符数量</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.Write(AutoCSer.Memory.CharStream,System.Double)">
-            <summary>
-            写入浮点数
-            </summary>
-            <param name="charStream"></param>
-            <param name="value"></param>
-            <returns>未写入字符数量</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.Write(AutoCSer.Memory.CharStream,System.Decimal)">
-            <summary>
-            写入小数
-            </summary>
-            <param name="charStream"></param>
-            <param name="value"></param>
-            <returns>未写入字符数量</returns>
-        </member>
-        <member name="P:AutoCSer.TextSerialize.CustomConfig.PrimitiveDeserializeDelegates">
-            <summary>
-            获取自定义类型反序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.JsonDeserializer / AutoCSer.XmlDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.CallCustomConstructor``1(``0@)">
-            <summary>
-            找不到构造函数的自定义创建对象处理
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.CustomConfig.Deserialize(AutoCSer.SubString@,System.Double@)">
-            <summary>
-            自定义反序列化浮点数
-            </summary>
-            <param name="buffer"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.DelegateReference">
-            <summary>
-            序列化委托循环引用信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.DelegateReference.PushType">
-            <summary>
-            引用循环执行类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.DelegateReference.IsUnknownMember">
-            <summary>
-            是否存在未知子节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.DelegateReference.IsCheckMember">
-            <summary>
-            循环引用是否需要检查成员类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.DelegateReference.IsCompleted">
-            <summary>
-            状态是否计算完成
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.DelegateReference.Delegate">
-            <summary>
-            序列化委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.DelegateReference.ReferenceGenericTypes">
-            <summary>
-            需要循环引用检查的类型
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.DelegateReference.#ctor(System.Delegate)">
-            <summary>
-            序列化委托循环引用信息
-            </summary>
-            <param name="delegateValue">序列化委托</param>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetNoLoop(System.Delegate)">
-            <summary>
-            设置自定义序列化委托
-            </summary>
-            <param name="delegateValue"></param>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetUnknown(System.Type,System.Delegate)">
-            <summary>
-            设置自定义序列化委托
-            </summary>
-            <param name="type"></param>
-            <param name="delegateValue"></param>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetMember(AutoCSer.TextSerialize.SerializeDelegate@)">
-            <summary>
-            设置自定义序列化委托
-            </summary>
-            <param name="delegateValue"></param>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetMember(System.Delegate,System.Type[])">
-            <summary>
-            设置自定义序列化委托
-            </summary>
-            <param name="delegateValue"></param>
-            <param name="referenceTypes"></param>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.EnumDeserialize`1">
-            <summary>
-            枚举值反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.EnumDeserialize`1.enumValues">
-            <summary>
-            枚举值集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.EnumDeserialize`1.enumSearchData">
-            <summary>
-            枚举名称查找数据
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.LoopTypeArray">
-            <summary>
-            序列化委托循环引用检查数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.LoopTypeArray.ReferenceTypes">
-            <summary>
-            需要循环引用检查的类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.LoopTypeArray.ReferenceGenericTypes">
-            <summary>
-            需要循环引用检查的类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.LoopTypeArray.Index">
-            <summary>
-            当前检查的类型位置
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.LoopTypeArray.Set(AutoCSer.TextSerialize.DelegateReference@)">
-            <summary>
-            设置检查数组
-            </summary>
-            <param name="serializeDelegateReference"></param>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.LoopTypeArray.Set(AutoCSer.TextSerialize.DelegateReference)">
-            <summary>
-            设置检查数组
-            </summary>
-            <param name="serializeDelegateReference"></param>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.PropertyMethod`1">
-            <summary>
-            属性成员信息
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PropertyMethod`1.Property">
-            <summary>
-            属性索引
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PropertyMethod`1.Method">
-            <summary>
-            访问函数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PropertyMethod`1.MemberAttribute">
-            <summary>
-            成员自定义属性
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.PropertyMethod`1.#ctor(AutoCSer.Metadata.PropertyIndex,System.Reflection.MethodInfo,`0)">
-            <summary>
-            属性成员信息
-            </summary>
-            <param name="property"></param>
-            <param name="method"></param>
-            <param name="memberAttribute"></param>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.PushTypeEnum">
-            <summary>
-            序列化循环引用检查类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.DepthCount">
-            <summary>
-            仅做层级计数操作
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.UnknownNode">
-            <summary>
-            上级节点为值类型未知节点时添加循环对象检查
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.UnknownDepthCount">
-            <summary>
-            当前节点为值类型未知节点，仅做层级计数与状态修改操作，不添加循环对象检查
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.Push">
-            <summary>
-            添加循环对象检查，包括循环类型对象与未知引用类型对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.DepthOutOfRange">
-            <summary>
-            深度超出范围
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.SerializeAttribute">
-            <summary>
-            序列化类型配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeAttribute.IsBaseType">
-            <summary>
-            是否作用与派生类型，默认为 true
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeAttribute.CheckLoopReference">
-            <summary>
-            是否检测循环引用（仅对引用类型有效），默认为 true
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeAttribute.CustomReferenceTypes">
-            <summary>
-            自定义序列化需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.SerializeConfig">
-            <summary>
-            序列化配置参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeConfig.DefaultCheckDepth">
-            <summary>
-            默认最大节点检测深度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeConfig.MemberMap">
-            <summary>
-            成员位图
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeConfig.CheckDepth">
-            <summary>
-            最大节点检测深度，默认为 64（过大的深度会造成堆栈溢出，所以该序列化组件不适合序列化链表结构，如果存在该类似需求请自定义序列化转换为数组处理）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeConfig.CheckLoop">
-            <summary>
-            是否检查循环引用，默认为 true
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsMemberMapErrorToDefault">
-            <summary>
-            成员位图类型不匹配时是否使用默认输出，默认为 true
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsObject">
-            <summary>
-            是否将 object 转换成真实类型输出
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsEnumToString">
-            <summary>
-            枚举类型是否输出字符串，否则输出数字
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeConfig.SetCustomMemberMap(AutoCSer.Metadata.MemberMap)">
-            <summary>
-            获取并设置自定义序列化成员位图
-            </summary>
-            <param name="memberMap">序列化成员位图</param>
-            <returns>序列化成员位图</returns>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.SerializeDelegate">
-            <summary>
-            自定义序列化委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeDelegate.Delegate">
-            <summary>
-            自定义序列化委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.SerializeDelegate.ReferenceTypes">
-            <summary>
-            需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.#ctor(System.Delegate,System.Type[])">
-            <summary>
-            自定义序列化委托
-            </summary>
-            <param name="delegateValue">序列化委托，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlSerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
-            <param name="referenceTypes">需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知</param>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.op_Implicit(System.Delegate)~AutoCSer.TextSerialize.SerializeDelegate">
-            <summary>
-            隐式转换
-            </summary>
-            <param name="value">自定义序列化委托，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlSerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
-            <returns>自定义序列化委托</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Set(System.Delegate,System.Type[])">
-            <summary>
-            设置自定义序列化委托
-            </summary>
-            <param name="delegateValue"></param>
-            <param name="referenceTypes"></param>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.GetRemoveDelegate">
-            <summary>
-            获取自定义序列化委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Check(System.Type,System.Type@,AutoCSer.TextSerialize.DelegateReference@)">
-            <summary>
-            检查自定义序列化委托
-            </summary>
-            <param name="serializerType"></param>
-            <param name="type"></param>
-            <param name="serializeDelegateReference"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Check(System.Type,System.Type,AutoCSer.TextSerialize.DelegateReference@)">
-            <summary>
-            检查自定义序列化委托
-            </summary>
-            <param name="serializerType"></param>
-            <param name="type"></param>
-            <param name="serializeDelegateReference"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Check(System.Type,AutoCSer.TextSerialize.DelegateReference@,System.Type@)">
-            <summary>
-            检查自定义序列化委托
-            </summary>
-            <param name="serializerType"></param>
-            <param name="serializeDelegateReference"></param>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.TextSerialize.WarningEnum">
-            <summary>
-            警告提示状态
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.WarningEnum.None">
-            <summary>
-            正常
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.WarningEnum.MemberMap">
-            <summary>
-            成员位图类型不匹配
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.WarningEnum.DepthOutOfRange">
-            <summary>
-            深度超出范围
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.WarningEnum.LoopReference">
-            <summary>
-            存在对象循环引用
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.WarningEnum.ResizeError">
-            <summary>
-            在不允许扩展缓存区大小的情况下产生了扩展操作
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TextDeserializeConfig">
-            <summary>
-            文本反序列化配置参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializeConfig.IsTempString">
-            <summary>
-            是否临时字符串(可修改)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializeConfig.IsMatchEnum">
-            <summary>
-            是否强制匹配枚举值
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializeConfig.NewArraySize">
-            <summary>
-            默认数组大小为 10
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializeConfig.IsErrorNewString">
-            <summary>
-            指针模式反序列化失败时是否 new string
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TextDeserializer`1">
-            <summary>
-            文本反序列化
-            </summary>
-            <typeparam name="T">文本反序列化类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.TextDeserializer`1.bits">
-            <summary>
-            字符状态位查询表格
-            </summary>
-        </member>
-        <member name="P:AutoCSer.TextDeserializer`1.MemberMap">
-            <summary>
-            成员位图
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializer`1.text">
-            <summary>
-            解析字符串
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializer`1.textFixed">
-            <summary>
-            解析字符串起始位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializer`1.Current">
-            <summary>
-            当前解析位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializer`1.end">
-            <summary>
-            解析结束位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializer`1.stringBuffer">
-            <summary>
-            临时字符串
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextDeserializer`1.customError">
-            <summary>
-            自定义错误
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextDeserializer`1.#ctor(System.Byte*)">
-            <summary>
-            文本反序列化
-            </summary>
-            <param name="bits">字符状态位查询表格</param>
-        </member>
-        <member name="M:AutoCSer.TextDeserializer`1.free">
-            <summary>
-            释放 XML 解析器（线程静态实例模式）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextDeserializer`1.fillStringBuffer(System.Char*,System.Int32)">
-            <summary>
-            临时字符串填充空格
-            </summary>
-            <param name="bufferFixed"></param>
-            <param name="length"></param>
-        </member>
-        <member name="M:AutoCSer.TextDeserializer`1.GetStringBuffer(AutoCSer.Memory.Pointer@)">
-            <summary>
-            获取数字字符串
-            </summary>
-            <param name="buffer"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.TextSerializer`2">
-            <summary>
-            文本序列化
-            </summary>
-            <typeparam name="T">文本序列化类型</typeparam>
-            <typeparam name="CT">序列化配置参数类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.TextSerializer`2.CharStream">
-            <summary>
-            字符串输出缓冲区
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerializer`2.Config">
-            <summary>
-            配置参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerializer`2.forefather">
-            <summary>
-            祖先节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerializer`2.CheckDepth">
-            <summary>
-            节点层级计数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerializer`2.IsBinaryMix">
-            <summary>
-            是否二进制混杂模式
-            </summary>
-        </member>
-        <member name="P:AutoCSer.TextSerializer`2.Warning">
-            <summary>
-            警告提示状态
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerializer`2.isProcessing">
-            <summary>
-            是否正在处理序列化操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.#ctor(`1,System.Boolean)">
-            <summary>
-            文本序列化
-            </summary>
-            <param name="config">配置参数</param>
-            <param name="isThreadStatic">是否单线程模式</param>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.System#IDisposable#Dispose">
-            <summary>
-            释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.free">
-            <summary>
-            释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.Check(AutoCSer.TextSerialize.PushTypeEnum)">
-            <summary>
-            获取序列化循环引用检查类型
-            </summary>
-            <param name="pushType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.PushUnknownNode(System.Object)">
-            <summary>
-            上级节点为值类型未知节点时添加循环对象检查
-            </summary>
-            <param name="value"></param>
-            <returns>0 表示循环引用</returns>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.Push(System.Object)">
-            <summary>
-            添加循环引用检查对象
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.WriteLoopReference">
-            <summary>
-            循环引用对象处理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.PopUnknownNode(System.Int32)">
-            <summary>
-            上级节点为值类型未知节点时添加循环对象检查
-            </summary>
-            <param name="unknownCount"></param>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.PopUnknownDepthCount">
-            <summary>
-            当前节点为值类型未知节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.Pop">
-            <summary>
-            弹出循环引用检查对象
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TextSerializer`2.SetCustomMemberMap(AutoCSer.Metadata.MemberMap)">
-            <summary>
-            获取并设置自定义序列化成员位图
-            </summary>
-            <param name="memberMap">序列化成员位图</param>
-            <returns>序列化成员位图</returns>
         </member>
         <member name="T:AutoCSer.Threading.CpuCachePad">
             <summary>
@@ -44913,13 +44417,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.appendTaskArrayAsync(AutoCSer.Threading.SecondTimerAppendTaskStateEnum)">
-            <summary>
-            任务添加到二维定时任务数组
-            </summary>
-            <param name="appendTaskState"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.AppendTaskArrayAsync(AutoCSer.Threading.SecondTimerAppendTaskStateEnum)">
             <summary>
             任务添加到二维定时任务数组
@@ -45653,6 +45150,764 @@
             </summary>
             <param name="exception">任务执行异常信息，正常执行无异常返回 null</param>
             <returns>任务执行结果</returns>
+        </member>
+        <member name="T:AutoCSer.WaitTask">
+            <summary>
+            开启线程调用 Task.Wait() 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask.task">
+            <summary>
+            被调度任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask.waitLock">
+            <summary>
+            返回值等待锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask.#ctor(System.Threading.Tasks.Task)">
+            <summary>
+            获取 Task.Result
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.WaitTask.wait">
+            <summary>
+            获取返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask.Wait">
+            <summary>
+            获取返回值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.WaitTask`1">
+            <summary>
+            开启线程获取 Task.Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.WaitTask`1.task">
+            <summary>
+            被调度任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask`1.waitLock">
+            <summary>
+            返回值等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.WaitTask`1.result">
+            <summary>
+            任务返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask`1.#ctor(System.Threading.Tasks.Task{`0})">
+            <summary>
+            获取 Task.Result
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.WaitTask`1.getResult">
+            <summary>
+            获取返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.WaitTask`1.GetResult(System.Exception@)">
+            <summary>
+            获取返回值
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.Common">
+            <summary>
+            公共调用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.Common.StringBufferSize">
+            <summary>
+            字符串缓存区大小
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeFields``1(AutoCSer.Metadata.FieldIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+            <summary>
+            获取字段成员集合
+            </summary>
+            <typeparam name="T">序列化成员配置类型</typeparam>
+            <param name="fields"></param>
+            <param name="typeAttribute">类型配置</param>
+            <returns>字段成员集合</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeProperties``1(AutoCSer.Metadata.PropertyIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+            <summary>
+            获取属性成员集合
+            </summary>
+            <typeparam name="T">序列化成员配置类型</typeparam>
+            <param name="properties">属性成员集合</param>
+            <param name="typeAttribute">类型配置</param>
+            <returns>属性成员集合</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeFields``1(AutoCSer.Metadata.FieldIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+            <summary>
+            获取字段成员集合
+            </summary>
+            <typeparam name="T">序列化成员配置类型</typeparam>
+            <param name="fields"></param>
+            <param name="typeAttribute">类型配置</param>
+            <returns>字段成员集合</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeProperties``1(AutoCSer.Metadata.PropertyIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+            <summary>
+            获取属性成员集合
+            </summary>
+            <typeparam name="T">序列化成员配置类型</typeparam>
+            <param name="properties">属性成员集合</param>
+            <param name="typeAttribute">类型配置</param>
+            <returns>属性成员集合</returns>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.CustomConfig">
+            <summary>
+            自定义全局配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.CustomConfig.customSerializeDelegate">
+            <summary>
+            自定义序列化委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.CustomConfig.customSerializeDelegateLock">
+            <summary>
+            自定义序列化委托集合访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.AppendCustomSerializeDelegate(System.Type,AutoCSer.TextSerialize.SerializeDelegate,System.Delegate)">
+            <summary>
+            添加自定义序列化委托（应该在该类型的静态构造函数中调用，否则可能无法生效）
+            </summary>
+            <param name="type"></param>
+            <param name="serializeDelegate"></param>
+            <param name="deserializeDelegate">必须是静态方法，第一个参数类型为 AutoCSer.JsonDeserializer / AutoCSer.XmlDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void</param>
+            <returns>如果已经存在该类型的自定义序列化委托则添加失败并返回 false</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.getCustomSerializeDelegate(System.Type,AutoCSer.TextSerialize.SerializeDelegate@)">
+            <summary>
+            根据类型获取自定义序列化委托
+            </summary>
+            <param name="type"></param>
+            <param name="serializeDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.geteCustomDeserializDelegate(System.Type,System.Delegate@)">
+            <summary>
+            根据类型获取自定义反序列化委托
+            </summary>
+            <param name="type"></param>
+            <param name="deserializDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.getCustomSerializeReferenceTypes``1(System.Type)">
+            <summary>
+            根据类型获取自定义序列化需要循环引用检查的类型
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.TextSerialize.CustomConfig.PrimitiveSerializeDelegates">
+            <summary>
+            获取自定义类型序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlDeserializer，第二参数类型为具体数据类型，返回值类型为 void
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.Write(AutoCSer.Memory.CharStream,System.Single)">
+            <summary>
+            写入浮点数
+            </summary>
+            <param name="charStream"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.Write(AutoCSer.Memory.CharStream,System.Double)">
+            <summary>
+            写入浮点数
+            </summary>
+            <param name="charStream"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.Write(AutoCSer.Memory.CharStream,System.Decimal)">
+            <summary>
+            写入小数
+            </summary>
+            <param name="charStream"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
+        <member name="P:AutoCSer.TextSerialize.CustomConfig.PrimitiveDeserializeDelegates">
+            <summary>
+            获取自定义类型反序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.JsonDeserializer / AutoCSer.XmlDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.CallCustomConstructor``1(``0@)">
+            <summary>
+            找不到构造函数的自定义创建对象处理
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.CustomConfig.Deserialize(AutoCSer.SubString@,System.Double@)">
+            <summary>
+            自定义反序列化浮点数
+            </summary>
+            <param name="buffer"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.DelegateReference">
+            <summary>
+            序列化委托循环引用信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.DelegateReference.PushType">
+            <summary>
+            引用循环执行类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.DelegateReference.IsUnknownMember">
+            <summary>
+            是否存在未知子节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.DelegateReference.IsCheckMember">
+            <summary>
+            循环引用是否需要检查成员类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.DelegateReference.IsCompleted">
+            <summary>
+            状态是否计算完成
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.DelegateReference.Delegate">
+            <summary>
+            序列化委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.DelegateReference.ReferenceGenericTypes">
+            <summary>
+            需要循环引用检查的类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.DelegateReference.#ctor(System.Delegate)">
+            <summary>
+            序列化委托循环引用信息
+            </summary>
+            <param name="delegateValue">序列化委托</param>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetNoLoop(System.Delegate)">
+            <summary>
+            设置自定义序列化委托
+            </summary>
+            <param name="delegateValue"></param>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetUnknown(System.Type,System.Delegate)">
+            <summary>
+            设置自定义序列化委托
+            </summary>
+            <param name="type"></param>
+            <param name="delegateValue"></param>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetMember(AutoCSer.TextSerialize.SerializeDelegate@)">
+            <summary>
+            设置自定义序列化委托
+            </summary>
+            <param name="delegateValue"></param>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.DelegateReference.SetMember(System.Delegate,System.Type[])">
+            <summary>
+            设置自定义序列化委托
+            </summary>
+            <param name="delegateValue"></param>
+            <param name="referenceTypes"></param>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.EnumDeserialize`1">
+            <summary>
+            枚举值反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.EnumDeserialize`1.enumValues">
+            <summary>
+            枚举值集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.EnumDeserialize`1.enumSearchData">
+            <summary>
+            枚举名称查找数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.LoopTypeArray">
+            <summary>
+            序列化委托循环引用检查数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.LoopTypeArray.ReferenceTypes">
+            <summary>
+            需要循环引用检查的类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.LoopTypeArray.ReferenceGenericTypes">
+            <summary>
+            需要循环引用检查的类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.LoopTypeArray.Index">
+            <summary>
+            当前检查的类型位置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.LoopTypeArray.Set(AutoCSer.TextSerialize.DelegateReference@)">
+            <summary>
+            设置检查数组
+            </summary>
+            <param name="serializeDelegateReference"></param>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.LoopTypeArray.Set(AutoCSer.TextSerialize.DelegateReference)">
+            <summary>
+            设置检查数组
+            </summary>
+            <param name="serializeDelegateReference"></param>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.PropertyMethod`1">
+            <summary>
+            属性成员信息
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PropertyMethod`1.Property">
+            <summary>
+            属性索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PropertyMethod`1.Method">
+            <summary>
+            访问函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PropertyMethod`1.MemberAttribute">
+            <summary>
+            成员自定义属性
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.PropertyMethod`1.#ctor(AutoCSer.Metadata.PropertyIndex,System.Reflection.MethodInfo,`0)">
+            <summary>
+            属性成员信息
+            </summary>
+            <param name="property"></param>
+            <param name="method"></param>
+            <param name="memberAttribute"></param>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.PushTypeEnum">
+            <summary>
+            序列化循环引用检查类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.DepthCount">
+            <summary>
+            仅做层级计数操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.UnknownNode">
+            <summary>
+            上级节点为值类型未知节点时添加循环对象检查
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.UnknownDepthCount">
+            <summary>
+            当前节点为值类型未知节点，仅做层级计数与状态修改操作，不添加循环对象检查
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.Push">
+            <summary>
+            添加循环对象检查，包括循环类型对象与未知引用类型对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.PushTypeEnum.DepthOutOfRange">
+            <summary>
+            深度超出范围
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.SerializeAttribute">
+            <summary>
+            序列化类型配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeAttribute.IsBaseType">
+            <summary>
+            是否作用与派生类型，默认为 true
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeAttribute.CheckLoopReference">
+            <summary>
+            是否检测循环引用（仅对引用类型有效），默认为 true
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeAttribute.CustomReferenceTypes">
+            <summary>
+            自定义序列化需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.SerializeConfig">
+            <summary>
+            序列化配置参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.DefaultCheckDepth">
+            <summary>
+            默认最大节点检测深度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.MemberMap">
+            <summary>
+            成员位图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.CheckDepth">
+            <summary>
+            最大节点检测深度，默认为 64（过大的深度会造成堆栈溢出，所以该序列化组件不适合序列化链表结构，如果存在该类似需求请自定义序列化转换为数组处理）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.CheckLoop">
+            <summary>
+            是否检查循环引用，默认为 true
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsMemberMapErrorToDefault">
+            <summary>
+            成员位图类型不匹配时是否使用默认输出，默认为 true
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsObject">
+            <summary>
+            是否将 object 转换成真实类型输出
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsEnumToString">
+            <summary>
+            枚举类型是否输出字符串，否则输出数字
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeConfig.SetCustomMemberMap(AutoCSer.Metadata.MemberMap)">
+            <summary>
+            获取并设置自定义序列化成员位图
+            </summary>
+            <param name="memberMap">序列化成员位图</param>
+            <returns>序列化成员位图</returns>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.SerializeDelegate">
+            <summary>
+            自定义序列化委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeDelegate.Delegate">
+            <summary>
+            自定义序列化委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeDelegate.ReferenceTypes">
+            <summary>
+            需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.#ctor(System.Delegate,System.Type[])">
+            <summary>
+            自定义序列化委托
+            </summary>
+            <param name="delegateValue">序列化委托，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlSerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
+            <param name="referenceTypes">需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知</param>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.op_Implicit(System.Delegate)~AutoCSer.TextSerialize.SerializeDelegate">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="value">自定义序列化委托，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlSerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
+            <returns>自定义序列化委托</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Set(System.Delegate,System.Type[])">
+            <summary>
+            设置自定义序列化委托
+            </summary>
+            <param name="delegateValue"></param>
+            <param name="referenceTypes"></param>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.GetRemoveDelegate">
+            <summary>
+            获取自定义序列化委托
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Check(System.Type,System.Type@,AutoCSer.TextSerialize.DelegateReference@)">
+            <summary>
+            检查自定义序列化委托
+            </summary>
+            <param name="serializerType"></param>
+            <param name="type"></param>
+            <param name="serializeDelegateReference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Check(System.Type,System.Type,AutoCSer.TextSerialize.DelegateReference@)">
+            <summary>
+            检查自定义序列化委托
+            </summary>
+            <param name="serializerType"></param>
+            <param name="type"></param>
+            <param name="serializeDelegateReference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerialize.SerializeDelegate.Check(System.Type,AutoCSer.TextSerialize.DelegateReference@,System.Type@)">
+            <summary>
+            检查自定义序列化委托
+            </summary>
+            <param name="serializerType"></param>
+            <param name="serializeDelegateReference"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TextSerialize.WarningEnum">
+            <summary>
+            警告提示状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.WarningEnum.None">
+            <summary>
+            正常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.WarningEnum.MemberMap">
+            <summary>
+            成员位图类型不匹配
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.WarningEnum.DepthOutOfRange">
+            <summary>
+            深度超出范围
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.WarningEnum.LoopReference">
+            <summary>
+            存在对象循环引用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.WarningEnum.ResizeError">
+            <summary>
+            在不允许扩展缓存区大小的情况下产生了扩展操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TextDeserializeConfig">
+            <summary>
+            文本反序列化配置参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializeConfig.IsTempString">
+            <summary>
+            是否临时字符串(可修改)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializeConfig.IsMatchEnum">
+            <summary>
+            是否强制匹配枚举值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializeConfig.NewArraySize">
+            <summary>
+            默认数组大小为 10
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializeConfig.IsErrorNewString">
+            <summary>
+            指针模式反序列化失败时是否 new string
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TextDeserializer`1">
+            <summary>
+            文本反序列化
+            </summary>
+            <typeparam name="T">文本反序列化类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.bits">
+            <summary>
+            字符状态位查询表格
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TextDeserializer`1.MemberMap">
+            <summary>
+            成员位图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.text">
+            <summary>
+            解析字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.textFixed">
+            <summary>
+            解析字符串起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.Current">
+            <summary>
+            当前解析位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.end">
+            <summary>
+            解析结束位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.stringBuffer">
+            <summary>
+            临时字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.customError">
+            <summary>
+            自定义错误
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextDeserializer`1.#ctor(System.Byte*)">
+            <summary>
+            文本反序列化
+            </summary>
+            <param name="bits">字符状态位查询表格</param>
+        </member>
+        <member name="M:AutoCSer.TextDeserializer`1.free">
+            <summary>
+            释放 XML 解析器（线程静态实例模式）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextDeserializer`1.fillStringBuffer(System.Char*,System.Int32)">
+            <summary>
+            临时字符串填充空格
+            </summary>
+            <param name="bufferFixed"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:AutoCSer.TextDeserializer`1.GetStringBuffer(AutoCSer.Memory.Pointer@)">
+            <summary>
+            获取数字字符串
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TextSerializer`2">
+            <summary>
+            文本序列化
+            </summary>
+            <typeparam name="T">文本序列化类型</typeparam>
+            <typeparam name="CT">序列化配置参数类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.TextSerializer`2.CharStream">
+            <summary>
+            字符串输出缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerializer`2.Config">
+            <summary>
+            配置参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerializer`2.forefather">
+            <summary>
+            祖先节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerializer`2.CheckDepth">
+            <summary>
+            节点层级计数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerializer`2.IsBinaryMix">
+            <summary>
+            是否二进制混杂模式
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TextSerializer`2.Warning">
+            <summary>
+            警告提示状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerializer`2.isProcessing">
+            <summary>
+            是否正在处理序列化操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.#ctor(`1,System.Boolean)">
+            <summary>
+            文本序列化
+            </summary>
+            <param name="config">配置参数</param>
+            <param name="isThreadStatic">是否单线程模式</param>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.System#IDisposable#Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.free">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.Check(AutoCSer.TextSerialize.PushTypeEnum)">
+            <summary>
+            获取序列化循环引用检查类型
+            </summary>
+            <param name="pushType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.PushUnknownNode(System.Object)">
+            <summary>
+            上级节点为值类型未知节点时添加循环对象检查
+            </summary>
+            <param name="value"></param>
+            <returns>0 表示循环引用</returns>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.Push(System.Object)">
+            <summary>
+            添加循环引用检查对象
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.WriteLoopReference">
+            <summary>
+            循环引用对象处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.PopUnknownNode(System.Int32)">
+            <summary>
+            上级节点为值类型未知节点时添加循环对象检查
+            </summary>
+            <param name="unknownCount"></param>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.PopUnknownDepthCount">
+            <summary>
+            当前节点为值类型未知节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.Pop">
+            <summary>
+            弹出循环引用检查对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TextSerializer`2.SetCustomMemberMap(AutoCSer.Metadata.MemberMap)">
+            <summary>
+            获取并设置自定义序列化成员位图
+            </summary>
+            <param name="memberMap">序列化成员位图</param>
+            <returns>序列化成员位图</returns>
         </member>
         <member name="T:AutoCSer.ILog">
             <summary>

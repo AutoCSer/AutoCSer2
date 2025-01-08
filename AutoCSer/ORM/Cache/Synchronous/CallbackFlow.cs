@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+#if !NetStandard21
+using ValueTask = System.Threading.Tasks.Task;
+#endif
 
 namespace AutoCSer.ORM.Cache.Synchronous
 {
@@ -89,7 +92,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// 启动缓存数据同步
         /// </summary>
         /// <returns></returns>
-        internal async Task Start()
+        internal async ValueTask Start()
         {
             bool isStart = false;
             try

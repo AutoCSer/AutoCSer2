@@ -22,11 +22,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <returns></returns>
         public override ValueTask DisposeAsync()
         {
-#if NET8
-            return ValueTask.CompletedTask;
-#else
-            return AutoCSer.Common.CompletedTask.ToValueTask();
-#endif
+            return AutoCSer.Common.CompletedValueTask;
         }
         /// <summary>
         /// 写入数据

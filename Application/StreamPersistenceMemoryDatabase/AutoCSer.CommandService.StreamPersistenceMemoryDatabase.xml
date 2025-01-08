@@ -547,6 +547,11 @@
             客户端集合
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedClient.clientLock">
+            <summary>
+            客户端集合访问锁
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedClient.#ctor">
             <summary>
             分布式客户端
@@ -974,6 +979,12 @@
             <summary>
             节点索引信息
             </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse`1.MoveNext">
+            <summary>
+            判断是否存在下一个数据 await bool
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse`1.MoveNextAsync">
             <summary>
@@ -3969,6 +3980,67 @@
             </summary>
             <param name="index">位索引</param>
             <returns>取反操作之前的状态，非 0 表示二进制位之前为已设置状态，索引超出则无返回值</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter">
+            <summary>
+            位图客户端节点返回值类型转换 await ResponseResult{bool}
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.awaiter">
+            <summary>
+            返回参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.continuation">
+            <summary>
+            异步回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.IsCompleted">
+            <summary>
+            完成状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{System.Int32}})">
+            <summary>
+            位图客户端节点返回值类型转换 await ResponseResult{bool}
+            </summary>
+            <param name="awaiter"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.Wait">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.GetResult">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.GetAwaiter">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+            <summary>
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.onCompleted">
+            <summary>
+            设置错误结果并尝试回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{System.Int32}})~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeResponseAwaiter">
+            <summary>
+            隐式类型转换
+            </summary>
+            <param name="response"></param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayDictionaryNodeClientNode`1">
             <summary>

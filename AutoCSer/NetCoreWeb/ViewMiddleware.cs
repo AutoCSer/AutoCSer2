@@ -1022,27 +1022,38 @@ namespace AutoCSer.NetCoreWeb
         /// <param name="isResponseJavaScript"></param>
         /// <param name="checkVersion"></param>
         /// <returns></returns>
-        internal async Task ResponseSuccess<T>(HttpContext httpContext, T result, bool isResponseJavaScript, bool checkVersion)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal Task ResponseSuccess<T>(HttpContext httpContext, T result, bool isResponseJavaScript, bool checkVersion)
         {
-            if (result != null)
+            if (result != null) return responseSuccess(httpContext, result, isResponseJavaScript, checkVersion);
+            return ResponseSuccess(httpContext, isResponseJavaScript, checkVersion);
+        }
+        /// <summary>
+        /// 输出成功数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="httpContext"></param>
+        /// <param name="result"></param>
+        /// <param name="isResponseJavaScript"></param>
+        /// <param name="checkVersion"></param>
+        /// <returns></returns>
+        private async Task responseSuccess<T>(HttpContext httpContext, T result, bool isResponseJavaScript, bool checkVersion)
+        {
+            var callback = httpContext.Request.Query[CallbackQueryName];
+            ViewResponse response = new ViewResponse(View.Null);
+            try
             {
-                var callback = httpContext.Request.Query[CallbackQueryName];
-                ViewResponse response = new ViewResponse(View.Null);
+                response.Start(callback, isResponseJavaScript);
+                response.JsonSerializer.SerializeNext(ref result, isResponseJavaScript ? JavaScriptSerializeConfig : null);
+                ByteArrayBuffer buffer = response.End(ResponseEncoding);
                 try
                 {
-                    response.Start(callback, isResponseJavaScript);
-                    response.JsonSerializer.SerializeNext(ref result, isResponseJavaScript ? JavaScriptSerializeConfig : null);
-                    ByteArrayBuffer buffer = response.End(ResponseEncoding);
-                    try
-                    {
-                        httpContext.Response.ContentType = ResponseContentType.GetJavaScript(ResponseEncoding);
-                        await Response(httpContext, buffer.Buffer.notNull().Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
-                    }
-                    finally { buffer.Free(); }
+                    httpContext.Response.ContentType = ResponseContentType.GetJavaScript(ResponseEncoding);
+                    await Response(httpContext, buffer.Buffer.notNull().Buffer, buffer.StartIndex, buffer.CurrentIndex, checkVersion);
                 }
-                finally { response.Free(); }
+                finally { buffer.Free(); }
             }
-            else await ResponseSuccess(httpContext, isResponseJavaScript, checkVersion);
+            finally { response.Free(); }
         }
         /// <summary>
         /// 输出大小超出警告阈值日志

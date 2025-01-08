@@ -97,6 +97,7 @@
     <Compile Include="NodeMethod.cs" />
     <Compile Include="Node\ArrayNode.cs" />
     <Compile Include="Node\BitmapNode.cs" />
+    <Compile Include="Node\BitmapNodeResponseAwaiter.cs" />
     <Compile Include="Node\ByteArrayDictionaryNode.cs" />
     <Compile Include="Node\ByteArrayFragmentDictionaryNode.cs" />
     <Compile Include="Node\ByteArrayQueueNode.cs" />

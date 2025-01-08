@@ -8373,7 +8373,7 @@
             </summary>
             <param name="task"></param>
         </member>
-        <member name="M:AutoCSer.Common.GetAsyncEnumerable``1(AutoCSer.IEnumeratorTask{``0})">
+        <member name="M:AutoCSer.Common.GetAsyncEnumerable``1(AutoCSer.Net.IEnumeratorCommand{``0})">
             <summary>
             获取 IAsyncEnumerable
             </summary>
@@ -8440,6 +8440,39 @@
             <summary>
             已完成任务
             </summary>
+        </member>
+        <member name="P:AutoCSer.Common.CompletedValueTask">
+            <summary>
+            已完成任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.GetCompletedValueTask``1(``0)">
+            <summary>
+            获取已完成任务
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+            <param name="value">任务返回值</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Common.GetCompletedValueTask``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            获取已完成任务
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+            <param name="value">任务返回值</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Common.TrueCompletedAwaiter">
+            <summary>
+            已完成 Awaiter 返回 true
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.GetCompletedAwaiter(System.Boolean)">
+            <summary>
+            根据逻辑值获取已完成 Awaiter
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Common.GetUninitializedArray``1(System.Int32)">
             <summary>
@@ -9401,12 +9434,11 @@
             </summary>
             <param name="task">任务</param>
         </member>
-        <member name="M:AutoCSer.Extensions.TaskExtension.ToValueTask(System.Threading.Tasks.Task)">
+        <member name="M:AutoCSer.Extensions.TaskExtension.NotWait(System.Threading.Tasks.ValueTask)">
             <summary>
-            ValueTask 兼容
+            不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
             </summary>
-            <param name="task"></param>
-            <returns></returns>
+            <param name="task">任务</param>
         </member>
         <member name="M:AutoCSer.Extensions.TaskExtension.getResult``1(System.Threading.Tasks.Task{``0})">
             <summary>
@@ -16756,10 +16788,12 @@
             发送返回值数据
             </summary>
         </member>
-        <member name="M:AutoCSer.Metadata.GenericType.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerMethodTypeEnum)">
+        <member name="M:AutoCSer.Metadata.GenericType.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             TCP 服务器端异步回调类型
             </summary>
+            <param name="method"></param>
+            <returns></returns>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.CommandServerCallbackDelegate">
             <summary>
@@ -17255,10 +17289,12 @@
             发送返回值数据
             </summary>
         </member>
-        <member name="M:AutoCSer.Metadata.GenericType`1.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerMethodTypeEnum)">
+        <member name="M:AutoCSer.Metadata.GenericType`1.GetCommandServerCallbackType(AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             TCP 服务器端异步回调类型
             </summary>
+            <param name="method"></param>
+            <returns></returns>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerCallbackDelegate">
             <summary>
@@ -19633,6 +19669,38 @@
             <param name="callTask"></param>
             <param name="offlineCount"></param>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter">
+            <summary>
+            TCP 服务器端异步保持回调计数回调 Awaiter
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.count">
+            <summary>
+            TCP 服务器端异步保持回调计数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.output">
+            <summary>
+            服务端套接字输出信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.Exception">
+            <summary>
+            不支持，直接抛出异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.#ctor(AutoCSer.Net.CommandServerKeepCallbackCount,AutoCSer.Net.CommandServer.ServerOutput)">
+            <summary>
+            TCP 服务器端异步保持回调计数回调 Awaiter
+            </summary>
+            <param name="count">TCP 服务器端异步保持回调计数</param>
+            <param name="output"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.KeepCallbackCountCallbackAwaiter.onCompleted">
+            <summary>
+            输出数据访问锁申请完成
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.CommandServerCallTaskQueueKeyFunc`1">
             <summary>
             服务端异步调用队列委托包装
@@ -20241,7 +20309,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext">
             <summary>
-            枚举命令是否存在下一个数据
+            枚举命令是否存在下一个数据 await bool
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext.ReturnCount">
@@ -23814,13 +23882,12 @@
             <param name="inputParameterFieldBuilder"></param>
             <param name="outputParameterLocalBuilder"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CallMethodParameter(System.Reflection.Emit.ILGenerator,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CallMethodParameter(System.Reflection.Emit.ILGenerator,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.LocalBuilder,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder)">
             <summary>
             方法调用传参
             </summary>
             <param name="asynchronousMethodGenerator"></param>
             <param name="asynchronousControllerFieldBuilder"></param>
-            <param name="controllerLocalBuilder"></param>
             <param name="commandServerSocketLocalBuilder"></param>
             <param name="queueLocalBuilder"></param>
             <param name="inputParameterFieldBuilder"></param>
@@ -23839,14 +23906,6 @@
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.Compare(AutoCSer.Net.CommandServer.ServerInterfaceMethod,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
             服务端接口方法排序
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.compare(System.Reflection.ParameterInfo,System.Reflection.ParameterInfo)">
-            <summary>
-            参数排序
             </summary>
             <param name="left"></param>
             <param name="right"></param>
@@ -23885,6 +23944,15 @@
             <param name="returnGenericType"></param>
             <param name="commandServerCallTaskQueueTaskType"></param>
             <param name="isVerifyMethodIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetTaskQueueControllerFieldBuilder(System.Reflection.Emit.TypeBuilder,System.Reflection.Emit.ILGenerator,System.Type)">
+            <summary>
+            Task 队列调用代理类型控制器定义
+            </summary>
+            <param name="asynchronousTypeBuilder"></param>
+            <param name="asynchronousConstructorGenerator"></param>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetTaskQueueInputParameterFieldBuilder(System.Reflection.Emit.TypeBuilder,System.Reflection.Emit.ILGenerator)">
@@ -26841,7 +26909,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerCallTask`1.method">
+        <member name="F:AutoCSer.Net.CommandServerCallTask`1.Method">
             <summary>
             服务端接口方法信息
             </summary>
@@ -28215,13 +28283,6 @@
             <param name="isPush"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.callbackAsync(AutoCSer.Net.CommandServer.ServerOutputKeepCallbackCount{AutoCSer.Net.CommandServer.ServerReturnValue{`0}})">
-            <summary>
-            返回值回调，保持回调计数等待
-            </summary>
-            <param name="output"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.CallbackAsync(`0)">
             <summary>
             返回值回调，保持回调计数等待
@@ -28244,13 +28305,6 @@
             <param name="values"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.EnumerableCallbackAsync(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            返回数据集合以后关闭保持回调，保持回调计数等待
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallbackCount`1.CallbackAsync(AutoCSer.IEnumeratorTask{`0})">
             <summary>
             返回数据集合以后关闭保持回调，保持回调计数等待
             </summary>
@@ -28754,6 +28808,28 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.IEnumeratorCommand">
+            <summary>
+            枚举命令接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.IEnumeratorCommand.MoveNext">
+            <summary>
+            判断是否存在下一个数据 await bool
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.IEnumeratorCommand`1">
+            <summary>
+            枚举命令接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.Net.IEnumeratorCommand`1.Current">
+            <summary>
+            获取当前数据
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.EnumeratorCommand">
             <summary>
             枚举命令， await EnumeratorCommand，await MoveNext 操作不支持多任务并发 await
@@ -29256,6 +29332,12 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.ReturnCommand.#ctor(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            已完成返回值命令
+            </summary>
+            <param name="returnType"></param>
+        </member>
         <member name="M:AutoCSer.Net.ReturnCommand.Wait">
             <summary>
             等待命令调用返回结果
@@ -29348,6 +29430,22 @@
             <param name="returnCommand"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CompletedReturnCommand">
+            <summary>
+            已完成返回值命令
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CompletedReturnCommand.#ctor(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            返回值命令
+            </summary>
+            <param name="returnType">返回值</param>
+        </member>
+        <member name="F:AutoCSer.Net.CompletedReturnCommand.Unknown">
+            <summary>
+            未知返回值
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CompletedReturnCommand`1">
             <summary>
             已完成返回值命令
@@ -29371,6 +29469,11 @@
             返回值命令
             </summary>
             <param name="returnValue">返回值</param>
+        </member>
+        <member name="F:AutoCSer.Net.CompletedReturnCommand`1.Default">
+            <summary>
+            默认值已完成返回值命令
+            </summary>
         </member>
         <member name="T:AutoCSer.Net.ReturnQueueCommand">
             <summary>
@@ -32874,6 +32977,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback.SynchronousCallback">
+            <summary>
+            无输出成功队列同步回调
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
             <summary>
             取消保持回调命令
@@ -33699,13 +33808,6 @@
             返回值回调
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.Callback(AutoCSer.IEnumeratorTask)">
-            <summary>
-            返回数据集合以后关闭保持回调
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
             <summary>
             取消保持回调命令
@@ -33846,13 +33948,6 @@
             <param name="values"></param>
             <param name="isCancel">回调完成之后是否关闭</param>
             <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackAsync(AutoCSer.IEnumeratorTask{`0})">
-            <summary>
-            返回数据集合以后关闭保持回调
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackAsync(System.Collections.Generic.IAsyncEnumerator{`0})">
             <summary>
@@ -43811,6 +43906,190 @@
             线程检测锁占用状态
             </summary>
         </member>
+        <member name="T:AutoCSer.Threading.CompletedTaskCastAwaiter`1">
+            <summary>
+            已完成 Awaiter
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.Threading.CompletedTaskCastAwaiter`1.Exception">
+            <summary>
+            不支持，直接抛出异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.CompletedTaskCastAwaiter`1.#ctor">
+            <summary>
+            已完成默认值 Awaiter
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.CompletedTaskCastAwaiter`1.#ctor(`0)">
+            <summary>
+            已完成 Awaiter
+            </summary>
+            <param name="result">任务执行结果</param>
+        </member>
+        <member name="F:AutoCSer.Threading.CompletedTaskCastAwaiter`1.Default">
+            <summary>
+            默认值已完成 Awaiter
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskCastAwaiter`1">
+            <summary>
+            Task 返回值类型转换 await T
+            </summary>
+            <typeparam name="T">await 返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`1.continuation">
+            <summary>
+            异步回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`1.result">
+            <summary>
+            任务执行结果
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`1.IsResult">
+            <summary>
+            是否存在执行结果
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`1.IsCompleted">
+            <summary>
+            完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`1.Exception">
+            <summary>
+            执行异常信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.Wait">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.GetResult">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.GetAwaiter">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+            <summary>
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.setResult(`0)">
+            <summary>
+            设置返回结果
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.setCompleted">
+            <summary>
+            设置完成状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.onCompleted(`0)">
+            <summary>
+            设置返回结果并尝试回调操作
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.onCompleted">
+            <summary>
+            设置错误结果并尝试回调操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskCastAwaiter`2">
+            <summary>
+            Task 返回值类型转换 Awaiter
+            </summary>
+            <typeparam name="T">await 返回值类型</typeparam>
+            <typeparam name="TT">Task 返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`2.task">
+            <summary>
+            执行 Task
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskCastAwaiter`2.exception">
+            <summary>
+            数据转换异常信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskCastAwaiter`2.Exception">
+            <summary>
+            执行异常信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.#ctor(System.Threading.Tasks.Task{`1},System.Boolean)">
+            <summary>
+            Task 返回值类型转换 Awaiter
+            </summary>
+            <param name="task"></param>
+            <param name="isCheck"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.#ctor(System.Threading.Tasks.Task{`1})">
+            <summary>
+            Task 返回值类型转换 Awaiter
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.check">
+            <summary>
+            检查 Task 是否完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.onCompleted">
+            <summary>
+            Task 执行完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskCastAwaiter`2.GetResult(`1)">
+            <summary>
+            类型转换
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskReturnAwaiter`1">
+            <summary>
+            Task 执行完以后返回固定值
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskReturnAwaiter`1.task">
+            <summary>
+            执行 Task
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.TaskReturnAwaiter`1.Exception">
+            <summary>
+            执行异常信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskReturnAwaiter`1.#ctor(System.Threading.Tasks.Task,`0)">
+            <summary>
+            Task 执行完以后返回固定值
+            </summary>
+            <param name="task"></param>
+            <param name="result">返回值</param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskReturnAwaiter`1.onCompleted">
+            <summary>
+            Task 执行完成
+            </summary>
+        </member>
         <member name="T:AutoCSer.Threading.CatchTask">
             <summary>
             捕获异常任务
@@ -45126,13 +45405,6 @@
             <summary>
             尝试添加到任务数组
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.appendTaskArrayAsync(AutoCSer.Threading.SecondTimerAppendTaskStateEnum)">
-            <summary>
-            任务添加到二维定时任务数组
-            </summary>
-            <param name="appendTaskState"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.AppendTaskArrayAsync(AutoCSer.Threading.SecondTimerAppendTaskStateEnum)">

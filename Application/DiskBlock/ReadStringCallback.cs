@@ -25,7 +25,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        internal unsafe void Deserialize(AutoCSer.BinaryDeserializer deserializer)
+        internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             deserializer.DeserializeBuffer(ref value);
         }

@@ -193,9 +193,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        protected override async Task freeReadContext(object context) 
+        protected override ValueTask freeReadContext(object context) 
         {
-            await ((FileStream)context).DisposeAsync();
+            return ((FileStream)context).DisposeAsync();
         }
         /// <summary>
         /// 删除磁盘块

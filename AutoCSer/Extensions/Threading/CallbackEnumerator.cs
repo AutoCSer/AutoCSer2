@@ -54,11 +54,7 @@ namespace AutoCSer.Threading
         /// <returns></returns>
         ValueTask IAsyncDisposable.DisposeAsync()
         {
-#if NET8
-            return ValueTask.CompletedTask;
-#else
-            return AutoCSer.Common.CompletedTask.ToValueTask();
-#endif
+            return AutoCSer.Common.CompletedValueTask;
         }
         /// <summary>
         /// 数据回调

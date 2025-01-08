@@ -19,11 +19,11 @@ namespace AutoCSer.TestCase
                 if (!await CommandReverseServer.TestCase()) { errorType = typeof(CommandReverseServer); break; }
                 if (!await InterfaceControllerTaskQueue.TestCase()) { errorType = typeof(InterfaceControllerTaskQueue); break; }
                 Console.Write('.');
-                
             }
             while (true);
             ConsoleWriteQueue.WriteLine(errorType.FullName + " ERROR", ConsoleColor.Red);
             Console.ReadKey();
+            
         }
     }
 }

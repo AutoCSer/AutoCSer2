@@ -60,11 +60,11 @@ namespace AutoCSer.CommandService
         /// 删除被守护进程
         /// </summary>
         /// <returns></returns>
-        public async Task<CommandClientReturnValue> RemoveGuard()
+        public ReturnCommand RemoveGuard()
         {
             isRemoveGuard = true;
-            if (socketEvent.IProcessGuardClient != null) return await socketEvent.IProcessGuardClient.Remove(processInfo.ProcessID, processInfo.ProcessName);
-            return CommandClientReturnTypeEnum.Unknown;
+            if (socketEvent.IProcessGuardClient != null) return socketEvent.IProcessGuardClient.Remove(processInfo.ProcessID, processInfo.ProcessName);
+            return CompletedReturnCommand.Unknown;
         }
         /// <summary>
         /// 删除被守护进程

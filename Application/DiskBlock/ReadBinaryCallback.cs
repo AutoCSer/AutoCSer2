@@ -1,5 +1,10 @@
-﻿using AutoCSer.Net.CommandServer;
+﻿using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.DiskBlock
 {
@@ -26,7 +31,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        internal void DeserializeNotReference(AutoCSer.BinaryDeserializer deserializer)
+        internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             ServerReturnValue<T> value = this.value != null ? new ServerReturnValue<T>(this.value) : default(ServerReturnValue<T>);
             deserializer.InternalIndependentDeserializeNotReference(ref value);

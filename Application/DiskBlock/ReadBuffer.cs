@@ -23,9 +23,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 自定义序列化
         /// </summary>
 #if NetStandard21
-        private readonly Action<BinaryDeserializer>? deserializer;
+        private readonly ReadBufferDeserializer? deserializer;
 #else
-        private readonly Action<BinaryDeserializer> deserializer;
+        private readonly ReadBufferDeserializer deserializer;
 #endif
         /// <summary>
         /// 读取数据缓冲区
@@ -51,7 +51,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 读取数据缓冲区
         /// </summary>
         /// <param name="deserializer"></param>
-        internal ReadBuffer(Action<BinaryDeserializer> deserializer)
+        internal ReadBuffer(ReadBufferDeserializer deserializer)
         {
             State = default(ReadBufferStateEnum);
             Buffer = default(SubArray<byte>);
@@ -61,7 +61,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 隐式转换
         /// </summary>
         /// <param name="deserializer"></param>
-        public static implicit operator ReadBuffer(Action<BinaryDeserializer> deserializer) { return new ReadBuffer(deserializer); }
+        public static implicit operator ReadBuffer(ReadBufferDeserializer deserializer) { return new ReadBuffer(deserializer); }
         /// <summary>
         /// 设置数据
         /// </summary>
@@ -98,7 +98,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 State = (ReadBufferStateEnum)state;
                 if (state == (int)ReadBufferStateEnum.Success)
                 {
-                    if (this.deserializer != null) this.deserializer(deserializer);
+                    if (this.deserializer != null) this.deserializer.Deserialize(deserializer);
                     else
                     {
                         bool isBuffer = AutoCSer.Net.CommandClientSocket.CheckSynchronousIO(deserializer);

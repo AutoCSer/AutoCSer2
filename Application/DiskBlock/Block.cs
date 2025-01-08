@@ -212,7 +212,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        protected virtual Task freeReadContext(object context) { return AutoCSer.Common.CompletedTask; }
+        protected virtual ValueTask freeReadContext(object context) { return AutoCSer.Common.CompletedValueTask; }
         /// <summary>
         /// 读取数据请求回调操作
         /// </summary>

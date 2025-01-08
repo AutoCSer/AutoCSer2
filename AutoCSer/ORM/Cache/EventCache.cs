@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+#if !NetStandard21
+using ValueTask = System.Threading.Tasks.Task;
+#endif
 
 namespace AutoCSer.ORM
 {
@@ -314,7 +317,7 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="callback">缓存数据回调委托</param>
         /// <returns></returns>
-        public async Task CreateCallbackFlow(CommandServerKeepCallbackCount<CallbackValue<T>> callback)
+        public async ValueTask CreateCallbackFlow(CommandServerKeepCallbackCount<CallbackValue<T>> callback)
         {
             if (callback == null) throw new ArgumentNullException();
             bool isCallback = true;

@@ -82,7 +82,7 @@ namespace AutoCSer.Example.CommandServer.Server.Queue
         /// <param name="callback">等待计数模式 保持回调委托包装，必须是最后一个参数</param>
         void IKeepCallbackController.CallbackCountReturn(CommandServerSocket socket, CommandServerCallQueue queue, int parameter1, int parameter2, CommandServerKeepCallbackCount<int> callback)
         {
-            for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue; callback.CallbackAsync(value++).wait()) ;
+            for (int value = parameter1 + parameter2, endValue = value + 4; value != endValue; callback.CallbackAsync(value++)) ;
             callback.CancelKeep();
         }
         /// <summary>
@@ -94,7 +94,7 @@ namespace AutoCSer.Example.CommandServer.Server.Queue
         void IKeepCallbackController.CallbackCountCall(CommandServerCallLowPriorityQueue queue, int parameter, CommandServerKeepCallbackCount callback)
         {
             Console.WriteLine(parameter);
-            for (int value = 4; value != 0; --value) callback.CallbackAsync().wait();
+            for (int value = 4; value != 0; --value) callback.CallbackAsync();
             callback.CancelKeep();
         }
     }

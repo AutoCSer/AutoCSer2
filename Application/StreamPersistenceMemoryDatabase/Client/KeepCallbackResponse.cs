@@ -4,6 +4,7 @@ using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 #if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
@@ -15,7 +16,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 保持回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class KeepCallbackResponse<T> : IDisposable, IEnumeratorTask<ResponseResult<T>>
+    public sealed class KeepCallbackResponse<T> : IDisposable, IEnumeratorCommand<ResponseResult<T>>
     {
         /// <summary>
         /// 客户端节点
@@ -153,6 +154,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 节点索引信息
         /// </summary>
         private readonly NodeIndex nodeIndex;
+        /// <summary>
+        /// 判断是否存在下一个数据 await bool
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public EnumeratorCommandMoveNext MoveNext()
+        {
+            if (EnumeratorCommand != null) return EnumeratorCommand.MoveNext();
+            return EnumeratorCommandMoveNext.NextValueFalse;
+        }
         /// <summary>
         /// 判断是否存在下一个数据
         /// </summary>

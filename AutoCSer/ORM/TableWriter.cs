@@ -882,7 +882,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public Task<VT?> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction? transaction = null)
+        public ValueTask<VT?> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction? transaction = null)
 #else
         public Task<VT> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction transaction = null)
 #endif

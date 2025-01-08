@@ -69,7 +69,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
-        public override async Task<IPEndPoint?> GetServerEndPoint()
+        public override async ValueTask<IPEndPoint?> GetServerEndPoint()
 #else
         public override async Task<IPEndPoint> GetServerEndPoint()
 #endif
@@ -84,7 +84,11 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <returns>是否需要取消定时任务</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal ValueTask<bool> WaitServerEndPoint()
+#else
         internal Task<bool> WaitServerEndPoint()
+#endif
         {
             //if (Assembler.MainLog != null) return true;
             return client.WaitServerEndPoint();

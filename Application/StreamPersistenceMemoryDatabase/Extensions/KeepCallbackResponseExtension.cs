@@ -26,7 +26,7 @@ namespace AutoCSer.Extensions
                 array.Add(value.Value.Value);
             }
 #else
-            while (await response.MoveNextAsync())
+            while (await response.MoveNext())
             {
                 ResponseResult<ValueResult<T>> value = response.Current;
                 if (!value.IsSuccess) return value.Cast<LeftArray<T>>();
@@ -57,7 +57,7 @@ namespace AutoCSer.Extensions
             }
 #else
             LeftArray<T> array = new LeftArray<T>(capacity);
-            while (await response.MoveNextAsync())
+            while (await response.MoveNext())
             {
                 ResponseResult<T> value = response.Current;
                 if (!value.IsSuccess) return value.Cast<LeftArray<T>>();
@@ -84,7 +84,7 @@ namespace AutoCSer.Extensions
                 array.Add(getValue(value.Value.Value));
             }
 #else
-            while (await response.MoveNextAsync())
+            while (await response.MoveNext())
             {
                 ResponseResult<ValueResult<T>> value = response.Current;
                 if (!value.IsSuccess) return value.Cast<LeftArray<VT>>();
@@ -116,7 +116,7 @@ namespace AutoCSer.Extensions
             }
 #else
             LeftArray<VT> array = new LeftArray<VT>(capacity);
-            while (await response.MoveNextAsync())
+            while (await response.MoveNext())
             {
                 ResponseResult<T> value = response.Current;
                 if (!value.IsSuccess) return value.Cast<LeftArray<VT>>();

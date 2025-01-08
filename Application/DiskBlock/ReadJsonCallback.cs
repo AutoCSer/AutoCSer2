@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using System;
 
 namespace AutoCSer.CommandService.DiskBlock
@@ -27,7 +28,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        internal unsafe void Deserialize(AutoCSer.BinaryDeserializer deserializer)
+        internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             deserializer.DeserializeJsonBuffer(ref value);
         }

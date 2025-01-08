@@ -80,11 +80,7 @@ namespace AutoCSer.ORM.RemoteProxy
         {
             var columnIndexs = Interlocked.Exchange(ref this.columnIndexs, null);
             if (columnIndexs != null) ModelReader<T>.FreeColumnIndexCache(columnIndexs);
-#if NET8
-            return ValueTask.CompletedTask;
-#else
-            return AutoCSer.Common.CompletedTask.ToValueTask();
-#endif
+            return AutoCSer.Common.CompletedValueTask;
         }
     }
 }

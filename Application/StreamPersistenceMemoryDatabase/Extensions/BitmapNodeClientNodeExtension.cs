@@ -1,5 +1,8 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Threading;
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.Extensions
@@ -15,9 +18,10 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="index">位索引</param>
         /// <returns>索引超出返回也返回 false</returns>
-        public static async Task<ResponseResult<bool>> GetBool(this IBitmapNodeClientNode node, uint index)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BitmapNodeResponseAwaiter GetBool(this IBitmapNodeClientNode node, uint index)
         {
-            return (await node.GetBit(index)).ToBool();
+            return node.GetBit(index);
         }
         /// <summary>
         /// 清除位状态并返回设置之前的状态
@@ -25,9 +29,10 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="index">位索引</param>
         /// <returns>清除操作之前的状态，索引超出返回也返回 false</returns>
-        public static async Task<ResponseResult<bool>> GetBoolClearBit(this IBitmapNodeClientNode node, uint index)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BitmapNodeResponseAwaiter GetBoolClearBit(this IBitmapNodeClientNode node, uint index)
         {
-            return (await node.GetBitClearBit(index)).ToBool();
+            return node.GetBitClearBit(index);
         }
         /// <summary>
         /// 状态取反并返回操作之前的状态
@@ -35,9 +40,10 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="index">位索引</param>
         /// <returns>取反操作之前的状态，索引超出返回也返回 false</returns>
-        public static async Task<ResponseResult<bool>> GetBoolInvertBit(this IBitmapNodeClientNode node, uint index)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BitmapNodeResponseAwaiter GetBoolInvertBit(this IBitmapNodeClientNode node, uint index)
         {
-            return (await node.GetBitInvertBit(index)).ToBool();
+            return node.GetBitInvertBit(index);
         }
         /// <summary>
         /// 设置位状态并返回设置之前的状态
@@ -45,9 +51,11 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="index">位索引</param>
         /// <returns>设置之前的状态，索引超出返回也返回 false</returns>
-        public static async Task<ResponseResult<bool>> GetBoolSetBit(this IBitmapNodeClientNode node, uint index)
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static BitmapNodeResponseAwaiter GetBoolSetBit(this IBitmapNodeClientNode node, uint index)
         {
-            return (await node.GetBitSetBit(index)).ToBool();
+            return node.GetBitSetBit(index);
         }
+
     }
 }
