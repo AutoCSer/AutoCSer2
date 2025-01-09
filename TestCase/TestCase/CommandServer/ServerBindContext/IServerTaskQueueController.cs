@@ -21,9 +21,10 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// </summary>
     internal sealed class ServerTaskQueueController : CommandServerBindContextController, IServerTaskQueueController
     {
-        Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue)
+        async Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue)
         {
-            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor().ToString());
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            return ((CommandServerSessionObject)Socket.SessionObject).Xor().ToString();
         }
         Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
         {
@@ -34,10 +35,10 @@ namespace AutoCSer.TestCase.ServerBindContext
             ((CommandServerSessionObject)Socket.SessionObject).Xor();
             return AutoCSer.Common.CompletedTask;
         }
-        Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
+        async Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
-            return AutoCSer.Common.CompletedTask;
         }
     }
 }

@@ -49,7 +49,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         }
         internal async Task AppendMessage()
         {
-            await Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             PerformanceMessage message = new PerformanceMessage();
             do
             {

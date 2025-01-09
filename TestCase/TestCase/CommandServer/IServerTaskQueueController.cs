@@ -43,23 +43,25 @@ namespace AutoCSer.TestCase
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
             return AutoCSer.Common.CompletedTask;
         }
-        Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue)
+        async Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue)
         {
-            return Task.FromResult(ServerSynchronousController.SessionObject.Xor().ToString());
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            return ServerSynchronousController.SessionObject.Xor().ToString();
         }
-        Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
+        async Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
         {
-            return Task.FromResult(ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString());
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            return ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString();
         }
-        Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue)
+        async Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             ServerSynchronousController.SessionObject.Xor();
-            return AutoCSer.Common.CompletedTask;
         }
-        Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
+        async Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
-            return AutoCSer.Common.CompletedTask;
         }
     }
 }

@@ -49,7 +49,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.Client
         /// <returns></returns>
         private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode<string> node, string lockKey, int loopCount)
         {
-            await Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             for (int count = loopCount; count != 0; --count)
             {
                 var identity = await node.Enter(lockKey, 5);//申请分布式锁 5 秒超时

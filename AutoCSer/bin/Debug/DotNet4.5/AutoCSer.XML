@@ -16094,11 +16094,6 @@
             超出最大有效精度的 long / ulong 是否转换成字符串
             </summary>
         </member>
-        <member name="F:AutoCSer.JsonSerializeConfig.IsInfinityToNaN">
-            <summary>
-            默认为 true 表示将 Infinity / -Infinity 转换为 NaN 输出
-            </summary>
-        </member>
         <member name="F:AutoCSer.JsonSerializeConfig.IsBoolToInt">
             <summary>
             逻辑值是否转换成 1/0 输出
@@ -29828,6 +29823,12 @@
             获取等待客户端套接字锁，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent.SetController(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            设置设置客户端控制器
+            </summary>
+            <param name="socket"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocketEvent.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
@@ -45587,6 +45588,11 @@
         <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsMemberMapErrorToDefault">
             <summary>
             成员位图类型不匹配时是否使用默认输出，默认为 true
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsInfinityToNaN">
+            <summary>
+            默认为 true 表示将 Infinity / -Infinity 转换为 NaN 输出
             </summary>
         </member>
         <member name="F:AutoCSer.TextSerialize.SerializeConfig.IsObject">

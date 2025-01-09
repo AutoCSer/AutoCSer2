@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoCSer;
+using AutoCSer.Threading;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -6,7 +8,19 @@ namespace AutoCSer.TestCase
 {
     class Program
     {
+#if NetStandard21
         static async Task Main(string[] args)
+#else
+        static void Main(string[] args)
+#endif
+        {
+#if NetStandard21
+            await test();
+#else
+            new UISynchronousTask(test).Wait();
+#endif
+        }
+        private static async Task test()
         {
             AutoCSer.FieldEquals.Comparor.IsBreakpoint = true;
             Type errorType = typeof(Program);
@@ -23,7 +37,6 @@ namespace AutoCSer.TestCase
             while (true);
             ConsoleWriteQueue.WriteLine(errorType.FullName + " ERROR", ConsoleColor.Red);
             Console.ReadKey();
-            
         }
     }
 }

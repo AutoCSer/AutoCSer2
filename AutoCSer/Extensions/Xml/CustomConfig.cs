@@ -132,10 +132,14 @@ namespace AutoCSer.Xml
         /// <param name="buffer"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public virtual bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref TimeSpan value)
+        public virtual unsafe bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref TimeSpan value)
         {
+#if NetStandard21
             var stringBuffer = deserializer.GetStringBuffer(ref buffer);
             return stringBuffer.Length != 0 && TimeSpan.TryParse(stringBuffer, out value);
+#else
+            return buffer.ByteSize != 0 && TimeSpan.TryParse(new string(buffer.Char, 0, buffer.ByteSize >> 1), out value);
+#endif
         }
         /// <summary>
         /// 自定义反序列化不支持类型

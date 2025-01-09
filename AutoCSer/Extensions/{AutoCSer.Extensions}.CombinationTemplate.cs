@@ -3670,16 +3670,6 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
-        /// <param name="value">数字</param>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(float value)
-        {
-            int size = CustomConfig.Write(CharStream, value);
-            if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
-        }
-        /// <summary>
-        /// 数字转换
-        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -3707,16 +3697,6 @@ namespace AutoCSer
     /// </summary>
     public sealed unsafe partial class XmlSerializer
     {
-        /// <summary>
-        /// 数字转换
-        /// </summary>
-        /// <param name="value">数字</param>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(double value)
-        {
-            int size = CustomConfig.Write(CharStream, value);
-            if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
-        }
         /// <summary>
         /// 数字转换
         /// </summary>

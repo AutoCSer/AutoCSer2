@@ -60,15 +60,15 @@ namespace AutoCSer.TestCase
         {
             if (Value != clientSessionObject.Value)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (Ref != clientSessionObject.Ref)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (Out != clientSessionObject.Out)
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             return true;
         }

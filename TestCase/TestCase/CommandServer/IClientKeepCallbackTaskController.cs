@@ -34,6 +34,7 @@ namespace AutoCSer.TestCase
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn(int Value, int Ref);
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn();
 
+#if NetStandard21
         [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn))]
         IAsyncEnumerable<string> KeepCallbackTaskSocketReturnAsync(int Value, int Ref);
         [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn))]
@@ -60,6 +61,7 @@ namespace AutoCSer.TestCase
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync(int Value, int Ref);
         [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn))]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync();
+#endif
 
         EnumeratorQueueCommand<string> KeepCallbackTaskQueueSocketReturn(int queueKey, int Ref);
         EnumeratorQueueCommand KeepCallbackTaskQueueSocket(int queueKey, int Ref);
@@ -74,6 +76,7 @@ namespace AutoCSer.TestCase
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueSocketReturn(int queueKey, int Ref);
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int queueKey, int Ref);
 
+#if NetStandard21
         EnumeratorCommand<string> AsyncEnumerableSocketReturn(int Value, int Ref);
         EnumeratorCommand<string> AsyncEnumerableSocketReturn();
         EnumeratorCommand<string> AsyncEnumerableReturn(int Value, int Ref);
@@ -81,6 +84,7 @@ namespace AutoCSer.TestCase
 
         EnumeratorCommand<string> AsyncEnumerableQueueSocketReturn(int queueKey, int Ref);
         EnumeratorCommand<string> AsyncEnumerableQueueReturn(int queueKey, int Ref);
+#endif
     }
     /// <summary>
     /// 命令客户端测试
@@ -109,6 +113,7 @@ namespace AutoCSer.TestCase
             }
             return true;
         }
+#if NetStandard21
         internal static async Task<bool> Callback(IAsyncEnumerable<string> asyncEnumerable, CommandServerSessionObject clientSessionObject)
         {
             int index = 0;
@@ -130,6 +135,7 @@ namespace AutoCSer.TestCase
             }
             return true;
         }
+#endif
         internal static async Task<bool> Callback(EnumeratorCommand enumeratorCommand, CommandServerSessionObject clientSessionObject)
         {
             int index = 0;
@@ -335,6 +341,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
+#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             IAsyncEnumerable<string> asyncEnumerable = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
@@ -418,6 +425,8 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+#endif
+
 
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
@@ -500,6 +509,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
+#if NetStandard21
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.AsyncEnumerableSocketReturn(clientSessionObject.Value, clientSessionObject.Ref);
@@ -543,6 +553,7 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+#endif
 
             return true;
         }

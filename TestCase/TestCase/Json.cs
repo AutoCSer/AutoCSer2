@@ -45,7 +45,7 @@ namespace AutoCSer.TestCase
             Field newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -56,7 +56,7 @@ namespace AutoCSer.TestCase
             newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField, fieldMemberMap))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -66,7 +66,7 @@ namespace AutoCSer.TestCase
             Property newProperty = AutoCSer.JsonDeserializer.Deserialize<Property>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(propertyData, newProperty))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -76,7 +76,7 @@ namespace AutoCSer.TestCase
             StructField newStructField = AutoCSer.JsonDeserializer.Deserialize<StructField>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -87,7 +87,7 @@ namespace AutoCSer.TestCase
             newStructField = AutoCSer.JsonDeserializer.Deserialize<StructField>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField, structFieldMemberMap))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -97,7 +97,7 @@ namespace AutoCSer.TestCase
             StructProperty newStructProperty = AutoCSer.JsonDeserializer.Deserialize<StructProperty>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structProperty, newStructProperty))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -107,7 +107,7 @@ namespace AutoCSer.TestCase
             newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -118,25 +118,25 @@ namespace AutoCSer.TestCase
             MemberClass newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             //jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData, sqlDateTimeSerializeConfig);
             //newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
             //if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
             //{
-            //    return false;
+            //    return AutoCSer.Breakpoint.ReturnFalse();
             //}
             jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData, thirdPartyDateTimeSerializeConfig);
             newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData, customDateTimeSerializeConfig);
             newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(memberClassData, newMemberClassData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -160,7 +160,7 @@ namespace AutoCSer.TestCase
             Float newFloatData = AutoCSer.JsonDeserializer.Deserialize<Float>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(floatData, newFloatData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             floatData = new Float();
@@ -168,7 +168,7 @@ namespace AutoCSer.TestCase
             newFloatData = AutoCSer.JsonDeserializer.Deserialize<Float>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(floatData, newFloatData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             return true;
         }

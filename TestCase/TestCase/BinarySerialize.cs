@@ -27,7 +27,7 @@ namespace AutoCSer.TestCase
             Data.Field newFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.Field>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(fieldData, newFieldData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -38,7 +38,7 @@ namespace AutoCSer.TestCase
             newFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.Field>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(fieldData, newFieldData, fieldMemberMap))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -48,7 +48,7 @@ namespace AutoCSer.TestCase
             Data.StructField newStructFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.StructField>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structFieldData, newStructFieldData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -59,7 +59,7 @@ namespace AutoCSer.TestCase
             newStructFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.StructField>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structFieldData, newStructFieldData, structFieldMemberMap))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -69,7 +69,7 @@ namespace AutoCSer.TestCase
             Data.Property newProperty = AutoCSer.BinaryDeserializer.Deserialize<Data.Property>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(propertyData, newProperty))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -79,7 +79,7 @@ namespace AutoCSer.TestCase
             Data.InheritProperty newInheritProperty = AutoCSer.BinaryDeserializer.Deserialize<Data.InheritProperty>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(inheritPropertyData, newInheritProperty))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -130,11 +130,11 @@ namespace AutoCSer.TestCase
             Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create();
             data = AutoCSer.BinarySerializer.Serialize(model);
             Data.ORM.BusinessModel businessModel = AutoCSer.BinaryDeserializer.Deserialize<Data.ORM.BusinessModel>(data);
-            if (!ModelComparor(model, businessModel)) return false;
+            if (!ModelComparor(model, businessModel)) return AutoCSer.Breakpoint.ReturnFalse();
 
             data = AutoCSer.BinarySerializer.Serialize(businessModel);
             model = AutoCSer.BinaryDeserializer.Deserialize<Data.ORM.ModelGeneric>(data);
-            if (!ModelComparor(model, businessModel)) return false;
+            if (!ModelComparor(model, businessModel)) return AutoCSer.Breakpoint.ReturnFalse();
             #endregion
 
             if (AutoCSer.BinaryDeserializer.Deserialize<int>(data = AutoCSer.BinarySerializer.Serialize<int>(1)) != 1)
@@ -152,7 +152,7 @@ namespace AutoCSer.TestCase
         {
             if (!AutoCSer.FieldEquals.Comparor.Equals<Data.ORM.CommonModel>(model, businessModel))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (model.ModelAssociated == null)
             {
@@ -163,7 +163,7 @@ namespace AutoCSer.TestCase
                 if (businessModel.ModelAssociated == null) return AutoCSer.Breakpoint.ReturnFalse();
                 if (!AutoCSer.FieldEquals.Comparor.Equals(model.ModelAssociated, businessModel.ModelAssociated))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
             if (model.ModelAssociatedList == null)
@@ -178,7 +178,7 @@ namespace AutoCSer.TestCase
                 }
                 if (!AutoCSer.FieldEquals.Comparor.Equals(model.ModelAssociatedList, businessModel.ModelAssociatedList.getListArray(p => (Data.ORM.ModelAssociated)p)))
                 {
-                    return false;
+                    return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
             return true;

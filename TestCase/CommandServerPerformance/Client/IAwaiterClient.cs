@@ -259,7 +259,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         private async Task Synchronous()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
@@ -287,7 +287,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         private async Task Callback()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
@@ -315,7 +315,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         private async Task Queue()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
@@ -343,7 +343,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         private async Task Task()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
@@ -371,7 +371,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         private async Task TaskQueue()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
@@ -399,7 +399,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         private async Task TaskQueueKey()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);

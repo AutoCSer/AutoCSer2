@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{89EA6BFE-7AEF-4F13-8BAF-2B3EB4C231E7}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCSer.TestCase</RootNamespace>
+    <AssemblyName>AutoCSer.TestCase</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.TestCase.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.TestCase.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BinarySerialize.cs" />
+    <Compile Include="CommandReverseServer.cs" />
+    <Compile Include="CommandServer.cs" />
+    <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
+    <Compile Include="CommandServer\IClientCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\IClientKeepCallbackController.cs" />
+    <Compile Include="CommandServer\IClientKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IClientQueueController.cs" />
+    <Compile Include="CommandServer\IClientSendOnlyController.cs" />
+    <Compile Include="CommandServer\IClientSynchronousController.cs" />
+    <Compile Include="CommandServer\IClientTaskQueueContextController.cs" />
+    <Compile Include="CommandServer\IClientTaskQueueController.cs" />
+    <Compile Include="CommandServer\IClientTaskController.cs" />
+    <Compile Include="CommandServer\IDefinedDissymmetryClientController.cs" />
+    <Compile Include="CommandServer\IDefinedDissymmetryServerController.cs" />
+    <Compile Include="CommandServer\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\IServerCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\IServerKeepCallbackController.cs" />
+    <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IServerQueueController.cs" />
+    <Compile Include="CommandServer\IServerSendOnlyController.cs" />
+    <Compile Include="CommandServer\IServerSynchronousController.cs" />
+    <Compile Include="CommandServer\IServerTaskQueueContextController.cs" />
+    <Compile Include="CommandServer\IServerTaskQueueController.cs" />
+    <Compile Include="CommandServer\IServerTaskController.cs" />
+    <Compile Include="CommandServer\CommandServerSessionObject.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryClientController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryServerController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientKeepCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientSendOnlyController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientSynchronousController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientTaskQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerSendOnlyController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerSynchronousController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerTaskQueueController.cs" />
+    <Compile Include="Data\Field.cs" />
+    <Compile Include="Data\Float.cs" />
+    <Compile Include="Data\InheritProperty.cs" />
+    <Compile Include="Data\JsonEmpty.cs" />
+    <Compile Include="Data\JsonField.cs" />
+    <Compile Include="Data\JsonProperty.cs" />
+    <Compile Include="Data\MemberClass.cs" />
+    <Compile Include="Data\NoMemberClass.cs" />
+    <Compile Include="Data\ORM\BusinessModel.cs" />
+    <Compile Include="Data\ORM\BusinessModelAssociated.cs" />
+    <Compile Include="Data\ORM\CommonModel.cs" />
+    <Compile Include="Data\ORM\ModelAssociated.cs" />
+    <Compile Include="Data\ORM\ModelGeneric.cs" />
+    <Compile Include="Data\Property.cs" />
+    <Compile Include="Data\JsonStructField.cs" />
+    <Compile Include="Data\StructField.cs" />
+    <Compile Include="Data\JsonStructProperty.cs" />
+    <Compile Include="Data\StructProperty.cs" />
+    <Compile Include="InterfaceControllerTaskQueue.cs" />
+    <Compile Include="Xml.cs" />
+    <Compile Include="Json.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="{AutoCSer.TestCase}.AutoCSer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.DotNet4.5.csproj">
+      <Project>{90fc149a-e986-4e5b-b659-5c94d03474c9}</Project>
+      <Name>AutoCSer.FieldEquals.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.DotNet4.5.csproj">
+      <Project>{b48fee11-9340-4763-b0c6-8963f45fa949}</Project>
+      <Name>AutoCSer.RandomObject.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.DotNet4.5.csproj">
+      <Project>{7bd35f81-1a2b-45bf-baf6-4aa8184f9121}</Project>
+      <Name>AutoCSer.TestCase.Common.DotNet4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>
+  </PropertyGroup>
+</Project>

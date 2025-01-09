@@ -11252,12 +11252,6 @@
             <param name="serializer"></param>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Decimal)">
-            <summary>
-            数字转换
-            </summary>
-            <param name="value">数字</param>
-        </member>
         <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Decimal)">
             <summary>
             数字转换
@@ -11532,6 +11526,24 @@
             字符转换
             </summary>
             <param name="value">字符</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Single)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Double)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Decimal)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
         </member>
         <member name="M:AutoCSer.XmlSerializer.SerializeDateTime(System.DateTime)">
             <summary>
@@ -11811,12 +11823,6 @@
             基本类型转换函数
             </summary>
         </member>
-        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Single)">
-            <summary>
-            数字转换
-            </summary>
-            <param name="value">数字</param>
-        </member>
         <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Single)">
             <summary>
             数字转换
@@ -11829,12 +11835,6 @@
             数字转换
             </summary>
             <param name="serializer"></param>
-            <param name="value">数字</param>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.PrimitiveSerialize(System.Double)">
-            <summary>
-            数字转换
-            </summary>
             <param name="value">数字</param>
         </member>
         <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Double)">

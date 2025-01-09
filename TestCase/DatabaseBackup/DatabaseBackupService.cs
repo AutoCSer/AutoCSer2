@@ -26,7 +26,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// <returns></returns>
         private async Task DeleteFile()
         {
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
 
             ConfigFile configFile = ConfigFile.Default;
             TaskRunTimer taskRunTimer = new TaskRunTimer(60.0 * 60);

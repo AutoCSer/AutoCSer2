@@ -46,7 +46,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         }
         internal async Task AppendMessage()
         {
-            await Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int message = System.Threading.Interlocked.Decrement(ref testValue);

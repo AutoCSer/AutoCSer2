@@ -57,7 +57,7 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
         /// <returns></returns>
         private async Task startSwitch()
         {
-            await Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             DirectoryInfo directory = AutoCSer.Common.ApplicationDirectory;
             if (directory.Name == SwitchProcess.DefaultSwitchDirectoryName) directory = directory.Parent;
             else

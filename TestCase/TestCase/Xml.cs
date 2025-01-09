@@ -25,7 +25,7 @@ namespace AutoCSer.TestCase
             Field newField = AutoCSer.XmlDeserializer.Deserialize<Field>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -36,7 +36,7 @@ namespace AutoCSer.TestCase
             newField = AutoCSer.XmlDeserializer.Deserialize<Field>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField, fieldMemberMap))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -46,7 +46,7 @@ namespace AutoCSer.TestCase
             Property newProperty = AutoCSer.XmlDeserializer.Deserialize<Property>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(propertyData, newProperty))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -56,7 +56,7 @@ namespace AutoCSer.TestCase
             StructField newStructField = AutoCSer.XmlDeserializer.Deserialize<StructField>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -67,7 +67,7 @@ namespace AutoCSer.TestCase
             newStructField = AutoCSer.XmlDeserializer.Deserialize<StructField>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField, structFieldMemberMap))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -77,7 +77,7 @@ namespace AutoCSer.TestCase
             StructProperty newStructProperty = AutoCSer.XmlDeserializer.Deserialize<StructProperty>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structProperty, newStructProperty))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
@@ -101,7 +101,7 @@ namespace AutoCSer.TestCase
             Float newFloatData = AutoCSer.XmlDeserializer.Deserialize<Float>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(floatData, newFloatData))
             {
-                return false;
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             return true;

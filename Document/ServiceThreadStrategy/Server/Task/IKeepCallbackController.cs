@@ -119,7 +119,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Server.Task
         {
             do
             {
-                await System.Threading.Tasks.Task.Yield();
+                await AutoCSer.Threading.SwitchAwaiter.Default;
                 yield return left;
             }
             while (left++ != right);

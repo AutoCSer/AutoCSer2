@@ -55,26 +55,26 @@ namespace AutoCSer.TestCase
             Callback.Callback();
             return AutoCSer.Common.CompletedTask;
         }
-        Task IServerCallbackTaskController.CallbackReturn(int Value, int Ref, CommandServerCallback<string> Callback)
+        async Task IServerCallbackTaskController.CallbackReturn(int Value, int Ref, CommandServerCallback<string> Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             Callback.Callback(ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString());
-            return AutoCSer.Common.CompletedTask;
         }
-        Task IServerCallbackTaskController.Callback(int Value, int Ref, CommandServerCallback Callback)
+        async Task IServerCallbackTaskController.Callback(int Value, int Ref, CommandServerCallback Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
             Callback.Callback();
-            return AutoCSer.Common.CompletedTask;
         }
-        Task IServerCallbackTaskController.CallbackReturn(CommandServerCallback<string> Callback)
+        async Task IServerCallbackTaskController.CallbackReturn(CommandServerCallback<string> Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             Callback.Callback(ServerSynchronousController.SessionObject.Xor().ToString());
-            return AutoCSer.Common.CompletedTask;
         }
-        Task IServerCallbackTaskController.Callback(CommandServerCallback Callback)
+        async Task IServerCallbackTaskController.Callback(CommandServerCallback Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             Callback.Callback();
-            return AutoCSer.Common.CompletedTask;
         }
 
         Task IServerCallbackTaskController.CallbackQueueSocketReturn(CommandServerSocket socket, CommandServerCallTaskQueue queue, int Value, int Ref, CommandServerCallback<string> Callback)
@@ -99,26 +99,26 @@ namespace AutoCSer.TestCase
             return AutoCSer.Common.CompletedTask;
         }
 
-        Task IServerCallbackTaskController.CallbackQueueReturn(CommandServerCallTaskQueue queue, int Value, int Ref, CommandServerCallback<string> Callback)
+        async Task IServerCallbackTaskController.CallbackQueueReturn(CommandServerCallTaskQueue queue, int Value, int Ref, CommandServerCallback<string> Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             Callback.Callback(ServerSynchronousController.SessionObject.Xor(Value, Ref).ToString());
-            return AutoCSer.Common.CompletedTask;
         }
-        Task IServerCallbackTaskController.CallbackQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref, CommandServerCallback Callback)
+        async Task IServerCallbackTaskController.CallbackQueue(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref, CommandServerCallback Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             ServerSynchronousController.SessionObject.Xor(Value, Ref);
             Callback.Callback();
-            return AutoCSer.Common.CompletedTask;
         }
-        Task IServerCallbackTaskController.CallbackQueueReturn(CommandServerCallTaskLowPriorityQueue queue, CommandServerCallback<string> Callback)
+        async Task IServerCallbackTaskController.CallbackQueueReturn(CommandServerCallTaskLowPriorityQueue queue, CommandServerCallback<string> Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             Callback.Callback(ServerSynchronousController.SessionObject.Xor().ToString());
-            return AutoCSer.Common.CompletedTask;
         }
-        Task IServerCallbackTaskController.CallbackQueue(CommandServerCallTaskQueue queue, CommandServerCallback Callback)
+        async Task IServerCallbackTaskController.CallbackQueue(CommandServerCallTaskQueue queue, CommandServerCallback Callback)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             Callback.Callback();
-            return AutoCSer.Common.CompletedTask;
         }
     }
 }

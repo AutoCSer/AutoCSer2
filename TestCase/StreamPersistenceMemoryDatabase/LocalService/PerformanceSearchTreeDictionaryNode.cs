@@ -45,7 +45,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         internal async Task Set()
         {
             int success = 0, error = 0;
-            await Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int value = System.Threading.Interlocked.Decrement(ref testValue);
@@ -66,7 +66,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         internal async Task TryGetValue()
         {
             int success = 0, error = 0;
-            await Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int value = System.Threading.Interlocked.Decrement(ref testValue);

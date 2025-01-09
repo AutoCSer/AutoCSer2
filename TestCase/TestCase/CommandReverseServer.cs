@@ -23,7 +23,10 @@ namespace AutoCSer.TestCase
                     GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
                     CheckSeconds = 0
                 };
-                await using (CommandReverseListener commandListener = new CommandReverseListener(commandClientConfig))
+#if NetStandard21
+                await
+#endif
+                using (CommandReverseListener commandListener = new CommandReverseListener(commandClientConfig))
                 {
                     if (!await commandListener.Start())
                     {
@@ -31,7 +34,11 @@ namespace AutoCSer.TestCase
                     }
 
                     CommandReverseClientConfig commandServerConfig = new CommandReverseClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase) };
-                    await using (CommandReverseClient commandReverseClient = new CommandListenerBuilder(32)
+
+#if NetStandard21
+                    await
+#endif
+                    using (CommandReverseClient commandReverseClient = new CommandListenerBuilder(32)
                         .Append<IServerSynchronousController>(new ServerSynchronousController())
                         .Append<IServerSendOnlyController>(new ServerSendOnlyController())
                         .Append<IServerQueueController>(new ServerQueueController())
@@ -68,96 +75,96 @@ namespace AutoCSer.TestCase
                         CommandClientSocketEvent client = (CommandClientSocketEvent)commandClient.SocketEvent;
                         if (!ClientSynchronousController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientSendOnlyController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!ClientQueueController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientCallbackController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientCallbackTaskController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientKeepCallbackController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientTaskController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientKeepCallbackTaskController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientTaskQueueController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientTaskQueueContextController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await DefinedSymmetryController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await DefinedDissymmetryClientController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
 
                         if (!ServerBindContext.ClientSynchronousController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.ClientSendOnlyController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!ServerBindContext.ClientQueueController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.ClientCallbackController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.ClientCallbackTaskController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.ClientKeepCallbackController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.ClientTaskController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.ClientKeepCallbackTaskController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.ClientTaskQueueController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.DefinedSymmetryController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.DefinedDissymmetryClientController.TestCase(client, clientSessionObject))
                         {
-                            return false;
+                            return AutoCSer.Breakpoint.ReturnFalse();
                         }
                     }
                 }

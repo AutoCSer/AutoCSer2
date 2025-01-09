@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7BD35F81-1A2B-45BF-BAF6-4AA8184F9121}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCSer.TestCase.Common</RootNamespace>
+    <AssemblyName>AutoCSer.TestCase.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClientPerformance.cs" />
+    <Compile Include="CommandServerPortEnum.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Data\Enum\ByteEnum.cs" />
+    <Compile Include="Data\Enum\ByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\IntEnum.cs" />
+    <Compile Include="Data\Enum\IntFlagEnum.cs" />
+    <Compile Include="Data\Enum\LongEnum.cs" />
+    <Compile Include="Data\Enum\LongFlagEnum.cs" />
+    <Compile Include="Data\Enum\SByteEnum.cs" />
+    <Compile Include="Data\Enum\SByteFlagEnum.cs" />
+    <Compile Include="Data\Enum\ShortEnum.cs" />
+    <Compile Include="Data\Enum\ShortFlagEnum.cs" />
+    <Compile Include="Data\Enum\UIntEnum.cs" />
+    <Compile Include="Data\Enum\UIntFlagEnum.cs" />
+    <Compile Include="Data\Enum\ULongEnum.cs" />
+    <Compile Include="Data\Enum\ULongFlagEnum.cs" />
+    <Compile Include="Data\Enum\UShortEnum.cs" />
+    <Compile Include="Data\Enum\UShortFlagEnum.cs" />
+    <Compile Include="ProcessGuard\CommandServiceSwitchProcess.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardClientSocketEvent.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardCommandClientConfig.cs" />
+    <Compile Include="ProcessGuard\ProcessGuardSwitchProcess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.DotNet4.5.csproj">
+      <Project>{6e42d097-d7d7-41ef-a72e-ef4d29a94378}</Project>
+      <Name>AutoCSer.CommandService.ProcessGuard.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -56,6 +56,10 @@ namespace AutoCSer.TestCase
         /// <returns></returns>
         internal static bool TestCase(CommandClientSocketEvent client, CommandServerSessionObject clientSessionObject)
         {
+            if (client.ClientSynchronousController == null)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
             clientSessionObject.Xor(int.MinValue);
             CommandClientReturnValue returnType = client.ClientSynchronousController.SynchronousSocket();
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))

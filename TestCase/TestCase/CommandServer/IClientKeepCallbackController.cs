@@ -61,7 +61,8 @@ namespace AutoCSer.TestCase
         internal static readonly System.Collections.Generic.Dictionary<KeepCallbackCommand, KeepCallbackCommandResult> KeepCallbackCommands = new System.Collections.Generic.Dictionary<KeepCallbackCommand, KeepCallbackCommandResult>();
         internal static void Callback(CommandClientReturnValue<string> value, KeepCallbackCommand keepCallbackCommand)
         {
-            if (!KeepCallbackCommands.TryGetValue(keepCallbackCommand, out KeepCallbackCommandResult result))
+            KeepCallbackCommandResult result;
+            if (!KeepCallbackCommands.TryGetValue(keepCallbackCommand, out result))
             {
                 KeepCallbackCommands.Add(keepCallbackCommand, result = default(KeepCallbackCommandResult));
             }
@@ -102,7 +103,8 @@ namespace AutoCSer.TestCase
         }
         internal static void Callback(CommandClientReturnValue value, KeepCallbackCommand keepCallbackCommand)
         {
-            if (!KeepCallbackCommands.TryGetValue(keepCallbackCommand, out KeepCallbackCommandResult result))
+            KeepCallbackCommandResult result;
+            if (!KeepCallbackCommands.TryGetValue(keepCallbackCommand, out result))
             {
                 KeepCallbackCommands.Add(keepCallbackCommand, result = default(KeepCallbackCommandResult));
             }
@@ -143,7 +145,8 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             await callbackWaitLock.WaitAsync();
-            if (!KeepCallbackCommands.TryGetValue((KeepCallbackCommand)commandKeepCallback.Command, out KeepCallbackCommandResult result))
+            KeepCallbackCommandResult result;
+            if (!KeepCallbackCommands.TryGetValue((KeepCallbackCommand)commandKeepCallback.Command, out result))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

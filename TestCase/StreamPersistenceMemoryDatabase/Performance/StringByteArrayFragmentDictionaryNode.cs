@@ -107,7 +107,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         private async Task SetBinarySerialize()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do
@@ -145,7 +145,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         private async Task GetBinarySerialize()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do
@@ -181,7 +181,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         private async Task Remove()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do
@@ -217,7 +217,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         private async Task SetJsonSerialize()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do
@@ -255,7 +255,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         private async Task GetJsonSerialize()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do

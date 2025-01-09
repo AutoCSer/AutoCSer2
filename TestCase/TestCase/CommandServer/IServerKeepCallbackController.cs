@@ -68,10 +68,12 @@ namespace AutoCSer.TestCase
         {
             for (long endValue = value + KeepCallbackCount; value != endValue; ++value) yield return value.ToString();
         }
+#if NetStandard21
         internal static async IAsyncEnumerable<string> AsyncEnumerable(long value)
         {
             for (long endValue = value + KeepCallbackCount; value != endValue; ++value) yield return value.ToString();
         }
+#endif
         //internal static void KeepCallback(CommandServerKeepCallback callback)
         //{
         //    for (int count = KeepCallbackCount; count != 0; --count) callback.Callback();

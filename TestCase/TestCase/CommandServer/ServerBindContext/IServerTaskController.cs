@@ -29,14 +29,15 @@ namespace AutoCSer.TestCase.ServerBindContext
         {
             return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
         }
-        Task<string> IServerTaskController.AsynchronousTaskReturn()
+        async Task<string> IServerTaskController.AsynchronousTaskReturn()
         {
-            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor().ToString());
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            return ((CommandServerSessionObject)Socket.SessionObject).Xor().ToString();
         }
-        Task IServerTaskController.AsynchronousTask(int Value, int Ref)
+        async Task IServerTaskController.AsynchronousTask(int Value, int Ref)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
-            return AutoCSer.Common.CompletedTask;
         }
         Task IServerTaskController.AsynchronousTask()
         {
@@ -47,14 +48,15 @@ namespace AutoCSer.TestCase.ServerBindContext
         {
             return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref).ToString());
         }
-        Task IServerTaskController.TaskQueue(CommandServerCallTaskQueue<int> queue, int Ref)
+        async Task IServerTaskController.TaskQueue(CommandServerCallTaskQueue<int> queue, int Ref)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             ((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref);
-            return AutoCSer.Common.CompletedTask;
         }
 
-        Task<string> IServerTaskController.TaskQueueException(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
+        async Task<string> IServerTaskController.TaskQueueException(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             throw new AutoCSer.Log.IgnoreException(((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref).ToString());
         }
     }
