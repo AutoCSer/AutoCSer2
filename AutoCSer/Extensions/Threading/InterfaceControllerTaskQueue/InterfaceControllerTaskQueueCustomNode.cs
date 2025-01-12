@@ -2,6 +2,7 @@
 using AutoCSer.Net.CommandServer;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace AutoCSer.Threading
 {
@@ -11,9 +12,13 @@ namespace AutoCSer.Threading
     public abstract class InterfaceControllerTaskQueueCustomNode : InterfaceControllerTaskQueueNode
     {
         /// <summary>
-        /// 是否已经添加到队列
+        /// 接口任务队列
         /// </summary>
-        private int isQueue;
+#if NetStandard21
+        private InterfaceControllerTaskQueue? queue;
+#else
+        private InterfaceControllerTaskQueue queue;
+#endif
         /// <summary>
         /// 接口任务队列节点
         /// </summary>
@@ -22,11 +27,12 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 检查是否已经添加到队列
         /// </summary>
+        /// <param name="queue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal bool CheckQueue()
+        internal bool CheckQueue(InterfaceControllerTaskQueue queue)
         {
-            return System.Threading.Interlocked.CompareExchange(ref isQueue, 1, 0) == 0;
+            return System.Threading.Interlocked.CompareExchange(ref this.queue, queue, null) == null;
         }
         /// <summary>
         /// 设置返回值
@@ -34,7 +40,7 @@ namespace AutoCSer.Threading
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void SetReturn()
         {
-            SetReturnType(CommandClientReturnTypeEnum.Success);
+            SetReturnType(CommandClientReturnTypeEnum.Success, queue?.ThreadId == System.Threading.Thread.CurrentThread.ManagedThreadId);
         }
     }
     /// <summary>
@@ -44,9 +50,13 @@ namespace AutoCSer.Threading
     public abstract class InterfaceControllerTaskQueueCustomNode<T> : InterfaceControllerTaskQueueNode<T>
     {
         /// <summary>
-        /// 是否已经添加到队列
+        /// 接口任务队列
         /// </summary>
-        private int isQueue;
+#if NetStandard21
+        private InterfaceControllerTaskQueue? queue;
+#else
+        private InterfaceControllerTaskQueue queue;
+#endif
         /// <summary>
         /// 接口任务队列节点
         /// </summary>
@@ -55,20 +65,21 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 检查是否已经添加到队列
         /// </summary>
+        /// <param name="queue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal bool CheckQueue()
+        internal bool CheckQueue(InterfaceControllerTaskQueue queue)
         {
-            return System.Threading.Interlocked.CompareExchange(ref isQueue, 1, 0) == 0;
+            return System.Threading.Interlocked.CompareExchange(ref this.queue, queue, null) == null;
         }
         /// <summary>
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public new void SetReturn(T returnValue)
+        public void SetReturn(T returnValue)
         {
-            base.SetReturn(returnValue);
+            base.SetReturn(returnValue, queue?.ThreadId == System.Threading.Thread.CurrentThread.ManagedThreadId);
         }
     }
 }

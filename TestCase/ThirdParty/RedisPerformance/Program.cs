@@ -1,5 +1,4 @@
 ﻿using AutoCSer;
-using AutoCSer.Net;
 using Garnet;
 using Garnet.server;
 using System;
@@ -17,8 +16,8 @@ namespace RedisPerformance
                 {
                     Address = "127.0.0.1",
                     Port = 6379,
-                    LogDir = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(GarnetServer), nameof(GarnetServerOptions.LogDir)),
-                    CheckpointDir = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryPath, nameof(GarnetServer), nameof(GarnetServerOptions.CheckpointDir)),
+                    LogDir = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(GarnetServer), nameof(GarnetServerOptions.LogDir)),
+                    CheckpointDir = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(GarnetServer), nameof(GarnetServerOptions.CheckpointDir)),
                     EnableAOF = true,
                     Recover = true,
                     EnableStorageTier = true,

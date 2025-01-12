@@ -1,5 +1,4 @@
 ﻿using AutoCSer.Document.MemoryDatabaseLocalService.Client;
-using AutoCSer.Extensions;
 
 namespace AutoCSer.Document.MemoryDatabaseLocalService
 {

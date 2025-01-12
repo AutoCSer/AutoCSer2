@@ -12,7 +12,9 @@ namespace AutoCSer.TestCase.ServerBindContext
     public interface IServerCallbackTaskController
     {
         Task CallbackReturn(int Value, int Ref, CommandServerCallback<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task Callback(int Value, int Ref, CommandServerCallback Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task CallbackReturn(CommandServerCallback<string> Callback);
         Task Callback(CommandServerCallback Callback);
 

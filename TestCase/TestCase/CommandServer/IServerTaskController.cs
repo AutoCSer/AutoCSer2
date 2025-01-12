@@ -10,12 +10,16 @@ namespace AutoCSer.TestCase
     /// </summary>
     public interface IServerTaskController
     {
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<string> AsynchronousTaskReturnSocket(CommandServerSocket socket, int Value, int Ref);
         Task<string> AsynchronousTaskReturnSocket(CommandServerSocket socket);
         Task AsynchronousTaskSocket(CommandServerSocket socket, int Value, int Ref);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task AsynchronousTaskSocket(CommandServerSocket socket);
         Task<string> AsynchronousTaskReturn(int Value, int Ref);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<string> AsynchronousTaskReturn();
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task AsynchronousTask(int Value, int Ref);
         Task AsynchronousTask();
 

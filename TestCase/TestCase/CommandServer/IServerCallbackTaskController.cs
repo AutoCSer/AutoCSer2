@@ -11,12 +11,16 @@ namespace AutoCSer.TestCase
     [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 1, IsCodeGeneratorClientInterface = false)]
     public interface IServerCallbackTaskController
     {
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task CallbackSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerCallback<string> Callback);
         Task CallbackSocket(CommandServerSocket socket, int Value, int Ref, CommandServerCallback Callback);
         Task CallbackSocketReturn(CommandServerSocket socket, CommandServerCallback<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task CallbackSocket(CommandServerSocket socket, CommandServerCallback Callback);
         Task CallbackReturn(int Value, int Ref, CommandServerCallback<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task Callback(int Value, int Ref, CommandServerCallback Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task CallbackReturn(CommandServerCallback<string> Callback);
         Task Callback(CommandServerCallback Callback);
 

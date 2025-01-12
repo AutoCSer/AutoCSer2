@@ -201,6 +201,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="T"></typeparam>
         /// <param name="methodParameter"></param>
         /// <param name="values"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void EnumerableCallback<T>(InputKeepCallbackMethodParameter methodParameter, System.Collections.Generic.IEnumerable<T> values)
         {
             methodParameter.enumerableCallback(values);

@@ -164,15 +164,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
         public virtual object GetBeforePersistenceCustomSessionObject() { return null; }
 #endif
+        ///// <summary>
+        ///// 获取服务端节点
+        ///// </summary>
+        ///// <param name="methodParameter"></param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal static ServerNode GetNode(MethodParameter methodParameter)
+        //{
+        //    return methodParameter.Node;
+        //}
         /// <summary>
         /// 获取服务端节点
         /// </summary>
         /// <param name="methodParameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static ServerNode GetNode(MethodParameter methodParameter)
+        internal static T GetNodeTarget<T>(MethodParameter methodParameter)
         {
-            return methodParameter.Node;
+            return ((ServerNode<T>)methodParameter.Node).Target;
         }
     }
 }

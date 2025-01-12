@@ -2,6 +2,7 @@
 using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
+using System.IO;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -68,28 +69,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        void AutoCSer.BinarySerialize.ICustomSerialize<RequestParameter>.Serialize(AutoCSer.BinarySerializer serializer)
+        unsafe void AutoCSer.BinarySerialize.ICustomSerialize<RequestParameter>.Serialize(AutoCSer.BinarySerializer serializer)
         {
-            UnmanagedStream stream = serializer.Stream;
-            stream.Write(Index.Index);
-            stream.Write(Index.Identity);
-            stream.Write(methodIndex);
-            this.serializer.Serialize(serializer);
+            byte* data = serializer.Stream.GetBeforeMove(sizeof(int) * 2 + sizeof(uint));
+            if (data != null)
+            {
+                *(int*)data = Index.Index;
+                *(uint*)(data + sizeof(int)) = Index.Identity;
+                *(int*)(data + (sizeof(int) + sizeof(uint))) = methodIndex;
+                this.serializer.Serialize(serializer);
+            }
         }
         /// <summary>
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        void AutoCSer.BinarySerialize.ICustomSerialize<RequestParameter>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
+        unsafe void AutoCSer.BinarySerialize.ICustomSerialize<RequestParameter>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            if (deserializer.Read(out Index.Index) && deserializer.Read(out Index.Identity) && deserializer.Read(out methodIndex))
+            byte* data = deserializer.GetBeforeMove(sizeof(int) * 2 + sizeof(uint));
+            if (data != null)
             {
                 CommandServerSocket socket = deserializer.Context.castType<CommandServerSocket>().notNull();
                 if (!object.ReferenceEquals(socket, CommandServerSocket.CommandServerSocketContext))
                 {
                     CommandServerController<IStreamPersistenceMemoryDatabaseService> controller = (CommandServerController<IStreamPersistenceMemoryDatabaseService>)socket.CurrentController;
-                    StreamPersistenceMemoryDatabaseService service = (StreamPersistenceMemoryDatabaseService)controller.Controller;
-                    MethodParameter = service.CreateInputMethodParameter(Index, methodIndex, out CallState);
+                    MethodParameter = ((StreamPersistenceMemoryDatabaseService)controller.Controller)
+                        .CreateInputMethodParameter(new NodeIndex(*(int*)data, *(uint*)(data + sizeof(int))), *(int*)(data + (sizeof(int) + sizeof(uint))), out CallState);
                     if (MethodParameter != null)
                     {
                         MethodParameter.Deserialize(deserializer);

@@ -17,6 +17,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         CommandServerSendOnly SendOnlyQueue(CommandServerCallQueue queue);
 
         Task<CommandServerSendOnly> SendOnlyTask(int Value, int Ref);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<CommandServerSendOnly> SendOnlyTask();
 
         Task<CommandServerSendOnly> SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);

@@ -47,10 +47,11 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 设置返回值
         /// </summary>
+        ///// <param name="isSynchronousThread"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void SetReturnType(InterfaceControllerTaskQueueNode node)
         {
-            node.SetReturnType(CommandClientReturnTypeEnum.Success);
+            node.SetReturnType(CommandClientReturnTypeEnum.Success, true);
         }
     }
     /// <summary>
@@ -103,11 +104,12 @@ namespace AutoCSer.Threading
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>
+        /// <param name="isSynchronousThread"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void SetReturn(T returnValue)
+        internal void SetReturn(T returnValue, bool isSynchronousThread)
         {
             this.returnValue = returnValue;
-            SetReturnType(CommandClientReturnTypeEnum.Success);
+            SetReturnType(CommandClientReturnTypeEnum.Success, isSynchronousThread);
         }
         /// <summary>
         /// 设置返回值
@@ -117,7 +119,7 @@ namespace AutoCSer.Threading
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void SetReturn(InterfaceControllerTaskQueueNode<T> node, T returnValue)
         {
-            node.SetReturn(returnValue);
+            node.SetReturn(returnValue, true);
         }
     }
 }

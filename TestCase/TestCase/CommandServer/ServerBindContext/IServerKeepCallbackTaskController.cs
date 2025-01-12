@@ -12,16 +12,21 @@ namespace AutoCSer.TestCase.ServerBindContext
     public interface IServerKeepCallbackTaskController
     {
         Task KeepCallbackTaskReturn(int Value, int Ref, CommandServerKeepCallback<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackTask(int Value, int Ref, CommandServerKeepCallback Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackTaskReturn(CommandServerKeepCallback<string> Callback);
         Task KeepCallbackTask(CommandServerKeepCallback Callback);
 
         Task KeepCallbackCountTaskReturn(int Value, int Ref, CommandServerKeepCallbackCount<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackCountTask(int Value, int Ref, CommandServerKeepCallbackCount Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackCountTaskReturn(CommandServerKeepCallbackCount<string> Callback);
         Task KeepCallbackCountTask(CommandServerKeepCallbackCount Callback);
 
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskReturn(int Value, int Ref);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskReturn();
 
         Task KeepCallbackTaskQueueReturn(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref, CommandServerKeepCallback<string> Callback);

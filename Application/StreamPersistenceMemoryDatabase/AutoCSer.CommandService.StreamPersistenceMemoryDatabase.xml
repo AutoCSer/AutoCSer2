@@ -16431,7 +16431,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
             <summary>
             获取服务端节点
             </summary>
@@ -17361,11 +17361,6 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.InputKeepCallbackMethodParameterTypes">
             <summary>
             调用节点方法参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.MethodParameterGetNode">
-            <summary>
-            获取服务端节点
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.CallMethodCallback">

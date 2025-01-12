@@ -11,7 +11,9 @@ namespace AutoCSer.TestCase.ServerBindContext
     public interface IServerTaskController
     {
         Task<string> AsynchronousTaskReturn(int Value, int Ref);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<string> AsynchronousTaskReturn();
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task AsynchronousTask(int Value, int Ref);
         Task AsynchronousTask();
 

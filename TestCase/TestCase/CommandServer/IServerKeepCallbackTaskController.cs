@@ -11,27 +11,37 @@ namespace AutoCSer.TestCase
     /// </summary>
     public interface IServerKeepCallbackTaskController
     {
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackTaskSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallback<string> Callback);
         Task KeepCallbackTaskSocket(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallback Callback);
         Task KeepCallbackTaskSocketReturn(CommandServerSocket socket, CommandServerKeepCallback<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackTaskSocket(CommandServerSocket socket, CommandServerKeepCallback Callback);
         Task KeepCallbackTaskReturn(int Value, int Ref, CommandServerKeepCallback<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackTask(int Value, int Ref, CommandServerKeepCallback Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackTaskReturn(CommandServerKeepCallback<string> Callback);
         Task KeepCallbackTask(CommandServerKeepCallback Callback);
 
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackCountTaskSocketReturn(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback);
         Task KeepCallbackCountTaskSocket(CommandServerSocket socket, int Value, int Ref, CommandServerKeepCallbackCount Callback);
         Task KeepCallbackCountTaskSocketReturn(CommandServerSocket socket, CommandServerKeepCallbackCount<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackCountTaskSocket(CommandServerSocket socket, CommandServerKeepCallbackCount Callback);
         Task KeepCallbackCountTaskReturn(int Value, int Ref, CommandServerKeepCallbackCount<string> Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackCountTask(int Value, int Ref, CommandServerKeepCallbackCount Callback);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task KeepCallbackCountTaskReturn(CommandServerKeepCallbackCount<string> Callback);
         Task KeepCallbackCountTask(CommandServerKeepCallbackCount Callback);
 
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskSocketReturn(CommandServerSocket socket, int Value, int Ref);
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskSocketReturn(CommandServerSocket socket);
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskReturn(int Value, int Ref);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<IEnumerable<string>> EnumerableKeepCallbackCountTaskReturn();
 
         Task KeepCallbackTaskQueueSocketReturn(CommandServerSocket socket, CommandServerCallTaskQueue<int> queue, int Ref, CommandServerKeepCallback<string> Callback);

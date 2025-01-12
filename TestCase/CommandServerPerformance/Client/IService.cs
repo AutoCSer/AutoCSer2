@@ -44,6 +44,14 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         //[CommandServerMethod(IsInitobj = false)]
         Task<int> Task(int left, int right);
         /// <summary>
+        /// 服务端 async 任务返回返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [CommandServerMethod(IsSynchronousCallTask = true)]
+        Task<int> SynchronousCallTask(int left, int right);
+        /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
         /// <param name="queue"></param>
@@ -93,7 +101,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<CommandServerSendOnly> SendOnlyTask(int left, int right);
     }
     /// <summary>
@@ -131,6 +139,16 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="right"></param>
         /// <returns></returns>
         Task<int> IService.Task(int left, int right)
+        {
+            return Task.FromResult(left + right);
+        }
+        /// <summary>
+        /// 服务端 async 任务返回返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        Task<int> IService.SynchronousCallTask(int left, int right)
         {
             return Task.FromResult(left + right);
         }

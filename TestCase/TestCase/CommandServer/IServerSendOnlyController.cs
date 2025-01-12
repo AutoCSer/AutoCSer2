@@ -20,9 +20,11 @@ namespace AutoCSer.TestCase
         CommandServerSendOnly SendOnlyQueue(CommandServerCallLowPriorityQueue queue, int Value, int Ref);
         CommandServerSendOnly SendOnlyQueue(CommandServerCallQueue queue);
 
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<CommandServerSendOnly> SendOnlyTaskSocket(CommandServerSocket socket, int Value, int Ref);
         Task<CommandServerSendOnly> SendOnlyTaskSocket(CommandServerSocket socket);
         Task<CommandServerSendOnly> SendOnlyTask(int Value, int Ref);
+        [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<CommandServerSendOnly> SendOnlyTask();
 
         Task<CommandServerSendOnly> SendOnlyTaskQueueSocket(CommandServerSocket socket, CommandServerCallTaskQueue<int> queue, int Ref);

@@ -47,6 +47,14 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> Task(int left, int right);
         /// <summary>
+        /// 服务端 async 任务返回返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
+        ReturnCommand<int> SynchronousCallTask(int left, int right);
+        /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
         /// <param name="left"></param>
@@ -115,10 +123,11 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //await s0611163(client, false);
                 //await s0611163(client, true);
 
-                Left = AutoCSer.Random.Default.Next();
+                int left = Left = AutoCSer.Random.Default.Next();
 
                 await new AwaiterClient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
@@ -127,13 +136,13 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
                 checkEnumeratorCommand(enumeratorCommand).NotWait();
-                for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(Left, --right)) ;
+                for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
                 await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallback));
 
                 Reset(commandClient, maxTestCount);
                 enumeratorCommand = await client.InterfaceController.KeepCallbackCount();
                 checkEnumeratorCommand(enumeratorCommand).NotWait();
-                for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(Left, --right)) ;
+                for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
                 await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallbackCount));
             }
         }
@@ -240,6 +249,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     while (--taskCount >= 0) TaskQueueKey().NotWait();
                     break;
                 case nameof(Task):
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
+                    while (--taskCount >= 0) Task().NotWait();
+                    break;
+                case nameof(SynchronousCallTask):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) Task().NotWait();
                     break;
@@ -353,6 +366,34 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     do
                     {
                         if ((await client.InterfaceController.Task(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端 async 任务返回返回结果
+        /// </summary>
+        private async Task SynchronousCallTask()
+        {
+            int left = Left, success = 0, error = 0;
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.SynchronousCallTask(left, next)).IsSuccess) ++success;
                         else ++error;
                     }
                     while ((--next & (LoopCount - 1)) != 0);

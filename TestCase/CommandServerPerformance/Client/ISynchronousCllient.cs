@@ -39,6 +39,13 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         CommandClientReturnValue<int> Task(int left, int right);
         /// <summary>
+        /// 服务端 async 任务返回返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        CommandClientReturnValue<int> SynchronousCallTask(int left, int right);
+        /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
         /// </summary>
         /// <param name="left"></param>
@@ -82,6 +89,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
 
                 await new SynchronousCllient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
@@ -116,6 +124,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 case nameof(Callback): task = Callback; break;
                 case nameof(Queue): task = Queue; break;
                 case nameof(Task): task = Task; break;
+                case nameof(SynchronousCallTask): task = SynchronousCallTask; break;
                 case nameof(TaskQueue): task = TaskQueue; break;
                 case nameof(TaskQueueKey): task = TaskQueueKey; break;
             }
@@ -137,10 +146,11 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private void Synchronous()
         {
+            int left = Left;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(client.InterfaceController.Synchronous(Left, right));
+                if (right >= 0) CheckLock(client.InterfaceController.Synchronous(left, right));
                 else return;
             }
             while (true);
@@ -150,10 +160,11 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private void Callback()
         {
+            int left = Left;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(client.InterfaceController.Callback(Left, right));
+                if (right >= 0) CheckLock(client.InterfaceController.Callback(left, right));
                 else return;
             }
             while (true);
@@ -163,10 +174,11 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private void Queue()
         {
+            int left = Left;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(client.InterfaceController.Queue(Left, right));
+                if (right >= 0) CheckLock(client.InterfaceController.Queue(left, right));
                 else return;
             }
             while (true);
@@ -176,10 +188,25 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private void Task()
         {
+            int left = Left;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(client.InterfaceController.Task(Left, right));
+                if (right >= 0) CheckLock(client.InterfaceController.Task(left, right));
+                else return;
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端 async 任务返回返回结果
+        /// </summary>
+        private void SynchronousCallTask()
+        {
+            int left = Left;
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0) CheckLock(client.InterfaceController.Task(left, right));
                 else return;
             }
             while (true);
@@ -189,10 +216,11 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private void TaskQueue()
         {
+            int left = Left;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(client.InterfaceController.TaskQueue(Left, right));
+                if (right >= 0) CheckLock(client.InterfaceController.TaskQueue(left, right));
                 else return;
             }
             while (true);
@@ -202,10 +230,11 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// </summary>
         private void TaskQueueKey()
         {
+            int left = Left;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
-                if (right >= 0) CheckLock(client.InterfaceController.TaskQueueKey(0, Left, right));
+                if (right >= 0) CheckLock(client.InterfaceController.TaskQueueKey(0, left, right));
                 else return;
             }
             while (true);

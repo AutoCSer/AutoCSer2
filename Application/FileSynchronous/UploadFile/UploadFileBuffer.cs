@@ -2,6 +2,7 @@
 using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
+using System.IO;
 
 namespace AutoCSer.CommandService.FileSynchronous
 {
@@ -49,32 +50,36 @@ namespace AutoCSer.CommandService.FileSynchronous
         /// 客户端序列化
         /// </summary>
         /// <param name="serializer"></param>
-        void AutoCSer.BinarySerialize.ICustomSerialize<UploadFileBuffer>.Serialize(AutoCSer.BinarySerializer serializer)
+        unsafe void AutoCSer.BinarySerialize.ICustomSerialize<UploadFileBuffer>.Serialize(AutoCSer.BinarySerializer serializer)
         {
-            UnmanagedStream stream = serializer.Stream;
-            stream.Write(UploaderIndex.Index);
-            stream.Write(UploaderIndex.Identity);
-            stream.Write(FileIndex.Index);
-            stream.Write(FileIndex.Identity);
-#if DEBUG
-            if (!stream.IsResizeError)
+            byte* data = serializer.Stream.GetBeforeMove(sizeof(int) * 2 + sizeof(uint) * 2);
+            if (data != null)
             {
+                *(int*)data = UploaderIndex.Index;
+                *(uint*)(data + sizeof(int)) = UploaderIndex.Identity;
+                *(int*)(data + (sizeof(int) + sizeof(uint))) = FileIndex.Index;
+                *(uint*)(data + (sizeof(int) * 2 + sizeof(uint))) = FileIndex.Identity;
+#if DEBUG
                 SerializeSize = serializer.CustomWriteFree(Buffer.Array, Buffer.Start, Buffer.Length);
-                if (stream.IsResizeError) AutoCSer.ConsoleWriteQueue.Breakpoint();
-            }
+                if (serializer.Stream.IsResizeError) AutoCSer.ConsoleWriteQueue.Breakpoint();
 #else
-            SerializeSize = serializer.CustomWriteFree(Buffer.Array, Buffer.Start, Buffer.Length);
+                SerializeSize = serializer.CustomWriteFree(Buffer.Array, Buffer.Start, Buffer.Length);
 #endif
+            }
         }
         /// <summary>
         /// 服务端反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        void AutoCSer.BinarySerialize.ICustomSerialize<UploadFileBuffer>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
+        unsafe void AutoCSer.BinarySerialize.ICustomSerialize<UploadFileBuffer>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            if (deserializer.Read(out UploaderIndex.Index) && deserializer.Read(out UploaderIndex.Identity) && deserializer.Read(out FileIndex.Index) && deserializer.Read(out FileIndex.Identity)
-                && deserializer.DeserializeBuffer(ref Buffer, true))
+            byte* data = deserializer.GetBeforeMove(sizeof(int) * 2 + sizeof(uint) * 2);
+            if (data != null && deserializer.DeserializeBuffer(ref Buffer, true))
             {
+                UploaderIndex.Index = *(int*)data;
+                UploaderIndex.Identity = *(uint*)(data + sizeof(int));
+                FileIndex.Index = *(int*)(data + (sizeof(int) + sizeof(uint)));
+                FileIndex.Identity = *(uint*)(data + (sizeof(int) * 2 + sizeof(uint)));
                 CommandServerController<IUploadFileService> controller = (CommandServerController<IUploadFileService>)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController;
                 State = ((UploadFileService)controller.Controller).UploadFileData(this);
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -43,12 +44,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        void AutoCSer.BinarySerialize.ICustomSerialize<RepairNodeMethodPosition>.Serialize(AutoCSer.BinarySerializer serializer)
+        unsafe void AutoCSer.BinarySerialize.ICustomSerialize<RepairNodeMethodPosition>.Serialize(AutoCSer.BinarySerializer serializer)
         {
             if (RepairNodeMethod == null)
             {
-                serializer.Stream.Write(int.MinValue);
-                serializer.Stream.Write(Position);
+                byte* data = serializer.Stream.GetBeforeMove(sizeof(int) + sizeof(long));
+                if (data != null)
+                {
+                    *(int*)data = int.MinValue;
+                    *(long*)(data + sizeof(int)) = Position;
+                }
             }
             else RepairNodeMethod.Serialize(serializer);
         }
@@ -56,7 +61,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        unsafe void AutoCSer.BinarySerialize.ICustomSerialize<RepairNodeMethodPosition>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
+        void AutoCSer.BinarySerialize.ICustomSerialize<RepairNodeMethodPosition>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             int state;
             if (deserializer.Read(out state))

@@ -146,7 +146,6 @@
     <Compile Include="Threading\MillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockManager.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockCount.cs" />
-    <Compile Include="Threading\SwitchAwaiter.cs" />
     <Compile Include="Threading\SynchronizationContextAction.cs" />
     <Compile Include="Threading\TaskQueue.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceController.cs" />

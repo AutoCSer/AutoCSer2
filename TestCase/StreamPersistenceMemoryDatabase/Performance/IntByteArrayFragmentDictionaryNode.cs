@@ -121,7 +121,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         do
                         {
                             var data = this.data.Clone();
-                            data.StreetNumber = Left + next;
+                            data.StreetNumber = left + next;
                             var result = await client.SetBinarySerialize(data.StreetNumber, data);
                             if (result.Value) ++success;
                             else ++error;
@@ -158,7 +158,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         int next = right << LoopCountBit;
                         do
                         {
-                            var result = await client.TryGetBinaryDeserialize<int, Data.Address>(Left + next);
+                            var result = await client.TryGetBinaryDeserialize<int, Data.Address>(left + next);
                             if (result.Value != null) ++success;
                             else ++error;
                         }
@@ -194,7 +194,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         int next = right << LoopCountBit;
                         do
                         {
-                            var result = await client.Remove(Left + next);
+                            var result = await client.Remove(left + next);
                             if (result.Value) ++success;
                             else ++error;
                         }
@@ -231,7 +231,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         do
                         {
                             var data = this.data.Clone();
-                            data.StreetNumber = Left + next;
+                            data.StreetNumber = left + next;
                             var result = await client.SetJsonSerialize(data.StreetNumber, data);
                             if (result.Value) ++success;
                             else ++error;
@@ -268,7 +268,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         int next = right << LoopCountBit;
                         do
                         {
-                            var result = await client.TryGetJsonDeserialize<int, Data.Address>(Left + next);
+                            var result = await client.TryGetJsonDeserialize<int, Data.Address>(left + next);
                             if (result.Value != null) ++success;
                             else ++error;
                         }

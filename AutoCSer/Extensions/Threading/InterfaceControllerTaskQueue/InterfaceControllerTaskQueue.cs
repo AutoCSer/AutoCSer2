@@ -15,10 +15,15 @@ namespace AutoCSer.Threading
         /// </summary>
         private Link<InterfaceControllerTaskQueueNodeBase>.YieldQueue queue;
         /// <summary>
+        /// 队列线程ID
+        /// </summary>
+        internal int ThreadId;
+        /// <summary>
         /// 任务线程处理
         /// </summary>
         protected override void run()
         {
+            ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
             do
             {
                 waitHandle.Wait();
@@ -41,7 +46,7 @@ namespace AutoCSer.Threading
                     {
                         try
                         {
-                            currentTask.notNull().SetReturnType(CommandClientReturnTypeEnum.ServerException);
+                            currentTask.notNull().SetReturnType(CommandClientReturnTypeEnum.ServerException, true);
                         }
                         catch(Exception serverException)
                         {
@@ -79,7 +84,7 @@ namespace AutoCSer.Threading
         /// <param name="node"></param>
         public void Add(InterfaceControllerTaskQueueCustomNode node)
         {
-            if (node.CheckQueue()) AddOnly(node);
+            if (node.CheckQueue(this)) AddOnly(node);
             else throw new Exception("node.isQueue is true");
         }
         /// <summary>
@@ -89,7 +94,7 @@ namespace AutoCSer.Threading
         /// <typeparam name="T">返回值类型</typeparam>
         public void Add<T>(InterfaceControllerTaskQueueCustomNode<T> node)
         {
-            if (node.CheckQueue()) AddOnly(node);
+            if (node.CheckQueue(this)) AddOnly(node);
             else throw new Exception("node.isQueue is true");
         }
         /// <summary>

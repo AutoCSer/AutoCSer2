@@ -124,7 +124,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 获取命令调用结果
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ResponseResult<T> GetResult()
         {
             if (Command.ReturnType == CommandClientReturnTypeEnum.Success)

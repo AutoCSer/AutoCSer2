@@ -46,6 +46,7 @@ namespace AutoCSer.Threading
         /// await 支持
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetResult() { }
         /// <summary>
         /// await 支持

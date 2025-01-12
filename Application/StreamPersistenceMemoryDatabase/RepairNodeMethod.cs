@@ -91,7 +91,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
-        internal void Serialize(AutoCSer.BinarySerializer serializer)
+        internal unsafe void Serialize(AutoCSer.BinarySerializer serializer)
         {
             UnmanagedStream stream = serializer.Stream;
             stream.Write((int)CallState);
@@ -107,12 +107,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     serializer.SerializeOnly(MethodName.DeclaringTypeFullName);
                     serializer.SerializeOnly(MethodName.Name);
                     serializer.SerializeBuffer(ref RawAssembly);
-                    stream.Write(RepairNodeMethodFile.LastWriteTime);
-                    stream.Write(RepairNodeMethodDirectory.NodeTypeHashCode);
-                    stream.Write(RepairNodeMethodDirectory.Position);
-                    stream.Write(RepairNodeMethodDirectory.RepairTime);
-                    stream.Write(RepairNodeMethodDirectory.MethodIndex);
-                    serializer.SerializeBufferEnd(index);
+                    byte* data = serializer.Stream.GetBeforeMove(sizeof(DateTime) + sizeof(ulong) * 3 + sizeof(uint));
+                    if (data != null)
+                    {
+                        *(DateTime*)data = RepairNodeMethodFile.LastWriteTime;
+                        *(ulong*)(data + sizeof(DateTime)) = RepairNodeMethodDirectory.NodeTypeHashCode;
+                        *(ulong*)(data + (sizeof(DateTime) + sizeof(ulong))) = RepairNodeMethodDirectory.Position;
+                        *(ulong*)(data + (sizeof(DateTime) + sizeof(ulong) * 2)) = RepairNodeMethodDirectory.RepairTime;
+                        *(uint*)(data + (sizeof(DateTime) + sizeof(ulong) * 3)) = RepairNodeMethodDirectory.MethodIndex;
+                        serializer.SerializeBufferEnd(index);
+                    }
                 }
             }
         }
@@ -140,21 +144,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         && deserializer.DeserializeOnly(ref methodTypeName) && deserializer.DeserializeOnly(ref methodName))
                     {
                         if (assemblyName != null && typeName != null && typeDirectoryName != null && methodDirectoryName != null && methodTypeName != null && methodName != null
-                            && deserializer.DeserializeBuffer(ref RawAssembly, true) && deserializer.Read(out RepairNodeMethodFile.LastWriteTime)
-                            && deserializer.Read(out RepairNodeMethodDirectory.NodeTypeHashCode) && deserializer.Read(out RepairNodeMethodDirectory.Position)
-                            && deserializer.Read(out RepairNodeMethodDirectory.RepairTime) && deserializer.Read(out RepairNodeMethodDirectory.MethodIndex)
-                            && deserializer.DeserializeBufferEnd(end))
+                            && deserializer.DeserializeBuffer(ref RawAssembly, true))
                         {
-                            RemoteType.Set(assemblyName, typeName);
-                            TypeDirectoryName = typeDirectoryName;
-                            MethodDirectoryName = methodDirectoryName;
-                            MethodName.Set(methodTypeName, methodName);
+                            byte* data = deserializer.GetBeforeMove(sizeof(DateTime) + sizeof(ulong) * 3 + sizeof(uint));
+                            if (data != null && deserializer.DeserializeBufferEnd(end))
+                            {
+                                RepairNodeMethodFile.LastWriteTime = *(DateTime*)data;
+                                RepairNodeMethodDirectory.NodeTypeHashCode = *(ulong*)(data + sizeof(DateTime));
+                                RepairNodeMethodDirectory.Position = *(ulong*)(data + (sizeof(DateTime) + sizeof(ulong)));
+                                RepairNodeMethodDirectory.RepairTime = *(ulong*)(data + (sizeof(DateTime) + sizeof(ulong) * 2));
+                                RepairNodeMethodDirectory.MethodIndex = *(uint*)(data + (sizeof(DateTime) + sizeof(ulong) * 3));
 
-                            CommandServerController<IStreamPersistenceMemoryDatabaseService> controller = (CommandServerController<IStreamPersistenceMemoryDatabaseService>)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController;
-                            StreamPersistenceMemoryDatabaseServiceBase service = (StreamPersistenceMemoryDatabaseService)controller.Controller;
-                            MethodName.NodeTypeFullName = RemoteType.Name;
-                            service.AppendRepairNodeMethod(this).Wait();
-                            return;
+                                RemoteType.Set(assemblyName, typeName);
+                                TypeDirectoryName = typeDirectoryName;
+                                MethodDirectoryName = methodDirectoryName;
+                                MethodName.Set(methodTypeName, methodName);
+
+                                CommandServerController<IStreamPersistenceMemoryDatabaseService> controller = (CommandServerController<IStreamPersistenceMemoryDatabaseService>)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController;
+                                StreamPersistenceMemoryDatabaseServiceBase service = (StreamPersistenceMemoryDatabaseService)controller.Controller;
+                                MethodName.NodeTypeFullName = RemoteType.Name;
+                                service.AppendRepairNodeMethod(this).Wait();
+                                return;
+                            }
                         }
                     }
                     CallState = CallStateEnum.CustomDeserializeError;

@@ -67,53 +67,45 @@ namespace AutoCSer.Threading
             LinkNext = null;
             RunTask();
         }
+#if DEBUG
         /// <summary>
         /// 设置返回值类型
         /// </summary>
         /// <param name="returnType"></param>
-        internal void SetReturnType(CommandClientReturnTypeEnum returnType)
+        /// <param name="isSynchronousThread"></param>
+        /// <param name="callerMemberName"></param>
+        /// <param name="callerFilePath"></param>
+        /// <param name="callerLineNumber"></param>
+#if NetStandard21
+        internal void SetReturnType(CommandClientReturnTypeEnum returnType, bool isSynchronousThread, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
+        internal void SetReturnType(CommandClientReturnTypeEnum returnType, bool isSynchronousThread, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
+#else
+        /// <summary>
+        /// 设置返回值类型
+        /// </summary>
+        /// <param name="returnType"></param>
+        /// <param name="isSynchronousThread"></param>
+        internal void SetReturnType(CommandClientReturnTypeEnum returnType, bool isSynchronousThread)
+#endif
         {
             this.returnType = returnType;
             IsCompleted = true;
             if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null)
             {
-                Callback(continuation);
-            }
-        }
+                try
+                {
 #if DEBUG
-        /// <summary>
-        /// 异步回调
-        /// </summary>
-        /// <param name="callback"></param>
-        /// <param name="callerMemberName"></param>
-        /// <param name="callerFilePath"></param>
-        /// <param name="callerLineNumber"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        internal void Callback(Action callback, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+                    Command.Callback(continuation, callbackType, isSynchronousThread, callerMemberName, callerFilePath, callerLineNumber);
 #else
-        internal void Callback(Action callback, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+                    Command.Callback(continuation, callbackType, isSynchronousThread);
 #endif
-#else
-        /// <summary>
-        /// 异步回调
-        /// </summary>
-        /// <param name="callback"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void Callback(Action callback)
-#endif
-        {
-            try
-            {
-#if DEBUG
-                Command.Callback(callback, callbackType, callerMemberName, callerFilePath, callerLineNumber);
-#else
-                Command.Callback(callback, callbackType);
-#endif
-            }
-            catch (Exception exception)
-            {
-                AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                }
+                catch (Exception exception)
+                {
+                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                }
             }
         }
     }

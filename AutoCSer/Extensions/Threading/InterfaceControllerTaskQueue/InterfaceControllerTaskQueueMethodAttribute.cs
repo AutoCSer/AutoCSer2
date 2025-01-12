@@ -10,7 +10,7 @@ namespace AutoCSer.Threading
     public class InterfaceControllerTaskQueueMethodAttribute : Attribute
     {
         /// <summary>
-        /// 数据回调线程模式，默认为 Task.Run
+        /// 数据回调线程模式，默认为 CheckRunTask
         /// </summary>
         public ClientCallbackTypeEnum CallbackType;
 

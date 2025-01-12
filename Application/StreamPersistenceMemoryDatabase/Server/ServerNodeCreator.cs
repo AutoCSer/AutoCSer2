@@ -628,10 +628,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用节点方法参数
         /// </summary>
         internal static readonly Type[] InputKeepCallbackMethodParameterTypes = new Type[] { typeof(InputKeepCallbackMethodParameter) };
-        /// <summary>
-        /// 获取服务端节点
-        /// </summary>
-        internal static readonly Func<MethodParameter, ServerNode> MethodParameterGetNode = MethodParameter.GetNode;
+        ///// <summary>
+        ///// 获取服务端节点
+        ///// </summary>
+        //internal static readonly Func<MethodParameter, ServerNode> MethodParameterGetNode = MethodParameter.GetNode;
         /// <summary>
         /// 调用回调
         /// </summary>
@@ -921,6 +921,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (nodeType.Messages.Length != 0) creatorMessages = nodeType.Messages.ToArray();
             }
         }
+
 #if DEBUG && NetStandard21
         public interface IDictionary<KT, VT>
             where KT : IEquatable<KT>
@@ -1006,7 +1007,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public override void CallInput(CallInputMethodParameter methodParameter)
                 {
                     p0 parameter = CallInputMethodParameter<p0>.GetParameter(((CallInputMethodParameter<p0>)methodParameter));
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Add(parameter.key, parameter.value);
+                    MethodParameter.GetNodeTarget<IDictionary<KT, VT>>(methodParameter).Add(parameter.key, parameter.value);
                     CallInputMethodParameter.Callback(methodParameter);
                 }
             }
@@ -1016,18 +1017,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public override void CallInputOutput(CallInputOutputMethodParameter methodParameter)
                 {
                     p1 parameter = CallInputOutputMethodParameter<p1>.GetParameter(((CallInputOutputMethodParameter<p1>)methodParameter));
-                    CallInputOutputMethodParameter.Callback(methodParameter, ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Get(parameter.key));
+                    CallInputOutputMethodParameter.Callback(methodParameter, MethodParameter.GetNodeTarget<IDictionary<KT, VT>>(methodParameter).Get(parameter.key));
                 }
                 public override ValueResult<ResponseParameter> CallOutputBeforePersistence(CallInputOutputMethodParameter methodParameter)
                 {
                     p1 parameter = CallInputOutputMethodParameter<p1>.GetParameter(((CallInputOutputMethodParameter<p1>)methodParameter));
-                    return CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter(methodParameter, (ValueResult<VT?>)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Get(parameter.key));
+                    return CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter(methodParameter, (ValueResult<VT?>)MethodParameter.GetNodeTarget<IDictionary<KT, VT>>(methodParameter).Get(parameter.key));
                 }
                 public override bool CallBeforePersistence(CallInputOutputMethodParameter methodParameter)
                 {
                     p1 parameter = CallInputOutputMethodParameter<p1>.GetParameter(((CallInputOutputMethodParameter<p1>)methodParameter));
 #pragma warning disable CS8605
-                    return (bool)(object?)ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Get(parameter.key);
+                    return (bool)(object?)MethodParameter.GetNodeTarget<IDictionary<KT, VT>>(methodParameter).Get(parameter.key);
 #pragma warning restore CS8605
                 }
             }
@@ -1072,7 +1073,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public override void CallInputOutput(CallInputOutputMethodParameter methodParameter)
                 {
                     p1 parameter = CallInputOutputMethodParameter<p1>.GetParameter(((CallInputOutputMethodParameter<p1>)methodParameter));
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).GetCallback(parameter.key, MethodCallback<VT?>.Create(methodParameter));
+                    MethodParameter.GetNodeTarget<IDictionary<KT, VT>>(methodParameter).GetCallback(parameter.key, MethodCallback<VT?>.Create(methodParameter));
                 }
             }
             public sealed class m6 : SendOnlyMethod<p0>
@@ -1081,7 +1082,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public override void SendOnly(SendOnlyMethodParameter methodParameter)
                 {
                     p0 parameter = SendOnlyMethodParameter<p0>.GetParameter(((SendOnlyMethodParameter<p0>)methodParameter));
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).Add(parameter.key, parameter.value);
+                    MethodParameter.GetNodeTarget<IDictionary<KT, VT>>(methodParameter).Add(parameter.key, parameter.value);
                 }
             }
             public sealed class m7 : KeepCallbackMethod
@@ -1098,7 +1099,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 public override void InputKeepCallback(InputKeepCallbackMethodParameter methodParameter)
                 {
                     p1 parameter = InputKeepCallbackMethodParameter<p1>.GetParameter(((InputKeepCallbackMethodParameter<p1>)methodParameter));
-                    ServerNode<IDictionary<KT, VT>>.GetTarget(((ServerNode<IDictionary<KT, VT>>)MethodParameter.GetNode(methodParameter))).GetKeepCallback(parameter.key, MethodKeepCallback<VT>.Create(methodParameter));
+                    MethodParameter.GetNodeTarget<IDictionary<KT, VT>>(methodParameter).GetKeepCallback(parameter.key, MethodKeepCallback<VT>.Create(methodParameter));
                 }
             }
         }

@@ -440,10 +440,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case CallTypeEnum.InputCallback:
                 case CallTypeEnum.InputKeepCallback:
                 case CallTypeEnum.InputEnumerable:
-                    callMethodGenerator.call(ServerNodeCreator.MethodParameterGetNode.Method);
+                    //callMethodGenerator.call(ServerNodeCreator.MethodParameterGetNode.Method);
+                    callMethodGenerator.call(((Func<MethodParameter, T>)MethodParameter.GetNodeTarget<T>).Method);
+                    break;
+                default:
+                    callMethodGenerator.call(((Func<ServerNode<T>, T>)ServerNode<T>.GetTarget).Method);
                     break;
             }
-            callMethodGenerator.call(((Func<ServerNode<T>, T>)ServerNode<T>.GetTarget).Method);
             CallMethodParameter(callMethodGenerator, inputParameterLocalBuilder);
             switch (CallType)
             {

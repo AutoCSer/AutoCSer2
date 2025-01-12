@@ -65,6 +65,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                 //IntByteArrayFragmentDictionaryNode+Server.GetJsonSerialize 8192 Concurrent Completed 4194304/8960ms = 468/ms
                 //IntByteArrayFragmentDictionaryNode+Server.Remove 8192 Concurrent Completed 4194304/4750ms = 883/ms
 
+                await IntDictionaryNode.Test();
+
                 Console.WriteLine("Press quit to exit.");
                 if (Console.ReadLine() == "quit") return;
             }

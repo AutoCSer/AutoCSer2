@@ -7788,6 +7788,11 @@
             任务队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueue.ThreadId">
+            <summary>
+            队列线程ID
+            </summary>
+        </member>
         <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueue.run">
             <summary>
             任务线程处理
@@ -7833,9 +7838,9 @@
             自定义任务队列节点 await AutoCSer.Net.CommandClientReturnValue
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.isQueue">
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.queue">
             <summary>
-            是否已经添加到队列
+            接口任务队列
             </summary>
         </member>
         <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.#ctor(AutoCSer.Net.CommandServer.ClientCallbackTypeEnum)">
@@ -7844,10 +7849,11 @@
             </summary>
             <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
         </member>
-        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.CheckQueue">
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.CheckQueue(AutoCSer.Threading.InterfaceControllerTaskQueue)">
             <summary>
             检查是否已经添加到队列
             </summary>
+            <param name="queue"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode.SetReturn">
@@ -7861,9 +7867,9 @@
             </summary>
             <typeparam name="T">返回值类型</typeparam>
         </member>
-        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.isQueue">
+        <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.queue">
             <summary>
-            是否已经添加到队列
+            接口任务队列
             </summary>
         </member>
         <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.#ctor(AutoCSer.Net.CommandServer.ClientCallbackTypeEnum)">
@@ -7872,10 +7878,11 @@
             </summary>
             <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
         </member>
-        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.CheckQueue">
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.CheckQueue(AutoCSer.Threading.InterfaceControllerTaskQueue)">
             <summary>
             检查是否已经添加到队列
             </summary>
+            <param name="queue"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueCustomNode`1.SetReturn(`0)">
@@ -7891,7 +7898,7 @@
         </member>
         <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueMethodAttribute.CallbackType">
             <summary>
-            数据回调线程模式，默认为 Task.Run
+            数据回调线程模式，默认为 CheckRunTask
             </summary>
         </member>
         <member name="F:AutoCSer.Threading.InterfaceControllerTaskQueueMethodAttribute.Default">
@@ -7968,11 +7975,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.SetReturn(`0)">
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.SetReturn(`0,System.Boolean)">
             <summary>
             设置返回值
             </summary>
             <param name="returnValue"></param>
+            <param name="isSynchronousThread"></param>
         </member>
         <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNode`1.SetReturn(AutoCSer.Threading.InterfaceControllerTaskQueueNode{`0},`0)">
             <summary>
@@ -8029,17 +8037,12 @@
             </summary>
             <param name="next"></param>
         </member>
-        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.SetReturnType(AutoCSer.Net.CommandClientReturnTypeEnum)">
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.SetReturnType(AutoCSer.Net.CommandClientReturnTypeEnum,System.Boolean)">
             <summary>
             设置返回值类型
             </summary>
             <param name="returnType"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.Callback(System.Action)">
-            <summary>
-            异步回调
-            </summary>
-            <param name="callback"></param>
+            <param name="isSynchronousThread"></param>
         </member>
         <member name="T:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod">
             <summary>
@@ -8181,50 +8184,6 @@
             </summary>
             <param name="semaphoreSlimLock"></param>
             <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
-        </member>
-        <member name="T:AutoCSer.Threading.SwitchAwaiter">
-            <summary>
-            await 强制 Task.Run 操作
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.SwitchAwaiter.IsCompleted">
-            <summary>
-            完成状态
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SwitchAwaiter.#ctor">
-            <summary>
-            await 强制 Task.Run 操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SwitchAwaiter.Wait">
-            <summary>
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.SwitchAwaiter.GetResult">
-            <summary>
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.SwitchAwaiter.GetAwaiter">
-            <summary>
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.SwitchAwaiter.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
-            <summary>
-            设置异步回调
-            </summary>
-            <param name="continuation"></param>
-        </member>
-        <member name="F:AutoCSer.Threading.SwitchAwaiter.Default">
-            <summary>
-            await 强制 Task.Run 操作
-            </summary>
         </member>
         <member name="T:AutoCSer.Threading.SynchronizationContextAction">
             <summary>
