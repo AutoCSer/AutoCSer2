@@ -10,6 +10,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClass));
             await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(TestClassMessage));
             await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(PerformanceMessage));
@@ -20,7 +22,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 {
                     Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
                 };
-                ServiceConfig cacheServiceConfig = new ServiceConfig
+                ServiceConfig databaseServiceConfig = new ServiceConfig
                 {
                     PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase)),
                     PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(ServiceConfig.PersistenceSwitchPath)),
@@ -28,7 +30,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
                     .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
+                    .Append<IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())

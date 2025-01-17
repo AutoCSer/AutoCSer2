@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 字典节点
     /// </summary>
-    public class HashBytesDictionaryNode : IHashBytesDictionaryNode
+    public sealed class HashBytesDictionaryNode : IHashBytesDictionaryNode
 #if NetStandard21
         , ISnapshot<KeyValue<byte[], byte[]?>>
 #else

@@ -318,13 +318,22 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
             /// </summary>
             RemoveNode = 24,
             /// <summary>
-            /// [25] 创建计数器节点 ICounterNode
+            /// [25] 创建服务注册节点 IServerRegistryNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int loadTimeoutSeconds 冷启动会话超时秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateServerRegistryNode = 25,
+            /// <summary>
+            /// [256] 创建计数器节点 ICounterNode
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateCounterNode = 25,
+            CreateCounterNode = 256,
         }
 }
 #endif

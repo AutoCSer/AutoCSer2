@@ -55,7 +55,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
         /// 命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
         /// </summary>
         /// <param name="socket"></param>
-        protected override async Task onMethodVerified(CommandClientSocket socket)
+        public override async Task OnSetController(CommandClientSocket socket)
         {
             if (backuper == null) backuper = await slaveServiceConfig.Create(this, socket);
             else socket.SessionObject = backuper;

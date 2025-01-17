@@ -15,14 +15,15 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
-                ServiceConfig cacheServiceConfig = new ServiceConfig
+                ServiceConfig databaseServiceConfig = new ServiceConfig
                 {
                     PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)),
                     PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(ServiceConfig.PersistenceSwitchPath)),
                 };
-                using (LocalService cacheService = cacheServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
+                using (LocalService cacheService = databaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                 {
                     LocalClient<ICustomServiceNodeLocalClientNode> client = cacheService.CreateClient<ICustomServiceNodeLocalClientNode>();
                     do

@@ -111,6 +111,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal abstract void Loaded();
         /// <summary>
+        /// 释放节点资源
+        /// </summary>
+        internal abstract void NodeDispose();
+        /// <summary>
         /// 服务端节点移除后处理
         /// </summary>
         internal virtual void OnRemoved()
@@ -655,12 +659,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return target;
         }
         /// <summary>
+        /// 释放节点资源
+        /// </summary>
+        internal override void NodeDispose()
+        {
+            var node = target as INode;
+            if (node != null)
+            {
+                try
+                {
+                    node.StreamPersistenceMemoryDatabaseServiceDisposable();
+                }
+                catch (Exception exception)
+                {
+                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                }
+            }
+        }
+        /// <summary>
         /// 服务端节点移除后处理
         /// </summary>
         internal override void OnRemoved()
         {
             base.OnRemoved();
-            var node = target as INode<T>;
+            var node = target as INode;
             if (node != null)
             {
                 try

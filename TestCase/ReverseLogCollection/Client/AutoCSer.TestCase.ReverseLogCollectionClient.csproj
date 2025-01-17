@@ -22,15 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandClientConfig.cs" />
+    <Compile Include="ReverseLogCollectionClusterClient.cs" />
     <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ReverseLogCollectionClient.cs" />
-    <Compile Include="ReverseLogCollectionClientServiceRegistrar.cs" />
+    <Compile Include="ServerRegistryClusterClient.cs" />
+    <Compile Include="ServerRegistryLogCommandClientSocketEvent.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.NET8.csproj" />
+    <ProjectReference Include="..\..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.ReverseLogCollectionCommon.csproj" />
   </ItemGroup>
 

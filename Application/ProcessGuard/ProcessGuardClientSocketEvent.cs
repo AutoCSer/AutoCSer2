@@ -46,7 +46,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
-        protected override Task onMethodVerified(CommandClientSocket socket)
+        public override Task OnSetController(CommandClientSocket socket)
         {
             return ProcessGuardClient.OnClientMethodVerified();
         }

@@ -9034,6 +9034,135 @@
             <param name="source">原串起始地址，长度必须大于0</param>
             <param name="destination">目标数据</param>
         </member>
+        <member name="T:AutoCSer.DictionaryCreator">
+            <summary>
+            创建字典
+            </summary>
+            <summary>
+            创建字典
+            </summary>
+            <summary>
+            创建字典
+            </summary>
+            <summary>
+            创建字典
+            </summary>
+            <summary>
+            创建字典
+            </summary>
+            <summary>
+            创建字典
+            </summary>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateULong``1">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateULong``1(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateAny``2">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateAny``2(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateHashObject``2">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="T">数据类型</typeparam>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateHashObject``2(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateLong``1">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateLong``1(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateUInt``1">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateUInt``1(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateInt``1">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateInt``1(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateDateTime``1">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.DictionaryCreator.CreateDateTime``1(System.Int32)">
+            <summary>
+            创建字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="capacity">初始化容器尺寸</param>
+            <returns>字典</returns>
+        </member>
         <member name="T:AutoCSer.CompletedTask`1">
             <summary>
             默认值已完成任务
@@ -20681,7 +20810,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandClientSocketEventCache`1">
             <summary>
-            命令客户端套接字事件
+            命令客户端套接字事件缓存
             </summary>
             <typeparam name="T">命令客户端套接字事件类型</typeparam>
         </member>
@@ -21503,6 +21632,33 @@
             输出数据访问锁申请完成
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.HostEndPoint">
+            <summary>
+            服务监听地址信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.HostEndPoint.IPEndPoint">
+            <summary>
+            服务监听地址
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.HostEndPoint.RegisterHost">
+            <summary>
+            服务注册地址信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.HostEndPoint.#ctor(AutoCSer.Net.HostEndPoint)">
+            <summary>
+            服务监听地址信息
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.HostEndPoint.op_Implicit(AutoCSer.Net.HostEndPoint)~AutoCSer.Net.CommandServer.HostEndPoint">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.CallbackFlagsEnum">
             <summary>
             回调参数标志
@@ -21807,6 +21963,11 @@
         <member name="M:AutoCSer.Net.CommandServer.ClientCheckTimer.OnTimer">
             <summary>
             定时器触发
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientCheckTimer.Cancel">
+            <summary>
+            取消心跳检测
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientInterfaceController">
@@ -24045,6 +24206,11 @@
             返回值类型是否一致
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodBase.isCustomBaseMethod">
+            <summary>
+            是否自定义基础方法
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodBase.Error">
             <summary>
             错误信息
@@ -24069,7 +24235,7 @@
             <param name="methodGenerator"></param>
             <param name="newInputParameterLocalBuilder"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs``1(System.Type,AutoCSer.Net.CommandServer.InterfaceMethodIndexAttribute,System.Type,AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{System.String}@,``0[]@)">
+        <member name="M:AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs``1(System.Type,AutoCSer.Net.CommandServer.InterfaceMethodIndexAttribute,System.Type,AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{System.String}@,``0[]@,System.Int32)">
             <summary>
             检查方法编号
             </summary>
@@ -24080,9 +24246,18 @@
             <param name="methodArray"></param>
             <param name="messages"></param>
             <param name="methods"></param>
+            <param name="minCustomMethodIndex"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.InterfaceMethodBase.Compare(AutoCSer.Net.CommandServer.InterfaceMethodBase,AutoCSer.Net.CommandServer.InterfaceMethodBase)">
+            <summary>
+            服务端接口方法排序
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.InterfaceMethodBase.MethodCompare(AutoCSer.Net.CommandServer.InterfaceMethodBase,AutoCSer.Net.CommandServer.InterfaceMethodBase)">
             <summary>
             服务端接口方法排序
             </summary>
@@ -26250,6 +26425,11 @@
             保持回调输出计数
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.isMethodRunTask">
+            <summary>
+            API 独占 Task.Run 操作
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.runTaskCount">
             <summary>
             async Task 调度计数
@@ -26258,6 +26438,11 @@
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.isSynchronousCallTask">
             <summary>
             默认为 false 表示系统自动调度 Task，否则使用 IO 线程同步调用 Task
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.isSynchronousCallTaskTimestamp">
+            <summary>
+            同步调用 async Task 时间戳是否满足需求 
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.MethodType">
@@ -26312,16 +26497,30 @@
             <param name="socket"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetTaskException">
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.checkIsSynchronousCallTask(AutoCSer.Net.CommandServerSocket)">
             <summary>
-            async Task 调用异常
+            否则使用 IO 线程同步调用 Task
             </summary>
+            <param name="socket"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CheckGetTaskTimestamp(System.Int64)">
             <summary>
             async Task 调度时间检查
             </summary>
             <param name="startTimestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CheckGetTaskException">
+            <summary>
+            async Task 调用异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.SetTaskException">
+            <summary>
+            async Task 调用异常
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CheckGetTaskTimestamp(AutoCSer.Net.CommandServer.ServerInterfaceMethod,System.Int64)">
             <summary>
@@ -27285,7 +27484,7 @@
             服务监听主机与端口信息
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.ICommandClient.ServiceName">
+        <member name="P:AutoCSer.Net.ICommandClient.ServerName">
             <summary>
             服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
             </summary>
@@ -27481,7 +27680,7 @@
             反向命令服务客户端监听配置
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandReverseListener.ServiceName">
+        <member name="P:AutoCSer.Net.CommandReverseListener.ServerName">
             <summary>
             服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
             </summary>
@@ -28849,7 +29048,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandClientMethodAttribute.CallbackType">
             <summary>
-            数据回调线程模式，默认为 Task.Run
+            数据回调线程模式，默认为 CheckRunTask
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientMethodAttribute.QueueIndex">
@@ -28877,7 +29076,7 @@
             服务注册客户端监听组件
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientServiceRegistrar.client">
+        <member name="F:AutoCSer.Net.CommandClientServiceRegistrar.Client">
             <summary>
             命令客户端
             </summary>
@@ -29162,7 +29361,7 @@
             </summary>
             <param name="socket"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent.onMethodVerified(AutoCSer.Net.CommandClientSocket)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent.OnSetController(AutoCSer.Net.CommandClientSocket)">
             <summary>
             命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
@@ -29226,7 +29425,7 @@
             <param name="client">命令客户端</param>
             <param name="isSymmetryInterface">是否对称接口定义</param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.onMethodVerified(AutoCSer.Net.CommandClientSocket)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.OnSetController(AutoCSer.Net.CommandClientSocket)">
             <summary>
             当前套接字通过验证方法，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
@@ -29319,7 +29518,7 @@
             是否触发快速关闭套接字
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandListenerBase.ServiceName">
+        <member name="P:AutoCSer.Net.CommandListenerBase.ServerName">
             <summary>
             服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
             </summary>
@@ -29348,6 +29547,13 @@
             <summary>
             释放资源
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListenerBase.DisposeServiceRegistrar(System.Int32)">
+            <summary>
+            释放服务注册组件以后关闭服务
+            </summary>
+            <param name="delayMilliseconds">释放服务注册组件以后等待毫秒数</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandListenerBase.DisposeSocket">
@@ -31599,7 +31805,7 @@
             命令服务配置
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerConfigBase.ServiceName">
+        <member name="F:AutoCSer.Net.CommandServerConfigBase.ServerName">
             <summary>
             服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
             </summary>
@@ -32555,7 +32761,7 @@
             命令服务配置
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandClient.ServiceName">
+        <member name="P:AutoCSer.Net.CommandClient.ServerName">
             <summary>
             服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
             </summary>
@@ -34254,6 +34460,11 @@
             <param name="verifyMethodIndex"></param>
             <param name="controllerQueue">控制器同步队列标记</param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerController`1.Close">
+            <summary>
+            关闭控制器
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerController`1.getController(AutoCSer.Net.CommandServerSocket)">
             <summary>
             获取控制器接口实例
@@ -34390,7 +34601,7 @@
             日志处理实例
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandListener.ServiceName">
+        <member name="P:AutoCSer.Net.CommandListener.ServerName">
             <summary>
             服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
             </summary>
@@ -34558,6 +34769,11 @@
             Task.Run 并发检查
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.TaskRunConcurrent">
+            <summary>
+            增加 Task.Run 并发
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandListener.FreeTaskRunConcurrent">
             <summary>
@@ -37781,7 +37997,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServiceRegistrar.OnListened(System.Net.IPEndPoint)">
+        <member name="M:AutoCSer.Net.CommandServiceRegistrar.OnListened(AutoCSer.Net.HostEndPoint)">
             <summary>
             服务监听成功
             </summary>
@@ -39055,52 +39271,6 @@
             <param name="ticks"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.DictionaryCreator">
-            <summary>
-            创建字典
-            </summary>
-        </member>
-        <member name="M:AutoCSer.DictionaryCreator.CreateAny``2">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="KT">关键字类型</typeparam>
-            <typeparam name="VT">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.DictionaryCreator.CreateAny``2(System.Int32)">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="KT">关键字类型</typeparam>
-            <typeparam name="VT">数据类型</typeparam>
-            <param name="capacity">初始化容器尺寸</param>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.DictionaryCreator.CreateInt``1">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.DictionaryCreator.CreateHashObject``2">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="KT">关键字类型</typeparam>
-            <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.DictionaryCreator.CreateHashObject``2(System.Int32)">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="KT">关键字类型</typeparam>
-            <typeparam name="T">数据类型</typeparam>
-            <param name="capacity">初始化容器尺寸</param>
-            <returns>字典</returns>
-        </member>
         <member name="T:AutoCSer.DictionaryCreator`1">
             <summary>
             创建字典
@@ -40213,7 +40383,7 @@
         </member>
         <member name="T:AutoCSer.Threading.SwitchAwaiter">
             <summary>
-            await 强制 Task.Run 操作
+            await 强制 Task.Run 操作（在 async Task Main 中执行也可以防止 UI 线程死锁）
             </summary>
         </member>
         <member name="F:AutoCSer.Threading.SwitchAwaiter.isCompleted">
@@ -40263,7 +40433,7 @@
         </member>
         <member name="F:AutoCSer.Threading.SwitchAwaiter.Default">
             <summary>
-            await 强制 Task.Run 操作
+            await 强制 Task.Run 操作（在 async Task Main 中执行也可以防止 UI 线程死锁）
             </summary>
         </member>
         <member name="F:AutoCSer.Threading.SwitchAwaiter.Completed">
@@ -44965,6 +45135,13 @@
             </summary>
             <param name="value">新数据</param>
             <param name="isValue">匹配条件</param>
+        </member>
+        <member name="M:AutoCSer.LeftArray`1.RemoveToEnd(`0)">
+            <summary>
+            移除第一个匹配数据，然后将最后一个数据移动到被删除数据位置
+            </summary>
+            <param name="value">数据匹配</param>
+            <returns>是否存在移除数据</returns>
         </member>
         <member name="M:AutoCSer.LeftArray`1.RemoveToEnd(System.Func{`0,System.Boolean})">
             <summary>

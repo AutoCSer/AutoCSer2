@@ -1,5 +1,7 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
 using AutoCSer.Extensions;
+using AutoCSer.Net.CommandServer;
+using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,6 +16,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     internal sealed class ServerNodeMethod : NodeMethod
     {
+        /// <summary>
+        /// 自定义基础服务节点方法最小方法编号
+        /// </summary>
+        internal const int MinCustomServiceNodeMethodIndex = 256;
         /// <summary>
         /// 持久化之前检查参数方法的名称后缀
         /// </summary>
@@ -552,6 +558,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             #endregion
             return (Method)typeBuilder.CreateType().GetConstructor(EmptyArray<Type>.Array).notNull().Invoke(null);
         }
+        /// <summary>
+        /// 自定义基础服务节点方法检查
+        /// </summary>
+        internal void CheckCustomServiceNode()
+        {
+            if (Method.DeclaringType != typeof(IServiceNode))
+            {
+                if (MethodIndex < MinCustomServiceNodeMethodIndex) MethodIndex = -1;
+                isCustomBaseMethod = true;
+            }
+        }
 
         /// <summary>
         /// 获取服务端接口方法集合
@@ -575,6 +592,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 methods.Add(serverMethod);
             }
             return null;
+        }
+
+        /// <summary>
+        /// 服务端接口方法排序
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        internal static int Compare(ServerNodeMethod left, ServerNodeMethod right)
+        {
+            return AutoCSer.Net.CommandServer.InterfaceMethodBase.MethodCompare(left, right);
         }
     }
 }

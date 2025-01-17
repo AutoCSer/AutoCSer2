@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 排序集合节点
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    public class SortedSetNode<T> : ISortedSetNode<T>, ISnapshot<T>
+    public sealed class SortedSetNode<T> : ISortedSetNode<T>, ISnapshot<T>
         where T : IComparable<T>
     {
         /// <summary>

@@ -1049,9 +1049,19 @@
             返回值 bool 是否成功删除节点，否则表示没有找到节点
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateServerRegistryNode">
+            <summary>
+            [25] 创建服务注册节点 IServerRegistryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int loadTimeoutSeconds 冷启动会话超时秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateCallbackNode">
             <summary>
-            [25] 
+            [256] 
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
             string key 
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
@@ -1060,7 +1070,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateGameNode">
             <summary>
-            [26] 
+            [257] 
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
             string key 
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 

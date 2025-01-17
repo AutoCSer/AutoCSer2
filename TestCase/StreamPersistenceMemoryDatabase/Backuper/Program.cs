@@ -12,6 +12,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             SlaveServiceConfig slaveServiceConfig = new SlaveServiceConfig
             {
                 PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper)),

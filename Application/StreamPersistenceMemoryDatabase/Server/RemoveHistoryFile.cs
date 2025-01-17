@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -8,12 +9,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 删除历史持久化文件
     /// </summary>
-    public sealed class RemoveHistoryFile
+    public class RemoveHistoryFile
     {
         /// <summary>
         /// 日志流持久化内存数据库服务端
         /// </summary>
-        private readonly StreamPersistenceMemoryDatabaseServiceBase service;
+#if NetStandard21
+        private volatile StreamPersistenceMemoryDatabaseServiceBase? service;
+#else
+        private volatile StreamPersistenceMemoryDatabaseServiceBase service;
+#endif
         /// <summary>
         /// 持久化文件名称
         /// </summary>
@@ -48,8 +53,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 删除文件
         /// </summary>
+        /// <param name="service"></param>
         /// <returns></returns>
-        public async Task Remove()
+        internal async Task Remove(StreamPersistenceMemoryDatabaseServiceBase service)
         {
             DateTime removeTime = service.Config.GetRemoveHistoryFileTime();
             await remove(directory, removeTime);
@@ -85,11 +91,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public async Task Remove(AutoCSer.Threading.TaskRunTimer runTimer)
         {
-            while (!service.IsDisposed)
+            var service = this.service;
+            if (service == null || service.IsDisposed) return;
+            if (service.Set(this))
             {
-                await runTimer.Delay();
-                await Remove();
+                do
+                {
+                    service = this.service;
+                    if (service == null || service.IsDisposed) return;
+                    await runTimer.Delay();
+                    await Remove(service);
+                }
+                while (true);
             }
+        }
+        /// <summary>
+        /// 取消任务
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Cancel()
+        {
+            service = null;
         }
     }
 }

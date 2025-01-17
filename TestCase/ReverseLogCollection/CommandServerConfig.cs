@@ -1,35 +1,30 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoCSer.Net;
-using AutoCSer.CommandService;
-using System.Net;
 
 namespace AutoCSer.TestCase.ReverseLogCollection
 {
     /// <summary>
-    /// 命令服务端配置
+    /// 消息集群服务配置
     /// </summary>
-    internal sealed class CommandServerConfig : ServiceRegistryCommandServerConfig
+    internal sealed class CommandServerConfig : AutoCSer.Net.CommandServerConfig
     {
         /// <summary>
-        /// 获取服务注册组件（初始化时一次性调用）
+        /// 服务端注册组件
+        /// </summary>
+        private AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar<ServerRegistryCommandClientSocketEvent> registrar;
+        /// <summary>
+        /// 获取服务注册组件
         /// </summary>
         /// <param name="server"></param>
         /// <returns></returns>
-        public override async Task<AutoCSer.Net.CommandServiceRegistrar> GetRegistrar(CommandListener server)
+        public override Task<AutoCSer.Net.CommandServiceRegistrar> GetRegistrar(AutoCSer.Net.CommandListener server)
         {
-            ServiceRegistryCommandClientConfig commandClientConfig = new AutoCSer.TestCase.ReverseLogCollectionCommon.ServiceRegistryCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry) };
-            ServiceRegistryClient client = await ServiceRegistryClient.Get(commandClientConfig, this);
-            return await ServiceRegistryCommandServiceRegistrar.Create(server, client, this, null) ?? await base.GetRegistrar(server);
-        }
-        /// <summary>
-        /// 获取服务注册日志
-        /// </summary>
-        /// <param name="endPoint"></param>
-        /// <returns></returns>
-        public override ServiceRegisterLog GetServiceRegisterLog(IPEndPoint endPoint)
-        {
-            return new ServiceRegisterLog(this, endPoint, ServiceRegisterOperationTypeEnum.ClusterNode);
+            if (registrar == null)
+            {
+                registrar = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar<ServerRegistryCommandClientSocketEvent>(server, ServerRegistryCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache, ServerRegistryCommandClientSocketEvent.ServerRegistryNodeCache, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.ClusterNode);
+                return ServerRegistryCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Append(registrar);
+            }
+            return Task.FromResult((AutoCSer.Net.CommandServiceRegistrar)registrar);
         }
     }
 }

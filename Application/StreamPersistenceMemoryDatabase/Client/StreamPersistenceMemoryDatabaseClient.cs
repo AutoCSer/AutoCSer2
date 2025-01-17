@@ -21,6 +21,10 @@ namespace AutoCSer.CommandService
         /// </summary>
         public readonly IStreamPersistenceMemoryDatabaseClientSocketEvent Client;
         /// <summary>
+        /// 创建客户端节点访问锁
+        /// </summary>
+        private readonly System.Threading.SemaphoreSlim createNodeLock = new System.Threading.SemaphoreSlim(1, 1);
+        /// <summary>
         /// 日志流持久化内存数据库客户端
         /// </summary>
         /// <param name="client">日志流持久化内存数据库客户端套接字事件</param>
@@ -76,28 +80,33 @@ namespace AutoCSer.CommandService
             NodeInfo nodeInfo = ClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {
-                CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo, true);
-                if (index.IsSuccess)
+                await createNodeLock.WaitAsync();
+                try
                 {
-                    CallStateEnum state = index.Value.GetState();
-                    if (state == CallStateEnum.Success)
+                    CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo, true);
+                    if (index.IsSuccess)
                     {
-                        if (index.Value.GetFree())
+                        CallStateEnum state = index.Value.GetState();
+                        if (state == CallStateEnum.Success)
                         {
-                            ResponseResult<NodeIndex> nodeIndex = await creator(index.Value, key, nodeInfo);
-                            if (nodeIndex.IsSuccess)
+                            if (index.Value.GetFree())
                             {
-                                state = nodeIndex.Value.GetState();
-                                if (state == CallStateEnum.Success) return nodeIndex.Value;
-                                return state;
+                                ResponseResult<NodeIndex> nodeIndex = await creator(index.Value, key, nodeInfo);
+                                if (nodeIndex.IsSuccess)
+                                {
+                                    state = nodeIndex.Value.GetState();
+                                    if (state == CallStateEnum.Success) return nodeIndex.Value;
+                                    return state;
+                                }
+                                return nodeIndex.Cast<NodeIndex>();
                             }
-                            return nodeIndex.Cast<NodeIndex>();
+                            return index.Value;
                         }
-                        return index.Value;
+                        return state;
                     }
-                    return state;
+                    return new ResponseResult<NodeIndex>(index.ReturnType, index.ErrorMessage);
                 }
-                return new ResponseResult<NodeIndex>(index.ReturnType, index.ErrorMessage);
+                finally { createNodeLock.Release(); }
             }
             return new ResponseResult<NodeIndex>(CallStateEnum.NotFoundClientNodeCreator, exception.Message);
         }
@@ -689,6 +698,18 @@ namespace AutoCSer.CommandService
         public override ResponseParameterAwaiter<bool> RemoveNode(ClientNode node)
         {
             return ClientNode.RemoveNode(node.Index);
+        }
+        /// <summary>
+        /// 创建服务注册节点，不存在则创建节点 IServerRegistryNode
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IServerRegistryNodeClientNode>> GetOrCreateServerRegistryNode(string key = nameof(ServerRegistryNode), int loadTimeoutSeconds = 30, bool isPersistenceCallbackExceptionRenewNode = false)
+        {
+            return GetOrCreateNode<IServerRegistryNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateServerRegistryNode(index, nodeKey, nodeInfo, loadTimeoutSeconds), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取消息处理节点，不存在则创建节点 MessageNode{ServerByteArrayMessage}

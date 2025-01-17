@@ -55,6 +55,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal FileInfo PersistenceCallbackExceptionPositionSwitchFileInfo;
         /// <summary>
+        /// 删除历史持久化文件
+        /// </summary>
+#if NetStandard21
+        protected RemoveHistoryFile? removeHistoryFile;
+#else
+        protected RemoveHistoryFile removeHistoryFile;
+#endif
+        /// <summary>
         /// 生成服务端节点集合
         /// </summary>
         private readonly Dictionary<HashObject<Type>, ServerNodeCreator> nodeCreators;
@@ -230,6 +238,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             RepairNodeMethodLoaders = AutoCSer.Extensions.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
             PersistenceDataPositionBuffer = AutoCSer.Common.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
             Nodes = new NodeIdentity[sizeof(int)];
+        }
+        /// <summary>
+        /// 释放节点资源
+        /// </summary>
+        internal void NodeDispose()
+        {
+            foreach(ServerNode node in nodeDictionary.Values) node.NodeDispose();
+        }
+        /// <summary>
+        /// 设置删除历史持久化文件
+        /// </summary>
+        /// <param name="removeHistoryFile"></param>
+        /// <returns></returns>
+        public bool Set(RemoveHistoryFile removeHistoryFile)
+        {
+            if (object.ReferenceEquals(this.removeHistoryFile, removeHistoryFile)) return false;
+            removeHistoryFile?.Cancel();
+            this.removeHistoryFile = removeHistoryFile;
+            return true;
         }
         /// <summary>
         /// 切换持久化文件信息

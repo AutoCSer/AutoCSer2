@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 字典节点
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
-    public class ByteArrayDictionaryNode<KT> : IByteArrayDictionaryNode<KT>
+    public sealed class ByteArrayDictionaryNode<KT> : IByteArrayDictionaryNode<KT>
 #if NetStandard21
         , ISnapshot<KeyValue<KT, byte[]?>>
 #else

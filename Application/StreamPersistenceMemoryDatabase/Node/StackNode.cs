@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 栈节点（后进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class StackNode<T> : IStackNode<T>, ISnapshot<T>
+    public sealed class StackNode<T> : IStackNode<T>, ISnapshot<T>
     {
         /// <summary>
         /// 栈

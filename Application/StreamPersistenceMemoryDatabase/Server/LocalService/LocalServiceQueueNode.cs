@@ -22,9 +22,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 异步回调
         /// </summary>
 #if NetStandard21
-        private Action? continuation;
+        protected Action? continuation;
 #else
-        private Action continuation;
+        protected Action continuation;
 #endif
         /// <summary>
         /// 返回结果

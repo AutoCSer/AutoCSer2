@@ -2,10 +2,15 @@
 
 namespace AutoCSer.Document.MemoryDatabaseLocalService
 {
+    /// <summary>
+    /// https://zhuanlan.zhihu.com/p/16409903680
+    /// </summary>
     internal class Program
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             Console.WriteLine($"{nameof(CustomNode.Client.CounterNode)} {await CustomNode.Client.CounterNode.Test()}");
 
             Console.WriteLine($"{nameof(DictionaryNode)} {await DictionaryNode.Test()}");

@@ -17,14 +17,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #if NetStandard21
         [AllowNull]
 #endif
-        protected StreamPersistenceMemoryDatabaseService streamPersistenceMemoryDatabaseService { get; private set; }
+        public StreamPersistenceMemoryDatabaseService StreamPersistenceMemoryDatabaseService { get; private set; }
         /// <summary>
         /// 服务端节点
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
-        protected ServerNode<T> streamPersistenceMemoryDatabaseNode { get; private set; }
+        public ServerNode<T> StreamPersistenceMemoryDatabaseNode { get; private set; }
         /// <summary>
         /// 服务端执行队列
         /// </summary>
@@ -38,9 +38,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="node">服务端节点</param>
         public virtual void SetContext(ServerNode<T> node)
         {
-            streamPersistenceMemoryDatabaseService = (StreamPersistenceMemoryDatabaseService)node.NodeCreator.Service;
-            streamPersistenceMemoryDatabaseNode = node;
-            StreamPersistenceMemoryDatabaseCallQueue = streamPersistenceMemoryDatabaseService.CommandServerCallQueue;
+            StreamPersistenceMemoryDatabaseService = (StreamPersistenceMemoryDatabaseService)node.NodeCreator.Service;
+            StreamPersistenceMemoryDatabaseNode = node;
+            StreamPersistenceMemoryDatabaseCallQueue = StreamPersistenceMemoryDatabaseService.CommandServerCallQueue;
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -56,6 +56,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public virtual void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved() { }
         /// <summary>
+        /// 数据库服务关闭操作
+        /// </summary>
+        public virtual void StreamPersistenceMemoryDatabaseServiceDisposable() { }
+        /// <summary>
         /// 根据节点全局关键字获取服务端节点
         /// </summary>
         /// <param name="key">节点全局关键字</param>
@@ -69,13 +73,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (isSnapshotTransaction)
             {
-                var node = streamPersistenceMemoryDatabaseNode.GetSnapshotTransactionNode(key);
+                var node = StreamPersistenceMemoryDatabaseNode.GetSnapshotTransactionNode(key);
                 if (node != null) return node;
-                node = streamPersistenceMemoryDatabaseService.GetServerNode(key);
-                if (node != null) streamPersistenceMemoryDatabaseNode.AppendSnapshotTransaction(key, node);
+                node = StreamPersistenceMemoryDatabaseService.GetServerNode(key);
+                if (node != null) StreamPersistenceMemoryDatabaseNode.AppendSnapshotTransaction(key, node);
                 return node;
             }
-            return streamPersistenceMemoryDatabaseService.GetServerNode(key);
+            return StreamPersistenceMemoryDatabaseService.GetServerNode(key);
         }
     }
     /// <summary>

@@ -146,7 +146,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
 #if NetStandard21
-        internal ResponseResult(CommandClientReturnTypeEnum returnType, string? errorMessage = null)
+        public ResponseResult(CommandClientReturnTypeEnum returnType, string? errorMessage = null)
 #else
         internal ResponseResult(CommandClientReturnTypeEnum returnType, string errorMessage = null)
 #endif

@@ -16,6 +16,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         bool RemoveNode(NodeIndex index);
         /// <summary>
+        /// 创建服务注册节点 IServerRegistryNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateServerRegistryNode(NodeIndex index, string key, NodeInfo nodeInfo, int loadTimeoutSeconds);
+        /// <summary>
         /// 创建消息处理节点 MessageNode{ServerByteArrayMessage}
         /// </summary>
         /// <param name="index">节点索引信息</param>

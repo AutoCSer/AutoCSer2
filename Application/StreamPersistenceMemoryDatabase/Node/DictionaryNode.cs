@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    public class DictionaryNode<KT, VT> : IDictionaryNode<KT, VT>, ISnapshot<KeyValue<KT, VT>>
+    public sealed class DictionaryNode<KT, VT> : IDictionaryNode<KT, VT>, ISnapshot<KeyValue<KT, VT>>
         where KT : IEquatable<KT>
     {
         /// <summary>

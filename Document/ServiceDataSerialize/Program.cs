@@ -9,6 +9,8 @@ namespace AutoCSer.Document.ServiceDataSerialize
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             //允许的反射创建非明确对象的类型
             await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(AutoCSer.Document.ServiceDataSerialize.BinarySerialize.RealType));
 

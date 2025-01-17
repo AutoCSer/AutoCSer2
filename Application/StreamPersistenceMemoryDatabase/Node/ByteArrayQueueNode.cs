@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 队列节点（先进先出）
     /// </summary>
-    public class ByteArrayQueueNode : IByteArrayQueueNode
+    public sealed class ByteArrayQueueNode : IByteArrayQueueNode
 #if NetStandard21
         , ISnapshot<byte[]?>
 #else

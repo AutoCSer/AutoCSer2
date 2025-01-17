@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 分布式锁节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DistributedLockNode<T> : ContextNode<IDistributedLockNode<T>, DistributedLockIdentity<T>>, IDistributedLockNode<T>, ISnapshot<DistributedLockIdentity<T>>
+    public sealed class DistributedLockNode<T> : ContextNode<IDistributedLockNode<T>, DistributedLockIdentity<T>>, IDistributedLockNode<T>, ISnapshot<DistributedLockIdentity<T>>
         where T : IEquatable<T>
     {
         /// <summary>
@@ -94,12 +94,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (!locks.TryGetValue(key, out distributedLock))
                 {
                     locks.Add(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
-                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
+                    StreamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     callback.SynchronousCallback(distributedLock.Identity.Identity);
                 }
                 else
                 {
-                    streamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
+                    StreamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     callback.Reserve = timeoutSeconds;
                     distributedLock.Enter(callback);
                 }

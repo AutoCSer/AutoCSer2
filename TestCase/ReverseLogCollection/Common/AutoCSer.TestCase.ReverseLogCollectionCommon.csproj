@@ -18,13 +18,9 @@
 
   <ItemGroup>
     <Compile Include="LogInfo.cs" />
-    <Compile Include="ServiceRegistryCommandClientConfig.cs" />
-    <Compile Include="ServiceRegistryCommandClientSocketEvent.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Application\ServiceRegistry\AutoCSer.CommandService.ServiceRegistry.NET8.csproj" />
-    <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
 

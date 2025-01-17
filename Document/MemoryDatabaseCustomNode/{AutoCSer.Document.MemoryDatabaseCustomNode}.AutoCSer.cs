@@ -65,6 +65,15 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
         public partial interface ICustomServiceNodeClientNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode
         {
             /// <summary>
+            /// 创建持久化前置检查示例节点 IBeforePersistenceNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="capacity">初始化容器尺寸</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateBeforePersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            /// <summary>
             /// 创建计数器节点 ICounterNode
             /// </summary>
             /// <param name="index">节点索引信息</param>
@@ -92,15 +101,6 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             /// <param name="capacity">初始化容器尺寸</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateDictionarySnapshotCloneCounterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
-            /// <summary>
-            /// 创建持久化前置检查示例节点 IBeforePersistenceNode
-            /// </summary>
-            /// <param name="index">节点索引信息</param>
-            /// <param name="key">节点全局关键字</param>
-            /// <param name="nodeInfo">节点信息</param>
-            /// <param name="capacity">初始化容器尺寸</param>
-            /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateBeforePersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
         }
 }namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {
@@ -475,15 +475,33 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             /// </summary>
             RemoveNode = 24,
             /// <summary>
-            /// [25] 创建计数器节点 ICounterNode
+            /// [25] 创建服务注册节点 IServerRegistryNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int loadTimeoutSeconds 冷启动会话超时秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateServerRegistryNode = 25,
+            /// <summary>
+            /// [256] 创建持久化前置检查示例节点 IBeforePersistenceNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int capacity 初始化容器尺寸
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateBeforePersistenceNode = 256,
+            /// <summary>
+            /// [257] 创建计数器节点 ICounterNode
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateCounterNode = 25,
+            CreateCounterNode = 257,
             /// <summary>
-            /// [26] 创建字典计数器节点 IDictionaryCounterNode{T}
+            /// [258] 创建字典计数器节点 IDictionaryCounterNode{T}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -491,9 +509,9 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             /// int capacity 初始化容器尺寸
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateDictionaryCounterNode = 26,
+            CreateDictionaryCounterNode = 258,
             /// <summary>
-            /// [27] 创建支持快照克隆的字典计数器节点 IDictionarySnapshotCloneCounterNode{T}
+            /// [259] 创建支持快照克隆的字典计数器节点 IDictionarySnapshotCloneCounterNode{T}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
@@ -501,16 +519,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             /// int capacity 初始化容器尺寸
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateDictionarySnapshotCloneCounterNode = 27,
-            /// <summary>
-            /// [28] 创建持久化前置检查示例节点 IBeforePersistenceNode
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
-            /// string key 节点全局关键字
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            /// int capacity 初始化容器尺寸
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
-            /// </summary>
-            CreateBeforePersistenceNode = 28,
+            CreateDictionarySnapshotCloneCounterNode = 259,
         }
 }namespace AutoCSer.Document.MemoryDatabaseCustomNode
 {

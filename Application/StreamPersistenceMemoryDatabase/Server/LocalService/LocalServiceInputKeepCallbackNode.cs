@@ -48,6 +48,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal LocalServiceInputKeepCallbackNode(LocalClientNode clientNode, CallStateEnum result, Action<LocalResult<T>> callback) : base(clientNode.Client.Service)
         {
             IsCompleted = true;
+            continuation = Common.EmptyAction;
             this.clientNode = clientNode;
             this.callback = new LocalServiceKeepCallbackNodeCallback<T>(callback, clientNode.IsSynchronousCallback);
             this.callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(result));

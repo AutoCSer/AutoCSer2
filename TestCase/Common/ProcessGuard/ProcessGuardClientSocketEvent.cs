@@ -19,9 +19,9 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
-        protected override async Task onMethodVerified(CommandClientSocket socket)
+        public override async Task OnSetController(CommandClientSocket socket)
         {
-            await base.onMethodVerified(socket);
+            await base.OnSetController(socket);
 
             if (ProcessGuardClient.GuardReturnValue.IsSuccess)
             {

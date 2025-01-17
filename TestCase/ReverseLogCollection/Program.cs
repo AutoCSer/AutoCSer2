@@ -10,8 +10,10 @@ namespace AutoCSer.TestCase.ReverseLogCollection
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             ReverseLogCollectionService<LogInfo> controller = new ReverseLogCollectionService<LogInfo>();
-            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ReverseLogCollection), ServiceName = LogInfo.ServiceName };
+            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ReverseLogCollection), ServerName = LogInfo.ServerName };
             await using (CommandListener commandListener = new CommandListenerBuilder(0)
                 .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                 .Append<IReverseLogCollectionService<LogInfo>>(controller)

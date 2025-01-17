@@ -1,14 +1,16 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.TestCase.ReverseLogCollectionCommon;
 using System;
+using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.LogCollectionReverseClient
 {
     /// <summary>
     /// 日志收集反向服务
     /// </summary>
-    internal sealed class LogCollectionReverseService : ILogCollectionReverseService<LogInfo>, IDisposable
+    internal sealed class LogCollectionReverseService : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient<LogCollectionReverseService>, ILogCollectionReverseService<LogInfo>
     {
         /// <summary>
         /// 反向命令服务客户端
@@ -17,22 +19,25 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
         /// <summary>
         /// 日志收集反向服务
         /// </summary>
-        /// <param name="hostEndPoint"></param>
-        internal LogCollectionReverseService(ref HostEndPoint hostEndPoint)
+        /// <param name="serverRegistryClusterClient"></param>
+        /// <param name="log"></param>
+        internal LogCollectionReverseService(ServerRegistryClusterClient serverRegistryClusterClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog log) : base(serverRegistryClusterClient, log)
         {
-            CommandReverseClientConfig commandServerConfig = new CommandReverseClientConfig { Host = hostEndPoint };
+            CommandReverseClientConfig commandServerConfig = new CommandReverseClientConfig { Host = log.HostEndPoint };
             commandReverseClient = new CommandListenerBuilder(2)
                 .Append<ITimestampVerifyReverseService<string>>(new TimestampVerifyReverseService<string>(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                 .Append<ILogCollectionReverseService<LogInfo>>(this)
                 .CreateCommandListener(commandServerConfig);
         }
         /// <summary>
-        /// 释放资源
+        /// 获取客户端连接
         /// </summary>
-        public void Dispose()
-        {
-            commandReverseClient.Dispose();
-        }
+        /// <returns>返回 null 表示失败</returns>
+        protected override Task<bool> getSocket() { throw new InvalidOperationException(); }
+        /// <summary>
+        /// 关闭客户端
+        /// </summary>
+        protected override void close() { commandReverseClient.Dispose(); }
         /// <summary>
         /// 添加日志
         /// </summary>

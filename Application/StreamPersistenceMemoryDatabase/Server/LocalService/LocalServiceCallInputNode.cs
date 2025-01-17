@@ -56,6 +56,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             nodeIndex = clientNode.Index;
             this.result = new LocalResult(result);
             IsCompleted = true;
+            continuation = Common.EmptyAction;
         }
         /// <summary>
         /// 调用节点方法

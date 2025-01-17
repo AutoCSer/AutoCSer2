@@ -10,10 +10,12 @@ namespace AutoCSer.TestCase.LogCollectionReverseService
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             CommandClientConfig commandClientConfig = new CommandClientConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ReverseLogCollection),
-                ServiceName = LogInfo.ServiceName
+                ServerName = LogInfo.ServerName
             };
             await using (CommandReverseListener commandListener = new CommandReverseListener(commandClientConfig))
             {

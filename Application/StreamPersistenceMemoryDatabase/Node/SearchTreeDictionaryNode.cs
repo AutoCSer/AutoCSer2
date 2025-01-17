@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">排序关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    public class SearchTreeDictionaryNode<KT, VT> : ISearchTreeDictionaryNode<KT, VT>, ISnapshot<KeyValue<KT, VT>>
+    public sealed class SearchTreeDictionaryNode<KT, VT> : ISearchTreeDictionaryNode<KT, VT>, ISnapshot<KeyValue<KT, VT>>
         where KT : IComparable<KT>
     {
         /// <summary>

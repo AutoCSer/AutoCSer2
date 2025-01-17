@@ -11,6 +11,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 节点移除后处理
         /// </summary>
         void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved();
+        /// <summary>
+        /// 数据库服务关闭操作
+        /// </summary>
+        void StreamPersistenceMemoryDatabaseServiceDisposable();
     }
     /// <summary>
     /// 服务端节点接口

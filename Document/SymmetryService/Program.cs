@@ -9,6 +9,8 @@ namespace AutoCSer.Document.SymmetryService
         /// </summary>
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             AutoCSer.Net.CommandServerConfig config = new AutoCSer.Net.CommandServerConfig
             {
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document) 

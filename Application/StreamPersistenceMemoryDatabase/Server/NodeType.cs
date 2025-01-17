@@ -54,19 +54,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             LeftArray<ServerNodeMethod> methodArray = new LeftArray<ServerNodeMethod>(0);
             Error = ServerNodeMethod.GetMethod(type, ref methodArray);
             if (Error != null) return;
+            bool isCustomServiceNode = false;
             foreach (Type interfaceType in type.GetInterfaces())
             {
                 Error = ServerNodeMethod.GetMethod(interfaceType, ref methodArray);
                 if (Error != null) return;
+                isCustomServiceNode |= interfaceType == typeof(IServiceNode);
             }
             if (methodArray.Length == 0)
             {
                 Error = $"没有找到接口方法定义 {type.fullName()}";
                 return;
             }
+            if (isCustomServiceNode)
+            {
+                foreach(ServerNodeMethod method in methodArray) method.CheckCustomServiceNode();
+            }
 
-            methodArray.Sort(AutoCSer.Net.CommandServer.InterfaceMethodBase.Compare);
-            Error = AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs(type, NodeAttribute, ServerNodeMethodIndexAttribute.MethodIndexEnumType, ref methodArray, ref Messages, out Methods);
+            methodArray.Sort(ServerNodeMethod.Compare);
+            Error = AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs(type, NodeAttribute, ServerNodeMethodIndexAttribute.MethodIndexEnumType, ref methodArray, ref Messages, out Methods, ServerNodeMethod.MinCustomServiceNodeMethodIndex);
             if (Error != null) return;
             foreach (var beforePersistenceMethod in Methods)
             {

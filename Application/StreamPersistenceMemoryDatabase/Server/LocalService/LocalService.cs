@@ -19,7 +19,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (config.OnlyLocalService)
             {
                 CommandServerCallQueue = new AutoCSer.Net.CommandServerCallQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null, 0);
-                CommandServerCallQueue.AddOnly(new ServiceLoad(this));
+                CommandServerCallQueue.AddOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
             }
         }
         /// <summary>

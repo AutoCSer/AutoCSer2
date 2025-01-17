@@ -29,7 +29,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public bool IsSendOnly;
         /// <summary>
-        /// 默认为 false 表示生成 await 客户端 API，设置为 true 则生成委托回调客户端 API（服务端必须保证触发回调操作，否则会造成客户端一直等待）
+        /// 默认为 false 表示生成 await 客户端 API，设置为 true 则生成委托回调客户端 API
         /// </summary>
         public bool IsCallbackClient;
         /// <summary>

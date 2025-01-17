@@ -11,6 +11,8 @@ namespace AutoCSer.Document.ServiceAuthentication
         /// <returns></returns>
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             Console.WriteLine($"{nameof(TimestampVerify)} {await timestampVerify()}");
             Console.WriteLine($"{nameof(CustomVerify)} {await customVerify()}");
             Console.WriteLine($"{nameof(SetCommand)} {await setCommand()}");

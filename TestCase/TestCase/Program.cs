@@ -15,6 +15,7 @@ namespace AutoCSer.TestCase
 #endif
         {
 #if NetStandard21
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             await test();
 #else
             new UISynchronousTask(test).Wait();

@@ -888,21 +888,30 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// </summary>
             RemoveNode = 24,
             /// <summary>
-            /// [25] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
-            /// string key 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// [25] 创建服务注册节点 IServerRegistryNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int loadTimeoutSeconds 冷启动会话超时秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
-            CreateCallbackNode = 25,
+            CreateServerRegistryNode = 25,
             /// <summary>
-            /// [26] 
+            /// [256] 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
             /// string key 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
             /// </summary>
-            CreateGameNode = 26,
+            CreateCallbackNode = 256,
+            /// <summary>
+            /// [257] 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
+            /// string key 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// </summary>
+            CreateGameNode = 257,
         }
 }
 #endif

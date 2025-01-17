@@ -7,6 +7,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 await AwaiterClient.Test();

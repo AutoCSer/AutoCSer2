@@ -20,6 +20,6 @@ namespace AutoCSer.TestCase.ReverseLogCollectionCommon
         /// <summary>
         /// 反向日志收集服务名称
         /// </summary>
-        public const string ServiceName = "AutoCSer.TestCase.ReverseLogCollection";
+        public const string ServerName = "AutoCSer.TestCase.ReverseLogCollection";
     }
 }

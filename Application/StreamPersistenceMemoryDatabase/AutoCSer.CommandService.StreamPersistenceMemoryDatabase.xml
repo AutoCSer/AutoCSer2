@@ -9385,6 +9385,11 @@
             节点移除后处理
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.StreamPersistenceMemoryDatabaseServiceDisposable">
+            <summary>
+            数据库服务关闭操作
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.GetSnapshotCapacity(System.Object@)">
             <summary>
             获取快照数据集合容器大小，用于预申请快照数据容器
@@ -10353,6 +10358,1143 @@
             获取队列中下一个弹出数据（不弹出数据仅查看）
             </summary>
             <returns>没有可弹出数据则返回无数据</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar">
+            <summary>
+            服务注册客户端监听组件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar.log">
+            <summary>
+            当前主日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar.isGetServerEndPoint">
+            <summary>
+            是否已经获取服务监听地址
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            服务注册客户端监听组件
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            服务日志回调
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar.logChanged">
+            <summary>
+            服务端监听地址更新通知
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar`1">
+            <summary>
+            服务注册客户端监听组件
+            </summary>
+            <typeparam name="T">客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar`1.socket">
+            <summary>
+            客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar`1.logClient">
+            <summary>
+            注册服务客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar`1.#ctor(AutoCSer.Net.ICommandClient,`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode})">
+            <summary>
+            服务注册客户端监听组件
+            </summary>
+            <param name="client"></param>
+            <param name="socket"></param>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar`1.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar`1.GetServerEndPoint">
+            <summary>
+            获取服务监听地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient">
+            <summary>
+            注册服务客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.registrar">
+            <summary>
+            服务注册客户端监听组件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.callback">
+            <summary>
+            注册服务客户端日志回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar,AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode},System.String)">
+            <summary>
+            注册服务客户端
+            </summary>
+            <param name="registrar">服务注册客户端监听组件</param>
+            <param name="node">服务注册节点</param>
+            <param name="serverName">服务名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.Cancel">
+            <summary>
+            取消回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.LogCallback">
+            <summary>
+            服务日志回调委托
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.logCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            服务日志回调
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback)">
+            <summary>
+            服务日志回调
+            </summary>
+            <param name="log"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback">
+            <summary>
+            注册服务客户端日志回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.client">
+            <summary>
+            注册服务客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.keepCallback">
+            <summary>
+            服务日志保持回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.mainLog">
+            <summary>
+            当前主日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.logs">
+            <summary>
+            附加日志集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.isLoaded">
+            <summary>
+            是否已经加载完初始数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient)">
+            <summary>
+            注册服务客户端日志回调
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.Cancel">
+            <summary>
+            取消回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.LogCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode)">
+            <summary>
+            获取服务注册日志
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClientCallback.logCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog},AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            服务日志回调
+            </summary>
+            <param name="result"></param>
+            <param name="command"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1">
+            <summary>
+            集群客户端节点
+            </summary>
+            <typeparam name="T">集群客户端节点类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.serverRegistryClusterClient">
+            <summary>
+            集群服务客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.Log">
+            <summary>
+            服务注册日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.ClientIndex">
+            <summary>
+            客户端数组索引位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.IsClosed">
+            <summary>
+            客户端是否已经关闭
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.isCheck">
+            <summary>
+            是否正在检查客户端连接
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            内存数据库集群客户端
+            </summary>
+            <param name="clusterClient">集群服务客户端</param>
+            <param name="log">服务注册日志</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.check">
+            <summary>
+            检查客户端连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.getSocket">
+            <summary>
+            获取客户端连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.Close">
+            <summary>
+            关闭客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.close">
+            <summary>
+            关闭客户端
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar">
+            <summary>
+            服务端注册组件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.nodeCache">
+            <summary>
+            服务注册节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.keepCallback">
+            <summary>
+            服务注册保持回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.endPoint">
+            <summary>
+            服务主机与端口信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.serverRegistryLog">
+            <summary>
+            服务注册日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.sessionID">
+            <summary>
+            服务会话标识ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.serverRegistryType">
+            <summary>
+            注册节点类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.version">
+            <summary>
+            回调版本
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.isAppendRegistrar">
+            <summary>
+            是否已经添加服务端注册组件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.IsAppendRegistrar">
+            <summary>
+            是否可以添加服务端注册组件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.#ctor(AutoCSer.Net.CommandListenerBase,AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum)">
+            <summary>
+            服务端注册组件
+            </summary>
+            <param name="server">待注册命令服务</param>
+            <param name="node">服务注册节点缓存</param>
+            <param name="serverRegistryType">注册节点类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.DisposeAsync">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.ServiceCallback">
+            <summary>
+            服务注册回调委托
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.serviceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum},AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            服务注册回调
+            </summary>
+            <param name="operationType"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar.getServerRegistryLog(AutoCSer.Net.HostEndPoint)">
+            <summary>
+            获取服务注册日志
+            </summary>
+            <param name="endPoint"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar`1">
+            <summary>
+            服务端注册组件
+            </summary>
+            <typeparam name="T">客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar`1.client">
+            <summary>
+            命令客户端套接字事件缓存
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar`1.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar`1.DisposeAsync">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar`1.#ctor(AutoCSer.Net.CommandListenerBase,AutoCSer.Net.CommandClientSocketEventCache{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum)">
+            <summary>
+            服务端注册组件
+            </summary>
+            <param name="server">待注册命令服务</param>
+            <param name="client">命令客户端套接字事件缓存</param>
+            <param name="node">服务注册节点缓存</param>
+            <param name="serverRegistryType">注册节点类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar`1.OnListened(AutoCSer.Net.HostEndPoint)">
+            <summary>
+            服务监听成功
+            </summary>
+            <param name="endPoint"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1">
+            <summary>
+            集群客户端
+            </summary>
+            <typeparam name="T">集群客户端节点类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.clientArray">
+            <summary>
+            客户端数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.clients">
+            <summary>
+            客户端集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.clientLock">
+            <summary>
+            客户端访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode},System.String)">
+            <summary>
+            集群客户端
+            </summary>
+            <param name="node">服务注册节点</param>
+            <param name="serverName">服务名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.LogCallback">
+            <summary>
+            服务日志回调委托
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.remove(System.Int64)">
+            <summary>
+            移除客户端
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.onRemoved(`0)">
+            <summary>
+            移除客户端
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.Append(`0)">
+            <summary>
+            添加客户端
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1">
+            <summary>
+            服务注册命令客户端套接字事件
+            </summary>
+            <typeparam name="T">客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.registrars">
+            <summary>
+            服务端注册组件集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.registrarLock">
+            <summary>
+            服务端注册组件访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.isServiceCallback">
+            <summary>
+            添加服务端注册组件是否需要注册回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            服务注册命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar)">
+            <summary>
+            添加服务端注册组件
+            </summary>
+            <param name="registrar"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar)">
+            <summary>
+            移除服务端注册组件
+            </summary>
+            <param name="registrar"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.OnSetController(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1">
+            <summary>
+            注册服务客户端套接字事件
+            </summary>
+            <typeparam name="T">客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.clients">
+            <summary>
+            注册服务客户端集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.clientLock">
+            <summary>
+            注册服务客户端访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.isLogCallback">
+            <summary>
+            添加注册服务客户端是否需要注册回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient)">
+            <summary>
+            添加注册服务客户端
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient)">
+            <summary>
+            移除注册服务客户端
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.OnSetController(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode">
+            <summary>
+            服务注册节点接口
+            </summary>
+            <summary>
+            服务注册节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.GetSessionID">
+            <summary>
+            获取服务会话标识ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.ServiceCallback(System.Int64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum})">
+            <summary>
+            服务注册回调委托
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="callback">服务注册日志回调委托</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            添加服务注册日志
+            </summary>
+            <param name="log"></param>
+            <returns>服务注册结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.LogCallback(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog})">
+            <summary>
+            获取服务注册日志
+            </summary>
+            <param name="serverName">监视服务名称，空字符串表示所有服务</param>
+            <param name="callback">服务注册日志回调委托，null 表示在线检查</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.GetLog(System.String)">
+            <summary>
+            获取服务主日志
+            </summary>
+            <param name="serverName">服务名称</param>
+            <returns>返回 null 表示没有找到服务主日志</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient">
+            <summary>
+            注册服务客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.NodeCache">
+            <summary>
+            服务注册节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.ServerName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.keepCallback">
+            <summary>
+            服务日志保持回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.IsAppendClient">
+            <summary>
+            是否已经添加注册服务客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.LogCallback">
+            <summary>
+            服务日志回调委托
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode},System.String)">
+            <summary>
+            注册服务客户端
+            </summary>
+            <param name="node">服务注册节点</param>
+            <param name="serverName">服务名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.logCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog},AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            服务日志回调
+            </summary>
+            <param name="result"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.logCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            服务日志回调
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog">
+            <summary>
+            服务注册日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.SessionID">
+            <summary>
+            服务会话标识ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.ServerName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.Host">
+            <summary>
+            主机名称或者IP地址
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.NodeIndex">
+            <summary>
+            集群节点编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.Version">
+            <summary>
+            服务版本号，高版本上线将踢掉所有低版本节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.Port">
+            <summary>
+            端口号
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.HostEndPoint">
+            <summary>
+            服务主机与端口信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.OperationType">
+            <summary>
+            服务注册日志操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.TimeoutSeconds">
+            <summary>
+            单例服务强制上线等待秒数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.#ctor">
+            <summary>
+            服务注册日志
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.#ctor(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum)">
+            <summary>
+            服务注册日志
+            </summary>
+            <param name="serverName"></param>
+            <param name="operationType"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.#ctor(System.Int64,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum)">
+            <summary>
+            服务注册日志
+            </summary>
+            <param name="sessionID"></param>
+            <param name="serverName"></param>
+            <param name="operationType"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.#ctor(System.Int64,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum,AutoCSer.Net.HostEndPoint,System.UInt32,System.UInt32,System.Byte)">
+            <summary>
+            服务注册日志
+            </summary>
+            <param name="sessionID"></param>
+            <param name="serverName"></param>
+            <param name="operationType"></param>
+            <param name="endPoint"></param>
+            <param name="nodeIndex"></param>
+            <param name="version"></param>
+            <param name="timeoutSeconds"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.CreateLostContact">
+            <summary>
+            创建服务失联日志
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.CreateLogout">
+            <summary>
+            创建注销服务日志
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler">
+            <summary>
+            服务注册日志组装
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Node">
+            <summary>
+            服务注册节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.loadedLog">
+            <summary>
+            初始化日志回调完成
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.logs">
+            <summary>
+            附加日志集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.MainLog">
+            <summary>
+            主日志
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.SnapshotLogCount">
+            <summary>
+            获取快照日志数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.SnapshotLogs">
+            <summary>
+            获取快照日志集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.callbacks">
+            <summary>
+            服务注册日志回调委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.maxVersion">
+            <summary>
+            注册服务最大版本号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode,System.String)">
+            <summary>
+            服务注册日志组装
+            </summary>
+            <param name="node"></param>
+            <param name="serverName"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Load(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            冷启动初始化加载数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Loaded">
+            <summary>
+            冷启动初始化完毕
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.getLogIndex(System.Int64)">
+            <summary>
+            获取日志索引位置
+            </summary>
+            <param name="sessionID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            添加服务注册日志
+            </summary>
+            <param name="session"></param>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.SingletonTimeout(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog)">
+            <summary>
+            单例服务超时强制下线
+            </summary>
+            <param name="mainLog"></param>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog})">
+            <summary>
+            添加服务注册日志回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog})">
+            <summary>
+            初始化服务注册日志回调委托
+            </summary>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.checkSession">
+            <summary>
+            服务会话在线检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Logout(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            注销服务
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum">
+            <summary>
+            服务注册日志操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.ClusterMain">
+            <summary>
+            注册集群服务主节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.ClusterNode">
+            <summary>
+            注册集群服务普通节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.Singleton">
+            <summary>
+            注册单例服务并通知当前服务下线，用于避免多队列类型服务并发写冲突的问题
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.Logout">
+            <summary>
+            注销服务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.CheckOnline">
+            <summary>
+            服务在线检查
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.Offline">
+            <summary>
+            通知单例服务下线
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.LostContact">
+            <summary>
+            失联服务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.CallbackLoaded">
+            <summary>
+            初始化日志回调完成
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum.LoadCurrentSessionID">
+            <summary>
+            初始化加载当前已分配服务会话标识ID
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession">
+            <summary>
+            服务会话信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.callback">
+            <summary>
+            服务注册回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.isOnline">
+            <summary>
+            服务是否在线
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.IsCallback">
+            <summary>
+            服务注册回调委托是否有效
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum})">
+            <summary>
+            服务会话信息
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum})">
+            <summary>
+            设置服务注册回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.Check(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode)">
+            <summary>
+            检查服务是否在线
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.Offline">
+            <summary>
+            通知单例服务下线
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog">
+            <summary>
+            服务注册会话与日志信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog.Log">
+            <summary>
+            服务注册日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog.Session">
+            <summary>
+            服务会话信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            服务注册会话与日志信息
+            </summary>
+            <param name="session"></param>
+            <param name="log"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum">
+            <summary>
+            服务注册状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.Unknown">
+            <summary>
+            未知错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.UnsupportedServerName">
+            <summary>
+            不支持的服务名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.UnrecognizableOperationType">
+            <summary>
+            不可识别服务注册日志操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.NotFoundServerSessionID">
+            <summary>
+            没有找到服务会话标识ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.NotFoundServerSessionCallback">
+            <summary>
+            没有找到有效的服务会话回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.NotFoundServerName">
+            <summary>
+            没有找到服务名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.VersionTooLow">
+            <summary>
+            注册服务版本过低
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum.OperationTypeConflict">
+            <summary>
+            服务注册日志操作类型冲突
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode">
+            <summary>
+            服务注册节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.logAssemblers">
+            <summary>
+            服务名称集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.sessions">
+            <summary>
+            服务会话信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.logCallbacks">
+            <summary>
+            服务注册日志回调委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.loadedLog">
+            <summary>
+            初始化日志回调完成
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.currentSessionID">
+            <summary>
+            当前已分配服务会话标识ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.LoadTimeoutTimestamp">
+            <summary>
+            冷启动会话超时时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.loadTimeoutSeconds">
+            <summary>
+            冷启动会话超时秒数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.#ctor(System.Int32)">
+            <summary>
+            服务注册节点
+            </summary>
+            <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.StreamPersistenceMemoryDatabaseServiceLoaded">
+            <summary>
+            初始化加载完毕处理
+            </summary>
+            <returns>加载完毕替换的新节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.GetSessionID">
+            <summary>
+            获取服务会话标识ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.ServiceCallback(System.Int64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum})">
+            <summary>
+            服务注册回调委托
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="callback">服务注册日志回调委托</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            添加服务注册日志
+            </summary>
+            <param name="log"></param>
+            <returns>服务注册结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.LogCallback(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog})">
+            <summary>
+            获取服务注册日志
+            </summary>
+            <param name="serverName">监视服务名称，空字符串表示所有服务</param>
+            <param name="callback">服务注册日志回调委托，null 表示在线检查</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.Callback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog}}@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            服务注册日志回调
+            </summary>
+            <param name="callbacks"></param>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.Callback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog}}@)">
+            <summary>
+            服务注册日志回调在线检查
+            </summary>
+            <param name="callbacks"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.callback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog}}@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            服务注册日志回调
+            </summary>
+            <param name="callbacks"></param>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.GetLog(System.String)">
+            <summary>
+            获取服务主日志
+            </summary>
+            <param name="serverName">服务名称</param>
+            <returns>返回 null 表示没有找到服务主日志</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode">
+            <summary>
+            单例服务超时强制下线任务节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode.logAssembler">
+            <summary>
+            服务注册日志组装
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode.mainLog">
+            <summary>
+            需要下线的主服务日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode.log">
+            <summary>
+            等待上线的服务日志
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog)">
+            <summary>
+            单例服务器超时强制下线任务节点
+            </summary>
+            <param name="logAssembler"></param>
+            <param name="mainLog"></param>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode.AppendQueueNode">
+            <summary>
+            添加超时检查队列任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode.RunTask">
+            <summary>
+            检查主服务日志
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult">
             <summary>
@@ -13401,6 +14543,16 @@
             <param name="index">节点索引信息</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建服务注册节点 IServerRegistryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateServerByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
             <summary>
             创建消息处理节点 MessageNode{ServerByteArrayMessage}
@@ -14351,6 +15503,21 @@
             <param name="rebuilder"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallbackTypeEnum">
+            <summary>
+            内存数据库回调类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallbackTypeEnum.Load">
+            <summary>
+            初始化加载数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallbackTypeEnum.NodeDispose">
+            <summary>
+            释放节点资源
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneNode`1">
             <summary>
             快照克隆接口节点
@@ -14662,6 +15829,11 @@
             重建持久化回调异常位置文件信息
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.removeHistoryFile">
+            <summary>
+            删除历史持久化文件
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.nodeCreators">
             <summary>
             生成服务端节点集合
@@ -14809,6 +15981,18 @@
             <param name="config">日志流持久化内存数据库服务端配置</param>
             <param name="isMaster">是否主节点</param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.NodeDispose">
+            <summary>
+            释放节点资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile)">
+            <summary>
+            设置删除历史持久化文件
+            </summary>
+            <param name="removeHistoryFile"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.SwitchPersistenceFileInfo">
             <summary>
             切换持久化文件信息
@@ -14940,12 +16124,12 @@
             </summary>
             <typeparam name="T">服务节点类型</typeparam>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1.streamPersistenceMemoryDatabaseService">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1.StreamPersistenceMemoryDatabaseService">
             <summary>
             日志流持久化内存数据库服务端
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1.streamPersistenceMemoryDatabaseNode">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1.StreamPersistenceMemoryDatabaseNode">
             <summary>
             服务端节点
             </summary>
@@ -14970,6 +16154,11 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
             <summary>
             节点移除后处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1.StreamPersistenceMemoryDatabaseServiceDisposable">
+            <summary>
+            数据库服务关闭操作
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1.getServerNode(System.String,System.Boolean)">
@@ -15027,6 +16216,11 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.INode.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
             <summary>
             节点移除后处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.INode.StreamPersistenceMemoryDatabaseServiceDisposable">
+            <summary>
+            数据库服务关闭操作
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.INode`1">
@@ -16058,10 +17252,11 @@
             </summary>
             <param name="service">日志流持久化内存数据库服务端</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.Remove">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase)">
             <summary>
             删除文件
             </summary>
+            <param name="service"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.remove(System.IO.DirectoryInfo,System.DateTime)">
@@ -16078,6 +17273,11 @@
             </summary>
             <param name="runTimer"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.Cancel">
+            <summary>
+            取消任务
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodLoader">
             <summary>
@@ -16227,7 +17427,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.IsCallbackClient">
             <summary>
-            默认为 false 表示生成 await 客户端 API，设置为 true 则生成委托回调客户端 API（服务端必须保证触发回调操作，否则会造成客户端一直等待）
+            默认为 false 表示生成 await 客户端 API，设置为 true 则生成委托回调客户端 API
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.IsIgnorePersistenceCallbackException">
@@ -16809,6 +18009,11 @@
             初始化加载完毕处理
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.NodeDispose">
+            <summary>
+            释放节点资源
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.OnRemoved">
             <summary>
             服务端节点移除后处理
@@ -17036,6 +18241,11 @@
             </summary>
             <param name="target"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`1.NodeDispose">
+            <summary>
+            释放节点资源
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`1.OnRemoved">
             <summary>
@@ -17569,6 +18779,11 @@
             服务端节点方法信息
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.MinCustomServiceNodeMethodIndex">
+            <summary>
+            自定义基础服务节点方法最小方法编号
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.BeforePersistenceMethodNameSuffix">
             <summary>
             持久化之前检查参数方法的名称后缀
@@ -17672,6 +18887,11 @@
             <param name="repairMethod">修复方法信息</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.CheckCustomServiceNode">
+            <summary>
+            自定义基础服务节点方法检查
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.GetMethod(System.Type,AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod}@)">
             <summary>
             获取服务端接口方法集合
@@ -17679,6 +18899,14 @@
             <param name="type"></param>
             <param name="methods"></param>
             <returns>错误信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.Compare(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod)">
+            <summary>
+            服务端接口方法排序
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType">
             <summary>
@@ -18132,23 +19360,29 @@
             重建完成
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceLoad">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallback">
             <summary>
-            加载数据
+            内存数据库回调
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceLoad.service">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallback.service">
             <summary>
             日志流持久化内存数据库服务端
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceLoad.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService)">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallback.type">
+            <summary>
+            内存数据库回调类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallback.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallbackTypeEnum)">
             <summary>
             加载数据
             </summary>
             <param name="service">日志流持久化内存数据库服务端</param>
+            <param name="type">内存数据库回调类型</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceLoad.RunTask">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceCallback.RunTask">
             <summary>
             回调操作
             </summary>
@@ -18545,6 +19779,16 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建服务注册节点 IServerRegistryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateServerByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
@@ -20388,6 +21632,45 @@
             </summary>
             <returns>没有可弹出数据则返回无数据</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode">
+            <summary>
+            服务注册节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            添加服务注册日志
+            </summary>
+            <param name="log"></param>
+            <returns>服务注册结果</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode.GetSessionID">
+            <summary>
+            获取服务会话标识ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode.LogCallback(System.String,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            获取服务注册日志
+            </summary>
+            <param name="serverName">监视服务名称，空字符串表示所有服务</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode.ServiceCallback(System.Int64,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            服务注册回调委托
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode.GetLog(System.String)">
+            <summary>
+            获取服务主日志
+            </summary>
+            <param name="serverName">服务名称</param>
+            <returns>返回 null 表示没有找到服务主日志</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode">
             <summary>
             服务基础操作接口方法映射枚举 客户端节点接口
@@ -20655,6 +21938,16 @@
             </summary>
             <param name="index">节点索引信息</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建服务注册节点 IServerRegistryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeClientNode`1">
             <summary>
@@ -21413,6 +22706,16 @@
             </summary>
             <param name="index">节点索引信息</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建服务注册节点 IServerRegistryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeLocalClientNode`1">
             <summary>
@@ -22940,6 +24243,51 @@
             返回值 bool 是否删除成功
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum">
+            <summary>
+            服务注册节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.Append">
+            <summary>
+            [0] 添加服务注册日志
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog log 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum 服务注册结果
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.GetSessionID">
+            <summary>
+            [1] 获取服务会话标识ID
+            返回值 long 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.LogCallback">
+            <summary>
+            [2] 获取服务注册日志
+            string serverName 监视服务名称，空字符串表示所有服务
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.ServiceCallback">
+            <summary>
+            [3] 服务注册回调委托
+            long sessionID 服务会话标识ID
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.SnapshotSet">
+            <summary>
+            [4] 快照设置数据
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.GetLog">
+            <summary>
+            [5] 获取服务主日志
+            string serverName 服务名称
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog 返回 null 表示没有找到服务主日志
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeMethodEnum">
             <summary>
             服务基础操作接口方法映射枚举 节点方法序号映射枚举类型
@@ -23208,6 +24556,16 @@
             返回值 bool 是否成功删除节点，否则表示没有找到节点
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeMethodEnum.CreateServerRegistryNode">
+            <summary>
+            [25] 创建服务注册节点 IServerRegistryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int loadTimeoutSeconds 冷启动会话超时秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNodeMethodEnum">
             <summary>
             排序字典节点 节点方法序号映射枚举类型
@@ -23463,6 +24821,11 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient.Client">
             <summary>
             日志流持久化内存数据库客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient.createNodeLock">
+            <summary>
+            创建客户端节点访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient.#ctor(AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClientSocketEvent)">
@@ -23873,6 +25236,15 @@
             </summary>
             <param name="node">客户端节点</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateServerRegistryNode(System.String,System.Int32,System.Boolean)">
+            <summary>
+            创建服务注册节点，不存在则创建节点 IServerRegistryNode
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateServerByteArrayMessageNode(System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>

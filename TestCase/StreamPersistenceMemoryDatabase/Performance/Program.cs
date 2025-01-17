@@ -14,20 +14,22 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             try
             {
                 CommandServerConfig commandServerConfig = new CommandServerConfig
                 {
                     Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
                 };
-                ServiceConfig cacheServiceConfig = new ServiceConfig
+                ServiceConfig databaseServiceConfig = new ServiceConfig
                 {
                     PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance)),
                     PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance) + nameof(ServiceConfig.PersistenceSwitchPath)),
                     CanCreateSlave = true
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
-                    .Append<IStreamPersistenceMemoryDatabaseService>(cacheServiceConfig.Create())
+                    .Append<IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create())
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())

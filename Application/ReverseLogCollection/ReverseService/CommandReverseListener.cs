@@ -110,7 +110,8 @@ namespace AutoCSer.CommandService.ReverseLogCollection
             int count = 0;
             foreach (KeyValue<ILogCollectionReverseClientSocketEvent<T>, int> client in clients.GetReverseIndexEnumerable())
             {
-                if (client.Key.LogCollectionReverseClient.AppendSendOnly(log) != null) ++count;
+                AutoCSer.Net.SendOnlyCommand command = client.Key.LogCollectionReverseClient.AppendSendOnly(log);
+                if (command != null && command.GetResult()) ++count;
                 else clients.RemoveAtToEnd(client.Value);
             }
             return count;

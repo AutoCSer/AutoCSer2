@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 位图节点
     /// </summary>
-    public class BitmapNode : IBitmapNode, ISnapshot<byte[]>
+    public sealed class BitmapNode : IBitmapNode, ISnapshot<byte[]>
     {
         /// <summary>
         /// 位图

@@ -27,10 +27,12 @@
     <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="CommandReverseListener.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ServerRegistryCommandClientSocketEvent.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.NET8.csproj" />
+    <ProjectReference Include="..\..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.ReverseLogCollectionCommon.csproj" />
   </ItemGroup>
 

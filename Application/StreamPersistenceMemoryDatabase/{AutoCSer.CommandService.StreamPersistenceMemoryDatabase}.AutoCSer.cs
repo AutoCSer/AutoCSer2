@@ -1487,6 +1487,44 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 服务注册节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode))]
+        public partial interface IServerRegistryNodeClientNode
+        {
+            /// <summary>
+            /// 添加服务注册日志
+            /// </summary>
+            /// <param name="log"></param>
+            /// <returns>服务注册结果</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum> Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog log);
+            /// <summary>
+            /// 获取服务会话标识ID
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<long> GetSessionID();
+            /// <summary>
+            /// 获取服务注册日志
+            /// </summary>
+            /// <param name="serverName">监视服务名称，空字符串表示所有服务</param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand LogCallback(string serverName, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog>,AutoCSer.Net.KeepCallbackCommand> callback);
+            /// <summary>
+            /// 服务注册回调委托
+            /// </summary>
+            /// <param name="sessionID">服务会话标识ID</param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand ServiceCallback(long sessionID, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum>,AutoCSer.Net.KeepCallbackCommand> callback);
+            /// <summary>
+            /// 获取服务主日志
+            /// </summary>
+            /// <param name="serverName">服务名称</param>
+            /// <returns>返回 null 表示没有找到服务主日志</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog> GetLog(string serverName);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 服务基础操作接口方法映射枚举 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode))]
@@ -1730,6 +1768,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="index">节点索引信息</param>
             /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> RemoveNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index);
+            /// <summary>
+            /// 创建服务注册节点 IServerRegistryNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int loadTimeoutSeconds);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3099,6 +3146,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="index">节点索引信息</param>
             /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> RemoveNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index);
+            /// <summary>
+            /// 创建服务注册节点 IServerRegistryNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int loadTimeoutSeconds);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4747,6 +4803,53 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 服务注册节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IServerRegistryNodeMethodEnum))]
+        public partial interface IServerRegistryNode { }
+        /// <summary>
+        /// 服务注册节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IServerRegistryNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] 添加服务注册日志
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog log 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum 服务注册结果
+            /// </summary>
+            Append = 0,
+            /// <summary>
+            /// [1] 获取服务会话标识ID
+            /// 返回值 long 
+            /// </summary>
+            GetSessionID = 1,
+            /// <summary>
+            /// [2] 获取服务注册日志
+            /// string serverName 监视服务名称，空字符串表示所有服务
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog 
+            /// </summary>
+            LogCallback = 2,
+            /// <summary>
+            /// [3] 服务注册回调委托
+            /// long sessionID 服务会话标识ID
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum 
+            /// </summary>
+            ServiceCallback = 3,
+            /// <summary>
+            /// [4] 快照设置数据
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog value 数据
+            /// </summary>
+            SnapshotSet = 4,
+            /// <summary>
+            /// [5] 获取服务主日志
+            /// string serverName 服务名称
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog 返回 null 表示没有找到服务主日志
+            /// </summary>
+            GetLog = 5,
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 服务基础操作接口方法映射枚举
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IServiceNodeMethodEnum))]
@@ -4994,6 +5097,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否成功删除节点，否则表示没有找到节点
             /// </summary>
             RemoveNode = 24,
+            /// <summary>
+            /// [25] 创建服务注册节点 IServerRegistryNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int loadTimeoutSeconds 冷启动会话超时秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateServerRegistryNode = 25,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

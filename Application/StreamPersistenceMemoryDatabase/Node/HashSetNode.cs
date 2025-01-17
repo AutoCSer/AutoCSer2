@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 哈希表节点
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    public class HashSetNode<T> : IHashSetNode<T>, ISnapshot<T>
+    public sealed class HashSetNode<T> : IHashSetNode<T>, ISnapshot<T>
         where T : IEquatable<T>
     {
         /// <summary>

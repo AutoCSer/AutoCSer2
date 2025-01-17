@@ -14,11 +14,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             CommandClientConfig commandClientConfig = new CommandClientConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
                 ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
-                CheckSeconds = 0,
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))

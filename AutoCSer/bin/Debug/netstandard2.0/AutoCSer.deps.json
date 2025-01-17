@@ -1,13 +1,13 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "6351e6466e887866cd770bd982715ea70849e69d"
+    "signature": ""
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "AutoCSer/2.0.30": {
+      "AutoCSer/2.0.31": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "System.Reflection.Emit": "4.7.0",
@@ -76,7 +76,7 @@
     }
   },
   "libraries": {
-    "AutoCSer/2.0.30": {
+    "AutoCSer/2.0.31": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

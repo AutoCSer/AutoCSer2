@@ -1,5 +1,4 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
-using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
 using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.Net;
@@ -134,6 +133,8 @@ namespace AutoCSer.CommandService
             IsDisposed = true;
 
             if (Rebuilder != null) CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(Rebuilder, PersistenceRebuilderCallbackTypeEnum.Close));
+            CommandServerCallQueue.AddOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.NodeDispose));
+            removeHistoryFile?.Cancel();
         }
         /// <summary>
         /// 获取服务端 UTC 时间
@@ -199,7 +200,7 @@ namespace AutoCSer.CommandService
         void ICommandServerBindController.Bind(CommandServerController controller)
         {
             CommandServerCallQueue = controller.CallQueue;
-            if (IsMaster) CommandServerCallQueue.notNull().AddOnly(new ServiceLoad(this));
+            if (IsMaster) CommandServerCallQueue.notNull().AddOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
         }
         /// <summary>
         /// 根据节点全局关键字获取服务端节点

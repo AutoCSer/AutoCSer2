@@ -38,7 +38,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         {
             Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
             GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
-            CheckSeconds = 0
         });
     }
 }

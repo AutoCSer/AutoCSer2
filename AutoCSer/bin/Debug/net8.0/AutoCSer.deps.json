@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "AutoCSer/2.0.18": {
+      "AutoCSer/2.0.19": {
         "dependencies": {
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
@@ -22,7 +22,7 @@
     }
   },
   "libraries": {
-    "AutoCSer/2.0.18": {
+    "AutoCSer/2.0.19": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -67,5 +67,10 @@ namespace AutoCSer.TestCase.Common
         /// 文件同步测试端口
         /// </summary>
         FileSynchronous,
+
+        /// <summary>
+        /// 注册服务测试端口
+        /// </summary>
+        ServiceRegistryPort = 20000,
     }
 }

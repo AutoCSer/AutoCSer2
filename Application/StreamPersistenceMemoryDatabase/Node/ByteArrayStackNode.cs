@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 栈节点（后进先出）
     /// </summary>
-    public class ByteArrayStackNode : IByteArrayStackNode
+    public sealed class ByteArrayStackNode : IByteArrayStackNode
 #if NetStandard21
         , ISnapshot<byte[]?>
 #else
