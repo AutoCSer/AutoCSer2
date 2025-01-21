@@ -85,7 +85,7 @@ namespace AutoCSer.CommandService
         /// 日志流持久化内存数据库客户端缓存，用于客户端单例
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public StreamPersistenceMemoryDatabaseClientCache(AutoCSer.Net.CommandClient client) : this(new AutoCSer.Net.CommandClientSocketEventCache<ET>(client)) { }
+        public StreamPersistenceMemoryDatabaseClientCache(AutoCSer.Net.ICommandClient client) : this(new AutoCSer.Net.CommandClientSocketEventCache<ET>(client)) { }
         /// <summary>
         /// 日志流持久化内存数据库客户端缓存，用于客户端单例
         /// </summary>

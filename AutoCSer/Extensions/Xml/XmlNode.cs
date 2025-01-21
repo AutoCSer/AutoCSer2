@@ -26,7 +26,7 @@ namespace AutoCSer
             get 
             {
                 if (Type == XmlNodeTypeEnum.Node) return new LeftArray<KeyValue<SubString, XmlNode>>(String.Length, nodes);
-                throw new InvalidCastException($"节点类型 {Type} 不匹配 {nameof(XmlNodeTypeEnum.Node)}");
+                throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetXmlNodeTypeNotMatch(Type, XmlNodeTypeEnum.Node));
             }
         }
         /// <summary>

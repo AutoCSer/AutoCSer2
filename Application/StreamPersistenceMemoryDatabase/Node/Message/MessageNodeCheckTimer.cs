@@ -21,19 +21,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 超时检查定时
         /// </summary>
-        /// <param name="messageNode"></param>
         /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-        internal MessageNodeCheckTimer(MessageNode<T> messageNode, int checkTimeoutSeconds) : base(AutoCSer.Threading.SecondTimer.InternalTaskArray, checkTimeoutSeconds, Threading.SecondTimerKeepModeEnum.After, checkTimeoutSeconds)
-        {
-            this.messageNode = messageNode;
-            AppendTaskArray();
-        }
+        internal MessageNodeCheckTimer(int checkTimeoutSeconds) : base(AutoCSer.Threading.SecondTimer.InternalTaskArray, checkTimeoutSeconds, Threading.SecondTimerKeepModeEnum.After, checkTimeoutSeconds) { }
         /// <summary>
         /// 定时器触发
         /// </summary>
         protected internal override void OnTimer()
         {
             messageNode?.CheckTimeout();
+        }
+        /// <summary>
+        /// 设置消息处理节点
+        /// </summary>
+        /// <param name="messageNode"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void Set(MessageNode<T> messageNode)
+        {
+            if (keepSeconds != 0)
+            {
+                this.messageNode = messageNode;
+                AppendTaskArray();
+            }
         }
         /// <summary>
         /// 取消定时

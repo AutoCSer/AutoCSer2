@@ -97,6 +97,7 @@ RPC 是 AutoCSer 的核心基础组件，[高并发吞吐测试性能](https://g
 2. [数据序列化](https://zhuanlan.zhihu.com/p/8762985779) - [2.ServiceDataSerialize](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceDataSerialize)
 3. [线程调度策略](https://zhuanlan.zhihu.com/p/10102634904) - [3.ServiceThreadStrategy](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceThreadStrategy)
 4. [鉴权与传输数据编码](https://zhuanlan.zhihu.com/p/11427440200) - [4.ServiceAuthentication](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceAuthentication)
+5. [服务信息注册与推送](https://zhuanlan.zhihu.com/p/19143730420) - [9.ServerRegistry](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServerRegistry)
 
 # 面向对象编程的内存数据库
 ## 服务端配置定义
@@ -206,3 +207,4 @@ RPC 是 AutoCSer 的核心基础组件，[高并发吞吐测试性能](https://g
 2. [入门 - 使用内置数据结构](https://zhuanlan.zhihu.com/p/14011804562) - [6.MemoryDatabaseNode](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseNode)
 3. [自定义数据结构](https://zhuanlan.zhihu.com/p/15454610569) - [7.MemoryDatabaseCustomNode](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseCustomNode)
 4. [本地嵌入模式](https://zhuanlan.zhihu.com/p/16409903680) - [8.MemoryDatabaseLocalService](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseLocalService)
+5. [服务信息注册与推送](https://zhuanlan.zhihu.com/p/19143730420) - [9.ServerRegistry](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServerRegistry)

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 注册服务客户端
+    /// 注册服务客户端调度
     /// </summary>
     public abstract class ServerRegistryLogClient
     {

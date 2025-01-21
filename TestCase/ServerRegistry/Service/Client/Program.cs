@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase.ServerRegistryServiceClient
             using (commandClient.Client)
             {
                 CommandClientSocketEvent client = commandClient.SocketEvent;
-                await commandClient.Client.GetSocketAsync();
+                await commandClient.Client.GetSocketEvent();
                 do
                 {
                     if (client.ServerRegistryServiceClient != null)

@@ -33,11 +33,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 快照数据信息
         /// </summary>
         /// <param name="valueCount">数据数量</param>
-        /// <param name="capacity">预申请快照数据容器大小</param>
-        public SnapshotResult(int valueCount, int capacity)
+        /// <param name="snapshotArrayLength">预申请快照数据容器大小</param>
+        public SnapshotResult(int valueCount, int snapshotArrayLength)
         {
             Count = 0;
-            Array = new LeftArray<T>(Math.Max(valueCount - capacity, 0));
+            Array = new LeftArray<T>(Math.Max(valueCount - snapshotArrayLength, 0));
         }
         /// <summary>
         /// 快照数据信息

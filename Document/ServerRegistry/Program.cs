@@ -1,9 +1,11 @@
 ﻿using AutoCSer.Extensions;
-using AutoCSer.TestCase.Common;
 using System;
 
 namespace AutoCSer.Document.ServerRegistry
 {
+    /// <summary>
+    /// https://zhuanlan.zhihu.com/p/19143730420
+    /// </summary>
     internal class Program
     {
         static async Task Main(string[] args)
@@ -22,6 +24,7 @@ namespace AutoCSer.Document.ServerRegistry
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistry),
             };
             await using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
+                //生产环境需要增加服务认证 API 以防止非法客户端访问
                 .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseService)
                 .CreateCommandListener(commandServerConfig))
             {
@@ -31,7 +34,7 @@ namespace AutoCSer.Document.ServerRegistry
                     await AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryLogCommandClientSocketEvent.ServerRegistryNodeCache.GetNode();
                     await AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryClusterClient.Client.GetNode();
 
-                    await using (var messageServer = await AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Create((ushort)CommandServerPortEnum.ServiceRegistryPort - 1))
+                    await using (var messageServer = await AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Create((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistryPort - 1))
                     {
                         AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Test().NotWait();
                         AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryClusterClient.Test().NotWait();

@@ -36,20 +36,16 @@
     <Compile Include="Data\Enum\ULongFlagEnum.cs" />
     <Compile Include="Data\Enum\UShortEnum.cs" />
     <Compile Include="Data\Enum\UShortFlagEnum.cs" />
-    <Compile Include="ProcessGuard\CommandServiceSwitchProcess.cs" />
-    <Compile Include="ProcessGuard\ProcessGuardClientSocketEvent.cs" />
-    <Compile Include="ProcessGuard\ProcessGuardCommandClientConfig.cs" />
-    <Compile Include="ProcessGuard\ProcessGuardSwitchProcess.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.NET8.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="AutoCSer">
 			<HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
 	</ItemGroup>
   
 </Project>

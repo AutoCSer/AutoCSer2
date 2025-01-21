@@ -1,5 +1,4 @@
 ﻿using AutoCSer.Extensions;
-using AutoCSer.TestCase.Common;
 using System;
 
 namespace AutoCSer.Document.ServerRegistry.MessageNodeCluster
@@ -40,7 +39,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeCluster
         {
             do
             {
-                for (ushort port = (ushort)CommandServerPortEnum.ServiceRegistryPort; port != (ushort)CommandServerPortEnum.ServiceRegistryPort + 16; ++port)
+                for (ushort port = (ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistryPort; port != (ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistryPort + 16; ++port)
                 {
                     var nextServer = await Create(port);
                     if (nextServer != null) messageServers.Add(nextServer);
@@ -71,6 +70,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeCluster
                 ServerName = nameof(AutoCSer.Document.ServerRegistry.MessageNodeCluster),
             };
             AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
+                //生产环境需要增加服务认证 API 以防止非法客户端访问
                 .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseService)
                 .CreateCommandListener(commandServerConfig);
             if (await commandListener.Start())

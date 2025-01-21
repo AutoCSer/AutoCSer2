@@ -75,7 +75,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 this.snapshots = snapshots;
                 return target;
             }
-            throw new InvalidCastException($"服务端节点类型 {target.castObject().GetType().fullName()} 缺少快照接口实现 {typeof(ISnapshot<>).fullName()}");
+            throw new InvalidCastException(Culture.Configuration.Default.GetServerSnapshotNodeNotImplemented(target.castObject().GetType()));
         }
         /// <summary>
         /// 关闭重建

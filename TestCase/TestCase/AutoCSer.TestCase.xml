@@ -990,6 +990,649 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode">
+            <summary>
+            数组客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.length">
+            <summary>
+            测试数组长度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.Test">
+            <summary>
+            数组客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode">
+            <summary>
+            二进制位图客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode.Test">
+            <summary>
+            二进制位图客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode">
+            <summary>
+            字典客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode.Test">
+            <summary>
+            字典客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode">
+            <summary>
+            字典客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode.Test">
+            <summary>
+            字典客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode">
+            <summary>
+            byte[] 队列客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode.Test">
+            <summary>
+            byte[] 队列客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode">
+            <summary>
+            byte[] 栈客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode.Test">
+            <summary>
+            byte[] 栈客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClient">
+            <summary>
+            日志流持久化内存数据库客户端接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache">
+            <summary>
+            日志流持久化内存数据库客户端单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase">
+            <summary>
+            客户端测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode">
+            <summary>
+            泛型字典客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode.Test">
+            <summary>
+            泛型字典客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode">
+            <summary>
+            分布式锁客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.Test">
+            <summary>
+            分布式锁客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.checkLock">
+            <summary>
+            分布式锁并发错误检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode{System.String},System.String,System.Int32)">
+            <summary>
+            分布式锁客户端示例
+            </summary>
+            <param name="node"></param>
+            <param name="lockKey"></param>
+            <param name="loopCount"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode">
+            <summary>
+            泛型字典客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode.Test">
+            <summary>
+            泛型字典客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode">
+            <summary>
+            哈希表客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode.Test">
+            <summary>
+            哈希表客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode">
+            <summary>
+            字典客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode.Test">
+            <summary>
+            字典客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode">
+            <summary>
+            字典客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode.Test">
+            <summary>
+            字典客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode">
+            <summary>
+            哈希表客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode.Test">
+            <summary>
+            哈希表客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode">
+            <summary>
+            64 位自增 ID 生成客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode.Test">
+            <summary>
+            64 位自增 ID 生成客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode">
+            <summary>
+            动态数组客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode.Test">
+            <summary>
+            动态数组客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer">
+            <summary>
+            服务端泛型消息客户端消费者示例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}})">
+            <summary>
+            服务端泛型消息客户端消费者示例
+            </summary>
+            <param name="commandClient">客户端</param>
+            <param name="node">二进制序列化消息消息客户端节点</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.onMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass)">
+            <summary>
+            消息处理，异常则表示消息执行失败
+            </summary>
+            <param name="message"></param>
+            <returns>消息是否执行成功</returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.messages">
+            <summary>
+            未完成消息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.messageLock">
+            <summary>
+            消费消息测试访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.Test">
+            <summary>
+            服务端泛型消息客户端消费者示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer">
+            <summary>
+            客户端二进制序列化消息客户端消费者示例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+            <summary>
+            客户端二进制序列化消息客户端消费者示例
+            </summary>
+            <param name="commandClient">客户端</param>
+            <param name="node">服务端字节数组消息客户端节点</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.onMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass)">
+            <summary>
+            消息处理，异常则表示消息执行失败
+            </summary>
+            <param name="message"></param>
+            <returns>消息是否执行成功</returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.messages">
+            <summary>
+            未完成消息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.messageLock">
+            <summary>
+            消费消息测试访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.Test">
+            <summary>
+            客户端二进制序列化消息客户端消费者示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer">
+            <summary>
+            byte[] 消息客户端消费者示例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+            <summary>
+            byte[] 消息客户端消费者示例
+            </summary>
+            <param name="commandClient">客户端</param>
+            <param name="node">服务端字节数组消息客户端节点</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.onMessage(System.Byte[])">
+            <summary>
+            消息处理，异常则表示消息执行失败
+            </summary>
+            <param name="message"></param>
+            <returns>消息是否执行成功</returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.messages">
+            <summary>
+            未完成消息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.messageLock">
+            <summary>
+            消费消息测试访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.Test">
+            <summary>
+            byte[] 消息客户端消费者示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer">
+            <summary>
+            客户端 JSON 消息客户端消费者示例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+            <summary>
+            客户端 JSON 消息客户端消费者示例
+            </summary>
+            <param name="commandClient">客户端</param>
+            <param name="node">服务端字节数组消息客户端节点</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.onMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass)">
+            <summary>
+            消息处理，异常则表示消息执行失败
+            </summary>
+            <param name="message"></param>
+            <returns>消息是否执行成功</returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.messages">
+            <summary>
+            未完成消息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.messageLock">
+            <summary>
+            消费消息测试访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.Test">
+            <summary>
+            客户端 JSON 消息客户端消费者示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer">
+            <summary>
+            客户端 string 二进制序列化消息客户端消费者示例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+            <summary>
+            客户端 string 二进制序列化消息客户端消费者示例
+            </summary>
+            <param name="commandClient">客户端</param>
+            <param name="node">服务端字节数组消息客户端节点</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.onMessage(System.String)">
+            <summary>
+            消息处理，异常则表示消息执行失败
+            </summary>
+            <param name="message"></param>
+            <returns>消息是否执行成功</returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.messages">
+            <summary>
+            未完成消息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.messageLock">
+            <summary>
+            消费消息测试访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.Test">
+            <summary>
+            客户端 string 二进制序列化消息客户端消费者示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode">
+            <summary>
+            泛型队列客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode.Test">
+            <summary>
+            泛型队列客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode">
+            <summary>
+            平衡树客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode.Test">
+            <summary>
+            平衡树客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode">
+            <summary>
+            平衡树客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode.Test">
+            <summary>
+            平衡树客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode">
+            <summary>
+            红黑树字典客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode.Test">
+            <summary>
+            红黑树字典客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode">
+            <summary>
+            关键字排序数组客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode.Test">
+            <summary>
+            关键字排序数组客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode">
+            <summary>
+            红黑树哈希表客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode.Test">
+            <summary>
+            红黑树哈希表客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode">
+            <summary>
+            泛型栈客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode.nodeCache">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode.Test">
+            <summary>
+            泛型栈客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass">
+            <summary>
+            测试数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass.Int">
+            <summary>
+            测试数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass.String">
+            <summary>
+            测试数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig">
+            <summary>
+            日志流持久化内存数据库服务端配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig.GetRemoveHistoryFileTime">
+            <summary>
+            测试环境删除 15 分钟以前的历史持久化文件，生产环境根据实际需求处理
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig.RemoveHistoryFile(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService)">
+            <summary>
+            测试环境每分钟执行一次删除历史持久化文件操作，生产环境根据实际需求处理
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig.CheckRebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService)">
+            <summary>
+            重建文件大小设置为至少 10MB
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.TestCase.Xml.xmlSerializeConfig">
             <summary>
             带成员位图的XML序列化参数配置

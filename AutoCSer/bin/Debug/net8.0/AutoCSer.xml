@@ -8315,6 +8315,16 @@
             默认构造函数
             </summary>
         </member>
+        <member name="F:AutoCSer.Common.Culture">
+            <summary>
+            默认系统语言文化配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.CurrentProcess">
+            <summary>
+            当前进程信息
+            </summary>
+        </member>
         <member name="F:AutoCSer.Common.ProcessorCount">
             <summary>
             CPU 逻辑处理器数量（线程数量）
@@ -8406,6 +8416,18 @@
         <member name="F:AutoCSer.Common.NullMethodInfo">
             <summary>
             空方法信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Common.emptyEventHandler(System.Object,System.EventArgs)">
+            <summary>
+            空事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:AutoCSer.Common.EmptyEventHandler">
+            <summary>
+            空事件
             </summary>
         </member>
         <member name="F:AutoCSer.Common.TrueCompletedTask">
@@ -9321,6 +9343,472 @@
             <param name="callerFilePath">调用源代码文件路径</param>
             <param name="callerLineNumber">调用源代码行号</param>
             <returns>返回值状态是否成功</returns>
+        </member>
+        <member name="T:AutoCSer.Culture.Chinese">
+            <summary>
+            中文配置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.TopologySortLoopError">
+            <summary>
+            拓扑排序循环错误信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.NotAllowDisposeSerializer">
+            <summary>
+            该实例正在序列化对象操作，不允许释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandClientControllerNameRepeatedly(System.String)">
+            <summary>
+            RPC 客户端命令控制器名称重复冲突
+            </summary>
+            <param name="controllerName">重复的控制器名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandClientControllerCountLimit(System.Int32,System.Int32)">
+            <summary>
+            RPC 客户端命令控制器数量超出上限
+            </summary>
+            <param name="controllerCount">控制器数量</param>
+            <param name="maxControllerCount">控制器数量最大限制</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetNotInterfaceType(System.Type)">
+            <summary>
+            不支持非接口类型
+            </summary>
+            <param name="type">不支持的类型</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.CommandClientControllerEmptyName">
+            <summary>
+            RPC 客户端缺少控制器名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandClientControllerCreateFailed(System.Type,System.Type)">
+            <summary>
+            RPC 客户端控制器创建器创建失败
+            </summary>
+            <param name="clientInterfaceType">客户端控制器接口类型</param>
+            <param name="serverInterfaceType">服务端控制器接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandServerControllerMethodCountLimit(System.Int32,System.Int32)">
+            <summary>
+            RPC 命令控制器最大命令序号超出限制
+            </summary>
+            <param name="methodIndex">控制器最大命令序号</param>
+            <param name="maxCommandCount">最大命令数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandServerControllerMethodCountLimit(System.String,System.Int32,System.Int32)">
+            <summary>
+            RPC 命令控制器命令数量超出限制
+            </summary>
+            <param name="controllerName">控制器名称</param>
+            <param name="methodCount">控制器命令数量</param>
+            <param name="maxCommandCount">最大命令数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandServerControllerCountLimit(System.Int32)">
+            <summary>
+            RPC 命令控制器数量已经达到上限
+            </summary>
+            <param name="maxControllerCount">最大控制器数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandServerControllerNameRepeatedly(System.String)">
+            <summary>
+            RPC 服务端命令控制器名称重复冲突
+            </summary>
+            <param name="controllerName">重复的控制器名称</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.CommandServerControllerEmptyName">
+            <summary>
+            RPC 服务端缺少控制器名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandServerTaskQueueKeyTypeRepeatedly(System.String,System.String,System.Type)">
+            <summary>
+            RPC 服务端 Task 队列服务控制器关键字类型重复冲突
+            </summary>
+            <param name="controllerName">控制器名称</param>
+            <param name="otherControllerName">冲突的控制器名称</param>
+            <param name="keyTye">冲突的关键字类型</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.CommandServerControllerBound">
+            <summary>
+            RPC 服务端控制器实例已经绑定套接字上下文
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.CommandServerControllerNotFoundConstructDelegate">
+            <summary>
+            RPC 服务端套接字上下文绑定控制器实例必须传入构造委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.CommandServerControllerServerNotMatch">
+            <summary>
+            RPC 服务端控制器服务不匹配
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.CommandServerMissingControllerParameter">
+            <summary>
+            RPC 服务端缺少控制器参数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandServerControllerMethodIndexLimit(System.Int32,System.Int32)">
+            <summary>
+            RPC 命令控制器命令序号超出限制
+            </summary>
+            <param name="methodIndex">控制器命令序号</param>
+            <param name="methodCount">命令数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetCommandServerNotFoundPort(System.String)">
+            <summary>
+            RPC 服务缺少监听端口号
+            </summary>
+            <param name="serverName">服务名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetReverseCommandServerNotFoundController(System.String)">
+            <summary>
+            反向 RPC 服务缺少控制器信息
+            </summary>
+            <param name="serverName">服务名称</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Chinese.GetStateSearcherEmptyState">
+            <summary>
+            状态机查找数据不能为空
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Chinese.GetStateSearcherStateRepetition(System.String)">
+            <summary>
+            状态机查找数据重复
+            </summary>
+            <param name="errorValue">重复数据</param>
+        </member>
+        <member name="F:AutoCSer.Culture.Chinese.Default">
+            <summary>
+            默认中文配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Culture.Configuration">
+            <summary>
+            系统语言文化配置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.TopologySortLoopError">
+            <summary>
+            拓扑排序循环错误信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.NotAllowDisposeSerializer">
+            <summary>
+            该实例正在序列化对象操作，不允许释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandClientControllerNameRepeatedly(System.String)">
+            <summary>
+            RPC 客户端命令控制器名称重复冲突
+            </summary>
+            <param name="controllerName">重复的控制器名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandClientControllerCountLimit(System.Int32,System.Int32)">
+            <summary>
+            RPC 客户端命令控制器数量超出上限
+            </summary>
+            <param name="controllerCount">控制器数量</param>
+            <param name="maxControllerCount">控制器数量最大限制</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetNotInterfaceType(System.Type)">
+            <summary>
+            不支持非接口类型
+            </summary>
+            <param name="type">不支持的类型</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.CommandClientControllerEmptyName">
+            <summary>
+            RPC 客户端缺少控制器名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandClientControllerCreateFailed(System.Type,System.Type)">
+            <summary>
+            RPC 客户端控制器创建器创建失败
+            </summary>
+            <param name="clientInterfaceType">客户端控制器接口类型</param>
+            <param name="serverInterfaceType">服务端控制器接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandServerControllerMethodCountLimit(System.Int32,System.Int32)">
+            <summary>
+            RPC 命令控制器最大命令序号超出限制
+            </summary>
+            <param name="methodIndex">控制器最大命令序号</param>
+            <param name="maxCommandCount">最大命令数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandServerControllerMethodCountLimit(System.String,System.Int32,System.Int32)">
+            <summary>
+            RPC 命令控制器命令数量超出限制
+            </summary>
+            <param name="controllerName">控制器名称</param>
+            <param name="methodCount">控制器命令数量</param>
+            <param name="maxCommandCount">最大命令数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandServerControllerCountLimit(System.Int32)">
+            <summary>
+            RPC 命令控制器数量已经达到上限
+            </summary>
+            <param name="maxControllerCount">最大控制器数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandServerControllerNameRepeatedly(System.String)">
+            <summary>
+            RPC 服务端命令控制器名称重复冲突
+            </summary>
+            <param name="controllerName">重复的控制器名称</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.CommandServerControllerEmptyName">
+            <summary>
+            RPC 服务端缺少控制器名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandServerTaskQueueKeyTypeRepeatedly(System.String,System.String,System.Type)">
+            <summary>
+            RPC 服务端 Task 队列服务控制器关键字类型重复冲突
+            </summary>
+            <param name="controllerName">控制器名称</param>
+            <param name="otherControllerName">冲突的控制器名称</param>
+            <param name="keyTye">冲突的关键字类型</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.CommandServerControllerBound">
+            <summary>
+            RPC 服务端控制器实例已经绑定套接字上下文
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.CommandServerControllerNotFoundConstructDelegate">
+            <summary>
+            RPC 服务端套接字上下文绑定控制器实例必须传入构造委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.CommandServerControllerServerNotMatch">
+            <summary>
+            RPC 服务端控制器服务不匹配
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.CommandServerMissingControllerParameter">
+            <summary>
+            RPC 服务端缺少控制器参数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandServerControllerMethodIndexLimit(System.Int32,System.Int32)">
+            <summary>
+            RPC 命令控制器命令序号超出限制
+            </summary>
+            <param name="methodIndex">控制器命令序号</param>
+            <param name="methodCount">命令数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetCommandServerNotFoundPort(System.String)">
+            <summary>
+            RPC 服务缺少监听端口号
+            </summary>
+            <param name="serverName">服务名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetReverseCommandServerNotFoundController(System.String)">
+            <summary>
+            反向 RPC 服务缺少控制器信息
+            </summary>
+            <param name="serverName">服务名称</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.Configuration.GetStateSearcherEmptyState">
+            <summary>
+            状态机查找数据不能为空
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetStateSearcherStateRepetition(System.String)">
+            <summary>
+            状态机查找数据重复
+            </summary>
+            <param name="errorValue">重复数据</param>
+        </member>
+        <member name="M:AutoCSer.Culture.Configuration.GetDefault">
+            <summary>
+            获取默认系统语言文化配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Culture.Configuration.IsChinese">
+            <summary>
+            是否中文环境
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Culture.English">
+            <summary>
+            English configuration
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.English.TopologySortLoopError">
+            <summary>
+            Topology sort loop error message
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.English.NotAllowDisposeSerializer">
+            <summary>
+            This instance is serializing object operations and does not allow resource release
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandClientControllerNameRepeatedly(System.String)">
+            <summary>
+            The RPC client command controller name conflicts repeatedly
+            </summary>
+            <param name="controllerName">Duplicate controller name</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandClientControllerCountLimit(System.Int32,System.Int32)">
+            <summary>
+            The number of RPC client command controllers exceeds the upper limit
+            </summary>
+            <param name="controllerCount">Number of controllers</param>
+            <param name="maxControllerCount">Maximum number of controllers</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetNotInterfaceType(System.Type)">
+            <summary>
+            Non-interface types are not supported
+            </summary>
+            <param name="type">Unsupported type</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.English.CommandClientControllerEmptyName">
+            <summary>
+            The RPC client lacks a controller name
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandClientControllerCreateFailed(System.Type,System.Type)">
+            <summary>
+            Description Failed to create the RPC client controller creator
+            </summary>
+            <param name="clientInterfaceType">Type of the client controller interface</param>
+            <param name="serverInterfaceType">Server controller interface type</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandServerControllerMethodCountLimit(System.Int32,System.Int32)">
+            <summary>
+            The maximum command number of the RPC command controller exceeds the limit
+            </summary>
+            <param name="methodIndex">Maximum command number of the controller</param>
+            <param name="maxCommandCount">Maximum number of commands</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandServerControllerMethodCountLimit(System.String,System.Int32,System.Int32)">
+            <summary>
+            The number of RPC command controller commands exceeds the limit
+            </summary>
+            <param name="controllerName">Controller name</param>
+            <param name="methodCount">Number of controller commands</param>
+            <param name="maxCommandCount">Maximum number of commands</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandServerControllerCountLimit(System.Int32)">
+            <summary>
+            The number of RPC command controllers reached the upper limit
+            </summary>
+            <param name="maxControllerCount">Maximum number of controllers</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandServerControllerNameRepeatedly(System.String)">
+            <summary>
+            The name of the RPC server command controller conflicts repeatedly
+            </summary>
+            <param name="controllerName">Duplicate controller name</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.English.CommandServerControllerEmptyName">
+            <summary>
+            The RPC server lacks a controller name
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandServerTaskQueueKeyTypeRepeatedly(System.String,System.String,System.Type)">
+            <summary>
+            The keyword type of the Task queue service controller on the RPC server repeatedly conflicts
+            </summary>
+            <param name="controllerName">Controller name</param>
+            <param name="otherControllerName">Conflicting controller name</param>
+            <param name="keyTye">The keyword type of the conflict</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.English.CommandServerControllerBound">
+            <summary>
+            The RPC server controller instance has been bound to the socket context
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.English.CommandServerControllerNotFoundConstructDelegate">
+            <summary>
+            The RPC server socket context binding controller instance must be passed in the construct delegate
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.English.CommandServerControllerServerNotMatch">
+            <summary>
+            The RPC server controller services do not match
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Culture.English.CommandServerMissingControllerParameter">
+            <summary>
+            Missing controller parameter
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandServerControllerMethodIndexLimit(System.Int32,System.Int32)">
+            <summary>
+            The command number of the RPC command controller exceeds the limit
+            </summary>
+            <param name="methodIndex">Controller command sequence number</param>
+            <param name="methodCount">Number of commands</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetCommandServerNotFoundPort(System.String)">
+            <summary>
+            The RPC service lacks a listening port number
+            </summary>
+            <param name="serverName">Service name</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetReverseCommandServerNotFoundController(System.String)">
+            <summary>
+            The reverse RPC service lacks controller information
+            </summary>
+            <param name="serverName">Service name</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Culture.English.GetStateSearcherEmptyState">
+            <summary>
+            State machine lookup data cannot be empty
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Culture.English.GetStateSearcherStateRepetition(System.String)">
+            <summary>
+            The state machine finds data duplicates
+            </summary>
+            <param name="errorValue">Duplicate data</param>
+        </member>
+        <member name="F:AutoCSer.Culture.English.Default">
+            <summary>
+            Default English configuration
+            </summary>
         </member>
         <member name="T:AutoCSer.EmptyArrayCompletedTask`1">
             <summary>
@@ -20882,7 +21370,7 @@
             命令客户端
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEventCache`1.#ctor(AutoCSer.Net.CommandClient)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEventCache`1.#ctor(AutoCSer.Net.ICommandClient)">
             <summary>
             命令客户端套接字事件
             </summary>
@@ -27640,6 +28128,16 @@
             </summary>
             <returns>失败返回 null</returns>
         </member>
+        <member name="P:AutoCSer.Net.ICommandClient.SocketEvent">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.ICommandClient.IsSocketClosed">
+            <summary>
+            判断当前客户端套接字是否已经关闭
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.ICommandClient.GetSendBufferPool">
             <summary>
             获取发送数据缓存区池
@@ -27661,7 +28159,7 @@
             命令客户端套接字事件控制器属性绑定标识
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandReverseClient.SocketEvent">
+        <member name="P:AutoCSer.Net.CommandReverseClient.SocketEvent">
             <summary>
             命令客户端套接字事件
             </summary>
@@ -27679,6 +28177,11 @@
         <member name="F:AutoCSer.Net.CommandReverseClient.currentSocket">
             <summary>
             当前命令服务套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandReverseClient.IsSocketClosed">
+            <summary>
+            判断当前客户端套接字是否已经关闭
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandReverseClient.clientRegistrar">
@@ -29220,6 +29723,12 @@
             获取服务监听地址
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientServiceRegistrar.ConnectFail(System.Net.IPEndPoint)">
+            <summary>
+            服务连接失败
+            </summary>
+            <param name="endPoint"></param>
         </member>
         <member name="T:AutoCSer.Net.CommandClientControllerCreatorParameter">
             <summary>
@@ -32924,7 +33433,7 @@
             客户端套接字操作锁
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClient.SocketEvent">
+        <member name="P:AutoCSer.Net.CommandClient.SocketEvent">
             <summary>
             命令客户端套接字事件
             </summary>
@@ -32962,6 +33471,11 @@
         <member name="P:AutoCSer.Net.CommandClient.CurrentSocket">
             <summary>
             获取当前客户端套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClient.IsSocketClosed">
+            <summary>
+            判断当前客户端套接字是否已经关闭
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClient.socketTask">
@@ -33030,6 +33544,12 @@
             反向客户端初始化操作
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClient.ConnectFail(System.Net.IPEndPoint)">
+            <summary>
+            服务连接失败
+            </summary>
+            <param name="endPoint"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.WaitServerEndPoint">
             <summary>
@@ -40222,6 +40742,11 @@
             程序集全名称
             </summary>
         </member>
+        <member name="F:AutoCSer.Reflection.AssemblyCache.name">
+            <summary>
+            程序集名称
+            </summary>
+        </member>
         <member name="F:AutoCSer.Reflection.AssemblyCache.assembly">
             <summary>
             程序集
@@ -40245,12 +40770,22 @@
             程序集缓存
             </summary>
         </member>
+        <member name="F:AutoCSer.Reflection.AssemblyCache.nameCache">
+            <summary>
+            程序集缓存
+            </summary>
+        </member>
         <member name="F:AutoCSer.Reflection.AssemblyCache.cacheLock">
             <summary>
             程序集缓存访问
             </summary>
         </member>
         <member name="F:AutoCSer.Reflection.AssemblyCache.lastAssembly">
+            <summary>
+            最后一次访问的程序集
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Reflection.AssemblyCache.lastNameAssembly">
             <summary>
             最后一次访问的程序集
             </summary>
@@ -40288,6 +40823,11 @@
         <member name="T:AutoCSer.Reflection.RemoteType">
             <summary>
             远程类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Reflection.RemoteType.arrayChar">
+            <summary>
+            数组类型索引位置
             </summary>
         </member>
         <member name="F:AutoCSer.Reflection.RemoteType.AssemblyName">
@@ -40354,6 +40894,16 @@
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Reflection.RemoteType.fixedTypes">
+            <summary>
+            固定类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Reflection.RemoteType.typeNames">
+            <summary>
+            类型代码名称集合
+            </summary>
         </member>
         <member name="T:AutoCSer.Reflection.TypeNameBuilder">
             <summary>

@@ -91,7 +91,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 if (methodEnum.EnumName != null && !names.Add(methodEnum.EnumName))
                 {
-                    throw new Exception($"{CurrentType.Type.fullName()} 生成 {CurrentAttribute.MethodIndexEnumType.fullName()}.{methodEnum.EnumName} 名称冲突");
+                    throw new Exception(Culture.Configuration.Default.GetCommandServerMethodNameConflict(CurrentType.Type, CurrentAttribute.MethodIndexEnumType, methodEnum.EnumName));
                 }
                 methodEnum.MethodIndex = methodIndex++;
             }

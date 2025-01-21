@@ -1,6 +1,5 @@
-﻿using AutoCSer.CommandService;
-using AutoCSer.Net;
-using AutoCSer.Threading;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
 using System;
 using System.Threading.Tasks;
 
@@ -10,26 +9,27 @@ namespace AutoCSer.TestCase.ProcessGuardClient
     {
         static async Task Main(string[] args)
         {
-            CommandClientConfig commandClientConfig = new ProcessGuardCommandClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ProcessGuard) };
-            using (CommandClient commandClient = new CommandClient(commandClientConfig))
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
+            ResponseResult<IProcessGuardNodeClientNode> client = await CommandClientSocketEvent.ProcessGuardNodeCache.GetNode();
+            if (client.IsSuccess)
             {
-                ProcessGuardClientSocketEvent client = (ProcessGuardClientSocketEvent)await commandClient.GetSocketEvent();
+                guard(client.Value, args).NotWait();
                 Console.WriteLine("Press quit to exit.");
-                CatchTask.AddIgnoreException(check(client));
                 while (Console.ReadLine() != "quit") ;
-                await client.ProcessGuardClient.RemoveGuard();
+                await client.Value.RemoveCurrentProcess();
+            }
+            else
+            {
+                Console.WriteLine($"{client.ReturnType} + {client.CallState}");
+                Console.ReadKey();
             }
         }
-        /// <summary>
-        /// 请求守护成功后 10 秒自动退出进程
-        /// </summary>
-        /// <param name="client"></param>
-        /// <returns></returns>
-        private static async Task check(ProcessGuardClientSocketEvent client)
+        private static async Task guard(IProcessGuardNodeClientNode client, string[] arguments)
         {
             do
             {
-                CommandClientReturnValue<bool> Result = client.ProcessGuardClient.GuardReturnValue;
+                ResponseResult<bool> Result = await client.GuardCurrentProcess(arguments);
                 if (Result.IsSuccess)
                 {
                     if (Result.Value)

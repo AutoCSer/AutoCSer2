@@ -67,6 +67,9 @@
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClient.cs" />
     <Compile Include="Client\IStreamPersistenceMemoryDatabaseClientSocketEvent.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
+    <Compile Include="Culture\Chinese.cs" />
+    <Compile Include="Culture\Configuration.cs" />
+    <Compile Include="Culture\English.cs" />
     <Compile Include="Extensions\BitmapNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\ByteArrayDictionaryNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\ByteArrayFragmentDictionaryNodeClientNodeExtension.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Extensions\KeepCallbackResponseExtension.cs" />
     <Compile Include="Extensions\LocalKeepCallbackExtension.cs" />
     <Compile Include="Extensions\MethodKeepCallbackExtension.cs" />
+    <Compile Include="Extensions\ProcessGuardNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\ResponseResultExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeLocalClientNodeExtension.cs" />
@@ -198,6 +202,12 @@
     <Compile Include="Node\Message\ServerByteArrayMessageConsumer.cs" />
     <Compile Include="Node\Message\ServerByteArrayMessageJsonConsumer.cs" />
     <Compile Include="Node\Message\ServerByteArrayMessageStringConsumer.cs" />
+    <Compile Include="Node\ProcessGuard\GuardProcess.cs" />
+    <Compile Include="Node\ProcessGuard\IProcessGuardNode.cs" />
+    <Compile Include="Node\ProcessGuard\ProcessGuardCommandClientSocketEvent.cs" />
+    <Compile Include="Node\ProcessGuard\ProcessGuardInfo.cs" />
+    <Compile Include="Node\ProcessGuard\ProcessGuardNode.cs" />
+    <Compile Include="Node\ProcessGuard\ProcessGuardSwitchProcess.cs" />
     <Compile Include="Node\QueueNode.cs" />
     <Compile Include="Node\SearchTreeDictionaryNode.cs" />
     <Compile Include="Node\SearchTreeSetNode.cs" />

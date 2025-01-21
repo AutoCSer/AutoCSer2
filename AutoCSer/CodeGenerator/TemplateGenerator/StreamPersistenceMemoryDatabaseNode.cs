@@ -123,7 +123,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (method.EnumName == null) method.EnumName = method.Method?.MethodName;
                 if (method.EnumName != null && !names.Add(method.EnumName))
                 {
-                    throw new Exception($"{CurrentType.Type.fullName()} 生成 {MethodIndexEnumTypeName}.{method.EnumName} 名称冲突");
+                    throw new Exception(Culture.Configuration.Default.GetStreamPersistenceMemoryDatabaseNodeMethodNameConflict(CurrentType.Type, MethodIndexEnumTypeName, method.EnumName));
                 }
                 method.MethodIndex = methodIndex++;
             }

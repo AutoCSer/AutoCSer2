@@ -111,12 +111,46 @@
     <Compile Include="Data\JsonStructProperty.cs" />
     <Compile Include="Data\StructProperty.cs" />
     <Compile Include="InterfaceControllerTaskQueue.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ArrayNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\BitmapNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ByteArrayDictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ByteArrayFragmentDictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ByteArrayQueueNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ByteArrayStackNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\CommandClientSocketEvent.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\DictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\DistributedLockNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\FragmentDictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\FragmentHashSetNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\HashBytesDictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\HashBytesFragmentDictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\HashSetNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\IdentityGeneratorNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\LeftArrayNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\BinaryMessageConsumer.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayBinaryMessageConsumer.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayMessageConsumer.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayMessageJsonConsumer.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayMessageStringConsumer.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\QueueNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\SearchTreeDictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\SearchTreeSetNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\SortedDictionaryNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\SortedListNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\SortedSetNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\StackNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Data\TestClass.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\ServiceConfig.cs" />
     <Compile Include="Xml.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="{AutoCSer.TestCase}.AutoCSer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5.csproj">
+      <Project>{16850f6e-850a-46e4-af12-cf48e9e771b1}</Project>
+      <Name>AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.DotNet4.5.csproj">
       <Project>{90fc149a-e986-4e5b-b659-5c94d03474c9}</Project>
       <Name>AutoCSer.FieldEquals.DotNet4.5</Name>

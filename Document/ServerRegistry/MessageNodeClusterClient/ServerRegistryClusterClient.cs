@@ -4,7 +4,7 @@ using System;
 namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
 {
     /// <summary>
-    /// 集群服务客户端
+    /// 集群服务客户端调度
     /// </summary>
     internal sealed class ServerRegistryClusterClient : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient<ClusterClient>
     {
@@ -29,7 +29,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
         /// </summary>
         private volatile int freeCount;
         /// <summary>
-        /// 集群服务客户端
+        /// 集群服务客户端调度
         /// </summary>
         /// <param name="getCount"></param>
         internal ServerRegistryClusterClient(int getCount = 1 << 10) : base(ServerRegistryLogCommandClientSocketEvent.ServerRegistryNodeCache, nameof(AutoCSer.Document.ServerRegistry.MessageNodeCluster))
@@ -87,48 +87,37 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
         private ClusterClient? getClient()
         {
             var client = lastClient;
-            if (client == null)
-            {
-                Monitor.Enter(clientLock);
-                try
-                {
-                    client = lastClient;
-                    if (client != null)
-                    {
-                        --freeCount;
-                        return client;
-                    }
-                    if (clientArray.Count == 0) return null;
-                    nextClient();
-                    client = lastClient;
-                }
-                finally { Monitor.Exit(clientLock); }
-                return client;
-            }
-            if (--freeCount < 0)
-            {
-                Monitor.Enter(clientLock);
-                try
-                {
-                    if (freeCount < 0)
-                    {
-                        if (clientArray.Count == 0) return null;
-                        nextClient();
-                    }
-                    client = lastClient;
-                }
-                finally { Monitor.Exit(clientLock); }
-            }
-            return client;
+            return --freeCount >= 0 && client != null && !client.IsSocketClosed ? client : getNextClient();
         }
         /// <summary>
-        /// 下一个客户端
+        /// 获取下一个客户端
         /// </summary>
-        private void nextClient()
+        /// <returns></returns>
+        private ClusterClient? getNextClient()
         {
-            if (++getIndex >= clientArray.Count) getIndex = 0;
-            lastClient = clientArray[getIndex];
-            freeCount = getCount;
+            Monitor.Enter(clientLock);
+            try
+            {
+                var client = lastClient;
+                if (--freeCount >= 0 && client != null && !client.CheckSocketClosed()) return client;
+                if (clientArray.Count == 0) return lastClient = null;
+                if (++getIndex >= clientArray.Count) getIndex = 0;
+                lastClient = clientArray[getIndex];
+                if (lastClient.CheckSocketClosed())
+                {
+                    int index = getIndex;
+                    do
+                    {
+                        if (++getIndex >= clientArray.Count) getIndex = 0;
+                        if (getIndex != index) lastClient = clientArray[getIndex];
+                        else return lastClient = null;
+                    }
+                    while (lastClient.CheckSocketClosed());
+                }
+                freeCount = getCount;
+                return lastClient;
+            }
+            finally { Monitor.Exit(clientLock); }
         }
         /// <summary>
         /// 获取一个节点
@@ -153,7 +142,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
         /// <summary>
         /// 集群服务客户端单例
         /// </summary>
-        public static readonly ServerRegistryClusterClient Client = new ServerRegistryClusterClient(1 << 4);
+        public static readonly ServerRegistryClusterClient Client = new ServerRegistryClusterClient(1 << 4); //实战中至少应该设置为 1000 以上
         /// <summary>
         /// 消息节点集群客户端生产者测试
         /// </summary>

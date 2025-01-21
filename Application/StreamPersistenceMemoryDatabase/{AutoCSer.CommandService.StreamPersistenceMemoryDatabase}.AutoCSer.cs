@@ -1250,6 +1250,33 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 进程守护节点接口（服务端需要以管理员身份运行，否则可能异常） 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode))]
+        public partial interface IProcessGuardNodeClientNode
+        {
+            /// <summary>
+            /// 添加待守护进程
+            /// </summary>
+            /// <param name="processInfo">进程信息</param>
+            /// <returns>是否添加成功</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Guard(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo processInfo);
+            /// <summary>
+            /// 删除被守护进程
+            /// </summary>
+            /// <param name="processId">进程标识</param>
+            /// <param name="processName">进程名称</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Remove(int processId, string processName);
+            /// <summary>
+            /// 切换进程
+            /// </summary>
+            /// <param name="key">切换进程关键字</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Switch(string key);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 队列节点接口（先进先出） 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode<>))]
@@ -1510,7 +1537,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <returns></returns>
             AutoCSer.Net.KeepCallbackCommand LogCallback(string serverName, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog>,AutoCSer.Net.KeepCallbackCommand> callback);
             /// <summary>
-            /// 服务注册回调委托
+            /// 服务注册回调委托，主要用于注册组件检查服务的在线状态
             /// </summary>
             /// <param name="sessionID">服务会话标识ID</param>
             /// <returns></returns>
@@ -1521,6 +1548,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="serverName">服务名称</param>
             /// <returns>返回 null 表示没有找到服务主日志</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog> GetLog(string serverName);
+            /// <summary>
+            /// 检查服务在线状态
+            /// </summary>
+            /// <param name="sessionID">服务会话标识ID</param>
+            /// <param name="serverName">服务名称</param>
+            AutoCSer.Net.SendOnlyCommand Check(long sessionID, string serverName);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1777,6 +1810,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int loadTimeoutSeconds);
+            /// <summary>
+            /// 创建服务进程守护节点 IProcessGuardNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateProcessGuardNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3155,6 +3196,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int loadTimeoutSeconds);
+            /// <summary>
+            /// 创建服务进程守护节点 IProcessGuardNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateProcessGuardNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4549,6 +4598,42 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 进程守护节点接口（服务端需要以管理员身份运行，否则可能异常）
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IProcessGuardNodeMethodEnum))]
+        public partial interface IProcessGuardNode { }
+        /// <summary>
+        /// 进程守护节点接口（服务端需要以管理员身份运行，否则可能异常） 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IProcessGuardNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] 添加待守护进程
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo processInfo 进程信息
+            /// 返回值 bool 是否添加成功
+            /// </summary>
+            Guard = 0,
+            /// <summary>
+            /// [1] 删除被守护进程
+            /// int processId 进程标识
+            /// string processName 进程名称
+            /// </summary>
+            Remove = 1,
+            /// <summary>
+            /// [2] 快照设置数据
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo value 数据
+            /// </summary>
+            SnapshotSet = 2,
+            /// <summary>
+            /// [3] 切换进程
+            /// string key 切换进程关键字
+            /// 返回值 bool 
+            /// </summary>
+            Switch = 3,
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 队列节点接口（先进先出）
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IQueueNodeMethodEnum))]
@@ -4830,7 +4915,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             LogCallback = 2,
             /// <summary>
-            /// [3] 服务注册回调委托
+            /// [3] 服务注册回调委托，主要用于注册组件检查服务的在线状态
             /// long sessionID 服务会话标识ID
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum 
             /// </summary>
@@ -4846,6 +4931,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog 返回 null 表示没有找到服务主日志
             /// </summary>
             GetLog = 5,
+            /// <summary>
+            /// [6] 检查服务在线状态
+            /// long sessionID 服务会话标识ID
+            /// string serverName 服务名称
+            /// </summary>
+            Check = 6,
+            /// <summary>
+            /// [7] 服务失联持久化
+            /// long sessionID 服务会话标识ID
+            /// string serverName 服务名称
+            /// </summary>
+            LostContact = 7,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -5106,6 +5203,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateServerRegistryNode = 25,
+            /// <summary>
+            /// [26] 创建服务进程守护节点 IProcessGuardNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateProcessGuardNode = 26,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

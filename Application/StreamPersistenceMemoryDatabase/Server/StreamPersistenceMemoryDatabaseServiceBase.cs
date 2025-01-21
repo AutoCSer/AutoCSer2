@@ -188,7 +188,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 是否已经加载完数据
         /// </summary>
-        internal bool IsLoaded;
+        public bool IsLoaded { get; protected set; }
         /// <summary>
         /// 是否已经释放资源
         /// </summary>

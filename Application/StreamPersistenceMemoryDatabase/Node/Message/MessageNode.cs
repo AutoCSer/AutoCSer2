@@ -110,7 +110,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private MessageNode(int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1)
         {
             timeoutTimestamp = AutoCSer.Date.GetTimestampBySeconds(Math.Max(timeoutSeconds, 1));
-            checkTimer = new MessageNodeCheckTimer<T>(this, Math.Max(checkTimeoutSeconds, 1));
+            checkTimer = new MessageNodeCheckTimer<T>(Math.Max(checkTimeoutSeconds, 1));
             MessageArray = new MessageArrayItem<T>[Math.Max(arraySize, 1)];
             callbacks = new LeftArray<MessageNodeCallbackCount<T>>(sizeof(int));
             timeoutMessages = AutoCSer.Extensions.DictionaryCreator.CreateLong<T>();
@@ -144,7 +144,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public override IMessageNode<T> StreamPersistenceMemoryDatabaseServiceLoaded()
 #endif
         {
-            checkTimer.AppendTaskArray();
+            checkTimer.Set(this);
             return this;
         }
         /// <summary>

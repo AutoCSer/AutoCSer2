@@ -485,7 +485,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else if (isDeserializeLog)
             {
                 isDeserializeLog = false;
-                if (socket.SessionObject == null) socket.Client.Log.ErrorIgnoreException($"日志流持久化内存数据库从服务客户端缺少套接字自定义会话对象，请在自定义初始化阶段 {typeof(CommandClientSocketEvent).fullName()}.{nameof(CommandClientSocketEvent.OnSetController)} 设置 {typeof(CommandClientSocket).fullName()}.{nameof(CommandClientSocket.SessionObject)} = {typeof(ISlaveLoader).fullName()}", LogLevelEnum.Error | LogLevelEnum.Fatal);
+                if (socket.SessionObject == null) socket.Client.Log.ErrorIgnoreException($"日志流持久化内存数据库从服务客户端缺少套接字自定义会话对象，请在自定义初始化阶段 {typeof(ProcessGuardCommandClientSocketEvent).fullName()}.{nameof(ProcessGuardCommandClientSocketEvent.OnSetController)} 设置 {typeof(CommandClientSocket).fullName()}.{nameof(CommandClientSocket.SessionObject)} = {typeof(ISlaveLoader).fullName()}", LogLevelEnum.Error | LogLevelEnum.Fatal);
                 else socket.Client.Log.ErrorIgnoreException($"日志流持久化内存数据库从服务客户端套接字自定义会话对象类型错误 {socket.SessionObject.GetType().fullName()} 未实现接口 {typeof(ISlaveLoader).fullName()}", LogLevelEnum.Error | LogLevelEnum.Fatal);
             }
             return null;

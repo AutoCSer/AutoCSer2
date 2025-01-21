@@ -274,6 +274,136 @@
             自定义模板相对项目路径
             </summary>
         </member>
+        <member name="T:AutoCSer.Extensions.Culture.Chinese">
+            <summary>
+            扩展中文配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Chinese.GetStreamPersistenceLoaderDecompressFailed(System.String,System.Int64)">
+            <summary>
+            日志流持久化文件数据解压缩失败
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="position">错误数据位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Chinese.GetStreamPersistenceLoaderDataSizeError(System.String,System.Int64)">
+            <summary>
+            日志流持久化文件数据块长度错误
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="position">错误数据位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Chinese.GetStreamPersistenceLoaderHeaderSizeError(System.String,System.Int32,System.Int32)">
+            <summary>
+            日志流持久化文件头部数据不足
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="unreadSize">文件未读取数据字节数量</param>
+            <param name="fileHeadSize">需要读取的文件头部字节数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Chinese.GetXmlNodeTypeNotMatch(AutoCSer.XmlNodeTypeEnum,AutoCSer.XmlNodeTypeEnum)">
+            <summary>
+            XML 节点类型不匹配
+            </summary>
+            <param name="type">XML 节点类型</param>
+            <param name="matchType">XML 节点需要的匹配节点类型</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.Culture.Chinese.Default">
+            <summary>
+            默认扩展中文配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Culture.Configuration">
+            <summary>
+            扩展系统语言文化配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Configuration.GetStreamPersistenceLoaderDecompressFailed(System.String,System.Int64)">
+            <summary>
+            日志流持久化文件数据解压缩失败
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="position">错误数据位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Configuration.GetStreamPersistenceLoaderDataSizeError(System.String,System.Int64)">
+            <summary>
+            日志流持久化文件数据块长度错误
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="position">错误数据位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Configuration.GetStreamPersistenceLoaderHeaderSizeError(System.String,System.Int32,System.Int32)">
+            <summary>
+            日志流持久化文件头部数据不足
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="unreadSize">文件未读取数据字节数量</param>
+            <param name="fileHeadSize">需要读取的文件头部字节数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.Configuration.GetXmlNodeTypeNotMatch(AutoCSer.XmlNodeTypeEnum,AutoCSer.XmlNodeTypeEnum)">
+            <summary>
+            XML 节点类型不匹配
+            </summary>
+            <param name="type">XML 节点类型</param>
+            <param name="matchType">XML 节点需要的匹配节点类型</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.Culture.Configuration.Default">
+            <summary>
+            默认扩展系统语言文化配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Culture.English">
+            <summary>
+            Extended English configuration
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.English.GetStreamPersistenceLoaderDecompressFailed(System.String,System.Int64)">
+            <summary>
+            Description Failed to decompress the log stream persistence file
+            </summary>
+            <param name="fileName">Persistent file name</param>
+            <param name="position">Error data location</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.English.GetStreamPersistenceLoaderDataSizeError(System.String,System.Int64)">
+            <summary>
+            The length of the log stream persistent file data block is incorrect
+            </summary>
+            <param name="fileName">Persistent file name</param>
+            <param name="position">Error data location</param>
+            <returns></returns>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.English.GetStreamPersistenceLoaderHeaderSizeError(System.String,System.Int32,System.Int32)">
+            <summary>
+            The header data of the log stream persistent file is insufficient
+            </summary>
+            <param name="fileName">Persistent file name</param>
+            <param name="unreadSize">Number of unread bytes of data from the file</param>
+            <param name="fileHeadSize">The number of file header bytes to be read</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Culture.English.GetXmlNodeTypeNotMatch(AutoCSer.XmlNodeTypeEnum,AutoCSer.XmlNodeTypeEnum)">
+            <summary>
+            The XML node type does not match
+            </summary>
+            <param name="type">XML node type</param>
+            <param name="matchType">XML node required matching node type</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.Culture.English.Default">
+            <summary>
+            Default Extended English configuration
+            </summary>
+        </member>
         <member name="T:AutoCSer.Extensions.Date">
             <summary>
             日期相关操作
@@ -2086,6 +2216,11 @@
             切换进程进关闭参数
             </summary>
         </member>
+        <member name="F:AutoCSer.Deploy.SwitchProcess.DefaultSwitchDirectoryName">
+            <summary>
+            默认切换服务相对目录名称
+            </summary>
+        </member>
         <member name="F:AutoCSer.Deploy.SwitchProcess.exitLock">
             <summary>
             切换服务锁
@@ -2202,11 +2337,6 @@
             <param name="deployServerFileName">发布服务文件名称</param>
             <param name="switchDirectoryName">切换服务相对目录名称</param>
             <returns>切换服务文件</returns>
-        </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.DefaultSwitchDirectoryName">
-            <summary>
-            默认切换服务相对目录名称
-            </summary>
         </member>
         <member name="T:AutoCSer.Deploy.SwitchWait">
             <summary>

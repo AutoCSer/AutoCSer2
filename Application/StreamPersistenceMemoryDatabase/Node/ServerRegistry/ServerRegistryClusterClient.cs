@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 集群客户端
+    /// 集群客户端调度
     /// </summary>
     /// <typeparam name="T">集群客户端节点类型</typeparam>
     public abstract class ServerRegistryClusterClient<T> : ServerRegistryLogClient, IDisposable
@@ -27,7 +27,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         protected readonly object clientLock;
         /// <summary>
-        /// 集群客户端
+        /// 集群客户端调度
         /// </summary>
         /// <param name="node">服务注册节点</param>
         /// <param name="serverName">服务名称</param>

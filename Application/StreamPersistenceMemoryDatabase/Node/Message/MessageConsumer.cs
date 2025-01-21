@@ -96,7 +96,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!isDisposed)
             {
                 isDisposed = true;
-                keepCallback?.Dispose();
+                keepCallback?.Close();
             }
         }
         /// <summary>

@@ -89,14 +89,14 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                         FileInfo pageFile = new FileInfo(string.IsNullOrEmpty(filePath) ? Path.Combine(parameter.ProjectPath, $"{type.Name}{PageHtmlFileExtension}") : Path.Combine(parameter.ProjectPath, filePath, $"{type.Name}{PageHtmlFileExtension}"));
                         if (!await AutoCSer.Common.FileExists(pageFile))
                         {
-                            Messages.Error($"数据视图 {type.fullName()} 没有找到 HTML 模板页面文件 {pageFile.FullName}");
+                            Messages.Error(Culture.Configuration.Default.GetWebViewNotFoundTemplateFile(type, pageFile));
                             return false;
                         }
                         string pageFileName = pageFile.FullName;
                         string viewKey = ViewMiddleware.FileNameIgnoreCase ? pageFileName.ToLower() : pageFileName;
                         if (Views.TryGetValue(viewKey, out View keyView))
                         {
-                            Messages.Error($"数据视图 {type.fullName()} 与 {keyView.GetType().fullName()} HTML 模板文件名称冲突 {pageFile.FullName}");
+                            Messages.Error(Culture.Configuration.Default.GetWebViewTemplateFileNameConflict(type, keyView.GetType(), pageFile));
                             return false;
                         }
                         Views.Add(viewKey, view);

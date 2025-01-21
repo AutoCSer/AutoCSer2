@@ -1813,6 +1813,396 @@
             </summary>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult`1.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{`0})~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult">
+            <summary>
+            错误返回结果
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese">
+            <summary>
+            扩展中文配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServerNodeCreateFailed(System.Type)">
+            <summary>
+            服务端节点创建失败
+            </summary>
+            <param name="type">服务端节点接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServerSnapshotNodeNotImplemented(System.Type)">
+            <summary>
+            服务端节点类型未实现快照接口
+            </summary>
+            <param name="type">服务端节点类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderFailed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum,System.String,System.Int64,System.Int32)">
+            <summary>
+            内存数据库初始化加载数据失败
+            </summary>
+            <param name="state">错误状态</param>
+            <param name="fileName">加载的持久化文件名称</param>
+            <param name="position">当前数据块所在持久化流中的位置</param>
+            <param name="bufferIndex">当前数据块内索引位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderFailed(System.String,System.Int64,System.Int32)">
+            <summary>
+            内存数据库初始化加载数据失败
+            </summary>
+            <param name="fileName">加载的持久化文件名称</param>
+            <param name="position">当前数据块所在持久化流中的位置</param>
+            <param name="bufferIndex">当前数据块内索引位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderExceptionPositionFileSizeUnrecognized(System.String,System.Int64)">
+            <summary>
+            持久化回调异常位置文件长度不可识别
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <param name="unreadSize">未读数据字节数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderExceptionPositionRebuildPositionNotMatch(System.String,System.UInt64,System.UInt64)">
+            <summary>
+            持久化回调异常位置文件重建索引位置与数据库文件位置不匹配
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <param name="rebuildPosition">持久化流重建起始位置</param>
+            <param name="databaseRebuildPosition">内存数据库持久化流重建起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderExceptionPositionFileHeaderNotMatch(System.String)">
+            <summary>
+            持久化回调异常位置文件头部识别失败
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderExceptionPositionFileHeaderSizeNotMatch(System.String,System.Int32,System.Int32)">
+            <summary>
+            持久化回调异常位置文件头部数据不足
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <param name="unreadSize">文件未读数据字节数量</param>
+            <param name="fileHeadSize">文件头部需求字节数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderFileHeaderNotMatch(System.String)">
+            <summary>
+            持久化文件头部识别失败
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetServiceLoaderFileVersionNotSupported(System.String,System.Byte)">
+            <summary>
+            持久化文件头部版本号不被支持
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="verison">内存数据库版本号</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetNotFoundExceptionPositionFile(System.String)">
+            <summary>
+            持久化回调异常位置文件缺失
+            </summary>
+            <param name="fileName">持久化回调异常位置文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetClientNodeCreatorException(System.Type,System.Type)">
+            <summary>
+            内存数据库创建客户端节点异常信息
+            </summary>
+            <param name="clientType">客户端节点接口类型</param>
+            <param name="serverType">服务端节点接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetClientNodeCreatorNotMatchType(System.Type)">
+            <summary>
+            客户端节点没有找到匹配的服务端节点接口类型
+            </summary>
+            <param name="type">客户端节点接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetClientNodeCreatorWarning(System.Type,System.String[])">
+            <summary>
+            节点客户端生成警告信息
+            </summary>
+            <param name="type">客户端节点接口类型</param>
+            <param name="messages">节点构造提示信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetGuardProcessStartFailed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            守护的新进程启动失败
+            </summary>
+            <param name="process">退出的进程信息</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.Default">
+            <summary>
+            默认扩展中文配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration">
+            <summary>
+            扩展系统语言文化配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServerNodeCreateFailed(System.Type)">
+            <summary>
+            服务端节点创建失败
+            </summary>
+            <param name="type">服务端节点接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServerSnapshotNodeNotImplemented(System.Type)">
+            <summary>
+            服务端节点类型未实现快照接口
+            </summary>
+            <param name="type">服务端节点类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderFailed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum,System.String,System.Int64,System.Int32)">
+            <summary>
+            内存数据库初始化加载数据失败
+            </summary>
+            <param name="state">错误状态</param>
+            <param name="fileName">加载的持久化文件名称</param>
+            <param name="position">当前数据块所在持久化流中的位置</param>
+            <param name="bufferIndex">当前数据块内索引位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderFailed(System.String,System.Int64,System.Int32)">
+            <summary>
+            内存数据库初始化加载数据失败
+            </summary>
+            <param name="fileName">加载的持久化文件名称</param>
+            <param name="position">当前数据块所在持久化流中的位置</param>
+            <param name="bufferIndex">当前数据块内索引位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderExceptionPositionFileSizeUnrecognized(System.String,System.Int64)">
+            <summary>
+            持久化回调异常位置文件长度不可识别
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <param name="unreadSize">未读数据字节数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderExceptionPositionRebuildPositionNotMatch(System.String,System.UInt64,System.UInt64)">
+            <summary>
+            持久化回调异常位置文件重建索引位置与数据库文件位置不匹配
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <param name="rebuildPosition">持久化流重建起始位置</param>
+            <param name="databaseRebuildPosition">内存数据库持久化流重建起始位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderExceptionPositionFileHeaderNotMatch(System.String)">
+            <summary>
+            持久化回调异常位置文件头部识别失败
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderExceptionPositionFileHeaderSizeNotMatch(System.String,System.Int32,System.Int32)">
+            <summary>
+            持久化回调异常位置文件头部数据不足
+            </summary>
+            <param name="fileName">持久化回调异常位置文件名称</param>
+            <param name="unreadSize">文件未读数据字节数量</param>
+            <param name="fileHeadSize">文件头部需求字节数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderFileHeaderNotMatch(System.String)">
+            <summary>
+            持久化文件头部识别失败
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetServiceLoaderFileVersionNotSupported(System.String,System.Byte)">
+            <summary>
+            持久化文件头部版本号不被支持
+            </summary>
+            <param name="fileName">持久化文件名称</param>
+            <param name="verison">内存数据库版本号</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetNotFoundExceptionPositionFile(System.String)">
+            <summary>
+            持久化回调异常位置文件缺失
+            </summary>
+            <param name="fileName">持久化回调异常位置文件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetClientNodeCreatorException(System.Type,System.Type)">
+            <summary>
+            内存数据库创建客户端节点异常信息
+            </summary>
+            <param name="clientType">客户端节点接口类型</param>
+            <param name="serverType">服务端节点接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetClientNodeCreatorNotMatchType(System.Type)">
+            <summary>
+            客户端节点没有找到匹配的服务端节点接口类型
+            </summary>
+            <param name="type">客户端节点接口类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetClientNodeCreatorWarning(System.Type,System.String[])">
+            <summary>
+            节点客户端生成警告信息
+            </summary>
+            <param name="type">客户端节点接口类型</param>
+            <param name="messages">节点构造提示信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetGuardProcessStartFailed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            守护的新进程启动失败
+            </summary>
+            <param name="process">退出的进程信息</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default">
+            <summary>
+            默认扩展系统语言文化配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English">
+            <summary>
+            Extended English configuration
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServerNodeCreateFailed(System.Type)">
+            <summary>
+            Failed to create a server node
+            </summary>
+            <param name="type">Server node interface type</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServerSnapshotNodeNotImplemented(System.Type)">
+            <summary>
+            Server node type The snapshot interface is not implemented
+            </summary>
+            <param name="type">Server node type</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderFailed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum,System.String,System.Int64,System.Int32)">
+            <summary>
+            Failed to load data during memory database initialization
+            </summary>
+            <param name="state">Error state</param>
+            <param name="fileName">The name of the loaded persistent file</param>
+            <param name="position">The location of the current data block in the persistent flow</param>
+            <param name="bufferIndex">Index position in the current data block</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderFailed(System.String,System.Int64,System.Int32)">
+            <summary>
+            Failed to load data during memory database initialization
+            </summary>
+            <param name="fileName">The name of the loaded persistent file</param>
+            <param name="position">The location of the current data block in the persistent flow</param>
+            <param name="bufferIndex">Index position in the current data block</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderExceptionPositionFileSizeUnrecognized(System.String,System.Int64)">
+            <summary>
+            Persistent callback exception location File length unrecognized
+            </summary>
+            <param name="fileName">Persistent callback exception location File name</param>
+            <param name="unreadSize">Number of unread data bytes</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderExceptionPositionRebuildPositionNotMatch(System.String,System.UInt64,System.UInt64)">
+            <summary>
+            Persistent callback exception location The file rebuild index location does not match the database file location
+            </summary>
+            <param name="fileName">Persistent callback exception location File name</param>
+            <param name="rebuildPosition">The start location of the persistent stream reconstruction</param>
+            <param name="databaseRebuildPosition">The start location of the in-memory database persistent stream reconstruction</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderExceptionPositionFileHeaderNotMatch(System.String)">
+            <summary>
+            Persistent callback Abnormal location File header identification failed
+            </summary>
+            <param name="fileName">Persistent callback exception location File name</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderExceptionPositionFileHeaderSizeNotMatch(System.String,System.Int32,System.Int32)">
+            <summary>
+            Persistent callback Abnormal location File header data is insufficient
+            </summary>
+            <param name="fileName">Persistent callback exception location File name</param>
+            <param name="unreadSize">Number of unread bytes of the file</param>
+            <param name="fileHeadSize">The required number of bytes in the file header</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderFileHeaderNotMatch(System.String)">
+            <summary>
+            Description Failed to identify the persistent file header
+            </summary>
+            <param name="fileName">Persistent file name</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetServiceLoaderFileVersionNotSupported(System.String,System.Byte)">
+            <summary>
+            Persistent file header version number is not supported
+            </summary>
+            <param name="fileName">Persistent file name</param>
+            <param name="verison">Memory database version number</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetNotFoundExceptionPositionFile(System.String)">
+            <summary>
+            Persistent callback exception location file is missing
+            </summary>
+            <param name="fileName">Persistent callback exception location File name</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetClientNodeCreatorException(System.Type,System.Type)">
+            <summary>
+            Memory database creation client node exception information
+            </summary>
+            <param name="clientType">Type of the client node interface</param>
+            <param name="serverType">Server node interface type</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetClientNodeCreatorNotMatchType(System.Type)">
+            <summary>
+            The client node did not find a matching server node interface type
+            </summary>
+            <param name="type">Type of the client node interface</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetClientNodeCreatorWarning(System.Type,System.String[])">
+            <summary>
+            The node client generates a warning message
+            </summary>
+            <param name="type">Type of the client node interface</param>
+            <param name="messages">Node construction prompts</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetGuardProcessStartFailed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            The new daemon process failed to start
+            </summary>
+            <param name="process">Information about the exiting process</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.Default">
+            <summary>
+            Default Extended English configuration
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Extensions.EnumerableExtension">
             <summary>
             集合相关扩展
@@ -9647,17 +10037,22 @@
             消息处理节点
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeCheckTimer`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode{`0},System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeCheckTimer`1.#ctor(System.Int32)">
             <summary>
             超时检查定时
             </summary>
-            <param name="messageNode"></param>
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeCheckTimer`1.OnTimer">
             <summary>
             定时器触发
             </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeCheckTimer`1.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode{`0})">
+            <summary>
+            设置消息处理节点
+            </summary>
+            <param name="messageNode"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeCheckTimer`1.Cancel">
             <summary>
@@ -10284,6 +10679,453 @@
             <param name="message"></param>
             <returns>消息是否执行成功</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardCommandClientSocketEvent">
+            <summary>
+            进程守护节点命令客户端套接字事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClient">
+            <summary>
+            日志流持久化内存数据库客户端接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardCommandClientSocketEvent.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardCommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess">
+            <summary>
+            被守护进程信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.node">
+            <summary>
+            进程守护节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.ProcessInfo">
+            <summary>
+            被守护进程信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.process">
+            <summary>
+            被守护进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.guardHandle">
+            <summary>
+            进程退出事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.NewProcess">
+            <summary>
+            新进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.isReStart">
+            <summary>
+            是否重新启动进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.IsRemove">
+            <summary>
+            是否已经被移除
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo,System.Diagnostics.Process)">
+            <summary>
+            被守护进程信息
+            </summary>
+            <param name="node"></param>
+            <param name="processInfo"></param>
+            <param name="process"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            被守护进程信息
+            </summary>
+            <param name="node"></param>
+            <param name="processInfo"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.Loaded">
+            <summary>
+            数据库冷启动初始化启动被守护进程
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.setExited">
+            <summary>
+            设置进程退出事件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.guard(System.Object,System.EventArgs)">
+            <summary>
+            进程退出事件
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.RunTask">
+            <summary>
+            重新启动进程以后通知管理器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.Remove">
+            <summary>
+            移除被守护进程
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.close">
+            <summary>
+            释放进程
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode">
+            <summary>
+            进程守护节点接口（服务端需要以管理员身份运行，否则可能异常）
+            </summary>
+            <summary>
+            进程守护节点接口（服务端需要以管理员身份运行，否则可能异常）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.Guard(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            添加待守护进程
+            </summary>
+            <param name="processInfo">进程信息</param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.Remove(System.Int32,System.String)">
+            <summary>
+            删除被守护进程
+            </summary>
+            <param name="processId">进程标识</param>
+            <param name="processName">进程名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.Switch(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Boolean})">
+            <summary>
+            切换进程
+            </summary>
+            <param name="key">切换进程关键字</param>
+            <param name="callback">切换进程回调</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo">
+            <summary>
+            被守护进程信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.ProcessID">
+            <summary>
+            进程标识ID
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.PriorityClass">
+            <summary>
+            优先级
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.ProcessName">
+            <summary>
+            进程名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.FileName">
+            <summary>
+            运行文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.Arguments">
+            <summary>
+            命令行参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.WorkingDirectory">
+            <summary>
+            工作目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.WindowStyle">
+            <summary>
+            进程启动时要使用的窗口状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.UseShellExecute">
+            <summary>
+            是否使用操作系统外壳启动进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.isArgumentArray">
+            <summary>
+            命令行参数是否 Main 函数传参数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.#ctor">
+            <summary>
+            被守护进程信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess)">
+            <summary>
+            被守护进程信息
+            </summary>
+            <param name="guardProcess"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.#ctor(System.Diagnostics.Process,System.String[])">
+            <summary>
+            被守护进程信息
+            </summary>
+            <param name="process"></param>
+            <param name="arguments">Main 传参数组</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.Start">
+            <summary>
+            启动新进程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode">
+            <summary>
+            进程守护节点（服务端需要以管理员身份运行，否则可能异常）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.guards">
+            <summary>
+            被守护进程集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.switchCallbacks">
+            <summary>
+            切换进程回调委托集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.#ctor">
+            <summary>
+            进程守护节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.StreamPersistenceMemoryDatabaseServiceLoaded">
+            <summary>
+            初始化加载完毕处理
+            </summary>
+            <returns>加载完毕替换的新节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
+            <summary>
+            节点移除后处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.GetProcessById(System.Int32)">
+            <summary>
+            根据进程ID获取进程信息
+            </summary>
+            <param name="processID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Guard(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            添加待守护进程
+            </summary>
+            <param name="processInfo">进程信息</param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Remove(System.Int32,System.String)">
+            <summary>
+            删除被守护进程
+            </summary>
+            <param name="processId">进程标识</param>
+            <param name="processName">进程名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.OnExited(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess)">
+            <summary>
+            被守护进程重启以后替换被守护进程信息
+            </summary>
+            <param name="guardProcess"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Switch(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Boolean})">
+            <summary>
+            切换进程
+            </summary>
+            <param name="key">切换进程关键字</param>
+            <param name="callback">切换进程回调</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess">
+            <summary>
+            切换进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.DefaultSwitchDirectoryName">
+            <summary>
+            默认切换服务相对目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.arguments">
+            <summary>
+            Main 函数传参
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.switchProcessKey">
+            <summary>
+            切换进程关键字，默认为当前进程名称
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.processFileName">
+            <summary>
+            执行进程文件名称，默认为当前执行文件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.switchDirectoryName">
+            <summary>
+            切换服务相对目录名称，默认为 Switch
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.isGuard">
+            <summary>
+            默认为 true 表示添加守护
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.isStart">
+            <summary>
+            是否已经开始运行或者启动切换进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.isExit">
+            <summary>
+            是否准备退出操作
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.getProcessGuardClient">
+            <summary>
+            获取进程守护节点客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.#ctor(System.String[])">
+            <summary>
+            切换进程
+            </summary>
+            <param name="arguments">Main 函数参数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.Start">
+            <summary>
+            开始运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.onError(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode})">
+            <summary>
+            错误信息处理
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.onException(System.Exception)">
+            <summary>
+            异常信息处理
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.trySwitch">
+            <summary>
+            尝试重试等待切换线程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.initialize">
+            <summary>
+            初始化操作，让进程服务处于准备服务状态，完成该操作以后会通知旧服务进程下线
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.guard">
+            <summary>
+            添加守护
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.onStart">
+            <summary>
+            开始运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.onExit">
+            <summary>
+            退出运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.exit">
+            <summary>
+            正常退出操作（尝试移除进程守护）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.StartProcessDirectory(System.IO.FileInfo,System.String[])">
+            <summary>
+            在文件当前目录启动进程
+            </summary>
+            <param name="file">文件信息</param>
+            <param name="arguments">Main 函数参数</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.GetStartProcessDirectory(System.IO.FileInfo,System.String[])">
+            <summary>
+            在文件当前目录启动进程
+            </summary>
+            <param name="file">文件信息</param>
+            <param name="arguments">Main 函数参数</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.getStartProcessDirectory(System.IO.FileInfo,System.String[])">
+            <summary>
+            在文件当前目录启动进程
+            </summary>
+            <param name="file"></param>
+            <param name="arguments">Main 函数参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.GetSwitchFile(System.String,System.String)">
+            <summary>
+            初始化时获取切换服务文件
+            </summary>
+            <param name="processFileName">执行进程文件名称，默认为当前执行文件</param>
+            <param name="switchDirectoryName">切换服务相对目录名称，默认为 Switch</param>
+            <returns>切换服务文件</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.QueueNode`1">
             <summary>
             队列节点（先进先出）
@@ -10369,6 +11211,11 @@
             当前主日志
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar.endPoint">
+            <summary>
+            当前监听 IP 地址
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar.isGetServerEndPoint">
             <summary>
             是否已经获取服务监听地址
@@ -10425,6 +11272,12 @@
             获取服务监听地址
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrar`1.ConnectFail(System.Net.IPEndPoint)">
+            <summary>
+            服务连接失败
+            </summary>
+            <param name="endPoint"></param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient">
             <summary>
@@ -10528,6 +11381,58 @@
             <param name="result"></param>
             <param name="command"></param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient">
+            <summary>
+            集群客户端节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.Log">
+            <summary>
+            服务注册日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.ClientIndex">
+            <summary>
+            客户端数组索引位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.IsClosed">
+            <summary>
+            客户端是否已经关闭
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.isCheck">
+            <summary>
+            是否正在检查客户端连接
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.isCheckLog">
+            <summary>
+            是否正在检查服务注册日志
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            内存数据库集群客户端
+            </summary>
+            <param name="log">服务注册日志</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.getSocket">
+            <summary>
+            获取客户端连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.Close">
+            <summary>
+            关闭客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient.close">
+            <summary>
+            关闭客户端
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1">
             <summary>
             集群客户端节点
@@ -10537,26 +11442,6 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.serverRegistryClusterClient">
             <summary>
             集群服务客户端
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.Log">
-            <summary>
-            服务注册日志
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.ClientIndex">
-            <summary>
-            客户端数组索引位置
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.IsClosed">
-            <summary>
-            客户端是否已经关闭
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.isCheck">
-            <summary>
-            是否正在检查客户端连接
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
@@ -10572,21 +11457,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.getSocket">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.CheckLog">
             <summary>
-            获取客户端连接
+            获取需要检查的服务注册日志
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.Close">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.checkLog">
             <summary>
-            关闭客户端
+            检查服务在线状态
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.ClusterClient`1.close">
-            <summary>
-            关闭客户端
-            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar">
             <summary>
@@ -10715,7 +11596,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1">
             <summary>
-            集群客户端
+            集群客户端调度
             </summary>
             <typeparam name="T">集群客户端节点类型</typeparam>
         </member>
@@ -10736,7 +11617,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryClusterClient`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode},System.String)">
             <summary>
-            集群客户端
+            集群客户端调度
             </summary>
             <param name="node">服务注册节点</param>
             <param name="serverName">服务名称</param>
@@ -10884,10 +11765,10 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.ServiceCallback(System.Int64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum})">
             <summary>
-            服务注册回调委托
+            服务注册回调委托，主要用于注册组件检查服务的在线状态
             </summary>
             <param name="sessionID">服务会话标识ID</param>
-            <param name="callback">服务注册日志回调委托</param>
+            <param name="callback">服务注册日志回调委托，主要用于注册组件检查服务的在线状态</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
             <summary>
@@ -10910,9 +11791,23 @@
             <param name="serverName">服务名称</param>
             <returns>返回 null 表示没有找到服务主日志</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.Check(System.Int64,System.String)">
+            <summary>
+            检查服务在线状态
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="serverName">服务名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNode.LostContact(System.Int64,System.String)">
+            <summary>
+            服务失联持久化
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="serverName">服务名称</param>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient">
             <summary>
-            注册服务客户端
+            注册服务客户端调度
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogClient.NodeCache">
@@ -11164,6 +12059,18 @@
             <param name="log"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.OnRemoved">
+            <summary>
+            数据库节点移除处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Check(System.Int64,System.Boolean)">
+            <summary>
+            服务会话在线检查
+            </summary>
+            <param name="sessionID"></param>
+            <param name="isPersistenceLostContact"></param>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum">
             <summary>
             服务注册日志操作类型
@@ -11259,6 +12166,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession.OnRemoved">
+            <summary>
+            数据库节点移除处理
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog">
             <summary>
             服务注册会话与日志信息
@@ -11336,6 +12248,11 @@
             服务注册节点
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.DefaultLoadTimeoutSeconds">
+            <summary>
+            默认冷启动会话 35 秒数超时，因为客户端连接超时可能是 30 秒
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.logAssemblers">
             <summary>
             服务名称集合
@@ -11382,6 +12299,11 @@
             初始化加载完毕处理
             </summary>
             <returns>加载完毕替换的新节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
+            <summary>
+            节点移除后处理
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.GetSnapshotCapacity(System.Object@)">
             <summary>
@@ -11431,12 +12353,13 @@
             <param name="serverName">监视服务名称，空字符串表示所有服务</param>
             <param name="callback">服务注册日志回调委托，null 表示在线检查</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.Callback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog}}@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.Callback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog}}@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog,System.Boolean)">
             <summary>
             服务注册日志回调
             </summary>
             <param name="callbacks"></param>
             <param name="log"></param>
+            <param name="isPersistenceLostContact"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.Callback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog}}@)">
             <summary>
@@ -11457,6 +12380,28 @@
             </summary>
             <param name="serverName">服务名称</param>
             <returns>返回 null 表示没有找到服务主日志</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.check(System.Int64,System.String,System.Boolean)">
+            <summary>
+            检查服务在线状态
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="serverName">服务名称</param>
+            <param name="isPersistenceLostContact"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.Check(System.Int64,System.String)">
+            <summary>
+            检查服务在线状态
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="serverName">服务名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryNode.LostContact(System.Int64,System.String)">
+            <summary>
+            服务失联持久化
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="serverName">服务名称</param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryWaitOfflineQueueNode">
             <summary>
@@ -14553,6 +15498,15 @@
             <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateProcessGuardNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建服务进程守护节点 IProcessGuardNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateServerByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
             <summary>
             创建消息处理节点 MessageNode{ServerByteArrayMessage}
@@ -15746,7 +16700,7 @@
             快照数据信息
             </summary>
             <param name="valueCount">数据数量</param>
-            <param name="capacity">预申请快照数据容器大小</param>
+            <param name="snapshotArrayLength">预申请快照数据容器大小</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotResult`1.#ctor(System.Int32,`0[])">
             <summary>
@@ -15964,7 +16918,7 @@
             当前调用是否持久化
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsLoaded">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsLoaded">
             <summary>
             是否已经加载完数据
             </summary>
@@ -17920,6 +18874,24 @@
             </summary>
             <param name="node">服务端节点</param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreatorNode`2">
+            <summary>
+            创建调用方法与参数信息节点
+            </summary>
+            <typeparam name="T">服务节点类型</typeparam>
+            <typeparam name="ST">快照数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreatorNode`2.methodParameterCreator">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreatorNode`2.SetContext(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode{`0})">
+            <summary>
+            服务端节点上下文
+            </summary>
+            <param name="node">服务端节点</param>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode">
             <summary>
             服务端节点
@@ -19791,6 +20763,15 @@
             <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateProcessGuardNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建服务进程守护节点 IProcessGuardNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateServerByteArrayMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Int32,System.Int32)">
             <summary>
             创建消息处理节点 MessageNode{ServerByteArrayMessage}
@@ -21591,6 +22572,32 @@
             </summary>
             <returns>是否存在可移除数据</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode">
+            <summary>
+            进程守护节点接口（服务端需要以管理员身份运行，否则可能异常） 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode.Guard(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            添加待守护进程
+            </summary>
+            <param name="processInfo">进程信息</param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode.Remove(System.Int32,System.String)">
+            <summary>
+            删除被守护进程
+            </summary>
+            <param name="processId">进程标识</param>
+            <param name="processName">进程名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode.Switch(System.String)">
+            <summary>
+            切换进程
+            </summary>
+            <param name="key">切换进程关键字</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNodeClientNode`1">
             <summary>
             队列节点接口（先进先出） 客户端节点接口
@@ -21659,7 +22666,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode.ServiceCallback(System.Int64,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
-            服务注册回调委托
+            服务注册回调委托，主要用于注册组件检查服务的在线状态
             </summary>
             <param name="sessionID">服务会话标识ID</param>
             <returns></returns>
@@ -21670,6 +22677,13 @@
             </summary>
             <param name="serverName">服务名称</param>
             <returns>返回 null 表示没有找到服务主日志</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode.Check(System.Int64,System.String)">
+            <summary>
+            检查服务在线状态
+            </summary>
+            <param name="sessionID">服务会话标识ID</param>
+            <param name="serverName">服务名称</param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode">
             <summary>
@@ -21947,6 +22961,15 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateProcessGuardNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建服务进程守护节点 IProcessGuardNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeClientNode`1">
@@ -22715,6 +23738,15 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateProcessGuardNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建服务进程守护节点 IProcessGuardNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeLocalClientNode`1">
@@ -23974,6 +25006,38 @@
             T value 数据
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum">
+            <summary>
+            进程守护节点接口（服务端需要以管理员身份运行，否则可能异常） 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum.Guard">
+            <summary>
+            [0] 添加待守护进程
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo processInfo 进程信息
+            返回值 bool 是否添加成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum.Remove">
+            <summary>
+            [1] 删除被守护进程
+            int processId 进程标识
+            string processName 进程名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum.SnapshotSet">
+            <summary>
+            [2] 快照设置数据
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum.Switch">
+            <summary>
+            [3] 切换进程
+            string key 切换进程关键字
+            返回值 bool 
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNodeMethodEnum">
             <summary>
             队列节点接口（先进先出） 节点方法序号映射枚举类型
@@ -24270,7 +25334,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.ServiceCallback">
             <summary>
-            [3] 服务注册回调委托
+            [3] 服务注册回调委托，主要用于注册组件检查服务的在线状态
             long sessionID 服务会话标识ID
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum 
             </summary>
@@ -24286,6 +25350,20 @@
             [5] 获取服务主日志
             string serverName 服务名称
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog 返回 null 表示没有找到服务主日志
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.Check">
+            <summary>
+            [6] 检查服务在线状态
+            long sessionID 服务会话标识ID
+            string serverName 服务名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.LostContact">
+            <summary>
+            [7] 服务失联持久化
+            long sessionID 服务会话标识ID
+            string serverName 服务名称
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeMethodEnum">
@@ -24563,6 +25641,15 @@
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             int loadTimeoutSeconds 冷启动会话超时秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeMethodEnum.CreateProcessGuardNode">
+            <summary>
+            [26] 创建服务进程守护节点 IProcessGuardNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -25246,6 +26333,14 @@
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateProcessGuardNode(System.String,System.Boolean)">
+            <summary>
+            创建进程守护节点，不存在则创建节点 IProcessGuardNode
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateServerByteArrayMessageNode(System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>
             获取消息处理节点，不存在则创建节点 MessageNode{ServerByteArrayMessage}
@@ -25877,7 +26972,7 @@
             </summary>
             <param name="client">命令客户端套接字事件</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache`2.#ctor(AutoCSer.Net.CommandClient)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache`2.#ctor(AutoCSer.Net.ICommandClient)">
             <summary>
             日志流持久化内存数据库客户端缓存，用于客户端单例
             </summary>
@@ -27557,6 +28652,26 @@
             <param name="head">开始节点</param>
             <param name="end">结束节点</param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.ProcessGuardNodeClientNodeExtension">
+            <summary>
+            进程守护节点扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ProcessGuardNodeClientNodeExtension.RemoveCurrentProcess(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode)">
+            <summary>
+            删除当前进程守护
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ProcessGuardNodeClientNodeExtension.GuardCurrentProcess(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode,System.String[])">
+            <summary>
+            添加当前进程守护
+            </summary>
+            <param name="node"></param>
+            <param name="arguments">Main 函数传参</param>
+            <returns>是否添加成功</returns>
         </member>
         <member name="T:AutoCSer.Extensions.ResponseResultExtension">
             <summary>

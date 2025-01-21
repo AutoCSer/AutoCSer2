@@ -22,11 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.NET8.csproj" />
+    <ProjectReference Include="..\..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
     <ProjectReference Include="..\..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>

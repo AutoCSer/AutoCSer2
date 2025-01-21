@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -85,6 +86,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// 数据库节点移除处理
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void OnRemoved()
+        {
+            callback?.CancelKeep();
         }
     }
 }

@@ -12,8 +12,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务注册节点
     /// </summary>
-    public sealed class ServerRegistryNode : ContextNode<IServerRegistryNode, ServerRegistryLog>, IServerRegistryNode, ISnapshot<ServerRegistryLog>
+    public sealed class ServerRegistryNode : MethodParameterCreatorNode<IServerRegistryNode, ServerRegistryLog>, IServerRegistryNode, ISnapshot<ServerRegistryLog>
     {
+        /// <summary>
+        /// 默认冷启动会话 35 秒数超时，因为客户端连接超时可能是 30 秒
+        /// </summary>
+        internal const int DefaultLoadTimeoutSeconds = 35;
+
         /// <summary>
         /// 服务名称集合
         /// </summary>
@@ -50,7 +55,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务注册节点
         /// </summary>
         /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
-        public ServerRegistryNode(int loadTimeoutSeconds = 30)
+        public ServerRegistryNode(int loadTimeoutSeconds = DefaultLoadTimeoutSeconds)
         {
             logAssemblers = DictionaryCreator.CreateAny<string, ServerRegistryLogAssembler>();
             sessions = DictionaryCreator.CreateLong<ServerRegistrySession>();
@@ -75,6 +80,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             foreach (ServerRegistryLogAssembler logAssembler in logAssemblers.Values) logAssembler.Loaded();
             LoadTimeoutTimestamp = Stopwatch.GetTimestamp() + Date.GetTimestampBySeconds(loadTimeoutSeconds);
             return this;
+        }
+        /// <summary>
+        /// 节点移除后处理
+        /// </summary>
+        public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
+        {
+            foreach (ServerRegistryLogAssembler logAssembler in logAssemblers.Values) logAssembler.OnRemoved();
+            logAssemblers.Clear();
+            foreach (ServerRegistrySession session in sessions.Values) session.OnRemoved();
+            sessions.Clear();
+            foreach (var callback in logCallbacks) callback.CancelKeep();
+            logCallbacks.SetEmpty();
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
@@ -155,8 +172,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case ServerRegistryOperationTypeEnum.ClusterMain:
                 case ServerRegistryOperationTypeEnum.Singleton:
                     var session = default(ServerRegistrySession);
-                    if (!sessions.TryGetValue(log.SessionID, out session)) return ServerRegistryStateEnum.NotFoundServerSessionID;
-                    if (!session.IsCallback) return ServerRegistryStateEnum.NotFoundServerSessionCallback;
+                    if (!sessions.TryGetValue(log.SessionID, out session))
+                    {
+                        if (StreamPersistenceMemoryDatabaseService.IsLoaded) return ServerRegistryStateEnum.NotFoundServerSessionID;
+                        sessions.Add(log.SessionID, session = new ServerRegistrySession());
+                    }
+                    if (!session.IsCallback && StreamPersistenceMemoryDatabaseService.IsLoaded) return ServerRegistryStateEnum.NotFoundServerSessionCallback;
                     var logAssembler = default(ServerRegistryLogAssembler);
                     if (!logAssemblers.TryGetValue(serverName, out logAssembler)) logAssemblers.Add(serverName, logAssembler = new ServerRegistryLogAssembler(this, serverName));
                     return logAssembler.Append(session, log);
@@ -198,15 +219,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="callbacks"></param>
         /// <param name="log"></param>
+        /// <param name="isPersistenceLostContact"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal void Callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog?>> callbacks, ServerRegistryLog log)
+        internal void Callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog?>> callbacks, ServerRegistryLog log, bool isPersistenceLostContact = true)
 #else
-        internal void Callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog>> callbacks, ServerRegistryLog log)
+        internal void Callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog>> callbacks, ServerRegistryLog log, bool isPersistenceLostContact = true)
 #endif
         {
             callback(ref callbacks, log);
             callback(ref logCallbacks, log);
+            if (log.OperationType == ServerRegistryOperationTypeEnum.LostContact && isPersistenceLostContact && StreamPersistenceMemoryDatabaseService.IsLoaded)
+            {
+                methodParameterCreator.Creator.LostContact(log.SessionID, log.ServerName);
+            }
         }
         /// <summary>
         /// 服务注册日志回调在线检查
@@ -260,6 +286,38 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (logAssemblers.TryGetValue(serverName, out logAssembler)) return logAssembler.MainLog?.Log;
             }
             return null;
+        }
+        /// <summary>
+        /// 检查服务在线状态
+        /// </summary>
+        /// <param name="sessionID">服务会话标识ID</param>
+        /// <param name="serverName">服务名称</param>
+        /// <param name="isPersistenceLostContact"></param>
+        private void check(long sessionID, string serverName, bool isPersistenceLostContact)
+        {
+            if (!string.IsNullOrEmpty(serverName))
+            {
+                var logAssembler = default(ServerRegistryLogAssembler);
+                if (logAssemblers.TryGetValue(serverName, out logAssembler)) logAssembler.Check(sessionID, isPersistenceLostContact);
+            }
+        }
+        /// <summary>
+        /// 检查服务在线状态
+        /// </summary>
+        /// <param name="sessionID">服务会话标识ID</param>
+        /// <param name="serverName">服务名称</param>
+        public void Check(long sessionID, string serverName)
+        {
+            check(sessionID, serverName, true);
+        }
+        /// <summary>
+        /// 服务失联持久化
+        /// </summary>
+        /// <param name="sessionID">服务会话标识ID</param>
+        /// <param name="serverName">服务名称</param>
+        public void LostContact(long sessionID, string serverName)
+        {
+            check(sessionID, serverName, false);
         }
     }
 }

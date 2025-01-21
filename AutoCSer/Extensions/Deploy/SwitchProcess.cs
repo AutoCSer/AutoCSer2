@@ -18,6 +18,10 @@ namespace AutoCSer.Deploy
         /// 切换进程进关闭参数
         /// </summary>
         public const string CloseSwitchProcessArgument = AutoCSer.Common.NamePrefix + "CloseSwitchProcess";
+        /// <summary>
+        /// 默认切换服务相对目录名称
+        /// </summary>
+        public const string DefaultSwitchDirectoryName = "Switch";
 
         /// <summary>
         /// 切换服务锁
@@ -255,9 +259,5 @@ namespace AutoCSer.Deploy
             }
             return null;
         }
-        /// <summary>
-        /// 默认切换服务相对目录名称
-        /// </summary>
-        public const string DefaultSwitchDirectoryName = "Switch";
     }
 }

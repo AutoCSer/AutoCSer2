@@ -921,7 +921,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (nodeType.Messages.Length != 0) creatorMessages = nodeType.Messages.ToArray();
             }
         }
-
 #if DEBUG && NetStandard21
         public interface IDictionary<KT, VT>
             where KT : IEquatable<KT>

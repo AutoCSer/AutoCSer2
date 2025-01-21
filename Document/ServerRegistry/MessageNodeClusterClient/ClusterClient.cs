@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
 {
@@ -21,6 +22,13 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
         /// </summary>
         private MessageConsumer? messageConsumer;
         /// <summary>
+        /// 判断套接字是否已经关闭
+        /// </summary>
+        internal bool IsSocketClosed
+        {
+            get { return client.ClientCache.Client.IsSocketClosed; }
+        }
+        /// <summary>
         /// 内存数据库集群客户端
         /// </summary>
         /// <param name="serverRegistryClusterClient">集群服务客户端</param>
@@ -41,13 +49,14 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
         /// <returns></returns>
         protected override async Task<bool> getSocket()
         {
-            var socket = await client.ClientCache.Client.GetSocketAsync();
+            var socket = await client.ClientCache.Client.GetSocketEvent();
             if (socket != null)
             {
                 var node = await NodeCache.GetNode();
                 if (node.IsSuccess)
                 {
                     Console.WriteLine($"New client {Log.SessionID}");
+                    //集群服务的每一个客户端都需要创建一个消息消费者
                     messageConsumer = new MessageConsumer(client.ClientCache.Client, node.Value.notNull());
                     return true;
                 }
@@ -60,8 +69,21 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
         protected override void close()
         {
             Console.WriteLine($"Close client {Log.SessionID}");
-            //messageConsumer?.Dispose();
             client.ClientCache.Client.Dispose();
+        }
+        /// <summary>
+        /// 判断套接字是否已经关闭
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool CheckSocketClosed()
+        {
+            if (IsSocketClosed)
+            {
+                CheckLog();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -112,7 +112,7 @@ namespace AutoCSer.IO
                 using (readStream = new FileStream(persistenceFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None, bufferSize, FileOptions.SequentialScan))
                 {
                     unreadSize = readStream.Length;
-                    if (unreadSize < fileHeadSize) throw new InvalidCastException($"文件 {persistenceFileName} 头部数据不足 {unreadSize.toString()} < {fileHeadSize.toString()}");
+                    if (unreadSize < fileHeadSize) throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderHeaderSizeError(persistenceFileName, (int)unreadSize, fileHeadSize));
                     loadBufferWait = new AutoResetEvent(false);
                     AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(loadBuffer);
                     isLoadBuffer = true;
@@ -187,7 +187,7 @@ namespace AutoCSer.IO
                 dataSize = *(int*)(buffer.ReadBufferStart + sizeof(int));
                 if (dataSize < 0 || compressionDataSize == 0)
                 {
-                    throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position} 处数据长度错误");
+                    throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDataSizeError(persistenceFileName, position));
                 }
                 if (readFile(ref buffer, compressionDataSize + sizeof(int) * 2)) return true;
             }
@@ -266,7 +266,7 @@ namespace AutoCSer.IO
                     dataSize = *(int*)(buffer.ReadBufferStart + (readIndex + sizeof(int)));
                     if (dataSize < 0 || compressionDataSize == 0)
                     {
-                        throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position + readIndex} 处数据长度错误");
+                        throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDataSizeError(persistenceFileName, position + readIndex));
                     }
                     if (bufferSize < compressionDataSize + sizeof(int) * 2) break;
                     readIndex += compressionDataSize + sizeof(int) * 2;
@@ -340,7 +340,7 @@ namespace AutoCSer.IO
                             SubArray<byte> nextData = compressBuffer.GetSubArray(dataSize);
                             if (!Decompress(ref compressionData, ref nextData))
                             {
-                                throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position + (start - compressionDataStart)} 处数据解压缩失败");
+                                throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDecompressFailed(persistenceFileName, position + (start - compressionDataStart)));
                             }
                             load(nextData, position + (start - compressionDataStart));
                         }

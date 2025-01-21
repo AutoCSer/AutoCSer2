@@ -1,16 +1,42 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.CommandService;
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.BusinessService
 {
-    class Program : AutoCSer.TestCase.Common.CommandServiceSwitchProcess
+    class Program : ProcessGuardSwitchProcess
     {
-        private Program(string[] args) : base(args) { }
-
-        static async Task Main(string[] args)
+        static Task Main(string[] args)
         {
-            await start(new Program(args));
+            Program program = new Program(args);
+            if (!program.isStart)
+            {
+                program.Start().NotWait();
+                Console.WriteLine("Press quit to exit.");
+                while (Console.ReadLine() != "quit") ;
+                return program.exit();
+            }
+            return AutoCSer.Common.CompletedTask;
+        }
+
+        private Program(string[] args) : base(args) { }
+        /// <summary>
+        /// 命令服务端配置
+        /// </summary>
+        protected CommandServerConfig commandServerConfig;
+        /// <summary>
+        /// 业务数据服务
+        /// </summary>
+        protected CommandListener commandListener;
+        /// <summary>
+        /// 获取进程守护节点客户端
+        /// </summary>
+        protected override StreamPersistenceMemoryDatabaseClientNodeCache<IProcessGuardNodeClientNode> getProcessGuardClient
+        {
+            get { return ProcessGuardClientSocketEvent.ProcessGuardNodeCache; }
         }
         /// <summary>
         /// 初始化操作
@@ -31,6 +57,28 @@ namespace AutoCSer.TestCase.BusinessService
                 .CreateCommandListener(commandServerConfig);
 
             await base.initialize();
+        }
+        /// <summary>
+        /// 开始运行
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task onStart()
+        {
+            await base.onStart();
+
+            if (await commandListener.Start())
+            {
+                ConsoleWriteQueue.WriteLine($"业务数据服务启动成功 {commandServerConfig.Host.Host}:{commandServerConfig.Host.Port}");
+            }
+        }
+        /// <summary>
+        /// 退出运行
+        /// </summary>
+        /// <returns></returns>
+        protected override Task onExit()
+        {
+            commandListener?.DisposeSocket();
+            return base.onExit();
         }
     }
 }

@@ -68,7 +68,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 T node = LocalClientNodeCreator<T>.creator(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
                 if (creatorMessages == null) return node;
-                AutoCSer.LogHelper.DebugIgnoreException($"{typeof(T).fullName()} 节点客户端生成警告\r\n{string.Join("\r\n", creatorMessages)}");
+                AutoCSer.LogHelper.DebugIgnoreException(Culture.Configuration.Default.GetClientNodeCreatorWarning(typeof(T), creatorMessages));
                 creatorMessages = null;
                 return node;
             }
@@ -87,7 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             exception = creatorException;
             if (creatorMessages == null) return nodeInfo;
-            AutoCSer.LogHelper.DebugIgnoreException($"{typeof(T).fullName()} 节点客户端生成警告\r\n{string.Join("\r\n", creatorMessages)}");
+            AutoCSer.LogHelper.DebugIgnoreException(Culture.Configuration.Default.GetClientNodeCreatorWarning(typeof(T), creatorMessages));
             creatorMessages = null;
             return nodeInfo;
         }
@@ -136,7 +136,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 serverType = attribute.ServerNodeType;
                 if (serverType == null)
                 {
-                    creatorException = new Exception($"{type.fullName()} 客户端节点没有找到匹配服务端节点接口类型 {typeof(ClientNodeAttribute).fullName()}.{nameof(attribute.ServerNodeType)}");
+                    creatorException = new Exception(Culture.Configuration.Default.GetClientNodeCreatorNotMatchType(type));
                     return;
                 }
                 if (serverType.IsGenericTypeDefinition) serverType = serverType.MakeGenericType(type.GetGenericArguments());
@@ -251,7 +251,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             catch (Exception exception)
             {
-                creatorException = new Exception($"{serverType?.fullName()} 客户端节点 {type.fullName()} 生成失败", exception);
+                creatorException = new Exception(Culture.Configuration.Default.GetClientNodeCreatorException(type, serverType), exception);
             }
         }
 #if DEBUG && NetStandard21

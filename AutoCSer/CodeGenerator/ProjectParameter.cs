@@ -213,7 +213,7 @@ namespace AutoCSer.CodeGenerator
             try
             {
                 await AutoCSer.LogHelper.Info(string.Join(@""", @""", args), LogLevelEnum.Info | LogLevelEnum.AutoCSer);
-                //args = new string[] { @"AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\ ", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.dll ", @"AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon" };
+                //args = new string[] { @"AutoCSer.TestCase.BusinessService", @"C:\AutoCSer2\TestCase\ORM\BusinessService\ ", @"C:\AutoCSer2\TestCase\ORM\BusinessService\bin\Release\net8.0\AutoCSer.TestCase.BusinessService.dll ", @"AutoCSer.TestCase.BusinessService" };
                 if (args.Length >= 4)
                 {
                     ProjectParameter parameter = new ProjectParameter(args[0].TrimEnd(' '), args[1].TrimEnd(' '), args[2].TrimEnd(' '), args[3].TrimEnd(' '), args.Length > 4);

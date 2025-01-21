@@ -21,6 +21,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         protected ServerRegistryLog log;
 #endif
         /// <summary>
+        /// 当前监听 IP 地址
+        /// </summary>
+        protected IPEndPoint endPoint;
+        /// <summary>
         /// 是否已经获取服务监听地址
         /// </summary>
         protected bool isGetServerEndPoint;
@@ -28,7 +32,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// 服务注册客户端监听组件
         /// </summary>
         /// <param name="client"></param>
-        protected CommandClientServiceRegistrar(ICommandClient client) : base(client) { }
+        protected CommandClientServiceRegistrar(ICommandClient client) : base(client)
+        {
+            endPoint = CommandServerConfigBase.NullIPEndPoint;
+        }
         /// <summary>
         /// 服务日志回调
         /// </summary>
@@ -39,6 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             {
                 if (this.log == null || this.log.SessionID != log.SessionID)
                 {
+                    endPoint = log.HostEndPoint.IPEndPoint;
                     this.log = log;
                     AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(logChanged);
                     return;
@@ -51,7 +59,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// </summary>
         private void logChanged()
         {
-            Client.ServerEndPointChanged(this.log.notNull().HostEndPoint.IPEndPoint);
+            Client.ServerEndPointChanged(endPoint);
         }
     }
     /// <summary>
@@ -105,12 +113,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
                 ResponseResult<IServerRegistryNodeClientNode> node = await logClient.NodeCache.GetNode();
                 if (node.IsSuccess)
                 {
-                    if (this.log != null) return this.log.HostEndPoint.IPEndPoint;
+                    if (endPoint != null) return endPoint;
                     ResponseResult<ServerRegistryLog> log = await node.Value.notNull().GetLog(Client.ServerName.notNull());
                     if (log.Value != null)
                     {
+                        endPoint = log.Value.HostEndPoint.IPEndPoint;
                         this.log = log.Value;
-                        return this.log.HostEndPoint.IPEndPoint;
+                        return endPoint;
                     }
                 }
             }
@@ -119,6 +128,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
                 if (!logClient.IsAppendClient) await socket.Append(logClient);
             }
             return null;
+        }
+        /// <summary>
+        /// 服务连接失败
+        /// </summary>
+        /// <param name="endPoint"></param>
+        public override async Task ConnectFail(IPEndPoint endPoint)
+        {
+            if (object.ReferenceEquals(this.endPoint, endPoint))
+            {
+                var log = this.log.notNull();
+                if (log != null)
+                {
+                    ResponseResult<IServerRegistryNodeClientNode> node = await logClient.NodeCache.GetNode();
+                    if (node.IsSuccess) node.Value.notNull().Check(log.SessionID, log.ServerName).Discard();
+                }
+            }
         }
     }
 }

@@ -85,7 +85,7 @@ namespace AutoCSer.CommandService
                     //if (count != 0) Console.WriteLine($"初始化加载 {count} 条持久化数据耗时 {AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp)}ms");
                     for (int index = NodeIndex; index > 1; Nodes[--index].Node?.Loaded()) ;
                 }
-                else throw new Exception($"持久化回调异常位置文件缺失 {PersistenceCallbackExceptionPositionFileInfo.FullName}，请确认文件组完整性");
+                else throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetNotFoundExceptionPositionFile(PersistenceCallbackExceptionPositionFileInfo.FullName));
             }
             else
             {

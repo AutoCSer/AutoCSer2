@@ -51,6 +51,9 @@
     <Compile Include="Algorithm\RadixSort.cs" />
     <Compile Include="Breakpoint.cs" />
     <Compile Include="CombinationTemplateConfig.cs" />
+    <Compile Include="Culture\Chinese.cs" />
+    <Compile Include="Culture\Configuration.cs" />
+    <Compile Include="Culture\English.cs" />
     <Compile Include="DictionaryCreator.cs" />
     <Compile Include="ExceptionRepeat.cs" />
     <Compile Include="Expression\Builder.cs" />

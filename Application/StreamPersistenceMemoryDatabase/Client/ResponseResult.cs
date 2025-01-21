@@ -234,5 +234,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
         public static implicit operator ResponseResult<T>(T value) { return new ResponseResult<T>(value); }
 #endif
+        /// <summary>
+        /// 错误返回结果
+        /// </summary>
+        /// <param name="result"></param>
+        public static implicit operator ResponseResult(ResponseResult<T> result)
+        {
+            if(result.ReturnType == CommandClientReturnTypeEnum.Success) return new ResponseResult(result.CallState);
+            return new ResponseResult(result.ReturnType, result.ErrorMessage);
+        }
+
     }
 }

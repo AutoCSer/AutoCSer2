@@ -1,6 +1,4 @@
-﻿using AutoCSer.Extensions;
-using System;
-using System.Diagnostics;
+﻿using System;
 
 namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
 {
@@ -14,7 +12,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
         /// </summary>
         /// <param name="commandClient">客户端</param>
         /// <param name="node">服务端字节数组消息客户端节点</param>
-        internal MessageConsumer(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage> node) : base(commandClient, node, 1 << 8) { }
+        internal MessageConsumer(AutoCSer.Net.ICommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage> node) : base(commandClient, node, 1 << 8) { }
         /// <summary>
         /// 消息处理，异常则表示消息执行失败
         /// </summary>

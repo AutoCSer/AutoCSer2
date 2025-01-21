@@ -201,11 +201,11 @@ namespace AutoCSer.CodeGenerator
             switch (check)
             {
                 case TreeBuilderCheckRoundTypeEnum.LessRound:
-                    throw new OverflowException("缺少回合节点 : " + tagName.ToString() + @"
+                    throw new OverflowException(Culture.Configuration.Default.GetTreeTemplateNotFoundRoundNode + " : " + tagName.ToString() + @"
 " + nodes.JoinString(@"
 ", value => value.Key.Tag.ToString()));
                 case TreeBuilderCheckRoundTypeEnum.UnknownRound:
-                    throw new OverflowException("未知的回合节点 : " + tagName.ToString() + @"
+                    throw new OverflowException(Culture.Configuration.Default.GetTreeTemplateUnknownRoundNode + " : " + tagName.ToString() + @"
 " + nodes.JoinString(@"
 ", value => value.Key.Tag.ToString()));
             }
@@ -261,7 +261,7 @@ namespace AutoCSer.CodeGenerator
                 //if (array[--index].Value && checkRound(array[index].Key))
                 if (array[--index].Value)
                 {
-                    throw new OverflowException(@"缺少回合节点
+                    throw new OverflowException(Culture.Configuration.Default.GetTreeTemplateNotFoundRoundNode + @"
 " + nodes.JoinString(@"
 ", value => value.Key.Tag.ToString()));
                 }

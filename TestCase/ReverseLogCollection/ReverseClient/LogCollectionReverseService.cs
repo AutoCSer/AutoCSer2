@@ -15,7 +15,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
         /// <summary>
         /// 反向命令服务客户端
         /// </summary>
-        private readonly CommandReverseClient commandReverseClient;
+        internal readonly CommandReverseClient CommandReverseClient;
         /// <summary>
         /// 日志收集反向服务
         /// </summary>
@@ -24,7 +24,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
         internal LogCollectionReverseService(ServerRegistryClusterClient serverRegistryClusterClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog log) : base(serverRegistryClusterClient, log)
         {
             CommandReverseClientConfig commandServerConfig = new CommandReverseClientConfig { Host = log.HostEndPoint };
-            commandReverseClient = new CommandListenerBuilder(2)
+            CommandReverseClient = new CommandListenerBuilder(2)
                 .Append<ITimestampVerifyReverseService<string>>(new TimestampVerifyReverseService<string>(AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                 .Append<ILogCollectionReverseService<LogInfo>>(this)
                 .CreateCommandListener(commandServerConfig);
@@ -37,7 +37,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
         /// <summary>
         /// 关闭客户端
         /// </summary>
-        protected override void close() { commandReverseClient.Dispose(); }
+        protected override void close() { CommandReverseClient.Dispose(); }
         /// <summary>
         /// 添加日志
         /// </summary>

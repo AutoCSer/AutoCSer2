@@ -25,6 +25,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateServerRegistryNode(NodeIndex index, string key, NodeInfo nodeInfo, int loadTimeoutSeconds);
         /// <summary>
+        /// 创建服务进程守护节点 IProcessGuardNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateProcessGuardNode(NodeIndex index, string key, NodeInfo nodeInfo);
+        /// <summary>
         /// 创建消息处理节点 MessageNode{ServerByteArrayMessage}
         /// </summary>
         /// <param name="index">节点索引信息</param>

@@ -35,14 +35,6 @@
     <Compile Include="Data\Enum\ULongFlagEnum.cs" />
     <Compile Include="Data\Enum\UShortEnum.cs" />
     <Compile Include="Data\Enum\UShortFlagEnum.cs" />
-    <Compile Include="ProcessGuard\CommandServiceSwitchProcess.cs" />
-    <Compile Include="ProcessGuard\ProcessGuardClientSocketEvent.cs" />
-    <Compile Include="ProcessGuard\ProcessGuardCommandClientConfig.cs" />
-    <Compile Include="ProcessGuard\ProcessGuardSwitchProcess.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Application\ProcessGuard\AutoCSer.CommandService.ProcessGuard.NetStandard2.1.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

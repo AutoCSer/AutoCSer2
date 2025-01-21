@@ -897,6 +897,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// </summary>
             CreateServerRegistryNode = 25,
             /// <summary>
+            /// [26] 创建服务进程守护节点 IProcessGuardNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateProcessGuardNode = 26,
+            /// <summary>
             /// [256] 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
             /// string key 

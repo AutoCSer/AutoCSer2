@@ -280,7 +280,7 @@ namespace AutoCSer.StateSearcher
             strings = strings.sort(CharBuilder.StringCompare);
             var errorValue = default(string);
             if (CharBuilder.Check(strings, out errorValue)) return new AsciiBuilder(strings, isStaticUnmanaged).Data;
-            throw new Exception(string.IsNullOrEmpty(errorValue) ? "查找数据不能为空" : ("查找数据重复 " + errorValue));
+            throw new Exception(string.IsNullOrEmpty(errorValue) ? AutoCSer.Common.Culture.GetStateSearcherEmptyState : (AutoCSer.Common.Culture.GetStateSearcherStateRepetition(errorValue)));
         }
     }
 }

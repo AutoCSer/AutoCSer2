@@ -47,6 +47,9 @@
     <Compile Include="CombinationTemplate\CombinationTemplateHeaderEnumerable.cs" />
     <Compile Include="CombinationTemplate\CombinationTemplateLink.cs" />
     <Compile Include="CSharper.cs" />
+    <Compile Include="Culture\Chinese.cs" />
+    <Compile Include="Culture\Configuration.cs" />
+    <Compile Include="Culture\English.cs" />
     <Compile Include="CustomConfig.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="GeneratorAttribute.cs" />

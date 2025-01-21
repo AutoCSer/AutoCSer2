@@ -124,11 +124,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             service.SetPersistenceFileHeadVersion(*(uint*)start, *(ulong*)(start + sizeof(uint)), *(long*)(start + (sizeof(uint) + sizeof(ulong))));
                             loadPersistenceCallbackExceptionPositionVersion0();
                             return sizeof(uint) + sizeof(ulong) + sizeof(long);
-                        default: throw new Exception($"文件 {persistenceFileName} 头部版本号不被支持 {(*(start + 3)).toString()}");
+                        default: throw new Exception(Culture.Configuration.Default.GetServiceLoaderFileVersionNotSupported(persistenceFileName, *(start + 3)));
                     }
                 }
             }
-            throw new Exception($"文件 {persistenceFileName} 头部识别失败");
+            throw new Exception(Culture.Configuration.Default.GetServiceLoaderFileHeaderNotMatch(persistenceFileName));
         }
         /// <summary>
         /// 加载持久化回调异常位置集合
@@ -137,7 +137,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             int fileHeadSize = sizeof(uint) + sizeof(ulong);
             long unreadSize = service.PersistenceCallbackExceptionPositionFileInfo.Length;
-            if (unreadSize < fileHeadSize) throw new InvalidCastException($"持久化回调异常位置文件 {persistenceCallbackExceptionPositionFileName} 头部数据不足 {unreadSize.toString()} < {fileHeadSize.toString()}");
+            if (unreadSize < fileHeadSize) throw new InvalidCastException(Culture.Configuration.Default.GetServiceLoaderExceptionPositionFileHeaderSizeNotMatch(persistenceCallbackExceptionPositionFileName, (int)unreadSize, fileHeadSize));
             persistenceCallbackExceptionPositions = HashSetCreator<long>.Create();
             ByteArrayBuffer buffer = ByteArrayPool.GetBuffer(Math.Max(readBufferSize, 4 << 10));
             try
@@ -161,11 +161,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 {
                                     if (*(uint*)start != (PersistenceCallbackExceptionPositionFileHead & 0xffffff))
                                     {
-                                        throw new Exception($"持久化回调异常位置文件 {persistenceCallbackExceptionPositionFileName} 头部识别失败");
+                                        throw new Exception(Culture.Configuration.Default.GetServiceLoaderExceptionPositionFileHeaderNotMatch(persistenceCallbackExceptionPositionFileName));
                                     }
                                     if (service.RebuildPosition != *(ulong*)(start + sizeof(uint)))
                                     {
-                                        throw new Exception($"持久化回调异常位置文件 {persistenceCallbackExceptionPositionFileName} 重建索引位置 {*(ulong*)(start + sizeof(uint))} 与数据库文件位置 {service.RebuildPosition} 不匹配");
+                                        throw new Exception(Culture.Configuration.Default.GetServiceLoaderExceptionPositionRebuildPositionNotMatch(persistenceCallbackExceptionPositionFileName, *(ulong*)(start + sizeof(uint)), service.RebuildPosition));
                                     }
                                     service.PersistenceCallbackExceptionPositionFileHeadVersion = *(uint*)start;
                                     if ((endIndex -= fileHeadSize) == 0) return;
@@ -184,7 +184,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             while (true);
                         }
                     }
-                    throw new Exception($"持久化回调异常位置文件 {persistenceCallbackExceptionPositionFileName} 长度 {unreadSize} 不可识别");
+                    throw new Exception(Culture.Configuration.Default.GetServiceLoaderExceptionPositionFileSizeUnrecognized(persistenceCallbackExceptionPositionFileName, unreadSize));
                 }
             }
             finally { buffer.Free(); }
@@ -221,12 +221,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (bufferSize < sizeof(NodeIndex) + sizeof(int) * 2)
                     {
-                        throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position}+{bufferIndex - data.Start} 处数据错误");
+                        throw new InvalidCastException(Culture.Configuration.Default.GetServiceLoaderFailed(persistenceFileName, position, bufferIndex - data.Start));
                     }
                     int parameterSize = *(int*)(dataFixed + (bufferIndex + (sizeof(NodeIndex) + sizeof(int)))), dataSize = parameterSize + (sizeof(NodeIndex) + sizeof(int) * 2);
                     if (parameterSize < 0 || bufferSize < dataSize)
                     {
-                        throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position}+{bufferIndex - data.Start} 处数据错误");
+                        throw new InvalidCastException(Culture.Configuration.Default.GetServiceLoaderFailed(persistenceFileName, position, bufferIndex - data.Start));
                     }
                     if (!persistenceCallbackExceptionPositions.Contains(dataPosition))
                     {
@@ -239,7 +239,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             case CallStateEnum.Success:
                             case CallStateEnum.PersistenceCallbackException:
                                 break;
-                            default: throw new InvalidCastException($"文件 {persistenceFileName} 位置 {position}+{bufferIndex - data.Start} 处数据错误 {state}");
+                            default: throw new InvalidCastException(Culture.Configuration.Default.GetServiceLoaderFailed(state, persistenceFileName, position, bufferIndex - data.Start));
                         }
                     }
                     bufferSize -= dataSize;

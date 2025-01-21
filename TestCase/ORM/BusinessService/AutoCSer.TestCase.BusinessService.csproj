@@ -29,6 +29,7 @@
     <Compile Include="BusinessService\IBaseService.cs" />
     <Compile Include="BusinessService\IPrimaryKeyService.cs" />
     <Compile Include="BusinessService\PropertyModelService.cs" />
+    <Compile Include="ProcessGuardClientSocketEvent.cs" />
     <Compile Include="CustomColumnFieldModel.cs" />
     <Compile Include="CustomColumnPropertyModel.cs" />
     <Compile Include="FieldModel.cs" />
@@ -38,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
     <ProjectReference Include="..\CommonModel\AutoCSer.TestCase.CommonModel.csproj" />
   </ItemGroup>

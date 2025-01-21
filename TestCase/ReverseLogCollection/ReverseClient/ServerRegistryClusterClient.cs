@@ -51,6 +51,9 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
         /// 移除客户端
         /// </summary>
         /// <param name="client"></param>
-        protected override void onRemoved(LogCollectionReverseService client) { }
+        protected override void onRemoved(LogCollectionReverseService client)
+        {
+            client.CommandReverseClient.Dispose();
+        }
     }
 }

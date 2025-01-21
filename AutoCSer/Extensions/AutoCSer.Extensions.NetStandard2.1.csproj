@@ -38,6 +38,9 @@
     <Compile Include="ArrayHeap.cs" />
     <Compile Include="Breakpoint.cs" />
     <Compile Include="CombinationTemplateConfig.cs" />
+    <Compile Include="Culture\Chinese.cs" />
+    <Compile Include="Culture\Configuration.cs" />
+    <Compile Include="Culture\English.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="Deploy\SwitchProcess.cs" />
     <Compile Include="Deploy\SwitchWait.cs" />

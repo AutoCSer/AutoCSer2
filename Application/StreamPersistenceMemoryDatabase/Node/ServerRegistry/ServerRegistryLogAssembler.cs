@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -299,6 +300,40 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return ServerRegistryStateEnum.Success;
             }
             return ServerRegistryStateEnum.NotFoundServerSessionID;
+        }
+        /// <summary>
+        /// 数据库节点移除处理
+        /// </summary>
+        internal void OnRemoved()
+        {
+            foreach (var callback in callbacks) callback.CancelKeep();
+        }
+        /// <summary>
+        /// 服务会话在线检查
+        /// </summary>
+        /// <param name="sessionID"></param>
+        /// <param name="isPersistenceLostContact"></param>
+        internal void Check(long sessionID, bool isPersistenceLostContact)
+        {
+            int index = getLogIndex(sessionID);
+            if (index == -1)
+            {
+                ServerRegistrySessionLog log = MainLog.notNull();
+                if (!log.Session.Check(Node))
+                {
+                    logs.TryPop(out MainLog);
+                    Node.Callback(ref callbacks, log.Log.CreateLostContact(), isPersistenceLostContact);
+                }
+            }
+            else if (index >= 0)
+            {
+                ServerRegistrySessionLog log = logs.Array[index];
+                if (!log.Session.Check(Node))
+                {
+                    logs.RemoveAtToEnd(index);
+                    Node.Callback(ref callbacks, log.Log.CreateLostContact(), isPersistenceLostContact);
+                }
+            }
         }
     }
 }
