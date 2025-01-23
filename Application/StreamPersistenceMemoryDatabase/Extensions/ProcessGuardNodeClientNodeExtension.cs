@@ -19,7 +19,7 @@ namespace AutoCSer.Extensions
         public static ResponseResultAwaiter RemoveCurrentProcess(this IProcessGuardNodeClientNode node)
         {
             Process process = AutoCSer.Common.CurrentProcess;
-            return node.Remove(process.Id, process.ProcessName);
+            return node.Remove(process.Id, process.StartTime, process.ProcessName);
         }
         /// <summary>
         /// 添加当前进程守护

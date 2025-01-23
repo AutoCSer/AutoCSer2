@@ -29,7 +29,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseLogCollectionService.cs" />
     <Compile Include="LogCallback.cs" />
-    <Compile Include="ReverseService\AppendCommandClientTaskNode.cs" />
+    <Compile Include="ReverseService\CommandClientVerifiedTaskNode.cs" />
     <Compile Include="ReverseService\AppendLogTaskNode.cs" />
     <Compile Include="ReverseService\CommandReverseListener.cs" />
     <Compile Include="ReverseService\CommandReverseListenerConfig.cs" />

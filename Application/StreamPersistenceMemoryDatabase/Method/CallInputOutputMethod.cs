@@ -87,7 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="callType">方法调用类型</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal CallInputOutputMethod(int index,int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
+        internal CallInputOutputMethod(int index, int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
         /// <summary>
         /// 创建方法调用参数信息
         /// </summary>

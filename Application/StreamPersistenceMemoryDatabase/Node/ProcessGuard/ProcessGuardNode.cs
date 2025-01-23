@@ -56,7 +56,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public void SnapshotSet(ProcessGuardInfo value)
         {
             Process process = GetProcessById(value.ProcessID);
-            if (!object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) && process.ProcessName == value.ProcessName)
+            if (!object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) && process.StartTime == value.StartTime && process.ProcessName == value.ProcessName)
             {
                 guards.Add(value.ProcessID, new GuardProcess(this, value, process));
             }
@@ -105,26 +105,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return AutoCSer.Common.CurrentProcess;
         }
         /// <summary>
-        /// 添加待守护进程
+        /// 初始化添加待守护进程
         /// </summary>
         /// <param name="processInfo">进程信息</param>
         /// <returns>是否添加成功</returns>
-        public bool Guard(ProcessGuardInfo processInfo)
+        public bool GuardLoadPersistence(ProcessGuardInfo processInfo)
         {
             var guardProcess = default(GuardProcess);
-            if (StreamPersistenceMemoryDatabaseService.IsLoaded)
-            {
-                Process process = GetProcessById(processInfo.ProcessID);
-                if (object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) || process.ProcessName != processInfo.ProcessName) return false;
-                if (!guards.TryGetValue(processInfo.ProcessID, out guardProcess))
-                {
-                    guards.Add(processInfo.ProcessID, new GuardProcess(this, processInfo, process));
-                }
-                return true;
-            }
             if (guards.TryGetValue(processInfo.ProcessID, out guardProcess))
             {
-                if (guardProcess.ProcessInfo.ProcessName == processInfo.ProcessName) return true;
+                ProcessGuardInfo currentInfo = guardProcess.ProcessInfo;
+                if (currentInfo.StartTime == processInfo.StartTime && currentInfo.ProcessName == processInfo.ProcessName) return true;
                 guards.Add(processInfo.ProcessID, new GuardProcess(this, processInfo));
                 return true;
             }
@@ -132,17 +123,38 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return true;
         }
         /// <summary>
+        /// 添加待守护进程
+        /// </summary>
+        /// <param name="processInfo">进程信息</param>
+        /// <returns>是否添加成功</returns>
+        public bool Guard(ProcessGuardInfo processInfo)
+        {
+            Process process = GetProcessById(processInfo.ProcessID);
+            if (object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) || process.StartTime != processInfo.StartTime || process.ProcessName != processInfo.ProcessName) return false;
+            var guardProcess = default(GuardProcess);
+            if (!guards.TryGetValue(processInfo.ProcessID, out guardProcess))
+            {
+                guards.Add(processInfo.ProcessID, new GuardProcess(this, processInfo, process));
+            }
+            return true;
+        }
+        /// <summary>
         /// 删除被守护进程
         /// </summary>
         /// <param name="processId">进程标识</param>
+        /// <param name="startTime">进程启动时间</param>
         /// <param name="processName">进程名称</param>
-        public void Remove(int processId, string processName)
+        public void Remove(int processId, DateTime startTime, string processName)
         {
             var guardProcess = default(GuardProcess);
-            if (guards.TryGetValue(processId, out guardProcess) && guardProcess.ProcessInfo.ProcessName == processName)
+            if (guards.TryGetValue(processId, out guardProcess))
             {
-                guards.Remove(processId);
-                guardProcess.Remove();
+                ProcessGuardInfo info = guardProcess.ProcessInfo;
+                if (info.StartTime == startTime && info.ProcessName == processName)
+                {
+                    guards.Remove(processId);
+                    guardProcess.Remove();
+                }
             }
         }
         /// <summary>
@@ -151,12 +163,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="guardProcess"></param>
         internal void OnExited(GuardProcess guardProcess)
         {
+            ProcessGuardInfo info = guardProcess.ProcessInfo;
+            int processID = info.ProcessID;
             var existsGuardProcess = default(GuardProcess);
-            int processID = guardProcess.ProcessInfo.ProcessID;
             if (guards.TryGetValue(processID, out existsGuardProcess)
                 && object.ReferenceEquals(guardProcess, existsGuardProcess))
             {
-                methodParameterCreator.Creator.Remove(processID, guardProcess.ProcessInfo.ProcessName);
+                methodParameterCreator.Creator.Remove(processID, info.StartTime, info.ProcessName);
                 guards.Remove(processID);
             }
             if (guardProcess.NewProcess == null) return;

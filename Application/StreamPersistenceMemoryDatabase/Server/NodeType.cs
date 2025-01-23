@@ -74,24 +74,45 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             methodArray.Sort(ServerNodeMethod.Compare);
             Error = AutoCSer.Net.CommandServer.InterfaceMethodBase.CheckMethodIndexs(type, NodeAttribute, ServerNodeMethodIndexAttribute.MethodIndexEnumType, ref methodArray, ref Messages, out Methods, ServerNodeMethod.MinCustomServiceNodeMethodIndex);
             if (Error != null) return;
-            foreach (var beforePersistenceMethod in Methods)
+            foreach (var persistenceMethod in Methods)
             {
-                if (beforePersistenceMethod != null && beforePersistenceMethod.PersistenceMethodName.Length != 0)
+                if (persistenceMethod != null)
                 {
-                    bool isMethod = false;
-                    foreach (var nodeMethod in Methods)
+                    if (persistenceMethod.IsLoadPersistenceMethod)
                     {
-                        if (nodeMethod != null && nodeMethod.CheckBeforePersistence(beforePersistenceMethod, ref Error))
+                        bool isMethod = false;
+                        foreach (var nodeMethod in Methods)
                         {
-                            if (Error != null) return;
-                            isMethod = true;
-                            break;
+                            if (nodeMethod != null && nodeMethod.CheckLoadPersistence(persistenceMethod, ref Error))
+                            {
+                                if (Error != null) return;
+                                isMethod = true;
+                                break;
+                            }
+                        }
+                        if (!isMethod)
+                        {
+                            Error = $"{type.fullName()} 冷启动加载持久化方法 {persistenceMethod.Method.Name} 没有找到匹配的持久化方法 {persistenceMethod.PersistenceMethodName}";
+                            return;
                         }
                     }
-                    if (!isMethod)
+                    else if (persistenceMethod.IsBeforePersistenceMethod)
                     {
-                        Error = $"{type.fullName()} 持久化检查方法 {beforePersistenceMethod.Method.Name} 没有找到匹配的持久化方法 {beforePersistenceMethod.PersistenceMethodName}";
-                        return;
+                        bool isMethod = false;
+                        foreach (var nodeMethod in Methods)
+                        {
+                            if (nodeMethod != null && nodeMethod.CheckBeforePersistence(persistenceMethod, ref Error))
+                            {
+                                if (Error != null) return;
+                                isMethod = true;
+                                break;
+                            }
+                        }
+                        if (!isMethod)
+                        {
+                            Error = $"{type.fullName()} 持久化检查方法 {persistenceMethod.Method.Name} 没有找到匹配的持久化方法 {persistenceMethod.PersistenceMethodName}";
+                            return;
+                        }
                     }
                 }
             }

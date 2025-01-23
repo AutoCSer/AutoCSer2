@@ -10229,38 +10229,17 @@
             <param name="maxCount">当前客户端最大并发消息数量</param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.AppendMessageBeforePersistence(`0)">
-            <summary>
-            生产者添加新消息 持久化参数检查
-            </summary>
-            <param name="message"></param>
-            <returns>返回 true 表示需要继续调用持久化方法</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.AppendMessage(`0)">
             <summary>
             生产者添加新消息
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.CompletedBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
-            <summary>
-            消息完成处理 持久化参数检查
-            </summary>
-            <param name="identity"></param>
-            <returns>返回 true 表示需要继续调用持久化方法</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
             <summary>
             消息完成处理
             </summary>
             <param name="identity"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.FailedBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
-            <summary>
-            消息失败处理 持久化参数检查
-            </summary>
-            <param name="identity"></param>
-            <returns>返回 true 表示需要继续调用持久化方法</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
             <summary>
@@ -10801,6 +10780,13 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.GuardLoadPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            初始化添加待守护进程
+            </summary>
+            <param name="processInfo">进程信息</param>
+            <returns>是否添加成功</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.Guard(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
             <summary>
             添加待守护进程
@@ -10808,11 +10794,12 @@
             <param name="processInfo">进程信息</param>
             <returns>是否添加成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.Remove(System.Int32,System.String)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.Remove(System.Int32,System.DateTime,System.String)">
             <summary>
             删除被守护进程
             </summary>
             <param name="processId">进程标识</param>
+            <param name="startTime">进程启动时间</param>
             <param name="processName">进程名称</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode.Switch(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Boolean})">
@@ -10835,6 +10822,11 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.PriorityClass">
             <summary>
             优先级
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.StartTime">
+            <summary>
+            进程启动时间
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.ProcessName">
@@ -10955,6 +10947,13 @@
             <param name="processID"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.GuardLoadPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            初始化添加待守护进程
+            </summary>
+            <param name="processInfo">进程信息</param>
+            <returns>是否添加成功</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Guard(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
             <summary>
             添加待守护进程
@@ -10962,11 +10961,12 @@
             <param name="processInfo">进程信息</param>
             <returns>是否添加成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Remove(System.Int32,System.String)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Remove(System.Int32,System.DateTime,System.String)">
             <summary>
             删除被守护进程
             </summary>
             <param name="processId">进程标识</param>
+            <param name="startTime">进程启动时间</param>
             <param name="processName">进程名称</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.OnExited(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess)">
@@ -19756,6 +19756,11 @@
             自定义基础服务节点方法最小方法编号
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.LoadPersistenceMethodNameSuffix">
+            <summary>
+            数据库冷启动加载历史持久化请求方法的名称后缀
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.BeforePersistenceMethodNameSuffix">
             <summary>
             持久化之前检查参数方法的名称后缀
@@ -19796,6 +19801,11 @@
             持久化之前参数检查方法编号
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.LoadPersistenceMethodIndex">
+            <summary>
+            冷启动加载持久化方法编号
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.IsPersistence">
             <summary>
             默认为 true 表示调用需要持久化，如果调用不涉及数据变更操作则应该手动设置为 false 避免垃圾数据被持久化
@@ -19806,6 +19816,16 @@
             默认为 true 表示允许客户端调用，否则为服务端内存调用方法
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.IsLoadPersistenceMethod">
+            <summary>
+            是否冷启动加载持久化方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.IsBeforePersistenceMethod">
+            <summary>
+            是否持久化之前检查参数方法
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.#ctor(System.Type,System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute)">
             <summary>
             服务端节点方法信息
@@ -19813,6 +19833,14 @@
             <param name="type"></param>
             <param name="method"></param>
             <param name="methodAttribute"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.CheckLoadPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod,System.String@)">
+            <summary>
+            冷启动持久化方法匹配
+            </summary>
+            <param name="loadPersistenceMethod"></param>
+            <param name="error"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.CheckBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod,System.String@)">
             <summary>
@@ -22584,11 +22612,12 @@
             <param name="processInfo">进程信息</param>
             <returns>是否添加成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode.Remove(System.Int32,System.String)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode.Remove(System.Int32,System.DateTime,System.String)">
             <summary>
             删除被守护进程
             </summary>
             <param name="processId">进程标识</param>
+            <param name="startTime">进程启动时间</param>
             <param name="processName">进程名称</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeClientNode.Switch(System.String)">
@@ -25022,6 +25051,7 @@
             <summary>
             [1] 删除被守护进程
             int processId 进程标识
+            System.DateTime startTime 进程启动时间
             string processName 进程名称
             </summary>
         </member>
@@ -25036,6 +25066,13 @@
             [3] 切换进程
             string key 切换进程关键字
             返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum.GuardLoadPersistence">
+            <summary>
+            [4] 初始化添加待守护进程
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo processInfo 进程信息
+            返回值 bool 是否添加成功
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNodeMethodEnum">

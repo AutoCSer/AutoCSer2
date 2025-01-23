@@ -1265,8 +1265,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 删除被守护进程
             /// </summary>
             /// <param name="processId">进程标识</param>
+            /// <param name="startTime">进程启动时间</param>
             /// <param name="processName">进程名称</param>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Remove(int processId, string processName);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Remove(int processId, System.DateTime startTime, string processName);
             /// <summary>
             /// 切换进程
             /// </summary>
@@ -4616,6 +4617,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [1] 删除被守护进程
             /// int processId 进程标识
+            /// System.DateTime startTime 进程启动时间
             /// string processName 进程名称
             /// </summary>
             Remove = 1,
@@ -4630,6 +4632,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 
             /// </summary>
             Switch = 3,
+            /// <summary>
+            /// [4] 初始化添加待守护进程
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo processInfo 进程信息
+            /// 返回值 bool 是否添加成功
+            /// </summary>
+            GuardLoadPersistence = 4,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

@@ -874,6 +874,8 @@ namespace AutoCSer.CommandService
                         var method = node.NodeCreator.Methods[methodIndex];
                         if (method != null)
                         {
+                            ServerNodeMethod serverNodeMethod = node.NodeCreator.NodeMethods[methodIndex].notNull();
+                            if (serverNodeMethod.LoadPersistenceMethodIndex >= 0) method = node.NodeCreator.Methods[serverNodeMethod.LoadPersistenceMethodIndex].notNull();
                             switch (method.CallType)
                             {
                                 case CallTypeEnum.Call:

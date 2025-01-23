@@ -20,6 +20,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public readonly ProcessPriorityClass PriorityClass;
         /// <summary>
+        /// 进程启动时间
+        /// </summary>
+        public readonly DateTime StartTime;
+        /// <summary>
         /// 进程名称
         /// </summary>
         public readonly string ProcessName;
@@ -66,6 +70,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             Process process = guardProcess.NewProcess.notNull();
             ProcessID = process.Id;
+            StartTime = process.StartTime;
             ProcessName = process.ProcessName;
             ProcessGuardInfo processGuardInfo = guardProcess.ProcessInfo;
             UseShellExecute = processGuardInfo.UseShellExecute;
@@ -94,6 +99,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             ProcessID = process.Id;
+            StartTime = process.StartTime;
             ProcessName = process.ProcessName;
             try
             {

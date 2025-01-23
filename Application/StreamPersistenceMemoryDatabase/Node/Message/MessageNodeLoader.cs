@@ -148,15 +148,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             throw new InvalidOperationException();
         }
         /// <summary>
-        /// 生产者添加新消息 持久化参数检查
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        public bool AppendMessageBeforePersistence(T message)
-        {
-            throw new InvalidOperationException();
-        }
-        /// <summary>
         /// 生产者添加新消息
         /// </summary>
         /// <param name="message"></param>
@@ -166,30 +157,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             messages.Add(messageNode.CurrentIdentity, message);
         }
         /// <summary>
-        /// 消息完成处理 持久化参数检查
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        public bool CompletedBeforePersistence(MessageIdeneity identity)
-        {
-            throw new InvalidOperationException();
-        }
-        /// <summary>
         /// 消息完成处理
         /// </summary>
         /// <param name="identity"></param>
         public void Completed(MessageIdeneity identity)
         {
             if (!messages.Remove(identity.Identity)) failedMessages.Remove(identity.Identity);
-        }
-        /// <summary>
-        /// 消息失败处理 持久化参数检查
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns>返回 true 表示需要继续调用持久化方法</returns>
-        public bool FailedBeforePersistence(MessageIdeneity identity)
-        {
-            throw new InvalidOperationException();
         }
         /// <summary>
         /// 消息失败处理

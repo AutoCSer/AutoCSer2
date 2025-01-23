@@ -25,7 +25,6 @@
   <ItemGroup>
     <Compile Include="CommandClientConfig.cs" />
     <Compile Include="CommandClientSocketEvent.cs" />
-    <Compile Include="CommandReverseListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServerRegistryCommandClientSocketEvent.cs" />
   </ItemGroup>

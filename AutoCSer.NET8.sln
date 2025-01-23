@@ -161,25 +161,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcClientPerformance", "Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{DDB32DF7-903D-4A12-AC57-471718A94FE5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1.SymmetryService", "Document\SymmetryService\1.SymmetryService.csproj", "{F84B611A-3D1B-46F8-A640-844B15EFA230}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01.SymmetryService", "Document\SymmetryService\01.SymmetryService.csproj", "{F84B611A-3D1B-46F8-A640-844B15EFA230}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.ServiceDataSerialize", "Document\ServiceDataSerialize\2.ServiceDataSerialize.csproj", "{2EAE6112-C417-44BE-95E2-C24E681A3C4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02.ServiceDataSerialize", "Document\ServiceDataSerialize\02.ServiceDataSerialize.csproj", "{2EAE6112-C417-44BE-95E2-C24E681A3C4B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3.ServiceThreadStrategy", "Document\ServiceThreadStrategy\3.ServiceThreadStrategy.csproj", "{281B58F6-678C-4775-831E-97E99E8A9B0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03.ServiceThreadStrategy", "Document\ServiceThreadStrategy\03.ServiceThreadStrategy.csproj", "{281B58F6-678C-4775-831E-97E99E8A9B0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4.ServiceAuthentication", "Document\ServiceAuthentication\4.ServiceAuthentication.csproj", "{0C4F0961-3A47-49CA-98E6-2B4188EFA19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04.ServiceAuthentication", "Document\ServiceAuthentication\04.ServiceAuthentication.csproj", "{0C4F0961-3A47-49CA-98E6-2B4188EFA19A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisPerformance", "TestCase\ThirdParty\RedisPerformance\RedisPerformance.csproj", "{CD796A3C-2678-40CB-A5BC-AD8D94117C87}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance", "TestCase\StreamPersistenceMemoryDatabase\Performance\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.csproj", "{2EA78B23-78FA-44A9-B7F4-08B4C23CEA85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6.MemoryDatabaseNode", "Document\MemoryDatabaseNode\6.MemoryDatabaseNode.csproj", "{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06.MemoryDatabaseNode", "Document\MemoryDatabaseNode\06.MemoryDatabaseNode.csproj", "{A623F3E5-1CF3-4FAE-B860-6A1881BF86C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7.MemoryDatabaseCustomNode", "Document\MemoryDatabaseCustomNode\7.MemoryDatabaseCustomNode.csproj", "{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07.MemoryDatabaseCustomNode", "Document\MemoryDatabaseCustomNode\07.MemoryDatabaseCustomNode.csproj", "{A7BCF0F4-263D-46BB-A92D-7DA5F9C93BEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8.MemoryDatabaseLocalService", "Document\MemoryDatabaseLocalService\8.MemoryDatabaseLocalService.csproj", "{04FE5CED-D71D-4E37-8F1D-87F2F17703BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.MemoryDatabaseLocalService", "Document\MemoryDatabaseLocalService\08.MemoryDatabaseLocalService.csproj", "{04FE5CED-D71D-4E37-8F1D-87F2F17703BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "9.ServerRegistry", "Document\ServerRegistry\9.ServerRegistry.csproj", "{263631BE-FB46-41FE-8987-3EDF7E01B113}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09.ServerRegistry", "Document\ServerRegistry\09.ServerRegistry.csproj", "{263631BE-FB46-41FE-8987-3EDF7E01B113}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServerRegistry", "ServerRegistry", "{31705CEB-2C8D-4E03-BF5D-1B5B77AA46C7}"
 EndProject
@@ -190,6 +190,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.ServerRegistryServiceClient", "TestCase\ServerRegistry\Service\Client\AutoCSer.TestCase.ServerRegistryServiceClient.csproj", "{A2D45A53-FB17-4272-9EB6-DF7FF2B2D39E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcessGuard", "ProcessGuard", "{D906F796-8733-4DE0-84CA-61F925087BDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.ReverseServer", "Document\ReverseServer\10.ReverseServer.csproj", "{FCF64A84-5B81-46C9-8970-18D9D4FF1AA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -453,6 +455,10 @@ Global
 		{A2D45A53-FB17-4272-9EB6-DF7FF2B2D39E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2D45A53-FB17-4272-9EB6-DF7FF2B2D39E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2D45A53-FB17-4272-9EB6-DF7FF2B2D39E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF64A84-5B81-46C9-8970-18D9D4FF1AA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF64A84-5B81-46C9-8970-18D9D4FF1AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF64A84-5B81-46C9-8970-18D9D4FF1AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF64A84-5B81-46C9-8970-18D9D4FF1AA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -546,6 +552,7 @@ Global
 		{BEC84A58-A43E-471A-82FA-A2525B48B294} = {31705CEB-2C8D-4E03-BF5D-1B5B77AA46C7}
 		{A2D45A53-FB17-4272-9EB6-DF7FF2B2D39E} = {31705CEB-2C8D-4E03-BF5D-1B5B77AA46C7}
 		{D906F796-8733-4DE0-84CA-61F925087BDD} = {60CFF901-DDAF-4FEB-A70A-9AB5E5549204}
+		{FCF64A84-5B81-46C9-8970-18D9D4FF1AA5} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseService
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ReverseLogCollection),
                 ServerName = LogInfo.ServerName
             };
-            await using (CommandReverseListener commandListener = new CommandReverseListener(commandClientConfig))
+            await using (AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener<LogInfo> commandListener = new AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener<LogInfo>(commandClientConfig))
             {
                 if (await commandListener.Start())
                 {
@@ -31,7 +31,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseService
         /// 测试
         /// </summary>
         /// <param name="commandListener"></param>
-        private static void Test(CommandReverseListener commandListener)
+        private static void Test(AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener<LogInfo> commandListener)
         {
             long MessageCount = 0;
             do

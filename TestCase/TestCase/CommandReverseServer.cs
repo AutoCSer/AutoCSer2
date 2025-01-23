@@ -64,14 +64,13 @@ namespace AutoCSer.TestCase
                         .Append<ServerBindContext.IDefinedDissymmetryServerController>(string.Empty, server => new ServerBindContext.DefinedDissymmetryServerController())
                         .CreateCommandListener(commandServerConfig))
                     {
-                        CommandClient commandClient = await commandListener.GetCommandClient();
-                        if (commandClient == null)
+                        CommandClientSocketEvent client = (CommandClientSocketEvent)await commandListener.GetSocketEvent();
+                        if (client == null)
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
 
                         CommandServerSessionObject clientSessionObject = new CommandServerSessionObject();
-                        CommandClientSocketEvent client = (CommandClientSocketEvent)commandClient.SocketEvent;
                         if (!ClientSynchronousController.TestCase(client, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();

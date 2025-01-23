@@ -30987,6 +30987,13 @@
             </summary>
             <param name="socket"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent.CallVerify(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            反向命令服务客户端监听验证套接字
+            </summary>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientSocketEvent.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
             命令客户端套接字通过认证 API 以后的客户端初始化操作，默认操作为重置当前套接字与自动绑定客户端控制器操作并通知等待连接的调用者，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
@@ -31090,6 +31097,13 @@
             命令客户端套接字事件
             </summary>
             <param name="config">命令客户端配置</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEventCache`1.Create(AutoCSer.Net.CommandReverseListenerConfig)">
+            <summary>
+            获取命令客户端套接字事件缓存
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandClientSocketEventTask`1">
             <summary>
@@ -34764,6 +34778,11 @@
             是否已经释放资源
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClient.IsReverse">
+            <summary>
+            是否反向服务
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandClient.#ctor(AutoCSer.Net.CommandClientConfig,AutoCSer.Net.CommandClientInterfaceControllerCreator[])">
             <summary>
             命令客户端
@@ -34771,12 +34790,12 @@
             <param name="config">命令服务配置</param>
             <param name="creators">客户端控制器创建器集合</param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClient.#ctor(AutoCSer.Net.CommandReverseListener,System.Net.Sockets.Socket)">
+        <member name="M:AutoCSer.Net.CommandClient.#ctor(AutoCSer.Net.CommandReverseListener,AutoCSer.Net.CommandClientInterfaceControllerCreator[])">
             <summary>
             反向命令客户端
             </summary>
             <param name="listener"></param>
-            <param name="socket"></param>
+            <param name="creators"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.AppendCreators(AutoCSer.Net.CommandClientInterfaceControllerCreator[],AutoCSer.LeftArray{AutoCSer.Net.CommandClientInterfaceControllerCreator}@)">
             <summary>
@@ -34795,10 +34814,11 @@
             自动启动连接
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClient.Start">
+        <member name="M:AutoCSer.Net.CommandClient.IsCreateVersion(System.Int32)">
             <summary>
-            反向客户端初始化操作
+            验证服务更新版本号
             </summary>
+            <param name="version"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.ConnectFail(System.Net.IPEndPoint)">
@@ -35792,7 +35812,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocket.close">
+        <member name="M:AutoCSer.Net.CommandClientSocket.Close">
             <summary>
             关闭套接字
             </summary>
@@ -35831,11 +35851,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocket.verify(AutoCSer.Net.CommandClientSocketEvent,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandClientSocket.verify(System.Int32)">
             <summary>
             验证调用
             </summary>
-            <param name="socketEvent"></param>
+            <param name="exceptionCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocket.OnVerify(System.Int32)">
+            <summary>
+            服务完成验证
+            </summary>
             <param name="exceptionCount"></param>
             <returns></returns>
         </member>
@@ -37394,7 +37420,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandReverseClient">
             <summary>
-            反向命令服务客户端
+            反向命令服务客户端（发起连接端）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandReverseClient.config">
@@ -37444,7 +37470,7 @@
         </member>
         <member name="M:AutoCSer.Net.CommandReverseClient.#ctor(AutoCSer.Net.CommandReverseClientConfig,AutoCSer.Net.CommandServerInterfaceControllerCreator[])">
             <summary>
-            反向命令服务客户端
+            反向命令服务客户端（发起连接端）
             </summary>
             <param name="config">命令服务配置</param>
             <param name="creators">服务控制器创建器集合</param>
@@ -37511,7 +37537,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandReverseClientConfig">
             <summary>
-            反向命令服务客户端配置
+            反向命令服务客户端配置（发起连接端）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandReverseClientConfig.ControllerCreatorBindingFlags">
@@ -37546,12 +37572,17 @@
         </member>
         <member name="T:AutoCSer.Net.CommandReverseListener">
             <summary>
-            反向命令服务客户端监听
+            反向命令服务客户端监听（监听连接端）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandReverseListener.Config">
             <summary>
             反向命令服务客户端监听配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandReverseListener.CommandClient">
+            <summary>
+            命令客户端
             </summary>
         </member>
         <member name="P:AutoCSer.Net.CommandReverseListener.ServerName">
@@ -37569,39 +37600,9 @@
             启动服务监听访问锁
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandReverseListener.ReceiveBufferPool">
-            <summary>
-            接受数据缓存区池
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseListener.SendBufferPool">
-            <summary>
-            发送数据缓存区池
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseListener.BinaryDeserializeConfig">
-            <summary>
-            二进制反序列化配置参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseListener.ControllerCreators">
-            <summary>
-            客户端控制器创建器集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseListener.clientLock">
-            <summary>
-            客户端操作锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseListener.clientWaitLocks">
-            <summary>
-            等待客户端锁集合
-            </summary>
-        </member>
         <member name="M:AutoCSer.Net.CommandReverseListener.#ctor(AutoCSer.Net.CommandReverseListenerConfig,AutoCSer.Net.CommandClientInterfaceControllerCreator[])">
             <summary>
-            反向命令服务客户端监听
+            反向命令服务客户端监听（监听连接端）
             </summary>
             <param name="config">反向命令服务客户端监听配置</param>
             <param name="creators">客户端控制器创建器集合</param>
@@ -37637,46 +37638,28 @@
             <param name="socket"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.Net.CommandReverseListener.currentClient">
-            <summary>
-            当前客户端
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandReverseListener.start(AutoCSer.Net.CommandClient)">
+        <member name="M:AutoCSer.Net.CommandReverseListener.start(AutoCSer.Net.CommandClientSocket)">
             <summary>
             反向客户端启动操作
             </summary>
-            <param name="client"></param>
+            <param name="socket"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandReverseListener.verify(AutoCSer.Net.CommandClient)">
+        <member name="M:AutoCSer.Net.CommandReverseListener.onVerified">
             <summary>
-            反向客户端验证，用于验证客户端的合法性，默认返回 true
-            </summary>
-            <param name="client"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandReverseListener.setCommandClient(AutoCSer.Net.CommandClient)">
-            <summary>
-            设置当前客户端
-            </summary>
-            <param name="client"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandReverseListener.releaseClientWaitLock">
-            <summary>
-            释放等待客户端锁，必须在客户端锁操作中调用
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandReverseListener.GetCommandClient">
-            <summary>
-            获取客户端
+            客户端验证完成处理
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseListener.GetSocketEvent">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <returns>失败返回 null</returns>
         </member>
         <member name="T:AutoCSer.Net.CommandReverseListenerConfig">
             <summary>
-            反向命令服务客户端监听配置
+            反向命令服务客户端监听配置（监听连接端）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandReverseListenerConfig.SocketAsyncEventArgsMaxCount">

@@ -15,6 +15,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(ProcessGuardInfo value);
         /// <summary>
+        /// 初始化添加待守护进程
+        /// </summary>
+        /// <param name="processInfo">进程信息</param>
+        /// <returns>是否添加成功</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        bool GuardLoadPersistence(ProcessGuardInfo processInfo);
+        /// <summary>
         /// 添加待守护进程
         /// </summary>
         /// <param name="processInfo">进程信息</param>
@@ -25,9 +32,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 删除被守护进程
         /// </summary>
         /// <param name="processId">进程标识</param>
+        /// <param name="startTime">进程启动时间</param>
         /// <param name="processName">进程名称</param>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
-        void Remove(int processId, string processName);
+        void Remove(int processId, DateTime startTime, string processName);
         /// <summary>
         /// 切换进程
         /// </summary>

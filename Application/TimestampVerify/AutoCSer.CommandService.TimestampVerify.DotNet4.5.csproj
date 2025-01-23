@@ -45,6 +45,7 @@
     <Compile Include="ReverseService\ReverseServiceClientData.cs" />
     <Compile Include="ReverseService\ReverseServiceVerifyData.cs" />
     <Compile Include="ReverseService\TimestampVerifyReverseService.cs" />
+    <Compile Include="ReverseService\TimestampVerifyReverseServiceCommandClientSocketEvent.cs" />
     <Compile Include="TimestampVerifyChecker.cs" />
     <Compile Include="TimestampVerifyCommandClientSocketEvent.cs" />
     <Compile Include="TimestampVerifyService.cs" />

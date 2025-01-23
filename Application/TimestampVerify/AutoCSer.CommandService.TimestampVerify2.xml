@@ -181,6 +181,42 @@
             <param name="timestamp">待验证时间戳</param>
             <returns>反向服务验证数据</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1">
+            <summary>
+            基于递增登录时间戳验证的反向服务认证套接字事件
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1.md5">
+            <summary>
+            MD5 加密
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1.timestampVerifyChecker">
+            <summary>
+            递增登录时间戳检查器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            基于递增登录时间戳验证的反向服务认证套接字事件
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1.OnClosed(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            关闭命令客户端当前套接字通知，默认操作为通知等待当前连接的调用者，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1.callVerify``1(AutoCSer.Net.CommandClientSocket,``0)">
+            <summary>
+            反向命令服务客户端监听验证套接字
+            </summary>
+            <param name="socket"></param>
+            <param name="data">附加数据</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.TimestampVerifyService">
             <summary>
             基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
