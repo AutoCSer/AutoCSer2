@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
@@ -103,7 +104,19 @@ namespace AutoCSer.CommandService.ReverseLogCollection
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void AppendLog(T log)
         {
-            if (!send(log)) logs.Write(log);
+            if (!send(log))
+            {
+                var removeLog = logs.Write(log);
+                if (removeLog != null) onRemove(log).NotWait();
+            }
+        }
+        /// <summary>
+        /// 队列溢出移除的未处理日志
+        /// </summary>
+        /// <param name="log"></param>
+        protected virtual async Task onRemove(T log) 
+        {
+            await Config.Log.Debug(AutoCSer.JsonSerializer.Serialize(log));
         }
     }
 }

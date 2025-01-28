@@ -95,6 +95,7 @@
     <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\KeepCallbackMethod.cs" />
     <Compile Include="Method\KeepCallbackMethodParameter.cs" />
+    <Compile Include="Method\MethodParameterPersistenceCallback.cs" />
     <Compile Include="Method\SendOnlyMethod.cs" />
     <Compile Include="NodeIndex.cs" />
     <Compile Include="NodeInfo.cs" />

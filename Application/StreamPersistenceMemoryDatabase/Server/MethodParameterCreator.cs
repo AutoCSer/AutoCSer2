@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -43,11 +44,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 添加到持久化队列
         /// </summary>
         /// <param name="methodParameter"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void pushPersistence(MethodParameter methodParameter)
         {
             if (methodParameter.Node.IsPersistence) node.NodeCreator.Service.PushPersistenceMethodParameter(methodParameter);
-            else methodParameter.PersistenceCallback();
+            else
+            {
+                CommandServerCallQueue queue = node.NodeCreator.Service.CommandServerCallQueue;
+                if (queue.ThreadId == System.Environment.CurrentManagedThreadId) methodParameter.PersistenceCallback();
+                else queue.AddOnly(new MethodParameterPersistenceCallback(methodParameter));
+            }
         }
 
         /// <summary>

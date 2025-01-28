@@ -120,6 +120,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return true;
         }
         /// <summary>
+        /// 成功回调并取消保持回调命令
+        /// </summary>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallbackCancelKeep(T value)
+        {
+            if (Callback(value)) CancelKeep();
+        }
+        /// <summary>
         /// 成功回调
         /// </summary>
         /// <param name="queue"></param>

@@ -98,6 +98,7 @@ RPC 是 AutoCSer 的核心基础组件，[高并发吞吐测试性能](https://g
 3. [线程调度策略](https://zhuanlan.zhihu.com/p/10102634904) - [3.ServiceThreadStrategy](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceThreadStrategy)
 4. [鉴权与传输数据编码](https://zhuanlan.zhihu.com/p/11427440200) - [4.ServiceAuthentication](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceAuthentication)
 5. [服务信息注册与推送](https://zhuanlan.zhihu.com/p/19143730420) - [9.ServerRegistry](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServerRegistry)
+6. [反向 RPC 服务](https://zhuanlan.zhihu.com/p/20033747254) - [10.ReverseServer](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ReverseServer)
 
 # 面向对象编程的内存数据库
 ## 服务端配置定义

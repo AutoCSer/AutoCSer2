@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value">数据</param>
         public void SnapshotSet(DistributedLockIdentity<T> value)
         {
-            if (value.Timeout > DateTime.UtcNow) locks.Add(value.Key, new DistributedLock<T>(this, ref value));
+            if (value.Timeout > AutoCSer.Threading.SecondTimer.UtcNow) locks.Add(value.Key, new DistributedLock<T>(this, ref value));
             else if (value.Timeout == default(DateTime)) Identity = value.Identity;
         }
         /// <summary>

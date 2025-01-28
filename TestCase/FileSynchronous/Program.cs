@@ -1,4 +1,4 @@
-﻿using AutoCSer.CommandService.FileSynchronous;
+﻿using AutoCSer.CommandService.DeployTask;
 using AutoCSer.Net;
 using System;
 using System.IO;
@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.FileSynchronous
                 };
                 UploadFileServiceConfig uploadFileServiceConfig = new UploadFileServiceConfig
                 {
-                    BackupPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(UploadFileServiceConfig.BackupPath)),
+                    BackupPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.DeployTask), nameof(UploadFileServiceConfig.BackupPath)),
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
                     .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))

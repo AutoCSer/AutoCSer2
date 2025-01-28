@@ -2206,175 +2206,118 @@
             <param name="callerLineNumber">调用源代码行号</param>
             <returns>返回值状态是否成功</returns>
         </member>
-        <member name="T:AutoCSer.Deploy.SwitchProcess">
+        <member name="T:AutoCSer.Diagnostics.ProcessInfo">
             <summary>
-            切换进程
+            进程启动信息
             </summary>
         </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.CloseSwitchProcessArgument">
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.DefaultSwitchDirectorySuffixName">
             <summary>
-            切换进程进关闭参数
+            默认切换服务目录后缀名称
             </summary>
         </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.DefaultSwitchDirectoryName">
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.FileName">
             <summary>
-            默认切换服务相对目录名称
+            运行文件
             </summary>
         </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.exitLock">
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.Arguments">
             <summary>
-            切换服务锁
+            命令行参数集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.isInitialize">
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.WorkingDirectory">
             <summary>
-            是否需要初始化处理
+            工作目录
             </summary>
         </member>
-        <member name="F:AutoCSer.Deploy.SwitchProcess.switchWait">
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.WindowStyle">
             <summary>
-            切换进程等待关闭处理
+            进程启动时要使用的窗口状态
             </summary>
         </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.#ctor(System.String[])">
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.UseShellExecute">
             <summary>
-            切换进程（默认规则）
-            </summary>
-            <param name="arguments"></param>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.#ctor(System.String,System.Boolean,System.String,System.String)">
-            <summary>
-            切换进程
-            </summary>
-            <param name="arguments"></param>
-            <param name="isOnlySet"></param>
-            <param name="deployServerFileName"></param>
-            <param name="switchDirectoryName"></param>
-        </member>
-        <member name="P:AutoCSer.Deploy.SwitchProcess.switchWaitPrefix">
-            <summary>
-            切换进程名称前缀，可用于区分环境版本
+            是否使用操作系统外壳启动进程
             </summary>
         </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.initialize">
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.IsArgumentArray">
             <summary>
-            初始化操作
+            命令行参数是否 Main 函数传参数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.IsErrorDialog">
+            <summary>
+            是否显示错误弹窗
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.isCreateWindow">
+            <summary>
+            是否在新窗口中启动进程
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor">
+            <summary>
+            进程启动信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(AutoCSer.Diagnostics.ProcessInfo,System.Diagnostics.Process)">
+            <summary>
+            进程启动信息
+            </summary>
+            <param name="info"></param>
+            <param name="process"></param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(System.Diagnostics.Process,System.String[])">
+            <summary>
+            进程启动信息
+            </summary>
+            <param name="process"></param>
+            <param name="arguments">Main 传参数组</param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(System.IO.FileInfo,System.String[],System.Diagnostics.Process)">
+            <summary>
+            进程启动信息
+            </summary>
+            <param name="switchFile">切换进程启动文件信息</param>
+            <param name="arguments">Main 传参数组</param>
+            <param name="process"></param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(System.String,System.String[],System.String,System.Diagnostics.ProcessWindowStyle,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            进程启动信息
+            </summary>
+            <param name="fileName">运行文件</param>
+            <param name="arguments">命令行参数集合</param>
+            <param name="workingDirectory">工作目录</param>
+            <param name="windowStyle">进程启动时要使用的窗口状态</param>
+            <param name="useShellExecute">是否使用操作系统外壳启动进程</param>
+            <param name="isErrorDialog">是否显示错误弹窗</param>
+            <param name="isCreateWindow">是否在新窗口中启动进程</param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.start">
+            <summary>
+            启动新进程
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.switchExit">
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.Start">
             <summary>
-            切换进程等待关闭处理退出
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.Start">
-            <summary>
-            开始运行
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.onStart">
-            <summary>
-            开始运行
+            启动新进程
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.onExit">
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.StartAsync">
             <summary>
-            退出运行
+            启动新进程
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.removeGuard">
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.GetCurrentProcessFileName">
             <summary>
-            删除被守护进程
+            获取当前进程执行文件名称
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.StartProcessDirectory(System.IO.FileInfo,System.String)">
-            <summary>
-            在文件当前目录启动进程
-            </summary>
-            <param name="file">文件信息</param>
-            <param name="arguments">执行参数</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.GetStartProcessDirectory(System.IO.FileInfo,System.String)">
-            <summary>
-            在文件当前目录启动进程
-            </summary>
-            <param name="file">文件信息</param>
-            <param name="arguments">执行参数</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.getStartProcessDirectory(System.IO.FileInfo,System.String)">
-            <summary>
-            在文件当前目录启动进程
-            </summary>
-            <param name="file"></param>
-            <param name="arguments"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.StartProcessDirectoryAsync(System.IO.FileInfo,System.String)">
-            <summary>
-            在文件当前目录启动进程
-            </summary>
-            <param name="file">文件信息</param>
-            <param name="arguments">执行参数</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.GetStartProcessDirectoryAsync(System.IO.FileInfo,System.String)">
-            <summary>
-            在文件当前目录启动进程
-            </summary>
-            <param name="file">文件信息</param>
-            <param name="arguments">执行参数</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchProcess.GetSwitchFile(System.String,System.String)">
-            <summary>
-            初始化时获取切换服务文件
-            </summary>
-            <param name="deployServerFileName">发布服务文件名称</param>
-            <param name="switchDirectoryName">切换服务相对目录名称</param>
-            <returns>切换服务文件</returns>
-        </member>
-        <member name="T:AutoCSer.Deploy.SwitchWait">
-            <summary>
-            切换进程等待关闭处理
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Deploy.SwitchWait.waitHandle">
-            <summary>
-            等待事件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Deploy.SwitchWait.exit">
-            <summary>
-            关闭处理
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Deploy.SwitchWait.prefix">
-            <summary>
-            名称前缀，可用于区分环境版本
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchWait.#ctor(System.Action,System.String)">
-            <summary>
-            切换进程等待关闭处理
-            </summary>
-            <param name="exit">关闭处理</param>
-            <param name="prefix">名称前缀，可用于区分环境版本</param>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchWait.wait">
-            <summary>
-            等待关闭处理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Deploy.SwitchWait.Set(System.String)">
-            <summary>
-            设置切换进程等待关闭处理
-            </summary>
-            <param name="prefix">名称前缀，可用于区分环境版本</param>
         </member>
         <member name="T:AutoCSer.ExceptionRepeat">
             <summary>
@@ -6523,6 +6466,7 @@
             写入新数据
             </summary>
             <param name="value"></param>
+            <returns>移除的数据</returns>
         </member>
         <member name="T:AutoCSer.SearchTree.Dictionary`2">
             <summary>

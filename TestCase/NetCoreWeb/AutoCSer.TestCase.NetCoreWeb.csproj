@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ProcessGuardCommandClientSocketEvent.cs" />
     <Compile Include="ViewHelp.cs" />
     <Compile Include="ExampleController.cs" />
     <Compile Include="Program.cs" />
@@ -43,7 +44,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
     <ProjectReference Include="..\..\AutoCSer\NetCoreWeb\AutoCSer.NetCoreWeb.NET8.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
 
   <ItemGroup>

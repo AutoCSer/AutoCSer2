@@ -72,6 +72,12 @@
             </summary>
             <param name="log"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollectionService`1.onRemove(`0)">
+            <summary>
+            队列溢出移除的未处理日志
+            </summary>
+            <param name="log"></param>
+        </member>
         <member name="T:AutoCSer.CommandService.ReverseLogCollection.LogCallback`1">
             <summary>
             日志回调
@@ -219,6 +225,12 @@
         <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.AppendLog(`0)">
             <summary>
             添加日志
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.onRemove(`0)">
+            <summary>
+            队列溢出移除的未处理日志
             </summary>
             <param name="log"></param>
         </member>

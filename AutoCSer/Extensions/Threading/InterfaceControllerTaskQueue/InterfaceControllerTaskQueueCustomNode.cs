@@ -40,7 +40,7 @@ namespace AutoCSer.Threading
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void SetReturn()
         {
-            SetReturnType(CommandClientReturnTypeEnum.Success, queue?.ThreadId == System.Threading.Thread.CurrentThread.ManagedThreadId);
+            SetReturnType(CommandClientReturnTypeEnum.Success, queue?.ThreadId == System.Environment.CurrentManagedThreadId);
         }
     }
     /// <summary>
@@ -79,7 +79,7 @@ namespace AutoCSer.Threading
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void SetReturn(T returnValue)
         {
-            base.SetReturn(returnValue, queue?.ThreadId == System.Threading.Thread.CurrentThread.ManagedThreadId);
+            base.SetReturn(returnValue, queue?.ThreadId == System.Environment.CurrentManagedThreadId);
         }
     }
 }

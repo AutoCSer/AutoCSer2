@@ -1,4 +1,4 @@
-﻿using AutoCSer.CommandService.FileSynchronous;
+﻿using AutoCSer.CommandService.DeployTask;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
     /// <summary>
     /// 客户端拉取文件
     /// </summary>
-    internal sealed class PullFileClient : AutoCSer.CommandService.FileSynchronous.PullFileClient
+    internal sealed class PullFileClient : AutoCSer.CommandService.DeployTask.PullFileClient
     {
         /// <summary>
         /// 拉取文件客户端

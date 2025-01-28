@@ -23,7 +23,7 @@ namespace AutoCSer.Threading
         /// </summary>
         protected override void run()
         {
-            ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+            ThreadId = System.Environment.CurrentManagedThreadId;
             do
             {
                 waitHandle.Wait();

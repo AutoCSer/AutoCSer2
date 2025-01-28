@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.CommandService.DeployTask;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
     /// <summary>
     /// 命令客户端套接字事件
     /// </summary>
-    internal sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent, AutoCSer.CommandService.IDatabaseBackupClientSocketEvent
+    internal sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent, IDatabaseBackupClientSocketEvent
     {
         /// <summary>
         /// 基于递增登录时间戳验证的服务认证客户端示例接口

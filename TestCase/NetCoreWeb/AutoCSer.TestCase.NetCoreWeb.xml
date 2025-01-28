@@ -4,6 +4,21 @@
         <name>AutoCSer.TestCase.NetCoreWeb</name>
     </assembly>
     <members>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.ProcessGuardCommandClientSocketEvent">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ProcessGuardCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache">
+            <summary>
+            日志流持久化内存数据库客户端单例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ProcessGuardCommandClientSocketEvent.ProcessGuardNodeCache">
+            <summary>
+            进程守护节点客户端单例
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.NetCoreWeb.ViewHelp">
             <summary>
             数据视图 API 帮助文档数据视图
@@ -127,7 +142,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.NetCoreWeb.Program">
             <summary>
-            
+             
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.NetCoreWeb.Program.Main(System.String[])">
@@ -135,6 +150,29 @@
             
             </summary>
             <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.Program.getSwitchProcessFile">
+            <summary>
+            获取切换执行进程文件信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.Program.getProcessGuardClient">
+            <summary>
+            获取进程守护节点客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.Program.onStart">
+            <summary>
+            开始运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.Program.createHost">
+            <summary>
+            开始运行
+            </summary>
         </member>
         <member name="T:AutoCSer.TestCase.NetCoreWeb.ExampleView">
             <summary>

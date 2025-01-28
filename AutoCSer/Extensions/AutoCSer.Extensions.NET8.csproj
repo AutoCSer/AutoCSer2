@@ -41,8 +41,7 @@
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
     <Compile Include="Date.cs" />
-    <Compile Include="Deploy\SwitchProcess.cs" />
-    <Compile Include="Deploy\SwitchWait.cs" />
+    <Compile Include="Diagnostics\ProcessInfo.cs" />
     <Compile Include="DictionaryCreator.cs" />
     <Compile Include="ExceptionRepeat.cs" />
     <Compile Include="Expression\ConstantTypeEnum.cs" />

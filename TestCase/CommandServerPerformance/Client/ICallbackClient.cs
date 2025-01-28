@@ -153,6 +153,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueue));
 
+                #region 服务端仅执行模式，异常会导致测试中断，属于正常现象
                 testCount = Reset(commandClient, maxTestCount);
                 using (CommandKeepCallback commandKeepCallback = await client.InterfaceController.KeepCallback(CheckSynchronousKeepCallbackHandle))
                 {
@@ -166,6 +167,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     for (int right = testCount; right != 0; await client.InterfaceController.SendOnlyTask(left, --right)) ;
                     await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.KeepCallbackCount));
                 }
+                #endregion
             }
         }
     }

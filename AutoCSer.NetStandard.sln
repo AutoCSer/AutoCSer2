@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.35325.158
+# Visual Studio 15
+VisualStudioVersion = 15.0.35319.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.NetStandard", "AutoCSer\AutoCSer.NetStandard.csproj", "{AA13CF08-84F3-491B-9BCF-B635C48947BF}"
 EndProject
@@ -16,8 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestCase", "TestCase", "{5CDD2AC8-81A9-410A-907C-0A3355331B3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.TimestampVerify.NetStandard", "Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard.csproj", "{444819F5-4E18-4827-A056-5287F077B0C9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.DatabaseBackup.NetStandard", "Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.NetStandard.csproj", "{1BB35934-2F3D-4057-9E5D-84AFDC15D903}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.ReverseLogCollection.NetStandard", "Application\ReverseLogCollection\AutoCSer.CommandService.ReverseLogCollection.NetStandard.csproj", "{75A4401F-FB06-4E4B-B259-F40416F487A3}"
 EndProject
@@ -36,8 +34,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.DeployTask.NetStandard", "Application\DeployTask\AutoCSer.CommandService.DeployTask.NetStandard.csproj", "{F908A737-0093-4F71-9F24-526EDABAB4DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.DiskBlock.NetStandard", "Application\DiskBlock\AutoCSer.CommandService.DiskBlock.NetStandard.csproj", "{70D0DC93-5B52-45C4-8699-7134E0EEA320}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.FileSynchronous.NetStandard", "Application\FileSynchronous\AutoCSer.CommandService.FileSynchronous.NetStandard.csproj", "{789E4FBF-4D2F-499F-ADFD-ECB8F6675C79}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NetStandard", "Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NetStandard.csproj", "{36EB6BD4-BD3B-4990-94C1-8C913B99F53A}"
 EndProject
@@ -67,10 +63,6 @@ Global
 		{444819F5-4E18-4827-A056-5287F077B0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{444819F5-4E18-4827-A056-5287F077B0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{444819F5-4E18-4827-A056-5287F077B0C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BB35934-2F3D-4057-9E5D-84AFDC15D903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BB35934-2F3D-4057-9E5D-84AFDC15D903}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BB35934-2F3D-4057-9E5D-84AFDC15D903}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BB35934-2F3D-4057-9E5D-84AFDC15D903}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75A4401F-FB06-4E4B-B259-F40416F487A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75A4401F-FB06-4E4B-B259-F40416F487A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75A4401F-FB06-4E4B-B259-F40416F487A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,10 +99,6 @@ Global
 		{70D0DC93-5B52-45C4-8699-7134E0EEA320}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D0DC93-5B52-45C4-8699-7134E0EEA320}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D0DC93-5B52-45C4-8699-7134E0EEA320}.Release|Any CPU.Build.0 = Release|Any CPU
-		{789E4FBF-4D2F-499F-ADFD-ECB8F6675C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{789E4FBF-4D2F-499F-ADFD-ECB8F6675C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{789E4FBF-4D2F-499F-ADFD-ECB8F6675C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{789E4FBF-4D2F-499F-ADFD-ECB8F6675C79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36EB6BD4-BD3B-4990-94C1-8C913B99F53A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36EB6BD4-BD3B-4990-94C1-8C913B99F53A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36EB6BD4-BD3B-4990-94C1-8C913B99F53A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -130,7 +118,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F0F0ED16-EEAD-4430-8DFD-A29F7B17E135} = {68EBF962-1891-40BE-B044-9387C6A03EDE}
 		{444819F5-4E18-4827-A056-5287F077B0C9} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
-		{1BB35934-2F3D-4057-9E5D-84AFDC15D903} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
 		{75A4401F-FB06-4E4B-B259-F40416F487A3} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
 		{0DA2C354-7374-43A1-9723-7AFE3A744FB0} = {5CDD2AC8-81A9-410A-907C-0A3355331B3B}
 		{1195BEA3-370C-4B66-9F73-1A22EABFFED7} = {68EBF962-1891-40BE-B044-9387C6A03EDE}
@@ -140,7 +127,6 @@ Global
 		{969546C7-6A80-4C8B-83C2-B29DE9AD7A0B} = {68EBF962-1891-40BE-B044-9387C6A03EDE}
 		{F908A737-0093-4F71-9F24-526EDABAB4DA} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
 		{70D0DC93-5B52-45C4-8699-7134E0EEA320} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
-		{789E4FBF-4D2F-499F-ADFD-ECB8F6675C79} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
 		{36EB6BD4-BD3B-4990-94C1-8C913B99F53A} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
 		{DAF539ED-EF25-43D1-8D82-7FB284FB6B08} = {68EBF962-1891-40BE-B044-9387C6A03EDE}
 		{67D35B07-037F-4BAA-9A81-7033A2C46079} = {5CDD2AC8-81A9-410A-907C-0A3355331B3B}

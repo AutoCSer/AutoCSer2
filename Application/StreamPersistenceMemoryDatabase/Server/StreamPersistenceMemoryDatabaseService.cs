@@ -142,7 +142,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public DateTime GetUtcNow()
         {
-            return DateTime.UtcNow;
+            return AutoCSer.Threading.SecondTimer.SetUtcNow();
         }
         /// <summary>
         /// 获取所有有效节点集合（不包括基础操作节点）

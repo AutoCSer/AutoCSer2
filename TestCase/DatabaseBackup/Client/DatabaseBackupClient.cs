@@ -1,4 +1,4 @@
-﻿using AutoCSer.CommandService;
+﻿using AutoCSer.CommandService.DeployTask;
 using AutoCSer.Net;
 using System;
 using System.IO;
@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
     /// <summary>
     /// 数据库备份客户端
     /// </summary>
-    internal sealed class DatabaseBackupClient : AutoCSer.CommandService.DatabaseBackupClient
+    internal sealed class DatabaseBackupClient : AutoCSer.CommandService.DeployTask.DatabaseBackupClient
     {
         /// <summary>
         /// 数据库备份客户端

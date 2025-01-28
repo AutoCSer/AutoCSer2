@@ -21,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.CommandService.DeployTask.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.CommandService.DeployTask.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoCSer">
@@ -38,37 +40,66 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CopyFileTask.cs" />
-    <Compile Include="CreateUploadFileResult.cs" />
-    <Compile Include="CustomDeployTask.cs" />
-    <Compile Include="DeployTaskAppendResult.cs" />
-    <Compile Include="DeployTaskAppendStateEnum.cs" />
-    <Compile Include="DeployTaskBuilder.cs" />
-    <Compile Include="DeployTaskClient.cs" />
-    <Compile Include="DeployTaskClientBuilder.cs" />
-    <Compile Include="DeployTaskConfig.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupClient.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupClientDownloader.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupClientTable.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupDownloadBuffer.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackuper.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupService.cs" />
+    <Compile Include="DatabaseBackup\IDatabaseBackupClientSocketEvent.cs" />
+    <Compile Include="DatabaseBackup\IDatabaseBackupService.cs" />
+    <Compile Include="DeployTaskNode.cs" />
+    <Compile Include="DirectoryName.cs" />
+    <Compile Include="Extensions\DeployTaskNodeClientNodeExtension.cs" />
+    <Compile Include="FileSynchronousClient.cs" />
+    <Compile Include="IDeployTaskNode.cs" />
+    <Compile Include="PullFile\IPullFileClientSocketEvent.cs" />
+    <Compile Include="PullFile\IPullFileService.cs" />
+    <Compile Include="PullFile\IPullFileServiceClientController.cs" />
+    <Compile Include="PullFile\PullFile.cs" />
+    <Compile Include="PullFile\PullFileBuffer.cs" />
+    <Compile Include="PullFile\PullFileClient.cs" />
+    <Compile Include="PullFile\PullFileService.cs" />
+    <Compile Include="PullFile\PullFileStateEnum.cs" />
+    <Compile Include="SynchronousFile.cs" />
+    <Compile Include="SynchronousFileInfo.cs" />
+    <Compile Include="TaskData.cs" />
     <Compile Include="DeployTaskLog.cs" />
-    <Compile Include="DeployTaskOperationStateEnum.cs" />
-    <Compile Include="DeployTaskOperationTypeEnum.cs" />
-    <Compile Include="DeployTaskService.cs" />
-    <Compile Include="DeployTaskUploadFileResult.cs" />
-    <Compile Include="DeployTaskUploadFileStateEnum.cs" />
-    <Compile Include="FileTime.cs" />
-    <Compile Include="IDeployTask.cs" />
-    <Compile Include="IDeployTaskServiceClientController.cs" />
-    <Compile Include="IDeployTaskClientSocketEvent.cs" />
-    <Compile Include="IDeployTaskService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="OperationStateEnum.cs" />
     <Compile Include="StartProcessTask.cs" />
-    <Compile Include="TaskFileStream.cs" />
-    <Compile Include="UploadFileBuffer.cs" />
-    <Compile Include="UploadFileClient.cs" />
+    <Compile Include="StepTaskData.cs" />
+    <Compile Include="StepTypeEnum.cs" />
+    <Compile Include="IStepTask.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskBuilder.cs" />
+    <Compile Include="TaskBuilderCallback.cs" />
+    <Compile Include="UploadCompletedTask.cs" />
+    <Compile Include="UploadFile\FileUploader.cs" />
+    <Compile Include="UploadFile\IUploadFileClientSocketEvent.cs" />
+    <Compile Include="UploadFile\IUploadFileService.cs" />
+    <Compile Include="UploadFile\UploadCompletedFileName.cs" />
+    <Compile Include="UploadFile\UploadCompletedFiles.cs" />
+    <Compile Include="UploadFile\UploaderIdentity.cs" />
+    <Compile Include="UploadFile\UploaderInfo.cs" />
+    <Compile Include="UploadFile\UploadFile.cs" />
+    <Compile Include="UploadFile\UploadFileBuffer.cs" />
+    <Compile Include="UploadFile\UploadFileClient.cs" />
+    <Compile Include="UploadFile\UploadFileIdentity.cs" />
+    <Compile Include="UploadFile\UploadFileIndex.cs" />
+    <Compile Include="UploadFile\UploadFileInfo.cs" />
+    <Compile Include="UploadFile\UploadFileService.cs" />
+    <Compile Include="UploadFile\UploadFileServiceConfig.cs" />
+    <Compile Include="UploadFile\UploadFileStateEnum.cs" />
     <Compile Include="{AutoCSer.CommandService.DeployTask}.AutoCSer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
       <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
       <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5.csproj">
+      <Project>{16850f6e-850a-46e4-af12-cf48e9e771b1}</Project>
+      <Name>AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

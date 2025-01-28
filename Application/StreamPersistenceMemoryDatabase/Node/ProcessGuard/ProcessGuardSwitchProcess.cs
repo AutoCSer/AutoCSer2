@@ -1,10 +1,6 @@
-﻿using AutoCSer.Deploy;
+﻿using AutoCSer.Diagnostics;
 using AutoCSer.Extensions;
-using AutoCSer.Net;
-using AutoCSer.Threading;
 using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -16,14 +12,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public abstract class ProcessGuardSwitchProcess
     {
         /// <summary>
-        /// 默认切换服务相对目录名称
+        /// 默认切换服务目录后缀名称
         /// </summary>
-        public const string DefaultSwitchDirectoryName = "Switch";
+        public const string DefaultSwitchDirectorySuffixName = ".SwitchProcess";
 
         /// <summary>
         /// Main 函数传参
         /// </summary>
-        private readonly string[] arguments;
+        protected readonly string[] arguments;
         /// <summary>
         /// 切换进程关键字，默认为当前进程名称
         /// </summary>
@@ -33,14 +29,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         protected virtual string processFileName
         {
-            get { return string.Empty; }
-        }
-        /// <summary>
-        /// 切换服务相对目录名称，默认为 Switch
-        /// </summary>
-        protected virtual string switchDirectoryName
-        {
-            get { return DefaultSwitchDirectoryName; }
+            get { return ProcessInfo.GetCurrentProcessFileName(); }
         }
         /// <summary>
         /// 默认为 true 表示添加守护
@@ -65,18 +54,94 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected ProcessGuardSwitchProcess(string[] arguments)
         {
             this.arguments = arguments;
-            var switchFile = GetSwitchFile(processFileName, switchDirectoryName);
-            if (switchFile != null)
+        }
+        /// <summary>
+        /// 获取切换执行进程文件信息
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        protected virtual async Task<FileInfo?> getSwitchProcessFile()
+#else
+        protected virtual async Task<FileInfo> getSwitchProcessFile()
+#endif
+        {
+            FileInfo processFile = new FileInfo(processFileName);
+            var directory = processFile.Directory;
+            if (directory == null) return null;
+            var parent = directory.Parent;
+            if (parent == null) return null;
+            string directoryName = directory.Name;
+            DirectoryInfo switchDirectory = new DirectoryInfo(Path.Combine(parent.FullName, directoryName + ProcessInfo.DefaultSwitchDirectorySuffixName));
+            if (await AutoCSer.Common.DirectoryExists(switchDirectory)) return await getSwitchProcessFile(switchDirectory, processFile);
+            if (directoryName.EndsWith(ProcessInfo.DefaultSwitchDirectorySuffixName, StringComparison.Ordinal))
             {
-                StartProcessDirectory(switchFile, arguments);
-                isStart = true;
+                int nameLength = directoryName.Length - ProcessInfo.DefaultSwitchDirectorySuffixName.Length;
+                if (nameLength > 0)
+                {
+                    switchDirectory = new DirectoryInfo(Path.Combine(parent.FullName, directoryName.Substring(0, nameLength)));
+                    if (await AutoCSer.Common.DirectoryExists(switchDirectory)) return await getSwitchProcessFile(switchDirectory, processFile);
+                }
             }
+            return null;
+        }
+        /// <summary>
+        /// 获取切换执行进程文件信息
+        /// </summary>
+        /// <param name="directoryName">匹配目录名称</param>
+        /// <returns></returns>
+#if NetStandard21
+        protected async Task<FileInfo?> getSwitchProcessFile(string directoryName)
+#else
+        protected async Task<FileInfo> getSwitchProcessFile(string directoryName)
+#endif
+        {
+            FileInfo processFile = new FileInfo(processFileName);
+            var directory = processFile.Directory;
+            if (directory == null) return null;
+            LeftArray<string> directoryNames = new LeftArray<string>(5);
+            do
+            {
+                directoryNames.Append(directory.Name);
+                if (directory.Name == directoryName) break;
+                if ((directory = directory.Parent) == null) return null;
+            }
+            while (true);
+            if ((directory = directory.Parent) == null) return null;
+            var parent = directory.Parent;
+            if (parent == null) return null;
+            DirectoryInfo switchDirectory = new DirectoryInfo(Path.Combine(parent.FullName, (directoryName = directory.Name) + ProcessInfo.DefaultSwitchDirectorySuffixName));
+            if (await AutoCSer.Common.DirectoryExists(switchDirectory)) return await getSwitchProcessFile(switchDirectory, directoryNames, processFile);
+            if (directoryName.EndsWith(ProcessInfo.DefaultSwitchDirectorySuffixName, StringComparison.Ordinal))
+            {
+                int nameLength = directoryName.Length - ProcessInfo.DefaultSwitchDirectorySuffixName.Length;
+                if (nameLength > 0)
+                {
+                    switchDirectory = new DirectoryInfo(Path.Combine(parent.FullName, directoryName.Substring(0, nameLength)));
+                    if (await AutoCSer.Common.DirectoryExists(switchDirectory)) return await getSwitchProcessFile(switchDirectory, directoryNames, processFile);
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// 切换进程检查
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async Task<bool> switchProcess()
+        {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            var switchProcessFile = await getSwitchProcessFile();
+            if (switchProcessFile != null)
+            {
+                new ProcessInfo(switchProcessFile, arguments, AutoCSer.Common.CurrentProcess).Start();
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 开始运行
         /// </summary>
         /// <returns></returns>
-        public async Task<ResponseResult> Start()
+        protected async Task<ResponseResult> start()
         {
             if (!isStart)
             {
@@ -105,8 +170,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         switchAwaiter = client.Value.Switch(switchProcessKey);
                     }
                     while (true);
-                    isExit = true;
-                    await onExit();
+                    await exit();
                     return new ResponseResult(CallStateEnum.Success);
                 }
                 catch (Exception exception)
@@ -161,8 +225,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         await Task.Delay(1);
                     }
                     while (true);
-                    isExit = true;
-                    await onExit();
+                    await exit();
                     return;
                 }
                 await Task.Delay(1);
@@ -225,98 +288,38 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
-        /// 在文件当前目录启动进程
+        /// 获取切换执行进程文件信息
         /// </summary>
-        /// <param name="file">文件信息</param>
-        /// <param name="arguments">Main 函数参数</param>
-        /// <returns>是否成功</returns>
-        public static bool StartProcessDirectory(FileInfo file, string[] arguments)
-        {
-            var process = GetStartProcessDirectory(file, arguments);
-            if (process != null)
-            {
-                process.Dispose();
-                return true;
-            }
-            return false;
-        }
-        /// <summary>
-        /// 在文件当前目录启动进程
-        /// </summary>
-        /// <param name="file">文件信息</param>
-        /// <param name="arguments">Main 函数参数</param>
-        /// <returns>是否成功</returns>
-#if NetStandard21
-        public static Process? GetStartProcessDirectory(FileInfo file, string[] arguments)
-#else
-        public static Process GetStartProcessDirectory(FileInfo file, string[] arguments)
-#endif
-        {
-            if (file != null && file.Exists) return getStartProcessDirectory(file, arguments);
-            return null;
-        }
-        /// <summary>
-        /// 在文件当前目录启动进程
-        /// </summary>
-        /// <param name="file"></param>
-        /// <param name="arguments">Main 函数参数</param>
+        /// <param name="switchDirectory"></param>
+        /// <param name="processFile"></param>
         /// <returns></returns>
 #if NetStandard21
-        private static Process? getStartProcessDirectory(FileInfo file, string[] arguments)
+        private static async Task<FileInfo?> getSwitchProcessFile(DirectoryInfo switchDirectory, FileInfo processFile)
 #else
-        private static Process getStartProcessDirectory(FileInfo file, string[] arguments)
+        private static async Task<FileInfo> getSwitchProcessFile(DirectoryInfo switchDirectory, FileInfo processFile)
 #endif
         {
-#if NET8
-            ProcessStartInfo info = new ProcessStartInfo(file.FullName, arguments);
-#else
-            ProcessStartInfo info = new ProcessStartInfo(file.FullName, string.Join(" ", arguments));
-#endif
-            info.UseShellExecute = true;
-            info.WorkingDirectory = file.DirectoryName;
-            return Process.Start(info);
+            FileInfo switchProcessFile = new FileInfo(Path.Combine(switchDirectory.FullName, processFile.Name));
+            return await AutoCSer.Common.FileExists(switchProcessFile) && switchProcessFile.LastWriteTimeUtc > processFile.LastWriteTimeUtc ? switchProcessFile : null;
         }
         /// <summary>
-        /// 初始化时获取切换服务文件
+        /// 获取切换执行进程文件信息
         /// </summary>
-        /// <param name="processFileName">执行进程文件名称，默认为当前执行文件</param>
-        /// <param name="switchDirectoryName">切换服务相对目录名称，默认为 Switch</param>
-        /// <returns>切换服务文件</returns>
+        /// <param name="switchDirectory"></param>
+        /// <param name="directoryNames"></param>
+        /// <param name="processFile"></param>
+        /// <returns></returns>
 #if NetStandard21
-        public static FileInfo? GetSwitchFile(string processFileName = "", string switchDirectoryName = DefaultSwitchDirectoryName)
+        private static async Task<FileInfo?> getSwitchProcessFile(DirectoryInfo switchDirectory, LeftArray<string> directoryNames, FileInfo processFile)
 #else
-        public static FileInfo GetSwitchFile(string processFileName = "", string switchDirectoryName = DefaultSwitchDirectoryName)
+        private static async Task<FileInfo> getSwitchProcessFile(DirectoryInfo switchDirectory, LeftArray<string> directoryNames, FileInfo processFile)
 #endif
         {
-            DirectoryInfo currentDirectory = AutoCSer.Common.ApplicationDirectory, switchDirectory;
-            if (currentDirectory.Name == switchDirectoryName)
-            {
-                switchDirectory = currentDirectory.Parent.notNull();
-            }
-            else
-            {
-                switchDirectory = new DirectoryInfo(Path.Combine(currentDirectory.FullName, switchDirectoryName));
-            }
-            if (switchDirectory.Exists)
-            {
-                if (string.IsNullOrEmpty(processFileName))
-                {
-                    processFileName = System.Reflection.Assembly.GetEntryAssembly().notNull().Location;
-                    if (string.CompareOrdinal(processFileName.Substring(processFileName.Length - 4), ".dll") == 0)
-                    {
-                        string exeDeployServerFileName = processFileName.Substring(0, processFileName.Length - 3) + "exe";
-                        if (File.Exists(exeDeployServerFileName)) processFileName = exeDeployServerFileName;
-                    }
-                    processFileName = new FileInfo(processFileName).Name;
-                }
-                FileInfo SwitchFile = new FileInfo(Path.Combine(switchDirectory.FullName, processFileName));
-                if (SwitchFile.Exists)
-                {
-                    FileInfo CurrentFile = new FileInfo(Path.Combine(currentDirectory.FullName, processFileName));
-                    if (SwitchFile.LastWriteTimeUtc > CurrentFile.LastWriteTimeUtc) return SwitchFile;
-                }
-            }
-            return null;
+            directoryNames.Add(switchDirectory.FullName);
+            directoryNames.Reverse();
+            directoryNames.Add(processFile.Name);
+            FileInfo switchProcessFile = new FileInfo(Path.Combine(directoryNames.ToArray()));
+            return await AutoCSer.Common.FileExists(switchProcessFile) && switchProcessFile.LastWriteTimeUtc > processFile.LastWriteTimeUtc ? switchProcessFile : null;
         }
     }
 }

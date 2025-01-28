@@ -1,7 +1,5 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
 {

@@ -3377,10 +3377,12 @@
             当没有 JSON 序列化成员时是否预留 JSON 序列化标记，默认为 false
             </summary>
         </member>
-        <member name="P:AutoCSer.BinarySerializeAttribute.GetIsJsonMember">
+        <member name="M:AutoCSer.BinarySerializeAttribute.GetIsJsonMember(System.Type)">
             <summary>
             当没有 JSON 序列化成员时是否预留 JSON 序列化标记，默认为 false
             </summary>
+            <param name="type"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.BinarySerializeAttribute.IsMemberMap">
             <summary>
@@ -3392,10 +3394,12 @@
             是否选择匿名字段，默认为 false
             </summary>
         </member>
-        <member name="P:AutoCSer.BinarySerializeAttribute.GetIsMemberMap">
+        <member name="M:AutoCSer.BinarySerializeAttribute.GetIsMemberMap(System.Type)">
             <summary>
             是否序列化成员位图
             </summary>
+            <param name="type"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.BinarySerializeAttribute.CustomReferenceTypes">
             <summary>
@@ -8838,6 +8842,14 @@
             <param name="destDirectoryName"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Common.DirectoryMove(System.String,System.String)">
+            <summary>
+             移动目录
+            </summary>
+            <param name="sourceDirectoryName"></param>
+            <param name="destDirectoryName"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Common.DirectoryGetFiles(System.IO.DirectoryInfo)">
             <summary>
             搜索文件
@@ -10093,10 +10105,18 @@
         </member>
         <member name="M:AutoCSer.Extensions.NullableReferenceExtension.setDefault``1(``0[],System.Int32)">
             <summary>
-            设置数组原始值
+            设置数组元素为默认值
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="value"></param>
+            <param name="array"></param>
+            <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.NullableReferenceExtension.getSetDefault``1(``0[],System.Int32)">
+            <summary>
+            设置数组元素为默认值并返回原始值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
             <param name="index"></param>
         </member>
         <member name="T:AutoCSer.Extensions.TaskExtension">
@@ -25767,10 +25787,22 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.keyTypes">
+            <summary>
+            命令服务参数类型集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.types">
             <summary>
             命令服务参数类型集合
             </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.IsType(System.Type)">
+            <summary>
+            判断是否命令服务参数类型
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.typeIndex">
             <summary>
@@ -29013,6 +29045,11 @@
             默认为 true 表示在创建客户端对象的时候自动启动连接，否则需要第一次调用触发
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientConfig.NoDelay">
+            <summary>
+            默认为 true 表示启动 Nagle 算法，对于低延时需求应该设置为 false 表示立即发送数据
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.ControllerCreatorBindingFlags">
             <summary>
             命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
@@ -32152,6 +32189,11 @@
         <member name="F:AutoCSer.Net.CommandServerConfig.IsOutputExceptionMessage">
             <summary>
             默认为 true 表示输出服务端异常信息，开放服务建议设置为 false 避免敏感信息泄漏
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.NoDelay">
+            <summary>
+            默认为 false 表示禁用 Nagle 算法，立即发送数据
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.MaxTaskRunConcurrent">
@@ -38562,6 +38604,11 @@
             队列编号
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerCallQueue.ThreadId">
+            <summary>
+            队列线程ID
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerCallQueue.sendSocket">
             <summary>
             当前发送数据套接字
@@ -39111,6 +39158,17 @@
             <param name="compressHeadSize">压缩多余头部大小</param>
             <param name="level"></param>
             <returns>是否压缩成功</returns>
+        </member>
+        <member name="M:AutoCSer.Config.Compress(System.Byte[],System.Int32,System.Int32,System.Int32,System.IO.Compression.CompressionLevel)">
+            <summary>
+            压缩数据
+            </summary>
+            <param name="data">原始数据</param>
+            <param name="startIndex">原始数据起始位置</param>
+            <param name="count">原始数据待压缩字节数</param>
+            <param name="seek">压缩输出起始位置</param>
+            <param name="level"></param>
+            <returns>压缩后的数据</returns>
         </member>
         <member name="M:AutoCSer.Config.Decompress(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
             <summary>

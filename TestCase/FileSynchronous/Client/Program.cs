@@ -1,4 +1,4 @@
-﻿using AutoCSer.CommandService.FileSynchronous;
+﻿using AutoCSer.CommandService.DeployTask;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
@@ -33,13 +33,13 @@ namespace AutoCSer.TestCase.FileSynchronousClient
                 {
                     PullFileClient pullFileClient = new PullFileClient(pullClient);
                     string serverPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, AutoCSer.Common.NamePrefix);
-                    string clientPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(PullFileClient), AutoCSer.Common.NamePrefix);
+                    string clientPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.DeployTask), nameof(PullFileClient), AutoCSer.Common.NamePrefix);
                     PullFileStateEnum pullState = await pullFileClient.PullDirectory(serverPath, clientPath);
                     if (pullState == PullFileStateEnum.Success) await compare(serverPath, clientPath);
                     else AutoCSer.ConsoleWriteQueue.Breakpoint($"拉取文件失败 {pullState}");
 
                     IUploadFileClientSocketEvent uploadClient = (IUploadFileClientSocketEvent)commandClient.SocketEvent;
-                    serverPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.FileSynchronous), nameof(UploadFileClient), AutoCSer.Common.NamePrefix);
+                    serverPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.DeployTask), nameof(UploadFileClient), AutoCSer.Common.NamePrefix);
                     UploadFileClient uploadFileClient = new UploadFileClient(uploadClient, clientPath, serverPath);
                     UploadFileStateEnum uploadState = await uploadFileClient.Upload();
                     if (uploadState == UploadFileStateEnum.Success) await compare(clientPath, serverPath);

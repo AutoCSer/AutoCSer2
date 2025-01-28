@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
     /// <summary>
     /// 数据库备份服务
     /// </summary>
-    internal sealed class DatabaseBackupService : AutoCSer.CommandService.DatabaseBackupService
+    internal sealed class DatabaseBackupService : AutoCSer.CommandService.DeployTask.DatabaseBackupService
     {
         /// <summary>
         /// 数据库备份服务
@@ -80,7 +80,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// <param name="queue"></param>
         /// <param name="database"></param>
         /// <returns></returns>
-        protected override AutoCSer.CommandService.DatabaseBackuper createDatabaseBackuper(CommandServerCallQueue queue, string database)
+        protected override AutoCSer.CommandService.DeployTask.DatabaseBackuper createDatabaseBackuper(CommandServerCallQueue queue, string database)
         {
             foreach (Database nextDatabase in ConfigFile.Default.DatabaseArray)
             {

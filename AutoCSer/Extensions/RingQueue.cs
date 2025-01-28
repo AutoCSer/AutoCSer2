@@ -83,7 +83,12 @@ namespace AutoCSer
         /// 写入新数据
         /// </summary>
         /// <param name="value"></param>
-        public void Write(T value)
+        /// <returns>移除的数据</returns>
+#if NetStandard21
+        public T? Write(T value)
+#else
+        public T Write(T value)
+#endif
         {
             queue[writeIndex] = value;
             if (++writeIndex == queue.Length)
@@ -91,15 +96,18 @@ namespace AutoCSer
                 writeIndex = 0;
                 if (readIndex == 0)
                 {
-                    queue.setDefault(0);
+                    value = queue.getSetDefault(0);
                     readIndex = 1;
+                    return value;
                 }
             }
             else if (readIndex == writeIndex)
             {
-                queue.setDefault(writeIndex);
+                value = queue.getSetDefault(writeIndex);
                 if (++readIndex == queue.Length) readIndex = 0;
+                return value;
             }
+            return default(T);
         }
     }
 }

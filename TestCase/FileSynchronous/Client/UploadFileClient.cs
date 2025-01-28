@@ -1,4 +1,4 @@
-﻿using AutoCSer.CommandService.FileSynchronous;
+﻿using AutoCSer.CommandService.DeployTask;
 using System;
 using System.IO;
 
@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
     /// <summary>
     /// 文件上传客户端
     /// </summary>
-    internal sealed class UploadFileClient : AutoCSer.CommandService.FileSynchronous.UploadFileClient
+    internal sealed class UploadFileClient : AutoCSer.CommandService.DeployTask.UploadFileClient
     {
         /// <summary>
         /// 文件上传客户端
@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
         /// <param name="serverPath">服务端路径</param>
         /// <param name="isDelete">当客户端不存在时，是否删除服务端文件与目录</param>
         /// <param name="concurrency">同步并发数</param>
-        public UploadFileClient(IUploadFileClientSocketEvent client, string clientPath, string serverPath, bool isDelete = true, int concurrency = 16) : base(client, clientPath, serverPath, isDelete, concurrency)
+        public UploadFileClient(IUploadFileClientSocketEvent client, string clientPath, string serverPath, bool isDelete = true, int concurrency = 16) : base(client, clientPath, serverPath, null, false, false, isDelete, concurrency)
         {
         }
         /// <summary>

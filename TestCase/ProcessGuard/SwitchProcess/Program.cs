@@ -9,17 +9,16 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
 {
     class Program : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess
     {
-        static Task Main(string[] args)
+        static async Task Main(string[] args)
         {
             Program program = new Program(args);
-            if (!program.isStart)
+            if (!await program.switchProcess())
             {
-                program.Start().NotWait();
+                program.start().NotWait();
                 Console.WriteLine("Press quit to exit.");
                 while (Console.ReadLine() != "quit") ;
-                return program.exit();
+                await program.exit();
             }
-            return AutoCSer.Common.CompletedTask;
         }
 
         private Program(string[] args) : base(args) { }

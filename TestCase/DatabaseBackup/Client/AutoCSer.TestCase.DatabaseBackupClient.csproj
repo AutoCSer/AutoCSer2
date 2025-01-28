@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Application\DatabaseBackup\AutoCSer.CommandService.DatabaseBackup.NET8.csproj" />
+    <ProjectReference Include="..\..\..\Application\DeployTask\AutoCSer.CommandService.DeployTask.NET8.csproj" />
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
   </ItemGroup>
 

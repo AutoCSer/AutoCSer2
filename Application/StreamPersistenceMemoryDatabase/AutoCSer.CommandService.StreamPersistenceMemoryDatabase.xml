@@ -3908,6 +3908,27 @@
             <param name="serializer">序列化</param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterPersistenceCallback">
+            <summary>
+            非持久化回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterPersistenceCallback.methodParameter">
+            <summary>
+            调用方法与参数信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterPersistenceCallback.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
+            <summary>
+            非持久化回调
+            </summary>
+            <param name="methodParameter">调用方法与参数信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterPersistenceCallback.RunTask">
+            <summary>
+            非持久化回调
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod">
             <summary>
             服务端节点方法
@@ -10834,36 +10855,6 @@
             进程名称
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.FileName">
-            <summary>
-            运行文件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.Arguments">
-            <summary>
-            命令行参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.WorkingDirectory">
-            <summary>
-            工作目录
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.WindowStyle">
-            <summary>
-            进程启动时要使用的窗口状态
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.UseShellExecute">
-            <summary>
-            是否使用操作系统外壳启动进程
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.isArgumentArray">
-            <summary>
-            命令行参数是否 Main 函数传参数组
-            </summary>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.#ctor">
             <summary>
             被守护进程信息
@@ -10881,12 +10872,6 @@
             </summary>
             <param name="process"></param>
             <param name="arguments">Main 传参数组</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.Start">
-            <summary>
-            启动新进程
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode">
             <summary>
@@ -10987,9 +10972,9 @@
             切换进程
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.DefaultSwitchDirectoryName">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.DefaultSwitchDirectorySuffixName">
             <summary>
-            默认切换服务相对目录名称
+            默认切换服务目录后缀名称
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.arguments">
@@ -11005,11 +10990,6 @@
         <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.processFileName">
             <summary>
             执行进程文件名称，默认为当前执行文件
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.switchDirectoryName">
-            <summary>
-            切换服务相对目录名称，默认为 Switch
             </summary>
         </member>
         <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.isGuard">
@@ -11038,7 +11018,26 @@
             </summary>
             <param name="arguments">Main 函数参数</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.Start">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.getSwitchProcessFile">
+            <summary>
+            获取切换执行进程文件信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.getSwitchProcessFile(System.String)">
+            <summary>
+            获取切换执行进程文件信息
+            </summary>
+            <param name="directoryName">匹配目录名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.switchProcess">
+            <summary>
+            切换进程检查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.start">
             <summary>
             开始运行
             </summary>
@@ -11094,37 +11093,22 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.StartProcessDirectory(System.IO.FileInfo,System.String[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.getSwitchProcessFile(System.IO.DirectoryInfo,System.IO.FileInfo)">
             <summary>
-            在文件当前目录启动进程
+            获取切换执行进程文件信息
             </summary>
-            <param name="file">文件信息</param>
-            <param name="arguments">Main 函数参数</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.GetStartProcessDirectory(System.IO.FileInfo,System.String[])">
-            <summary>
-            在文件当前目录启动进程
-            </summary>
-            <param name="file">文件信息</param>
-            <param name="arguments">Main 函数参数</param>
-            <returns>是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.getStartProcessDirectory(System.IO.FileInfo,System.String[])">
-            <summary>
-            在文件当前目录启动进程
-            </summary>
-            <param name="file"></param>
-            <param name="arguments">Main 函数参数</param>
+            <param name="switchDirectory"></param>
+            <param name="processFile"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.GetSwitchFile(System.String,System.String)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardSwitchProcess.getSwitchProcessFile(System.IO.DirectoryInfo,AutoCSer.LeftArray{System.String},System.IO.FileInfo)">
             <summary>
-            初始化时获取切换服务文件
+            获取切换执行进程文件信息
             </summary>
-            <param name="processFileName">执行进程文件名称，默认为当前执行文件</param>
-            <param name="switchDirectoryName">切换服务相对目录名称，默认为 Switch</param>
-            <returns>切换服务文件</returns>
+            <param name="switchDirectory"></param>
+            <param name="directoryNames"></param>
+            <param name="processFile"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.QueueNode`1">
             <summary>
@@ -18648,6 +18632,12 @@
             </summary>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.CallbackCancelKeep(`0)">
+            <summary>
+            成功回调并取消保持回调命令
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.Callback(AutoCSer.Net.CommandServerCallQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterSerializer)">
             <summary>

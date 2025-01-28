@@ -137,17 +137,32 @@ namespace AutoCSer.Extensions
 #pragma warning restore CS8603
         }
         /// <summary>
-        /// 设置数组原始值
+        /// 设置数组元素为默认值
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
+        /// <param name="array"></param>
         /// <param name="index"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void setDefault<T>(this T[] value, int index)
+        public static void setDefault<T>(this T[] array, int index)
         {
 #pragma warning disable CS8601
-            value[index] = default(T);
+            array[index] = default(T);
 #pragma warning restore CS8601
+        }
+        /// <summary>
+        /// 设置数组元素为默认值并返回原始值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="index"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static T getSetDefault<T>(this T[] array, int index)
+        {
+            T value = array[index];
+#pragma warning disable CS8601
+            array[index] = default(T);
+#pragma warning restore CS8601
+            return value;
         }
     }
 }

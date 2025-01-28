@@ -133,6 +133,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new AwaiterClient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
 
+                #region 服务端仅执行模式，异常会导致测试中断，属于正常现象
                 int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
                 checkEnumeratorCommand(enumeratorCommand).NotWait();
@@ -144,6 +145,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 checkEnumeratorCommand(enumeratorCommand).NotWait();
                 for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
                 await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallbackCount));
+                #endregion
             }
         }
         /// <summary>

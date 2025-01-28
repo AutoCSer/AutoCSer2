@@ -4,6 +4,7 @@ using AutoCSer.Net;
 using AutoCSer.Threading;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
 {
@@ -56,7 +57,19 @@ namespace AutoCSer.CommandService
         /// <param name="log"></param>
         internal virtual void Callback(T log)
         {
-            if (callbacks.Callback(log) == 0) logs.Write(log);
+            if (callbacks.Callback(log) == 0)
+            {
+                var removeLog = logs.Write(log);
+                if (removeLog != null) onRemove(log).NotWait();
+            }
+        }
+        /// <summary>
+        /// 队列溢出移除的未处理日志
+        /// </summary>
+        /// <param name="log"></param>
+        protected virtual async Task onRemove(T log)
+        {
+            await Controller.Server.Log.Debug(AutoCSer.JsonSerializer.Serialize(log));
         }
     }
 }

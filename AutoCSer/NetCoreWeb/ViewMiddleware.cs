@@ -1,4 +1,5 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.Diagnostics;
+using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.NetCoreWeb.Metadata;
 using Microsoft.AspNetCore.Http;
@@ -111,10 +112,12 @@ namespace AutoCSer.NetCoreWeb
                 string directoryName = GetType().Namespace.notNull();
                 int startIndex = directoryName.LastIndexOf('.') + 1;
                 if (startIndex > 0) directoryName = directoryName.Substring(startIndex);
-                var directory = AutoCSer.Common.ApplicationDirectory;
+                string switchDirectoryName = directoryName + ProcessInfo.DefaultSwitchDirectorySuffixName;
+                var directory = new FileInfo(ProcessInfo.GetCurrentProcessFileName()).Directory.notNull();
+                //var directory = AutoCSer.Common.ApplicationDirectory;
                 do
                 {
-                    if (directory.Name == directoryName) return directory.FullName;
+                    if (directory.Name == directoryName || directory.Name == switchDirectoryName) return directory.FullName;
                 }
                 while ((directory = directory.Parent) != null);
                 return AutoCSer.Common.ApplicationDirectory.FullName;

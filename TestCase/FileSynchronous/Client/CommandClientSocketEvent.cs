@@ -1,5 +1,5 @@
 ﻿using AutoCSer.CommandService;
-using AutoCSer.CommandService.FileSynchronous;
+using AutoCSer.CommandService.DeployTask;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
