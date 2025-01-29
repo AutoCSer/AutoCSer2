@@ -1,7 +1,7 @@
 # AutoCSer
 [AutoCSer](https://github.com/AutoCSer/AutoCSer2) 是一个 C# 实现的**开箱即用**的 RPC 框架，具有高并发、高吞吐等**高性能**特性，是理想的分布式应用基础设施。
 
-基于 AutoCSer RPC 实现的**面向对象编程**的[内存数据库](https://github.com/AutoCSer/AutoCSer2/tree/main/Application/StreamPersistenceMemoryDatabase)，支持传统数据库级别的**可靠持久化**，持久化 API 具有天然的**事务特性**，支持根据业务逻辑**自定义数据结构节点**，支持**本地嵌入模式**满足高性能游戏局内服务需求。
+基于 [AutoCSer](https://atomgit.com/autocser/AutoCSer) RPC 实现的**面向对象编程**的[内存数据库](https://github.com/AutoCSer/AutoCSer2/tree/main/Application/StreamPersistenceMemoryDatabase)，支持传统数据库级别的**可靠持久化**，持久化 API 具有天然的**事务特性**，支持根据业务逻辑**自定义数据结构节点**，支持**本地嵌入模式**满足高性能游戏局内服务需求。
 
 # 开箱即用的 RPC
 ## 定义服务接口

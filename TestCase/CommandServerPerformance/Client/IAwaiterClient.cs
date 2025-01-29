@@ -256,7 +256,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     break;
                 case nameof(SynchronousCallTask):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) Task().NotWait();
+                    while (--taskCount >= 0) SynchronousCallTask().NotWait();
                     break;
             }
         }
