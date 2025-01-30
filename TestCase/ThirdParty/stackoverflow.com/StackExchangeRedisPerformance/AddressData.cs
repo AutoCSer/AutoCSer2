@@ -3,7 +3,7 @@
 namespace StackExchangeRedisPerformance
 {
     /// <summary>
-    /// 测试数据 https://redis.io/docs/latest/integrate/redisom-for-net/
+    /// Test data https://redis.io/docs/latest/integrate/redisom-for-net/
     /// </summary>
     public sealed class AddressData
     {

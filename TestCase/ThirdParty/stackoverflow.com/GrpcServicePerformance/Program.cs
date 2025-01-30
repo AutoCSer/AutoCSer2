@@ -4,7 +4,22 @@ namespace GrpcServicePerformance
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
+        {
+            await AutoCSer.Threading.SwitchAwaiter.Default;//Force Task.Run to switch the context to avoid deadlock in the UI thread await call
+
+            AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerConfig { Host = new AutoCSer.Net.HostEndPoint(12907), TaskQueueMaxConcurrent = 16 };
+            await using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListener(commandServerConfig
+                , AutoCSer.Net.CommandServerInterfaceControllerCreator.GetCreator<AutoCSer.TestCase.CommandServerPerformance.ITestService>(new AutoCSer.TestCase.CommandServerPerformance.TestService())
+                ))
+            {
+                if (await commandListener.Start())//Start the AutoCSer RPC server
+                {
+                    gRPC(args);//Start the .NET gRPC server
+                }
+            }
+        }
+        private static void gRPC(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
