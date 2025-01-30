@@ -197,7 +197,7 @@ namespace AutoCSer.TestCase.Common
             await waitLock.WaitAsync();
             long milliseconds = AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp);
             string concurrentMessasge = concurrent == 1 ? null : $" {concurrent.toString()} Concurrent";
-            Console.WriteLine($"{clientTypeName}+Server.{serverMethodName}{concurrentMessasge} Completed {testCount.toString()}/{milliseconds.toString()}ms = {(testCount / milliseconds).toString()}/ms");
+            Console.WriteLine($"Client[{clientTypeName}]+Server[{serverMethodName}]{concurrentMessasge} Completed {testCount.toString()}/{milliseconds.toString()}ms = {(testCount / milliseconds).toString()}/ms");
             if (errorCount != 0) ConsoleWriteQueue.WriteLine($"ERROR {errorCount}", ConsoleColor.Red);
             await Task.Delay(1000);
         }

@@ -71,7 +71,7 @@ namespace AutoCSer.Extensions
             return node.Remove(identity, AutoCSer.Threading.SecondTimer.UtcNow);
         }
         /// <summary>
-        /// 启动任务
+        /// 立即启动任务
         /// </summary>
         /// <param name="node"></param>
         /// <param name="identity">任务标识ID</param>
@@ -79,7 +79,7 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ResponseParameterAwaiter<AutoCSer.CommandService.DeployTask.OperationStateEnum> Start(this IDeployTaskNodeClientNode node, long identity)
         {
-            return node.Start(identity, AutoCSer.Threading.SecondTimer.UtcNow);
+            return node.Start(identity, DateTime.MinValue);
         }
     }
 }

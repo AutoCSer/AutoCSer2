@@ -126,7 +126,7 @@ namespace GrpcClientPerformance
         private async Task Add()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);

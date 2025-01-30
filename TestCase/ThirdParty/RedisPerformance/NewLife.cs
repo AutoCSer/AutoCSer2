@@ -83,7 +83,7 @@ namespace RedisPerformance
         private async Task Set()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do
@@ -119,7 +119,7 @@ namespace RedisPerformance
         private async Task Get()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do
@@ -155,7 +155,7 @@ namespace RedisPerformance
         private async Task Remove()
         {
             int left = Left, success = 0, error = 0;
-            await System.Threading.Tasks.Task.Yield();
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 do
