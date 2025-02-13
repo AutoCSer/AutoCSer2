@@ -905,6 +905,24 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// </summary>
             CreateProcessGuardNode = 26,
             /// <summary>
+            /// [27] 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int size 位图大小（位数量）
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateManyHashBitMapClientFilterNode = 27,
+            /// <summary>
+            /// [28] 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int size 位图大小（位数量）
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateManyHashBitMapFilterNode = 28,
+            /// <summary>
             /// [256] 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
             /// string key 

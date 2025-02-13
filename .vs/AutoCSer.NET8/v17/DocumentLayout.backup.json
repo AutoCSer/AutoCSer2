@@ -1,37 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{7E8888BA-4164-4210-9479-E8D75B603977}|TestCase\\ThirdParty\\stackoverflow.com\\GrpcClientPerformance\\GrpcClientPerformanceMinimal.csproj|c:\\autocser2\\testcase\\thirdparty\\stackoverflow.com\\grpcclientperformance\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7E8888BA-4164-4210-9479-E8D75B603977}|TestCase\\ThirdParty\\stackoverflow.com\\GrpcClientPerformance\\GrpcClientPerformanceMinimal.csproj|solutionrelative:testcase\\thirdparty\\stackoverflow.com\\grpcclientperformance\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedHeight": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\ThirdParty\\stackoverflow.com\\GrpcClientPerformance\\Program.cs",
-              "RelativeDocumentMoniker": "TestCase\\ThirdParty\\stackoverflow.com\\GrpcClientPerformance\\Program.cs",
-              "ToolTip": "C:\\AutoCSer2\\TestCase\\ThirdParty\\stackoverflow.com\\GrpcClientPerformance\\Program.cs",
-              "RelativeToolTip": "TestCase\\ThirdParty\\stackoverflow.com\\GrpcClientPerformance\\Program.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAIwCAAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-30T16:54:51.099Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

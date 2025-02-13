@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
-        void SnapshotAdd(KeyValue<KT, byte[]> value);
+        void SnapshotAdd(BinarySerializeKeyValue<KT, byte[]> value);
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>

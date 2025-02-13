@@ -101,9 +101,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Success
+        /// </summary>
+        internal static readonly Task<ResponseResult> SuccessTask = Task.FromResult(new ResponseResult(CallStateEnum.Success));
+        /// <summary>
+        /// 服务已释放资源
+        /// </summary>
+        internal static readonly Task<ResponseResult> DisposedTask = Task.FromResult(new ResponseResult(CallStateEnum.Disposed));
+        /// <summary>
         /// false
         /// </summary>
         internal static readonly Task<ResponseResult<bool>> FalseTask = Task.FromResult((ResponseResult<bool>)false);
+        /// <summary>
+        /// true
+        /// </summary>
+        internal static readonly Task<ResponseResult<bool>> TrueTask = Task.FromResult((ResponseResult<bool>)true);
     }
     /// <summary>
     /// 返回结果

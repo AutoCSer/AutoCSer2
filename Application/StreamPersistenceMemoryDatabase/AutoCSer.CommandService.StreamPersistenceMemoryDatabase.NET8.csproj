@@ -104,6 +104,13 @@
     <Compile Include="Node\ArrayNode.cs" />
     <Compile Include="Node\BitmapNode.cs" />
     <Compile Include="Node\BitmapNodeResponseAwaiter.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapClientFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMap.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapFilter.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilter.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilterNode.cs" />
     <Compile Include="Node\ClientNode\IByteArrayDictionaryNodeClientNode.cs" />
     <Compile Include="Node\ClientNode\IByteArrayFragmentDictionaryNodeClientNode.cs" />
     <Compile Include="Node\ClientNode\IDistributedLockNodeClientNode.cs" />
@@ -129,6 +136,7 @@
     <Compile Include="Node\ClientNode\IDictionaryNodeClientNode.cs" />
     <Compile Include="Node\ClientNode\IFragmentDictionaryNodeClientNode.cs" />
     <Compile Include="Node\ByteArrayDictionaryNode.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\ITimeoutMessageNode.cs" />
     <Compile Include="Node\HashBytesDictionaryNode.cs" />
     <Compile Include="Node\DistributedLock\DistributedLock.cs" />
     <Compile Include="Node\DistributedLock\DistributedLockIdentity.cs" />
@@ -216,6 +224,11 @@
     <Compile Include="Node\ServerRegistry\ServerRegistryStateEnum.cs" />
     <Compile Include="Node\ServerRegistry\ServerRegistryNode.cs" />
     <Compile Include="Node\ServerRegistry\ServerRegistryWaitOfflineQueueNode.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\CheckTimer.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutCallback.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessage.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageData.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageNode.cs" />
     <Compile Include="RebuildResult.cs" />
     <Compile Include="Node\SearchTreeDictionaryNode.cs" />
     <Compile Include="Node\SearchTreeSetNode.cs" />

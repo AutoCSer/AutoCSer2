@@ -3527,7 +3527,7 @@
         </member>
         <member name="M:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension.Start(AutoCSer.CommandService.IDeployTaskNodeClientNode,System.Int64)">
             <summary>
-            启动任务
+            立即启动任务
             </summary>
             <param name="node"></param>
             <param name="identity">任务标识ID</param>

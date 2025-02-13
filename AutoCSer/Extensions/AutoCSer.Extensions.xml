@@ -2162,6 +2162,37 @@
             </summary>
             <param name="heapFixed"></param>
         </member>
+        <member name="T:AutoCSer.BinarySerializeKeyValue`2">
+            <summary>
+            键值对（用于二进制序列化屏蔽引用操作）
+            </summary>
+            <typeparam name="KT">键类型</typeparam>
+            <typeparam name="VT">值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.BinarySerializeKeyValue`2.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerializeKeyValue`2.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.BinarySerializeKeyValue`2.#ctor(`0,`1)">
+            <summary>
+            键值对
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializeKeyValue`2.Set(`0,`1)">
+            <summary>
+            重置键值对
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+        </member>
         <member name="T:AutoCSer.Breakpoint">
             <summary>
             测试断点

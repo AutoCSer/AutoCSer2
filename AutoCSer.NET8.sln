@@ -201,6 +201,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackExchangeRedisPerforman
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance", "TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.csproj", "{E7399175-93F3-4CA2-9EBF-164057D60642}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{F73673E3-11E8-4557-9EF4-F47BB2F90EA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.Search.NET8", "Application\Search\AutoCSer.CommandService.Search.NET8.csproj", "{88700546-D03C-48A0-B8B7-E5B47CC9128A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -491,6 +495,10 @@ Global
 		{E7399175-93F3-4CA2-9EBF-164057D60642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7399175-93F3-4CA2-9EBF-164057D60642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7399175-93F3-4CA2-9EBF-164057D60642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88700546-D03C-48A0-B8B7-E5B47CC9128A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88700546-D03C-48A0-B8B7-E5B47CC9128A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88700546-D03C-48A0-B8B7-E5B47CC9128A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88700546-D03C-48A0-B8B7-E5B47CC9128A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -589,6 +597,8 @@ Global
 		{2EEDE610-1641-48EB-9808-9BC5C9022921} = {3BC3527C-BD62-4007-A5BF-F483DE4EFA79}
 		{12DFAF56-5D2F-4C2D-864B-3248E55563EA} = {3BC3527C-BD62-4007-A5BF-F483DE4EFA79}
 		{E7399175-93F3-4CA2-9EBF-164057D60642} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
+		{F73673E3-11E8-4557-9EF4-F47BB2F90EA1} = {820CAB27-14FB-446C-A5EF-600BC89A7BC4}
+		{88700546-D03C-48A0-B8B7-E5B47CC9128A} = {F73673E3-11E8-4557-9EF4-F47BB2F90EA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

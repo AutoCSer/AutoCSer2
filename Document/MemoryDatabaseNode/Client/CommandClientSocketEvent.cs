@@ -58,6 +58,8 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
             Console.WriteLine($"{nameof(MessageNode.ServerByteArrayBinaryMessageConsumer)} {await MessageNode.ServerByteArrayBinaryMessageConsumer.Test()}");
 
             Console.WriteLine($"{nameof(DistributedLockNode)} {await DistributedLockNode.Test()}");
+            Console.WriteLine($"{nameof(ManyHashBitMapClientFilterNode)} {await ManyHashBitMapClientFilterNode.Test()}");
+            Console.WriteLine($"{nameof(ManyHashBitMapFilterNode)} {await ManyHashBitMapFilterNode.Test()}");
             Console.WriteLine($"{nameof(SortedDictionaryNode)} {await SortedDictionaryNode.Test()}");
             Console.WriteLine($"{nameof(SortedSetNode)} {await SortedSetNode.Test()}");
             Console.WriteLine($"{nameof(SearchTreeDictionaryNode)} {await SearchTreeDictionaryNode.Test()}");

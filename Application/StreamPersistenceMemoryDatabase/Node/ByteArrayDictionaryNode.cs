@@ -10,9 +10,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <typeparam name="KT">关键字类型</typeparam>
     public sealed class ByteArrayDictionaryNode<KT> : IByteArrayDictionaryNode<KT>
 #if NetStandard21
-        , ISnapshot<KeyValue<KT, byte[]?>>
+        , ISnapshot<BinarySerializeKeyValue<KT, byte[]?>>
 #else
-        , ISnapshot<KeyValue<KT, byte[]>>
+        , ISnapshot<BinarySerializeKeyValue<KT, byte[]>>
 #endif
         where KT : IEquatable<KT>
     {
@@ -52,9 +52,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
         /// <returns>快照数据信息</returns>
 #if NetStandard21
-        public SnapshotResult<KeyValue<KT, byte[]?>> GetSnapshotResult(KeyValue<KT, byte[]?>[] snapshotArray, object customObject)
+        public SnapshotResult<BinarySerializeKeyValue<KT, byte[]?>> GetSnapshotResult(BinarySerializeKeyValue<KT, byte[]?>[] snapshotArray, object customObject)
 #else
-        public SnapshotResult<KeyValue<KT, byte[]>> GetSnapshotResult(KeyValue<KT, byte[]>[] snapshotArray, object customObject)
+        public SnapshotResult<BinarySerializeKeyValue<KT, byte[]>> GetSnapshotResult(BinarySerializeKeyValue<KT, byte[]>[] snapshotArray, object customObject)
 #endif
         {
             return ServerNode.GetSnapshotResult(dictionary, snapshotArray);
@@ -65,15 +65,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="array">预申请快照容器数组</param>
         /// <param name="newArray">超预申请快照数据</param>
 #if NetStandard21
-        public void SetSnapshotResult(ref LeftArray<KeyValue<KT, byte[]?>> array, ref LeftArray<KeyValue<KT, byte[]?>> newArray) { }
+        public void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<KT, byte[]?>> array, ref LeftArray<BinarySerializeKeyValue<KT, byte[]?>> newArray) { }
 #else
-        public void SetSnapshotResult(ref LeftArray<KeyValue<KT, byte[]>> array, ref LeftArray<KeyValue<KT, byte[]>> newArray) { }
+        public void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<KT, byte[]>> array, ref LeftArray<BinarySerializeKeyValue<KT, byte[]>> newArray) { }
 #endif
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
-        public void SnapshotAdd(KeyValue<KT, byte[]> value)
+        public void SnapshotAdd(BinarySerializeKeyValue<KT, byte[]> value)
         {
             dictionary[value.Key] = value.Value;
         }

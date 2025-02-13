@@ -1208,95 +1208,6 @@
             默认空磁盘块
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter">
-            <summary>
-            读取数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1">
-            <summary>
-            读取数据 await ReadResult{T}
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.command">
-            <summary>
-            读取数据命令
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.continuation">
-            <summary>
-            异步回调
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.result">
-            <summary>
-            读取数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.IsCompleted">
-            <summary>
-            完成状态
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.Wait">
-            <summary>
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetResult">
-            <summary>
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetAwaiter">
-            <summary>
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
-            <summary>
-            设置异步回调
-            </summary>
-            <param name="continuation"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.onCompleted">
-            <summary>
-            设置错误结果并尝试回调操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.Set(AutoCSer.Net.ReturnCommand{AutoCSer.CommandService.DiskBlock.ReadBuffer})">
-            <summary>
-            设置返回值命令
-            </summary>
-            <param name="command"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.setCompleted">
-            <summary>
-            设置完成状态
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1">
-            <summary>
-            读取二进制序列化对象
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadBinaryCallback`1">
             <summary>
             读取二进制序列化对象回调
@@ -1377,17 +1288,6 @@
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DiskBlock#ReadBuffer}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer">
-            <summary>
-            读取数据缓冲区反序列化
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             反序列化
             </summary>
@@ -1494,18 +1394,6 @@
             </summary>
             <param name="buffer"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1">
-            <summary>
-            读取 JSON 对象
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
         </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadJsonCallback`1">
             <summary>
@@ -1656,17 +1544,6 @@
             </summary>
             <param name="state"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadStringAwaiter">
-            <summary>
-            读取字符串
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadStringCallback">
             <summary>
             读取字符串回调
@@ -1679,6 +1556,129 @@
             <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringCallback.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter">
+            <summary>
+            读取数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1">
+            <summary>
+            读取数据 await ReadResult{T}
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.command">
+            <summary>
+            读取数据命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.continuation">
+            <summary>
+            异步回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.result">
+            <summary>
+            读取数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.IsCompleted">
+            <summary>
+            完成状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.Wait">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetResult">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetAwaiter">
+            <summary>
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+            <summary>
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.onCompleted">
+            <summary>
+            设置错误结果并尝试回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.Set(AutoCSer.Net.ReturnCommand{AutoCSer.CommandService.DiskBlock.ReadBuffer})">
+            <summary>
+            设置返回值命令
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.setCompleted">
+            <summary>
+            设置完成状态
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1">
+            <summary>
+            读取二进制序列化对象
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer">
+            <summary>
+            读取数据缓冲区反序列化
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1">
+            <summary>
+            读取 JSON 对象
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadStringAwaiter">
+            <summary>
+            读取字符串
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             反序列化
             </summary>

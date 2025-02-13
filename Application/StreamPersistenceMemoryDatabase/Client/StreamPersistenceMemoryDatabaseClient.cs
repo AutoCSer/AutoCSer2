@@ -1,10 +1,7 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
-using AutoCSer.Net.CommandServer;
-using AutoCSer.SimpleSerialize;
 using System;
-using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -784,6 +781,30 @@ namespace AutoCSer.CommandService
             where KT : IEquatable<KT>
         {
             return GetOrCreateNode<IDistributedLockNodeClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateDistributedLockNode(index, nodeKey, nodeInfo, typeof(KT)), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
+        /// 多哈希位图客户端同步过滤节点（类似布隆过滤器，适合小容器），不存在则创建节点 ManyHashBitMapClientFilterNode
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IManyHashBitMapClientFilterNodeClientNode>> GetOrCreateManyHashBitMapClientFilterNode(string key, int size, bool isPersistenceCallbackExceptionRenewNode = false)
+        {
+            return GetOrCreateNode<IManyHashBitMapClientFilterNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateManyHashBitMapClientFilterNode(index, nodeKey, nodeInfo, size), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
+        /// 多哈希位图过滤节点（类似布隆过滤器），不存在则创建节点 ManyHashBitMapFilterNode
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IManyHashBitMapFilterNodeClientNode>> GetOrCreateManyHashBitMapFilterNode(string key, int size, bool isPersistenceCallbackExceptionRenewNode = false)
+        {
+            return GetOrCreateNode<IManyHashBitMapFilterNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateManyHashBitMapFilterNode(index, nodeKey, nodeInfo, size), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取字典节点，不存在则创建节点 HashBytesFragmentDictionaryNode

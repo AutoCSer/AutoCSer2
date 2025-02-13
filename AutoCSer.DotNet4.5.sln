@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestCase", "TestCase", "{68
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.Common.DotNet4.5", "TestCase\Common\AutoCSer.TestCase.Common.DotNet4.5.csproj", "{7BD35F81-1A2B-45BF-BAF6-4AA8184F9121}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.Search.DotNet4.5", "Application\Search\AutoCSer.CommandService.Search.DotNet4.5.csproj", "{174CF338-5A15-4BE6-92DA-18073D0B36DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{7BD35F81-1A2B-45BF-BAF6-4AA8184F9121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BD35F81-1A2B-45BF-BAF6-4AA8184F9121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BD35F81-1A2B-45BF-BAF6-4AA8184F9121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{174CF338-5A15-4BE6-92DA-18073D0B36DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{174CF338-5A15-4BE6-92DA-18073D0B36DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{174CF338-5A15-4BE6-92DA-18073D0B36DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{174CF338-5A15-4BE6-92DA-18073D0B36DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,5 +136,6 @@ Global
 		{16850F6E-850A-46E4-AF12-CF48E9E771B1} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
 		{89EA6BFE-7AEF-4F13-8BAF-2B3EB4C231E7} = {6890850C-4F69-4721-B3BB-139F02575A79}
 		{7BD35F81-1A2B-45BF-BAF6-4AA8184F9121} = {6890850C-4F69-4721-B3BB-139F02575A79}
+		{174CF338-5A15-4BE6-92DA-18073D0B36DD} = {830F2AE5-3CE7-4148-A75D-7140A7310A93}
 	EndGlobalSection
 EndGlobal

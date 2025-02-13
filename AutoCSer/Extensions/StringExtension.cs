@@ -6,7 +6,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 字符串相关操作
     /// </summary>
-    internal unsafe static class StringExtension
+    public unsafe static class StringExtension
     {
 #if DEBUG
         /// <summary>
@@ -179,6 +179,23 @@ namespace AutoCSer.Extensions
                 write += 2;
             }
             if ((length & 1) != 0) *write = *(byte*)start;
+        }
+        /// <summary>
+        /// 计算 64 位稳定 HASH 值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static ulong getHashCode64(this string value)
+        {
+            if (value != null)
+            {
+                if (value.Length != 0)
+                {
+                    fixed (char* valueFixed = value) return AutoCSer.Memory.Common.GetHashCode64((byte*)valueFixed, value.Length << 1);
+                }
+                return 0;
+            }
+            return ulong.MaxValue;
         }
     }
 }

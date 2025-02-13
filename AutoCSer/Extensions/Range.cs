@@ -8,6 +8,7 @@ namespace AutoCSer
     /// 索引范围
     /// </summary>
     [RemoteType]
+    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
     [StructLayout(LayoutKind.Explicit, Size = sizeof(int) * 2)]
     internal struct Range
     {

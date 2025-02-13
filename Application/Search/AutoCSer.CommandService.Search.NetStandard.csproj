@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.Search</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.Search</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\Search\AutoCSer.CommandService.Search2.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\Search\AutoCSer.CommandService.Search2.xml</DocumentationFile>
+    <DefineConstants>TRACE;NetStandard2</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="StaticTrieGraph\AppendWordStateEnum.cs" />
+    <Compile Include="StaticTrieGraph\GraphBuilder.cs" />
+    <Compile Include="StaticTrieGraph\GraphData.cs" />
+    <Compile Include="StaticTrieGraph\GraphNode.cs" />
+    <Compile Include="StaticTrieGraph\GraphNode2.cs" />
+    <Compile Include="StaticTrieGraph\IStaticTrieGraphNode.cs" />
+    <Compile Include="StaticTrieGraph\LinkTypeEnum.cs" />
+    <Compile Include="StaticTrieGraph\Simplified.cs" />
+    <Compile Include="StaticTrieGraph\StaticTrieGraphClient.cs" />
+    <Compile Include="StaticTrieGraph\StaticTrieGraphNode.cs" />
+    <Compile Include="StaticTrieGraph\TreeBuilder.cs" />
+    <Compile Include="StaticTrieGraph\TreeNode.cs" />
+    <Compile Include="StaticTrieGraph\WordSegmentResult.cs" />
+    <Compile Include="StaticTrieGraph\WordSegmentTypeEnum.cs" />
+    <Compile Include="StaticTrieGraph\WordTypeEnum.cs" />
+    <Compile Include="{AutoCSer.CommandService.Search}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

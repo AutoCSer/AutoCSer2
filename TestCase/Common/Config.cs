@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         public static readonly string AutoCSerPath;
         /// <summary>
-        /// 临时文件路径
+        /// 测试临时文件路径
         /// </summary>
         public static readonly string AutoCSerTemporaryFilePath;
         static Config()

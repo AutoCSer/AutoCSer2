@@ -990,6 +990,43 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode">
+            <summary>
+            多哈希位图过滤节点 客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.size">
+            <summary>
+            测试位图大小（位数量）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.client">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.Test">
+            <summary>
+            多哈希位图过滤节点客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode">
+            <summary>
+            多哈希位图客户端同步过滤节点 客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.client">
+            <summary>
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.Test">
+            <summary>
+            多哈希位图客户端同步过滤节点 客户端示例
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode">
             <summary>
             数组客户端示例

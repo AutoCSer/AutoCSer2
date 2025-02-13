@@ -16,7 +16,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
-        void SnapshotAdd(KeyValue<KT, byte[]> value);
+        void SnapshotAdd(BinarySerializeKeyValue<KT, byte[]> value);
         /// <summary>
         /// 获取数据数量
         /// </summary>

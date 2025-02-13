@@ -107,6 +107,8 @@
     <Compile Include="StreamPersistenceMemoryDatabase\Client\HashSetNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\IdentityGeneratorNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\LeftArrayNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ManyHashBitMapFilterNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ManyHashBitMapClientFilterNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\BinaryMessageConsumer.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayBinaryMessageConsumer.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayMessageConsumer.cs" />

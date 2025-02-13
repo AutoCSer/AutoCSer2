@@ -109,7 +109,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 初始化加载完毕处理
         /// </summary>
-        internal abstract void Loaded();
+        internal abstract Task Loaded();
         /// <summary>
         /// 释放节点资源
         /// </summary>
@@ -450,6 +450,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="values"></param>
         /// <param name="snapshotArray">预申请的快照数据容器</param>
         /// <returns>快照数据信息</returns>
+        public static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, VT>> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
+        {
+            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
+            SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<KT, VT> value in values)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+            }
+            return result;
+        }
+        /// <summary>
+        /// 获取快照数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
         public static SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, CheckSnapshotCloneObject<VT>>> values, KeyValue<KT, VT>[] snapshotArray)
             where VT : SnapshotCloneObject<VT>
         {
@@ -468,10 +485,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="values"></param>
         /// <param name="snapshotArray">预申请的快照数据容器</param>
         /// <returns>快照数据信息</returns>
-        internal static SnapshotResult<KeyValue<byte[], VT>> GetSnapshotResult<VT>(ICollection<KeyValuePair<HashBytes, VT>> values, KeyValue<byte[], VT>[] snapshotArray)
+        internal static SnapshotResult<BinarySerializeKeyValue<byte[], VT>> GetSnapshotResult<VT>(ICollection<KeyValuePair<HashBytes, VT>> values, BinarySerializeKeyValue<byte[], VT>[] snapshotArray)
         {
-            if (values.Count == 0) return new SnapshotResult<KeyValue<byte[], VT>>(0);
-            SnapshotResult<KeyValue<byte[], VT>> result = new SnapshotResult<KeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
+            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(0);
+            SnapshotResult<BinarySerializeKeyValue<byte[], VT>> result = new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
             foreach (KeyValuePair<HashBytes, VT> value in values)
             {
                 if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
@@ -521,10 +538,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="values"></param>
         /// <param name="snapshotArray">预申请的快照数据容器</param>
         /// <returns>快照数据信息</returns>
-        internal static SnapshotResult<KeyValue<byte[], VT>> GetSnapshotResult<VT>(HashBytesFragmentDictionary256<VT> values, KeyValue<byte[], VT>[] snapshotArray)
+        internal static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(FragmentDictionary256<KT, VT> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
+            where KT : IEquatable<KT>
         {
-            if (values.Count == 0) return new SnapshotResult<KeyValue<byte[], VT>>(0);
-            SnapshotResult<KeyValue<byte[], VT>> result = new SnapshotResult<KeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
+            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
+            SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<KT, VT> value in values.KeyValues)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+            }
+            return result;
+        }
+        /// <summary>
+        /// 获取快照数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        internal static SnapshotResult<BinarySerializeKeyValue<byte[], VT>> GetSnapshotResult<VT>(HashBytesFragmentDictionary256<VT> values, BinarySerializeKeyValue<byte[], VT>[] snapshotArray)
+        {
+            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(0);
+            SnapshotResult<BinarySerializeKeyValue<byte[], VT>> result = new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
             foreach (KeyValuePair<HashBytes, VT> value in values.KeyValues)
             {
                 if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
@@ -619,7 +654,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.target = target;
             (target as INode<T>)?.SetContext(this);
-            if (service.IsLoaded) Loaded();
+            if (service.IsLoaded) Loaded().Wait();
         }
         /// <summary>
         /// 服务端节点（除了 服务基础操作节点 以外，该调用不支持节点持久化，只有支持快照的节点才支持持久化）
@@ -632,21 +667,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 初始化加载完毕处理
         /// </summary>
-        internal override void Loaded()
+        internal override Task Loaded()
         {
             var node = target as INode<T>;
-            if (node != null)
+            return node != null? loaded(node) : AutoCSer.Common.CompletedTask;
+        }
+        /// <summary>
+        /// 初始化加载完毕处理
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private async Task loaded(INode<T> node)
+        {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            try
             {
-                try
-                {
-                    var newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
-                    if (newTarget != null && !object.ReferenceEquals(target, newTarget)) target = checkNewTarget(newTarget);
-                }
-                catch (Exception exception)
-                {
-                    SetPersistenceCallbackException();
-                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
-                }
+                var newTarget = node.StreamPersistenceMemoryDatabaseServiceLoaded();
+                if (newTarget != null && !object.ReferenceEquals(target, newTarget)) target = checkNewTarget(newTarget);
+            }
+            catch (Exception exception)
+            {
+                SetPersistenceCallbackException();
+                AutoCSer.LogHelper.ExceptionIgnoreException(exception);
             }
         }
         /// <summary>

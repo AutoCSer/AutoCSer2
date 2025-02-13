@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.Search</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.Search</RootNamespace>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DeployTask\AutoCSer.CommandService.Search.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;NetStandard21</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DeployTask\AutoCSer.CommandService.Search.xml</DocumentationFile>
+    <DefineConstants>NetStandard21</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="StaticTrieGraph\AppendWordStateEnum.cs" />
+    <Compile Include="StaticTrieGraph\GraphBuilder.cs" />
+    <Compile Include="StaticTrieGraph\GraphData.cs" />
+    <Compile Include="StaticTrieGraph\GraphNode.cs" />
+    <Compile Include="StaticTrieGraph\GraphNode2.cs" />
+    <Compile Include="StaticTrieGraph\IStaticTrieGraphNode.cs" />
+    <Compile Include="StaticTrieGraph\LinkTypeEnum.cs" />
+    <Compile Include="StaticTrieGraph\Simplified.cs" />
+    <Compile Include="StaticTrieGraph\StaticTrieGraphClient.cs" />
+    <Compile Include="StaticTrieGraph\StaticTrieGraphNode.cs" />
+    <Compile Include="StaticTrieGraph\TreeBuilder.cs" />
+    <Compile Include="StaticTrieGraph\TreeNode.cs" />
+    <Compile Include="StaticTrieGraph\WordSegmentResult.cs" />
+    <Compile Include="StaticTrieGraph\WordSegmentTypeEnum.cs" />
+    <Compile Include="StaticTrieGraph\WordTypeEnum.cs" />
+    <Compile Include="{AutoCSer.CommandService.Search}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+
+</Project>

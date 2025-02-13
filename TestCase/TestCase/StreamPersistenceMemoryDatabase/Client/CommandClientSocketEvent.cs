@@ -95,6 +95,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+            if (!await ManyHashBitMapClientFilterNode.Test())
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await ManyHashBitMapFilterNode.Test())
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
             if (!await SortedDictionaryNode.Test())
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

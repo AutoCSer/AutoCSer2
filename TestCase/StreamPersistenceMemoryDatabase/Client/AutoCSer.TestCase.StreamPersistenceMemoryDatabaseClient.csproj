@@ -24,6 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ManyHashBitMapClientFilterNode.cs" />
+    <Compile Include="ManyHashBitMapFilterNode.cs" />
     <Compile Include="ByteArrayDictionaryNode.cs" />
     <Compile Include="ByteArrayStackNode.cs" />
     <Compile Include="DistributedLockNode.cs" />

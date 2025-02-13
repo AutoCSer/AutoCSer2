@@ -65,6 +65,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateDistributedLockNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
         /// <summary>
+        /// 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateManyHashBitMapClientFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size);
+        /// <summary>
+        /// 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateManyHashBitMapFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size);
+        /// <summary>
         /// 创建字典节点 HashBytesFragmentDictionaryNode
         /// </summary>
         /// <param name="index">节点索引信息</param>

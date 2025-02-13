@@ -83,7 +83,25 @@ namespace AutoCSer.CommandService
                 {
                     long startTimestamp = Stopwatch.GetTimestamp(), count = new ServiceLoader(this).Load();
                     //if (count != 0) Console.WriteLine($"初始化加载 {count} 条持久化数据耗时 {AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp)}ms");
-                    for (int index = NodeIndex; index > 1; Nodes[--index].Node?.Loaded()) ;
+                    LeftArray<Task> loadedTasks = new LeftArray<Task>(NodeIndex - 1);
+                    for (int index = NodeIndex; index > 1;)
+                    {
+                        var node = Nodes[--index].Node;
+                        if (node != null)
+                        {
+                            Task task = node.Loaded();
+                            if (!task.IsCompleted) loadedTasks.Add(task);
+                        }
+                    }
+                    count = loadedTasks.Count;
+                    if (count != 0)
+                    {
+                        foreach (Task task in loadedTasks.Array)
+                        {
+                            task.Wait();
+                            if (--count == 0) break;
+                        }
+                    }
                 }
                 else throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetNotFoundExceptionPositionFile(PersistenceCallbackExceptionPositionFileInfo.FullName));
             }

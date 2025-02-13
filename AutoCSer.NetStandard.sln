@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.NetCoreWeb.NetCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.TestCase.NetStandard", "TestCase\TestCase\AutoCSer.TestCase.NetStandard.csproj", "{67D35B07-037F-4BAA-9A81-7033A2C46079}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCSer.CommandService.Search.NetStandard", "Application\Search\AutoCSer.CommandService.Search.NetStandard.csproj", "{F0A50AF6-D7AC-44AD-8364-364C06DBA462}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{67D35B07-037F-4BAA-9A81-7033A2C46079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67D35B07-037F-4BAA-9A81-7033A2C46079}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67D35B07-037F-4BAA-9A81-7033A2C46079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0A50AF6-D7AC-44AD-8364-364C06DBA462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0A50AF6-D7AC-44AD-8364-364C06DBA462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0A50AF6-D7AC-44AD-8364-364C06DBA462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0A50AF6-D7AC-44AD-8364-364C06DBA462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{36EB6BD4-BD3B-4990-94C1-8C913B99F53A} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
 		{DAF539ED-EF25-43D1-8D82-7FB284FB6B08} = {68EBF962-1891-40BE-B044-9387C6A03EDE}
 		{67D35B07-037F-4BAA-9A81-7033A2C46079} = {5CDD2AC8-81A9-410A-907C-0A3355331B3B}
+		{F0A50AF6-D7AC-44AD-8364-364C06DBA462} = {EFAEE2B6-47FE-4687-AAE7-10C927249CC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420CDCCC-1C76-406B-BBCD-D473EAC1DB95}

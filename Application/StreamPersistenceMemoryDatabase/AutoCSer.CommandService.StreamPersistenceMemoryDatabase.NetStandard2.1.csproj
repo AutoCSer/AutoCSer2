@@ -134,6 +134,12 @@
     <Compile Include="Node\ClientNode\ISortedListNodeLocalClientNode.cs" />
     <Compile Include="Node\ClientNode\ISortedSetNodeClientNode.cs" />
     <Compile Include="Node\ClientNode\ISortedSetNodeLocalClientNode.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\CheckTimer.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\ITimeoutMessageNode.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutCallback.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessage.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageData.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageNode.cs" />
     <Compile Include="Node\DistributedLock\DistributedLock.cs" />
     <Compile Include="Node\DistributedLock\DistributedLockIdentity.cs" />
     <Compile Include="Node\DistributedLock\DistributedLockNode.cs" />
@@ -171,6 +177,13 @@
     <Compile Include="Node\ISortedSetNode.cs" />
     <Compile Include="Node\IStackNode.cs" />
     <Compile Include="Node\LeftArrayNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapClientFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMap.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapFilter.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilter.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilterNode.cs" />
     <Compile Include="Node\Message\LocalServiceBinaryMessageConsumer.cs" />
     <Compile Include="Node\Message\LocalServiceMessageConsumer.cs" />
     <Compile Include="Node\Message\LocalServiceOnBinaryMessageConsumer.cs" />

@@ -35,6 +35,7 @@
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.cs" />
     <Compile Include="Algorithm\RadixSort.cs" />
     <Compile Include="ArrayHeap.cs" />
+    <Compile Include="BinarySerializeKeyValue.cs" />
     <Compile Include="Breakpoint.cs" />
     <Compile Include="CombinationTemplateConfig.cs" />
     <Compile Include="Culture\Chinese.cs" />
