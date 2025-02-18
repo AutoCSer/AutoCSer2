@@ -489,6 +489,11 @@
             最大 POST 字节数，默认为 1MB
             </summary>
         </member>
+        <member name="F:AutoCSer.NetCoreWeb.JsonApiAttribute.MonitorTimeoutMilliseconds">
+            <summary>
+            调用监视超时毫秒数默认为 5000ms
+            </summary>
+        </member>
         <member name="M:AutoCSer.NetCoreWeb.JsonApiAttribute.#ctor(System.String,AutoCSer.NetCoreWeb.JsonApiSingletonEnum,AutoCSer.NetCoreWeb.JsonApiCheckRequestEnum,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
             <summary>
             JSON API 自定义配置
@@ -744,6 +749,11 @@
         <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.Attribute">
             <summary>
             JSON API 自定义配置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.JsonApiRequest.MonitorTimeoutMilliseconds">
+            <summary>
+            调用监视超时毫秒数默认为 5000ms
             </summary>
         </member>
         <member name="F:AutoCSer.NetCoreWeb.JsonApiRequest.Flags">
@@ -2851,11 +2861,12 @@
             <param name="request">JSON API 请求实例</param>
             <returns>调用监视标识，long.MinValue 表示不监视</returns>
         </member>
-        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.OnCalled(System.Int64)">
+        <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.OnCallCompleted(System.Int64,System.Boolean)">
             <summary>
             调用完成
             </summary>
             <param name="callIdentity">调用监视标识</param>
+            <param name="isException">接口是否执行异常</param>
         </member>
         <member name="M:AutoCSer.NetCoreWeb.ViewMiddleware.GetRequestPath(System.Type)">
             <summary>
@@ -2984,6 +2995,11 @@
         <member name="P:AutoCSer.NetCoreWeb.View.ResponseEncoding">
             <summary>
             输出文本编码
+            </summary>
+        </member>
+        <member name="P:AutoCSer.NetCoreWeb.View.MonitorTimeoutMilliseconds">
+            <summary>
+            调用监视超时毫秒数默认为 5000ms
             </summary>
         </member>
         <member name="P:AutoCSer.NetCoreWeb.View.isCheckView">

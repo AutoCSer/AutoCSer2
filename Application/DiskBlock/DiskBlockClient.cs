@@ -1,5 +1,6 @@
 ﻿using AutoCSer.BinarySerialize;
 using AutoCSer.CommandService.DiskBlock;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
@@ -86,7 +87,11 @@ namespace AutoCSer.CommandService
         /// <param name="data">数据</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task WriteString(string? data, Action<CommandClientReturnValue<BlockIndex>> callback)
+#else
         public async Task WriteString(string data, Action<CommandClientReturnValue<BlockIndex>> callback)
+#endif
         {
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
@@ -99,7 +104,7 @@ namespace AutoCSer.CommandService
                     callback(index);
                     return;
                 }
-                if (await Client.Write(data, callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(data.notNull(), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -111,24 +116,32 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
+#if NetStandard21
+        public CommandClientReturnValue<BlockIndex> WriteString(string? data)
+#else
         public CommandClientReturnValue<BlockIndex> WriteString(string data)
+#endif
         {
             bool isIndex;
             BlockIndex index = BlockIndex.GetIndexSize(data, out isIndex);
             if (isIndex) return index;
-            return Client.WaitWrite(data);
+            return Client.WaitWrite(data.notNull());
         }
         /// <summary>
         /// 写入字符串
         /// </summary>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
+#if NetStandard21
+        public ReturnCommand<BlockIndex> WriteStringAsync(string? data)
+#else
         public ReturnCommand<BlockIndex> WriteStringAsync(string data)
+#endif
         {
             bool isIndex;
             BlockIndex index = BlockIndex.GetIndexSize(data, out isIndex);
             if (isIndex) return new CompletedReturnCommand<BlockIndex>(ref index);
-            return Client.Write(data);
+            return Client.Write(data.notNull());
         }
         /// <summary>
         /// 写入 JSON
@@ -232,7 +245,11 @@ namespace AutoCSer.CommandService
         /// <param name="data">数据</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
+#if NetStandard21
+        public async Task WriteBinary<T>(T? data, Action<CommandClientReturnValue<BlockIndex>> callback)
+#else
         public async Task WriteBinary<T>(T data, Action<CommandClientReturnValue<BlockIndex>> callback)
+#endif
         {
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.ClientException;
             try
@@ -243,7 +260,7 @@ namespace AutoCSer.CommandService
                     callback(new BlockIndex(BinarySerializer.NullValue, -4));
                     return;
                 }
-                if (await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))), callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(WriteBuffer.CreateWriteBufferSerializer(data), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -256,10 +273,14 @@ namespace AutoCSer.CommandService
         /// <typeparam name="T"></typeparam>
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
+#if NetStandard21
+        public CommandClientReturnValue<BlockIndex> WriteBinary<T>(T? data)
+#else
         public CommandClientReturnValue<BlockIndex> WriteBinary<T>(T data)
+#endif
         {
             if (data == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return Client.WaitWrite(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))));
+            return Client.WaitWrite(WriteBuffer.CreateWriteBufferSerializer(data));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -268,10 +289,14 @@ namespace AutoCSer.CommandService
         /// <param name="data">数据</param>
         /// <returns>写入数据起始位置</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ReturnCommand<BlockIndex> WriteBinaryAsync<T>(T? data)
+#else
         public ReturnCommand<BlockIndex> WriteBinaryAsync<T>(T data)
+#endif
         {
             if (data == null) return BlockIndex.BinarySerializeNullValueCompletedReturnCommand;
-            return Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(data))));
+            return Client.Write(WriteBuffer.CreateWriteBufferSerializer(data));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -291,7 +316,7 @@ namespace AutoCSer.CommandService
                     callback(new BlockIndex(BinarySerializer.NullValue, -4));
                     return;
                 }
-                if (await Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))), callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(WriteBuffer.CreateWriteBufferSerializer(data), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -307,7 +332,7 @@ namespace AutoCSer.CommandService
         public CommandClientReturnValue<BlockIndex> WriteBinaryMemberMap<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return Client.WaitWrite(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))));
+            return Client.WaitWrite(WriteBuffer.CreateWriteBufferSerializer(data));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -319,7 +344,7 @@ namespace AutoCSer.CommandService
         public ReturnCommand<BlockIndex> WriteBinaryMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
             if (data.Value == null) return BlockIndex.BinarySerializeNullValueCompletedReturnCommand;
-            return Client.Write(new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>>(new ServerReturnValue<AutoCSer.Metadata.MemberMapValue<T>>(data))));
+            return Client.Write(WriteBuffer.CreateWriteBufferSerializer(data));
         }
 
         /// <summary>
@@ -391,9 +416,7 @@ namespace AutoCSer.CommandService
             ReadResult<byte[]> result;
             if (index.GetResult(out result)) return new CompletedReadAwaiter<byte[]>(result);
 #endif
-            ReadAwaiter readCallback = new ReadAwaiter();
-            readCallback.Set(Client.Read(readCallback, index));
-            return readCallback;
+            return new ReadAwaiter(Client, index);
         }
         /// <summary>
         /// 读取字符串
@@ -464,9 +487,7 @@ namespace AutoCSer.CommandService
             ReadResult<string> result;
             if (index.GetResult(out result)) return new CompletedReadAwaiter<string>(result);
 #endif
-            ReadStringAwaiter readStringCallback = new ReadStringAwaiter();
-            readStringCallback.Set(Client.Read(readStringCallback, index));
-            return readStringCallback;
+            return new ReadStringAwaiter(Client, index);
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -536,14 +557,12 @@ namespace AutoCSer.CommandService
 #if NetStandard21
             ReadResult<T?> result;
             if (index.GetJsonResult(out result)) return new CompletedReadAwaiter<T?>(result);
-            ReadJsonAwaiter<T?> readJsonCallback = new ReadJsonAwaiter<T?>();
+            return new ReadJsonAwaiter<T?>(Client, index);
 #else
             ReadResult<T> result;
             if (index.GetJsonResult(out result)) return new CompletedReadAwaiter<T>(result);
-            ReadJsonAwaiter<T> readJsonCallback = new ReadJsonAwaiter<T>();
+            return new ReadJsonAwaiter<T>(Client, index);
 #endif
-            readJsonCallback.Set(Client.Read(readJsonCallback, index));
-            return readJsonCallback;
         }
         /// <summary>
         /// 读取 JSON 对象
@@ -592,9 +611,7 @@ namespace AutoCSer.CommandService
         {
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
             if (index.GetJsonResult(out result)) return new CompletedReadAwaiter<AutoCSer.Metadata.MemberMapValue<T>>(result);
-            ReadJsonAwaiter<AutoCSer.Metadata.MemberMapValue<T>> readJsonCallback = new ReadJsonAwaiter<AutoCSer.Metadata.MemberMapValue<T>>();
-            readJsonCallback.Set(Client.Read(readJsonCallback, index));
-            return readJsonCallback;
+            return new ReadJsonAwaiter<AutoCSer.Metadata.MemberMapValue<T>>(Client, index);
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -664,14 +681,12 @@ namespace AutoCSer.CommandService
 #if NetStandard21
             ReadResult<T?> result;
             if (index.GetBinaryResult(out result)) return new CompletedReadAwaiter<T?>(result);
-            ReadBinaryAwaiter<T?> readBinaryCallback = new ReadBinaryAwaiter<T?>();
+            return new ReadBinaryAwaiter<T?>(Client, index);
 #else
             ReadResult<T> result;
             if (index.GetBinaryResult(out result)) return new CompletedReadAwaiter<T>(result);
-            ReadBinaryAwaiter<T> readBinaryCallback = new ReadBinaryAwaiter<T>();
+            return new ReadBinaryAwaiter<T>(Client, index);
 #endif
-            readBinaryCallback.Set(Client.Read(readBinaryCallback, index));
-            return readBinaryCallback;
         }
         /// <summary>
         /// 读取二进制序列化对象（适合定义稳定不变的对象）
@@ -720,9 +735,7 @@ namespace AutoCSer.CommandService
         {
             ReadResult<AutoCSer.Metadata.MemberMapValue<T>> result;
             if (index.GetBinaryResult(out result)) return new CompletedReadAwaiter<AutoCSer.Metadata.MemberMapValue<T>>(result);
-            ReadBinaryAwaiter<AutoCSer.Metadata.MemberMapValue<T>> readBinaryCallback = new ReadBinaryAwaiter<AutoCSer.Metadata.MemberMapValue<T>>();
-            readBinaryCallback.Set(Client.Read(readBinaryCallback, index));
-            return readBinaryCallback;
+            return new ReadBinaryAwaiter<AutoCSer.Metadata.MemberMapValue<T>>(Client, index);
         }
 
         /// <summary>

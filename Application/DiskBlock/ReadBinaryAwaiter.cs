@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net.CommandServer;
+﻿using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using System;
 
 namespace AutoCSer.CommandService.DiskBlock
@@ -7,8 +8,14 @@ namespace AutoCSer.CommandService.DiskBlock
     /// 读取二进制序列化对象
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class ReadBinaryAwaiter<T> : ReadAwaiter<T>
+    public sealed class ReadBinaryAwaiter<T> : ReadAwaiter<T>
     {
+        /// <summary>
+        /// 读取二进制序列化对象
+        /// </summary>
+        /// <param name="client">磁盘块客户端接口</param>
+        /// <param name="blockIndex">磁盘块索引信息</param>
+        public ReadBinaryAwaiter(IDiskBlockClient client, BlockIndex blockIndex) : base(client, blockIndex) { }
         /// <summary>
         /// 反序列化
         /// </summary>

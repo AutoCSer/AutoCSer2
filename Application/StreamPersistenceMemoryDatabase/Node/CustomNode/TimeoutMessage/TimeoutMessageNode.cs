@@ -76,7 +76,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         {
             foreach (TimeoutMessage<T> task in tasks.Values)
             {
-                if (task.Data.CheckLoadRunTask()) task.RunTask(this).NotWait();
+                if (task.Data.CheckLoadRunTask()) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.Loaded).NotWait();
                 if (task.Data.IsFailed) ++failedCount;
             }
             checkTimer.Set(this);
@@ -211,14 +211,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         public void RunTask(long identity)
         {
             var task = default(TimeoutMessage<T>);
-            if (tasks.TryGetValue(identity, out task) && task.Data.CheckRunTask()) task.RunTask(this).NotWait();
+            if (tasks.TryGetValue(identity, out task) && task.Data.CheckRunTask()) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).NotWait();
         }
         /// <summary>
         /// 执行任务
         /// </summary>
         /// <param name="task"></param>
+        /// <param name="type"></param>
         /// <returns>是否执行成功</returns>
-        public abstract Task<bool> RunTask(TimeoutMessage<T> task);
+        public abstract Task<bool> RunTask(TimeoutMessage<T> task, TimeoutMessageRunTaskTypeEnum type);
         /// <summary>
         /// 执行任务异常处理
         /// </summary>
@@ -226,16 +227,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// <param name="exception"></param>
         /// <returns></returns>
         public virtual Task OnTaskException(TimeoutMessage<T> task, Exception exception) { return AutoCSer.Common.CompletedTask; }
-        /// <summary>
-        /// 完成任务
-        /// </summary>
-        /// <param name="task"></param>
-        /// <param name="isSuccess"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void Completed(TimeoutMessage<T> task, bool isSuccess)
-        {
-            methodParameterCreator.Creator.Completed(task.Data.Identity, isSuccess);
-        }
         /// <summary>
         /// 完成任务
         /// </summary>
@@ -269,7 +260,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         {
             foreach (TimeoutMessage<T> task in tasks.Values)
             {
-                if (task.Data.IsFailed) task.RunTask(this).NotWait();
+                if (task.Data.IsFailed) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.RetryFailed).NotWait();
             }
         }
         /// <summary>
@@ -303,7 +294,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
                     if (taskHead.Data.CheckTimeout())
                     {
                         if (taskHead.Data.Timeout > AutoCSer.Threading.SecondTimer.UtcNow) return;
-                        taskHead.SetRunTask(this).NotWait();
+                        taskHead.Timeout(this).NotWait();
                     }
                     taskHead = taskHead.LinkNext;
                 }

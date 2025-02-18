@@ -264,6 +264,80 @@
             <param name="value">添加新数据</param>
             <returns>添加新数据位置，失败返回-1</returns>
         </member>
+        <member name="T:AutoCSer.Extensions.ArraySort">
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.Sort(System.UInt64[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.UInt64[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int32[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.Sort(System.Int64[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.Sort(System.UInt32[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.Sort(System.Int32[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int64[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.UInt32[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
+        </member>
         <member name="T:AutoCSer.Extensions.CombinationTemplateConfig">
             <summary>
             自定义简单组合模板参数
@@ -2349,6 +2423,51 @@
             获取当前进程执行文件名称
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Diagnostics.ServerTimestamp">
+            <summary>
+            服务端时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Diagnostics.ServerTimestamp.Time">
+            <summary>
+            获取时间戳的服务端时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Diagnostics.ServerTimestamp.Timestamp">
+            <summary>
+            获取服务端时间的时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Diagnostics.ServerTimestamp.TimestampPerSecond">
+            <summary>
+            每秒始终周期数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.#ctor(System.Double)">
+            <summary>
+            服务端时间戳
+            </summary>
+            <param name="timestampPerSecond">每秒始终周期数量</param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.#ctor(AutoCSer.Diagnostics.ServerTimestamp)">
+            <summary>
+            服务端时间戳
+            </summary>
+            <param name="timestamp">获取服务端时间的时间戳</param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.UtcToLocalTime">
+            <summary>
+            UTC 时间转本地时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.GetTime(System.Int64)">
+            <summary>
+            获取服务端时间
+            </summary>
+            <param name="timestamp">服务端时间戳</param>
+            <returns>服务端时间</returns>
         </member>
         <member name="T:AutoCSer.ExceptionRepeat">
             <summary>

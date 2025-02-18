@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandClientSocketEventTaskClient.cs" />
     <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>

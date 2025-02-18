@@ -19,4 +19,20 @@ namespace AutoCSer.Extensions
             else if(array.Length > 1) QuickSort(array);
         }
     }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <param name="array"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void Sort(this ulong[] array)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize64) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length);
+            else if (array.Length > 1) QuickSort(array);
+        }
+    }
 }

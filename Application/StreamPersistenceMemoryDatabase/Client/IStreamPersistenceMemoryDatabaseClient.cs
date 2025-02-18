@@ -5,7 +5,7 @@ using System;
 namespace AutoCSer.CommandService
 {
     /// <summary>
-    /// 日志流持久化内存数据库客户端接口（IO 线程同步回调接口避免线程调度开销，必须保证客户端调用 await 后续操作无阻塞，否则可能严重影响性能甚至死锁，如果不能保证无阻塞环境请替换为 IStreamPersistenceMemoryDatabaseTaskClient 接口避免死锁）
+    /// 日志流持久化内存数据库客户端接口
     /// </summary>
     public interface IStreamPersistenceMemoryDatabaseClient
     {

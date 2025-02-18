@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -24,6 +25,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.Log = log;
             this.Session = session;
+        }
+        /// <summary>
+        /// 判断是否服务重启日志
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool IsNewEquals(ServerRegistryLog log)
+        {
+            return !Session.IsCallback && Log.IsNewEquals(log);
         }
     }
 }

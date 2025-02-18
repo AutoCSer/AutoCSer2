@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FD845129-6149-4B72-9D5E-DB5054F8CBC1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoCSer.CommandService.InterfaceRealTimeCallMonitor</RootNamespace>
+    <AssemblyName>AutoCSer.CommandService.InterfaceRealTimeCallMonitor</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DotNet4.5\AutoCSer.CommandService.InterfaceRealTimeCallMonitor.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\DotNet4.5\</OutputPath>
+    <DefineConstants>TRACE;DotNet45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotNet4.5\AutoCSer.CommandService.InterfaceRealTimeCallMonitor.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CallData.cs" />
+    <Compile Include="CallIdentity.cs" />
+    <Compile Include="CallInfo.cs" />
+    <Compile Include="CallTimestamp.cs" />
+    <Compile Include="CommandListenerSession.cs" />
+    <Compile Include="ExceptionStatistics\CallExceptionStatistics.cs" />
+    <Compile Include="ExceptionStatistics\ExceptionStatistics.cs" />
+    <Compile Include="ExceptionStatistics\ExceptionStatisticsNode.cs" />
+    <Compile Include="ExceptionStatistics\IExceptionStatisticsNode.cs" />
+    <Compile Include="IInterfaceMonitorSession.cs" />
+    <Compile Include="IInterfaceRealTimeCallMonitorService.cs" />
+    <Compile Include="IInterfaceRealTimeCallMonitorServiceClientController.cs" />
+    <Compile Include="InterfaceMonitor.cs" />
+    <Compile Include="InterfaceRealTimeCallMonitorService.cs" />
+    <Compile Include="TimeoutCallback.cs" />
+    <Compile Include="TimestampVerifySession.cs" />
+    <Compile Include="{AutoCSer.CommandService.InterfaceRealTimeCallMonitor}.AutoCSer.cs" />
+    <Compile Include="IInterfaceRealTimeCallMonitorClientSocketEvent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5.csproj">
+      <Project>{16850f6e-850a-46e4-af12-cf48e9e771b1}</Project>
+      <Name>AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimestampVerify\AutoCSer.CommandService.TimestampVerify.DotNet4.5.csproj">
+      <Project>{33a9605f-4ec2-4d7f-9d38-07965c4a9c51}</Project>
+      <Name>AutoCSer.CommandService.TimestampVerify.DotNet4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>
+  </PropertyGroup>
+</Project>

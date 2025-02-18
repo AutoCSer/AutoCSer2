@@ -12,6 +12,12 @@ namespace AutoCSer.CommandService.DiskBlock
 #endif
     {
         /// <summary>
+        /// 读取字符串
+        /// </summary>
+        /// <param name="client">磁盘块客户端接口</param>
+        /// <param name="blockIndex">磁盘块索引信息</param>
+        internal ReadStringAwaiter(IDiskBlockClient client, BlockIndex blockIndex) : base(client, blockIndex) { }
+        /// <summary>
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>

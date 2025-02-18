@@ -3235,12 +3235,6 @@
             <param name="identity">任务标识ID</param>
             <param name="closeTime">关闭任务时间</param>
         </member>
-        <member name="M:AutoCSer.CommandService.DeployTaskNode.Close(AutoCSer.CommandService.DeployTask.TaskData)">
-            <summary>
-            关闭任务
-            </summary>
-            <param name="data"></param>
-        </member>
         <member name="T:AutoCSer.CommandService.IDeployTaskNode">
             <summary>
             发布任务节点接口

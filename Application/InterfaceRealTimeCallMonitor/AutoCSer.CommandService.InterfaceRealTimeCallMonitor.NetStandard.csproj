@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.InterfaceRealTimeCallMonitor</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.InterfaceRealTimeCallMonitor</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\InterfaceRealTimeCallMonitor\AutoCSer.CommandService.InterfaceRealTimeCallMonitor2.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;NetStandard2</DefineConstants>
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\InterfaceRealTimeCallMonitor\AutoCSer.CommandService.InterfaceRealTimeCallMonitor2.xml</DocumentationFile>
+    <DefineConstants>TRACE;NetStandard2</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CallData.cs" />
+    <Compile Include="CallIdentity.cs" />
+    <Compile Include="CallInfo.cs" />
+    <Compile Include="CallTimestamp.cs" />
+    <Compile Include="CommandListenerSession.cs" />
+    <Compile Include="ExceptionStatistics\CallExceptionStatistics.cs" />
+    <Compile Include="ExceptionStatistics\ExceptionStatistics.cs" />
+    <Compile Include="ExceptionStatistics\ExceptionStatisticsNode.cs" />
+    <Compile Include="ExceptionStatistics\IExceptionStatisticsNode.cs" />
+    <Compile Include="IInterfaceMonitorSession.cs" />
+    <Compile Include="IInterfaceRealTimeCallMonitorService.cs" />
+    <Compile Include="IInterfaceRealTimeCallMonitorServiceClientController.cs" />
+    <Compile Include="InterfaceMonitor.cs" />
+    <Compile Include="InterfaceRealTimeCallMonitorService.cs" />
+    <Compile Include="TimeoutCallback.cs" />
+    <Compile Include="TimestampVerifySession.cs" />
+    <Compile Include="{AutoCSer.CommandService.InterfaceRealTimeCallMonitor}.AutoCSer.cs" />
+    <Compile Include="IInterfaceRealTimeCallMonitorClientSocketEvent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NetStandard.csproj" />
+    <ProjectReference Include="..\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NetStandard.csproj" />
+    <ProjectReference Include="..\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -4,6 +4,70 @@
         <name>AutoCSer.TestCase.NetCoreWeb</name>
     </assembly>
     <members>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent">
+            <summary>
+            接口实时调用监视服务客户端套接字事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.TimestampVerifyClient">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.InterfaceRealTimeCallMonitor">
+            <summary>
+            接口实时调用监视服务客户端接口
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.checkCommandKeepCallback">
+            <summary>
+            接口监视服务在线检查保持回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
+            <summary>
+            命令客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.CallVerifyMethod(AutoCSer.Net.CommandClientController)">
+            <summary>
+            客户端创建套接字连接以后调用认证 API
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.InterfaceRealTimeCallMonitorCommandClientSocketEvent.CommandClient">
+            <summary>
+            客户端单例
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.NetCoreWeb.MonitorCallTypeEnum">
+            <summary>
+            调用类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.MonitorCallTypeEnum.View">
+            <summary>
+            数据视图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.MonitorCallTypeEnum.JsonApi">
+            <summary>
+            JSON API 请求
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.NetCoreWeb.ProcessGuardCommandClientSocketEvent">
             <summary>
             命令客户端套接字事件
@@ -282,6 +346,11 @@
             收集客户端错误信息的请求地址
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.callIdentity">
+            <summary>
+            当前调用监视标识
+            </summary>
+        </member>
         <member name="P:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.ErrorRequestPath">
             <summary>
             收集客户端错误信息的请求地址，默认为 null 表示不采集客户端错误，在代码生成中替换标记字符串 __ERRORPATH__
@@ -293,6 +362,29 @@
             </summary>
             <param name="referer">来源页面</param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.GetCallIdentity(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.View)">
+            <summary>
+            获取调用监视标识
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="view">数据视图</param>
+            <returns>调用监视标识，long.MinValue 表示不监视</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.GetCallIdentity(Microsoft.AspNetCore.Http.HttpContext,AutoCSer.NetCoreWeb.JsonApiRequest)">
+            <summary>
+            获取调用监视标识
+            </summary>
+            <param name="httpContext">HTTP 上下文</param>
+            <param name="request">JSON API 请求实例</param>
+            <returns>调用监视标识，long.MinValue 表示不监视</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.OnCallCompleted(System.Int64,System.Boolean)">
+            <summary>
+            调用完成
+            </summary>
+            <param name="callIdentity">调用监视标识</param>
+            <param name="isException">接口是否执行异常</param>
         </member>
         <member name="M:AutoCSer.TestCase.NetCoreWeb.ViewMiddleware.#ctor">
             <summary>

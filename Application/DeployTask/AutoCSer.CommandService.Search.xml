@@ -4,6 +4,644 @@
         <name>AutoCSer.CommandService.Search</name>
     </assembly>
     <members>
+        <member name="T:AutoCSer.CommandService.Search.IIndexNodeClientNode`2">
+            <summary>
+            关键字索引节点接口 客户端节点接口
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+            <summary>
+            关键字索引节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeClientNode`2.Append(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeClientNode`2.Remove(`0,`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeClientNode`2.AppendArray(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeClientNode`2.RemoveArray(`0[],`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeClientNode`2.GetData(`0)">
+            <summary>
+            获取索引数据
+            </summary>
+            <param name="key">索引关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IIndexNodeLocalClientNode`2">
+            <summary>
+            关键字索引节点接口 客户端节点接口
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+            <summary>
+            关键字索引节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeLocalClientNode`2.Append(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeLocalClientNode`2.Remove(`0,`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeLocalClientNode`2.AppendArray(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeLocalClientNode`2.RemoveArray(`0[],`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNodeLocalClientNode`2.GetData(`0)">
+            <summary>
+            获取索引数据
+            </summary>
+            <param name="key">索引关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.SingleDiskBlockIndexNode`2">
+            <summary>
+            单磁盘块索引信息关键字索引节点
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.SingleDiskBlockIndexNode`2.diskBlockClient">
+            <summary>
+            数据关键字磁盘块索引信息客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.SingleDiskBlockIndexNode`2.#ctor(AutoCSer.CommandService.IDiskBlockClientSocketEvent,System.Int32)">
+            <summary>
+            关键字索引节点
+            </summary>
+            <param name="diskBlockClient">数据关键字磁盘块索引信息客户端</param>
+            <param name="writeCount">触发重置写入磁盘块索引信息的更新数据量，最小值为 16</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.SingleDiskBlockIndexNode`2.GetDiskBlockClient(`0)">
+            <summary>
+            根据索引关键字获取磁盘块索引信息客户端
+            </summary>
+            <param name="key">索引关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.SingleDiskBlockIndexNode`2.GetDiskBlockClient(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            获取磁盘块索引信息客户端
+            </summary>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1">
+            <summary>
+            分词结果磁盘块索引信息本地节点
+            </summary>
+            <typeparam name="T">分词数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.trieGraphNode">
+            <summary>
+            字符串 Trie 图客户端节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.diskBlockClient">
+            <summary>
+            分词结果磁盘块索引信息客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.indexNode">
+            <summary>
+            词语匹配数据关键字索引节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode},AutoCSer.CommandService.IDiskBlockClientSocketEvent,AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.Search.IIndexNodeLocalClientNode{System.Int32,`0}})">
+            <summary>
+            分词结果磁盘块索引信息本地节点
+            </summary>
+            <param name="trieGraphNode">字符串 Trie 图客户端节点</param>
+            <param name="diskBlockClient">分词结果磁盘块索引信息客户端</param>
+            <param name="indexNode">词语匹配数据关键字索引节点</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.GetWordIdentitys(System.String)">
+            <summary>
+            获取分词词语编号标识集合
+            </summary>
+            <param name="text">分词文本</param>
+            <returns>词语编号标识集合</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.GetDiskBlockClient(`0)">
+            <summary>
+            根据分词数据关键字获取磁盘块索引信息客户端
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.GetDiskBlockClient(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            获取磁盘块索引信息客户端
+            </summary>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.AppendIndex(System.Int32[],`0)">
+            <summary>
+            添加分词匹配数据关键字
+            </summary>
+            <param name="wordIdentitys">词语编号标识集合</param>
+            <param name="key">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.AppendIndex(System.Int32[],System.Int32[],`0)">
+            <summary>
+            更新分词匹配数据关键字
+            </summary>
+            <param name="wordIdentitys">词语编号标识集合</param>
+            <param name="historyWordIdentitys">更新之前的词语编号标识集合</param>
+            <param name="key">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1">
+            <summary>
+            分词结果磁盘块索引信息节点
+            </summary>
+            <typeparam name="T">分词数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.datas">
+            <summary>
+            分词数据磁盘块索引信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.deleteLoadPersistenceDatas">
+            <summary>
+            初始化加载待删除数据关键字集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.version">
+            <summary>
+            操作版本号
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.NextVersion">
+            <summary>
+            获取操作版本号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.#ctor">
+            <summary>
+            分词结果磁盘块索引信息节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.StreamPersistenceMemoryDatabaseServiceLoaded">
+            <summary>
+            初始化加载完毕处理
+            </summary>
+            <returns>加载完毕替换的新节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{T,AutoCSer#CommandService#DiskBlock#BlockIndex}}#GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{T,AutoCSer#CommandService#DiskBlock#BlockIndex}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{`0,AutoCSer.CommandService.DiskBlock.BlockIndex}[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,AutoCSer.CommandService.DiskBlock.BlockIndex})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.createDataBlockIndex(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            从快照数据创建分词结果磁盘块索引信息
+            </summary>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.CreateLoadPersistence(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.Create(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.createDataBlockIndex">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.UpdateLoadPersistence(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            更新分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.Update(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            更新分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.DeleteLoadPersistence(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.Delete(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.CompletedLoadPersistence(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32)">
+            <summary>
+            分词结果磁盘块索引信息完成更新操作
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="version">操作版本号</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.Completed(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32)">
+            <summary>
+            分词结果磁盘块索引信息完成更新操作
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="version">操作版本号</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.DeletedLoadPersistence(`0)">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.Deleted(`0)">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.OnException(AutoCSer.CommandService.Search.WordIdentityBlockIndex{`0},System.Exception)">
+            <summary>
+            执行任务异常处理
+            </summary>
+            <param name="data"></param>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.GetText(`0)">
+            <summary>
+            根据关键字获取需要分词的文本数据
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns>null 表示没有找到关键字数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.GetWordIdentitys(System.String)">
+            <summary>
+            获取分词词语编号标识集合
+            </summary>
+            <param name="text">分词文本</param>
+            <returns>词语编号标识集合</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.GetDiskBlockClient(`0)">
+            <summary>
+            根据分词数据关键字获取磁盘块索引信息客户端
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.GetDiskBlockClient(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            获取磁盘块索引信息客户端
+            </summary>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AppendIndex(System.Int32[],`0)">
+            <summary>
+            添加分词匹配数据关键字
+            </summary>
+            <param name="wordIdentitys">词语编号标识集合</param>
+            <param name="key">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AppendIndex(System.Int32[],System.Int32[],`0)">
+            <summary>
+            更新分词匹配数据关键字
+            </summary>
+            <param name="wordIdentitys">词语编号标识集合</param>
+            <param name="historyWordIdentitys">更新之前的词语编号标识集合</param>
+            <param name="key">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum">
+            <summary>
+            分词结果磁盘块索引信息更新状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.Unknown">
+            <summary>
+            未知错误或者异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.NullKey">
+            <summary>
+            关键字不允许为 null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.DeletedNotFoundKey">
+            <summary>
+            未找到关键字触发删除操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.NotSupportDeleteKey">
+            <summary>
+            不支持删除存在数据的关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.GetWordIdentityFailed">
+            <summary>
+            获取分词词语标识集合失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.SetWordIndexFailed">
+            <summary>
+            设置本文分词索引失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.GetBlockIndexFailed">
+            <summary>
+            获取磁盘块索引信息失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum.GetBlockIndexResultFailed">
+            <summary>
+            获取文本分词结果失败
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1">
+            <summary>
+            分词结果磁盘块索引信息
+            </summary>
+            <typeparam name="T">分词数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.queueLock">
+            <summary>
+            操作队列访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.BlockIndex">
+            <summary>
+            磁盘块索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.callbacks">
+            <summary>
+            操作回调集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.#ctor">
+            <summary>
+            分词结果磁盘块索引信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.#ctor(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            分词结果磁盘块索引信息
+            </summary>
+            <param name="blockIndex">磁盘块索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.Create(AutoCSer.CommandService.Search.WordIdentityBlockIndexNode{`0},`0)">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.Create(AutoCSer.CommandService.Search.WordIdentityBlockIndexNode{`0},`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.releaseQueueLock(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum},System.Int32,AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum)">
+            <summary>
+            释放操作队列访问锁
+            </summary>
+            <param name="callback"></param>
+            <param name="isCallback"></param>
+            <param name="state"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.Update(AutoCSer.CommandService.Search.WordIdentityBlockIndexNode{`0},`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            更新分词结果磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.Delete(AutoCSer.CommandService.Search.WordIdentityBlockIndexNode{`0},`0)">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.Delete(AutoCSer.CommandService.Search.WordIdentityBlockIndexNode{`0},`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.setCallback(AutoCSer.CommandService.Search.WordIdentityBlockIndexNode{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            设置操作版本号
+            </summary>
+            <param name="node"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.callback(System.Int32,AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum)">
+            <summary>
+            操作回调
+            </summary>
+            <param name="version">操作版本号</param>
+            <param name="state">调用状态</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.Completed(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32)">
+            <summary>
+            完成数据更新
+            </summary>
+            <param name="blockIndex">新的磁盘块索引信息</param>
+            <param name="version">更新版本号</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.Deleted">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex`1.sequenceEqual(System.Int32[],System.Int32[])">
+            <summary>
+            数组比较
+            </summary>
+            <param name="wordIdentitys"></param>
+            <param name="historyWordIdentitys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1">
+            <summary>
+            分词结果磁盘块索引信息节点接口
+            </summary>
+            <typeparam name="T">分词数据关键字类型</typeparam>
+            <summary>
+            分词结果磁盘块索引信息节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,AutoCSer.CommandService.DiskBlock.BlockIndex})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.CreateLoadPersistence(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.Create(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.UpdateLoadPersistence(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            更新分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.Update(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            更新分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.DeleteLoadPersistence(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.Delete(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum})">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.CompletedLoadPersistence(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32)">
+            <summary>
+            分词结果磁盘块索引信息完成更新操作
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="version">操作版本号</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.Completed(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32)">
+            <summary>
+            分词结果磁盘块索引信息完成更新操作
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="version">操作版本号</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.DeletedLoadPersistence(`0)">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode`1.Deleted(`0)">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+        </member>
         <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum">
             <summary>
             添加词语返回状态
@@ -363,7 +1001,7 @@
             </summary>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetWordIdentity(AutoCSer.BinarySerializeKeyValue{System.String,System.Int32})">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetWordIdentity(AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32})">
             <summary>
             快照设置数据
             </summary>
@@ -893,12 +1531,17 @@
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.SnapshotSetWordIdentity">
             <summary>
             [8] 快照设置数据
-            AutoCSer.BinarySerializeKeyValue{string,int} value 数据
+            AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,int} value 数据
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.Search.StaticTrieGraphNode">
             <summary>
             字符串 Trie 图节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordStringLength">
+            <summary>
+            未知词语长度
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.ReplaceChars">
@@ -949,6 +1592,16 @@
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordSegmentIdentityMap">
             <summary>
             文本分词词语编号位图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordString">
+            <summary>
+            当前未知词语字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordStringIndex">
+            <summary>
+            当前未知词语字符串位置
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.builder">
@@ -1019,14 +1672,14 @@
             </summary>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#String,System#Int32}}#GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{AutoCSer#SubString,System#Int32}}#GetSnapshotCapacity(System.Object@)">
             <summary>
             获取快照数据集合容器大小，用于预申请快照数据容器
             </summary>
             <param name="customObject">自定义对象，用于预生成辅助数据</param>
             <returns>快照数据集合容器大小</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#String,System#Int32}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{System.String,System.Int32}[],System.Object)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{AutoCSer#SubString,System#Int32}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32}[],System.Object)">
             <summary>
             获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
             </summary>
@@ -1034,18 +1687,25 @@
             <param name="customObject">自定义对象，用于预生成辅助数据</param>
             <returns>快照数据信息</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#String,System#Int32}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.String,System.Int32}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.String,System.Int32}}@)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{AutoCSer#SubString,System#Int32}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32}}@)">
             <summary>
             持久化之前重组快照数据
             </summary>
             <param name="array">预申请快照容器数组</param>
             <param name="newArray">超预申请快照数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.SnapshotSetWordIdentity(AutoCSer.BinarySerializeKeyValue{System.String,System.Int32})">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.SnapshotSetWordIdentity(AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32})">
             <summary>
             快照设置数据
             </summary>
             <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.getWord(AutoCSer.SubString@,System.Boolean)">
+            <summary>
+            获取未知词语字符串
+            </summary>
+            <param name="word">未知词语</param>
+            <param name="isSnapshot"></param>
         </member>
         <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AppendWord(System.String)">
             <summary>
@@ -1156,6 +1816,715 @@
             <param name="identity"></param>
             <param name="endChar"></param>
             <param name="length"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IIndexNode`2">
+            <summary>
+            关键字索引节点接口
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+            <summary>
+            关键字索引节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,AutoCSer.CommandService.Search.IndexData{`1}})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.AppendLoadPersistence(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.Append(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.AppendArrayLoadPersistence(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.AppendArray(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.RemoveLoadPersistence(`0,`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.Remove(`0,`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.RemoveArrayLoadPersistence(`0[],`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.RemoveArray(`0[],`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.CompletedLoadPersistence(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32,System.Int32)">
+            <summary>
+            磁盘块索引信息写入完成
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="blockIndex"></param>
+            <param name="valueCount"></param>
+            <param name="version"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.Completed(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32,System.Int32)">
+            <summary>
+            磁盘块索引信息写入完成
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="blockIndex"></param>
+            <param name="valueCount"></param>
+            <param name="version"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IIndexNode`2.GetData(`0)">
+            <summary>
+            获取索引数据
+            </summary>
+            <param name="key">索引关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.HashSetIndex`1">
+            <summary>
+            关键字索引
+            </summary>
+            <typeparam name="T">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.HashSetIndex`1.BlockIndex">
+            <summary>
+            数据关键字集合的磁盘块索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.HashSetIndex`1.values">
+            <summary>
+            新增数据关键字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.HashSetIndex`1.ValueCount">
+            <summary>
+            新增数据关键字数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.HashSetIndex`1.removeValues">
+            <summary>
+            待移除数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.HashSetIndex`1.BlockIndexValueCount">
+            <summary>
+            磁盘块索引信息中的数据关键字数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.HashSetIndex`1.version">
+            <summary>
+            写入磁盘块索引信息版本号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`1.#ctor(AutoCSer.CommandService.Search.IndexData{`0}@)">
+            <summary>
+            关键字索引
+            </summary>
+            <param name="data">索引数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`1.#ctor(`0)">
+            <summary>
+            关键字索引
+            </summary>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`1.GetValueArray">
+            <summary>
+            获取数据关键字数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`1.Append(`0)">
+            <summary>
+            词语添加匹配数据关键字
+            </summary>
+            <param name="value">匹配数据关键字</param>
+            <returns>新增更新以后的更新数据量，返回 0 表示没有新增更新</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`1.Remove(`0)">
+            <summary>
+            词语移除匹配数据关键字
+            </summary>
+            <param name="value">匹配数据关键字</param>
+            <returns>新增更新以后的更新数据量，返回 0 表示没有新增更新</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.HashSetIndex`2">
+            <summary>
+            关键字索引
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.HashSetIndex`2.isWrite">
+            <summary>
+            是否已经启动写入磁盘块索引信息操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.#ctor(AutoCSer.CommandService.Search.IndexData{`1}@)">
+            <summary>
+            关键字索引
+            </summary>
+            <param name="data">索引数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.#ctor(`1)">
+            <summary>
+            关键字索引
+            </summary>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.TryWrite(AutoCSer.CommandService.Search.IndexNode{`0,`1},`0)">
+            <summary>
+            尝试重新写入磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.Write(AutoCSer.CommandService.Search.IndexNode{`0,`1},`0)">
+            <summary>
+            重新写入磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.Completed(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32,System.Int32)">
+            <summary>
+            磁盘块索引信息写入完成
+            </summary>
+            <param name="blockIndex"></param>
+            <param name="valueCount"></param>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.WriteError">
+            <summary>
+            磁盘块索引信息写入错误
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.read(AutoCSer.CommandService.Search.IndexNode{`0,`1},`0)">
+            <summary>
+            读取磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.Readed(AutoCSer.CommandService.Search.IndexNode{`0,`1},`0,System.Collections.Generic.HashSet{`1},`1[])">
+            <summary>
+            读取磁盘块索引信息以后重新计算匹配数据关键字数据
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="values"></param>
+            <param name="valueArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndex`2.write(AutoCSer.CommandService.Search.IndexNode{`0,`1},`0,`1[],System.Int32)">
+            <summary>
+            写入磁盘块索引信息
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="values"></param>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.HashSetIndexCallback`2">
+            <summary>
+            关键字索引磁盘块索引信息写入失败回调
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.HashSetIndexCallback`2.index">
+            <summary>
+            关键字索引
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndexCallback`2.#ctor(AutoCSer.CommandService.Search.HashSetIndex{`0,`1})">
+            <summary>
+            关键字索引磁盘块索引信息写入失败回调
+            </summary>
+            <param name="index">关键字索引</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.HashSetIndexCallback`2.RunTask">
+            <summary>
+            磁盘块索引信息写入失败回调
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IndexData`1">
+            <summary>
+            索引数据
+            </summary>
+            <typeparam name="T">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexData`1.BlockIndex">
+            <summary>
+            数据关键字集合的磁盘块索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexData`1.BlockIndexValueCount">
+            <summary>
+            磁盘块索引信息中的数据关键字数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexData`1.ValueCount">
+            <summary>
+            数据关键字集合中新增数据关键字数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexData`1.Values">
+            <summary>
+            数据关键字集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexData`1.#ctor(AutoCSer.CommandService.Search.HashSetIndex{`0})">
+            <summary>
+            索引数据
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IndexNodeCallback`2">
+            <summary>
+            关键字索引重新计算匹配数据关键字数据回调
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexNodeCallback`2.node">
+            <summary>
+            关键字索引节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexNodeCallback`2.index">
+            <summary>
+            关键字索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexNodeCallback`2.valueArray">
+            <summary>
+            匹配数据关键字集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexNodeCallback`2.values">
+            <summary>
+            匹配数据关键字集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexNodeCallback`2.key">
+            <summary>
+            索引关键字
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNodeCallback`2.#ctor(AutoCSer.CommandService.Search.HashSetIndex{`0,`1},AutoCSer.CommandService.Search.IndexNode{`0,`1},`0,`1[])">
+            <summary>
+            关键字索引重新计算匹配数据关键字数据回调
+            </summary>
+            <param name="index"></param>
+            <param name="node"></param>
+            <param name="key"></param>
+            <param name="valueArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNodeCallback`2.RunTask">
+            <summary>
+            重新计算关键字数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IndexNode`2">
+            <summary>
+            关键字索引节点
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexNode`2.indexs">
+            <summary>
+            关键字索引集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexNode`2.writeCount">
+            <summary>
+            触发重置写入磁盘块索引信息的更新数据量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.#ctor(System.Int32)">
+            <summary>
+            关键字索引节点
+            </summary>
+            <param name="writeCount">触发重置写入磁盘块索引信息的更新数据量，最小值为 16</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{KT,AutoCSer#CommandService#Search#IndexData{VT}}}#GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{KT,AutoCSer#CommandService#Search#IndexData{VT}}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{`0,AutoCSer.CommandService.Search.IndexData{`1}}[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,AutoCSer.CommandService.Search.IndexData{`1}})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.GetDiskBlockClient(`0)">
+            <summary>
+            根据索引关键字获取磁盘块索引信息客户端
+            </summary>
+            <param name="key">索引关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.GetDiskBlockClient(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            获取磁盘块索引信息客户端
+            </summary>
+            <param name="blockIndex">磁盘块索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.AppendLoadPersistence(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.Append(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.AppendArrayLoadPersistence(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.AppendArray(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.RemoveLoadPersistence(`0,`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.Remove(`0,`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.RemoveArrayLoadPersistence(`0[],`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.RemoveArray(`0[],`1)">
+            <summary>
+            移除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.CompletedLoadPersistence(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32,System.Int32)">
+            <summary>
+            磁盘块索引信息写入完成
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="blockIndex"></param>
+            <param name="valueCount"></param>
+            <param name="version"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.Completed(`0,AutoCSer.CommandService.DiskBlock.BlockIndex,System.Int32,System.Int32)">
+            <summary>
+            磁盘块索引信息写入完成
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="blockIndex"></param>
+            <param name="valueCount"></param>
+            <param name="version"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexNode`2.GetData(`0)">
+            <summary>
+            获取索引数据
+            </summary>
+            <param name="key">索引关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeClientNode`1">
+            <summary>
+            分词结果磁盘块索引信息节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeClientNode`1.Create(`0)">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeClientNode`1.Delete(`0)">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeClientNode`1.Update(`0)">
+            <summary>
+            更新分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeLocalClientNode`1">
+            <summary>
+            分词结果磁盘块索引信息节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeLocalClientNode`1.Create(`0)">
+            <summary>
+            创建分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeLocalClientNode`1.Delete(`0)">
+            <summary>
+            删除分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeLocalClientNode`1.Update(`0)">
+            <summary>
+            更新分词结果磁盘块索引信息
+            </summary>
+            <param name="key">分词数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IIndexNodeMethodEnum">
+            <summary>
+            关键字索引节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.Append">
+            <summary>
+            [0] 添加匹配数据关键字
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.AppendLoadPersistence">
+            <summary>
+            [1] 添加匹配数据关键字
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.Completed">
+            <summary>
+            [2] 磁盘块索引信息写入完成
+            KT key 索引关键字
+            AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
+            int valueCount 
+            int version 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.Remove">
+            <summary>
+            [3] 移除匹配数据关键字
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.RemoveLoadPersistence">
+            <summary>
+            [4] 移除匹配数据关键字
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.SnapshotSet">
+            <summary>
+            [5] 快照设置数据
+            AutoCSer.BinarySerializeKeyValue{KT,AutoCSer.CommandService.Search.IndexData{VT}} value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.CompletedLoadPersistence">
+            <summary>
+            [6] 磁盘块索引信息写入完成
+            KT key 索引关键字
+            AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
+            int valueCount 
+            int version 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.AppendArray">
+            <summary>
+            [7] 添加匹配数据关键字
+            KT[] keys 索引关键字集合
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.AppendArrayLoadPersistence">
+            <summary>
+            [8] 添加匹配数据关键字
+            KT[] keys 索引关键字集合
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.RemoveArray">
+            <summary>
+            [9] 移除匹配数据关键字
+            KT[] keys 索引关键字
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.RemoveArrayLoadPersistence">
+            <summary>
+            [10] 移除匹配数据关键字
+            KT[] keys 索引关键字集合
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IIndexNodeMethodEnum.GetData">
+            <summary>
+            [11] 获取索引数据
+            KT key 索引关键字
+            返回值 AutoCSer.CommandService.Search.IndexData{VT} 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum">
+            <summary>
+            分词结果磁盘块索引信息节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Completed">
+            <summary>
+            [0] 分词结果磁盘块索引信息完成更新操作
+            T key 分词数据关键字
+            AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 磁盘块索引信息
+            int version 操作版本号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Create">
+            <summary>
+            [1] 创建分词结果磁盘块索引信息
+            T key 分词数据关键字
+            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.CreateLoadPersistence">
+            <summary>
+            [2] 创建分词结果磁盘块索引信息
+            T key 分词数据关键字
+            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Delete">
+            <summary>
+            [3] 删除分词结果磁盘块索引信息
+            T key 分词数据关键字
+            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.DeleteLoadPersistence">
+            <summary>
+            [4] 删除分词结果磁盘块索引信息
+            T key 分词数据关键字
+            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Deleted">
+            <summary>
+            [5] 删除分词结果磁盘块索引信息
+            T key 分词数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.SnapshotSet">
+            <summary>
+            [6] 快照设置数据
+            AutoCSer.BinarySerializeKeyValue{T,AutoCSer.CommandService.DiskBlock.BlockIndex} value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Update">
+            <summary>
+            [7] 更新分词结果磁盘块索引信息
+            T key 分词数据关键字
+            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.UpdateLoadPersistence">
+            <summary>
+            [8] 更新分词结果磁盘块索引信息
+            T key 分词数据关键字
+            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.CompletedLoadPersistence">
+            <summary>
+            [9] 分词结果磁盘块索引信息完成更新操作
+            T key 分词数据关键字
+            AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 磁盘块索引信息
+            int version 操作版本号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.DeletedLoadPersistence">
+            <summary>
+            [10] 删除分词结果磁盘块索引信息
+            T key 分词数据关键字
+            </summary>
         </member>
     </members>
 </doc>

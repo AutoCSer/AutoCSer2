@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="InterfaceRealTimeCallMonitorCommandClientSocketEvent.cs" />
+    <Compile Include="MonitorCallTypeEnum.cs" />
     <Compile Include="ProcessGuardCommandClientSocketEvent.cs" />
     <Compile Include="ViewHelp.cs" />
     <Compile Include="ExampleController.cs" />
@@ -44,7 +46,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\Application\InterfaceRealTimeCallMonitor\AutoCSer.CommandService.InterfaceRealTimeCallMonitor.NET8.csproj" />
+    <ProjectReference Include="..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
     <ProjectReference Include="..\..\AutoCSer\NetCoreWeb\AutoCSer.NetCoreWeb.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>

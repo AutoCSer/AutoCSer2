@@ -1,8 +1,10 @@
 ﻿using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Threading;
 
 namespace AutoCSer.CommandService.DiskBlock
@@ -38,6 +40,20 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         [FieldOffset(sizeof(long) + sizeof(uint))]
         internal int Size;
+        /// <summary>
+        /// 判断是否二进制序列化 null 值
+        /// </summary>
+        public bool IsBinarySerializeNullValue
+        {
+            get { return Index == BinarySerializer.NullValue && Size < 0 && -new BlockSize().GetSize(Size) == -4; }
+        }
+        /// <summary>
+        /// 判断是否二进制序列化 null 值或者空数组
+        /// </summary>
+        public bool IsBinarySerializeNullValueOrEmptyArray
+        {
+            get { return (Index == BinarySerializer.NullValue || Index == 0) && Size < 0 && -new BlockSize().GetSize(Size) == -4; }
+        }
         /// <summary>
         /// 错误磁盘块索引信息
         /// </summary>
@@ -109,10 +125,50 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 字节数小于 16 直接使用索引信息记录
         /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="isIndex"></param>
+        /// <returns></returns>
+#if NetStandard21
+        public unsafe static BlockIndex GetIndexSize(int[]? buffer, out bool isIndex)
+#else
+        public unsafe static BlockIndex GetIndexSize(int[] buffer, out bool isIndex)
+#endif
+        {
+            if (buffer == null)
+            {
+                isIndex = true;
+                return new BlockIndex(BinarySerializer.NullValue, -4);
+            }
+            long size = (long)buffer.Length * sizeof(int);
+            if (size <= MaxIndexSize)
+            {
+                if (size == 0)
+                {
+                    isIndex = true;
+                    return new BlockIndex(0, -4);
+                }
+                fixed (int* dataFixed = buffer)
+                {
+                    BlockIndex index = *(BlockIndex*)dataFixed;
+                    index.SetSize((sbyte)-size);
+                    isIndex = true;
+                    return index;
+                }
+            }
+            isIndex = false;
+            return default(BlockIndex);
+        }
+        /// <summary>
+        /// 字节数小于 16 直接使用索引信息记录
+        /// </summary>
         /// <param name="data"></param>
         /// <param name="isIndex"></param>
         /// <returns></returns>
+#if NetStandard21
+        internal unsafe static BlockIndex GetIndexSize(string? data, out bool isIndex)
+#else
         internal unsafe static BlockIndex GetIndexSize(string data, out bool isIndex)
+#endif
         {
             if (data == null)
             {
@@ -150,6 +206,16 @@ namespace AutoCSer.CommandService.DiskBlock
         {
             Index = index;
             Size = size;
+        }
+        /// <summary>
+        /// 设置为二进制序列化 null 值
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void SetBinarySerializeNullValue()
+        {
+            Index = BinarySerializer.NullValue;
+            Identity = 0;
+            Size = new BlockSize().SetSize(-4);
         }
         /// <summary>
         /// 获取读取数据状态
@@ -203,6 +269,39 @@ namespace AutoCSer.CommandService.DiskBlock
                         BlockIndex index = this;
                         byte[] buffer = AutoCSer.Common.GetUninitializedArray<byte>(size);
                         AutoCSer.Common.CopyTo((byte*)&index, buffer, 0, size);
+                        result.Set(buffer);
+                    }
+                    return true;
+                default: result.ReturnType = CommandClientReturnTypeEnum.Success; return true;
+            }
+        }
+        /// <summary>
+        /// 获取读取数据结果
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+#if NetStandard21
+        public unsafe bool GetResult(out ReadResult<int[]?> result)
+#else
+        public unsafe bool GetResult(out ReadResult<int[]> result)
+#endif
+        {
+#if NetStandard21
+            result = new ReadResult<int[]?>(CommandClientReturnTypeEnum.ClientException);
+#else
+            result = new ReadResult<int[]>(CommandClientReturnTypeEnum.ClientException);
+#endif
+            switch (result.BufferState = GetReadState())
+            {
+                case ReadBufferStateEnum.Unknown: return false;
+                case ReadBufferStateEnum.IndexSize:
+                    int size = -new BlockSize().GetSize(Size);
+                    if (size == 0) result.Set(Index != BinarySerializer.NullValue ? EmptyArray<int>.Array : null);
+                    else
+                    {
+                        BlockIndex index = this;
+                        int[] buffer = AutoCSer.Common.GetUninitializedArray<int>(size >> 2);
+                        fixed (int* bufferFixed = buffer) AutoCSer.Common.CopyTo((byte*)&index, bufferFixed, size);
                         result.Set(buffer);
                     }
                     return true;
@@ -299,7 +398,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 case ReadBufferStateEnum.Unknown: return false;
                 case ReadBufferStateEnum.IndexSize:
                     int size = -new BlockSize().GetSize(Size);
-                    if (size == 0 || (size & 3) != 0)
+                    if (size == 0 || (Size & 3) != 0)
                     {
                         result.Set(ReadBufferStateEnum.UnidentifiableSize);
                         return true;
@@ -322,6 +421,26 @@ namespace AutoCSer.CommandService.DiskBlock
             }
         }
 
+        /// <summary>
+        /// 二进制序列化 null 值
+        /// </summary>
+        public static BlockIndex BinarySerializeNullValue
+        {
+            get
+            {
+                return new BlockIndex(BinarySerializer.NullValue, -4);
+            }
+        }
+        ///// <summary>
+        ///// 二进制序列化空数组
+        ///// </summary>
+        //public static BlockIndex BinarySerializeEmptyArray
+        //{
+        //    get
+        //    {
+        //        return new BlockIndex(0, -4);
+        //    }
+        //}
         /// <summary>
         /// JSON null
         /// </summary>

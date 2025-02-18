@@ -53,6 +53,10 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         public int MaxContentLength = 1 << 20;
         /// <summary>
+        /// 调用监视超时毫秒数默认为 5000ms
+        /// </summary>
+        public int MonitorTimeoutMilliseconds = 5000;
+        /// <summary>
         /// JSON API 自定义配置
         /// </summary>
         /// <param name="template">路由模板字符串，默认为 null 表示方法名称（一般用于 POST 请求），设置为空字符串则表示 GET 请求所有参数，/ 开始表示忽略代理控制器路由，非模板参数路由不允许包含 {} 这两个符号，模板参数必须放在最后，可以表示为 /{参数名称} 或者 {参数名称}</param>

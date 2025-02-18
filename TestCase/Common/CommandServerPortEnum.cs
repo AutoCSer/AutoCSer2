@@ -68,6 +68,10 @@ namespace AutoCSer.TestCase.Common
         /// 文件同步测试端口
         /// </summary>
         FileSynchronous,
+        /// <summary>
+        /// 接口实时调用监视测试端口
+        /// </summary>
+        InterfaceRealTimeCallMonitor,
 
         /// <summary>
         /// 注册服务测试端口

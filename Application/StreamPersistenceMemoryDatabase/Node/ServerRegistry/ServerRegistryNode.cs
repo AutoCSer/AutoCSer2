@@ -231,7 +231,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             callback(ref logCallbacks, log);
             if (log.OperationType == ServerRegistryOperationTypeEnum.LostContact && isPersistenceLostContact && StreamPersistenceMemoryDatabaseService.IsLoaded)
             {
-                methodParameterCreator.Creator.LostContact(log.SessionID, log.ServerName);
+                StreamPersistenceMemoryDatabaseMethodParameterCreator.LostContact(log.SessionID, log.ServerName);
             }
         }
         /// <summary>

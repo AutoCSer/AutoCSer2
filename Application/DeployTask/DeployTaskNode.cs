@@ -221,16 +221,6 @@ namespace AutoCSer.CommandService
         {
             var builder = default(TaskBuilder);
             if (tasks.TryGetValue(identity, out builder)) builder.Data.Close(closeTime);
-            
-        }
-        /// <summary>
-        /// 关闭任务
-        /// </summary>
-        /// <param name="data"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void Close(TaskData data)
-        {
-            methodParameterCreator.Creator.Close(data.Identity, AutoCSer.Threading.SecondTimer.UtcNow);
         }
     }
 }

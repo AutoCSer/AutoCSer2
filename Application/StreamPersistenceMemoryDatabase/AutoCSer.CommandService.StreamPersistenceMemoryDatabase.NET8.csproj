@@ -104,6 +104,7 @@
     <Compile Include="Node\ArrayNode.cs" />
     <Compile Include="Node\BitmapNode.cs" />
     <Compile Include="Node\BitmapNodeResponseAwaiter.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageRunTaskTypeEnum.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapClientFilterNode.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapFilterNode.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMap.cs" />

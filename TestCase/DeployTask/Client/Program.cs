@@ -203,6 +203,7 @@ Press quit to exit.");
             await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ReverseLogCollection\ReverseService\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseService.exe", @"TestCase\ReverseLogCollection\ReverseClient\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseClient.exe");
             await waitProcess(@"TestCase\FileSynchronous\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronous.exe", @"TestCase\FileSynchronous\Client\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronousClient.exe");
             await waitProcess2(@"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\DiskBlock\Client\bin\Release\net8.0\AutoCSer.TestCase.DiskBlockClient.exe", 2);
+            await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\InterfaceRealTimeCallMonitor\bin\Release\net8.0\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.exe", @"TestCase\NetCoreWeb\bin\Release\net8.0\AutoCSer.TestCase.NetCoreWeb.exe");
 
             await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
             await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
@@ -219,9 +220,19 @@ Press quit to exit.");
                 Process process = await new ProcessInfo(fileName).StartAsync();
                 if (process != null)
                 {
-                    using (process) await process.WaitForExitAsync();
+                    using (process) await wait(fileName, process);
                 }
                 else Console.WriteLine("Not Found File");
+            }
+        }
+        private static async Task wait(string fileName, Process process)
+        {
+            await process.WaitForExitAsync();
+            FileInfo file = new FileInfo(Path.Combine(new FileInfo(fileName).Directory.FullName, "AutoCSer.log"));
+            if (await AutoCSer.Common.FileExists(file))
+            {
+                using (process = await new ProcessInfo(file.FullName).StartAsync()) await process.WaitForExitAsync();
+                await AutoCSer.Common.DeleteFile(file);
             }
         }
         private static async Task waitProcess2(string serverFileName, string clientFileName, int count = 1)
@@ -238,7 +249,7 @@ Press quit to exit.");
                 using (process)
                 {
                     await waitProcess(clientFileName, count);
-                    await process.WaitForExitAsync();
+                    await wait(serverFileName, process);
                 }
             }
             else Console.WriteLine("Not Found File");
@@ -252,7 +263,7 @@ Press quit to exit.");
                 using (process)
                 {
                     await waitProcess(serverFileName, clientFileName);
-                    await process.WaitForExitAsync();
+                    await wait(baseFileName, process);
                 }
             }
             else Console.WriteLine("Not Found File");

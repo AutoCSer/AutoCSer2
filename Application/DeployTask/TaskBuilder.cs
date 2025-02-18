@@ -145,7 +145,7 @@ namespace AutoCSer.CommandService.DeployTask
                 }
                 while (!Data.IsClosed);
             }
-            finally { node.Close(Data); }
+            finally { node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Close(Data.Identity, AutoCSer.Threading.SecondTimer.UtcNow); }
         }
         /// <summary>
         /// 移除已结束或者未开始任务

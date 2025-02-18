@@ -8599,6 +8599,13 @@
             <param name="source">字符串，长度必须大于0</param>
             <param name="destination">目标串起始地址,不能为null</param>
         </member>
+        <member name="M:AutoCSer.Common.CopyTo(AutoCSer.SubString@,System.Void*)">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">字符串，长度必须大于0</param>
+            <param name="destination">目标串起始地址,不能为null</param>
+        </member>
         <member name="M:AutoCSer.Common.CopyTo(System.String,System.Int32,System.Void*,System.Int32)">
             <summary>
             复制数据
@@ -30545,12 +30552,6 @@
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocketEvent.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
-            命令客户端套接字通过认证 API 以后的客户端初始化操作，默认操作为重置当前套接字与自动绑定客户端控制器操作并通知等待连接的调用者，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
-            </summary>
-            <param name="socket"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent.OnSetController(AutoCSer.Net.CommandClientSocket)">
-            <summary>
             命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
             <param name="socket"></param>
@@ -30613,7 +30614,7 @@
             <param name="client">命令客户端</param>
             <param name="isSymmetryInterface">是否对称接口定义</param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.OnSetController(AutoCSer.Net.CommandClientSocket)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
             当前套接字通过验证方法，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
@@ -38327,6 +38328,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.KeepCallbackCommand.nullCallback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            默认空回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="F:AutoCSer.Net.KeepCallbackCommand.NullCallback">
+            <summary>
+            默认空回调
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.ReturnCommand">
             <summary>
             返回值命令 await CommandClientReturnValue
@@ -39960,7 +39973,7 @@
         </member>
         <member name="P:AutoCSer.Date.TimestampPerSecond">
             <summary>
-            每秒时间戳
+            每秒始终周期数量
             </summary>
         </member>
         <member name="M:AutoCSer.Date.GetTimestampBySeconds(System.Int64)">

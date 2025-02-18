@@ -68,7 +68,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
-        public override async Task OnSetController(AutoCSer.Net.CommandClientSocket socket)
+        public override async Task OnMethodVerified(AutoCSer.Net.CommandClientSocket socket)
         {
             await clientLock.WaitAsync();
             try

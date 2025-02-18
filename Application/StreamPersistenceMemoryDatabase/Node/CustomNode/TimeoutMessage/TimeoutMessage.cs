@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +16,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// 序列化数据
         /// </summary>
         internal TimeoutMessageData<T> Data;
+        /// <summary>
+        /// 超时任务消息
+        /// </summary>
+        private TimeoutMessage() { }
         /// <summary>
         /// 超时任务消息
         /// </summary>
@@ -37,34 +42,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// <param name="task"></param>
         public static implicit operator TimeoutMessage<T>(T task) { return new TimeoutMessage<T>(task); }
         /// <summary>
-        /// 启动任务
+        /// 超时启动任务
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal Task SetRunTask(TimeoutMessageNode<T> node)
+        internal Task Timeout(TimeoutMessageNode<T> node)
         {
             Data.IsRunTask = true;
-            return RunTask(node);
+            return RunTask(node, TimeoutMessageRunTaskTypeEnum.Timeout);
         }
         /// <summary>
         /// 执行任务
         /// </summary>
         /// <param name="node"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
-        internal async Task RunTask(TimeoutMessageNode<T> node)
+        internal async Task RunTask(TimeoutMessageNode<T> node, TimeoutMessageRunTaskTypeEnum type)
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
             bool isSuccess = false;
             try
             {
-                isSuccess = await node.RunTask(this);
+                isSuccess = await node.RunTask(this, type);
             }
             catch (Exception exception)
             {
                 await node.OnTaskException(this, exception);
             }
-            finally { node.Completed(this, isSuccess); }
+            finally { node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Completed(Data.Identity, isSuccess); }
         }
     }
 }

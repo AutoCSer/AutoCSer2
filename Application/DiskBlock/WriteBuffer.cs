@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Memory;
+using AutoCSer.Net.CommandServer;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -83,6 +84,22 @@ namespace AutoCSer.CommandService.DiskBlock
                 isDeserializeLog = true;
                 AutoCSer.LogHelper.ErrorIgnoreException($"{typeof(WriteBuffer).FullName} 反序列化同步 IO 环境错误");
             }
+        }
+
+        /// <summary>
+        /// 获取二进制序列化数据缓冲区
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static WriteBuffer CreateWriteBufferSerializer<T>(T? value)
+#else
+        public static WriteBuffer CreateWriteBufferSerializer<T>(T value)
+#endif
+        {
+            return new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
         }
     }
 }

@@ -38,6 +38,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandListenerSession.cs" />
+    <Compile Include="ITimestampVerifySession.cs" />
     <Compile Include="ITimestampVerifyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ITimestampVerifyClient.cs" />

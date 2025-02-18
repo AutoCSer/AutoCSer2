@@ -115,7 +115,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             do
             {
-                Identity.Set(AutoCSer.Threading.SecondTimer.UtcNow.AddSeconds(callbackEnd.notNull().Reserve), Node.Identity++);
+                Identity.Set(AutoCSer.Threading.SecondTimer.UtcNow.AddSeconds(callbackEnd.notNull().Reserve16), Node.Identity++);
                 var head = callbackHead.notNull();
                 if (head.SynchronousCallback(Identity.Identity))
                 {

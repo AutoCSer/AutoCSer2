@@ -169,14 +169,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (guards.TryGetValue(processID, out existsGuardProcess)
                 && object.ReferenceEquals(guardProcess, existsGuardProcess))
             {
-                methodParameterCreator.Creator.Remove(processID, info.StartTime, info.ProcessName);
+                StreamPersistenceMemoryDatabaseMethodParameterCreator.Remove(processID, info.StartTime, info.ProcessName);
                 guards.Remove(processID);
             }
             if (guardProcess.NewProcess == null) return;
             using (guardProcess.NewProcess)
             {
                 if (guardProcess.IsRemove || guards.ContainsKey(guardProcess.NewProcess.Id)) return;
-                methodParameterCreator.Creator.Guard(new ProcessGuardInfo(guardProcess));
+                StreamPersistenceMemoryDatabaseMethodParameterCreator.Guard(new ProcessGuardInfo(guardProcess));
             }
         }
         /// <summary>

@@ -40,6 +40,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Index\HashSetIndex.cs" />
+    <Compile Include="Index\HashSetIndexCallback.cs" />
+    <Compile Include="Index\IIndexNode.cs" />
+    <Compile Include="Index\IIndexNodeClientNode.cs" />
+    <Compile Include="Index\IIndexNodeLocalClientNode.cs" />
+    <Compile Include="Index\IndexData.cs" />
+    <Compile Include="Index\IndexNode.cs" />
+    <Compile Include="Index\IndexNodeCallback.cs" />
+    <Compile Include="Index\SingleDiskBlockIndexNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticTrieGraph\AppendWordStateEnum.cs" />
     <Compile Include="StaticTrieGraph\GraphBuilder.cs" />
@@ -56,12 +65,21 @@
     <Compile Include="StaticTrieGraph\WordSegmentResult.cs" />
     <Compile Include="StaticTrieGraph\WordSegmentTypeEnum.cs" />
     <Compile Include="StaticTrieGraph\WordTypeEnum.cs" />
+    <Compile Include="WordIdentityBlockIndex\IWordIdentityBlockIndexNode.cs" />
+    <Compile Include="WordIdentityBlockIndex\LocalNode.cs" />
+    <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndex.cs" />
+    <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndexNode.cs" />
+    <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndexUpdateStateEnum.cs" />
     <Compile Include="{AutoCSer.CommandService.Search}.AutoCSer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
       <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
       <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DiskBlock\AutoCSer.CommandService.DiskBlock.DotNet4.5.csproj">
+      <Project>{24955ddd-b17e-486f-a78a-1572a861e873}</Project>
+      <Name>AutoCSer.CommandService.DiskBlock.DotNet4.5</Name>
     </ProjectReference>
     <ProjectReference Include="..\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5.csproj">
       <Project>{16850f6e-850a-46e4-af12-cf48e9e771b1}</Project>

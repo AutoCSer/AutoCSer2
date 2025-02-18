@@ -43,6 +43,7 @@
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
     <Compile Include="Diagnostics\ProcessInfo.cs" />
+    <Compile Include="Diagnostics\ServerTimestamp.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="DictionaryCreator.cs" />
     <Compile Include="ExceptionRepeat.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Expression\IfElseNode.cs" />
     <Compile Include="Expression\ParenthesisNode.cs" />
     <Compile Include="Expression\ValueNode.cs" />
+    <Compile Include="Extensions\ArraySort.cs" />
     <Compile Include="Extensions\FileInfoExtension.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\LeftArraySort.cs" />

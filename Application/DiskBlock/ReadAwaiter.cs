@@ -16,6 +16,12 @@ namespace AutoCSer.CommandService.DiskBlock
 #endif
     {
         /// <summary>
+        /// 读取字符串
+        /// </summary>
+        /// <param name="client">磁盘块客户端接口</param>
+        /// <param name="blockIndex">磁盘块索引信息</param>
+        internal ReadAwaiter(IDiskBlockClient client, BlockIndex blockIndex) : base(client, blockIndex) { }
+        /// <summary>
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -53,6 +59,20 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
+        /// <summary>
+        /// 读取数据
+        /// </summary>
+        protected ReadAwaiter() { }
+        /// <summary>
+        /// 读取数据
+        /// </summary>
+        /// <param name="client">磁盘块客户端接口</param>
+        /// <param name="blockIndex">磁盘块索引信息</param>
+        internal ReadAwaiter(IDiskBlockClient client, BlockIndex blockIndex)
+        {
+            command = client.Read(this, blockIndex);
+            command.OnCompleted(onCompleted);
+        }
         /// <summary>
         /// await 支持
         /// </summary>
@@ -101,16 +121,6 @@ namespace AutoCSer.CommandService.DiskBlock
         {
             IsCompleted = true;
             if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, AutoCSer.Common.EmptyAction, null) != null) continuation();
-        }
-        /// <summary>
-        /// 设置返回值命令
-        /// </summary>
-        /// <param name="command"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void Set(ReturnCommand<ReadBuffer> command)
-        {
-            this.command = command;
-            command.OnCompleted(onCompleted);
         }
         /// <summary>
         /// 设置完成状态

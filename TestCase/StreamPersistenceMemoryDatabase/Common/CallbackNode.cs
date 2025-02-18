@@ -185,7 +185,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
         public void CallCustomPersistence(int value)
         {
-            methodParameterCreator.Creator.CustomPersistence(value);
+            StreamPersistenceMemoryDatabaseMethodParameterCreator.CustomPersistence(value);
         }
         public void PersistenceCallbackException()
         {

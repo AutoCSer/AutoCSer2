@@ -62,6 +62,10 @@ namespace AutoCSer.NetCoreWeb
         internal Encoding ResponseEncoding { get { return responseEncoding; } }
 #endif
         /// <summary>
+        /// 调用监视超时毫秒数默认为 5000ms
+        /// </summary>
+        public virtual int MonitorTimeoutMilliseconds { get { return 5000; } }
+        /// <summary>
         /// 是否检查数据视图，配合 AutoCSer.NetCoreWeb.IAccessTokenParameter 一般用于 HTTP 头部参数鉴权
         /// </summary>
         protected virtual bool isCheckView { get { return false; } }
@@ -81,14 +85,15 @@ namespace AutoCSer.NetCoreWeb
         /// <returns></returns>
         internal async Task Load(HttpContext httpContext, ViewRequest viewInfo)
         {
-            ResponseResult result = ResponseStateEnum.Unknown;
-            bool checkVersion = true;
             long callIdentity = long.MinValue;
+            ResponseResult result = ResponseStateEnum.Unknown;
+            bool checkVersion = true, isException = true;
             try
             {
                 callIdentity = viewInfo.ViewMiddleware.GetCallIdentity(httpContext, this);
                 result = await checkView(httpContext, viewInfo);
                 if (result.IsSuccess) result = await load(httpContext, viewInfo);
+                isException = false;
             }
             catch (Exception exception)
             {
@@ -98,7 +103,7 @@ namespace AutoCSer.NetCoreWeb
             }
             finally
             {
-                if (callIdentity != long.MinValue) viewInfo.ViewMiddleware.OnCalled(callIdentity);
+                if (callIdentity != long.MinValue) viewInfo.ViewMiddleware.OnCallCompleted(callIdentity, isException);
                 if (!result.IsSuccess) await responseError(httpContext, viewInfo, result, checkVersion);
             }
         }

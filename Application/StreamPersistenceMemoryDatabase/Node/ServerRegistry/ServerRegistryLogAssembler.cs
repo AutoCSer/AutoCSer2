@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using static System.Collections.Specialized.BitVector32;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -131,6 +133,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return int.MinValue;
         }
         /// <summary>
+        /// 获取日志索引位置
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        private int getLogIndex(ServerRegistryLog log)
+        {
+            if (MainLog != null)
+            {
+                if (MainLog.IsNewEquals(log)) return -1;
+                int count = logs.Length;
+                if (count != 0)
+                {
+                    ServerRegistrySessionLog[] logArray = logs.Array;
+                    do
+                    {
+                        if (logArray[--count].IsNewEquals(log)) return count;
+                    }
+                    while (count != 0);
+                }
+            }
+            return int.MinValue;
+        }
+        /// <summary>
         /// 添加服务注册日志
         /// </summary>
         /// <param name="session"></param>
@@ -160,6 +185,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 case ServerRegistryOperationTypeEnum.ClusterNode:
                 case ServerRegistryOperationTypeEnum.ClusterMain:
+                    if (isLoaded && isNewEquals(session, log)) return ServerRegistryStateEnum.Success;
                     switch (MainLog.Log.OperationType)
                     {
                         case ServerRegistryOperationTypeEnum.ClusterNode:
@@ -177,6 +203,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (isLoaded) Node.Callback(ref callbacks, log);
                     return ServerRegistryStateEnum.Success;
                 case ServerRegistryOperationTypeEnum.Singleton:
+                    if (isLoaded && isNewEquals(session, log)) return ServerRegistryStateEnum.Success;
                     if (MainLog.Log.OperationType != ServerRegistryOperationTypeEnum.Singleton) return ServerRegistryStateEnum.OperationTypeConflict;
                     if (isLoaded)
                     {
@@ -197,6 +224,41 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     return ServerRegistryStateEnum.Success;
                 default: return ServerRegistryStateEnum.UnrecognizableOperationType;
             }
+        }
+        /// <summary>
+        /// 判断是否服务重启日志
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        private bool isNewEquals(ServerRegistrySession session, ServerRegistryLog log)
+        {
+            var mainLog = MainLog.notNull();
+            if (mainLog.IsNewEquals(log))
+            {
+                MainLog = new ServerRegistrySessionLog(session, log);
+                Node.Callback(ref callbacks, mainLog.notNull().Log.CreateLostContact());
+                Node.Callback(ref callbacks, log);
+                return true;
+            }
+            int count = logs.Length;
+            if (count != 0)
+            {
+                ServerRegistrySessionLog[] logArray = logs.Array;
+                do
+                {
+                    if (logArray[--count].IsNewEquals(log))
+                    {
+                        var lostContactLog = logArray[count];
+                        logArray[count] = new ServerRegistrySessionLog(session, log);
+                        Node.Callback(ref callbacks, lostContactLog.Log.CreateLostContact());
+                        Node.Callback(ref callbacks, log);
+                        return true;
+                    }
+                }
+                while (count != 0);
+            }
+            return false;
         }
         /// <summary>
         /// 单例服务超时强制下线

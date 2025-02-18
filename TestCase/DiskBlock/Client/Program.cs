@@ -17,8 +17,7 @@ namespace AutoCSer.TestCase.DiskBlockClient
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock),
                 ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
-                GetSocketEventDelegate = (client) => new CommandClientSocketEventTaskClient(client)
-                //GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)//IO 线程回调 await 后续操作，可以避免线程调度开销，适合后续无阻塞场景
+                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {

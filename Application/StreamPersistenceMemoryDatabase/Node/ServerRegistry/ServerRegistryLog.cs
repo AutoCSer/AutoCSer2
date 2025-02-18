@@ -111,6 +111,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             TimeoutSeconds = timeoutSeconds;
         }
         /// <summary>
+        /// 判断是否服务重启日志
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool IsNewEquals(ServerRegistryLog log)
+        {
+            return Port == log.Port && Host == log.Host && OperationType == log.OperationType && NodeIndex == log.NodeIndex;
+        }
+        /// <summary>
         /// 创建服务失联日志
         /// </summary>
         /// <returns></returns>

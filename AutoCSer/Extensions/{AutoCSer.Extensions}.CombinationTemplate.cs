@@ -87,6 +87,22 @@ namespace AutoCSer.Extensions
             else if(array.Length > 1) QuickSort(array);
         }
     }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <param name="array"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void Sort(this long[] array)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize64) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length);
+            else if (array.Length > 1) QuickSort(array);
+        }
+    }
 }
 
 namespace AutoCSer.Extensions
@@ -107,6 +123,22 @@ namespace AutoCSer.Extensions
             else if(array.Length > 1) QuickSort(array);
         }
     }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <param name="array"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void Sort(this uint[] array)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length);
+            else if (array.Length > 1) QuickSort(array);
+        }
+    }
 }
 
 namespace AutoCSer.Extensions
@@ -125,6 +157,22 @@ namespace AutoCSer.Extensions
         {
             if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.Sort(array.GetFixedBuffer(), 0, array.Length);
             else if(array.Length > 1) QuickSort(array);
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <param name="array"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void Sort(this int[] array)
+        {
+            if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length);
+            else if (array.Length > 1) QuickSort(array);
         }
     }
 }
@@ -1812,6 +1860,20 @@ namespace AutoCSer.Extensions
             fixed (long* arrayFixed = array.GetFixedBuffer()) AutoCSer.Algorithm.UnsafeQuickSort.SortLong((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
         }
     }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <param name="array">长度大于 1</param>
+        internal static void QuickSort(this long[] array)
+        {
+            fixed (long* arrayFixed = array) AutoCSer.Algorithm.UnsafeQuickSort.SortLong((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
+        }
+    }
 }
 
 namespace AutoCSer.Algorithm
@@ -1929,6 +1991,20 @@ namespace AutoCSer.Extensions
         internal static void QuickSort(this LeftArray<uint> array)
         {
             fixed (uint* arrayFixed = array.GetFixedBuffer()) AutoCSer.Algorithm.UnsafeQuickSort.SortUInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <param name="array">长度大于 1</param>
+        internal static void QuickSort(this uint[] array)
+        {
+            fixed (uint* arrayFixed = array) AutoCSer.Algorithm.UnsafeQuickSort.SortUInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
         }
     }
 }

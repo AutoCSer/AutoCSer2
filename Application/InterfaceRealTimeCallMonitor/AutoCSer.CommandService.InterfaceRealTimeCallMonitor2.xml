@@ -1,0 +1,1140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.CommandService.InterfaceRealTimeCallMonitor</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData">
+            <summary>
+            实时调用信息序列化数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.CallType">
+            <summary>
+            调用接口类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.CallName">
+            <summary>
+            调用接口方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.StartTimestamp">
+            <summary>
+            开始调用时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.TimeoutTimestamp">
+            <summary>
+            调用超时时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.completedTimestamp">
+            <summary>
+            调用完成时间戳
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.CompletedTimestamp">
+            <summary>
+            调用完成时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.stepTimestamp">
+            <summary>
+            最后一次设置自定义调用步骤时间戳
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.StepTimestamp">
+            <summary>
+            最后一次设置自定义调用步骤时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.step">
+            <summary>
+            最后一次设置的自定义调用步骤
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.Step">
+            <summary>
+            最后一次设置的自定义调用步骤
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.Type">
+            <summary>
+            调用类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.isException">
+            <summary>
+            接口是否执行异常
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.IsException">
+            <summary>
+            接口是否执行异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.isTimeout">
+            <summary>
+            是否已经触发超时操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.#ctor">
+            <summary>
+            实时调用信息序列化数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.#ctor(System.String,System.String,System.Int32,System.UInt16)">
+            <summary>
+            实时调用信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="timeoutMilliseconds">调用超时毫秒数</param>
+            <param name="type">调用类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.Completed(System.Boolean)">
+            <summary>
+            调用完成
+            </summary>
+            <param name="isException">接口是否执行异常</param>
+            <returns>是否需要新增超时调用</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.checkTimeout(System.Int64)">
+            <summary>
+            检查是否需要新增超时调用
+            </summary>
+            <param name="timestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.SetStep(System.Int32)">
+            <summary>
+            设置自定义调用步骤
+            </summary>
+            <param name="step">自定义调用步骤</param>
+            <returns>是否需要新增超时调用</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.CheckTimeout(System.Int64)">
+            <summary>
+            检查调用是否超时
+            </summary>
+            <param name="timestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.CheckTimeout">
+            <summary>
+            检查是否需要新增超时调用
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity">
+            <summary>
+            实时调用标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity.MonitorIdentity">
+            <summary>
+            实时调用监视标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity.Identity">
+            <summary>
+            调用标识
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity.#ctor(System.Int64,System.Int64)">
+            <summary>
+            实时调用标识
+            </summary>
+            <param name="monitorIdentity">实时调用监视标识</param>
+            <param name="callIdentity">调用标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity.Equals(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity.Equals(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity.GetHashCode">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallInfo">
+            <summary>
+            实时调用信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallInfo.InterfaceMonitor">
+            <summary>
+            实时调用监视信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallInfo.CallData">
+            <summary>
+            实时调用信息序列化数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallInfo.#ctor(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData)">
+            <summary>
+            实时调用信息
+            </summary>
+            <param name="interfaceMonitor">实时调用监视信息</param>
+            <param name="callData">实时调用信息序列化数据</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp">
+            <summary>
+            实时调用时间戳信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp.ServerTimestamp">
+            <summary>
+            服务端时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp.CallData">
+            <summary>
+            实时调用信息序列化数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp.#ctor(AutoCSer.CommandService.InterfaceRealTimeCallMonitorService,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData)">
+            <summary>
+            实时调用时间戳信息
+            </summary>
+            <param name="service">服务端时间戳</param>
+            <param name="callData">实时调用信息序列化数据</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession">
+            <summary>
+            接口实时调用监视服务会话对象操作对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.lastSession">
+            <summary>
+            最后访问的会话对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.tryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            尝试从命令服务套接字自定义会话对象获取指定会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.createSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            创建会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.AutoCSer#Net#ICommandListenerGetSession{AutoCSer#CommandService#ITimestampVerifySession}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            尝试从命令服务套接字自定义会话对象获取指定会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.AutoCSer#Net#ICommandListenerSession{AutoCSer#CommandService#ITimestampVerifySession}#CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            创建会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.AutoCSer#Net#ICommandListenerGetSession{AutoCSer#CommandService#InterfaceRealTimeCallMonitor#IInterfaceMonitorSession}#TryGetSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            尝试从命令服务套接字自定义会话对象获取指定会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.AutoCSer#Net#ICommandListenerSession{AutoCSer#CommandService#InterfaceRealTimeCallMonitor#IInterfaceMonitorSession}#CreateSessionObject(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            创建会话对象
+            </summary>
+            <param name="socket">命令服务套接字</param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession.Default">
+            <summary>
+            默认接口实时调用监视服务会话对象操作对象
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics">
+            <summary>
+            调用异常统计信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics.CallType">
+            <summary>
+            调用接口类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics.CallName">
+            <summary>
+            调用接口方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics.Statistics">
+            <summary>
+            异常调用统计信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics.#ctor(System.String,System.String,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics)">
+            <summary>
+            调用异常统计信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="statistics">异常调用统计信息</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics">
+            <summary>
+            异常调用统计信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.callTimes">
+            <summary>
+            最后添加的调用时间集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.count">
+            <summary>
+            异常调用次数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.Count">
+            <summary>
+            异常调用次数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.callTimeIndex">
+            <summary>
+            当前添加调用时间索引位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.CallTimes">
+            <summary>
+            最后添加的调用时间集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.#ctor">
+            <summary>
+            异常调用统计信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.#ctor(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode,System.DateTime)">
+            <summary>
+            异常调用统计信息
+            </summary>
+            <param name="node">异常调用统计信息节点</param>
+            <param name="callTime">异常调用时间</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics.Append(System.DateTime)">
+            <summary>
+            添加异常调用时间
+            </summary>
+            <param name="callTime">异常调用时间</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode">
+            <summary>
+            异常调用统计信息节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.strings">
+            <summary>
+            字符串缓存集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.stringArray">
+            <summary>
+            字符串数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.statistics">
+            <summary>
+            异常统计信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.count">
+            <summary>
+            异常调用总次数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.CallTimeCount">
+            <summary>
+            保存调用时间数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.#ctor(System.Int32)">
+            <summary>
+            异常调用统计信息节点
+            </summary>
+            <param name="callTimeCount">保存调用时间数量</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#LeftArray{System#String}}#GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#LeftArray{System#String}}#GetSnapshotResult(AutoCSer.LeftArray{System.String}[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#LeftArray{System#String}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.LeftArray{System.String}}@,AutoCSer.LeftArray{AutoCSer.LeftArray{System.String}}@)">
+            <summary>
+            持久化之前重组快照数据
+            </summary>
+            <param name="array">预申请快照容器数组</param>
+            <param name="newArray">超预申请快照数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.SnapshotSetStringArray(AutoCSer.LeftArray{System.String})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="stringArray">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#Int64,AutoCSer#CommandService#InterfaceRealTimeCallMonitor#ExceptionStatistics}}#GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#Int64,AutoCSer#CommandService#InterfaceRealTimeCallMonitor#ExceptionStatistics}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics}[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#Int64,AutoCSer#CommandService#InterfaceRealTimeCallMonitor#ExceptionStatistics}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics}}@)">
+            <summary>
+            持久化之前重组快照数据
+            </summary>
+            <param name="array">预申请快照容器数组</param>
+            <param name="newArray">超预申请快照数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.SnapshotSet(AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.getStringIndex(System.String)">
+            <summary>
+             获取字符串缓存编号
+            </summary>
+            <param name="value">字符串</param>
+            <returns>缓存编号</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.getIndex(System.String,System.String)">
+            <summary>
+             获取异常统计信息关键字
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <returns>异常统计信息关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.GetCount">
+            <summary>
+            获取异常调用总次数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.GetStatisticsCount">
+            <summary>
+            获取异常统计信息数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.Append(System.String,System.String,System.DateTime)">
+            <summary>
+            添加异常调用时间
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="callTime">异常调用时间</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.Remove(System.String,System.String)">
+            <summary>
+            移除异常统计信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.GetStatistics(System.String,System.String)">
+            <summary>
+            获取调用异常统计信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <returns>异常统计信息，失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.GetManyStatistics(System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics})">
+            <summary>
+            获取指定数量调用异常统计信息
+            </summary>
+            <param name="count">获取调用异常统计信息数量</param>
+            <param name="callback">获取数量调用异常统计信息回调委托</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode">
+            <summary>
+            异常调用统计信息节点接口
+            </summary>
+            <summary>
+            异常调用统计信息节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.SnapshotSetStringArray(AutoCSer.LeftArray{System.String})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="stringArray">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.SnapshotSet(AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.GetCount">
+            <summary>
+            获取异常调用总次数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.GetStatisticsCount">
+            <summary>
+            获取异常统计信息数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.Append(System.String,System.String,System.DateTime)">
+            <summary>
+            添加异常调用时间
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="callTime">异常调用时间</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.Remove(System.String,System.String)">
+            <summary>
+            移除异常统计信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.GetStatistics(System.String,System.String)">
+            <summary>
+            获取调用异常统计信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <returns>异常统计信息，失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.GetManyStatistics(System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics})">
+            <summary>
+            获取指定数量调用异常统计信息
+            </summary>
+            <param name="count">获取调用异常统计信息数量</param>
+            <param name="callback">获取数量调用异常统计信息回调委托</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceMonitorSession">
+            <summary>
+            接口实时调用监视服务会话对象接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceMonitorSession.InterfaceMonitor">
+            <summary>
+            实时调用监视信息
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor">
+            <summary>
+            实时调用监视信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor.Identity">
+            <summary>
+            实时调用监视标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor.callback">
+            <summary>
+            接口监视服务在线检查回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor.#ctor(AutoCSer.CommandService.InterfaceRealTimeCallMonitorService)">
+            <summary>
+            实时调用监视信息
+            </summary>
+            <param name="service"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor.Set(AutoCSer.Net.CommandServerKeepCallback)">
+            <summary>
+            设置接口监视服务在线检查回调委托
+            </summary>
+            <param name="callback">接口监视服务在线检查回调委托</param>
+            <returns>需要取消的原委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor.CancelCallback">
+            <summary>
+            取消在线检查回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.InterfaceMonitor.IsCallback">
+            <summary>
+            在线检查回调
+            </summary>
+            <returns>接口监视服务是否在线</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimeoutCallback">
+            <summary>
+            超时检查回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimeoutCallback.service">
+            <summary>
+            接口实时调用监视服务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimeoutCallback.#ctor(AutoCSer.CommandService.InterfaceRealTimeCallMonitorService)">
+            <summary>
+            超时检查回调
+            </summary>
+            <param name="service">接口实时调用监视服务</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimeoutCallback.RunTask">
+            <summary>
+            超时检查回调
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimestampVerifySession">
+            <summary>
+            基于递增登录时间戳验证的服务认证会话对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimestampVerifySession.InterfaceMonitor">
+            <summary>
+            实时调用监视信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimestampVerifySession.#ctor(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            基于递增登录时间戳验证的服务认证会话对象
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.TimestampVerifySession.Null">
+            <summary>
+            默认空命令服务套接字会话对象
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode">
+            <summary>
+            异常调用统计信息节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode.Append(System.String,System.String,System.DateTime)">
+            <summary>
+            添加异常调用时间
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="callTime">异常调用时间</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode.GetCount">
+            <summary>
+            获取异常调用总次数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode.GetManyStatistics(System.Int32)">
+            <summary>
+            获取指定数量调用异常统计信息
+            </summary>
+            <param name="count">获取调用异常统计信息数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode.GetStatistics(System.String,System.String)">
+            <summary>
+            获取调用异常统计信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <returns>异常统计信息，失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode.GetStatisticsCount">
+            <summary>
+            获取异常统计信息数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode.Remove(System.String,System.String)">
+            <summary>
+            移除异常统计信息
+            </summary>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum">
+            <summary>
+            异常调用统计信息节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.Append">
+            <summary>
+            [0] 添加异常调用时间
+            string callType 调用接口类型
+            string callName 调用接口方法名称
+            System.DateTime callTime 异常调用时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.GetCount">
+            <summary>
+            [1] 获取异常调用总次数
+            返回值 long 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.GetManyStatistics">
+            <summary>
+            [2] 获取指定数量调用异常统计信息
+            int count 获取调用异常统计信息数量
+            返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.GetStatistics">
+            <summary>
+            [3] 获取调用异常统计信息
+            string callType 调用接口类型
+            string callName 调用接口方法名称
+            返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics 异常统计信息，失败返回 null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.GetStatisticsCount">
+            <summary>
+            [4] 获取异常统计信息数量
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.SnapshotSet">
+            <summary>
+            [5] 快照设置数据
+            AutoCSer.BinarySerializeKeyValue{long,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics} value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.SnapshotSetStringArray">
+            <summary>
+            [6] 快照设置数据
+            AutoCSer.LeftArray{string} stringArray 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.Remove">
+            <summary>
+            [7] 移除异常统计信息
+            string callType 调用接口类型
+            string callName 调用接口方法名称
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceRealTimeCallMonitorClientSocketEvent">
+            <summary>
+            接口实时调用监视服务客户端接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceRealTimeCallMonitorClientSocketEvent.InterfaceRealTimeCallMonitor">
+            <summary>
+            接口实时调用监视服务接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService">
+            <summary>
+            接口实时调用监视服务接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.GetCount">
+            <summary>
+            获取未完成调用数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.Check(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback)">
+            <summary>
+            接口监视服务在线检查
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">在线检查回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.GetTimeout(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp})">
+            <summary>
+            获取超时调用数据
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">实时调用时间戳信息回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.GetException(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp})">
+            <summary>
+            获取异常调用数据
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">实时调用时间戳信息回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.Start(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,System.String,System.String,System.Int32,System.UInt16)">
+            <summary>
+            新增一个实时调用信息
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callIdentity">调用标识</param>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="timeoutMilliseconds">超时毫秒数</param>
+            <param name="type">调用类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.Completed(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,System.Boolean)">
+            <summary>
+            调用完成
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callIdentity">调用标识</param>
+            <param name="isException">接口是否执行异常</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.SetStep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,System.Int32)">
+            <summary>
+            设置自定义调用步骤
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callIdentity">调用标识</param>
+            <param name="step">自定义调用步骤</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.GetTimeoutCount(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue)">
+            <summary>
+            获取超时调用数量
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <returns>超时调用数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService.GetTimeoutCalls(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int32,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp})">
+            <summary>
+            获取指定数量的超时调用
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="count">获取数量</param>
+            <param name="callback">超时调用回调</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController">
+            <summary>
+            接口实时调用监视服务接口 客户端接口
+            </summary>
+            <summary>
+            接口实时调用监视服务接口 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.Check(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            接口监视服务在线检查
+            </summary>
+            <param name="callback">在线检查回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetException(System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            获取异常调用数据
+            </summary>
+            <param name="callback">实时调用时间戳信息回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetTimeout(System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            获取超时调用数据
+            </summary>
+            <param name="callback">实时调用时间戳信息回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.Check">
+            <summary>
+            接口监视服务在线检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.Completed(System.Int64,System.Boolean)">
+            <summary>
+            调用完成
+            </summary>
+            <param name="callIdentity">调用标识</param>
+            <param name="isException">接口是否执行异常</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetCount">
+            <summary>
+            获取未完成调用数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetException">
+            <summary>
+            获取异常调用数据
+            </summary>
+            <returns>实时调用时间戳信息回调</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetTimeout">
+            <summary>
+            获取超时调用数据
+            </summary>
+            <returns>实时调用时间戳信息回调</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetTimeoutCalls(System.Int32)">
+            <summary>
+            获取指定数量的超时调用
+            </summary>
+            <param name="count">获取数量</param>
+            <returns>超时调用回调</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetTimeoutCount">
+            <summary>
+            获取超时调用数量
+            </summary>
+            <returns>超时调用数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.SetStep(System.Int64,System.Int32)">
+            <summary>
+            设置自定义调用步骤
+            </summary>
+            <param name="callIdentity">调用标识</param>
+            <param name="step">自定义调用步骤</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.Start(System.Int64,System.String,System.String,System.Int32,System.UInt16)">
+            <summary>
+            新增一个实时调用信息
+            </summary>
+            <param name="callIdentity">调用标识</param>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="timeoutMilliseconds">超时毫秒数</param>
+            <param name="type">调用类型</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService">
+            <summary>
+            接口实时调用监视服务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.socketSessionObject">
+            <summary>
+            会话对象操作接口
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.ServerTimestamp">
+            <summary>
+            服务端时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.commandServerCallQueue">
+            <summary>
+            服务端执行队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.calls">
+            <summary>
+            实时调用信息集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.timeoutCallbacks">
+            <summary>
+            超时调用回调委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.exceptionCallbacks">
+            <summary>
+            异常调用回调委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.removeIdentitys">
+            <summary>
+            待删除实时调用标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.CurrentMonitorIdentity">
+            <summary>
+            当前分配实时调用监视标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.isCheckTimeout">
+            <summary>
+            是否正在检查超时
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.#ctor(AutoCSer.Net.CommandListener,System.Int32)">
+            <summary>
+            接口实时调用监视服务
+            </summary>
+            <param name="listener">SessionObject 必须实现 AutoCSer.Net.ICommandListenerSession[AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceMonitorSession]</param>
+            <param name="checkTimeoutSeconds">超时检查执行间隔秒数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.AutoCSer#Net#ICommandServerBindController#Bind(AutoCSer.Net.CommandServerController)">
+            <summary>
+            绑定命令服务控制器
+            </summary>
+            <param name="controller"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.OnTimer">
+            <summary>
+            触发定时操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.CheckTimeout">
+            <summary>
+            超时检查回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.GetCount">
+            <summary>
+            获取未完成调用数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.getInterfaceMonitor(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            获取套接字绑定的实时调用监视信息
+            </summary>
+            <param name="socket"></param>
+            <returns>实时调用监视信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.Check(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback)">
+            <summary>
+            接口监视服务在线检查回调
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">在线检查回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.GetTimeout(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp})">
+            <summary>
+            获取超时调用数据
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">实时调用时间戳信息回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.GetException(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp})">
+            <summary>
+            获取异常调用数据
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callback">实时调用时间戳信息回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.Start(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,System.String,System.String,System.Int32,System.UInt16)">
+            <summary>
+            新增一个实时调用信息
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callIdentity">调用标识</param>
+            <param name="callType">调用接口类型</param>
+            <param name="callName">调用接口方法名称</param>
+            <param name="timeoutMilliseconds">超时毫秒数</param>
+            <param name="type">调用类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.Completed(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,System.Boolean)">
+            <summary>
+            调用完成
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callIdentity">调用标识</param>
+            <param name="isException">接口是否执行异常</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.SetStep(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int64,System.Int32)">
+            <summary>
+            设置自定义调用步骤
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="callIdentity">调用标识</param>
+            <param name="step">自定义调用步骤</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.timeout(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData)">
+            <summary>
+            调用超时处理
+            </summary>
+            <param name="callData">实时调用信息序列化数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.exception(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData)">
+            <summary>
+            调用异常处理
+            </summary>
+            <param name="callData">实时调用信息序列化数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.GetTimeoutCount(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue)">
+            <summary>
+            获取超时调用数量
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <returns>超时调用数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.getTimeoutCount">
+            <summary>
+            获取超时调用数量
+            </summary>
+            <returns>超时调用数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.checkTimeout(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallInfo,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallIdentity,System.Int64)">
+            <summary>
+            调用超时检查
+            </summary>
+            <param name="call"></param>
+            <param name="callIdentity"></param>
+            <param name="timestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.GetTimeoutCalls(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.Int32,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp})">
+            <summary>
+            获取指定数量的超时调用
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="count">获取数量</param>
+            <param name="callback">超时调用回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorService.removeTimeout">
+            <summary>
+            删除不在线的超时调用
+            </summary>
+        </member>
+    </members>
+</doc>

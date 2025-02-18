@@ -30,7 +30,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 保留
         /// </summary>
-        internal ushort Reserve;
+        internal ushort Reserve16;
+        /// <summary>
+        /// 保留
+        /// </summary>
+        internal int Reserve;
         /// <summary>
         /// 无回调
         /// </summary>

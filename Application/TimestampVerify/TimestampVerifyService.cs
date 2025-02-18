@@ -42,7 +42,7 @@ namespace AutoCSer.CommandService
         {
             this.verifyString = verifyString;
             timestampChecker = new TimestampVerifyChecker(maxSecondsDifference);
-            socketSessionObject = listener.GetSessionObject<ICommandListenerSession<ITimestampVerifySession>>() ?? AutoCSer.CommandService.TimestampVerify.CommandListenerSession.Default;
+            socketSessionObject = listener.GetSessionObject<ICommandListenerSession<ITimestampVerifySession>>() ?? CommandListenerSession.Default;
             md5 = MD5.Create();
         }
         /// <summary>

@@ -205,6 +205,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{F73673
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.Search.NET8", "Application\Search\AutoCSer.CommandService.Search.NET8.csproj", "{88700546-D03C-48A0-B8B7-E5B47CC9128A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InterfaceRealTimeCallMonitor", "InterfaceRealTimeCallMonitor", "{B719E151-4108-4CB0-A040-728FA8D0A0BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CommandService.InterfaceRealTimeCallMonitor.NET8", "Application\InterfaceRealTimeCallMonitor\AutoCSer.CommandService.InterfaceRealTimeCallMonitor.NET8.csproj", "{856FD979-622E-4211-B8AC-BF1B42D61228}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestCase", "TestCase", "{925C3531-0F24-4B62-9000-4EA9817776BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.InterfaceRealTimeCallMonitor", "TestCase\InterfaceRealTimeCallMonitor\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.csproj", "{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -499,6 +507,14 @@ Global
 		{88700546-D03C-48A0-B8B7-E5B47CC9128A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88700546-D03C-48A0-B8B7-E5B47CC9128A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88700546-D03C-48A0-B8B7-E5B47CC9128A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{856FD979-622E-4211-B8AC-BF1B42D61228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{856FD979-622E-4211-B8AC-BF1B42D61228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{856FD979-622E-4211-B8AC-BF1B42D61228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{856FD979-622E-4211-B8AC-BF1B42D61228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -599,6 +615,10 @@ Global
 		{E7399175-93F3-4CA2-9EBF-164057D60642} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
 		{F73673E3-11E8-4557-9EF4-F47BB2F90EA1} = {820CAB27-14FB-446C-A5EF-600BC89A7BC4}
 		{88700546-D03C-48A0-B8B7-E5B47CC9128A} = {F73673E3-11E8-4557-9EF4-F47BB2F90EA1}
+		{B719E151-4108-4CB0-A040-728FA8D0A0BA} = {820CAB27-14FB-446C-A5EF-600BC89A7BC4}
+		{856FD979-622E-4211-B8AC-BF1B42D61228} = {B719E151-4108-4CB0-A040-728FA8D0A0BA}
+		{925C3531-0F24-4B62-9000-4EA9817776BF} = {B719E151-4108-4CB0-A040-728FA8D0A0BA}
+		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC} = {925C3531-0F24-4B62-9000-4EA9817776BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

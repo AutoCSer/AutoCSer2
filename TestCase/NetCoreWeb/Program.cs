@@ -52,13 +52,20 @@ namespace AutoCSer.TestCase.NetCoreWeb
         protected override Task onStart()
         {
             AutoCSer.Threading.ThreadPool.TinyBackground.Start(createHost);
-            return AutoCSer.Common.CompletedTask;
+            return InterfaceRealTimeCallMonitorCommandClientSocketEvent.CommandClient.SocketEvent.Wait();
         }
         /// <summary>
         /// 开始运行
         /// </summary>
         private void createHost()
         {
+            Console.WriteLine(@"http://localhost:5000/ExampleView.html#left=5&right=2
+http://localhost:5000/Example/CallState
+http://localhost:5000/Example/GetResult/5/2
+http://localhost:5000/Example/GetPost/5
+http://localhost:5000/IgnoreControllerRoute/5/2
+http://localhost:5000/ViewHelp.html");
+
             AutoCSer.NetCoreWeb.Startup<ViewMiddleware>.CreateHostBuilder(arguments);
         }
     }

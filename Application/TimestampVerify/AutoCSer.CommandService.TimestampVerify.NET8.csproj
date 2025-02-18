@@ -24,8 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="CommandListenerSession.cs" />
     <Compile Include="ITimestampVerifyService.cs" />
     <Compile Include="ITimestampVerifyClient.cs" />
+    <Compile Include="ITimestampVerifySession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseService\ITimestampVerifyReverseService.cs" />
     <Compile Include="ReverseService\ReverseServiceClientData.cs" />

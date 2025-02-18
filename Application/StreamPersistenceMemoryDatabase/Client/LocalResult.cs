@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase

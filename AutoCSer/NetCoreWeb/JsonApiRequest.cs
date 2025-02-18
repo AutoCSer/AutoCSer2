@@ -29,6 +29,10 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         internal readonly JsonApiAttribute Attribute;
         /// <summary>
+        /// 调用监视超时毫秒数默认为 5000ms
+        /// </summary>
+        public int MonitorTimeoutMilliseconds { get { return Attribute.MonitorTimeoutMilliseconds; } }
+        /// <summary>
         /// JSON API 方法信息标记
         /// </summary>
         internal readonly JsonApiFlags Flags;
@@ -84,10 +88,10 @@ namespace AutoCSer.NetCoreWeb
         {
             HttpRequest request = httpContext.Request;
             ByteArrayBuffer buffer = default(ByteArrayBuffer), stringBuffer = default(ByteArrayBuffer);
-            bool isReadPostString = false, checkVersion = !Attribute.CheckReferer && (Flags & (JsonApiFlags.IsCheckRequest | JsonApiFlags.IsAccessTokenParameter)) == 0;
-            ResponseResult result = ResponseStateEnum.Unknown;
             long callIdentity = long.MinValue;
             var postString = default(string);
+            ResponseResult result = ResponseStateEnum.Unknown;
+            bool isReadPostString = false, isException = true, checkVersion = !Attribute.CheckReferer && (Flags & (JsonApiFlags.IsCheckRequest | JsonApiFlags.IsAccessTokenParameter)) == 0;
             try
             {
                 bool isPost = string.Compare(request.Method, "POST", true) == 0;
@@ -224,6 +228,7 @@ namespace AutoCSer.NetCoreWeb
                     await AutoCSer.LogHelper.Info(postString.Length == 0 ? request.GetDisplayUrl() : (request.GetDisplayUrl() + "\r\n" + postString));
                 }
                 result = await call(httpContext, controller ?? createController(), checkVersion &= !Attribute.IsStaticVersion);
+                isException = false;
             }
             catch (Microsoft.AspNetCore.Connections.ConnectionResetException exception)
             {
@@ -242,7 +247,7 @@ namespace AutoCSer.NetCoreWeb
             }
             finally
             {
-                if (callIdentity != long.MinValue) ViewMiddleware.OnCalled(callIdentity);
+                if (callIdentity != long.MinValue) ViewMiddleware.OnCallCompleted(callIdentity, isException);
                 buffer.FreeCopy(ref stringBuffer);
                 if (!result.IsSuccess) await ViewMiddleware.ResponseError(httpContext, result, Attribute.IsResponseJavaScript, checkVersion);
             }

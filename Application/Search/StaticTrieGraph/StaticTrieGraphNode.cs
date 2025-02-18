@@ -11,8 +11,13 @@ namespace AutoCSer.CommandService.Search
     /// <summary>
     /// 字符串 Trie 图节点
     /// </summary>
-    public sealed unsafe class StaticTrieGraphNode : ContextNode<IStaticTrieGraphNode, GraphData>, IStaticTrieGraphNode, ISnapshot<GraphData>, ISnapshot<string>, ISnapshot<BinarySerializeKeyValue<string, int>>
+    public sealed unsafe class StaticTrieGraphNode : ContextNode<IStaticTrieGraphNode, GraphData>, IStaticTrieGraphNode, ISnapshot<GraphData>, ISnapshot<string>, ISnapshot<BinarySerializeKeyValue<SubString, int>>
     {
+        /// <summary>
+        /// 未知词语长度
+        /// </summary>
+        private const int wordStringLength = 64 << 10;
+
         /// <summary>
         /// 替换文字集合
         /// </summary>
@@ -44,7 +49,7 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 未知词语集合
         /// </summary>
-        private readonly Dictionary<HashSubString, int> words;
+        private readonly FragmentDictionary256<HashSubString, int> words;
         /// <summary>
         /// 文本分词结果
         /// </summary>
@@ -53,6 +58,14 @@ namespace AutoCSer.CommandService.Search
         /// 文本分词词语编号位图
         /// </summary>
         private ulong[] wordSegmentIdentityMap;
+        /// <summary>
+        /// 当前未知词语字符串
+        /// </summary>
+        private string wordString;
+        /// <summary>
+        /// 当前未知词语字符串位置
+        /// </summary>
+        private int wordStringIndex;
         /// <summary>
         /// Trie 树初始化创建器
         /// </summary>
@@ -79,7 +92,8 @@ namespace AutoCSer.CommandService.Search
             formatedText = string.Empty;
             wordSegments.SetEmpty();
             wordSegmentIdentityMap = EmptyArray<ulong>.Array;
-            words = DictionaryCreator<HashSubString>.Create<int>();
+            wordString = AutoCSer.Common.AllocateString(wordStringLength);
+            words = new FragmentDictionary256<HashSubString, int>(); ;
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -169,7 +183,7 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
         /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<BinarySerializeKeyValue<string, int>>.GetSnapshotCapacity(ref object customObject)
+        int ISnapshot<BinarySerializeKeyValue<SubString, int>>.GetSnapshotCapacity(ref object customObject)
         {
             if (graphData.IsGraph) return words.Count;
             return 0;
@@ -180,29 +194,56 @@ namespace AutoCSer.CommandService.Search
         /// <param name="snapshotArray">预申请的快照数据容器</param>
         /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
         /// <returns>快照数据信息</returns>
-        SnapshotResult<BinarySerializeKeyValue<string, int>> ISnapshot<BinarySerializeKeyValue<string, int>>.GetSnapshotResult(BinarySerializeKeyValue<string, int>[] snapshotArray, object customObject)
+        SnapshotResult<BinarySerializeKeyValue<SubString, int>> ISnapshot<BinarySerializeKeyValue<SubString, int>>.GetSnapshotResult(BinarySerializeKeyValue<SubString, int>[] snapshotArray, object customObject)
         {
             if (graphData.IsGraph)
             {
-                SnapshotResult<BinarySerializeKeyValue<string, int>> result = new SnapshotResult<BinarySerializeKeyValue<string, int>>(words.Count, snapshotArray.Length);
-                foreach (KeyValuePair<HashSubString, int> word in words) result.Add(snapshotArray, new BinarySerializeKeyValue<string, int>(word.Key.String.String.notNull(), word.Value));
+                SnapshotResult<BinarySerializeKeyValue<SubString, int>> result = new SnapshotResult<BinarySerializeKeyValue<SubString, int>>(words.Count, snapshotArray.Length);
+                foreach (KeyValuePair<HashSubString, int> word in words.KeyValues) result.Add(snapshotArray, new BinarySerializeKeyValue<SubString, int>(word.Key.String, word.Value));
                 return result;
             }
-            return new SnapshotResult<BinarySerializeKeyValue<string, int>>(0);
+            return new SnapshotResult<BinarySerializeKeyValue<SubString, int>>(0);
         }
         /// <summary>
         /// 持久化之前重组快照数据
         /// </summary>
         /// <param name="array">预申请快照容器数组</param>
         /// <param name="newArray">超预申请快照数据</param>
-        void ISnapshot<BinarySerializeKeyValue<string, int>>.SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<string, int>> array, ref LeftArray<BinarySerializeKeyValue<string, int>> newArray) { }
+        void ISnapshot<BinarySerializeKeyValue<SubString, int>>.SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<SubString, int>> array, ref LeftArray<BinarySerializeKeyValue<SubString, int>> newArray) { }
         /// <summary>
         /// 快照设置数据
         /// </summary>
         /// <param name="value">数据</param>
-        public void SnapshotSetWordIdentity(BinarySerializeKeyValue<string, int> value)
+        public void SnapshotSetWordIdentity(BinarySerializeKeyValue<SubString, int> value)
         {
+            getWord(ref value.Key, true);
             words.Add(value.Key, value.Value);
+        }
+        /// <summary>
+        /// 获取未知词语字符串
+        /// </summary>
+        /// <param name="word">未知词语</param>
+        /// <param name="isSnapshot"></param>
+        private unsafe void getWord(ref SubString word, bool isSnapshot)
+        {
+            if (wordStringIndex + word.Length <= wordStringLength)
+            {
+                fixed (char* write = wordString) AutoCSer.Common.CopyTo(ref word, write + wordStringIndex);
+                word.Set(wordString, wordStringIndex, word.Length);
+                wordStringIndex += word.Length;
+                return;
+            }
+            if (word.Length < wordStringIndex)
+            {
+                wordString = AutoCSer.Common.AllocateString(wordStringLength);
+                fixed (char* write = wordString) AutoCSer.Common.CopyTo(ref word, write);
+                word.Set(wordString, 0, wordStringIndex = word.Length);
+                return;
+            }
+            if (!isSnapshot)
+            {
+                fixed (char* read = word.GetFixedBuffer()) word.Set(new string(read, word.Start, word.Length), 0, word.Length);
+            }
         }
         /// <summary>
         /// 添加 Trie 图词语
@@ -518,7 +559,8 @@ namespace AutoCSer.CommandService.Search
                         wordSegments.Array[wordSegments.Length++].Set(word, 0);
                         return true;
                     case WordSegmentTypeEnum.AddText:
-                        words.Add(word.ToString().notNull(), identity = graphData.CurrentIdentity);
+                        getWord(ref word, false);
+                        words.Add(word, identity = graphData.CurrentIdentity);
                         ++graphData.CurrentIdentity;
                         wordSegments.Array[wordSegments.Length++].Set(word, identity);
                         setIdentityMap(identity);

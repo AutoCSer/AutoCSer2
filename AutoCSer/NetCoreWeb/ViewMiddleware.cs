@@ -1145,7 +1145,8 @@ namespace AutoCSer.NetCoreWeb
         /// 调用完成
         /// </summary>
         /// <param name="callIdentity">调用监视标识</param>
-        public virtual void OnCalled(long callIdentity) { }
+        /// <param name="isException">接口是否执行异常</param>
+        public virtual void OnCallCompleted(long callIdentity, bool isException) { }
         /// <summary>
         /// 获取请求路径，用于代码生成
         /// </summary>

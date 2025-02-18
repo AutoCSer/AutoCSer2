@@ -26,7 +26,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// </summary>
         /// <param name="value">数据</param>
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 3)]
-        void SnapshotSetWordIdentity(BinarySerializeKeyValue<string, int> value);
+        void SnapshotSetWordIdentity(BinarySerializeKeyValue<SubString, int> value);
         /// <summary>
         /// 添加 Trie 图词语
         /// </summary>

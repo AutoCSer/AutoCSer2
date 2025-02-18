@@ -4468,6 +4468,614 @@
             </summary>
             <param name="response"></param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageRunTaskTypeEnum">
+            <summary>
+            运行任务类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageRunTaskTypeEnum.ClientCall">
+            <summary>
+            客户端主动启动任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageRunTaskTypeEnum.Timeout">
+            <summary>
+            超时启动任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageRunTaskTypeEnum.RetryFailed">
+            <summary>
+            失败任务重试
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageRunTaskTypeEnum.Loaded">
+            <summary>
+            数据库重启重试未完成任务
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1">
+            <summary>
+            超时任务消息节点接口（用于分布式事务数据一致性检查）
+            </summary>
+            <typeparam name="T">任务消息数据类型</typeparam>
+            <summary>
+            超时任务消息节点接口（用于分布式事务数据一致性检查）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.SnapshotAdd(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.GetCount">
+            <summary>
+            获取任务总数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.GetFailedCount">
+            <summary>
+            获取执行失败任务数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.AppendBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
+            <summary>
+            添加任务 持久化前检查
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
+            <summary>
+            添加任务
+            </summary>
+            <param name="task"></param>
+            <returns>任务标识，失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.RunTaskLoadPersistence(System.Int64)">
+            <summary>
+            触发任务执行
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.RunTask(System.Int64)">
+            <summary>
+            触发任务执行
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.Completed(System.Int64,System.Boolean)">
+            <summary>
+            完成任务
+            </summary>
+            <param name="identity"></param>
+            <param name="isSuccess"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.Cancel(System.Int64)">
+            <summary>
+            取消任务
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.RetryFailed">
+            <summary>
+            失败任务重试
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1">
+            <summary>
+            超时检查定时
+            </summary>
+            <typeparam name="T">任务消息数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.messageNode">
+            <summary>
+            超时任务消息节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.#ctor">
+            <summary>
+            超时检查定时
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.OnTimer">
+            <summary>
+            定时器触发
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0})">
+            <summary>
+            设置超时任务消息节点
+            </summary>
+            <param name="messageNode"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.Cancel">
+            <summary>
+            取消定时
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1">
+            <summary>
+            超时检查队列回调
+            </summary>
+            <typeparam name="T">任务消息数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1.messageNode">
+            <summary>
+            超时任务消息节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0})">
+            <summary>
+            超时检查队列回调
+            </summary>
+            <param name="messageNode"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1.RunTask">
+            <summary>
+            回调操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1">
+            <summary>
+            超时任务消息
+            </summary>
+            <typeparam name="T">任务消息数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.Data">
+            <summary>
+            序列化数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.#ctor">
+            <summary>
+            超时任务消息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0}@)">
+            <summary>
+            超时任务消息
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.#ctor(`0)">
+            <summary>
+            超时任务消息
+            </summary>
+            <param name="task">任务消息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.op_Implicit(`0)~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0}">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.Timeout(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0})">
+            <summary>
+            超时启动任务
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.RunTask(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageRunTaskTypeEnum)">
+            <summary>
+            执行任务
+            </summary>
+            <param name="node"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1">
+            <summary>
+            超时任务消息序列化数据
+            </summary>
+            <typeparam name="T">任务消息数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Identity">
+            <summary>
+            任务消息标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Timeout">
+            <summary>
+            触发执行任务超时时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Task">
+            <summary>
+            任务消息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsRunTask">
+            <summary>
+            是否已经启动任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsFailed">
+            <summary>
+            任务是否执行失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsRemoved">
+            <summary>
+            是否已经删除
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsLinkSnapshot">
+            <summary>
+            是否快照任务链表节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Set(System.Int64)">
+            <summary>
+            设置节点当前分配任务标识
+            </summary>
+            <param name="currentIdentity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckTimeout">
+            <summary>
+            超时检查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckRunTask">
+            <summary>
+            判断是否需要启动任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckLoadRunTask">
+            <summary>
+            判断初始化加载数据是否需要启动任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckLinkSnapshot">
+            <summary>
+            判断是否快照任务链表节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Failed">
+            <summary>
+            任务执行失败
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Cancel">
+            <summary>
+            取消任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1">
+            <summary>
+            超时任务消息节点（用于分布式事务数据一致性检查）
+            </summary>
+            <typeparam name="T">任务消息数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.timeoutTicks">
+            <summary>
+            任务超时执行时钟周期
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.tasks">
+            <summary>
+            任务集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.checkTimer">
+            <summary>
+            超时检查定时
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.taskHead">
+            <summary>
+            任务链表首节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.taskEnd">
+            <summary>
+            任务链表尾节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.currentIdentity">
+            <summary>
+            当前分配任务标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.isCheckTimeout">
+            <summary>
+            是否正在检查超时
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.failedCount">
+            <summary>
+            执行失败任务数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.#ctor(System.Int32)">
+            <summary>
+            超时任务消息节点（用于分布式事务数据一致性检查）
+            </summary>
+            <param name="timeoutSeconds"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.StreamPersistenceMemoryDatabaseServiceLoaded">
+            <summary>
+            初始化加载完毕处理
+            </summary>
+            <returns>加载完毕替换的新节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
+            <summary>
+            节点移除后处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.StreamPersistenceMemoryDatabaseServiceDisposable">
+            <summary>
+            数据库服务关闭操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0}[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.SnapshotAdd(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.appendLink(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
+            <summary>
+            任务添加到队列
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetCount">
+            <summary>
+            获取任务总数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetFailedCount">
+            <summary>
+            获取执行失败任务数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.AppendBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
+            <summary>
+            添加任务 持久化前检查
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
+            <summary>
+            添加任务
+            </summary>
+            <param name="task"></param>
+            <returns>任务标识，失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RunTaskLoadPersistence(System.Int64)">
+            <summary>
+            触发任务执行
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RunTask(System.Int64)">
+            <summary>
+            触发任务执行
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RunTask(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageRunTaskTypeEnum)">
+            <summary>
+            执行任务
+            </summary>
+            <param name="task"></param>
+            <param name="type"></param>
+            <returns>是否执行成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.OnTaskException(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0},System.Exception)">
+            <summary>
+            执行任务异常处理
+            </summary>
+            <param name="task"></param>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.Completed(System.Int64,System.Boolean)">
+            <summary>
+            完成任务
+            </summary>
+            <param name="identity"></param>
+            <param name="isSuccess"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.Cancel(System.Int64)">
+            <summary>
+            取消任务
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RetryFailed">
+            <summary>
+            失败任务重试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.CheckTimeout">
+            <summary>
+            消息超时检查
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.CheckTimeoutCallback">
+            <summary>
+            超时检查
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1">
+            <summary>
+            超时任务消息节点接口（用于分布式事务数据一致性检查） 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
+            <summary>
+            添加任务
+            </summary>
+            <param name="task"></param>
+            <returns>任务标识，失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.Cancel(System.Int64)">
+            <summary>
+            取消任务
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.GetCount">
+            <summary>
+            获取任务总数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.GetFailedCount">
+            <summary>
+            获取执行失败任务数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.RetryFailed">
+            <summary>
+            失败任务重试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.RunTask(System.Int64)">
+            <summary>
+            触发任务执行
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1">
+            <summary>
+            超时任务消息节点接口（用于分布式事务数据一致性检查） 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
+            <summary>
+            添加任务
+            </summary>
+            <param name="task"></param>
+            <returns>任务标识，失败返回 0</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.Cancel(System.Int64)">
+            <summary>
+            取消任务
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.GetCount">
+            <summary>
+            获取任务总数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.GetFailedCount">
+            <summary>
+            获取执行失败任务数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.RetryFailed">
+            <summary>
+            失败任务重试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.RunTask(System.Int64)">
+            <summary>
+            触发任务执行
+            </summary>
+            <param name="identity">任务标识</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum">
+            <summary>
+            超时任务消息节点接口（用于分布式事务数据一致性检查） 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.Append">
+            <summary>
+            [0] 添加任务
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{T} task 
+            返回值 long 任务标识，失败返回 0
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.AppendBeforePersistence">
+            <summary>
+            [1] 添加任务 持久化前检查
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{T} task 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{long} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.Cancel">
+            <summary>
+            [2] 取消任务
+            long identity 任务标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.Completed">
+            <summary>
+            [3] 完成任务
+            long identity 
+            bool isSuccess 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.GetCount">
+            <summary>
+            [4] 获取任务总数量
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.GetFailedCount">
+            <summary>
+            [5] 获取执行失败任务数量
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.RetryFailed">
+            <summary>
+            [6] 失败任务重试
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.RunTask">
+            <summary>
+            [7] 触发任务执行
+            long identity 任务标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.RunTaskLoadPersistence">
+            <summary>
+            [8] 触发任务执行
+            long identity 任务标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.SnapshotAdd">
+            <summary>
+            [9] 快照设置数据
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{T} value 数据
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode">
             <summary>
             多哈希位图客户端同步过滤节点接口（类似布隆过滤器，适合小容器）
@@ -6826,589 +7434,6 @@
             </summary>
             <param name="key"></param>
             <returns>被删除数据</returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1">
-            <summary>
-            超时任务消息节点接口（用于分布式事务数据一致性检查）
-            </summary>
-            <typeparam name="T">任务消息数据类型</typeparam>
-            <summary>
-            超时任务消息节点接口（用于分布式事务数据一致性检查）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.SnapshotAdd(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0})">
-            <summary>
-            快照设置数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.GetCount">
-            <summary>
-            获取任务总数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.GetFailedCount">
-            <summary>
-            获取执行失败任务数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.AppendBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            添加任务 持久化前检查
-            </summary>
-            <param name="task"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            添加任务
-            </summary>
-            <param name="task"></param>
-            <returns>任务标识，失败返回 0</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.RunTaskLoadPersistence(System.Int64)">
-            <summary>
-            触发任务执行
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.RunTask(System.Int64)">
-            <summary>
-            触发任务执行
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.Completed(System.Int64,System.Boolean)">
-            <summary>
-            完成任务
-            </summary>
-            <param name="identity"></param>
-            <param name="isSuccess"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.Cancel(System.Int64)">
-            <summary>
-            取消任务
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNode`1.RetryFailed">
-            <summary>
-            失败任务重试
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1">
-            <summary>
-            超时检查定时
-            </summary>
-            <typeparam name="T">任务消息数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.messageNode">
-            <summary>
-            超时任务消息节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.#ctor">
-            <summary>
-            超时检查定时
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.OnTimer">
-            <summary>
-            定时器触发
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0})">
-            <summary>
-            设置超时任务消息节点
-            </summary>
-            <param name="messageNode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.CheckTimer`1.Cancel">
-            <summary>
-            取消定时
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1">
-            <summary>
-            超时检查队列回调
-            </summary>
-            <typeparam name="T">任务消息数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1.messageNode">
-            <summary>
-            超时任务消息节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0})">
-            <summary>
-            超时检查队列回调
-            </summary>
-            <param name="messageNode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage.TimeoutCallback`1.RunTask">
-            <summary>
-            回调操作
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1">
-            <summary>
-            超时任务消息
-            </summary>
-            <typeparam name="T">任务消息数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.Data">
-            <summary>
-            序列化数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0}@)">
-            <summary>
-            超时任务消息
-            </summary>
-            <param name="data"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.#ctor(`0)">
-            <summary>
-            超时任务消息
-            </summary>
-            <param name="task">任务消息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.op_Implicit(`0)~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0}">
-            <summary>
-            隐式转换
-            </summary>
-            <param name="task"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.SetRunTask(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0})">
-            <summary>
-            启动任务
-            </summary>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage`1.RunTask(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode{`0})">
-            <summary>
-            执行任务
-            </summary>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1">
-            <summary>
-            超时任务消息序列化数据
-            </summary>
-            <typeparam name="T">任务消息数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Identity">
-            <summary>
-            任务消息标识
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Timeout">
-            <summary>
-            触发执行任务超时时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Task">
-            <summary>
-            任务消息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsRunTask">
-            <summary>
-            是否已经启动任务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsFailed">
-            <summary>
-            任务是否执行失败
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsRemoved">
-            <summary>
-            是否已经删除
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.IsLinkSnapshot">
-            <summary>
-            是否快照任务链表节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Set(System.Int64)">
-            <summary>
-            设置节点当前分配任务标识
-            </summary>
-            <param name="currentIdentity"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckTimeout">
-            <summary>
-            超时检查
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckRunTask">
-            <summary>
-            判断是否需要启动任务
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckLoadRunTask">
-            <summary>
-            判断初始化加载数据是否需要启动任务
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.CheckLinkSnapshot">
-            <summary>
-            判断是否快照任务链表节点
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Failed">
-            <summary>
-            任务执行失败
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData`1.Cancel">
-            <summary>
-            取消任务
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1">
-            <summary>
-            超时任务消息节点（用于分布式事务数据一致性检查）
-            </summary>
-            <typeparam name="T">任务消息数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.timeoutTicks">
-            <summary>
-            任务超时执行时钟周期
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.tasks">
-            <summary>
-            任务集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.checkTimer">
-            <summary>
-            超时检查定时
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.taskHead">
-            <summary>
-            任务链表首节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.taskEnd">
-            <summary>
-            任务链表尾节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.currentIdentity">
-            <summary>
-            当前分配任务标识
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.isCheckTimeout">
-            <summary>
-            是否正在检查超时
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.failedCount">
-            <summary>
-            执行失败任务数量
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.#ctor(System.Int32)">
-            <summary>
-            超时任务消息节点（用于分布式事务数据一致性检查）
-            </summary>
-            <param name="timeoutSeconds"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.StreamPersistenceMemoryDatabaseServiceLoaded">
-            <summary>
-            初始化加载完毕处理
-            </summary>
-            <returns>加载完毕替换的新节点</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
-            <summary>
-            节点移除后处理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.StreamPersistenceMemoryDatabaseServiceDisposable">
-            <summary>
-            数据库服务关闭操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.SnapshotAdd(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{`0})">
-            <summary>
-            快照设置数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.appendLink(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            任务添加到队列
-            </summary>
-            <param name="task"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetCount">
-            <summary>
-            获取任务总数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.GetFailedCount">
-            <summary>
-            获取执行失败任务数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.AppendBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            添加任务 持久化前检查
-            </summary>
-            <param name="task"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            添加任务
-            </summary>
-            <param name="task"></param>
-            <returns>任务标识，失败返回 0</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RunTaskLoadPersistence(System.Int64)">
-            <summary>
-            触发任务执行
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RunTask(System.Int64)">
-            <summary>
-            触发任务执行
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RunTask(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            执行任务
-            </summary>
-            <param name="task"></param>
-            <returns>是否执行成功</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.OnTaskException(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0},System.Exception)">
-            <summary>
-            执行任务异常处理
-            </summary>
-            <param name="task"></param>
-            <param name="exception"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0},System.Boolean)">
-            <summary>
-            完成任务
-            </summary>
-            <param name="task"></param>
-            <param name="isSuccess"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.Completed(System.Int64,System.Boolean)">
-            <summary>
-            完成任务
-            </summary>
-            <param name="identity"></param>
-            <param name="isSuccess"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.Cancel(System.Int64)">
-            <summary>
-            取消任务
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.RetryFailed">
-            <summary>
-            失败任务重试
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.CheckTimeout">
-            <summary>
-            消息超时检查
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageNode`1.CheckTimeoutCallback">
-            <summary>
-            超时检查
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1">
-            <summary>
-            超时任务消息节点接口（用于分布式事务数据一致性检查） 客户端节点接口
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            添加任务
-            </summary>
-            <param name="task"></param>
-            <returns>任务标识，失败返回 0</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.Cancel(System.Int64)">
-            <summary>
-            取消任务
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.GetCount">
-            <summary>
-            获取任务总数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.GetFailedCount">
-            <summary>
-            获取执行失败任务数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.RetryFailed">
-            <summary>
-            失败任务重试
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeClientNode`1.RunTask(System.Int64)">
-            <summary>
-            触发任务执行
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1">
-            <summary>
-            超时任务消息节点接口（用于分布式事务数据一致性检查） 客户端节点接口
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
-            <summary>
-            添加任务
-            </summary>
-            <param name="task"></param>
-            <returns>任务标识，失败返回 0</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.Cancel(System.Int64)">
-            <summary>
-            取消任务
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.GetCount">
-            <summary>
-            获取任务总数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.GetFailedCount">
-            <summary>
-            获取执行失败任务数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.RetryFailed">
-            <summary>
-            失败任务重试
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.RunTask(System.Int64)">
-            <summary>
-            触发任务执行
-            </summary>
-            <param name="identity">任务标识</param>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum">
-            <summary>
-            超时任务消息节点接口（用于分布式事务数据一致性检查） 节点方法序号映射枚举类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.Append">
-            <summary>
-            [0] 添加任务
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{T} task 
-            返回值 long 任务标识，失败返回 0
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.AppendBeforePersistence">
-            <summary>
-            [1] 添加任务 持久化前检查
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{T} task 
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{long} 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.Cancel">
-            <summary>
-            [2] 取消任务
-            long identity 任务标识
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.Completed">
-            <summary>
-            [3] 完成任务
-            long identity 
-            bool isSuccess 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.GetCount">
-            <summary>
-            [4] 获取任务总数量
-            返回值 int 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.GetFailedCount">
-            <summary>
-            [5] 获取执行失败任务数量
-            返回值 int 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.RetryFailed">
-            <summary>
-            [6] 失败任务重试
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.RunTask">
-            <summary>
-            [7] 触发任务执行
-            long identity 任务标识
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.RunTaskLoadPersistence">
-            <summary>
-            [8] 触发任务执行
-            long identity 任务标识
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.SnapshotAdd">
-            <summary>
-            [9] 快照设置数据
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{T} value 数据
-            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode">
             <summary>
@@ -12806,7 +12831,7 @@
             </summary>
             <param name="registrar"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.OnSetController(AutoCSer.Net.CommandClientSocket)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryCommandClientSocketEvent`1.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
             命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
@@ -12852,7 +12877,7 @@
             </summary>
             <param name="client"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.OnSetController(AutoCSer.Net.CommandClientSocket)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogCommandClientSocketEvent`1.OnMethodVerified(AutoCSer.Net.CommandClientSocket)">
             <summary>
             命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
             </summary>
@@ -13054,6 +13079,13 @@
             <param name="version"></param>
             <param name="timeoutSeconds"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.IsNewEquals(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            判断是否服务重启日志
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog.CreateLostContact">
             <summary>
             创建服务失联日志
@@ -13135,9 +13167,24 @@
             <param name="sessionID"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.getLogIndex(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            获取日志索引位置
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
             <summary>
             添加服务注册日志
+            </summary>
+            <param name="session"></param>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLogAssembler.isNewEquals(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySession,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            判断是否服务重启日志
             </summary>
             <param name="session"></param>
             <param name="log"></param>
@@ -13308,6 +13355,13 @@
             </summary>
             <param name="session"></param>
             <param name="log"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistrySessionLog.IsNewEquals(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
+            <summary>
+            判断是否服务重启日志
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryStateEnum">
             <summary>
@@ -19551,6 +19605,11 @@
             返回值类型是否 ResponseParameter
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Reserve16">
+            <summary>
+            保留
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Reserve">
             <summary>
             保留
@@ -20010,6 +20069,11 @@
             创建调用方法与参数信息
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreatorNode`1.StreamPersistenceMemoryDatabaseMethodParameterCreator">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreatorNode`1.SetContext(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode{`0})">
             <summary>
             服务端节点上下文
@@ -20024,6 +20088,11 @@
             <typeparam name="ST">快照数据类型</typeparam>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreatorNode`2.methodParameterCreator">
+            <summary>
+            创建调用方法与参数信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreatorNode`2.StreamPersistenceMemoryDatabaseMethodParameterCreator">
             <summary>
             创建调用方法与参数信息
             </summary>
@@ -28003,7 +28072,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient">
             <summary>
-            日志流持久化内存数据库客户端接口（IO 线程同步回调接口避免线程调度开销，必须保证客户端调用 await 后续操作无阻塞，否则可能严重影响性能甚至死锁，如果不能保证无阻塞环境请替换为 IStreamPersistenceMemoryDatabaseTaskClient 接口避免死锁）
+            日志流持久化内存数据库客户端接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient.GetUtcNow">

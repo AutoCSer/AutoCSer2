@@ -140,6 +140,7 @@
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessage.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageData.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageNode.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageRunTaskTypeEnum.cs" />
     <Compile Include="Node\DistributedLock\DistributedLock.cs" />
     <Compile Include="Node\DistributedLock\DistributedLockIdentity.cs" />
     <Compile Include="Node\DistributedLock\DistributedLockNode.cs" />
