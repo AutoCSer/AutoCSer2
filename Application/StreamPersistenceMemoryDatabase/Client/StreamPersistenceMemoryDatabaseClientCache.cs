@@ -49,7 +49,7 @@ namespace AutoCSer.CommandService
         /// <typeparam name="NT">客户端节点类型</typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public StreamPersistenceMemoryDatabaseClientNodeCache<NT> CreateNode<NT>(Func<StreamPersistenceMemoryDatabaseClient<T>, Task<ResponseResult<NT>>> getNodeTask)
+        public StreamPersistenceMemoryDatabaseClientNodeCache<NT, T> CreateNode<NT>(Func<StreamPersistenceMemoryDatabaseClient<T>, Task<ResponseResult<NT>>> getNodeTask)
             where NT : class
         {
             return new StreamPersistenceMemoryDatabaseClientNodeCache<NT, T>(this, getNodeTask);

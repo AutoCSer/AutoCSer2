@@ -56,28 +56,26 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="tableWriter">数据库表格持久化写入</param>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">是否需要清除数据</param>
         /// <param name="getKey">获取缓存关键字委托</param>
         /// <param name="getValue">从数据库获取数据委托</param>
 #if NetStandard21
-        internal FifoPriorityQueueCache(TableWriter<T> tableWriter, int capacity, bool isClear, Func<T, KT> getKey, Func<KT, Task<VT?>> getValue) : base(tableWriter, false)
+        internal FifoPriorityQueueCache(TableWriter<T> tableWriter, int capacity, Func<T, KT> getKey, Func<KT, Task<VT?>> getValue) : base(tableWriter, false)
 #else
-        internal FifoPriorityQueueCache(TableWriter<T> tableWriter, int capacity, bool isClear, Func<T, KT> getKey, Func<KT, Task<VT>> getValue) : base(tableWriter, false)
+        internal FifoPriorityQueueCache(TableWriter<T> tableWriter, int capacity, Func<T, KT> getKey, Func<KT, Task<VT>> getValue) : base(tableWriter, false)
 #endif
         {
             this.capacity = Math.Max(capacity, 1);
             this.getKey = getKey;
             this.getValue = getValue;
-            cache = new FifoPriorityQueue<RandomKey<KT>, VT>(this.capacity, isClear);
+            cache = new FifoPriorityQueue<RandomKey<KT>, VT>(this.capacity);
         }
         /// <summary>
         /// 先进先出队列缓存
         /// </summary>
         /// <param name="tableWriter">数据库表格持久化写入</param>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">是否需要清除数据</param>
-        internal FifoPriorityQueueCache(TableWriter<T, KT> tableWriter, int capacity, bool isClear) 
-            : this(tableWriter, capacity, isClear, tableWriter.GetPrimaryKey, tableWriter.GetByPrimaryKey<VT>)
+        internal FifoPriorityQueueCache(TableWriter<T, KT> tableWriter, int capacity) 
+            : this(tableWriter, capacity, tableWriter.GetPrimaryKey, tableWriter.GetByPrimaryKey<VT>)
         {
         }
         /// <summary>
@@ -110,11 +108,11 @@ namespace AutoCSer.ORM
         {
             var value = default(VT);
             RandomKey<KT> randomKey = key;
-            if (cache.TryGetValue(ref randomKey, out value)) return isClone ? (VT)DefaultConstructor.CallMemberwiseClone(value) : value;
+            if (cache.TryGetValue(randomKey, out value)) return isClone ? (VT)DefaultConstructor.CallMemberwiseClone(value) : value;
             value = await getValue(key);
             if (value != null)
             {
-                cache.Set(ref randomKey, value);
+                cache.Set(randomKey, value);
                 if (cache.Count > capacity) cache.Pop();
                 return isClone ? (VT)DefaultConstructor.CallMemberwiseClone(value) : value;
             }
@@ -132,8 +130,7 @@ namespace AutoCSer.ORM
                 cacheValue = DefaultConstructor<VT>.Constructor().notNull();
                 tableWriter.CopyTo(value, cacheValue);
             }
-            RandomKey<KT> key = getKey(cacheValue);
-            cache.Set(ref key, cacheValue);
+            cache.Set(getKey(cacheValue), cacheValue);
             if (cache.Count > capacity) cache.Pop();
         }
         /// <summary>
@@ -144,8 +141,7 @@ namespace AutoCSer.ORM
         internal override void OnUpdated(T value, MemberMap<T> memberMap)
         {
             var cacheValue = default(VT);
-            RandomKey<KT> key = getKey(value);
-            if (cache.TryGetValue(ref key, out cacheValue)) tableWriter.CopyTo(value, cacheValue, memberMap);
+            if (cache.TryGetValue(getKey(value), out cacheValue)) tableWriter.CopyTo(value, cacheValue, memberMap);
         }
         /// <summary>
         /// 删除数据之后的操作
@@ -155,8 +151,7 @@ namespace AutoCSer.ORM
         internal override void OnDeleted(T value)
         {
             var cacheValue = default(VT);
-            RandomKey<KT> key = getKey(value);
-            cache.Remove(ref key, out cacheValue);
+            cache.Remove(getKey(value), out cacheValue);
         }
     }
 }

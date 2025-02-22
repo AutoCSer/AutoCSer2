@@ -9,14 +9,14 @@ namespace AutoCSer.Extensions.Culture
     public class English : Configuration
     {
         /// <summary>
-        /// Description Failed to decompress the log stream persistence file
+        /// Description Failed to decode the log stream persistence file
         /// </summary>
         /// <param name="fileName">Persistent file name</param>
         /// <param name="position">Error data location</param>
         /// <returns></returns>
-        public override string GetStreamPersistenceLoaderDecompressFailed(string fileName, long position)
+        public override string GetStreamPersistenceLoaderDecodeFailed(string fileName, long position)
         {
-            return $"Failed to decompress data at {position} in file {fileName}";
+            return $"Failed to decode data at {position} in file {fileName}";
         }
         /// <summary>
         /// The length of the log stream persistent file data block is incorrect

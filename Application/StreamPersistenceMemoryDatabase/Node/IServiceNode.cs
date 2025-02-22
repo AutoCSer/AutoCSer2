@@ -16,6 +16,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         bool RemoveNode(NodeIndex index);
         /// <summary>
+        /// 删除节点
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        bool RemoveNodeByKey(string key);
+        /// <summary>
         /// 创建服务注册节点 IServerRegistryNode
         /// </summary>
         /// <param name="index">节点索引信息</param>

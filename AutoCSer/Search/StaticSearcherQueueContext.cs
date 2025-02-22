@@ -153,7 +153,7 @@ namespace AutoCSer.Search
                 wordSegmenter(text, text.Length);
                 if (chineseCharacter || words.Length != 0)
                 {
-                    wordIndexs.Empty();
+                    wordIndexs.Clear();
                     if (words.Length != 0) setWordResults();
                     searcher.Add(key, text, wordIndexs, ref words, chineseCharacter ? formatedText : null);
                 }
@@ -351,15 +351,15 @@ namespace AutoCSer.Search
                 if (word.Key.Length != 1)
                 {
                     HashSubString wordKey = word.Key;
-                    if (wordIndexs.TryGetValue(ref wordKey, out indexs))
+                    if (wordIndexs.TryGetValue(wordKey, out indexs))
                     {
                         indexs.Add(word.Key.Start);
-                        wordIndexs.Set(ref wordKey, indexs);
+                        wordIndexs.Set(wordKey, indexs);
                     }
                     else
                     {
                         indexs.Set(word.Value, word.Key.Start);
-                        wordIndexs.Set(ref wordKey, indexs);
+                        wordIndexs.Set(wordKey, indexs);
                     }
                 }
                 else wordArray[words.Length++] = word;
@@ -375,8 +375,8 @@ namespace AutoCSer.Search
         protected void search(string text, int size)
         {
             ++version;
-            wordResults.Empty();
-            charResults.Empty();
+            wordResults.Clear();
+            charResults.Clear();
             words.Length = 0;
             if (!string.IsNullOrEmpty(text))
             {

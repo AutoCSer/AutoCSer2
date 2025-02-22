@@ -1,5 +1,4 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -10,8 +9,12 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// <summary>
     /// 异常调用统计信息节点
     /// </summary>
-    public sealed class ExceptionStatisticsNode : IExceptionStatisticsNode, ISnapshot<LeftArray<string>>, ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>
+    public sealed class ExceptionStatisticsNode : MethodParameterCreatorNode<IExceptionStatisticsNode, BinarySerializeKeyValue<long, ExceptionStatistics>>, IExceptionStatisticsNode, ISnapshot<LeftArray<string>>, ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>
     {
+        /// <summary>
+        /// 节点自动移除时间
+        /// </summary>
+        private readonly DateTime removeTime;
         /// <summary>
         /// 字符串缓存集合
         /// </summary>
@@ -33,15 +36,58 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// </summary>
         internal readonly int CallTimeCount;
         /// <summary>
+        /// 是否已经发起移除调用
+        /// </summary>
+        private bool isRemove;
+        /// <summary>
         /// 异常调用统计信息节点
         /// </summary>
+        /// <param name="removeTime">节点自动移除时间</param>
         /// <param name="callTimeCount">保存调用时间数量</param>
-        public ExceptionStatisticsNode(int callTimeCount)
+        public ExceptionStatisticsNode(DateTime removeTime, int callTimeCount)
         {
+            this.removeTime = removeTime;
             CallTimeCount = Math.Max(CallTimeCount, 0);
             stringArray.SetEmpty();
             strings = DictionaryCreator.CreateAny<string, int>();
             statistics = DictionaryCreator.CreateLong<ExceptionStatistics>();
+        }
+        /// <summary>
+        /// 初始化加载完毕处理
+        /// </summary>
+        /// <returns>加载完毕替换的新节点</returns>
+#if NetStandard21
+        public override IExceptionStatisticsNode? StreamPersistenceMemoryDatabaseServiceLoaded()
+#else
+        public override IExceptionStatisticsNode StreamPersistenceMemoryDatabaseServiceLoaded()
+#endif
+        {
+            checkRemoveTime();
+            return null;
+        }
+        /// <summary>
+        /// 检查节点自动移除时间
+        /// </summary>
+        /// <returns></returns>
+        private bool checkRemoveTime()
+        {
+            if (AutoCSer.Threading.SecondTimer.UtcNow >= removeTime)
+            {
+                if (!isRemove)
+                {
+                    isRemove = true;
+                    StreamPersistenceMemoryDatabaseMethodParameterCreator.RemoveNode();
+                }
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 移除当前节点
+        /// </summary>
+        public void RemoveNode()
+        {
+            StreamPersistenceMemoryDatabaseService.RemoveNode(StreamPersistenceMemoryDatabaseNode.Index);
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
@@ -50,7 +96,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <returns>快照数据集合容器大小</returns>
         int ISnapshot<LeftArray<string>>.GetSnapshotCapacity(ref object customObject)
         {
-            return 1;
+            return checkRemoveTime() ? 1 : 0;
         }
         /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
@@ -60,8 +106,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <returns>快照数据信息</returns>
         SnapshotResult<LeftArray<string>> ISnapshot<LeftArray<string>>.GetSnapshotResult(LeftArray<string>[] snapshotArray, object customObject)
         {
-            snapshotArray[0] = stringArray;
-            return new SnapshotResult<LeftArray<string>>(1);
+            if (!isRemove) snapshotArray[0] = stringArray;
+            return new SnapshotResult<LeftArray<string>>(snapshotArray.Length);
         }
         /// <summary>
         /// 持久化之前重组快照数据
@@ -85,7 +131,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <returns>快照数据集合容器大小</returns>
         int ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>.GetSnapshotCapacity(ref object customObject)
         {
-            return statistics.Count;
+            return checkRemoveTime() ? statistics.Count : 0;
         }
         /// <summary>
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
@@ -95,14 +141,9 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <returns>快照数据信息</returns>
         SnapshotResult<BinarySerializeKeyValue<long, ExceptionStatistics>> ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>.GetSnapshotResult(BinarySerializeKeyValue<long, ExceptionStatistics>[] snapshotArray, object customObject)
         {
-            return ServerNode.GetSnapshotResult(statistics, snapshotArray);
+            if (!isRemove) return ServerNode.GetSnapshotResult(statistics, snapshotArray);
+            return new SnapshotResult<BinarySerializeKeyValue<long, ExceptionStatistics>>(0);
         }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        void ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>.SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<long, ExceptionStatistics>> array, ref LeftArray<BinarySerializeKeyValue<long, ExceptionStatistics>> newArray) { }
         /// <summary>
         /// 快照设置数据
         /// </summary>

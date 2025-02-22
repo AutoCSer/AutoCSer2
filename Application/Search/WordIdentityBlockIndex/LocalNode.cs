@@ -29,14 +29,14 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// <summary>
         /// 词语匹配数据关键字索引节点
         /// </summary>
-        private readonly StreamPersistenceMemoryDatabaseLocalClientNodeCache<IIndexNodeLocalClientNode<int, T>> indexNode;
+        private readonly StreamPersistenceMemoryDatabaseLocalClientNodeCache<IHashSetIndexNodeLocalClientNode<int, T>> indexNode;
         /// <summary>
         /// 分词结果磁盘块索引信息本地节点
         /// </summary>
         /// <param name="trieGraphNode">字符串 Trie 图客户端节点</param>
         /// <param name="diskBlockClient">分词结果磁盘块索引信息客户端</param>
         /// <param name="indexNode">词语匹配数据关键字索引节点</param>
-        protected LocalNode(StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStaticTrieGraphNodeLocalClientNode> trieGraphNode, IDiskBlockClientSocketEvent diskBlockClient, StreamPersistenceMemoryDatabaseLocalClientNodeCache<IIndexNodeLocalClientNode<int, T>> indexNode)
+        protected LocalNode(StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStaticTrieGraphNodeLocalClientNode> trieGraphNode, IDiskBlockClientSocketEvent diskBlockClient, StreamPersistenceMemoryDatabaseLocalClientNodeCache<IHashSetIndexNodeLocalClientNode<int, T>> indexNode)
         {
             this.trieGraphNode = trieGraphNode;
             this.diskBlockClient = diskBlockClient;
@@ -81,7 +81,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// <returns></returns>
         public override async Task<ResponseResult> AppendIndex(int[] wordIdentitys, T key)
         {
-            LocalResult<IIndexNodeLocalClientNode<int, T>> indexNodeResult = await indexNode.GetSynchronousNode();
+            LocalResult<IHashSetIndexNodeLocalClientNode<int, T>> indexNodeResult = await indexNode.GetSynchronousNode();
             if (!indexNodeResult.IsSuccess) return new ResponseResult(indexNodeResult.CallState);
             LocalResult result = await indexNodeResult.Value.notNull().AppendArray(wordIdentitys, key);
             if (!result.IsSuccess) return new ResponseResult(result.CallState);
@@ -96,9 +96,9 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// <returns></returns>
         public override async Task<ResponseResult> AppendIndex(int[] wordIdentitys, int[] historyWordIdentitys, T key)
         {
-            LocalResult<IIndexNodeLocalClientNode<int, T>> indexNodeResult = await this.indexNode.GetSynchronousNode();
+            LocalResult<IHashSetIndexNodeLocalClientNode<int, T>> indexNodeResult = await this.indexNode.GetSynchronousNode();
             if (!indexNodeResult.IsSuccess) return new ResponseResult(indexNodeResult.CallState);
-            IIndexNodeLocalClientNode<int, T> indexNode = indexNodeResult.Value.notNull();
+            IHashSetIndexNodeLocalClientNode<int, T> indexNode = indexNodeResult.Value.notNull();
             if (historyWordIdentitys.Length != 0)
             {
                 LocalResult result = await indexNode.RemoveArray(historyWordIdentitys, key);

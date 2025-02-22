@@ -596,24 +596,22 @@
             <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache(System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache(System.Int32)">
             <summary>
             根据数据库关键字创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
             </summary>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache``1(System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache``1(System.Int32)">
             <summary>
             根据数据库关键字创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
             </summary>
             <typeparam name="VT">缓存数据类型</typeparam>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache``1(System.Func{`1,``0},System.Func{``0,System.Threading.Tasks.Task{`0}},System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache``1(System.Func{`1,``0},System.Func{``0,System.Threading.Tasks.Task{`0}},System.Int32)">
             <summary>
             创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
             </summary>
@@ -621,10 +619,9 @@
             <param name="getKey">获取缓存数据关键字委托</param>
             <param name="getValue">从数据库获取数据委托</param>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache``2(System.Func{`1,``1},System.Func{``1,System.Threading.Tasks.Task{``0}},System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ORM.BusinessQuery`3.CreateFifoPriorityQueueCache``2(System.Func{`1,``1},System.Func{``1,System.Threading.Tasks.Task{``0}},System.Int32)">
             <summary>
             创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
             </summary>
@@ -633,7 +630,6 @@
             <param name="getKey">获取缓存数据关键字委托</param>
             <param name="getValue">从数据库获取数据委托</param>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.ORM.BusinessTableEvent`2">
@@ -1622,23 +1618,21 @@
             字典容器大小
             </summary>
         </member>
-        <member name="M:AutoCSer.ORM.FifoPriorityQueueCache`3.#ctor(AutoCSer.ORM.TableWriter{`0},System.Int32,System.Boolean,System.Func{`0,`2},System.Func{`2,System.Threading.Tasks.Task{`1}})">
+        <member name="M:AutoCSer.ORM.FifoPriorityQueueCache`3.#ctor(AutoCSer.ORM.TableWriter{`0},System.Int32,System.Func{`0,`2},System.Func{`2,System.Threading.Tasks.Task{`1}})">
             <summary>
             先进先出队列缓存
             </summary>
             <param name="tableWriter">数据库表格持久化写入</param>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">是否需要清除数据</param>
             <param name="getKey">获取缓存关键字委托</param>
             <param name="getValue">从数据库获取数据委托</param>
         </member>
-        <member name="M:AutoCSer.ORM.FifoPriorityQueueCache`3.#ctor(AutoCSer.ORM.TableWriter{`0,`2},System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ORM.FifoPriorityQueueCache`3.#ctor(AutoCSer.ORM.TableWriter{`0,`2},System.Int32)">
             <summary>
             先进先出队列缓存
             </summary>
             <param name="tableWriter">数据库表格持久化写入</param>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">是否需要清除数据</param>
         </member>
         <member name="M:AutoCSer.ORM.FifoPriorityQueueCache`3.GetValues(System.Boolean)">
             <summary>
@@ -10617,7 +10611,7 @@
             <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ORM.TableQuery`1.CreateFifoPriorityQueueCache``2(System.Func{`0,``1},System.Func{``1,System.Threading.Tasks.Task{``0}},System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ORM.TableQuery`1.CreateFifoPriorityQueueCache``2(System.Func{`0,``1},System.Func{``1,System.Threading.Tasks.Task{``0}},System.Int32)">
             <summary>
             创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
             </summary>
@@ -10626,7 +10620,6 @@
             <param name="getKey">获取缓存数据关键字委托</param>
             <param name="getValue">从数据库获取数据委托</param>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.ORM.TableQuery`2">
@@ -10722,13 +10715,12 @@
             <param name="isEventAvailable">默认为 true 缓存对象事件可用</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ORM.TableQuery`2.CreateFifoPriorityQueueCache``1(System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ORM.TableQuery`2.CreateFifoPriorityQueueCache``1(System.Int32)">
             <summary>
             根据数据库关键字创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
             </summary>
             <typeparam name="VT">缓存数据类型</typeparam>
             <param name="capacity">字典容器大小</param>
-            <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.ORM.TableWriter">

@@ -79,7 +79,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             foreach (ServerRegistryLogAssembler logAssembler in logAssemblers.Values) logAssembler.Loaded();
             LoadTimeoutTimestamp = Stopwatch.GetTimestamp() + Date.GetTimestampBySeconds(loadTimeoutSeconds);
-            return this;
+            return null;
         }
         /// <summary>
         /// 节点移除后处理

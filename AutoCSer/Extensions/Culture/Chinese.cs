@@ -9,14 +9,14 @@ namespace AutoCSer.Extensions.Culture
     public class Chinese : Configuration
     {
         /// <summary>
-        /// 日志流持久化文件数据解压缩失败
+        /// 日志流持久化文件数据解码失败
         /// </summary>
         /// <param name="fileName">持久化文件名称</param>
         /// <param name="position">错误数据位置</param>
         /// <returns></returns>
-        public override string GetStreamPersistenceLoaderDecompressFailed(string fileName, long position)
+        public override string GetStreamPersistenceLoaderDecodeFailed(string fileName, long position)
         {
-            return $"文件 {fileName} 位置 {position} 处数据解压缩失败";
+            return $"文件 {fileName} 位置 {position} 处数据解码失败";
         }
         /// <summary>
         /// 日志流持久化文件数据块长度错误

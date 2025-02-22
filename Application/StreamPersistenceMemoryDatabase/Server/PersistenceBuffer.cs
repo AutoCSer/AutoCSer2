@@ -24,9 +24,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private ByteArrayBuffer outputCopyBuffer;
         /// <summary>
-        /// 压缩数据缓冲区
+        /// 编码数据缓冲区
         /// </summary>
-        private ByteArrayBuffer outputCompressBuffer;
+        private ByteArrayBuffer outputEncodeBuffer;
         /// <summary>
         /// 数据缓冲区最大字节数
         /// </summary>
@@ -64,7 +64,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.service = service;
             OutputBuffer = default(ByteArrayBuffer);
             outputCopyBuffer = default(ByteArrayBuffer);
-            outputCompressBuffer = default(ByteArrayBuffer);
+            outputEncodeBuffer = default(ByteArrayBuffer);
             SendBufferMaxSize = Math.Max(service.Config.BufferMaxSize, 4 << 10);
             bufferLength = service.PersistenceBufferPool.Size;
             Count = currentIndex = 0;
@@ -89,7 +89,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             OutputBuffer.Free();
             outputCopyBuffer.Free();
-            outputCompressBuffer.Free();
+            outputEncodeBuffer.Free();
         }
         /// <summary>
         /// 设置输出数据缓冲区起始位置
@@ -168,7 +168,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool CheckNewBuffer()
         {
-            outputCompressBuffer.Free();
+            outputEncodeBuffer.Free();
             if (!isNewBuffer)
             {
                 outputCopyBuffer.Free();
@@ -188,7 +188,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 byte* dataStart = OutputStream.Data.Pointer.Byte;
                 if (dataStart != start) AutoCSer.Common.CopyTo(dataStart + MethodParameter.PersistenceStartIndex, start + MethodParameter.PersistenceStartIndex, dataSize);
                 SubArray<byte> outputData = new SubArray<byte>(OutputBuffer.StartIndex + MethodParameter.PersistenceStartIndex, dataSize, OutputBuffer.Buffer.notNull().Buffer);
-                if (compress(ref outputData)) return outputData;
+                if (encode(ref outputData)) return outputData;
                 outputData.MoveStart(-MethodParameter.PersistenceStartIndex);
                 *(int*)start = dataSize;
                 return outputData;
@@ -203,28 +203,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     OutputBuffer.CopyFromFree(ref outputCopyBuffer);
                     isNewBuffer = true;
                 }
-                if (compress(ref outputData)) return outputData;
+                if (encode(ref outputData)) return outputData;
                 outputData.MoveStart(-MethodParameter.PersistenceStartIndex);
                 fixed (byte* sendDataFixed = outputData.GetFixedBuffer()) *(int*)(sendDataFixed + outputData.Start) = dataSize;
                 return outputData;
             }
         }
         /// <summary>
-        /// 压缩数据
+        /// 数据编码
         /// </summary>
         /// <param name="outputData"></param>
-        /// <returns>是否压缩成功</returns>
-        private bool compress(ref SubArray<byte> outputData)
+        /// <returns>数据是否编码</returns>
+        private bool encode(ref SubArray<byte> outputData)
         {
             int dataSize = outputData.Length;
-            if (service.Config.Compress(outputData.Array, outputData.Start, dataSize, ref outputCompressBuffer, ref outputData, MethodParameter.CompressPersistenceStartIndex, sizeof(int) * 2))
+            if (service.Config.PersistenceEncode(outputData.Array, outputData.Start, dataSize, ref outputEncodeBuffer, ref outputData, MethodParameter.EncodePersistenceStartIndex, sizeof(int) * 2))
             {
-                int compressionDataSize = outputData.Length;
-                outputData.MoveStart(-MethodParameter.CompressPersistenceStartIndex);
+                int outputDataSize = outputData.Length;
+                outputData.MoveStart(-MethodParameter.EncodePersistenceStartIndex);
                 fixed (byte* sendDataFixed = outputData.GetFixedBuffer())
                 {
                     byte* dataStart = sendDataFixed + outputData.Start;
-                    *(int*)dataStart = -compressionDataSize;
+                    *(int*)dataStart = -outputDataSize;
                     *(int*)(dataStart + sizeof(int)) = dataSize;
                 }
                 return true;

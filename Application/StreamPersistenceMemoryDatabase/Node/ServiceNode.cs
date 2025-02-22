@@ -37,7 +37,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         public virtual bool RemoveNode(NodeIndex index)
         {
-            return index.Index != 0 && Service.RemoveNode(index);
+            return Service.RemoveNode(index);
+        }
+        /// <summary>
+        /// 删除节点
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        public virtual bool RemoveNodeByKey(string key)
+        {
+            return Service.RemoveNode(key);
         }
         /// <summary>
         /// 创建服务端节点（不支持持久化，只有支持快照的节点才支持持久化）

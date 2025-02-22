@@ -213,6 +213,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestCase", "TestCase", "{92
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.InterfaceRealTimeCallMonitor", "TestCase\InterfaceRealTimeCallMonitor\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.csproj", "{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.ExceptionStatistics", "TestCase\InterfaceRealTimeCallMonitor\ExceptionStatistics\AutoCSer.TestCase.ExceptionStatistics.csproj", "{321711FF-EF6B-4B8C-BA9B-17FE15937AAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -515,6 +517,10 @@ Global
 		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{321711FF-EF6B-4B8C-BA9B-17FE15937AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{321711FF-EF6B-4B8C-BA9B-17FE15937AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{321711FF-EF6B-4B8C-BA9B-17FE15937AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{321711FF-EF6B-4B8C-BA9B-17FE15937AAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -619,6 +625,7 @@ Global
 		{856FD979-622E-4211-B8AC-BF1B42D61228} = {B719E151-4108-4CB0-A040-728FA8D0A0BA}
 		{925C3531-0F24-4B62-9000-4EA9817776BF} = {B719E151-4108-4CB0-A040-728FA8D0A0BA}
 		{44BDED7F-3E6F-456A-8D4F-6DA6083BE0CC} = {925C3531-0F24-4B62-9000-4EA9817776BF}
+		{321711FF-EF6B-4B8C-BA9B-17FE15937AAF} = {925C3531-0F24-4B62-9000-4EA9817776BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

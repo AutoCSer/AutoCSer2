@@ -1,4 +1,5 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.Algorithm;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public readonly StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapFilterNodeClientNode> NodeCache;
         /// <summary>
+        /// 位数量取余操作
+        /// </summary>
+        internal IntegerDivision SizeDivision;
+        /// <summary>
         /// 位图大小（位数量）
         /// </summary>
-        protected int size;
+        protected int size { get { return (int)SizeDivision.Divisor; } }
         /// <summary>
         /// 多哈希位图过滤节点客户端
         /// </summary>
@@ -29,7 +34,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected ManyHashBitMapFilter(StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapFilterNodeClientNode> nodeCache, int size)
         {
             NodeCache = nodeCache;
-            this.size = Math.Max(size, 2);
+            SizeDivision.Set(Math.Max(size, 2));
+        }
+        /// <summary>
+        /// 哈希值转位图索引位置
+        /// </summary>
+        /// <param name="hashCodes">哈希值集合</param>
+        protected void hashCodeToBits(uint[] hashCodes)
+        {
+            for (int index = hashCodes.Length; index != 0;)
+            {
+                --index;
+                hashCodes[index] = SizeDivision.GetMod(hashCodes[index]);
+                //int hashCode = hashCodes[--index], bit = hashCode % size;
+                //hashCodes[index] = bit >= 0 ? bit : (bit + size);
+            }
         }
 
         /// <summary>
@@ -37,12 +56,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="size">位图大小（位数量）</param>
         /// <param name="hashCodes">哈希值集合</param>
-        public static void HashCodeToBits(int size, int[] hashCodes)
+        public static void HashCodeToBits(int size, uint[] hashCodes)
         {
+            IntegerDivision sizeDivision = new IntegerDivision(size);
             for (int index = hashCodes.Length; index != 0;)
             {
-                int hashCode = hashCodes[--index], bit = hashCode % size;
-                hashCodes[index] = bit >= 0 ? bit : (bit + size);
+                --index;
+                hashCodes[index] = sizeDivision.GetMod(hashCodes[index]);
             }
         }
         /// <summary>
@@ -50,20 +70,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static int[] GetHashCode2(string value)
+        public static uint[] GetHashCode2(string value)
         {
             ulong hashCode = value.getHashCode64();
-            return new int[] { (int)(uint)hashCode, (int)(uint)(hashCode >> 32) };
+            return new uint[] { (uint)hashCode, (uint)(hashCode >> 32) };
         }
         /// <summary>
         /// 获取 3 个 21b+21b+22b 的哈希值
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static int[] GetHashCode3(string value)
+        public static uint[] GetHashCode3(string value)
         {
             ulong hashCode = value.getHashCode64();
-            return new int[] { (int)((uint)hashCode & ((1 << 21) - 1)), (int)((uint)(hashCode >> 21) & ((1 << 21) - 1)), (int)(uint)(hashCode >> 42) };
+            return new uint[] { ((uint)hashCode & ((1 << 21) - 1)), ((uint)(hashCode >> 21) & ((1 << 21) - 1)), (uint)(hashCode >> 42) };
         }
     }
     /// <summary>
@@ -75,14 +95,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 哈希计算委托集合
         /// </summary>
-        private readonly Func<T, int[]> getHashCodes;
+        private readonly Func<T, uint[]> getHashCodes;
         /// <summary>
         /// 多哈希位图过滤节点客户端
         /// </summary>
         /// <param name="nodeCache"></param>
         /// <param name="size">位图大小（位数量）</param>
         /// <param name="getHashCodes">哈希计算委托集合，必须采用稳定哈希算法保证不同机器或者进程计算结果一致</param>
-        public ManyHashBitMapFilter(StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapFilterNodeClientNode> nodeCache, int size, Func<T, int[]> getHashCodes) : base(nodeCache, size)
+        public ManyHashBitMapFilter(StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapFilterNodeClientNode> nodeCache, int size, Func<T, uint[]> getHashCodes) : base(nodeCache, size)
         {
             if (getHashCodes == null) throw new ArgumentNullException(nameof(getHashCodes));
             this.getHashCodes = getHashCodes;
@@ -97,21 +117,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ResponseResult<IManyHashBitMapFilterNodeClientNode> nodeResult = await NodeCache.GetNode();
             if (!nodeResult.IsSuccess) return nodeResult;
             IManyHashBitMapFilterNodeClientNode node = nodeResult.Value.notNull();
-            int size = this.size;
             do
             {
                 if (size == 0)
                 {
                     ResponseResult<int> sizeResult = await node.GetSize();
                     if (!sizeResult.IsSuccess) return sizeResult;
-                    this.size = size = sizeResult.Value;
+                    SizeDivision.Set(sizeResult.Value);
                 }
-                int[] hashCodes = getHashCodes(value);
-                HashCodeToBits(size, hashCodes);
+                uint[] hashCodes = getHashCodes(value);
+                hashCodeToBits(hashCodes);
                 ResponseResult<bool> setResult = await node.SetBits(size, hashCodes);
                 if (!setResult.IsSuccess) return setResult;
                 if (setResult.Value) return new ResponseResult(CallStateEnum.Success);
-                size = 0;
+                SizeDivision.Divisor = 0;
             }
             while (true);
         }
@@ -125,24 +144,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ResponseResult<IManyHashBitMapFilterNodeClientNode> nodeResult = await NodeCache.GetNode();
             if (!nodeResult.IsSuccess) return nodeResult.Cast<bool>();
             IManyHashBitMapFilterNodeClientNode node = nodeResult.Value.notNull();
-            int size = this.size;
             do
             {
                 if (size == 0)
                 {
                     ResponseResult<int> sizeResult = await node.GetSize();
                     if (!sizeResult.IsSuccess) return sizeResult.Cast<bool>();
-                    this.size = size = sizeResult.Value;
+                    SizeDivision.Set(sizeResult.Value);
                 }
-                int[] hashCodes = getHashCodes(value);
-                HashCodeToBits(size, hashCodes);
+                uint[] hashCodes = getHashCodes(value);
+                hashCodeToBits(hashCodes);
                 ResponseResult<NullableBoolEnum> setResult = await node.CheckBits(size, hashCodes);
                 if (!setResult.IsSuccess) return setResult.Cast<bool>();
                 switch (setResult.Value)
                 {
                     case NullableBoolEnum.True: return true;
                     case NullableBoolEnum.False: return false;
-                    default: size = 0; break;
+                    default: SizeDivision.Divisor = 0; break;
                 }
             }
             while (true);

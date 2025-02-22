@@ -100,11 +100,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 else
                 {
                     StreamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
-                    callback.Reserve16 = timeoutSeconds;
+                    callback.Reserve = timeoutSeconds;
                     distributedLock.Enter(callback);
                 }
             }
-            else callback.SynchronousCallback(0);
+            else callback.SynchronousCallback((long)0);
         }
         /// <summary>
         /// 尝试申请锁

@@ -3,6 +3,7 @@ using AutoCSer.Net;
 using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
 {
@@ -117,6 +118,31 @@ namespace AutoCSer.CommandService
             return timestamp;
         }
 
+        ///// <summary>
+        ///// 客户端创建套接字连接以后调用认证 API
+        ///// </summary>
+        ///// <param name="controller"></param>
+        ///// <param name="verifyString">验证字符串</param>
+        ///// <returns></returns>
+        //public static CommandClientReturnValue<CommandServerVerifyStateEnum> Verify(CommandClientController controller, string verifyString)
+        //{
+        //    ITimestampVerifyClient client = (ITimestampVerifyClient)controller;
+        //    long timestamp = CurrentTimestamp;
+        //    bool isRetry = false;
+        //    using (MD5 md5 = MD5.Create())
+        //    {
+        //        do
+        //        {
+        //            ulong randomPrefix = Random.Default.SecureNextULongNotZero();
+        //            long lastTimestamp = timestamp;
+        //            CommandClientReturnValue<CommandServerVerifyStateEnum> verifyState = client.Verify(randomPrefix, AutoCSer.Net.TimestampVerify.Md5(md5, verifyString, randomPrefix, timestamp), ref timestamp);
+        //            if (verifyState.Value != CommandServerVerifyStateEnum.Retry
+        //                || !verifyState.IsSuccess || isRetry) return verifyState;
+        //            isRetry = true;
+        //        }
+        //        while (true);
+        //    }
+        //}
         /// <summary>
         /// 客户端创建套接字连接以后调用认证 API
         /// </summary>

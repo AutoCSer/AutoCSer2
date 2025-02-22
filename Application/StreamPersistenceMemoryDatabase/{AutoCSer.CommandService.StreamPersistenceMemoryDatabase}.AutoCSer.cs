@@ -203,6 +203,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
             /// </summary>
             SendOnly = 22,
+            /// <summary>
+            /// [23] 获取所有匹配节点的节点索引信息
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 匹配服务端节点信息
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// </summary>
+            GetNodeIndexs = 23,
+            /// <summary>
+            /// [24] 获取所有匹配节点的全局关键字与节点索引信息
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 匹配服务端节点信息
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.BinarySerializeKeyValue{string,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}} callback 
+            /// 返回值 AutoCSer.BinarySerializeKeyValue{string,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex} 
+            /// </summary>
+            GetNodeKeyIndexs = 24,
+            /// <summary>
+            /// [25] 获取所有匹配节点的全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 匹配服务端节点信息
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} callback 
+            /// 返回值 string 
+            /// </summary>
+            GetNodeKeys = 25,
     }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
 {
@@ -1022,6 +1043,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Renew();
+            /// <summary>
+            /// 获取数组
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<T[]> GetArray();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1271,14 +1297,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="size">位图大小（位数量）</param>
             /// <param name="bits">位置集合</param>
             /// <returns>返回 false 表示位图大小不匹配</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> SetBits(int size, int[] bits);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> SetBits(int size, uint[] bits);
             /// <summary>
             /// 检查位图数据
             /// </summary>
             /// <param name="size">位图大小（位数量）</param>
             /// <param name="bits">位置集合</param>
             /// <returns>返回 false 表示数据不存在</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.NullableBoolEnum> CheckBits(int size, int[] bits);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.NullableBoolEnum> CheckBits(int size, uint[] bits);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1933,6 +1959,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="size">位图大小（位数量）</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateManyHashBitMapFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int size);
+            /// <summary>
+            /// 删除节点
+            /// </summary>
+            /// <param name="key">节点全局关键字</param>
+            /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> RemoveNodeByKey(string key);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2594,6 +2626,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Renew();
+            /// <summary>
+            /// 获取数组
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T[]>> GetArray();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3376,6 +3413,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="size">位图大小（位数量）</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateManyHashBitMapFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int size);
+            /// <summary>
+            /// 删除节点
+            /// </summary>
+            /// <param name="key">节点全局关键字</param>
+            /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> RemoveNodeByKey(string key);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4546,6 +4589,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// [5] 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
             Renew = 5,
+            /// <summary>
+            /// [6] 获取数组
+            /// 返回值 T[] 
+            /// </summary>
+            GetArray = 6,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4824,14 +4872,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [1] 设置位
             /// int size 位图大小（位数量）
-            /// int[] bits 位置集合
+            /// uint[] bits 位置集合
             /// 返回值 bool 返回 false 表示位图大小不匹配
             /// </summary>
             SetBits = 1,
             /// <summary>
             /// [2] 设置位 持久化前检查
             /// int size 位图大小（位数量）
-            /// int[] bits 位置集合
+            /// uint[] bits 位置集合
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 返回 false 表示位图大小不匹配
             /// </summary>
             SetBitsBeforePersistence = 2,
@@ -4843,7 +4891,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [4] 检查位图数据
             /// int size 位图大小（位数量）
-            /// int[] bits 位置集合
+            /// uint[] bits 位置集合
             /// 返回值 AutoCSer.NullableBoolEnum 返回 false 表示数据不存在
             /// </summary>
             CheckBits = 4,
@@ -5561,6 +5609,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateManyHashBitMapFilterNode = 28,
+            /// <summary>
+            /// [29] 删除节点
+            /// string key 节点全局关键字
+            /// 返回值 bool 是否成功删除节点，否则表示没有找到节点
+            /// </summary>
+            RemoveNodeByKey = 29,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

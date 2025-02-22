@@ -33,6 +33,7 @@
     <Compile Include="Algorithm\CombinationTemplate\SortIndex.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeSortArray.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.cs" />
+    <Compile Include="Algorithm\ModMultiplier.cs" />
     <Compile Include="Algorithm\RadixSort.cs" />
     <Compile Include="ArrayHeap.cs" />
     <Compile Include="BinarySerializeKeyValue.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Reflection\LoadAssemblyCache.cs" />
     <Compile Include="Reflection\XmlDocument.cs" />
     <Compile Include="Reflection\XmlDocumentAssembly.cs" />
+    <Compile Include="ReusableHashSet.cs" />
     <Compile Include="RingQueue.cs" />
     <Compile Include="SearchTree\Dictionary.cs" />
     <Compile Include="SearchTree\FindArray.cs" />

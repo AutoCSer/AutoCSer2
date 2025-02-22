@@ -128,29 +128,29 @@ namespace AutoCSer.CommandService
             return (persistencePosition >> 1) >= service.RebuildSnapshotPosition && persistencePosition > 100 << 20;
         }
         /// <summary>
-        /// 压缩数据
+        /// 持久化数据编码
         /// </summary>
         /// <param name="data">原始数据</param>
         /// <param name="startIndex">原始数据起始位置</param>
-        /// <param name="dataSize">原始数据待压缩字节数</param>
-        /// <param name="buffer">压缩输出缓冲区</param>
-        /// <param name="compressData">压缩后的数据</param>
-        /// <param name="seek">压缩输出起始位置</param>
-        /// <param name="compressHeadSize">压缩多余头部大小</param>
-        /// <returns>是否压缩成功</returns>
-        public virtual bool Compress(byte[] data, int startIndex, int dataSize, ref ByteArrayBuffer buffer, ref SubArray<byte> compressData, int seek, int compressHeadSize)
+        /// <param name="dataSize">原始数据字节数</param>
+        /// <param name="buffer">输出数据缓冲区</param>
+        /// <param name="outputData">输出数据</param>
+        /// <param name="outputSeek">输出数据起始位置</param>
+        /// <param name="outputHeadSize">输出数据多余头部大小</param>
+        /// <returns>持久化数据是否编码</returns>
+        public virtual bool PersistenceEncode(byte[] data, int startIndex, int dataSize, ref ByteArrayBuffer buffer, ref SubArray<byte> outputData, int outputSeek, int outputHeadSize)
         {
-            return dataSize >= 4 << 10 && AutoCSer.Common.Config.Compress(data, startIndex, dataSize, ref buffer, ref compressData, seek, compressHeadSize, CompressionLevel.Fastest);
+            return dataSize >= 4 << 10 && AutoCSer.Common.Config.Compress(data, startIndex, dataSize, ref buffer, ref outputData, outputSeek, outputHeadSize, CompressionLevel.Fastest);
         }
         /// <summary>
-        /// 解压数据
+        /// 持久化数据解码
         /// </summary>
-        /// <param name="compressData">压缩后的数据</param>
-        /// <param name="destinationData">等待写入的原始数据缓冲区</param>
-        /// <returns>是否解压成功</returns>
-        public virtual bool Decompress(ref SubArray<byte> compressData, ref SubArray<byte> destinationData)
+        /// <param name="transferData">编码后的数据</param>
+        /// <param name="outputData">等待写入的原始数据缓冲区</param>
+        /// <returns>是否解码成功</returns>
+        public virtual bool PersistenceDecode(ref SubArray<byte> transferData, ref SubArray<byte> outputData)
         {
-            return AutoCSer.Common.Config.Decompress(ref compressData, ref destinationData);
+            return AutoCSer.Common.Config.Decompress(ref transferData, ref outputData);
         }
 
         /// <summary>

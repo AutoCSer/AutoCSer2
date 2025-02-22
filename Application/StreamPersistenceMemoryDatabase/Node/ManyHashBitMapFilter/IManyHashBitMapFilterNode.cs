@@ -27,7 +27,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="bits">位置集合</param>
         /// <returns>返回 false 表示位图大小不匹配</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
-        ValueResult<bool> SetBitsBeforePersistence(int size, int[] bits);
+        ValueResult<bool> SetBitsBeforePersistence(int size, uint[] bits);
         /// <summary>
         /// 设置位
         /// </summary>
@@ -35,7 +35,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="bits">位置集合</param>
         /// <returns>返回 false 表示位图大小不匹配</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
-        bool SetBits(int size, int[] bits);
+        bool SetBits(int size, uint[] bits);
         /// <summary>
         /// 检查位图数据
         /// </summary>
@@ -43,6 +43,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="bits">位置集合</param>
         /// <returns>返回 false 表示数据不存在</returns>
         [ServerMethod(IsPersistence = false)]
-        NullableBoolEnum CheckBits(int size, int[] bits);
+        NullableBoolEnum CheckBits(int size, uint[] bits);
     }
 }

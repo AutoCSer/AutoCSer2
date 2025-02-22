@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
 
             var dataResult = await node.Value.GetData();
             if (!Program.Breakpoint(dataResult)) return;
-            foreach (int hashCode in ManyHashBitMapClientFilter.GetHashCode4(TestClass.String7))
+            foreach (uint hashCode in ManyHashBitMapClientFilter.GetHashCode4(TestClass.String7))
             {
                 var result = await node.Value.SetBit(dataResult.Value.GetBitByHashCode(hashCode));
                 if (!Program.Breakpoint(result)) return;

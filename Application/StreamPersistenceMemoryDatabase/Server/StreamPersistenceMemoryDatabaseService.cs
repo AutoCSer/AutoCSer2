@@ -379,22 +379,35 @@ namespace AutoCSer.CommandService
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         public bool RemoveNode(NodeIndex index)
         {
-            var node = Nodes[index.Index].GetRemove(index.Identity);
-            if (node != null)
+            if (index.Index != 0)
             {
-                nodeDictionary.Remove(node.Key);
-                freeIndexs.Add(index.Index);
-                try
+                var node = Nodes[index.Index].GetRemove(index.Identity);
+                if (node != null)
                 {
-                    node.OnRemoved();
+                    nodeDictionary.Remove(node.Key);
+                    freeIndexs.Add(index.Index);
+                    try
+                    {
+                        node.OnRemoved();
+                    }
+                    catch (Exception exception)
+                    {
+                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+                    }
+                    return true;
                 }
-                catch(Exception exception)
-                {
-                    AutoCSer.LogHelper.ExceptionIgnoreException(exception);
-                }
-                return true;
             }
             return false;
+        }
+        /// <summary>
+        /// 删除节点
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        public bool RemoveNode(string key)
+        {
+            var node = default(ServerNode);
+            return nodeDictionary.TryGetValue(key, out node) && RemoveNode(node.Index);
         }
         ///// <summary>
         ///// 获取服务端节点
@@ -428,6 +441,54 @@ namespace AutoCSer.CommandService
             if (Nodes[index.Index].FreeIdentity(index.Identity))
             {
                 freeIndexs.Add(index.Index);
+            }
+        }
+        /// <summary>
+        /// 获取所有匹配节点的全局关键字
+        /// </summary>
+        /// <param name="nodeInfo">匹配服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public async Task GetNodeKeys(NodeInfo nodeInfo, CommandServerKeepCallbackCount<string> callback)
+        {
+            foreach (ServerNode node in GetNodes())
+            {
+                if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                {
+                    if (!await callback.CallbackAsync(node.Key)) return;
+                }
+            }
+        }
+        /// <summary>
+        /// 获取所有匹配节点的节点索引信息
+        /// </summary>
+        /// <param name="nodeInfo">匹配服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public async Task GetNodeIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<NodeIndex> callback)
+        {
+            foreach (ServerNode node in GetNodes())
+            {
+                if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                {
+                    if (!await callback.CallbackAsync(node.Index)) return;
+                }
+            }
+        }
+        /// <summary>
+        /// 获取所有匹配节点的全局关键字与节点索引信息
+        /// </summary>
+        /// <param name="nodeInfo">匹配服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public async Task GetNodeKeyIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<BinarySerializeKeyValue<string, NodeIndex>> callback)
+        {
+            foreach (ServerNode node in GetNodes())
+            {
+                if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                {
+                    if (!await callback.CallbackAsync(new BinarySerializeKeyValue<string, NodeIndex>(node.Key, node.Index))) return;
+                }
             }
         }
         /// <summary>

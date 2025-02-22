@@ -160,13 +160,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static IEnumerable<int> GetHashCode4(string value)
+        public static IEnumerable<uint> GetHashCode4(string value)
         {
             ulong hashCode = value.getHashCode64();
-            yield return (int)((uint)hashCode & 0xffff);
-            yield return (int)((uint)(hashCode >> 16) & 0xffff);
-            yield return (int)((uint)(hashCode >> 32) & 0xffff);
-            yield return (int)(uint)(hashCode >> 48);
+            yield return ((uint)hashCode & 0xffff);
+            yield return ((uint)(hashCode >> 16) & 0xffff);
+            yield return ((uint)(hashCode >> 32) & 0xffff);
+            yield return (uint)(hashCode >> 48);
         }
     }
     /// <summary>
@@ -178,13 +178,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 哈希计算委托集合
         /// </summary>
-        private readonly Func<T, IEnumerable<int>> getHashCodes;
+        private readonly Func<T, IEnumerable<uint>> getHashCodes;
         /// <summary>
         /// 多哈希位图过滤节点客户端
         /// </summary>
         /// <param name="nodeCache"></param>
         /// <param name="getHashCodes">哈希计算委托集合，必须采用稳定哈希算法保证不同机器或者进程计算结果一致</param>
-        public ManyHashBitMapClientFilter(StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapClientFilterNodeClientNode> nodeCache, Func<T, IEnumerable<int>> getHashCodes) : base(nodeCache)
+        public ManyHashBitMapClientFilter(StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapClientFilterNodeClientNode> nodeCache, Func<T, IEnumerable<uint>> getHashCodes) : base(nodeCache)
         {
             if (getHashCodes == null) throw new ArgumentNullException(nameof(getHashCodes));
             this.getHashCodes = getHashCodes;
@@ -199,7 +199,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (map.Size != 0)
             {
-                foreach (int hashCode in getHashCodes(value))
+                foreach (uint hashCode in getHashCodes(value))
                 {
                     if (map.GetBitValueByHashCode(hashCode) == 0)
                     {
@@ -231,7 +231,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         private async Task<ResponseResult> set(T value, IManyHashBitMapClientFilterNodeClientNode node)
         {
-            foreach (int hashCode in getHashCodes(value))
+            foreach (uint hashCode in getHashCodes(value))
             {
                 int bit = map.GetBitByHashCode(hashCode);
                 if (map.GetBitValue(bit) == 0)
@@ -275,7 +275,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (isDispose) return Task.FromResult(new ResponseResult<bool>(CallStateEnum.Disposed));
             if (map.Size != 0)
             {
-                foreach (int hashCode in getHashCodes(value))
+                foreach (uint hashCode in getHashCodes(value))
                 {
                     if (map.GetBitValueByHashCode(hashCode) == 0) return ResponseResult.FalseTask;
                 }
@@ -300,7 +300,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 set(mapResult.Value);
             }
             if (isDispose) return new ResponseResult<bool>(CallStateEnum.Disposed);
-            foreach (int hashCode in getHashCodes(value))
+            foreach (uint hashCode in getHashCodes(value))
             {
                 if (map.GetBitValueByHashCode(hashCode) == 0) return false;
             }

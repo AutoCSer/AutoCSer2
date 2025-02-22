@@ -23,7 +23,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 服务端时间戳
         /// </summary>
-        internal readonly ServerTimestamp ServerTimestamp;
+        public readonly ServerTimestamp ServerTimestamp;
         /// <summary>
         /// 服务端执行队列
         /// </summary>

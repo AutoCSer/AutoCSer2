@@ -26,15 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Index\HashSetIndex.cs" />
-    <Compile Include="Index\HashSetIndexCallback.cs" />
-    <Compile Include="Index\IIndexNode.cs" />
-    <Compile Include="Index\IIndexNodeClientNode.cs" />
-    <Compile Include="Index\IIndexNodeLocalClientNode.cs" />
-    <Compile Include="Index\IndexData.cs" />
-    <Compile Include="Index\IndexNode.cs" />
-    <Compile Include="Index\IndexNodeCallback.cs" />
-    <Compile Include="Index\SingleDiskBlockIndexNode.cs" />
     <Compile Include="StaticTrieGraph\AppendWordStateEnum.cs" />
     <Compile Include="StaticTrieGraph\GraphBuilder.cs" />
     <Compile Include="StaticTrieGraph\GraphData.cs" />
@@ -51,7 +42,6 @@
     <Compile Include="StaticTrieGraph\WordSegmentTypeEnum.cs" />
     <Compile Include="StaticTrieGraph\WordTypeEnum.cs" />
     <Compile Include="WordIdentityBlockIndex\IWordIdentityBlockIndexNode.cs" />
-    <Compile Include="WordIdentityBlockIndex\LocalNode.cs" />
     <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndex.cs" />
     <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndexNode.cs" />
     <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndexUpdateStateEnum.cs" />

@@ -9,6 +9,8 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
     {
         static async Task Main(string[] args)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             CommandServerConfig commandServerConfig = new CommandServerConfig 
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.InterfaceRealTimeCallMonitor),

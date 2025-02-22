@@ -129,7 +129,7 @@ namespace AutoCSer.Drawing.Gif
             }
             colors = AutoCSer.Common.GetUninitializedArray<LockBitmapColor>((int)Width * Height);
             colorCounts = AutoCSer.Common.GetUninitializedArray<int>(colors.Length);
-            colorIndexs = ReusableDictionary<LockBitmapColor>.Create<int>();
+            colorIndexs = ReusableDictionary.Create<LockBitmapColor, int>();
         }
         /// <summary>
         /// 释放资源
@@ -299,7 +299,7 @@ namespace AutoCSer.Drawing.Gif
                 byte* bitmapFixed = (byte*)bitmap.Scan0, currentBitmap = bitmapFixed + bitmap.Stride * (bitmapTopOffset - 1) + (bitmapLeftOffset + width) * 3, endColor = bitmapFixed + (bitmap.Height * bitmap.Stride - 3);
                 LockBitmapColor* currentColor = colorFixed;
                 int bitMapSpace = bitmap.Stride - (width << 1) - width;
-                colorIndexs.Empty();
+                colorIndexs.Clear();
                 for (int colorIndex, row = height; row != 0; --row)
                 {
                     currentBitmap += bitMapSpace;

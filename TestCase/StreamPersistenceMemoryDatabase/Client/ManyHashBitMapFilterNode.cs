@@ -13,7 +13,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             ResponseResult<IManyHashBitMapFilterNodeClientNode> node = await client.GetOrCreateManyHashBitMapFilterNode(typeof(IManyHashBitMapFilterNodeClientNode).FullName, size);
             if (!Program.Breakpoint(node)) return;
 
-            int[] hashCodes = ManyHashBitMapFilter.GetHashCode2(TestClass.String7);
+            uint[] hashCodes = ManyHashBitMapFilter.GetHashCode2(TestClass.String7);
             ManyHashBitMapFilter.HashCodeToBits(size, hashCodes);
             var result = await node.Value.SetBits(size, hashCodes);
             if (!Program.Breakpoint(result)) return;

@@ -1,6 +1,8 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
+using AutoCSer.Reflection;
 using System;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService
 {
@@ -35,6 +37,27 @@ namespace AutoCSer.CommandService
         /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
         NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo, bool isCreate);
+        /// <summary>
+        /// 获取所有匹配节点的全局关键字
+        /// </summary>
+        /// <param name="nodeInfo">匹配服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        Task GetNodeKeys(NodeInfo nodeInfo, CommandServerKeepCallbackCount<string> callback);
+        /// <summary>
+        /// 获取所有匹配节点的节点索引信息
+        /// </summary>
+        /// <param name="nodeInfo">匹配服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        Task GetNodeIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<NodeIndex> callback);
+        /// <summary>
+        /// 获取所有匹配节点的全局关键字与节点索引信息
+        /// </summary>
+        /// <param name="nodeInfo">匹配服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        Task GetNodeKeyIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<BinarySerializeKeyValue<string, NodeIndex>> callback);
         /// <summary>
         /// 调用节点方法
         /// </summary>

@@ -17,9 +17,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal const int PersistenceStartIndex = sizeof(int);
         /// <summary>
-        /// 压缩持久化输出流起始位置，用于记录压缩后的数据长度
+        /// 编码持久化输出流起始位置，用于记录编码后的数据长度
         /// </summary>
-        internal const int CompressPersistenceStartIndex = PersistenceStartIndex + sizeof(int);
+        internal const int EncodePersistenceStartIndex = PersistenceStartIndex + sizeof(int);
 
         /// <summary>
         /// 服务端节点

@@ -72,6 +72,10 @@ namespace AutoCSer.TestCase.Common
         /// 接口实时调用监视测试端口
         /// </summary>
         InterfaceRealTimeCallMonitor,
+        /// <summary>
+        /// 异常调用统计信息测试端口
+        /// </summary>
+        ExceptionStatistics,
 
         /// <summary>
         /// 注册服务测试端口

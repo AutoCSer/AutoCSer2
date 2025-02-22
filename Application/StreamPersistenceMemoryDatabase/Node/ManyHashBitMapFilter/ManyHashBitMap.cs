@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Algorithm;
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -16,17 +17,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private ulong[] map;
         /// <summary>
+        /// 位数量取余操作
+        /// </summary>
+        private IntegerDivision sizeDivision;
+        /// <summary>
         /// 位图大小（位数量）
         /// </summary>
-        internal int Size;
+        internal int Size { get { return (int)sizeDivision.Divisor; } }
         /// <summary>
         /// 设置位图大小
         /// </summary>
         /// <param name="size"></param>
         internal void Set(int size)
         {
-            this.Size = Math.Max(size, 2);
-            map = new ulong[this.Size + 63 >> 6];
+            sizeDivision.Set(Math.Max(size, 2));
+            map = new ulong[(long)Size + 63 >> 6];
         }
         /// <summary>
         /// 获取位数据
@@ -58,10 +63,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="hashCode"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public int GetBitByHashCode(int hashCode)
+        public int GetBitByHashCode(uint hashCode)
         {
-            int bit = hashCode % Size;
-            return bit >= 0 ? bit : (bit + Size);
+            return (int)sizeDivision.GetMod(hashCode);
+            //int bit = hashCode % Size;
+            //return bit >= 0 ? bit : (bit + Size);
         }
         /// <summary>
         /// 获取位数据
@@ -79,7 +85,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="hashCode"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal ulong GetBitValueByHashCode(int hashCode)
+        internal ulong GetBitValueByHashCode(uint hashCode)
         {
             return GetBitValue(GetBitByHashCode(hashCode));
         }

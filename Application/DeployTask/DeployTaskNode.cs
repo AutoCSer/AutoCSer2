@@ -48,7 +48,7 @@ namespace AutoCSer.CommandService
         {
             remove();
             foreach (TaskBuilder builder in tasks.Values) builder.Loaded();
-            return this;
+            return null;
         }
         /// <summary>
         /// 自动移除已关闭任务

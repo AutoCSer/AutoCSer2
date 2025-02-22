@@ -19,6 +19,14 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// </summary>
         internal char Character;
         /// <summary>
+        /// 失败节点类型
+        /// </summary>
+        private LinkTypeEnum linkType;
+        /// <summary>
+        /// 分布式节点编号
+        /// </summary>
+        internal byte DistributedIndex;
+        /// <summary>
         /// 子节点集合数组起始位置
         /// </summary>
         internal int NodeStartIndex;

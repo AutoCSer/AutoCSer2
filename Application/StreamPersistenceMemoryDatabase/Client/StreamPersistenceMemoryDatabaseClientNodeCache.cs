@@ -85,7 +85,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 日志流持久化内存数据库客户端缓存，用于客户端单例
         /// </summary>
-        private readonly StreamPersistenceMemoryDatabaseClientCache<ST> client;
+        public readonly StreamPersistenceMemoryDatabaseClientCache<ST> Client;
         /// <summary>
         /// 获取客户端节点委托
         /// </summary>
@@ -97,7 +97,7 @@ namespace AutoCSer.CommandService
         /// <param name="getNode">获取客户端节点委托</param>
         internal StreamPersistenceMemoryDatabaseClientNodeCache(StreamPersistenceMemoryDatabaseClientCache<ST> client, Func<StreamPersistenceMemoryDatabaseClient<ST>, Task<ResponseResult<NT>>> getNode)
         {
-            this.client = client;
+            this.Client = client;
             getNodeTask = getNode;
         }
         /// <summary>
@@ -106,7 +106,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         protected override async Task<ResponseResult<NT>> getNode()
         {
-            var client = await this.client.GetClient();
+            var client = await this.Client.GetClient();
             if (client != null)
             {
                 if (nodeTask != null) return nodeTask.Result;

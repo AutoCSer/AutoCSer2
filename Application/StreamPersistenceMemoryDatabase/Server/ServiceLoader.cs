@@ -93,14 +93,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return loadCount;
         }
         /// <summary>
-        /// 解压数据
+        /// 数据解码
         /// </summary>
-        /// <param name="compressData">压缩后的数据</param>
-        /// <param name="destinationData">等待写入的原始数据缓冲区</param>
-        /// <returns>是否解压成功</returns>
-        internal override bool Decompress(ref SubArray<byte> compressData, ref SubArray<byte> destinationData)
+        /// <param name="transferData">编码后的数据</param>
+        /// <param name="outputData">等待写入的原始数据缓冲区</param>
+        /// <returns>是否解码成功</returns>
+        internal override bool Decode(ref SubArray<byte> transferData, ref SubArray<byte> outputData)
         {
-            return service.Config.Decompress(ref compressData, ref destinationData);
+            return service.Config.PersistenceDecode(ref transferData, ref outputData);
         }
         /// <summary>
         /// 加载文件头部数据

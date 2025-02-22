@@ -47,7 +47,6 @@ namespace AutoCSer.TestCase.NetCoreWeb
         /// <returns></returns>
         public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
         {
-            Console.WriteLine(nameof(CallVerifyMethod));
             return getCompletedTask(TimestampVerifyChecker.Verify(controller, AutoCSer.TestCase.Common.Config.TimestampVerifyString));
         }
         /// <summary>
@@ -56,7 +55,6 @@ namespace AutoCSer.TestCase.NetCoreWeb
         /// <param name="socket"></param>
         public override async Task OnMethodVerified(CommandClientSocket socket)
         {
-            Console.WriteLine(nameof(OnMethodVerified));
             checkCommandKeepCallback = await InterfaceRealTimeCallMonitor.Check(KeepCallbackCommand.NullCallback);
             await base.OnMethodVerified(socket);
         }

@@ -308,6 +308,12 @@ namespace AutoCSer.TestCase.DeployTask
             /// </summary>
             CreateManyHashBitMapFilterNode = 28,
             /// <summary>
+            /// [29] 删除节点
+            /// string key 节点全局关键字
+            /// 返回值 bool 是否成功删除节点，否则表示没有找到节点
+            /// </summary>
+            RemoveNodeByKey = 29,
+            /// <summary>
             /// [256] 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
             /// string key 

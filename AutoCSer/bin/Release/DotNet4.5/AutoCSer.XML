@@ -4,6 +4,78 @@
         <name>AutoCSer</name>
     </assembly>
     <members>
+        <member name="T:AutoCSer.Algorithm.IntegerDivision">
+            <summary>
+            32b 整数除法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.Divisor">
+            <summary>
+            31b 除数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.shiftBit">
+            <summary>
+            除 divisor 转位移乘法位移数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.multiplier">
+            <summary>
+            除 divisor 转位移乘法乘数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.highBitMod">
+            <summary>
+            最高位 % divisor 模数（余数）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.highBitQuotient">
+            <summary>
+            最高位 / divisor 商
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.#ctor(System.Int32,System.UInt32)">
+            <summary>
+            32b 整数除法 a/b = a*(s/b)/s
+            </summary>
+            <param name="divisor">31b 除数，必须大于 0</param>
+            <param name="maxValue">最大被除数</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.Set(System.Int32,System.UInt32)">
+            <summary>
+            设置计算参数 a/b = a*(s/b)/s
+            </summary>
+            <param name="divisor">31b 除数，必须大于 0</param>
+            <param name="maxValue">最大被除数</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.GetQuotient(System.UInt32)">
+            <summary>
+            获取商
+            </summary>
+            <param name="dividend">被除数</param>
+            <returns>商</returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.GetQuotient(System.Int32)">
+            <summary>
+            获取商
+            </summary>
+            <param name="dividend">被除数，必须大于 0</param>
+            <returns>商</returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.GetMod(System.UInt32)">
+            <summary>
+            获取模数（余数）
+            </summary>
+            <param name="dividend">被除数</param>
+            <returns>模数（余数）</returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.GetMod(System.Int32)">
+            <summary>
+            获取模数（余数）
+            </summary>
+            <param name="dividend">被除数，必须大于 0</param>
+            <returns>模数（余数）</returns>
+        </member>
         <member name="T:AutoCSer.Algorithm.QuickSort">
             <summary>
             快速排序
@@ -10455,14 +10527,14 @@
             数值相关扩展操作
             </summary>
         </member>
-        <member name="F:AutoCSer.Extensions.NumberExtension.Div10_16Shift">
-            <summary>
-            16位除以10转乘法的位移
-            </summary>
-        </member>
         <member name="F:AutoCSer.Extensions.NumberExtension.Div10_16Mul">
             <summary>
             16位除以10转乘法的乘数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.NumberExtension.Div10_16Shift">
+            <summary>
+            16位除以10转乘法的位移
             </summary>
         </member>
         <member name="F:AutoCSer.Extensions.NumberExtension.Div10000Mul">
@@ -10729,13 +10801,6 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Extensions.NumberExtension.bitCount(System.UInt64)">
-            <summary>
-            获取二进制1位的个数
-            </summary>
-            <param name="value">数据</param>
-            <returns>二进制1位的个数</returns>
-        </member>
         <member name="M:AutoCSer.Extensions.NumberExtension.fullBit(System.UInt32)">
             <summary>
             填充第一个有效二进制位后面的空位
@@ -10749,6 +10814,13 @@
             </summary>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.NumberExtension.bits(System.UInt32)">
+            <summary>
+            获取有效位长度
+            </summary>
+            <param name="value">数据</param>
+            <returns>有效位长度</returns>
         </member>
         <member name="F:AutoCSer.Extensions.NumberExtension.DeBruijn32">
             <summary>
@@ -11003,24 +11075,18 @@
             <param name="key">查询键值</param>
             <returns>数据对象</returns>
         </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.#ctor(System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.FifoPriorityQueue`2.#ctor(System.Int32)">
             <summary>
             先进先出优先队列
             </summary>
             <param name="dictionaryCapacity">字典初始化容器尺寸</param>
-            <param name="isClear">是否需要清除数据</param>
-        </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.Empty">
-            <summary>
-            长度设为0（注意：对于引用类型没有置 0 可能导致内存泄露）
-            </summary>
         </member>
         <member name="M:AutoCSer.FifoPriorityQueue`2.Clear">
             <summary>
             清除数据
             </summary>
         </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.Get(`0@,`1)">
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Get(`0,`1)">
             <summary>
             获取数据
             </summary>
@@ -11028,7 +11094,7 @@
             <param name="nullValue">失败空值</param>
             <returns>数据对象</returns>
         </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.TryGetValue(`0@,`1@)">
+        <member name="M:AutoCSer.FifoPriorityQueue`2.TryGetValue(`0,`1@)">
             <summary>
             获取数据
             </summary>
@@ -11036,18 +11102,12 @@
             <param name="value">目标数据对象</param>
             <returns>是否获取成功</returns>
         </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.GetNode(`0@)">
+        <member name="M:AutoCSer.FifoPriorityQueue`2.GetNode(`0)">
             <summary>
             获取数据
             </summary>
             <param name="key">键值</param>
             <returns>数据对象</returns>
-        </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.CheckNode(`0@)">
-            <summary>
-            检查关键字以调整访问节点
-            </summary>
-            <param name="key"></param>
         </member>
         <member name="M:AutoCSer.FifoPriorityQueue`2.TryGetOnly(`0,`1@)">
             <summary>
@@ -11057,7 +11117,7 @@
             <param name="value"></param>
             <returns>数据对象</returns>
         </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.Set(`0@,`1)">
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Set(`0,`1)">
             <summary>
             设置数据
             </summary>
@@ -11072,7 +11132,7 @@
             <param name="key">键值</param>
             <param name="value">数据对象</param>
         </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.UnsafeAdd(`0@,`1)">
+        <member name="M:AutoCSer.FifoPriorityQueue`2.UnsafeAdd(`0,`1)">
             <summary>
             添加数据
             </summary>
@@ -11110,7 +11170,7 @@
             </summary>
             <returns>值</returns>
         </member>
-        <member name="M:AutoCSer.FifoPriorityQueue`2.Remove(`0@,`1@)">
+        <member name="M:AutoCSer.FifoPriorityQueue`2.Remove(`0,`1@)">
             <summary>
             删除一个数据
             </summary>
@@ -41400,6 +41460,21 @@
             <param name="time"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Date.toIntDate(System.DateTime)">
+            <summary>
+            时间转整数值 Year[23b] + Month[4b] + Day[5b]
+            </summary>
+            <param name="time"></param>
+            <returns>Year[23b] + Month[4b] + Day[5b]</returns>
+        </member>
+        <member name="M:AutoCSer.Date.fromIntDate(System.UInt32,System.DateTimeKind)">
+            <summary>
+            整数值转时间
+            </summary>
+            <param name="date">Year[23b] + Month[4b] + Day[5b]</param>
+            <param name="kind"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Date.GetMillisecondsByTimestamp(System.Int64)">
             <summary>
             时间戳转毫秒数
@@ -42868,51 +42943,70 @@
         </member>
         <member name="T:AutoCSer.ReusableDictionary">
             <summary>
-            可重用字典静态数据（主要用于非引用类型缓冲区，避免 new / Clear 开销）
+            可重用字典（主要用于非引用类型缓冲区，避免 new / Clear 开销）
             </summary>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary.CreateInt``1(System.Int32,System.Boolean)">
+        <member name="F:AutoCSer.ReusableDictionary.count">
+            <summary>
+            有效数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ReusableDictionary.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionary.primeIndex">
+            <summary>
+            质数索引位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionary.CapacityDivision">
+            <summary>
+            哈希取余
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary.#ctor(System.Int32)">
+            <summary>
+            可重用字典
+            </summary>
+            <param name="capacity">容器初始化大小</param>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary.CreateInt``1(System.Int32)">
             <summary>
             创建字典
             </summary>
             <typeparam name="T">数据类型</typeparam>
             <param name="capacity">容器初始化大小</param>
-            <param name="isClear">是否需要清除数据</param>
             <returns>字典</returns>
         </member>
-        <member name="T:AutoCSer.ReusableDictionary.SearchStateEnum">
+        <member name="M:AutoCSer.ReusableDictionary.Create``2(System.Int32)">
             <summary>
-            查找节点状态
+            创建字典
             </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary.SearchStateEnum.End">
-            <summary>
-            最后一个节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary.SearchStateEnum.Equal">
-            <summary>
-            相等
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary.SearchStateEnum.Next">
-            <summary>
-            下一个节点
-            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <param name="capacity">容器初始化大小</param>
+            <returns>字典</returns>
         </member>
         <member name="F:AutoCSer.ReusableDictionary.capacityPrimes">
             <summary>
             容器大小质数集合
             </summary>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary.GetPrime(System.Int32)">
+        <member name="M:AutoCSer.ReusableDictionary.getPrime(System.Int32)">
             <summary>
             根据质数索引获取质数，失败返回 0
             </summary>
             <param name="primeIndex"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary.GetPrimeIndex(System.Int32)">
+        <member name="M:AutoCSer.ReusableDictionary.getPrimeIndex(System.Int32)">
             <summary>
             获取质数索引
             </summary>
@@ -42945,18 +43039,50 @@
         </member>
         <member name="T:AutoCSer.ReusableDictionary`1">
             <summary>
-            创建可重用字典（主要用于非引用类型缓冲区，避免 new / Clear 开销）
+            可重用字典（主要用于非引用类型缓冲区，避免 new / Clear 开销）
             </summary>
-            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="T">关键字类型</typeparam>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`1.Create``1(System.Int32,System.Boolean)">
+        <member name="F:AutoCSer.ReusableDictionary`1.Nodes">
             <summary>
-            创建字典
+            节点集合
             </summary>
-            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.#ctor(System.Int32)">
+            <summary>
+            可重用字典
+            </summary>
             <param name="capacity">容器初始化大小</param>
-            <param name="isClear">是否需要清除数据</param>
-            <returns>字典</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.add(System.UInt32,`0)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="hashCode"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.resize">
+            <summary>
+            重组数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.ClearCount">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.remove(System.Int32)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="nodeIndex"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.CopyTo(AutoCSer.LeftArray{`0}@)">
+            <summary>
+            复制数据
+            </summary>
+            <param name="values"></param>
         </member>
         <member name="T:AutoCSer.ReusableDictionary`2">
             <summary>
@@ -42964,173 +43090,6 @@
             </summary>
             <typeparam name="KT">关键字类型</typeparam>
             <typeparam name="VT">数据类型</typeparam>
-        </member>
-        <member name="T:AutoCSer.ReusableDictionary`2.Node">
-            <summary>
-            节点数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.Node.LinkIndex">
-            <summary>
-            哈希索引
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.Node.Source">
-            <summary>
-            节点来源，最高位为 0 表示首节点，否则表示后续节点
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ReusableDictionary`2.Node.SourceIndex">
-            <summary>
-            节点来源，用于调试
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.Node.HashCode">
-            <summary>
-            关键字哈希值
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.Node.Next">
-            <summary>
-            下一个数据索引位置，int.MaxValue 表示最后一个
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.Node.Key">
-            <summary>
-            关键字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.Node.Value">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ReusableDictionary`2.Node.KeyValue">
-            <summary>
-            获取键值对
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.Clear">
-            <summary>
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.Set(AutoCSer.ReusableDictionary{`0,`1}.SearchNode@,`1,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="node"></param>
-            <param name="value"></param>
-            <param name="source"></param>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.Set(AutoCSer.ReusableDictionary{`0,`1}.SearchNode@,`1,System.UInt32,System.Int32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="node"></param>
-            <param name="value"></param>
-            <param name="source"></param>
-            <param name="next"></param>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.Search(AutoCSer.ReusableDictionary{`0,`1}.SearchNode@,System.UInt32)">
-            <summary>
-            判断关键字是否相等
-            </summary>
-            <param name="node">查找节点</param>
-            <param name="source">节点来源</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.Search(AutoCSer.ReusableDictionary{`0,`1}.SearchNode@)">
-            <summary>
-            判断关键字是否相等
-            </summary>
-            <param name="node">查找节点</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.SearchState(AutoCSer.ReusableDictionary{`0,`1}.SearchNode@)">
-            <summary>
-            搜索节点
-            </summary>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.RemoveGetNext(`1@)">
-            <summary>
-            删除节点时获取下一个数据索引位置
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Node.RemoveSet(AutoCSer.ReusableDictionary{`0,`1}.Node@,System.Int32@)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="node"></param>
-            <param name="next"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.ReusableDictionary`2.SearchNode">
-            <summary>
-            查找节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.SearchNode.HashCode">
-            <summary>
-            关键字哈希值
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.SearchNode.Index">
-            <summary>
-            查找索引
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.SearchNode.Key">
-            <summary>
-            关键字
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.SearchNode.#ctor(`0@)">
-            <summary>
-            查找节点
-            </summary>
-            <param name="key"></param>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.SearchNode.#ctor(AutoCSer.ReusableDictionary{`0,`1}.Node@,`1@)">
-            <summary>
-            查找节点
-            </summary>
-            <param name="node"></param>
-            <param name="value"></param>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.isClear">
-            <summary>
-            是否需要清除数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.primeIndex">
-            <summary>
-            质数索引未知
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.capacity">
-            <summary>
-            容器大小
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.count">
-            <summary>
-            有效数据数量
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ReusableDictionary`2.Count">
-            <summary>
-            数据数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ReusableDictionary`2.nodes">
-            <summary>
-            节点集合
-            </summary>
         </member>
         <member name="P:AutoCSer.ReusableDictionary`2.KeyValues">
             <summary>
@@ -43154,53 +43113,11 @@
             <param name="key">关键字</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.#ctor(System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.ReusableDictionary`2.#ctor(System.Int32)">
             <summary>
             可重用字典
             </summary>
             <param name="capacity">容器初始化大小</param>
-            <param name="isClear">是否需要清除数据</param>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.#ctor(AutoCSer.ReusableDictionary{`0,`1})">
-            <summary>
-            可重用字典重组 
-            </summary>
-            <param name="dictionary"></param>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Empty">
-            <summary>
-            长度设为0（注意：对于引用类型没有置 0 可能导致内存泄露）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.add(AutoCSer.ReusableDictionary{`0,`1}.SearchNode@,`1)">
-            <summary>
-            新增数据
-            </summary>
-            <param name="node"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Clear">
-            <summary>
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.ClearKey">
-            <summary>
-            清除关键字 
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.ClearValue">
-            <summary>
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.indexOf(`0@)">
-            <summary>
-            获取关键字匹配位置
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.ReusableDictionary`2.TryGetValue(`0,`1@)">
             <summary>
@@ -43210,27 +43127,6 @@
             <param name="value">目标数据</param>
             <returns>是否获取成功</returns>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.TryGetValue(`0@,`1@)">
-            <summary>
-            尝试获取数据
-            </summary>
-            <param name="key">关键字</param>
-            <param name="value">目标数据</param>
-            <returns>是否获取成功</returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.resize">
-            <summary>
-            重组数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.set(AutoCSer.ReusableDictionary{`0,`1}.SearchNode@,`1)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="node"></param>
-            <param name="value"></param>
-            <returns>是否新增数据</returns>
-        </member>
         <member name="M:AutoCSer.ReusableDictionary`2.Set(`0,`1)">
             <summary>
             设置数据
@@ -43238,21 +43134,6 @@
             <param name="key"></param>
             <param name="value"></param>
             <returns>是否新增数据</returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Set(`0@,`1)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="key"></param>
-            <param name="value"></param>
-            <returns>是否新增数据</returns>
-        </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.ContainsKey(`0@)">
-            <summary>
-            判断是否存在关键字
-            </summary>
-            <param name="key">关键字</param>
-            <returns>是否存在关键字</returns>
         </member>
         <member name="M:AutoCSer.ReusableDictionary`2.ContainsKey(`0)">
             <summary>
@@ -43268,13 +43149,6 @@
             <param name="key"></param>
             <returns>是否存在关键字</returns>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Remove(`0@)">
-            <summary>
-            删除关键字
-            </summary>
-            <param name="key"></param>
-            <returns>是否存在关键字</returns>
-        </member>
         <member name="M:AutoCSer.ReusableDictionary`2.Remove(`0,`1@)">
             <summary>
             删除关键字
@@ -43283,25 +43157,66 @@
             <param name="value">被删除数据</param>
             <returns>是否存在关键字</returns>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.Remove(`0@,`1@)">
+        <member name="T:AutoCSer.ReusableDictionaryNode`1">
             <summary>
-            删除关键字
+            可重用字典节点
             </summary>
-            <param name="key"></param>
-            <param name="value">被删除数据</param>
-            <returns>是否存在关键字</returns>
+            <typeparam name="T">节点数据类型</typeparam>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.remove(System.Int32)">
+        <member name="F:AutoCSer.ReusableDictionaryNode`1.LinkIndex">
             <summary>
-            删除节点
+            哈希索引
             </summary>
-            <param name="nodeIndex"></param>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.CopyTo(AutoCSer.LeftArray{AutoCSer.KeyValue{`0,`1}}@)">
+        <member name="F:AutoCSer.ReusableDictionaryNode`1.Source">
             <summary>
-            复制数据
+            节点来源，最高位为 0 表示首节点，否则表示后续节点
             </summary>
-            <param name="values"></param>
+        </member>
+        <member name="P:AutoCSer.ReusableDictionaryNode`1.SourceIndex">
+            <summary>
+            节点来源，用于调试
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionaryNode`1.HashCode">
+            <summary>
+            关键字哈希值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionaryNode`1.Next">
+            <summary>
+            下一个数据索引位置，int.MaxValue 表示最后一个
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionaryNode`1.Value">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionaryNode`1.Set(System.UInt32,System.UInt32,`0)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionaryNode`1.Set(System.UInt32,System.UInt32,`0,System.Int32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+            <param name="value"></param>
+            <param name="next"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionaryNode`1.RemoveSet(AutoCSer.ReusableDictionaryNode{`0}@,System.Int32@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="node"></param>
+            <param name="next"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.SimpleSerialize.Deserializer">
             <summary>

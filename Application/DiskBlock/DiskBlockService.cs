@@ -338,7 +338,7 @@ namespace AutoCSer.CommandService.DiskBlock
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void CheckIndexCacheNode(long index)
         {
-            indexCache.CheckNode(ref index);
+            indexCache.GetNode(index);
         }
         /// <summary>
         /// 写入数据
@@ -462,7 +462,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 }
 
                 HashBytes buffer;
-                if (index.Size <= (uint)maxCacheSize && indexCache.TryGetValue(ref index.Index, out buffer))
+                if (index.Size <= (uint)maxCacheSize && indexCache.TryGetValue(index.Index, out buffer))
                 {
                     if (buffer.SubArray.Length == index.Size)
                     {
@@ -514,7 +514,7 @@ namespace AutoCSer.CommandService.DiskBlock
             try
             {
                 SubArray<byte> buffer = request.Buffer.Buffer;
-                if (buffer.Array != null && buffer.Length <= maxCacheSize && indexCache.GetNode(ref index) == null)
+                if (buffer.Array != null && buffer.Length <= maxCacheSize && indexCache.GetNode(index) == null)
                 {
                     HeadLeftArray<long> indexs;
                     HashBytes hashBytes = buffer;
@@ -526,7 +526,7 @@ namespace AutoCSer.CommandService.DiskBlock
                             indexCache.TryGetOnly(indexs.Head, out hashBytes);
                             indexs.Array.PrepLength(1);
 
-                            indexCache.Set(ref index, hashBytes);
+                            indexCache.Set(index, hashBytes);
                             isRemoveCache = true;
                             if (index > indexs.Head) indexs.AddHead(index);
                             else indexs.Add(index);
@@ -534,7 +534,7 @@ namespace AutoCSer.CommandService.DiskBlock
                         }
                         else
                         {
-                            indexCache.Set(ref index, hashBytes);
+                            indexCache.Set(index, hashBytes);
                             isRemoveCache = true;
                             dataCache.Add(hashBytes, new HeadLeftArray<long>(index));
                             currentCacheSize += buffer.Length;
@@ -547,7 +547,7 @@ namespace AutoCSer.CommandService.DiskBlock
             finally
             {
                 HashBytes hashBytes;
-                if (isRemoveCache) indexCache.Remove(ref index, out hashBytes);
+                if (isRemoveCache) indexCache.Remove(index, out hashBytes);
                 if (currentCacheSize > maxCacheTotalSize)
                 {
                     HeadLeftArray<long> indexs;

@@ -73,7 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             foreach (GuardProcess guardProcess in guards.Values) guardProcess.Loaded();
-            return this;
+            return null;
         }
         /// <summary>
         /// 节点移除后处理

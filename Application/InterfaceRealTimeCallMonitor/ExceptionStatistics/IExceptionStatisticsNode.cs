@@ -22,6 +22,11 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 2)]
         void SnapshotSet(BinarySerializeKeyValue<long, ExceptionStatistics> value);
         /// <summary>
+        /// 移除当前节点
+        /// </summary>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void RemoveNode();
+        /// <summary>
         /// 获取异常调用总次数
         /// </summary>
         /// <returns></returns>

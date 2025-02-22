@@ -97,5 +97,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return value != null && hashSet.Remove(value);
         }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <returns></returns>
+        public T[] GetArray()
+        {
+            return hashSet.getArray();
+        }
     }
 }

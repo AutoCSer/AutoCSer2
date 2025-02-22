@@ -67,13 +67,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="size">位图大小（位数量）</param>
         /// <param name="bits">位置集合</param>
         /// <returns>返回 false 表示位图大小不匹配</returns>
-        public ValueResult<bool> SetBitsBeforePersistence(int size, int[] bits)
+        public ValueResult<bool> SetBitsBeforePersistence(int size, uint[] bits)
         {
             if (size == map.Size && bits != null)
             {
-                foreach (int bit in bits)
+                foreach (uint bit in bits)
                 {
-                    if (map.GetBitValueBeforePersistence(bit) == 0) return default(ValueResult<bool>);
+                    if (map.GetBitValueBeforePersistence((int)bit) == 0) return default(ValueResult<bool>);
                 }
                 return true;
             }
@@ -85,9 +85,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="size">位图大小（位数量）</param>
         /// <param name="bits">位置集合</param>
         /// <returns>返回 false 表示位图大小不匹配</returns>
-        public bool SetBits(int size, int[] bits)
+        public bool SetBits(int size, uint[] bits)
         {
-            foreach (int bit in bits) map.SetBit(bit);
+            foreach (uint bit in bits) map.SetBit((int)bit);
             return true;
         }
         /// <summary>
@@ -96,13 +96,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="size">位图大小（位数量）</param>
         /// <param name="bits">位置集合</param>
         /// <returns>返回 false 表示数据不存在</returns>
-        public NullableBoolEnum CheckBits(int size, int[] bits)
+        public NullableBoolEnum CheckBits(int size, uint[] bits)
         {
             if (size == map.Size && bits != null)
             {
-                foreach (int bit in bits)
+                foreach (uint bit in bits)
                 {
-                    if (map.GetBitValue(bit) == 0) return NullableBoolEnum.False;
+                    if (map.GetBitValue((int)bit) == 0) return NullableBoolEnum.False;
                 }
                 return NullableBoolEnum.True;
             }

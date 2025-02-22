@@ -5141,7 +5141,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode.SetBitsBeforePersistence(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode.SetBitsBeforePersistence(System.Int32,System.UInt32[])">
             <summary>
             设置位 持久化前检查
             </summary>
@@ -5149,7 +5149,7 @@
             <param name="bits">位置集合</param>
             <returns>返回 false 表示位图大小不匹配</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode.SetBits(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode.SetBits(System.Int32,System.UInt32[])">
             <summary>
             设置位
             </summary>
@@ -5157,7 +5157,7 @@
             <param name="bits">位置集合</param>
             <returns>返回 false 表示位图大小不匹配</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode.CheckBits(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNode.CheckBits(System.Int32,System.UInt32[])">
             <summary>
             检查位图数据
             </summary>
@@ -5175,7 +5175,12 @@
             位图数据
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.Size">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.sizeDivision">
+            <summary>
+            位数量取余操作
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.Size">
             <summary>
             位图大小（位数量）
             </summary>
@@ -5200,7 +5205,7 @@
             <param name="bit"></param>
             <returns>是否设置新位</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.GetBitByHashCode(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.GetBitByHashCode(System.UInt32)">
             <summary>
             根据哈希值获取位置
             </summary>
@@ -5214,7 +5219,7 @@
             <param name="bit"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.GetBitValueByHashCode(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.GetBitValueByHashCode(System.UInt32)">
             <summary>
             获取位数据
             </summary>
@@ -5244,7 +5249,12 @@
             多哈希位图过滤节点客户端
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.size">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.SizeDivision">
+            <summary>
+            位数量取余操作
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.size">
             <summary>
             位图大小（位数量）
             </summary>
@@ -5256,7 +5266,13 @@
             <param name="nodeCache"></param>
             <param name="size"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.HashCodeToBits(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.hashCodeToBits(System.UInt32[])">
+            <summary>
+            哈希值转位图索引位置
+            </summary>
+            <param name="hashCodes">哈希值集合</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.HashCodeToBits(System.Int32,System.UInt32[])">
             <summary>
             哈希值转位图索引位置
             </summary>
@@ -5288,7 +5304,7 @@
             哈希计算委托集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeClientNode},System.Int32,System.Func{`0,System.Int32[]})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeClientNode},System.Int32,System.Func{`0,System.UInt32[]})">
             <summary>
             多哈希位图过滤节点客户端
             </summary>
@@ -5400,7 +5416,7 @@
             哈希计算委托集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeClientNode},System.Func{`0,System.Collections.Generic.IEnumerable{System.Int32}})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeClientNode},System.Func{`0,System.Collections.Generic.IEnumerable{System.UInt32}})">
             <summary>
             多哈希位图过滤节点客户端
             </summary>
@@ -5500,7 +5516,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.SetBitsBeforePersistence(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.SetBitsBeforePersistence(System.Int32,System.UInt32[])">
             <summary>
             设置位 持久化前检查
             </summary>
@@ -5508,7 +5524,7 @@
             <param name="bits">位置集合</param>
             <returns>返回 false 表示位图大小不匹配</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.SetBits(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.SetBits(System.Int32,System.UInt32[])">
             <summary>
             设置位
             </summary>
@@ -5516,7 +5532,7 @@
             <param name="bits">位置集合</param>
             <returns>返回 false 表示位图大小不匹配</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.CheckBits(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.CheckBits(System.Int32,System.UInt32[])">
             <summary>
             检查位图数据
             </summary>
@@ -6472,6 +6488,12 @@
             清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeLocalClientNode`1.GetArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode`1">
             <summary>
             哈希表节点接口 客户端节点接口
@@ -6516,6 +6538,12 @@
             <summary>
             清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode`1.GetArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeLocalClientNode`1">
             <summary>
@@ -8194,6 +8222,12 @@
             <param name="value"></param>
             <returns>是否删除成功</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.GetArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesFragmentDictionaryNode">
             <summary>
             256 基分片 HashBytes 字典 节点
@@ -9434,6 +9468,12 @@
             </summary>
             <param name="value"></param>
             <returns>是否删除成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode`1.GetArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode`1">
             <summary>
@@ -12452,6 +12492,20 @@
             <summary>
             服务日志回调委托
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.logCallback(System.Threading.Tasks.Task{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode}})">
+            <summary>
+            服务日志回调委托
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.logCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeClientNode})">
+            <summary>
+            服务日志回调委托
+            </summary>
+            <param name="node"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandClientServiceRegistrarLogClient.logCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog)">
@@ -16658,6 +16712,13 @@
             <param name="index">节点索引信息</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.RemoveNodeByKey(System.String)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateServerRegistryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
             <summary>
             创建服务注册节点 IServerRegistryNode
@@ -19595,6 +19656,11 @@
             服务接口回调委托
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Reserve">
+            <summary>
+            保留
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.flag">
             <summary>
             服务端节点方法标记
@@ -19605,14 +19671,9 @@
             返回值类型是否 ResponseParameter
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Reserve16">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.isCallback">
             <summary>
-            保留
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Reserve">
-            <summary>
-            保留
+            是否已经回调操作
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.#ctor">
@@ -19649,6 +19710,13 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            失败回调
+            </summary>
+            <param name="state">失败状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.SynchronousCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
             <summary>
             失败回调
             </summary>
@@ -19693,9 +19761,9 @@
             持久化输出流起始位置，用于记录当前输出数据长度
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.CompressPersistenceStartIndex">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.EncodePersistenceStartIndex">
             <summary>
-            压缩持久化输出流起始位置，用于记录压缩后的数据长度
+            编码持久化输出流起始位置，用于记录编码后的数据长度
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.Node">
@@ -21231,9 +21299,9 @@
             临时复制数据缓冲区
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceBuffer.outputCompressBuffer">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceBuffer.outputEncodeBuffer">
             <summary>
-            压缩数据缓冲区
+            编码数据缓冲区
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceBuffer.SendBufferMaxSize">
@@ -21333,12 +21401,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceBuffer.compress(AutoCSer.SubArray{System.Byte}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceBuffer.encode(AutoCSer.SubArray{System.Byte}@)">
             <summary>
-            压缩数据
+            数据编码
             </summary>
             <param name="outputData"></param>
-            <returns>是否压缩成功</returns>
+            <returns>数据是否编码</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder">
             <summary>
@@ -21920,13 +21988,13 @@
             </summary>
             <returns>加载请求数量</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceLoader.Decompress(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceLoader.Decode(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
             <summary>
-            解压数据
+            数据解码
             </summary>
-            <param name="compressData">压缩后的数据</param>
-            <param name="destinationData">等待写入的原始数据缓冲区</param>
-            <returns>是否解压成功</returns>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceLoader.loadHead(AutoCSer.SubArray{System.Byte})">
             <summary>
@@ -21991,6 +22059,13 @@
             删除节点
             </summary>
             <param name="index">节点索引信息</param>
+            <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.RemoveNodeByKey(System.String)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="key">节点全局关键字</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateNode``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``0})">
@@ -23195,6 +23270,30 @@
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceMethodEnum.GetNodeIndexs">
+            <summary>
+            [23] 获取所有匹配节点的节点索引信息
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 匹配服务端节点信息
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex} callback 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceMethodEnum.GetNodeKeyIndexs">
+            <summary>
+            [24] 获取所有匹配节点的全局关键字与节点索引信息
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 匹配服务端节点信息
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.BinarySerializeKeyValue{string,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}} callback 
+            返回值 AutoCSer.BinarySerializeKeyValue{string,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceMethodEnum.GetNodeKeys">
+            <summary>
+            [25] 获取所有匹配节点的全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 匹配服务端节点信息
+            AutoCSer.Net.CommandServerKeepCallbackCount{string} callback 
+            返回值 string 
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeClientNode`1">
             <summary>
             数组节点接口 客户端节点接口
@@ -23894,7 +23993,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeClientNode.SetBits(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeClientNode.SetBits(System.Int32,System.UInt32[])">
             <summary>
             设置位
             </summary>
@@ -23902,7 +24001,7 @@
             <param name="bits">位置集合</param>
             <returns>返回 false 表示位图大小不匹配</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeClientNode.CheckBits(System.Int32,System.Int32[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeClientNode.CheckBits(System.Int32,System.UInt32[])">
             <summary>
             检查位图数据
             </summary>
@@ -24330,6 +24429,13 @@
             <param name="nodeInfo">节点信息</param>
             <param name="size">位图大小（位数量）</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.RemoveNodeByKey(System.String)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeClientNode`1">
             <summary>
@@ -25127,6 +25233,13 @@
             <param name="nodeInfo">节点信息</param>
             <param name="size">位图大小（位数量）</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.RemoveNodeByKey(System.String)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeLocalClientNode`1">
             <summary>
@@ -26080,6 +26193,12 @@
             [5] 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeMethodEnum.GetArray">
+            <summary>
+            [6] 获取数组
+            返回值 T[] 
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeMethodEnum">
             <summary>
             64 位自增ID 节点接口 节点方法序号映射枚举类型
@@ -26366,7 +26485,7 @@
             <summary>
             [1] 设置位
             int size 位图大小（位数量）
-            int[] bits 位置集合
+            uint[] bits 位置集合
             返回值 bool 返回 false 表示位图大小不匹配
             </summary>
         </member>
@@ -26374,7 +26493,7 @@
             <summary>
             [2] 设置位 持久化前检查
             int size 位图大小（位数量）
-            int[] bits 位置集合
+            uint[] bits 位置集合
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 返回 false 表示位图大小不匹配
             </summary>
         </member>
@@ -26388,7 +26507,7 @@
             <summary>
             [4] 检查位图数据
             int size 位图大小（位数量）
-            int[] bits 位置集合
+            uint[] bits 位置集合
             返回值 AutoCSer.NullableBoolEnum 返回 false 表示数据不存在
             </summary>
         </member>
@@ -27143,6 +27262,13 @@
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeMethodEnum.RemoveNodeByKey">
+            <summary>
+            [29] 删除节点
+            string key 节点全局关键字
+            返回值 bool 是否成功删除节点，否则表示没有找到节点
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNodeMethodEnum">
             <summary>
             排序字典节点 节点方法序号映射枚举类型
@@ -27814,6 +27940,13 @@
             <param name="node">客户端节点</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.RemoveNode(System.String)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateServerRegistryNode(System.String,System.Int32,System.Boolean)">
             <summary>
             创建服务注册节点，不存在则创建节点 IServerRegistryNode
@@ -28101,6 +28234,27 @@
             <param name="nodeInfo">节点信息</param>
             <param name="isCreate">关键字不存在时创建空闲节点标识</param>
             <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient.GetNodeKeys(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            获取所有匹配节点的全局关键字
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient.GetNodeIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            获取所有匹配节点的节点索引信息
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient.GetNodeKeyIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            获取所有匹配节点的全局关键字与节点索引信息
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient.SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter)">
             <summary>
@@ -28550,7 +28704,7 @@
             <typeparam name="NT">客户端节点类型</typeparam>
             <typeparam name="ST">服务基础操作客户端接口类型</typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache`2.client">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache`2.Client">
             <summary>
             日志流持久化内存数据库客户端缓存，用于客户端单例
             </summary>
@@ -28681,6 +28835,30 @@
             <param name="nodeInfo">节点信息</param>
             <param name="isCreate">关键字不存在时创建空闲节点标识</param>
             <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.GetNodeKeys(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{System.String})">
+            <summary>
+            获取所有匹配节点的全局关键字
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.GetNodeIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex})">
+            <summary>
+            获取所有匹配节点的节点索引信息
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.GetNodeKeyIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.BinarySerializeKeyValue{System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}})">
+            <summary>
+            获取所有匹配节点的全局关键字与节点索引信息
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <param name="callback"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService.Call(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
@@ -29032,6 +29210,13 @@
             <param name="index">节点索引信息</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.RemoveNode(System.String)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetFreeIndex">
             <summary>
             获取节点索引
@@ -29043,6 +29228,30 @@
             释放空闲节点
             </summary>
             <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeKeys(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{System.String})">
+            <summary>
+            获取所有匹配节点的全局关键字
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex})">
+            <summary>
+            获取所有匹配节点的节点索引信息
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeKeyIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.BinarySerializeKeyValue{System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}})">
+            <summary>
+            获取所有匹配节点的全局关键字与节点索引信息
+            </summary>
+            <param name="nodeInfo">匹配服务端节点信息</param>
+            <param name="callback"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.Call(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
@@ -29460,26 +29669,26 @@
             <param name="service"></param>
             <returns>持久化文件是否需要重建</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.Compress(System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.PersistenceEncode(System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
             <summary>
-            压缩数据
+            持久化数据编码
             </summary>
             <param name="data">原始数据</param>
             <param name="startIndex">原始数据起始位置</param>
-            <param name="dataSize">原始数据待压缩字节数</param>
-            <param name="buffer">压缩输出缓冲区</param>
-            <param name="compressData">压缩后的数据</param>
-            <param name="seek">压缩输出起始位置</param>
-            <param name="compressHeadSize">压缩多余头部大小</param>
-            <returns>是否压缩成功</returns>
+            <param name="dataSize">原始数据字节数</param>
+            <param name="buffer">输出数据缓冲区</param>
+            <param name="outputData">输出数据</param>
+            <param name="outputSeek">输出数据起始位置</param>
+            <param name="outputHeadSize">输出数据多余头部大小</param>
+            <returns>持久化数据是否编码</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.Decompress(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.PersistenceDecode(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
             <summary>
-            解压数据
+            持久化数据解码
             </summary>
-            <param name="compressData">压缩后的数据</param>
-            <param name="destinationData">等待写入的原始数据缓冲区</param>
-            <returns>是否解压成功</returns>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.Create">
             <summary>

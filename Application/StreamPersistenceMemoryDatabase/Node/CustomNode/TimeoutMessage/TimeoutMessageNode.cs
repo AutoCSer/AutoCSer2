@@ -80,7 +80,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
                 if (task.Data.IsFailed) ++failedCount;
             }
             checkTimer.Set(this);
-            return this;
+            return null;
         }
         /// <summary>
         /// 节点移除后处理

@@ -1,7 +1,9 @@
 ﻿using AutoCSer;
 using AutoCSer.CommandService;
+using AutoCSer.Extensions;
 using AutoCSer.Threading;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;

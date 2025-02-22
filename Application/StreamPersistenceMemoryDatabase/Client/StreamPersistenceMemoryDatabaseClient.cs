@@ -705,6 +705,16 @@ namespace AutoCSer.CommandService
             return ClientNode.RemoveNode(node.Index);
         }
         /// <summary>
+        /// 删除节点
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ResponseParameterAwaiter<bool> RemoveNode(string key)
+        {
+            return ClientNode.RemoveNodeByKey(key);
+        }
+        /// <summary>
         /// 创建服务注册节点，不存在则创建节点 IServerRegistryNode
         /// </summary>
         /// <param name="key">节点全局关键字</param>

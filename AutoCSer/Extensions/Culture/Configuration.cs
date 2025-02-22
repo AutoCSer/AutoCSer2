@@ -9,12 +9,12 @@ namespace AutoCSer.Extensions.Culture
     public abstract class Configuration
     {
         /// <summary>
-        /// 日志流持久化文件数据解压缩失败
+        /// 日志流持久化文件数据解码失败
         /// </summary>
         /// <param name="fileName">持久化文件名称</param>
         /// <param name="position">错误数据位置</param>
         /// <returns></returns>
-        public abstract string GetStreamPersistenceLoaderDecompressFailed(string fileName, long position);
+        public abstract string GetStreamPersistenceLoaderDecodeFailed(string fileName, long position);
         /// <summary>
         /// 日志流持久化文件数据块长度错误
         /// </summary>

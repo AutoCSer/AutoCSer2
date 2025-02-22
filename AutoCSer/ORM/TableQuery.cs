@@ -319,18 +319,17 @@ namespace AutoCSer.ORM
         /// <param name="getKey">获取缓存数据关键字委托</param>
         /// <param name="getValue">从数据库获取数据委托</param>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT, KT>(Func<T, KT> getKey, Func<KT, Task<VT?>> getValue, int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT, KT>(Func<T, KT> getKey, Func<KT, Task<VT?>> getValue, int capacity)
 #else
-        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT, KT>(Func<T, KT> getKey, Func<KT, Task<VT>> getValue, int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT, KT>(Func<T, KT> getKey, Func<KT, Task<VT>> getValue, int capacity)
 #endif
             where VT : class, T
             where KT : IEquatable<KT>
         {
-            return new FifoPriorityQueueCache<T, VT, KT>(Writer, capacity, isClear, getKey, getValue);
+            return new FifoPriorityQueueCache<T, VT, KT>(Writer, capacity, getKey, getValue);
         }
     }
     /// <summary>
@@ -494,13 +493,12 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="VT">缓存数据类型</typeparam>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT>(int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT>(int capacity)
             where VT : class, T
         {
-            return new FifoPriorityQueueCache<T, VT, KT>(Writer, capacity, isClear);
+            return new FifoPriorityQueueCache<T, VT, KT>(Writer, capacity);
         }
     }
 }

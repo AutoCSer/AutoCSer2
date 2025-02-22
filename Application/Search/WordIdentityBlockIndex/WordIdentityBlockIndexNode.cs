@@ -89,7 +89,7 @@ namespace AutoCSer.CommandService.Search
                 }
                 deleteLoadPersistenceDatas = null;
             }
-            return this;
+            return null;
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
@@ -152,8 +152,8 @@ namespace AutoCSer.CommandService.Search
                     {
                         WordIdentityBlockIndex<T> data = createDataBlockIndex();
                         datas.Add(key, data);
-                        isCallback = true;
                         data.Create(this, key, callback).NotWait();
+                        isCallback = true;
                     }
                     else state = WordIdentityBlockIndexUpdateStateEnum.Success;
                 }
@@ -192,17 +192,13 @@ namespace AutoCSer.CommandService.Search
                 if (key != null)
                 {
                     var data = default(WordIdentityBlockIndex<T>);
-                    if (datas.TryGetValue(key, out data))
-                    {
-                        isCallback = true;
-                        data.Update(this, key, callback).NotWait();
-                    }
+                    if (datas.TryGetValue(key, out data)) data.Update(this, key, callback).NotWait();
                     else
                     {
                         datas.Add(key, data = createDataBlockIndex());
-                        isCallback = true;
                         data.Create(this, key, callback).NotWait();
                     }
+                    isCallback = true;
                 }
                 else state = WordIdentityBlockIndexUpdateStateEnum.NullKey;
             }
@@ -244,8 +240,8 @@ namespace AutoCSer.CommandService.Search
                     var data = default(WordIdentityBlockIndex<T>);
                     if (datas.TryGetValue(key, out data))
                     {
-                        isCallback = true;
                         data.Delete(this, key, callback).NotWait();
+                        isCallback = true;
                     }
                     else state = WordIdentityBlockIndexUpdateStateEnum.Success;
                 }

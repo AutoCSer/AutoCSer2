@@ -298,6 +298,98 @@
             <param name="callName">调用接口方法名称</param>
             <param name="statistics">异常调用统计信息</param>
         </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient">
+            <summary>
+            异常调用按天统计信息客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.ExceptionNode">
+            <summary>
+            异常调用统计信息节点客户端节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.TimeoutNode">
+            <summary>
+            超时调用统计信息节点客户端节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.Date">
+            <summary>
+            节点日期标识
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.#ctor(System.UInt32,AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode},AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode})">
+            <summary>
+            异常调用统计信息客户端节点
+            </summary>
+            <param name="date">节点日期标识</param>
+            <param name="exceptionNode">异常调用统计信息节点客户端节点</param>
+            <param name="timeoutNode">超时调用统计信息节点客户端节点</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.append(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData,System.DateTime,System.Threading.Tasks.Task{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode}})">
+            <summary>
+            添加异常调用统计信息
+            </summary>
+            <param name="callData"></param>
+            <param name="callTime"></param>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.appendAsync(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData,System.DateTime,System.Threading.Tasks.Task{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode}})">
+            <summary>
+            添加异常调用统计信息
+            </summary>
+            <param name="callData"></param>
+            <param name="callTime"></param>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.append(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData,System.DateTime,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode})">
+            <summary>
+            添加异常调用统计信息
+            </summary>
+            <param name="callData"></param>
+            <param name="callTime"></param>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.AppendException(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData,System.DateTime)">
+            <summary>
+            添加异常调用统计信息
+            </summary>
+            <param name="callData">实时调用信息</param>
+            <param name="callTime">调用时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsDayClient.AppendTimeoutNode(AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData,System.DateTime)">
+            <summary>
+            添加超时调用统计信息
+            </summary>
+            <param name="callData">实时调用信息</param>
+            <param name="callTime">调用时间</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsServiceNode">
+            <summary>
+            创建异常调用统计信息节点的自定义基础服务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsServiceNode.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService)">
+            <summary>
+            创建异常调用统计信息节点的自定义基础服务
+            </summary>
+            <param name="service">日志流持久化内存数据库服务端</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsServiceNode.CreateExceptionStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.DateTime,System.Int32)">
+            <summary>
+            创建异常调用统计信息节点 IExceptionStatisticsNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="removeTime">节点自动移除时间</param>
+            <param name="callTimeCount">保存调用时间数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics">
             <summary>
             异常调用统计信息
@@ -351,6 +443,11 @@
             异常调用统计信息节点
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.removeTime">
+            <summary>
+            节点自动移除时间
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.strings">
             <summary>
             字符串缓存集合
@@ -376,11 +473,34 @@
             保存调用时间数量
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.#ctor(System.Int32)">
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.isRemove">
+            <summary>
+            是否已经发起移除调用
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.#ctor(System.DateTime,System.Int32)">
             <summary>
             异常调用统计信息节点
             </summary>
+            <param name="removeTime">节点自动移除时间</param>
             <param name="callTimeCount">保存调用时间数量</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.StreamPersistenceMemoryDatabaseServiceLoaded">
+            <summary>
+            初始化加载完毕处理
+            </summary>
+            <returns>加载完毕替换的新节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.checkRemoveTime">
+            <summary>
+            检查节点自动移除时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.RemoveNode">
+            <summary>
+            移除当前节点
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#LeftArray{System#String}}#GetSnapshotCapacity(System.Object@)">
             <summary>
@@ -424,13 +544,6 @@
             <param name="snapshotArray">预申请的快照数据容器</param>
             <param name="customObject">自定义对象，用于预生成辅助数据</param>
             <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#Int64,AutoCSer#CommandService#InterfaceRealTimeCallMonitor#ExceptionStatistics}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.SnapshotSet(AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics})">
             <summary>
@@ -515,6 +628,11 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.RemoveNode">
+            <summary>
+            移除当前节点
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNode.GetCount">
             <summary>
             获取异常调用总次数
@@ -556,6 +674,25 @@
             </summary>
             <param name="count">获取调用异常统计信息数量</param>
             <param name="callback">获取数量调用异常统计信息回调委托</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNode">
+            <summary>
+            创建异常调用统计信息节点的自定义基础服务接口
+            </summary>
+            <summary>
+            创建异常调用统计信息节点的自定义基础服务接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNode.CreateExceptionStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.DateTime,System.Int32)">
+            <summary>
+            创建异常调用统计信息节点 IExceptionStatisticsNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="removeTime">节点自动移除时间</param>
+            <param name="callTimeCount">保存调用时间数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceMonitorSession">
             <summary>
@@ -695,6 +832,27 @@
             <param name="callType">调用接口类型</param>
             <param name="callName">调用接口方法名称</param>
         </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeClientNode.RemoveNode">
+            <summary>
+            移除当前节点
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeClientNode">
+            <summary>
+            创建异常调用统计信息节点的自定义基础服务接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeClientNode.CreateExceptionStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.DateTime,System.Int32)">
+            <summary>
+            创建异常调用统计信息节点 IExceptionStatisticsNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="removeTime">节点自动移除时间</param>
+            <param name="callTimeCount">保存调用时间数量</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum">
             <summary>
             异常调用统计信息节点接口 节点方法序号映射枚举类型
@@ -752,6 +910,336 @@
             [7] 移除异常统计信息
             string callType 调用接口类型
             string callName 调用接口方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.RemoveNode">
+            <summary>
+            [8] 移除当前节点
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum">
+            <summary>
+            创建异常调用统计信息节点的自定义基础服务接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateArrayNode">
+            <summary>
+            [0] 创建数组节点 ArrayNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int length 数组长度
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateBitmapNode">
+            <summary>
+            [1] 创建位图节点 BitmapNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            uint capacity 二进制位数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateByteArrayDictionaryNode">
+            <summary>
+            [2] 创建字典节点 ByteArrayDictionaryNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateByteArrayFragmentDictionaryNode">
+            <summary>
+            [3] 创建字典节点 ByteArrayFragmentDictionaryNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateByteArrayQueueNode">
+            <summary>
+            [4] 创建队列节点（先进先出） ByteArrayQueueNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateByteArrayStackNode">
+            <summary>
+            [5] 创建栈节点（后进先出） ByteArrayStackNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateDictionaryNode">
+            <summary>
+            [6] 创建字典节点 DictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateDistributedLockNode">
+            <summary>
+            [7] 创建分布式锁节点 DistributedLockNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateFragmentDictionaryNode">
+            <summary>
+            [8] 创建字典节点 FragmentDictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateFragmentHashSetNode">
+            <summary>
+            [9] 创建 256 基分片哈希表节点 FragmentHashSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateHashBytesDictionaryNode">
+            <summary>
+            [10] 创建字典节点 HashBytesDictionaryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateHashBytesFragmentDictionaryNode">
+            <summary>
+            [11] 创建字典节点 HashBytesFragmentDictionaryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateHashSetNode">
+            <summary>
+            [12] 创建哈希表节点 HashSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateIdentityGeneratorNode">
+            <summary>
+            [13] 创建 64 位自增ID 节点 IdentityGeneratorNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            long identity 起始分配 ID
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateLeftArrayNode">
+            <summary>
+            [14] 创建数组节点 LeftArrayNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateMessageNode">
+            <summary>
+            [15] 创建消息处理节点 MessageNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType messageType 消息数据类型
+            int arraySize 正在处理消息数组大小
+            int timeoutSeconds 消息处理超时秒数
+            int checkTimeoutSeconds 消息超时检查间隔秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateQueueNode">
+            <summary>
+            [16] 创建队列节点（先进先出） QueueNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateSearchTreeDictionaryNode">
+            <summary>
+            [17] 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateSearchTreeSetNode">
+            <summary>
+            [18] 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateServerByteArrayMessageNode">
+            <summary>
+            [19] 创建消息处理节点 MessageNode{ServerByteArrayMessage}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int arraySize 正在处理消息数组大小
+            int timeoutSeconds 消息处理超时秒数
+            int checkTimeoutSeconds 消息超时检查间隔秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateSortedDictionaryNode">
+            <summary>
+            [20] 创建排序字典节点 SortedDictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateSortedListNode">
+            <summary>
+            [21] 创建排序列表节点 SortedListNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateSortedSetNode">
+            <summary>
+            [22] 创建排序集合节点 SortedSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateStackNode">
+            <summary>
+            [23] 创建栈节点（后进先出） StackNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.RemoveNode">
+            <summary>
+            [24] 删除节点
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            返回值 bool 是否成功删除节点，否则表示没有找到节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateServerRegistryNode">
+            <summary>
+            [25] 创建服务注册节点 IServerRegistryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int loadTimeoutSeconds 冷启动会话超时秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateProcessGuardNode">
+            <summary>
+            [26] 创建服务进程守护节点 IProcessGuardNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateManyHashBitMapClientFilterNode">
+            <summary>
+            [27] 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int size 位图大小（位数量）
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateManyHashBitMapFilterNode">
+            <summary>
+            [28] 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int size 位图大小（位数量）
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.RemoveNodeByKey">
+            <summary>
+            [29] 删除节点
+            string key 节点全局关键字
+            返回值 bool 是否成功删除节点，否则表示没有找到节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsServiceNodeMethodEnum.CreateExceptionStatisticsNode">
+            <summary>
+            [256] 创建异常调用统计信息节点 IExceptionStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            System.DateTime removeTime 节点自动移除时间
+            int callTimeCount 保存调用时间数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IInterfaceRealTimeCallMonitorClientSocketEvent">

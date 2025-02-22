@@ -353,9 +353,9 @@
             扩展中文配置
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.Culture.Chinese.GetStreamPersistenceLoaderDecompressFailed(System.String,System.Int64)">
+        <member name="M:AutoCSer.Extensions.Culture.Chinese.GetStreamPersistenceLoaderDecodeFailed(System.String,System.Int64)">
             <summary>
-            日志流持久化文件数据解压缩失败
+            日志流持久化文件数据解码失败
             </summary>
             <param name="fileName">持久化文件名称</param>
             <param name="position">错误数据位置</param>
@@ -396,9 +396,9 @@
             扩展系统语言文化配置
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.Culture.Configuration.GetStreamPersistenceLoaderDecompressFailed(System.String,System.Int64)">
+        <member name="M:AutoCSer.Extensions.Culture.Configuration.GetStreamPersistenceLoaderDecodeFailed(System.String,System.Int64)">
             <summary>
-            日志流持久化文件数据解压缩失败
+            日志流持久化文件数据解码失败
             </summary>
             <param name="fileName">持久化文件名称</param>
             <param name="position">错误数据位置</param>
@@ -439,9 +439,9 @@
             Extended English configuration
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.Culture.English.GetStreamPersistenceLoaderDecompressFailed(System.String,System.Int64)">
+        <member name="M:AutoCSer.Extensions.Culture.English.GetStreamPersistenceLoaderDecodeFailed(System.String,System.Int64)">
             <summary>
-            Description Failed to decompress the log stream persistence file
+            Description Failed to decode the log stream persistence file
             </summary>
             <param name="fileName">Persistent file name</param>
             <param name="position">Error data location</param>
@@ -643,12 +643,12 @@
             数值相关扩展操作
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.IntegerExtension.bits(System.UInt32)">
+        <member name="M:AutoCSer.Extensions.IntegerExtension.bitCount(System.UInt64)">
             <summary>
-            获取有效位长度
+            获取二进制1位的个数
             </summary>
             <param name="value">数据</param>
-            <returns>有效位长度</returns>
+            <returns>二进制1位的个数</returns>
         </member>
         <member name="M:AutoCSer.Extensions.IntegerExtension.bits(System.UInt64)">
             <summary>
@@ -670,6 +670,24 @@
             </summary>
             <param name="value">数据</param>
             <returns>最后二进制0位的长度</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntegerExtension.checkDivMul(System.UInt32,System.Int32,System.UInt32)">
+            <summary>
+            32b 除法转位移乘法误差检查
+            </summary>
+            <param name="divisor">除数，必须大于 0</param>
+            <param name="shiftBit">位移数量</param>
+            <param name="maxValue">最大被除数</param>
+            <returns>误差是否满足要求</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntegerExtension.checkDivMul(System.UInt16,System.Int32,System.UInt16)">
+            <summary>
+            16b 除法转位移乘法误差检查
+            </summary>
+            <param name="divisor">除数，必须大于 0</param>
+            <param name="shiftBit">位移数量</param>
+            <param name="maxValue">最大被除数</param>
+            <returns>误差是否满足要求</returns>
         </member>
         <member name="T:AutoCSer.Extensions.SemaphoreSlimLock">
             <summary>
@@ -1783,6 +1801,34 @@
             </summary>
             <param name="startIndex">起始位置</param>
             <param name="endIndex">结束位置 - sizeof(uint)</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.ModMultiplier">
+            <summary>
+            整数取余，可用于哈希表操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ModMultiplier.multiplier">
+            <summary>
+            取余转位移乘法乘数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ModMultiplier.divisor">
+            <summary>
+            取余的除数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ModMultiplier.#ctor(System.Int32)">
+            <summary>
+            整数取余
+            </summary>
+            <param name="divisor">取余的除数，必须大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ModMultiplier.GetMod(System.UInt32)">
+            <summary>
+            取余
+            </summary>
+            <param name="value">被除数</param>
+            <returns>模数（余数）</returns>
         </member>
         <member name="T:AutoCSer.Algorithm.RadixSort">
             <summary>
@@ -3492,13 +3538,13 @@
             <param name="data"></param>
             <param name="position"></param>
         </member>
-        <member name="M:AutoCSer.IO.StreamPersistenceLoader.Decompress(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
+        <member name="M:AutoCSer.IO.StreamPersistenceLoader.Decode(AutoCSer.SubArray{System.Byte}@,AutoCSer.SubArray{System.Byte}@)">
             <summary>
-            解压数据
+            数据解码
             </summary>
-            <param name="compressData">压缩后的数据</param>
-            <param name="destinationData">等待写入的原始数据缓冲区</param>
-            <returns>是否解压成功</returns>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
         </member>
         <member name="M:AutoCSer.IO.StreamPersistenceLoader.load(AutoCSer.SubArray{System.Byte},System.Int64)">
             <summary>
@@ -6564,6 +6610,44 @@
             </summary>
             <param name="start"></param>
             <param name="end"></param>
+        </member>
+        <member name="T:AutoCSer.ReusableHashSet`1">
+            <summary>
+            可重用哈希表（主要用于非引用类型缓冲区，避免 new / Clear 开销）
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+        </member>
+        <member name="P:AutoCSer.ReusableHashSet`1.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableHashSet`1.#ctor(System.Int32)">
+            <summary>
+            可重用字典
+            </summary>
+            <param name="capacity">容器初始化大小</param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashSet`1.Add(`0)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashSet`1.Contains(`0)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashSet`1.Remove(`0)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
         </member>
         <member name="T:AutoCSer.RingQueue`1">
             <summary>

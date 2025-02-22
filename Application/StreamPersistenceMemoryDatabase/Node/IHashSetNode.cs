@@ -45,5 +45,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否删除成功</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(T value);
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <returns></returns>
+        [ServerMethod(IsPersistence = false)]
+        T[] GetArray();
     }
 }

@@ -44,15 +44,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// 服务日志回调委托
         /// </summary>
         /// <returns></returns>
-        public override async Task LogCallback()
+        public override Task LogCallback()
         {
-            var node = await NodeCache.GetSynchronousNode();
+            Task<ResponseResult<IServerRegistryNodeClientNode>> task = NodeCache.GetSynchronousNode();
+            if (task.IsCompleted) return logCallback(task.Result);
+            return logCallback(task);
+        }
+        /// <summary>
+        /// 服务日志回调委托
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        private async Task logCallback(Task<ResponseResult<IServerRegistryNodeClientNode>> task)
+        {
+            await logCallback(await task);
+        }
+        /// <summary>
+        /// 服务日志回调委托
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private Task logCallback(ResponseResult<IServerRegistryNodeClientNode> node)
+        {
             if (node.IsSuccess && !registrar.Client.IsDisposed)
             {
                 callback?.Cancel();
                 callback = new CommandClientServiceRegistrarLogClientCallback(this);
-                await callback.LogCallback(node.Value.notNull());
+                return callback.LogCallback(node.Value.notNull());
             }
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// 服务日志回调

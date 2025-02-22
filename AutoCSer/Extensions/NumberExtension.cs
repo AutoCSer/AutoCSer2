@@ -10,15 +10,13 @@ namespace AutoCSer.Extensions
     public unsafe static class NumberExtension
     {
         /// <summary>
-        /// 16位除以10转乘法的位移
-        /// </summary>
-        public const int Div10_16Shift = 19;
-        /// <summary>
         /// 16位除以10转乘法的乘数
         /// </summary>
         public const uint Div10_16Mul = ((1 << Div10_16Shift) + 9) / 10;
-        //public const int Div100_16Shift = 22;
-        //public const int Div100_16Mul = ((1 << Div100_16Shift) + 99) / 100;
+        /// <summary>
+        /// 16位除以10转乘法的位移
+        /// </summary>
+        public const int Div10_16Shift = 19;
         /// <summary>
         /// 32位除以10000转乘法的乘数
         /// </summary>
@@ -858,22 +856,6 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
-        /// 获取二进制1位的个数
-        /// </summary>
-        /// <param name="value">数据</param>
-        /// <returns>二进制1位的个数</returns>
-        public static int bitCount(this ulong value)
-        {
-            value -= ((value >> 1) & 0x5555555555555555UL);//2:2
-            value = (value & 0x3333333333333333UL) + ((value >> 2) & 0x3333333333333333UL);//4:4
-            value += value >> 4;
-            value &= 0x0f0f0f0f0f0f0f0fUL;//8:8
-
-            value += (value >> 8);
-            value += (value >> 16);
-            return (byte)(value + (value >> 32));
-        }
-        /// <summary>
         /// 填充第一个有效二进制位后面的空位
         /// </summary>
         /// <param name="value"></param>
@@ -895,6 +877,16 @@ namespace AutoCSer.Extensions
         internal static uint upToPower2(this uint value)
         {
             return (value & (value - 1)) != 0 ? value.fullBit() + 1 : value;
+        }
+        /// <summary>
+        /// 获取有效位长度
+        /// </summary>
+        /// <param name="value">数据</param>
+        /// <returns>有效位长度</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static int bits(this uint value)
+        {
+            return (value & 0x80000000U) == 0 ? NumberExtension.DeBruijn32.Byte[((value.fullBit() + 1) * NumberExtension.DeBruijn32Number) >> 27] : 32;
         }
         ///// <summary>
         ///// 获取二进制1位的个数

@@ -34,6 +34,7 @@
     <Compile Include="Algorithm\CombinationTemplate\SortIndex.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeSortArray.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.cs" />
+    <Compile Include="Algorithm\ModMultiplier.cs" />
     <Compile Include="Algorithm\RadixSort.cs" />
     <Compile Include="ArrayHeap.cs" />
     <Compile Include="BinarySerializeKeyValue.cs" />

@@ -46,6 +46,10 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// </summary>
         private LinkTypeEnum linkType;
         /// <summary>
+        /// 分布式节点编号
+        /// </summary>
+        internal byte DistributedIndex;
+        /// <summary>
         /// 设置 Trie 树节点数据
         /// </summary>
         /// <param name="builder"></param>

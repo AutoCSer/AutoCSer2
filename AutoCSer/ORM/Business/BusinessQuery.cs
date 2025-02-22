@@ -624,25 +624,23 @@ namespace AutoCSer.ORM
         /// 根据数据库关键字创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
         /// </summary>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public FifoPriorityQueueCache<T, BT, KT> CreateFifoPriorityQueueCache(int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, BT, KT> CreateFifoPriorityQueueCache(int capacity)
         {
-            return TableQuery.CreateFifoPriorityQueueCache<BT>(capacity, isClear);
+            return TableQuery.CreateFifoPriorityQueueCache<BT>(capacity);
         }
         /// <summary>
         /// 根据数据库关键字创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
         /// </summary>
         /// <typeparam name="VT">缓存数据类型</typeparam>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT>(int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, VT, KT> CreateFifoPriorityQueueCache<VT>(int capacity)
             where VT : class, BT
         {
-            return TableQuery.CreateFifoPriorityQueueCache<VT>(capacity, isClear);
+            return TableQuery.CreateFifoPriorityQueueCache<VT>(capacity);
         }
         /// <summary>
         /// 创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -651,17 +649,16 @@ namespace AutoCSer.ORM
         /// <param name="getKey">获取缓存数据关键字委托</param>
         /// <param name="getValue">从数据库获取数据委托</param>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public FifoPriorityQueueCache<T, BT, CKT> CreateFifoPriorityQueueCache<CKT>(Func<T, CKT> getKey, Func<CKT, Task<BT?>> getValue, int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, BT, CKT> CreateFifoPriorityQueueCache<CKT>(Func<T, CKT> getKey, Func<CKT, Task<BT?>> getValue, int capacity)
 #else
-        public FifoPriorityQueueCache<T, BT, CKT> CreateFifoPriorityQueueCache<CKT>(Func<T, CKT> getKey, Func<CKT, Task<BT>> getValue, int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, BT, CKT> CreateFifoPriorityQueueCache<CKT>(Func<T, CKT> getKey, Func<CKT, Task<BT>> getValue, int capacity)
 #endif
             where CKT : IEquatable<CKT>
         {
-            return TableQuery.CreateFifoPriorityQueueCache<BT, CKT>(getKey, getValue, capacity, isClear);
+            return TableQuery.CreateFifoPriorityQueueCache<BT, CKT>(getKey, getValue, capacity);
         }
         /// <summary>
         /// 创建先进先出队列缓存（缓存操作与表格增删改操作必须在队列中调用）
@@ -671,18 +668,17 @@ namespace AutoCSer.ORM
         /// <param name="getKey">获取缓存数据关键字委托</param>
         /// <param name="getValue">从数据库获取数据委托</param>
         /// <param name="capacity">字典容器大小</param>
-        /// <param name="isClear">默认为 true 表示清理容器数据，否则可能会产生临时性的局部内存泄露</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public FifoPriorityQueueCache<T, VT, CKT> CreateFifoPriorityQueueCache<VT, CKT>(Func<T, CKT> getKey, Func<CKT, Task<VT?>> getValue, int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, VT, CKT> CreateFifoPriorityQueueCache<VT, CKT>(Func<T, CKT> getKey, Func<CKT, Task<VT?>> getValue, int capacity)
 #else
-        public FifoPriorityQueueCache<T, VT, CKT> CreateFifoPriorityQueueCache<VT, CKT>(Func<T, CKT> getKey, Func<CKT, Task<VT>> getValue, int capacity, bool isClear = true)
+        public FifoPriorityQueueCache<T, VT, CKT> CreateFifoPriorityQueueCache<VT, CKT>(Func<T, CKT> getKey, Func<CKT, Task<VT>> getValue, int capacity)
 #endif
             where VT : class, BT
             where CKT : IEquatable<CKT>
         {
-            return TableQuery.CreateFifoPriorityQueueCache<VT, CKT>(getKey, getValue, capacity, isClear);
+            return TableQuery.CreateFifoPriorityQueueCache<VT, CKT>(getKey, getValue, capacity);
         }
     }
 }

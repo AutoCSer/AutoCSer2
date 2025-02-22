@@ -20,6 +20,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly CommandServerCallback<ResponseParameter> callback;
 #endif
         /// <summary>
+        /// 保留
+        /// </summary>
+        internal int Reserve;
+        /// <summary>
         /// 服务端节点方法标记
         /// </summary>
         private readonly MethodFlagsEnum flag;
@@ -28,13 +32,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly bool isResponseParameter;
         /// <summary>
-        /// 保留
+        /// 是否已经回调操作
         /// </summary>
-        internal ushort Reserve16;
-        /// <summary>
-        /// 保留
-        /// </summary>
-        internal int Reserve;
+        private bool isCallback;
         /// <summary>
         /// 无回调
         /// </summary>
@@ -59,7 +59,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (callback != null)
             {
-                if (isResponseParameter) return callback.Callback(value);
+                if (isResponseParameter)
+                {
+                    if (!isCallback)
+                    {
+                        isCallback = true;
+                        return callback.Callback(value);
+                    }
+                    return false;
+                }
                 throw new InvalidCastException();
             }
             return true;
@@ -73,18 +81,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (callback != null)
             {
-                if (!isResponseParameter)
+                if (!this.isCallback)
                 {
-                    bool isCallback;
-                    ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
-                    try
+                    this.isCallback = true;
+                    if (!isResponseParameter)
                     {
-                        responseParameter = ResponseParameter.Create(value, flag);
+                        bool isCallback;
+                        ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
+                        try
+                        {
+                            responseParameter = ResponseParameter.Create(value, flag);
+                        }
+                        finally { isCallback = callback.Callback(responseParameter); }
+                        return isCallback;
                     }
-                    finally { isCallback = callback.Callback(responseParameter); }
-                    return isCallback;
+                    return callback.Callback(value.notNullCastType<ResponseParameter>());
                 }
-                return callback.Callback(value.notNullCastType<ResponseParameter>());
+                return false;
             }
             return true;
         }
@@ -97,14 +110,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (callback != null)
             {
-                bool isCallback;
-                ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
-                try
+                if (!this.isCallback)
                 {
-                    responseParameter = ResponseParameter.Create(value, flag);
+                    this.isCallback = true;
+                    bool isCallback;
+                    ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
+                    try
+                    {
+                        responseParameter = ResponseParameter.Create(value, flag);
+                    }
+                    finally { isCallback = callback.SynchronousCallback(responseParameter); }
+                    return isCallback;
                 }
-                finally { isCallback = callback.SynchronousCallback(responseParameter); }
-                return isCallback;
+                return false;
             }
             return true;
         }
@@ -113,21 +131,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="state">失败状态</param>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Callback(CallStateEnum state)
         {
-            return callback == null || callback.Callback(new ResponseParameter(state));
+            if (callback == null) return true;
+            if (!isCallback)
+            {
+                isCallback = true;
+                return callback.Callback(new ResponseParameter(state));
+            }
+            return false;
         }
-        ///// <summary>
-        ///// 失败回调
-        ///// </summary>
-        ///// <param name="state">失败状态</param>
-        ///// <returns></returns>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //internal bool SynchronousCallback(CallStateEnum state)
-        //{
-        //    return callback == null || callback.SynchronousCallback(new ResponseParameter(state));
-        //}
+        /// <summary>
+        /// 失败回调
+        /// </summary>
+        /// <param name="state">失败状态</param>
+        /// <returns></returns>
+        internal bool SynchronousCallback(CallStateEnum state)
+        {
+            if (callback == null) return true;
+            if (!isCallback)
+            {
+                isCallback = true;
+                return callback.SynchronousCallback(new ResponseParameter(state));
+            }
+            return false;
+        }
 
         /// <summary>
         /// 创建方法调用回调包装对象委托类型

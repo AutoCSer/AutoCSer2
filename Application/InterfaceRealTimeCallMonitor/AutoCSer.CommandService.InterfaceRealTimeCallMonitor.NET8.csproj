@@ -32,9 +32,12 @@
     <Compile Include="CallTimestamp.cs" />
     <Compile Include="CommandListenerSession.cs" />
     <Compile Include="ExceptionStatistics\CallExceptionStatistics.cs" />
+    <Compile Include="ExceptionStatistics\ExceptionStatisticsDayClient.cs" />
+    <Compile Include="ExceptionStatistics\ExceptionStatisticsServiceNode.cs" />
     <Compile Include="ExceptionStatistics\ExceptionStatistics.cs" />
     <Compile Include="ExceptionStatistics\ExceptionStatisticsNode.cs" />
     <Compile Include="ExceptionStatistics\IExceptionStatisticsNode.cs" />
+    <Compile Include="ExceptionStatistics\IExceptionStatisticsServiceNode.cs" />
     <Compile Include="IInterfaceMonitorSession.cs" />
     <Compile Include="IInterfaceRealTimeCallMonitorService.cs" />
     <Compile Include="IInterfaceRealTimeCallMonitorServiceClientController.cs" />

@@ -183,13 +183,13 @@ namespace AutoCSer.IO
             int dataSize = *(int*)buffer.ReadBufferStart;
             if (dataSize < 0)
             {
-                int compressionDataSize = -dataSize;
+                int transferDataSize = -dataSize;
                 dataSize = *(int*)(buffer.ReadBufferStart + sizeof(int));
-                if (dataSize < 0 || compressionDataSize == 0)
+                if (dataSize < 0 || transferDataSize == 0)
                 {
                     throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDataSizeError(persistenceFileName, position));
                 }
-                if (readFile(ref buffer, compressionDataSize + sizeof(int) * 2)) return true;
+                if (readFile(ref buffer, transferDataSize + sizeof(int) * 2)) return true;
             }
             else if (readFile(ref buffer, dataSize + sizeof(int))) return true;
             buffer.LoadBufferPosition = position;
@@ -262,14 +262,14 @@ namespace AutoCSer.IO
                 if (dataSize < 0)
                 {
                     if (bufferSize < sizeof(int) * 2) break;
-                    int compressionDataSize = -dataSize;
+                    int transferDataSize = -dataSize;
                     dataSize = *(int*)(buffer.ReadBufferStart + (readIndex + sizeof(int)));
-                    if (dataSize < 0 || compressionDataSize == 0)
+                    if (dataSize < 0 || transferDataSize == 0)
                     {
                         throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDataSizeError(persistenceFileName, position + readIndex));
                     }
-                    if (bufferSize < compressionDataSize + sizeof(int) * 2) break;
-                    readIndex += compressionDataSize + sizeof(int) * 2;
+                    if (bufferSize < transferDataSize + sizeof(int) * 2) break;
+                    readIndex += transferDataSize + sizeof(int) * 2;
                 }
                 else
                 {
@@ -323,29 +323,29 @@ namespace AutoCSer.IO
         {
             fixed (byte* dataFixed = data.GetFixedBuffer())
             {
-                byte* start = dataFixed + data.Start, dataStart = start + sizeof(int), compressionDataStart = start + sizeof(int) * 2, end = start + data.Length;
+                byte* start = dataFixed + data.Start, dataStart = start + sizeof(int), transferDataStart = start + sizeof(int) * 2, end = start + data.Length;
                 while (start != end)
                 {
                     int dataSize = *(int*)start;
                     start += sizeof(int);
                     if (dataSize < 0)
                     {
-                        int compressionDataSize = -dataSize;
+                        int transferDataSize = -dataSize;
                         dataSize = *(int*)start;
                         start += sizeof(int);
-                        SubArray<byte> compressionData = new SubArray<byte>((int)(start - dataFixed), compressionDataSize, data.Array);
-                        ByteArrayBuffer compressBuffer = ByteArrayPool.GetBuffer(dataSize);
+                        SubArray<byte> transferData = new SubArray<byte>((int)(start - dataFixed), transferDataSize, data.Array);
+                        ByteArrayBuffer outputDataBuffer = ByteArrayPool.GetBuffer(dataSize);
                         try
                         {
-                            SubArray<byte> nextData = compressBuffer.GetSubArray(dataSize);
-                            if (!Decompress(ref compressionData, ref nextData))
+                            SubArray<byte> nextData = outputDataBuffer.GetSubArray(dataSize);
+                            if (!Decode(ref transferData, ref nextData))
                             {
-                                throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDecompressFailed(persistenceFileName, position + (start - compressionDataStart)));
+                                throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDecodeFailed(persistenceFileName, position + (start - transferDataStart)));
                             }
-                            load(nextData, position + (start - compressionDataStart));
+                            load(nextData, position + (start - transferDataStart));
                         }
-                        finally { compressBuffer.Free(); }
-                        start += compressionDataSize;
+                        finally { outputDataBuffer.Free(); }
+                        start += transferDataSize;
                     }
                     else
                     {
@@ -356,14 +356,14 @@ namespace AutoCSer.IO
             }
         }
         /// <summary>
-        /// 解压数据
+        /// 数据解码
         /// </summary>
-        /// <param name="compressData">压缩后的数据</param>
-        /// <param name="destinationData">等待写入的原始数据缓冲区</param>
-        /// <returns>是否解压成功</returns>
-        internal virtual bool Decompress(ref SubArray<byte> compressData, ref SubArray<byte> destinationData)
+        /// <param name="transferData">编码后的数据</param>
+        /// <param name="outputData">等待写入的原始数据缓冲区</param>
+        /// <returns>是否解码成功</returns>
+        internal virtual bool Decode(ref SubArray<byte> transferData, ref SubArray<byte> outputData)
         {
-            return AutoCSer.Common.Config.Decompress(ref compressData, ref destinationData);
+            return AutoCSer.Common.Config.Decompress(ref transferData, ref outputData);
         }
         /// <summary>
         /// 加载数据

@@ -106,7 +106,7 @@ namespace AutoCSer.CommandService.Search
 #endif
         {
             if (!graphData.IsGraph) builder = new TreeBuilder(this);
-            return this;
+            return null;
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
