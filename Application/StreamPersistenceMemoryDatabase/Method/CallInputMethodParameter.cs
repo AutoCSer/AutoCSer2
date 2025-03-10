@@ -43,44 +43,40 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal CallStateEnum CallInput(ref CommandServerCallback<CallStateEnum> callback)
 #endif
         {
-            CallStateEnum state = Node.CallState;
-            if (state == CallStateEnum.Success)
+            if (method.IsClientCall)
             {
-                if (method.IsClientCall)
+                this.callback = callback;
+                StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
+                if (method.IsPersistence)
                 {
-                    this.callback = callback;
-                    StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
-                    if (method.IsPersistence)
+                    if (Node.CallState != CallStateEnum.Success) return Node.CallState;
+                    if (Node.IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
+                    if (method.BeforePersistenceMethodIndex >= 0)
                     {
-                        if (Node.IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
-                        if (method.BeforePersistenceMethodIndex >= 0)
-                        {
-                            CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull();
-                            BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
-                            service.CurrentMethodParameter = BeforePersistenceMethodParameter;
-                            if (!beforePersistenceMethod.CallBeforePersistence(BeforePersistenceMethodParameter)) return CallStateEnum.Success;
-                        }
-                        if (Node.IsPersistence)
-                        {
-                            service.PushPersistenceMethodParameter(this, ref callback);
-                            return CallStateEnum.Success;
-                        }
+                        CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull();
+                        BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
+                        service.CurrentMethodParameter = BeforePersistenceMethodParameter;
+                        if (!beforePersistenceMethod.CallBeforePersistence(BeforePersistenceMethodParameter)) return CallStateEnum.Success;
                     }
-                    callback = null;
-                    try
+                    if (Node.IsPersistence)
                     {
-                        service.SetCurrentMethodParameter(this);
-                        method.CallInput(this);
+                        service.PushPersistenceMethodParameter(this, ref callback);
+                        return CallStateEnum.Success;
                     }
-                    finally
-                    {
-                        this.callback?.SynchronousCallback(CallStateEnum.Unknown);
-                    }
-                    return CallStateEnum.Success;
                 }
-                return CallStateEnum.NotAllowClientCall;
+                callback = null;
+                try
+                {
+                    service.SetCurrentMethodParameter(this);
+                    method.CallInput(this);
+                }
+                finally
+                {
+                    this.callback?.SynchronousCallback(CallStateEnum.Unknown);
+                }
+                return CallStateEnum.Success;
             }
-            return state;
+            return CallStateEnum.NotAllowClientCall;
         }
         /// <summary>
         /// 持久化回调

@@ -23,5 +23,24 @@ namespace AutoCSer.CommandService
             /// <param name="log">日志数据</param>
             AutoCSer.Net.SendOnlyCommand AppendSendOnly(T log);
         }
+}namespace AutoCSer.CommandService
+{
+    public enum LogCollectionReverseServiceMethodEnum
+    {
+            /// <summary>
+            /// [0] 添加日志
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// T log 日志数据
+            /// </summary>
+            Append = 0,
+            /// <summary>
+            /// [1] 添加日志
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// T log 日志数据
+            /// </summary>
+            AppendSendOnly = 1,
+    }
 }
 #endif

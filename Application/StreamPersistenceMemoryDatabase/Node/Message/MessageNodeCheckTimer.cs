@@ -22,7 +22,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 超时检查定时
         /// </summary>
         /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-        internal MessageNodeCheckTimer(int checkTimeoutSeconds) : base(AutoCSer.Threading.SecondTimer.InternalTaskArray, checkTimeoutSeconds, Threading.SecondTimerKeepModeEnum.After, checkTimeoutSeconds) { }
+        internal MessageNodeCheckTimer(int checkTimeoutSeconds) : base(AutoCSer.Threading.SecondTimer.InternalTaskArray, Threading.SecondTimerKeepModeEnum.After) 
+        {
+            KeepSeconds = checkTimeoutSeconds;
+        }
         /// <summary>
         /// 定时器触发
         /// </summary>
@@ -37,10 +40,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(MessageNode<T> messageNode)
         {
-            if (keepSeconds != 0)
+            if (KeepSeconds != 0)
             {
                 this.messageNode = messageNode;
-                AppendTaskArray();
+                AppendTaskArray(KeepSeconds);
             }
         }
         /// <summary>
@@ -49,7 +52,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Cancel()
         {
-            keepSeconds = 0;
+            KeepSeconds = 0;
             messageNode = null;
         }
     }

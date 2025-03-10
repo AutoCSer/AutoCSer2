@@ -111,17 +111,17 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>一个匹配节点位置,失败返回-1</returns>
-        internal int IndexOf(ref KT key)
+        internal int IndexOf(KT key)
         {
             int cmp = key.CompareTo(Key);
             if (cmp == 0) return Left != null ? Left.Count : 0;
             if (cmp < 0)
             {
-                if (Left != null) return Left.IndexOf(ref key);
+                if (Left != null) return Left.IndexOf(key);
             }
             else if (Right != null)
             {
-                int index = Right.IndexOf(ref key);
+                int index = Right.IndexOf(key);
                 if (++index != 0) return Left != null ? Left.Count + index : index;
             }
             return -1;
@@ -131,14 +131,14 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
-        internal int CountLess(ref KT key)
+        internal int CountLess(KT key)
         {
             int cmp = key.CompareTo(Key);
             if (cmp == 0) return Left != null ? Left.Count : 0;
-            if (cmp < 0) return Left != null ? Left.CountLess(ref key) : 0;
+            if (cmp < 0) return Left != null ? Left.CountLess(key) : 0;
             if (Right != null)
             {
-                return Left != null ? Left.Count + 1 + Right.CountLess(ref key) : (Right.CountLess(ref key) + 1);
+                return Left != null ? Left.Count + 1 + Right.CountLess(key) : (Right.CountLess(key) + 1);
             }
             return Left != null ? Left.Count + 1 : 1;
         }
@@ -147,14 +147,14 @@ namespace AutoCSer.SearchTree
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
-        internal int CountThan(ref KT key)
+        internal int CountThan(KT key)
         {
             int cmp = key.CompareTo(Key);
             if (cmp == 0) return Right != null ? Right.Count : 0;
-            if (cmp > 0) return Right != null ? Right.CountThan(ref key) : 0;
+            if (cmp > 0) return Right != null ? Right.CountThan(key) : 0;
             if (Left != null)
             {
-                return Right != null ? Right.Count + 1 + Left.CountThan(ref key) : (Left.CountThan(ref key) + 1);
+                return Right != null ? Right.Count + 1 + Left.CountThan(key) : (Left.CountThan(key) + 1);
             }
             return Right != null ? Right.Count + 1 : 1;
         }
@@ -249,16 +249,17 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkLeftRight()
         {
-            if (Left.notNull().Right != null)
+            NT left = Left.notNull();
+            if (left.Right != null)
             {
-                Right = Left.notNull().Right;
-                Left.notNull().Right = Right.notNull().removeLeftCount();
-                Left.notNull().checkRemoveCount1(Right.notNull().rightToLeft());
+                Right = left.Right;
+                left.Right = Right.notNull().removeLeftCount();
+                left.checkRemoveCount1(Right.notNull().rightToLeft());
             }
             else
             {
-                Right = Left;
-                Left = Right.notNull().clearLeft();
+                Right = left;
+                Left = left.clearLeft();
             }
         }
 
@@ -328,17 +329,171 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkRightLeft()
         {
-            if (Right.notNull().Left != null)
+            NT right = Right.notNull();
+            if (right.Left != null)
             {
-                Left = Right.notNull().Left;
-                Right.notNull().Left = Left.notNull().removeRightCount();
-                Right.notNull().checkRemoveCount1(Left.notNull().leftToRight());
+                Left = right.Left;
+                right.Left = Left.notNull().removeRightCount();
+                right.checkRemoveCount1(Left.notNull().leftToRight());
             }
             else
             {
-                Left = Right;
-                Right = Left.notNull().clearRight();
+                Left = right;
+                Right = right.clearRight();
             }
+        }
+
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        internal void GetArraySkip(ref PageArray<KT> array)
+        {
+            if (Left != null)
+            {
+                int count = Left.Count;
+                if (count > array.SkipCount)
+                {
+                    Left.GetArraySkip(ref array);
+                    if (!array.IsArray && !array.Add(Key)) Right.notNull().getArray(ref array);
+                    return;
+                }
+                array.SkipCount -= count;
+            }
+            if (array.SkipCount == 0)
+            {
+                if (!array.Add(Key)) Right?.getArray(ref array);
+                return;
+            }
+            --array.SkipCount;
+            Right?.GetArraySkip(ref array);
+        }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        private void getArray(ref PageArray<KT> array)
+        {
+            if (Left != null)
+            {
+                Left.getArray(ref array);
+                if (array.IsArray) return;
+            }
+            if (!array.Add(Key)) Right?.getArray(ref array);
+        }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        internal void GetArraySkip<T>(ref PageArray<KT, T> array)
+        {
+            if (Left != null)
+            {
+                int count = Left.Count;
+                if (count > array.SkipCount)
+                {
+                    Left.GetArraySkip(ref array);
+                    if (!array.IsArray && !array.Add(Key)) Right.notNull().getArray(ref array);
+                    return;
+                }
+                array.SkipCount -= count;
+            }
+            if (array.SkipCount == 0)
+            {
+                if (!array.Add(Key)) Right?.getArray(ref array);
+                return;
+            }
+            --array.SkipCount;
+            Right?.GetArraySkip(ref array);
+        }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        private void getArray<T>(ref PageArray<KT, T> array)
+        {
+            if (Left != null)
+            {
+                Left.getArray(ref array);
+                if (array.IsArray) return;
+            }
+            if (!array.Add(Key)) Right?.getArray(ref array);
+        }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        internal void GetDescArraySkip(ref PageArray<KT> array)
+        {
+            if (Left != null)
+            {
+                int count = Left.Count;
+                if (count > array.SkipCount)
+                {
+                    Left.GetDescArraySkip(ref array);
+                    if (array.Index != 0 && array.AddDesc(Key) != 0) Right.notNull().getDescArray(ref array);
+                    return;
+                }
+                array.SkipCount -= count;
+            }
+            if (array.SkipCount == 0)
+            {
+                if (array.AddDesc(Key) != 0) Right?.getDescArray(ref array);
+                return;
+            }
+            --array.SkipCount;
+            Right?.GetDescArraySkip(ref array);
+        }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        private void getDescArray(ref PageArray<KT> array)
+        {
+            if (Left != null)
+            {
+                Left.getDescArray(ref array);
+                if (array.Index == 0) return;
+            }
+            if (array.AddDesc(Key) != 0) Right?.getDescArray(ref array);
+        }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        internal void GetDescArraySkip<T>(ref PageArray<KT, T> array)
+        {
+            if (Left != null)
+            {
+                int count = Left.Count;
+                if (count > array.SkipCount)
+                {
+                    Left.GetDescArraySkip(ref array);
+                    if (array.Index != 0 && array.AddDesc(Key) != 0) Right.notNull().getDescArray(ref array);
+                    return;
+                }
+                array.SkipCount -= count;
+            }
+            if (array.SkipCount == 0)
+            {
+                if (array.AddDesc(Key) != 0) Right?.getDescArray(ref array);
+                return;
+            }
+            --array.SkipCount;
+            Right?.GetDescArraySkip(ref array);
+        }
+        /// <summary>
+        /// 获取数组
+        /// </summary>
+        /// <param name="array"></param>
+        private void getDescArray<T>(ref PageArray<KT, T> array)
+        {
+            if (Left != null)
+            {
+                Left.getDescArray(ref array);
+                if (array.Index == 0) return;
+            }
+            if (array.AddDesc(Key) != 0) Right?.getDescArray(ref array);
         }
     }
 }

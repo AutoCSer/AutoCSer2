@@ -40,6 +40,13 @@ namespace AutoCSer.CodeGenerator.Metadata
             }
         }
         /// <summary>
+        /// XML文档注释
+        /// </summary>
+        public string CodeGeneratorXmlDocument
+        {
+            get { return AutoCSer.Reflection.XmlDocument.CodeGeneratorFormat(XmlDocument); }
+        }
+        /// <summary>
         /// 返回值XML文档注释
         /// </summary>
         private string returnXmlDocument;
@@ -53,6 +60,13 @@ namespace AutoCSer.CodeGenerator.Metadata
                 if (returnXmlDocument == null) returnXmlDocument = AutoCSer.Reflection.XmlDocument.GetReturn(Method);
                 return returnXmlDocument.Length == 0 ? null : returnXmlDocument;
             }
+        }
+        /// <summary>
+        /// XML文档注释
+        /// </summary>
+        public string CodeGeneratorReturnXmlDocument
+        {
+            get { return AutoCSer.Reflection.XmlDocument.CodeGeneratorFormat(ReturnXmlDocument); }
         }
         /// <summary>
         /// 成员方法

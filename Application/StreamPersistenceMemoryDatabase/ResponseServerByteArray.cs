@@ -82,6 +82,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用状态数组
         /// </summary>
-        private static readonly ResponseServerByteArray[] stateArray = new ResponseServerByteArray[(byte)CallStateEnum.Count];
+        private static readonly ResponseServerByteArray[] stateArray = new ResponseServerByteArray[(byte)CallStateEnum.Callbacked];
     }
 }

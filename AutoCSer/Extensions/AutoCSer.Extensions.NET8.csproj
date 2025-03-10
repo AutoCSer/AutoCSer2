@@ -27,14 +27,16 @@
 
   <ItemGroup>
     <Compile Include="Algorithm\CombinationTemplate\CompareFrom.cs" />
-    <Compile Include="Algorithm\CombinationTemplate\LeftArray.Fixed.cs" />
-    <Compile Include="Algorithm\CombinationTemplate\QuickRangeSorter.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\RadixSort.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickRangeSort.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\SortIndex.QuickRangeSort.cs" />
     <Compile Include="Algorithm\CombinationTemplate\SortIndex.QuickSort.cs" />
     <Compile Include="Algorithm\CombinationTemplate\SortIndex.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeSortArray.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.cs" />
     <Compile Include="Algorithm\ModMultiplier.cs" />
     <Compile Include="Algorithm\RadixSort.cs" />
+    <Compile Include="Algorithm\QuickRangeSort.cs" />
     <Compile Include="ArrayHeap.cs" />
     <Compile Include="BinarySerializeKeyValue.cs" />
     <Compile Include="Breakpoint.cs" />
@@ -42,6 +44,9 @@
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
+    <Compile Include="Data\CompareKey.cs" />
+    <Compile Include="Data\CompareFromKey.cs" />
+    <Compile Include="Data\PageParameter.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="Diagnostics\ProcessInfo.cs" />
     <Compile Include="Diagnostics\ServerTimestamp.cs" />
@@ -57,6 +62,7 @@
     <Compile Include="Expression\ParenthesisNode.cs" />
     <Compile Include="Expression\ValueNode.cs" />
     <Compile Include="Extensions\ArraySort.cs" />
+    <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Extensions\FileInfoExtension.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\LeftArraySort.cs" />
@@ -125,7 +131,9 @@
     <Compile Include="Reflection\LoadAssemblyCache.cs" />
     <Compile Include="Reflection\XmlDocument.cs" />
     <Compile Include="Reflection\XmlDocumentAssembly.cs" />
+    <Compile Include="ReusableHashCodeKeyHashSet.cs" />
     <Compile Include="ReusableHashSet.cs" />
+    <Compile Include="ReusableHashNode.cs" />
     <Compile Include="RingQueue.cs" />
     <Compile Include="SearchTree\Dictionary.cs" />
     <Compile Include="SearchTree\FindArray.cs" />
@@ -133,6 +141,7 @@
     <Compile Include="SearchTree\Node.cs" />
     <Compile Include="SearchTree\PageArray.cs" />
     <Compile Include="SearchTree\Set.cs" />
+    <Compile Include="SearchTree\SetRemoveNode.cs" />
     <Compile Include="StateSearcher\AsciiBuilder.cs" />
     <Compile Include="StateSearcher\AsciiSearcher.cs" />
     <Compile Include="Threading\AutoWaitCount.cs" />
@@ -154,9 +163,7 @@
     <Compile Include="Threading\ReentrantSemaphoreSlimLockManager.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockCount.cs" />
     <Compile Include="Threading\SynchronizationContextAction.cs" />
-    <Compile Include="Threading\TaskQueue.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceController.cs" />
-    <Compile Include="Threading\TaskQueueBase.cs" />
     <Compile Include="Threading\TaskRunTimer.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.CustomConfig.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Number.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -66,6 +67,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return value != null && searchTreeSet.Add(value);
         }
         /// <summary>
+        /// 如果关键字不存在则添加数据
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>添加数据数量</returns>
+        public int AddValues(T[] values)
+        {
+            if (values != null)
+            {
+                int count = 0;
+                foreach (T value in values)
+                {
+                    if (value != null && searchTreeSet.Add(value)) ++count;
+                }
+                return count;
+            }
+            return 0;
+        }
+        /// <summary>
         /// 清除所有数据
         /// </summary>
         public void Clear()
@@ -89,6 +108,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool Remove(T value)
         {
             return value != null && searchTreeSet.Remove(value);
+        }
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>删除数据数量</returns>
+        public int RemoveValues(T[] values)
+        {
+            if (values != null)
+            {
+                int count = 0;
+                foreach (T value in values)
+                {
+                    if (value != null && searchTreeSet.Remove(value)) ++count;
+                }
+                return count;
+            }
+            return 0;
         }
         /// <summary>
         /// 获取第一个数据
@@ -124,7 +161,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点数量，失败返回 -1</returns>
         public int CountLess(T value)
         {
-            return value != null ? searchTreeSet.CountLess(ref value) : -1;
+            return value != null ? searchTreeSet.CountLess(value) : -1;
         }
         /// <summary>
         /// 根据关键字比它大的节点数量
@@ -133,7 +170,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点数量，失败返回 -1</returns>
         public int CountThan(T value)
         {
-            return value != null ? searchTreeSet.CountThan(ref value) : -1;
+            return value != null ? searchTreeSet.CountThan(value) : -1;
         }
         /// <summary>
         /// 根据节点位置获取数据

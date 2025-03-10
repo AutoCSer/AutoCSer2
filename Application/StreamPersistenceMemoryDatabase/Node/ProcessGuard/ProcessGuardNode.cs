@@ -1,4 +1,5 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             foreach (GuardProcess guardProcess in guards.Values) guardProcess.Remove();
             guards.Clear();
+        }
+        /// <summary>
+        /// 数据库服务关闭操作
+        /// </summary>
+        public override void StreamPersistenceMemoryDatabaseServiceDisposable()
+        {
+            foreach (GuardProcess guardProcess in guards.Values) guardProcess.Remove();
         }
         /// <summary>
         /// 根据进程ID获取进程信息

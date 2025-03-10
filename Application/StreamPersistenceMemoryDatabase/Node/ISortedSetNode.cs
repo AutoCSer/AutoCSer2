@@ -23,6 +23,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         bool Add(T value);
         /// <summary>
+        /// 如果关键字不存在则添加数据
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>添加数据数量</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        int AddValues(T[] values);
+        /// <summary>
         /// 清除所有数据
         /// </summary>
         void Clear();
@@ -40,6 +47,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否删除成功</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(T value);
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>删除数据数量</returns>
+        int RemoveValues(T[] values);
         /// <summary>
         /// 获取最小值
         /// </summary>

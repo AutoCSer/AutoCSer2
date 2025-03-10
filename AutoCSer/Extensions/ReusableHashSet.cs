@@ -6,32 +6,26 @@ namespace AutoCSer
     /// <summary>
     /// 可重用哈希表（主要用于非引用类型缓冲区，避免 new / Clear 开销）
     /// </summary>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="T">关键字类型</typeparam>
     [RemoteType]
-    public sealed class ReusableHashSet<KT> : ReusableDictionary<KT>
+    public class ReusableHashSet<T> : ReusableDictionary<T>
 #if NetStandard21
-        where KT : notnull, IEquatable<KT>
+        where T : notnull, IEquatable<T>
 #else
-        where KT : IEquatable<KT>
+        where T : IEquatable<T>
 #endif
     {
-#if AOT
-        /// <summary>
-        /// 比较器
-        /// </summary>
-        private readonly IEqualityComparer<keyType> comparer;
-#endif
         /// <summary>
         /// 数据集合
         /// </summary>
-        public IEnumerable<KT> Values
+        public IEnumerable<T> Values
         {
             get
             {
-                if (count != 0)
+                if (Count != 0)
                 {
-                    int index = count;
-                    foreach (ReusableDictionaryNode<KT> node in Nodes)
+                    int index = Count;
+                    foreach (ReusableHashNode<T> node in Nodes)
                     {
                         yield return node.Value;
                         if (--index == 0) break;
@@ -40,50 +34,38 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 可重用字典
+        /// 可重用哈希表
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
-#if AOT
-        /// <param name="comparer">比较器</param>
-#endif
-        public ReusableHashSet(int capacity = 0
-#if AOT
-            , IEqualityComparer<keyType> comparer
-#endif
-) : base(capacity)
-        {
-#if AOT
-            this.comparer = comparer;
-#endif
-        }
+        public ReusableHashSet(int capacity = 0) : base(capacity) { }
         /// <summary>
         /// 新增数据
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否新增数据</returns>
-        public bool Add(KT value)
+        public bool Add(T value)
         {
             uint hashCode = (uint)value.GetHashCode();
             int hashIndex = (int)CapacityDivision.GetMod(hashCode);
-            if (count != 0)
+            if (Count != 0)
             {
-                int nodeIndex = Nodes[hashIndex].LinkIndex;
-                if (nodeIndex < count && Nodes[nodeIndex].Source == (uint)hashIndex)
+                int nodeIndex = Nodes[hashIndex].HashIndex;
+                if (nodeIndex < Count && Nodes[nodeIndex].Source == (uint)hashIndex)
                 {
                     do
                     {
 #if NetStandard21
-                        ref ReusableDictionaryNode<KT> node = ref Nodes[nodeIndex];
+                        ref ReusableHashNode<T> node = ref Nodes[nodeIndex];
 #else
-                        ReusableDictionaryNode<KT> node = nodes[nodeIndex];
+                        ReusableHashNode<T> node = Nodes[nodeIndex];
 #endif
                         if (hashCode == node.HashCode && node.Value.Equals(value)) return false;
                         if (node.Next == int.MaxValue)
                         {
-                            if (count != CapacityDivision.Divisor)
+                            if (Count != CapacityDivision.Divisor)
                             {
-                                Nodes[count].Set((uint)nodeIndex | 0x80000000U, hashCode, value);
-                                Nodes[nodeIndex].Next = count++;
+                                Nodes[Count].Set((uint)nodeIndex | 0x80000000U, hashCode, value);
+                                Nodes[nodeIndex].Next = Count++;
                             }
                             else
                             {
@@ -96,10 +78,10 @@ namespace AutoCSer
                     }
                     while (true);
                 }
-                if (count != CapacityDivision.Divisor)
+                if (Count != CapacityDivision.Divisor)
                 {
-                    Nodes[count].Set((uint)hashIndex, hashCode, value);
-                    Nodes[hashIndex].LinkIndex = count++;
+                    Nodes[Count].Set((uint)hashIndex, hashCode, value);
+                    Nodes[hashIndex].HashIndex = Count++;
                 }
                 else
                 {
@@ -110,8 +92,8 @@ namespace AutoCSer
             else
             {
                 Nodes[0].Set((uint)hashIndex, hashCode, value);
-                Nodes[hashIndex].LinkIndex = 0;
-                count = 1;
+                Nodes[hashIndex].HashIndex = 0;
+                Count = 1;
             }
             return true;
         }
@@ -120,28 +102,28 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否存在数据</returns>
-        public bool Contains(KT value)
+        public bool Contains(T value)
         {
-            if (count != 0)
+            if (Count != 0)
             {
                 uint hashCode = (uint)value.GetHashCode();
-                int hashIndex = (int)CapacityDivision.GetMod(hashCode), nodeIndex = Nodes[hashIndex].LinkIndex;
-                if (nodeIndex < count)
+                int hashIndex = (int)CapacityDivision.GetMod(hashCode), nodeIndex = Nodes[hashIndex].HashIndex;
+                if (nodeIndex < Count)
                 {
 #if NetStandard21
-                    ref ReusableDictionaryNode<KT> node = ref Nodes[nodeIndex];
+                    ref ReusableHashNode<T> node = ref Nodes[nodeIndex];
 #else
-                    ReusableDictionaryNode<KT>> node = nodes[nodeIndex];
+                    ReusableHashNode<T> node = Nodes[nodeIndex];
 #endif
                     if (node.HashCode == hashCode && node.Source == hashIndex && node.Value.Equals(value)) return true;
                     if (node.Source == hashIndex)
                     {
-                        for (int nextNodeIndex = node.Next; nextNodeIndex < count; nextNodeIndex = node.Next)
+                        for (int nextNodeIndex = node.Next; nextNodeIndex < Count; nextNodeIndex = node.Next)
                         {
 #if NetStandard21
                             node = ref Nodes[nextNodeIndex];
 #else
-                            node = nodes[nextNodeIndex];
+                            node = Nodes[nextNodeIndex];
 #endif
                             if (node.HashCode == hashCode && node.Value.Equals(value)) return true;
                         }
@@ -155,40 +137,47 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否存在数据</returns>
-        public bool Remove(KT value)
+        public bool Remove(T value)
         {
-            if (count != 0)
+            if (Count != 0)
             {
                 uint hashCode = (uint)value.GetHashCode();
-                int hashIndex = (int)CapacityDivision.GetMod(hashCode), nodeIndex = Nodes[hashIndex].LinkIndex;
-                if (nodeIndex < count)
+                int hashIndex = (int)CapacityDivision.GetMod(hashCode), nodeIndex = Nodes[hashIndex].HashIndex;
+                if (nodeIndex < Count)
                 {
 #if NetStandard21
-                    ref ReusableDictionaryNode<KT> node = ref Nodes[nodeIndex];
+                    ref ReusableHashNode<T> node = ref Nodes[nodeIndex];
 #else
-                    ReusableDictionaryNode<KT> node = nodes[nodeIndex];
+                    ReusableHashNode<T> node = Nodes[nodeIndex];
 #endif
                     if (node.HashCode == hashCode && node.Source == hashIndex && node.Value.Equals(value))
                     {
-                        if (node.Next != int.MaxValue) Nodes[node.Next].Source = (uint)hashIndex;
-                        Nodes[hashIndex].LinkIndex = node.Next;
-                        remove(nodeIndex);
+                        if (node.Next == int.MaxValue)
+                        {
+                            if (nodeIndex != --Count) remove(nodeIndex, node.HashIndex);
+                        }
+                        else
+                        {
+                            Nodes[node.Next].Source = (uint)hashIndex;
+                            Nodes[hashIndex].HashIndex = node.Next;
+                            if (nodeIndex != --Count) remove(nodeIndex, Nodes[nodeIndex].HashIndex);
+                        }
                         return true;
                     }
                     if (node.Source == hashIndex)
                     {
-                        for (int nextNodeIndex = node.Next; nextNodeIndex < count; nodeIndex = nextNodeIndex, nextNodeIndex = node.Next)
+                        for (int nextNodeIndex = node.Next; nextNodeIndex < Count; nodeIndex = nextNodeIndex, nextNodeIndex = node.Next)
                         {
 #if NetStandard21
                             node = ref Nodes[nextNodeIndex];
 #else
-                            node = nodes[nextNodeIndex];
+                            node = Nodes[nextNodeIndex];
 #endif
                             if (node.HashCode == hashCode && node.Value.Equals(value))
                             {
-                                if (node.Next != int.MaxValue) Nodes[node.Next].Source = (uint)nodeIndex | 0x80000000U;
+                                if (node.Next != int.MaxValue) Nodes[node.Next].SetNextSource(nodeIndex);
                                 Nodes[nodeIndex].Next = node.Next;
-                                remove(nextNodeIndex);
+                                if (nextNodeIndex != --Count) remove(nextNodeIndex, node.HashIndex);
                                 return true;
                             }
                         }

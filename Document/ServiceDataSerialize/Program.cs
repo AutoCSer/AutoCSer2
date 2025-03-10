@@ -11,6 +11,7 @@ namespace AutoCSer.Document.ServiceDataSerialize
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
+            //Allows reflection to create the type of non-explicit object
             //允许的反射创建非明确对象的类型
             await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(AutoCSer.Document.ServiceDataSerialize.BinarySerialize.RealType));
 

@@ -6,18 +6,16 @@ namespace AutoCSer.Algorithm
     /// <summary>
     /// 排序索引
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal partial struct ULongSortIndex
     {
         /// <summary>
         /// 数值
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(0)]
         internal ulong Value;
         /// <summary>
         /// 位置索引
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(sizeof(ulong))]
         internal int Index;
         /// <summary>
         /// 设置排序索引

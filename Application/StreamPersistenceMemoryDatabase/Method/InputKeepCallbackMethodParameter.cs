@@ -44,50 +44,46 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal CallStateEnum InputKeepCallback(ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
 #endif
         {
-            CallStateEnum state = Node.CallState;
-            if (state == CallStateEnum.Success)
+            if (Method.IsClientCall)
             {
-                if (Method.IsClientCall)
+                this.callback = callback;
+                StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
+                if (Method.IsPersistence)
                 {
-                    this.callback = callback;
-                    StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
-                    if (Method.IsPersistence)
+                    if (Node.CallState != CallStateEnum.Success) return Node.CallState;
+                    if (Node.IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
+                    if (Method.BeforePersistenceMethodIndex >= 0)
                     {
-                        if (Node.IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
-                        if (Method.BeforePersistenceMethodIndex >= 0)
+                        CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[Method.BeforePersistenceMethodIndex].notNull();
+                        BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
+                        service.CurrentMethodParameter = BeforePersistenceMethodParameter;
+                        ValueResult<ResponseParameter> value = beforePersistenceMethod.CallOutputBeforePersistence(BeforePersistenceMethodParameter);
+                        if (value.IsValue)
                         {
-                            CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[Method.BeforePersistenceMethodIndex].notNull();
-                            BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
-                            service.CurrentMethodParameter = BeforePersistenceMethodParameter;
-                            ValueResult<ResponseParameter> value = beforePersistenceMethod.CallOutputBeforePersistence(BeforePersistenceMethodParameter);
-                            if (value.IsValue)
-                            {
-                                callback = null;
-                                this.callback?.VirtualCallbackCancelKeep(value.Value.CreateKeepCallback());
-                                return CallStateEnum.Success;
-                            }
-                        }
-                        if (Node.IsPersistence)
-                        {
-                            service.PushPersistenceMethodParameter(this, ref callback);
+                            callback = null;
+                            this.callback?.VirtualCallbackCancelKeep(value.Value.CreateKeepCallback());
                             return CallStateEnum.Success;
                         }
                     }
-                    callback = null;
-                    try
+                    if (Node.IsPersistence)
                     {
-                        service.SetCurrentMethodParameter(this);
-                        Method.InputKeepCallback(this);
+                        service.PushPersistenceMethodParameter(this, ref callback);
+                        return CallStateEnum.Success;
                     }
-                    finally
-                    {
-                        this.callback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.Unknown));
-                    }
-                    return CallStateEnum.Success;
                 }
-                return CallStateEnum.NotAllowClientCall;
+                callback = null;
+                try
+                {
+                    service.SetCurrentMethodParameter(this);
+                    Method.InputKeepCallback(this);
+                }
+                finally
+                {
+                    this.callback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.Unknown));
+                }
+                return CallStateEnum.Success;
             }
-            return state;
+            return CallStateEnum.NotAllowClientCall;
         }
         /// <summary>
         /// 持久化回调

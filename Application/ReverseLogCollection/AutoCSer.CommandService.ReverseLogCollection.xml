@@ -295,5 +295,21 @@
             </summary>
             <param name="log">日志数据</param>
         </member>
+        <member name="F:AutoCSer.CommandService.LogCollectionReverseServiceMethodEnum.Append">
+            <summary>
+            [0] 添加日志
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServerCallQueue queue 
+            T log 日志数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.LogCollectionReverseServiceMethodEnum.AppendSendOnly">
+            <summary>
+            [1] 添加日志
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServerCallQueue queue 
+            T log 日志数据
+            </summary>
+        </member>
     </members>
 </doc>

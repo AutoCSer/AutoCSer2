@@ -56,6 +56,13 @@ namespace AutoCSer.CodeGenerator.Metadata
             }
         }
         /// <summary>
+        /// XML文档注释
+        /// </summary>
+        public string CodeGeneratorXmlDocument
+        {
+            get { return AutoCSer.Reflection.XmlDocument.CodeGeneratorFormat(XmlDocument); }
+        }
+        /// <summary>
         /// XML文档注释代码字符串
         /// </summary>
         public string XmlDocumentCodeString

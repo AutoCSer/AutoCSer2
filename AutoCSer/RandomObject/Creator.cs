@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.RandomObject.Metadata;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -565,8 +566,13 @@ namespace AutoCSer.RandomObject
 #else
             createDelegates.Add(typeof(string), (Func<Config, string>)createString);
 #endif
-
-            AutoCSer.Memory.Common.AddClearCache(DefaultConfig.ClearHistory, AutoCSer.Common.Config.GetMemoryCacheClearSeconds());
+            int clearSeconds = AutoCSer.Common.Config.GetMemoryCacheClearSeconds();
+            if (clearSeconds > 0)
+            {
+                new SecondTimerArrayActionNode(DefaultConfig.ClearHistory, AutoCSer.Threading.SecondTimer.InternalTaskArray, clearSeconds, SecondTimerKeepModeEnum.After, clearSeconds)
+                    .AppendTaskArray();
+            }
+            //AutoCSer.Memory.Common.AddClearCache(DefaultConfig.ClearHistory, AutoCSer.Common.Config.GetMemoryCacheClearSeconds());
             AutoCSer.Memory.ObjectRoot.ScanType.Add(typeof(Creator));
         }
     }

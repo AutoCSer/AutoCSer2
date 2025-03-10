@@ -129,7 +129,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 hashCodeToBits(hashCodes);
                 ResponseResult<bool> setResult = await node.SetBits(size, hashCodes);
                 if (!setResult.IsSuccess) return setResult;
-                if (setResult.Value) return new ResponseResult(CallStateEnum.Success);
+                if (setResult.Value) return CallStateEnum.Success;
                 SizeDivision.Divisor = 0;
             }
             while (true);

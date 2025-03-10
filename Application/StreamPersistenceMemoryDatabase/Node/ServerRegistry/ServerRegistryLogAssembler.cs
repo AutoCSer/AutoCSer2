@@ -286,7 +286,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void Append(MethodKeepCallback<ServerRegistryLog> callback)
 #endif
         {
-            ServerRegistryNode.Callback(ref callbacks);
+#if NetStandard21
+            MethodKeepCallback<ServerRegistryLog?>.Callback(ref callbacks, null);
+#else
+            MethodKeepCallback<ServerRegistryLog>.Callback(ref callbacks, null);
+#endif
             if(Callback(callback)) callbacks.Add(callback);
         }
         /// <summary>

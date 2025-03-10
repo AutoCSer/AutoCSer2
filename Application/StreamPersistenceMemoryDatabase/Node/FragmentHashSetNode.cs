@@ -67,6 +67,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return value != null && hashSet.Add(value);
         }
         /// <summary>
+        /// 如果关键字不存在则添加数据
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>添加数据数量</returns>
+        public int AddValues(T[] values)
+        {
+            if (values != null)
+            {
+                int count = 0;
+                foreach(T value in values)
+                {
+                    if (value != null && hashSet.Add(value)) ++count;
+                }
+                return count;
+            }
+            return 0;
+        }
+        /// <summary>
         /// 判断关键字是否存在
         /// </summary>
         /// <param name="value"></param>
@@ -83,6 +101,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool Remove(T value)
         {
             return value != null && hashSet.Remove(value);
+        }
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>删除数据数量</returns>
+        public int RemoveValues(T[] values)
+        {
+            if (values != null)
+            {
+                int count = 0;
+                foreach (T value in values)
+                {
+                    if (value != null && hashSet.Remove(value)) ++count;
+                }
+                return count;
+            }
+            return 0;
         }
     }
 }

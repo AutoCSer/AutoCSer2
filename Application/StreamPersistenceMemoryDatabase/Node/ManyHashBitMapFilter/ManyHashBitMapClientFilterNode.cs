@@ -83,23 +83,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return map;
         }
         /// <summary>
-        /// 设置新位回调
-        /// </summary>
-        /// <param name="bit"></param>
-        private void callback(int bit)
-        {
-            int count = callbacks.Length;
-            if (count != 0)
-            {
-                MethodKeepCallback<int>[] callbackArray = callbacks.Array;
-                do
-                {
-                    if (!callbackArray[--count].Callback(bit)) callbacks.RemoveToEnd(count);
-                }
-                while (count != 0);
-            }
-        }
-        /// <summary>
         /// 设置位 持久化前检查
         /// </summary>
         /// <param name="bit">位置</param>
@@ -114,7 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="bit">位置</param>
         public void SetBit(int bit)
         {
-            if (map.CheckSetBit(bit)) callback(bit);
+            if (map.CheckSetBit(bit)) MethodKeepCallback<int>.Callback(ref callbacks, bit);
         }
     }
 }

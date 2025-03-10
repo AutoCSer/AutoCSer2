@@ -94,7 +94,7 @@ namespace AutoCSer
         {
             isProcessing = true;
             Config = config ?? DefaultConfig;
-            CharStream.TrySetDataCanResize(UnmanagedPool.Default);
+            CharStream.TrySetDataCanResize(AutoCSer.Common.Config.SerializeUnmanagedPool);
             using (CharStream)
             {
                 serialize(ref value);

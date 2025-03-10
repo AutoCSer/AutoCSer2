@@ -255,6 +255,13 @@ namespace AutoCSer.CodeGenerator.Metadata
             }
         }
         /// <summary>
+        /// XML文档注释
+        /// </summary>
+        public string CodeGeneratorXmlDocument
+        {
+            get { return AutoCSer.Reflection.XmlDocument.CodeGeneratorFormat(XmlDocument); }
+        }
+        /// <summary>
         /// 获取类名称定义
         /// </summary>
         /// <param name="typeNameSuffix">生成类型名称后缀</param>

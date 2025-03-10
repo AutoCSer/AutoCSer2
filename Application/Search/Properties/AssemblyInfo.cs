@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("AutoCSer.CommandService.Search")]
-[assembly: AssemblyCopyright("Copyright © 肖进 2025")]
+[assembly: AssemblyCopyright("Copyright © 肖进 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -180,790 +180,18 @@ namespace AutoCSer.Extensions
 namespace AutoCSer.Algorithm
 {
     /// <summary>
-    /// 范围排序器(一般用于获取分页)
-    /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct ULongQuickRangeSorter
-    {
-        /// <summary>
-        /// 跳过数据指针
-        /// </summary>
-        internal ulong* SkipCount;
-        /// <summary>
-        /// 最后一条记录指针-1
-        /// </summary>
-        internal ulong* GetEndIndex;
-        /// <summary>
-        /// 范围排序
-        /// </summary>
-        /// <param name="startIndex">起始指针</param>
-        /// <param name="endIndex">结束指针-1</param>
-        internal void Sort(ulong* startIndex, ulong* endIndex)
-        {
-            do
-            {
-                ulong leftValue = *startIndex, rightValue = *endIndex;
-                int average = (int)(endIndex - startIndex) >> 1;
-                if (average == 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *startIndex = rightValue;
-                        *endIndex = leftValue;
-                    }
-                    break;
-                }
-                ulong* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
-                ulong value = *averageIndex;
-                if (leftValue.CompareFrom(value) < 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = leftValue;
-                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
-                        else
-                        {
-                            *leftIndex = value;
-                            *averageIndex = value = rightValue;
-                        }
-                    }
-                    else
-                    {
-                        *leftIndex = value;
-                        *averageIndex = value = leftValue;
-                    }
-                }
-                else
-                {
-                    if (value.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = value;
-                        if (leftValue.CompareFrom(rightValue) < 0)
-                        {
-                            *leftIndex = rightValue;
-                            *averageIndex = value = leftValue;
-                        }
-                        else *averageIndex = value = rightValue;
-                    }
-                }
-                ++leftIndex;
-                --rightIndex;
-                do
-                {
-                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
-                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
-                    if (leftIndex < rightIndex)
-                    {
-                        leftValue = *leftIndex;
-                        *leftIndex = *rightIndex;
-                        *rightIndex = leftValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
-                        break;
-                    }
-                }
-                while (++leftIndex <= --rightIndex);
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex && rightIndex >= SkipCount) Sort(startIndex, rightIndex);
-                    if (leftIndex > GetEndIndex) break;
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex && leftIndex <= GetEndIndex) Sort(leftIndex, endIndex);
-                    if (rightIndex < SkipCount) break;
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
-
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
-    /// 范围排序器(一般用于获取分页)
-    /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct LongQuickRangeSorterDesc
-    {
-        /// <summary>
-        /// 跳过数据指针
-        /// </summary>
-        internal long* SkipCount;
-        /// <summary>
-        /// 最后一条记录指针-1
-        /// </summary>
-        internal long* GetEndIndex;
-        /// <summary>
-        /// 范围排序
-        /// </summary>
-        /// <param name="startIndex">起始指针</param>
-        /// <param name="endIndex">结束指针-1</param>
-        internal void Sort(long* startIndex, long* endIndex)
-        {
-            do
-            {
-                long leftValue = *startIndex, rightValue = *endIndex;
-                int average = (int)(endIndex - startIndex) >> 1;
-                if (average == 0)
-                {
-                    if (leftValue.CompareTo(rightValue) < 0)
-                    {
-                        *startIndex = rightValue;
-                        *endIndex = leftValue;
-                    }
-                    break;
-                }
-                long* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
-                long value = *averageIndex;
-                if (leftValue.CompareTo(value) < 0)
-                {
-                    if (leftValue.CompareTo(rightValue) < 0)
-                    {
-                        *rightIndex = leftValue;
-                        if (value.CompareTo(rightValue) < 0) *leftIndex = rightValue;
-                        else
-                        {
-                            *leftIndex = value;
-                            *averageIndex = value = rightValue;
-                        }
-                    }
-                    else
-                    {
-                        *leftIndex = value;
-                        *averageIndex = value = leftValue;
-                    }
-                }
-                else
-                {
-                    if (value.CompareTo(rightValue) < 0)
-                    {
-                        *rightIndex = value;
-                        if (leftValue.CompareTo(rightValue) < 0)
-                        {
-                            *leftIndex = rightValue;
-                            *averageIndex = value = leftValue;
-                        }
-                        else *averageIndex = value = rightValue;
-                    }
-                }
-                ++leftIndex;
-                --rightIndex;
-                do
-                {
-                    while ((*leftIndex).CompareTo(value) > 0) ++leftIndex;
-                    while (value.CompareTo(*rightIndex) > 0) --rightIndex;
-                    if (leftIndex < rightIndex)
-                    {
-                        leftValue = *leftIndex;
-                        *leftIndex = *rightIndex;
-                        *rightIndex = leftValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
-                        break;
-                    }
-                }
-                while (++leftIndex <= --rightIndex);
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex && rightIndex >= SkipCount) Sort(startIndex, rightIndex);
-                    if (leftIndex > GetEndIndex) break;
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex && leftIndex <= GetEndIndex) Sort(leftIndex, endIndex);
-                    if (rightIndex < SkipCount) break;
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
-
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
-    /// 范围排序器(一般用于获取分页)
-    /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct LongQuickRangeSorter
-    {
-        /// <summary>
-        /// 跳过数据指针
-        /// </summary>
-        internal long* SkipCount;
-        /// <summary>
-        /// 最后一条记录指针-1
-        /// </summary>
-        internal long* GetEndIndex;
-        /// <summary>
-        /// 范围排序
-        /// </summary>
-        /// <param name="startIndex">起始指针</param>
-        /// <param name="endIndex">结束指针-1</param>
-        internal void Sort(long* startIndex, long* endIndex)
-        {
-            do
-            {
-                long leftValue = *startIndex, rightValue = *endIndex;
-                int average = (int)(endIndex - startIndex) >> 1;
-                if (average == 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *startIndex = rightValue;
-                        *endIndex = leftValue;
-                    }
-                    break;
-                }
-                long* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
-                long value = *averageIndex;
-                if (leftValue.CompareFrom(value) < 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = leftValue;
-                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
-                        else
-                        {
-                            *leftIndex = value;
-                            *averageIndex = value = rightValue;
-                        }
-                    }
-                    else
-                    {
-                        *leftIndex = value;
-                        *averageIndex = value = leftValue;
-                    }
-                }
-                else
-                {
-                    if (value.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = value;
-                        if (leftValue.CompareFrom(rightValue) < 0)
-                        {
-                            *leftIndex = rightValue;
-                            *averageIndex = value = leftValue;
-                        }
-                        else *averageIndex = value = rightValue;
-                    }
-                }
-                ++leftIndex;
-                --rightIndex;
-                do
-                {
-                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
-                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
-                    if (leftIndex < rightIndex)
-                    {
-                        leftValue = *leftIndex;
-                        *leftIndex = *rightIndex;
-                        *rightIndex = leftValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
-                        break;
-                    }
-                }
-                while (++leftIndex <= --rightIndex);
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex && rightIndex >= SkipCount) Sort(startIndex, rightIndex);
-                    if (leftIndex > GetEndIndex) break;
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex && leftIndex <= GetEndIndex) Sort(leftIndex, endIndex);
-                    if (rightIndex < SkipCount) break;
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
-
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
-    /// 范围排序器(一般用于获取分页)
-    /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct UIntQuickRangeSorterDesc
-    {
-        /// <summary>
-        /// 跳过数据指针
-        /// </summary>
-        internal uint* SkipCount;
-        /// <summary>
-        /// 最后一条记录指针-1
-        /// </summary>
-        internal uint* GetEndIndex;
-        /// <summary>
-        /// 范围排序
-        /// </summary>
-        /// <param name="startIndex">起始指针</param>
-        /// <param name="endIndex">结束指针-1</param>
-        internal void Sort(uint* startIndex, uint* endIndex)
-        {
-            do
-            {
-                uint leftValue = *startIndex, rightValue = *endIndex;
-                int average = (int)(endIndex - startIndex) >> 1;
-                if (average == 0)
-                {
-                    if (leftValue.CompareTo(rightValue) < 0)
-                    {
-                        *startIndex = rightValue;
-                        *endIndex = leftValue;
-                    }
-                    break;
-                }
-                uint* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
-                uint value = *averageIndex;
-                if (leftValue.CompareTo(value) < 0)
-                {
-                    if (leftValue.CompareTo(rightValue) < 0)
-                    {
-                        *rightIndex = leftValue;
-                        if (value.CompareTo(rightValue) < 0) *leftIndex = rightValue;
-                        else
-                        {
-                            *leftIndex = value;
-                            *averageIndex = value = rightValue;
-                        }
-                    }
-                    else
-                    {
-                        *leftIndex = value;
-                        *averageIndex = value = leftValue;
-                    }
-                }
-                else
-                {
-                    if (value.CompareTo(rightValue) < 0)
-                    {
-                        *rightIndex = value;
-                        if (leftValue.CompareTo(rightValue) < 0)
-                        {
-                            *leftIndex = rightValue;
-                            *averageIndex = value = leftValue;
-                        }
-                        else *averageIndex = value = rightValue;
-                    }
-                }
-                ++leftIndex;
-                --rightIndex;
-                do
-                {
-                    while ((*leftIndex).CompareTo(value) > 0) ++leftIndex;
-                    while (value.CompareTo(*rightIndex) > 0) --rightIndex;
-                    if (leftIndex < rightIndex)
-                    {
-                        leftValue = *leftIndex;
-                        *leftIndex = *rightIndex;
-                        *rightIndex = leftValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
-                        break;
-                    }
-                }
-                while (++leftIndex <= --rightIndex);
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex && rightIndex >= SkipCount) Sort(startIndex, rightIndex);
-                    if (leftIndex > GetEndIndex) break;
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex && leftIndex <= GetEndIndex) Sort(leftIndex, endIndex);
-                    if (rightIndex < SkipCount) break;
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
-
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
-    /// 范围排序器(一般用于获取分页)
-    /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct UIntQuickRangeSorter
-    {
-        /// <summary>
-        /// 跳过数据指针
-        /// </summary>
-        internal uint* SkipCount;
-        /// <summary>
-        /// 最后一条记录指针-1
-        /// </summary>
-        internal uint* GetEndIndex;
-        /// <summary>
-        /// 范围排序
-        /// </summary>
-        /// <param name="startIndex">起始指针</param>
-        /// <param name="endIndex">结束指针-1</param>
-        internal void Sort(uint* startIndex, uint* endIndex)
-        {
-            do
-            {
-                uint leftValue = *startIndex, rightValue = *endIndex;
-                int average = (int)(endIndex - startIndex) >> 1;
-                if (average == 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *startIndex = rightValue;
-                        *endIndex = leftValue;
-                    }
-                    break;
-                }
-                uint* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
-                uint value = *averageIndex;
-                if (leftValue.CompareFrom(value) < 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = leftValue;
-                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
-                        else
-                        {
-                            *leftIndex = value;
-                            *averageIndex = value = rightValue;
-                        }
-                    }
-                    else
-                    {
-                        *leftIndex = value;
-                        *averageIndex = value = leftValue;
-                    }
-                }
-                else
-                {
-                    if (value.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = value;
-                        if (leftValue.CompareFrom(rightValue) < 0)
-                        {
-                            *leftIndex = rightValue;
-                            *averageIndex = value = leftValue;
-                        }
-                        else *averageIndex = value = rightValue;
-                    }
-                }
-                ++leftIndex;
-                --rightIndex;
-                do
-                {
-                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
-                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
-                    if (leftIndex < rightIndex)
-                    {
-                        leftValue = *leftIndex;
-                        *leftIndex = *rightIndex;
-                        *rightIndex = leftValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
-                        break;
-                    }
-                }
-                while (++leftIndex <= --rightIndex);
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex && rightIndex >= SkipCount) Sort(startIndex, rightIndex);
-                    if (leftIndex > GetEndIndex) break;
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex && leftIndex <= GetEndIndex) Sort(leftIndex, endIndex);
-                    if (rightIndex < SkipCount) break;
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
-
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
-    /// 范围排序器(一般用于获取分页)
-    /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct IntQuickRangeSorterDesc
-    {
-        /// <summary>
-        /// 跳过数据指针
-        /// </summary>
-        internal int* SkipCount;
-        /// <summary>
-        /// 最后一条记录指针-1
-        /// </summary>
-        internal int* GetEndIndex;
-        /// <summary>
-        /// 范围排序
-        /// </summary>
-        /// <param name="startIndex">起始指针</param>
-        /// <param name="endIndex">结束指针-1</param>
-        internal void Sort(int* startIndex, int* endIndex)
-        {
-            do
-            {
-                int leftValue = *startIndex, rightValue = *endIndex;
-                int average = (int)(endIndex - startIndex) >> 1;
-                if (average == 0)
-                {
-                    if (leftValue.CompareTo(rightValue) < 0)
-                    {
-                        *startIndex = rightValue;
-                        *endIndex = leftValue;
-                    }
-                    break;
-                }
-                int* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
-                int value = *averageIndex;
-                if (leftValue.CompareTo(value) < 0)
-                {
-                    if (leftValue.CompareTo(rightValue) < 0)
-                    {
-                        *rightIndex = leftValue;
-                        if (value.CompareTo(rightValue) < 0) *leftIndex = rightValue;
-                        else
-                        {
-                            *leftIndex = value;
-                            *averageIndex = value = rightValue;
-                        }
-                    }
-                    else
-                    {
-                        *leftIndex = value;
-                        *averageIndex = value = leftValue;
-                    }
-                }
-                else
-                {
-                    if (value.CompareTo(rightValue) < 0)
-                    {
-                        *rightIndex = value;
-                        if (leftValue.CompareTo(rightValue) < 0)
-                        {
-                            *leftIndex = rightValue;
-                            *averageIndex = value = leftValue;
-                        }
-                        else *averageIndex = value = rightValue;
-                    }
-                }
-                ++leftIndex;
-                --rightIndex;
-                do
-                {
-                    while ((*leftIndex).CompareTo(value) > 0) ++leftIndex;
-                    while (value.CompareTo(*rightIndex) > 0) --rightIndex;
-                    if (leftIndex < rightIndex)
-                    {
-                        leftValue = *leftIndex;
-                        *leftIndex = *rightIndex;
-                        *rightIndex = leftValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
-                        break;
-                    }
-                }
-                while (++leftIndex <= --rightIndex);
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex && rightIndex >= SkipCount) Sort(startIndex, rightIndex);
-                    if (leftIndex > GetEndIndex) break;
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex && leftIndex <= GetEndIndex) Sort(leftIndex, endIndex);
-                    if (rightIndex < SkipCount) break;
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
-
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
-    /// 范围排序器(一般用于获取分页)
-    /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct IntQuickRangeSorter
-    {
-        /// <summary>
-        /// 跳过数据指针
-        /// </summary>
-        internal int* SkipCount;
-        /// <summary>
-        /// 最后一条记录指针-1
-        /// </summary>
-        internal int* GetEndIndex;
-        /// <summary>
-        /// 范围排序
-        /// </summary>
-        /// <param name="startIndex">起始指针</param>
-        /// <param name="endIndex">结束指针-1</param>
-        internal void Sort(int* startIndex, int* endIndex)
-        {
-            do
-            {
-                int leftValue = *startIndex, rightValue = *endIndex;
-                int average = (int)(endIndex - startIndex) >> 1;
-                if (average == 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *startIndex = rightValue;
-                        *endIndex = leftValue;
-                    }
-                    break;
-                }
-                int* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
-                int value = *averageIndex;
-                if (leftValue.CompareFrom(value) < 0)
-                {
-                    if (leftValue.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = leftValue;
-                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
-                        else
-                        {
-                            *leftIndex = value;
-                            *averageIndex = value = rightValue;
-                        }
-                    }
-                    else
-                    {
-                        *leftIndex = value;
-                        *averageIndex = value = leftValue;
-                    }
-                }
-                else
-                {
-                    if (value.CompareFrom(rightValue) < 0)
-                    {
-                        *rightIndex = value;
-                        if (leftValue.CompareFrom(rightValue) < 0)
-                        {
-                            *leftIndex = rightValue;
-                            *averageIndex = value = leftValue;
-                        }
-                        else *averageIndex = value = rightValue;
-                    }
-                }
-                ++leftIndex;
-                --rightIndex;
-                do
-                {
-                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
-                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
-                    if (leftIndex < rightIndex)
-                    {
-                        leftValue = *leftIndex;
-                        *leftIndex = *rightIndex;
-                        *rightIndex = leftValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
-                        break;
-                    }
-                }
-                while (++leftIndex <= --rightIndex);
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex && rightIndex >= SkipCount) Sort(startIndex, rightIndex);
-                    if (leftIndex > GetEndIndex) break;
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex && leftIndex <= GetEndIndex) Sort(leftIndex, endIndex);
-                    if (rightIndex < SkipCount) break;
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
-
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
     /// 排序索引
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal partial struct LongSortIndex
     {
         /// <summary>
         /// 数值
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(0)]
         internal long Value;
         /// <summary>
         /// 位置索引
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(sizeof(long))]
         internal int Index;
         /// <summary>
         /// 设置排序索引
@@ -984,18 +212,16 @@ namespace AutoCSer.Algorithm
     /// <summary>
     /// 排序索引
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal partial struct UIntSortIndex
     {
         /// <summary>
         /// 数值
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(0)]
         internal uint Value;
         /// <summary>
         /// 位置索引
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(sizeof(uint))]
         internal int Index;
         /// <summary>
         /// 设置排序索引
@@ -1016,18 +242,16 @@ namespace AutoCSer.Algorithm
     /// <summary>
     /// 排序索引
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit)]
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal partial struct IntSortIndex
     {
         /// <summary>
         /// 数值
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(0)]
         internal int Value;
         /// <summary>
         /// 位置索引
         /// </summary>
-        [System.Runtime.InteropServices.FieldOffset(sizeof(int))]
         internal int Index;
         /// <summary>
         /// 设置排序索引
@@ -1039,6 +263,1777 @@ namespace AutoCSer.Algorithm
         {
             Value = value;
             Index = index;
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct ULongIndexQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private ULongSortIndex* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private ULongSortIndex* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal ULongIndexQuickRangeSort(ULongSortIndex* skipCount, ULongSortIndex* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(ULongSortIndex* startIndex, ULongSortIndex* endIndex)
+        {
+            do
+            {
+                ULongSortIndex leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                ULongSortIndex* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                ULongSortIndex indexValue = *averageIndex;
+                if (leftValue.Value.CompareFrom(indexValue.Value) < 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (indexValue.Value.CompareFrom(rightValue.Value) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = indexValue;
+                            *averageIndex = indexValue = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = indexValue;
+                        *averageIndex = indexValue = leftValue;
+                    }
+                }
+                else
+                {
+                    if (indexValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = indexValue;
+                        if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = indexValue = leftValue;
+                        }
+                        else *averageIndex = indexValue = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                ulong value = indexValue.Value;
+                do
+                {
+                    while ((*leftIndex).Value.CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom((*rightIndex).Value) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        public static ulong[] GetQuickRangeSortKay<T>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, ulong> getKey)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortKay(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey);
+            return AutoCSer.EmptyArray<ulong>.Array;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        public static VT[] GetQuickRangeSort<T, VT>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, ulong> getKey, Func<T, VT> getValue)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSort(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey, getValue);
+            return AutoCSer.EmptyArray<VT>.Array;
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        internal static ulong[] GetQuickRangeSortKay<T>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, ulong> getKey)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.ULongSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.ULongSortIndex* sortIndex = (AutoCSer.Algorithm.ULongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.ULongSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.ULongIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    ulong[] keys = AutoCSer.Common.GetUninitializedArray<ulong>(count);
+                    fixed (ulong* keyFixed = keys)
+                    {
+                        ulong* write = keyFixed;
+                        do
+                        {
+                            *write++ = (*skip).Value;
+                        }
+                        while (++skip != end);
+                    }
+                    return keys;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new ulong[] { getKey(array[startIndex]) };
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        internal static VT[] GetQuickRangeSort<T, VT>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, ulong> getKey, Func<T, VT> getValue)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.ULongSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.ULongSortIndex* sortIndex = (AutoCSer.Algorithm.ULongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.ULongSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.ULongIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    VT[] values = new VT[count];
+                    startIndex = 0;
+                    do
+                    {
+                        values[startIndex++] = getValue(array[(*skip).Index]);
+                    }
+                    while (++skip != end);
+                    return values;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new VT[] { getValue(array[startIndex]) };
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct LongIndexQuickRangeSortDesc
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private LongSortIndex* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private LongSortIndex* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal LongIndexQuickRangeSortDesc(LongSortIndex* skipCount, LongSortIndex* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(LongSortIndex* startIndex, LongSortIndex* endIndex)
+        {
+            do
+            {
+                LongSortIndex leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                LongSortIndex* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                LongSortIndex indexValue = *averageIndex;
+                if (leftValue.Value.CompareTo(indexValue.Value) < 0)
+                {
+                    if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (indexValue.Value.CompareTo(rightValue.Value) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = indexValue;
+                            *averageIndex = indexValue = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = indexValue;
+                        *averageIndex = indexValue = leftValue;
+                    }
+                }
+                else
+                {
+                    if (indexValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *rightIndex = indexValue;
+                        if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = indexValue = leftValue;
+                        }
+                        else *averageIndex = indexValue = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                long value = indexValue.Value;
+                do
+                {
+                    while ((*leftIndex).Value.CompareTo(value) > 0) ++leftIndex;
+                    while (value.CompareTo((*rightIndex).Value) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        public static long[] GetQuickRangeSortKayDesc<T>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, long> getKey)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortKayDesc(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey);
+            return AutoCSer.EmptyArray<long>.Array;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        public static VT[] GetQuickRangeSortDesc<T, VT>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, long> getKey, Func<T, VT> getValue)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortDesc(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey, getValue);
+            return AutoCSer.EmptyArray<VT>.Array;
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        internal static long[] GetQuickRangeSortKayDesc<T>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, long> getKey)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.LongSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.LongSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.LongIndexQuickRangeSortDesc(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    long[] keys = AutoCSer.Common.GetUninitializedArray<long>(count);
+                    fixed (long* keyFixed = keys)
+                    {
+                        long* write = keyFixed;
+                        do
+                        {
+                            *write++ = (*skip).Value;
+                        }
+                        while (++skip != end);
+                    }
+                    return keys;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new long[] { getKey(array[startIndex]) };
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        internal static VT[] GetQuickRangeSortDesc<T, VT>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, long> getKey, Func<T, VT> getValue)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.LongSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.LongSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.LongIndexQuickRangeSortDesc(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    VT[] values = new VT[count];
+                    startIndex = 0;
+                    do
+                    {
+                        values[startIndex++] = getValue(array[(*skip).Index]);
+                    }
+                    while (++skip != end);
+                    return values;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new VT[] { getValue(array[startIndex]) };
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct LongIndexQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private LongSortIndex* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private LongSortIndex* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal LongIndexQuickRangeSort(LongSortIndex* skipCount, LongSortIndex* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(LongSortIndex* startIndex, LongSortIndex* endIndex)
+        {
+            do
+            {
+                LongSortIndex leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                LongSortIndex* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                LongSortIndex indexValue = *averageIndex;
+                if (leftValue.Value.CompareFrom(indexValue.Value) < 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (indexValue.Value.CompareFrom(rightValue.Value) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = indexValue;
+                            *averageIndex = indexValue = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = indexValue;
+                        *averageIndex = indexValue = leftValue;
+                    }
+                }
+                else
+                {
+                    if (indexValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = indexValue;
+                        if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = indexValue = leftValue;
+                        }
+                        else *averageIndex = indexValue = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                long value = indexValue.Value;
+                do
+                {
+                    while ((*leftIndex).Value.CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom((*rightIndex).Value) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        public static long[] GetQuickRangeSortKay<T>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, long> getKey)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortKay(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey);
+            return AutoCSer.EmptyArray<long>.Array;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        public static VT[] GetQuickRangeSort<T, VT>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, long> getKey, Func<T, VT> getValue)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSort(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey, getValue);
+            return AutoCSer.EmptyArray<VT>.Array;
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        internal static long[] GetQuickRangeSortKay<T>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, long> getKey)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.LongSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.LongSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.LongIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    long[] keys = AutoCSer.Common.GetUninitializedArray<long>(count);
+                    fixed (long* keyFixed = keys)
+                    {
+                        long* write = keyFixed;
+                        do
+                        {
+                            *write++ = (*skip).Value;
+                        }
+                        while (++skip != end);
+                    }
+                    return keys;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new long[] { getKey(array[startIndex]) };
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        internal static VT[] GetQuickRangeSort<T, VT>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, long> getKey, Func<T, VT> getValue)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.LongSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.LongSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.LongIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    VT[] values = new VT[count];
+                    startIndex = 0;
+                    do
+                    {
+                        values[startIndex++] = getValue(array[(*skip).Index]);
+                    }
+                    while (++skip != end);
+                    return values;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new VT[] { getValue(array[startIndex]) };
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct UIntIndexQuickRangeSortDesc
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private UIntSortIndex* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private UIntSortIndex* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal UIntIndexQuickRangeSortDesc(UIntSortIndex* skipCount, UIntSortIndex* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(UIntSortIndex* startIndex, UIntSortIndex* endIndex)
+        {
+            do
+            {
+                UIntSortIndex leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                UIntSortIndex* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                UIntSortIndex indexValue = *averageIndex;
+                if (leftValue.Value.CompareTo(indexValue.Value) < 0)
+                {
+                    if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (indexValue.Value.CompareTo(rightValue.Value) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = indexValue;
+                            *averageIndex = indexValue = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = indexValue;
+                        *averageIndex = indexValue = leftValue;
+                    }
+                }
+                else
+                {
+                    if (indexValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *rightIndex = indexValue;
+                        if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = indexValue = leftValue;
+                        }
+                        else *averageIndex = indexValue = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                uint value = indexValue.Value;
+                do
+                {
+                    while ((*leftIndex).Value.CompareTo(value) > 0) ++leftIndex;
+                    while (value.CompareTo((*rightIndex).Value) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        public static uint[] GetQuickRangeSortKayDesc<T>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, uint> getKey)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortKayDesc(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey);
+            return AutoCSer.EmptyArray<uint>.Array;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        public static VT[] GetQuickRangeSortDesc<T, VT>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, uint> getKey, Func<T, VT> getValue)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortDesc(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey, getValue);
+            return AutoCSer.EmptyArray<VT>.Array;
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        internal static uint[] GetQuickRangeSortKayDesc<T>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, uint> getKey)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.UIntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.UIntIndexQuickRangeSortDesc(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    uint[] keys = AutoCSer.Common.GetUninitializedArray<uint>(count);
+                    fixed (uint* keyFixed = keys)
+                    {
+                        uint* write = keyFixed;
+                        do
+                        {
+                            *write++ = (*skip).Value;
+                        }
+                        while (++skip != end);
+                    }
+                    return keys;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new uint[] { getKey(array[startIndex]) };
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        internal static VT[] GetQuickRangeSortDesc<T, VT>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, uint> getKey, Func<T, VT> getValue)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.UIntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.UIntIndexQuickRangeSortDesc(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    VT[] values = new VT[count];
+                    startIndex = 0;
+                    do
+                    {
+                        values[startIndex++] = getValue(array[(*skip).Index]);
+                    }
+                    while (++skip != end);
+                    return values;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new VT[] { getValue(array[startIndex]) };
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct UIntIndexQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private UIntSortIndex* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private UIntSortIndex* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal UIntIndexQuickRangeSort(UIntSortIndex* skipCount, UIntSortIndex* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(UIntSortIndex* startIndex, UIntSortIndex* endIndex)
+        {
+            do
+            {
+                UIntSortIndex leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                UIntSortIndex* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                UIntSortIndex indexValue = *averageIndex;
+                if (leftValue.Value.CompareFrom(indexValue.Value) < 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (indexValue.Value.CompareFrom(rightValue.Value) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = indexValue;
+                            *averageIndex = indexValue = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = indexValue;
+                        *averageIndex = indexValue = leftValue;
+                    }
+                }
+                else
+                {
+                    if (indexValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = indexValue;
+                        if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = indexValue = leftValue;
+                        }
+                        else *averageIndex = indexValue = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                uint value = indexValue.Value;
+                do
+                {
+                    while ((*leftIndex).Value.CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom((*rightIndex).Value) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        public static uint[] GetQuickRangeSortKay<T>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, uint> getKey)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortKay(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey);
+            return AutoCSer.EmptyArray<uint>.Array;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        public static VT[] GetQuickRangeSort<T, VT>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, uint> getKey, Func<T, VT> getValue)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSort(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey, getValue);
+            return AutoCSer.EmptyArray<VT>.Array;
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        internal static uint[] GetQuickRangeSortKay<T>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, uint> getKey)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.UIntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.UIntIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    uint[] keys = AutoCSer.Common.GetUninitializedArray<uint>(count);
+                    fixed (uint* keyFixed = keys)
+                    {
+                        uint* write = keyFixed;
+                        do
+                        {
+                            *write++ = (*skip).Value;
+                        }
+                        while (++skip != end);
+                    }
+                    return keys;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new uint[] { getKey(array[startIndex]) };
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        internal static VT[] GetQuickRangeSort<T, VT>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, uint> getKey, Func<T, VT> getValue)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.UIntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.UIntIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    VT[] values = new VT[count];
+                    startIndex = 0;
+                    do
+                    {
+                        values[startIndex++] = getValue(array[(*skip).Index]);
+                    }
+                    while (++skip != end);
+                    return values;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new VT[] { getValue(array[startIndex]) };
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct IntIndexQuickRangeSortDesc
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private IntSortIndex* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private IntSortIndex* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal IntIndexQuickRangeSortDesc(IntSortIndex* skipCount, IntSortIndex* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(IntSortIndex* startIndex, IntSortIndex* endIndex)
+        {
+            do
+            {
+                IntSortIndex leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                IntSortIndex* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                IntSortIndex indexValue = *averageIndex;
+                if (leftValue.Value.CompareTo(indexValue.Value) < 0)
+                {
+                    if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (indexValue.Value.CompareTo(rightValue.Value) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = indexValue;
+                            *averageIndex = indexValue = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = indexValue;
+                        *averageIndex = indexValue = leftValue;
+                    }
+                }
+                else
+                {
+                    if (indexValue.Value.CompareTo(rightValue.Value) < 0)
+                    {
+                        *rightIndex = indexValue;
+                        if (leftValue.Value.CompareTo(rightValue.Value) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = indexValue = leftValue;
+                        }
+                        else *averageIndex = indexValue = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                int value = indexValue.Value;
+                do
+                {
+                    while ((*leftIndex).Value.CompareTo(value) > 0) ++leftIndex;
+                    while (value.CompareTo((*rightIndex).Value) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        public static int[] GetQuickRangeSortKayDesc<T>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, int> getKey)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortKayDesc(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey);
+            return AutoCSer.EmptyArray<int>.Array;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        public static VT[] GetQuickRangeSortDesc<T, VT>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, int> getKey, Func<T, VT> getValue)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortDesc(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey, getValue);
+            return AutoCSer.EmptyArray<VT>.Array;
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        internal static int[] GetQuickRangeSortKayDesc<T>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, int> getKey)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.IntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.IntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.IntIndexQuickRangeSortDesc(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    int[] keys = AutoCSer.Common.GetUninitializedArray<int>(count);
+                    fixed (int* keyFixed = keys)
+                    {
+                        int* write = keyFixed;
+                        do
+                        {
+                            *write++ = (*skip).Value;
+                        }
+                        while (++skip != end);
+                    }
+                    return keys;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new int[] { getKey(array[startIndex]) };
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        internal static VT[] GetQuickRangeSortDesc<T, VT>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, int> getKey, Func<T, VT> getValue)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.IntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.IntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.IntIndexQuickRangeSortDesc(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    VT[] values = new VT[count];
+                    startIndex = 0;
+                    do
+                    {
+                        values[startIndex++] = getValue(array[(*skip).Index]);
+                    }
+                    while (++skip != end);
+                    return values;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new VT[] { getValue(array[startIndex]) };
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct IntIndexQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private IntSortIndex* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private IntSortIndex* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal IntIndexQuickRangeSort(IntSortIndex* skipCount, IntSortIndex* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(IntSortIndex* startIndex, IntSortIndex* endIndex)
+        {
+            do
+            {
+                IntSortIndex leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                IntSortIndex* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                IntSortIndex indexValue = *averageIndex;
+                if (leftValue.Value.CompareFrom(indexValue.Value) < 0)
+                {
+                    if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (indexValue.Value.CompareFrom(rightValue.Value) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = indexValue;
+                            *averageIndex = indexValue = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = indexValue;
+                        *averageIndex = indexValue = leftValue;
+                    }
+                }
+                else
+                {
+                    if (indexValue.Value.CompareFrom(rightValue.Value) < 0)
+                    {
+                        *rightIndex = indexValue;
+                        if (leftValue.Value.CompareFrom(rightValue.Value) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = indexValue = leftValue;
+                        }
+                        else *averageIndex = indexValue = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                int value = indexValue.Value;
+                do
+                {
+                    while ((*leftIndex).Value.CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom((*rightIndex).Value) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        public static int[] GetQuickRangeSortKay<T>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, int> getKey)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSortKay(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey);
+            return AutoCSer.EmptyArray<int>.Array;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="leftArray">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        public static VT[] GetQuickRangeSort<T, VT>(this LeftArray<T> leftArray, int skipCount, int count, Func<T, int> getKey, Func<T, VT> getValue)
+        {
+            if (skipCount < 0) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] < 0");
+            if (count < 0) throw new IndexOutOfRangeException($"count[{AutoCSer.Extensions.NumberExtension.toString(count)}] < 0");
+            if (skipCount + count > leftArray.Length) throw new IndexOutOfRangeException($"skipCount[{AutoCSer.Extensions.NumberExtension.toString(skipCount)}] + count[{AutoCSer.Extensions.NumberExtension.toString(count)}] > Length[{AutoCSer.Extensions.NumberExtension.toString(leftArray.Length)}]");
+            if (count != 0) return ArraySort.GetQuickRangeSort(leftArray.Array, 0, leftArray.Length, skipCount, count, getKey, getValue);
+            return AutoCSer.EmptyArray<VT>.Array;
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <returns>排序关键字集合</returns>
+        internal static int[] GetQuickRangeSortKay<T>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, int> getKey)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.IntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.IntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.IntIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    int[] keys = AutoCSer.Common.GetUninitializedArray<int>(count);
+                    fixed (int* keyFixed = keys)
+                    {
+                        int* write = keyFixed;
+                        do
+                        {
+                            *write++ = (*skip).Value;
+                        }
+                        while (++skip != end);
+                    }
+                    return keys;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new int[] { getKey(array[startIndex]) };
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <typeparam name="T">排序关键字类型</typeparam>
+        /// <typeparam name="VT">返回数据类型</typeparam>
+        /// <param name="array">待排序数组</param>
+        /// <param name="startIndex">排序数组起始位置</param>
+        /// <param name="arraySize">排序数组数据数量</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        /// <param name="getKey">排序键值获取器</param>
+        /// <param name="getValue">排序数据获取器</param>
+        /// <returns>排序数据集合</returns>
+        internal static VT[] GetQuickRangeSort<T, VT>(this T[] array, int startIndex, int arraySize, int skipCount, int count, Func<T, int> getKey, Func<T, VT> getValue)
+        {
+            if (count != 1 || arraySize != 1 || skipCount != 0)
+            {
+                AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(arraySize * sizeof(AutoCSer.Algorithm.IntSortIndex));
+                try
+                {
+                    AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                    int endIndex = startIndex + arraySize;
+                    (*nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    while (++startIndex != endIndex) (*++nextSortIndex).Set(getKey(array[startIndex]), startIndex);
+                    AutoCSer.Algorithm.IntSortIndex* skip = sortIndex + skipCount, end = skip + count;
+                    new AutoCSer.Algorithm.IntIndexQuickRangeSort(skip, end - 1).Sort(sortIndex, nextSortIndex);
+
+                    VT[] values = new VT[count];
+                    startIndex = 0;
+                    do
+                    {
+                        values[startIndex++] = getValue(array[(*skip).Index]);
+                    }
+                    while (++skip != end);
+                    return values;
+                }
+                finally { buffer.PushOnly(); }
+            }
+            return new VT[] { getValue(array[startIndex]) };
         }
     }
 }
@@ -1142,6 +2137,121 @@ namespace AutoCSer.Algorithm
         }
     }
 }
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int count, Func<T, ulong> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.ULongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.ULongSortIndex* sortIndex = (AutoCSer.Algorithm.ULongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.ULongSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, Func<T, ulong> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.ULongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.ULongSortIndex* sortIndex = (AutoCSer.Algorithm.ULongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.ULongSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
+    }
+}
 
 namespace AutoCSer.Algorithm
 {
@@ -1239,6 +2349,121 @@ namespace AutoCSer.Algorithm
                 }
             }
             while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, Func<T, long> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.LongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.LongSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, Func<T, long> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.LongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.LongSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
         }
     }
 }
@@ -1342,6 +2567,121 @@ namespace AutoCSer.Algorithm
         }
     }
 }
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int count, Func<T, long> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.LongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.LongSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, Func<T, long> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.LongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.LongSortIndex* sortIndex = (AutoCSer.Algorithm.LongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.LongSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.LongSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
+    }
+}
 
 namespace AutoCSer.Algorithm
 {
@@ -1439,6 +2779,121 @@ namespace AutoCSer.Algorithm
                 }
             }
             while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, Func<T, uint> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.UIntSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, Func<T, uint> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.UIntSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
         }
     }
 }
@@ -1542,6 +2997,121 @@ namespace AutoCSer.Algorithm
         }
     }
 }
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int count, Func<T, uint> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.UIntSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, Func<T, uint> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.UIntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.UIntSortIndex* sortIndex = (AutoCSer.Algorithm.UIntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.UIntSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.UIntSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
+    }
+}
 
 namespace AutoCSer.Algorithm
 {
@@ -1642,6 +3212,121 @@ namespace AutoCSer.Algorithm
         }
     }
 }
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, Func<T, int> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.IntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.IntSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, Func<T, int> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.IntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.IntSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
+    }
+}
 
 namespace AutoCSer.Algorithm
 {
@@ -1739,6 +3424,1465 @@ namespace AutoCSer.Algorithm
                 }
             }
             while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int count, Func<T, int> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.IntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.IntSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int count, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, Func<T, int> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.IntSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.IntSortIndex.Sort(sortIndex, nextSortIndex);
+                QuickSort(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSort<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.IntSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct ULongQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private readonly ulong* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private readonly ulong* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal ULongQuickRangeSort(ulong* skipCount, ulong* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(ulong* startIndex, ulong* endIndex)
+        {
+            do
+            {
+                ulong leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                ulong* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                ulong value = *averageIndex;
+                if (leftValue.CompareFrom(value) < 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = value;
+                            *averageIndex = value = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = value;
+                        *averageIndex = value = leftValue;
+                    }
+                }
+                else
+                {
+                    if (value.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = value;
+                        if (leftValue.CompareFrom(rightValue) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = value = leftValue;
+                        }
+                        else *averageIndex = value = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                do
+                {
+                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class SubArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this SubArray<ulong> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (ulong* arrayFixed = array.GetFixedBuffer())
+                {
+                    ulong* start = arrayFixed + array.Start, skip = start + skipCount;
+                    new AutoCSer.Algorithm.ULongQuickRangeSort(skip, skip + (count - 1)).Sort(start, start + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this LeftArray<ulong> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (ulong* arrayFixed = array.GetFixedBuffer())
+                {
+                    ulong* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.ULongQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this ulong[] array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (ulong* arrayFixed = array)
+                {
+                    ulong* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.ULongQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct LongQuickRangeSortDesc
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private readonly long* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private readonly long* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal LongQuickRangeSortDesc(long* skipCount, long* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(long* startIndex, long* endIndex)
+        {
+            do
+            {
+                long leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.CompareTo(rightValue) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                long* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                long value = *averageIndex;
+                if (leftValue.CompareTo(value) < 0)
+                {
+                    if (leftValue.CompareTo(rightValue) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (value.CompareTo(rightValue) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = value;
+                            *averageIndex = value = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = value;
+                        *averageIndex = value = leftValue;
+                    }
+                }
+                else
+                {
+                    if (value.CompareTo(rightValue) < 0)
+                    {
+                        *rightIndex = value;
+                        if (leftValue.CompareTo(rightValue) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = value = leftValue;
+                        }
+                        else *averageIndex = value = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                do
+                {
+                    while ((*leftIndex).CompareTo(value) > 0) ++leftIndex;
+                    while (value.CompareTo(*rightIndex) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class SubArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this SubArray<long> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (long* arrayFixed = array.GetFixedBuffer())
+                {
+                    long* start = arrayFixed + array.Start, skip = start + skipCount;
+                    new AutoCSer.Algorithm.LongQuickRangeSortDesc(skip, skip + (count - 1)).Sort(start, start + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this LeftArray<long> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (long* arrayFixed = array.GetFixedBuffer())
+                {
+                    long* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.LongQuickRangeSortDesc(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this long[] array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (long* arrayFixed = array)
+                {
+                    long* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.LongQuickRangeSortDesc(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct LongQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private readonly long* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private readonly long* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal LongQuickRangeSort(long* skipCount, long* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(long* startIndex, long* endIndex)
+        {
+            do
+            {
+                long leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                long* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                long value = *averageIndex;
+                if (leftValue.CompareFrom(value) < 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = value;
+                            *averageIndex = value = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = value;
+                        *averageIndex = value = leftValue;
+                    }
+                }
+                else
+                {
+                    if (value.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = value;
+                        if (leftValue.CompareFrom(rightValue) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = value = leftValue;
+                        }
+                        else *averageIndex = value = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                do
+                {
+                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class SubArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this SubArray<long> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (long* arrayFixed = array.GetFixedBuffer())
+                {
+                    long* start = arrayFixed + array.Start, skip = start + skipCount;
+                    new AutoCSer.Algorithm.LongQuickRangeSort(skip, skip + (count - 1)).Sort(start, start + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this LeftArray<long> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (long* arrayFixed = array.GetFixedBuffer())
+                {
+                    long* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.LongQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this long[] array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (long* arrayFixed = array)
+                {
+                    long* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.LongQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct UIntQuickRangeSortDesc
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private readonly uint* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private readonly uint* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal UIntQuickRangeSortDesc(uint* skipCount, uint* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(uint* startIndex, uint* endIndex)
+        {
+            do
+            {
+                uint leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.CompareTo(rightValue) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                uint* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                uint value = *averageIndex;
+                if (leftValue.CompareTo(value) < 0)
+                {
+                    if (leftValue.CompareTo(rightValue) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (value.CompareTo(rightValue) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = value;
+                            *averageIndex = value = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = value;
+                        *averageIndex = value = leftValue;
+                    }
+                }
+                else
+                {
+                    if (value.CompareTo(rightValue) < 0)
+                    {
+                        *rightIndex = value;
+                        if (leftValue.CompareTo(rightValue) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = value = leftValue;
+                        }
+                        else *averageIndex = value = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                do
+                {
+                    while ((*leftIndex).CompareTo(value) > 0) ++leftIndex;
+                    while (value.CompareTo(*rightIndex) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class SubArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this SubArray<uint> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (uint* arrayFixed = array.GetFixedBuffer())
+                {
+                    uint* start = arrayFixed + array.Start, skip = start + skipCount;
+                    new AutoCSer.Algorithm.UIntQuickRangeSortDesc(skip, skip + (count - 1)).Sort(start, start + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this LeftArray<uint> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (uint* arrayFixed = array.GetFixedBuffer())
+                {
+                    uint* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.UIntQuickRangeSortDesc(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this uint[] array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (uint* arrayFixed = array)
+                {
+                    uint* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.UIntQuickRangeSortDesc(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct UIntQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private readonly uint* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private readonly uint* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal UIntQuickRangeSort(uint* skipCount, uint* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(uint* startIndex, uint* endIndex)
+        {
+            do
+            {
+                uint leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                uint* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                uint value = *averageIndex;
+                if (leftValue.CompareFrom(value) < 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = value;
+                            *averageIndex = value = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = value;
+                        *averageIndex = value = leftValue;
+                    }
+                }
+                else
+                {
+                    if (value.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = value;
+                        if (leftValue.CompareFrom(rightValue) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = value = leftValue;
+                        }
+                        else *averageIndex = value = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                do
+                {
+                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class SubArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this SubArray<uint> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (uint* arrayFixed = array.GetFixedBuffer())
+                {
+                    uint* start = arrayFixed + array.Start, skip = start + skipCount;
+                    new AutoCSer.Algorithm.UIntQuickRangeSort(skip, skip + (count - 1)).Sort(start, start + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this LeftArray<uint> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (uint* arrayFixed = array.GetFixedBuffer())
+                {
+                    uint* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.UIntQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this uint[] array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (uint* arrayFixed = array)
+                {
+                    uint* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.UIntQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct IntQuickRangeSortDesc
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private readonly int* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private readonly int* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal IntQuickRangeSortDesc(int* skipCount, int* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(int* startIndex, int* endIndex)
+        {
+            do
+            {
+                int leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.CompareTo(rightValue) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                int* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                int value = *averageIndex;
+                if (leftValue.CompareTo(value) < 0)
+                {
+                    if (leftValue.CompareTo(rightValue) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (value.CompareTo(rightValue) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = value;
+                            *averageIndex = value = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = value;
+                        *averageIndex = value = leftValue;
+                    }
+                }
+                else
+                {
+                    if (value.CompareTo(rightValue) < 0)
+                    {
+                        *rightIndex = value;
+                        if (leftValue.CompareTo(rightValue) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = value = leftValue;
+                        }
+                        else *averageIndex = value = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                do
+                {
+                    while ((*leftIndex).CompareTo(value) > 0) ++leftIndex;
+                    while (value.CompareTo(*rightIndex) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class SubArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this SubArray<int> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (int* arrayFixed = array.GetFixedBuffer())
+                {
+                    int* start = arrayFixed + array.Start, skip = start + skipCount;
+                    new AutoCSer.Algorithm.IntQuickRangeSortDesc(skip, skip + (count - 1)).Sort(start, start + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this LeftArray<int> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (int* arrayFixed = array.GetFixedBuffer())
+                {
+                    int* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.IntQuickRangeSortDesc(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSortDesc(this int[] array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (int* arrayFixed = array)
+                {
+                    int* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.IntQuickRangeSortDesc(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+}
+
+namespace AutoCSer.Algorithm
+{
+    /// <summary>
+    /// 范围排序（一般用于获取分页）
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    internal unsafe struct IntQuickRangeSort
+    {
+        /// <summary>
+        /// 跳过数据指针
+        /// </summary>
+        private readonly int* skipCount;
+        /// <summary>
+        /// 最后一条记录指针-1
+        /// </summary>
+        private readonly int* getEndIndex;
+        /// <summary>
+        /// 范围排序（一般用于获取分页）
+        /// </summary>
+        /// <param name="skipCount">跳过数据指针</param>
+        /// <param name="getEndIndex">最后一条记录指针-1</param>
+        internal IntQuickRangeSort(int* skipCount, int* getEndIndex)
+        {
+            this.skipCount = skipCount;
+            this.getEndIndex = getEndIndex;
+        }
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="startIndex">起始指针</param>
+        /// <param name="endIndex">结束指针-1</param>
+        internal void Sort(int* startIndex, int* endIndex)
+        {
+            do
+            {
+                int leftValue = *startIndex, rightValue = *endIndex;
+                int average = (int)(endIndex - startIndex) >> 1;
+                if (average == 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *startIndex = rightValue;
+                        *endIndex = leftValue;
+                    }
+                    break;
+                }
+                int* averageIndex = startIndex + average, leftIndex = startIndex, rightIndex = endIndex;
+                int value = *averageIndex;
+                if (leftValue.CompareFrom(value) < 0)
+                {
+                    if (leftValue.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = leftValue;
+                        if (value.CompareFrom(rightValue) < 0) *leftIndex = rightValue;
+                        else
+                        {
+                            *leftIndex = value;
+                            *averageIndex = value = rightValue;
+                        }
+                    }
+                    else
+                    {
+                        *leftIndex = value;
+                        *averageIndex = value = leftValue;
+                    }
+                }
+                else
+                {
+                    if (value.CompareFrom(rightValue) < 0)
+                    {
+                        *rightIndex = value;
+                        if (leftValue.CompareFrom(rightValue) < 0)
+                        {
+                            *leftIndex = rightValue;
+                            *averageIndex = value = leftValue;
+                        }
+                        else *averageIndex = value = rightValue;
+                    }
+                }
+                ++leftIndex;
+                --rightIndex;
+                do
+                {
+                    while ((*leftIndex).CompareFrom(value) > 0) ++leftIndex;
+                    while (value.CompareFrom(*rightIndex) > 0) --rightIndex;
+                    if (leftIndex < rightIndex)
+                    {
+                        leftValue = *leftIndex;
+                        *leftIndex = *rightIndex;
+                        *rightIndex = leftValue;
+                    }
+                    else
+                    {
+                        if (leftIndex == rightIndex)
+                        {
+                            ++leftIndex;
+                            --rightIndex;
+                        }
+                        break;
+                    }
+                }
+                while (++leftIndex <= --rightIndex);
+                if (rightIndex - startIndex <= endIndex - leftIndex)
+                {
+                    if (startIndex < rightIndex && rightIndex >= skipCount) Sort(startIndex, rightIndex);
+                    if (leftIndex > getEndIndex) break;
+                    startIndex = leftIndex;
+                }
+                else
+                {
+                    if (leftIndex < endIndex && leftIndex <= getEndIndex) Sort(leftIndex, endIndex);
+                    if (rightIndex < skipCount) break;
+                    endIndex = rightIndex;
+                }
+            }
+            while (startIndex < endIndex);
+        }
+    }
+}
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class SubArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this SubArray<int> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (int* arrayFixed = array.GetFixedBuffer())
+                {
+                    int* start = arrayFixed + array.Start, skip = start + skipCount;
+                    new AutoCSer.Algorithm.IntQuickRangeSort(skip, skip + (count - 1)).Sort(start, start + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this LeftArray<int> array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (int* arrayFixed = array.GetFixedBuffer())
+                {
+                    int* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.IntQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 范围排序
+        /// </summary>
+        /// <param name="array">待排序数组</param>
+        /// <param name="skipCount">获取跳过数据数量</param>
+        /// <param name="count">获取数据记录数量，大于 0</param>
+        internal static void QuickRangeSort(this int[] array, int skipCount, int count)
+        {
+            if (count != 1 || array.Length != 1 || skipCount != 0)
+            {
+                fixed (int* arrayFixed = array)
+                {
+                    int* skip = arrayFixed + skipCount;
+                    new AutoCSer.Algorithm.IntQuickRangeSort(skip, skip + (count - 1)).Sort(arrayFixed, arrayFixed + (array.Length - 1));
+                }
+            }
         }
     }
 }

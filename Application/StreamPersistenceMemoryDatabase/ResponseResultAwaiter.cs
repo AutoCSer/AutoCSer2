@@ -41,7 +41,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ResponseResult GetResult()
         {
-            if (command.ReturnType == CommandClientReturnTypeEnum.Success) return new ResponseResult(command.ReturnValue);
+            if (command.ReturnType == CommandClientReturnTypeEnum.Success) return command.ReturnValue;
             return new ResponseResult(command.ReturnType, command.ErrorMessage);
         }
         /// <summary>

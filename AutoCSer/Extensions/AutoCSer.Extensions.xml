@@ -87,12 +87,92 @@
             <summary>
             数组子串扩展
             </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
         </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.Sort(AutoCSer.LeftArray{System.UInt64})">
             <summary>
             数组排序
             </summary>
             <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSortDesc(AutoCSer.LeftArray{System.UInt64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKayDesc``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortDesc``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
         </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.BinaryIndexOfLess(AutoCSer.LeftArray{System.UInt64},System.UInt64)">
             <summary>
@@ -138,6 +218,27 @@
             </summary>
             <param name="array">长度大于 1</param>
         </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSort``1(AutoCSer.LeftArray{``0},System.Func{``0,``0,System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="comparer">排序比较器</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSort``1(AutoCSer.LeftArray{``0},System.Func{``0,``0,System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="comparer">排序比较器</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <returns>已排序数据</returns>
+        </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.Sort(AutoCSer.LeftArray{System.Int64})">
             <summary>
             数组排序
@@ -155,6 +256,230 @@
             数组排序
             </summary>
             <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKay``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSort``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKayDesc``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortDesc``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKay``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSort``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKayDesc``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortDesc``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKay``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSort``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKayDesc``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortDesc``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKay``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSort``2(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.Int32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="leftArray">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSort(AutoCSer.LeftArray{System.UInt64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSortDesc(AutoCSer.LeftArray{System.Int64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSort(AutoCSer.LeftArray{System.Int64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSortDesc(AutoCSer.LeftArray{System.UInt32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSort(AutoCSer.LeftArray{System.UInt32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSortDesc(AutoCSer.LeftArray{System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSort(AutoCSer.LeftArray{System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
         </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.Int64})">
             <summary>
@@ -272,6 +597,78 @@
             数组扩展
             </summary>
             <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
+            数组扩展
+            </summary>
+            <summary>
             数组扩展
             </summary>
             <summary>
@@ -295,6 +692,80 @@
             数组排序
             </summary>
             <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSortDesc(System.UInt64[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKayDesc``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortDesc``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.UInt64[])">
             <summary>
@@ -326,6 +797,524 @@
             </summary>
             <param name="array"></param>
         </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKay``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSort``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKayDesc``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortDesc``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKay``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSort``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int64},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKayDesc``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortDesc``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKay``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSort``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKayDesc``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortDesc``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKay``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSort``2(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.Int32},System.Func{``0,``1})">
+            <summary>
+            范围排序
+            </summary>
+            <typeparam name="T">排序关键字类型</typeparam>
+            <typeparam name="VT">返回数据类型</typeparam>
+            <param name="array">待排序数组</param>
+            <param name="startIndex">排序数组起始位置</param>
+            <param name="arraySize">排序数组数据数量</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+            <param name="getKey">排序键值获取器</param>
+            <param name="getValue">排序数据获取器</param>
+            <returns>排序数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int64})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.UInt32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSortDesc``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量，大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="count">排序数据数量</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,System.Func{``0,System.Int32})">
+            <summary>
+            数组排序
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组，数量大于 1</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置，数量大于 1</param>
+            <param name="getKey">排序键值获取器</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort``1(``0[],System.Int32,System.Int32,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            索引排序以后调整数组数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="array">数组</param>
+            <param name="startIndex">排序起始位置</param>
+            <param name="endIndex">排序结束位置</param>
+            <param name="sortIndex">排序索引</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSort(System.UInt64[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSortDesc(System.Int64[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSort(System.Int64[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSortDesc(System.UInt32[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSort(System.UInt32[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSortDesc(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSort(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int64[])">
             <summary>
             数组排序
@@ -337,6 +1326,96 @@
             数组排序
             </summary>
             <param name="array">长度大于 1</param>
+        </member>
+        <member name="T:AutoCSer.Extensions.SubArraySort">
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSortDesc(AutoCSer.SubArray{System.UInt64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSort(AutoCSer.SubArray{System.UInt64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSortDesc(AutoCSer.SubArray{System.Int64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSort(AutoCSer.SubArray{System.Int64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSortDesc(AutoCSer.SubArray{System.UInt32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSort(AutoCSer.SubArray{System.UInt32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSortDesc(AutoCSer.SubArray{System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SubArraySort.QuickRangeSort(AutoCSer.SubArray{System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
         </member>
         <member name="T:AutoCSer.Extensions.CombinationTemplateConfig">
             <summary>
@@ -577,6 +1656,27 @@
             </summary>
             <typeparam name="T">数据类型</typeparam>
             <returns>字典</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.DictionaryExtension">
+            <summary>
+            字典相关扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.DictionaryExtension.getValueArray``2(System.Collections.Generic.Dictionary{``0,``1},``0[])">
+            <summary>
+            根据关键字集合获取匹配数据数组
+            </summary>
+            <param name="dictionary"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.DictionaryExtension.removeKeys``2(System.Collections.Generic.Dictionary{``0,``1},``0[])">
+            <summary>
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="dictionary"></param>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
         </member>
         <member name="T:AutoCSer.Extensions.FileInfoExtension">
             <summary>
@@ -1656,22 +2756,58 @@
             <param name="semaphoreSlim"></param>
             <returns>-1 表示不匹配</returns>
         </member>
-        <member name="T:AutoCSer.Algorithm.ULongQuickRangeSorterDesc">
+        <member name="T:AutoCSer.Algorithm.ULongQuickRangeSortDesc">
             <summary>
-            范围排序器(一般用于获取分页)
+            范围排序（一般用于获取分页）
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSorterDesc.SkipCount">
+        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSortDesc.skipCount">
             <summary>
             跳过数据指针
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSorterDesc.GetEndIndex">
+        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSortDesc.getEndIndex">
             <summary>
             最后一条记录指针-1
             </summary>
         </member>
-        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSorterDesc.Sort(System.UInt64*,System.UInt64*)">
+        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSortDesc.#ctor(System.UInt64*,System.UInt64*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSortDesc.Sort(System.UInt64*,System.UInt64*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.ULongIndexQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongIndexQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongIndexQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongIndexQuickRangeSortDesc.#ctor(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongIndexQuickRangeSortDesc.Sort(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
             <summary>
             范围排序
             </summary>
@@ -1913,159 +3049,47 @@
             <param name="startIndex">起始位置</param>
             <param name="count">排序数据数量</param>
         </member>
-        <member name="T:AutoCSer.Algorithm.ULongQuickRangeSorter">
+        <member name="T:AutoCSer.Algorithm.QuickRangeSort`1">
             <summary>
-            范围排序器(一般用于获取分页)
+            范围排序（一般用于获取分页）
+            </summary>
+            <typeparam name="T">排序数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.array">
+            <summary>
+            待排序数组
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSorter.SkipCount">
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.comparer">
             <summary>
-            跳过数据指针
+            排序比较器
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSorter.GetEndIndex">
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.skipCount">
             <summary>
-            最后一条记录指针-1
+            跳过数据数量
             </summary>
         </member>
-        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSorter.Sort(System.UInt64*,System.UInt64*)">
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.getEndIndex">
+            <summary>
+            最后一条记录位置-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.QuickRangeSort`1.#ctor(`0[],System.Func{`0,`0,System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="comparer">排序比较器</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="getEndIndex">最后一条获取记录位置-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.QuickRangeSort`1.Sort(System.Int32,System.Int32)">
             <summary>
             范围排序
             </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
-        </member>
-        <member name="T:AutoCSer.Algorithm.LongQuickRangeSorterDesc">
-            <summary>
-            范围排序器(一般用于获取分页)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.LongQuickRangeSorterDesc.SkipCount">
-            <summary>
-            跳过数据指针
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.LongQuickRangeSorterDesc.GetEndIndex">
-            <summary>
-            最后一条记录指针-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.LongQuickRangeSorterDesc.Sort(System.Int64*,System.Int64*)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
-        </member>
-        <member name="T:AutoCSer.Algorithm.LongQuickRangeSorter">
-            <summary>
-            范围排序器(一般用于获取分页)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.LongQuickRangeSorter.SkipCount">
-            <summary>
-            跳过数据指针
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.LongQuickRangeSorter.GetEndIndex">
-            <summary>
-            最后一条记录指针-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.LongQuickRangeSorter.Sort(System.Int64*,System.Int64*)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
-        </member>
-        <member name="T:AutoCSer.Algorithm.UIntQuickRangeSorterDesc">
-            <summary>
-            范围排序器(一般用于获取分页)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSorterDesc.SkipCount">
-            <summary>
-            跳过数据指针
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSorterDesc.GetEndIndex">
-            <summary>
-            最后一条记录指针-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.UIntQuickRangeSorterDesc.Sort(System.UInt32*,System.UInt32*)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
-        </member>
-        <member name="T:AutoCSer.Algorithm.UIntQuickRangeSorter">
-            <summary>
-            范围排序器(一般用于获取分页)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSorter.SkipCount">
-            <summary>
-            跳过数据指针
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSorter.GetEndIndex">
-            <summary>
-            最后一条记录指针-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.UIntQuickRangeSorter.Sort(System.UInt32*,System.UInt32*)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
-        </member>
-        <member name="T:AutoCSer.Algorithm.IntQuickRangeSorterDesc">
-            <summary>
-            范围排序器(一般用于获取分页)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.IntQuickRangeSorterDesc.SkipCount">
-            <summary>
-            跳过数据指针
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.IntQuickRangeSorterDesc.GetEndIndex">
-            <summary>
-            最后一条记录指针-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.IntQuickRangeSorterDesc.Sort(System.Int32*,System.Int32*)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
-        </member>
-        <member name="T:AutoCSer.Algorithm.IntQuickRangeSorter">
-            <summary>
-            范围排序器(一般用于获取分页)
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.IntQuickRangeSorter.SkipCount">
-            <summary>
-            跳过数据指针
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.IntQuickRangeSorter.GetEndIndex">
-            <summary>
-            最后一条记录指针-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.IntQuickRangeSorter.Sort(System.Int32*,System.Int32*)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
+            <param name="startIndex">数组起始位置</param>
+            <param name="endIndex">数组结束位置-1</param>
         </member>
         <member name="T:AutoCSer.Algorithm.LongSortIndex">
             <summary>
@@ -2192,6 +3216,412 @@
             </summary>
             <param name="startIndex">起始位置</param>
             <param name="endIndex">结束位置-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.ULongIndexQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongIndexQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongIndexQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongIndexQuickRangeSort.#ctor(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongIndexQuickRangeSort.Sort(AutoCSer.Algorithm.ULongSortIndex*,AutoCSer.Algorithm.ULongSortIndex*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.LongIndexQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongIndexQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongIndexQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongIndexQuickRangeSortDesc.#ctor(AutoCSer.Algorithm.LongSortIndex*,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongIndexQuickRangeSortDesc.Sort(AutoCSer.Algorithm.LongSortIndex*,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.LongIndexQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongIndexQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongIndexQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongIndexQuickRangeSort.#ctor(AutoCSer.Algorithm.LongSortIndex*,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongIndexQuickRangeSort.Sort(AutoCSer.Algorithm.LongSortIndex*,AutoCSer.Algorithm.LongSortIndex*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.UIntIndexQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntIndexQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntIndexQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntIndexQuickRangeSortDesc.#ctor(AutoCSer.Algorithm.UIntSortIndex*,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntIndexQuickRangeSortDesc.Sort(AutoCSer.Algorithm.UIntSortIndex*,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.UIntIndexQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntIndexQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntIndexQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntIndexQuickRangeSort.#ctor(AutoCSer.Algorithm.UIntSortIndex*,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntIndexQuickRangeSort.Sort(AutoCSer.Algorithm.UIntSortIndex*,AutoCSer.Algorithm.UIntSortIndex*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.IntIndexQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntIndexQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntIndexQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntIndexQuickRangeSortDesc.#ctor(AutoCSer.Algorithm.IntSortIndex*,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntIndexQuickRangeSortDesc.Sort(AutoCSer.Algorithm.IntSortIndex*,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.IntIndexQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntIndexQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntIndexQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntIndexQuickRangeSort.#ctor(AutoCSer.Algorithm.IntSortIndex*,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntIndexQuickRangeSort.Sort(AutoCSer.Algorithm.IntSortIndex*,AutoCSer.Algorithm.IntSortIndex*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.ULongQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSort.#ctor(System.UInt64*,System.UInt64*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSort.Sort(System.UInt64*,System.UInt64*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.LongQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongQuickRangeSortDesc.#ctor(System.Int64*,System.Int64*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongQuickRangeSortDesc.Sort(System.Int64*,System.Int64*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.LongQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.LongQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongQuickRangeSort.#ctor(System.Int64*,System.Int64*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.LongQuickRangeSort.Sort(System.Int64*,System.Int64*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.UIntQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntQuickRangeSortDesc.#ctor(System.UInt32*,System.UInt32*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntQuickRangeSortDesc.Sort(System.UInt32*,System.UInt32*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.UIntQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.UIntQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntQuickRangeSort.#ctor(System.UInt32*,System.UInt32*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.UIntQuickRangeSort.Sort(System.UInt32*,System.UInt32*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.IntQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntQuickRangeSortDesc.#ctor(System.Int32*,System.Int32*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntQuickRangeSortDesc.Sort(System.Int32*,System.Int32*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.IntQuickRangeSort">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntQuickRangeSort.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.IntQuickRangeSort.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntQuickRangeSort.#ctor(System.Int32*,System.Int32*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntQuickRangeSort.Sort(System.Int32*,System.Int32*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
         </member>
         <member name="T:AutoCSer.ArrayHeap`2">
             <summary>
@@ -2356,6 +3786,128 @@
             <param name="callerFilePath">调用源代码文件路径</param>
             <param name="callerLineNumber">调用源代码行号</param>
             <returns>返回值状态是否成功</returns>
+        </member>
+        <member name="T:AutoCSer.Data.CompareKey`2">
+            <summary>
+            排序关键字
+            </summary>
+            <typeparam name="T1">关键字类型1</typeparam>
+            <typeparam name="T2">关键字类型2</typeparam>
+        </member>
+        <member name="F:AutoCSer.Data.CompareKey`2.Value1">
+            <summary>
+            关键字1
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Data.CompareKey`2.Value2">
+            <summary>
+            关键字2
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Data.CompareKey`2.#ctor(`0,`1)">
+            <summary>
+            排序关键字
+            </summary>
+            <param name="value1">关键字1</param>
+            <param name="value2">关键字2</param>
+        </member>
+        <member name="M:AutoCSer.Data.CompareKey`2.CompareTo(AutoCSer.Data.CompareKey{`0,`1})">
+            <summary>
+            比较大小
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Data.CompareFromKey`1">
+            <summary>
+            逆序排序关键字
+            </summary>
+            <typeparam name="T">关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Data.CompareFromKey`1.value">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Data.CompareFromKey`1.#ctor(`0)">
+            <summary>
+            逆序排序关键字
+            </summary>
+            <param name="value">关键字</param>
+        </member>
+        <member name="M:AutoCSer.Data.CompareFromKey`1.op_Implicit(`0)~AutoCSer.Data.CompareFromKey{`0}">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Data.CompareFromKey`1.op_Implicit(AutoCSer.Data.CompareFromKey{`0})~`0">
+            <summary>
+            隐式转换
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Data.CompareFromKey`1.CompareTo(AutoCSer.Data.CompareFromKey{`0})">
+            <summary>
+            比较大小
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Data.CompareFromKey`2">
+            <summary>
+            逆序排序关键字
+            </summary>
+            <typeparam name="T1">关键字类型1</typeparam>
+            <typeparam name="T2">关键字类型2</typeparam>
+        </member>
+        <member name="F:AutoCSer.Data.CompareFromKey`2.value1">
+            <summary>
+            关键字1
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Data.CompareFromKey`2.value2">
+            <summary>
+            关键字2
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Data.CompareFromKey`2.#ctor(`0,`1)">
+            <summary>
+            逆序排序关键字
+            </summary>
+            <param name="value1">关键字1</param>
+            <param name="value2">关键字2</param>
+        </member>
+        <member name="M:AutoCSer.Data.CompareFromKey`2.CompareTo(AutoCSer.Data.CompareFromKey{`0,`1})">
+            <summary>
+            比较大小
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Data.PageParameter">
+            <summary>
+            分页查询参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Data.PageParameter.PageIndex">
+            <summary>
+            查询分页编号（从 0 开始）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Data.PageParameter.PageSize">
+            <summary>
+            查询分页数据记录数量，默认为 10
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Data.PageParameter.GetPageSize(System.Int32)">
+            <summary>
+            获取当前分页数据记录数量
+            </summary>
+            <param name="totalCount">记录总数</param>
+            <returns>当前分页数据记录数量</returns>
         </member>
         <member name="T:AutoCSer.Diagnostics.ProcessInfo">
             <summary>
@@ -6401,7 +7953,12 @@
         </member>
         <member name="M:AutoCSer.Reflection.XmlDocument.clearAssemblys">
             <summary>
-            清理程序集信息集合
+            定时清除缓存数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Reflection.XmlDocument.clearAssemblysTask">
+            <summary>
+            定时清除缓存数据
             </summary>
         </member>
         <member name="M:AutoCSer.Reflection.XmlDocument.Get(System.Type)">
@@ -6445,6 +8002,13 @@
             </summary>
             <param name="method"></param>
             <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Reflection.XmlDocument.CodeGeneratorFormat(System.String)">
+            <summary>
+            代码生成输出文本
+            </summary>
+            <param name="document"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Reflection.XmlDocumentAssembly">
@@ -6611,11 +8175,139 @@
             <param name="start"></param>
             <param name="end"></param>
         </member>
+        <member name="T:AutoCSer.ReusableHashCodeKeyHashSet">
+            <summary>
+            可重用哈希表（主要用于非引用类型缓冲区，避免 new / Clear 开销）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableHashCodeKeyHashSet.Nodes">
+            <summary>
+            节点集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ReusableHashCodeKeyHashSet.Capacity">
+            <summary>
+            容器大小
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ReusableHashCodeKeyHashSet.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(System.Int32)">
+            <summary>
+            可重用字典
+            </summary>
+            <param name="capacity">容器初始化大小</param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(System.UInt32[])">
+            <summary>
+            可重用哈希表
+            </summary>
+            <param name="values">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(System.Int32[])">
+            <summary>
+            可重用哈希表
+            </summary>
+            <param name="values">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(AutoCSer.ReusableHashCodeKeyHashSet)">
+            <summary>
+            可重用哈希表
+            </summary>
+            <param name="hashSet">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.add(System.UInt32)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.resize">
+            <summary>
+            重组数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.Add(System.Int32)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.Add(System.UInt32)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.Contains(System.Int32)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.Contains(System.UInt32)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.Remove(System.Int32)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.Remove(System.UInt32)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.remove(System.Int32,System.Int32)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="hashIndex"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.ClearCount">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.GetArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.getArray(System.UInt32*)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="write"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.GetIntArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.ReusableHashSet`1">
             <summary>
             可重用哈希表（主要用于非引用类型缓冲区，避免 new / Clear 开销）
             </summary>
-            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="T">关键字类型</typeparam>
         </member>
         <member name="P:AutoCSer.ReusableHashSet`1.Values">
             <summary>
@@ -6624,7 +8316,7 @@
         </member>
         <member name="M:AutoCSer.ReusableHashSet`1.#ctor(System.Int32)">
             <summary>
-            可重用字典
+            可重用哈希表
             </summary>
             <param name="capacity">容器初始化大小</param>
         </member>
@@ -6648,6 +8340,62 @@
             </summary>
             <param name="value"></param>
             <returns>是否存在数据</returns>
+        </member>
+        <member name="T:AutoCSer.ReusableHashNode">
+            <summary>
+            可重用哈希节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableHashNode.HashIndex">
+            <summary>
+            哈希索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableHashNode.Source">
+            <summary>
+            节点来源，最高位为 0 表示首节点，否则表示后续节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ReusableHashNode.SourceHigh">
+            <summary>
+            0 表示首节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ReusableHashNode.SourceIndex">
+            <summary>
+            获取节点来源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableHashNode.SetNextSource(System.Int32)">
+            <summary>
+            设置后续节点的节点来源
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="F:AutoCSer.ReusableHashNode.HashCode">
+            <summary>
+            关键字哈希值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableHashNode.Next">
+            <summary>
+            下一个数据索引位置，int.MaxValue 表示最后一个
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableHashNode.Set(System.UInt32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashNode.Set(System.UInt32,System.UInt32,System.Int32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+            <param name="next"></param>
         </member>
         <member name="T:AutoCSer.RingQueue`1">
             <summary>
@@ -6736,6 +8484,11 @@
             数据集合
             </summary>
         </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Node.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
         <member name="P:AutoCSer.SearchTree.Dictionary`2.Node.FristKeyValue">
             <summary>
             获取第一组数据
@@ -6746,7 +8499,7 @@
             获取最后一组数据
             </summary>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Get(`0@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Get(`0)">
             <summary>
             根据关键字获取二叉树节点
             </summary>
@@ -6791,14 +8544,14 @@
             <param name="keyValue"></param>
             <returns>是否添加了数据</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Set(AutoCSer.KeyValue{`0,`1}@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Set(AutoCSer.SearchTree.SetRemoveNode{`0,`1}@)">
             <summary>
             设置数据
             </summary>
-            <param name="keyValue">数据</param>
+            <param name="node">数据</param>
             <returns>是否添加了数据</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Remove(`0@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Remove(`0)">
             <summary>
             删除数据
             </summary>
@@ -6895,6 +8648,11 @@
             数据集合
             </summary>
         </member>
+        <member name="P:AutoCSer.SearchTree.Dictionary`2.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
         <member name="P:AutoCSer.SearchTree.Dictionary`2.FristKeyValue">
             <summary>
             获取第一组数据
@@ -6930,23 +8688,16 @@
             <param name="value">数据</param>
             <returns>是否添加了关键字</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Set(`0@,`1)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Set(`0,`1,`1@)">
             <summary>
             设置数据
             </summary>
             <param name="key">关键字</param>
             <param name="value">数据</param>
+            <param name="removeValue">方法返回 false 时表示被移除数据</param>
             <returns>是否添加了关键字</returns>
         </member>
         <member name="M:AutoCSer.SearchTree.Dictionary`2.TryAdd(`0,`1)">
-            <summary>
-            添加数据
-            </summary>
-            <param name="key">关键字</param>
-            <param name="value">数据</param>
-            <returns>是否添加了数据</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.TryAdd(`0@,`1)">
             <summary>
             添加数据
             </summary>
@@ -6961,14 +8712,14 @@
             <param name="key">关键字</param>
             <returns>是否存在关键字</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Remove(`0@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.RemoveKeys(`0[])">
             <summary>
-            根据关键字删除节点
+            根据关键字集合删除匹配数据
             </summary>
-            <param name="key">关键字</param>
-            <returns>是否存在关键字</returns>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Remove(`0@,`1@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Remove(`0,`1@)">
             <summary>
             根据关键字删除节点
             </summary>
@@ -6983,13 +8734,6 @@
             <param name="key">关键字</param>
             <returns>是否包含关键字</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.ContainsKey(`0@)">
-            <summary>
-            判断是否包含关键字
-            </summary>
-            <param name="key">关键字</param>
-            <returns>是否包含关键字</returns>
-        </member>
         <member name="M:AutoCSer.SearchTree.Dictionary`2.TryGetValue(`0,`1@)">
             <summary>
             根据关键字获取数据
@@ -6998,13 +8742,12 @@
             <param name="value">目标数据</param>
             <returns>是否成功</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.TryGetValue(`0@,`1@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetValueArray(`0[])">
             <summary>
-            根据关键字获取数据
+            根据关键字集合获取匹配数据数组
             </summary>
-            <param name="key">关键字</param>
-            <param name="value">目标数据</param>
-            <returns>是否成功</returns>
+            <param name="keys"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.SearchTree.Dictionary`2.IndexOf(`0)">
             <summary>
@@ -7013,21 +8756,14 @@
             <param name="key">关键字</param>
             <returns>一个匹配节点位置,失败返回-1</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.IndexOf(`0@)">
-            <summary>
-            根据关键字获取一个匹配节点位置
-            </summary>
-            <param name="key">关键字</param>
-            <returns>一个匹配节点位置,失败返回-1</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.CountLess(`0@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.CountLess(`0)">
             <summary>
             根据关键字比它小的节点数量
             </summary>
             <param name="key">关键字</param>
             <returns>节点数量</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.CountThan(`0@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.CountThan(`0)">
             <summary>
             根据关键字比它大的节点数量
             </summary>
@@ -7083,6 +8819,22 @@
             <returns>数据集合</returns>
         </member>
         <member name="M:AutoCSer.SearchTree.Dictionary`2.GetRangeDesc(System.Int32,System.Int32)">
+            <summary>
+            获取逆序范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetKeyRange(System.Int32,System.Int32)">
+            <summary>
+            获取范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetKeyRangeDesc(System.Int32,System.Int32)">
             <summary>
             获取逆序范围数据集合
             </summary>
@@ -7212,21 +8964,21 @@
             <param name="left"></param>
             <param name="count"></param>
         </member>
-        <member name="M:AutoCSer.SearchTree.Node`2.IndexOf(`1@)">
+        <member name="M:AutoCSer.SearchTree.Node`2.IndexOf(`1)">
             <summary>
             根据关键字获取一个匹配节点位置
             </summary>
             <param name="key">关键字</param>
             <returns>一个匹配节点位置,失败返回-1</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Node`2.CountLess(`1@)">
+        <member name="M:AutoCSer.SearchTree.Node`2.CountLess(`1)">
             <summary>
             根据关键字比它小的节点数量
             </summary>
             <param name="key">关键字</param>
             <returns>节点数量</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Node`2.CountThan(`1@)">
+        <member name="M:AutoCSer.SearchTree.Node`2.CountThan(`1)">
             <summary>
             根据关键字比它大的节点数量
             </summary>
@@ -7304,6 +9056,54 @@
             <summary>
             检测右节点的左节点
             </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.GetArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.getArray(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.GetArraySkip``1(AutoCSer.SearchTree.PageArray{`1,``0}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.getArray``1(AutoCSer.SearchTree.PageArray{`1,``0}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.GetDescArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.getDescArray(AutoCSer.SearchTree.PageArray{`1}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.GetDescArraySkip``1(AutoCSer.SearchTree.PageArray{`1,``0}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.getDescArray``1(AutoCSer.SearchTree.PageArray{`1,``0}@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="array"></param>
         </member>
         <member name="T:AutoCSer.SearchTree.PageArray`1">
             <summary>
@@ -7423,7 +9223,7 @@
             获取最后一组数据
             </summary>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.Get(`0@)">
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.Get(`0)">
             <summary>
             根据关键字获取二叉树节点
             </summary>
@@ -7444,7 +9244,7 @@
             <param name="index">节点位置</param>
             <returns>数据</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.Add(`0@)">
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.Add(`0)">
             <summary>
             添加数据
             </summary>
@@ -7467,7 +9267,7 @@
             检测右节点数量
             </summary>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.Remove(`0@)">
+        <member name="M:AutoCSer.SearchTree.Set`1.Node.Remove(`0)">
             <summary>
             删除数据
             </summary>
@@ -7533,21 +9333,7 @@
             <param name="key">关键字</param>
             <returns>是否添加了数据</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Add(`0@)">
-            <summary>
-            添加数据
-            </summary>
-            <param name="key">关键字</param>
-            <returns>是否添加了数据</returns>
-        </member>
         <member name="M:AutoCSer.SearchTree.Set`1.Remove(`0)">
-            <summary>
-            根据关键字删除节点
-            </summary>
-            <param name="key">关键字</param>
-            <returns>是否存在关键字</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Remove(`0@)">
             <summary>
             根据关键字删除节点
             </summary>
@@ -7561,13 +9347,6 @@
             <param name="key">关键字</param>
             <returns>是否包含关键字</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Contains(`0@)">
-            <summary>
-            判断是否包含关键字
-            </summary>
-            <param name="key">关键字</param>
-            <returns>是否包含关键字</returns>
-        </member>
         <member name="M:AutoCSer.SearchTree.Set`1.IndexOf(`0)">
             <summary>
             根据关键字获取一个匹配节点位置
@@ -7575,21 +9354,14 @@
             <param name="key">关键字</param>
             <returns>一个匹配节点位置,失败返回-1</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.IndexOf(`0@)">
-            <summary>
-            根据关键字获取一个匹配节点位置
-            </summary>
-            <param name="key">关键字</param>
-            <returns>一个匹配节点位置,失败返回-1</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.CountLess(`0@)">
+        <member name="M:AutoCSer.SearchTree.Set`1.CountLess(`0)">
             <summary>
             根据关键字比它小的节点数量
             </summary>
             <param name="key">关键字</param>
             <returns>节点数量</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.CountThan(`0@)">
+        <member name="M:AutoCSer.SearchTree.Set`1.CountThan(`0)">
             <summary>
             根据关键字比它大的节点数量
             </summary>
@@ -7602,6 +9374,81 @@
             </summary>
             <param name="index">节点位置</param>
             <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.GetRange(System.Int32,System.Int32)">
+            <summary>
+            获取范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.GetRange``1(System.Int32,System.Int32,System.Func{`0,``0})">
+            <summary>
+            获取范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <param name="getValue">数据转换委托</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.GetRangeDesc(System.Int32,System.Int32)">
+            <summary>
+            获取逆序范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.GetRangeDesc``1(System.Int32,System.Int32,System.Func{`0,``0})">
+            <summary>
+            获取逆序范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <param name="getValue">数据转换委托</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="T:AutoCSer.SearchTree.SetRemoveNode`2">
+            <summary>
+            设置节点数据
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.Key">
+            <summary>
+            设置关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.Value">
+            <summary>
+            设置数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.SetRemoveNode`2.Node">
+            <summary>
+            二叉搜索树字典节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.RemoveValue">
+            <summary>
+            被移除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.SetRemoveNode`2.#ctor(`0,`1)">
+            <summary>
+            设置节点数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.SetRemoveNode`2.SetRemoveValue(`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value">被移除数据</param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.StateSearcher.AsciiBuilder">
             <summary>
@@ -8544,33 +10391,6 @@
             </summary>
             <param name="_"></param>
         </member>
-        <member name="T:AutoCSer.Threading.TaskQueue">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueue.queue">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.run">
-            <summary>
-            任务线程处理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.AddOnly(AutoCSer.Threading.QueueTaskNode)">
-            <summary>
-            添加任务
-            </summary>
-            <param name="node"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueue.Add(AutoCSer.Net.CommandServerCallQueueCustomNode)">
-            <summary>
-            添加任务
-            </summary>
-            <param name="node"></param>
-        </member>
         <member name="T:AutoCSer.Threading.TaskQueueInterfaceController">
             <summary>
             控制器接口信息
@@ -8635,41 +10455,6 @@
         <member name="F:AutoCSer.Threading.TaskQueueInterfaceController`2.controllerConstructorException">
             <summary>
             控制器构造错误
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.TaskQueueBase">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.threadHandle">
-            <summary>
-            线程句柄
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.waitHandle">
-            <summary>
-            等待事件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.isDisposed">
-            <summary>
-            是否已经释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueueBase.Dispose">
-            <summary>
-            释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueueBase.#ctor">
-            <summary>
-            任务队列
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskQueueBase.run">
-            <summary>
-            任务线程处理
             </summary>
         </member>
         <member name="T:AutoCSer.Threading.TaskRunTimer">

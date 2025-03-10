@@ -32,6 +32,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 快照数据信息
         /// </summary>
+        /// <param name="snapshotArray">预申请快照数据容器</param>
+        /// <param name="value">快照数据集合</param>
+        public SnapshotResult(T[] snapshotArray, T value)
+        {
+            if (snapshotArray.Length == 1)
+            {
+                snapshotArray[0] = value;
+                Count = 1;
+                Array = new LeftArray<T>(EmptyArray<T>.Array);
+            }
+            else
+            {
+                Count = 0;
+                Array = new LeftArray<T>(new T[] { value});
+            }
+        }
+        /// <summary>
+        /// 快照数据信息
+        /// </summary>
         /// <param name="valueCount">数据数量</param>
         /// <param name="snapshotArrayLength">预申请快照数据容器大小</param>
         public SnapshotResult(int valueCount, int snapshotArrayLength)

@@ -99,6 +99,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CallState = state;
             ErrorMessage = errorMessage;
         }
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="state"></param>
+        public static implicit operator ResponseResult(CallStateEnum state) { return new ResponseResult(state); }
 
         /// <summary>
         /// Success
@@ -250,11 +255,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 错误返回结果
         /// </summary>
         /// <param name="result"></param>
+        public static implicit operator ResponseResult<T>(ResponseResult result)
+        {
+            if (result.ReturnType == CommandClientReturnTypeEnum.Success) return result.CallState;
+            return new ResponseResult<T>(result.ReturnType, result.ErrorMessage);
+        }
+        /// <summary>
+        /// 错误返回结果
+        /// </summary>
+        /// <param name="result"></param>
         public static implicit operator ResponseResult(ResponseResult<T> result)
         {
-            if(result.ReturnType == CommandClientReturnTypeEnum.Success) return new ResponseResult(result.CallState);
+            if(result.ReturnType == CommandClientReturnTypeEnum.Success) return result.CallState;
             return new ResponseResult(result.ReturnType, result.ErrorMessage);
         }
-
+        /// <summary>
+        /// 获取错误分页数据
+        /// </summary>
+        /// <typeparam name="PT"></typeparam>
+        /// <returns>错误分页数据</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public PageResult<PT> GetPageResult<PT>()
+        {
+            return new PageResult<PT>(ReturnType, CallState);
+        }
     }
 }

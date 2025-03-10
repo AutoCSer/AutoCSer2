@@ -51,11 +51,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 返回值XML文档注释
             /// </summary>
-            public string ReturnXmlDocument
+            public string CodeGeneratorReturnXmlDocument
             {
                 get
                 {
-                    return interfaceMethod.ReturnParameter == null ? Method.ReturnXmlDocument : XmlDocument.Get(Method.Method, interfaceMethod.ReturnParameter);
+                    return interfaceMethod.ReturnParameter == null ? Method.CodeGeneratorReturnXmlDocument : XmlDocument.CodeGeneratorFormat(XmlDocument.Get(Method.Method, interfaceMethod.ReturnParameter));
                 }
             }
             /// <summary>

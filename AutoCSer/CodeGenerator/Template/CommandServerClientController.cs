@@ -7,7 +7,7 @@ namespace AutoCSer.CodeGenerator.Template
     {
         #region PART CLASS
         /// <summary>
-        /// @CurrentType.XmlDocument 客户端接口
+        /// @CurrentType.CodeGeneratorXmlDocument 客户端接口
         /// </summary>
         /*NOTE*/
         public partial interface /*NOTE*/@TypeNameDefinition
@@ -15,13 +15,13 @@ namespace AutoCSer.CodeGenerator.Template
             #region LOOP Methods
             #region IF Method
             /// <summary>
-            /// @Method.XmlDocument
+            /// @Method.CodeGeneratorXmlDocument
             /// </summary>
             #region LOOP Method.Parameters
-            /// <param name="@ParameterName">@XmlDocument</param>
+            /// <param name="@ParameterName">@CodeGeneratorXmlDocument</param>
             #endregion LOOP Method.Parameters
             #region IF MethodIsReturn
-            /// <returns>@ReturnXmlDocument</returns>
+            /// <returns>@CodeGeneratorReturnXmlDocument</returns>
             #endregion IF MethodIsReturn
             @MethodReturnType.FullName @MethodName(/*PUSH:TaskQueueKeyType*/@FullName queueKey/*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*//*PUSH:TaskQueueKeyType*//*LOOP:Method.Parameters*//*AT:RefOutString*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*/);
             #endregion IF Method

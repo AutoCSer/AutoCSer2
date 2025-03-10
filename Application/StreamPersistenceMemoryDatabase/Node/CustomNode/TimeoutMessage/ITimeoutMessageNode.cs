@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
 {
@@ -42,6 +43,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         long Append(TimeoutMessage<T> task);
         /// <summary>
+        /// 添加立即执行任务 持久化前检查
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns>是否继续持久化操作</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        bool AppendRunBeforePersistence(TimeoutMessage<T> task);
+        /// <summary>
+        /// 添加立即执行任务
+        /// </summary>
+        /// <param name="task"></param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void AppendRunLoadPersistence(TimeoutMessage<T> task);
+        /// <summary>
+        /// 添加立即执行任务
+        /// </summary>
+        /// <param name="task"></param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void AppendRun(TimeoutMessage<T> task);
+        /// <summary>
         /// 触发任务执行
         /// </summary>
         /// <param name="identity">任务标识</param>
@@ -71,5 +91,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// </summary>
         [ServerMethod(IsPersistence = false)]
         void RetryFailed();
+        /// <summary>
+        /// 获取执行任务消息数据
+        /// </summary>
+        /// <param name="callback">获取执行任务消息数据回调</param>
+        [ServerMethod(IsPersistence = false, IsCallbackClient = true)]
+        void GetRunTask(MethodKeepCallback<T> callback);
     }
 }

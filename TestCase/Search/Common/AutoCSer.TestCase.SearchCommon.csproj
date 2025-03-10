@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.SearchCommon</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.SearchCommon</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>C:\AutoCSer2\TestCase\ORM\CommonModel\AutoCSer.TestCase.CommonModel.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\TestCase\ORM\CommonModel\AutoCSer.TestCase.CommonModel.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ConditionData\ISearchUserNode.cs" />
+    <Compile Include="DataSource\GenderEnum.cs" />
+    <Compile Include="DataSource\UserMessageNode\ITimeoutMessageServiceNode.cs" />
+    <Compile Include="DataSource\SearchUser.cs" />
+    <Compile Include="DataSource\User.cs" />
+    <Compile Include="DataSource\UserMessageNode\OperationData.cs" />
+    <Compile Include="DataSource\UserMessageNode\OperationTypeEnum.cs" />
+    <Compile Include="QueryService\IQueryService.cs" />
+    <Compile Include="QueryService\SearchUserQueryParameter.cs" />
+    <Compile Include="QueryService\UserOrderEnum.cs" />
+    <Compile Include="QueryService\UserQueryParameter.cs" />
+    <Compile Include="WordIdentityBlockIndex\IServiceNode.cs" />
+    <Compile Include="DataSource\IUserService.cs" />
+    <Compile Include="NodeTypeEnum.cs" />
+    <Compile Include="{AutoCSer.TestCase.SearchCommon}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Search\AutoCSer.CommandService.Search.NET8.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+  
+</Project>

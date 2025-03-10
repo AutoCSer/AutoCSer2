@@ -8,13 +8,13 @@ namespace AutoCSer.CodeGenerator.Template
     {
         #region PART CLASS
         /// <summary>
-        /// @CurrentType.XmlDocument
+        /// @CurrentType.CodeGeneratorXmlDocument
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(@MethodIndexEnumTypeName))]
         /*NOTE*/
         public partial interface /*NOTE*/@TypeNameDefinition { }
         /// <summary>
-        /// @CurrentType.XmlDocument 节点方法序号映射枚举类型
+        /// @CurrentType.CodeGeneratorXmlDocument 节点方法序号映射枚举类型
         /// </summary>
         public enum @MethodIndexEnumTypeName
         {
@@ -22,12 +22,12 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF EnumName
             #region IF Method
             /// <summary>
-            /// [@MethodIndex] @Method.XmlDocument
+            /// [@MethodIndex] @Method.CodeGeneratorXmlDocument
             #region LOOP Method.Parameters
-            /// @ParameterType.XmlFullName @ParameterName @XmlDocument
+            /// @ParameterType.XmlFullName @ParameterName @CodeGeneratorXmlDocument
             #endregion LOOP Method.Parameters
             #region IF MethodIsReturn
-            /// 返回值 @MethodReturnType.XmlFullName @Method.ReturnXmlDocument
+            /// 返回值 @MethodReturnType.XmlFullName @Method.CodeGeneratorReturnXmlDocument
             #endregion IF MethodIsReturn
             /// </summary>
             #endregion IF Method

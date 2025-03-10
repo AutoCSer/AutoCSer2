@@ -3,12 +3,14 @@
 namespace AutoCSer.Document.SymmetryService
 {
     /// <summary>
+    /// Interface symmetry service definition
     /// 接口对称服务定义
     /// </summary>
     [AutoCSer.Net.CommandServerControllerInterface]
     public interface ISymmetryService
     {
         /// <summary>
+        /// Asynchronous API definition
         /// 异步 API 定义
         /// </summary>
         /// <param name="left"></param>
@@ -16,6 +18,7 @@ namespace AutoCSer.Document.SymmetryService
         /// <returns></returns>
         Task<int> AddAsync(int left, int right);
         /// <summary>
+        /// Synchronization API definition (It is not recommended to define synchronization apis in interface symmetric services because the client synchronization blocking mode may cause performance bottlenecks)
         /// 同步 API 定义（不建议在接口对称服务中定义同步 API，因为客户端同步阻塞模式可能造成性能瓶颈）
         /// </summary>
         /// <param name="left"></param>

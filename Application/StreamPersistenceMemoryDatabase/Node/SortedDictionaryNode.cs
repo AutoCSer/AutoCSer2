@@ -109,6 +109,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return key != null && dictionary.Remove(key);
         }
         /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns>删除关键字数量</returns>
+        public int RemoveKeys(KT[] keys)
+        {
+            int count = 0;
+            foreach (KT key in keys)
+            {
+                if (key != null && dictionary.Remove(key)) ++count;
+            }
+            return count;
+        }
+        /// <summary>
         /// 删除关键字并返回被删除数据
         /// </summary>
         /// <param name="key"></param>
@@ -132,6 +146,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             var value = default(VT);
             if (key != null && dictionary.TryGetValue(key, out value)) return value;
             return default(ValueResult<VT>);
+        }
+        /// <summary>
+        /// 根据关键字获取数据
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public VT[] GetValueArray(KT[] keys)
+        {
+            if (keys != null && keys.Length != 0)
+            {
+                VT[] values = new VT[keys.Length];
+                var value = default(VT);
+                int index = 0;
+                foreach (KT key in keys)
+                {
+                    if (key != null && dictionary.TryGetValue(key, out value)) values[index] = value;
+                    ++index;
+                }
+                return values;
+            }
+            return EmptyArray<VT>.Array;
         }
     }
 }

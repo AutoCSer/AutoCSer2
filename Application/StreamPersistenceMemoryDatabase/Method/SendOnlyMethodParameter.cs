@@ -28,11 +28,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal void SendOnly()
         {
-            if (Node.CallState == CallStateEnum.Success && method.IsClientCall)
+            if (method.IsClientCall)
             {
                 StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
                 if (method.IsPersistence)
                 {
+                    if (Node.CallState != CallStateEnum.Success) return;
                     if (Node.IsPersistence && !service.IsMaster) return;
                     if (method.BeforePersistenceMethodIndex >= 0)
                     {

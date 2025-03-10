@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Globalization;
 
 namespace AutoCSer.CommandService.Search.StaticTrieGraph
@@ -119,15 +120,16 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
                 }
                 ArraySize2 += newCharacter;
                 char* end = wordFixed + word.Length;
+                TreeNode[] nextNodes = nodes;
                 for (char* start = wordFixed + 2; start != end; ++start)
                 {
                     newCharacter = 0;
-                    index = nodes[index].GetAppendIndex(nextCharacter = replaceFixed[*start], ref newCharacter, out nodes);
+                    index = nextNodes[index].GetAppendIndex(nextCharacter = replaceFixed[*start], ref newCharacter, out nextNodes);
                     NodeArraySize += newCharacter;
                     if (nextCharacter != ' ') charType[nextCharacter] |= (byte)WordTypeEnum.TrieGraph;
                 }
-                charType[*(end - 1)] |= (byte)WordTypeEnum.TrieGraphEnd;
-                if (nodes[index].Set(ref CurrentIdentity)) Words.Add(word);
+                charType[replaceFixed[*(end - 1)]] |= (byte)WordTypeEnum.TrieGraphEnd;
+                if (nextNodes[index].Set(ref CurrentIdentity)) Words.Add(word);
                 this.nodes[character] = nodes;
             }
         }
@@ -147,6 +149,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
                 {
                     int index2 = builder.NodeIndex2, index = 0;
                     ranges[character - MinCharacter].Set(index2, index2 + nodeCount);
+                    if (nodeCount > 7) nodes.QuickSort(nodeCount, TreeNode.GetCharacter);
                     do
                     {
                         builder.Node2(ref nodes[index]);

@@ -44,50 +44,46 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal CallStateEnum CallInputOutput(ref CommandServerCallback<ResponseParameter> callback)
 #endif
         {
-            CallStateEnum state = Node.CallState;
-            if (state == CallStateEnum.Success)
+            if (Method.IsClientCall)
             {
-                if (Method.IsClientCall)
+                this.callback = callback;
+                StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
+                if (Method.IsPersistence)
                 {
-                    this.callback = callback;
-                    StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
-                    if (Method.IsPersistence)
+                    if (Node.CallState != CallStateEnum.Success) return Node.CallState;
+                    if (Node.IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
+                    if (Method.BeforePersistenceMethodIndex >= 0)
                     {
-                        if (Node.IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
-                        if (Method.BeforePersistenceMethodIndex >= 0)
+                        CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[Method.BeforePersistenceMethodIndex].notNull();
+                        BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
+                        service.CurrentMethodParameter = BeforePersistenceMethodParameter;
+                        ValueResult<ResponseParameter> value = beforePersistenceMethod.CallOutputBeforePersistence(BeforePersistenceMethodParameter);
+                        if (value.IsValue)
                         {
-                            CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[Method.BeforePersistenceMethodIndex].notNull();
-                            BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
-                            service.CurrentMethodParameter = BeforePersistenceMethodParameter;
-                            ValueResult<ResponseParameter> value = beforePersistenceMethod.CallOutputBeforePersistence(BeforePersistenceMethodParameter);
-                            if (value.IsValue)
-                            {
-                                callback = null;
-                                this.callback?.SynchronousCallback(value.Value);
-                                return CallStateEnum.Success;
-                            }
-                        }
-                        if (Node.IsPersistence)
-                        {
-                            service.PushPersistenceMethodParameter(this, ref callback);
+                            callback = null;
+                            this.callback?.SynchronousCallback(value.Value);
                             return CallStateEnum.Success;
                         }
                     }
-                    callback = null;
-                    try
+                    if (Node.IsPersistence)
                     {
-                        service.SetCurrentMethodParameter(this);
-                        Method.CallInputOutput(this);
+                        service.PushPersistenceMethodParameter(this, ref callback);
+                        return CallStateEnum.Success;
                     }
-                    finally
-                    {
-                        this.callback?.SynchronousCallback(new ResponseParameter(CallStateEnum.Unknown));
-                    }
-                    return CallStateEnum.Success;
                 }
-                return CallStateEnum.NotAllowClientCall;
+                callback = null;
+                try
+                {
+                    service.SetCurrentMethodParameter(this);
+                    Method.CallInputOutput(this);
+                }
+                finally
+                {
+                    this.callback?.SynchronousCallback(new ResponseParameter(CallStateEnum.Unknown));
+                }
+                return CallStateEnum.Success;
             }
-            return state;
+            return CallStateEnum.NotAllowClientCall;
         }
         /// <summary>
         /// 持久化回调
@@ -298,17 +294,34 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
-        public CallInputOutputMethodParameter(ServerNode node, CallInputOutputMethod method) : base(node, method) { }
+        internal CallInputOutputMethodParameter(ServerNode node, CallInputOutputMethod method) : base(node, method) { }
         /// <summary>
         /// 调用方法与参数信息
         /// </summary>
         /// <param name="node"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        public CallInputOutputMethodParameter(ServerNode node, int methodIndex, ref T parameter) : base(node, (CallInputOutputMethod)node.NodeCreator.Methods[methodIndex].notNull()) 
+        internal CallInputOutputMethodParameter(ServerNode node, int methodIndex, ref T parameter) : base(node, (CallInputOutputMethod)node.NodeCreator.Methods[methodIndex].notNull()) 
         {
             this.Parameter = parameter;
             callback = EmptyCommandServerCallback<ResponseParameter>.Default;
+        }
+        /// <summary>
+        /// 调用方法与参数信息
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+#if NetStandard21
+        internal CallInputOutputMethodParameter(ServerNode node, int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter>? callback)
+#else
+        internal CallInputOutputMethodParameter(ServerNode node, int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter> callback) 
+#endif
+            : base(node, (CallInputOutputMethod)node.NodeCreator.Methods[methodIndex].notNull())
+        {
+            this.Parameter = parameter;
+            this.callback = callback ?? EmptyCommandServerCallback<ResponseParameter>.Default;
         }
         /// <summary>
         /// 调用方法与参数信息

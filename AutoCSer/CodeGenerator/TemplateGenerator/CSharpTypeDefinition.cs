@@ -50,7 +50,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 {
                     start.Append(@"
         /// <summary>
-        /// ", xmlDocument, @"
+        /// ", XmlDocument.CodeGeneratorFormat(xmlDocument), @"
         /// </summary>");
                 }
                 start.Append(@"

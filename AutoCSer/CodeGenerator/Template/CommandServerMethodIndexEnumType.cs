@@ -12,12 +12,12 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF EnumName
             #region IF Method
             /// <summary>
-            /// [@MethodIndex] @Method.XmlDocument
+            /// [@MethodIndex] @Method.CodeGeneratorXmlDocument
             #region LOOP Method.Parameters
-            /// @ParameterType.XmlFullName @ParameterName @XmlDocument
+            /// @ParameterType.XmlFullName @ParameterName @CodeGeneratorXmlDocument
             #endregion LOOP Method.Parameters
             #region IF MethodIsReturn
-            /// 返回值 @MethodReturnType.XmlFullName @Method.ReturnXmlDocument
+            /// 返回值 @MethodReturnType.XmlFullName @Method.CodeGeneratorReturnXmlDocument
             #endregion IF MethodIsReturn
             /// </summary>
             #endregion IF Method

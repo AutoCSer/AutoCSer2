@@ -54,7 +54,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否存在关键字</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(KT key);
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns>删除关键字数量</returns>
+        int RemoveKeys(KT[] keys);
         /// <summary>
         /// 根据关键字删除节点
         /// </summary>
@@ -76,6 +83,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>目标数据</returns>
         [ServerMethod(IsPersistence = false)]
         ValueResult<VT> TryGetValue(KT key);
+        /// <summary>
+        /// 根据关键字获取数据
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        [ServerMethod(IsPersistence = false)]
+        VT[] GetValueArray(KT[] keys);
         /// <summary>
         /// 根据关键字获取一个匹配节点位置
         /// </summary>

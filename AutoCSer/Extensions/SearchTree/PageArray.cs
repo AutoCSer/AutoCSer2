@@ -7,7 +7,6 @@ namespace AutoCSer.SearchTree
     /// 分页数组数据
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [RemoteType]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct PageArray<T>
     {

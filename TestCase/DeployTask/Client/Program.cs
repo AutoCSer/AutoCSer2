@@ -204,6 +204,7 @@ Press quit to exit.");
             await waitProcess(@"TestCase\FileSynchronous\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronous.exe", @"TestCase\FileSynchronous\Client\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronousClient.exe");
             await waitProcess2(@"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\DiskBlock\Client\bin\Release\net8.0\AutoCSer.TestCase.DiskBlockClient.exe", 2);
             await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\InterfaceRealTimeCallMonitor\ExceptionStatistics\bin\Release\net8.0\AutoCSer.TestCase.ExceptionStatistics.exe", @"TestCase\InterfaceRealTimeCallMonitor\bin\Release\net8.0\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.exe", @"TestCase\NetCoreWeb\bin\Release\net8.0\AutoCSer.TestCase.NetCoreWeb.exe");
+            await waitProcess(@"TestCase\Search\TrieGraph\bin\Release\net8.0\AutoCSer.TestCase.SearchTrieGraph.exe", @"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\Search\DataSource\bin\Release\net8.0\AutoCSer.TestCase.SearchDataSource.exe", @"TestCase\Search\DiskBlockIndex\bin\Release\net8.0\AutoCSer.TestCase.SearchDiskBlockIndex.exe", @"TestCase\Search\WordIdentityBlockIndex\bin\Release\net8.0\AutoCSer.TestCase.SearchWordIdentityBlockIndex.exe", @"TestCase\Search\QueryService\bin\Release\net8.0\AutoCSer.TestCase.SearchQueryService.exe", @"TestCase\Search\bin\Release\net8.0\AutoCSer.TestCase.Search.exe");
 
             await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
             await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
@@ -235,12 +236,12 @@ Press quit to exit.");
                 await AutoCSer.Common.DeleteFile(file);
             }
         }
-        private static async Task waitProcess2(string serverFileName, string clientFileName, int count = 1)
+        private static async Task waitProcess2(string serverFileName, string clientFileName, int count)
         {
             await waitProcess(serverFileName, clientFileName, count);
             await waitProcess(serverFileName, clientFileName, count);
         }
-        private static async Task waitProcess(string serverFileName, string clientFileName, int count = 1)
+        private static async Task waitProcess(string serverFileName, string clientFileName, int count)
         {
             Console.WriteLine(serverFileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, serverFileName));
             Process process = await new ProcessInfo(serverFileName).StartAsync();
@@ -254,30 +255,21 @@ Press quit to exit.");
             }
             else Console.WriteLine("Not Found File");
         }
-        private static async Task waitProcess(string baseFileName, string serverFileName, string clientFileName)
+        private static Task waitProcess(params string[] fileNames)
         {
-            Console.WriteLine(baseFileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, baseFileName));
-            Process process = await new ProcessInfo(baseFileName).StartAsync();
-            if (process != null)
-            {
-                using (process)
-                {
-                    await waitProcess(serverFileName, clientFileName);
-                    await wait(baseFileName, process);
-                }
-            }
-            else Console.WriteLine("Not Found File");
+            return waitProcess(fileNames, 0);
         }
-        private static async Task waitProcess(string baseFileName1, string baseFileName2, string serverFileName, string clientFileName)
+        private static async Task waitProcess(string[] fileNames, int index)
         {
-            Console.WriteLine(baseFileName1 = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, baseFileName1));
-            Process process = await new ProcessInfo(baseFileName1).StartAsync();
+            string fileName = fileNames[index];
+            Console.WriteLine(fileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, fileName));
+            Process process = await new ProcessInfo(fileName).StartAsync();
             if (process != null)
             {
                 using (process)
                 {
-                    await waitProcess(baseFileName2, serverFileName, clientFileName);
-                    await wait(baseFileName1, process);
+                    if(++index != fileNames.Length) await waitProcess(fileNames, index);
+                    await wait(fileName, process);
                 }
             }
             else Console.WriteLine("Not Found File");

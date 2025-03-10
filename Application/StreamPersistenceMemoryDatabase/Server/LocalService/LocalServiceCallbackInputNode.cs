@@ -98,14 +98,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     var methodParameter = callInputMethodParameter.notNull();
                     methodParameter.Parameter = parameter;
                     clientNode.Client.Service.CommandServerCallQueue.AddOnly(new LocalServiceCallbackInputNode(clientNode, methodParameter, callback));
-                    state = CallStateEnum.Count;
+                    state = CallStateEnum.Callbacked;
                     return;
                 }
                 clientNode.CheckState(nodeIndex, state);
             }
             finally
             {
-                if (state != CallStateEnum.Count) callback(new LocalResult(state));
+                if (state != CallStateEnum.Callbacked) callback(new LocalResult(state));
             }
         }
     }

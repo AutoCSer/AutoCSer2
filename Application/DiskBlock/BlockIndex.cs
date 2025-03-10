@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// </summary>
     [StructLayout(LayoutKind.Explicit, Size = sizeof(long) + sizeof(uint) + sizeof(int))]
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct BlockIndex
+    public struct BlockIndex : IEquatable<BlockIndex>
     {
         /// <summary>
         /// 错误
@@ -45,15 +45,22 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         public bool IsBinarySerializeNullValue
         {
-            get { return Index == BinarySerializer.NullValue && Size < 0 && -new BlockSize().GetSize(Size) == -4; }
+            get { return Index == BinarySerializer.NullValue && Size < 0 && new BlockSize().GetSize(Size) == -4; }
         }
         /// <summary>
         /// 判断是否二进制序列化 null 值或者空数组
         /// </summary>
         public bool IsBinarySerializeNullValueOrEmptyArray
         {
-            get { return (Index == BinarySerializer.NullValue || Index == 0) && Size < 0 && -new BlockSize().GetSize(Size) == -4; }
+            get { return (Index == BinarySerializer.NullValue || Index == 0) && Size < 0 && new BlockSize().GetSize(Size) == -4; }
         }
+        ///// <summary>
+        ///// 判断是否二进制序列化 null 值
+        ///// </summary>
+        //internal bool IsBinarySerializeNotNullValue
+        //{
+        //    get { return Index == BinarySerializer.NotNullValue && Size < 0 && new BlockSize().GetSize(Size) == -4; }
+        //}
         /// <summary>
         /// 错误磁盘块索引信息
         /// </summary>
@@ -85,6 +92,15 @@ namespace AutoCSer.CommandService.DiskBlock
             Index = index;
             Identity = identity;
             Size = new BlockSize().SetSize(size);
+        }
+        /// <summary>
+        /// 判断是否相等
+        /// </summary>
+        /// <param name="blockIndex"></param>
+        /// <returns></returns>
+        public bool Equals(BlockIndex blockIndex)
+        {
+            return Index == blockIndex.Index && (((uint)Size ^ blockIndex.Size) | (Identity ^ blockIndex.Identity)) == 0;
         }
         /// <summary>
         /// 设置字节数
@@ -217,6 +233,24 @@ namespace AutoCSer.CommandService.DiskBlock
             Identity = 0;
             Size = new BlockSize().SetSize(-4);
         }
+        ///// <summary>
+        ///// 设置为二进制序列化 null 值
+        ///// </summary>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public void SetBinarySerializeNullValueIfNotNull()
+        //{
+        //    if (Index == BinarySerializer.NotNullValue && Size < 0 && new BlockSize().GetSize(Size) == -4) Index = BinarySerializer.NullValue;
+        //}
+        ///// <summary>
+        ///// 设置为二进制序列化非空对象
+        ///// </summary>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal void SetBinarySerializeNotNullValue()
+        //{
+        //    Index = BinarySerializer.NotNullValue;
+        //    Identity = 0;
+        //    Size = new BlockSize().SetSize(-4);
+        //}
         /// <summary>
         /// 获取读取数据状态
         /// </summary>

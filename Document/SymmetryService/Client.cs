@@ -3,12 +3,12 @@
 namespace AutoCSer.Document.SymmetryService
 {
     /// <summary>
-    /// 测试客户端
+    /// Test client
     /// </summary>
     internal static class Client
     {
         /// <summary>
-        /// 测试客户端
+        /// Test client
         /// </summary>
         private static readonly AutoCSer.Net.CommandClient<ISymmetryService> commandClient = new AutoCSer.Net.CommandClientConfig<ISymmetryService>
         {
@@ -16,7 +16,7 @@ namespace AutoCSer.Document.SymmetryService
         }.CreateSymmetryClient();
 
         /// <summary>
-        /// 客户端测试
+        /// Client test
         /// </summary>
         /// <returns></returns>
         internal static async Task Test()

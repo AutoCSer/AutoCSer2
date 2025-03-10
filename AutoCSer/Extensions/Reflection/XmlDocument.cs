@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+using System.Timers;
 
 namespace AutoCSer.Reflection
 {
@@ -91,27 +93,31 @@ namespace AutoCSer.Reflection
             return value;
         }
         /// <summary>
-        /// 清理程序集信息集合
+        /// 定时清除缓存数据
         /// </summary>
         private static void clearAssemblys()
         {
-            if (assemblys.Count != 0)
-            {
-                Monitor.Enter(assemblyLock);
-                try
-                {
-                    if (assemblys.Count != 0)
-                    {
-#if NetStandard21
-                        assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly?>();
-#else
-                        assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly>();
-#endif
-                    }
-                }
-                finally { Monitor.Exit(assemblyLock); }
-            }
+            if (assemblys.Count != 0) TaskQueue.AddDefault(clearAssemblysTask);
             lastAssembly = null;
+        }
+        /// <summary>
+        /// 定时清除缓存数据
+        /// </summary>
+        private static void clearAssemblysTask()
+        {
+            Monitor.Enter(assemblyLock);
+            try
+            {
+                if (assemblys.Count != 0)
+                {
+#if NetStandard21
+                    assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly?>();
+#else
+                    assemblys = DictionaryCreator.CreateHashObject<Assembly, XmlDocumentAssembly>();
+#endif
+                }
+            }
+            finally { Monitor.Exit(assemblyLock); }
         }
         /// <summary>
         /// 获取类型描述
@@ -181,9 +187,30 @@ namespace AutoCSer.Reflection
             return assembly == null ? string.Empty : assembly.Get(method, parameter);
         }
 
+        /// <summary>
+        /// 代码生成输出文本
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static string CodeGeneratorFormat(string document)
+        {
+            if (!string.IsNullOrEmpty(document) && document.IndexOf('\n') >= 0)
+            {
+                return string.Join(@"
+///", document.Replace('\r', ' ').Split('\n'));
+            }
+            return document;
+        }
+
         static XmlDocument()
         {
-            AutoCSer.Memory.Common.AddClearCache(clearAssemblys, 60 * 60);
+            int clearSeconds = AutoCSer.Common.Config.GetMemoryCacheClearSeconds();
+            if (clearSeconds > 0)
+            {
+                new SecondTimerArrayActionNode(clearAssemblys, AutoCSer.Threading.SecondTimer.InternalTaskArray, clearSeconds, SecondTimerKeepModeEnum.After, clearSeconds)
+                    .AppendTaskArray();
+            }
+            //AutoCSer.Memory.Common.AddClearCache(clearAssemblys, 60 * 60);
         }
     }
 }

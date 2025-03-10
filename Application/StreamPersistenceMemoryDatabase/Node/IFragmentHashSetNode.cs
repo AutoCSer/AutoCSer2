@@ -29,6 +29,13 @@
         [ServerMethod(SnapshotMethodSort = 1, IsIgnorePersistenceCallbackException = true)]
         bool Add(T value);
         /// <summary>
+        /// 如果关键字不存在则添加数据
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>添加数据数量</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        int AddValues(T[] values);
+        /// <summary>
         /// 判断关键字是否存在
         /// </summary>
         /// <param name="value"></param>
@@ -42,5 +49,11 @@
         /// <returns>是否存在关键字</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         bool Remove(T value);
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns>删除数据数量</returns>
+        int RemoveValues(T[] values);
     }
 }

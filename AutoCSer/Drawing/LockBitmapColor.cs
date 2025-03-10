@@ -9,7 +9,7 @@ namespace AutoCSer.Drawing
     /// <summary>
     /// 24 位色彩
     /// </summary>
-    [StructLayout(LayoutKind.Explicit)]
+    [StructLayout(LayoutKind.Explicit, Size = sizeof(int))]
     public unsafe struct LockBitmapColor : IEquatable<LockBitmapColor>
     {
         /// <summary>

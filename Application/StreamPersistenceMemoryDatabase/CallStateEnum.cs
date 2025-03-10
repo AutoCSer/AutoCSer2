@@ -239,10 +239,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 没有返回数据
         /// </summary>
         NullResponseParameter,
+        /// <summary>
+        /// 自定义操作状态错误
+        /// </summary>
+        CustomStateError,
+        /// <summary>
+        /// 自定义操作异常
+        /// </summary>
+        CustomException,
 
         /// <summary>
-        /// 保留用于计数
+        /// 已回调（可用于计数）
         /// </summary>
-        Count,
+        Callbacked,
     }
 }

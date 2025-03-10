@@ -64,6 +64,82 @@ namespace AutoCSer.CommandService
             /// <param name="type">调用类型</param>
             AutoCSer.Net.SendOnlyCommand Start(long callIdentity, string callType, string callName, int timeoutMilliseconds, ushort type);
         }
+}namespace AutoCSer.CommandService
+{
+    public enum InterfaceRealTimeCallMonitorServiceMethodEnum
+    {
+            /// <summary>
+            /// [0] 接口监视服务在线检查
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerKeepCallback callback 在线检查回调
+            /// </summary>
+            Check = 0,
+            /// <summary>
+            /// [1] 调用完成
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long callIdentity 调用标识
+            /// bool isException 接口是否执行异常
+            /// </summary>
+            Completed = 1,
+            /// <summary>
+            /// [2] 获取未完成调用数量
+            /// 返回值 int 
+            /// </summary>
+            GetCount = 2,
+            /// <summary>
+            /// [3] 获取异常调用数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp} callback 实时调用时间戳信息回调
+            /// 返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp 
+            /// </summary>
+            GetException = 3,
+            /// <summary>
+            /// [4] 获取超时调用数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp} callback 实时调用时间戳信息回调
+            /// 返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp 
+            /// </summary>
+            GetTimeout = 4,
+            /// <summary>
+            /// [5] 获取指定数量的超时调用
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// int count 获取数量
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp} callback 超时调用回调
+            /// 返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp 
+            /// </summary>
+            GetTimeoutCalls = 5,
+            /// <summary>
+            /// [6] 获取超时调用数量
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// 返回值 int 超时调用数量
+            /// </summary>
+            GetTimeoutCount = 6,
+            /// <summary>
+            /// [7] 设置自定义调用步骤
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long callIdentity 调用标识
+            /// int step 自定义调用步骤
+            /// </summary>
+            SetStep = 7,
+            /// <summary>
+            /// [8] 新增一个实时调用信息
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// long callIdentity 调用标识
+            /// string callType 调用接口类型
+            /// string callName 调用接口方法名称
+            /// int timeoutMilliseconds 超时毫秒数
+            /// ushort type 调用类型
+            /// </summary>
+            Start = 8,
+    }
 }namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
 {
         /// <summary>

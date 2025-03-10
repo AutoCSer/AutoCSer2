@@ -58,6 +58,8 @@
     <Compile Include="Client\LocalKeepCallback.cs" />
     <Compile Include="Client\LocalResult.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
+    <Compile Include="ConcurrencyQueue.cs" />
+    <Compile Include="ConcurrencyQueueTaskNode.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="Node\CustomNode\TimeoutMessage\ITimeoutMessageNode.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutCallback.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessage.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageCallback.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageData.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageNode.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageRunTaskTypeEnum.cs" />
@@ -240,6 +243,9 @@
     <Compile Include="Node\SortedSetNode.cs" />
     <Compile Include="Node\StackNode.cs" />
     <Compile Include="NullResponseParameterSerializer.cs" />
+    <Compile Include="PageArray.cs" />
+    <Compile Include="PageParameter.cs" />
+    <Compile Include="PageResult.cs" />
     <Compile Include="PersistenceFileBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RebuildResult.cs" />

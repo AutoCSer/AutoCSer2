@@ -510,7 +510,7 @@ namespace AutoCSer.CommandService
                         var node = Nodes[index.Index].Get(index.Identity);
                         if (node != null)
                         {
-                            if ((state = node.CallState) == CallStateEnum.Success) state = node.Call(methodIndex, ref refCallback);
+                            state = node.Call(methodIndex, ref refCallback);
                             return;
                         }
                         state = CallStateEnum.NodeIdentityNotMatch;
@@ -553,7 +553,7 @@ namespace AutoCSer.CommandService
                         var node = Nodes[index.Index].Get(index.Identity);
                         if (node != null)
                         {
-                            if ((state = node.CallState) == CallStateEnum.Success) state = node.CallOutput(methodIndex, ref refCallback);
+                            state = node.CallOutput(methodIndex, ref refCallback);
                             return;
                         }
                         else state = CallStateEnum.NodeIdentityNotMatch;
@@ -653,7 +653,7 @@ namespace AutoCSer.CommandService
                         var node = Nodes[index.Index].Get(index.Identity);
                         if (node != null)
                         {
-                            if ((state = node.CallState) == CallStateEnum.Success) state = node.KeepCallback(methodIndex, ref refCallback);
+                            state = node.KeepCallback(methodIndex, ref refCallback);
                             return;
                         }
                         else state = CallStateEnum.NodeIdentityNotMatch;
@@ -1192,7 +1192,6 @@ namespace AutoCSer.CommandService
         public virtual void RepairNodeMethod(NodeIndex index, byte[] rawAssembly, RepairNodeMethodName methodName, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
-            bool isCallback = true;
             try
             {
                 var node = default(ServerNode);
@@ -1202,12 +1201,12 @@ namespace AutoCSer.CommandService
                 if (state == CallStateEnum.Success)
                 {
                     node.notNull().Repair(rawAssembly, method.notNull(), methodAttribute.notNull(), callback);
-                    isCallback = false;
+                    state = CallStateEnum.Callbacked;
                 }
             }
             finally
             {
-                if (isCallback) callback.Callback(state);
+                if (state != CallStateEnum.Callbacked) callback.Callback(state);
             }
         }
         /// <summary>
@@ -1221,7 +1220,6 @@ namespace AutoCSer.CommandService
         public virtual void BindNodeMethod(NodeIndex index, byte[] rawAssembly, RepairNodeMethodName methodName, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
-            bool isCallback = true;
             try
             {
                 if (!methodName.Name.EndsWith(ServerNodeMethod.BeforePersistenceMethodNameSuffix, StringComparison.Ordinal))
@@ -1233,14 +1231,14 @@ namespace AutoCSer.CommandService
                     if (state == CallStateEnum.Success)
                     {
                         node.notNull().Bind(rawAssembly, method.notNull(), methodAttribute.notNull(), callback);
-                        isCallback = false;
+                        state = CallStateEnum.Callbacked;
                     }
                 }
                 else state = CallStateEnum.BindMethodNotSupportBeforePersistence;
             }
             finally 
             {
-                if (isCallback) callback.Callback(state);
+                if (state != CallStateEnum.Callbacked) callback.Callback(state);
             }
         }
         /// <summary>
@@ -1453,7 +1451,6 @@ namespace AutoCSer.CommandService
         public void GetPersistenceCallbackExceptionPosition(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, CommandServerKeepCallback<long> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
-            bool isCallback = true;
             try
             {
                 var left = default(ServiceSlave);
@@ -1461,14 +1458,14 @@ namespace AutoCSer.CommandService
                 if (slave != null)
                 {
                     slave.PersistenceCallbackExceptionPositionCallback = callback;
-                    isCallback = false;
+                    state = CallStateEnum.Callbacked;
                     return;
                 }
                 else state = CallStateEnum.SlaveTimestampNotMatch;
             }
             finally
             {
-                if (isCallback) callback.CallbackCancelKeep(-(long)(ulong)(byte)state);
+                if (state != CallStateEnum.Callbacked) callback.CallbackCancelKeep(-(long)(ulong)(byte)state);
             }
         }
         /// <summary>

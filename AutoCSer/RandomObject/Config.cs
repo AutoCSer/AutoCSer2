@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using AutoCSer;
+using AutoCSer.Threading;
 
 namespace AutoCSer.RandomObject
 {

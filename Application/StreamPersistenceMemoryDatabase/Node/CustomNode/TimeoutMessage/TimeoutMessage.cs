@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -16,6 +15,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// 序列化数据
         /// </summary>
         internal TimeoutMessageData<T> Data;
+        /// <summary>
+        /// 任务消息数据
+        /// </summary>
+        public T TaskData
+        {
+            get { return Data.Task; }
+        }
         /// <summary>
         /// 超时任务消息
         /// </summary>

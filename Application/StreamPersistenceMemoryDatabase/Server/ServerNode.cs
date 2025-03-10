@@ -88,7 +88,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 当前节点是否已被移除
         /// </summary>
-        internal bool IsRemoved;
+        public bool IsRemoved { get; private set; }
         /// <summary>
         /// 服务端节点
         /// </summary>
@@ -241,6 +241,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             StreamPersistenceMemoryDatabaseServiceBase service = NodeCreator.Service;
                             if (method.IsPersistence)
                             {
+                                if (CallState != CallStateEnum.Success) return CallState;
                                 if (IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
                                 var callMethodParameter = default(CallMethodParameter);
                                 if (method.BeforePersistenceMethodIndex >= 0)
@@ -292,6 +293,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 StreamPersistenceMemoryDatabaseServiceBase service = NodeCreator.Service;
                                 if (method.IsPersistence)
                                 {
+                                    if (CallState != CallStateEnum.Success) return CallState;
                                     if (IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
                                     var callOutputMethodParameter = default(CallOutputMethodParameter);
                                     if (method.BeforePersistenceMethodIndex >= 0)
@@ -349,6 +351,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 StreamPersistenceMemoryDatabaseServiceBase service = NodeCreator.Service;
                                 if (method.IsPersistence)
                                 {
+                                    if (CallState != CallStateEnum.Success) return CallState;
                                     if (IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
                                     var keepCallbackMethodParameter = default(KeepCallbackMethodParameter);
                                     if (method.BeforePersistenceMethodIndex >= 0)
@@ -585,7 +588,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="array">预申请快照容器数组</param>
         /// <param name="newArray">超预申请快照数据</param>
-        internal static void SetSearchTreeSnapshotResult<T>(ref LeftArray<T> array, ref LeftArray<T> newArray)
+        public static void SetSearchTreeSnapshotResult<T>(ref LeftArray<T> array, ref LeftArray<T> newArray)
         {
             array.Add(ref newArray);
             newArray.SetEmpty();

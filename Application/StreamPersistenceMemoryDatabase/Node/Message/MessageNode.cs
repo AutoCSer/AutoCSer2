@@ -153,7 +153,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
             checkTimer.Cancel();
-            while (callbacks.Length != 0) callbacks.Array[--callbacks.Length].Callback.notNull().CancelKeep();
+            var callback = default(MessageNodeCallbackCount<T>);
+            while (callbacks.TryPopOnly(out callback)) callback.Callback.notNull().CancelKeep();
         }
         /// <summary>
         /// 数据库服务关闭操作

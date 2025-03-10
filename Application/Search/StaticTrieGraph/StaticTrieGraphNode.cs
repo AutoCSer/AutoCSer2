@@ -78,12 +78,12 @@ namespace AutoCSer.CommandService.Search
         /// 字符串 Trie 图节点
         /// </summary>
         /// <param name="maxWordSize">词语最大文字长度</param>
+        /// <param name="isSingleCharacter">默认为 false 表示不支持单字符搜索结果，未设置中文词库将无法搜索中文内容；设置为 true 会造成索引占用大量内存</param>
         /// <param name="replaceChars">替换文字集合</param>
-        /// <param name="isSingleCharacter">默认为 true 表示支持单字符搜索结果，但是会造成占用大量内存；设置为 false 则应该设置中文词库，否则无法搜索中文内容</param>
 #if NetStandard21
-        public StaticTrieGraphNode(int maxWordSize, bool isSingleCharacter = true, string? replaceChars = null)
+        public StaticTrieGraphNode(int maxWordSize, bool isSingleCharacter = false, string? replaceChars = null)
 #else
-        public StaticTrieGraphNode(int maxWordSize, bool isSingleCharacter = true, string replaceChars = null)
+        public StaticTrieGraphNode(int maxWordSize, bool isSingleCharacter = false, string replaceChars = null)
 #endif
         {
             this.maxWordSize = Math.Max(maxWordSize, 2);
@@ -105,8 +105,18 @@ namespace AutoCSer.CommandService.Search
         public override IStaticTrieGraphNode StreamPersistenceMemoryDatabaseServiceLoaded()
 #endif
         {
-            if (!graphData.IsGraph) builder = new TreeBuilder(this);
+            if (!graphData.IsGraph) getTreeBuilder();
             return null;
+        }
+        /// <summary>
+        /// 获取 Trie 树初始化创建器
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private TreeBuilder getTreeBuilder()
+        {
+            if (builder != null) return builder;
+            return builder = new TreeBuilder(this);
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
@@ -125,11 +135,7 @@ namespace AutoCSer.CommandService.Search
         /// <returns>快照数据信息</returns>
         SnapshotResult<GraphData> ISnapshot<GraphData>.GetSnapshotResult(GraphData[] snapshotArray, object customObject)
         {
-            if (graphData.IsGraph)
-            {
-                snapshotArray[0] = graphData;
-                return new SnapshotResult<GraphData>(1);
-            }
+            if (graphData.IsGraph) return new SnapshotResult<GraphData>(snapshotArray, graphData);
             return new SnapshotResult<GraphData>(0);
         }
         /// <summary>
@@ -175,8 +181,7 @@ namespace AutoCSer.CommandService.Search
         /// <param name="value">数据</param>
         public void SnapshotSetWord(string value)
         {
-            if (builder == null) builder = new TreeBuilder(this);
-            builder.Append(value);
+            getTreeBuilder().Append(value);
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
@@ -254,11 +259,11 @@ namespace AutoCSer.CommandService.Search
         {
             if (word?.Length > 1)
             {
-                if (word.Length > maxWordSize)
+                if (word.Length <= maxWordSize)
                 {
                     if (!graphData.IsGraph)
                     {
-                        builder.notNull().Append(word);
+                        getTreeBuilder().Append(word);
                         return AppendWordStateEnum.Success;
                     }
                     return AppendWordStateEnum.GraphBuilded;
@@ -268,6 +273,22 @@ namespace AutoCSer.CommandService.Search
             return AppendWordStateEnum.WordSizeLess;
         }
         /// <summary>
+        /// 是否已经建图
+        /// </summary>
+        /// <returns></returns>
+        public bool IsGraph()
+        {
+            return graphData.IsGraph;
+        }
+        /// <summary>
+        /// 获取 Trie 图词语数量
+        /// </summary>
+        /// <returns>Trie 图词语数量</returns>
+        public int GetWordCount()
+        {
+            return graphData.WordCount;
+        }
+        /// <summary>
         /// 建图
         /// </summary>
         /// <returns>Trie 图词语数量</returns>
@@ -275,10 +296,10 @@ namespace AutoCSer.CommandService.Search
         {
             if(!graphData.IsGraph)
             {
-                graphData.Build(builder.notNull());
+                graphData.Build(getTreeBuilder());
                 builder = null;
             }
-            return graphData.WordIdentity;
+            return graphData.WordCount;
         }
         /// <summary>
         /// 添加文本并返回词语编号集合 持久化前检查
@@ -326,7 +347,7 @@ namespace AutoCSer.CommandService.Search
                     --count;
                     identitys[count] = wordArray[count].Value;
                 }
-                while (count >= 0);
+                while (count != 0);
                 return identitys;
             }
             return EmptyArray<int>.Array;
@@ -367,7 +388,7 @@ namespace AutoCSer.CommandService.Search
                         --count;
                         results[count].Set(ref wordArray[count]);
                     }
-                    while (count >= 0);
+                    while (count != 0);
                     return results;
                 }
             }
@@ -392,7 +413,7 @@ namespace AutoCSer.CommandService.Search
                         {
                             clearIdentityMap(wordArray[--count].Value);
                         }
-                        while (count >= 0);
+                        while (count != 0);
                         break;
                 }
                 wordSegments.Length = 0;
@@ -419,7 +440,7 @@ namespace AutoCSer.CommandService.Search
                 while (++start != end);
 
                 WordTypeEnum type, nextType, wordType;
-                if (graphData.WordIdentity != 0)
+                if (graphData.WordCount != 0)
                 {
                     this.formatTextFixed = formatTextFixed;
                     start = formatTextFixed;
@@ -559,11 +580,14 @@ namespace AutoCSer.CommandService.Search
                         wordSegments.Array[wordSegments.Length++].Set(word, 0);
                         return true;
                     case WordSegmentTypeEnum.AddText:
-                        getWord(ref word, false);
-                        words.Add(word, identity = graphData.CurrentIdentity);
-                        ++graphData.CurrentIdentity;
-                        wordSegments.Array[wordSegments.Length++].Set(word, identity);
-                        setIdentityMap(identity);
+                        if (graphData.IsCurrentIdentity)
+                        {
+                            getWord(ref word, false);
+                            words.Add(word, identity = graphData.CurrentIdentity);
+                            --graphData.CurrentIdentity;
+                            wordSegments.Array[wordSegments.Length++].Set(word, identity);
+                            setIdentityMap(identity);
+                        }
                         return true;
                     case WordSegmentTypeEnum.AddTextBeforePersistence: return false;
                 }

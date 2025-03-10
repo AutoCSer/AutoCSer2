@@ -51,7 +51,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.XmlDocument);
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
                     }
                 }
                 {
@@ -81,7 +81,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@" ");
             _code_.Add(_value4_.ParameterName);
             _code_.Add(@" ");
-            _code_.Add(_value4_.XmlDocument);
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
                             ++_loopIndex_;
                         }
                         _loopIndex_ = _loopIndex3_;
@@ -108,7 +108,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.ReturnXmlDocument);
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
                     }
                 }
             }
@@ -656,7 +656,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
                     if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
-            _code_.Add(_value1_.XmlDocument);
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@" 客户端接口
@@ -688,7 +688,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.XmlDocument);
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@"
@@ -712,7 +712,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <param name=""");
             _code_.Add(_value4_.ParameterName);
             _code_.Add(@""">");
-            _code_.Add(_value4_.XmlDocument);
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
             _code_.Add(@"</param>");
                             ++_loopIndex_;
                         }
@@ -728,7 +728,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
             _code_.Add(@"
             /// <returns>");
-            _code_.Add(_value2_.ReturnXmlDocument);
+            _code_.Add(_value2_.CodeGeneratorReturnXmlDocument);
             _code_.Add(@"</returns>");
             }
             _code_.Add(@"
@@ -842,7 +842,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
                     if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
-            _code_.Add(_value1_.XmlDocument);
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@"
@@ -859,7 +859,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
                     if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
-            _code_.Add(_value1_.XmlDocument);
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@" 节点方法序号映射枚举类型
@@ -900,7 +900,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.XmlDocument);
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
                     }
                 }
                 {
@@ -930,7 +930,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@" ");
             _code_.Add(_value4_.ParameterName);
             _code_.Add(@" ");
-            _code_.Add(_value4_.XmlDocument);
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
                             ++_loopIndex_;
                         }
                         _loopIndex_ = _loopIndex3_;
@@ -957,7 +957,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.ReturnXmlDocument);
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
                     }
                 }
             }
@@ -1003,7 +1003,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
                     if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
-            _code_.Add(_value1_.XmlDocument);
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@" 客户端节点接口
@@ -1053,7 +1053,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.XmlDocument);
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@"
@@ -1077,7 +1077,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <param name=""");
             _code_.Add(_value4_.ParameterName);
             _code_.Add(@""">");
-            _code_.Add(_value4_.XmlDocument);
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
             _code_.Add(@"</param>");
                             ++_loopIndex_;
                         }
@@ -1097,7 +1097,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.ReturnXmlDocument);
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
                     }
                 }
             _code_.Add(@"</returns>");
@@ -1212,7 +1212,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
                     if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
-            _code_.Add(_value1_.XmlDocument);
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@" 客户端节点接口
@@ -1262,7 +1262,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.XmlDocument);
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
                     }
                 }
             _code_.Add(@"
@@ -1286,7 +1286,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <param name=""");
             _code_.Add(_value4_.ParameterName);
             _code_.Add(@""">");
-            _code_.Add(_value4_.XmlDocument);
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
             _code_.Add(@"</param>");
                             ++_loopIndex_;
                         }
@@ -1306,7 +1306,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
                     if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
                     {
-            _code_.Add(_value3_.ReturnXmlDocument);
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
                     }
                 }
             _code_.Add(@"</returns>");

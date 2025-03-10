@@ -130,5 +130,33 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             if (!nodeResult.IsSuccess) return nodeResult.Cast<WordSegmentResult[]>();
             return await nodeResult.Value.notNull().GetWordSegmentResult(text);
         }
+
+        /// <summary>
+        /// 获取需要更新的编号标识集合
+        /// </summary>
+        /// <param name="wordIdentitys">词语编号标识集合</param>
+        /// <param name="historyWordIdentitys">更新之前的词语编号标识集合</param>
+        /// <param name="removeWordIdentity">需要删除的编号标识集合</param>
+        /// <returns>新增的编号标识集合</returns>
+        public static LeftArray<int> GetWordIdentitys(int[] wordIdentitys, int[] historyWordIdentitys, out LeftArray<int> removeWordIdentity)
+        {
+            int readIndex = 0, writeIndex = 0, historyIndex = 0;
+            foreach (int identity in historyWordIdentitys)
+            {
+                if (readIndex != wordIdentitys.Length)
+                {
+                    for (int readIdentity = wordIdentitys[readIndex]; readIdentity <= identity; readIdentity = wordIdentitys[readIndex])
+                    {
+                        ++readIndex;
+                        if (readIdentity == identity) break;
+                        wordIdentitys[writeIndex++] = readIdentity;
+                        if (readIndex == wordIdentitys.Length) break;
+                    }
+                }
+                else historyWordIdentitys[historyIndex++] = identity;
+            }
+            removeWordIdentity = new LeftArray<int>(historyIndex, historyWordIdentitys);
+            return new LeftArray<int>(writeIndex, wordIdentitys);
+        }
     }
 }

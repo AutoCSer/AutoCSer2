@@ -19,5 +19,17 @@ namespace AutoCSer.CommandService
             /// <returns>反向服务验证数据</returns>
             AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData<T>> GetVerifyData(long timestamp);
         }
+}namespace AutoCSer.CommandService
+{
+    public enum TimestampVerifyReverseServiceMethodEnum
+    {
+            /// <summary>
+            /// [0] 获取验证数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// long timestamp 待验证时间戳
+            /// 返回值 AutoCSer.CommandService.TimestampVerify.ReverseServiceVerifyData{T} 反向服务验证数据
+            /// </summary>
+            GetVerifyData = 0,
+    }
 }
 #endif

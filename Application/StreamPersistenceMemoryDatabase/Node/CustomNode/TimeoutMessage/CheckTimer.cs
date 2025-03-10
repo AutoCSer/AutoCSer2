@@ -20,7 +20,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.Tim
         /// <summary>
         /// 超时检查定时
         /// </summary>
-        internal CheckTimer() : base(AutoCSer.Threading.SecondTimer.InternalTaskArray, 1, Threading.SecondTimerKeepModeEnum.After, 1) { }
+        internal CheckTimer() : base(AutoCSer.Threading.SecondTimer.InternalTaskArray, Threading.SecondTimerKeepModeEnum.After) { }
         /// <summary>
         /// 定时器触发
         /// </summary>
@@ -35,10 +35,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.Tim
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(TimeoutMessageNode<T> messageNode)
         {
-            if (keepSeconds != 0)
+            if (KeepSeconds == 0)
             {
                 this.messageNode = messageNode;
-                AppendTaskArray();
+                AppendTaskArray(1);
             }
         }
         /// <summary>
@@ -47,7 +47,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.Tim
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Cancel()
         {
-            keepSeconds = 0;
+            KeepSeconds = -1;
             messageNode = null;
         }
     }

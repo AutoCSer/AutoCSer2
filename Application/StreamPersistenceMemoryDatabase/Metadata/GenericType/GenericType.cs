@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net;
+using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -58,6 +59,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 创建回调对象
         /// </summary>
         internal abstract Delegate CreateMethodParameterKeepCallbackDelegate { get; }
+        /// <summary>
+        /// 获取服务接口回调委托
+        /// </summary>
+        internal abstract Delegate MethodCallbackGetCallbackDelegate { get; }
         /// <summary>
         /// 添加待加载修复方法节点
         /// </summary>
@@ -218,6 +223,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 创建回调对象
         /// </summary>
         internal override Delegate CreateMethodParameterKeepCallbackDelegate { get { return (Func<InputKeepCallbackMethodParameter, MethodKeepCallback<T>>)MethodKeepCallback<T>.Create; } }
+        /// <summary>
+        /// 获取服务接口回调委托
+        /// </summary>
+#if NetStandard21
+        internal override Delegate MethodCallbackGetCallbackDelegate { get { return (Func<MethodCallback<T>, CommandServerCallback<ResponseParameter>?>)MethodCallback<T>.GetCallback; } }
+#else
+        internal override Delegate MethodCallbackGetCallbackDelegate { get { return (Func<MethodCallback<T>, CommandServerCallback<ResponseParameter>>)MethodCallback<T>.GetCallback; } }
+#endif
         /// <summary>
         /// 添加待加载修复方法节点
         /// </summary>

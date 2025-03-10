@@ -171,15 +171,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     while (true);
                     await exit();
-                    return new ResponseResult(CallStateEnum.Success);
+                    return CallStateEnum.Success;
                 }
                 catch (Exception exception)
                 {
                     await onException(exception);
                 }
-                return new ResponseResult(CallStateEnum.Unknown);
+                return CallStateEnum.Unknown;
             }
-            return new ResponseResult(CallStateEnum.Success);
+            return CallStateEnum.Success;
         }
         /// <summary>
         /// 错误信息处理

@@ -70,7 +70,7 @@ namespace AutoCSer.Search
         /// <summary>
         /// 单字符搜索结果集合
         /// </summary>
-        private readonly ReusableDictionary<char, HashSet<T>> charResults;
+        private readonly ReusableHashCodeKeyDictionary<HashSet<T>> charResults;
         /// <summary>
         /// 单字符搜索结果集合
         /// </summary>
@@ -120,7 +120,7 @@ namespace AutoCSer.Search
             words = new LeftArray<KeyValue<SubString, WordTypeEnum>>(0);
             matchs = new LeftArray<Range>(0);
             wordResults = new ReusableDictionary<HashSubString, RT>();
-            charResults = new ReusableDictionary<char, HashSet<T>>();
+            charResults = new ReusableHashCodeKeyDictionary<HashSet<T>>();
             wordResultArray = new LeftArray<KeyValue<SubString, RT>>(0);
             charResultArray = new LeftArray<KeyValue<char, HashSet<T>>>(0);
         }
@@ -521,7 +521,7 @@ namespace AutoCSer.Search
                 if (charResults.Count != 0)
                 {
                     charResultArray.PrepLength(charResults.Count);
-                    foreach (KeyValue<char, HashSet<T>> keys in charResults.KeyValues) charResultArray.Add(keys);
+                    foreach (KeyValue<uint, HashSet<T>> keys in charResults.KeyValues) charResultArray.Add(new KeyValue<char, HashSet<T>>((char)keys.Key, keys.Value));
                     if (charResultArray.Length > 1) charResultArray.Sort(charResultSortHandle);
                 }
                 results = charResultArray;

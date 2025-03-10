@@ -101,3 +101,118 @@ namespace AutoCSer.Algorithm
         }
     }
 }
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量，大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, Func<T, ulong> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(AutoCSer.Algorithm.ULongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.ULongSortIndex* sortIndex = (AutoCSer.Algorithm.ULongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = 0;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != count) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.ULongSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, count, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="count">排序数据数量</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
+        {
+            int index = 0, readIndex;
+            do
+            {
+                readIndex = sortIndex[index].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != count);
+        }
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组，数量大于 1</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置，数量大于 1</param>
+        /// <param name="getKey">排序键值获取器</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, Func<T, ulong> getKey)
+        {
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((endIndex - startIndex) * sizeof(AutoCSer.Algorithm.ULongSortIndex));
+            try
+            {
+                AutoCSer.Algorithm.ULongSortIndex* sortIndex = (AutoCSer.Algorithm.ULongSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
+                int index = startIndex;
+                (*nextSortIndex).Set(getKey(array[index]), index);
+                while (++index != endIndex) (*++nextSortIndex).Set(getKey(array[index]), index);
+                AutoCSer.Algorithm.ULongSortIndex.SortDesc(sortIndex, nextSortIndex);
+                QuickSortDesc(array, startIndex, endIndex, sortIndex);
+            }
+            finally { buffer.PushOnly(); }
+        }
+        /// <summary>
+        /// 索引排序以后调整数组数据
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="array">数组</param>
+        /// <param name="startIndex">排序起始位置</param>
+        /// <param name="endIndex">排序结束位置</param>
+        /// <param name="sortIndex">排序索引</param>
+        internal static void QuickSortDesc<T>(this T[] array, int startIndex, int endIndex, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
+        {
+            int index = startIndex, readIndex;
+            do
+            {
+                readIndex = sortIndex[index - startIndex].Index;
+                if (readIndex != index)
+                {
+                    T value = array[index];
+                    int writeIndex = index;
+                    do
+                    {
+                        sortIndex[writeIndex - startIndex].Index = writeIndex;
+                        array[writeIndex] = array[readIndex];
+                        writeIndex = readIndex;
+                        readIndex = sortIndex[readIndex - startIndex].Index;
+                    }
+                    while (readIndex != index);
+                    sortIndex[writeIndex - startIndex].Index = writeIndex;
+                    array[writeIndex] = value;
+                }
+            }
+            while (++index != endIndex);
+        }
+    }
+}

@@ -106,8 +106,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <returns>快照数据信息</returns>
         SnapshotResult<LeftArray<string>> ISnapshot<LeftArray<string>>.GetSnapshotResult(LeftArray<string>[] snapshotArray, object customObject)
         {
-            if (!isRemove) snapshotArray[0] = stringArray;
-            return new SnapshotResult<LeftArray<string>>(snapshotArray.Length);
+            if (!isRemove) return new SnapshotResult<LeftArray<string>>(snapshotArray, stringArray);
+            return new SnapshotResult<LeftArray<string>>(0);
         }
         /// <summary>
         /// 持久化之前重组快照数据

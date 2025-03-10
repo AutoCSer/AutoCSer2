@@ -22,5 +22,6 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("AutoCSer.DynamicAssembly")]
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.Search")]
+[assembly: InternalsVisibleTo("AutoCSer.CommandService.DeployTask")]
 
 [assembly: InternalsVisibleTo("AutoCSer.Custom")]//预留程序集名称，开发者可以自建项目暴露 AutoCSer 的 internal 访问权限

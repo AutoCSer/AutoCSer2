@@ -33,6 +33,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         public CommandServerCallQueue StreamPersistenceMemoryDatabaseCallQueue { get; private set; }
         /// <summary>
+        /// 判断节点是否已经被移除或者数据库服务是否已经释放资源
+        /// </summary>
+        public bool StreamPersistenceMemoryDatabaseNodeIsRemoved { get { return StreamPersistenceMemoryDatabaseNode.IsRemoved || StreamPersistenceMemoryDatabaseService.IsDisposed;  } }
+        /// <summary>
         /// 服务端节点上下文
         /// </summary>
         /// <param name="node">服务端节点</param>

@@ -156,6 +156,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return false;
         }
+        /// <summary>
+        /// 获取服务接口回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static CommandServerCallback<ResponseParameter>? GetCallback(MethodCallback<T> callback)
+#else
+        public static CommandServerCallback<ResponseParameter> GetCallback(MethodCallback<T> callback)
+#endif
+        {
+            return callback.callback;
+        }
 
         /// <summary>
         /// 创建方法调用回调包装对象委托类型
@@ -202,6 +216,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 无回调
         /// </summary>
-        internal static readonly MethodCallback<T> NullCallback = new MethodCallback<T>();
+        public static readonly MethodCallback<T> NullCallback = new MethodCallback<T>();
     }
 }

@@ -16,10 +16,6 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         Success,
         /// <summary>
-        /// 关键字不允许为 null
-        /// </summary>
-        NullKey,
-        /// <summary>
         /// 未找到关键字触发删除操作
         /// </summary>
         DeletedNotFoundKey,
@@ -27,6 +23,14 @@ namespace AutoCSer.CommandService.Search
         /// 不支持删除存在数据的关键字
         /// </summary>
         NotSupportDeleteKey,
+        /// <summary>
+        /// 关键字不允许为 null
+        /// </summary>
+        NullKey,
+        /// <summary>
+        /// 获取需要分词的文本数据失败
+        /// </summary>
+        GetTextFailed,
         /// <summary>
         /// 获取分词词语标识集合失败
         /// </summary>
@@ -43,5 +47,10 @@ namespace AutoCSer.CommandService.Search
         /// 获取文本分词结果失败
         /// </summary>
         GetBlockIndexResultFailed,
+
+        /// <summary>
+        /// 已回调
+        /// </summary>
+        Callbacked,
     }
 }

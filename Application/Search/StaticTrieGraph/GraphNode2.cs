@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Text;
 
 namespace AutoCSer.CommandService.Search.StaticTrieGraph
@@ -58,6 +59,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
                 GraphNode[] nodeArray = builder.NodeArray;
                 TreeNode[] nodes = node.Nodes;
                 builder.NodeIndex = NodeEndIndex = NodeStartIndex + nodeCount;
+                if (nodeCount > 7) nodes.QuickSort(nodeCount, TreeNode.GetCharacter);
                 do
                 {
                     nodeArray[NodeStartIndex + index].Set(builder, 3, ref nodes[index]);
@@ -75,6 +77,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             {
                 GraphNode[] nodeArray = builder.NodeArray;
                 Range link = builder.GetLinkRange(Character);
+                if (link.EndIndex != 0) linkType = LinkTypeEnum.Range;
                 for (int index = NodeStartIndex; index != NodeEndIndex; ++index)
                 {
                     if (nodeArray[index].BuildGraph(builder, link)) builder.BuildGraphIndexs.Add(index);
@@ -89,19 +92,54 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <returns></returns>
         internal int GetIndex(GraphNode[] nodeArray, char character)
         {
-            for (int index = NodeStartIndex; index != NodeEndIndex; ++index)
+            int startIndex = NodeStartIndex;
+            switch (NodeEndIndex - NodeStartIndex)
             {
-                if (nodeArray[index].Character == character)
-                {
-                    if (index == NodeStartIndex) return index;
-                    int newIndex = (index + NodeStartIndex) >> 1;
-                    GraphNode node = nodeArray[index];
-                    nodeArray[index] = nodeArray[newIndex];
-                    nodeArray[newIndex] = node;
-                    return newIndex;
-                }
+                case 0: return -1;
+                case 1: goto COUNT1;
+                case 2: goto COUNT2;
+                case 3: goto COUNT3;
+                case 4: goto COUNT4;
+                case 5: goto COUNT5;
+                case 6: goto COUNT6;
+                case 7:
+                    if (nodeArray[startIndex + 6].Character == character) return startIndex + 6;
+                    COUNT6:
+                    if (nodeArray[startIndex + 5].Character == character) return startIndex + 5;
+                    COUNT5:
+                    if (nodeArray[startIndex + 4].Character == character) return startIndex + 4;
+                    COUNT4:
+                    if (nodeArray[startIndex + 3].Character == character) return startIndex + 3;
+                    COUNT3:
+                    if (nodeArray[startIndex + 2].Character == character) return startIndex + 2;
+                    COUNT2:
+                    if (nodeArray[startIndex + 1].Character == character) return startIndex + 1;
+                    COUNT1:
+                    if (nodeArray[startIndex].Character == character) return startIndex;
+                    return -1;
+                default:
+                    int endIndex = NodeEndIndex, average;
+                    do
+                    {
+                        if (character > nodeArray[average = startIndex + ((endIndex - startIndex) >> 1)].Character) startIndex = average + 1;
+                        else endIndex = average;
+                    }
+                    while (startIndex != endIndex);
+                    return startIndex != NodeEndIndex && nodeArray[startIndex].Character == character ? startIndex : -1;
             }
-            return -1;
+            //for (int index = NodeStartIndex; index != NodeEndIndex; ++index)
+            //{
+            //    if (nodeArray[index].Character == character)
+            //    {
+            //        if (index == NodeStartIndex) return index;
+            //        int newIndex = (index + NodeStartIndex) >> 1;
+            //        GraphNode node = nodeArray[index];
+            //        nodeArray[index] = nodeArray[newIndex];
+            //        nodeArray[newIndex] = node;
+            //        return newIndex;
+            //    }
+            //}
+            //return -1;
         }
     }
 }

@@ -94,6 +94,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 根据关键字获取数据
         /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+#if NetStandard21
+        public byte[]?[] GetValueArray(KT[] keys)
+#else
+        public byte[][] GetValueArray(KT[] keys)
+#endif
+        {
+            return dictionary.GetValueArray(keys);
+        }
+        /// <summary>
+        /// 根据关键字获取数据
+        /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public ResponseParameter TryGetResponseParameter(KT key)
@@ -158,6 +171,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool Remove(KT key)
         {
             return key != null && dictionary.Remove(key);
+        }
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns>删除关键字数量</returns>
+        public int RemoveKeys(KT[] keys)
+        {
+            return dictionary.RemoveKeys(keys);
         }
         /// <summary>
         /// 删除关键字并返回被删除数据

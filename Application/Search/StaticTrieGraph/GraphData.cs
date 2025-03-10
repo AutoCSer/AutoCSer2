@@ -28,11 +28,18 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <summary>
         /// Trie 图词语最大编号（词语数量）
         /// </summary>
-        internal int WordIdentity;
+        internal int WordCount;
         /// <summary>
         /// 当前分配未知词语编号
         /// </summary>
         internal int CurrentIdentity;
+        /// <summary>
+        /// 判断是否可以新增未知词语
+        /// </summary>
+        internal bool IsCurrentIdentity
+        {
+            get { return CurrentIdentity != WordCount; }
+        }
         /// <summary>
         /// 一级节点最小文字
         /// </summary>
@@ -54,17 +61,17 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
                 ranges = builder.Ranges;
                 nodeArray2 = builder.NodeArray2;
                 nodeArray = builder.NodeArray;
-                WordIdentity = treeBuilder.CurrentIdentity;
+                WordCount = treeBuilder.CurrentIdentity;
             }
             else
             {
                 ranges = EmptyArray<Range>.Array;
                 nodeArray2 = EmptyArray<GraphNode2>.Array;
                 nodeArray = EmptyArray<GraphNode>.Array;
-                WordIdentity = 0;
+                WordCount = 0;
             }
             WordTypes = treeBuilder.WordTypes;
-            CurrentIdentity = WordIdentity + 1;
+            CurrentIdentity = -1;
             IsGraph = true;
         }
         /// <summary>
@@ -75,19 +82,55 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <returns></returns>
         private int getIndex2(Range range, char character)
         {
-            for (int index = range.StartIndex; index != range.EndIndex; ++index)
+            GraphNode2[] nodeArray = nodeArray2;
+            int startIndex = range.StartIndex;
+            switch (range.Length)
             {
-                if (nodeArray2[index].Character == character)
-                {
-                    if (index == range.StartIndex) return index;
-                    int newIndex = (index + range.StartIndex) >> 1;
-                    GraphNode2 node = nodeArray2[index];
-                    nodeArray2[index] = nodeArray2[newIndex];
-                    nodeArray2[newIndex] = node;
-                    return newIndex;
-                }
+                case 0: return -1;
+                case 1: goto COUNT1;
+                case 2: goto COUNT2;
+                case 3: goto COUNT3;
+                case 4: goto COUNT4;
+                case 5: goto COUNT5;
+                case 6: goto COUNT6;
+                case 7:
+                    if (nodeArray[startIndex + 6].Character == character) return startIndex + 6;
+                    COUNT6:
+                    if (nodeArray[startIndex + 5].Character == character) return startIndex + 5;
+                    COUNT5:
+                    if (nodeArray[startIndex + 4].Character == character) return startIndex + 4;
+                    COUNT4:
+                    if (nodeArray[startIndex + 3].Character == character) return startIndex + 3;
+                    COUNT3:
+                    if (nodeArray[startIndex + 2].Character == character) return startIndex + 2;
+                    COUNT2:
+                    if (nodeArray[startIndex + 1].Character == character) return startIndex + 1;
+                    COUNT1:
+                    if (nodeArray[startIndex].Character == character) return startIndex;
+                    return -1;
+                default:
+                    int endIndex = range.EndIndex, average;
+                    do
+                    {
+                        if (character > nodeArray[average = startIndex + ((endIndex - startIndex) >> 1)].Character) startIndex = average + 1;
+                        else endIndex = average;
+                    }
+                    while (startIndex != endIndex);
+                    return startIndex != range.EndIndex && nodeArray[startIndex].Character == character ? startIndex : -1;
             }
-            return -1;
+            //for (int index = range.StartIndex; index != range.EndIndex; ++index)
+            //{
+            //    if (nodeArray2[index].Character == character)
+            //    {
+            //        if (index == range.StartIndex) return index;
+            //        int newIndex = (index + range.StartIndex) >> 1;
+            //        GraphNode2 node = nodeArray2[index];
+            //        nodeArray2[index] = nodeArray2[newIndex];
+            //        nodeArray2[newIndex] = node;
+            //        return newIndex;
+            //    }
+            //}
+            //return -1;
         }
         /// <summary>
         /// 从左到右匹配

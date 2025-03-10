@@ -236,7 +236,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 int bit = map.GetBitByHashCode(hashCode);
                 if (map.GetBitValue(bit) == 0)
                 {
-                    if (isDispose) return new ResponseResult(CallStateEnum.Disposed);
+                    if (isDispose) return CallStateEnum.Disposed;
                     ResponseResult result = await node.SetBit(bit);
                     if (!result.IsSuccess) return result;
 
@@ -245,7 +245,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     Monitor.Exit(mapLock);
                 }
             }
-            return new ResponseResult(CallStateEnum.Success);
+            return CallStateEnum.Success;
         }
         /// <summary>
         /// 设置位图数据
@@ -299,7 +299,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (!mapResult.IsSuccess) return mapResult.Cast<bool>();
                 set(mapResult.Value);
             }
-            if (isDispose) return new ResponseResult<bool>(CallStateEnum.Disposed);
+            if (isDispose) return CallStateEnum.Disposed;
             foreach (uint hashCode in getHashCodes(value))
             {
                 if (map.GetBitValueByHashCode(hashCode) == 0) return false;

@@ -112,6 +112,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return key != null && dictionary.Remove(key);
         }
         /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns>删除关键字数量</returns>
+        public int RemoveKeys(KT[] keys)
+        {
+            return dictionary.RemoveKeys(keys);
+        }
+        /// <summary>
         /// 根据关键字删除节点
         /// </summary>
         /// <param name="key">关键字</param>
@@ -121,7 +130,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (key != null)
             {
                 var value = default(VT);
-                if (dictionary.Remove(ref key, out value)) return value;
+                if (dictionary.Remove(key, out value)) return value;
             }
             return default(ValueResult<VT>);
         }
@@ -142,8 +151,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public ValueResult<VT> TryGetValue(KT key)
         {
             var value = default(VT);
-            if (key != null && dictionary.TryGetValue(ref key, out value)) return value;
+            if (key != null && dictionary.TryGetValue(key, out value)) return value;
             return default(ValueResult<VT>);
+        }
+        /// <summary>
+        /// 根据关键字获取数据
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public VT[] GetValueArray(KT[] keys)
+        {
+            return dictionary.GetValueArray(keys);
         }
         /// <summary>
         /// 根据关键字获取一个匹配节点位置
@@ -161,7 +179,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点数量，失败返回 -1</returns>
         public int CountLess(KT key)
         {
-            return key != null ? dictionary.CountLess(ref key) : -1;
+            return key != null ? dictionary.CountLess(key) : -1;
         }
         /// <summary>
         /// 根据关键字比它大的节点数量
@@ -170,7 +188,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点数量，失败返回 -1</returns>
         public int CountThan(KT key)
         {
-            return key != null ? dictionary.CountThan(ref key) : -1;
+            return key != null ? dictionary.CountThan(key) : -1;
         }
         /// <summary>
         /// 根据节点位置获取数据

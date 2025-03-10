@@ -87,11 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private void checkTimeout()
         {
             double second = (int)(Identity.Timeout - AutoCSer.Threading.SecondTimer.UtcNow).TotalSeconds;
-            if (second > 0)
-            {
-                LockTimeout = new DistributedLockTimeout<T>(this, (long)second + 1);
-                LockTimeout.AppendTaskArray();
-            }
+            if (second > 0) LockTimeout = new DistributedLockTimeout<T>(this, (long)second + 1);
             else if (!next()) Node.Remove(this);
         }
         /// <summary>

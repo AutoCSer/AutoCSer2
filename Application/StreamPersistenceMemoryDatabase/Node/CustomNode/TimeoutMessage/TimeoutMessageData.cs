@@ -63,6 +63,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return !IsRunTask && !IsRemoved;
         }
         /// <summary>
+        /// 添加立即执行任务
+        /// </summary>
+        /// <param name="currentIdentity"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void AppendRun(long currentIdentity)
+        {
+            Identity = currentIdentity;
+            IsRunTask = true;
+        }
+        /// <summary>
         /// 判断是否需要启动任务
         /// </summary>
         /// <returns></returns>

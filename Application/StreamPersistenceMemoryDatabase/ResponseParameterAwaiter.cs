@@ -130,7 +130,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 CallStateEnum state = Command.ReturnValue.State;
                 if (state == CallStateEnum.Success) return new ResponseResult<T>(Value.ReturnValue);
-                return new ResponseResult<T>(state);
+                return state;
             }
             return new ResponseResult<T>(Command.ReturnType, Command.ErrorMessage);
         }

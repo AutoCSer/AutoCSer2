@@ -56,6 +56,8 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
+    <Compile Include="ConcurrencyQueue.cs" />
+    <Compile Include="ConcurrencyQueueTaskNode.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Node\ArrayNode.cs" />
     <Compile Include="Node\BitmapNode.cs" />
     <Compile Include="Node\BitmapNodeResponseAwaiter.cs" />
+    <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageCallback.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageRunTaskTypeEnum.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapClientFilterNode.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapFilterNode.cs" />
@@ -230,6 +233,9 @@
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessage.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageData.cs" />
     <Compile Include="Node\CustomNode\TimeoutMessage\TimeoutMessageNode.cs" />
+    <Compile Include="PageArray.cs" />
+    <Compile Include="PageParameter.cs" />
+    <Compile Include="PageResult.cs" />
     <Compile Include="RebuildResult.cs" />
     <Compile Include="Node\SearchTreeDictionaryNode.cs" />
     <Compile Include="Node\SearchTreeSetNode.cs" />

@@ -7,7 +7,7 @@ namespace AutoCSer.CodeGenerator.Template
     {
         #region PART CLASS
         /// <summary>
-        /// @CurrentType.XmlDocument 客户端节点接口
+        /// @CurrentType.CodeGeneratorXmlDocument 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(@CurrentType.GenericDefinitionFullName))]
         /*NOTE*/
@@ -16,13 +16,13 @@ namespace AutoCSer.CodeGenerator.Template
             #region LOOP Methods
             #region IF Method
             /// <summary>
-            /// @Method.XmlDocument
+            /// @Method.CodeGeneratorXmlDocument
             /// </summary>
             #region LOOP Method.Parameters
-            /// <param name="@ParameterName">@XmlDocument</param>
+            /// <param name="@ParameterName">@CodeGeneratorXmlDocument</param>
             #endregion LOOP Method.Parameters
             #region IF MethodIsReturn
-            /// <returns>@Method.ReturnXmlDocument</returns>
+            /// <returns>@Method.CodeGeneratorReturnXmlDocument</returns>
             #endregion IF MethodIsReturn
             @MethodReturnType.FullName @MethodName(/*PUSH:ReturnRequestParameterType*/@FullName returnValue/*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*//*PUSH:ReturnRequestParameterType*//*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:CallbackType*//*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*/@FullName callback/*PUSH:CallbackType*/);
             #endregion IF Method

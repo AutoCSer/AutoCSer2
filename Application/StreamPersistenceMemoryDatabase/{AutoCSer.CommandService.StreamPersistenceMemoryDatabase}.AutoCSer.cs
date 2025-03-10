@@ -263,6 +263,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="identity">任务标识</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter RunTask(long identity);
+            /// <summary>
+            /// 添加立即执行任务
+            /// </summary>
+            /// <param name="task"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter AppendRun(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage<T> task);
+            /// <summary>
+            /// 获取执行任务消息数据
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> callback);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -504,6 +514,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<byte[][]> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -576,6 +598,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<byte[]>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<byte[][]> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -729,6 +763,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<VT[]> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -818,6 +864,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<VT[]> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -858,6 +916,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="value"></param>
             /// <returns>是否存在关键字</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Remove(T value);
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1048,6 +1118,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<T[]> GetArray();
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1563,6 +1645,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="index">节点位置</param>
             /// <returns>数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValueByIndex(int index);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<VT[]> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1633,6 +1727,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="value">关键字</param>
             /// <returns>是否删除成功</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Remove(T value);
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2020,6 +2126,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<VT[]> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2144,6 +2262,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="value"></param>
             /// <returns>是否删除成功</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> Remove(T value);
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2222,6 +2352,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="identity">任务标识</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RunTask(long identity);
+            /// <summary>
+            /// 添加立即执行任务
+            /// </summary>
+            /// <param name="task"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendRun(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage<T> task);
+            /// <summary>
+            /// 获取执行任务消息数据
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> callback);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2457,6 +2597,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<VT[]>> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2546,6 +2698,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<VT[]>> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2586,6 +2750,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="value"></param>
             /// <returns>是否存在关键字</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2631,6 +2807,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T[]>> GetArray();
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3061,6 +3249,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="index">节点位置</param>
             /// <returns>数据</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValueByIndex(int index);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<VT[]>> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3131,6 +3331,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="value">关键字</param>
             /// <returns>是否删除成功</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3474,6 +3686,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key"></param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<VT>>> TryGetValue(KT key);
+            /// <summary>
+            /// 根据关键字获取数据
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<VT[]>> GetValueArray(KT[] keys);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="keys"></param>
+            /// <returns>删除关键字数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3598,6 +3822,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="value"></param>
             /// <returns>是否删除成功</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T value);
+            /// <summary>
+            /// 如果关键字不存在则添加数据
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>添加数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> AddValues(T[] values);
+            /// <summary>
+            /// 删除关键字
+            /// </summary>
+            /// <param name="values"></param>
+            /// <returns>删除数据数量</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3702,6 +3938,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessageData{T} value 数据
             /// </summary>
             SnapshotAdd = 9,
+            /// <summary>
+            /// [10] 添加立即执行任务
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{T} task 
+            /// </summary>
+            AppendRun = 10,
+            /// <summary>
+            /// [11] 添加立即执行任务 持久化前检查
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{T} task 
+            /// 返回值 bool 是否继续持久化操作
+            /// </summary>
+            AppendRunBeforePersistence = 11,
+            /// <summary>
+            /// [12] 添加立即执行任务
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{T} task 
+            /// </summary>
+            AppendRunLoadPersistence = 12,
+            /// <summary>
+            /// [13] 获取执行任务消息数据
+            /// 返回值 T 
+            /// </summary>
+            GetRunTask = 13,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3970,6 +4227,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{byte[]} 
             /// </summary>
             TryGetValue = 11,
+            /// <summary>
+            /// [12] 根据关键字获取数据
+            /// KT[] keys 
+            /// 返回值 byte[][] 
+            /// </summary>
+            GetValueArray = 12,
+            /// <summary>
+            /// [13] 删除关键字
+            /// KT[] keys 
+            /// 返回值 int 删除关键字数量
+            /// </summary>
+            RemoveKeys = 13,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4051,6 +4320,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{byte[]} 
             /// </summary>
             TryGetValue = 11,
+            /// <summary>
+            /// [12] 根据关键字获取数据
+            /// KT[] keys 
+            /// 返回值 byte[][] 
+            /// </summary>
+            GetValueArray = 12,
+            /// <summary>
+            /// [13] 删除关键字
+            /// KT[] keys 
+            /// 返回值 int 删除关键字数量
+            /// </summary>
+            RemoveKeys = 13,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4231,6 +4512,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             /// </summary>
             TryGetValue = 10,
+            /// <summary>
+            /// [11] 根据关键字获取数据
+            /// KT[] keys 
+            /// 返回值 VT[] 
+            /// </summary>
+            GetValueArray = 11,
+            /// <summary>
+            /// [12] 删除关键字
+            /// KT[] keys 
+            /// 返回值 int 删除关键字数量
+            /// </summary>
+            RemoveKeys = 12,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4338,6 +4631,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             /// </summary>
             TryGetValue = 9,
+            /// <summary>
+            /// [10] 根据关键字获取数据
+            /// KT[] keys 
+            /// 返回值 VT[] 
+            /// </summary>
+            GetValueArray = 10,
+            /// <summary>
+            /// [11] 删除关键字
+            /// KT[] keys 
+            /// 返回值 int 删除关键字数量
+            /// </summary>
+            RemoveKeys = 11,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4382,6 +4687,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否存在关键字
             /// </summary>
             Remove = 5,
+            /// <summary>
+            /// [6] 如果关键字不存在则添加数据
+            /// T[] values 
+            /// 返回值 int 添加数据数量
+            /// </summary>
+            AddValues = 6,
+            /// <summary>
+            /// [7] 删除关键字
+            /// T[] values 
+            /// 返回值 int 删除数据数量
+            /// </summary>
+            RemoveValues = 7,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4594,6 +4911,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 T[] 
             /// </summary>
             GetArray = 6,
+            /// <summary>
+            /// [7] 如果关键字不存在则添加数据
+            /// T[] values 
+            /// 返回值 int 添加数据数量
+            /// </summary>
+            AddValues = 7,
+            /// <summary>
+            /// [8] 删除关键字
+            /// T[] values 
+            /// 返回值 int 删除数据数量
+            /// </summary>
+            RemoveValues = 8,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -5190,6 +5519,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 数据
             /// </summary>
             TryGetValueByIndex = 21,
+            /// <summary>
+            /// [22] 根据关键字获取数据
+            /// KT[] keys 
+            /// 返回值 VT[] 
+            /// </summary>
+            GetValueArray = 22,
+            /// <summary>
+            /// [23] 删除关键字
+            /// KT[] keys 
+            /// 返回值 int 删除关键字数量
+            /// </summary>
+            RemoveKeys = 23,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -5264,6 +5605,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否删除成功
             /// </summary>
             Remove = 10,
+            /// <summary>
+            /// [11] 如果关键字不存在则添加数据
+            /// T[] values 
+            /// 返回值 int 添加数据数量
+            /// </summary>
+            AddValues = 11,
+            /// <summary>
+            /// [12] 删除关键字
+            /// T[] values 
+            /// 返回值 int 删除数据数量
+            /// </summary>
+            RemoveValues = 12,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -5679,6 +6032,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             /// </summary>
             TryGetValue = 8,
+            /// <summary>
+            /// [9] 根据关键字获取数据
+            /// KT[] keys 
+            /// 返回值 VT[] 
+            /// </summary>
+            GetValueArray = 9,
+            /// <summary>
+            /// [10] 删除关键字
+            /// KT[] keys 
+            /// 返回值 int 删除关键字数量
+            /// </summary>
+            RemoveKeys = 10,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -5816,6 +6181,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否删除成功
             /// </summary>
             Remove = 6,
+            /// <summary>
+            /// [7] 如果关键字不存在则添加数据
+            /// T[] values 
+            /// 返回值 int 添加数据数量
+            /// </summary>
+            AddValues = 7,
+            /// <summary>
+            /// [8] 删除关键字
+            /// T[] values 
+            /// 返回值 int 删除数据数量
+            /// </summary>
+            RemoveValues = 8,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

@@ -32,7 +32,7 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 缓存数据
         /// </summary>
-        private readonly FifoPriorityQueue<RandomKey<KT>, VT> cache;
+        private readonly ReusableDictionary<RandomKey<KT>, VT> cache;
         /// <summary>
         /// 缓存数据数量
         /// </summary>
@@ -67,7 +67,7 @@ namespace AutoCSer.ORM
             this.capacity = Math.Max(capacity, 1);
             this.getKey = getKey;
             this.getValue = getValue;
-            cache = new FifoPriorityQueue<RandomKey<KT>, VT>(this.capacity);
+            cache = new ReusableDictionary<RandomKey<KT>, VT>(this.capacity);
         }
         /// <summary>
         /// 先进先出队列缓存
@@ -112,8 +112,8 @@ namespace AutoCSer.ORM
             value = await getValue(key);
             if (value != null)
             {
-                cache.Set(randomKey, value);
-                if (cache.Count > capacity) cache.Pop();
+                cache.Set(randomKey, value, true);
+                if (cache.Count > capacity) cache.RemoveRoll();
                 return isClone ? (VT)DefaultConstructor.CallMemberwiseClone(value) : value;
             }
             return null;
@@ -130,8 +130,8 @@ namespace AutoCSer.ORM
                 cacheValue = DefaultConstructor<VT>.Constructor().notNull();
                 tableWriter.CopyTo(value, cacheValue);
             }
-            cache.Set(getKey(cacheValue), cacheValue);
-            if (cache.Count > capacity) cache.Pop();
+            cache.Set(getKey(cacheValue), cacheValue, true);
+            if (cache.Count > capacity) cache.RemoveRoll();
         }
         /// <summary>
         /// 更新数据之后的操作
@@ -141,7 +141,7 @@ namespace AutoCSer.ORM
         internal override void OnUpdated(T value, MemberMap<T> memberMap)
         {
             var cacheValue = default(VT);
-            if (cache.TryGetValue(getKey(value), out cacheValue)) tableWriter.CopyTo(value, cacheValue, memberMap);
+            if (cache.TryGetValue(getKey(value), out cacheValue, true)) tableWriter.CopyTo(value, cacheValue, memberMap);
         }
         /// <summary>
         /// 删除数据之后的操作

@@ -55,7 +55,7 @@ namespace AutoCSer.ORM.Excel
         /// <returns></returns>
         public override string ToString()
         {
-            using (CharStream charStream = new CharStream(UnmanagedPool.Default))
+            using (CharStream charStream = new CharStream(UnmanagedPool.Kilobyte))
             {
                 charStream.SimpleWrite("Provider=");
                 switch (Provider)

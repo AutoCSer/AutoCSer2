@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService
 {
     /// <summary>
+    /// Log stream persistence in memory database server configuration
     /// 日志流持久化内存数据库服务端配置
     /// </summary>
     public class StreamPersistenceMemoryDatabaseServiceConfig
@@ -105,6 +106,7 @@ namespace AutoCSer.CommandService
             return AutoCSer.Threading.SecondTimer.Now.ToString(".yyyyMMddHHmmss");
         }
         /// <summary>
+        /// Obtain the Utc time for deleting persistent files. By default, the maximum time indicates that the files are not deleted
         /// 获取删除历史持久化文件 Utc 时间，默认为时间最大值表示不删除
         /// </summary>
         /// <returns></returns>
@@ -113,15 +115,18 @@ namespace AutoCSer.CommandService
             return DateTime.MaxValue;
         }
         /// <summary>
+        /// The task of deleting persistent files is started. By default, files are not deleted
         /// 启动删除历史持久化文件任务，默认不删除文件
         /// </summary>
         /// <param name="service"></param>
         public virtual void RemoveHistoryFile(StreamPersistenceMemoryDatabaseService service) { }
         /// <summary>
+        /// Determine whether persistent files need to be rebuilt (the default value is more than 100MB and the size of the snapshot version is doubled). Determine the size of the reconstructed file based on actual requirements to avoid frequent reconstruction operations
         /// 判断持久化文件是否需要重建（默认为超过 100MB 并且相对上次重建的快照版本增加一倍大小以后触发），要根据实际需求确定重建文件大小避免频繁触发重建操作
         /// </summary>
         /// <param name="service"></param>
-        /// <returns>持久化文件是否需要重建</returns>
+        /// <returns>Whether the persistent file needs to be rebuilt
+        /// 持久化文件是否需要重建</returns>
         public virtual bool CheckRebuild(StreamPersistenceMemoryDatabaseService service)
         {
             long persistencePosition = service.GetPersistencePosition();

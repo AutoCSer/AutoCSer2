@@ -398,6 +398,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return state;
         }
         /// <summary>
+        /// 获取 IEquatable{T} 类型
+        /// </summary>
+        /// <param name="remoteType"></param>
+        /// <param name="type"></param>
+        /// <param name="remoteType2"></param>
+        /// <param name="type2"></param>
+        /// <returns></returns>
+#if NetStandard21
+        protected CallStateEnum getEquatableType2(ref AutoCSer.Reflection.RemoteType remoteType, ref Type? type, ref AutoCSer.Reflection.RemoteType remoteType2, ref Type? type2)
+#else
+        protected CallStateEnum getEquatableType2(ref AutoCSer.Reflection.RemoteType remoteType, ref Type type, ref AutoCSer.Reflection.RemoteType remoteType2, ref Type type2)
+#endif
+        {
+            CallStateEnum state = getEquatableType(ref remoteType, ref type);
+            if (state == CallStateEnum.Success) return getEquatableType(ref remoteType2, ref type2);
+            return state;
+        }
+        /// <summary>
         /// 创建字典节点 FragmentDictionaryNode{KT,VT}
         /// </summary>
         /// <param name="index">节点索引信息</param>

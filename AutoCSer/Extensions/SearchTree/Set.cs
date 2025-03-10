@@ -1,4 +1,5 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.Configuration;
+using AutoCSer.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -66,14 +67,14 @@ namespace AutoCSer.SearchTree
             /// <param name="key">关键字</param>
             /// <returns>匹配节点</returns>
 #if NetStandard21
-            internal Node? Get(ref T key)
+            internal Node? Get(T key)
 #else
-            internal Node Get(ref T key)
+            internal Node Get(T key)
 #endif
             {
                 int cmp = key.CompareTo(Key);
                 if (cmp == 0) return this;
-                return cmp < 0 ? (Left != null ? Left.Get(ref key) : null) : (Right != null ? Right.Get(ref key) : null);
+                return cmp < 0 ? (Left != null ? Left.Get(key) : null) : (Right != null ? Right.Get(key) : null);
             }
             /// <summary>
             /// 根据节点位置获取数据
@@ -107,7 +108,7 @@ namespace AutoCSer.SearchTree
             /// </summary>
             /// <param name="key"></param>
             /// <returns>是否添加了数据</returns>
-            internal bool Add(ref T key)
+            internal bool Add(T key)
             {
                 int cmp = key.CompareTo(Key);
                 if (cmp == 0) return false;
@@ -119,7 +120,7 @@ namespace AutoCSer.SearchTree
                         ++Count;
                         return true;
                     }
-                    if (Left.Add(ref key))
+                    if (Left.Add(key))
                     {
                         checkLeft();
                         return true;
@@ -132,7 +133,7 @@ namespace AutoCSer.SearchTree
                     ++Count;
                     return true;
                 }
-                if (Right.Add(ref key))
+                if (Right.Add(key))
                 {
                     checkRight();
                     return true;
@@ -158,22 +159,22 @@ namespace AutoCSer.SearchTree
                 ++Count;
                 if (Right != null)
                 {
-                    if ((Left.notNull().Count >> 1) > Right.Count && Left.notNull().isLeftAndRight)
+                    Node left = Left.notNull();
+                    if ((left.Count >> 1) > Right.Count && left.isLeftAndRight)
                     {
-                        if (Left.notNull().leftRightDifferenceCount <= 0)
+                        if (left.leftRightDifferenceCount <= 0)
                         {
-                            Node leftRight = Left.notNull().Right.notNull();
+                            Node leftRight = left.Right.notNull();
                             if (leftRight.isLeftAndRight)
                             {
-                                Left.notNull().Right = leftRight.rightToLeft(Right);
-                                Left.notNull().removeCount1(leftRight.Left.notNull());
+                                left.Right = leftRight.rightToLeft(Right);
+                                left.removeCount1(leftRight.Left.notNull());
                                 leftRight.changeKey(ref Key);
                                 Right = leftRight;
                             }
                         }
-                        else if (Left.notNull().Right != null)
+                        else if (left.Right != null)
                         {
-                            Node left = Left.notNull();
                             Left = left.rightToLeft(Right);
                             left.changeKey(ref Key);
                             Right = left;
@@ -194,22 +195,22 @@ namespace AutoCSer.SearchTree
                 ++Count;
                 if (Left != null)
                 {
-                    if ((Right.notNull().Count >> 1) > Left.Count && Right.notNull().isLeftAndRight)
+                    Node right = Right.notNull();
+                    if ((right.Count >> 1) > Left.Count && right.isLeftAndRight)
                     {
-                        if (Right.notNull().leftRightDifferenceCount >= 0)
+                        if (right.leftRightDifferenceCount >= 0)
                         {
-                            Node rightLeft = Right.notNull().Left.notNull();
+                            Node rightLeft = right.Left.notNull();
                             if (rightLeft.isLeftAndRight)
                             {
-                                Right.notNull().Left = rightLeft.leftToRight(Left);
-                                Right.notNull().removeCount1(rightLeft.Right.notNull());
+                                right.Left = rightLeft.leftToRight(Left);
+                                right.removeCount1(rightLeft.Right.notNull());
                                 rightLeft.changeKey(ref Key);
                                 Left = rightLeft;
                             }
                         }
-                        else if (Right.notNull().Left != null)
+                        else if (right.Left != null)
                         {
-                            Node right = Right.notNull();
                             Right = right.leftToRight(Left);
                             right.changeKey(ref Key);
                             Left = right;
@@ -229,9 +230,9 @@ namespace AutoCSer.SearchTree
             /// <param name="key">关键字</param>
             /// <returns>被删除节点</returns>
 #if NetStandard21
-            internal Node? Remove(ref T key)
+            internal Node? Remove(T key)
 #else
-            internal Node Remove(ref T key)
+            internal Node Remove(T key)
 #endif
             {
                 int cmp = key.CompareTo(Key);
@@ -240,7 +241,7 @@ namespace AutoCSer.SearchTree
                 {
                     if (Left != null)
                     {
-                        var node = Left.Remove(ref key);
+                        var node = Left.Remove(key);
                         if (node != null)
                         {
                             --Count;
@@ -251,7 +252,7 @@ namespace AutoCSer.SearchTree
                 }
                 else if (Right != null)
                 {
-                    var node = Right.Remove(ref key);
+                    var node = Right.Remove(key);
                     if (node != null)
                     {
                         --Count;
@@ -330,7 +331,7 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 数据集合
         /// </summary>
-        internal IEnumerable<T> Values
+        public IEnumerable<T> Values
         {
             get
             {
@@ -379,43 +380,23 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Add(T key)
         {
-            return Add(ref key);
-        }
-        /// <summary>
-        /// 添加数据
-        /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否添加了数据</returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public bool Add(ref T key)
-        {
             if (boot == null)
             {
                 boot = new Node(key);
                 return true;
             }
-            return boot.Add(ref key);
+            return boot.Add(key);
         }
         /// <summary>
         /// 根据关键字删除节点
         /// </summary>
         /// <param name="key">关键字</param>
         /// <returns>是否存在关键字</returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(T key)
-        {
-            return Remove(ref key);
-        }
-        /// <summary>
-        /// 根据关键字删除节点
-        /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否存在关键字</returns>
-        public bool Remove(ref T key)
         {
             if (boot != null)
             {
-                var node = boot.Remove(ref key);
+                var node = boot.Remove(key);
                 if (node != null)
                 {
                     if (node == boot) boot = node.Remove();
@@ -432,17 +413,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(T key)
         {
-            return boot != null && boot.Get(ref key) != null;
-        }
-        /// <summary>
-        /// 判断是否包含关键字
-        /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否包含关键字</returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public bool Contains(ref T key)
-        {
-            return boot != null && boot.Get(ref key) != null;
+            return boot != null && boot.Get(key) != null;
         }
         /// <summary>
         /// 根据关键字获取一个匹配节点位置
@@ -452,17 +423,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(T key)
         {
-            return boot != null ? boot.IndexOf(ref key) : -1;
-        }
-        /// <summary>
-        /// 根据关键字获取一个匹配节点位置
-        /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>一个匹配节点位置,失败返回-1</returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public int IndexOf(ref T key)
-        {
-            return boot != null ? boot.IndexOf(ref key) : -1;
+            return boot != null ? boot.IndexOf(key) : -1;
         }
         /// <summary>
         /// 根据关键字比它小的节点数量
@@ -470,9 +431,9 @@ namespace AutoCSer.SearchTree
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public int CountLess(ref T key)
+        public int CountLess(T key)
         {
-            return boot != null ? boot.CountLess(ref key) : 0;
+            return boot != null ? boot.CountLess(key) : 0;
         }
         /// <summary>
         /// 根据关键字比它大的节点数量
@@ -480,9 +441,9 @@ namespace AutoCSer.SearchTree
         /// <param name="key">关键字</param>
         /// <returns>节点数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public int CountThan(ref T key)
+        public int CountThan(T key)
         {
-            return boot != null ? boot.CountThan(ref key) : 0;
+            return boot != null ? boot.CountThan(key) : 0;
         }
         /// <summary>
         /// 根据节点位置获取数据
@@ -494,6 +455,75 @@ namespace AutoCSer.SearchTree
         {
             if (boot != null) return boot.At(index).Key;
             throw new IndexOutOfRangeException();
+        }
+
+        /// <summary>
+        /// 获取范围数据集合
+        /// </summary>
+        /// <param name="skipCount">跳过记录数</param>
+        /// <param name="getCount">获取记录数</param>
+        /// <returns>数据集合</returns>
+        internal T[] GetRange(int skipCount, int getCount)
+        {
+            if (boot != null && skipCount < boot.Count)
+            {
+                PageArray<T> array = new PageArray<T> { Array = new T[Math.Min(boot.Count - skipCount, getCount)], SkipCount = skipCount };
+                boot.GetArraySkip(ref array);
+                return array.Array;
+            }
+            return EmptyArray<T>.Array;
+        }
+        /// <summary>
+        /// 获取范围数据集合
+        /// </summary>
+        /// <param name="skipCount">跳过记录数</param>
+        /// <param name="getCount">获取记录数</param>
+        /// <param name="getValue">数据转换委托</param>
+        /// <returns>数据集合</returns>
+        internal AT[] GetRange<AT>(int skipCount, int getCount, Func<T, AT> getValue)
+        {
+            if (boot != null && skipCount < boot.Count)
+            {
+                PageArray<T, AT> array = new PageArray<T, AT> { Array = new AT[Math.Min(boot.Count - skipCount, getCount)], SkipCount = skipCount, GetValue = getValue };
+                boot.GetArraySkip(ref array);
+                return array.Array;
+            }
+            return EmptyArray<AT>.Array;
+        }
+        /// <summary>
+        /// 获取逆序范围数据集合
+        /// </summary>
+        /// <param name="skipCount">跳过记录数</param>
+        /// <param name="getCount">获取记录数</param>
+        /// <returns>数据集合</returns>
+        internal T[] GetRangeDesc(int skipCount, int getCount)
+        {
+            if (boot != null && skipCount < boot.Count)
+            {
+                getCount = Math.Min(boot.Count - skipCount, getCount);
+                PageArray<T> array = new PageArray<T> { Array = new T[getCount], SkipCount = boot.Count - (skipCount + getCount), Index = getCount };
+                boot.GetDescArraySkip(ref array);
+                return array.Array;
+            }
+            return EmptyArray<T>.Array;
+        }
+        /// <summary>
+        /// 获取逆序范围数据集合
+        /// </summary>
+        /// <param name="skipCount">跳过记录数</param>
+        /// <param name="getCount">获取记录数</param>
+        /// <param name="getValue">数据转换委托</param>
+        /// <returns>数据集合</returns>
+        internal AT[] GetRangeDesc<AT>(int skipCount, int getCount, Func<T, AT> getValue)
+        {
+            if (boot != null && skipCount < boot.Count)
+            {
+                getCount = Math.Min(boot.Count - skipCount, getCount);
+                PageArray<T, AT> array = new PageArray<T, AT> { Array = new AT[getCount], SkipCount = boot.Count - (skipCount + getCount), Index = getCount, GetValue = getValue };
+                boot.GetDescArraySkip(ref array);
+                return array.Array;
+            }
+            return EmptyArray<AT>.Array;
         }
     }
 }

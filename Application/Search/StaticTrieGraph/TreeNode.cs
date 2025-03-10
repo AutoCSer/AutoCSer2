@@ -126,5 +126,18 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             }
             return count;
         }
+        /// <summary>
+        /// 获取节点文字
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private static int getCharacter(TreeNode node)
+        {
+            return node.Character;
+        }
+        /// <summary>
+        /// 获取节点文字
+        /// </summary>
+        internal static readonly Func<TreeNode, int> GetCharacter = getCharacter;
     }
 }

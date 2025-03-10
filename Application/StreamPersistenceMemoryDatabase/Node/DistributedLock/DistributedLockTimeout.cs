@@ -22,6 +22,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal DistributedLockTimeout(DistributedLock<T> distributedLock, long timeoutSeconds) : base(SecondTimer.InternalTaskArray, timeoutSeconds)
         {
             DistributedLock = distributedLock;
+            AppendTaskArray();
         }
         /// <summary>
         /// 触发定时操作

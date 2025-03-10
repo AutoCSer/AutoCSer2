@@ -34,6 +34,18 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <returns></returns>
         AppendWordStateEnum AppendWord(string word);
         /// <summary>
+        /// 是否已经建图
+        /// </summary>
+        /// <returns></returns>
+        [ServerMethod(IsPersistence = false)]
+        bool IsGraph();
+        /// <summary>
+        /// 获取 Trie 图词语数量
+        /// </summary>
+        /// <returns>Trie 图词语数量</returns>
+        [ServerMethod(IsPersistence = false)]
+        int GetWordCount();
+        /// <summary>
         /// 建图
         /// </summary>
         /// <returns>Trie 图词语数量</returns>

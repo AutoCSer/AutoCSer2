@@ -58,19 +58,11 @@ namespace AutoCSer.CommandService.DeployTask
         /// 发布任务状态变更回调日志回调
         /// </summary>
         /// <param name="log"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Callback(DeployTaskLog log)
         {
             Data.Add(log);
-            int count = callbacks.Count;
-            if (count != 0)
-            {
-                do
-                {
-                    MethodKeepCallback<DeployTaskLog> callback = callbacks[--count];
-                    if (!callback.Callback(log)) callbacks.RemoveAtToEnd(count);
-                }
-                while (count != 0);
-            }
+            MethodKeepCallback<DeployTaskLog>.Callback(ref callbacks, log);
         }
         /// <summary>
         /// 启动任务

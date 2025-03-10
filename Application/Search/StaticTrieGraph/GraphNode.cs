@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.Search.StaticTrieGraph
@@ -68,6 +69,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
                 GraphNode[] nodeArray = builder.NodeArray;
                 TreeNode[] nodes = node.Nodes;
                 builder.NodeIndex = nodeEndIndex = nodeStartIndex + nodeCount;
+                if (nodeCount > 7) nodes.QuickSort(nodeCount, TreeNode.GetCharacter);
                 do
                 {
                     nodeArray[nodeStartIndex + index].Set(builder, nextLength, ref nodes[index]);
@@ -227,19 +229,54 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <returns></returns>
         internal int GetIndex(GraphNode[] nodeArray, char character)
         {
-            for (int index = nodeStartIndex; index != nodeEndIndex; ++index)
+            int startIndex = nodeStartIndex;
+            switch (nodeEndIndex - nodeStartIndex)
             {
-                if (nodeArray[index].Character == character)
-                {
-                    if (index == nodeStartIndex) return index;
-                    int newIndex = (index + nodeStartIndex) >> 1;
-                    GraphNode node = nodeArray[index];
-                    nodeArray[index] = nodeArray[newIndex];
-                    nodeArray[newIndex] = node;
-                    return newIndex;
-                }
+                case 0: return -1;
+                case 1: goto COUNT1;
+                case 2: goto COUNT2;
+                case 3: goto COUNT3;
+                case 4: goto COUNT4;
+                case 5: goto COUNT5;
+                case 6: goto COUNT6;
+                case 7:
+                    if (nodeArray[startIndex + 6].Character == character) return startIndex + 6;
+                    COUNT6:
+                    if (nodeArray[startIndex + 5].Character == character) return startIndex + 5;
+                    COUNT5:
+                    if (nodeArray[startIndex + 4].Character == character) return startIndex + 4;
+                    COUNT4:
+                    if (nodeArray[startIndex + 3].Character == character) return startIndex + 3;
+                    COUNT3:
+                    if (nodeArray[startIndex + 2].Character == character) return startIndex + 2;
+                    COUNT2:
+                    if (nodeArray[startIndex + 1].Character == character) return startIndex + 1;
+                    COUNT1:
+                    if (nodeArray[startIndex].Character == character) return startIndex;
+                    return -1;
+                default:
+                    int endIndex = nodeEndIndex, average;
+                    do
+                    {
+                        if (character > nodeArray[average = startIndex + ((endIndex - startIndex) >> 1)].Character) startIndex = average + 1;
+                        else endIndex = average;
+                    }
+                    while (startIndex != endIndex);
+                    return startIndex != nodeEndIndex && nodeArray[startIndex].Character == character ? startIndex : -1;
             }
-            return -1;
+            //for (int index = nodeStartIndex; index != nodeEndIndex; ++index)
+            //{
+            //    if (nodeArray[index].Character == character)
+            //    {
+            //        if (index == nodeStartIndex) return index;
+            //        int newIndex = (index + nodeStartIndex) >> 1;
+            //        GraphNode node = nodeArray[index];
+            //        nodeArray[index] = nodeArray[newIndex];
+            //        nodeArray[newIndex] = node;
+            //        return newIndex;
+            //    }
+            //}
+            //return -1;
         }
     }
 }

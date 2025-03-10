@@ -11,12 +11,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NetStandard21</DefineConstants>
     <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.xml</DocumentationFile>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>NetStandard21</DefineConstants>
     <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.xml</DocumentationFile>
-    <Optimize>False</Optimize>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>

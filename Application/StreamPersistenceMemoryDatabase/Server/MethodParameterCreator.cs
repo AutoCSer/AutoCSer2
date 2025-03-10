@@ -94,6 +94,34 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建调用方法与参数信息
         /// </summary>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private void createCallOutputMethodParameter(int methodIndex, CommandServerCallback<ResponseParameter>? callback)
+#else
+        private void createCallOutputMethodParameter(int methodIndex, CommandServerCallback<ResponseParameter> callback)
+#endif
+        {
+            pushPersistence(new CallOutputMethodParameter(node, methodIndex, callback));
+        }
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <param name="creator"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+#if NetStandard21
+        internal static void CreateCallOutputCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerCallback<ResponseParameter>? callback)
+#else
+        internal static void CreateCallOutputCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerCallback<ResponseParameter> callback)
+#endif
+        {
+            creator.createCallOutputMethodParameter(methodIndex, callback);
+        }
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
@@ -134,6 +162,38 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal static void CreateCallInputOutputMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
         {
             creator.createCallInputOutputMethodParameter(methodIndex, ref parameter);
+        }
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private void createCallInputOutputMethodParameter<T>(int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter>? callback) where T : struct
+#else
+        private void createCallInputOutputMethodParameter<T>(int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter> callback) where T : struct
+#endif
+        {
+            pushPersistence(new CallInputOutputMethodParameter<T>(node, methodIndex, ref parameter, callback));
+        }
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="creator"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+#if NetStandard21
+        internal static void CreateCallInputOutputCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerCallback<ResponseParameter>? callback) where T : struct
+#else
+        internal static void CreateCallInputOutputCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerCallback<ResponseParameter> callback) where T : struct
+#endif
+        {
+            creator.createCallInputOutputMethodParameter(methodIndex, ref parameter, callback);
         }
         /// <summary>
         /// 创建调用方法与参数信息

@@ -306,6 +306,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return methodParameter.CreateMethodKeepCallback<T>();
         }
         /// <summary>
+        /// 回调并移除失败回调对象
+        /// </summary>
+        /// <param name="callbacks"></param>
+        /// <param name="value"></param>
+        internal static void Callback(ref LeftArray<MethodKeepCallback<T>> callbacks, T value)
+        {
+            int count = callbacks.Length;
+            if (count != 0)
+            {
+                MethodKeepCallback<T>[] callbackArray = callbacks.Array;
+                do
+                {
+                    if (!callbackArray[--count].Callback(value)) callbacks.RemoveToEnd(count);
+                }
+                while (count != 0);
+            }
+        }
+        /// <summary>
         /// 无回调
         /// </summary>
         internal static readonly MethodKeepCallback<T> NullCallback = new MethodKeepCallback<T>();

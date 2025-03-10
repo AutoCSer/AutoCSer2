@@ -38,6 +38,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="node"></param>
         /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+#if NetStandard21
+        internal CallOutputMethodParameter(ServerNode node, int methodIndex, CommandServerCallback<ResponseParameter>? callback) : base(node)
+#else
+        internal CallOutputMethodParameter(ServerNode node, int methodIndex, CommandServerCallback<ResponseParameter> callback) : base(node)
+#endif
+        {
+            this.method = (CallOutputMethod)node.NodeCreator.Methods[methodIndex].notNull();
+            this.callback = callback ?? EmptyCommandServerCallback<ResponseParameter>.Default;
+        }
+        /// <summary>
+        /// 调用方法与参数信息
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="methodIndex"></param>
         internal CallOutputMethodParameter(ServerNode node, int methodIndex) : base(node)
         {
             this.method = (CallOutputMethod)node.NodeCreator.Methods[methodIndex].notNull();

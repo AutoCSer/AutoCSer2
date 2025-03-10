@@ -200,7 +200,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (string.IsNullOrEmpty(serverName))
             {
-                Callback(ref logCallbacks);
+#if NetStandard21
+                MethodKeepCallback<ServerRegistryLog?>.Callback(ref logCallbacks, null);
+#else
+                MethodKeepCallback<ServerRegistryLog>.Callback(ref logCallbacks, null);
+#endif
                 foreach (ServerRegistryLogAssembler logAssembler in logAssemblers.Values)
                 {
                     if (!logAssembler.Callback(callback)) return;
@@ -227,46 +231,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void Callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog>> callbacks, ServerRegistryLog log, bool isPersistenceLostContact = true)
 #endif
         {
-            callback(ref callbacks, log);
-            callback(ref logCallbacks, log);
+#if NetStandard21
+            MethodKeepCallback<ServerRegistryLog?>.Callback(ref callbacks, log);
+            MethodKeepCallback<ServerRegistryLog?>.Callback(ref logCallbacks, log);
+#else
+            MethodKeepCallback<ServerRegistryLog>.Callback(ref callbacks, log);
+            MethodKeepCallback<ServerRegistryLog>.Callback(ref logCallbacks, log);
+#endif
             if (log.OperationType == ServerRegistryOperationTypeEnum.LostContact && isPersistenceLostContact && StreamPersistenceMemoryDatabaseService.IsLoaded)
             {
                 StreamPersistenceMemoryDatabaseMethodParameterCreator.LostContact(log.SessionID, log.ServerName);
-            }
-        }
-        /// <summary>
-        /// 服务注册日志回调在线检查
-        /// </summary>
-        /// <param name="callbacks"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        internal static void Callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog?>> callbacks)
-#else
-        internal static void Callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog>> callbacks)
-#endif
-        {
-            callback(ref callbacks, null);
-        }
-        /// <summary>
-        /// 服务注册日志回调
-        /// </summary>
-        /// <param name="callbacks"></param>
-        /// <param name="log"></param>
-#if NetStandard21
-        private static void callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog?>> callbacks, ServerRegistryLog? log)
-#else
-        private static void callback(ref LeftArray<MethodKeepCallback<ServerRegistryLog>> callbacks, ServerRegistryLog log)
-#endif
-        {
-            int count = callbacks.Length;
-            if (count != 0)
-            {
-                var callbackArray = callbacks.Array;
-                do
-                {
-                    if (!callbackArray[--count].Callback(log)) callbacks.RemoveAtToEnd(count);
-                }
-                while (count != 0);
             }
         }
         /// <summary>

@@ -64,6 +64,13 @@
             <param name="size"></param>
             <param name="identity"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.BlockIndex.Equals(AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="blockIndex"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.BlockIndex.SetSize(System.SByte)">
             <summary>
             设置字节数

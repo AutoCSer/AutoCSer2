@@ -55,12 +55,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// </summary>
         private int failedCount;
         /// <summary>
+        /// 获取执行任务消息数据回调集合
+        /// </summary>
+        private LeftArray<MethodKeepCallback<T>> callbacks;
+        /// <summary>
         /// 超时任务消息节点（用于分布式事务数据一致性检查）
         /// </summary>
-        /// <param name="timeoutSeconds"></param>
+        /// <param name="timeoutSeconds">触发任务执行超时秒数</param>
         protected TimeoutMessageNode(int timeoutSeconds)
         {
             timeoutTicks = TimeSpan.TicksPerSecond * Math.Max(timeoutSeconds + 1, 2);
+            callbacks.SetEmpty();
             tasks = DictionaryCreator.CreateLong<TimeoutMessage<T>>();
             checkTimer = new CheckTimer<T>();
         }
@@ -196,6 +201,39 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return currentIdentity++;
         }
         /// <summary>
+        /// 添加立即执行任务 持久化前检查
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns>是否继续持久化操作</returns>
+        public bool AppendRunBeforePersistence(TimeoutMessage<T> task)
+        {
+            if (task != null)
+            {
+                task.Data.Timeout = AutoCSer.Threading.SecondTimer.UtcNow;
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 添加立即执行任务
+        /// </summary>
+        /// <param name="task"></param>
+        public void AppendRunLoadPersistence(TimeoutMessage<T> task)
+        {
+            tasks.Add(currentIdentity, task);
+            task.Data.AppendRun(currentIdentity++);
+        }
+        /// <summary>
+        /// 添加立即执行任务
+        /// </summary>
+        /// <param name="task"></param>
+        public void AppendRun(TimeoutMessage<T> task)
+        {
+            tasks.Add(currentIdentity, task);
+            task.Data.AppendRun(currentIdentity++);
+            task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).NotWait();
+        }
+        /// <summary>
         /// 触发任务执行
         /// </summary>
         /// <param name="identity">任务标识</param>
@@ -262,6 +300,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             {
                 if (task.Data.IsFailed) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.RetryFailed).NotWait();
             }
+        }
+        /// <summary>
+        /// 获取执行任务消息数据
+        /// </summary>
+        /// <param name="callback">获取执行任务消息数据回调</param>
+        public void GetRunTask(MethodKeepCallback<T> callback)
+        {
+            callbacks.Add(callback);
+        }
+        /// <summary>
+        /// 获取执行任务消息数据回调
+        /// </summary>
+        /// <param name="data">执行任务消息数据</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        protected void callback(T data)
+        {
+            StreamPersistenceMemoryDatabaseCallQueue.AddOnly(new TimeoutMessageCallback<T>(this, data));
+        }
+        /// <summary>
+        /// 获取执行任务消息数据回调
+        /// </summary>
+        /// <param name="data"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void Callback(T data)
+        {
+            MethodKeepCallback<T>.Callback(ref callbacks, data);
         }
         /// <summary>
         /// 消息超时检查

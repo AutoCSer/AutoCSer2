@@ -48,7 +48,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             node.Renew(nodeIndex).NotWait();
                         }
-                        finally { callback(new ResponseResult(result.Value)); }
+                        finally { callback(result.Value); }
                         return;
                     case CallStateEnum.NodeIndexOutOfRange:
                     case CallStateEnum.NodeIdentityNotMatch:
@@ -56,10 +56,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             node.Reindex(nodeIndex).NotWait();
                         }
-                        finally { callback(new ResponseResult(result.Value)); }
+                        finally { callback(result.Value); }
                         return;
                 }
-                callback(new ResponseResult(result.Value));
+                callback(result.Value);
             }
             else callback(new ResponseResult(result.ReturnType, result.ErrorMessage));
         }

@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 接口实时调用监视服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(InterfaceRealTimeCallMonitorServiceMethodEnum), MethodIndexEnumTypeCodeGeneratorPath = "", IsAutoMethodIndex = false)]
     public interface IInterfaceRealTimeCallMonitorService
     {
         /// <summary>

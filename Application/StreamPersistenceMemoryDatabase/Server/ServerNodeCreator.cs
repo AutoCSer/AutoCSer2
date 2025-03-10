@@ -263,7 +263,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal async Task Repair<T>(byte[] rawAssembly, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.MethodIndexOutOfRange;
-            bool isCallback = true;
             try
             {
                 if ((uint)methodAttribute.MethodIndex < (uint)Methods.Length)
@@ -278,7 +277,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             if (state == CallStateEnum.Success)
                             {
                                 Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), null, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
-                                isCallback = false;
+                                state = CallStateEnum.Callbacked;
                             }
                         }
                         else state = CallStateEnum.Success;
@@ -288,7 +287,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             finally
             {
-                if (isCallback) callback.Callback(state);
+                if (state != CallStateEnum.Callbacked) callback.Callback(state);
             }
         }
         /// <summary>
@@ -333,7 +332,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal async Task Bind<T>(byte[] rawAssembly, MethodInfo methodInfo, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.MethodIndexOutOfRange;
-            bool isCallback = true;
             try
             {
                 if ((uint)methodAttribute.MethodIndex >= (uint)Methods.Length)
@@ -357,7 +355,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (nodeMethod.CallType != CallTypeEnum.Unknown)
                     {
                         Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
-                        isCallback = false;
+                        state = CallStateEnum.Callbacked;
                     }
                     else
                     {
@@ -370,7 +368,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (nodeMethod.RepairNodeMethod != methodInfo)
                     {
                         Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
-                        isCallback = false;
+                        state = CallStateEnum.Callbacked;
                     }
                     else state = CallStateEnum.Success;
                 }
@@ -378,7 +376,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             finally
             {
-                if (isCallback) callback.Callback(state);
+                if (state != CallStateEnum.Callbacked) callback.Callback(state);
             }
         }
         /// <summary>
@@ -694,6 +692,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建调用方法与参数信息
         /// </summary>
+#if NetStandard21
+        internal static readonly Action<MethodParameterCreator, int, CommandServerCallback<ResponseParameter>?> MethodParameterCreatorCreateCallOutputCallbackMethodParameter = MethodParameterCreator.CreateCallOutputCallbackMethodParameter;
+#else
+        internal static readonly Action<MethodParameterCreator, int, CommandServerCallback<ResponseParameter>> MethodParameterCreatorCreateCallOutputCallbackMethodParameter = MethodParameterCreator.CreateCallOutputCallbackMethodParameter;
+#endif
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
         internal static readonly Action<MethodParameterCreator, int> MethodParameterCreatorCreateKeepCallbackMethodParameter = MethodParameterCreator.CreateKeepCallbackMethodParameter;
     }
     /// <summary>
@@ -861,8 +867,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateCallInputMethodParameterDelegate.Method);
                                     break;
                                 case CallTypeEnum.CallInputOutput:
-                                case CallTypeEnum.InputCallback:
                                     methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateCallInputOutputMethodParameterDelegate.Method);
+                                    break;
+                                case CallTypeEnum.InputCallback:
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 1);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.ReturnValueType).MethodCallbackGetCallbackDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateCallInputOutputCallbackMethodParameterDelegate.Method);
                                     break;
                                 case CallTypeEnum.SendOnly:
                                     methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateSendOnlyMethodParameterDelegate.Method);
@@ -876,8 +886,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(ServerNodeCreator.MethodParameterCreatorCreateCallMethodParameter.Method);
                                     break;
                                 case CallTypeEnum.CallOutput:
-                                case CallTypeEnum.Callback:
                                     methodGenerator.call(ServerNodeCreator.MethodParameterCreatorCreateCallOutputMethodParameter.Method);
+                                    break;
+                                case CallTypeEnum.Callback:
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 1);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.ReturnValueType).MethodCallbackGetCallbackDelegate.Method);
+                                    methodGenerator.call(ServerNodeCreator.MethodParameterCreatorCreateCallOutputCallbackMethodParameter.Method);
                                     break;
                                 case CallTypeEnum.KeepCallback:
                                 case CallTypeEnum.Enumerable:

@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 数据库备份服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface]
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(DatabaseBackupServiceMethodEnum), MethodIndexEnumTypeCodeGeneratorPath = "", IsAutoMethodIndex = false)]
     public interface IDatabaseBackupService
     {
         /// <summary>

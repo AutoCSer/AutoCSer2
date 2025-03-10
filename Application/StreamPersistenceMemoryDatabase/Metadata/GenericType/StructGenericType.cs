@@ -61,6 +61,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <summary>
         /// 创建调用方法与参数信息
         /// </summary>
+        internal abstract Delegate MethodParameterCreatorCreateCallInputOutputCallbackMethodParameterDelegate { get; }
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
         internal abstract Delegate MethodParameterCreatorCreateSendOnlyMethodParameterDelegate { get; }
         /// <summary>
         /// 创建调用方法与参数信息
@@ -172,6 +176,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 创建调用方法与参数信息
         /// </summary>
         internal override Delegate MethodParameterCreatorCreateCallInputOutputMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T>)MethodParameterCreator.CreateCallInputOutputMethodParameter<T>; } }
+        /// <summary>
+        /// 创建调用方法与参数信息
+        /// </summary>
+#if NetStandard21
+        internal override Delegate MethodParameterCreatorCreateCallInputOutputCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T, CommandServerCallback<ResponseParameter>?>)MethodParameterCreator.CreateCallInputOutputCallbackMethodParameter<T>; } }
+#else
+        internal override Delegate MethodParameterCreatorCreateCallInputOutputCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T, CommandServerCallback<ResponseParameter>>)MethodParameterCreator.CreateCallInputOutputCallbackMethodParameter<T>; } }
+#endif
         /// <summary>
         /// 创建调用方法与参数信息
         /// </summary>

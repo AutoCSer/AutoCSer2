@@ -5,16 +5,19 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Document.MemoryDatabaseNode.Client
 {
     /// <summary>
+    /// Command client socket event
     /// 命令客户端套接字事件
     /// </summary>
     internal sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEventTask<CommandClientSocketEvent>, AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClientSocketEvent
     {
         /// <summary>
+        /// Log stream persistence memory database client interface
         /// 日志流持久化内存数据库客户端接口
         /// </summary>
         [AllowNull]
         public AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient StreamPersistenceMemoryDatabaseClient { get; private set; }
         /// <summary>
+        /// Client controller creator parameter set
         /// 客户端控制器创建器参数集合
         /// </summary>
         public override IEnumerable<AutoCSer.Net.CommandClientControllerCreatorParameter> ControllerCreatorParameters
@@ -25,12 +28,15 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
             }
         }
         /// <summary>
+        /// Command client socket event
         /// 命令客户端套接字事件
         /// </summary>
-        /// <param name="client">命令客户端</param>
+        /// <param name="client">Command client
+        /// 命令客户端</param>
         public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
 
         /// <summary>
+        /// Log stream persistence memory database client single example
         /// 日志流持久化内存数据库客户端单例
         /// </summary>
         public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig

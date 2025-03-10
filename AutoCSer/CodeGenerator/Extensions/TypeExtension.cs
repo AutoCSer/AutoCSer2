@@ -33,7 +33,7 @@ namespace AutoCSer.CodeGenerator.Extensions
             if (type.IsArray)
             {
                 TypeNameBuilder typeNameBuilder = new TypeNameBuilder();
-                using (typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Tiny))
+                using (typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Default))
                 {
                     typeNameBuilder.Array(type, EmptyArray<Type>.Array, false);
                     return typeNameBuilder.NameStream.ToString();
@@ -42,7 +42,7 @@ namespace AutoCSer.CodeGenerator.Extensions
             if (type.IsGenericType)
             {
                 TypeNameBuilder typeNameBuilder = new TypeNameBuilder();
-                using (typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Tiny))
+                using (typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Default))
                 {
                     typeNameBuilder.GenericName(type);
                     return typeNameBuilder.NameStream.ToString();
@@ -77,7 +77,7 @@ namespace AutoCSer.CodeGenerator.Extensions
         {
             if (type == null) return null;
             TypeNameBuilder typeNameBuilder = new TypeNameBuilder();
-            using (CharStream nameStream = typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Tiny))
+            using (CharStream nameStream = typeNameBuilder.NameStream = new CharStream(UnmanagedPool.Default))
             {
                 if (type.IsNested)
                 {
