@@ -93,15 +93,7 @@ namespace AutoCSer.CommandService
                             if (!task.IsCompleted) loadedTasks.Add(task);
                         }
                     }
-                    count = loadedTasks.Count;
-                    if (count != 0)
-                    {
-                        foreach (Task task in loadedTasks.Array)
-                        {
-                            task.Wait();
-                            if (--count == 0) break;
-                        }
-                    }
+                    if (loadedTasks.Count != 0) load(loadedTasks).Wait();
                 }
                 else throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetNotFoundExceptionPositionFile(PersistenceCallbackExceptionPositionFileInfo.FullName));
             }
@@ -129,6 +121,20 @@ namespace AutoCSer.CommandService
             AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
             RepairNodeMethodLoaders = NullRepairNodeMethodLoaders;
             Config.RemoveHistoryFile(this);
+        }
+        /// <summary>
+        /// 等待加载数据
+        /// </summary>
+        /// <param name="tasks"></param>
+        /// <returns></returns>
+        private async Task load(LeftArray<Task> tasks)
+        {
+            int count = tasks.Count;
+            foreach (Task task in tasks.Array)
+            {
+                await task;
+                if (--count == 0) return;
+            }
         }
         /// <summary>
         /// 释放资源
@@ -277,7 +283,7 @@ namespace AutoCSer.CommandService
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        internal protected NodeIndex GetNodeIndex(string key, NodeInfo nodeInfo, bool isCreate)
+        internal NodeIndex GetNodeIndex(string key, NodeInfo nodeInfo, bool isCreate)
         {
             if (key != null)
             {
@@ -285,13 +291,53 @@ namespace AutoCSer.CommandService
                 if (nodeDictionary.TryGetValue(key, out node)) return check(node, ref nodeInfo);
                 if (isCreate)
                 {
-                    if (!createKeys.Add(key)) return new NodeIndex(CallStateEnum.NodeCreating);
-                    int index = GetFreeIndex();
-                    return new NodeIndex(index, Nodes[index].GetFreeIdentity());
+                    var creatingNodeInfo = default(CreatingNodeInfo);
+                    if (!CreateNodes.TryGetValue(key, out creatingNodeInfo))
+                    {
+                        int index = GetFreeIndex();
+                        CreateNodes.Add(key, new CreatingNodeInfo(index, nodeInfo));
+                        return new NodeIndex(index, Nodes[index].GetFreeIdentity());
+                    }
+                    if (creatingNodeInfo.Check(ref nodeInfo)) return new NodeIndex(creatingNodeInfo.Index, Nodes[creatingNodeInfo.Index].Identity);
+                    return new NodeIndex(CallStateEnum.NodeTypeNotMatch);
                 }
                 return new NodeIndex(CallStateEnum.NotFoundNodeKey);
             }
             return new NodeIndex(CallStateEnum.NullKey);
+        }
+        /// <summary>
+        /// 获取节点标识
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
+        /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
+        internal ValueResult<NodeIndex> GetNodeIndexBeforePersistence(string key, NodeInfo nodeInfo, bool isCreate)
+        {
+            if (key != null)
+            {
+                var node = default(ServerNode);
+                if (nodeDictionary.TryGetValue(key, out node)) return check(node, ref nodeInfo);
+                if (isCreate)
+                {
+                    var creatingNodeInfo = default(CreatingNodeInfo);
+                    if (!CreateNodes.TryGetValue(key, out creatingNodeInfo)) return default(ValueResult<NodeIndex>);
+                    if (creatingNodeInfo.Check(ref nodeInfo)) return new NodeIndex(creatingNodeInfo.Index, Nodes[creatingNodeInfo.Index].Identity);
+                    return new NodeIndex(CallStateEnum.NodeTypeNotMatch);
+                }
+                return new NodeIndex(CallStateEnum.NotFoundNodeKey);
+            }
+            return new NodeIndex(CallStateEnum.NullKey);
+        }
+        /// <summary>
+        /// 创建节点标识
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal NodeIndex CreateNodeIndex()
+        {
+            int index = GetFreeIndex();
+            return new NodeIndex(index, Nodes[index].GetCreateIdentity());
         }
         /// <summary>
         /// 获取节点标识
@@ -349,7 +395,8 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="index"></param>
         /// <param name="key"></param>
-        internal void LoadCreateNode(NodeIndex index, string key)
+        /// <param name="nodeInfo"></param>
+        internal void LoadCreateNode(NodeIndex index, string key, ref NodeInfo nodeInfo)
         {
             if (index.Index >= Nodes.Length) Nodes = AutoCSer.Common.GetCopyArray(Nodes, Math.Max(Nodes.Length << 1, index.Index + 1));
             while (NodeIndex < index.Index) freeIndexs.Add(NodeIndex++);
@@ -359,7 +406,7 @@ namespace AutoCSer.CommandService
                 int removeIndex = freeIndexs.IndexOf(index.Index);
                 if (removeIndex >= 0) freeIndexs.RemoveToEnd(removeIndex);
             }
-            if (Nodes[index.Index].SetFreeIdentity(index.Identity)) createKeys.Add(key);
+            if (Nodes[index.Index].SetFreeIdentity(index.Identity)) CreateNodes.Add(key, new CreatingNodeInfo(index.Index, nodeInfo));
         }
         ///// <summary>
         ///// 删除节点持久化参数检查

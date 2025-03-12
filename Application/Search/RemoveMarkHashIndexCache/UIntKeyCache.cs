@@ -83,6 +83,32 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             if (!isDispose) getChangeKeys().NotWait();
         }
         /// <summary>
+        /// 获取更新关键字集合
+        /// </summary>
+        /// <param name="result"></param>
+        protected void getChangeKeys(LocalResult<uint> result)
+        {
+            if (result.IsSuccess)
+            {
+                getChangeKeys(result.Value);
+                return;
+            }
+            if (!isDispose) getChangeKeys().NotWait();
+        }
+        /// <summary>
+        /// 获取更新关键字集合
+        /// </summary>
+        /// <param name="result"></param>
+        protected void getChangeKeys(LocalResult<int> result)
+        {
+            if (result.IsSuccess)
+            {
+                getChangeKeys((uint)result.Value);
+                return;
+            }
+            if (!isDispose) getChangeKeys().NotWait();
+        }
+        /// <summary>
         /// 淘汰缓存数据
         /// </summary>
         protected override void remove()
@@ -195,6 +221,21 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             if (!trieGraphNode.IsSuccess) return trieGraphNode.Cast<IIndexCondition<VT>>();
             ResponseResult<int[]> wordIdentitysResult = await trieGraphNode.Value.notNull().GetWordSegmentIdentity(text);
             if (!wordIdentitysResult.IsSuccess) return wordIdentitysResult.Cast<IIndexCondition<VT>>();
+            return await GetCondition(wordIdentitysResult.Value.notNull(), indexMergeType);
+        }
+        /// <summary>
+        /// 获取文本搜索索引条件
+        /// </summary>
+        /// <param name="trieGraphNodeCache">字符串 Trie 图客户端节点接口</param>
+        /// <param name="text">搜索文本</param>
+        /// <param name="indexMergeType">索引合并操作类型</param>
+        /// <returns>索引条件</returns>
+        public async Task<ResponseResult<IIndexCondition<VT>>> GetCondition(StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStaticTrieGraphNodeLocalClientNode> trieGraphNodeCache, string text, IndexMergeTypeEnum indexMergeType = IndexMergeTypeEnum.IntersectionNotEmpty)
+        {
+            LocalResult<IStaticTrieGraphNodeLocalClientNode> trieGraphNode = await trieGraphNodeCache.GetNode();
+            if (!trieGraphNode.IsSuccess) return trieGraphNode.CallState;
+            LocalResult<int[]> wordIdentitysResult = await trieGraphNode.Value.notNull().GetWordSegmentIdentity(text);
+            if (!wordIdentitysResult.IsSuccess) return wordIdentitysResult.CallState;
             return await GetCondition(wordIdentitysResult.Value.notNull(), indexMergeType);
         }
         /// <summary>

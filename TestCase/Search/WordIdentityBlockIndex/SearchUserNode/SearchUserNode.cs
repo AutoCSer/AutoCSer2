@@ -35,10 +35,6 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// </summary>
         private readonly System.Threading.SemaphoreSlim queueLock;
         /// <summary>
-        /// 初始化加载数据获取非索引条件查询数据节点单例
-        /// </summary>
-        protected override StreamPersistenceMemoryDatabaseClientNodeCache<ISearchUserNodeClientNode> loadClientNode { get { return CommandClientSocketEvent.SearchUserNodeCache; } }
-        /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
         protected override int snapshotCapacity { get { return users.Count; } }
@@ -49,7 +45,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// <summary>
         /// 用户搜索非索引条件数据节点
         /// </summary>
-        internal SearchUserNode()
+        internal SearchUserNode() : base(CommandClientSocketEvent.SearchUserNodeCache)
         {
             ConcurrencyQueue = new ConcurrencyQueue(AutoCSer.Common.ProcessorCount);
             users = new SearchTree.Dictionary<int, SearchUser>();
@@ -74,18 +70,19 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// 获取初始化加载所有关键字数据命令
         /// </summary>
         /// <returns></returns>
-        protected override EnumeratorCommand<int> getLoadCommand()
+        protected override EnumeratorCommand<SearchUser> getLoadCommand()
         {
-            return DataSourceCommandClientSocketEvent.CommandClient.SocketEvent.UserClient.GetAllUserId();
+            return DataSourceCommandClientSocketEvent.CommandClient.SocketEvent.UserClient?.GetAllSearchUser();
         }
         /// <summary>
         /// 创建分词结果磁盘块索引信息
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="client"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        protected override ResponseParameterAwaiter<ConditionDataUpdateStateEnum> loadCreate(ISearchUserNodeClientNode client, int key)
+        protected override ResponseResultAwaiter loadCreate(ISearchUserNodeClientNode client, SearchUser value)
         {
-            return client.Create(key);
+            return client.LoadCreate(value);
         }
         /// <summary>
         /// 持久化之前重组快照数据
@@ -121,6 +118,40 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         public override bool ContainsKey(int key)
         {
             return users.ContainsKey(key);
+        }
+        /// <summary>
+        /// 判断是否存在关键字
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public override bool Contains(SearchUser value)
+        {
+            return users.ContainsKey(value.Id);
+        }
+        /// <summary>
+        /// 创建非索引条件查询数据 持久化前检查
+        /// </summary>
+        /// <param name="value">非索引条件查询数据</param>
+        /// <returns>是否继续持久化操作</returns>
+        public override bool LoadCreateBeforePersistence(SearchUser value)
+        {
+            return !users.ContainsKey(value.Id);
+        }
+        /// <summary>
+        /// 创建非索引条件查询数据
+        /// </summary>
+        /// <param name="value">非索引条件查询数据</param>
+        public override void LoadCreateLoadPersistence(SearchUser value)
+        {
+            users.TryAdd(value.Id, value);
+        }
+        /// <summary>
+        /// 创建非索引条件查询数据
+        /// </summary>
+        /// <param name="value">非索引条件查询数据</param>
+        public override void LoadCreate(SearchUser value)
+        {
+            if (users.TryAdd(value.Id, value)) loginTimes.Add(value.GetLoginTimeKey());
         }
         /// <summary>
         /// 创建非索引条件查询数据

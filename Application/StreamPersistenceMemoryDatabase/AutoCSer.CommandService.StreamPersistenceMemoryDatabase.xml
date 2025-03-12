@@ -287,11 +287,6 @@
             客户端节点生成失败
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.NodeCreating">
-            <summary>
-            关键字匹配的节点正在创建中
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.NotFoundNodeKey">
             <summary>
             没有找到匹配关键字的节点
@@ -1617,6 +1612,12 @@
             </summary>
             <param name="state"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult">
+            <summary>
+            返回结果
+            </summary>
+            <param name="state"></param>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1">
             <summary>
             本地服务返回结果
@@ -1674,6 +1675,18 @@
             </summary>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0})~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult">
+            <summary>
+            错误返回结果
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.op_Implicit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult)~AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}">
+            <summary>
+            错误返回结果
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.Cast``1(``0)">
             <summary>
             返回结果类型转换
@@ -1681,6 +1694,13 @@
             <typeparam name="VT">目标类型</typeparam>
             <param name="defaultValue">成功状态默认值</param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.GetPageResult``1">
+            <summary>
+            获取错误分页数据
+            </summary>
+            <typeparam name="PT"></typeparam>
+            <returns>错误分页数据</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult">
             <summary>
@@ -1955,6 +1975,45 @@
             <summary>
             执行读取操作
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex">
+            <summary>
+            创建节点索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.Index">
+            <summary>
+            节点索引信息
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo">
+            <summary>
+            创建节点信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo.nodeInfo">
+            <summary>
+            服务端节点信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo.Index">
+            <summary>
+            节点索引
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo.#ctor(System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建节点信息
+            </summary>
+            <param name="index"></param>
+            <param name="nodeInfo"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo.Check(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@)">
+            <summary>
+            检查节点信息是否匹配
+            </summary>
+            <param name="nodeInfo"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese">
             <summary>
@@ -19180,7 +19239,7 @@
             根节点集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.createKeys">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CreateNodes">
             <summary>
             正在创建节点的关键字
             </summary>
@@ -22146,7 +22205,7 @@
             服务端节点
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIdentity.identity">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIdentity.Identity">
             <summary>
             节点标识
             </summary>
@@ -22181,6 +22240,12 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIdentity.GetFreeIdentity">
+            <summary>
+            设置空闲节点标识，用于创建节点预申请
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIdentity.GetCreateIdentity">
             <summary>
             设置空闲节点标识，用于创建节点预申请
             </summary>
@@ -23253,6 +23318,27 @@
             <param name="getNode">获取节点操作对象</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateNodeBeforePersistence``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建服务端节点（不支持持久化，只有支持快照的节点才支持持久化）
+            </summary>
+            <typeparam name="T">节点接口类型</typeparam>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateNode``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``0})">
+            <summary>
+            创建服务端节点（不支持持久化，只有支持快照的节点才支持持久化）
+            </summary>
+            <typeparam name="T">节点接口类型</typeparam>
+            <param name="createNodeIndex">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="getNode">获取节点操作对象</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateSnapshotNode``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``0})">
             <summary>
             创建支持快照接口的服务端节点（必须保证操作节点对象实现快照接口）
@@ -23261,6 +23347,29 @@
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
+            <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateSnapshotNodeBeforePersistence``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator@)">
+            <summary>
+            创建支持快照接口的服务端节点（必须保证操作节点对象实现快照接口）
+            </summary>
+            <typeparam name="T">节点接口类型</typeparam>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="nodeCreator">生成服务端节点</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateSnapshotNode``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator,System.Func{``0})">
+            <summary>
+            创建支持快照接口的服务端节点（必须保证操作节点对象实现快照接口）
+            </summary>
+            <typeparam name="T">节点接口类型</typeparam>
+            <param name="createNodeIndex">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="nodeCreator">生成服务端节点</param>
             <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -30421,6 +30530,13 @@
             加载数据
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.load(AutoCSer.LeftArray{System.Threading.Tasks.Task})">
+            <summary>
+            等待加载数据
+            </summary>
+            <param name="tasks"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.Dispose">
             <summary>
             释放资源
@@ -30492,6 +30608,21 @@
             <param name="isCreate">关键字不存在时创建空闲节点标识</param>
             <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeIndexBeforePersistence(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Boolean)">
+            <summary>
+            获取节点标识
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="isCreate">关键字不存在时创建空闲节点标识</param>
+            <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.CreateNodeIndex">
+            <summary>
+            创建节点标识
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeIndex(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Boolean)">
             <summary>
             获取节点标识
@@ -30520,12 +30651,13 @@
             <param name="nodeInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.LoadCreateNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.LoadCreateNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@)">
             <summary>
             初始化加载数据创建节点
             </summary>
             <param name="index"></param>
             <param name="key"></param>
+            <param name="nodeInfo"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.RemoveNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex)">
             <summary>

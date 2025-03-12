@@ -37,6 +37,30 @@ namespace AutoCSer.CommandService.Search
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="key">分词数据关键字</param>
+        /// <param name="text">分词文本数据</param>
+        /// <returns></returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        ValueResult<WordIdentityBlockIndexUpdateStateEnum> LoadCreateBeforePersistence(T key, string text);
+        /// <summary>
+        /// 创建分词结果磁盘块索引信息
+        /// </summary>
+        /// <param name="key">分词数据关键字</param>
+        /// <param name="text">分词文本数据</param>
+        /// <param name="callback"></param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void LoadCreateLoadPersistence(T key, string text, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback);
+        /// <summary>
+        /// 创建分词结果磁盘块索引信息
+        /// </summary>
+        /// <param name="key">分词数据关键字</param>
+        /// <param name="text">分词文本数据</param>
+        /// <param name="callback"></param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void LoadCreate(T key, string text, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback);
+        /// <summary>
+        /// 创建分词结果磁盘块索引信息
+        /// </summary>
+        /// <param name="key">分词数据关键字</param>
         /// <param name="callback"></param>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void CreateLoadPersistence(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback);

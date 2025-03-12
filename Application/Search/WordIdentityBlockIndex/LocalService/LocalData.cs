@@ -1,31 +1,24 @@
 ﻿using AutoCSer.CommandService.DiskBlock;
-using AutoCSer.CommandService.Search.StaticTrieGraph;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
-using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace AutoCSer.CommandService.Search
+namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
 {
     /// <summary>
     /// 分词结果磁盘块索引信息
     /// </summary>
     /// <typeparam name="T">分词数据关键字类型</typeparam>
-    public sealed class WordIdentityBlockIndex<T>
+    public sealed class LocalData<T>
 #if NetStandard21
         where T : notnull, IEquatable<T>
 #else
         where T : IEquatable<T>
 #endif
     {
-        /// <summary>
-        /// 操作队列访问锁
-        /// </summary>
-        private readonly System.Threading.SemaphoreSlim queueLock;
         /// <summary>
         /// 磁盘块索引信息
         /// </summary>
@@ -37,26 +30,24 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 分词结果磁盘块索引信息
         /// </summary>
-        internal WordIdentityBlockIndex()
+        internal LocalData()
         {
             BlockIndex.SetBinarySerializeNullValue();
-            queueLock = new System.Threading.SemaphoreSlim(1, 1);
         }
         /// <summary>
         /// 分词结果磁盘块索引信息
         /// </summary>
         /// <param name="blockIndex">磁盘块索引信息</param>
-        internal WordIdentityBlockIndex(BlockIndex blockIndex)
+        internal LocalData(BlockIndex blockIndex)
         {
             BlockIndex = blockIndex;
-            queueLock = new System.Threading.SemaphoreSlim(1, 1);
         }
         /// <summary>
         /// 初始化加载完毕处理
         /// </summary>
         /// <param name="node"></param>
         /// <param name="key"></param>
-        internal void Loaded(WordIdentityBlockIndexNode<T> node, T key)
+        internal void Loaded(LocalNode<T> node, T key)
         {
             if (!IsLoadedDeleted)
             {
@@ -70,14 +61,16 @@ namespace AutoCSer.CommandService.Search
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        internal async Task Create(WordIdentityBlockIndexNode<T> node, T key)
+        internal async Task Create(LocalNode<T> node, T key)
         {
-            await queueLock.WaitAsync();
+            var semaphoreSlim = default(SemaphoreSlimCache);
             try
             {
+                await AutoCSer.Threading.SwitchAwaiter.Default;
+                semaphoreSlim = node.GetSemaphoreSlimCache(key);
+                await semaphoreSlim.Lock.WaitAsync();
                 if (BlockIndex.IsBinarySerializeNullValue)
                 {
-                    await AutoCSer.Threading.SwitchAwaiter.Default;
                     var text = await node.GetText(key);
                     if (text.IsSuccess)
                     {
@@ -86,7 +79,7 @@ namespace AutoCSer.CommandService.Search
                             int[] wordIdentitys;
                             if (text.Value.Length != 0)
                             {
-                                ResponseResult<int[]> identitys = await node.GetWordIdentitys(text.Value);
+                                LocalResult<int[]> identitys = await node.GetWordIdentitys(text.Value);
                                 if (!identitys.IsSuccess) return;
                                 wordIdentitys = identitys.Value.notNull();
                                 if (wordIdentitys.Length > 1) wordIdentitys.Sort();
@@ -94,7 +87,7 @@ namespace AutoCSer.CommandService.Search
                             else wordIdentitys = EmptyArray<int>.Array;
                             if (wordIdentitys.Length != 0)
                             {
-                                ResponseResult result = await node.AppendIndex(wordIdentitys, key);
+                                LocalResult result = await node.AppendIndex(wordIdentitys, key);
                                 if (!result.IsSuccess) return;
                             }
                             bool isIndex;
@@ -115,7 +108,10 @@ namespace AutoCSer.CommandService.Search
             {
                 await node.OnException(this, exception);
             }
-            finally { queueLock.Release(); }
+            finally
+            {
+                if (semaphoreSlim != null) node.Release(semaphoreSlim, key);
+            }
         }
         /// <summary>
         /// 创建分词结果磁盘块索引信息
@@ -123,61 +119,75 @@ namespace AutoCSer.CommandService.Search
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <param name="callback"></param>
+        /// <param name="text"></param>
         /// <returns></returns>
-        internal async Task Create(WordIdentityBlockIndexNode<T> node, T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
+#if NetStandard21
+        internal async Task Create(LocalNode<T> node, T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback, string? text = null)
+#else
+        internal async Task Create(LocalNode<T> node, T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback, string text = null)
+#endif
         {
+            var semaphoreSlim = default(SemaphoreSlimCache);
             WordIdentityBlockIndexUpdateStateEnum state = WordIdentityBlockIndexUpdateStateEnum.Unknown;
-            await queueLock.WaitAsync();
             try
             {
+                await AutoCSer.Threading.SwitchAwaiter.Default;
+                semaphoreSlim = node.GetSemaphoreSlimCache(key);
+                await semaphoreSlim.Lock.WaitAsync();
                 if (BlockIndex.IsBinarySerializeNullValue)
                 {
-                    await AutoCSer.Threading.SwitchAwaiter.Default;
-                    var text = await node.GetText(key);
-                    if (text.IsSuccess)
+                    if (text == null)
                     {
-                        if (text.Value != null)
+                        var textResult = await node.GetText(key);
+                        if (!textResult.IsSuccess)
                         {
-                            int[] wordIdentitys;
-                            if (text.Value.Length != 0)
-                            {
-                                ResponseResult<int[]> identitys = await node.GetWordIdentitys(text.Value);
-                                if (!identitys.IsSuccess)
-                                {
-                                    state = WordIdentityBlockIndexUpdateStateEnum.GetWordIdentityFailed;
-                                    return;
-                                }
-                                wordIdentitys = identitys.Value.notNull();
-                                if (wordIdentitys.Length > 1) wordIdentitys.Sort();
-                            }
-                            else wordIdentitys = EmptyArray<int>.Array;
-                            if (wordIdentitys.Length != 0)
-                            {
-                                ResponseResult result = await node.AppendIndex(wordIdentitys, key);
-                                if (!result.IsSuccess)
-                                {
-                                    state = WordIdentityBlockIndexUpdateStateEnum.SetWordIndexFailed;
-                                    return;
-                                }
-                            }
-                            bool isIndex;
-                            BlockIndex blockIndex = BlockIndex.GetIndexSize(wordIdentitys, out isIndex);
-                            if (!isIndex)
-                            {
-                                CommandClientReturnValue<BlockIndex> blockIndexResult = await node.GetDiskBlockClient(key).ClientSynchronousWrite(WriteBuffer.CreateWriteBufferSerializer(wordIdentitys));
-                                if (!blockIndexResult.IsSuccess)
-                                {
-                                    state = WordIdentityBlockIndexUpdateStateEnum.GetBlockIndexFailed;
-                                    return;
-                                }
-                                blockIndex = blockIndexResult.Value;
-                            }
-                            node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Completed(key, blockIndex, callback);
+                            state = WordIdentityBlockIndexUpdateStateEnum.GetTextFailed;
+                            return;
                         }
-                        else node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Deleted(key, callback);
-                        state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
+                        text = textResult.Value;
+                        if (text == null)
+                        {
+                            node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Deleted(key, callback);
+                            state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
+                            return;
+                        }
                     }
-                    else state = WordIdentityBlockIndexUpdateStateEnum.GetTextFailed;
+                    int[] wordIdentitys;
+                    if (text.Length != 0)
+                    {
+                        LocalResult<int[]> identitys = await node.GetWordIdentitys(text);
+                        if (!identitys.IsSuccess)
+                        {
+                            state = WordIdentityBlockIndexUpdateStateEnum.GetWordIdentityFailed;
+                            return;
+                        }
+                        wordIdentitys = identitys.Value.notNull();
+                        if (wordIdentitys.Length > 1) wordIdentitys.Sort();
+                    }
+                    else wordIdentitys = EmptyArray<int>.Array;
+                    if (wordIdentitys.Length != 0)
+                    {
+                        LocalResult result = await node.AppendIndex(wordIdentitys, key);
+                        if (!result.IsSuccess)
+                        {
+                            state = WordIdentityBlockIndexUpdateStateEnum.SetWordIndexFailed;
+                            return;
+                        }
+                    }
+                    bool isIndex;
+                    BlockIndex blockIndex = BlockIndex.GetIndexSize(wordIdentitys, out isIndex);
+                    if (!isIndex)
+                    {
+                        CommandClientReturnValue<BlockIndex> blockIndexResult = await node.GetDiskBlockClient(key).ClientSynchronousWrite(WriteBuffer.CreateWriteBufferSerializer(wordIdentitys));
+                        if (!blockIndexResult.IsSuccess)
+                        {
+                            state = WordIdentityBlockIndexUpdateStateEnum.GetBlockIndexFailed;
+                            return;
+                        }
+                        blockIndex = blockIndexResult.Value;
+                    }
+                    node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Completed(key, blockIndex, callback);
+                    state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
                 }
                 else state = WordIdentityBlockIndexUpdateStateEnum.Success;
             }
@@ -187,7 +197,7 @@ namespace AutoCSer.CommandService.Search
             }
             finally
             {
-                queueLock.Release();
+                if (semaphoreSlim != null) node.Release(semaphoreSlim, key);
                 if (state != WordIdentityBlockIndexUpdateStateEnum.Callbacked) callback.Callback(state);
             }
         }
@@ -198,13 +208,15 @@ namespace AutoCSer.CommandService.Search
         /// <param name="key"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        internal async Task Update(WordIdentityBlockIndexNode<T> node, T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
+        internal async Task Update(LocalNode<T> node, T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
+            var semaphoreSlim = default(SemaphoreSlimCache);
             WordIdentityBlockIndexUpdateStateEnum state = WordIdentityBlockIndexUpdateStateEnum.Unknown;
-            await queueLock.WaitAsync();
             try
             {
                 await AutoCSer.Threading.SwitchAwaiter.Default;
+                semaphoreSlim = node.GetSemaphoreSlimCache(key);
+                await semaphoreSlim.Lock.WaitAsync();
                 var text = await node.GetText(key);
                 if (text.IsSuccess)
                 {
@@ -213,7 +225,7 @@ namespace AutoCSer.CommandService.Search
                         int[] wordIdentitys, historyWordIdentitys;
                         if (text.Value.Length != 0)
                         {
-                            ResponseResult<int[]> identitys = await node.GetWordIdentitys(text.Value);
+                            LocalResult<int[]> identitys = await node.GetWordIdentitys(text.Value);
                             if (!identitys.IsSuccess)
                             {
                                 state = WordIdentityBlockIndexUpdateStateEnum.GetWordIdentityFailed;
@@ -245,7 +257,7 @@ namespace AutoCSer.CommandService.Search
                             state = WordIdentityBlockIndexUpdateStateEnum.Success;
                             return;
                         }
-                        ResponseResult result = await node.AppendIndex(wordIdentitys, historyWordIdentitys, key);
+                        LocalResult result = await node.AppendIndex(wordIdentitys, historyWordIdentitys, key);
                         if (!result.IsSuccess)
                         {
                             state = WordIdentityBlockIndexUpdateStateEnum.SetWordIndexFailed;
@@ -277,7 +289,7 @@ namespace AutoCSer.CommandService.Search
             }
             finally
             {
-                queueLock.Release();
+                if (semaphoreSlim != null) node.Release(semaphoreSlim, key);
                 if (state != WordIdentityBlockIndexUpdateStateEnum.Callbacked) callback.Callback(state);
             }
         }
@@ -287,12 +299,14 @@ namespace AutoCSer.CommandService.Search
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        internal async Task Delete(WordIdentityBlockIndexNode<T> node, T key)
+        internal async Task Delete(LocalNode<T> node, T key)
         {
-            await queueLock.WaitAsync();
+            var semaphoreSlim = default(SemaphoreSlimCache);
             try
             {
                 await AutoCSer.Threading.SwitchAwaiter.Default;
+                semaphoreSlim = node.GetSemaphoreSlimCache(key);
+                await semaphoreSlim.Lock.WaitAsync();
                 var text = await node.GetText(key);
                 if (text.IsSuccess && text.Value == null)
                 {
@@ -312,7 +326,7 @@ namespace AutoCSer.CommandService.Search
                     else wordIdentitys = readResult.Value ?? EmptyArray<int>.Array;
                     if (wordIdentitys.Length != 0)
                     {
-                        ResponseResult result = await node.RemoveIndex(wordIdentitys, key);
+                        LocalResult result = await node.RemoveIndex(wordIdentitys, key);
                         if (!result.IsSuccess) return;
                     }
                     node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Deleted(key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum>.NullCallback);
@@ -322,7 +336,10 @@ namespace AutoCSer.CommandService.Search
             {
                 await node.OnException(this, exception);
             }
-            finally { queueLock.Release(); }
+            finally
+            {
+                if (semaphoreSlim != null) node.Release(semaphoreSlim, key);
+            }
         }
         /// <summary>
         /// 删除分词结果磁盘块索引信息
@@ -331,13 +348,15 @@ namespace AutoCSer.CommandService.Search
         /// <param name="key"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        internal async Task Delete(WordIdentityBlockIndexNode<T> node, T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
+        internal async Task Delete(LocalNode<T> node, T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
+            var semaphoreSlim = default(SemaphoreSlimCache);
             WordIdentityBlockIndexUpdateStateEnum state = WordIdentityBlockIndexUpdateStateEnum.Unknown;
-            await queueLock.WaitAsync();
             try
             {
                 await AutoCSer.Threading.SwitchAwaiter.Default;
+                semaphoreSlim = node.GetSemaphoreSlimCache(key);
+                await semaphoreSlim.Lock.WaitAsync();
                 var text = await node.GetText(key);
                 if (text.IsSuccess)
                 {
@@ -363,7 +382,7 @@ namespace AutoCSer.CommandService.Search
                         else wordIdentitys = readResult.Value ?? EmptyArray<int>.Array;
                         if (wordIdentitys.Length != 0)
                         {
-                            ResponseResult result = await node.RemoveIndex(wordIdentitys, key);
+                            LocalResult result = await node.RemoveIndex(wordIdentitys, key);
                             if (!result.IsSuccess)
                             {
                                 state = WordIdentityBlockIndexUpdateStateEnum.SetWordIndexFailed;
@@ -391,20 +410,23 @@ namespace AutoCSer.CommandService.Search
             }
             finally
             {
-                queueLock.Release();
+                if (semaphoreSlim != null) node.Release(semaphoreSlim, key);
                 if (state != WordIdentityBlockIndexUpdateStateEnum.Callbacked) callback.Callback(state);
             }
         }
         /// <summary>
         /// 完成数据更新
         /// </summary>
+        /// <param name="node"></param>
+        /// <param name="key"></param>
         /// <param name="blockIndex">新的磁盘块索引信息</param>
         /// <returns></returns>
-        internal async Task Completed(BlockIndex blockIndex)
+        internal async Task Completed(LocalNode<T> node, T key, BlockIndex blockIndex)
         {
-            await queueLock.WaitAsync();
+            SemaphoreSlimCache semaphoreSlim = node.GetSemaphoreSlimCache(key);
+            await semaphoreSlim.Lock.WaitAsync();
             BlockIndex = blockIndex;
-            queueLock.Release();
+            node.Release(semaphoreSlim, key);
         }
         /// <summary>
         /// 数组比较

@@ -81,11 +81,10 @@ namespace AutoCSer.TestCase.SearchDiskBlockIndex
         /// </summary>
         /// <typeparam name="KT">索引关键字类型</typeparam>
         /// <typeparam name="VT">数据关键字类型</typeparam>
+        /// <param name="node">索引关键字类型</param>
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
-        /// <param name="keyType">索引关键字类型</param>
-        /// <param name="valueType">数据关键字类型</param>
         /// <param name="capacity">初始化容器尺寸</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         private static NodeIndex createRemoveMarkHashIndexNode<KT, VT>(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)

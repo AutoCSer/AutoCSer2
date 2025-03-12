@@ -1,5 +1,4 @@
 ﻿using AutoCSer.CommandService;
-using AutoCSer.CommandService.Search;
 using System;
 using System.IO;
 using System.Threading.Tasks;

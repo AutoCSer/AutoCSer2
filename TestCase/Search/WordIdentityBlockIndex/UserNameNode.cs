@@ -1,7 +1,5 @@
-﻿using AutoCSer.CommandService.Search;
-using AutoCSer.CommandService;
-using System;
-using AutoCSer.CommandService.Search.DiskBlockIndex;
+﻿using System;
+using AutoCSer.Net;
 
 namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
 {
@@ -11,13 +9,17 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
     internal sealed class UserNameNode : UserNode
     {
         /// <summary>
-        /// 获取分词结果磁盘块索引信息节点单例
+        /// 用户名称分词结果磁盘块索引信息节点
         /// </summary>
-        protected override AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<int>> loadClientNode { get { return CommandClientSocketEvent.UserNameNodeCache; } }
+        internal UserNameNode() : base(CommandClientSocketEvent.UserNameNodeCache, DiskBlockIndexCommandClientSocketEvent.UserNameDiskBlockIndexNodeCache) { }
         /// <summary>
-        /// 带移除标记的可重用哈希索引节点单例
+        /// 获取初始化加载所有数据命令
         /// </summary>
-        protected override StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> diskBlockIndexNode { get { return DiskBlockIndexCommandClientSocketEvent.UserNameDiskBlockIndexNodeCache; } }
+        /// <returns></returns>
+        protected override EnumeratorCommand<BinarySerializeKeyValue<int, string>> getLoadCommand()
+        {
+            return DataSourceCommandClientSocketEvent.CommandClient.SocketEvent.UserClient?.GetAllUserName();
+        }
         /// <summary>
         /// 根据关键字获取需要分词的文本数据
         /// </summary>

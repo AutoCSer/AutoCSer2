@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.LocalSearchQueryService</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.LocalSearchQueryService</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DataSourceCommandClientSocketEvent.cs" />
+    <Compile Include="DiskBlockCommandClientSocketEvent.cs" />
+    <Compile Include="LocalDiskBlockIndexServiceConfig.cs" />
+    <Compile Include="LocalSearchUserServiceConfig.cs" />
+    <Compile Include="LocalWordIdentityBlockIndexServiceConfig.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="QueryService.cs" />
+    <Compile Include="QueryServiceNode.cs" />
+    <Compile Include="RemoveMarkHashIndexNode.cs" />
+    <Compile Include="RemoveMarkHashKeyIndexNode.cs" />
+    <Compile Include="SearchUserFilterCallback.cs" />
+    <Compile Include="SearchUserGetArrayCallback.cs" />
+    <Compile Include="SearchUserGetPageCallback.cs" />
+    <Compile Include="SearchUserNode.cs" />
+    <Compile Include="LocalTrieGraphServiceConfig.cs" />
+    <Compile Include="UserNameNode.cs" />
+    <Compile Include="UserNode.cs" />
+    <Compile Include="UserRemarkNode.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Search\AutoCSer.CommandService.Search.NET8.csproj" />
+    <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+    <ProjectReference Include="..\LocalCommon\AutoCSer.TestCase.LocalSearchCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

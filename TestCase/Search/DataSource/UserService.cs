@@ -4,7 +4,6 @@ using AutoCSer.Net;
 using AutoCSer.TestCase.SearchQueryService;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.SearchDataSource
@@ -29,15 +28,39 @@ namespace AutoCSer.TestCase.SearchDataSource
             users.Add(3, new User { Id = 3, Gender = GenderEnum.Female, LoginTime = DateTime.UtcNow.AddMonths(-1), Name = @"张三", Remark = @"现在吹下的牛B是将来努力的动力" });
         }
         /// <summary>
-        /// 获取所有用户标识
+        /// 获取所有用户名称
         /// </summary>
-        /// <param name="callback">用户标识回调</param>
+        /// <param name="callback">用户名称回调</param>
         /// <returns></returns>
-        public async Task GetAllUserId(CommandServerKeepCallbackCount<int> callback)
+        public async Task GetAllUserName(CommandServerKeepCallbackCount<BinarySerializeKeyValue<int, string>> callback)
         {
-            foreach (int id in users.Keys)
+            foreach (User user in users.Values)
             {
-                if (!await callback.CallbackAsync(id)) return;
+                if (!await callback.CallbackAsync(new BinarySerializeKeyValue<int, string>(user.Id, user.Name))) return;
+            }
+        }
+        /// <summary>
+        /// 获取所有用户备注
+        /// </summary>
+        /// <param name="callback">用户备注回调</param>
+        /// <returns></returns>
+        public async Task GetAllUserRemark(CommandServerKeepCallbackCount<BinarySerializeKeyValue<int, string>> callback)
+        {
+            foreach (User user in users.Values)
+            {
+                if (!await callback.CallbackAsync(new BinarySerializeKeyValue<int, string>(user.Id, user.Remark))) return;
+            }
+        }
+        /// <summary>
+        /// 获取所有用户搜索非索引条件数据
+        /// </summary>
+        /// <param name="callback">用户搜索非索引条件数据回调</param>
+        /// <returns></returns>
+        public async Task GetAllSearchUser(CommandServerKeepCallbackCount<SearchUser> callback)
+        {
+            foreach (User user in users.Values)
+            {
+                if (!await callback.CallbackAsync(new SearchUser(user))) return;
             }
         }
         /// <summary>

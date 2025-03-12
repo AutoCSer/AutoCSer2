@@ -1,5 +1,7 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
+using System.Reflection;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -61,13 +63,54 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
                 if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
                 ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
                 if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
                 NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
                 if (nodeIndex.Index < 0 || !nodeIndex.GetFree()) return nodeIndex;
                 return new ServerNode<T>(Service, nodeIndex, key, getNode()).Index;
+            }
+            finally { Service.RemoveFreeIndex(index); }
+        }
+        /// <summary>
+        /// 创建服务端节点（不支持持久化，只有支持快照的节点才支持持久化）
+        /// </summary>
+        /// <typeparam name="T">节点接口类型</typeparam>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns></returns>
+        public virtual ValueResult<NodeIndex> CreateNodeBeforePersistence<T>(CreateNodeIndex index, string key, NodeInfo nodeInfo) where T : class
+        {
+            if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
+            ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
+            if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
+            ValueResult<NodeIndex> result = Service.GetNodeIndexBeforePersistence(key, nodeInfo, true);
+            if (result.IsValue)
+            {
+                if (result.Value.GetState() != CallStateEnum.Success || !result.Value.GetFree()) return result;
+                index.Index = result.Value;
+            }
+            else index.Index = Service.CreateNodeIndex();
+            return default(ValueResult<NodeIndex>);
+        }
+        /// <summary>
+        /// 创建服务端节点（不支持持久化，只有支持快照的节点才支持持久化）
+        /// </summary>
+        /// <typeparam name="T">节点接口类型</typeparam>
+        /// <param name="createNodeIndex">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="getNode">获取节点操作对象</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateNode<T>(CreateNodeIndex createNodeIndex, string key, NodeInfo nodeInfo, Func<T> getNode) where T : class
+        {
+            NodeIndex index = createNodeIndex.Index;
+            try
+            {
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
+                return new ServerNode<T>(Service, index, key, getNode()).Index;
             }
             finally { Service.RemoveFreeIndex(index); }
         }
@@ -86,7 +129,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             var disposable = default(IDisposable);
             try
             {
-                if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
                 if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
                 ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
                 if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
@@ -100,12 +143,77 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 disposable = null;
                 return index;
             }
-            finally 
+            finally
             {
                 Service.RemoveFreeIndex(index);
                 disposable?.Dispose();
             }
         }
+        /// <summary>
+        /// 创建支持快照接口的服务端节点（必须保证操作节点对象实现快照接口）
+        /// </summary>
+        /// <typeparam name="T">节点接口类型</typeparam>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="nodeCreator">生成服务端节点</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+#if NetStandard21
+        public virtual ValueResult<NodeIndex> CreateSnapshotNodeBeforePersistence<T>(CreateNodeIndex index, string key, NodeInfo nodeInfo, out ServerNodeCreator? nodeCreator)
+#else
+        public virtual ValueResult<NodeIndex> CreateSnapshotNodeBeforePersistence<T>(CreateNodeIndex index, string key, NodeInfo nodeInfo, out ServerNodeCreator nodeCreator)
+#endif
+            where T : class
+        {
+            if (!typeof(T).IsInterface)
+            {
+                nodeCreator = null;
+                return new NodeIndex(CallStateEnum.OnlySupportInterface);
+            }
+            nodeCreator = Service.GetNodeCreator<T>();
+            if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
+            ValueResult<NodeIndex> result = Service.GetNodeIndexBeforePersistence(key, nodeInfo, true);
+            if (result.IsValue)
+            {
+                if (result.Value.GetState() != CallStateEnum.Success || !result.Value.GetFree()) return result;
+                index.Index = result.Value;
+            }
+            else index.Index = Service.CreateNodeIndex();
+            return default(ValueResult<NodeIndex>);
+        }
+        /// <summary>
+        /// 创建支持快照接口的服务端节点（必须保证操作节点对象实现快照接口）
+        /// </summary>
+        /// <typeparam name="T">节点接口类型</typeparam>
+        /// <param name="createNodeIndex">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="nodeCreator">生成服务端节点</param>
+        /// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateSnapshotNode<T>(CreateNodeIndex createNodeIndex, string key, NodeInfo nodeInfo, ServerNodeCreator nodeCreator, Func<T> getNode)
+            where T : class
+        {
+            var disposable = default(IDisposable);
+            NodeIndex index = createNodeIndex.Index;
+            try
+            {
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
+                T node = getNode();
+                disposable = node as IDisposable;
+                CallStateEnum state = nodeCreator.CheckSnapshotNode(node.GetType());
+                if (state != CallStateEnum.Success) return new NodeIndex(state);
+                index = new ServerSnapshotNode<T>(Service, index, key, node, Service.CurrentCallIsPersistence).Index;
+                disposable = null;
+                return index;
+            }
+            finally
+            {
+                Service.RemoveFreeIndex(index);
+                disposable?.Dispose();
+            }
+        }
+
         ///// <summary>
         ///// 创建支持快照的服务端节点 参数检查
         ///// </summary>

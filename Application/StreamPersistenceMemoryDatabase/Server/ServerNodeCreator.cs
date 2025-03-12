@@ -19,7 +19,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 生成服务端节点
     /// </summary>
-    internal sealed class ServerNodeCreator
+    public sealed class ServerNodeCreator
     {
         /// <summary>
         /// 日志流持久化内存数据库服务端

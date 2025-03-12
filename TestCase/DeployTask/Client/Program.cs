@@ -22,12 +22,16 @@ namespace AutoCSer.TestCase.DeployTaskClient
                 Console.WriteLine(@"
 1 : AutoCSer.TestCase.NetCoreWeb
 T : TestCase
+S : Search TestCase
+L : LocalSearch TestCase
 
 Press quit to exit.");
                 switch (Console.ReadLine())
                 {
                     case "1": netCoreWeb().NotWait(); break;
                     case "T": testCase().NotWait(); break;
+                    case "S": search().NotWait(); break;
+                    case "L": localSearch().NotWait(); break;
                     case "quit":
                         return;
                 }
@@ -204,7 +208,11 @@ Press quit to exit.");
             await waitProcess(@"TestCase\FileSynchronous\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronous.exe", @"TestCase\FileSynchronous\Client\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronousClient.exe");
             await waitProcess2(@"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\DiskBlock\Client\bin\Release\net8.0\AutoCSer.TestCase.DiskBlockClient.exe", 2);
             await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\InterfaceRealTimeCallMonitor\ExceptionStatistics\bin\Release\net8.0\AutoCSer.TestCase.ExceptionStatistics.exe", @"TestCase\InterfaceRealTimeCallMonitor\bin\Release\net8.0\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.exe", @"TestCase\NetCoreWeb\bin\Release\net8.0\AutoCSer.TestCase.NetCoreWeb.exe");
-            await waitProcess(@"TestCase\Search\TrieGraph\bin\Release\net8.0\AutoCSer.TestCase.SearchTrieGraph.exe", @"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\Search\DataSource\bin\Release\net8.0\AutoCSer.TestCase.SearchDataSource.exe", @"TestCase\Search\DiskBlockIndex\bin\Release\net8.0\AutoCSer.TestCase.SearchDiskBlockIndex.exe", @"TestCase\Search\WordIdentityBlockIndex\bin\Release\net8.0\AutoCSer.TestCase.SearchWordIdentityBlockIndex.exe", @"TestCase\Search\QueryService\bin\Release\net8.0\AutoCSer.TestCase.SearchQueryService.exe", @"TestCase\Search\bin\Release\net8.0\AutoCSer.TestCase.Search.exe");
+
+            await search();
+            await search();
+            await localSearch();
+            await localSearch();
 
             await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
             await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
@@ -212,6 +220,14 @@ Press quit to exit.");
             await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabase.exe", @"TestCase\StreamPersistenceMemoryDatabase\Client\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient.exe", 2);
 
             await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\DeployTask\bin\Release\net8.0\AutoCSer.TestCase.DeployTask.exe");
+        }
+        private static Task search()
+        {
+            return waitProcess(@"TestCase\Search\TrieGraph\bin\Release\net8.0\AutoCSer.TestCase.SearchTrieGraph.exe", @"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\Search\DataSource\bin\Release\net8.0\AutoCSer.TestCase.SearchDataSource.exe", @"TestCase\Search\DiskBlockIndex\bin\Release\net8.0\AutoCSer.TestCase.SearchDiskBlockIndex.exe", @"TestCase\Search\WordIdentityBlockIndex\bin\Release\net8.0\AutoCSer.TestCase.SearchWordIdentityBlockIndex.exe", @"TestCase\Search\QueryService\bin\Release\net8.0\AutoCSer.TestCase.SearchQueryService.exe", @"TestCase\Search\bin\Release\net8.0\AutoCSer.TestCase.Search.exe");
+        }
+        private static Task localSearch()
+        {
+            return waitProcess(@"TestCase\Search\LocalDataSource\bin\Release\net8.0\AutoCSer.TestCase.LocalSearchDataSource.exe", @"TestCase\Search\LocalQueryService\bin\Release\net8.0\AutoCSer.TestCase.LocalSearchQueryService.exe", @"TestCase\Search\LocalSearchClient\bin\Release\net8.0\AutoCSer.TestCase.LocalSearchClient.exe");
         }
         private static async Task waitProcess(string fileName, int count = 1)
         {

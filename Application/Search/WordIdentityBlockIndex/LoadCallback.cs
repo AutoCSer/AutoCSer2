@@ -27,9 +27,9 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// </summary>
         internal readonly ResponseParameterAwaiter<WordIdentityBlockIndexUpdateStateEnum>[] CreateResponses;
         /// <summary>
-        /// 分词数据关键字集合
+        /// 分词数据集合
         /// </summary>
-        internal T[] Keys;
+        internal BinarySerializeKeyValue<T, string>[] Values;
         /// <summary>
         /// 回调等待锁
         /// </summary>
@@ -42,12 +42,12 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// 初始化加载数据回调
         /// </summary>
         /// <param name="node">分词结果磁盘块索引信息节点</param>
-        /// <param name="keys">分词数据关键字集合</param>
-        internal LoadCallback(WordIdentityBlockIndexNode<T> node, T[] keys)
+        /// <param name="values">分词数据集合</param>
+        internal LoadCallback(WordIdentityBlockIndexNode<T> node, BinarySerializeKeyValue<T, string>[] values)
         {
             this.node = node;
-            Keys = keys;
-            CreateResponses = new ResponseParameterAwaiter<WordIdentityBlockIndexUpdateStateEnum>[keys.Length];
+            Values = values;
+            CreateResponses = new ResponseParameterAwaiter<WordIdentityBlockIndexUpdateStateEnum>[values.Length];
             waitLock = new System.Threading.SemaphoreSlim(0, 1);
         }
         /// <summary>
@@ -59,9 +59,9 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             try
             {
                 int index = 0;
-                foreach (T key in Keys)
+                foreach (BinarySerializeKeyValue<T, string> valule in Values)
                 {
-                    if (!node.Datas.ContainsKey(key)) Keys[index++] = key;
+                    if (!node.Datas.ContainsKey(valule.Key)) Values[index++] = valule;
                 }
                 NewCount = index;
             }

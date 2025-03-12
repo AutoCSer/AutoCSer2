@@ -80,12 +80,15 @@ namespace AutoCSer.TestCase.SearchQueryService
         {
             if (result.IsSuccess)
             {
-                switch (result.Value.Type)
+                if ((result.Value.DataType & OperationDataTypeEnum.SearchUserNode) != 0)
                 {
-                    case OperationTypeEnum.Update:
-                    case OperationTypeEnum.Delete:
-                        Remove(result.Value.Key);
-                        return;
+                    switch (result.Value.OperationType)
+                    {
+                        case OperationTypeEnum.Update:
+                        case OperationTypeEnum.Delete:
+                            Remove(result.Value.Key);
+                            return;
+                    }
                 }
                 return;
             }

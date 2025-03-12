@@ -85,7 +85,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 正在创建节点的关键字
         /// </summary>
-        protected readonly HashSet<string> createKeys;
+        internal readonly Dictionary<string, CreatingNodeInfo> CreateNodes;
         /// <summary>
         /// 持久化回调完成等待
         /// </summary>
@@ -232,7 +232,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             NodeIndex = 1;
             CurrentCallIsPersistence = true;
             nodeDictionary = DictionaryCreator.CreateAny<string, ServerNode>();
-            createKeys = HashSetCreator.CreateAny<string>();
+            CreateNodes = DictionaryCreator.CreateAny<string, CreatingNodeInfo>();
             nodeCreatorLock = new object();
             nodeCreators = DictionaryCreator.CreateHashObject<Type, ServerNodeCreator>();
             RepairNodeMethodLoaders = AutoCSer.Extensions.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
@@ -295,7 +295,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             nodeDictionary.Add(key, node);
-            if (Nodes[node.Index.Index].Set(node, node.Index.Identity)) createKeys.Remove(key);
+            if (Nodes[node.Index.Index].Set(node, node.Index.Identity)) CreateNodes.Remove(key);
             else nodeDictionary.Remove(key);
             return CurrentMethodParameter;
         }

@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
     /// 带移除标记的可重用哈希索引节点接口
     /// </summary>
     /// <typeparam name="T">索引关键字类型</typeparam>
-    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = false, IsMethodParameterCreator = true)]
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true, IsMethodParameterCreator = true)]
     public partial interface IRemoveMarkHashKeyIndexNode<T>
 #if NetStandard21
         where T : notnull, IEquatable<T>

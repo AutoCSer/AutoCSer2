@@ -185,6 +185,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="key">数据关键字</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Delete(KT key);
+            /// <summary>
+            /// 创建非索引条件查询数据
+            /// </summary>
+            /// <param name="value">非索引条件查询数据</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter LoadCreate(VT value);
         }
 }namespace AutoCSer.CommandService.Search
 {
@@ -262,6 +267,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="key">分词数据关键字</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> Update(T key);
+            /// <summary>
+            /// 创建分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">分词数据关键字</param>
+            /// <param name="text">分词文本数据</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum> LoadCreate(T key, string text);
         }
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {
@@ -311,6 +323,160 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <returns>Trie 图词语数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> GetWordCount();
         }
+}namespace AutoCSer.CommandService.Search.DiskBlockIndex
+{
+        /// <summary>
+        /// 带移除标记的可重用哈希索引节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNode<,>))]
+        public partial interface IRemoveMarkHashIndexNodeLocalClientNode<KT,VT>
+        {
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Append(KT key, VT value);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendArray(KT[] keys, VT value);
+            /// <summary>
+            /// 获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>>> GetBlockIndexData(KT key);
+            /// <summary>
+            /// 获取更新关键字集合
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<KT>> callback);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(KT key, VT value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveArray(KT[] keys, VT value);
+            /// <summary>
+            /// 磁盘块索引信息写入完成操作
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="blockIndex">磁盘块索引信息</param>
+            /// <param name="valueCount">新增数据数量</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> WriteCompleted(KT key, AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex, int valueCount);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendLeftArray(AutoCSer.LeftArray<KT> keys, VT value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveLeftArray(AutoCSer.LeftArray<KT> keys, VT value);
+            /// <summary>
+            /// 获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<VT>[]>> GetBlockIndexDataArray(KT[] keys);
+        }
+}namespace AutoCSer.CommandService.Search.DiskBlockIndex
+{
+        /// <summary>
+        /// 带移除标记的可重用哈希索引节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNode<>))]
+        public partial interface IRemoveMarkHashKeyIndexNodeLocalClientNode<T>
+        {
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Append(T key, uint value);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendArray(T[] keys, uint value);
+            /// <summary>
+            /// 获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<uint>>> GetBlockIndexData(T key);
+            /// <summary>
+            /// 获取更新关键字集合
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> callback);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T key, uint value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveArray(T[] keys, uint value);
+            /// <summary>
+            /// 磁盘块索引信息写入完成操作
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="blockIndex">磁盘块索引信息</param>
+            /// <param name="valueCount">新增数据数量</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> WriteCompleted(T key, AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex, int valueCount);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendLeftArray(AutoCSer.LeftArray<T> keys, uint value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveLeftArray(AutoCSer.LeftArray<T> keys, uint value);
+            /// <summary>
+            /// 获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<uint>[]>> GetBlockIndexDataArray(T[] keys);
+            /// <summary>
+            /// 获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>>> GetIntBlockIndexData(T key);
+            /// <summary>
+            /// 获取索引数据磁盘块索引信息
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.DiskBlockIndex.BlockIndexData<int>[]>> GetIntBlockIndexDataArray(T[] keys);
+        }
 }namespace AutoCSer.CommandService.Search
 {
         /// <summary>
@@ -337,6 +503,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="key">数据关键字</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum>> Delete(KT key);
+            /// <summary>
+            /// 创建非索引条件查询数据
+            /// </summary>
+            /// <param name="value">非索引条件查询数据</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> LoadCreate(VT value);
         }
 }namespace AutoCSer.CommandService.Search
 {
@@ -364,6 +535,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="key">分词数据关键字</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> Update(T key);
+            /// <summary>
+            /// 创建分词结果磁盘块索引信息
+            /// </summary>
+            /// <param name="key">分词数据关键字</param>
+            /// <param name="text">分词文本数据</param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> LoadCreate(T key, string text);
         }
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {
@@ -412,6 +590,40 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// </summary>
             /// <returns>Trie 图词语数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> GetWordCount();
+        }
+}namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
+{
+        /// <summary>
+        /// 分词结果磁盘块索引信息节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNode<>))]
+        public partial interface ILocalNodeLocalClientNode<T>
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> Create(T key);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> Delete(T key);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <param name="text"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> LoadCreate(T key, string text);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> Update(T key);
         }
 }namespace AutoCSer.CommandService.Search.DiskBlockIndex
 {
@@ -746,6 +958,22 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             DeleteLoadPersistence = 9,
+            /// <summary>
+            /// [10] 创建非索引条件查询数据
+            /// VT value 非索引条件查询数据
+            /// </summary>
+            LoadCreate = 10,
+            /// <summary>
+            /// [11] 创建非索引条件查询数据 持久化前检查
+            /// VT value 非索引条件查询数据
+            /// 返回值 bool 是否继续持久化操作
+            /// </summary>
+            LoadCreateBeforePersistence = 11,
+            /// <summary>
+            /// [12] 创建非索引条件查询数据
+            /// VT value 非索引条件查询数据
+            /// </summary>
+            LoadCreateLoadPersistence = 12,
         }
 }namespace AutoCSer.CommandService.Search
 {
@@ -1451,6 +1679,27 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// bool value 数据
             /// </summary>
             SnapshotSetLoaded = 12,
+            /// <summary>
+            /// [13] 创建分词结果磁盘块索引信息
+            /// T key 分词数据关键字
+            /// string text 分词文本数据
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            LoadCreate = 13,
+            /// <summary>
+            /// [14] 创建分词结果磁盘块索引信息
+            /// T key 分词数据关键字
+            /// string text 分词文本数据
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum} 
+            /// </summary>
+            LoadCreateBeforePersistence = 14,
+            /// <summary>
+            /// [15] 创建分词结果磁盘块索引信息
+            /// T key 分词数据关键字
+            /// string text 分词文本数据
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            LoadCreateLoadPersistence = 15,
         }
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {
@@ -1524,6 +1773,116 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// 返回值 int Trie 图词语数量
             /// </summary>
             GetWordCount = 10,
+        }
+}namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
+{
+        /// <summary>
+        /// 分词结果磁盘块索引信息节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ILocalNodeMethodEnum))]
+        public partial interface ILocalNode<T> { }
+        /// <summary>
+        /// 分词结果磁盘块索引信息节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ILocalNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] 
+            /// T key 
+            /// AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            Completed = 0,
+            /// <summary>
+            /// [1] 
+            /// T key 
+            /// AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            CompletedLoadPersistence = 1,
+            /// <summary>
+            /// [2] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            Create = 2,
+            /// <summary>
+            /// [3] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            CreateLoadPersistence = 3,
+            /// <summary>
+            /// [4] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            Delete = 4,
+            /// <summary>
+            /// [5] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            DeleteLoadPersistence = 5,
+            /// <summary>
+            /// [6] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            Deleted = 6,
+            /// <summary>
+            /// [7] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            DeletedLoadPersistence = 7,
+            /// <summary>
+            /// [8] 
+            /// T key 
+            /// string text 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            LoadCreate = 8,
+            /// <summary>
+            /// [9] 
+            /// T key 
+            /// string text 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum} 
+            /// </summary>
+            LoadCreateBeforePersistence = 9,
+            /// <summary>
+            /// [10] 
+            /// T key 
+            /// string text 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            LoadCreateLoadPersistence = 10,
+            /// <summary>
+            /// [11] 
+            /// </summary>
+            Loaded = 11,
+            /// <summary>
+            /// [12] 
+            /// AutoCSer.BinarySerializeKeyValue{T,AutoCSer.CommandService.DiskBlock.BlockIndex} value 
+            /// </summary>
+            SnapshotSet = 12,
+            /// <summary>
+            /// [13] 
+            /// bool value 
+            /// </summary>
+            SnapshotSetLoaded = 13,
+            /// <summary>
+            /// [14] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            Update = 14,
+            /// <summary>
+            /// [15] 
+            /// T key 
+            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
+            /// </summary>
+            UpdateLoadPersistence = 15,
         }
 }
 #endif

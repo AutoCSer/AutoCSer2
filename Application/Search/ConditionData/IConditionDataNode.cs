@@ -34,6 +34,25 @@ namespace AutoCSer.CommandService.Search
         [ServerMethod(IsClientCall = false)]
         void Loaded();
         /// <summary>
+        /// 创建非索引条件查询数据 持久化前检查
+        /// </summary>
+        /// <param name="value">非索引条件查询数据</param>
+        /// <returns>是否继续持久化操作</returns>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        bool LoadCreateBeforePersistence(VT value);
+        /// <summary>
+        /// 创建非索引条件查询数据
+        /// </summary>
+        /// <param name="value">非索引条件查询数据</param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void LoadCreateLoadPersistence(VT value);
+        /// <summary>
+        /// 创建非索引条件查询数据
+        /// </summary>
+        /// <param name="value">非索引条件查询数据</param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void LoadCreate(VT value);
+        /// <summary>
         /// 创建非索引条件查询数据
         /// </summary>
         /// <param name="key">数据关键字</param>

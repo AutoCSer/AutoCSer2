@@ -43,10 +43,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 客户端节点生成失败
         /// </summary>
         NotFoundClientNodeCreator,
-        /// <summary>
-        /// 关键字匹配的节点正在创建中
-        /// </summary>
-        NodeCreating,
+        ///// <summary>
+        ///// 关键字匹配的节点正在创建中
+        ///// </summary>
+        //NodeCreating,
         /// <summary>
         /// 没有找到匹配关键字的节点
         /// </summary>

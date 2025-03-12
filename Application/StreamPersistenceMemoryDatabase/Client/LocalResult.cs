@@ -26,6 +26,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             CallState = state;
         }
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="state"></param>
+        public static implicit operator LocalResult(CallStateEnum state) { return new LocalResult(state); }
     }
     /// <summary>
     /// 本地服务返回结果
@@ -112,6 +117,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static implicit operator LocalResult<T>(T value) { return new LocalResult<T>(value); }
 #endif
         /// <summary>
+        /// 错误返回结果
+        /// </summary>
+        /// <param name="value"></param>
+        public static implicit operator LocalResult(LocalResult<T> value) { return new LocalResult(value.CallState); }
+        /// <summary>
+        /// 错误返回结果
+        /// </summary>
+        /// <param name="value"></param>
+        public static implicit operator LocalResult<T>(LocalResult value) { return new LocalResult<T>(value.CallState); }
+        /// <summary>
         /// 返回结果类型转换
         /// </summary>
         /// <typeparam name="VT">目标类型</typeparam>
@@ -126,6 +141,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (IsSuccess) return defaultValue;
             return CallState;
+        }
+        /// <summary>
+        /// 获取错误分页数据
+        /// </summary>
+        /// <typeparam name="PT"></typeparam>
+        /// <returns>错误分页数据</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public PageResult<PT> GetPageResult<PT>()
+        {
+            return new PageResult<PT>(CommandClientReturnTypeEnum.Success, CallState);
         }
     }
 }

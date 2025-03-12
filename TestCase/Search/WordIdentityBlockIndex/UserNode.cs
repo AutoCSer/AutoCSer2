@@ -21,29 +21,21 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// </summary>
         private readonly DiskBlockCommandClientSocketEvent diskBlockClient;
         /// <summary>
-        /// 获取字符串 Trie 图节点
-        /// </summary>
-        protected override StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> trieGraphNode { get { return TrieGraphCommandClientSocketEvent.StaticTrieGraphNodeCache; } }
-        /// <summary>
         /// 带移除标记的可重用哈希索引节点
         /// </summary>
-        protected abstract StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> diskBlockIndexNode { get; }
+        protected readonly StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> diskBlockIndexNode;
         /// <summary>
         /// 用户信息分词结果磁盘块索引信息节点
         /// </summary>
-        internal UserNode()
+        /// <param name="loadClientNode"></param>
+        /// <param name="diskBlockIndexNode"></param>
+        internal UserNode(StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<int>> loadClientNode, StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> diskBlockIndexNode)
+            : base(TrieGraphCommandClientSocketEvent.StaticTrieGraphNodeCache, loadClientNode)
         {
+            this.diskBlockIndexNode = diskBlockIndexNode;
             diskBlockClient = DiskBlockCommandClientSocketEvent.CommandClient.SocketEvent;
             DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
             DiskBlockCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
-        }
-        /// <summary>
-        /// 获取初始化加载所有数据命令
-        /// </summary>
-        /// <returns></returns>
-        protected override EnumeratorCommand<int> getLoadCommand()
-        {
-            return DataSourceCommandClientSocketEvent.CommandClient.SocketEvent.UserClient.GetAllUserId();
         }
         /// <summary>
         /// 根据分词数据关键字获取磁盘块索引信息客户端

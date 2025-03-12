@@ -4,9 +4,11 @@ using AutoCSer.CommandService.Search.WordIdentityBlockIndex;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.Search
@@ -25,19 +27,23 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 分词数据磁盘块索引信息集合
         /// </summary>
-        internal readonly FragmentDictionary256<T, WordIdentityBlockIndex<T>> Datas;
+        internal readonly FragmentDictionary256<T, WordIdentityBlockIndexData<T>> Datas;
+        /// <summary>
+        /// 操作队列访问锁集合
+        /// </summary>
+        private readonly Dictionary<T, SemaphoreSlimCache> queueLocks;
         /// <summary>
         /// 初始化加载数据获取分词结果磁盘块索引信息节点单例
         /// </summary>
-        protected abstract StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<T>> loadClientNode { get; }
+        protected readonly StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<T>> loadClientNode;
         /// <summary>
         /// 获取字符串 Trie 图节点单例
         /// </summary>
-        protected abstract StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> trieGraphNode { get; }
+        protected readonly StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> trieGraphNode;
         /// <summary>
         /// 初始化加载数据数组大小，默认为 1024
         /// </summary>
-        protected int loadArraySize { get { return 1 << 10; } }
+        protected virtual int loadArraySize { get { return 1 << 10; } }
         /// <summary>
         /// 是否已经加载初始化数据
         /// </summary>
@@ -45,9 +51,14 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 分词结果磁盘块索引信息节点
         /// </summary>
-        protected WordIdentityBlockIndexNode() 
+        /// <param name="trieGraphNode">字符串 Trie 图节点单例</param>
+        /// <param name="loadClientNode">初始化加载数据获取分词结果磁盘块索引信息节点单例</param>
+        protected WordIdentityBlockIndexNode(StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> trieGraphNode, StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<T>> loadClientNode) 
         {
-            Datas = new FragmentDictionary256<T, WordIdentityBlockIndex<T>>();
+            this.trieGraphNode = trieGraphNode;
+            this.loadClientNode = loadClientNode;
+            Datas = new FragmentDictionary256<T, WordIdentityBlockIndexData<T>>();
+            queueLocks = DictionaryCreator<T>.Create<SemaphoreSlimCache>();
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -59,7 +70,7 @@ namespace AutoCSer.CommandService.Search
         public override IWordIdentityBlockIndexNode<T> StreamPersistenceMemoryDatabaseServiceLoaded()
 #endif
         {
-            foreach (KeyValuePair<T, WordIdentityBlockIndex<T>> data in Datas.KeyValues) data.Value.Loaded(this, data.Key);
+            foreach (KeyValuePair<T, WordIdentityBlockIndexData<T>> data in Datas.KeyValues) data.Value.Loaded(this, data.Key);
             if (!isLoaded) load().NotWait();
             return null;
         }
@@ -67,7 +78,7 @@ namespace AutoCSer.CommandService.Search
         /// 获取初始化加载所有数据命令
         /// </summary>
         /// <returns></returns>
-        protected abstract EnumeratorCommand<T> getLoadCommand();
+        protected abstract EnumeratorCommand<BinarySerializeKeyValue<T, string>> getLoadCommand();
         /// <summary>
         /// 初始化加载所有数据
         /// </summary>
@@ -75,7 +86,7 @@ namespace AutoCSer.CommandService.Search
         protected virtual async Task load()
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
-            var command = default(EnumeratorCommand<T>);
+            var command = default(EnumeratorCommand<BinarySerializeKeyValue<T, string>>);
             do
             {
                 try
@@ -83,17 +94,18 @@ namespace AutoCSer.CommandService.Search
                     ResponseResult<IWordIdentityBlockIndexNodeClientNode<T>> nodeResult = await loadClientNode.GetSynchronousNode();
                     if (nodeResult.IsSuccess)
                     {
-                        command = await getLoadCommand();
+                        command = getLoadCommand();
+                        if (command != null) command = await command;
                         if (command != null)
                         {
                             IWordIdentityBlockIndexNodeClientNode<T> node = nodeResult.Value.notNull();
-                            T[] keys = new T[Math.Max(loadArraySize, 1)];
-                            LoadCallback<T> callback = new LoadCallback<T>(this, keys);
+                            BinarySerializeKeyValue<T, string>[] values = new BinarySerializeKeyValue<T, string>[Math.Max(loadArraySize, 1)];
+                            LoadCallback<T> callback = new LoadCallback<T>(this, values);
                             int index = 0;
                             while (await command.MoveNext())
                             {
-                                keys[index++] = command.Current;
-                                if (index == keys.Length)
+                                values[index++] = command.Current;
+                                if (index == values.Length)
                                 {
                                     if (StreamPersistenceMemoryDatabaseNodeIsRemoved) return;
                                     index = await create(node, callback);
@@ -104,7 +116,7 @@ namespace AutoCSer.CommandService.Search
                                 if (index > 0)
                                 {
                                     if (StreamPersistenceMemoryDatabaseNodeIsRemoved) return;
-                                    if (index != keys.Length) Array.Resize(ref callback.Keys, index);
+                                    if (index != values.Length) Array.Resize(ref callback.Values, index);
                                     index = await create(node, callback);
                                 }
                                 if (index == 0 && command.ReturnType == CommandClientReturnTypeEnum.Success)
@@ -143,13 +155,13 @@ namespace AutoCSer.CommandService.Search
         {
             StreamPersistenceMemoryDatabaseCallQueue.AddOnly(callback);
             await callback.Wait();
-            T[] keys = callback.Keys;
+            BinarySerializeKeyValue<T, string>[] values = callback.Values;
             ResponseParameterAwaiter<WordIdentityBlockIndexUpdateStateEnum>[] responses = callback.CreateResponses;
             int index = callback.NewCount;
             while (index > 0)
             {
-                --index;
-                responses[index] = node.Create(keys[index]);
+                BinarySerializeKeyValue<T, string> value = values[--index];
+                responses[index] = node.LoadCreate(value.Key, value.Value);
             }
             for (index = callback.NewCount; index > 0;)
             {
@@ -176,7 +188,7 @@ namespace AutoCSer.CommandService.Search
         SnapshotResult<BinarySerializeKeyValue<T, BlockIndex>> ISnapshot<BinarySerializeKeyValue<T, BlockIndex>>.GetSnapshotResult(BinarySerializeKeyValue<T, BlockIndex>[] snapshotArray, object customObject)
         {
             SnapshotResult<BinarySerializeKeyValue<T, BlockIndex>> result = new SnapshotResult<BinarySerializeKeyValue<T, BlockIndex>>(Datas.Count, snapshotArray.Length);
-            foreach (KeyValuePair<T, WordIdentityBlockIndex<T>> data in Datas.KeyValues) result.Add(snapshotArray, new BinarySerializeKeyValue<T, BlockIndex>(data.Key, data.Value.BlockIndex));
+            foreach (KeyValuePair<T, WordIdentityBlockIndexData<T>> data in Datas.KeyValues) result.Add(snapshotArray, new BinarySerializeKeyValue<T, BlockIndex>(data.Key, data.Value.BlockIndex));
             return result;
         }
         /// <summary>
@@ -185,7 +197,7 @@ namespace AutoCSer.CommandService.Search
         /// <param name="value">数据</param>
         public void SnapshotSet(BinarySerializeKeyValue<T, BlockIndex> value)
         {
-            Datas.Add(value.Key, new WordIdentityBlockIndex<T>(value.Value));
+            Datas.Add(value.Key, new WordIdentityBlockIndexData<T>(value.Value));
         }
         /// <summary>
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
@@ -222,6 +234,42 @@ namespace AutoCSer.CommandService.Search
             isLoaded = value;
         }
         /// <summary>
+        /// 获取操作队列访问锁
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        internal SemaphoreSlimCache GetSemaphoreSlimCache(T key)
+        {
+            var semaphoreSlim = default(SemaphoreSlimCache);
+            Monitor.Enter(queueLocks);
+            try
+            {
+                if (!queueLocks.TryGetValue(key, out semaphoreSlim)) queueLocks.Add(key, semaphoreSlim = SemaphoreSlimCache.Get());
+                ++semaphoreSlim.Count;
+            }
+            finally { Monitor.Exit(queueLocks); }
+            return semaphoreSlim;
+        }
+        /// <summary>
+        /// 释放操作队列访问锁
+        /// </summary>
+        /// <param name="semaphoreSlim"></param>
+        /// <param name="key"></param>
+        internal void Release(SemaphoreSlimCache semaphoreSlim, T key)
+        {
+            Monitor.Enter(queueLocks);
+            if (--semaphoreSlim.Count == 0)
+            {
+                try
+                {
+                    queueLocks.Remove(key);
+                }
+                finally { Monitor.Exit(queueLocks); }
+                SemaphoreSlimCache.Free(semaphoreSlim);
+            }
+            else Monitor.Exit(queueLocks);
+        }
+        /// <summary>
         /// 初始化数据加载完成
         /// </summary>
         public void Loaded()
@@ -232,14 +280,64 @@ namespace AutoCSer.CommandService.Search
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="key">分词数据关键字</param>
+        /// <param name="text">分词文本数据</param>
+        /// <returns></returns>
+        public ValueResult<WordIdentityBlockIndexUpdateStateEnum> LoadCreateBeforePersistence(T key, string text)
+        {
+            if (key != null)
+            {
+                if (!Datas.ContainsKey(key)) return default(ValueResult<WordIdentityBlockIndexUpdateStateEnum>);
+                return WordIdentityBlockIndexUpdateStateEnum.Success;
+            }
+            return WordIdentityBlockIndexUpdateStateEnum.NullKey;
+        }
+        /// <summary>
+        /// 创建分词结果磁盘块索引信息
+        /// </summary>
+        /// <param name="key">分词数据关键字</param>
+        /// <param name="text">分词文本数据</param>
+        /// <param name="callback"></param>
+        public void LoadCreateLoadPersistence(T key, string text, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
+        {
+            CreateLoadPersistence(key, callback);
+        }
+        /// <summary>
+        /// 创建分词结果磁盘块索引信息
+        /// </summary>
+        /// <param name="key">分词数据关键字</param>
+        /// <param name="text">分词文本数据</param>
+        /// <param name="callback"></param>
+        public void LoadCreate(T key, string text, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
+        {
+            WordIdentityBlockIndexUpdateStateEnum state = WordIdentityBlockIndexUpdateStateEnum.Unknown;
+            try
+            {
+                if (!Datas.ContainsKey(key))
+                {
+                    WordIdentityBlockIndexData<T> data = new WordIdentityBlockIndexData<T>();
+                    Datas.Add(key, data);
+                    data.Create(this, key, callback, text).NotWait();
+                    state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
+                }
+                else state = WordIdentityBlockIndexUpdateStateEnum.Success;
+            }
+            finally
+            {
+                if (state != WordIdentityBlockIndexUpdateStateEnum.Callbacked) callback.Callback(state);
+            }
+        }
+        /// <summary>
+        /// 创建分词结果磁盘块索引信息
+        /// </summary>
+        /// <param name="key">分词数据关键字</param>
         /// <param name="callback"></param>
         public void CreateLoadPersistence(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
             if (key != null)
             {
-                var data = default(WordIdentityBlockIndex<T>);
+                var data = default(WordIdentityBlockIndexData<T>);
                 if (Datas.TryGetValue(key, out data)) data.IsLoadedDeleted = false;
-                else Datas.Add(key, new WordIdentityBlockIndex<T>());
+                else Datas.Add(key, new WordIdentityBlockIndexData<T>());
             }
         }
         /// <summary>
@@ -256,7 +354,7 @@ namespace AutoCSer.CommandService.Search
                 {
                     if (!Datas.ContainsKey(key))
                     {
-                        WordIdentityBlockIndex<T> data = new WordIdentityBlockIndex<T>();
+                        WordIdentityBlockIndexData<T> data = new WordIdentityBlockIndexData<T>();
                         Datas.Add(key, data);
                         data.Create(this, key, callback).NotWait();
                         state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
@@ -291,11 +389,11 @@ namespace AutoCSer.CommandService.Search
             {
                 if (key != null)
                 {
-                    var data = default(WordIdentityBlockIndex<T>);
+                    var data = default(WordIdentityBlockIndexData<T>);
                     if (Datas.TryGetValue(key, out data)) data.Update(this, key, callback).NotWait();
                     else
                     {
-                        Datas.Add(key, data = new WordIdentityBlockIndex<T>());
+                        Datas.Add(key, data = new WordIdentityBlockIndexData<T>());
                         data.Create(this, key, callback).NotWait();
                     }
                     state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
@@ -316,7 +414,7 @@ namespace AutoCSer.CommandService.Search
         {
             if (key != null)
             {
-                var data = default(WordIdentityBlockIndex<T>);
+                var data = default(WordIdentityBlockIndexData<T>);
                 if (Datas.TryGetValue(key, out data)) data.IsLoadedDeleted = true;
             }
         }
@@ -332,7 +430,7 @@ namespace AutoCSer.CommandService.Search
             {
                 if (key != null)
                 {
-                    var data = default(WordIdentityBlockIndex<T>);
+                    var data = default(WordIdentityBlockIndexData<T>);
                     if (Datas.TryGetValue(key, out data))
                     {
                         data.Delete(this, key, callback).NotWait();
@@ -355,7 +453,7 @@ namespace AutoCSer.CommandService.Search
         /// <param name="callback"></param>
         public void CompletedLoadPersistence(T key, BlockIndex blockIndex, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
-            var data = default(WordIdentityBlockIndex<T>);
+            var data = default(WordIdentityBlockIndexData<T>);
             if (Datas.TryGetValue(key, out data)) data.BlockIndex = blockIndex;
         }
         /// <summary>
@@ -369,8 +467,8 @@ namespace AutoCSer.CommandService.Search
             WordIdentityBlockIndexUpdateStateEnum state = WordIdentityBlockIndexUpdateStateEnum.Unknown;
             try
             {
-                var data = default(WordIdentityBlockIndex<T>);
-                if (Datas.TryGetValue(key, out data)) data.Completed(blockIndex).NotWait();
+                var data = default(WordIdentityBlockIndexData<T>);
+                if (Datas.TryGetValue(key, out data)) data.Completed(this, key, blockIndex).NotWait();
                 state = WordIdentityBlockIndexUpdateStateEnum.Success;
             }
             finally { callback.Callback(state); }
@@ -405,7 +503,7 @@ namespace AutoCSer.CommandService.Search
         /// <param name="data"></param>
         /// <param name="exception"></param>
         /// <returns></returns>
-        public virtual Task OnException(WordIdentityBlockIndex<T> data, Exception exception) { return AutoCSer.Common.CompletedTask; }
+        public virtual Task OnException(WordIdentityBlockIndexData<T> data, Exception exception) { return AutoCSer.Common.CompletedTask; }
         /// <summary>
         /// 根据关键字获取需要分词的文本数据
         /// </summary>

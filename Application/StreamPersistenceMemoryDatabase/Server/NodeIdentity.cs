@@ -21,7 +21,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 节点标识
         /// </summary>
-        private uint identity;
+        internal uint Identity;
         /// <summary>
         /// 获取服务端节点
         /// </summary>
@@ -34,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ServerNode Get(uint identity)
 #endif
         {
-            return this.identity == identity ? Node : null;
+            return this.Identity == identity ? Node : null;
         }
         /// <summary>
         /// 获取服务端节点
@@ -48,7 +48,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ServerNode CheckGet(uint identity)
 #endif
         {
-            if (this.identity == identity)
+            if (this.Identity == identity)
             {
                 var node = this.Node;
                 if (node != null && node.Index.Identity == identity) return node;
@@ -64,10 +64,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool Set(ServerNode node, uint identity)
         {
-            if (this.identity == (identity | NodeIndex.FreeIdentity))
+            if (this.Identity == (identity | NodeIndex.FreeIdentity))
             {
                 this.Node = node;
-                this.identity &= (NodeIndex.FreeIdentity ^ uint.MaxValue);
+                this.Identity &= (NodeIndex.FreeIdentity ^ uint.MaxValue);
                 return true;
             }
             return false;
@@ -84,10 +84,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ServerNode GetRemove(uint identity)
 #endif
         {
-            if (this.identity == identity)
+            if (this.Identity == identity)
             {
                 var node = this.Node;
-                if ((++this.identity & NodeIndex.FreeIdentity) != 0) this.identity = 0;
+                if ((++this.Identity & NodeIndex.FreeIdentity) != 0) this.Identity = 0;
                 this.Node = null;
                 return node;
             }
@@ -100,7 +100,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal uint GetFreeIdentity()
         {
-            return identity |= NodeIndex.FreeIdentity;
+            return Identity |= NodeIndex.FreeIdentity;
+        }
+        /// <summary>
+        /// 设置空闲节点标识，用于创建节点预申请
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal uint GetCreateIdentity()
+        {
+            uint identity = Identity;
+            Identity |= NodeIndex.FreeIdentity;
+            return identity;
         }
         /// <summary>
         /// 判断空闲节点标识是否匹配
@@ -110,7 +121,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool CheckFreeIdentity(ref uint identity)
         {
-            return this.identity == (identity |= NodeIndex.FreeIdentity);
+            return this.Identity == (identity |= NodeIndex.FreeIdentity);
         }
         /// <summary>
         /// 释放空闲节点
@@ -119,10 +130,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool FreeIdentity(uint identity)
         {
-            if (this.identity == (identity | NodeIndex.FreeIdentity))
+            if (this.Identity == (identity | NodeIndex.FreeIdentity))
             {
-                this.identity -= (NodeIndex.FreeIdentity - 1);
-                if ((++this.identity & NodeIndex.FreeIdentity) != 0) this.identity = 0;
+                this.Identity -= (NodeIndex.FreeIdentity - 1);
+                if ((++this.Identity & NodeIndex.FreeIdentity) != 0) this.Identity = 0;
                 return true;
             }
             return false;
@@ -137,7 +148,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (Node == null)
             {
-                this.identity = identity | NodeIndex.FreeIdentity;
+                this.Identity = identity | NodeIndex.FreeIdentity;
                 return true;
             }
             return false;

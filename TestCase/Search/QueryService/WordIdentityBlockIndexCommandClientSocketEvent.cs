@@ -1,7 +1,7 @@
 ﻿using AutoCSer.CommandService;
-using AutoCSer.CommandService.Search;
 using AutoCSer.Net;
 using AutoCSer.TestCase.SearchCommon;
+using AutoCSer.TestCase.SearchDataSource;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -58,6 +58,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 用户搜索非索引条件数据节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISearchUserNodeClientNode> SearchUserNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<ISearchUserNodeClientNode>(nameof(NodeTypeEnum.SearchUserNode), client.ClientNode.CreateSearchUserNode));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISearchUserNodeClientNode> SearchUserNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<ISearchUserNodeClientNode>(nameof(OperationDataTypeEnum.SearchUserNode), client.ClientNode.CreateSearchUserNode));
     }
 }

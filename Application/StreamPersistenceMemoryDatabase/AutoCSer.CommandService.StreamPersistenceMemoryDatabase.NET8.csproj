@@ -58,6 +58,8 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
     <Compile Include="ConcurrencyQueue.cs" />
     <Compile Include="ConcurrencyQueueTaskNode.cs" />
+    <Compile Include="CreateNodeIndex.cs" />
+    <Compile Include="Server\CreatingNodeInfo.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />

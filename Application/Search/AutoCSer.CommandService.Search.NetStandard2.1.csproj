@@ -27,18 +27,22 @@
 
   <ItemGroup>
     <Compile Include="ConditionData\ConditionDataCache.cs" />
+    <Compile Include="ConditionData\ConditionDataLocalNode.cs" />
     <Compile Include="ConditionData\ConditionDataNode.cs" />
     <Compile Include="ConditionData\ConditionDataUpdateStateEnum.cs" />
     <Compile Include="ConditionData\IConditionData.cs" />
     <Compile Include="ConditionData\IConditionDataCache.cs" />
     <Compile Include="ConditionData\IConditionDataNode.cs" />
     <Compile Include="ConditionData\LoadCallback.cs" />
+    <Compile Include="ConditionData\LocalLoadCallback.cs" />
     <Compile Include="DiskBlockIndex\BlockIndexData.cs" />
     <Compile Include="DiskBlockIndex\IDiskBlockIndexServiceNode.cs" />
     <Compile Include="DiskBlockIndex\IRemoveMarkHashIndexNode.cs" />
     <Compile Include="DiskBlockIndex\IRemoveMarkHashIndexNodeClientNode.cs" />
+    <Compile Include="DiskBlockIndex\IRemoveMarkHashIndexNodeLocalClientNode.cs" />
     <Compile Include="DiskBlockIndex\IRemoveMarkHashKeyIndexNode.cs" />
     <Compile Include="DiskBlockIndex\IRemoveMarkHashKeyIndexNodeClientNode.cs" />
+    <Compile Include="DiskBlockIndex\IRemoveMarkHashKeyIndexNodeLocalClientNode.cs" />
     <Compile Include="DiskBlockIndex\PersistenceNode.cs" />
     <Compile Include="DiskBlockIndex\RemoveMarkHashIndex.cs" />
     <Compile Include="DiskBlockIndex\RemoveMarkHashIndexNode.cs" />
@@ -78,6 +82,18 @@
     <Compile Include="RemoveMarkHashIndexCache\GenericKeyUIntValueCache.cs" />
     <Compile Include="RemoveMarkHashIndexCache\IndexDataTypeEnum.cs" />
     <Compile Include="RemoveMarkHashIndexCache\IntIndex.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\GenericKeyIntValueLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\GenericKeyLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\GenericKeyUIntValueLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\SingleDiskBlockGenericKeyIntValueLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\SingleDiskBlockGenericKeyLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\SingleDiskBlockGenericKeyUIntValueLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\SingleDiskBlockUIntKeyIntValueLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\SingleDiskBlockUIntKeyLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\SingleDiskBlockUIntKeyUIntValueLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\UIntKeyIntValueLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\UIntKeyLocalCache.cs" />
+    <Compile Include="RemoveMarkHashIndexCache\LocalService\UIntKeyUIntValueLocalCache.cs" />
     <Compile Include="RemoveMarkHashIndexCache\SingleDiskBlockGenericKeyCache.cs" />
     <Compile Include="RemoveMarkHashIndexCache\SingleDiskBlockGenericKeyIntValueCache.cs" />
     <Compile Include="RemoveMarkHashIndexCache\SingleDiskBlockGenericKeyUIntValueCache.cs" />
@@ -107,7 +123,11 @@
     <Compile Include="StaticTrieGraph\WordTypeEnum.cs" />
     <Compile Include="WordIdentityBlockIndex\IWordIdentityBlockIndexNode.cs" />
     <Compile Include="WordIdentityBlockIndex\LoadCallback.cs" />
-    <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndex.cs" />
+    <Compile Include="WordIdentityBlockIndex\LocalService\ILocalNode.cs" />
+    <Compile Include="WordIdentityBlockIndex\LocalService\LocalData.cs" />
+    <Compile Include="WordIdentityBlockIndex\LocalService\LocalLoadCallback.cs" />
+    <Compile Include="WordIdentityBlockIndex\LocalService\LocalNode.cs" />
+    <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndexData.cs" />
     <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndexNode.cs" />
     <Compile Include="WordIdentityBlockIndex\WordIdentityBlockIndexUpdateStateEnum.cs" />
     <Compile Include="{AutoCSer.CommandService.Search}.AutoCSer.cs" />

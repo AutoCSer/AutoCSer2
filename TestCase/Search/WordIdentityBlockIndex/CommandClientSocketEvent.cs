@@ -59,14 +59,14 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// <summary>
         /// 用户名称分词结果磁盘块索引信息节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<int>> UserNameNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IWordIdentityBlockIndexNodeClientNode<int>>(nameof(NodeTypeEnum.UserNameNode), client.ClientNode.CreateUserNameWordIdentityBlockIndexNode));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<int>> UserNameNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IWordIdentityBlockIndexNodeClientNode<int>>(nameof(OperationDataTypeEnum.UserNameNode), client.ClientNode.CreateUserNameWordIdentityBlockIndexNode));
         /// <summary>
         /// 用户备注分词结果磁盘块索引信息节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<int>> UserRemarkNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IWordIdentityBlockIndexNodeClientNode<int>>(nameof(NodeTypeEnum.UserRemarkNode), client.ClientNode.CreateUserRemarkWordIdentityBlockIndexNode));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IWordIdentityBlockIndexNodeClientNode<int>> UserRemarkNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IWordIdentityBlockIndexNodeClientNode<int>>(nameof(OperationDataTypeEnum.UserRemarkNode), client.ClientNode.CreateUserRemarkWordIdentityBlockIndexNode));
         /// <summary>
         /// 用户搜索非索引条件数据节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISearchUserNodeClientNode> SearchUserNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<ISearchUserNodeClientNode>(nameof(NodeTypeEnum.SearchUserNode), client.ClientNode.CreateSearchUserNode));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<ISearchUserNodeClientNode> SearchUserNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<ISearchUserNodeClientNode>(nameof(OperationDataTypeEnum.SearchUserNode), client.ClientNode.CreateSearchUserNode));
     }
 }

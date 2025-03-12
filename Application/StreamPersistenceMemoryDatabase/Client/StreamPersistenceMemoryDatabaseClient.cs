@@ -77,41 +77,33 @@ namespace AutoCSer.CommandService
             NodeInfo nodeInfo = ClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {
-                int loopCount = 3;
-                do
+                await createNodeLock.WaitAsync();
+                try
                 {
-                    await createNodeLock.WaitAsync();
-                    try
+                    CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo, true);
+                    if (index.IsSuccess)
                     {
-                        CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo, true);
-                        if (index.IsSuccess)
+                        CallStateEnum state = index.Value.GetState();
+                        if (state == CallStateEnum.Success)
                         {
-                            CallStateEnum state = index.Value.GetState();
-                            switch (state)
+                            if (index.Value.GetFree())
                             {
-                                case CallStateEnum.Success:
-                                    if (index.Value.GetFree())
-                                    {
-                                        ResponseResult<NodeIndex> nodeIndex = await creator(index.Value, key, nodeInfo);
-                                        if (nodeIndex.IsSuccess)
-                                        {
-                                            state = nodeIndex.Value.GetState();
-                                            if (state == CallStateEnum.Success) return nodeIndex.Value;
-                                            return state;
-                                        }
-                                        return nodeIndex.Cast<NodeIndex>();
-                                    }
-                                    return index.Value;
-                                case CallStateEnum.NodeCreating: await Task.Delay(1); break;
-                                default: return state;
+                                ResponseResult<NodeIndex> nodeIndex = await creator(index.Value, key, nodeInfo);
+                                if (nodeIndex.IsSuccess)
+                                {
+                                    state = nodeIndex.Value.GetState();
+                                    if (state == CallStateEnum.Success) return nodeIndex.Value;
+                                    return state;
+                                }
+                                return nodeIndex.Cast<NodeIndex>();
                             }
+                            return index.Value;
                         }
-                        else return new ResponseResult<NodeIndex>(index.ReturnType, index.ErrorMessage);
+                        return state;
                     }
-                    finally { createNodeLock.Release(); }
+                    return new ResponseResult<NodeIndex>(index.ReturnType, index.ErrorMessage);
                 }
-                while (--loopCount != 0);
-                return CallStateEnum.NodeCreating;
+                finally { createNodeLock.Release(); }
             }
             return new ResponseResult<NodeIndex>(CallStateEnum.NotFoundClientNodeCreator, exception.Message);
         }

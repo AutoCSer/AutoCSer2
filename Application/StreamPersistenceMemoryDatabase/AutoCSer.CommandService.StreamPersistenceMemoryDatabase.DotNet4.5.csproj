@@ -69,6 +69,7 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
     <Compile Include="ConcurrencyQueue.cs" />
     <Compile Include="ConcurrencyQueueTaskNode.cs" />
+    <Compile Include="CreateNodeIndex.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
     <Compile Include="Server\ContextNode.cs" />
+    <Compile Include="Server\CreatingNodeInfo.cs" />
     <Compile Include="Server\EmptyCommandServerCallback.cs" />
     <Compile Include="Server\INode.cs" />
     <Compile Include="Server\ISlaveLoader.cs" />

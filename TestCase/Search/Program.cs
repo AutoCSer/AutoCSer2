@@ -1,12 +1,9 @@
-﻿using AutoCSer.CommandService.Search.DiskBlockIndex;
-using AutoCSer.CommandService.Search.StaticTrieGraph;
-using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 using AutoCSer.TestCase.SearchDataSource;
 using AutoCSer.TestCase.SearchQueryService;
 using System;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace AutoCSer.TestCase.Search
 {

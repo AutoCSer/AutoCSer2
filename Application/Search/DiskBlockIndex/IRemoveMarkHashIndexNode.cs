@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
     /// </summary>
     /// <typeparam name="KT">索引关键字类型</typeparam>
     /// <typeparam name="VT">数据关键字类型</typeparam>
-    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = false, IsMethodParameterCreator = true)]
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true, IsMethodParameterCreator = true)]
     public partial interface IRemoveMarkHashIndexNode<KT, VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>

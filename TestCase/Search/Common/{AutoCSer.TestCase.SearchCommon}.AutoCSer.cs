@@ -8,58 +8,68 @@ using AutoCSer;
 namespace AutoCSer.TestCase.SearchDataSource
 {
         /// <summary>
-        ///  客户端接口
+        /// 用户信息服务接口 客户端接口
         /// </summary>
         public partial interface IUserServiceClientController
         {
             /// <summary>
-            /// 
+            /// 获取所有用户搜索非索引条件数据
             /// </summary>
-            /// <returns></returns>
-            AutoCSer.Net.EnumeratorCommand<int> GetAllUserId();
+            /// <returns>用户搜索非索引条件数据回调</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.TestCase.SearchDataSource.SearchUser> GetAllSearchUser();
             /// <summary>
-            /// 
+            /// 获取所有用户名称
             /// </summary>
-            /// <param name="id"></param>
-            /// <returns></returns>
+            /// <returns>用户名称回调</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.BinarySerializeKeyValue<int,string>> GetAllUserName();
+            /// <summary>
+            /// 获取所有用户备注
+            /// </summary>
+            /// <returns>用户备注回调</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.BinarySerializeKeyValue<int,string>> GetAllUserRemark();
+            /// <summary>
+            /// 获取用户名称
+            /// </summary>
+            /// <param name="id">用户标识</param>
+            /// <returns>null 表示不存在</returns>
             AutoCSer.Net.ReturnCommand<string> GetName(int id);
             /// <summary>
-            /// 
+            /// 获取用户标识分页记录
             /// </summary>
-            /// <param name="queryParameter"></param>
+            /// <param name="queryParameter">用户搜索查询参数</param>
             /// <returns></returns>
             AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult<AutoCSer.TestCase.SearchDataSource.User>> GetPage(AutoCSer.TestCase.SearchQueryService.UserQueryParameter queryParameter);
             /// <summary>
-            /// 
+            /// 获取用户备注
             /// </summary>
-            /// <param name="id"></param>
-            /// <returns></returns>
+            /// <param name="id">用户标识</param>
+            /// <returns>null 表示不存在</returns>
             AutoCSer.Net.ReturnCommand<string> GetRemark(int id);
             /// <summary>
-            /// 
+            /// 获取用户搜索非索引条件数据
             /// </summary>
-            /// <param name="id"></param>
-            /// <returns></returns>
+            /// <param name="id">用户标识</param>
+            /// <returns>Id 为 0 表示不存在</returns>
             AutoCSer.Net.ReturnCommand<AutoCSer.TestCase.SearchDataSource.SearchUser> GetSearchUser(int id);
         }
 }namespace AutoCSer.TestCase.SearchQueryService
 {
         /// <summary>
-        ///  客户端接口
+        /// 搜索聚合查询服务接口 客户端接口
         /// </summary>
         public partial interface IQueryServiceClientController
         {
             /// <summary>
-            /// 
+            /// 获取用户标识分页记录
             /// </summary>
-            /// <param name="queryParameter"></param>
+            /// <param name="queryParameter">用户搜索查询参数</param>
             /// <returns></returns>
             AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult<int>> GetUserPage(AutoCSer.TestCase.SearchQueryService.UserQueryParameter queryParameter);
         }
 }namespace AutoCSer.TestCase.SearchCommon
 {
         /// <summary>
-        ///  客户端节点接口
+        /// 非索引条件查询数据节点接口 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.SearchCommon.ISearchUserNode))]
         public partial interface ISearchUserNodeClientNode
@@ -83,117 +93,83 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum> Update(int key);
             /// <summary>
-            /// 
+            /// 获取非索引条件数据用户数组
             /// </summary>
-            /// <param name="userIds"></param>
+            /// <param name="userIds">用户标识数组</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.LeftArray<AutoCSer.TestCase.SearchDataSource.SearchUser>> GetArray(AutoCSer.LeftArray<int> userIds);
             /// <summary>
-            /// 
+            /// 获取非索引条件数据用户分页数据
             /// </summary>
-            /// <param name="queryParameter"></param>
+            /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult<int>> GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter queryParameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter LoadCreate(AutoCSer.TestCase.SearchDataSource.SearchUser value);
         }
 }namespace AutoCSer.TestCase.SearchDataSource
 {
         /// <summary>
-        ///  客户端节点接口
+        /// 用户搜索数据更新消息节点的自定义基础服务接口 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNode))]
         public partial interface ITimeoutMessageServiceNodeClientNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode
         {
             /// <summary>
-            /// 
+            /// 创建用户搜索数据更新消息节点 ITimeoutMessageNode{OperationData{int}}
             /// </summary>
-            /// <param name="index"></param>
-            /// <param name="key"></param>
-            /// <param name="nodeInfo"></param>
-            /// <param name="timeoutSeconds"></param>
-            /// <returns></returns>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="timeoutSeconds">触发任务执行超时秒数</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateSearchUserMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int timeoutSeconds);
         }
 }namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
 {
         /// <summary>
-        ///  客户端节点接口
+        /// 创建分词结果磁盘块索引信息节点的自定义基础服务接口 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNode))]
         public partial interface IServiceNodeClientNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode
         {
             /// <summary>
-            /// 
+            /// 创建用户名称分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
             /// </summary>
-            /// <param name="index"></param>
-            /// <param name="key"></param>
-            /// <param name="nodeInfo"></param>
-            /// <returns></returns>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateUserNameWordIdentityBlockIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
             /// <summary>
-            /// 
+            /// 创建用户备注分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
             /// </summary>
-            /// <param name="index"></param>
-            /// <param name="key"></param>
-            /// <param name="nodeInfo"></param>
-            /// <returns></returns>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateUserRemarkWordIdentityBlockIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
             /// <summary>
-            /// 
+            /// 创建非索引条件查询数据节点 ISearchUserNode
             /// </summary>
-            /// <param name="index"></param>
-            /// <param name="key"></param>
-            /// <param name="nodeInfo"></param>
-            /// <returns></returns>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
 }namespace AutoCSer.TestCase.SearchCommon
 {
         /// <summary>
-        ///  客户端节点接口
-        /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.SearchCommon.ISearchUserNode))]
-        public partial interface ISearchUserNodeLocalClientNode
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="key"></param>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum>> Create(int key);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="key"></param>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum>> Delete(int key);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="key"></param>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum>> Update(int key);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="userIds"></param>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.LeftArray<AutoCSer.TestCase.SearchDataSource.SearchUser>>> GetArray(AutoCSer.LeftArray<int> userIds);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="queryParameter"></param>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult<int>>> GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter queryParameter);
-        }
-}namespace AutoCSer.TestCase.SearchCommon
-{
-        /// <summary>
-        /// 
+        /// 非索引条件查询数据节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISearchUserNodeMethodEnum))]
         public partial interface ISearchUserNode { }
         /// <summary>
-        ///  节点方法序号映射枚举类型
+        /// 非索引条件查询数据节点接口 节点方法序号映射枚举类型
         /// </summary>
         public enum ISearchUserNodeMethodEnum
         {
@@ -257,27 +233,43 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// </summary>
             Update = 9,
             /// <summary>
-            /// [10] 
-            /// AutoCSer.LeftArray{int} userIds 
+            /// [10] 获取非索引条件数据用户数组
+            /// AutoCSer.LeftArray{int} userIds 用户标识数组
             /// 返回值 AutoCSer.LeftArray{AutoCSer.TestCase.SearchDataSource.SearchUser} 
             /// </summary>
             GetArray = 10,
             /// <summary>
-            /// [11] 
-            /// AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter queryParameter 
+            /// [11] 获取非索引条件数据用户分页数据
+            /// AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter queryParameter 用户搜索非索引条件数据查询参数
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult{int} 
             /// </summary>
             GetPage = 11,
+            /// <summary>
+            /// [12] 
+            /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
+            /// </summary>
+            LoadCreate = 12,
+            /// <summary>
+            /// [13] 
+            /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
+            /// 返回值 bool 
+            /// </summary>
+            LoadCreateBeforePersistence = 13,
+            /// <summary>
+            /// [14] 
+            /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
+            /// </summary>
+            LoadCreateLoadPersistence = 14,
         }
 }namespace AutoCSer.TestCase.SearchDataSource
 {
         /// <summary>
-        /// 
+        /// 用户搜索数据更新消息节点的自定义基础服务接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ITimeoutMessageServiceNodeMethodEnum))]
         public partial interface ITimeoutMessageServiceNode { }
         /// <summary>
-        ///  节点方法序号映射枚举类型
+        /// 用户搜索数据更新消息节点的自定义基础服务接口 节点方法序号映射枚举类型
         /// </summary>
         public enum ITimeoutMessageServiceNodeMethodEnum
         {
@@ -561,24 +553,24 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// </summary>
             RemoveNodeByKey = 29,
             /// <summary>
-            /// [256] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
-            /// string key 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
-            /// int timeoutSeconds 
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// [256] 创建用户搜索数据更新消息节点 ITimeoutMessageNode{OperationData{int}}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// int timeoutSeconds 触发任务执行超时秒数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateSearchUserMessageNode = 256,
         }
 }namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
 {
         /// <summary>
-        /// 
+        /// 创建分词结果磁盘块索引信息节点的自定义基础服务接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IServiceNodeMethodEnum))]
         public partial interface IServiceNode { }
         /// <summary>
-        ///  节点方法序号映射枚举类型
+        /// 创建分词结果磁盘块索引信息节点的自定义基础服务接口 节点方法序号映射枚举类型
         /// </summary>
         public enum IServiceNodeMethodEnum
         {
@@ -862,27 +854,27 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// </summary>
             RemoveNodeByKey = 29,
             /// <summary>
-            /// [256] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
-            /// string key 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// [256] 创建用户名称分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateUserNameWordIdentityBlockIndexNode = 256,
             /// <summary>
-            /// [257] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
-            /// string key 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// [257] 创建用户备注分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateUserRemarkWordIdentityBlockIndexNode = 257,
             /// <summary>
-            /// [258] 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
-            /// string key 
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
+            /// [258] 创建非索引条件查询数据节点 ISearchUserNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateSearchUserNode = 258,
         }

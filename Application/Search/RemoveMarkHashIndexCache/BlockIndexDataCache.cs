@@ -2,7 +2,9 @@
 using AutoCSer.CommandService.Search.IndexQuery;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,9 +29,9 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// 获取更新关键字集合保持回调
         /// </summary>
 #if NetStandard21
-        protected CommandKeepCallback? getChangeKeyKeepCallback;
+        protected IDisposable? getChangeKeyKeepCallback;
 #else
-        protected CommandKeepCallback getChangeKeyKeepCallback;
+        protected IDisposable getChangeKeyKeepCallback;
 #endif
         /// <summary>
         /// 最大缓存数据数量
@@ -71,9 +73,9 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <param name="keepCallback"></param>
         /// <returns></returns>
 #if NetStandard21
-        protected bool setGetChangeKeyKeepCallback(CommandKeepCallback? keepCallback)
+        protected bool setGetChangeKeyKeepCallback(IDisposable? keepCallback)
 #else
-        protected bool setGetChangeKeyKeepCallback(CommandKeepCallback keepCallback)
+        protected bool setGetChangeKeyKeepCallback(IDisposable keepCallback)
 #endif
         {
             if (keepCallback != null)
@@ -170,15 +172,59 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
 #endif
     {
         /// <summary>
+        /// 节点缓存加载访问锁集合
+        /// </summary>
+        private readonly Dictionary<KT, SemaphoreSlimCache> loadLocks;
+
+        /// <summary>
         /// 索引数据磁盘块索引缓存
         /// </summary>
         /// <param name="maxCount">最大缓存数据数量</param>
-        protected BlockIndexDataCache(long maxCount) : base(maxCount) { }
+        protected BlockIndexDataCache(long maxCount) : base(maxCount)
+        {
+            loadLocks = DictionaryCreator<KT>.Create<SemaphoreSlimCache>();
+        }
         /// <summary>
         /// 获取索引数据磁盘块索引信息节点
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
         internal abstract Task<ResponseResult> GetBlockIndexData(BlockIndexDataCacheNode<KT, VT> node);
+        /// <summary>
+        /// 获取节点缓存加载访问锁
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        internal SemaphoreSlimCache GetSemaphoreSlimCache(KT key)
+        {
+            var semaphoreSlim = default(SemaphoreSlimCache);
+            Monitor.Enter(loadLocks);
+            try
+            {
+                if (!loadLocks.TryGetValue(key, out semaphoreSlim)) loadLocks.Add(key, semaphoreSlim = SemaphoreSlimCache.Get());
+                ++semaphoreSlim.Count;
+            }
+            finally { Monitor.Exit(loadLocks); }
+            return semaphoreSlim;
+        }
+        /// <summary>
+        /// 释放获取节点缓存加载访问锁
+        /// </summary>
+        /// <param name="semaphoreSlim"></param>
+        /// <param name="key"></param>
+        internal void Release(SemaphoreSlimCache semaphoreSlim, KT key)
+        {
+            Monitor.Enter(loadLocks);
+            if (--semaphoreSlim.Count == 0)
+            {
+                try
+                {
+                    loadLocks.Remove(key);
+                }
+                finally { Monitor.Exit(loadLocks); }
+                SemaphoreSlimCache.Free(semaphoreSlim);
+            }
+            else Monitor.Exit(loadLocks);
+        }
     }
 }

@@ -4,6 +4,7 @@ using AutoCSer.CommandService.Search.IndexQuery;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Configuration;
 using AutoCSer.Extensions;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -32,10 +33,6 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// 索引数据磁盘块索引缓存
         /// </summary>
         protected readonly BlockIndexDataCache<T> cache;
-        /// <summary>
-        /// 数据加载访问锁
-        /// </summary>
-        private readonly SemaphoreSlim loadLock;
         /// <summary>
         /// 索引数据磁盘块索引信息节点
         /// </summary>
@@ -109,8 +106,17 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected BlockIndexDataCacheNode(BlockIndexDataCache<T> cache)
         {
             this.cache = cache;
-            loadLock = new System.Threading.SemaphoreSlim(1, 1);
         }
+        /// <summary>
+        /// 获取节点缓存加载访问锁
+        /// </summary>
+        /// <returns></returns>
+        internal abstract SemaphoreSlimCache GetSemaphoreSlimCache();
+        /// <summary>
+        /// 释放获取节点缓存加载访问锁
+        /// </summary>
+        /// <param name="semaphoreSlim"></param>
+        internal abstract void Release(SemaphoreSlimCache semaphoreSlim);
         /// <summary>
         /// 获取索引数据磁盘块索引信息节点
         /// </summary>
@@ -119,12 +125,13 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         {
             if (Type == IndexDataTypeEnum.None)
             {
-                await loadLock.WaitAsync();
+                SemaphoreSlimCache semaphoreSlim = GetSemaphoreSlimCache();
+                await semaphoreSlim.Lock.WaitAsync();
                 try
                 {
                     if (Type == IndexDataTypeEnum.None) return await getBlockIndexData();
                 }
-                finally { loadLock.Release(); }
+                finally { Release(semaphoreSlim); }
             }
             return CallStateEnum.Success;
         }
@@ -274,7 +281,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         {
             var manyIndex = default(IIndex<T>);
             BlockIndexData<T> manyData = default(BlockIndexData<T>);
-            await loadLock.WaitAsync();
+            SemaphoreSlimCache semaphoreSlim = GetSemaphoreSlimCache();
+            await semaphoreSlim.Lock.WaitAsync();
             try
             {
                 switch (Type)
@@ -346,7 +354,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
                 if (manyIndex != null) return new ResponseResult<IIndex<T>>(manyIndex);
                 return CallStateEnum.CustomException;
             }
-            finally { loadLock.Release(); }
+            finally { Release(semaphoreSlim); }
         }
         /// <summary>
         /// 加载数据
@@ -421,6 +429,23 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected override Task<ResponseResult> getBlockIndexData()
         {
             return ((BlockIndexDataCache<KT, VT>)cache).GetBlockIndexData(this);
+        }
+        /// <summary>
+        /// 获取节点缓存加载访问锁
+        /// </summary>
+        /// <returns></returns>
+        internal override SemaphoreSlimCache GetSemaphoreSlimCache()
+        {
+            return ((BlockIndexDataCache<KT, VT>)cache).GetSemaphoreSlimCache(Key);
+        }
+        /// <summary>
+        /// 释放获取节点缓存加载访问锁
+        /// </summary>
+        /// <param name="semaphoreSlim"></param>
+        internal override void Release(SemaphoreSlimCache semaphoreSlim)
+        {
+            semaphoreSlim.Lock.Release();
+            ((BlockIndexDataCache<KT, VT>)cache).Release(semaphoreSlim, Key);
         }
     }
 }

@@ -10340,6 +10340,43 @@
             <param name="semaphoreSlimLock"></param>
             <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
         </member>
+        <member name="T:AutoCSer.Threading.SemaphoreSlimCache">
+            <summary>
+            锁缓存（用于重用）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.Lock">
+            <summary>
+            数据加载访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.Count">
+            <summary>
+            当前申请数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.#ctor">
+            <summary>
+            节点缓存加载访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.cache">
+            <summary>
+            锁缓存
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.Get">
+            <summary>
+            获取锁缓存
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.Free(AutoCSer.Threading.SemaphoreSlimCache)">
+            <summary>
+            释放锁缓存
+            </summary>
+            <param name="semaphoreSlim"></param>
+        </member>
         <member name="T:AutoCSer.Threading.SynchronizationContextAction">
             <summary>
             同步上下文调用

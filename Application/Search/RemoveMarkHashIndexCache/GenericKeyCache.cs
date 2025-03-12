@@ -64,6 +64,30 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             if (!isDispose) getChangeKeys().NotWait();
         }
         /// <summary>
+        /// 获取更新关键字集合
+        /// </summary>
+        /// <param name="result"></param>
+        protected void getChangeKeys(LocalResult<KT> result)
+        {
+            if (result.IsSuccess)
+            {
+#pragma warning disable CS8600
+                KT key = result.Value;
+#pragma warning restore CS8600
+                var node = default(NT);
+                Monitor.Enter(CacheLock);
+                try
+                {
+#pragma warning disable CS8604
+                    if (cache.TryGetValue(key, out node)) ++node.ChangeKeyVersion;
+#pragma warning restore CS8604
+                }
+                finally { Monitor.Exit(CacheLock); }
+                return;
+            }
+            if (!isDispose) getChangeKeys().NotWait();
+        }
+        /// <summary>
         /// 淘汰缓存数据
         /// </summary>
         protected override void remove()

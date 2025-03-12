@@ -8,11 +8,11 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>C:\AutoCSer2\TestCase\ORM\CommonModel\AutoCSer.TestCase.CommonModel.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\TestCase\ORM\CommonModel\AutoCSer.TestCase.SearchCommon.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\AutoCSer2\TestCase\ORM\CommonModel\AutoCSer.TestCase.CommonModel.xml</DocumentationFile>
+    <DocumentationFile>C:\AutoCSer2\TestCase\ORM\CommonModel\AutoCSer.TestCase.SearchCommon.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +28,7 @@
     <Compile Include="DataSource\SearchUser.cs" />
     <Compile Include="DataSource\User.cs" />
     <Compile Include="DataSource\UserMessageNode\OperationData.cs" />
+    <Compile Include="DataSource\UserMessageNode\OperationDataTypeEnum.cs" />
     <Compile Include="DataSource\UserMessageNode\OperationTypeEnum.cs" />
     <Compile Include="QueryService\IQueryService.cs" />
     <Compile Include="QueryService\SearchUserQueryParameter.cs" />
@@ -35,7 +36,6 @@
     <Compile Include="QueryService\UserQueryParameter.cs" />
     <Compile Include="WordIdentityBlockIndex\IServiceNode.cs" />
     <Compile Include="DataSource\IUserService.cs" />
-    <Compile Include="NodeTypeEnum.cs" />
     <Compile Include="{AutoCSer.TestCase.SearchCommon}.AutoCSer.cs" />
   </ItemGroup>
 

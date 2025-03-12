@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.SearchCommon
     /// <summary>
     /// 非索引条件查询数据节点接口
     /// </summary>
-    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true, IsMethodParameterCreator = true)]
+    [ServerNode(IsAutoMethodIndex = false, IsMethodParameterCreator = true)]
     public partial interface ISearchUserNode : IConditionDataNode<int, SearchUser>
     {
         /// <summary>

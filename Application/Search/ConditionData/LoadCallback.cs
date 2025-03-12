@@ -12,8 +12,7 @@ namespace AutoCSer.CommandService.Search.ConditionData
     /// <typeparam name="NT">接口类型</typeparam>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    /// <typeparam name="CT">客户端节点类型</typeparam>
-    internal sealed class LoadCallback<NT, KT, VT, CT> : QueueTaskNode
+    internal abstract class LoadCallback<NT, KT, VT> : QueueTaskNode
         where NT : IConditionDataNode<KT, VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
@@ -22,38 +21,32 @@ namespace AutoCSer.CommandService.Search.ConditionData
         where KT : IEquatable<KT>
         where VT : IConditionData
 #endif
-        where CT : class
     {
         /// <summary>
         /// 非索引条件查询数据节点
         /// </summary>
-        private readonly ConditionDataNode<NT, KT, VT, CT> node;
+        private readonly ConditionDataNode<NT, KT, VT> node;
         /// <summary>
-        /// 创建非索引条件查询数据返回参数集合
+        /// 数据集合
         /// </summary>
-        internal readonly ResponseParameterAwaiter<ConditionDataUpdateStateEnum>[] CreateResponses;
-        /// <summary>
-        /// 数据关键字集合
-        /// </summary>
-        internal KT[] Keys;
+        internal VT[] Values;
         /// <summary>
         /// 回调等待锁
         /// </summary>
         private readonly System.Threading.SemaphoreSlim waitLock;
         /// <summary>
-        /// 新关键字数量
+        /// 新数据数量
         /// </summary>
         internal int NewCount;
         /// <summary>
         /// 初始化加载数据回调
         /// </summary>
         /// <param name="node">非索引条件查询数据节点</param>
-        /// <param name="keys">数据关键字集合</param>
-        internal LoadCallback(ConditionDataNode<NT, KT, VT, CT> node, KT[] keys)
+        /// <param name="values">数据集合</param>
+        internal LoadCallback(ConditionDataNode<NT, KT, VT> node, VT[] values)
         {
             this.node = node;
-            Keys = keys;
-            CreateResponses = new ResponseParameterAwaiter<ConditionDataUpdateStateEnum>[keys.Length];
+            Values = values;
             waitLock = new System.Threading.SemaphoreSlim(0, 1);
         }
         /// <summary>
@@ -65,9 +58,9 @@ namespace AutoCSer.CommandService.Search.ConditionData
             try
             {
                 int index = 0;
-                foreach (KT key in Keys)
+                foreach (VT value in Values)
                 {
-                    if (!node.ContainsKey(key)) Keys[index++] = key;
+                    if (!node.Contains(value)) Values[index++] = value;
                 }
                 NewCount = index;
             }
@@ -81,6 +74,38 @@ namespace AutoCSer.CommandService.Search.ConditionData
         internal Task Wait()
         {
             return waitLock.WaitAsync();
+        }
+    }
+    /// <summary>
+    /// 初始化加载数据回调
+    /// </summary>
+    /// <typeparam name="NT">接口类型</typeparam>
+    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="CT">客户端节点类型</typeparam>
+    internal sealed class LoadCallback<NT, KT, VT, CT> : LoadCallback<NT, KT, VT>
+        where NT : IConditionDataNode<KT, VT>
+#if NetStandard21
+        where KT : notnull, IEquatable<KT>
+        where VT : notnull, IConditionData
+#else
+        where KT : IEquatable<KT>
+        where VT : IConditionData
+#endif
+        where CT : class
+    {
+        /// <summary>
+        /// 创建非索引条件查询数据返回参数集合
+        /// </summary>
+        internal readonly ResponseResultAwaiter[] CreateResponses;
+        /// <summary>
+        /// 初始化加载数据回调
+        /// </summary>
+        /// <param name="node">非索引条件查询数据节点</param>
+        /// <param name="values">数据集合</param>
+        internal LoadCallback(ConditionDataNode<NT, KT, VT> node, VT[] values) : base(node, values)
+        {
+            CreateResponses = new ResponseResultAwaiter[values.Length];
         }
     }
 }

@@ -25,7 +25,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// 获取非索引条件数据用户分页数据
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="queryParameter"></param>
+        /// <param name="userIds"></param>
         /// <param name="callback"></param>
         internal SearchUserGetArrayCallback(SearchUserNode node, LeftArray<int> userIds, MethodCallback<LeftArray<SearchUser>> callback) : base(node.ConcurrencyQueue)
         {
