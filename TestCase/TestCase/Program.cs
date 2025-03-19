@@ -55,13 +55,24 @@ namespace AutoCSer.TestCase
                     Type errorType = typeof(Program);
                     do
                     {
-                        if (!BinarySerialize.TestCase()) { errorType = typeof(BinarySerialize); break; }
-                        if (!Json.TestCase()) { errorType = typeof(Json); break; }
-                        if (!Xml.TestCase()) { errorType = typeof(Xml); break; }
-                        if (!await CommandServer.TestCase()) { errorType = typeof(CommandServer); break; }
-                        if (!await StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase()) { errorType = typeof(StreamPersistenceMemoryDatabaseService); break; }
-                        if (!await CommandReverseServer.TestCase()) { errorType = typeof(CommandReverseServer); break; }
-                        if (!await InterfaceControllerTaskQueue.TestCase()) { errorType = typeof(InterfaceControllerTaskQueue); break; }
+                        Task<bool> commandServerTask = CommandServer.TestCase();
+                        Task<bool> streamPersistenceMemoryDatabaseTask = StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase();
+                        Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
+                        Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
+                        Task<bool> binarySerializeTask = ThreadPool.TinyBackground.RunTask(BinarySerialize.TestCase);
+                        Task<bool> jsonTask = ThreadPool.TinyBackground.RunTask(Json.TestCase);
+                        Task<bool> xmlTask = ThreadPool.TinyBackground.RunTask(Xml.TestCase);
+                        if (!await commandServerTask) { errorType = typeof(CommandServer); break; }
+                        Task<bool> commandReverseServerTask = CommandReverseServer.TestCase();
+                        if (!await commandReverseServerTask) { errorType = typeof(CommandReverseServer); break; }
+                        Task<bool> interfaceControllerTaskQueueTask = InterfaceControllerTaskQueue.TestCase();
+                        if (!await binarySerializeTask) { errorType = typeof(BinarySerialize); break; }
+                        if (!await jsonTask) { errorType = typeof(Json); break; }
+                        if (!await xmlTask) { errorType = typeof(Xml); break; }
+                        if (!await interfaceControllerTaskQueueTask) { errorType = typeof(InterfaceControllerTaskQueue); break; }
+                        if (!await streamPersistenceMemoryDatabaseTask) { errorType = typeof(StreamPersistenceMemoryDatabaseService); break; }
+                        if (!await searchTreeTask) { errorType = typeof(SearchTree); break; }
+                        if (!await reusableDictionaryTask) { errorType = typeof(ReusableDictionary); break; }
                         Console.Write('.');
                     }
                     while (true);

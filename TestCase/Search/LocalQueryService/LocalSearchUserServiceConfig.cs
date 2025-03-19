@@ -1,6 +1,5 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
-using AutoCSer.TestCase.SearchCommon;
 using AutoCSer.TestCase.SearchDataSource;
 using System;
 using System.IO;

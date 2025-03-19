@@ -12,12 +12,12 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// </summary>
         Intersection,
         /// <summary>
-        /// 交集 AND（忽略空集，必须存在一个非空集）
-        /// </summary>
-        IntersectionNotEmpty,
-        /// <summary>
         /// 并集 OR
         /// </summary>
         Union,
+        /// <summary>
+        /// 交集 AND（忽略空集，必须存在一个非空集）
+        /// </summary>
+        IntersectionNotEmpty,
     }
 }

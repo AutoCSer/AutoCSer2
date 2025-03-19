@@ -106,7 +106,7 @@ RPC is the core foundation component of AutoCSer, and the [high concurrent throu
 
 RPC 是 AutoCSer 的核心基础组件，[高并发吞吐测试性能](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/CommandServerPerformance)超过 [.NET gRPC](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/ThirdParty/GrpcClientPerformance) 一个数量级。
 
-1. 1. [从接口对称 RPC 开始](https://zhuanlan.zhihu.com/p/8581138677) - [1.SymmetryService](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/SymmetryService)
+1. [从接口对称 RPC 开始](https://zhuanlan.zhihu.com/p/8581138677) - [1.SymmetryService](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/SymmetryService)
 2. [数据序列化](https://zhuanlan.zhihu.com/p/8762985779) - [2.ServiceDataSerialize](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceDataSerialize)
 3. [线程调度策略](https://zhuanlan.zhihu.com/p/10102634904) - [3.ServiceThreadStrategy](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceThreadStrategy)
 4. [鉴权与传输数据编码](https://zhuanlan.zhihu.com/p/11427440200) - [4.ServiceAuthentication](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceAuthentication)
@@ -230,7 +230,7 @@ Based on AutoCSer RPC implementation of memory database, [high concurrent throug
 
 基于 AutoCSer RPC 实现的内存数据库，[高并发吞吐测试性能](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/StreamPersistenceMemoryDatabase/Performance)远高于 [Garnet + StackExchange.Redis](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/ThirdParty/RedisPerformance) 组合。
 
-1. 1. [The difference between AutoCSer in-memory database and Redis](https://zhuanlan.zhihu.com/p/13167457731)（AutoCSer 内存数据库与 Redis 的区别）
+1. [The difference between AutoCSer in-memory database and Redis（AutoCSer 内存数据库与 Redis 的区别）](https://zhuanlan.zhihu.com/p/13167457731)
 2. [入门 - 使用内置数据结构](https://zhuanlan.zhihu.com/p/14011804562) - [6.MemoryDatabaseNode](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseNode)
 3. [自定义数据结构](https://zhuanlan.zhihu.com/p/15454610569) - [7.MemoryDatabaseCustomNode](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseCustomNode)
 4. [本地嵌入模式](https://zhuanlan.zhihu.com/p/16409903680) - [8.MemoryDatabaseLocalService](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseLocalService)

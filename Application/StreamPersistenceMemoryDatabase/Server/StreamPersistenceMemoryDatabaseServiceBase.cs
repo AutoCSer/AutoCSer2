@@ -2,6 +2,7 @@
 using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -108,7 +109,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用持久化链表
         /// </summary>
-        internal MethodParameter.YieldQueue PersistenceQueue;
+        internal LinkStack<MethodParameter> PersistenceQueue;
         /// <summary>
         /// 等待事件
         /// </summary>
@@ -247,6 +248,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             foreach(ServerNode node in nodeDictionary.Values) node.NodeDispose();
         }
         /// <summary>
+        /// 根据关键字获取节点信息
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public ServerNode? GetNode(string key)
+#else
+        public ServerNode GetNode(string key)
+#endif
+        {
+            var node = default(ServerNode);
+            return nodeDictionary.TryGetValue(key, out node) ? node : null;
+        }
+        /// <summary>
         /// 设置删除历史持久化文件
         /// </summary>
         /// <param name="removeHistoryFile"></param>
@@ -307,7 +323,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void PushPersistenceMethodParameter(MethodParameter methodParameter)
         {
             if (PersistenceQueue.IsPushHead(methodParameter)) PersistenceWaitHandle.Set();
-            if (IsDisposed) PersistenceException(PersistenceQueue.GetClear());
+            if (IsDisposed) PersistenceException(PersistenceQueue.Get());
         }
         /// <summary>
         /// 添加持久化调用方法与参数信息
@@ -328,7 +344,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 PersistenceWaitHandle.Set();
             }
             else callback = null;
-            if (IsDisposed) PersistenceException(PersistenceQueue.GetClear());
+            if (IsDisposed) PersistenceException(PersistenceQueue.Get());
         }
         /// <summary>
         /// 设置当前执行的调用方法与参数信息

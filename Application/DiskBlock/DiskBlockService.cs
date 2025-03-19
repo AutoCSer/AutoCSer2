@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,7 +54,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 数据写入请求链表
         /// </summary>
-        private WriteRequest.YieldQueue writeQueue;
+        private LinkStack<WriteRequest> writeQueue;
         /// <summary>
         /// 磁盘块服务唯一编号
         /// </summary>
@@ -351,7 +352,7 @@ namespace AutoCSer.CommandService.DiskBlock
             {
                 do
                 {
-                    var head = writeQueue.GetClear().notNull();
+                    var head = writeQueue.GetQueue().notNull();
                     var request = head;
                     long flushPosition = Block.Position, flushTimestamp = Stopwatch.GetTimestamp() + autoFlushTimestamp;
                     do

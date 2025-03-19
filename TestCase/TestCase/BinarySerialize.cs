@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using AutoCSer.Extensions;
 using AutoCSer.TestCase.Data;
 
@@ -12,6 +11,11 @@ namespace AutoCSer.TestCase
         /// </summary>
         private static readonly AutoCSer.BinarySerializeConfig serializeConfig = new AutoCSer.BinarySerializeConfig();
         /// <summary>
+        /// 随机对象生成参数
+        /// </summary>
+        private static readonly AutoCSer.RandomObject.Config randomConfig = new AutoCSer.RandomObject.Config();
+
+        /// <summary>
         /// 二进制序列化测试
         /// </summary>
         /// <returns></returns>
@@ -20,9 +24,8 @@ namespace AutoCSer.TestCase
 #endif
         internal static bool TestCase()
         {
-
             #region 引用类型二进制序列化测试
-            Data.Field fieldData = AutoCSer.RandomObject.Creator<Data.Field>.Create();
+            Data.Field fieldData = AutoCSer.RandomObject.Creator<Data.Field>.Create(randomConfig);
             byte[] data = AutoCSer.BinarySerializer.Serialize(fieldData);
             Data.Field newFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.Field>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(fieldData, newFieldData))
@@ -43,7 +46,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 值类型二进制序列化测试
-            Data.StructField structFieldData = AutoCSer.RandomObject.Creator<Data.StructField>.Create();
+            Data.StructField structFieldData = AutoCSer.RandomObject.Creator<Data.StructField>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(structFieldData);
             Data.StructField newStructFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.StructField>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structFieldData, newStructFieldData))
@@ -64,7 +67,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 引用类型属性成员二进制序列化测试
-            Data.Property propertyData = AutoCSer.RandomObject.Creator<Data.Property>.Create();
+            Data.Property propertyData = AutoCSer.RandomObject.Creator<Data.Property>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(propertyData);
             Data.Property newProperty = AutoCSer.BinaryDeserializer.Deserialize<Data.Property>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(propertyData, newProperty))
@@ -74,7 +77,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 派生引用类型属性成员二进制序列化测试
-            Data.InheritProperty inheritPropertyData = AutoCSer.RandomObject.Creator<Data.InheritProperty>.Create();
+            Data.InheritProperty inheritPropertyData = AutoCSer.RandomObject.Creator<Data.InheritProperty>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(inheritPropertyData);
             Data.InheritProperty newInheritProperty = AutoCSer.BinaryDeserializer.Deserialize<Data.InheritProperty>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(inheritPropertyData, newInheritProperty))
@@ -84,7 +87,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 二进制混杂 JSON 序列化
-            Data.JsonField jsonFieldData = AutoCSer.RandomObject.Creator<Data.JsonField>.Create();
+            Data.JsonField jsonFieldData = AutoCSer.RandomObject.Creator<Data.JsonField>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(jsonFieldData);
             Data.JsonField newJsonFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonField>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(jsonFieldData, newJsonFieldData))
@@ -103,21 +106,21 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            Data.JsonProperty jsonPropertyData = AutoCSer.RandomObject.Creator<Data.JsonProperty>.Create();
+            Data.JsonProperty jsonPropertyData = AutoCSer.RandomObject.Creator<Data.JsonProperty>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(jsonPropertyData);
             Data.JsonProperty newJsonPropertyData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonProperty>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(jsonPropertyData, newJsonPropertyData))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            Data.JsonStructField jsonStructFieldData = AutoCSer.RandomObject.Creator<Data.JsonStructField>.Create();
+            Data.JsonStructField jsonStructFieldData = AutoCSer.RandomObject.Creator<Data.JsonStructField>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(jsonStructFieldData);
             Data.JsonStructField newJsonStructFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonStructField>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(jsonStructFieldData, newJsonStructFieldData))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            Data.JsonStructProperty jsonStructPropertyData = AutoCSer.RandomObject.Creator<Data.JsonStructProperty>.Create();
+            Data.JsonStructProperty jsonStructPropertyData = AutoCSer.RandomObject.Creator<Data.JsonStructProperty>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(jsonStructPropertyData);
             Data.JsonStructProperty newJsonStructPropertyData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonStructProperty>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(jsonStructPropertyData, newJsonStructPropertyData))
@@ -127,7 +130,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region ORM 关联数据二进制序列化测试
-            Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create();
+            Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(model);
             Data.ORM.BusinessModel businessModel = AutoCSer.BinaryDeserializer.Deserialize<Data.ORM.BusinessModel>(data);
             if (!ModelComparor(model, businessModel)) return AutoCSer.Breakpoint.ReturnFalse();

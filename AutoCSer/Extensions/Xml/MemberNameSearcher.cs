@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Memory;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace AutoCSer.Xml
 {
@@ -75,10 +76,6 @@ namespace AutoCSer.Xml
         /// </summary>
         private static readonly Dictionary<HashObject<System.Type>, MemberNameSearcher> cache = DictionaryCreator.CreateHashObject<System.Type, MemberNameSearcher>();
         /// <summary>
-        /// 成员名称查找数据缓存访问锁
-        /// </summary>
-        private static AutoCSer.Threading.SpinLock cacheLock;
-        /// <summary>
         /// 最后一次访问的搜索数据
         /// </summary>
         private static MemberNameSearcher lastSearcher;
@@ -96,12 +93,12 @@ namespace AutoCSer.Xml
             var value = lastSearcher;
             if (value.type == type) return value;
 
-            cacheLock.EnterYield();
+            Monitor.Enter(cache);
             try
             {
                 if (!cache.TryGetValue(type, out value)) cache.Add(type, value = new MemberNameSearcher(type, names));
             }
-            finally { cacheLock.Exit(); }
+            finally { Monitor.Exit(cache); }
             lastSearcher = value;
             return value;
         }

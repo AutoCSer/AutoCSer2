@@ -12333,11 +12333,6 @@
             成员名称查找数据缓存
             </summary>
         </member>
-        <member name="F:AutoCSer.Json.MemberNameSearcher.cacheLock">
-            <summary>
-            成员名称查找数据缓存访问锁
-            </summary>
-        </member>
         <member name="F:AutoCSer.Json.MemberNameSearcher.lastSearcher">
             <summary>
             最后一次访问的搜索数据
@@ -31824,6 +31819,16 @@
             低优先级任务队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerCallTaskLowPriorityQueue.lowPriorityQueue">
+            <summary>
+            低优先级任务队列
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServerCallTaskLowPriorityQueue.IsEmptyLowPriorityQueue">
+            <summary>
+            低优先级任务队列是否为空
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerCallTaskLowPriorityQueue.timeoutLink">
             <summary>
             执行超时检查任务链表
@@ -31970,6 +31975,12 @@
             任务执行超时检查
             </summary>
             <param name="keepSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallTaskLowPriorityQueue.popLowPriority">
+            <summary>
+            弹出低优先级任务
+            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskLowPriorityQueue.AddLowPriority(AutoCSer.Net.CommandServerCallTaskQueueNode)">
@@ -32873,11 +32884,6 @@
         <member name="F:AutoCSer.Net.CommandServerCallTaskQueueTypeSet.queues">
             <summary>
             队列集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallTaskQueueTypeSet.queueLock">
-            <summary>
-            队列集合访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueTypeSet.#ctor(AutoCSer.Net.CommandListener)">
@@ -37124,7 +37130,21 @@
             <param name="commandMethodIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandListener.createServerCallQueue(System.Int32)">
+            <summary>
+            获取服务端执行队列
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandListener.getServerCallQueue(System.Int32)">
+            <summary>
+            获取服务端执行队列
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.getServerCallLowPriorityQueue(System.Int32)">
             <summary>
             获取服务端执行队列
             </summary>
@@ -39625,6 +39645,16 @@
             服务端套接字输出信息
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputHead">
+            <summary>
+            未处理套接字队列首节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputEnd">
+            <summary>
+            未处理套接字队列尾节点
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.isOutput">
             <summary>
             是否正在输出
@@ -40027,6 +40057,11 @@
             启动发送数据
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.queueOutput">
+            <summary>
+            启动发送数据
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.getNextOutputSocket">
             <summary>
             获取并清除下一个节点
@@ -40058,6 +40093,11 @@
             </summary>
             <param name="sender"></param>
             <param name="async">异步回调参数</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.freeBuildOutput">
+            <summary>
+            释放未处理套接字队列
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.AppendOutput(AutoCSer.Net.CommandServer.ServerOutput)">
             <summary>
@@ -40868,11 +40908,6 @@
             套接字异步事件对象池首节点
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.SocketAsyncEventArgsPool.popLock">
-            <summary>
-            套接字异步事件对象池弹出节点访问锁
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.SocketAsyncEventArgsPool.count">
             <summary>
             缓存数量
@@ -41049,13 +41084,6 @@
             </summary>
             <param name="type"></param>
             <returns>重定向类型</returns>
-        </member>
-        <member name="M:AutoCSer.Config.GetRingPoolParameter(System.Type)">
-            <summary>
-            默认缓存环池参数
-            </summary>
-            <param name="type">缓存数据类型</param>
-            <returns>缓存环池参数</returns>
         </member>
         <member name="M:AutoCSer.Config.CheckRemoteType(System.Type)">
             <summary>
@@ -42342,6 +42370,11 @@
             清除当前长度有效数据并将数据有效长度设置为 0
             </summary>
         </member>
+        <member name="M:AutoCSer.LeftArray`1.ClearCache">
+            <summary>
+            清除部分缓存
+            </summary>
+        </member>
         <member name="M:AutoCSer.LeftArray`1.Exchange(AutoCSer.LeftArray{`0}@)">
             <summary>
             数组互换
@@ -42994,11 +43027,6 @@
             程序集缓存
             </summary>
         </member>
-        <member name="F:AutoCSer.Reflection.AssemblyCache.cacheLock">
-            <summary>
-            程序集缓存访问
-            </summary>
-        </member>
         <member name="F:AutoCSer.Reflection.AssemblyCache.lastAssembly">
             <summary>
             最后一次访问的程序集
@@ -43271,6 +43299,11 @@
             哈希取余
             </summary>
         </member>
+        <member name="M:AutoCSer.ReusableDictionary.#ctor">
+            <summary>
+            空字典
+            </summary>
+        </member>
         <member name="M:AutoCSer.ReusableDictionary.#ctor(System.Int32)">
             <summary>
             可重用字典
@@ -43437,6 +43470,25 @@
             <param name="key">关键字</param>
             <param name="value"></param>
             <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`2.TryAdd(`0,`1,System.Boolean)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否添加数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`2.set(`0,`1,System.Boolean,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <param name="isAdd"></param>
             <returns>是否新增数据</returns>
         </member>
         <member name="M:AutoCSer.ReusableDictionary`2.ContainsKey(`0,System.Boolean)">
@@ -43627,6 +43679,34 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.TryAdd(System.Int32,`0,System.Boolean)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否添加数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.TryAdd(System.UInt32,`0,System.Boolean)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否添加数据</returns>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.set(System.UInt32,`0,System.Boolean,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <param name="isAdd"></param>
             <returns>是否新增数据</returns>
         </member>
         <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.ContainsKey(System.Int32,System.Boolean)">
@@ -44840,6 +44920,266 @@
             默认值已完成 Awaiter
             </summary>
         </member>
+        <member name="T:AutoCSer.Threading.LinkPoolBase`1">
+            <summary>
+            缓存对象链表（用于冲突概率低的场景）
+            </summary>
+            <typeparam name="T">链表节点泛型类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPoolBase`1.stack">
+            <summary>
+            无锁栈
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPoolBase`1.count">
+            <summary>
+            缓存数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPoolBase`1.maxCount">
+            <summary>
+            最大缓存数量（非精确数量）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPoolBase`1.isNewValue">
+            <summary>
+            是否返回了 null 值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPoolBase`1.isDisponse">
+            <summary>
+            是否需要释放资源
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPoolBase`1.isAsyncDisponse">
+            <summary>
+            是否需要异步释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPoolBase`1.#ctor(AutoCSer.Threading.LinkPoolParameter,System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            链表
+            </summary>
+            <param name="parameter">默认链表缓存池参数</param>
+            <param name="type">缓存对象链表类型</param>
+            <param name="isDisponse">是否需要释放资源</param>
+            <param name="isAsyncDisponse">是否需要异步释放资源</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPoolBase`1.push(`0)">
+            <summary>
+            添加节点
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPoolBase`1.pop">
+            <summary>
+            弹出节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPoolBase`1.OnTimer">
+            <summary>
+            定时清除缓存数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPoolBase`1.dispose(`0)">
+            <summary>
+            释放队形
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPoolBase`1.onTimer">
+            <summary>
+            定时清除缓存数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.LinkPool`1">
+            <summary>
+            缓存对象链表（用于冲突概率低的场景）
+            </summary>
+            <typeparam name="T">缓存对象类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPool`1.isAsyncDisponse">
+            <summary>
+            是否需要异步释放资源
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPool`1.isDisponse">
+            <summary>
+            是否需要释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPool`1.#ctor(AutoCSer.Threading.LinkPoolParameter)">
+            <summary>
+            链表
+            </summary>
+            <param name="parameter">默认链表缓存池参数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPool`1.Push(`0)">
+            <summary>
+            添加节点
+            </summary>
+            <param name="value">不可为 null</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPool`1.IsPush(`0)">
+            <summary>
+            添加节点
+            </summary>
+            <param name="value">不可为 null</param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPool`1.Pop">
+            <summary>
+            弹出节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPool`1.Default">
+            <summary>
+            链表节点池
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.LinkPool`2">
+            <summary>
+            缓存对象链表（用于冲突概率低的场景）
+            </summary>
+            <typeparam name="T">缓存对象类型</typeparam>
+            <typeparam name="LT">链表节点泛型类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPool`2.isAsyncDisponse">
+            <summary>
+            是否需要异步释放资源
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPool`2.isDisponse">
+            <summary>
+            是否需要释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPool`2.#ctor(AutoCSer.Threading.LinkPoolParameter)">
+            <summary>
+            链表
+            </summary>
+            <param name="parameter">默认链表缓存池参数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPool`2.Push(`0)">
+            <summary>
+            添加节点
+            </summary>
+            <param name="value">不可为 null</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkPool`2.Pop">
+            <summary>
+            弹出节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkPool`2.Default">
+            <summary>
+            链表节点池
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.LinkStack`1">
+            <summary>
+            无锁栈
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.LinkStack`1.head">
+            <summary>
+            链表头部
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.LinkStack`1.IsEmpty">
+            <summary>
+            是否空链表
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.Push(`0)">
+            <summary>
+            添加节点
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.TryPushHead(`0)">
+            <summary>
+            添加首节点
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.IsPushHead(`0)">
+            <summary>
+            添加节点
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.PushLink(`0,`0)">
+            <summary>
+            添加栈链表
+            </summary>
+            <param name="head"></param>
+            <param name="end"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.IsPushHeadLink(`0,`0)">
+            <summary>
+            添加栈链表
+            </summary>
+            <param name="head"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.Pop">
+            <summary>
+            弹出一个数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.Get">
+            <summary>
+            获取栈链表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.Get(`0@)">
+            <summary>
+            获取栈链表
+            </summary>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.GetToEnd(`0@)">
+            <summary>
+            获取栈链表
+            </summary>
+            <param name="end"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.GetQueue">
+            <summary>
+            获取队列链表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.GetQueue(`0@)">
+            <summary>
+            获取队列链表
+            </summary>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.GetQueueToEnd(`0@)">
+            <summary>
+            获取队列链表
+            </summary>
+            <param name="end"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LinkStack`1.GetQueueToEnd(`0@,`0@)">
+            <summary>
+            获取队列链表
+            </summary>
+            <param name="head"></param>
+            <param name="end"></param>
+        </member>
         <member name="T:AutoCSer.Threading.SwitchAwaiter">
             <summary>
             await enforces task.run operations (executing in async Task Main also prevents UI thread deadlock)
@@ -45460,235 +45800,34 @@
             <param name="head"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.Threading.Link`1.YieldLink">
+        <member name="M:AutoCSer.Threading.Link`1.GetEnd(`0,System.Int32@)">
             <summary>
-            链表（用于冲突概率低的场景）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldLink.head">
-            <summary>
-            链表头部
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldLink.popLock">
-            <summary>
-            弹出节点访问锁
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.Link`1.YieldLink.IsEmpty">
-            <summary>
-            是否空链表
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldLink.GetClear">
-            <summary>
-            获取链表头部并清除数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldLink.Push(`0)">
-            <summary>
-            添加节点
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldLink.IsPushHead(`0)">
-            <summary>
-            添加节点
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldLink.Push(`0,`0)">
-            <summary>
-            添加节点
+            获取链表最后一个节点
             </summary>
             <param name="head"></param>
-            <param name="end"></param>
+            <param name="count"></param>
+            <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldLink.Pop">
+        <member name="M:AutoCSer.Threading.Link`1.Reverse">
             <summary>
-            弹出节点
+            逆转链表
             </summary>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.Threading.Link`1.YieldPool">
+        <member name="M:AutoCSer.Threading.Link`1.reverse(`0,`0)">
             <summary>
-            缓存对象链表（用于冲突概率低的场景）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldPool.isAsyncDisponse">
-            <summary>
-            是否需要异步释放资源
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldPool.isDisponse">
-            <summary>
-            是否需要释放资源
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldPool.popLock">
-            <summary>
-            弹出节点访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldPool.head">
-            <summary>
-            链表头部
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldPool.count">
-            <summary>
-            缓存数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldPool.maxCount">
-            <summary>
-            最大缓存数量（非精确数量）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.#ctor(AutoCSer.Threading.LinkPoolParameter)">
-            <summary>
-            链表
-            </summary>
-            <param name="parameter">默认链表缓存池参数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.push(`0)">
-            <summary>
-            添加节点
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.Push(`0)">
-            <summary>
-            添加节点
-            </summary>
-            <param name="value">不可为 null</param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.IsPush(`0)">
-            <summary>
-            添加节点
-            </summary>
-            <param name="value">不可为 null</param>
-            <returns>是否添加成功</returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.Pop">
-            <summary>
-            弹出节点
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.dispose(`0)">
-            <summary>
-            释放队形
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.OnTimer">
-            <summary>
-            定时清除缓存数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldPool.onTimer">
-            <summary>
-            定时清除缓存数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldPool.Default">
-            <summary>
-            链表节点池
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.Link`1.YieldQueue">
-            <summary>
-            链表节点队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldQueue.head">
-            <summary>
-            链表头部
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldQueue.end">
-            <summary>
-            链表
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.Link`1.YieldQueue.QueueLock">
-            <summary>
-            弹出节点访问锁
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.Link`1.YieldQueue.IsEmpty">
-            <summary>
-            是否空链表
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.IsPushHead(`0)">
-            <summary>
-            添加节点到尾部
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.IsPushHead(`0,`0)">
-            <summary>
-            添加节点到尾部
+            逆转链表
             </summary>
             <param name="head"></param>
-            <param name="end"></param>
+            <param name="next"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.TryPushHead(`0)">
+        <member name="M:AutoCSer.Threading.Link`1.GetMiddle(`0)">
             <summary>
-            添加首节点
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.PopOnly">
-            <summary>
-            弹出首节点（不检查数据，由调用方保证）
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.GetClear">
-            <summary>
-            获取链表头部并清除数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.GetClear(`0@)">
-            <summary>
-            获取链表并清除数据
-            </summary>
-            <param name="end"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.CheckGetClear(`0@)">
-            <summary>
-            获取链表并清除数据
-            </summary>
-            <param name="end"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.GetToEndClear(`0@)">
-            <summary>
-            获取链表清除数据
-            </summary>
-            <param name="end"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.GetToEndClear(`0@,`0@)">
-            <summary>
-            获取链表清除数据
+            获取中间节点
             </summary>
             <param name="head"></param>
-            <param name="end"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.Link`1.YieldQueue.PushHead(`0,`0)">
-            <summary>
-            添加链表到头部
-            </summary>
-            <param name="head"></param>
-            <param name="end"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Threading.LinkPoolParameter">
             <summary>
@@ -45744,233 +45883,6 @@
             <param name="queue"></param>
             <param name="seconds"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Threading.RingPool`1">
-            <summary>
-            缓存环池，用于读写线程没有交集的场景，避免内存数据被读写线程交叉访问
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="T:AutoCSer.Threading.RingPool`1.releaseFreeTimerTask">
-            <summary>
-            释放空闲缓存对象 定时任务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.releaseFreeTimerTask.ringPool">
-            <summary>
-            缓存环池
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.releaseFreeTimerTask.#ctor(AutoCSer.Threading.RingPool{`0},System.Int32)">
-            <summary>
-            释放空闲缓存对象 定时任务
-            </summary>
-            <param name="ringPool"></param>
-            <param name="releaseFreeTimeoutSeconds"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.releaseFreeTimerTask.OnTimer">
-            <summary>
-            释放空闲缓存对象 定时任务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.pad0">
-            <summary>
-            填充隔离数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.ring">
-            <summary>
-            环池数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.count">
-            <summary>
-            环大小
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.countLess">
-            <summary>
-            环索引值
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.cpuCacheBlockObjectCount">
-            <summary>
-            每个 CPU 高速缓存块容纳对象引用数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.canReadCount">
-            <summary>
-            最大可读数量 count - cpuCacheBlockObjectCount
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.releaseFreeTask">
-            <summary>
-            释放空闲缓存对象 定时任务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.pad1">
-            <summary>
-            填充隔离数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.writeIndex">
-            <summary>
-            预写位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.writeEndIndex">
-            <summary>
-            可写结束位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.writeEndLock">
-            <summary>
-            可写结束位置访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.writedIndex">
-            <summary>
-            已写入位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.pad2">
-            <summary>
-            填充隔离数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.readIndex">
-            <summary>
-            预读位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.readEndIndex">
-            <summary>
-            可读结束位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.readEndLock">
-            <summary>
-            可读结束位置访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.readedIndex">
-            <summary>
-            已读取位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.pad3">
-            <summary>
-            填充隔离数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.isGetNewValue">
-            <summary>
-            是否创建了新对象
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.#ctor(System.Int32,System.Int32)">
-            <summary>
-            环池
-            </summary>
-            <param name="cacheObjectCount">缓存对象数量</param>
-            <param name="releaseFreeTimeoutSeconds">释放空闲缓存对象定时间隔秒数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.Dispose">
-            <summary>
-            释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.PushNotNull(`0)">
-            <summary>
-            添加数据
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.Pop">
-            <summary>
-            弹出数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.OnTimer">
-            <summary>
-            定时清除缓存数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.RingPool`1.onTimer">
-            <summary>
-            定时清除缓存数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPool`1.Default">
-            <summary>
-            默认缓存环池
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.RingPoolAttribute">
-            <summary>
-            缓存环池配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolAttribute.BlockCountBits">
-            <summary>
-            缓存分块数量二进制位，默认为最小值 8，最大值为 17，0 表示不启用默认缓存
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolAttribute.ReleaseFreeTimeoutSeconds">
-            <summary>
-            释放空闲缓存对象定时间隔秒数，默认为 3600s
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolAttribute.IsClearCache">
-            <summary>
-            是否添加到公共清除缓存数据，默认为 true
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.RingPoolAttribute.Parameter">
-            <summary>
-            默认缓存环池构造函数传参参数
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.RingPoolParameter">
-            <summary>
-            默认缓存环池构造函数传参参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolParameter.MinBlockCountBits">
-            <summary>
-            缓存分块数量二进制位 最小值为 2，最大缓存对象数据为 8 * 4 = 32
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolParameter.MaxBlockCountBits">
-            <summary>
-            缓存分块数量二进制位 最大值为 17，最大缓存对象数据为 8 * 128K = 1M
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolParameter.BlockCountBits">
-            <summary>
-            缓存分块数量二进制位，默认为最小值 8，最大值为 17，0 表示不启用默认缓存
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.RingPoolParameter.CacheObjectCount">
-            <summary>
-            缓存对象数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolParameter.ReleaseFreeTimeoutSeconds">
-            <summary>
-            释放空闲缓存对象定时间隔秒数，默认为 3600s
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.RingPoolParameter.IsDefault">
-            <summary>
-            是否默认缓存环池构造函数传参参数
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.RingPoolParameter.Default">
-            <summary>
-            默认缓存环池构造函数传参参数
-            </summary>
         </member>
         <member name="T:AutoCSer.Threading.SecondTimer">
             <summary>
@@ -46486,6 +46398,12 @@
             </summary>
             <returns>0 表示不再继续</returns>
         </member>
+        <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.TryAppendTaskArrayAsync(System.Int32)">
+            <summary>
+            任务添加到二维定时任务数组
+            </summary>
+            <param name="keepSeconds">继续执行间隔秒数</param>
+        </member>
         <member name="M:AutoCSer.Threading.SecondTimerTaskArrayNode.TryAppendTaskArrayAsync">
             <summary>
             尝试添加到任务数组
@@ -46812,7 +46730,7 @@
         </member>
         <member name="T:AutoCSer.Threading.SpinLock">
             <summary>
-            Interlocked.CompareExchange 自旋锁
+            Interlocked.CompareExchange 自旋锁（相对 System.Threading.Monitor 减少一个 object 对象）
             </summary>
         </member>
         <member name="F:AutoCSer.Threading.SpinLock.Lock">

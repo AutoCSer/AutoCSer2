@@ -377,19 +377,11 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <summary>
         /// 空索引数据
         /// </summary>
-        internal static readonly RemoveMarkHashSet<T> EmptyRemoveMarkHashSet = new RemoveMarkHashSet<T>();
+        internal static readonly RemoveMarkHashSet<T> EmptyRemoveMarkHashSet = new RemoveMarkHashSet<T>(RemoveMarkHashSetCapacity.DefaultLink);
         /// <summary>
         /// 空索引数据
         /// </summary>
         internal static readonly HashSet<T> EmptyHashSet = new HashSet<T>();
-        /// <summary>
-        /// 空索引数据
-        /// </summary>
-        internal static readonly RemoveMarkHashSet EmptyRemoveMarkHashKeyCodeHashSet = new RemoveMarkHashSet();
-        /// <summary>
-        /// 空索引数据
-        /// </summary>
-        internal static readonly ReusableHashCodeKeyHashSet EmptyReusableHashCodeKeyHashSet = new ReusableHashCodeKeyHashSet(int.MinValue);
         /// <summary>
         /// 空索引条件
         /// </summary>

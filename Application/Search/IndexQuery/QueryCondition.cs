@@ -126,8 +126,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public Task<ArrayBuffer<KT>> Query(PageParameter queryParameter)
         {
-            if (condition != null) return indexCondition.GetFilter(this);
-            return indexCondition.Get(this);
+            return condition != null ? indexCondition.GetFilter(this) : indexCondition.Get(this);
         }
         /// <summary>
         /// 非索引条件过滤

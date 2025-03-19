@@ -1591,6 +1591,115 @@
             <typeparam name="NT">客户端节点类型</typeparam>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1">
+            <summary>
+            本地服务调用节点方法队列节点回调输出
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.callback">
+            <summary>
+            本地服务调用节点方法队列节点回调对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.moveNext">
+            <summary>
+            枚举命令是否存在下一个数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.returnValueQueue">
+            <summary>
+            返回值队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.current">
+            <summary>
+            当前返回数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Current">
+            <summary>
+            当前返回数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.ReturnType">
+            <summary>
+            回调命令返回值类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.isSynchronousCallback">
+            <summary>
+            是否 IO 线程同步回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Exception">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackEnumeratorNodeCallback{`0},System.Boolean)">
+            <summary>
+            本地服务调用节点方法队列节点回调输出
+            </summary>
+            <param name="callback">本地服务调用节点方法队列节点回调对象</param>
+            <param name="isSynchronousCallback">是否 IO 线程同步回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.DisposeAsync">
+            <summary>
+            异步释放资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
+            <summary>
+            取消输出
+            </summary>
+            <param name="returnType"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter)">
+            <summary>
+            返回数据回调
+            </summary>
+            <param name="response"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.MoveNext">
+            <summary>
+            判断是否存在下一个数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.AutoCSer#IEnumeratorTask#MoveNextAsync">
+            <summary>
+            判断是否存在下一个数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.System#Collections#Generic#IAsyncEnumerator{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#LocalResult{T}}#MoveNextAsync">
+            <summary>
+            判断是否存在下一个数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.GetAsyncEnumerable">
+            <summary>
+            获取 IAsyncEnumerable
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.GetAsyncEnumerable``1(System.Func{`0,``0})">
+            <summary>
+            数据转换获取 IAsyncEnumerable
+            </summary>
+            <typeparam name="VT">目标数据类型</typeparam>
+            <param name="getValue">数据转换委托</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult">
             <summary>
             本地服务返回结果
@@ -14644,6 +14753,24 @@
             <param name="getValue">数据转换委托</param>
             <returns>排序关键字集合</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageParameter.GetKeyPageResult``2(AutoCSer.SearchTree.NodeDictionary{``0,``1})">
+            <summary>
+            获取关键字分页数据
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <param name="dictionary">二叉搜索树字典</param>
+            <returns>排序关键字集合</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageParameter.GetDescKeyPageResult``2(AutoCSer.SearchTree.NodeDictionary{``0,``1})">
+            <summary>
+            获取关键字逆序分页数据
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <param name="dictionary">二叉搜索树字典</param>
+            <returns>排序关键字集合</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult`1">
             <summary>
             分页数据
@@ -19366,6 +19493,13 @@
             释放节点资源
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetNode(System.String)">
+            <summary>
+            根据关键字获取节点信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile)">
             <summary>
             设置删除历史持久化文件
@@ -19972,120 +20106,6 @@
             </summary>
             <param name="values"></param>
             <param name="isCancel">回调完成之后是否关闭</param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1">
-            <summary>
-            本地服务调用节点方法队列节点回调输出
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.callback">
-            <summary>
-            本地服务调用节点方法队列节点回调对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.moveNext">
-            <summary>
-            枚举命令是否存在下一个数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.returnValueQueue">
-            <summary>
-            返回值队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.queueLock">
-            <summary>
-            返回值队列访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.current">
-            <summary>
-            当前返回数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Current">
-            <summary>
-            当前返回数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.ReturnType">
-            <summary>
-            回调命令返回值类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.isSynchronousCallback">
-            <summary>
-            是否 IO 线程同步回调
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Exception">
-            <summary>
-            异常信息
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackEnumeratorNodeCallback{`0},System.Boolean)">
-            <summary>
-            本地服务调用节点方法队列节点回调输出
-            </summary>
-            <param name="callback">本地服务调用节点方法队列节点回调对象</param>
-            <param name="isSynchronousCallback">是否 IO 线程同步回调</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Dispose">
-            <summary>
-            释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.DisposeAsync">
-            <summary>
-            异步释放资源
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
-            <summary>
-            取消输出
-            </summary>
-            <param name="returnType"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter)">
-            <summary>
-            返回数据回调
-            </summary>
-            <param name="response"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.MoveNext">
-            <summary>
-            判断是否存在下一个数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.AutoCSer#IEnumeratorTask#MoveNextAsync">
-            <summary>
-            判断是否存在下一个数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.System#Collections#Generic#IAsyncEnumerator{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#LocalResult{T}}#MoveNextAsync">
-            <summary>
-            判断是否存在下一个数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.GetAsyncEnumerable">
-            <summary>
-            获取 IAsyncEnumerable
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.GetAsyncEnumerable``1(System.Func{`0,``0})">
-            <summary>
-            数据转换获取 IAsyncEnumerable
-            </summary>
-            <typeparam name="VT">目标数据类型</typeparam>
-            <param name="getValue">数据转换委托</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceSendOnlyNode">
@@ -30485,6 +30505,16 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.rebuildCompletedWaitHandle">
             <summary>
             持久化重建完毕关闭从节点等待事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.persistenceHead">
+            <summary>
+            未处理持久化队列首节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.persistenceEnd">
+            <summary>
+            未处理持久化队列尾节点
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.PersistenceFileHeadVersion">

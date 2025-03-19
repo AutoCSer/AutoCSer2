@@ -18,10 +18,8 @@ namespace AutoCSer.CommandService.Search
         where NT : IConditionDataNode<KT, VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
-        where VT : notnull, IConditionData
 #else
         where KT : IEquatable<KT>
-        where VT : IConditionData
 #endif
     {
         /// <summary>
@@ -223,60 +221,43 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <returns></returns>
-        public ValueResult<ConditionDataUpdateStateEnum> CompletedBeforePersistence(KT key, VT value)
+        public abstract ValueResult<ConditionDataUpdateStateEnum> CompletedBeforePersistence(VT value);
+        /// <summary>
+        /// 非索引条件查询数据完成更新操作
+        /// </summary>
+        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="callback"></param>
+        public void CompletedLoadPersistence(VT value, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
-            if (key != null) return completedBeforePersistence(key, value);
-            return ConditionDataUpdateStateEnum.NullKey;
+            completedLoadPersistence(value);
         }
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
-        /// <returns></returns>
-        protected abstract ValueResult<ConditionDataUpdateStateEnum> completedBeforePersistence(KT key, VT value);
+        protected abstract void completedLoadPersistence(VT value);
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <param name="callback"></param>
-        public void CompletedLoadPersistence(KT key, VT value, MethodCallback<ConditionDataUpdateStateEnum> callback)
-        {
-            if (key != null) completedLoadPersistence(key, value);
-        }
-        /// <summary>
-        /// 非索引条件查询数据完成更新操作
-        /// </summary>
-        /// <param name="key">数据关键字</param>
-        /// <param name="value">非索引条件查询数据</param>
-        protected abstract void completedLoadPersistence(KT key, VT value);
-        /// <summary>
-        /// 非索引条件查询数据完成更新操作
-        /// </summary>
-        /// <param name="key">数据关键字</param>
-        /// <param name="value">非索引条件查询数据</param>
-        /// <param name="callback"></param>
-        public void Completed(KT key, VT value, MethodCallback<ConditionDataUpdateStateEnum> callback)
+        public void Completed(VT value, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
             ConditionDataUpdateStateEnum state = ConditionDataUpdateStateEnum.Unknown;
             try
             {
-                if (key != null) state = completed(key, value);
-                else state = ConditionDataUpdateStateEnum.NullKey;
+                state = completed(value);
             }
             finally { callback.Callback(state); }
         }
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <returns></returns>
-        protected abstract ConditionDataUpdateStateEnum completed(KT key, VT value);
+        protected abstract ConditionDataUpdateStateEnum completed(VT value);
     }
     /// <summary>
     /// 非索引条件查询数据节点
@@ -289,10 +270,8 @@ namespace AutoCSer.CommandService.Search
         where NT : IConditionDataNode<KT, VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
-        where VT : notnull, IConditionData
 #else
         where KT : IEquatable<KT>
-        where VT : IConditionData
 #endif
         where CT : class
     {

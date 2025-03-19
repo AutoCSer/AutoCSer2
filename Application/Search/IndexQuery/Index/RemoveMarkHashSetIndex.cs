@@ -46,9 +46,17 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <returns></returns>
-        public ArrayBuffer<uint> Get(QueryCondition<uint> condition)
+        public unsafe ArrayBuffer<uint> Get(QueryCondition<uint> condition)
         {
-            return hashSet.Get(condition);
+            int count = hashSet.Count;
+            if (count != 0)
+            {
+                ArrayBuffer<uint> buffer = condition.GetBuffer(count);
+                fixed (uint* bufferFixed = buffer.Array) hashSet.GetBuffer(bufferFixed);
+                buffer.SetCount(count);
+                return buffer;
+            }
+            return condition.GetNullBuffer().Result;
         }
     }
     /// <summary>
@@ -102,7 +110,18 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <returns></returns>
         public ArrayBuffer<T> Get(QueryCondition<T> condition)
         {
-            return hashSet.Get(condition);
+            int count = hashSet.Count;
+            if (count != 0)
+            {
+                ArrayBuffer<T> buffer = condition.GetBuffer(count);
+                foreach (RemoveMarkHashNode<T> node in hashSet.Nodes)
+                {
+                    buffer.UnsafeAdd(node.Value);
+                    if (--count == 0) break;
+                }
+                return buffer;
+            }
+            return condition.GetNullBuffer().Result;
         }
     }
 }

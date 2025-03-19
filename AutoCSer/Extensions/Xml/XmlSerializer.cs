@@ -184,7 +184,7 @@ namespace AutoCSer
         internal void Free()
         {
             freeThreadStatic();
-            YieldPool.Default.Push(this);
+            AutoCSer.Threading.LinkPool<XmlSerializer>.Default.Push(this);
         }
         /// <summary>
         /// 循环引用对象处理
@@ -1088,7 +1088,7 @@ namespace AutoCSer
         public static string Serialize<T>(ref T value, out AutoCSer.TextSerialize.WarningEnum warning, XmlSerializeConfig config = null)
 #endif
         {
-            XmlSerializer serializer = YieldPool.Default.Pop() ?? new XmlSerializer();
+            XmlSerializer serializer = AutoCSer.Threading.LinkPool<XmlSerializer>.Default.Pop() ?? new XmlSerializer();
             try
             {
                 string xml = serializer.serialize(ref value, config);
@@ -1128,7 +1128,7 @@ namespace AutoCSer
         {
             if (!charStream.IsResizeError)
             {
-                XmlSerializer serializer = YieldPool.Default.Pop() ?? new XmlSerializer();
+                XmlSerializer serializer = AutoCSer.Threading.LinkPool<XmlSerializer>.Default.Pop() ?? new XmlSerializer();
                 try
                 {
                     serializer.serialize(ref value, charStream, config);

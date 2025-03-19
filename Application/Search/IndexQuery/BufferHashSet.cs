@@ -82,5 +82,49 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         {
             pool?.Free(this);
         }
+        /// <summary>
+        /// 获取数组缓冲区
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        private void copyTo(ref ArrayBuffer<T> buffer)
+        {
+            int count = Count;
+            foreach (ReusableHashNode<T> node in Nodes)
+            {
+                buffer.UnsafeAdd(node.Value);
+                if (--count == 0) return;
+            }
+        }
+        /// <summary>
+        /// 获取数组缓冲区
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        internal ArrayBuffer<T> GetArrayBuffer(QueryCondition<T> condition)
+        {
+            if (Count != 0)
+            {
+                ArrayBuffer<T> buffer = condition.GetBuffer(Count);
+                copyTo(ref buffer);
+                return buffer;
+            }
+            return condition.GetNullBuffer().Result;
+        }
+        /// <summary>
+        /// 获取数组缓冲区
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        internal ArrayBuffer<T> GetArrayBuffer(MemoryIndex.QueryCondition<T> condition)
+        {
+            if (Count != 0)
+            {
+                ArrayBuffer<T> buffer = condition.GetBuffer(Count);
+                copyTo(ref buffer);
+                return buffer;
+            }
+            return condition.GetNullBuffer();
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace AutoCSer.TestCase
         }
 
         /// <summary>
-        /// 反向命令服务测试
+        /// 接口任务队列测试
         /// </summary>
         /// <returns></returns>
 #if TEST

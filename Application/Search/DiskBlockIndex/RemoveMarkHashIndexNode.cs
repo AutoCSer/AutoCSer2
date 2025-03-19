@@ -24,7 +24,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 关键字索引集合
         /// </summary>
-        private readonly Dictionary<KT, RemoveMarkHashIndex<KT, VT>> indexs;
+        private readonly FragmentDictionary256<KT, RemoveMarkHashIndex<KT, VT>> indexs;
         /// <summary>
         /// 关键字变更回调
         /// </summary>
@@ -32,11 +32,10 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 带移除标记的可重用哈希索引节点
         /// </summary>
-        /// <param name="capacity">初始化容器尺寸</param>
-        protected RemoveMarkHashIndexNode(int capacity = 0)
+        protected RemoveMarkHashIndexNode()
         {
             callbacks.SetEmpty();
-            indexs = DictionaryCreator<KT>.Create<RemoveMarkHashIndex<KT, VT>>(capacity);
+            indexs = new FragmentDictionary256<KT, RemoveMarkHashIndex<KT, VT>>();
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -69,7 +68,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         SnapshotResult<BinarySerializeKeyValue<KT, BlockIndexData<VT>>> ISnapshot<BinarySerializeKeyValue<KT, BlockIndexData<VT>>>.GetSnapshotResult(BinarySerializeKeyValue<KT, BlockIndexData<VT>>[] snapshotArray, object customObject)
         {
             SnapshotResult<BinarySerializeKeyValue<KT, BlockIndexData<VT>>> result = new SnapshotResult<BinarySerializeKeyValue<KT, BlockIndexData<VT>>>(indexs.Count, snapshotArray.Length);
-            foreach (KeyValuePair<KT, RemoveMarkHashIndex<KT, VT>> index in indexs) result.Add(snapshotArray, new BinarySerializeKeyValue<KT, BlockIndexData<VT>>(index.Key, new BlockIndexData<VT>(index.Value)));
+            foreach (KeyValuePair<KT, RemoveMarkHashIndex<KT, VT>> index in indexs.KeyValues) result.Add(snapshotArray, new BinarySerializeKeyValue<KT, BlockIndexData<VT>>(index.Key, new BlockIndexData<VT>(index.Value)));
             return result;
         }
         /// <summary>

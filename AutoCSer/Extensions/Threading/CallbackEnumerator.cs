@@ -30,10 +30,6 @@ namespace AutoCSer.Threading
         /// </summary>
         private readonly Queue<T> returnValueQueue = new Queue<T>();
         /// <summary>
-        /// 返回值队列访问锁
-        /// </summary>
-        private AutoCSer.Threading.SpinLock queueLock;
-        /// <summary>
         /// 当前返回数据
         /// </summary>
 #if NetStandard21
@@ -62,11 +58,11 @@ namespace AutoCSer.Threading
         /// <param name="value"></param>
         public void Callback(T value)
         {
-            queueLock.EnterYield();
+            System.Threading.Monitor.Enter(returnValueQueue);
             if (moveNext.PushValue())
             {
                 Current = value;
-                queueLock.Exit();
+                System.Threading.Monitor.Exit(returnValueQueue);
                 moveNext.SetNextValue();
                 return;
             }
@@ -74,7 +70,7 @@ namespace AutoCSer.Threading
             {
                 returnValueQueue.Enqueue(value);
             }
-            finally { queueLock.Exit(); }
+            finally { System.Threading.Monitor.Exit(returnValueQueue); }
         }
         /// <summary>
         /// 判断是否存在下一个数据
@@ -82,15 +78,15 @@ namespace AutoCSer.Threading
         /// <returns></returns>
         public CallbackEnumeratorMoveNext MoveNext()
         {
-            queueLock.EnterYield();
+            System.Threading.Monitor.Enter(returnValueQueue);
             if (returnValueQueue.Count != 0)
             {
                 Current = returnValueQueue.Dequeue();
-                queueLock.Exit();
+                System.Threading.Monitor.Exit(returnValueQueue);
                 return moveNext.MoveNextTrue;
             }
             moveNext.IsCurrentMoveNext = true;
-            queueLock.Exit();
+            System.Threading.Monitor.Exit(returnValueQueue);
             return moveNext;
         }
         /// <summary>

@@ -22,7 +22,6 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("AutoCSer.DynamicAssembly")]
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator")]
 [assembly: InternalsVisibleTo("AutoCSer.NetCoreWeb")]
-[assembly: InternalsVisibleTo("AutoCSer.Search")]
 [assembly: InternalsVisibleTo("AutoCSer.Drawing")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.StreamPersistenceMemoryDatabase")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.DiskBlock")]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using AutoCSer;
 using AutoCSer.Threading;
 
@@ -98,8 +99,16 @@ namespace AutoCSer.RandomObject
         {
             if (history != null && AutoCSer.Random.Default.NextBit() == 0)
             {
-                var objects = default(ListArray<object>);
-                if (history.TryGetValue(type, out objects)) return objects.Array.Array[AutoCSer.Random.Default.Next(objects.Array.Length)];
+                Monitor.Enter(this);
+                try
+                {
+                    if (history != null)
+                    {
+                        var objects = default(ListArray<object>);
+                        if (history.TryGetValue(type, out objects)) return objects.Array.Array[AutoCSer.Random.Default.Next(objects.Array.Length)];
+                    }
+                }
+                finally { Monitor.Exit(this); }
             }
             return null;
         }
@@ -112,16 +121,26 @@ namespace AutoCSer.RandomObject
         {
             if (!IsHistory || value == null) return;
             var objects = default(ListArray<object>);
-            if (history == null) history = DictionaryCreator.CreateHashObject<System.Type, ListArray<object>>();
-            if (!history.TryGetValue(type, out objects)) history.Add(type, objects = new ListArray<object>());
-            objects.Add(value);
+            Monitor.Enter(this);
+            try
+            {
+                if (history == null) history = DictionaryCreator.CreateHashObject<System.Type, ListArray<object>>();
+                if (!history.TryGetValue(type, out objects)) history.Add(type, objects = new ListArray<object>());
+                objects.Add(value);
+            }
+            finally { Monitor.Exit(this); }
         }
         /// <summary>
         /// 清理历史对象集合
         /// </summary>
         internal void ClearHistory()
         {
-            if (history?.Count > 0) history = DictionaryCreator.CreateHashObject<System.Type, ListArray<object>>();
+            Monitor.Enter(this);
+            try
+            {
+                if (history?.Count > 0) history = DictionaryCreator.CreateHashObject<System.Type, ListArray<object>>();
+            }
+            finally { Monitor.Exit(this); }
         }
 
         /// <summary>

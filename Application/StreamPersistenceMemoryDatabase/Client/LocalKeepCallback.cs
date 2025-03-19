@@ -3,6 +3,7 @@ using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 #if !NetStandard21
 using ValueTask = System.Threading.Tasks.Task;
@@ -31,10 +32,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 返回值队列
         /// </summary>
         private readonly Queue<KeepCallbackResponseParameter> returnValueQueue = new Queue<KeepCallbackResponseParameter>();
-        /// <summary>
-        /// 返回值队列访问锁
-        /// </summary>
-        private AutoCSer.Threading.SpinLock queueLock;
         /// <summary>
         /// 当前返回数据
         /// </summary>
@@ -110,20 +107,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (returnType == CommandClientReturnTypeEnum.Success)
             {
-                queueLock.EnterYield();
+                Monitor.Enter(returnValueQueue);
                 if (returnValueQueue.Count == 0)
                 {
                     if (moveNext.Cancel() == 0)
                     {
-                        queueLock.Exit();
+                        Monitor.Exit(returnValueQueue);
                         moveNext.SetNextValue(isSynchronousCallback, false);
                     }
-                    else queueLock.Exit();
+                    else Monitor.Exit(returnValueQueue);
                 }
                 else
                 {
                     moveNext.IsCanceled = 2;
-                    queueLock.Exit();
+                    Monitor.Exit(returnValueQueue);
                 }
             }
             else
@@ -131,14 +128,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 ReturnType = returnType;
                 Exception = exception;
 
-                queueLock.EnterYield();
+                Monitor.Enter(returnValueQueue);
                 if (returnValueQueue.Count != 0) returnValueQueue.Clear();
                 if (moveNext.Close() == 0)
                 {
-                    queueLock.Exit();
+                    Monitor.Exit(returnValueQueue);
                     moveNext.SetNextValue(isSynchronousCallback, false);
                 }
-                else queueLock.Exit();
+                else Monitor.Exit(returnValueQueue);
             }
         }
         /// <summary>
@@ -147,7 +144,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="response"></param>
         internal void Callback(KeepCallbackResponseParameter response)
         {
-            queueLock.EnterYield();
+            Monitor.Enter(returnValueQueue);
             switch (moveNext.PushValue())
             {
                 case 0:
@@ -155,14 +152,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         returnValueQueue.Enqueue(response);
                     }
-                    finally { queueLock.Exit(); }
+                    finally { Monitor.Exit(returnValueQueue); }
                     return;
                 case 1:
                     current = response;
-                    queueLock.Exit();
+                    Monitor.Exit(returnValueQueue);
                     moveNext.SetNextValue(isSynchronousCallback, true);
                     return;
-                default: queueLock.Exit(); return;
+                default: Monitor.Exit(returnValueQueue); return;
             }
         }
         /// <summary>
@@ -171,19 +168,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public EnumeratorCommandMoveNext MoveNext()
         {
-            queueLock.EnterYield();
+            Monitor.Enter(returnValueQueue);
             if (returnValueQueue.Count != 0)
             {
                 current = returnValueQueue.Dequeue();
-                queueLock.Exit();
+                Monitor.Exit(returnValueQueue);
                 return EnumeratorCommandMoveNext.NextValueTrue;
             }
             if (moveNext.MoveNextValue() == 0)
             {
-                queueLock.Exit();
+                Monitor.Exit(returnValueQueue);
                 return moveNext;
             }
-            queueLock.Exit();
+            Monitor.Exit(returnValueQueue);
             return EnumeratorCommandMoveNext.NextValueFalse;
         }
         /// <summary>
@@ -212,20 +209,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isError = false;
             do
             {
-                queueLock.EnterYield();
+                Monitor.Enter(returnValueQueue);
                 if (returnValueQueue.Count != 0)
                 {
                     current = returnValueQueue.Dequeue();
-                    queueLock.Exit();
+                    Monitor.Exit(returnValueQueue);
                 }
                 else if (moveNext.MoveNextValue() == 0)
                 {
-                    queueLock.Exit();
+                    Monitor.Exit(returnValueQueue);
                     if (!(await moveNext)) break;
                 }
                 else
                 {
-                    queueLock.Exit();
+                    Monitor.Exit(returnValueQueue);
                     break;
                 }
                 LocalResult<T> response = Current;

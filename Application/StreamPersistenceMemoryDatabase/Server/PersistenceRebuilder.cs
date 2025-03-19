@@ -2,6 +2,7 @@
 using AutoCSer.Memory;
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -58,7 +59,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用持久化链表
         /// </summary>
-        private MethodParameter.YieldQueue persistenceQueue;
+        private LinkStack<MethodParameter> persistenceQueue;
         /// <summary>
         /// 持久化流重建起始位置
         /// </summary>
@@ -387,7 +388,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!checkPersistencePosition(persistenceStream)) return false;
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData;
-                    using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
                     {
                         outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
@@ -508,7 +509,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!checkPersistencePosition(persistenceStream)) return false;
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData;
-                    using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
                     {
                         outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
@@ -728,7 +729,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         persistenceBuffer.GetBufferLength();
                         SubArray<byte> outputData;
                         var current = default(MethodParameter);
-                        using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
+                        using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
                         {
                             outputSerializer.SetDefault();
                             persistenceBuffer.OutputStream = outputStream;
@@ -741,11 +742,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     {
                                         if (current == null)
                                         {
-                                            current = persistenceQueue.GetClear();
+                                            current = persistenceQueue.GetQueue();
                                             if (current == null)
                                             {
                                                 persistenceStream.Flush();
-                                                current = persistenceQueue.GetClear();
+                                                current = persistenceQueue.GetQueue();
                                                 if (current == null)
                                                 {
                                                     persistencePosition = persistenceStream.Position;
@@ -773,7 +774,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                                 if (persistenceBuffer.CheckDataStart()) break;
                                             }
                                         }
-                                        while (current != null || (current = persistenceQueue.GetClear()) != null);
+                                        while (current != null || (current = persistenceQueue.GetQueue()) != null);
                                         if (isClosedOrServiceDisposed) return false;
                                         outputData = persistenceBuffer.GetData();
                                         persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);

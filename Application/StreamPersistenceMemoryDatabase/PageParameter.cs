@@ -238,5 +238,39 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else keyArray = EmptyArray<VT>.Array;
             return new PageResult<VT>(keyArray, tree.Count, PageIndex, PageSize);
         }
+        /// <summary>
+        /// 获取关键字分页数据
+        /// </summary>
+        /// <typeparam name="KT">关键字类型</typeparam>
+        /// <typeparam name="VT">数据类型</typeparam>
+        /// <param name="dictionary">二叉搜索树字典</param>
+        /// <returns>排序关键字集合</returns>
+        public PageResult<KT> GetKeyPageResult<KT, VT>(AutoCSer.SearchTree.NodeDictionary<KT, VT> dictionary)
+            where KT : IComparable<KT>
+            where VT : AutoCSer.SearchTree.Node<VT, KT>
+        {
+            KT[] keyArray;
+            long startIndex = (long)PageIndex * PageSize, count = Math.Min(dictionary.Count - startIndex, PageSize);
+            if (count > 0) keyArray = dictionary.GetKeyRange((int)startIndex, (int)count);
+            else keyArray = EmptyArray<KT>.Array;
+            return new PageResult<KT>(keyArray, dictionary.Count, PageIndex, PageSize);
+        }
+        /// <summary>
+        /// 获取关键字逆序分页数据
+        /// </summary>
+        /// <typeparam name="KT">关键字类型</typeparam>
+        /// <typeparam name="VT">数据类型</typeparam>
+        /// <param name="dictionary">二叉搜索树字典</param>
+        /// <returns>排序关键字集合</returns>
+        public PageResult<KT> GetDescKeyPageResult<KT, VT>(AutoCSer.SearchTree.NodeDictionary<KT, VT> dictionary)
+            where KT : IComparable<KT>
+            where VT : AutoCSer.SearchTree.Node<VT, KT>
+        {
+            KT[] keyArray;
+            long startIndex = (long)PageIndex * PageSize, count = Math.Min(dictionary.Count - startIndex, PageSize);
+            if (count > 0) keyArray = dictionary.GetKeyRangeDesc((int)startIndex, (int)count);
+            else keyArray = EmptyArray<KT>.Array;
+            return new PageResult<KT>(keyArray, dictionary.Count, PageIndex, PageSize);
+        }
     }
 }

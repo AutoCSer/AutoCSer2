@@ -7844,11 +7844,6 @@
             常量转换处理集合
             </summary>
         </member>
-        <member name="F:AutoCSer.ORM.ConnectionCreator.constantConverterLock">
-            <summary>
-            常量转换处理集合 访问锁
-            </summary>
-        </member>
         <member name="F:AutoCSer.ORM.ConnectionCreator.charStreamCache">
             <summary>
             SQL 字符流 临时缓存
@@ -8981,11 +8976,6 @@
         <member name="F:AutoCSer.ORM.ConnectionCreator.constantConvertMethods">
             <summary>
             常量转换处理集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ORM.ConnectionCreator.constantConvertMethodLock">
-            <summary>
-            常量转换处理集合 访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.ORM.ConnectionCreator.GetConstantConvertMethod(System.Type,AutoCSer.ORM.ReaderDataTypeEnum,AutoCSer.ORM.MemberAttribute,System.Boolean@)">

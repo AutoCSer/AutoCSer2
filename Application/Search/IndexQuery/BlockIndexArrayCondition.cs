@@ -101,7 +101,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
                             AutoCSer.Algorithm.IntSortIndex* sortIndex = (AutoCSer.Algorithm.IntSortIndex*)buffer.Pointer.Data, nextSortIndex = sortIndex;
                             (*nextSortIndex).Set(array[index].EstimatedCount, index);
                             while (++index != count) (*++nextSortIndex).Set(array[index].EstimatedCount, index);
-                            AutoCSer.Algorithm.IntSortIndex.SortDesc(sortIndex, nextSortIndex);
+                            AutoCSer.Algorithm.IntSortIndex.Sort(sortIndex, nextSortIndex);
                             AutoCSer.Extensions.ArraySort.QuickSort(array, count, sortIndex);
                         }
                         finally { buffer.PushOnly(); }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Memory;
+using System;
 using System.Threading;
 
 namespace AutoCSer.CommandService.Search.IndexQuery
@@ -12,15 +13,15 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <summary>
         /// 数组缓冲区集合
         /// </summary>
-        private T[][] buffers;
-        /// <summary>
-        /// 空闲数组缓冲区数量
-        /// </summary>
-        private int count;
+        private LeftArray<T[]> buffers;
         /// <summary>
         /// 数组大小
         /// </summary>
         private readonly int size;
+        /// <summary>
+        /// 是否申请了新的缓冲区
+        /// </summary>
+        private bool isGetNewBuffer;
         /// <summary>
         /// 数组缓冲区池
         /// </summary>
@@ -28,7 +29,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         internal ArrayBufferPool(int bit)
         {
             size = 1 << bit;
-            buffers = EmptyArray<T[]>.Array;
+            buffers = new LeftArray<T[]>(0);
         }
         /// <summary>
         /// 获取数组缓冲区
@@ -38,17 +39,18 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <returns></returns>
         internal ArrayBuffer<T> GetBuffer(ArrayBufferPoolArray<T> pool, int poolIndex)
         {
-            if (count != 0)
+            if (buffers.Length != 0)
             {
+                var buffer = default(T[]);
                 Monitor.Enter(this);
-                if (count != 0)
+                if (buffers.TryPop(out buffer))
                 {
-                    T[] buffer = buffers[--count];
                     Monitor.Exit(this);
                     return new ArrayBuffer<T>(pool, buffer, poolIndex);
                 }
                 Monitor.Exit(this);
             }
+            isGetNewBuffer = true;
             return new ArrayBuffer<T>(pool, new T[size], poolIndex);
         }
         /// <summary>
@@ -62,19 +64,24 @@ namespace AutoCSer.CommandService.Search.IndexQuery
             {
                 buffer = EmptyArray<T>.Array;
                 Monitor.Enter(this);
-                if (count != buffers.Length)
-                {
-                    buffers[count++] = pushBuffer;
-                    Monitor.Exit(this);
-                    return;
-                }
                 try
                 {
-                    if (count != 0) buffers = AutoCSer.Common.GetCopyArray(buffers, count << 1);
-                    else buffers = new T[sizeof(int)][];
-                    buffers[count++] = pushBuffer;
+                    buffers.Add(pushBuffer);
                 }
                 finally { Monitor.Exit(this); }
+            }
+        }
+        /// <summary>
+        /// 释放部分缓冲区
+        /// </summary>
+        internal void FreeCache()
+        {
+            if (isGetNewBuffer)
+            {
+                Monitor.Enter(this);
+                buffers.ClearCache();
+                Monitor.Exit(this);
+                isGetNewBuffer = false;
             }
         }
     }

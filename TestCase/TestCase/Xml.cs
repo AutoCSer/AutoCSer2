@@ -9,6 +9,10 @@ namespace AutoCSer.TestCase
         /// 带成员位图的XML序列化参数配置
         /// </summary>
         private static readonly AutoCSer.XmlSerializeConfig xmlSerializeConfig = new AutoCSer.XmlSerializeConfig();
+        /// <summary>
+        /// 随机对象生成参数
+        /// </summary>
+        private static readonly AutoCSer.RandomObject.Config randomConfig = new AutoCSer.RandomObject.Config { IsSecondDateTime = true, IsParseFloat = true };
 
         /// <summary>
         /// XML 序列化测试
@@ -20,7 +24,7 @@ namespace AutoCSer.TestCase
         internal static bool TestCase()
         {
             #region 引用类型字段成员XML序列化测试
-            Field filedData = AutoCSer.RandomObject.Creator<Field>.Create(Json.RandomConfig);
+            Field filedData = AutoCSer.RandomObject.Creator<Field>.Create(randomConfig);
             string xmlString = AutoCSer.XmlSerializer.Serialize(filedData);
             Field newField = AutoCSer.XmlDeserializer.Deserialize<Field>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
@@ -41,7 +45,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 引用类型属性成员XML序列化测试
-            Property propertyData = AutoCSer.RandomObject.Creator<Property>.Create(Json.RandomConfig);
+            Property propertyData = AutoCSer.RandomObject.Creator<Property>.Create(randomConfig);
             xmlString = AutoCSer.XmlSerializer.Serialize(propertyData);
             Property newProperty = AutoCSer.XmlDeserializer.Deserialize<Property>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(propertyData, newProperty))
@@ -51,7 +55,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 值类型字段成员XML序列化测试
-            StructField structField = AutoCSer.RandomObject.Creator<StructField>.Create(Json.RandomConfig);
+            StructField structField = AutoCSer.RandomObject.Creator<StructField>.Create(randomConfig);
             xmlString = AutoCSer.XmlSerializer.Serialize(structField);
             StructField newStructField = AutoCSer.XmlDeserializer.Deserialize<StructField>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField))
@@ -72,7 +76,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 值类型属性成员XML序列化测试
-            StructProperty structProperty = AutoCSer.RandomObject.Creator<StructProperty>.Create(Json.RandomConfig);
+            StructProperty structProperty = AutoCSer.RandomObject.Creator<StructProperty>.Create(randomConfig);
             xmlString = AutoCSer.XmlSerializer.Serialize(structProperty);
             StructProperty newStructProperty = AutoCSer.XmlDeserializer.Deserialize<StructProperty>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structProperty, newStructProperty))

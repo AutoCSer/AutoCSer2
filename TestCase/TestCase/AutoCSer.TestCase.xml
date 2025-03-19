@@ -9,6 +9,11 @@
             带成员位图的二进制序列化参数配置
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.BinarySerialize.randomConfig">
+            <summary>
+            随机对象生成参数
+            </summary>
+        </member>
         <member name="M:AutoCSer.TestCase.BinarySerialize.TestCase">
             <summary>
             二进制序列化测试
@@ -986,9 +991,26 @@
         </member>
         <member name="M:AutoCSer.TestCase.InterfaceControllerTaskQueue.TestCase">
             <summary>
-            反向命令服务测试
+            接口任务队列测试
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ReusableDictionary.TestCase">
+            <summary>
+            可重用字典测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchTree.TestCase">
+            <summary>
+            二叉搜索树测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchTree.data">
+            <summary>
+            测试数据
+            </summary>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode">
             <summary>
@@ -1675,13 +1697,18 @@
             带成员位图的XML序列化参数配置
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.Xml.randomConfig">
+            <summary>
+            随机对象生成参数
+            </summary>
+        </member>
         <member name="M:AutoCSer.TestCase.Xml.TestCase">
             <summary>
             XML 序列化测试
             </summary>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.TestCase.Json.RandomConfig">
+        <member name="F:AutoCSer.TestCase.Json.randomConfig">
             <summary>
             随机对象生成参数
             </summary>

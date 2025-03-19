@@ -46,9 +46,17 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <returns></returns>
-        public ArrayBuffer<int> Get(QueryCondition<int> condition)
+        public unsafe ArrayBuffer<int> Get(QueryCondition<int> condition)
         {
-            return hashSet.Get(condition);
+            int count = hashSet.Count;
+            if (count != 0)
+            {
+                ArrayBuffer<int> buffer = condition.GetBuffer(count);
+                fixed (int* bufferFixed = buffer.Array) hashSet.GetBuffer((uint*)bufferFixed);
+                buffer.SetCount(count);
+                return buffer;
+            }
+            return condition.GetNullBuffer().Result;
         }
     }
 }

@@ -83,24 +83,21 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <returns></returns>
-        ValueResult<ConditionDataUpdateStateEnum> CompletedBeforePersistence(KT key, VT value);
+        ValueResult<ConditionDataUpdateStateEnum> CompletedBeforePersistence(VT value);
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <param name="callback"></param>
-        void CompletedLoadPersistence(KT key, VT value, MethodCallback<ConditionDataUpdateStateEnum> callback);
+        void CompletedLoadPersistence(VT value, MethodCallback<ConditionDataUpdateStateEnum> callback);
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <param name="callback"></param>
         [ServerMethod(IsClientCall = false)]
-        void Completed(KT key, VT value, MethodCallback<ConditionDataUpdateStateEnum> callback);
+        void Completed(VT value, MethodCallback<ConditionDataUpdateStateEnum> callback);
     }
 }

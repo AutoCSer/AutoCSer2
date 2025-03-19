@@ -318,7 +318,7 @@ namespace AutoCSer
         internal void Free()
         {
             freeThreadStatic();
-            YieldPool.Default.Push(this);
+            AutoCSer.Threading.LinkPool<XmlDeserializer>.Default.Push(this);
         }
         /// <summary>
         /// 空格过滤
@@ -2227,7 +2227,7 @@ namespace AutoCSer
 #endif
         {
             if (string.IsNullOrEmpty(xml)) return new DeserializeResult(DeserializeStateEnum.NullXml);
-            XmlDeserializer xmlDeserializer = YieldPool.Default.Pop() ?? new XmlDeserializer();
+            XmlDeserializer xmlDeserializer = AutoCSer.Threading.LinkPool<XmlDeserializer>.Default.Pop() ?? new XmlDeserializer();
             try
             {
                 return xmlDeserializer.deserialize(xml, ref value, config);
@@ -2300,7 +2300,7 @@ namespace AutoCSer
 #endif
         {
             if (string.IsNullOrEmpty(xml)) return new DeserializeResult(DeserializeStateEnum.NullXml);
-            XmlDeserializer xmlDeserializer = YieldPool.Default.Pop() ?? new XmlDeserializer();
+            XmlDeserializer xmlDeserializer = AutoCSer.Threading.LinkPool<XmlDeserializer>.Default.Pop() ?? new XmlDeserializer();
             try
             {
                 return xmlDeserializer.deserialize(ref xml, ref value, config);
@@ -2321,7 +2321,7 @@ namespace AutoCSer
         internal static DeserializeResult UnsafeDeserialize<T>(char* xml, int length, ref T value)
 #endif
         {
-            XmlDeserializer xmlDeserializer = YieldPool.Default.Pop() ?? new XmlDeserializer();
+            XmlDeserializer xmlDeserializer = AutoCSer.Threading.LinkPool<XmlDeserializer>.Default.Pop() ?? new XmlDeserializer();
             try
             {
                 return xmlDeserializer.deserialize(xml, length, ref value);

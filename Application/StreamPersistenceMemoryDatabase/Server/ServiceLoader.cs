@@ -196,7 +196,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                deserializer = AutoCSer.BinaryDeserializer.YieldPool.Default.Pop() ?? new AutoCSer.BinaryDeserializer();
+                deserializer = AutoCSer.Threading.LinkPool<AutoCSer.BinaryDeserializer>.Default.Pop() ?? new AutoCSer.BinaryDeserializer();
                 deserializer.SetContextNoCheckRemoteType(CommandServerSocket.CommandServerSocketContext, AutoCSer.BinaryDeserializer.DefaultConfig);
                 base.loadBuffer();
             }

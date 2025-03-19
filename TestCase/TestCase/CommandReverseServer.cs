@@ -15,6 +15,7 @@ namespace AutoCSer.TestCase
 #endif
         internal static async Task<bool> TestCase()
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 CommandReverseListenerConfig commandClientConfig = new CommandReverseListenerConfig

@@ -45,6 +45,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
         /// <returns></returns>
         internal static async Task<bool> TestCase()
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             if (!await DictionaryNode.Test())
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

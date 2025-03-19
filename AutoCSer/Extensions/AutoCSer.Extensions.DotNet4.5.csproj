@@ -87,6 +87,7 @@
     <Compile Include="Extensions\StackExtension.cs" />
     <Compile Include="Extensions\SubStringExtension.cs" />
     <Compile Include="Extensions\SynchronizationContextExtension.cs" />
+    <Compile Include="Extensions\ThreadPoolExtension.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="HashBytesFragmentDictionary256.cs" />
     <Compile Include="HashSubString.cs" />
@@ -150,6 +151,10 @@
     <Compile Include="Reflection\LoadAssemblyCache.cs" />
     <Compile Include="Reflection\XmlDocument.cs" />
     <Compile Include="Reflection\XmlDocumentAssembly.cs" />
+    <Compile Include="RemoveMarkHashNode.cs" />
+    <Compile Include="RemoveMarkHashSet.cs" />
+    <Compile Include="RemoveMarkHashSetCapacity.cs" />
+    <Compile Include="UnmanagedRemoveMarkHashSetCapacity.cs" />
     <Compile Include="ReusableHashCodeKeyHashSet.cs" />
     <Compile Include="ReusableHashSet.cs" />
     <Compile Include="ReusableHashNode.cs" />
@@ -158,11 +163,15 @@
     <Compile Include="SearchTree\EnumerableCount.cs" />
     <Compile Include="SearchTree\FindArray.cs" />
     <Compile Include="SearchTree\Node.cs" />
+    <Compile Include="SearchTree\NodeDictionary.cs" />
     <Compile Include="SearchTree\PageArray.cs" />
     <Compile Include="SearchTree\Set.cs" />
     <Compile Include="SearchTree\SetRemoveNode.cs" />
+    <Compile Include="SearchTree\SetRemoveValue.cs" />
     <Compile Include="StateSearcher\AsciiBuilder.cs" />
     <Compile Include="StateSearcher\AsciiSearcher.cs" />
+    <Compile Include="Threading\ArrayQueue.cs" />
+    <Compile Include="Threading\ArrayQueueNode.cs" />
     <Compile Include="Threading\AutoWaitCount.cs" />
     <Compile Include="Threading\AwaitCallBack.cs" />
     <Compile Include="Threading\CallbackEnumerator.cs" />
@@ -175,6 +184,7 @@
     <Compile Include="Threading\SemaphoreSlimCache.cs" />
     <Compile Include="Threading\SynchronizationContextAction.cs" />
     <Compile Include="Threading\TaskRunTimer.cs" />
+    <Compile Include="Threading\ThreadPoolTask.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueue.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueCustomNode.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueMethodAttribute.cs" />

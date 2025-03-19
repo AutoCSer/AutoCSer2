@@ -15,6 +15,7 @@ namespace AutoCSer.TestCase
 #endif
         internal static async Task<bool> TestCase()
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
                 CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase) };

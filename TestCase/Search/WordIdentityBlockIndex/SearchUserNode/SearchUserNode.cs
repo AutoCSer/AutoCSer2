@@ -75,7 +75,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
             return DataSourceCommandClientSocketEvent.CommandClient.SocketEvent.UserClient?.GetAllSearchUser();
         }
         /// <summary>
-        /// 创建分词结果磁盘块索引信息
+        /// 创建用户搜索非索引条件数据
         /// </summary>
         /// <param name="client"></param>
         /// <param name="value"></param>
@@ -192,7 +192,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
                 {
                     if (user.Value.Id != 0)
                     {
-                        StreamPersistenceMemoryDatabaseMethodParameterCreator.Completed(key, user.Value, callback);
+                        StreamPersistenceMemoryDatabaseMethodParameterCreator.Completed(user.Value, callback);
                         state = ConditionDataUpdateStateEnum.Callbacked;
                     }
                     else state = ConditionDataUpdateStateEnum.Success;
@@ -239,7 +239,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
                 CommandClientReturnValue<SearchUser> user = await DataSourceCommandClientSocketEvent.CommandClient.SocketEvent.UserClient.GetSearchUser(key);
                 if (user.IsSuccess)
                 {
-                    if (user.Value.Id != 0) StreamPersistenceMemoryDatabaseMethodParameterCreator.Completed(key, user.Value, callback);
+                    if (user.Value.Id != 0) StreamPersistenceMemoryDatabaseMethodParameterCreator.Completed(user.Value, callback);
                     else StreamPersistenceMemoryDatabaseMethodParameterCreator.Delete(key, callback);
                     state = ConditionDataUpdateStateEnum.Callbacked;
                 }
@@ -278,37 +278,34 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <returns></returns>
-        protected override ValueResult<ConditionDataUpdateStateEnum> completedBeforePersistence(int key, SearchUser value)
+        public override ValueResult<ConditionDataUpdateStateEnum> CompletedBeforePersistence(SearchUser value)
         {
             SearchUser historyUser;
-            if (users.TryGetValue(key, out historyUser) && historyUser.Equals(value)) return ConditionDataUpdateStateEnum.Success;
+            if (users.TryGetValue(value.Id, out historyUser) && historyUser.Equals(value)) return ConditionDataUpdateStateEnum.Success;
             return default;
         }
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
-        protected override void completedLoadPersistence(int key, SearchUser value)
+        protected override void completedLoadPersistence(SearchUser value)
         {
-            users.Set(key, value);
+            users.Set(value.Id, value);
         }
         /// <summary>
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="key">数据关键字</param>
         /// <param name="value">非索引条件查询数据</param>
         /// <returns></returns>
-        protected override ConditionDataUpdateStateEnum completed(int key, SearchUser value)
+        protected override ConditionDataUpdateStateEnum completed(SearchUser value)
         {
             SearchUser historyUser;
             ConcurrencyQueue.WaitQueue();
             try
             {
-                if (users.Set(key, value, out historyUser)) loginTimes.Add(value.GetLoginTimeKey());
+                if (users.Set(value.Id, value, out historyUser)) loginTimes.Add(value.GetLoginTimeKey());
                 else if (value.LoginTime != historyUser.LoginTime)
                 {
                     loginTimes.Add(value.GetLoginTimeKey());

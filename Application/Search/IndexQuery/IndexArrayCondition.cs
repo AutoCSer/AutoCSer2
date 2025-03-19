@@ -373,29 +373,16 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <returns></returns>
         private ArrayBuffer<T> unionLoaded(QueryCondition<T> condition, int capacity)
         {
-            HashSetPool<T>[] pools = condition.GetHashSetPool();
-            BufferHashSet<T> hashSet = HashSetPool<T>.GetHashSet(pools, capacity);
+            BufferHashSet<T> hashSet = HashSetPool<T>.GetHashSet(condition.GetHashSetPool(), capacity);
             int count = conditions.Length;
             foreach (IIndexCondition<T> indexCondition in conditions.Array)
             {
                 indexCondition.GetLoaded(condition, hashSet);
                 if (--count == 0) break;
             }
-            if ((count = hashSet.Count) != 0)
-            {
-                ArrayBuffer<T> buffer = condition.GetBuffer(count);
-                foreach (ReusableHashNode<T> node in hashSet.Nodes)
-                {
-                    buffer.UnsafeAdd(node.Value);
-                    if (--count == 0)
-                    {
-                        hashSet.Free();
-                        return buffer;
-                    }
-                }
-            }
+            ArrayBuffer<T> buffer = hashSet.GetArrayBuffer(condition);
             hashSet.Free();
-            return condition.GetNullBuffer().Result;
+            return buffer;
         }
         /// <summary>
         /// 计算查询数据关键字

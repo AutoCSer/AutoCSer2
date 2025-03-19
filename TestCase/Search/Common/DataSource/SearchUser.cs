@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.Search;
-using AutoCSer.Data;
+﻿using AutoCSer.Data;
 using System;
 
 namespace AutoCSer.TestCase.SearchDataSource
@@ -9,7 +8,7 @@ namespace AutoCSer.TestCase.SearchDataSource
     /// </summary>
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct SearchUser : IConditionData
+    public struct SearchUser
     {
         /// <summary>
         /// 最后一次登录操作时间

@@ -25,8 +25,7 @@ namespace AutoCSer.TestCase.SearchDiskBlockIndex
         /// <summary>
         /// 带移除标记的可重用哈希索引节点
         /// </summary>
-        /// <param name="capacity">初始化容器尺寸</param>
-        internal RemoveMarkHashIndexNode(int capacity) : base(capacity)
+        internal RemoveMarkHashIndexNode() : base()
         {
             client = DiskBlockCommandClientSocketEvent.CommandClient.SocketEvent;
         }

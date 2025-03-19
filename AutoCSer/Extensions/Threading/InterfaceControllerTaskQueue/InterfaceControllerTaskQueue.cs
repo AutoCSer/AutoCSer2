@@ -13,7 +13,7 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 任务队列
         /// </summary>
-        private Link<InterfaceControllerTaskQueueNodeBase>.YieldQueue queue;
+        private LinkStack<InterfaceControllerTaskQueueNodeBase> queue;
         /// <summary>
         /// 队列线程ID
         /// </summary>
@@ -28,7 +28,7 @@ namespace AutoCSer.Threading
             {
                 waitHandle.Wait();
                 if (isDisposed) return;
-                var value = queue.GetClear();
+                var value = queue.GetQueue();
                 var currentTask = value;
                 do
                 {

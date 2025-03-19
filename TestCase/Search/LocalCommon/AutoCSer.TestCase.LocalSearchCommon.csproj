@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="ConditionData\ISearchUserNode.cs" />
+    <Compile Include="QueryService\ISearchUserNode.cs" />
     <Compile Include="DataSource\GenderEnum.cs" />
     <Compile Include="DataSource\IUserService.cs" />
     <Compile Include="DataSource\SearchUser.cs" />

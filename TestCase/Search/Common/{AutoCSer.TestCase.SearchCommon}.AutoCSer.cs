@@ -175,21 +175,18 @@ namespace AutoCSer.TestCase.SearchDataSource
         {
             /// <summary>
             /// [0] 
-            /// int key 
             /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
             /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Completed = 0,
             /// <summary>
             /// [1] 
-            /// int key 
             /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum} 
             /// </summary>
             CompletedBeforePersistence = 1,
             /// <summary>
             /// [2] 
-            /// int key 
             /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
             /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>

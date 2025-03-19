@@ -111,6 +111,8 @@
     <Compile Include="Data\JsonStructProperty.cs" />
     <Compile Include="Data\StructProperty.cs" />
     <Compile Include="InterfaceControllerTaskQueue.cs" />
+    <Compile Include="ReusableDictionary.cs" />
+    <Compile Include="SearchTree.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ArrayNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\BitmapNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ByteArrayDictionaryNode.cs" />

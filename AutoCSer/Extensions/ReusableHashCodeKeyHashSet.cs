@@ -40,13 +40,38 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// 数据集合
+        /// </summary>
+        public IEnumerable<int> IntValues
+        {
+            get
+            {
+                if (Count != 0)
+                {
+                    int index = Count;
+                    foreach (ReusableHashNode node in Nodes)
+                    {
+                        yield return (int)node.HashCode;
+                        if (--index == 0) break;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 空哈希表
+        /// </summary>
+        /// <param name="nodes"></param>
+        internal ReusableHashCodeKeyHashSet(ReusableHashNode[] nodes) : base()
+        {
+            Nodes = nodes;
+        }
+        /// <summary>
         /// 可重用字典
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
         public ReusableHashCodeKeyHashSet(int capacity = 0) : base(capacity)
         {
-            if (capacity >= 0) Nodes = AutoCSer.Common.GetUninitializedArray<ReusableHashNode>((int)CapacityDivision.Divisor);
-            else Nodes = EmptyArray<ReusableHashNode>.Array;
+            Nodes = new ReusableHashNode[(int)CapacityDivision.Divisor];
         }
         /// <summary>
         /// 可重用哈希表
@@ -54,7 +79,7 @@ namespace AutoCSer
         /// <param name="values">初始化数据</param>
         public ReusableHashCodeKeyHashSet(uint[] values) : this(values.Length)
         {
-            foreach (uint value in values) Add(value);
+            foreach (uint value in values) add(value);
         }
         /// <summary>
         /// 可重用哈希表
@@ -62,7 +87,7 @@ namespace AutoCSer
         /// <param name="values">初始化数据</param>
         public ReusableHashCodeKeyHashSet(int[] values) : this(values.Length)
         {
-            foreach (int value in values) Add(value);
+            foreach (int value in values) add((uint)value);
         }
         /// <summary>
         /// 可重用哈希表
@@ -75,10 +100,18 @@ namespace AutoCSer
             {
                 foreach (ReusableHashNode value in hashSet.Nodes)
                 {
-                    Add(value.HashCode);
+                    add(value.HashCode);
                     if (--count == 0) break;
                 }
             }
+        }
+        /// <summary>
+        /// 可重用哈希表
+        /// </summary>
+        /// <param name="hashSet">初始化数据</param>
+        public unsafe ReusableHashCodeKeyHashSet(RemoveMarkHashSet hashSet) : this(hashSet.Count)
+        {
+            for (RemoveMarkHashNode* node = (RemoveMarkHashNode*)hashSet.Nodes.Data, end = node + hashSet.Count; node != end; add((*node++).HashCode)) ;
         }
         /// <summary>
         /// 新增数据
@@ -104,7 +137,7 @@ namespace AutoCSer
             int capacity = GetResizeCapacity((int)CapacityDivision.Divisor);
             ReusableHashNode[] nodes = this.Nodes;
 
-            this.Nodes = AutoCSer.Common.GetUninitializedArray<ReusableHashNode>(capacity);
+            this.Nodes = new ReusableHashNode[capacity];
             CapacityDivision.Set(capacity);
             Clear();
             for (int index = 0; index != nodes.Length; ++index) add(nodes[index].HashCode);
@@ -350,5 +383,10 @@ namespace AutoCSer
             }
             return EmptyArray<int>.Array;
         }
+
+        /// <summary>
+        /// 空索引数据
+        /// </summary>
+        internal static readonly ReusableHashCodeKeyHashSet Empty = new ReusableHashCodeKeyHashSet(EmptyArray<ReusableHashNode>.Array);
     }
 }

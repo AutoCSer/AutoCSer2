@@ -14,10 +14,8 @@ namespace AutoCSer.CommandService.Search.ConditionData
         where NT : IConditionDataNode<KT, VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
-        where VT : notnull, IConditionData
 #else
         where KT : IEquatable<KT>
-        where VT : IConditionData
 #endif
         where CT : class
     {

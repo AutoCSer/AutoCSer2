@@ -4,6 +4,7 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
 using AutoCSer.TestCase.SearchCommon;
 using AutoCSer.TestCase.SearchDataSource;
+using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace AutoCSer.TestCase.SearchQueryService
     /// <summary>
     /// 搜索聚合查询服务
     /// </summary>
-    internal sealed class QueryService : IQueryService, IQueryContext<int, SearchUser>, IDisposable
+    internal sealed class QueryService : AutoCSer.Threading.SecondTimerTaskArrayNode, IQueryService, IQueryContext<int, SearchUser>, IDisposable
     {
         /// <summary>
         /// 关键字数组缓冲区池
@@ -50,7 +51,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 搜索聚合查询服务
         /// </summary>
-        internal QueryService()
+        internal QueryService() : base(AutoCSer.Threading.SecondTimer.TaskArray, SecondTimerTaskThreadModeEnum.Synchronous, SecondTimerKeepModeEnum.After)
         {
             IntBufferPool = new ArrayBufferPoolArray<int>(8);
             UserBufferPool = new ArrayBufferPoolArray<SearchUser>(8);
@@ -61,6 +62,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             userNameIndexCache = new SingleDiskBlockUIntKeyIntValueCache(diskBlockClient, DiskBlockIndexCommandClientSocketEvent.UserNameDiskBlockIndexNodeCache, 1 << 26);
             userRemarkIndexCache = new SingleDiskBlockUIntKeyIntValueCache(diskBlockClient, DiskBlockIndexCommandClientSocketEvent.UserRemarkDiskBlockIndexNodeCache, 1 << 26);
             DiskBlockCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
+            TryAppendTaskArrayAsync(60 * 60).NotWait();
         }
         /// <summary>
         /// 释放资源
@@ -68,9 +70,20 @@ namespace AutoCSer.TestCase.SearchQueryService
         public void Dispose()
         {
             IsDispose = true;
+            KeepSeconds = 0;
             userNameIndexCache.Dispose();
             userRemarkIndexCache.Dispose();
             userCache.Close();
+        }
+        /// <summary>
+        /// 触发定时操作
+        /// </summary>
+        /// <returns></returns>
+        protected override void OnTimer() 
+        {
+            IntBufferPool.FreeCache();
+            UserBufferPool.FreeCache();
+            HashSetPool<int>.FreeCache(HashSetPool);
         }
         /// <summary>
         /// 获取用户标识分页记录

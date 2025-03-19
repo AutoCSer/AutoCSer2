@@ -36,7 +36,7 @@ namespace AutoCSer.NetCoreWeb
         {
             this.view = view;
             isCallback = isFree = false;
-            JsonSerializer = AutoCSer.JsonSerializer.YieldPool.Default.Pop() ?? new JsonSerializer();
+            JsonSerializer = AutoCSer.Threading.LinkPool<AutoCSer.JsonSerializer>.Default.Pop() ?? new JsonSerializer();
         }
         /// <summary>
         /// 释放输出

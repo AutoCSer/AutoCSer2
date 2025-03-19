@@ -1076,11 +1076,10 @@
             关键字变更回调
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashKeyIndexNode`1.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashKeyIndexNode`1.#ctor">
             <summary>
             带移除标记的可重用哈希索引节点
             </summary>
-            <param name="capacity">初始化容器尺寸</param>
         </member>
         <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashKeyIndexNode`1.StreamPersistenceMemoryDatabaseServiceLoaded">
             <summary>
@@ -1299,11 +1298,10 @@
             关键字变更回调
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashIndexNode`2.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashIndexNode`2.#ctor">
             <summary>
             带移除标记的可重用哈希索引节点
             </summary>
-            <param name="capacity">初始化容器尺寸</param>
         </member>
         <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashIndexNode`2.StreamPersistenceMemoryDatabaseServiceLoaded">
             <summary>
@@ -1641,578 +1639,6 @@
             <param name="blockIndex"></param>
             <param name="valueCount"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Count">
-            <summary>
-            有效数据数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.valueCount">
-            <summary>
-            添加数据数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.nodes">
-            <summary>
-            节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.capacity">
-            <summary>
-            容器参数
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Capacity">
-            <summary>
-            容器大小
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.#ctor">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.#ctor(System.Int32)">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <param name="capacity">容器大小</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.#ctor(System.UInt32[])">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <param name="values">初始化数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.#ctor(System.Int32[])">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <param name="values">初始化数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.#ctor(AutoCSer.ReusableHashCodeKeyHashSet)">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <param name="hashSet"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Clear">
-            <summary>
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.remove(System.Int32,System.Int32)">
-            <summary>
-            删除节点
-            </summary>
-            <param name="nodeIndex"></param>
-            <param name="hashIndex"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.resize">
-            <summary>
-            重组数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Free">
-            <summary>
-            释放节点集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Contains(System.Int32)">
-            <summary>
-            判断是否存在数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Contains(System.UInt32)">
-            <summary>
-            判断是否存在数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.add(AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode)">
-            <summary>
-            新增重组数据
-            </summary>
-            <param name="node"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Add(System.Int32)">
-            <summary>
-            新增数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据变更</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Add(System.UInt32)">
-            <summary>
-            新增数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据变更</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.AddRemove(System.Int32)">
-            <summary>
-            新增删除数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据变更</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.AddRemove(System.UInt32)">
-            <summary>
-            新增删除数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据变更</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Remove(System.Int32)">
-            <summary>
-            删除新增数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在删除数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Remove(System.UInt32)">
-            <summary>
-            删除新增数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在删除数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.GetArray(System.Int32@)">
-            <summary>
-            获取数组
-            </summary>
-            <param name="valueCount">添加数据数量</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.getArray(System.UInt32*)">
-            <summary>
-            获取数组
-            </summary>
-            <param name="arrayFixed"></param>
-            <returns>添加数据数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.GetIntArray(System.Int32@)">
-            <summary>
-            获取数组
-            </summary>
-            <param name="valueCount">添加数据数量</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Get(AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{System.UInt32})">
-            <summary>
-            并集 OR
-            </summary>
-            <param name="hashSet"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Get(AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{System.Int32})">
-            <summary>
-            并集 OR
-            </summary>
-            <param name="hashSet"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.getBuffer(System.UInt32*)">
-            <summary>
-            获取数组
-            </summary>
-            <param name="buffer"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Get(AutoCSer.CommandService.Search.IndexQuery.QueryCondition{System.UInt32})">
-            <summary>
-            计算查询数据关键字
-            </summary>
-            <param name="condition">查询条件</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet.Get(AutoCSer.CommandService.Search.IndexQuery.QueryCondition{System.Int32})">
-            <summary>
-            计算查询数据关键字
-            </summary>
-            <param name="condition">查询条件</param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <typeparam name="T">关键字数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Count">
-            <summary>
-            有效数据数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.valueCount">
-            <summary>
-            添加数据数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.nodes">
-            <summary>
-            节点集合
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Capacity">
-            <summary>
-            容器大小
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.capacity">
-            <summary>
-            容器参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.#ctor">
-            <summary>
-            空哈希表
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.#ctor(System.Int32)">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <param name="capacity">容器大小</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.#ctor(`0[])">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <param name="values">初始化数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.#ctor(System.Collections.Generic.ICollection{`0})">
-            <summary>
-            带移除标记的可重用哈希表
-            </summary>
-            <param name="values">初始化数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Clear">
-            <summary>
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.remove(System.Int32,System.Int32)">
-            <summary>
-            删除节点
-            </summary>
-            <param name="nodeIndex"></param>
-            <param name="hashIndex"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.resize">
-            <summary>
-            重组数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Contains(`0)">
-            <summary>
-            判断是否存在数据
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.add(AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode{`0})">
-            <summary>
-            新增重组数据
-            </summary>
-            <param name="node"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Add(`0)">
-            <summary>
-            新增数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据变更</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.AddRemove(`0)">
-            <summary>
-            新增删除数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据变更</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Remove(`0)">
-            <summary>
-            删除新增数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在删除数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.GetArray(System.Int32@)">
-            <summary>
-            获取数组
-            </summary>
-            <param name="valueCount">添加数据数量</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Get(AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{`0})">
-            <summary>
-            并集 OR
-            </summary>
-            <param name="hashSet"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet`1.Get(AutoCSer.CommandService.Search.IndexQuery.QueryCondition{`0})">
-            <summary>
-            计算查询数据关键字
-            </summary>
-            <param name="condition">查询条件</param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode">
-            <summary>
-            带移除标记的可重用哈希表节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.indexData">
-            <summary>
-            索引数据 1b[删除数据标记]+1b[首节点标记]+10b[节点来源]+10b[哈希索引]+10b[下一个数据索引位置]
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.HashIndex">
-            <summary>
-            哈希索引位置
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.Source">
-            <summary>
-            带首节点标记的节点来源
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SourceIndex">
-            <summary>
-            节点来源
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.Next">
-            <summary>
-            下一个数据索引位置，0x3ff 表示最后一个
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SourceHigh">
-            <summary>
-            0 表示首节点
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.IsRemove">
-            <summary>
-            0 表示添加数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.HashCode">
-            <summary>
-            关键字数据哈希值
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.#ctor(System.UInt32)">
-            <summary>
-            带移除标记的可重用哈希表节点
-            </summary>
-            <param name="hashCode">关键字数据哈希值</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.#ctor(System.UInt32,System.UInt32)">
-            <summary>
-            带移除标记的可重用哈希表节点
-            </summary>
-            <param name="hashCode">关键字数据哈希值</param>
-            <param name="indexData">索引数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetNext">
-            <summary>
-            设置下一个数据索引位置
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetNext(System.Int32)">
-            <summary>
-            设置下一个数据索引位置
-            </summary>
-            <param name="next">下一个数据索引位置</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetHashIndex">
-            <summary>
-            设置哈希索引位置为 0
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetHashIndex(System.Int32)">
-            <summary>
-            设置哈希索引位置
-            </summary>
-            <param name="hashIndex">哈希索引位置</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetSource(System.Int32)">
-            <summary>
-            设置节点来源
-            </summary>
-            <param name="source">节点来源</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetNextSource(System.Int32)">
-            <summary>
-            设置节点来源
-            </summary>
-            <param name="source">节点来源</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetNode(System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetNextNode(System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetRemoveNode(System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode.SetRemoveNextNode(System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1">
-            <summary>
-            带移除标记的可重用哈希表节点
-            </summary>
-            <typeparam name="T">关键字数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.HashIndex">
-            <summary>
-            带移除标记的可重用哈希表节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.Value">
-            <summary>
-            关键字数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.#ctor(`0,System.UInt32)">
-            <summary>
-            带移除标记的可重用哈希表节点
-            </summary>
-            <param name="value">关键字数据</param>
-            <param name="hashCode">关键字数据哈希值</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.#ctor(`0,System.UInt32,System.UInt32)">
-            <summary>
-            带移除标记的可重用哈希表节点
-            </summary>
-            <param name="value">关键字数据</param>
-            <param name="hashCode">关键字数据哈希值</param>
-            <param name="indexData">索引数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.SetNode(`0,System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="value"></param>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.SetNextNode(`0,System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="value"></param>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.SetRemoveNode(`0,System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="value"></param>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashNode`1.SetRemoveNextNode(`0,System.Int32,System.UInt32)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="value"></param>
-            <param name="source"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity`1">
-            <summary>
-            带移除标记的可重用哈希表容器参数
-            </summary>
-            <typeparam name="T">参数类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity`1.Capacity">
-            <summary>
-            容器大小
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity`1.hashIndexShiftBit">
-            <summary>
-            计算哈希索引位置最低位位移数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity`1.integerDivision">
-            <summary>
-            哈希取余
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity`1.#ctor(System.Int32,System.Byte,`0)">
-            <summary>
-            带移除标记的可重用哈希表容器参数
-            </summary>
-            <param name="prime">取余质数</param>
-            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
-            <param name="next">下一个参数</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity`1.Get(System.Int32)">
-            <summary>
-            根据指定容器大小获取容器参数
-            </summary>
-            <param name="capacity"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity`1.GetHashIndex(System.UInt32)">
-            <summary>
-            获取哈希索引位置
-            </summary>
-            <param name="hashCode">哈希值</param>
-            <returns>哈希索引位置</returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity">
-            <summary>
-            带移除标记的可重用哈希表容器参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity.MaxCapacity">
-            <summary>
-            最大容器大小
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity.#ctor(System.Int32,System.Byte,AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity)">
-            <summary>
-            带移除标记的可重用哈希表容器参数
-            </summary>
-            <param name="prime">取余质数</param>
-            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
-            <param name="next">下一个参数</param>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSetCapacity.DefaultLink">
-            <summary>
-            默认带移除标记的可重用哈希表容器参数链表
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.SingleDiskBlockRemoveMarkHashKeyIndexNode`1">
             <summary>
             单磁盘块索引信息 带移除标记的可重用哈希索引节点
@@ -2224,12 +1650,11 @@
             数据关键字磁盘块索引信息客户端
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.SingleDiskBlockRemoveMarkHashKeyIndexNode`1.#ctor(AutoCSer.CommandService.IDiskBlockClientSocketEvent,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.SingleDiskBlockRemoveMarkHashKeyIndexNode`1.#ctor(AutoCSer.CommandService.IDiskBlockClientSocketEvent)">
             <summary>
             关键字索引节点
             </summary>
             <param name="diskBlockClient">数据关键字磁盘块索引信息客户端</param>
-            <param name="capacity">初始化容器尺寸</param>
         </member>
         <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.SingleDiskBlockRemoveMarkHashKeyIndexNode`1.GetDiskBlockClient(`0)">
             <summary>
@@ -2257,12 +1682,11 @@
             数据关键字磁盘块索引信息客户端
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.SingleDiskBlockRemoveMarkHashIndexNode`2.#ctor(AutoCSer.CommandService.IDiskBlockClientSocketEvent,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.SingleDiskBlockRemoveMarkHashIndexNode`2.#ctor(AutoCSer.CommandService.IDiskBlockClientSocketEvent)">
             <summary>
             关键字索引节点
             </summary>
             <param name="diskBlockClient">数据关键字磁盘块索引信息客户端</param>
-            <param name="capacity">初始化容器尺寸</param>
         </member>
         <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.SingleDiskBlockRemoveMarkHashIndexNode`2.GetDiskBlockClient(`0)">
             <summary>
@@ -2277,29 +1701,6 @@
             </summary>
             <param name="blockIndex">磁盘块索引信息</param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.UnmanagedRemoveMarkHashSetCapacity">
-            <summary>
-            带移除标记的非托管节点可重用哈希表容器参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.UnmanagedRemoveMarkHashSetCapacity.UnmanagedPool">
-            <summary>
-            节点集合非托管内存池
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.UnmanagedRemoveMarkHashSetCapacity.#ctor(System.Int32,System.Byte,AutoCSer.CommandService.Search.DiskBlockIndex.UnmanagedRemoveMarkHashSetCapacity)">
-            <summary>
-            带移除标记的非托管节点可重用哈希表容器参数
-            </summary>
-            <param name="prime">取余质数</param>
-            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
-            <param name="next">下一个参数</param>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.UnmanagedRemoveMarkHashSetCapacity.DefaultLink">
-            <summary>
-            默认带移除标记的可重用哈希表容器参数链表
-            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNodeMethodEnum">
             <summary>
@@ -2765,7 +2166,7 @@
             数据数量
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IndexQuery.RemoveMarkHashSetIndex.#ctor(AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet)">
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.RemoveMarkHashSetIndex.#ctor(AutoCSer.RemoveMarkHashSet)">
             <summary>
             哈希表索引
             </summary>
@@ -2807,7 +2208,7 @@
             数据数量
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IndexQuery.RemoveMarkHashSetIndex`1.#ctor(AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet{`0})">
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.RemoveMarkHashSetIndex`1.#ctor(AutoCSer.RemoveMarkHashSet{`0})">
             <summary>
             哈希表索引
             </summary>
@@ -2848,7 +2249,7 @@
             数据数量
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IndexQuery.RemoveMarkIntHashSetIndex.#ctor(AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashSet)">
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.RemoveMarkIntHashSetIndex.#ctor(AutoCSer.RemoveMarkHashSet)">
             <summary>
             哈希表索引
             </summary>
@@ -3067,14 +2468,14 @@
             数组缓冲区集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPool`1.count">
-            <summary>
-            空闲数组缓冲区数量
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPool`1.size">
             <summary>
             数组大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPool`1.isGetNewBuffer">
+            <summary>
+            是否申请了新的缓冲区
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPool`1.#ctor(System.Int32)">
@@ -3096,6 +2497,11 @@
             释放数组缓冲区
             </summary>
             <param name="buffer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPool`1.FreeCache">
+            <summary>
+            释放部分缓冲区
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPoolArray`1">
             <summary>
@@ -3147,6 +2553,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPoolArray`1.FreeCache">
+            <summary>
+            释放部分缓冲区
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.Search.IndexQuery.BufferHashSet`1">
             <summary>
             可重用哈希表
@@ -3187,6 +2598,27 @@
             释放可重用哈希表
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.BufferHashSet`1.copyTo(AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{`0}@)">
+            <summary>
+            获取数组缓冲区
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.BufferHashSet`1.GetArrayBuffer(AutoCSer.CommandService.Search.IndexQuery.QueryCondition{`0})">
+            <summary>
+            获取数组缓冲区
+            </summary>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.BufferHashSet`1.GetArrayBuffer(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            获取数组缓冲区
+            </summary>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1">
             <summary>
             可重用哈希表缓冲区池
@@ -3208,14 +2640,14 @@
             哈希取余
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.count">
+        <member name="F:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.isGetNewBuffer">
             <summary>
-            空闲数组缓冲区数量
+            是否申请了新的缓冲区
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.hashSetCount">
+        <member name="F:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.isGetNewHashSet">
             <summary>
-            空闲数组缓冲区数量
+            是否申请了新的缓冲区
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.#ctor(System.Int32)">
@@ -3249,6 +2681,11 @@
             </summary>
             <param name="hashSet"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.FreeCache">
+            <summary>
+            释放部分缓冲区
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.GetArray(System.Int32,System.Int32)">
             <summary>
             获取可重用哈希表缓冲区池数组
@@ -3272,6 +2709,12 @@
             <param name="pools"></param>
             <param name="capacity"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.IndexQuery.HashSetPool`1.FreeCache(AutoCSer.CommandService.Search.IndexQuery.HashSetPool{`0}[])">
+            <summary>
+            释放部分缓冲区
+            </summary>
+            <param name="pools"></param>
         </member>
         <member name="T:AutoCSer.CommandService.Search.IndexQuery.IndexArrayCondition`1">
             <summary>
@@ -3755,14 +3198,14 @@
             交集 AND
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum.IntersectionNotEmpty">
-            <summary>
-            交集 AND（忽略空集，必须存在一个非空集）
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum.Union">
             <summary>
             并集 OR
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum.IntersectionNotEmpty">
+            <summary>
+            交集 AND（忽略空集，必须存在一个非空集）
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.Search.IndexQuery.IQueryContext`2">
@@ -3907,6 +3350,1265 @@
             获取可重用哈希表
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1">
+            <summary>
+            索引集合条件
+            </summary>
+            <typeparam name="T">查询数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.indexs">
+            <summary>
+            索引集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.EstimatedCount">
+            <summary>
+            预估数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.type">
+            <summary>
+            索引合并操作类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.#ctor(AutoCSer.LeftArray{AutoCSer.CommandService.Search.MemoryIndex.IIndex{`0}},AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum)">
+            <summary>
+            索引集合条件
+            </summary>
+            <param name="indexs">索引节点数据集合</param>
+            <param name="type">索引合并操作类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.AutoCSer#CommandService#Search#MemoryIndex#IIndexCondition{T}#Contains(`0)">
+            <summary>
+            判断是否包含数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.AutoCSer#CommandService#Search#MemoryIndex#IIndexCondition{T}#Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0},AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="condition">查询条件</param>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.intersection(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0},AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{`0})">
+            <summary>
+            交集 AND
+            </summary>
+            <param name="condition"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.isUnion">
+            <summary>
+            判断是否需要求并集 OR
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.union(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexArrayCondition`1.GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1">
+            <summary>
+            索引条件
+            </summary>
+            <typeparam name="T">查询数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1.index">
+            <summary>
+            索引
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1.EstimatedCount">
+            <summary>
+            预估数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1.#ctor(AutoCSer.CommandService.Search.MemoryIndex.IIndex{`0})">
+            <summary>
+            索引条件
+            </summary>
+            <param name="index">索引</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1.AutoCSer#CommandService#Search#MemoryIndex#IIndexCondition{T}#Contains(`0)">
+            <summary>
+            判断是否包含数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1.AutoCSer#CommandService#Search#MemoryIndex#IIndexCondition{T}#Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0},AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="condition">查询条件</param>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1.Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexCondition`1.GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1">
+            <summary>
+            哈希索引节点
+            </summary>
+            <typeparam name="T">索引关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.indexs">
+            <summary>
+            关键字索引集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.#ctor">
+            <summary>
+            哈希索引节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.free">
+            <summary>
+            释放索引节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
+            <summary>
+            节点移除后处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.StreamPersistenceMemoryDatabaseServiceDisposable">
+            <summary>
+            数据库服务关闭操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{T,System#UInt32[]}}#GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{T,System#UInt32[]}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{`0,System.UInt32[]}[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,System.UInt32[]})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.AppendBeforePersistence(`0,System.UInt32)">
+            <summary>
+            添加匹配数据关键字 持久化前检查
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.Append(`0,System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.AppendArray(`0[],System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.AppendLeftArray(AutoCSer.LeftArray{`0},System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.RemoveBeforePersistence(`0,System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.Remove(`0,System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.RemoveArray(`0[],System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.RemoveLeftArray(AutoCSer.LeftArray{`0},System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.GetIndexCondition(`0[],AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum)">
+            <summary>
+            获取索引条件
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="type">索引合并操作类型</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeyIndexNode`1.GetIntIndexCondition(`0[],AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum)">
+            <summary>
+            获取索引条件
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="type">索引合并操作类型</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2">
+            <summary>
+            哈希索引节点
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.indexs">
+            <summary>
+            关键字索引集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.#ctor">
+            <summary>
+            哈希索引节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{KT,VT[]}}#GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{KT,VT[]}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{`0,`1[]}[],System.Object)">
+            <summary>
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">预申请的快照数据容器</param>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{KT,VT[]}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{`0,`1[]}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{`0,`1[]}}@)">
+            <summary>
+            持久化之前重组快照数据
+            </summary>
+            <param name="array">预申请快照容器数组</param>
+            <param name="newArray">超预申请快照数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,`1[]})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.AppendBeforePersistence(`0,`1)">
+            <summary>
+            添加匹配数据关键字 持久化前检查
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.Append(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.AppendArray(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.AppendLeftArray(AutoCSer.LeftArray{`0},`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.RemoveBeforePersistence(`0,`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.Remove(`0,`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.RemoveArray(`0[],`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.RemoveLeftArray(AutoCSer.LeftArray{`0},`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashIndexNode`2.GetIndexCondition(`0[],AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum)">
+            <summary>
+            获取索引条件
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="type">索引合并操作类型</param>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex">
+            <summary>
+            哈希索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.littleValues">
+            <summary>
+            索引数据（8B 哈希+ VT）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.manyValues">
+            <summary>
+            索引数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.#ctor(System.UInt32)">
+            <summary>
+            哈希索引
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.#ctor(System.UInt32[])">
+            <summary>
+            哈希索引
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.Free">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.ToArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.Contains(System.UInt32)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.Contains(System.Int32)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.Append(System.UInt32)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.Remove(System.UInt32)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#UInt32}#Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{System.UInt32})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#UInt32}#GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{System.UInt32})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#UInt32}#Get(AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{System.UInt32})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#UInt32}#AllIn(AutoCSer.CommandService.Search.MemoryIndex.IIndex{System.UInt32})">
+            <summary>
+            判断是否全部包含于另一个集合
+            </summary>
+            <param name="index">另一个集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#Int32}#Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{System.Int32})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#Int32}#GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{System.Int32})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#Int32}#Get(AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{System.Int32})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashCodeKeySetIndex.AutoCSer#CommandService#Search#MemoryIndex#IIndex{System#Int32}#AllIn(AutoCSer.CommandService.Search.MemoryIndex.IIndex{System.Int32})">
+            <summary>
+            判断是否全部包含于另一个集合
+            </summary>
+            <param name="index">另一个集合</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1">
+            <summary>
+            哈希索引
+            </summary>
+            <typeparam name="T">数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.littleValues">
+            <summary>
+            索引数据（8B 哈希+ VT）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.manyValues">
+            <summary>
+            索引数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.#ctor(`0)">
+            <summary>
+            哈希索引
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.#ctor(`0[])">
+            <summary>
+            哈希索引
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.ToArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.Contains(`0)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.Append(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.Remove(`0)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.AutoCSer#CommandService#Search#MemoryIndex#IIndex{T}#Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.AutoCSer#CommandService#Search#MemoryIndex#IIndex{T}#GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.AutoCSer#CommandService#Search#MemoryIndex#IIndex{T}#Get(AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.HashSetIndex`1.AutoCSer#CommandService#Search#MemoryIndex#IIndex{T}#AllIn(AutoCSer.CommandService.Search.MemoryIndex.IIndex{`0})">
+            <summary>
+            判断是否全部包含于另一个集合
+            </summary>
+            <param name="index">另一个集合</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1">
+            <summary>
+            哈希索引节点接口
+            </summary>
+            <typeparam name="T">索引关键字类型</typeparam>
+            <summary>
+            哈希索引节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,System.UInt32[]})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.AppendBeforePersistence(`0,System.UInt32)">
+            <summary>
+            添加匹配数据关键字 持久化前检查
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.Append(`0,System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.AppendArray(`0[],System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.AppendLeftArray(AutoCSer.LeftArray{`0},System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.RemoveBeforePersistence(`0,System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.Remove(`0,System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.RemoveArray(`0[],System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode`1.RemoveLeftArray(AutoCSer.LeftArray{`0},System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2">
+            <summary>
+            哈希索引节点接口
+            </summary>
+            <typeparam name="KT">索引关键字类型</typeparam>
+            <typeparam name="VT">数据关键字类型</typeparam>
+            <summary>
+            哈希索引节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.SnapshotSet(AutoCSer.BinarySerializeKeyValue{`0,`1[]})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.AppendBeforePersistence(`0,`1)">
+            <summary>
+            添加匹配数据关键字 持久化前检查
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.Append(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.AppendArray(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.AppendLeftArray(AutoCSer.LeftArray{`0},`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.RemoveBeforePersistence(`0,`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.Remove(`0,`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.RemoveArray(`0[],`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode`2.RemoveLeftArray(AutoCSer.LeftArray{`0},`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IIndex`1">
+            <summary>
+            索引接口
+            </summary>
+            <typeparam name="T">索引数据类型</typeparam>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.IIndex`1.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndex`1.Contains(`0)">
+            <summary>
+            判断是否包含数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndex`1.AllIn(AutoCSer.CommandService.Search.MemoryIndex.IIndex{`0})">
+            <summary>
+            判断是否全部包含于另一个集合
+            </summary>
+            <param name="index">另一个集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndex`1.Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndex`1.GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndex`1.Get(AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition`1">
+            <summary>
+            索引条件接口
+            </summary>
+            <typeparam name="T">查询数据关键字类型</typeparam>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition`1.EstimatedCount">
+            <summary>
+            预估数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition`1.Contains(`0)">
+            <summary>
+            判断是否包含数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition`1.Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition`1.GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition`1.Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0},AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="condition"></param>
+            <param name="hashSet"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1">
+            <summary>
+            索引集合条件
+            </summary>
+            <typeparam name="T">查询数据关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.conditions">
+            <summary>
+            索引条件集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.EstimatedCount">
+            <summary>
+            预估数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.type">
+            <summary>
+            索引合并操作类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.#ctor(AutoCSer.LeftArray{AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition{`0}},AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum)">
+            <summary>
+            索引集合条件
+            </summary>
+            <param name="conditions">索引条件集合</param>
+            <param name="type">索引合并操作类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.AutoCSer#CommandService#Search#MemoryIndex#IIndexCondition{T}#Contains(`0)">
+            <summary>
+            判断是否包含数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.AutoCSer#CommandService#Search#MemoryIndex#IIndexCondition{T}#Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0},AutoCSer.CommandService.Search.IndexQuery.BufferHashSet{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="condition"></param>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.Get(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.intersection(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0},AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{`0})">
+            <summary>
+            交集 AND
+            </summary>
+            <param name="condition"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.union(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.GetFilter(AutoCSer.CommandService.Search.MemoryIndex.QueryCondition{`0})">
+            <summary>
+            计算查询数据关键字（非索引条件过滤）
+            </summary>
+            <param name="condition">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IndexConditionArray`1.GetIndexCondition(AutoCSer.LeftArray{AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition{`0}},AutoCSer.CommandService.Search.IndexQuery.IndexMergeTypeEnum)">
+            <summary>
+            获取索引条件
+            </summary>
+            <param name="conditions">索引条件集合</param>
+            <param name="type">索引合并操作类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IQueryContext`2">
+            <summary>
+            查询上下文
+            </summary>
+            <typeparam name="KT">查询数据关键字类型</typeparam>
+            <typeparam name="VT">查询条件数据</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IQueryContext`2.Filter(System.Collections.Generic.IEnumerable{`0},System.Func{`1,System.Boolean},AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{`0})">
+            <summary>
+            非索引条件过滤
+            </summary>
+            <param name="keys">关键字集合</param>
+            <param name="isValue">条件委托</param>
+            <param name="buffer">关键字集合</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.IQueryContext`2.NullBuffer">
+            <summary>
+            空数组缓冲区
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IQueryContext`2.GetBuffer(System.Int32)">
+            <summary>
+            获取数组缓冲区
+            </summary>
+            <param name="size">数组最小容量</param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.MemoryIndex.IQueryContext`2.HashSetPool">
+            <summary>
+            关键字可重用哈希表缓冲区池
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`1">
+            <summary>
+            查询条件
+            </summary>
+            <typeparam name="T">查询数据关键字类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`1.Filter(System.Collections.Generic.IEnumerable{`0},AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{`0})">
+            <summary>
+            非索引条件过滤
+            </summary>
+            <param name="keys"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`1.GetNullBuffer">
+            <summary>
+            获取空数组缓冲区
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`1.GetBuffer(System.Int32)">
+            <summary>
+            获取数组缓冲区
+            </summary>
+            <param name="size">数组最小容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`1.GetHashSetPool">
+            <summary>
+            获取可重用哈希表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2">
+            <summary>
+            查询条件
+            </summary>
+            <typeparam name="KT">查询数据关键字类型</typeparam>
+            <typeparam name="VT">查询条件数据</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.context">
+            <summary>
+            查询上下文
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.indexCondition">
+            <summary>
+            索引条件集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.condition">
+            <summary>
+            非索引条件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.#ctor(AutoCSer.CommandService.Search.MemoryIndex.IQueryContext{`0,`1},AutoCSer.CommandService.Search.MemoryIndex.IIndexCondition{`0},System.Func{`1,System.Boolean})">
+            <summary>
+            查询条件
+            </summary>
+            <param name="context">查询上下文</param>
+            <param name="indexCondition">索引条件</param>
+            <param name="condition">非索引条件</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.Query(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageParameter)">
+            <summary>
+            查询分页数据
+            </summary>
+            <param name="queryParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.GetNullBuffer">
+            <summary>
+            获取空数组缓冲区
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.GetBuffer(System.Int32)">
+            <summary>
+            获取数组缓冲区
+            </summary>
+            <param name="size">数组最小容量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.Filter(System.Collections.Generic.IEnumerable{`0},AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer{`0})">
+            <summary>
+            非索引条件过滤
+            </summary>
+            <param name="keys"></param>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.QueryCondition`2.GetHashSetPool">
+            <summary>
+            获取可重用哈希表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1">
+            <summary>
+            哈希索引节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1.Append(`0,System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1.AppendArray(`0[],System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1.AppendLeftArray(AutoCSer.LeftArray{`0},System.UInt32)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1.Remove(`0,System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1.RemoveArray(`0[],System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1.RemoveLeftArray(AutoCSer.LeftArray{`0},System.UInt32)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2">
+            <summary>
+            哈希索引节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2.Append(`0,`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2.AppendArray(`0[],`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2.AppendLeftArray(AutoCSer.LeftArray{`0},`1)">
+            <summary>
+            添加匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字集合</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2.Remove(`0,`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="key">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+            <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2.RemoveArray(`0[],`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2.RemoveLeftArray(AutoCSer.LeftArray{`0},`1)">
+            <summary>
+            删除匹配数据关键字
+            </summary>
+            <param name="keys">索引关键字</param>
+            <param name="value">匹配数据关键字</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum">
+            <summary>
+            哈希索引节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.Append">
+            <summary>
+            [0] 添加匹配数据关键字
+            T key 索引关键字
+            uint value 匹配数据关键字
+            返回值 bool 返回 false 表示关键字数据为 null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.AppendArray">
+            <summary>
+            [1] 添加匹配数据关键字
+            T[] keys 索引关键字集合
+            uint value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.AppendBeforePersistence">
+            <summary>
+            [2] 添加匹配数据关键字 持久化前检查
+            T key 索引关键字
+            uint value 匹配数据关键字
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.AppendLeftArray">
+            <summary>
+            [3] 添加匹配数据关键字
+            AutoCSer.LeftArray{T} keys 索引关键字集合
+            uint value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.Remove">
+            <summary>
+            [4] 删除匹配数据关键字
+            T key 索引关键字
+            uint value 匹配数据关键字
+            返回值 bool 返回 false 表示关键字数据为 null 或者没有找到索引关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.RemoveArray">
+            <summary>
+            [5] 删除匹配数据关键字
+            T[] keys 索引关键字
+            uint value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.RemoveBeforePersistence">
+            <summary>
+            [6] 删除匹配数据关键字
+            T key 索引关键字
+            uint value 匹配数据关键字
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.RemoveLeftArray">
+            <summary>
+            [7] 删除匹配数据关键字
+            AutoCSer.LeftArray{T} keys 索引关键字
+            uint value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeMethodEnum.SnapshotSet">
+            <summary>
+            [8] 快照设置数据
+            AutoCSer.BinarySerializeKeyValue{T,uint[]} value 数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum">
+            <summary>
+            哈希索引节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.Append">
+            <summary>
+            [0] 添加匹配数据关键字
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            返回值 bool 返回 false 表示关键字数据为 null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.AppendArray">
+            <summary>
+            [1] 添加匹配数据关键字
+            KT[] keys 索引关键字集合
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.AppendBeforePersistence">
+            <summary>
+            [2] 添加匹配数据关键字 持久化前检查
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.AppendLeftArray">
+            <summary>
+            [3] 添加匹配数据关键字
+            AutoCSer.LeftArray{KT} keys 索引关键字集合
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.Remove">
+            <summary>
+            [4] 删除匹配数据关键字
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            返回值 bool 返回 false 表示关键字数据为 null 或者没有找到索引关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.RemoveArray">
+            <summary>
+            [5] 删除匹配数据关键字
+            KT[] keys 索引关键字
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.RemoveBeforePersistence">
+            <summary>
+            [6] 删除匹配数据关键字
+            KT key 索引关键字
+            VT value 匹配数据关键字
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.RemoveLeftArray">
+            <summary>
+            [7] 删除匹配数据关键字
+            AutoCSer.LeftArray{KT} keys 索引关键字
+            VT value 匹配数据关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeMethodEnum.SnapshotSet">
+            <summary>
+            [8] 快照设置数据
+            AutoCSer.BinarySerializeKeyValue{KT,VT[]} value 数据
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.Search.RemoveMarkHashIndexCache.BlockIndexDataCache`1">
             <summary>
@@ -4230,16 +4932,6 @@
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.RemoveMarkHashIndexCache.BlockIndexDataCacheNode`1.EmptyHashSet">
-            <summary>
-            空索引数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.RemoveMarkHashIndexCache.BlockIndexDataCacheNode`1.EmptyRemoveMarkHashKeyCodeHashSet">
-            <summary>
-            空索引数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.RemoveMarkHashIndexCache.BlockIndexDataCacheNode`1.EmptyReusableHashCodeKeyHashSet">
             <summary>
             空索引数据
             </summary>
@@ -5812,50 +6504,37 @@
             <param name="key">数据关键字</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.CompletedBeforePersistence(`1,`2)">
+        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.CompletedBeforePersistence(`2)">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.completedBeforePersistence(`1,`2)">
+        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.CompletedLoadPersistence(`2,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
-            <param name="value">非索引条件查询数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.CompletedLoadPersistence(`1,`2,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
-            <summary>
-            非索引条件查询数据完成更新操作
-            </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.completedLoadPersistence(`1,`2)">
+        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.completedLoadPersistence(`2)">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.Completed(`1,`2,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
+        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.Completed(`2,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.completed(`1,`2)">
+        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.completed(`2)">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
             <returns></returns>
         </member>
@@ -6020,27 +6699,24 @@
             <param name="key">数据关键字</param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IConditionDataNode`2.CompletedBeforePersistence(`0,`1)">
+        <member name="M:AutoCSer.CommandService.Search.IConditionDataNode`2.CompletedBeforePersistence(`1)">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IConditionDataNode`2.CompletedLoadPersistence(`0,`1,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
+        <member name="M:AutoCSer.CommandService.Search.IConditionDataNode`2.CompletedLoadPersistence(`1,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IConditionDataNode`2.Completed(`0,`1,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
+        <member name="M:AutoCSer.CommandService.Search.IConditionDataNode`2.Completed(`1,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum})">
             <summary>
             非索引条件查询数据完成更新操作
             </summary>
-            <param name="key">数据关键字</param>
             <param name="value">非索引条件查询数据</param>
             <param name="callback"></param>
         </member>
@@ -6052,7 +6728,7 @@
             创建哈希索引节点的自定义基础服务接口
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNode.CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNode.CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType)">
             <summary>
             创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
             </summary>
@@ -6061,10 +6737,9 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">索引关键字类型</param>
             <param name="valueType">数据关键字类型</param>
-            <param name="capacity">初始化容器尺寸</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNode.CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNode.CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
             <summary>
             创建带移除标记的可重用哈希索引节点 IRemoveMarkHashKeyIndexNode{T}
             </summary>
@@ -6072,7 +6747,6 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">索引关键字类型</param>
-            <param name="capacity">初始化容器尺寸</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.Search.IConditionDataCache`2">
@@ -8760,7 +9434,7 @@
             创建哈希索引节点的自定义基础服务接口 客户端节点接口
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNodeClientNode.CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNodeClientNode.CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType)">
             <summary>
             创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
             </summary>
@@ -8769,10 +9443,9 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">索引关键字类型</param>
             <param name="valueType">数据关键字类型</param>
-            <param name="capacity">初始化容器尺寸</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNodeClientNode.CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.IDiskBlockIndexServiceNodeClientNode.CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
             <summary>
             创建带移除标记的可重用哈希索引节点 IRemoveMarkHashKeyIndexNode{T}
             </summary>
@@ -8780,7 +9453,6 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">索引关键字类型</param>
-            <param name="capacity">初始化容器尺寸</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.Search.IStaticTrieGraphServiceNodeClientNode">
@@ -8939,7 +9611,6 @@
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.Completed">
             <summary>
             [5] 非索引条件查询数据完成更新操作
-            KT key 数据关键字
             VT value 非索引条件查询数据
             返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
@@ -8947,7 +9618,6 @@
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.CompletedBeforePersistence">
             <summary>
             [6] 非索引条件查询数据完成更新操作
-            KT key 数据关键字
             VT value 非索引条件查询数据
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum} 
             </summary>
@@ -8962,7 +9632,6 @@
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.CompletedLoadPersistence">
             <summary>
             [8] 非索引条件查询数据完成更新操作
-            KT key 数据关键字
             VT value 非索引条件查询数据
             返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
@@ -9315,7 +9984,6 @@
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 索引关键字类型
             AutoCSer.Reflection.RemoteType valueType 数据关键字类型
-            int capacity 初始化容器尺寸
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -9326,7 +9994,6 @@
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 索引关键字类型
-            int capacity 初始化容器尺寸
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>

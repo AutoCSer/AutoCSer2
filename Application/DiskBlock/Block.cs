@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
+using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -31,7 +32,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 读取数据请求链表
         /// </summary>
-        private ReadRequest.YieldQueue readQueue;
+        private LinkStack<ReadRequest> readQueue;
         /// <summary>
         /// 磁盘块当前写入位置
         /// </summary>
@@ -150,7 +151,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 do
                 {
                     bool isQueue = false;
-                    var request = readQueue.GetClear().notNull();
+                    var request = readQueue.GetQueue().notNull();
                     do
                     {
                         try

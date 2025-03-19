@@ -25,10 +25,6 @@ namespace AutoCSer.ORM
         /// </summary>
         protected readonly Dictionary<HashObject<System.Type>, Action<CharStream, object>> constantConverters;
         /// <summary>
-        /// 常量转换处理集合 访问锁
-        /// </summary>
-        protected AutoCSer.Threading.SpinLock constantConverterLock;
-        /// <summary>
         /// SQL 字符流 临时缓存
         /// </summary>
 #if NetStandard21
@@ -296,7 +292,7 @@ namespace AutoCSer.ORM
             if (nullableType.IsEnum)
             {
                 AutoCSer.ORM.Metadata.EnumGenericType genericType = AutoCSer.ORM.Metadata.EnumGenericType.Get(type);
-                constantConverterLock.EnterYield();
+                Monitor.Enter(constantConverters);
                 try
                 {
                     if (!constantConverters.TryGetValue(type, out value))
@@ -304,7 +300,7 @@ namespace AutoCSer.ORM
                         constantConverters.Add(type, value = object.ReferenceEquals(nullableType, type) ? genericType.GetConstantConverter(this) : genericType.GetNullableConstantConverter(this));
                     }
                 }
-                finally { constantConverterLock.Exit(); }
+                finally { Monitor.Exit(constantConverters); }
                 return value;
             }
             return constantConvertToString;
@@ -1733,10 +1729,6 @@ namespace AutoCSer.ORM
         /// </summary>
         private static readonly Dictionary<HashObject<System.Type>, KeyValue<MethodInfo, bool>> constantConvertMethods;
         /// <summary>
-        /// 常量转换处理集合 访问锁
-        /// </summary>
-        private static AutoCSer.Threading.SpinLock constantConvertMethodLock;
-        /// <summary>
         /// 获取常量转换处理委托
         /// </summary>
         /// <param name="type"></param>
@@ -1786,7 +1778,7 @@ namespace AutoCSer.ORM
             if (nullableType.IsEnum)
             {
                 AutoCSer.ORM.Metadata.EnumGenericType genericType = AutoCSer.ORM.Metadata.EnumGenericType.Get(nullableType);
-                constantConvertMethodLock.EnterYield();
+                Monitor.Enter(constantConvertMethods);
                 try
                 {
                     if (!constantConvertMethods.TryGetValue(type, out value))
@@ -1794,7 +1786,7 @@ namespace AutoCSer.ORM
                         constantConvertMethods.Add(type, value = new KeyValue<MethodInfo, bool>(object.ReferenceEquals(nullableType, type) ? genericType.GetConstantConvertMethod() : genericType.GetNullableConstantConvertMethod(), false));
                     }
                 }
-                finally { constantConvertMethodLock.Exit(); }
+                finally { Monitor.Exit(constantConvertMethods); }
                 return value;
             }
             isObjectToString = true;

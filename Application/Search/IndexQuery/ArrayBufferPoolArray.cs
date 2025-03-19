@@ -1,6 +1,5 @@
 ﻿using AutoCSer.Extensions;
 using System;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.Search.IndexQuery
@@ -86,6 +85,13 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         public ArrayBuffer<T> GetNull()
         {
             return new ArrayBuffer<T>(this);
+        }
+        /// <summary>
+        /// 释放部分缓冲区
+        /// </summary>
+        public void FreeCache()
+        {
+            foreach (ArrayBufferPool<T> pool in pools) pool.FreeCache();
         }
     }
 }

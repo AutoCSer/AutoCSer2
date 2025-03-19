@@ -5,7 +5,6 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using System;
 using AutoCSer.CommandService.Search.DiskBlockIndex;
 using System.Reflection;
-using AutoCSer.TestCase.SearchCommon;
 
 namespace AutoCSer.TestCase.SearchQueryService
 {
@@ -76,9 +75,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="keyType">索引关键字类型</param>
-        /// <param name="capacity">初始化容器尺寸</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateRemoveMarkHashKeyIndexNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
+        public NodeIndex CreateRemoveMarkHashKeyIndexNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
         {
             var type = default(Type);
             CallStateEnum state = getEquatableType(ref keyType, ref type);
@@ -86,7 +84,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             {
                 return (NodeIndex)typeof(QueryServiceNode).GetMethod(nameof(createRemoveMarkHashKeyIndexNode), BindingFlags.Static | BindingFlags.NonPublic)
                     .MakeGenericMethod(type)
-                    .Invoke(null, new object[] { this, index, key, nodeInfo, capacity });
+                    .Invoke(null, new object[] { this, index, key, nodeInfo });
             }
             return new NodeIndex(state);
         }
@@ -98,12 +96,11 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">初始化容器尺寸</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        private static NodeIndex createRemoveMarkHashKeyIndexNode<T>(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        private static NodeIndex createRemoveMarkHashKeyIndexNode<T>(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
             where T : notnull, IEquatable<T>
         {
-            return node.CreateSnapshotNode<IRemoveMarkHashKeyIndexNode<T>>(index, key, nodeInfo, () => new RemoveMarkHashKeyIndexNode<T>(capacity));
+            return node.CreateSnapshotNode<IRemoveMarkHashKeyIndexNode<T>>(index, key, nodeInfo, () => new RemoveMarkHashKeyIndexNode<T>());
         }
         /// <summary>
         /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
@@ -113,9 +110,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="keyType">索引关键字类型</param>
         /// <param name="valueType">数据关键字类型</param>
-        /// <param name="capacity">初始化容器尺寸</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public NodeIndex CreateRemoveMarkHashIndexNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity)
+        public NodeIndex CreateRemoveMarkHashIndexNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType)
         {
             var type = default(Type);
             var type2 = default(Type);
@@ -124,7 +120,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             {
                 return (NodeIndex)typeof(QueryServiceNode).GetMethod(nameof(createRemoveMarkHashIndexNode), BindingFlags.Static | BindingFlags.NonPublic)
                     .MakeGenericMethod(type, type2)
-                    .Invoke(null, new object[] { this, index, key, nodeInfo, capacity });
+                    .Invoke(null, new object[] { this, index, key, nodeInfo });
             }
             return new NodeIndex(state);
         }
@@ -137,13 +133,12 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">初始化容器尺寸</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        private static NodeIndex createRemoveMarkHashIndexNode<KT, VT>(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        private static NodeIndex createRemoveMarkHashIndexNode<KT, VT>(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
             where KT : notnull, IEquatable<KT>
             where VT : notnull, IEquatable<VT>
         {
-            return node.CreateSnapshotNode<IRemoveMarkHashIndexNode<KT, VT>>(index, key, nodeInfo, () => new RemoveMarkHashIndexNode<KT, VT>(capacity));
+            return node.CreateSnapshotNode<IRemoveMarkHashIndexNode<KT, VT>>(index, key, nodeInfo, () => new RemoveMarkHashIndexNode<KT, VT>());
         }
     }
 }

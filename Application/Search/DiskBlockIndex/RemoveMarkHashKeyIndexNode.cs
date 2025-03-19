@@ -20,7 +20,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 关键字索引集合
         /// </summary>
-        private readonly Dictionary<T, RemoveMarkHashKeyIndex<T>> indexs;
+        private readonly FragmentDictionary256<T, RemoveMarkHashKeyIndex<T>> indexs;
         /// <summary>
         /// 关键字变更回调
         /// </summary>
@@ -28,11 +28,10 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 带移除标记的可重用哈希索引节点
         /// </summary>
-        /// <param name="capacity">初始化容器尺寸</param>
-        protected RemoveMarkHashKeyIndexNode(int capacity = 0)
+        protected RemoveMarkHashKeyIndexNode()
         {
             callbacks.SetEmpty();
-            indexs = DictionaryCreator<T>.Create<RemoveMarkHashKeyIndex<T>>(capacity);
+            indexs = new FragmentDictionary256<T, RemoveMarkHashKeyIndex<T>>();
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -52,7 +51,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// </summary>
         private void free()
         {
-            foreach (RemoveMarkHashKeyIndex<T> index in indexs.Values) index.Values.Free();
+            foreach (RemoveMarkHashKeyIndex<T> index in indexs.Values) index.Values.Dispose();
             indexs.Clear();
         }
         /// <summary>
@@ -87,7 +86,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         SnapshotResult<BinarySerializeKeyValue<T, BlockIndexData<uint>>> ISnapshot<BinarySerializeKeyValue<T, BlockIndexData<uint>>>.GetSnapshotResult(BinarySerializeKeyValue<T, BlockIndexData<uint>>[] snapshotArray, object customObject)
         {
             SnapshotResult<BinarySerializeKeyValue<T, BlockIndexData<uint>>> result = new SnapshotResult<BinarySerializeKeyValue<T, BlockIndexData<uint>>>(indexs.Count, snapshotArray.Length);
-            foreach (KeyValuePair<T, RemoveMarkHashKeyIndex<T>> index in indexs) result.Add(snapshotArray, new BinarySerializeKeyValue<T, BlockIndexData<uint>>(index.Key, index.Value.GetBlockIndexData(false)));
+            foreach (KeyValuePair<T, RemoveMarkHashKeyIndex<T>> index in indexs.KeyValues) result.Add(snapshotArray, new BinarySerializeKeyValue<T, BlockIndexData<uint>>(index.Key, index.Value.GetBlockIndexData(false)));
             return result;
         }
         /// <summary>

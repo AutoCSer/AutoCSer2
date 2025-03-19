@@ -779,6 +779,13 @@
             </summary>
             <param name="array">长度大于 1</param>
         </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.RandomSort``1(``0[])">
+            <summary>
+            随机排序
+            </summary>
+            <typeparam name="T">值类型</typeparam>
+            <param name="array">排序数组</param>
+        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.Sort(System.Int64[])">
             <summary>
             数组排序
@@ -1656,6 +1663,20 @@
             </summary>
             <typeparam name="T">数据类型</typeparam>
             <returns>字典</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.ThreadPoolExtension">
+            <summary>
+            线程池相关扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ThreadPoolExtension.RunTask``1(AutoCSer.Threading.ThreadPool,System.Func{``0})">
+            <summary>
+            线程池运行任务并等待返回结果
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+            <param name="threadPool">线程池</param>
+            <param name="task">任务</param>
+            <returns>返回结果</returns>
         </member>
         <member name="T:AutoCSer.Extensions.DictionaryExtension">
             <summary>
@@ -8175,6 +8196,603 @@
             <param name="start"></param>
             <param name="end"></param>
         </member>
+        <member name="T:AutoCSer.RemoveMarkHashNode">
+            <summary>
+            带移除标记的可重用哈希表节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashNode.indexData">
+            <summary>
+            索引数据 1b[删除数据标记]+1b[首节点标记]+10b[节点来源]+10b[哈希索引]+10b[下一个数据索引位置]
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashNode.HashIndex">
+            <summary>
+            哈希索引位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashNode.Source">
+            <summary>
+            带首节点标记的节点来源
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashNode.SourceIndex">
+            <summary>
+            节点来源
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashNode.Next">
+            <summary>
+            下一个数据索引位置，0x3ff 表示最后一个
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashNode.SourceHigh">
+            <summary>
+            0 表示首节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashNode.IsRemove">
+            <summary>
+            0 表示添加数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashNode.HashCode">
+            <summary>
+            关键字数据哈希值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.#ctor(System.UInt32)">
+            <summary>
+            带移除标记的可重用哈希表节点
+            </summary>
+            <param name="hashCode">关键字数据哈希值</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            带移除标记的可重用哈希表节点
+            </summary>
+            <param name="hashCode">关键字数据哈希值</param>
+            <param name="indexData">索引数据</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetNext">
+            <summary>
+            设置下一个数据索引位置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetNext(System.Int32)">
+            <summary>
+            设置下一个数据索引位置
+            </summary>
+            <param name="next">下一个数据索引位置</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetHashIndex">
+            <summary>
+            设置哈希索引位置为 0
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetHashIndex(System.Int32)">
+            <summary>
+            设置哈希索引位置
+            </summary>
+            <param name="hashIndex">哈希索引位置</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetSource(System.Int32)">
+            <summary>
+            设置节点来源
+            </summary>
+            <param name="source">节点来源</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetNextSource(System.Int32)">
+            <summary>
+            设置节点来源
+            </summary>
+            <param name="source">节点来源</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetNode(System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetNextNode(System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetRemoveNode(System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode.SetRemoveNextNode(System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="T:AutoCSer.RemoveMarkHashNode`1">
+            <summary>
+            带移除标记的可重用哈希表节点
+            </summary>
+            <typeparam name="T">关键字数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashNode`1.HashIndex">
+            <summary>
+            带移除标记的可重用哈希表节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashNode`1.Value">
+            <summary>
+            关键字数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode`1.#ctor(`0,System.UInt32)">
+            <summary>
+            带移除标记的可重用哈希表节点
+            </summary>
+            <param name="value">关键字数据</param>
+            <param name="hashCode">关键字数据哈希值</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode`1.#ctor(`0,System.UInt32,System.UInt32)">
+            <summary>
+            带移除标记的可重用哈希表节点
+            </summary>
+            <param name="value">关键字数据</param>
+            <param name="hashCode">关键字数据哈希值</param>
+            <param name="indexData">索引数据</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode`1.SetNode(`0,System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value"></param>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode`1.SetNextNode(`0,System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value"></param>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode`1.SetRemoveNode(`0,System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value"></param>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashNode`1.SetRemoveNextNode(`0,System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value"></param>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="T:AutoCSer.RemoveMarkHashSet">
+            <summary>
+            带移除标记的可重用哈希表（最大支持 1023 个元素）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet.Count">
+            <summary>
+            有效数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSet.valueCount">
+            <summary>
+            添加数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSet.Nodes">
+            <summary>
+            节点集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet.OnlyValues">
+            <summary>
+            获取数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet.OnlyIntValues">
+            <summary>
+            获取数据集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSet.capacity">
+            <summary>
+            容器参数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet.Capacity">
+            <summary>
+            容器大小
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.#ctor(AutoCSer.UnmanagedRemoveMarkHashSetCapacity)">
+            <summary>
+            空哈希表
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.#ctor(System.Int32)">
+            <summary>
+            带移除标记的可重用哈希表（最大支持 1023 个元素）
+            </summary>
+            <param name="capacity">容器大小</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.#ctor(System.UInt32[])">
+            <summary>
+            带移除标记的可重用哈希表
+            </summary>
+            <param name="values">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.#ctor(System.Int32[])">
+            <summary>
+            带移除标记的可重用哈希表
+            </summary>
+            <param name="values">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.#ctor(AutoCSer.ReusableHashCodeKeyHashSet)">
+            <summary>
+            带移除标记的可重用哈希表
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Dispose">
+            <summary>
+            释放节点集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.remove(System.Int32,System.Int32)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="hashIndex"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.resize">
+            <summary>
+            重组数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Contains(System.Int32)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Contains(System.UInt32)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.add(AutoCSer.RemoveMarkHashNode)">
+            <summary>
+            新增重组数据
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Add(System.Int32)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据变更</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Add(System.UInt32)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据变更</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.AddRemove(System.Int32)">
+            <summary>
+            新增删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据变更</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.AddRemove(System.UInt32)">
+            <summary>
+            新增删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据变更</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Remove(System.Int32)">
+            <summary>
+            删除新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在删除数据</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Remove(System.UInt32)">
+            <summary>
+            删除新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在删除数据</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.GetArray(System.Int32@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="valueCount">添加数据数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.GetArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.getArray(System.UInt32*)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="arrayFixed"></param>
+            <returns>添加数据数量</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.GetIntArray(System.Int32@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="valueCount">添加数据数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Get(AutoCSer.ReusableHashSet{System.UInt32})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.Get(AutoCSer.ReusableHashSet{System.Int32})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.GetBuffer(System.UInt32*)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet.getHashCode(AutoCSer.Memory.Pointer@)">
+            <summary>
+            获取关键字数据哈希值
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSet.Empty">
+            <summary>
+            空索引数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RemoveMarkHashSet`1">
+            <summary>
+            带移除标记的可重用哈希表（最大支持 1023 个元素）
+            </summary>
+            <typeparam name="T">关键字数据类型</typeparam>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet`1.Count">
+            <summary>
+            有效数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSet`1.valueCount">
+            <summary>
+            添加数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSet`1.Nodes">
+            <summary>
+            节点集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet`1.Values">
+            <summary>
+            获取数据集合（false 表示标记删除的数据）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet`1.OnlyValues">
+            <summary>
+            获取数据集合（false 表示标记删除的数据）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RemoveMarkHashSet`1.Capacity">
+            <summary>
+            容器大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSet`1.capacity">
+            <summary>
+            容器参数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.#ctor(AutoCSer.RemoveMarkHashSetCapacity)">
+            <summary>
+            空哈希表
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.#ctor(System.Int32)">
+            <summary>
+            带移除标记的可重用哈希表（最大支持 1023 个元素）
+            </summary>
+            <param name="capacity">容器大小</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.#ctor(`0[])">
+            <summary>
+            带移除标记的可重用哈希表
+            </summary>
+            <param name="values">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.#ctor(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            带移除标记的可重用哈希表
+            </summary>
+            <param name="values">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.remove(System.Int32,System.Int32)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="hashIndex"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.resize">
+            <summary>
+            重组数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.Contains(`0)">
+            <summary>
+            判断是否存在数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.add(AutoCSer.RemoveMarkHashNode{`0})">
+            <summary>
+            新增重组数据
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.Add(`0)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据变更</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.AddRemove(`0)">
+            <summary>
+            新增删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据变更</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.Remove(`0)">
+            <summary>
+            删除新增数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在删除数据</returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.GetArray(System.Int32@)">
+            <summary>
+            获取数组
+            </summary>
+            <param name="valueCount">添加数据数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.GetArray">
+            <summary>
+            获取数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSet`1.Get(AutoCSer.ReusableHashSet{`0})">
+            <summary>
+            并集 OR
+            </summary>
+            <param name="hashSet"></param>
+        </member>
+        <member name="T:AutoCSer.RemoveMarkHashSetCapacity`1">
+            <summary>
+            带移除标记的可重用哈希表容器参数
+            </summary>
+            <typeparam name="T">参数类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSetCapacity`1.Capacity">
+            <summary>
+            容器大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSetCapacity`1.hashIndexShiftBit">
+            <summary>
+            计算哈希索引位置最低位位移数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSetCapacity`1.integerDivision">
+            <summary>
+            哈希取余
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSetCapacity`1.#ctor(System.Int32,System.Byte,`0)">
+            <summary>
+            带移除标记的可重用哈希表容器参数
+            </summary>
+            <param name="prime">取余质数</param>
+            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
+            <param name="next">下一个参数</param>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSetCapacity`1.Get(System.Int32)">
+            <summary>
+            根据指定容器大小获取容器参数
+            </summary>
+            <param name="capacity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSetCapacity`1.GetHashIndex(System.UInt32)">
+            <summary>
+            获取哈希索引位置
+            </summary>
+            <param name="hashCode">哈希值</param>
+            <returns>哈希索引位置</returns>
+        </member>
+        <member name="T:AutoCSer.RemoveMarkHashSetCapacity">
+            <summary>
+            带移除标记的可重用哈希表容器参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSetCapacity.MaxCapacity">
+            <summary>
+            最大容器大小
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RemoveMarkHashSetCapacity.#ctor(System.Int32,System.Byte,AutoCSer.RemoveMarkHashSetCapacity)">
+            <summary>
+            带移除标记的可重用哈希表容器参数
+            </summary>
+            <param name="prime">取余质数</param>
+            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
+            <param name="next">下一个参数</param>
+        </member>
+        <member name="F:AutoCSer.RemoveMarkHashSetCapacity.DefaultLink">
+            <summary>
+            默认带移除标记的可重用哈希表容器参数链表
+            </summary>
+        </member>
         <member name="T:AutoCSer.ReusableHashCodeKeyHashSet">
             <summary>
             可重用哈希表（主要用于非引用类型缓冲区，避免 new / Clear 开销）
@@ -8195,6 +8813,17 @@
             数据集合
             </summary>
         </member>
+        <member name="P:AutoCSer.ReusableHashCodeKeyHashSet.IntValues">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(AutoCSer.ReusableHashNode[])">
+            <summary>
+            空哈希表
+            </summary>
+            <param name="nodes"></param>
+        </member>
         <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(System.Int32)">
             <summary>
             可重用字典
@@ -8214,6 +8843,12 @@
             <param name="values">初始化数据</param>
         </member>
         <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(AutoCSer.ReusableHashCodeKeyHashSet)">
+            <summary>
+            可重用哈希表
+            </summary>
+            <param name="hashSet">初始化数据</param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.#ctor(AutoCSer.RemoveMarkHashSet)">
             <summary>
             可重用哈希表
             </summary>
@@ -8302,6 +8937,11 @@
             获取数组
             </summary>
             <returns></returns>
+        </member>
+        <member name="F:AutoCSer.ReusableHashCodeKeyHashSet.Empty">
+            <summary>
+            空索引数据
+            </summary>
         </member>
         <member name="T:AutoCSer.ReusableHashSet`1">
             <summary>
@@ -8450,6 +9090,185 @@
             <param name="value"></param>
             <returns>移除的数据</returns>
         </member>
+        <member name="T:AutoCSer.SearchTree.NodeDictionary`2">
+            <summary>
+            二叉搜索树字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据节点类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.NodeDictionary`2.Boot">
+            <summary>
+            根节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Count">
+            <summary>
+            节点数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Height">
+            <summary>
+            获取树高度，时间复杂度 O(n)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.FristValue">
+            <summary>
+            获取第一组数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.LastValue">
+            <summary>
+            获取最后一组数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Item(`0)">
+            <summary>
+            根据关键字获取或者设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>数据,获取失败KeyNotFoundException</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.#ctor">
+            <summary>
+            二叉树字典
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Set(`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否添加了关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.set(AutoCSer.SearchTree.SetRemoveNode{`0,`1}@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="node"></param>
+            <returns>是否添加了关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Set(`1,`1@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value">数据</param>
+            <param name="removeValue">方法返回 false 时表示被移除数据</param>
+            <returns>是否添加了关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryAdd(`1)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Remove(`0)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.RemoveKeys(`0[])">
+            <summary>
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Remove(`0,`1@)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">被删除数据</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.ContainsKey(`0)">
+            <summary>
+            判断是否包含关键字
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否包含关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">目标数据</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetValueArray(`0[])">
+            <summary>
+            根据关键字集合获取匹配数据数组
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.IndexOf(`0)">
+            <summary>
+            根据关键字获取一个匹配节点位置
+            </summary>
+            <param name="key">关键字</param>
+            <returns>一个匹配节点位置,失败返回-1</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.CountLess(`0)">
+            <summary>
+            根据关键字比它小的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.CountThan(`0)">
+            <summary>
+            根据关键字比它大的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.At(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryGetValueByIndex(System.Int32,`1@)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetKeyRange(System.Int32,System.Int32)">
+            <summary>
+            获取范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetKeyRangeDesc(System.Int32,System.Int32)">
+            <summary>
+            获取逆序范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns>数据集合</returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.Dictionary`2">
             <summary>
             二叉搜索树字典
@@ -8499,27 +9318,6 @@
             获取最后一组数据
             </summary>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Get(`0)">
-            <summary>
-            根据关键字获取二叉树节点
-            </summary>
-            <param name="key">关键字</param>
-            <returns>匹配节点</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.At(System.Int32)">
-            <summary>
-            根据节点位置获取数据
-            </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.at(System.Int32)">
-            <summary>
-            根据节点位置获取数据
-            </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
-        </member>
         <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.changeKeyValue(`0@,`1@)">
             <summary>
             交换节点数据
@@ -8544,31 +9342,12 @@
             <param name="keyValue"></param>
             <returns>是否添加了数据</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Set(AutoCSer.SearchTree.SetRemoveNode{`0,`1}@)">
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Set(AutoCSer.SearchTree.SetRemoveValue{`0,`1}@)">
             <summary>
             设置数据
             </summary>
             <param name="node">数据</param>
             <returns>是否添加了数据</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Remove(`0)">
-            <summary>
-            删除数据
-            </summary>
-            <param name="key">关键字</param>
-            <returns>被删除节点</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Remove">
-            <summary>
-            删除当前节点
-            </summary>
-            <returns>用户替换当前节点的节点</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.removeMin">
-            <summary>
-            删除最小节点
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.SearchTree.Dictionary`2.Node.Enumerable(AutoCSer.SearchTree.EnumerableCount)">
             <summary>
@@ -8918,7 +9697,12 @@
             右节点
             </summary>
         </member>
-        <member name="F:AutoCSer.SearchTree.Node`2.Key">
+        <member name="F:AutoCSer.SearchTree.Node`2.key">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Node`2.Key">
             <summary>
             关键字
             </summary>
@@ -8926,6 +9710,21 @@
         <member name="F:AutoCSer.SearchTree.Node`2.Count">
             <summary>
             节点数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Node`2.Nodes">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Node`2.FristNode">
+            <summary>
+            获取第一组数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.Node`2.LastNode">
+            <summary>
+            获取最后一组数据
             </summary>
         </member>
         <member name="M:AutoCSer.SearchTree.Node`2.#ctor(`1)">
@@ -8948,6 +9747,138 @@
             <summary>
             左右节点数据量差
             </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.Get(`1)">
+            <summary>
+            根据关键字获取二叉树节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>匹配节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.SetRemove(`0)">
+            <summary>
+            设置替换节点
+            </summary>
+            <param name="node">原节点数据</param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.Set(AutoCSer.SearchTree.SetRemoveNode{`1,`0}@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="node">数据</param>
+            <returns>替换节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.checkLeft">
+            <summary>
+            检测左节点数量
+            </summary>
+            <returns>替换节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.checkRight">
+            <summary>
+            检测右节点数量
+            </summary>
+            <returns>替换节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.set(`0,`0)">
+            <summary>
+            设置左右节点并重新计算节点数量
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setCheckLeft(`0)">
+            <summary>
+            设置左节点（确定右节点为 null）
+            </summary>
+            <param name="left"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setCheckRight(`0)">
+            <summary>
+            设置右节点（确定左节点为 null）
+            </summary>
+            <param name="right"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setCheckLeftRightCount(`0)">
+            <summary>
+            设置左节点（确定右节点不为 null）
+            </summary>
+            <param name="left"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setCheckRightLeftCount(`0)">
+            <summary>
+            设置右节点（确定左节点不为 null）
+            </summary>
+            <param name="right"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setCheckLeftCheckRightCount(`0)">
+            <summary>
+            设置左节点并重新计算节点数量
+            </summary>
+            <param name="left"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setCheckRightCheckLeftCount(`0)">
+            <summary>
+            设置右节点并重新计算节点数量
+            </summary>
+            <param name="right"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setLeftCheckRightCount(`0)">
+            <summary>
+            设置左节点并重新计算节点数量
+            </summary>
+            <param name="left"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.setRightCheckLeftCount(`0)">
+            <summary>
+            设置右节点并重新计算节点数量
+            </summary>
+            <param name="right"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.addLeft(`0)">
+            <summary>
+            添加左节点（确定左节点数量为 1）
+            </summary>
+            <param name="left"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.addRight(`0)">
+            <summary>
+            添加右节点（确定右节点数量为 1）
+            </summary>
+            <param name="right"></param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.TryAdd(AutoCSer.SearchTree.SetRemoveNode{`1,`0}@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="node">数据</param>
+            <returns>替换节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.Remove(`1)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>被删除节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.Remove">
+            <summary>
+            删除当前节点
+            </summary>
+            <returns>替换当前节点的节点</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.removeMin">
+            <summary>
+            删除最小节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.At(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
         </member>
         <member name="M:AutoCSer.SearchTree.Node`2.set(`0,`0,System.Int32)">
             <summary>
@@ -9057,7 +9988,15 @@
             检测右节点的左节点
             </summary>
         </member>
-        <member name="M:AutoCSer.SearchTree.Node`2.GetArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
+        <member name="M:AutoCSer.SearchTree.Node`2.GetKeyArray(System.Int32,System.Int32)">
+            <summary>
+            获取关键字数组
+            </summary>
+            <param name="skipCount"></param>
+            <param name="getCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.getArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
             <summary>
             获取数组
             </summary>
@@ -9081,7 +10020,15 @@
             </summary>
             <param name="array"></param>
         </member>
-        <member name="M:AutoCSer.SearchTree.Node`2.GetDescArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
+        <member name="M:AutoCSer.SearchTree.Node`2.GetDescKeyArray(System.Int32,System.Int32)">
+            <summary>
+            获取获取关键字数组
+            </summary>
+            <param name="skipCount"></param>
+            <param name="getCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.getDescArraySkip(AutoCSer.SearchTree.PageArray{`1}@)">
             <summary>
             获取数组
             </summary>
@@ -9223,27 +10170,6 @@
             获取最后一组数据
             </summary>
         </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.Get(`0)">
-            <summary>
-            根据关键字获取二叉树节点
-            </summary>
-            <param name="key">关键字</param>
-            <returns>匹配节点</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.At(System.Int32)">
-            <summary>
-            根据节点位置获取数据
-            </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.at(System.Int32)">
-            <summary>
-            根据节点位置获取数据
-            </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
-        </member>
         <member name="M:AutoCSer.SearchTree.Set`1.Node.Add(`0)">
             <summary>
             添加数据
@@ -9266,25 +10192,6 @@
             <summary>
             检测右节点数量
             </summary>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.Remove(`0)">
-            <summary>
-            删除数据
-            </summary>
-            <param name="key">关键字</param>
-            <returns>被删除节点</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.Remove">
-            <summary>
-            删除当前节点
-            </summary>
-            <returns>用户替换当前节点的节点</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Node.removeMin">
-            <summary>
-            删除最小节点
-            </summary>
-            <returns></returns>
         </member>
         <member name="F:AutoCSer.SearchTree.Set`1.boot">
             <summary>
@@ -9416,19 +10323,9 @@
             <typeparam name="KT">关键字类型</typeparam>
             <typeparam name="VT">数据类型</typeparam>
         </member>
-        <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.Key">
-            <summary>
-            设置关键字
-            </summary>
-        </member>
         <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.Value">
             <summary>
             设置数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.SearchTree.SetRemoveNode`2.Node">
-            <summary>
-            二叉搜索树字典节点
             </summary>
         </member>
         <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.RemoveValue">
@@ -9436,14 +10333,69 @@
             被移除数据
             </summary>
         </member>
-        <member name="M:AutoCSer.SearchTree.SetRemoveNode`2.#ctor(`0,`1)">
+        <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.IsRemove">
+            <summary>
+            是否需要移除数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveNode`2.IsNewValue">
+            <summary>
+            是否添加了新数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.SetRemoveNode`2.#ctor(`1)">
+            <summary>
+            设置节点数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.SearchTree.SetRemoveNode`2.SetRemove(`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="value">被移除数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.SearchTree.SetRemoveValue`2">
+            <summary>
+            设置节点数据
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveValue`2.Key">
+            <summary>
+            设置关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveValue`2.Value">
+            <summary>
+            设置数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.SetRemoveValue`2.Node">
+            <summary>
+            二叉搜索树字典节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveValue`2.RemoveValue">
+            <summary>
+            被移除数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SearchTree.SetRemoveValue`2.IsRemove">
+            <summary>
+            是否需要移除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.SetRemoveValue`2.#ctor(`0,`1)">
             <summary>
             设置节点数据
             </summary>
             <param name="key">关键字</param>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.SearchTree.SetRemoveNode`2.SetRemoveValue(`1)">
+        <member name="M:AutoCSer.SearchTree.SetRemoveValue`2.SetRemove(`1)">
             <summary>
             设置数据
             </summary>
@@ -9584,6 +10536,204 @@
             </summary>
             <param name="start">匹配起始位置</param>
             <returns>状态索引,失败返回-1</returns>
+        </member>
+        <member name="T:AutoCSer.Threading.ArrayQueue`1">
+            <summary>
+            数组链表，用于替代固定数组环 RingPool{T}（数组环并发性能远不如 Link，所以该结构仅支持一读一写）
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.pad0">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.ArraySize">
+            <summary>
+            数组大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.isDisposed">
+            <summary>
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.ArrayQueue`1.IsDisposed">
+            <summary>
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.pad1">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.readQueue">
+            <summary>
+            等待读取队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.readLock">
+            <summary>
+            读取队列访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.freeLink">
+            <summary>
+            空闲节点链表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.isRead">
+            <summary>
+            读取并发检测（非严格检查）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.readReserve">
+            <summary>
+            保留字段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.pad2">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.WriteNode">
+            <summary>
+            当前写入节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.isWrite">
+            <summary>
+            写入并发检测（非严格检查）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.writeReserve">
+            <summary>
+            保留字段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueue`1.pad3">
+            <summary>
+            填充隔离数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.#ctor(System.Int32)">
+            <summary>
+            数组链表
+            </summary>
+            <param name="arraySize">数组大小，默认为 4096</param>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.Push(`0)">
+            <summary>
+            添加数据（仅支持单线程操作）
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.OnPush">
+            <summary>
+            添加数据完毕检查读取等待状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.getWriteNode">
+            <summary>
+            获取写入数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.OnFullPush">
+            <summary>
+            写入数组添加到读取队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.Get">
+            <summary>
+            获取链表首节点
+            </summary>
+            <returns>返回 null 表示已释放链表</returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.TryGet">
+            <summary>
+            尝试获取链表首节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueue`1.Free(AutoCSer.Threading.ArrayQueueNode{`0})">
+            <summary>
+            释放节点
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.ArrayQueueNode`1">
+            <summary>
+            数组链表节点
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueueNode`1.array">
+            <summary>
+            数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueueNode`1.link">
+            <summary>
+            数组链表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueueNode`1.Index">
+            <summary>
+            当前分配写入位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ArrayQueueNode`1.count">
+            <summary>
+            已写入数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.ArrayQueueNode`1.Count">
+            <summary>
+            有效数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.ArrayQueueNode`1.Array">
+            <summary>
+            获取数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueueNode`1.#ctor(AutoCSer.Threading.ArrayQueue{`0})">
+            <summary>
+            数组链表节点
+            </summary>
+            <param name="link">数组链表</param>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueueNode`1.Reset">
+            <summary>
+            重置节点数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueueNode`1.Free">
+            <summary>
+            释放节点并返回下一个节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueueNode`1.Push(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ArrayQueueNode`1.TryGet">
+            <summary>
+            尝试获取链表首节点
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Threading.AutoWaitCount">
             <summary>
@@ -9747,11 +10897,6 @@
         <member name="F:AutoCSer.Threading.CallbackEnumerator`1.returnValueQueue">
             <summary>
             返回值队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.CallbackEnumerator`1.queueLock">
-            <summary>
-            返回值队列访问锁
             </summary>
         </member>
         <member name="P:AutoCSer.Threading.CallbackEnumerator`1.Current">
@@ -10529,6 +11674,78 @@
             等待运行时间
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.ThreadPoolTask`1">
+            <summary>
+            线程池任务
+            </summary>
+            <typeparam name="T">返回值类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.wait">
+            <summary>
+            返回结果等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.task">
+            <summary>
+            任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.returnValue">
+            <summary>
+            返回值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.exception">
+            <summary>
+            执行任务异常信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.isCompleted">
+            <summary>
+            是否已完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.#ctor(AutoCSer.Threading.ThreadPool,System.Func{`0})">
+            <summary>
+            线程池任务
+            </summary>
+            <param name="threadPool">线程池</param>
+            <param name="task">任务</param>
+        </member>
+        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.run">
+            <summary>
+            执行任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.Wait">
+            <summary>
+            等待任务执行完成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.UnmanagedRemoveMarkHashSetCapacity">
+            <summary>
+            带移除标记的非托管节点可重用哈希表容器参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.UnmanagedPool">
+            <summary>
+            节点集合非托管内存池
+            </summary>
+        </member>
+        <member name="M:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.#ctor(System.Int32,System.Byte,AutoCSer.UnmanagedRemoveMarkHashSetCapacity)">
+            <summary>
+            带移除标记的非托管节点可重用哈希表容器参数
+            </summary>
+            <param name="prime">取余质数</param>
+            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
+            <param name="next">下一个参数</param>
+        </member>
+        <member name="F:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.DefaultLink">
+            <summary>
+            默认带移除标记的可重用哈希表容器参数链表
+            </summary>
         </member>
         <member name="T:AutoCSer.XmlDeserializer">
             <summary>
@@ -12447,11 +13664,6 @@
         <member name="F:AutoCSer.Xml.MemberNameSearcher.cache">
             <summary>
             成员名称查找数据缓存
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Xml.MemberNameSearcher.cacheLock">
-            <summary>
-            成员名称查找数据缓存访问锁
             </summary>
         </member>
         <member name="F:AutoCSer.Xml.MemberNameSearcher.lastSearcher">

@@ -58,10 +58,10 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// <summary>
         /// 用户名称索引节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> UserNameDiskBlockIndexNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IRemoveMarkHashKeyIndexNodeClientNode<int>>(nameof(UserNameNode), (index, key, nodeInfo) => client.ClientNode.CreateRemoveMarkHashKeyIndexNode(index, key, nodeInfo, typeof(int), 0)));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> UserNameDiskBlockIndexNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IRemoveMarkHashKeyIndexNodeClientNode<int>>(nameof(UserNameNode), (index, key, nodeInfo) => client.ClientNode.CreateRemoveMarkHashKeyIndexNode(index, key, nodeInfo, typeof(int))));
         /// <summary>
         /// 用户备注索引节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> UserRemarkDiskBlockIndexNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IRemoveMarkHashKeyIndexNodeClientNode<int>>(nameof(UserRemarkNode), (index, key, nodeInfo) => client.ClientNode.CreateRemoveMarkHashKeyIndexNode(index, key, nodeInfo, typeof(int), 0)));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> UserRemarkDiskBlockIndexNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IRemoveMarkHashKeyIndexNodeClientNode<int>>(nameof(UserRemarkNode), (index, key, nodeInfo) => client.ClientNode.CreateRemoveMarkHashKeyIndexNode(index, key, nodeInfo, typeof(int))));
     }
 }

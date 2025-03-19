@@ -24,6 +24,7 @@ namespace AutoCSer.TestCase.DeployTaskClient
 T : TestCase
 S : Search TestCase
 L : LocalSearch TestCase
+M : MemorySearch TestCase
 
 Press quit to exit.");
                 switch (Console.ReadLine())
@@ -32,6 +33,7 @@ Press quit to exit.");
                     case "T": testCase().NotWait(); break;
                     case "S": search().NotWait(); break;
                     case "L": localSearch().NotWait(); break;
+                    case "M": memorySearch().NotWait(); break;
                     case "quit":
                         return;
                 }
@@ -187,39 +189,46 @@ Press quit to exit.");
         private static async Task testCase()
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
+            try {
+                await waitProcess(@"Document\SymmetryService\bin\Release\net8.0\AutoCSer.Document.SymmetryService.exe");
+                await waitProcess(@"Document\ServiceDataSerialize\bin\Release\net8.0\AutoCSer.Document.ServiceDataSerialize.exe");
+                await waitProcess(@"Document\ServiceThreadStrategy\bin\Release\net8.0\AutoCSer.Document.ServiceThreadStrategy.exe");
+                await waitProcess(@"Document\ServiceAuthentication\bin\Release\net8.0\AutoCSer.Document.ServiceAuthentication.exe");
+                await waitProcess(@"Document\MemoryDatabaseNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseNode.exe", 2);
+                await waitProcess(@"Document\MemoryDatabaseCustomNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseCustomNode.exe", 2);
+                await waitProcess(@"Document\MemoryDatabaseLocalService\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseLocalService.exe", 2);
+                await waitProcess(@"Document\ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
+                await waitProcess(@"Document\ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
+                await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
 
-            await waitProcess(@"Document\SymmetryService\bin\Release\net8.0\AutoCSer.Document.SymmetryService.exe");
-            await waitProcess(@"Document\ServiceDataSerialize\bin\Release\net8.0\AutoCSer.Document.ServiceDataSerialize.exe");
-            await waitProcess(@"Document\ServiceThreadStrategy\bin\Release\net8.0\AutoCSer.Document.ServiceThreadStrategy.exe");
-            await waitProcess(@"Document\ServiceAuthentication\bin\Release\net8.0\AutoCSer.Document.ServiceAuthentication.exe");
-            await waitProcess(@"Document\MemoryDatabaseNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseNode.exe", 2);
-            await waitProcess(@"Document\MemoryDatabaseCustomNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseCustomNode.exe", 2);
-            await waitProcess(@"Document\MemoryDatabaseLocalService\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseLocalService.exe", 2);
-            await waitProcess(@"Document\ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
-            await waitProcess(@"Document\ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
-            await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
+                await waitProcess(@"TestCase\TimestampVerify\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerify.exe", @"TestCase\TimestampVerify\Client\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerifyClient.exe");
+                await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ServerRegistry\Service\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryService.exe", @"TestCase\ServerRegistry\Service\Client\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryServiceClient.exe");
+                await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\ProcessGuard\Client\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuardClient.exe");
+                await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\ProcessGuard\SwitchProcess\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuardSwitchProcess.exe");
+                await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ReverseLogCollection\bin\Release\net8.0\AutoCSer.TestCase.ReverseLogCollection.exe", @"TestCase\ReverseLogCollection\Client\bin\Release\net8.0\AutoCSer.TestCase.ReverseLogCollectionClient.exe");
+                await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ReverseLogCollection\ReverseService\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseService.exe", @"TestCase\ReverseLogCollection\ReverseClient\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseClient.exe");
+                await waitProcess(@"TestCase\FileSynchronous\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronous.exe", @"TestCase\FileSynchronous\Client\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronousClient.exe");
+                await waitProcess2(@"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\DiskBlock\Client\bin\Release\net8.0\AutoCSer.TestCase.DiskBlockClient.exe", 2);
+                await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\InterfaceRealTimeCallMonitor\ExceptionStatistics\bin\Release\net8.0\AutoCSer.TestCase.ExceptionStatistics.exe", @"TestCase\InterfaceRealTimeCallMonitor\bin\Release\net8.0\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.exe", @"TestCase\NetCoreWeb\bin\Release\net8.0\AutoCSer.TestCase.NetCoreWeb.exe");
 
-            await waitProcess(@"TestCase\TimestampVerify\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerify.exe", @"TestCase\TimestampVerify\Client\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerifyClient.exe");
-            await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ServerRegistry\Service\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryService.exe", @"TestCase\ServerRegistry\Service\Client\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryServiceClient.exe");
-            await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\ProcessGuard\Client\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuardClient.exe");
-            await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\ProcessGuard\SwitchProcess\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuardSwitchProcess.exe");
-            await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ReverseLogCollection\bin\Release\net8.0\AutoCSer.TestCase.ReverseLogCollection.exe", @"TestCase\ReverseLogCollection\Client\bin\Release\net8.0\AutoCSer.TestCase.ReverseLogCollectionClient.exe");
-            await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ReverseLogCollection\ReverseService\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseService.exe", @"TestCase\ReverseLogCollection\ReverseClient\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseClient.exe");
-            await waitProcess(@"TestCase\FileSynchronous\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronous.exe", @"TestCase\FileSynchronous\Client\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronousClient.exe");
-            await waitProcess2(@"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\DiskBlock\Client\bin\Release\net8.0\AutoCSer.TestCase.DiskBlockClient.exe", 2);
-            await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\InterfaceRealTimeCallMonitor\ExceptionStatistics\bin\Release\net8.0\AutoCSer.TestCase.ExceptionStatistics.exe", @"TestCase\InterfaceRealTimeCallMonitor\bin\Release\net8.0\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.exe", @"TestCase\NetCoreWeb\bin\Release\net8.0\AutoCSer.TestCase.NetCoreWeb.exe");
+                await localSearch();
+                await localSearch();
+                await memorySearch();
+                await memorySearch();
+                await search();
+                await search();
 
-            await search();
-            await search();
-            await localSearch();
-            await localSearch();
+                await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
+                await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
+                await waitProcess(@"TestCase\StreamPersistenceMemoryDatabase\LocalService\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.exe", 2);
+                await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabase.exe", @"TestCase\StreamPersistenceMemoryDatabase\Client\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient.exe", 2);
 
-            await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
-            await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
-            await waitProcess(@"TestCase\StreamPersistenceMemoryDatabase\LocalService\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.exe", 2);
-            await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabase.exe", @"TestCase\StreamPersistenceMemoryDatabase\Client\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient.exe", 2);
-
-            await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\DeployTask\bin\Release\net8.0\AutoCSer.TestCase.DeployTask.exe");
+                await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\DeployTask\bin\Release\net8.0\AutoCSer.TestCase.DeployTask.exe");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
         private static Task search()
         {
@@ -228,6 +237,10 @@ Press quit to exit.");
         private static Task localSearch()
         {
             return waitProcess(@"TestCase\Search\LocalDataSource\bin\Release\net8.0\AutoCSer.TestCase.LocalSearchDataSource.exe", @"TestCase\Search\LocalQueryService\bin\Release\net8.0\AutoCSer.TestCase.LocalSearchQueryService.exe", @"TestCase\Search\LocalSearchClient\bin\Release\net8.0\AutoCSer.TestCase.LocalSearchClient.exe");
+        }
+        private static Task memorySearch()
+        {
+            return waitProcess(@"TestCase\Search\MemorySearchDataSource\bin\Release\net8.0\AutoCSer.TestCase.MemorySearchDataSource.exe", @"TestCase\Search\MemorySearchQueryService\bin\Release\net8.0\AutoCSer.TestCase.MemorySearchQueryService.exe", @"TestCase\Search\MemorySearchClient\bin\Release\net8.0\AutoCSer.TestCase.MemorySearchClient.exe");
         }
         private static async Task waitProcess(string fileName, int count = 1)
         {
@@ -248,8 +261,15 @@ Press quit to exit.");
             FileInfo file = new FileInfo(Path.Combine(new FileInfo(fileName).Directory.FullName, "AutoCSer.log"));
             if (await AutoCSer.Common.FileExists(file))
             {
-                using (process = await new ProcessInfo(file.FullName).StartAsync()) await process.WaitForExitAsync();
-                await AutoCSer.Common.DeleteFile(file);
+                try
+                {
+                    using (process = await new ProcessInfo(file.FullName).StartAsync()) await process.WaitForExitAsync();
+                    await AutoCSer.Common.DeleteFile(file);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
             }
         }
         private static async Task waitProcess2(string serverFileName, string clientFileName, int count)

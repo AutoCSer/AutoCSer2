@@ -207,9 +207,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">索引关键字类型</param>
             /// <param name="valueType">数据关键字类型</param>
-            /// <param name="capacity">初始化容器尺寸</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateRemoveMarkHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
             /// <summary>
             /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashKeyIndexNode{T}
             /// </summary>
@@ -217,9 +216,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="key">节点全局关键字</param>
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">索引关键字类型</param>
-            /// <param name="capacity">初始化容器尺寸</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateRemoveMarkHashKeyIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
         }
 }namespace AutoCSer.CommandService.Search
 {
@@ -542,6 +540,100 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <param name="text">分词文本数据</param>
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum>> LoadCreate(T key, string text);
+        }
+}namespace AutoCSer.CommandService.Search.MemoryIndex
+{
+        /// <summary>
+        /// 哈希索引节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode<>))]
+        public partial interface IHashCodeKeyIndexNodeLocalClientNode<T>
+        {
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Append(T key, uint value);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendArray(T[] keys, uint value);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendLeftArray(AutoCSer.LeftArray<T> keys, uint value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(T key, uint value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveArray(T[] keys, uint value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveLeftArray(AutoCSer.LeftArray<T> keys, uint value);
+        }
+}namespace AutoCSer.CommandService.Search.MemoryIndex
+{
+        /// <summary>
+        /// 哈希索引节点接口 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode<,>))]
+        public partial interface IHashIndexNodeLocalClientNode<KT,VT>
+        {
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Append(KT key, VT value);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendArray(KT[] keys, VT value);
+            /// <summary>
+            /// 添加匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字集合</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> AppendLeftArray(AutoCSer.LeftArray<KT> keys, VT value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="key">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            /// <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> Remove(KT key, VT value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveArray(KT[] keys, VT value);
+            /// <summary>
+            /// 删除匹配数据关键字
+            /// </summary>
+            /// <param name="keys">索引关键字</param>
+            /// <param name="value">匹配数据关键字</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> RemoveLeftArray(AutoCSer.LeftArray<KT> keys, VT value);
         }
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {
@@ -927,14 +1019,12 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             SnapshotSetLoaded = 4,
             /// <summary>
             /// [5] 非索引条件查询数据完成更新操作
-            /// KT key 数据关键字
             /// VT value 非索引条件查询数据
             /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Completed = 5,
             /// <summary>
             /// [6] 非索引条件查询数据完成更新操作
-            /// KT key 数据关键字
             /// VT value 非索引条件查询数据
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum} 
             /// </summary>
@@ -947,7 +1037,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             Delete = 7,
             /// <summary>
             /// [8] 非索引条件查询数据完成更新操作
-            /// KT key 数据关键字
             /// VT value 非索引条件查询数据
             /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
@@ -1273,7 +1362,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 索引关键字类型
             /// AutoCSer.Reflection.RemoteType valueType 数据关键字类型
-            /// int capacity 初始化容器尺寸
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateRemoveMarkHashIndexNode = 256,
@@ -1283,7 +1371,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 索引关键字类型
-            /// int capacity 初始化容器尺寸
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateRemoveMarkHashKeyIndexNode = 257,
@@ -1700,6 +1787,146 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             LoadCreateLoadPersistence = 15,
+        }
+}namespace AutoCSer.CommandService.Search.MemoryIndex
+{
+        /// <summary>
+        /// 哈希索引节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IHashCodeKeyIndexNodeMethodEnum))]
+        public partial interface IHashCodeKeyIndexNode<T> { }
+        /// <summary>
+        /// 哈希索引节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IHashCodeKeyIndexNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] 添加匹配数据关键字
+            /// T key 索引关键字
+            /// uint value 匹配数据关键字
+            /// 返回值 bool 返回 false 表示关键字数据为 null
+            /// </summary>
+            Append = 0,
+            /// <summary>
+            /// [1] 添加匹配数据关键字
+            /// T[] keys 索引关键字集合
+            /// uint value 匹配数据关键字
+            /// </summary>
+            AppendArray = 1,
+            /// <summary>
+            /// [2] 添加匹配数据关键字 持久化前检查
+            /// T key 索引关键字
+            /// uint value 匹配数据关键字
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            /// </summary>
+            AppendBeforePersistence = 2,
+            /// <summary>
+            /// [3] 添加匹配数据关键字
+            /// AutoCSer.LeftArray{T} keys 索引关键字集合
+            /// uint value 匹配数据关键字
+            /// </summary>
+            AppendLeftArray = 3,
+            /// <summary>
+            /// [4] 删除匹配数据关键字
+            /// T key 索引关键字
+            /// uint value 匹配数据关键字
+            /// 返回值 bool 返回 false 表示关键字数据为 null 或者没有找到索引关键字
+            /// </summary>
+            Remove = 4,
+            /// <summary>
+            /// [5] 删除匹配数据关键字
+            /// T[] keys 索引关键字
+            /// uint value 匹配数据关键字
+            /// </summary>
+            RemoveArray = 5,
+            /// <summary>
+            /// [6] 删除匹配数据关键字
+            /// T key 索引关键字
+            /// uint value 匹配数据关键字
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            /// </summary>
+            RemoveBeforePersistence = 6,
+            /// <summary>
+            /// [7] 删除匹配数据关键字
+            /// AutoCSer.LeftArray{T} keys 索引关键字
+            /// uint value 匹配数据关键字
+            /// </summary>
+            RemoveLeftArray = 7,
+            /// <summary>
+            /// [8] 快照设置数据
+            /// AutoCSer.BinarySerializeKeyValue{T,uint[]} value 数据
+            /// </summary>
+            SnapshotSet = 8,
+        }
+}namespace AutoCSer.CommandService.Search.MemoryIndex
+{
+        /// <summary>
+        /// 哈希索引节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IHashIndexNodeMethodEnum))]
+        public partial interface IHashIndexNode<KT,VT> { }
+        /// <summary>
+        /// 哈希索引节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IHashIndexNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] 添加匹配数据关键字
+            /// KT key 索引关键字
+            /// VT value 匹配数据关键字
+            /// 返回值 bool 返回 false 表示关键字数据为 null
+            /// </summary>
+            Append = 0,
+            /// <summary>
+            /// [1] 添加匹配数据关键字
+            /// KT[] keys 索引关键字集合
+            /// VT value 匹配数据关键字
+            /// </summary>
+            AppendArray = 1,
+            /// <summary>
+            /// [2] 添加匹配数据关键字 持久化前检查
+            /// KT key 索引关键字
+            /// VT value 匹配数据关键字
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            /// </summary>
+            AppendBeforePersistence = 2,
+            /// <summary>
+            /// [3] 添加匹配数据关键字
+            /// AutoCSer.LeftArray{KT} keys 索引关键字集合
+            /// VT value 匹配数据关键字
+            /// </summary>
+            AppendLeftArray = 3,
+            /// <summary>
+            /// [4] 删除匹配数据关键字
+            /// KT key 索引关键字
+            /// VT value 匹配数据关键字
+            /// 返回值 bool 返回 false 表示关键字数据为 null 或者没有找到索引关键字
+            /// </summary>
+            Remove = 4,
+            /// <summary>
+            /// [5] 删除匹配数据关键字
+            /// KT[] keys 索引关键字
+            /// VT value 匹配数据关键字
+            /// </summary>
+            RemoveArray = 5,
+            /// <summary>
+            /// [6] 删除匹配数据关键字
+            /// KT key 索引关键字
+            /// VT value 匹配数据关键字
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{bool} 
+            /// </summary>
+            RemoveBeforePersistence = 6,
+            /// <summary>
+            /// [7] 删除匹配数据关键字
+            /// AutoCSer.LeftArray{KT} keys 索引关键字
+            /// VT value 匹配数据关键字
+            /// </summary>
+            RemoveLeftArray = 7,
+            /// <summary>
+            /// [8] 快照设置数据
+            /// AutoCSer.BinarySerializeKeyValue{KT,VT[]} value 数据
+            /// </summary>
+            SnapshotSet = 8,
         }
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {

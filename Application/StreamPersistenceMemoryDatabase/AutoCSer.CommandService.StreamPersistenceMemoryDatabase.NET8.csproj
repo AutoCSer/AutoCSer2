@@ -48,6 +48,7 @@
     <Compile Include="Client\ClientNodeCreator.cs" />
     <Compile Include="Client\ClientNodeMethod.cs" />
     <Compile Include="Client\LocalClient.cs" />
+    <Compile Include="Client\LocalKeepCallback.cs" />
     <Compile Include="Client\LocalResult.cs" />
     <Compile Include="Client\ResponseResult.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClient.cs" />
@@ -318,7 +319,6 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNodeCallback.cs" />
-    <Compile Include="Client\LocalKeepCallback.cs" />
     <Compile Include="Server\LocalService\LocalServiceSendOnlyNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallInputNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallInputNodeCallback.cs" />

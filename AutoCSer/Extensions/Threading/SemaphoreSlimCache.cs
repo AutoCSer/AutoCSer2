@@ -29,7 +29,7 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 锁缓存
         /// </summary>
-        private static YieldLink cache;
+        private static LinkStack<SemaphoreSlimCache> cache;
         /// <summary>
         /// 获取锁缓存
         /// </summary>

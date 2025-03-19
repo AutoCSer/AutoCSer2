@@ -18,7 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库服务端
         /// </summary>
-        internal readonly StreamPersistenceMemoryDatabaseService Service;
+        public readonly StreamPersistenceMemoryDatabaseService Service;
         /// <summary>
         /// 是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
         /// </summary>

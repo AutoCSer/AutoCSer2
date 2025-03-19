@@ -22,8 +22,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// 关键字索引节点
         /// </summary>
         /// <param name="diskBlockClient">数据关键字磁盘块索引信息客户端</param>
-        /// <param name="capacity">初始化容器尺寸</param>
-        public SingleDiskBlockRemoveMarkHashKeyIndexNode(IDiskBlockClientSocketEvent diskBlockClient, int capacity = 0) : base(capacity)
+        public SingleDiskBlockRemoveMarkHashKeyIndexNode(IDiskBlockClientSocketEvent diskBlockClient) : base()
         {
             this.diskBlockClient = diskBlockClient;
         }

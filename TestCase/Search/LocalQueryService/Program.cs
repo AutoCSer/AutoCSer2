@@ -1,11 +1,9 @@
 ﻿using AutoCSer.CommandService;
 using AutoCSer.CommandService.DiskBlock;
-using AutoCSer.CommandService.Search;
 using AutoCSer.CommandService.Search.DiskBlockIndex;
 using AutoCSer.CommandService.Search.StaticTrieGraph;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
-using AutoCSer.TestCase.SearchCommon;
 using System;
 using System.IO;
 using System.Threading.Tasks;

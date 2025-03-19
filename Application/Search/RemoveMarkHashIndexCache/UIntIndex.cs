@@ -45,7 +45,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         {
             if (Type == IndexDataTypeEnum.Little)
             {
-                LittleValues.Free();
+                LittleValues.Dispose();
                 Type = IndexDataTypeEnum.NotLoaded;
             }
         }
@@ -56,8 +56,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <param name="key">关键字</param>
         protected UIntIndex(BlockIndexDataCache<KT, VT> cache, KT key) : base(cache, key)
         {
-            LittleValues = EmptyRemoveMarkHashKeyCodeHashSet;
-            manyValues = EmptyReusableHashCodeKeyHashSet;
+            LittleValues = RemoveMarkHashSet.Empty;
+            manyValues = ReusableHashCodeKeyHashSet.Empty;
         }
         /// <summary>
         /// 获取少量数据集合数据量
@@ -66,7 +66,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected override int getRemoveLittleCount()
         {
             int count = LittleValues.Capacity;
-            LittleValues = EmptyRemoveMarkHashKeyCodeHashSet;
+            LittleValues = RemoveMarkHashSet.Empty;
             return count;
         }
         /// <summary>
@@ -76,7 +76,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected override int getRemoveManyCount()
         {
             int count = manyValues.Capacity;
-            manyValues = EmptyReusableHashCodeKeyHashSet;
+            manyValues = ReusableHashCodeKeyHashSet.Empty;
             return count;
         }
         /// <summary>

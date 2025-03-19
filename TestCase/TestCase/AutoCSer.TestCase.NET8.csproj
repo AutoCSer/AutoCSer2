@@ -11,13 +11,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NetStandard21</DefineConstants>
     <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.xml</DocumentationFile>
-    <Optimize>True</Optimize>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>NetStandard21</DefineConstants>
     <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.xml</DocumentationFile>
-    <Optimize>True</Optimize>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -95,6 +95,8 @@
     <Compile Include="Data\JsonStructProperty.cs" />
     <Compile Include="Data\StructProperty.cs" />
     <Compile Include="InterfaceControllerTaskQueue.cs" />
+    <Compile Include="ReusableDictionary.cs" />
+    <Compile Include="SearchTree.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ManyHashBitMapFilterNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ManyHashBitMapClientFilterNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ArrayNode.cs" />

@@ -29,6 +29,22 @@ namespace AutoCSer.CommandService
         /// </summary>
         private AutoCSer.Threading.OnceAutoWaitHandle rebuildCompletedWaitHandle;
         /// <summary>
+        /// 未处理持久化队列首节点
+        /// </summary>
+#if NetStandard21
+        private MethodParameter? persistenceHead;
+#else
+        private MethodParameter persistenceHead;
+#endif
+        /// <summary>
+        /// 未处理持久化队列尾节点
+        /// </summary>
+#if NetStandard21
+        private MethodParameter? persistenceEnd;
+#else
+        private MethodParameter persistenceEnd;
+#endif
+        /// <summary>
         /// 持久化文件头部版本信息
         /// </summary>
         internal uint PersistenceFileHeadVersion;
@@ -146,7 +162,7 @@ namespace AutoCSer.CommandService
                 dispose();
 
                 PersistenceWaitHandle.Set();
-                PersistenceException(PersistenceQueue.GetClear());
+                PersistenceException(PersistenceQueue.Get());
             }
         }
         /// <summary>
@@ -797,7 +813,7 @@ namespace AutoCSer.CommandService
                     }
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData = default(SubArray<byte>);
-                    using (UnmanagedStream outputStream = (outputSerializer = BinarySerializer.YieldPool.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
                     {
                         outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
@@ -809,7 +825,7 @@ namespace AutoCSer.CommandService
                             RESET:
                                 persistenceBuffer.Reset();
                             WAIT:
-                                PersistenceWaitHandle.Wait();
+                                if (persistenceHead == null) PersistenceWaitHandle.Wait();
                                 if (IsDisposed) return;
                                 if (isRebuilderPersistenceWaitting)
                                 {
@@ -827,11 +843,14 @@ namespace AutoCSer.CommandService
 
                                         if (rebuilder.QueuePersistence())
                                         {
-                                            if (head != null)
-                                            {
-                                                PersistenceQueue.IsPushHead(head, end.notNull());
-                                                head = null;
-                                            }
+                                            //if (head != null)
+                                            //{
+                                            //    PersistenceQueue.IsPushHead(head, end.notNull());
+                                            //    head = null;
+                                            //}
+                                            persistenceHead = head;
+                                            persistenceEnd = end;
+                                            head = null;
                                             if (!PersistenceQueue.IsEmpty) PersistenceWaitHandle.IsWait = 1;
                                             isRebuilderPersistenceWaitting = false;
                                             Rebuilder = null;
@@ -842,9 +861,15 @@ namespace AutoCSer.CommandService
                                     }
                                     isRebuilderPersistenceWaitting = false;
                                 }
-                                if (head == null)
+                                if (persistenceHead != null)
                                 {
-                                    if ((current = PersistenceQueue.GetClear(out end)) == null)
+                                    current = head = persistenceHead;
+                                    end = persistenceEnd;
+                                    persistenceEnd = persistenceHead = null;
+                                }
+                                else if (head == null)
+                                {
+                                    if ((current = PersistenceQueue.GetQueue(out end)) == null)
                                     {
                                         if (IsDisposed) return;
                                         goto WAIT;
@@ -854,7 +879,7 @@ namespace AutoCSer.CommandService
                                 else if (current == null)
                                 {
 #pragma warning disable CS8601
-                                    PersistenceQueue.GetToEndClear(ref current, ref end);
+                                    PersistenceQueue.GetQueueToEnd(ref current, ref end);
 #pragma warning restore CS8601
                                     if (current == null)
                                     {
@@ -865,7 +890,7 @@ namespace AutoCSer.CommandService
                                 else
                                 {
 #pragma warning disable CS8601
-                                    PersistenceQueue.GetToEndClear(ref end);
+                                    PersistenceQueue.GetQueueToEnd(ref end);
 #pragma warning restore CS8601
                                 }
                             LOOP:
@@ -953,11 +978,14 @@ namespace AutoCSer.CommandService
                                     persistenceBuffer.Reset();
                                     goto LOOP;
                                 }
-                                if (head != null)
-                                {
-                                    if (PersistenceQueue.IsPushHead(head, end.notNull())) PersistenceWaitHandle.Set();
-                                    head = null;
-                                }
+                                //if (head != null)
+                                //{
+                                //    if (PersistenceQueue.IsPushHead(head, end.notNull())) PersistenceWaitHandle.Set();
+                                //    head = null;
+                                //}
+                                persistenceHead = head;
+                                persistenceEnd = end;
+                                head = null;
                             }
                         }
                         while (true);
@@ -976,7 +1004,10 @@ namespace AutoCSer.CommandService
                 if (!isRebuild)
                 {
                     PersistenceException(head);
-                    PersistenceException(PersistenceQueue.GetClear());
+                    PersistenceException(PersistenceQueue.Get());
+                    head = persistenceHead;
+                    persistenceHead = null;
+                    PersistenceException(persistenceHead);
                 }
             }
         }

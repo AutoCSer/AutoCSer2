@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Algorithm;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace AutoCSer.CommandService.Search.IndexQuery
@@ -18,23 +19,23 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <summary>
         /// 可重用哈希表缓冲区数组
         /// </summary>
-        private ReusableHashNode<T>[][] buffers;
+        private LeftArray<ReusableHashNode<T>[]> buffers;
         /// <summary>
         /// 可重用哈希表集合
         /// </summary>
-        private BufferHashSet<T>[] hashSets;
+        private LeftArray<BufferHashSet<T>> hashSets;
         /// <summary>
         /// 哈希取余
         /// </summary>
         internal IntegerDivision CapacityDivision;
         /// <summary>
-        /// 空闲数组缓冲区数量
+        /// 是否申请了新的缓冲区
         /// </summary>
-        private int count;
+        private bool isGetNewBuffer;
         /// <summary>
-        /// 空闲数组缓冲区数量
+        /// 是否申请了新的缓冲区
         /// </summary>
-        private int hashSetCount;
+        private bool isGetNewHashSet;
         /// <summary>
         /// 可重用哈希表缓冲区池
         /// </summary>
@@ -42,8 +43,8 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         private HashSetPool(int capacity)
         {
             CapacityDivision.Set(capacity);
-            buffers = EmptyArray<ReusableHashNode<T>[]>.Array;
-            hashSets = EmptyArray<BufferHashSet<T>>.Array;
+            buffers = new LeftArray<ReusableHashNode<T>[]>(0);
+            hashSets = new LeftArray<BufferHashSet<T>>(0);
         }
         /// <summary>
         /// 获取数组缓冲区
@@ -51,14 +52,18 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <returns></returns>
         internal ReusableHashNode<T>[] GetBuffer()
         {
-            Monitor.Enter(this);
-            if (count != 0)
+            if (buffers.Length != 0)
             {
-                ReusableHashNode<T>[] buffer = buffers[--count];
+                var buffer = default(ReusableHashNode<T>[]);
+                Monitor.Enter(this);
+                if (buffers.TryPop(out buffer))
+                {
+                    Monitor.Exit(this);
+                    return buffer;
+                }
                 Monitor.Exit(this);
-                return buffer;
             }
-            Monitor.Exit(this);
+            isGetNewBuffer = true;
             return new ReusableHashNode<T>[CapacityDivision.Divisor];
         }
         /// <summary>
@@ -68,17 +73,9 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         internal void Free(ReusableHashNode<T>[] buffer)
         {
             Monitor.Enter(this);
-            if (count != buffers.Length)
-            {
-                buffers[count++] = buffer;
-                Monitor.Exit(this);
-                return;
-            }
             try
             {
-                if (count != 0) buffers = AutoCSer.Common.GetCopyArray(buffers, count << 1);
-                else buffers = new ReusableHashNode<T>[sizeof(int)][];
-                buffers[count++] = buffer;
+                buffers.Add(buffer);
             }
             finally { Monitor.Exit(this); }
         }
@@ -89,21 +86,23 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <returns></returns>
         private BufferHashSet<T> GetHashSet(HashSetPool<T>[] pools)
         {
+            var hashSet = default(BufferHashSet<T>);
+            var buffer = default(ReusableHashNode<T>[]);
             Monitor.Enter(this);
-            if (hashSetCount != 0)
+            if (hashSets.TryPop(out hashSet))
             {
-                BufferHashSet<T> hashSet = hashSets[--hashSetCount];
                 Monitor.Exit(this);
                 hashSet.Clear();
                 return hashSet;
             }
-            if (count != 0)
+            if (buffers.TryPop(out buffer))
             {
-                ReusableHashNode<T>[] buffer = buffers[--count];
                 Monitor.Exit(this);
+                isGetNewHashSet = true;
                 return new BufferHashSet<T>(pools, this, buffer);
             }
             Monitor.Exit(this);
+            isGetNewHashSet = true;
             return new BufferHashSet<T>(pools, this, new ReusableHashNode<T>[CapacityDivision.Divisor]);
         }
         /// <summary>
@@ -113,19 +112,31 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         internal void Free(BufferHashSet<T> hashSet)
         {
             Monitor.Enter(this);
-            if (hashSetCount != hashSets.Length)
-            {
-                hashSets[hashSetCount++] = hashSet;
-                Monitor.Exit(this);
-                return;
-            }
             try
             {
-                if (hashSetCount != 0) hashSets = AutoCSer.Common.GetCopyArray(hashSets, hashSetCount << 1);
-                else hashSets = new BufferHashSet<T>[sizeof(int)];
-                hashSets[hashSetCount++] = hashSet;
+                hashSets.Add(hashSet);
             }
             finally { Monitor.Exit(this); }
+        }
+        /// <summary>
+        /// 释放部分缓冲区
+        /// </summary>
+        public void FreeCache()
+        {
+            if (isGetNewBuffer)
+            {
+                Monitor.Enter(this);
+                buffers.ClearCache();
+                Monitor.Exit(this);
+                isGetNewBuffer = false;
+            }
+            if (isGetNewHashSet)
+            {
+                Monitor.Enter(this);
+                hashSets.ClearCache();
+                Monitor.Exit(this);
+                isGetNewHashSet = false;
+            }
         }
 
         /// <summary>
@@ -178,6 +189,14 @@ namespace AutoCSer.CommandService.Search.IndexQuery
                 if (pool.CapacityDivision.Divisor >= capacity) return pool.GetHashSet(pools);
             }
             return new BufferHashSet<T>(capacity);
+        }
+        /// <summary>
+        /// 释放部分缓冲区
+        /// </summary>
+        /// <param name="pools"></param>
+        public static void FreeCache(HashSetPool<T>[] pools)
+        {
+            foreach (HashSetPool<T> pool in pools) pool.FreeCache();
         }
     }
 }

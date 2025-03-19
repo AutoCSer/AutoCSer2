@@ -4,8 +4,8 @@ using AutoCSer.CommandService.Search.IndexQuery;
 using AutoCSer.CommandService.Search.RemoveMarkHashIndexCache;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
-using AutoCSer.TestCase.SearchCommon;
 using AutoCSer.TestCase.SearchDataSource;
+using AutoCSer.Threading;
 using System;
 using System.Threading.Tasks;
 
@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.SearchQueryService
     /// <summary>
     /// 搜索聚合查询服务
     /// </summary>
-    internal sealed class QueryService : IQueryService, IQueryContext<int, SearchUser>, IDisposable
+    internal sealed class QueryService : AutoCSer.Threading.SecondTimerTaskArrayNode, IQueryService, IQueryContext<int, SearchUser>, IDisposable
     {
         /// <summary>
         /// 关键字数组缓冲区池
@@ -32,10 +32,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// 关键字可重用哈希表缓冲区池
         /// </summary>
         public HashSetPool<int>[] HashSetPool { get; private set; }
-        ///// <summary>
-        ///// 用户搜索非索引条件数据缓存
-        ///// </summary>
-        //private readonly SearchUserCache userCache;
         /// <summary>
         /// 用户名称分词索引缓存
         /// </summary>
@@ -51,12 +47,11 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 搜索聚合查询服务
         /// </summary>
-        internal QueryService()
+        internal QueryService() : base(AutoCSer.Threading.SecondTimer.TaskArray, SecondTimerTaskThreadModeEnum.Synchronous, SecondTimerKeepModeEnum.After)
         {
             IntBufferPool = new ArrayBufferPoolArray<int>(8);
             UserBufferPool = new ArrayBufferPoolArray<SearchUser>(8);
             HashSetPool = HashSetPool<int>.GetArray(256);
-            //userCache = new SearchUserCache(this, 1 << 16);
             NullBufferTask = Task.FromResult(IntBufferPool.GetNull());
             DiskBlockCommandClientSocketEvent diskBlockClient = DiskBlockCommandClientSocketEvent.CommandClient.SocketEvent;
             userNameIndexCache = new SingleDiskBlockUIntKeyIntValueLocalCache(diskBlockClient, LocalDiskBlockIndexServiceConfig.UserNameNodeCache, 1 << 26);
@@ -69,8 +64,19 @@ namespace AutoCSer.TestCase.SearchQueryService
         public void Dispose()
         {
             IsDispose = true;
+            KeepSeconds = 0;
             userNameIndexCache.Dispose();
             userRemarkIndexCache.Dispose();
+        }
+        /// <summary>
+        /// 触发定时操作
+        /// </summary>
+        /// <returns></returns>
+        protected override void OnTimer()
+        {
+            IntBufferPool.FreeCache();
+            UserBufferPool.FreeCache();
+            HashSetPool<int>.FreeCache(HashSetPool);
         }
         /// <summary>
         /// 用户数据更新消息
@@ -81,13 +87,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         {
             if ((data.DataType & OperationDataTypeEnum.SearchUserNode) != 0)
             {
-                //switch (data.OperationType)
-                //{
-                //    case OperationTypeEnum.Update:
-                //    case OperationTypeEnum.Delete:
-                //        userCache.Remove(data.Key);
-                //        break;
-                //}
                 LocalResult<ISearchUserNodeLocalClientNode> node = await LocalSearchUserServiceConfig.SearchUserNodeCache.GetSynchronousNode();
                 if (!node.IsSuccess) return false;
                 LocalResult<ConditionDataUpdateStateEnum> userResult;

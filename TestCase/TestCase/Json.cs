@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase
         /// <summary>
         /// 随机对象生成参数
         /// </summary>
-        internal static readonly AutoCSer.RandomObject.Config RandomConfig = new AutoCSer.RandomObject.Config { IsSecondDateTime = true, IsParseFloat = true };
+        private static readonly AutoCSer.RandomObject.Config randomConfig = new AutoCSer.RandomObject.Config { IsSecondDateTime = true, IsParseFloat = true };
         /// <summary>
         /// 带成员位图的JSON序列化参数配置
         /// </summary>
@@ -40,7 +40,7 @@ namespace AutoCSer.TestCase
         internal static bool TestCase()
         {
             #region 引用类型字段成员JSON序列化测试
-            Field filedData = AutoCSer.RandomObject.Creator<Field>.Create(RandomConfig);
+            Field filedData = AutoCSer.RandomObject.Creator<Field>.Create(randomConfig);
             string jsonString = AutoCSer.JsonSerializer.Serialize(filedData);
             Field newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
@@ -61,7 +61,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 引用类型属性成员JSON序列化测试
-            Property propertyData = AutoCSer.RandomObject.Creator<Property>.Create(RandomConfig);
+            Property propertyData = AutoCSer.RandomObject.Creator<Property>.Create(randomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(propertyData);
             Property newProperty = AutoCSer.JsonDeserializer.Deserialize<Property>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(propertyData, newProperty))
@@ -71,7 +71,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 值类型字段成员JSON序列化测试
-            StructField structField = AutoCSer.RandomObject.Creator<StructField>.Create(RandomConfig);
+            StructField structField = AutoCSer.RandomObject.Creator<StructField>.Create(randomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(structField);
             StructField newStructField = AutoCSer.JsonDeserializer.Deserialize<StructField>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structField, newStructField))
@@ -92,7 +92,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 值类型属性成员JSON序列化测试
-            StructProperty structProperty = AutoCSer.RandomObject.Creator<StructProperty>.Create(RandomConfig);
+            StructProperty structProperty = AutoCSer.RandomObject.Creator<StructProperty>.Create(randomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(structProperty);
             StructProperty newStructProperty = AutoCSer.JsonDeserializer.Deserialize<StructProperty>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(structProperty, newStructProperty))
@@ -102,7 +102,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 16进制整数JSON序列化测试
-            filedData = AutoCSer.RandomObject.Creator<Field>.Create(RandomConfig);
+            filedData = AutoCSer.RandomObject.Creator<Field>.Create(randomConfig);
             jsonString = AutoCSer.JsonSerializer.Serialize(filedData, javascriptDateTimeSerializeConfig);
             newField = AutoCSer.JsonDeserializer.Deserialize<Field>(jsonString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(filedData, newField))
@@ -112,7 +112,7 @@ namespace AutoCSer.TestCase
             #endregion
 
             #region 时间格式JSON序列化测试
-            MemberClass memberClassData = AutoCSer.RandomObject.Creator<MemberClass>.Create(RandomConfig);
+            MemberClass memberClassData = AutoCSer.RandomObject.Creator<MemberClass>.Create(randomConfig);
             memberClassData.DateTime = new DateTime(memberClassData.DateTime.Ticks, DateTimeKind.Local);
             jsonString = AutoCSer.JsonSerializer.Serialize(memberClassData);
             MemberClass newMemberClassData = AutoCSer.JsonDeserializer.Deserialize<MemberClass>(jsonString);
