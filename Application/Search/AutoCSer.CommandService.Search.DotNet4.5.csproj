@@ -127,8 +127,11 @@
     <Compile Include="IndexQuery\IQueryContext.cs" />
     <Compile Include="IndexQuery\QueryCondition.cs" />
     <Compile Include="ConditionData\ConditionDataCache.cs" />
+    <Compile Include="StaticTrieGraph\GrahpHashNode.cs" />
     <Compile Include="StaticTrieGraph\StaticTrieGraphServiceNode.cs" />
     <Compile Include="StaticTrieGraph\IStaticTrieGraphServiceNode.cs" />
+    <Compile Include="StaticTrieGraph\TreeNodeHashCount.cs" />
+    <Compile Include="StaticTrieGraph\WordSegmentFlags.cs" />
     <Compile Include="WordIdentityBlockIndex\LocalService\ILocalNode.cs" />
     <Compile Include="WordIdentityBlockIndex\LocalService\LocalLoadCallback.cs" />
     <Compile Include="WordIdentityBlockIndex\LocalService\LocalNode.cs" />
@@ -142,7 +145,6 @@
     <Compile Include="StaticTrieGraph\GraphBuilder.cs" />
     <Compile Include="StaticTrieGraph\GraphData.cs" />
     <Compile Include="StaticTrieGraph\GraphNode.cs" />
-    <Compile Include="StaticTrieGraph\GraphNode2.cs" />
     <Compile Include="StaticTrieGraph\IStaticTrieGraphNode.cs" />
     <Compile Include="StaticTrieGraph\LinkTypeEnum.cs" />
     <Compile Include="StaticTrieGraph\Simplified.cs" />

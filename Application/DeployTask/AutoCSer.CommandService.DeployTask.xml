@@ -2111,17 +2111,17 @@
             文件上传完成文件集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadCompletedFiles.files">
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadCompletedFiles.Files">
             <summary>
             上传完成文件集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadCompletedFiles.deleteFiles">
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadCompletedFiles.DeleteFiles">
             <summary>
             等待删除的文件集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadCompletedFiles.deleteDirectorys">
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadCompletedFiles.DeleteDirectorys">
             <summary>
             等待删除的目录集合
             </summary>

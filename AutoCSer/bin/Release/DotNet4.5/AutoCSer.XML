@@ -14,22 +14,22 @@
             31b 除数
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.IntegerDivision.shiftBit">
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.ShiftBit">
             <summary>
             除 divisor 转位移乘法位移数量
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.IntegerDivision.multiplier">
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.Multiplier">
             <summary>
             除 divisor 转位移乘法乘数
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.IntegerDivision.highBitMod">
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.HighBitMod">
             <summary>
             最高位 % divisor 模数（余数）
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.IntegerDivision.highBitQuotient">
+        <member name="F:AutoCSer.Algorithm.IntegerDivision.HighBitQuotient">
             <summary>
             最高位 / divisor 商
             </summary>
@@ -11512,6 +11512,11 @@
             Guid
             </summary>
         </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.None">
+            <summary>
+            无意义数据，用于填充对齐数据
+            </summary>
+        </member>
         <member name="F:AutoCSer.Json.BinaryMixTypeEnum.StringByte">
             <summary>
             长度用 1 Byte 表示的字符串
@@ -11525,6 +11530,41 @@
         <member name="F:AutoCSer.Json.BinaryMixTypeEnum.String">
             <summary>
             长度用 4 Byte 表示的字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.ArrayByte">
+            <summary>
+            长度用 1 Byte 表示的数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.ArrayByte3">
+            <summary>
+            长度用 3 Byte 表示的数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Array">
+            <summary>
+            长度用 4 Byte 表示的数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.ArrayFalse">
+            <summary>
+            bool 数组 false
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.ArrayTrue">
+            <summary>
+            bool 数组 true
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.False">
+            <summary>
+            false
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.True">
+            <summary>
+            true
             </summary>
         </member>
         <member name="T:AutoCSer.Json.EnumULongDeserialize`1">
@@ -12189,6 +12229,11 @@
         <member name="F:AutoCSer.Json.DeserializeStateEnum.NotArrayValue">
             <summary>
             数组数据解析错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.ArraySizeError">
+            <summary>
+            数组长度错误
             </summary>
         </member>
         <member name="F:AutoCSer.Json.DeserializeStateEnum.NotEnumChar">
@@ -12905,14 +12950,6 @@
             <param name="jsonSerializer">对象转换JSON字符串</param>
             <param name="value">数据对象</param>
         </member>
-        <member name="M:AutoCSer.Json.TypeSerializer`1.Array(AutoCSer.JsonSerializer,`0[],System.Int32)">
-            <summary>
-            数组序列化
-            </summary>
-            <param name="jsonSerializer"></param>
-            <param name="array">数组对象</param>
-            <param name="count"></param>
-        </member>
         <member name="M:AutoCSer.Json.TypeSerializer`1.Collection(AutoCSer.JsonSerializer,System.Collections.Generic.ICollection{`0})">
             <summary>
             集合序列化
@@ -13317,9 +13354,6 @@
             <summary>
             JSON 反序列化
             </summary>
-            <summary>
-            JSON 反序列化
-            </summary>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumULong``1(``0@)">
             <summary>
@@ -13553,13 +13587,19 @@
             <param name="jsonDeserializer">JSON 反序列化</param>
             <param name="value">目标数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMixArrayLength">
+            <summary>
+            二进制混杂模式反序列化数组长度
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.arrayIndex``1(``0[]@)">
             <summary>
             数组解析
             </summary>
             <typeparam name="T"></typeparam>
             <param name="array">目标数据</param>
-            <returns>数据数量,-1表示失败</returns>
+            <returns>数据数量,-1 表示失败</returns>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.Array``1(AutoCSer.JsonDeserializer,``0[]@)">
             <summary>
@@ -13583,6 +13623,12 @@
             <typeparam name="T"></typeparam>
             <param name="jsonDeserializer">JSON 反序列化</param>
             <param name="value">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchCollection">
+            <summary>
+            查找数组起始位置
+            </summary>
+            <returns>返回 0 表示未结束，返回 1 表示已结束，返回 -1 表示 null 或者错误</returns>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.collection``2(``0@)">
             <summary>
@@ -13680,6 +13726,12 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(System.Byte@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.binaryMixNull(System.Byte@)">
             <summary>
             二进制混杂反序列化
@@ -13692,6 +13744,12 @@
             数字解析
             </summary>
             <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.SByte@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.SByte@)">
             <summary>
@@ -13717,6 +13775,12 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(System.UInt16@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.binaryMixNull(System.UInt16@)">
             <summary>
             二进制混杂反序列化
@@ -13729,6 +13793,12 @@
             数字解析
             </summary>
             <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.Int16@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int16@)">
             <summary>
@@ -13767,6 +13837,12 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.Int32@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int32@)">
             <summary>
             数字解析
@@ -13791,6 +13867,12 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(System.UInt64@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.binaryMixNull(System.UInt64@)">
             <summary>
             二进制混杂反序列化
@@ -13804,7 +13886,19 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.Int64@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Int64@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(System.Int64@)">
             <summary>
             数字解析
             </summary>
@@ -13872,6 +13966,12 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.DateTime@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.DateTime@)">
             <summary>
             时间解析
@@ -13883,6 +13983,12 @@
             时间解析
             </summary>
             <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.binaryMix(System.TimeSpan@)">
+            <summary>
+            二进制混杂反序列化
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.TimeSpan@)">
             <summary>
@@ -13976,6 +14082,19 @@
             </summary>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Boolean[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Boolean[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.searchEscapeEnd">
             <summary>
             查找转义字符串结束位置
@@ -14015,14 +14134,32 @@
             是否存在下一个数组数据
             </summary>
             <returns>是否存在下一个数组数据</returns>
+            <summary>
+            获取成员名称第一个字符
+            </summary>
+            <returns>第一个字符,0表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.isNextArrayValue">
+            <summary>
+            是否存在下一个数组数据
+            </summary>
+            <returns>是否存在下一个数组数据</returns>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.SearchArray``1(``0[]@)">
             <summary>
             查找数组起始位置
             </summary>
             <typeparam name="T">数据类型</typeparam>
-            <param name="value">目标数组</param>
-            <returns></returns>
+            <param name="array">目标数组</param>
+            <returns>返回 0 表示未结束，返回 1 表示已结束，返回 -1 表示 null 或者错误</returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.searchBinaryMixArraySize``1(``0[]@)">
+            <summary>
+            获取数组长度
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <returns>返回 true 表示需要继续解析数组, array.Length 为 0 表示未知长度</returns>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.searchArraySize``1(``0[]@)">
             <summary>
@@ -14030,7 +14167,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="array"></param>
-            <returns></returns>
+            <returns>返回 true 表示需要继续解析数组</returns>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.IsEnumNumberUnsigned">
             <summary>
@@ -14763,19 +14900,6 @@
             <param name="jsonDeserializer"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.Boolean[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="array"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Boolean[]@)">
-            <summary>
-            数组反序列化
-            </summary>
-            <param name="jsonDeserializer"></param>
-            <param name="value"></param>
-        </member>
         <member name="M:AutoCSer.JsonDeserializer.PrimitiveDeserialize(System.DateTime[]@)">
             <summary>
             数组反序列化
@@ -15449,6 +15573,12 @@
             <param name="jsonSerializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMixArrayLength(System.Int32)">
+            <summary>
+            二进制混杂序列化数组长度
+            </summary>
+            <param name="length"></param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.array``1(``0[])">
             <summary>
             数组序列化
@@ -15586,7 +15716,19 @@
             </summary>
             <param name="value">数字</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.Byte)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.SByte)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.SByte)">
             <summary>
             数字转换
             </summary>
@@ -15604,7 +15746,19 @@
             </summary>
             <param name="value">数字</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.Int16)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.UInt16)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.UInt16)">
             <summary>
             数字转换
             </summary>
@@ -15622,7 +15776,19 @@
             </summary>
             <param name="value">数字</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.Int32)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.UInt32)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.UInt32)">
             <summary>
             数字转换
             </summary>
@@ -15640,7 +15806,19 @@
             </summary>
             <param name="value">数字</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.Int64)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.UInt64)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.UInt64)">
             <summary>
             数字转换
             </summary>
@@ -15670,6 +15848,12 @@
             </summary>
             <param name="value">字符</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMix(System.DateTime)">
+            <summary>
+            二进制混杂序列化
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.DateTime)">
             <summary>
             时间转换
@@ -15681,6 +15865,12 @@
             时间转换
             </summary>
             <param name="value">时间</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.binaryMix(System.TimeSpan)">
+            <summary>
+            二进制混杂序列化
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.TimeSpan)">
             <summary>
@@ -42411,6 +42601,14 @@
             添加数据集合
             </summary>
             <param name="array">数据集合</param>
+        </member>
+        <member name="M:AutoCSer.LeftArray`1.Add(`0[],System.Int32,System.Int32)">
+            <summary>
+            添加数据集合
+            </summary>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
         </member>
         <member name="M:AutoCSer.LeftArray`1.Append(`0[])">
             <summary>

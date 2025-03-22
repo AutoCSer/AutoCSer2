@@ -5635,12 +5635,12 @@
             多哈希位图数据
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.map">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.Map">
             <summary>
             位图数据
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.sizeDivision">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.SizeDivision">
             <summary>
             位数量取余操作
             </summary>

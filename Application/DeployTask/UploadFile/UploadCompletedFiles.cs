@@ -14,22 +14,22 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 上传完成文件集合
         /// </summary>
-        private readonly UploadCompletedFileName[] files;
+        internal readonly UploadCompletedFileName[] Files;
         /// <summary>
         /// 等待删除的文件集合
         /// </summary>
-        private readonly UploadCompletedFileName[] deleteFiles;
+        internal readonly UploadCompletedFileName[] DeleteFiles;
         /// <summary>
         /// 等待删除的目录集合
         /// </summary>
-        private readonly UploadCompletedFileName[] deleteDirectorys;
+        internal readonly UploadCompletedFileName[] DeleteDirectorys;
         /// <summary>
         /// 文件上传完成文件集合
         /// </summary>
         private UploadCompletedFiles()
         {
 #if NetStandard21
-            files = deleteFiles = deleteDirectorys = EmptyArray<UploadCompletedFileName>.Array;
+            Files = DeleteFiles = DeleteDirectorys = EmptyArray<UploadCompletedFileName>.Array;
 #endif
         }
         /// <summary>
@@ -38,9 +38,9 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="fileUploader"></param>
         internal UploadCompletedFiles(FileUploader fileUploader)
         {
-            files = fileUploader.UploadCompletedFiles.GetArray(p => new UploadCompletedFileName(p));
-            deleteFiles = fileUploader.DeleteFiles.GetArray(p => new UploadCompletedFileName(p));
-            deleteDirectorys = fileUploader.DeleteDirectorys.GetArray(p => new UploadCompletedFileName(p));
+            Files = fileUploader.UploadCompletedFiles.GetArray(p => new UploadCompletedFileName(p));
+            DeleteFiles = fileUploader.DeleteFiles.GetArray(p => new UploadCompletedFileName(p));
+            DeleteDirectorys = fileUploader.DeleteDirectorys.GetArray(p => new UploadCompletedFileName(p));
         }
         /// <summary>
         /// 上传完成最后移动文件操作
@@ -48,7 +48,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <returns></returns>
         private async Task completed()
         {
-            foreach (UploadCompletedFileName file in files)
+            foreach (UploadCompletedFileName file in Files)
             {
                 if (await AutoCSer.Common.FileExists(file.FileName))
                 {
@@ -59,8 +59,8 @@ namespace AutoCSer.CommandService.DeployTask
                 }
                 else await AutoCSer.Common.FileMove(file.BackupFileName, file.FileName);
             }
-            foreach (UploadCompletedFileName file in deleteFiles) await AutoCSer.Common.FileMove(file.FileName, file.BackupFileName);
-            foreach (UploadCompletedFileName directory in deleteDirectorys) await AutoCSer.Common.DirectoryMove(directory.FileName, directory.BackupFileName);
+            foreach (UploadCompletedFileName file in DeleteFiles) await AutoCSer.Common.FileMove(file.FileName, file.BackupFileName);
+            foreach (UploadCompletedFileName directory in DeleteDirectorys) await AutoCSer.Common.DirectoryMove(directory.FileName, directory.BackupFileName);
         }
 
         /// <summary>

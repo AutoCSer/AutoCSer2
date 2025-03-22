@@ -15,23 +15,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 位图数据
         /// </summary>
-        private ulong[] map;
+        internal ulong[] Map;
         /// <summary>
         /// 位数量取余操作
         /// </summary>
-        private IntegerDivision sizeDivision;
+        internal IntegerDivision SizeDivision;
         /// <summary>
         /// 位图大小（位数量）
         /// </summary>
-        internal int Size { get { return (int)sizeDivision.Divisor; } }
+        internal int Size { get { return (int)SizeDivision.Divisor; } }
         /// <summary>
         /// 设置位图大小
         /// </summary>
         /// <param name="size"></param>
         internal void Set(int size)
         {
-            sizeDivision.Set(Math.Max(size, 2));
-            map = new ulong[(long)Size + 63 >> 6];
+            SizeDivision.Set(Math.Max(size, 2));
+            Map = new ulong[(long)Size + 63 >> 6];
         }
         /// <summary>
         /// 获取位数据
@@ -53,8 +53,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             ulong value = 1UL << (bit & 63);
             int index = bit >> 6;
-            if ((map[index] & value) != 0) return false;
-            map[index] |= value;
+            if ((Map[index] & value) != 0) return false;
+            Map[index] |= value;
             return true;
         }
         /// <summary>
@@ -65,7 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int GetBitByHashCode(uint hashCode)
         {
-            return (int)sizeDivision.GetMod(hashCode);
+            return (int)SizeDivision.GetMod(hashCode);
             //int bit = hashCode % Size;
             //return bit >= 0 ? bit : (bit + Size);
         }
@@ -77,7 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal ulong GetBitValue(int bit)
         {
-            return map[bit >> 6] & (1UL << (bit & 63));
+            return Map[bit >> 6] & (1UL << (bit & 63));
         }
         /// <summary>
         /// 获取位数据
@@ -96,12 +96,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal unsafe bool Merge(ManyHashBitMap map)
         {
-            if (((Size ^ map.Size) | (this.map.Length ^ map.map.Length)) == 0)
+            if (((Size ^ map.Size) | (this.Map.Length ^ map.Map.Length)) == 0)
             {
-                fixed (ulong* mapFixed = this.map, mergeMapFixed = map.map)
+                fixed (ulong* mapFixed = this.Map, mergeMapFixed = map.Map)
                 {
                     byte* read = (byte*)mergeMapFixed, write = (byte*)mapFixed;
-                    int length = this.map.Length;
+                    int length = this.Map.Length;
                     while (length >= 4)
                     {
                         *(ulong*)write |= *(ulong*)read;
@@ -132,7 +132,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void SetBit(int bit)
         {
-            map[bit >> 6] |= 1UL << (bit & 63);
+            Map[bit >> 6] |= 1UL << (bit & 63);
         }
     }
 }

@@ -9,93 +9,81 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
     /// </summary>
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal struct GraphNode
+    internal struct GrahpNode
     {
         /// <summary>
         /// 词语编号
         /// </summary>
-        private int identity;
+        internal int Identity;
         /// <summary>
         /// 失败节点数组索引位置
         /// </summary>
-        private int linkIndex;
+        internal int LinkIndex;
         /// <summary>
         /// 子节点集合数组起始位置
         /// </summary>
-        private int nodeStartIndex;
-        /// <summary>
-        /// 子节点集合数组结束位置
-        /// </summary>
-        private int nodeEndIndex;
-        /// <summary>
-        /// 是否存在子节点
-        /// </summary>
-        private bool isNodeArray
-        {
-            get { return nodeStartIndex != nodeEndIndex; }
-        }
-        /// <summary>
-        /// 词语长度
-        /// </summary>
-        private int length;
+        internal int NodeIndex;
         /// <summary>
         /// 文字
         /// </summary>
         internal char Character;
         /// <summary>
-        /// 失败节点类型
+        /// 词语长度
         /// </summary>
-        private LinkTypeEnum linkType;
+        internal byte Length;
         /// <summary>
-        /// 分布式节点编号
+        /// 低2b表示失败节点类型，最高位表示是否最后一个节点
         /// </summary>
-        internal byte DistributedIndex;
+        internal byte LinkType;
         /// <summary>
-        /// 设置 Trie 树节点数据
+        /// 初始化节点数据
         /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="length">词语长度</param>
-        /// <param name="node">Trie 树节点</param>
-        internal void Set(GraphBuilder builder, int length, ref TreeNode node)
+        /// <param name="node"></param>
+        /// <param name="nodeIndex"></param>
+        /// <param name="length"></param>
+        /// <param name="isLastNode"></param>
+        internal void Set(TreeNode node, int nodeIndex, byte length, bool isLastNode)
         {
-            identity = node.Identity;
-            this.length = length;
-            Character = node.Character;
-            int nodeCount = node.NodeCount;
-            if (nodeCount != 0)
-            {
-                nodeStartIndex = builder.NodeIndex;
-                int index = 0, nextLength = length + 1;
-                GraphNode[] nodeArray = builder.NodeArray;
-                TreeNode[] nodes = node.Nodes;
-                builder.NodeIndex = nodeEndIndex = nodeStartIndex + nodeCount;
-                if (nodeCount > 7) nodes.QuickSort(nodeCount, TreeNode.GetCharacter);
-                do
-                {
-                    nodeArray[nodeStartIndex + index].Set(builder, nextLength, ref nodes[index]);
-                }
-                while (++index != nodeCount);
-            }
+            Identity = node.Identity;
+            this.NodeIndex = nodeIndex;
+            Character = (char)node.Character;
+            this.Length = length;
+            if (isLastNode) LinkType |= 0x80;
         }
         /// <summary>
-        /// 三级节点建图
+        /// 建图
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="link">二级节点索引范围</param>
-        /// <returns>是否存在子节点</returns>
-        internal bool BuildGraph(GraphBuilder builder, Range link)
+        /// <param name="node"></param>
+        /// <param name="nodeIndex"></param>
+        /// <returns></returns>
+        internal bool BuildGraph(GraphBuilder builder, GrahpHashNode node, out int nodeIndex)
         {
-            if (link.EndIndex != 0)
+            setLinkTypeHashNode(builder, builder.GetLinkIndex(node.GetLinkCharacters(Character)));
+            nodeIndex = this.NodeIndex;
+            return (LinkType & 0x80) == 0;
+        }
+        /// <summary>
+        /// 设置失败节点类型
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="linkIndex"></param>
+        private void setLinkTypeHashNode(GraphBuilder builder, int linkIndex)
+        {
+            if (linkIndex != 0)
             {
-                linkIndex = builder.GetLink2(link.StartIndex, link.EndIndex, Character);
-                if (linkIndex >= 0)
+                GrahpHashNode node = builder.HashNodes[linkIndex];
+                if (Identity == 0)
                 {
-                    linkType = LinkTypeEnum.Node2;
-                    return nodeStartIndex != nodeEndIndex;
+                    Identity = node.Identity;
+                    if (Identity != 0) Length = 2;
+                }
+                if (node.NodeIndex != 0)
+                {
+                    LinkIndex = linkIndex;
+                    LinkType |= (byte)LinkTypeEnum.HashNode;
                 }
             }
-            linkType = builder.GetLinkType(Character);
-            return nodeStartIndex != nodeEndIndex;
         }
         /// <summary>
         /// 建图
@@ -103,180 +91,122 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <param name="builder"></param>
         internal void BuildGraph(GraphBuilder builder)
         {
-            if (nodeStartIndex != nodeEndIndex)
+            GrahpNode[] nodes = builder.Nodes;
+            for (int nodeIndex = NodeIndex, nextNodeIndex; nodes[nodeIndex].buildGraph(builder, ref this, out nextNodeIndex); ++nodeIndex)
             {
-                GraphNode[] nodeArray = builder.NodeArray;
-                for (int index = nodeStartIndex; index != nodeEndIndex; ++index)
-                {
-                    if (nodeArray[index].buildGraph(builder, ref this)) builder.BuildGraphIndexs.Add(index);
-                }
+                if (nextNodeIndex != 0) builder.BuildGraphIndexs.Add(nodeIndex);
             }
         }
         /// <summary>
         /// 建图
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="parent">父节点</param>
-        /// <returns>是否存在子节点</returns>
-        private bool buildGraph(GraphBuilder builder, ref GraphNode parent)
+        /// <param name="parent"></param>
+        /// <param name="nodeIndex"></param>
+        /// <returns></returns>
+        private bool buildGraph(GraphBuilder builder, ref GrahpNode parent, out int nodeIndex)
         {
-            switch (parent.linkType)
+            buildGraph(builder, ref parent);
+            nodeIndex = this.NodeIndex;
+            return (LinkType & 0x80) == 0;
+        }
+        /// <summary>
+        /// 建图
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="parent"></param>
+        private void buildGraph(GraphBuilder builder, ref GrahpNode parent)
+        {
+            if (parent.LinkIndex != 0)
             {
-                case LinkTypeEnum.Node:
-                    int parentLinkIndex = parent.linkIndex;
-                    do
+                int linkIndex;
+                switch (parent.LinkType & 0x7f)
+                {
+                    case (byte)LinkTypeEnum.HashNode: linkIndex = builder.HashNodes[parent.LinkIndex].GetLinkIndex(builder.Nodes, Character); break;
+                    case (byte)LinkTypeEnum.Node: linkIndex = builder.Nodes[parent.LinkIndex].getLinkIndex(builder, Character); break;
+                    default: linkIndex = 0; break;
+                }
+                if (linkIndex != 0)
+                {
+                    GrahpNode node = builder.Nodes[linkIndex];
+                    if (Identity == 0) node.copyLinkWord(ref this);
+                    if (node.NodeIndex != 0)
                     {
-                        GraphNode node = builder.NodeArray[parentLinkIndex];
-                        if (node.isNodeArray)
-                        {
-                            int index = node.nodeStartIndex, endIndex = node.nodeStartIndex;
-                            GraphNode[] nodeArray = builder.NodeArray;
-                            do
-                            {
-                                GraphNode checkNode = nodeArray[index];
-                                if (checkNode.Character == Character)
-                                {
-                                    if (checkNode.isNodeArray)
-                                    {
-                                        linkIndex = index;
-                                        linkType = LinkTypeEnum.Node;
-                                        return nodeStartIndex != nodeEndIndex;
-                                    }
-                                    break;
-                                }
-                            }
-                            while (++index != endIndex);
-                        }
-                        switch (node.linkType)
-                        {
-                            case LinkTypeEnum.None: goto NONE;
-                            case LinkTypeEnum.Range: goto RANGE;
-                            case LinkTypeEnum.Node2:
-                                parentLinkIndex = node.linkIndex;
-                                goto NODE2;
-                            case LinkTypeEnum.Node:
-                                parentLinkIndex = node.linkIndex;
-                                break;
-                        }
+                        LinkIndex = linkIndex;
+                        LinkType |= (byte)LinkTypeEnum.Node;
                     }
-                    while (true);
-                case LinkTypeEnum.Node2:
-                    parentLinkIndex = parent.linkIndex;
-                NODE2:
-                    GraphNode2 node2 = builder.NodeArray2[parentLinkIndex];
-                    if (node2.IsNodeArray)
-                    {
-                        int index = node2.NodeStartIndex, endIndex = node2.NodeStartIndex;
-                        GraphNode[] nodeArray = builder.NodeArray;
-                        do
-                        {
-                            GraphNode node = nodeArray[index];
-                            if (node.Character == Character)
-                            {
-                                if (node.isNodeArray)
-                                {
-                                    linkIndex = index;
-                                    linkType = LinkTypeEnum.Node;
-                                    return nodeStartIndex != nodeEndIndex;
-                                }
-                                goto RANGE;
-                            }
-                        }
-                        while (++index != endIndex);
-                    }
-                    goto RANGE;
-                case LinkTypeEnum.Range:
-                RANGE:
-                    linkIndex = builder.GetLink2(parent.Character, Character);
-                    if (linkIndex >= 0)
-                    {
-                        linkType = LinkTypeEnum.Node2;
-                        return nodeStartIndex != nodeEndIndex;
-                    }
-                    break;
+                    else node.copyLinkIndex(ref this);
+                    return;
+                }
             }
-        NONE:
-            linkType = builder.GetLinkType(Character);
-            return nodeStartIndex != nodeEndIndex;
+            setLinkTypeHashNode(builder, builder.GetLinkIndex(((uint)Character << 16) | (uint)parent.Character));
         }
         /// <summary>
-        /// 获取词语编号
+        /// 获取失败节点的词语信息
         /// </summary>
-        /// <param name="length">词语长度</param>
-        /// <returns></returns>
+        /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal int GetIdentity(ref int length)
+        private void copyLinkWord(ref GrahpNode node)
         {
-            length = this.length;
-            return identity;
+            node.Identity = Identity;
+            node.Length = Length;
         }
         /// <summary>
-        /// 获取失败节点类型
+        /// 获取失败节点的失败节点数据
         /// </summary>
-        /// <param name="linkIndex">失败节点数组索引位置</param>
-        /// <returns></returns>
+        /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal LinkTypeEnum GetLinkType(ref int linkIndex)
+        private void copyLinkIndex(ref GrahpNode node)
         {
-            linkIndex = this.linkIndex;
-            return linkType;
+            if (LinkIndex != 0)
+            {
+                node.LinkIndex = LinkIndex;
+                node.LinkType |= (byte)(LinkType & 0x7f);
+            }
         }
         /// <summary>
-        /// 获取匹配的节点索引位置
+        /// 检查字符是否匹配
         /// </summary>
-        /// <param name="nodeArray"></param>
+        /// <param name="character"></param>
+        /// <param name="isNext">是否需要匹配下一个节点</param>
+        /// <returns></returns>
+        internal bool Check(char character, out bool isNext)
+        {
+            if (Character == character)
+            {
+                isNext = false;
+                return true;
+            }
+            isNext = Character < character && (LinkType & 0x80) == 0;
+            return false;
+        }
+        /// <summary>
+        /// 获取失败节点索引位置
+        /// </summary>
+        /// <param name="builder"></param>
         /// <param name="character"></param>
         /// <returns></returns>
-        internal int GetIndex(GraphNode[] nodeArray, char character)
+        private int getLinkIndex(GraphBuilder builder, char character)
         {
-            int startIndex = nodeStartIndex;
-            switch (nodeEndIndex - nodeStartIndex)
+            if (NodeIndex != 0)
             {
-                case 0: return -1;
-                case 1: goto COUNT1;
-                case 2: goto COUNT2;
-                case 3: goto COUNT3;
-                case 4: goto COUNT4;
-                case 5: goto COUNT5;
-                case 6: goto COUNT6;
-                case 7:
-                    if (nodeArray[startIndex + 6].Character == character) return startIndex + 6;
-                    COUNT6:
-                    if (nodeArray[startIndex + 5].Character == character) return startIndex + 5;
-                    COUNT5:
-                    if (nodeArray[startIndex + 4].Character == character) return startIndex + 4;
-                    COUNT4:
-                    if (nodeArray[startIndex + 3].Character == character) return startIndex + 3;
-                    COUNT3:
-                    if (nodeArray[startIndex + 2].Character == character) return startIndex + 2;
-                    COUNT2:
-                    if (nodeArray[startIndex + 1].Character == character) return startIndex + 1;
-                    COUNT1:
-                    if (nodeArray[startIndex].Character == character) return startIndex;
-                    return -1;
-                default:
-                    int endIndex = nodeEndIndex, average;
-                    do
-                    {
-                        if (character > nodeArray[average = startIndex + ((endIndex - startIndex) >> 1)].Character) startIndex = average + 1;
-                        else endIndex = average;
-                    }
-                    while (startIndex != endIndex);
-                    return startIndex != nodeEndIndex && nodeArray[startIndex].Character == character ? startIndex : -1;
+                int nodeIndex = NodeIndex;
+                bool isNext;
+                for (GrahpNode[] nodes = builder.Nodes; !nodes[nodeIndex].Check(character, out isNext); ++nodeIndex)
+                {
+                    if (!isNext) return 0;
+                }
+                return nodeIndex;
             }
-            //for (int index = nodeStartIndex; index != nodeEndIndex; ++index)
-            //{
-            //    if (nodeArray[index].Character == character)
-            //    {
-            //        if (index == nodeStartIndex) return index;
-            //        int newIndex = (index + nodeStartIndex) >> 1;
-            //        GraphNode node = nodeArray[index];
-            //        nodeArray[index] = nodeArray[newIndex];
-            //        nodeArray[newIndex] = node;
-            //        return newIndex;
-            //    }
-            //}
-            //return -1;
+            if (LinkIndex != 0)
+            {
+                switch (LinkType & 0x7f)
+                {
+                    case (byte)LinkTypeEnum.HashNode: return builder.HashNodes[LinkIndex].GetLinkIndex(builder.Nodes, Character);
+                    case (byte)LinkTypeEnum.Node: return builder.Nodes[LinkIndex].getLinkIndex(builder, character);
+                }
+            }
+            return 0;
         }
     }
 }

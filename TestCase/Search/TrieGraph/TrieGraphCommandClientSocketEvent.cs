@@ -59,7 +59,7 @@ namespace AutoCSer.TestCase.SearchTrieGraph
         /// <summary>
         /// 字符串 Trie 图节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> StaticTrieGraphNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IStaticTrieGraphNodeClientNode>(nameof(StaticTrieGraphNode), (index, key, nodeInfo) => client.ClientNode.CreateStaticTrieGraphNode(index, key, nodeInfo, 256, false, null)));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> StaticTrieGraphNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IStaticTrieGraphNodeClientNode>(nameof(StaticTrieGraphNode), (index, key, nodeInfo) => client.ClientNode.CreateStaticTrieGraphNode(index, key, nodeInfo, 8, 64, 0, null)));
 
         /// <summary>
         /// 添加词语
@@ -82,7 +82,7 @@ namespace AutoCSer.TestCase.SearchTrieGraph
             }
             if (isGraph.Value) return true;
 
-            string[] words = new string[] { "吹牛", "牛B", "现在", "将来", "曾经", "以后", "努力", "张三丰" };
+            string[] words = new string[] { "吹牛", "牛B", "现在", "将来", "曾经", "以后", "努力", "张三丰", "吹牛B", "牛B大王" };
             foreach(string word in words)
             {
                 ResponseResult<AppendWordStateEnum> state = await node.AppendWord(word);

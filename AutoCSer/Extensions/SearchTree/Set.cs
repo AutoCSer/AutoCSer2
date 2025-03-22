@@ -16,7 +16,7 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 二叉搜索树集合节点
         /// </summary>
-        private sealed class Node : Node<Node, T>
+        internal sealed class Node : Node<Node, T>
         {
             /// <summary>
             /// 二叉搜索树集合
@@ -189,16 +189,16 @@ namespace AutoCSer.SearchTree
         /// 根节点
         /// </summary>
 #if NetStandard21
-        private Node? boot;
+        internal Node? Boot;
 #else
-        private Node boot;
+        internal Node Boot;
 #endif
         /// <summary>
         /// 节点数据
         /// </summary>
         public int Count
         {
-            get { return boot != null ? boot.Count : 0; }
+            get { return Boot != null ? Boot.Count : 0; }
         }
         /// <summary>
         /// 获取树高度，时间复杂度 O(n)
@@ -207,7 +207,7 @@ namespace AutoCSer.SearchTree
         {
             get
             {
-                return boot == null ? 0 : boot.Height;
+                return Boot == null ? 0 : Boot.Height;
             }
         }
         /// <summary>
@@ -217,7 +217,7 @@ namespace AutoCSer.SearchTree
         {
             get
             {
-                return boot != null && boot.Count != 0 ? boot.Values : EmptyArray<T>.Array;
+                return Boot != null && Boot.Count != 0 ? Boot.Values : EmptyArray<T>.Array;
             }
         }
         /// <summary>
@@ -227,7 +227,7 @@ namespace AutoCSer.SearchTree
         {
             get
             {
-                if (boot != null) return boot.Frist;
+                if (Boot != null) return Boot.Frist;
                 throw new IndexOutOfRangeException();
             }
         }
@@ -238,7 +238,7 @@ namespace AutoCSer.SearchTree
         {
             get
             {
-                if (boot != null) return boot.Last;
+                if (Boot != null) return Boot.Last;
                 throw new IndexOutOfRangeException();
             }
         }
@@ -252,7 +252,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
-            boot = null;
+            Boot = null;
         }
         /// <summary>
         /// 添加数据
@@ -262,12 +262,12 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Add(T key)
         {
-            if (boot == null)
+            if (Boot == null)
             {
-                boot = new Node(key);
+                Boot = new Node(key);
                 return true;
             }
-            return boot.Add(key);
+            return Boot.Add(key);
         }
         /// <summary>
         /// 根据关键字删除节点
@@ -276,12 +276,12 @@ namespace AutoCSer.SearchTree
         /// <returns>是否存在关键字</returns>
         public bool Remove(T key)
         {
-            if (boot != null)
+            if (Boot != null)
             {
-                var node = boot.Remove(key);
+                var node = Boot.Remove(key);
                 if (node != null)
                 {
-                    if (node == boot) boot = node.Remove();
+                    if (node == Boot) Boot = node.Remove();
                     return true;
                 }
             }
@@ -295,7 +295,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(T key)
         {
-            return boot != null && boot.Get(key) != null;
+            return Boot != null && Boot.Get(key) != null;
         }
         /// <summary>
         /// 根据关键字获取一个匹配节点位置
@@ -305,7 +305,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(T key)
         {
-            return boot != null ? boot.IndexOf(key) : -1;
+            return Boot != null ? Boot.IndexOf(key) : -1;
         }
         /// <summary>
         /// 根据关键字比它小的节点数量
@@ -315,7 +315,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountLess(T key)
         {
-            return boot != null ? boot.CountLess(key) : 0;
+            return Boot != null ? Boot.CountLess(key) : 0;
         }
         /// <summary>
         /// 根据关键字比它大的节点数量
@@ -325,7 +325,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountThan(T key)
         {
-            return boot != null ? boot.CountThan(key) : 0;
+            return Boot != null ? Boot.CountThan(key) : 0;
         }
         /// <summary>
         /// 根据节点位置获取数据
@@ -335,7 +335,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T At(int index)
         {
-            if (boot != null && (uint)index < (uint)boot.Count) return boot.At(index).Key;
+            if (Boot != null && (uint)index < (uint)Boot.Count) return Boot.At(index).Key;
             throw new IndexOutOfRangeException();
         }
 
@@ -348,7 +348,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal T[] GetRange(int skipCount, int getCount)
         {
-            return boot != null ? boot.GetKeyArray(skipCount, getCount) : EmptyArray<T>.Array;
+            return Boot != null ? Boot.GetKeyArray(skipCount, getCount) : EmptyArray<T>.Array;
         }
         /// <summary>
         /// 获取范围数据集合
@@ -359,10 +359,10 @@ namespace AutoCSer.SearchTree
         /// <returns>数据集合</returns>
         internal AT[] GetRange<AT>(int skipCount, int getCount, Func<T, AT> getValue)
         {
-            if (boot != null && skipCount < boot.Count)
+            if (Boot != null && skipCount < Boot.Count)
             {
-                PageArray<T, AT> array = new PageArray<T, AT> { Array = new AT[Math.Min(boot.Count - skipCount, getCount)], SkipCount = skipCount, GetValue = getValue };
-                boot.GetArraySkip(ref array);
+                PageArray<T, AT> array = new PageArray<T, AT> { Array = new AT[Math.Min(Boot.Count - skipCount, getCount)], SkipCount = skipCount, GetValue = getValue };
+                Boot.GetArraySkip(ref array);
                 return array.Array;
             }
             return EmptyArray<AT>.Array;
@@ -376,7 +376,7 @@ namespace AutoCSer.SearchTree
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal T[] GetRangeDesc(int skipCount, int getCount)
         {
-            return boot != null ? boot.GetDescKeyArray(skipCount, getCount) : EmptyArray<T>.Array;
+            return Boot != null ? Boot.GetDescKeyArray(skipCount, getCount) : EmptyArray<T>.Array;
         }
         /// <summary>
         /// 获取逆序范围数据集合
@@ -387,11 +387,11 @@ namespace AutoCSer.SearchTree
         /// <returns>数据集合</returns>
         internal AT[] GetRangeDesc<AT>(int skipCount, int getCount, Func<T, AT> getValue)
         {
-            if (boot != null && skipCount < boot.Count)
+            if (Boot != null && skipCount < Boot.Count)
             {
-                getCount = Math.Min(boot.Count - skipCount, getCount);
-                PageArray<T, AT> array = new PageArray<T, AT> { Array = new AT[getCount], SkipCount = boot.Count - (skipCount + getCount), Index = getCount, GetValue = getValue };
-                boot.GetDescArraySkip(ref array);
+                getCount = Math.Min(Boot.Count - skipCount, getCount);
+                PageArray<T, AT> array = new PageArray<T, AT> { Array = new AT[getCount], SkipCount = Boot.Count - (skipCount + getCount), Index = getCount, GetValue = getValue };
+                Boot.GetDescArraySkip(ref array);
                 return array.Array;
             }
             return EmptyArray<AT>.Array;
@@ -405,7 +405,7 @@ namespace AutoCSer.SearchTree
         /// <returns></returns>
         public bool Check(int count)
         {
-            return boot != null ? boot.Check(count) : (count == 0);
+            return Boot != null ? Boot.Check(count) : (count == 0);
         }
 #endif
     }

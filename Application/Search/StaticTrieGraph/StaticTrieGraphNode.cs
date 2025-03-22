@@ -1,4 +1,5 @@
 ﻿using AutoCSer;
+using AutoCSer.Algorithm;
 using AutoCSer.CommandService.Search.StaticTrieGraph;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
@@ -23,17 +24,25 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         internal readonly string ReplaceChars;
         /// <summary>
-        /// 词语最大文字长度
+        /// Trie 词语最大文字长度
         /// </summary>
-        private readonly int maxWordSize;
+        private readonly byte maxTrieWordSize;
         /// <summary>
-        /// 是否支持单字符搜索结果
+        /// 未知词语最大文字长度
         /// </summary>
-        private readonly bool isSingleCharacter;
+        private readonly byte maxWordSize;
+        /// <summary>
+        /// 分词选项
+        /// </summary>
+        private readonly WordSegmentFlags wordSegmentFlags;
         /// <summary>
         /// 分词类型
         /// </summary>
         private WordSegmentTypeEnum wordSegmentType;
+        /// <summary>
+        /// 当前未知词语字符串位置
+        /// </summary>
+        private int wordStringIndex;
         /// <summary>
         /// Trie 图序列化数据
         /// </summary>
@@ -63,10 +72,6 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         private string wordString;
         /// <summary>
-        /// 当前未知词语字符串位置
-        /// </summary>
-        private int wordStringIndex;
-        /// <summary>
         /// Trie 树初始化创建器
         /// </summary>
 #if NetStandard21
@@ -77,23 +82,25 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 字符串 Trie 图节点
         /// </summary>
-        /// <param name="maxWordSize">词语最大文字长度</param>
-        /// <param name="isSingleCharacter">默认为 false 表示不支持单字符搜索结果，未设置中文词库将无法搜索中文内容；设置为 true 会造成索引占用大量内存</param>
+        /// <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+        /// <param name="maxWordSize">未知词语最大文字长度</param>
+        /// <param name="wordSegmentFlags">分词选项</param>
         /// <param name="replaceChars">替换文字集合</param>
 #if NetStandard21
-        public StaticTrieGraphNode(int maxWordSize, bool isSingleCharacter = false, string? replaceChars = null)
+        public StaticTrieGraphNode(byte maxTrieWordSize, byte maxWordSize, WordSegmentFlags wordSegmentFlags = 0, string? replaceChars = null)
 #else
-        public StaticTrieGraphNode(int maxWordSize, bool isSingleCharacter = false, string replaceChars = null)
+        public StaticTrieGraphNode(byte maxTrieWordSize, byte maxWordSize, WordSegmentFlags wordSegmentFlags = 0, string replaceChars = null)
 #endif
         {
-            this.maxWordSize = Math.Max(maxWordSize, 2);
+            this.maxTrieWordSize = Math.Max(maxTrieWordSize, (byte)2);
+            this.maxWordSize = Math.Max(maxWordSize, (byte)2);
             ReplaceChars = replaceChars ?? Simplified.Chars;
-            this.isSingleCharacter = isSingleCharacter;
+            this.wordSegmentFlags = wordSegmentFlags;
             formatedText = string.Empty;
             wordSegments.SetEmpty();
             wordSegmentIdentityMap = EmptyArray<ulong>.Array;
             wordString = AutoCSer.Common.AllocateString(wordStringLength);
-            words = new FragmentDictionary256<HashSubString, int>(); ;
+            words = new FragmentDictionary256<HashSubString, int>();
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -259,7 +266,7 @@ namespace AutoCSer.CommandService.Search
         {
             if (word?.Length > 1)
             {
-                if (word.Length <= maxWordSize)
+                if (word.Length <= maxTrieWordSize)
                 {
                     if (!graphData.IsGraph)
                     {
@@ -448,7 +455,7 @@ namespace AutoCSer.CommandService.Search
                     {
                         if (((type = wordTypeFixed[*start]) & WordTypeEnum.TrieGraphHead) == 0)
                         {
-                            *end = graphData.MinCharacter;
+                            *end = graphData.AnyTrieHeadChar;
                             do
                             {
                                 if (((nextType = wordTypeFixed[*++start]) & WordTypeEnum.TrieGraphHead) != 0)
@@ -528,7 +535,7 @@ namespace AutoCSer.CommandService.Search
                 }
                 while (start != end);
             SINGLE:
-                if (isSingleCharacter)
+                if ((wordSegmentFlags & WordSegmentFlags.SingleCharacter) != 0)
                 {
                     start = formatTextFixed;
                     do
@@ -560,7 +567,7 @@ namespace AutoCSer.CommandService.Search
         /// <returns></returns>
         private bool addWord(int start, int length)
         {
-            if (length > 1 || isSingleCharacter)
+            if (length > 1 || (wordSegmentFlags & WordSegmentFlags.SingleCharacter) != 0)
             {
                 wordSegments.PrepLength(1);
                 SubString word = new SubString(start, length, formatedText);
@@ -580,7 +587,7 @@ namespace AutoCSer.CommandService.Search
                         wordSegments.Array[wordSegments.Length++].Set(word, 0);
                         return true;
                     case WordSegmentTypeEnum.AddText:
-                        if (graphData.IsCurrentIdentity)
+                        if (graphData.IsCurrentIdentity && length <= maxWordSize)
                         {
                             getWord(ref word, false);
                             words.Add(word, identity = graphData.CurrentIdentity);
@@ -640,14 +647,14 @@ namespace AutoCSer.CommandService.Search
         /// 添加 Trie 图分词结果
         /// </summary>
         /// <param name="identity"></param>
-        /// <param name="endChar"></param>
+        /// <param name="startChar"></param>
         /// <param name="length"></param>
-        internal void AddWord(int identity, char* endChar, int length)
+        internal void AddStartWord(int identity, char* startChar, int length)
         {
             wordSegments.PrepLength(1);
             if (wordSegmentType == WordSegmentTypeEnum.Query || trySetIdentityMap(identity))
             {
-                wordSegments.Array[wordSegments.Length++].Set(new SubString((int)(endChar - formatTextFixed) + 1 - length, length, formatedText), identity);
+                wordSegments.Array[wordSegments.Length++].Set(new SubString((int)(startChar - formatTextFixed), length, formatedText), identity);
             }
         }
         /// <summary>
@@ -656,12 +663,12 @@ namespace AutoCSer.CommandService.Search
         /// <param name="identity"></param>
         /// <param name="endChar"></param>
         /// <param name="length"></param>
-        internal void AddWordEnd(int identity, char* endChar, int length)
+        internal void AddWord(int identity, char* endChar, int length)
         {
             wordSegments.PrepLength(1);
             if (wordSegmentType == WordSegmentTypeEnum.Query || trySetIdentityMap(identity))
             {
-                wordSegments.Array[wordSegments.Length++].Set(new SubString((int)(endChar - formatTextFixed) - length, length, formatedText), identity);
+                wordSegments.Array[wordSegments.Length++].Set(new SubString((int)(endChar - formatTextFixed) + 1 - length, length, formatedText), identity);
             }
         }
     }

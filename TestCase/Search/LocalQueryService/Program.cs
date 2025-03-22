@@ -66,7 +66,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             }
             if (!isGraph.Value)
             {
-                string[] words = new string[] { "吹牛", "牛B", "现在", "将来", "曾经", "以后", "努力", "张三丰" };
+                string[] words = new string[] { "吹牛", "牛B", "现在", "将来", "曾经", "以后", "努力", "张三丰", "吹牛B", "牛B大王" };
                 foreach (string word in words)
                 {
                     LocalResult<AppendWordStateEnum> state = await trieGraphNode.Value.AppendWord(word);
@@ -94,7 +94,7 @@ namespace AutoCSer.TestCase.SearchQueryService
                 }
             }
 
-            string text = @"张三丰偷学AutoCSer以后不再吹牛B了";
+            string text = @"张三丰偷学AutoCSer以后不再吹牛B大王了";
             Console.WriteLine(text);
             LocalResult<WordSegmentResult[]> wordSegmentResults = await trieGraphNode.Value.GetWordSegmentResult(text);
             if (!wordSegmentResults.IsSuccess)

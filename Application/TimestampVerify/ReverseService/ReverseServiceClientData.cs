@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService.TimestampVerify
         /// <summary>
         /// 待验证时间戳
         /// </summary>
-        private long timestamp;
+        internal long Timestamp;
         /// <summary>
         /// 随机值
         /// </summary>
@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService.TimestampVerify
         /// <summary>
         /// 附加数据
         /// </summary>
-        private T data;
+        internal T Data;
         /// <summary>
         /// 反向服务客户端验证原始数据
         /// </summary>
@@ -30,8 +30,8 @@ namespace AutoCSer.CommandService.TimestampVerify
         /// <param name="data">附加数据</param>
         public ReverseServiceClientData(long timestamp, T data)
         {
-            this.timestamp = timestamp;
-            this.data = data;
+            this.Timestamp = timestamp;
+            this.Data = data;
             Random = AutoCSer.Random.Default.SecureNextULongNotZero();
         }
         /// <summary>
@@ -42,9 +42,9 @@ namespace AutoCSer.CommandService.TimestampVerify
         /// <param name="data">附加数据</param>
         internal ReverseServiceClientData(long timestamp, ulong random, ref T data)
         {
-            this.timestamp = timestamp;
+            this.Timestamp = timestamp;
             Random = random;
-            this.data = data;
+            this.Data = data;
         }
     }
 }

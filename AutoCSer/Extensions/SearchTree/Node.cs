@@ -701,6 +701,25 @@ namespace AutoCSer.SearchTree
             }
             return Right != null ? Right.Count : 0;
         }
+        /// <summary>
+        /// 获取第一个大于关键字的节点
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+#if NetStandard21
+        internal NT? GetThanNode(KT key)
+#else
+        internal NT GetThanNode(KT key)
+#endif
+        {
+            int cmp = this.key.CompareTo(key);
+            if (cmp < 0) return Right?.GetThanNode(key);
+#if NetStandard21
+            return Left?.GetThanNode(key) ?? (cmp != 0 ? (NT?)this : null);
+#else
+            return Left?.GetThanNode(key) ?? (cmp != 0 ? (NT)this : null);
+#endif
+        }
 
         /// <summary>
         /// 删除节点计数

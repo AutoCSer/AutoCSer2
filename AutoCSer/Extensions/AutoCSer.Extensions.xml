@@ -9549,6 +9549,13 @@
             <param name="key">关键字</param>
             <returns>节点数量</returns>
         </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.GetThanNodeKeyValue(`0)">
+            <summary>
+            获取第一个大于关键字的节点数据
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SearchTree.Dictionary`2.At(System.Int32)">
             <summary>
             根据节点位置获取数据
@@ -9916,6 +9923,13 @@
             <param name="key">关键字</param>
             <returns>节点数量</returns>
         </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.GetThanNode(`1)">
+            <summary>
+            获取第一个大于关键字的节点
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SearchTree.Node`2.checkRemoveCount1(`0)">
             <summary>
             删除节点计数
@@ -10193,7 +10207,7 @@
             检测右节点数量
             </summary>
         </member>
-        <member name="F:AutoCSer.SearchTree.Set`1.boot">
+        <member name="F:AutoCSer.SearchTree.Set`1.Boot">
             <summary>
             根节点
             </summary>

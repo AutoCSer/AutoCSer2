@@ -131,11 +131,12 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// <param name="index">节点索引信息</param>
             /// <param name="key">节点全局关键字</param>
             /// <param name="nodeInfo">节点信息</param>
-            /// <param name="maxWordSize">词语最大文字长度</param>
-            /// <param name="isSingleCharacter">是否支持单字符搜索结果</param>
+            /// <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            /// <param name="maxWordSize">未知词语最大文字长度</param>
+            /// <param name="wordSegmentFlags">分词选项</param>
             /// <param name="replaceChars">替换文字集合</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int maxWordSize, bool isSingleCharacter, string replaceChars);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte maxTrieWordSize, byte maxWordSize, AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags wordSegmentFlags, string replaceChars);
             /// <summary>
             /// 创建用户名称分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
             /// </summary>
@@ -829,8 +830,9 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            /// int maxWordSize 词语最大文字长度
-            /// bool isSingleCharacter 是否支持单字符搜索结果
+            /// byte maxTrieWordSize Trie 词语最大文字长度
+            /// byte maxWordSize 未知词语最大文字长度
+            /// AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags wordSegmentFlags 分词选项
             /// string replaceChars 替换文字集合
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>

@@ -12,13 +12,9 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// </summary>
         None,
         /// <summary>
-        /// 一级节点
-        /// </summary>
-        Range,
-        /// <summary>
         /// 二级节点
         /// </summary>
-        Node2,
+        HashNode,
         /// <summary>
         /// 三级及以下节点
         /// </summary>

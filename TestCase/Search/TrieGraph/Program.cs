@@ -49,7 +49,7 @@ namespace AutoCSer.TestCase.SearchTrieGraph
                 AutoCSer.ConsoleWriteQueue.Breakpoint($"{trieGraphNodeResult.ReturnType} {trieGraphNodeResult.CallState}");
                 return;
             }
-            string text = @"张三丰偷学AutoCSer以后不再吹牛B了";
+            string text = @"张三丰偷学AutoCSer以后不再吹牛B大王了";
             Console.WriteLine(text);
             ResponseResult<WordSegmentResult[]> wordSegmentResults = await trieGraphNodeResult.Value.GetWordSegmentResult(text);
             if (!wordSegmentResults.IsSuccess)

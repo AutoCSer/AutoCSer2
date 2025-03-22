@@ -6853,6 +6853,962 @@
             <param name="key"></param>
             <param name="value"></param>
         </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode">
+            <summary>
+            字符串 Trie 图哈希节点（二级节点）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.HashNodeIndex">
+            <summary>
+            哈希数据起始位置，最高位表示是否最后一个节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.NodeIndex">
+            <summary>
+            子节点集合数组起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.Characters">
+            <summary>
+            前两个字符，也是 HashCode
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.Identity">
+            <summary>
+            词语编号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.TrySetHashIndex(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode)">
+            <summary>
+            首节点设置数据位置
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.Set(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode,System.Int32,System.Boolean)">
+            <summary>
+            设置节点数据
+            </summary>
+            <param name="node"></param>
+            <param name="nodeIndex"></param>
+            <param name="isLastHashIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.GetLinkCharacters(System.Char)">
+            <summary>
+            获取失败节点哈希关键字
+            </summary>
+            <param name="character"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.Check(System.UInt32,System.Boolean@)">
+            <summary>
+            检查前两个字符是否匹配
+            </summary>
+            <param name="characters"></param>
+            <param name="isNext">是否需要匹配下一个节点</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode.GetLinkIndex(AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode[],System.Char)">
+            <summary>
+            获取失败节点索引位置
+            </summary>
+            <param name="nodes"></param>
+            <param name="character"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNodeHashCount">
+            <summary>
+            哈希索引冲突计数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNodeHashCount.Count">
+            <summary>
+            冲突数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNodeHashCount.Nodes">
+            <summary>
+            冲突节点集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNodeHashCount.#ctor(System.Int32)">
+            <summary>
+            哈希索引冲突计数
+            </summary>
+            <param name="count">冲突数量</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNodeHashCount.SetHashNodeIndex(System.Int32)">
+            <summary>
+            设置哈希节点位置
+            </summary>
+            <param name="hashNodeIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags">
+            <summary>
+            分词选项
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags.SingleCharacter">
+            <summary>
+            是否支持单字符搜索结果（设置为 true 会造成索引占用大量内存并浪费大量计算资源）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum">
+            <summary>
+            添加词语返回状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.Unknown">
+            <summary>
+            未知状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.Success">
+            <summary>
+            添加成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.WordSizeLess">
+            <summary>
+            文字长度不足（不允许小于 2）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.WordSizeLimit">
+            <summary>
+            文字长度超出指定限制
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.GraphBuilded">
+            <summary>
+            已建图，不允许添加新词语
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder">
+            <summary>
+            Trie 树转数组创建器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.hashCapacityDivision">
+            <summary>
+            哈希取余
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.HashNodes">
+            <summary>
+            二级节点哈希数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.Nodes">
+            <summary>
+            三级及以下节点数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.BuildGraphIndexs">
+            <summary>
+            等待建图节点数组索引位置集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.buildGraphIndexs">
+            <summary>
+            正在建图的节点数组索引位置集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.#ctor(AutoCSer.CommandService.Search.StaticTrieGraph.GraphData@,AutoCSer.Algorithm.IntegerDivision@)">
+            <summary>
+            Trie 树转数组创建器
+            </summary>
+            <param name="data"></param>
+            <param name="hashCapacityDivision"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.BuildGraph">
+            <summary>
+            建图
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.GetLinkIndex(System.UInt32)">
+            <summary>
+            获取失败节点位置
+            </summary>
+            <param name="characters"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData">
+            <summary>
+            Trie 图序列化数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.HashNodes">
+            <summary>
+            二级节点哈希数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.Nodes">
+            <summary>
+            三级及以下节点数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.WordTypes">
+            <summary>
+            文字类型数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.HashCapacityDivision">
+            <summary>
+            哈希取余
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.WordCount">
+            <summary>
+            Trie 图词语最大编号（词语数量）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.CurrentIdentity">
+            <summary>
+            当前分配未知词语编号
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.IsCurrentIdentity">
+            <summary>
+            判断是否可以新增未知词语
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.HashCapacity">
+            <summary>
+            哈希取余空间大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.AnyTrieHeadChar">
+            <summary>
+            任意 Trie 图首节点字符
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.IsGraph">
+            <summary>
+            是否已经建图
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.Build(AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder)">
+            <summary>
+            建图
+            </summary>
+            <param name="treeBuilder"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.tree(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode,System.Int32,System.Int32@,System.Int32)">
+            <summary>
+            生成树节点
+            </summary>
+            <param name="node"></param>
+            <param name="nodeCount"></param>
+            <param name="nodeIndex"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.Match(System.Char*,System.Char*,AutoCSer.CommandService.Search.StaticTrieGraphNode)">
+            <summary>
+            从左到右匹配
+            </summary>
+            <param name="start">匹配起始位置</param>
+            <param name="end">匹配结束位置</param>
+            <param name="staticTrieGraphNode">字符串 Trie 图节点</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode">
+            <summary>
+            字符串 Trie 图三级及以下节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.Identity">
+            <summary>
+            词语编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.LinkIndex">
+            <summary>
+            失败节点数组索引位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.NodeIndex">
+            <summary>
+            子节点集合数组起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.Character">
+            <summary>
+            文字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.Length">
+            <summary>
+            词语长度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.LinkType">
+            <summary>
+            低2b表示失败节点类型，最高位表示是否最后一个节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.Set(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode,System.Int32,System.Byte,System.Boolean)">
+            <summary>
+            初始化节点数据
+            </summary>
+            <param name="node"></param>
+            <param name="nodeIndex"></param>
+            <param name="length"></param>
+            <param name="isLastNode"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.BuildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,AutoCSer.CommandService.Search.StaticTrieGraph.GrahpHashNode,System.Int32@)">
+            <summary>
+            建图
+            </summary>
+            <param name="builder"></param>
+            <param name="node"></param>
+            <param name="nodeIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.setLinkTypeHashNode(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,System.Int32)">
+            <summary>
+            设置失败节点类型
+            </summary>
+            <param name="builder"></param>
+            <param name="linkIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.BuildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder)">
+            <summary>
+            建图
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.buildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode@,System.Int32@)">
+            <summary>
+            建图
+            </summary>
+            <param name="builder"></param>
+            <param name="parent"></param>
+            <param name="nodeIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.buildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode@)">
+            <summary>
+            建图
+            </summary>
+            <param name="builder"></param>
+            <param name="parent"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.copyLinkWord(AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode@)">
+            <summary>
+            获取失败节点的词语信息
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.copyLinkIndex(AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode@)">
+            <summary>
+            获取失败节点的失败节点数据
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.Check(System.Char,System.Boolean@)">
+            <summary>
+            检查字符是否匹配
+            </summary>
+            <param name="character"></param>
+            <param name="isNext">是否需要匹配下一个节点</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GrahpNode.getLinkIndex(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,System.Char)">
+            <summary>
+            获取失败节点索引位置
+            </summary>
+            <param name="builder"></param>
+            <param name="character"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode">
+            <summary>
+            字符串 Trie 图节点接口
+            </summary>
+            <summary>
+            字符串 Trie 图节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetWord(System.String)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphData)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetWordIdentity(AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.AppendWord(System.String)">
+            <summary>
+            添加 Trie 图词语
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.IsGraph">
+            <summary>
+            是否已经建图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetWordCount">
+            <summary>
+            获取 Trie 图词语数量
+            </summary>
+            <returns>Trie 图词语数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.BuildGraph">
+            <summary>
+            建图
+            </summary>
+            <returns>Trie 图词语数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetAddTextIdentityBeforePersistence(System.String)">
+            <summary>
+            添加文本并返回词语编号集合 持久化前检查
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetAddTextIdentity(System.String)">
+            <summary>
+            添加文本并返回词语编号集合
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetWordSegmentIdentity(System.String)">
+            <summary>
+            获取查询词语编号集合（忽略未匹配词语）
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetWordSegmentResult(System.String)">
+            <summary>
+            获取查询分词结果
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum">
+            <summary>
+            Trie 图失败节点类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum.None">
+            <summary>
+            找不到失败节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum.HashNode">
+            <summary>
+            二级节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum.Node">
+            <summary>
+            三级及以下节点
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.Simplified">
+            <summary>
+            简体字符
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.Simplified.SetChinese(System.Byte*)">
+            <summary>
+            设置中文字符类型
+            </summary>
+            <param name="charTypeData">分词字符类型数据</param>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.Simplified.Chars">
+            <summary>
+            简体字符集
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient">
+            <summary>
+            字符串 Trie 图节点客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.NodeCache">
+            <summary>
+            字符串 Trie 图节点客户端
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode})">
+            <summary>
+            字符串 Trie 图节点客户端
+            </summary>
+            <param name="nodeCache"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.AppendWord(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
+            <summary>
+            批量添加 Trie 图词语
+            </summary>
+            <param name="words"></param>
+            <param name="concurrency">并发数量</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.AppendWord(System.String)">
+            <summary>
+            批量添加 Trie 图词语
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.BuildGraph">
+            <summary>
+            建图
+            </summary>
+            <returns>Trie 图词语数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetAddTextIdentity(System.String)">
+            <summary>
+            添加文本并返回词语编号集合
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetWordSegmentIdentity(System.String)">
+            <summary>
+            获取查询词语编号集合（忽略未匹配词语）
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetWordSegmentResult(System.String)">
+            <summary>
+            获取查询分词结果
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetWordIdentitys(System.Int32[],System.Int32[],AutoCSer.LeftArray{System.Int32}@)">
+            <summary>
+            获取需要更新的编号标识集合
+            </summary>
+            <param name="wordIdentitys">词语编号标识集合</param>
+            <param name="historyWordIdentitys">更新之前的词语编号标识集合</param>
+            <param name="removeWordIdentity">需要删除的编号标识集合</param>
+            <returns>新增的编号标识集合</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder">
+            <summary>
+            Trie 树初始化创建器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.node">
+            <summary>
+            字符串 Trie 图节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.Words">
+            <summary>
+            词语集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.CurrentIdentity">
+            <summary>
+            当前已分配词语编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.NodeArraySize">
+            <summary>
+            三级及以下节点累计数组大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.Nodes">
+            <summary>
+            二级节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.WordTypes">
+            <summary>
+            文字类型数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.#ctor(AutoCSer.CommandService.Search.StaticTrieGraphNode)">
+            <summary>
+            Trie 树初始化创建器
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.Append(System.String)">
+            <summary>
+            添加词语
+            </summary>
+            <param name="word"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode">
+            <summary>
+            Trie 树节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.HashIndex">
+            <summary>
+            一二级节点哈希索引位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.HashKey">
+            <summary>
+            一二级节点关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Identity">
+            <summary>
+            词语编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Character">
+            <summary>
+            文字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Nodes">
+            <summary>
+            子节点集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.NodeCount">
+            <summary>
+            有效子节点数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.#ctor(System.UInt32)">
+            <summary>
+            Trie 树节点
+            </summary>
+            <param name="hashKey"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.#ctor(System.UInt32,System.Int32@)">
+            <summary>
+            Trie 树节点
+            </summary>
+            <param name="hashKey"></param>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.#ctor(System.Char)">
+            <summary>
+            Trie 树节点
+            </summary>
+            <param name="character"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Set(System.Int32@)">
+            <summary>
+            设置词语编号
+            </summary>
+            <param name="identity"></param>
+            <returns>是否新词语</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.GetNode(System.Char,System.Int32@)">
+            <summary>
+            获取子节点
+            </summary>
+            <param name="character"></param>
+            <param name="nodeArraySize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.getCharacter(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode)">
+            <summary>
+            获取节点文字
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.GetCharacter">
+            <summary>
+            获取节点文字
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult">
+            <summary>
+            查询分词结果
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.Identity">
+            <summary>
+            词语编号，0 表示未匹配词语
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.StartIndex">
+            <summary>
+            词语在原文本中的起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.Length">
+            <summary>
+            词语长度
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.Set(AutoCSer.KeyValue{AutoCSer.SubString,System.Int32}@)">
+            <summary>
+            设置查询分词结果
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum">
+            <summary>
+            分词类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.QueryIdentity">
+            <summary>
+            查询词语编号（忽略未匹配词语）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.Query">
+            <summary>
+            查询分词结果
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.AddTextBeforePersistence">
+            <summary>
+            添加文本前持久化检查
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.AddText">
+            <summary>
+            添加文本
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum">
+            <summary>
+            文字类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Chinese">
+            <summary>
+            中文
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.OtherLetter">
+            <summary>
+            其它字母，不包括中文
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Letter">
+            <summary>
+            字母
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Number">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Keep">
+            <summary>
+            保留字符
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.TrieGraph">
+            <summary>
+            Trie 图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.TrieGraphHead">
+            <summary>
+            Trie 图首字符
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.TrieGraphEnd">
+            <summary>
+            Trie 图尾字符
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode">
+            <summary>
+            字符串 Trie 图节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.AppendWord(System.String)">
+            <summary>
+            添加 Trie 图词语
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.BuildGraph">
+            <summary>
+            建图
+            </summary>
+            <returns>Trie 图词语数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetAddTextIdentity(System.String)">
+            <summary>
+            添加文本并返回词语编号集合
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetWordSegmentIdentity(System.String)">
+            <summary>
+            获取查询词语编号集合（忽略未匹配词语）
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetWordSegmentResult(System.String)">
+            <summary>
+            获取查询分词结果
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.IsGraph">
+            <summary>
+            是否已经建图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetWordCount">
+            <summary>
+            获取 Trie 图词语数量
+            </summary>
+            <returns>Trie 图词语数量</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode">
+            <summary>
+            字符串 Trie 图节点接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.AppendWord(System.String)">
+            <summary>
+            添加 Trie 图词语
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.BuildGraph">
+            <summary>
+            建图
+            </summary>
+            <returns>Trie 图词语数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetAddTextIdentity(System.String)">
+            <summary>
+            添加文本并返回词语编号集合
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetWordSegmentIdentity(System.String)">
+            <summary>
+            获取查询词语编号集合（忽略未匹配词语）
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetWordSegmentResult(System.String)">
+            <summary>
+            获取查询分词结果
+            </summary>
+            <param name="text">搜索文本内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.IsGraph">
+            <summary>
+            是否已经建图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetWordCount">
+            <summary>
+            获取 Trie 图词语数量
+            </summary>
+            <returns>Trie 图词语数量</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum">
+            <summary>
+            字符串 Trie 图节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.AppendWord">
+            <summary>
+            [0] 添加 Trie 图词语
+            string word 
+            返回值 AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.BuildGraph">
+            <summary>
+            [1] 建图
+            返回值 int Trie 图词语数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetAddTextIdentity">
+            <summary>
+            [2] 添加文本并返回词语编号集合
+            string text 
+            返回值 int[] 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetAddTextIdentityBeforePersistence">
+            <summary>
+            [3] 添加文本并返回词语编号集合 持久化前检查
+            string text 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int[]} 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetWordSegmentIdentity">
+            <summary>
+            [4] 获取查询词语编号集合（忽略未匹配词语）
+            string text 搜索文本内容
+            返回值 int[] 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetWordSegmentResult">
+            <summary>
+            [5] 获取查询分词结果
+            string text 搜索文本内容
+            返回值 AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult[] 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.SnapshotSetGraph">
+            <summary>
+            [6] 快照设置数据
+            AutoCSer.CommandService.Search.StaticTrieGraph.GraphData value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.SnapshotSetWord">
+            <summary>
+            [7] 快照设置数据
+            string value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.SnapshotSetWordIdentity">
+            <summary>
+            [8] 快照设置数据
+            AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,int} value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.IsGraph">
+            <summary>
+            [9] 是否已经建图
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetWordCount">
+            <summary>
+            [10] 获取 Trie 图词语数量
+            返回值 int Trie 图词语数量
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.Search.StaticTrieGraphServiceNode">
             <summary>
             创建字符串 Trie 图节点的自定义基础服务
@@ -6864,15 +7820,16 @@
             </summary>
             <param name="service">日志流持久化内存数据库服务端</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphServiceNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Boolean,System.String)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphServiceNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
             <summary>
             创建字符串 Trie 图节点 IStaticTrieGraphNode
             </summary>
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
-            <param name="maxWordSize">词语最大文字长度</param>
-            <param name="isSingleCharacter">是否支持单字符搜索结果</param>
+            <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            <param name="maxWordSize">未知词语最大文字长度</param>
+            <param name="wordSegmentFlags">分词选项</param>
             <param name="replaceChars">替换文字集合</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -6884,15 +7841,16 @@
             创建字符串 Trie 图节点的自定义基础服务接口
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IStaticTrieGraphServiceNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Boolean,System.String)">
+        <member name="M:AutoCSer.CommandService.Search.IStaticTrieGraphServiceNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
             <summary>
             创建字符串 Trie 图节点 IStaticTrieGraphNode
             </summary>
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
-            <param name="maxWordSize">词语最大文字长度</param>
-            <param name="isSingleCharacter">是否支持单字符搜索结果</param>
+            <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            <param name="maxWordSize">未知词语最大文字长度</param>
+            <param name="wordSegmentFlags">分词选项</param>
             <param name="replaceChars">替换文字集合</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -8115,987 +9073,6 @@
             <param name="key">分词数据关键字</param>
             <param name="callback"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum">
-            <summary>
-            添加词语返回状态
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.Unknown">
-            <summary>
-            未知状态
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.Success">
-            <summary>
-            添加成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.WordSizeLess">
-            <summary>
-            文字长度不足（不允许小于 2）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.WordSizeLimit">
-            <summary>
-            文字长度超出指定限制
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum.GraphBuilded">
-            <summary>
-            已建图，不允许添加新词语
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder">
-            <summary>
-            Trie 树转数组创建器
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.NodeIndex2">
-            <summary>
-            当前转换二级节点索引位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.NodeIndex">
-            <summary>
-            当前转换三级及以下节点索引位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.Ranges">
-            <summary>
-            一级节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.NodeArray2">
-            <summary>
-            二级节点数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.NodeArray">
-            <summary>
-            三级及以下节点数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.minCharacter">
-            <summary>
-            一级节点最小文字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.BuildGraphIndexs">
-            <summary>
-            等待建图节点数组索引位置集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.buildGraphIndexs">
-            <summary>
-            正在建图的节点数组索引位置集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.#ctor(AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder,AutoCSer.Range[])">
-            <summary>
-            Trie 树转数组创建器
-            </summary>
-            <param name="tree"></param>
-            <param name="ranges"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.Node2(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode@)">
-            <summary>
-            二级节点转换
-            </summary>
-            <param name="node"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.BuildGraph">
-            <summary>
-            建图
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.GetLinkRange(System.Char)">
-            <summary>
-            二级节点获取失败节点集合
-            </summary>
-            <param name="character"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.GetLinkType(System.Char)">
-            <summary>
-            获取 Trie 图失败节点类型
-            </summary>
-            <param name="character"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.GetLink2(System.Char,System.Char)">
-            <summary>
-            获取二级失败节点
-            </summary>
-            <param name="parentCharacter"></param>
-            <param name="character"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder.GetLink2(System.Int32,System.Int32,System.Char)">
-            <summary>
-            获取二级失败节点
-            </summary>
-            <param name="linkStartIndex"></param>
-            <param name="linkEndIndex"></param>
-            <param name="character"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData">
-            <summary>
-            Trie 图序列化数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.ranges">
-            <summary>
-            一级节点数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.nodeArray2">
-            <summary>
-            二级节点数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.nodeArray">
-            <summary>
-            三级及以下节点数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.WordTypes">
-            <summary>
-            文字类型数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.WordCount">
-            <summary>
-            Trie 图词语最大编号（词语数量）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.CurrentIdentity">
-            <summary>
-            当前分配未知词语编号
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.IsCurrentIdentity">
-            <summary>
-            判断是否可以新增未知词语
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.MinCharacter">
-            <summary>
-            一级节点最小文字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.IsGraph">
-            <summary>
-            是否已经建图
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.Build(AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder)">
-            <summary>
-            建图
-            </summary>
-            <param name="treeBuilder"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.getIndex2(AutoCSer.Range,System.Char)">
-            <summary>
-            获取匹配的二级节点索引位置
-            </summary>
-            <param name="range"></param>
-            <param name="character"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphData.Match(System.Char*,System.Char*,AutoCSer.CommandService.Search.StaticTrieGraphNode)">
-            <summary>
-            从左到右匹配
-            </summary>
-            <param name="start">匹配起始位置</param>
-            <param name="end">匹配结束位置</param>
-            <param name="node">字符串 Trie 图节点</param>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode">
-            <summary>
-            字符串 Trie 图三级及以下节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.identity">
-            <summary>
-            词语编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.linkIndex">
-            <summary>
-            失败节点数组索引位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.nodeStartIndex">
-            <summary>
-            子节点集合数组起始位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.nodeEndIndex">
-            <summary>
-            子节点集合数组结束位置
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.isNodeArray">
-            <summary>
-            是否存在子节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.length">
-            <summary>
-            词语长度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.Character">
-            <summary>
-            文字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.linkType">
-            <summary>
-            失败节点类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.DistributedIndex">
-            <summary>
-            分布式节点编号
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.Set(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,System.Int32,AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode@)">
-            <summary>
-            设置 Trie 树节点数据
-            </summary>
-            <param name="builder"></param>
-            <param name="length">词语长度</param>
-            <param name="node">Trie 树节点</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.BuildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,AutoCSer.Range)">
-            <summary>
-            三级节点建图
-            </summary>
-            <param name="builder"></param>
-            <param name="link">二级节点索引范围</param>
-            <returns>是否存在子节点</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.BuildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder)">
-            <summary>
-            建图
-            </summary>
-            <param name="builder"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.buildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode@)">
-            <summary>
-            建图
-            </summary>
-            <param name="builder"></param>
-            <param name="parent">父节点</param>
-            <returns>是否存在子节点</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.GetIdentity(System.Int32@)">
-            <summary>
-            获取词语编号
-            </summary>
-            <param name="length">词语长度</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.GetLinkType(System.Int32@)">
-            <summary>
-            获取失败节点类型
-            </summary>
-            <param name="linkIndex">失败节点数组索引位置</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode.GetIndex(AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode[],System.Char)">
-            <summary>
-            获取匹配的节点索引位置
-            </summary>
-            <param name="nodeArray"></param>
-            <param name="character"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2">
-            <summary>
-            字符串 Trie 图二级节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.Identity">
-            <summary>
-            词语编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.Character">
-            <summary>
-            文字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.linkType">
-            <summary>
-            失败节点类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.DistributedIndex">
-            <summary>
-            分布式节点编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.NodeStartIndex">
-            <summary>
-            子节点集合数组起始位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.NodeEndIndex">
-            <summary>
-            子节点集合数组结束位置
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.IsNodeArray">
-            <summary>
-            是否存在子节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.Set(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder,AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode@)">
-            <summary>
-            设置 Trie 树节点数据
-            </summary>
-            <param name="builder"></param>
-            <param name="node">Trie 树节点</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.BuildGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphBuilder)">
-            <summary>
-            建图
-            </summary>
-            <param name="builder"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode2.GetIndex(AutoCSer.CommandService.Search.StaticTrieGraph.GraphNode[],System.Char)">
-            <summary>
-            获取匹配的三级节点索引位置
-            </summary>
-            <param name="nodeArray"></param>
-            <param name="character"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode">
-            <summary>
-            字符串 Trie 图节点接口
-            </summary>
-            <summary>
-            字符串 Trie 图节点接口
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetWord(System.String)">
-            <summary>
-            快照设置数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphData)">
-            <summary>
-            快照设置数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.SnapshotSetWordIdentity(AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32})">
-            <summary>
-            快照设置数据
-            </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.AppendWord(System.String)">
-            <summary>
-            添加 Trie 图词语
-            </summary>
-            <param name="word"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.IsGraph">
-            <summary>
-            是否已经建图
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetWordCount">
-            <summary>
-            获取 Trie 图词语数量
-            </summary>
-            <returns>Trie 图词语数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.BuildGraph">
-            <summary>
-            建图
-            </summary>
-            <returns>Trie 图词语数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetAddTextIdentityBeforePersistence(System.String)">
-            <summary>
-            添加文本并返回词语编号集合 持久化前检查
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetAddTextIdentity(System.String)">
-            <summary>
-            添加文本并返回词语编号集合
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetWordSegmentIdentity(System.String)">
-            <summary>
-            获取查询词语编号集合（忽略未匹配词语）
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode.GetWordSegmentResult(System.String)">
-            <summary>
-            获取查询分词结果
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum">
-            <summary>
-            Trie 图失败节点类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum.None">
-            <summary>
-            找不到失败节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum.Range">
-            <summary>
-            一级节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum.Node2">
-            <summary>
-            二级节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.LinkTypeEnum.Node">
-            <summary>
-            三级及以下节点
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.Simplified">
-            <summary>
-            简体字符
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.Simplified.SetChinese(System.Byte*)">
-            <summary>
-            设置中文字符类型
-            </summary>
-            <param name="charTypeData">分词字符类型数据</param>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.Simplified.Chars">
-            <summary>
-            简体字符集
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient">
-            <summary>
-            字符串 Trie 图节点客户端
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.NodeCache">
-            <summary>
-            字符串 Trie 图节点客户端
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode})">
-            <summary>
-            字符串 Trie 图节点客户端
-            </summary>
-            <param name="nodeCache"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.AppendWord(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
-            <summary>
-            批量添加 Trie 图词语
-            </summary>
-            <param name="words"></param>
-            <param name="concurrency">并发数量</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.AppendWord(System.String)">
-            <summary>
-            批量添加 Trie 图词语
-            </summary>
-            <param name="word"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.BuildGraph">
-            <summary>
-            建图
-            </summary>
-            <returns>Trie 图词语数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetAddTextIdentity(System.String)">
-            <summary>
-            添加文本并返回词语编号集合
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetWordSegmentIdentity(System.String)">
-            <summary>
-            获取查询词语编号集合（忽略未匹配词语）
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetWordSegmentResult(System.String)">
-            <summary>
-            获取查询分词结果
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.StaticTrieGraphClient.GetWordIdentitys(System.Int32[],System.Int32[],AutoCSer.LeftArray{System.Int32}@)">
-            <summary>
-            获取需要更新的编号标识集合
-            </summary>
-            <param name="wordIdentitys">词语编号标识集合</param>
-            <param name="historyWordIdentitys">更新之前的词语编号标识集合</param>
-            <param name="removeWordIdentity">需要删除的编号标识集合</param>
-            <returns>新增的编号标识集合</returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder">
-            <summary>
-            Trie 树初始化创建器
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.node">
-            <summary>
-            字符串 Trie 图节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.Words">
-            <summary>
-            词语集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.CurrentIdentity">
-            <summary>
-            当前已分配词语编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.MinCharacter">
-            <summary>
-            一级节点最小文字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.maxCharacter">
-            <summary>
-            一级节点最大文字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.ArraySize2">
-            <summary>
-            二级节点累计数组大小
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.NodeArraySize">
-            <summary>
-            三级及以下节点累计数组大小
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.nodes">
-            <summary>
-            一级节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.WordTypes">
-            <summary>
-            文字类型数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.#ctor(AutoCSer.CommandService.Search.StaticTrieGraphNode)">
-            <summary>
-            Trie 树初始化创建器
-            </summary>
-            <param name="node"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.Append(System.String)">
-            <summary>
-            添加词语
-            </summary>
-            <param name="word"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeBuilder.GetGraphBuilder">
-            <summary>
-            获取 Trie 树转数组创建器
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode">
-            <summary>
-            Trie 树节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Identity">
-            <summary>
-            词语编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Character">
-            <summary>
-            文字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.isNode">
-            <summary>
-            节点信息是否有效
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Nodes">
-            <summary>
-            子节点集合
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.NodeCount">
-            <summary>
-            有效子节点数量
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Set(System.Int32@)">
-            <summary>
-            设置词语编号
-            </summary>
-            <param name="identity"></param>
-            <returns>是否新词语</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.Set(System.Char)">
-            <summary>
-            初始化设置节点文字
-            </summary>
-            <param name="character"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.checkAppend(System.Char,System.Int32@)">
-            <summary>
-            检查节点文字是否匹配
-            </summary>
-            <param name="character">匹配文字</param>
-            <param name="newCharacter">是否新节点</param>
-            <returns>是否匹配</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.GetAppendIndex(System.Char,System.Int32@,AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode[]@)">
-            <summary>
-            添加文字节点并返回节点编号
-            </summary>
-            <param name="character">添加文字</param>
-            <param name="newCharacter">是否新节点</param>
-            <param name="nodes">文字节点集合</param>
-            <returns>节点编号</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.GetAppendIndex(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode[],System.Char,System.Int32@)">
-            <summary>
-            添加文字节点并返回节点编号
-            </summary>
-            <param name="nodes">文字节点集合</param>
-            <param name="character">添加文字</param>
-            <param name="newCharacter">是否新节点</param>
-            <returns>节点编号</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.GetCount(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode[])">
-            <summary>
-            获取有效子节点数量
-            </summary>
-            <param name="nodes"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.getCharacter(AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode)">
-            <summary>
-            获取节点文字
-            </summary>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.TreeNode.GetCharacter">
-            <summary>
-            获取节点文字
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult">
-            <summary>
-            查询分词结果
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.Identity">
-            <summary>
-            词语编号，0 表示未匹配词语
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.StartIndex">
-            <summary>
-            词语在原文本中的起始位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.Length">
-            <summary>
-            词语长度
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult.Set(AutoCSer.KeyValue{AutoCSer.SubString,System.Int32}@)">
-            <summary>
-            设置查询分词结果
-            </summary>
-            <param name="result"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum">
-            <summary>
-            分词类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.QueryIdentity">
-            <summary>
-            查询词语编号（忽略未匹配词语）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.Query">
-            <summary>
-            查询分词结果
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.AddTextBeforePersistence">
-            <summary>
-            添加文本前持久化检查
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentTypeEnum.AddText">
-            <summary>
-            添加文本
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum">
-            <summary>
-            文字类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Unknown">
-            <summary>
-            未知
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Chinese">
-            <summary>
-            中文
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.OtherLetter">
-            <summary>
-            其它字母，不包括中文
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Letter">
-            <summary>
-            字母
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Number">
-            <summary>
-            数字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.Keep">
-            <summary>
-            保留字符
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.TrieGraph">
-            <summary>
-            Trie 图
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.TrieGraphHead">
-            <summary>
-            Trie 图首字符
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.WordTypeEnum.TrieGraphEnd">
-            <summary>
-            Trie 图尾字符
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode">
-            <summary>
-            字符串 Trie 图节点接口 客户端节点接口
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.AppendWord(System.String)">
-            <summary>
-            添加 Trie 图词语
-            </summary>
-            <param name="word"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.BuildGraph">
-            <summary>
-            建图
-            </summary>
-            <returns>Trie 图词语数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetAddTextIdentity(System.String)">
-            <summary>
-            添加文本并返回词语编号集合
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetWordSegmentIdentity(System.String)">
-            <summary>
-            获取查询词语编号集合（忽略未匹配词语）
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetWordSegmentResult(System.String)">
-            <summary>
-            获取查询分词结果
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.IsGraph">
-            <summary>
-            是否已经建图
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode.GetWordCount">
-            <summary>
-            获取 Trie 图词语数量
-            </summary>
-            <returns>Trie 图词语数量</returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode">
-            <summary>
-            字符串 Trie 图节点接口 客户端节点接口
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.AppendWord(System.String)">
-            <summary>
-            添加 Trie 图词语
-            </summary>
-            <param name="word"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.BuildGraph">
-            <summary>
-            建图
-            </summary>
-            <returns>Trie 图词语数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetAddTextIdentity(System.String)">
-            <summary>
-            添加文本并返回词语编号集合
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetWordSegmentIdentity(System.String)">
-            <summary>
-            获取查询词语编号集合（忽略未匹配词语）
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetWordSegmentResult(System.String)">
-            <summary>
-            获取查询分词结果
-            </summary>
-            <param name="text">搜索文本内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.IsGraph">
-            <summary>
-            是否已经建图
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.GetWordCount">
-            <summary>
-            获取 Trie 图词语数量
-            </summary>
-            <returns>Trie 图词语数量</returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum">
-            <summary>
-            字符串 Trie 图节点接口 节点方法序号映射枚举类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.AppendWord">
-            <summary>
-            [0] 添加 Trie 图词语
-            string word 
-            返回值 AutoCSer.CommandService.Search.StaticTrieGraph.AppendWordStateEnum 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.BuildGraph">
-            <summary>
-            [1] 建图
-            返回值 int Trie 图词语数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetAddTextIdentity">
-            <summary>
-            [2] 添加文本并返回词语编号集合
-            string text 
-            返回值 int[] 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetAddTextIdentityBeforePersistence">
-            <summary>
-            [3] 添加文本并返回词语编号集合 持久化前检查
-            string text 
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{int[]} 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetWordSegmentIdentity">
-            <summary>
-            [4] 获取查询词语编号集合（忽略未匹配词语）
-            string text 搜索文本内容
-            返回值 int[] 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetWordSegmentResult">
-            <summary>
-            [5] 获取查询分词结果
-            string text 搜索文本内容
-            返回值 AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentResult[] 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.SnapshotSetGraph">
-            <summary>
-            [6] 快照设置数据
-            AutoCSer.CommandService.Search.StaticTrieGraph.GraphData value 数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.SnapshotSetWord">
-            <summary>
-            [7] 快照设置数据
-            string value 数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.SnapshotSetWordIdentity">
-            <summary>
-            [8] 快照设置数据
-            AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,int} value 数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.IsGraph">
-            <summary>
-            [9] 是否已经建图
-            返回值 bool 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeMethodEnum.GetWordCount">
-            <summary>
-            [10] 获取 Trie 图词语数量
-            返回值 int Trie 图词语数量
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.Search.StaticTrieGraphNode">
             <summary>
             字符串 Trie 图节点
@@ -9111,19 +9088,29 @@
             替换文字集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.maxWordSize">
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.maxTrieWordSize">
             <summary>
-            词语最大文字长度
+            Trie 词语最大文字长度
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.isSingleCharacter">
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.maxWordSize">
             <summary>
-            是否支持单字符搜索结果
+            未知词语最大文字长度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordSegmentFlags">
+            <summary>
+            分词选项
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordSegmentType">
             <summary>
             分词类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordStringIndex">
+            <summary>
+            当前未知词语字符串位置
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.graphData">
@@ -9161,22 +9148,18 @@
             当前未知词语字符串
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordStringIndex">
-            <summary>
-            当前未知词语字符串位置
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.builder">
             <summary>
             Trie 树初始化创建器
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.#ctor(System.Int32,System.Boolean,System.String)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.#ctor(System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
             <summary>
             字符串 Trie 图节点
             </summary>
-            <param name="maxWordSize">词语最大文字长度</param>
-            <param name="isSingleCharacter">默认为 false 表示不支持单字符搜索结果，未设置中文词库将无法搜索中文内容；设置为 true 会造成索引占用大量内存</param>
+            <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            <param name="maxWordSize">未知词语最大文字长度</param>
+            <param name="wordSegmentFlags">分词选项</param>
             <param name="replaceChars">替换文字集合</param>
         </member>
         <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.StreamPersistenceMemoryDatabaseServiceLoaded">
@@ -9381,15 +9364,15 @@
             </summary>
             <param name="identity"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AddWord(System.Int32,System.Char*,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AddStartWord(System.Int32,System.Char*,System.Int32)">
             <summary>
             添加 Trie 图分词结果
             </summary>
             <param name="identity"></param>
-            <param name="endChar"></param>
+            <param name="startChar"></param>
             <param name="length"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AddWordEnd(System.Int32,System.Char*,System.Int32)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AddWord(System.Int32,System.Char*,System.Int32)">
             <summary>
             添加 Trie 图分词结果
             </summary>
@@ -9460,15 +9443,16 @@
             创建字符串 Trie 图节点的自定义基础服务接口 客户端节点接口
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.IStaticTrieGraphServiceNodeClientNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Boolean,System.String)">
+        <member name="M:AutoCSer.CommandService.Search.IStaticTrieGraphServiceNodeClientNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
             <summary>
             创建字符串 Trie 图节点 IStaticTrieGraphNode
             </summary>
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
-            <param name="maxWordSize">词语最大文字长度</param>
-            <param name="isSingleCharacter">是否支持单字符搜索结果</param>
+            <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            <param name="maxWordSize">未知词语最大文字长度</param>
+            <param name="wordSegmentFlags">分词选项</param>
             <param name="replaceChars">替换文字集合</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -10317,8 +10301,9 @@
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            int maxWordSize 词语最大文字长度
-            bool isSingleCharacter 是否支持单字符搜索结果
+            byte maxTrieWordSize Trie 词语最大文字长度
+            byte maxWordSize 未知词语最大文字长度
+            AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags wordSegmentFlags 分词选项
             string replaceChars 替换文字集合
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>

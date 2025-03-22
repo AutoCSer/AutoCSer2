@@ -54,6 +54,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 搜索 Trie 图分词节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStaticTrieGraphNodeLocalClientNode> StaticTrieGraphNodeCache = Client.CreateNode(client => client.GetOrCreateNode<IStaticTrieGraphNodeLocalClientNode>(nameof(IStaticTrieGraphNode), (index, key, nodeInfo) => client.ClientNode.CreateStaticTrieGraphNode(index, key, nodeInfo, 256, false, null)));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IStaticTrieGraphNodeLocalClientNode> StaticTrieGraphNodeCache = Client.CreateNode(client => client.GetOrCreateNode<IStaticTrieGraphNodeLocalClientNode>(nameof(IStaticTrieGraphNode), (index, key, nodeInfo) => client.ClientNode.CreateStaticTrieGraphNode(index, key, nodeInfo, 8, 64, 0, null)));
     }
 }

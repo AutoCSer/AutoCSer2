@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Algorithm;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.Search.StaticTrieGraph
@@ -9,29 +10,17 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
     internal sealed class GraphBuilder
     {
         /// <summary>
-        /// 当前转换二级节点索引位置
+        /// 哈希取余
         /// </summary>
-        internal int NodeIndex2;
+        private readonly IntegerDivision hashCapacityDivision;
         /// <summary>
-        /// 当前转换三级及以下节点索引位置
+        /// 二级节点哈希数组
         /// </summary>
-        internal int NodeIndex;
-        /// <summary>
-        /// 一级节点集合
-        /// </summary>
-        internal readonly Range[] Ranges;
-        /// <summary>
-        /// 二级节点数组
-        /// </summary>
-        internal readonly GraphNode2[] NodeArray2;
+        internal readonly GrahpHashNode[] HashNodes;
         /// <summary>
         /// 三级及以下节点数组
         /// </summary>
-        internal readonly GraphNode[] NodeArray;
-        /// <summary>
-        /// 一级节点最小文字
-        /// </summary>
-        private readonly char minCharacter;
+        internal readonly GrahpNode[] Nodes;
         /// <summary>
         /// 等待建图节点数组索引位置集合
         /// </summary>
@@ -43,35 +32,33 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <summary>
         /// Trie 树转数组创建器
         /// </summary>
-        /// <param name="tree"></param>
-        /// <param name="ranges"></param>
-        internal GraphBuilder(TreeBuilder tree, Range[] ranges)
+        /// <param name="data"></param>
+        /// <param name="hashCapacityDivision"></param>
+        internal GraphBuilder(ref GraphData data, ref IntegerDivision hashCapacityDivision)
         {
-            this.Ranges = ranges;
-            minCharacter = tree.MinCharacter;
-            NodeArray2 = new GraphNode2[tree.ArraySize2];
-            NodeArray = new GraphNode[tree.NodeArraySize];
-            NodeIndex2 = NodeIndex = 0;
+            this.hashCapacityDivision = hashCapacityDivision;
+            HashNodes = data.HashNodes;
+            Nodes = data.Nodes;
             BuildGraphIndexs.SetEmpty();
             buildGraphIndexs.SetEmpty();
-        }
-        /// <summary>
-        /// 二级节点转换
-        /// </summary>
-        /// <param name="node"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void Node2(ref TreeNode node)
-        {
-            NodeArray2[NodeIndex2++].Set(this, ref node);
         }
         /// <summary>
         /// 建图
         /// </summary>
         internal void BuildGraph()
         {
-            foreach (Range range in Ranges)
+            foreach (GrahpHashNode node in HashNodes)
             {
-                for (int index2 = range.StartIndex; index2 != range.EndIndex; NodeArray2[index2++].BuildGraph(this)) ;
+                int nodeIndex = node.NodeIndex;
+                if (nodeIndex != 0)
+                {
+                    int nextNodeIndex;
+                    while (Nodes[nodeIndex].BuildGraph(this, node, out nextNodeIndex))
+                    {
+                        if (nextNodeIndex != 0) BuildGraphIndexs.Add(nodeIndex);
+                        ++nodeIndex;
+                    }
+                }
             }
             while (BuildGraphIndexs.Count != 0)
             {
@@ -79,60 +66,33 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
                 BuildGraphIndexs = buildGraphIndexs;
                 buildGraphIndexs = indexs;
                 BuildGraphIndexs.Length = 0;
-                foreach (int index in indexs) NodeArray[index].BuildGraph(this);
+                int count = indexs.Length;
+                foreach (int nodeIndex in indexs.Array)
+                {
+                    Nodes[nodeIndex].BuildGraph(this);
+                    if (--count == 0) break;
+                }
             }
         }
         /// <summary>
-        /// 二级节点获取失败节点集合
+        /// 获取失败节点位置
         /// </summary>
-        /// <param name="character"></param>
+        /// <param name="characters"></param>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal Range GetLinkRange(char character)
+        internal int GetLinkIndex(uint characters)
         {
-            int index = (int)character - minCharacter;
-            if ((uint)index < (uint)Ranges.Length) return Ranges[index];
-            return default(Range);
-        }
-        /// <summary>
-        /// 获取 Trie 图失败节点类型
-        /// </summary>
-        /// <param name="character"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal LinkTypeEnum GetLinkType(char character)
-        {
-            int index = (int)character - minCharacter;
-            if ((uint)index < (uint)Ranges.Length && Ranges[index].EndIndex != 0) return LinkTypeEnum.Range;
-            return LinkTypeEnum.None;
-        }
-        /// <summary>
-        /// 获取二级失败节点
-        /// </summary>
-        /// <param name="parentCharacter"></param>
-        /// <param name="character"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal int GetLink2(char parentCharacter, char character)
-        {
-            Range range = Ranges[parentCharacter - minCharacter];
-            return GetLink2(range.StartIndex, range.EndIndex, character);
-        }
-        /// <summary>
-        /// 获取二级失败节点
-        /// </summary>
-        /// <param name="linkStartIndex"></param>
-        /// <param name="linkEndIndex"></param>
-        /// <param name="character"></param>
-        /// <returns></returns>
-        internal int GetLink2(int linkStartIndex, int linkEndIndex, char character)
-        {
-            do
+            int nodeIndex = (int)(HashNodes[(int)hashCapacityDivision.GetMod(characters)].HashNodeIndex & int.MaxValue);
+            if (nodeIndex != 0)
             {
-                if (NodeArray2[linkStartIndex].Character == character) return linkStartIndex;
+                bool isNext;
+                while (!HashNodes[nodeIndex].Check(characters, out isNext))
+                {
+                    if (!isNext) return 0;
+                    ++nodeIndex;
+                }
+                return nodeIndex;
             }
-            while (++linkStartIndex != linkEndIndex);
-            return -1;
+            return 0;
         }
     }
 }

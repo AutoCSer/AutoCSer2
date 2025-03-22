@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace AutoCSer.CommandService.Search.StaticTrieGraph
@@ -22,25 +23,13 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// </summary>
         internal int CurrentIdentity;
         /// <summary>
-        /// 一级节点最小文字
-        /// </summary>
-        internal char MinCharacter;
-        /// <summary>
-        /// 一级节点最大文字
-        /// </summary>
-        private char maxCharacter;
-        /// <summary>
-        /// 二级节点累计数组大小
-        /// </summary>
-        internal int ArraySize2;
-        /// <summary>
         /// 三级及以下节点累计数组大小
         /// </summary>
         internal int NodeArraySize;
         /// <summary>
-        /// 一级节点
+        /// 二级节点
         /// </summary>
-        private readonly TreeNode[][] nodes;
+        internal readonly Dictionary<uint, TreeNode> Nodes;
         /// <summary>
         /// 文字类型数据
         /// </summary>
@@ -52,10 +41,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         internal unsafe TreeBuilder(StaticTrieGraphNode node)
         {
             this.node = node;
-            nodes = new TreeNode[1 << 16][];
-            MinCharacter = char.MaxValue;
-            maxCharacter = char.MinValue;
-            AutoCSer.Common.Fill(nodes, EmptyArray<TreeNode>.Array);
+            Nodes = DictionaryCreator.CreateUInt<TreeNode>();
             Words.SetEmpty();
             WordTypes = new WordTypeEnum[1 << 16];
             fixed (WordTypeEnum* wordTypeFixed = WordTypes)
@@ -108,57 +94,30 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
                 charType[character] |= (byte)WordTypeEnum.TrieGraphHead;
                 if (character != ' ') charType[character] |= (byte)WordTypeEnum.TrieGraph;
                 if (nextCharacter != ' ') charType[nextCharacter] |= (byte)WordTypeEnum.TrieGraph;
-                if (character < MinCharacter) MinCharacter = character;
-                else if (character > maxCharacter) maxCharacter = character;
-                TreeNode[] nodes = this.nodes[character];
-                int newCharacter = 0, index = TreeNode.GetAppendIndex(nodes, nextCharacter, ref newCharacter);
-                if (index == nodes.Length)
+                uint key = ((uint)nextCharacter << 16) ^ (uint)character;
+                var node = default(TreeNode);
+                if (word.Length == 2)
                 {
-                    if (index == 0) nodes = new TreeNode[sizeof(int)];
-                    else nodes = AutoCSer.Common.GetCopyArray(nodes, index << 1);
-                    nodes[index].Set(nextCharacter);
+                    charType[nextCharacter] |= (byte)WordTypeEnum.TrieGraphEnd;
+                    if (this.Nodes.TryGetValue(key, out node))
+                    {
+                        if (!node.Set(ref CurrentIdentity)) return;
+                    }
+                    else this.Nodes.Add(key, new TreeNode(key, ref CurrentIdentity));
+                    Words.Add(word);
+                    return;
                 }
-                ArraySize2 += newCharacter;
-                char* end = wordFixed + word.Length;
-                TreeNode[] nextNodes = nodes;
-                for (char* start = wordFixed + 2; start != end; ++start)
+                if (!this.Nodes.TryGetValue(key, out node)) this.Nodes.Add(key, node = new TreeNode(key));
+                char* start = wordFixed + 2, end = wordFixed + word.Length;
+                do
                 {
-                    newCharacter = 0;
-                    index = nextNodes[index].GetAppendIndex(nextCharacter = replaceFixed[*start], ref newCharacter, out nextNodes);
-                    NodeArraySize += newCharacter;
+                    node = node.GetNode(nextCharacter = replaceFixed[*start], ref NodeArraySize);
                     if (nextCharacter != ' ') charType[nextCharacter] |= (byte)WordTypeEnum.TrieGraph;
                 }
+                while (++start != end);
+                if (node.Set(ref CurrentIdentity)) Words.Add(word);
                 charType[replaceFixed[*(end - 1)]] |= (byte)WordTypeEnum.TrieGraphEnd;
-                if (nextNodes[index].Set(ref CurrentIdentity)) Words.Add(word);
-                this.nodes[character] = nodes;
             }
-        }
-        /// <summary>
-        /// 获取 Trie 树转数组创建器
-        /// </summary>
-        /// <returns></returns>
-        internal GraphBuilder GetGraphBuilder()
-        {
-            Range[] ranges = new Range[(int)maxCharacter - MinCharacter + 1];
-            GraphBuilder builder = new GraphBuilder(this, ranges);
-            for (int character = MinCharacter; character <= maxCharacter; ++character)
-            {
-                TreeNode[] nodes = this.nodes[character];
-                int nodeCount = TreeNode.GetCount(nodes);
-                if (nodeCount != 0)
-                {
-                    int index2 = builder.NodeIndex2, index = 0;
-                    ranges[character - MinCharacter].Set(index2, index2 + nodeCount);
-                    if (nodeCount > 7) nodes.QuickSort(nodeCount, TreeNode.GetCharacter);
-                    do
-                    {
-                        builder.Node2(ref nodes[index]);
-                    }
-                    while (++index != nodeCount);
-                }
-            }
-            builder.BuildGraph();
-            return builder;
         }
     }
 }

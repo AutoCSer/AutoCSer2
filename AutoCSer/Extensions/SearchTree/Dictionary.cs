@@ -757,6 +757,17 @@ namespace AutoCSer.SearchTree
             return Boot != null ? Boot.CountThan(key) : 0;
         }
         /// <summary>
+        /// 获取第一个大于关键字的节点数据
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal KeyValue<KT, VT> GetThanNodeKeyValue(KT key)
+        {
+            var node = Boot?.GetThanNode(key);
+            return node != null ? node.KeyValue : default(KeyValue<KT, VT>);
+        }
+        /// <summary>
         /// 根据节点位置获取数据
         /// </summary>
         /// <param name="index">节点位置</param>

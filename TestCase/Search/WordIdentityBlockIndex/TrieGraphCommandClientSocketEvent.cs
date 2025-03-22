@@ -58,6 +58,6 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// <summary>
         /// 字符串 Trie 图节点单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> StaticTrieGraphNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IStaticTrieGraphNodeClientNode>(nameof(StaticTrieGraphNode), (index, key, nodeInfo) => client.ClientNode.CreateStaticTrieGraphNode(index, key, nodeInfo, 256, false, null)));
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IStaticTrieGraphNodeClientNode> StaticTrieGraphNodeCache = StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateNode<IStaticTrieGraphNodeClientNode>(nameof(StaticTrieGraphNode), (index, key, nodeInfo) => client.ClientNode.CreateStaticTrieGraphNode(index, key, nodeInfo, 8, 64, 0, null)));
     }
 }

@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService.TimestampVerify
         /// <summary>
         /// 随机值
         /// </summary>
-        private ulong random;
+        internal ulong Random;
         /// <summary>
         /// 附加数据
         /// </summary>
@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService.TimestampVerify
         /// <summary>
         /// MD5 数据
         /// </summary>
-        private byte[] hashData;
+        internal byte[] HashData;
         /// <summary>
         /// 反向服务验证数据
         /// </summary>
@@ -31,9 +31,9 @@ namespace AutoCSer.CommandService.TimestampVerify
         public ReverseServiceVerifyData(long timestamp, T data)
         {
             ReverseServiceClientData<T> clientData = new ReverseServiceClientData<T>(timestamp, data);
-            random = clientData.Random;
+            Random = clientData.Random;
             Data = data;
-            using (MD5 md5 = MD5.Create()) hashData = md5.ComputeHash(AutoCSer.BinarySerializer.Serialize(clientData));
+            using (MD5 md5 = MD5.Create()) HashData = md5.ComputeHash(AutoCSer.BinarySerializer.Serialize(clientData));
         }
         /// <summary>
         /// 验证数据
@@ -43,11 +43,11 @@ namespace AutoCSer.CommandService.TimestampVerify
         /// <returns></returns>
         public bool Verify(long timestamp, MD5 md5)
         {
-            if (this.hashData != null)
+            if (this.HashData != null)
             {
-                ReverseServiceClientData<T> clientData = new ReverseServiceClientData<T>(timestamp, random, ref Data);
+                ReverseServiceClientData<T> clientData = new ReverseServiceClientData<T>(timestamp, Random, ref Data);
                 byte[] hashData = md5.ComputeHash(AutoCSer.BinarySerializer.Serialize(clientData));
-                return AutoCSer.Net.TimestampVerify.Md5Equals(this.hashData, hashData) == 0;
+                return AutoCSer.Net.TimestampVerify.Md5Equals(this.HashData, hashData) == 0;
             }
             return false;
         }

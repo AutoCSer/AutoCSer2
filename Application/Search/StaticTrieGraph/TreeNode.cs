@@ -6,10 +6,16 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
     /// <summary>
     /// Trie 树节点
     /// </summary>
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-
-    internal struct TreeNode
+    internal sealed class TreeNode
     {
+        /// <summary>
+        /// 一二级节点哈希索引位置
+        /// </summary>
+        internal int HashIndex;
+        /// <summary>
+        /// 一二级节点关键字
+        /// </summary>
+        internal readonly uint HashKey;
         /// <summary>
         /// 词语编号
         /// </summary>
@@ -17,21 +23,59 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// <summary>
         /// 文字
         /// </summary>
-        internal char Character;
-        /// <summary>
-        /// 节点信息是否有效
-        /// </summary>
-        private ushort isNode;
+        internal int Character;
         /// <summary>
         /// 子节点集合
         /// </summary>
+#if NetStandard21
+        internal TreeNode?[] Nodes;
+#else
         internal TreeNode[] Nodes;
+#endif
         /// <summary>
         /// 有效子节点数量
         /// </summary>
         internal int NodeCount
         {
-            get { return GetCount(Nodes); }
+            get
+            {
+                int count = 0;
+                foreach (var node in Nodes)
+                {
+                    if (node == null) break;
+                    ++count;
+                }
+                return count;
+            }
+        }
+        /// <summary>
+        /// Trie 树节点
+        /// </summary>
+        /// <param name="hashKey"></param>
+        internal TreeNode(uint hashKey)
+        {
+            this.HashKey = hashKey;
+            Nodes = EmptyArray<TreeNode>.Array;
+        }
+        /// <summary>
+        /// Trie 树节点
+        /// </summary>
+        /// <param name="hashKey"></param>
+        /// <param name="identity"></param>
+        internal TreeNode(uint hashKey, ref int identity)
+        {
+            this.HashKey = hashKey;
+            this.Identity = ++identity;
+            Nodes = EmptyArray<TreeNode>.Array;
+        }
+        /// <summary>
+        /// Trie 树节点
+        /// </summary>
+        /// <param name="character"></param>
+        private TreeNode(char character)
+        {
+            this.Character = character;
+            Nodes = EmptyArray<TreeNode>.Array;
         }
         /// <summary>
         /// 设置词语编号
@@ -49,83 +93,27 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             return false;
         }
         /// <summary>
-        /// 初始化设置节点文字
+        /// 获取子节点
         /// </summary>
         /// <param name="character"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void Set(char character)
+        /// <param name="nodeArraySize"></param>
+        /// <returns></returns>
+        internal TreeNode GetNode(char character, ref int nodeArraySize)
         {
-            this.Character = character;
-            Nodes = EmptyArray<TreeNode>.Array;
-            isNode = 1;
-        }
-        /// <summary>
-        /// 检查节点文字是否匹配
-        /// </summary>
-        /// <param name="character">匹配文字</param>
-        /// <param name="newCharacter">是否新节点</param>
-        /// <returns>是否匹配</returns>
-        private bool checkAppend(char character, ref int newCharacter)
-        {
-            if (this.Character != character)
+            int index = 0;
+            foreach (var node in Nodes)
             {
-                if (isNode != 0) return false;
-                Set(character);
-                newCharacter = 1;
+                if (node == null) break;
+                if (node.Character == character) return node;
+                ++index;
             }
-            return true;
-        }
-        /// <summary>
-        /// 添加文字节点并返回节点编号
-        /// </summary>
-        /// <param name="character">添加文字</param>
-        /// <param name="newCharacter">是否新节点</param>
-        /// <param name="nodes">文字节点集合</param>
-        /// <returns>节点编号</returns>
-        internal int GetAppendIndex(char character, ref int newCharacter, out TreeNode[] nodes)
-        {
-            int index = GetAppendIndex(this.Nodes, character, ref newCharacter);
-            if (index == this.Nodes.Length)
-            {
-                if (index == 0) this.Nodes = new TreeNode[1];
-                else this.Nodes = AutoCSer.Common.GetCopyArray(this.Nodes, index << 1);
-                this.Nodes[index].Set(character);
-            }
-            nodes = this.Nodes;
-            return index;
+            if (index == Nodes.Length) Nodes = index == 0 ? new TreeNode[sizeof(int)] : AutoCSer.Common.GetCopyArray(Nodes, index << 1);
+            TreeNode newNode = new TreeNode(character);
+            ++nodeArraySize;
+            Nodes[index] = newNode;
+            return newNode;
         }
 
-        /// <summary>
-        /// 添加文字节点并返回节点编号
-        /// </summary>
-        /// <param name="nodes">文字节点集合</param>
-        /// <param name="character">添加文字</param>
-        /// <param name="newCharacter">是否新节点</param>
-        /// <returns>节点编号</returns>
-        internal static int GetAppendIndex(TreeNode[] nodes, char character, ref int newCharacter)
-        {
-            for (int index = 0; index != nodes.Length; ++index)
-            {
-                if (nodes[index].checkAppend(character, ref newCharacter)) return index;
-            }
-            newCharacter = 1;
-            return nodes.Length;
-        }
-        /// <summary>
-        /// 获取有效子节点数量
-        /// </summary>
-        /// <param name="nodes"></param>
-        /// <returns></returns>
-        internal static int GetCount(TreeNode[] nodes)
-        {
-            int count = 0;
-            foreach (TreeNode node in nodes)
-            {
-                if (node.isNode == 0) return count;
-                ++count;
-            }
-            return count;
-        }
         /// <summary>
         /// 获取节点文字
         /// </summary>

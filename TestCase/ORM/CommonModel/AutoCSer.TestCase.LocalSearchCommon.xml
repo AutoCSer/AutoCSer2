@@ -62,15 +62,16 @@
             搜索聚合查询服务服务本地节点的自定义基础服务接口
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Boolean,System.String)">
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
             <summary>
             创建字符串 Trie 图节点 IStaticTrieGraphNode
             </summary>
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
-            <param name="maxWordSize">词语最大文字长度</param>
-            <param name="isSingleCharacter">是否支持单字符搜索结果</param>
+            <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            <param name="maxWordSize">未知词语最大文字长度</param>
+            <param name="wordSegmentFlags">分词选项</param>
             <param name="replaceChars">替换文字集合</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -233,15 +234,16 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeLocalClientNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,System.Boolean,System.String)">
+        <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeLocalClientNode.CreateStaticTrieGraphNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
             <summary>
             创建字符串 Trie 图节点 IStaticTrieGraphNode
             </summary>
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
-            <param name="maxWordSize">词语最大文字长度</param>
-            <param name="isSingleCharacter">是否支持单字符搜索结果</param>
+            <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
+            <param name="maxWordSize">未知词语最大文字长度</param>
+            <param name="wordSegmentFlags">分词选项</param>
             <param name="replaceChars">替换文字集合</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -668,8 +670,9 @@
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            int maxWordSize 词语最大文字长度
-            bool isSingleCharacter 是否支持单字符搜索结果
+            byte maxTrieWordSize Trie 词语最大文字长度
+            byte maxWordSize 未知词语最大文字长度
+            AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags wordSegmentFlags 分词选项
             string replaceChars 替换文字集合
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
