@@ -132,20 +132,20 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// </summary>
         /// <param name="key">索引关键字</param>
         /// <returns></returns>
-        [ServerMethod(IsPersistence = true)]
+        [ServerMethod(IsPersistence = false)]
         BlockIndexData<VT> GetBlockIndexData(KT key);
         /// <summary>
         /// 获取索引数据磁盘块索引信息
         /// </summary>
         /// <param name="keys">索引关键字集合</param>
         /// <returns></returns>
-        [ServerMethod(IsPersistence = true)]
+        [ServerMethod(IsPersistence = false)]
         BlockIndexData<VT>[] GetBlockIndexDataArray(KT[] keys);
         /// <summary>
         /// 获取更新关键字集合
         /// </summary>
         /// <param name="callback">获取更新关键字集合回调</param>
-        [ServerMethod(IsPersistence = true, IsCallbackClient = true)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
         void GetChangeKeys(MethodKeepCallback<KT> callback);
     }
 }

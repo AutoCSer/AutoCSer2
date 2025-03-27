@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 
@@ -7,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 日志流持久化文件重建队列回调
     /// </summary>
-    internal sealed class PersistenceRebuilderCallback : QueueTaskNode
+    internal sealed class PersistenceRebuilderCallback : ReadWriteQueueNode
     {
         /// <summary>
         /// 日志流持久化文件重建
@@ -34,10 +35,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             switch (type)
             {
-                case PersistenceRebuilderCallbackTypeEnum.Close: rebuilder.Close(); return;
                 case PersistenceRebuilderCallbackTypeEnum.NextNode: rebuilder.NextNode(); return;
                 case PersistenceRebuilderCallbackTypeEnum.GetSnapshotResult: rebuilder.GetSnapshotResult(); return;
                 case PersistenceRebuilderCallbackTypeEnum.CheckQueue: rebuilder.CheckQueue(); return;
+                case PersistenceRebuilderCallbackTypeEnum.Close: rebuilder.Close(); return;
+                case PersistenceRebuilderCallbackTypeEnum.CloseLog: rebuilder.CloseLog(); return;
+                case PersistenceRebuilderCallbackTypeEnum.CloseVersion: rebuilder.CloseVersion(); return;
                 case PersistenceRebuilderCallbackTypeEnum.Completed: rebuilder.Service.RebuildCompleted(); return;
             }
         }

@@ -32,11 +32,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
 
             await node.Value.ClearArray();
             await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetBinarySerialize), data);
-            await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.GetBinarySerialize), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.GetBinarySerialize), data);
             await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
             await node.Value.ClearArray();
             await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetJsonSerialize), data);
-            await test(node.Value, nameof(StringByteArrayFragmentDictionaryNode.GetJsonSerialize), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.GetJsonSerialize), data);
             await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
             await node.Value.ClearArray();
             Console.WriteLine();

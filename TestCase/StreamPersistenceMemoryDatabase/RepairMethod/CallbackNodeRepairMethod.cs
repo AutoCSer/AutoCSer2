@@ -15,7 +15,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             node.SetValue64(value);
             callback.Callback(value + 1);
         }
-        [ServerMethod(MethodIndex = (int)ICallbackNodeMethodEnum.BindNodeMethodTest, IsPersistence = false)]
+        [ServerMethod(MethodIndex = (int)ICallbackNodeMethodEnum.BindNodeMethodTest, IsPersistence = false, IsWriteQueue = true)]
         public static void BindNodeMethodTestV1(CallbackNode node, int value, MethodCallback<int> callback)
         {
             Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.toString()} : {nameof(CallbackNodeRepairMethod)}.{nameof(BindNodeMethodTestV1)}({value})");

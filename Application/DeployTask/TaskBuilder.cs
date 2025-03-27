@@ -132,7 +132,7 @@ namespace AutoCSer.CommandService.DeployTask
                     }
                     finally
                     {
-                        if (state != OperationStateEnum.Unknown) node.StreamPersistenceMemoryDatabaseCallQueue.AddOnly(new TaskBuilderCallback(this, state));
+                        if (state != OperationStateEnum.Unknown) node.StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(new TaskBuilderCallback(this, state));
                     }
                 }
                 while (!Data.IsClosed);

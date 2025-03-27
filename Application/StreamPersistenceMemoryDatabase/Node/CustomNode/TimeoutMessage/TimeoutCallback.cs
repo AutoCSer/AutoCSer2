@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage
@@ -7,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.Tim
     /// 超时检查队列回调
     /// </summary>
     /// <typeparam name="T">任务消息数据类型</typeparam>
-    internal sealed class TimeoutCallback<T> : QueueTaskNode
+    internal sealed class TimeoutCallback<T> : ReadWriteQueueNode
     {
         /// <summary>
         /// 超时任务消息节点

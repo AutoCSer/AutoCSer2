@@ -66,6 +66,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal int LoadPersistenceMethodIndex = int.MinValue;
         /// <summary>
+        /// 队列节点类型
+        /// </summary>
+        internal ReadWriteNodeTypeEnum QueueNodeType;
+        /// <summary>
         /// 默认为 true 表示调用需要持久化，如果调用不涉及数据变更操作则应该手动设置为 false 避免垃圾数据被持久化
         /// </summary>
         internal bool IsPersistence;
@@ -93,6 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             MethodIndex = MethodAttribute.MethodIndex;
             IsClientCall = MethodAttribute.IsClientCall;
             IsPersistence = MethodAttribute.IsPersistence;
+            QueueNodeType = MethodAttribute.IsWriteQueue && !IsPersistence ? ReadWriteNodeTypeEnum.Write : ReadWriteNodeTypeEnum.Read;
 #if NetStandard21
             persistenceMethodReturnType = typeof(void);
             RepairNodeMethod = AutoCSer.Common.NullMethodInfo;
@@ -451,6 +456,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (IsSimpleSerializeParamter) flags |= MethodFlagsEnum.IsSimpleSerializeParamter;
             if (IsSimpleDeserializeParamter) flags |= MethodFlagsEnum.IsSimpleDeserializeParamter;
             if (MethodAttribute.IsIgnorePersistenceCallbackException) flags |= MethodFlagsEnum.IsIgnorePersistenceCallbackException;
+            if (QueueNodeType != ReadWriteNodeTypeEnum.Read) flags |= MethodFlagsEnum.IsWriteQueue;
             constructorGenerator.int32((byte)flags);
             if (isCallType)
             {

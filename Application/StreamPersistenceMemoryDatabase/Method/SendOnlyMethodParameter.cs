@@ -13,7 +13,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务端节点方法
         /// </summary>
-        protected readonly SendOnlyMethod method;
+        internal readonly SendOnlyMethod Method;
         /// <summary>
         /// 调用方法与参数信息
         /// </summary>
@@ -21,35 +21,33 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="method"></param>
         public SendOnlyMethodParameter(ServerNode node, SendOnlyMethod method) : base(node)
         {
-            this.method = method;
+            this.Method = method;
         }
         /// <summary>
         /// 调用方法
         /// </summary>
         internal void SendOnly()
         {
-            if (method.IsClientCall)
+            if (Method.IsClientCall)
             {
                 StreamPersistenceMemoryDatabaseServiceBase service = Node.NodeCreator.Service;
-                if (method.IsPersistence)
+                if (Method.IsPersistence)
                 {
                     if (Node.CallState != CallStateEnum.Success) return;
                     if (Node.IsPersistence && !service.IsMaster) return;
-                    if (method.BeforePersistenceMethodIndex >= 0)
+                    if (Method.BeforePersistenceMethodIndex >= 0)
                     {
-                        CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull();
+                        CallInputOutputMethod beforePersistenceMethod = (CallInputOutputMethod)Node.NodeCreator.Methods[Method.BeforePersistenceMethodIndex].notNull();
                         BeforePersistenceMethodParameter = CreateBeforePersistenceMethodParameter(beforePersistenceMethod);
                         service.CurrentMethodParameter = BeforePersistenceMethodParameter;
                         if (!beforePersistenceMethod.CallBeforePersistence(BeforePersistenceMethodParameter)) return;
                     }
-                    if (Node.IsPersistence)
-                    {
-                        service.PushPersistenceMethodParameter(this);
-                        return;
-                    }
+                    if (Node.IsPersistence) service.PushPersistenceMethodParameter(this);
+                    else service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(this));
+                    return;
                 }
                 service.SetCurrentMethodParameter(this);
-                method.SendOnly(this);
+                Method.SendOnly(this);
             }
         }
         /// <summary>
@@ -67,7 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 try
                 {
                     Node.IsPersistenceCallbackChanged = false;
-                    method.SendOnly(this);
+                    Method.SendOnly(this);
                     IsPersistenceCallback = true;
                 }
                 finally
@@ -83,7 +81,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         bool isPersistenceCallbackException = true;
                         try
                         {
-                            if (method.IsIgnorePersistenceCallbackException && !Node.IsPersistenceCallbackChanged)
+                            if (Method.IsIgnorePersistenceCallbackException && !Node.IsPersistenceCallbackChanged)
                             {
                                 service.WritePersistenceCallbackExceptionPosition(persistenceCallbackExceptionPosition);
                                 rebuilder = null;
@@ -98,7 +96,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                 }
             }
-            else method.SendOnly(this);
+            else Method.SendOnly(this);
             return LinkNext;
         }
         /// <summary>
@@ -160,7 +158,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal override InputMethodParameter Clone(NodeIndex index, int methodIndex)
 #endif
         {
-            if (method.Index == methodIndex && index.Equals(Node.Index))
+            if (Method.Index == methodIndex && index.Equals(Node.Index))
             {
                 SendOnlyMethodParameter<T> methodParameter = (SendOnlyMethodParameter<T>)base.MemberwiseClone();
                 methodParameter.clearClone();
@@ -175,7 +173,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            Deserialize(deserializer, method, ref Parameter);
+            Deserialize(deserializer, Method, ref Parameter);
         }
         /// <summary>
         /// 输入参数反序列化（初始化加载持久化数据）
@@ -185,7 +183,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override bool Deserialize(AutoCSer.BinaryDeserializer deserializer, ref SubArray<byte> buffer)
         {
-            return Deserialize(deserializer, ref buffer, method, ref Parameter);
+            return Deserialize(deserializer, ref buffer, Method, ref Parameter);
         }
         /// <summary>
         /// 持久化序列化
@@ -198,7 +196,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal override MethodParameter PersistenceSerialize(AutoCSer.BinarySerializer serializer)
 #endif
         {
-            return PersistenceSerialize(serializer, method, ref Parameter);
+            return PersistenceSerialize(serializer, Method, ref Parameter);
         }
         /// <summary>
         /// 创建持久化检查方法调用参数

@@ -28,6 +28,7 @@ namespace AutoCSer.Threading
             {
                 waitHandle.Wait();
                 if (isDisposed) return;
+                AutoCSer.Threading.ThreadYield.YieldOnly();
                 var value = queue.GetQueue();
                 var currentTask = value;
                 do

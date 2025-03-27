@@ -79,6 +79,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case ServerMethodTypeEnum.KeepCallbackCount:
                         case ServerMethodTypeEnum.KeepCallbackQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                        case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
                         case ServerMethodTypeEnum.KeepCallbackTask:
                         case ServerMethodTypeEnum.KeepCallbackCountTask:
                         case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
@@ -93,6 +97,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             break;
                         case ServerMethodTypeEnum.SendOnly:
                         case ServerMethodTypeEnum.SendOnlyQueue:
+                        case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
                         case ServerMethodTypeEnum.SendOnlyTask:
                         case ServerMethodTypeEnum.SendOnlyTaskQueue:
                             MethodReturnType = typeof(SendOnlyCommand);
@@ -100,12 +106,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case ServerMethodTypeEnum.Unknown:
                             Messages.Error(Culture.Configuration.Default.GetCommandServerUnrecognizedMethod(interfaceMethod.Method, interfaceMethod.Error));
                             break;
-                        //case ServerMethodTypeEnum.Synchronous:
-                        //case ServerMethodTypeEnum.Callback:
-                        //case ServerMethodTypeEnum.Queue:
-                        //case ServerMethodTypeEnum.CallbackQueue:
-                        //case ServerMethodTypeEnum.Task:
-                        //case ServerMethodTypeEnum.TaskQueue:
                         default:
                             bool isRef = false;
                             foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter parameter in Method.Parameters)

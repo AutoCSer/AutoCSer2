@@ -95,7 +95,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// 获取执行任务消息数据
         /// </summary>
         /// <param name="callback">获取执行任务消息数据回调</param>
-        [ServerMethod(IsPersistence = false, IsCallbackClient = true)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
         void GetRunTask(MethodKeepCallback<T> callback);
     }
 }

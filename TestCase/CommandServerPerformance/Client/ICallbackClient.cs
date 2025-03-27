@@ -38,6 +38,24 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         CallbackCommand Queue(int left, int right, Action<CommandClientReturnValue<int>> callback);
         /// <summary>
+        /// 服务端支持并发读队列执行返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
+        CallbackCommand ConcurrencyReadQueue(int left, int right, Action<CommandClientReturnValue<int>> callback);
+        /// <summary>
+        /// 服务端读写队列执行返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
+        CallbackCommand ReadWriteQueue(int left, int right, Action<CommandClientReturnValue<int>> callback);
+        /// <summary>
         /// 服务端 async 任务返回返回结果
         /// </summary>
         /// <param name="left"></param>
@@ -126,6 +144,14 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 int left = Left = AutoCSer.Random.Default.Next();
 
                 int testCount = Reset(commandClient, maxTestCount);
+                for (int right = testCount; right != 0; await client.InterfaceController.ConcurrencyReadQueue(left, --right, CheckSynchronousHandle)) ;
+                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.ConcurrencyReadQueue));
+
+                testCount = Reset(commandClient, maxTestCount);
+                for (int right = testCount; right != 0; await client.InterfaceController.ReadWriteQueue(left, --right, CheckSynchronousHandle)) ;
+                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.ReadWriteQueue));
+
+                testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.Queue(left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Queue));
 

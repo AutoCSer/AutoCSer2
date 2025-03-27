@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
         /// <param name="callback"></param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void GetPage(SearchUserQueryParameter queryParameter, MethodCallback<PageResult<int>> callback);
         /// <summary>
         /// 获取非索引条件数据用户数组
@@ -26,7 +26,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="userIds">用户标识数组</param>
         /// <param name="users">用户数组</param>
         /// <param name="callback"></param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void GetArray(LeftArray<int> userIds, ArrayBuffer<SearchUser> users, MethodCallback<LeftArray<SearchUser>> callback);
         /// <summary>
         /// 非索引条件过滤
@@ -34,7 +34,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="keys">关键字集合</param>
         /// <param name="isValue">条件委托</param>
         /// <param name="callback"></param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void Filter(ArrayBuffer<int> keys, Func<SearchUser, bool> isValue, MethodCallback<ArrayBuffer<int>> callback);
     }
 }

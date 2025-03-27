@@ -32,6 +32,20 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         CommandClientReturnValue<int> Queue(int left, int right);
         /// <summary>
+        /// 服务端支持并发读队列执行返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        CommandClientReturnValue<int> ConcurrencyReadQueue(int left, int right);
+        /// <summary>
+        /// 服务端读写队列执行返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        CommandClientReturnValue<int> ReadWriteQueue(int left, int right);
+        /// <summary>
         /// 服务端 async 任务返回返回结果
         /// </summary>
         /// <param name="left"></param>
@@ -87,6 +101,8 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //for (int right = testCount; right != 0; CheckSynchronous(client.InterfaceController.Synchronous(Left, --right))) ;
                 //await LoopCompleted(nameof(SynchronousCllient), nameof(client.InterfaceController.Synchronous));
 
+                await new SynchronousCllient(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllient(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
                 await new SynchronousCllient(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
@@ -123,6 +139,8 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 case nameof(Synchronous): task = Synchronous; break;
                 case nameof(Callback): task = Callback; break;
                 case nameof(Queue): task = Queue; break;
+                case nameof(ConcurrencyReadQueue): task = ConcurrencyReadQueue; break;
+                case nameof(ReadWriteQueue): task = ReadWriteQueue; break;
                 case nameof(Task): task = Task; break;
                 case nameof(SynchronousCallTask): task = SynchronousCallTask; break;
                 case nameof(TaskQueue): task = TaskQueue; break;
@@ -179,6 +197,34 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             {
                 int right = System.Threading.Interlocked.Decrement(ref this.right);
                 if (right >= 0) CheckLock(client.InterfaceController.Queue(left, right));
+                else return;
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端支持并发读队列执行返回结果
+        /// </summary>
+        private void ConcurrencyReadQueue()
+        {
+            int left = Left;
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0) CheckLock(client.InterfaceController.ConcurrencyReadQueue(left, right));
+                else return;
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端读写队列执行返回结果
+        /// </summary>
+        private void ReadWriteQueue()
+        {
+            int left = Left;
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0) CheckLock(client.InterfaceController.ReadWriteQueue(left, right));
                 else return;
             }
             while (true);

@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -7,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 分布式锁超时检查队列节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class DistributedLockTimeoutNode<T> : QueueTaskNode
+    internal sealed class DistributedLockTimeoutNode<T> : ReadWriteQueueNode
         where T : IEquatable<T>
     {
         /// <summary>

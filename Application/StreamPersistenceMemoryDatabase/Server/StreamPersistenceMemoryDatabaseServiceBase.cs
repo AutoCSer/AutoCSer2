@@ -34,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #if NetStandard21
         [AllowNull]
 #endif
-        internal CommandServerCallQueue CommandServerCallQueue;
+        internal CommandServerCallReadWriteQueue CommandServerCallQueue;
         /// <summary>
         /// 持久化文件主目录
         /// </summary>

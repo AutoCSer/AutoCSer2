@@ -25,7 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="sessionID">服务会话标识ID</param>
         /// <param name="callback">服务注册日志回调委托，主要用于注册组件检查服务的在线状态</param>
-        [ServerMethod(IsPersistence = false, IsCallbackClient = true)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
         void ServiceCallback(long sessionID, MethodKeepCallback<ServerRegistryOperationTypeEnum> callback);
         /// <summary>
         /// 添加服务注册日志
@@ -39,7 +39,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="serverName">监视服务名称，空字符串表示所有服务</param>
         /// <param name="callback">服务注册日志回调委托，null 表示在线检查</param>
-        [ServerMethod(IsPersistence = false, IsCallbackClient = true)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
 #if NetStandard21
         void LogCallback(string serverName, MethodKeepCallback<ServerRegistryLog?> callback);
 #else
@@ -61,7 +61,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="sessionID">服务会话标识ID</param>
         /// <param name="serverName">服务名称</param>
-        [ServerMethod(IsPersistence = false, IsSendOnly = true)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsSendOnly = true)]
         void Check(long sessionID, string serverName);
         /// <summary>
         /// 服务失联持久化

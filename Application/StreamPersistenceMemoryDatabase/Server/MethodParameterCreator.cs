@@ -47,12 +47,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private void pushPersistence(MethodParameter methodParameter)
         {
             if (methodParameter.Node.IsPersistence) node.NodeCreator.Service.PushPersistenceMethodParameter(methodParameter);
-            else
-            {
-                CommandServerCallQueue queue = node.NodeCreator.Service.CommandServerCallQueue;
-                if (queue.ThreadId == System.Environment.CurrentManagedThreadId) methodParameter.PersistenceCallback();
-                else queue.AddOnly(new MethodParameterPersistenceCallback(methodParameter));
-            }
+            else node.NodeCreator.Service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(methodParameter));
         }
 
         /// <summary>

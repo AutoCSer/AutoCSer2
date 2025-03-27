@@ -361,7 +361,7 @@ namespace AutoCSer.CommandService.Search
         /// <returns>0 表示成功，-1 表示失败</returns>
         private async Task<int> create(CT node, LoadCallback<NT, KT, VT, CT> callback)
         {
-            StreamPersistenceMemoryDatabaseCallQueue.AddOnly(callback);
+            StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(callback);
             await callback.Wait();
             VT[] values = callback.Values;
             ResponseResultAwaiter[] responses = callback.CreateResponses;

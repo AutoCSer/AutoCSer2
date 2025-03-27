@@ -18,6 +18,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type LocalClientSendOnlyMethodReturnType = typeof(MethodParameter);
         /// <summary>
+        /// 队列节点类型
+        /// </summary>
+        internal ReadWriteNodeTypeEnum QueueNodeType;
+        /// <summary>
         ///客户端是否委托回调 API
         /// </summary>
         public bool IsCallback;
@@ -38,6 +42,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Parameters = method.GetParameters();
             ParameterEndIndex = Parameters.Length;
             ReturnValueType = method.ReturnType;
+            QueueNodeType = ReadWriteNodeTypeEnum.Write;
             bool isReturnType = false, isKeepCallback = false;
             if (ReturnValueType == (isLocalClient ? LocalClientSendOnlyMethodReturnType : typeof(SendOnlyCommand)))
             {
@@ -230,6 +235,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             MethodIndex = method.MethodIndex;
+            QueueNodeType = method.QueueNodeType;
             if (CallType == method.CallType) return null;
             switch (CallType)
             {

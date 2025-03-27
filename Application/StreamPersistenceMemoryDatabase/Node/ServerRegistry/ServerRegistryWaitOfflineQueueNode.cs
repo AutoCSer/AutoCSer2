@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AutoCSer.Net.CommandServer;
+using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
     /// 单例服务超时强制下线任务节点
     /// </summary>
-    internal sealed class ServerRegistryWaitOfflineQueueNode : AutoCSer.Net.CommandServerCallQueueCustomNode
+    internal sealed class ServerRegistryWaitOfflineQueueNode : ReadWriteQueueNode
     {
         /// <summary>
         /// 服务注册日志组装
@@ -36,7 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal void AppendQueueNode()
         {
-            if (object.ReferenceEquals(mainLog, logAssembler.MainLog)) logAssembler.Node.StreamPersistenceMemoryDatabaseCallQueue.AddOnly(this);
+            if (object.ReferenceEquals(mainLog, logAssembler.MainLog)) logAssembler.Node.StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(this);
         }
         /// <summary>
         /// 检查主服务日志

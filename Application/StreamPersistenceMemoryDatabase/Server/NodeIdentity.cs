@@ -48,12 +48,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ServerNode CheckGet(uint identity)
 #endif
         {
-            if (this.Identity == identity)
-            {
-                var node = this.Node;
-                if (node != null && node.Index.Identity == identity) return node;
-            }
-            return null;
+            var node = this.Node;
+            return node != null && !node.IsRemoved && this.Identity == identity ? node : null;
         }
         /// <summary>
         /// 设置节点

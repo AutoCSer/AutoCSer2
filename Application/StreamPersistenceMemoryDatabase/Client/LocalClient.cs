@@ -78,7 +78,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             NodeInfo nodeInfo = LocalClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {
-                NodeIndex index = await new LocalServiceGetNodeIndex(Service, key, nodeInfo).AppendQueue();
+                NodeIndex index = await new LocalServiceGetNodeIndex(Service, key, nodeInfo).AppendWrite();
                 CallStateEnum state = index.GetState();
                 if (state == CallStateEnum.Success)
                 {
@@ -106,7 +106,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public LocalServiceQueueNode<RebuildResult> Rebuild()
         {
-            return new LocalServiceRebuild(Service).AppendQueue();
+            return new LocalServiceRebuild(Service).AppendWrite();
         }
         /// <summary>
         /// 添加非持久化队列任务（不修改内存数据状态）

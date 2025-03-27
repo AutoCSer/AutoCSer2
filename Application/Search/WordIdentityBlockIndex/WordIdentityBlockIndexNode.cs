@@ -153,7 +153,7 @@ namespace AutoCSer.CommandService.Search
         /// <returns>0 表示成功，-1 表示失败</returns>
         private async Task<int> create(IWordIdentityBlockIndexNodeClientNode<T> node, LoadCallback<T> callback)
         {
-            StreamPersistenceMemoryDatabaseCallQueue.AddOnly(callback);
+            StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(callback);
             await callback.Wait();
             BinarySerializeKeyValue<T, string>[] values = callback.Values;
             ResponseParameterAwaiter<WordIdentityBlockIndexUpdateStateEnum>[] responses = callback.CreateResponses;

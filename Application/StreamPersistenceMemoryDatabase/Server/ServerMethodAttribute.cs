@@ -17,6 +17,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public int SnapshotMethodSort;
         /// <summary>
+        /// 默认为 false 表示非持久化 API 调用读操作队列；设置为 true 则强制调用写操作队列（比如设置回调等仅修改非持久化内存数据的场景）
+        /// </summary>
+        public bool IsWriteQueue;
+        /// <summary>
         /// 默认为 true 表示调用需要持久化，如果调用不涉及数据变更操作则应该手动设置为 false 避免垃圾数据被持久化（只有在节点支持快照的场景下才有效，不支持快照的节点不支持持久化，即使设置为 true 也无效）
         /// </summary>
         public bool IsPersistence = true;

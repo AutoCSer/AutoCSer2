@@ -249,11 +249,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     service.CurrentMethodParameter = callMethodParameter = new BeforePersistenceCallMethodParameter(this, callMethod, callback);
                                     if (!((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull()).CallBeforePersistence(this)) return CallStateEnum.Success;
                                 }
-                                if (IsPersistence)
+                                if (callMethodParameter == null) callMethodParameter = new CallMethodParameter(this, callMethod, callback);
+                                if (IsPersistence) service.PushPersistenceMethodParameter(callMethodParameter, ref callback);
+                                else
                                 {
-                                    service.PushPersistenceMethodParameter(callMethodParameter ?? new CallMethodParameter(this, callMethod, callback), ref callback);
-                                    return CallStateEnum.Success;
+                                    service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(callMethodParameter));
+                                    callback = null;
                                 }
+                                return CallStateEnum.Success;
                             }
                             service.CurrentCallIsPersistence = false;
                             callMethod.Call(this, ref callback);
@@ -307,11 +310,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                             return CallStateEnum.Success;
                                         }
                                     }
-                                    if (IsPersistence)
+                                    if (callOutputMethodParameter == null) callOutputMethodParameter = new CallOutputMethodParameter(this, callOutputMethod, callback);
+                                    if (IsPersistence) service.PushPersistenceMethodParameter(callOutputMethodParameter, ref callback);
+                                    else
                                     {
-                                        service.PushPersistenceMethodParameter(callOutputMethodParameter ?? new CallOutputMethodParameter(this, callOutputMethod, callback), ref callback);
-                                        return CallStateEnum.Success;
+                                        service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(callOutputMethodParameter));
+                                        callback = null;
                                     }
+                                    return CallStateEnum.Success;
                                 }
                                 service.CurrentCallIsPersistence = false;
                                 callOutputMethod.CallOutput(this, ref callback);
@@ -365,11 +371,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                             return CallStateEnum.Success;
                                         }
                                     }
-                                    if (IsPersistence)
+                                    if (keepCallbackMethodParameter == null) keepCallbackMethodParameter = new KeepCallbackMethodParameter(this, keepCallbackMethod, callback);
+                                    if (IsPersistence) service.PushPersistenceMethodParameter(keepCallbackMethodParameter, ref callback);
+                                    else
                                     {
-                                        service.PushPersistenceMethodParameter(keepCallbackMethodParameter ?? new KeepCallbackMethodParameter(this, keepCallbackMethod, callback), ref callback);
-                                        return CallStateEnum.Success;
+                                        service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(keepCallbackMethodParameter));
+                                        callback = null;
                                     }
+                                    return CallStateEnum.Success;
                                 }
                                 service.CurrentCallIsPersistence = false;
                                 keepCallbackMethod.KeepCallback(this, ref callback);

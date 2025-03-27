@@ -27,13 +27,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">回调委托</param>
-        private LocalServiceKeepCallbackNode(LocalClientNode clientNode, int methodIndex, Action<LocalResult<T>> callback) : base(clientNode.Client.Service)
+        /// <param name="isWriteQueue"></param>
+        private LocalServiceKeepCallbackNode(LocalClientNode clientNode, int methodIndex, Action<LocalResult<T>> callback, bool isWriteQueue) : base(clientNode.Client.Service)
         {
             this.clientNode = clientNode;
             this.methodIndex = methodIndex;
             this.callback = new LocalServiceKeepCallbackNodeCallback<T>(callback, clientNode.IsSynchronousCallback);
             result = this.callback;
-            service.CommandServerCallQueue.AddOnly(this);
+            if (isWriteQueue) service.CommandServerCallQueue.AppendWriteOnly(this);
+            else service.CommandServerCallQueue.AppendReadOnly(this);
         }
         /// <summary>
         /// 调用节点方法
@@ -49,11 +51,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">回调委托</param>
+        /// <param name="isWriteQueue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static LocalServiceQueueNode<IDisposable> Create(LocalClientNode clientNode, int methodIndex, Action<LocalResult<T>> callback)
+        internal static LocalServiceQueueNode<IDisposable> Create(LocalClientNode clientNode, int methodIndex, Action<LocalResult<T>> callback, bool isWriteQueue)
         {
-            return new LocalServiceKeepCallbackNode<T>(clientNode, methodIndex, callback);
+            return new LocalServiceKeepCallbackNode<T>(clientNode, methodIndex, callback, isWriteQueue);
         }
     }
 }

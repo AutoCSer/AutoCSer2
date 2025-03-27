@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 被守护进程信息
     /// </summary>
-    internal sealed class GuardProcess : QueueTaskNode
+    internal sealed class GuardProcess : ReadWriteQueueNode
     {
         /// <summary>
         /// 进程守护节点
@@ -91,7 +92,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 finally
                 {
-                    node.StreamPersistenceMemoryDatabaseCallQueue.AddOnly(this);
+                    node.StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(this);
                 }
             }
             else
@@ -138,7 +139,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 finally
                 {
-                    node.StreamPersistenceMemoryDatabaseCallQueue.AddOnly(this);
+                    node.StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(this);
                     close();
                 }
             }

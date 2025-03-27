@@ -42,6 +42,8 @@ namespace AutoCSer.TestCase
                         .Append<IServerSynchronousController>(new ServerSynchronousController())
                         .Append<IServerSendOnlyController>(new ServerSendOnlyController())
                         .Append<IServerQueueController>(new ServerQueueController())
+                        .Append<IServerConcurrencyReadQueueController>(new ServerConcurrencyReadQueueController())
+                        .Append<IServerReadWriteQueueController>(new ServerReadWriteQueueController())
                         .Append<IServerCallbackController>(new ServerCallbackController())
                         .Append<IServerCallbackTaskController>(new ServerCallbackTaskController())
                         .Append<IServerKeepCallbackController>(new ServerKeepCallbackController())
@@ -55,6 +57,8 @@ namespace AutoCSer.TestCase
                         .Append<ServerBindContext.IServerSynchronousController>(server => new ServerBindContext.ServerSynchronousController())
                         .Append<ServerBindContext.IServerSendOnlyController>(server => new ServerBindContext.ServerSendOnlyController())
                         .Append<ServerBindContext.IServerQueueController>(server => new ServerBindContext.ServerQueueController())
+                        .Append<ServerBindContext.IServerConcurrencyReadQueueController>(server => new ServerBindContext.ServerConcurrencyReadQueueController())
+                        .Append<ServerBindContext.IServerReadWriteQueueController>(server => new ServerBindContext.ServerReadWriteQueueController())
                         .Append<ServerBindContext.IServerCallbackController>(server => new ServerBindContext.ServerCallbackController())
                         .Append<ServerBindContext.IServerCallbackTaskController>(server => new ServerBindContext.ServerCallbackTaskController())
                         .Append<ServerBindContext.IServerKeepCallbackController>(server => new ServerBindContext.ServerKeepCallbackController())
@@ -80,7 +84,15 @@ namespace AutoCSer.TestCase
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
-                        if (!ClientQueueController.TestCase(client, clientSessionObject))
+                        if (!ClientQueueController.TestCase(client.ClientQueueController, clientSessionObject))
+                        {
+                            return AutoCSer.Breakpoint.ReturnFalse();
+                        }
+                        if (!ClientQueueController.TestCase(client.ClientConcurrencyReadQueueController, clientSessionObject))
+                        {
+                            return AutoCSer.Breakpoint.ReturnFalse();
+                        }
+                        if (!ClientQueueController.TestCase(client.ClientReadWriteQueueController, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
@@ -129,7 +141,15 @@ namespace AutoCSer.TestCase
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
-                        if (!ServerBindContext.ClientQueueController.TestCase(client, clientSessionObject))
+                        if (!ServerBindContext.ClientQueueController.TestCase(client.ServerBindContextClientQueueController, clientSessionObject))
+                        {
+                            return AutoCSer.Breakpoint.ReturnFalse();
+                        }
+                        if (!ServerBindContext.ClientQueueController.TestCase(client.ServerBindContextClientConcurrencyReadQueueController, clientSessionObject))
+                        {
+                            return AutoCSer.Breakpoint.ReturnFalse();
+                        }
+                        if (!ServerBindContext.ClientQueueController.TestCase(client.ServerBindContextClientReadWriteQueueController, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }

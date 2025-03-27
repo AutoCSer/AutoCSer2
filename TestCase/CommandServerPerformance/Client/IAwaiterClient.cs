@@ -39,6 +39,22 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
         ReturnCommand<int> Queue(int left, int right);
         /// <summary>
+        /// 服务端支持并发读队列执行返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
+        ReturnCommand<int> ConcurrencyReadQueue(int left, int right);
+        /// <summary>
+        /// 服务端读写队列执行返回结果
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [CommandClientMethod(CallbackType = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous)]
+        ReturnCommand<int> ReadWriteQueue(int left, int right);
+        /// <summary>
         /// 服务端 async 任务返回返回结果
         /// </summary>
         /// <param name="left"></param>
@@ -124,7 +140,8 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //await s0611163(client, true);
 
                 int left = Left = AutoCSer.Random.Default.Next();
-
+                await new AwaiterClient(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClient(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClient(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
@@ -242,6 +259,14 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) Queue().NotWait();
                     break;
+                case nameof(ConcurrencyReadQueue):
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
+                    while (--taskCount >= 0) ConcurrencyReadQueue().NotWait();
+                    break;
+                case nameof(ReadWriteQueue):
+                    right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
+                    while (--taskCount >= 0) ReadWriteQueue().NotWait();
+                    break;
                 case nameof(TaskQueue):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
                     while (--taskCount >= 0) TaskQueue().NotWait();
@@ -340,6 +365,62 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     do
                     {
                         if ((await client.InterfaceController.Queue(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端支持并发读队列执行返回结果
+        /// </summary>
+        private async Task ConcurrencyReadQueue()
+        {
+            int left = Left, success = 0, error = 0;
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.ConcurrencyReadQueue(left, next)).IsSuccess) ++success;
+                        else ++error;
+                    }
+                    while ((--next & (LoopCount - 1)) != 0);
+                }
+                else
+                {
+                    CheckLock(success, error);
+                    return;
+                }
+            }
+            while (true);
+        }
+        /// <summary>
+        /// 服务端读写队列执行返回结果
+        /// </summary>
+        private async Task ReadWriteQueue()
+        {
+            int left = Left, success = 0, error = 0;
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            do
+            {
+                int right = System.Threading.Interlocked.Decrement(ref this.right);
+                if (right >= 0)
+                {
+                    int next = right << LoopCountBit;
+                    do
+                    {
+                        if ((await client.InterfaceController.ReadWriteQueue(left, next)).IsSuccess) ++success;
                         else ++error;
                     }
                     while ((--next & (LoopCount - 1)) != 0);

@@ -29,9 +29,11 @@
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
     <Compile Include="CommandServer\IClientCallbackTaskController.cs" />
     <Compile Include="CommandServer\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\IClientConcurrencyReadQueueController.cs" />
     <Compile Include="CommandServer\IClientKeepCallbackController.cs" />
     <Compile Include="CommandServer\IClientKeepCallbackTaskController.cs" />
     <Compile Include="CommandServer\IClientQueueController.cs" />
+    <Compile Include="CommandServer\IClientReadWriteQueueController.cs" />
     <Compile Include="CommandServer\IClientSendOnlyController.cs" />
     <Compile Include="CommandServer\IClientSynchronousController.cs" />
     <Compile Include="CommandServer\IClientTaskQueueContextController.cs" />
@@ -42,9 +44,11 @@
     <Compile Include="CommandServer\IDefinedSymmetryController.cs" />
     <Compile Include="CommandServer\IServerCallbackTaskController.cs" />
     <Compile Include="CommandServer\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\IServerConcurrencyReadQueueController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
     <Compile Include="CommandServer\IServerQueueController.cs" />
+    <Compile Include="CommandServer\IServerReadWriteQueueController.cs" />
     <Compile Include="CommandServer\IServerSendOnlyController.cs" />
     <Compile Include="CommandServer\IServerSynchronousController.cs" />
     <Compile Include="CommandServer\IServerTaskQueueContextController.cs" />
@@ -52,6 +56,8 @@
     <Compile Include="CommandServer\IServerTaskController.cs" />
     <Compile Include="CommandServer\CommandServerSessionObject.cs" />
     <Compile Include="CommandServer\ServerBindContext\IClientCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientConcurrencyReadQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientReadWriteQueueController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryClientController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryServerController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IClientCallbackController.cs" />
@@ -65,9 +71,11 @@
     <Compile Include="CommandServer\ServerBindContext\IDefinedSymmetryController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerCallbackTaskController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerConcurrencyReadQueueController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackTaskController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerReadWriteQueueController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerSendOnlyController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerSynchronousController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IServerTaskController.cs" />

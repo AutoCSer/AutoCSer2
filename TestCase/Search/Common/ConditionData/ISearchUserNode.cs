@@ -17,14 +17,14 @@ namespace AutoCSer.TestCase.SearchCommon
         /// </summary>
         /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
         /// <param name="callback"></param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void GetPage(SearchUserQueryParameter queryParameter, MethodCallback<PageResult<int>> callback);
         /// <summary>
         /// 获取非索引条件数据用户数组
         /// </summary>
         /// <param name="userIds">用户标识数组</param>
         /// <param name="callback"></param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void GetArray(LeftArray<int> userIds, MethodCallback<LeftArray<SearchUser>> callback);
     }
 }

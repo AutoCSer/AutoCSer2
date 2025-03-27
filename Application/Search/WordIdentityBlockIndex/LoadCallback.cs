@@ -1,5 +1,6 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
@@ -11,7 +12,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
     /// 初始化加载数据回调
     /// </summary>
     /// <typeparam name="T">分词数据关键字类型</typeparam>
-    internal sealed class LoadCallback<T> : QueueTaskNode
+    internal sealed class LoadCallback<T> : ReadWriteQueueNode
 #if NetStandard21
         where T : notnull, IEquatable<T>
 #else

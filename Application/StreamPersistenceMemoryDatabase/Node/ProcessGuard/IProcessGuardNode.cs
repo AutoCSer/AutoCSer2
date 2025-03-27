@@ -41,7 +41,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="key">切换进程关键字</param>
         /// <param name="callback">切换进程回调</param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void Switch(string key, MethodCallback<bool> callback);
     }
 }

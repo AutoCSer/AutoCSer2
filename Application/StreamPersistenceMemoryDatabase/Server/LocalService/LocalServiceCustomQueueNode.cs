@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Net.CommandServer;
+using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -17,10 +18,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="service"></param>
         /// <param name="getResult">获取结果数据委托</param>
-        internal LocalServiceCustomQueueNode(LocalService service, Func<T> getResult) : base(service)
+        /// <param name="queueNodeType"></param>
+        internal LocalServiceCustomQueueNode(LocalService service, Func<T> getResult, ReadWriteNodeTypeEnum queueNodeType) : base(service)
         {
             this.getResult = getResult;
-            service.CommandServerCallQueue.AddOnly(this);
+            switch (queueNodeType)
+            {
+                case ReadWriteNodeTypeEnum.Read: service.CommandServerCallQueue.AppendReadOnly(this); return;
+                case ReadWriteNodeTypeEnum.ConcurrencyRead: service.CommandServerCallQueue.ConcurrencyRead(this); return;
+                default: service.CommandServerCallQueue.AppendWriteOnly(this); return;
+            }
         }
         /// <summary>
         /// 获取结果数据

@@ -8,10 +8,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal enum PersistenceRebuilderCallbackTypeEnum : byte
     {
         /// <summary>
-        /// 关闭重建操作
-        /// </summary>
-        Close,
-        /// <summary>
         /// 持久化下一个节点
         /// </summary>
         NextNode,
@@ -23,6 +19,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 检查调用队列
         /// </summary>
         CheckQueue,
+        /// <summary>
+        /// 关闭重建操作
+        /// </summary>
+        Close,
+        /// <summary>
+        /// 关闭重建操作（输出失败日志）
+        /// </summary>
+        CloseLog,
+        /// <summary>
+        /// 关闭版本重建
+        /// </summary>
+        CloseVersion,
         /// <summary>
         /// 重建完成
         /// </summary>

@@ -29,13 +29,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
-        private LocalServiceCallNode(LocalClientNode clientNode, int methodIndex) : base(clientNode.Client.Service)
+        /// <param name="isWriteQueue"></param>
+        private LocalServiceCallNode(LocalClientNode clientNode, int methodIndex, bool isWriteQueue) : base(clientNode.Client.Service)
         {
             this.clientNode = clientNode;
             this.methodIndex = methodIndex;
             callback = new LocalServiceCallNodeCallback(this);
             nodeIndex = clientNode.Index;
-            service.CommandServerCallQueue.AddOnly(this);
+            if(isWriteQueue) service.CommandServerCallQueue.AppendWriteOnly(this);
+            else service.CommandServerCallQueue.AppendReadOnly(this);
         }
         /// <summary>
         /// 调用节点方法
@@ -61,11 +63,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="isWriteQueue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static LocalServiceQueueNode<LocalResult> Create(LocalClientNode clientNode, int methodIndex)
+        internal static LocalServiceQueueNode<LocalResult> Create(LocalClientNode clientNode, int methodIndex, bool isWriteQueue)
         {
-            return new LocalServiceCallNode(clientNode, methodIndex);
+            return new LocalServiceCallNode(clientNode, methodIndex, isWriteQueue);
         }
     }
 }

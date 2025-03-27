@@ -23,6 +23,14 @@ namespace AutoCSer.TestCase
         /// </summary>
         public IClientQueueController ClientQueueController { get; private set; }
         /// <summary>
+        /// 队列接口测试
+        /// </summary>
+        public IClientConcurrencyReadQueueController ClientConcurrencyReadQueueController { get; private set; }
+        /// <summary>
+        /// 队列接口测试
+        /// </summary>
+        public IClientReadWriteQueueController ClientReadWriteQueueController { get; private set; }
+        /// <summary>
         /// 回调接口测试
         /// </summary>
         public IClientCallbackController ClientCallbackController { get; private set; }
@@ -72,6 +80,14 @@ namespace AutoCSer.TestCase
         /// </summary>
         public ServerBindContext.IClientQueueController ServerBindContextClientQueueController { get; private set; }
         /// <summary>
+        /// 队列接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientConcurrencyReadQueueController ServerBindContextClientConcurrencyReadQueueController { get; private set; }
+        /// <summary>
+        /// 队列接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IClientReadWriteQueueController ServerBindContextClientReadWriteQueueController { get; private set; }
+        /// <summary>
         /// 回调接口测试（套接字上下文绑定服务端）
         /// </summary>
         public ServerBindContext.IClientCallbackController ServerBindContextClientCallbackController { get; private set; }
@@ -113,6 +129,8 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerSynchronousController), typeof(IClientSynchronousController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerSendOnlyController), typeof(IClientSendOnlyController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerQueueController), typeof(IClientQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerConcurrencyReadQueueController), typeof(IClientConcurrencyReadQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerReadWriteQueueController), typeof(IClientReadWriteQueueController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerCallbackController), typeof(IClientCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerCallbackTaskController), typeof(IClientCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackController), typeof(IClientKeepCallbackController));
@@ -126,6 +144,8 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerSynchronousController), typeof(ServerBindContext.IClientSynchronousController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerSendOnlyController), typeof(ServerBindContext.IClientSendOnlyController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerQueueController), typeof(ServerBindContext.IClientQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerConcurrencyReadQueueController), typeof(ServerBindContext.IClientConcurrencyReadQueueController));
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerReadWriteQueueController), typeof(ServerBindContext.IClientReadWriteQueueController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerCallbackController), typeof(ServerBindContext.IClientCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerCallbackTaskController), typeof(ServerBindContext.IClientCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackController), typeof(ServerBindContext.IClientKeepCallbackController));

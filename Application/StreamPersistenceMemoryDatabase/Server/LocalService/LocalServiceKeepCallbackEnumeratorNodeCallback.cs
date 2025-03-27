@@ -74,16 +74,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return callback(ref returnValue);
         }
         /// <summary>
-        /// 返回值回调
-        /// </summary>
-        /// <param name="queue"></param>
-        /// <param name="returnValue"></param>
-        /// <returns></returns>
-        internal override bool Callback(CommandServerCallQueue queue, KeepCallbackResponseParameter returnValue)
-        {
-            return callback(ref returnValue);
-        }
-        /// <summary>
         /// 返回数据集合
         /// </summary>
         /// <param name="values"></param>

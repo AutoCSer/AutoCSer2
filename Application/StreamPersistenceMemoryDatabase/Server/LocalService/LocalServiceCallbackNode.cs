@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 本地服务调用节点方法队列节点
     /// </summary>
-    internal sealed class LocalServiceCallbackNode : QueueTaskNode
+    internal sealed class LocalServiceCallbackNode : ReadWriteQueueNode
     {
         /// <summary>
         /// 本地服务客户端节点
@@ -80,12 +81,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">客户端回调委托</param>
-        internal static void Create(LocalClientNode clientNode, int methodIndex, Action<LocalResult> callback)
+        /// <param name="isWriteQueue"></param>
+        internal static void Create(LocalClientNode clientNode, int methodIndex, Action<LocalResult> callback, bool isWriteQueue)
         {
             bool isCallback = true;
             try
             {
-                clientNode.Client.Service.CommandServerCallQueue.AddOnly(new LocalServiceCallbackNode(clientNode, methodIndex, callback));
+                LocalServiceCallbackNode node = new LocalServiceCallbackNode(clientNode, methodIndex, callback);
+                if (isWriteQueue) clientNode.Client.Service.CommandServerCallQueue.AppendWriteOnly(node);
+                else clientNode.Client.Service.CommandServerCallQueue.AppendReadOnly(node);
                 isCallback = false;
             }
             finally

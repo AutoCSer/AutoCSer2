@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -6,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 非持久化回调
     /// </summary>
-    internal sealed class MethodParameterPersistenceCallback : QueueTaskNode
+    internal sealed class MethodParameterPersistenceCallback : ReadWriteQueueNode
     {
         /// <summary>
         /// 调用方法与参数信息
@@ -25,6 +26,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public override void RunTask()
         {
+            //methodParameter.Node.NodeCreator.Service.CurrentCallIsPersistence = false;
             methodParameter.PersistenceCallback();
         }
     }

@@ -131,75 +131,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 成功回调
         /// </summary>
-        /// <param name="queue"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        internal bool Callback(CommandServerCallQueue queue, ResponseParameterSerializer value)
-        {
-            if (callback != null)
-            {
-                if (isResponseParameter)
-                {
-                    try
-                    {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value, 0));
-                    }
-                    catch (Exception exception)
-                    {
-                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
-                    }
-                    return false;
-                }
-                throw new InvalidCastException();
-            }
-            return true;
-        }
-        /// <summary>
-        /// 成功回调
-        /// </summary>
-        /// <param name="queue"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        internal bool Callback(CommandServerCallQueue queue, T value)
-        {
-            if (callback != null)
-            {
-                if (!isResponseParameter)
-                {
-                    bool isParameter = false;
-                    try
-                    {
-                        KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, flag);
-                        isParameter = true;
-                        return callback.VirtualCallback(responseParameter);
-                    }
-                    catch (Exception exception)
-                    {
-                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
-                    }
-                    finally
-                    {
-                        if (!isParameter) CallbackCancelKeep(CallStateEnum.Unknown);
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>(), 0));
-                    }
-                    catch (Exception exception)
-                    {
-                        AutoCSer.LogHelper.ExceptionIgnoreException(exception);
-                    }
-                }
-                return false;
-            }
-            return true;
-        }
-        /// <summary>
-        /// 成功回调
-        /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
         public bool Callback(IEnumerable<T> values)
@@ -211,7 +142,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     IEnumerable<KeepCallbackResponseParameter> responseParameter = KeepCallbackResponseParameter.CreateValues(values, flag);
                     isParameter = true;
-                    isCallback = callback.Callback(responseParameter, false);
+                    isCallback = callback.Callback(responseParameter, false);//本地调用已重写，无需 VirtualCallback
                 }
                 catch (Exception exception)
                 {
@@ -253,7 +184,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 try
                 {
-                    callback.CancelKeep();
+                    callback.CancelKeep();//本地调用已重写，无需 VirtualCallbackCancelKeep
                 }
                 catch(Exception exception)
                 {

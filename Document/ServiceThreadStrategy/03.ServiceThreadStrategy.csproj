@@ -39,6 +39,14 @@
     <Compile Include="Client\TaskQueue\IReturnQueueCommandController.cs" />
     <Compile Include="Client\TaskQueue\ISendOnlyCommandController.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Server\ConcurrencyReadQueue\ICallbackController.cs" />
+    <Compile Include="Server\ConcurrencyReadQueue\IKeepCallbackController.cs" />
+    <Compile Include="Server\ConcurrencyReadQueue\ISendOnlyController.cs" />
+    <Compile Include="Server\ConcurrencyReadQueue\ISynchronousController.cs" />
+    <Compile Include="Server\ReadWriteQueue\ICallbackController.cs" />
+    <Compile Include="Server\ReadWriteQueue\IKeepCallbackController.cs" />
+    <Compile Include="Server\ReadWriteQueue\ISendOnlyController.cs" />
+    <Compile Include="Server\ReadWriteQueue\ISynchronousController.cs" />
     <Compile Include="Server\Queue\ICallbackController.cs" />
     <Compile Include="Server\Queue\IKeepCallbackController.cs" />
     <Compile Include="Server\Queue\ISendOnlyController.cs" />

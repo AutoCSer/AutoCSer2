@@ -65,11 +65,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             return CallStateEnum.Success;
                         }
                     }
-                    if (Node.IsPersistence)
+                    if (Node.IsPersistence) service.PushPersistenceMethodParameter(this, ref callback);
+                    else
                     {
-                        service.PushPersistenceMethodParameter(this, ref callback);
-                        return CallStateEnum.Success;
+                        service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(this));
+                        callback = null;
                     }
+                    return CallStateEnum.Success;
                 }
                 callback = null;
                 try

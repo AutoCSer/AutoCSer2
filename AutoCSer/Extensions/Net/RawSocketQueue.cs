@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Threading;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Net
 {
@@ -14,25 +15,9 @@ namespace AutoCSer.Net
         /// </summary>
         private readonly Action<RawSocketBuffer> onPacket;
         /// <summary>
-        /// 队列头部
+        /// 缓冲区队列
         /// </summary>
-#if NetStandard21
-        private RawSocketBuffer? head;
-#else
-        private RawSocketBuffer head;
-#endif
-        /// <summary>
-        /// 队列尾部
-        /// </summary>
-#if NetStandard21
-        private RawSocketBuffer? end;
-#else
-        private RawSocketBuffer end;
-#endif
-        /// <summary>
-        /// 弹出节点访问锁
-        /// </summary>
-        private SpinLock queueLock;
+        private LinkStack<RawSocketBuffer> bufferQueue;
         /// <summary>
         /// 原始套接字监听数据缓冲区处理队列线程
         /// </summary>
@@ -45,22 +30,10 @@ namespace AutoCSer.Net
         /// 添加数据缓冲区
         /// </summary>
         /// <param name="buffer"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Add(RawSocketBuffer buffer)
         {
-            queueLock.EnterYield();
-            if (head == null)
-            {
-                end = buffer;
-                head = buffer;
-                queueLock.Exit();
-                waitHandle.Set();
-            }
-            else
-            {
-                end.notNull().LinkNext = buffer;
-                end = buffer;
-                queueLock.Exit();
-            }
+            if(bufferQueue.IsPushHead(buffer)) waitHandle.Set();
         }
         /// <summary>
         /// 任务线程处理
@@ -71,11 +44,8 @@ namespace AutoCSer.Net
             {
                 waitHandle.Wait();
                 if (isDisposed) return;
-                queueLock.EnterYield();
-                var value = head;
-                end = null;
-                head = null;
-                queueLock.Exit();
+                AutoCSer.Threading.ThreadYield.YieldOnly();
+                var value = bufferQueue.GetQueue();
                 do
                 {
                     try

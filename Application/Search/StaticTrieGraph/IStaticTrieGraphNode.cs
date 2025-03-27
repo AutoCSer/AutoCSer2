@@ -67,14 +67,14 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// </summary>
         /// <param name="text">搜索文本内容</param>
         /// <returns></returns>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         int[] GetWordSegmentIdentity(string text);
         /// <summary>
         /// 获取查询分词结果
         /// </summary>
         /// <param name="text">搜索文本内容</param>
         /// <returns></returns>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         WordSegmentResult[] GetWordSegmentResult(string text);
     }
 }

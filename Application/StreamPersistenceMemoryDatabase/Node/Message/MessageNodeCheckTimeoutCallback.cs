@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 
@@ -8,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 超时检查队列回调
     /// </summary>
     /// <typeparam name="T">消息数据类型</typeparam>
-    internal sealed class MessageNodeCheckTimeoutCallback<T> : QueueTaskNode
+    internal sealed class MessageNodeCheckTimeoutCallback<T> : ReadWriteQueueNode
         where T : Message<T>
     {
         /// <summary>

@@ -51,7 +51,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="identity">任务标识ID</param>
         /// <param name="callback">任务状态变更回调委托</param>
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void GetLog(long identity, MethodKeepCallback<DeployTaskLog> callback);
         /// <summary>
         /// 移除已结束或者未开始任务

@@ -36,6 +36,24 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         //[CommandServerMethod(IsInitobj = false)]
         int Queue(CommandServerCallQueue queue, int left, int right);
         /// <summary>
+        /// 服务端配置支持并发读队列执行返回结果
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        //[CommandServerMethod(IsInitobj = false)]
+        int ConcurrencyReadQueue(CommandServerCallConcurrencyReadQueue queue, int left, int right);
+        /// <summary>
+        /// 服务端配置读写队列执行返回结果
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        //[CommandServerMethod(IsInitobj = false)]
+        int ReadWriteQueue(CommandServerCallReadQueue queue, int left, int right);
+        /// <summary>
         /// 服务端 async 任务返回返回结果
         /// </summary>
         /// <param name="left"></param>
@@ -132,6 +150,22 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="right"></param>
         /// <returns></returns>
         int IService.Queue(CommandServerCallQueue queue, int left, int right) { return left + right; }
+        /// <summary>
+        /// 服务端配置支持并发读队列执行返回结果
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        int IService.ConcurrencyReadQueue(CommandServerCallConcurrencyReadQueue queue, int left, int right) { return left + right; }
+        /// <summary>
+        /// 服务端配置读写队列执行返回结果
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        int IService.ReadWriteQueue(CommandServerCallReadQueue queue, int left, int right) { return left + right; }
         /// <summary>
         /// 服务端 async 任务返回返回结果
         /// </summary>

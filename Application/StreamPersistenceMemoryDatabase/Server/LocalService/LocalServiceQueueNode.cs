@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -12,7 +13,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="T">返回结果类型</typeparam>
     [AutoCSer.CodeGenerator.AwaitResultType]
-    public abstract class LocalServiceQueueNode<T> : QueueTaskNode, INotifyCompletion
+    public abstract class LocalServiceQueueNode<T> : ReadWriteQueueNode, INotifyCompletion
     {
         /// <summary>
         /// 日志流持久化内存数据库本地服务
@@ -94,9 +95,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal LocalServiceQueueNode<T> AppendQueue()
+        internal LocalServiceQueueNode<T> AppendWrite()
         {
-            service.CommandServerCallQueue.AddOnly(this);
+            service.CommandServerCallQueue.AppendWriteOnly(this);
             return this;
         }
         /// <summary>

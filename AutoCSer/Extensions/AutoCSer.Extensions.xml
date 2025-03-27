@@ -7302,19 +7302,9 @@
             数据包处理委托
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.RawSocketQueue.head">
+        <member name="F:AutoCSer.Net.RawSocketQueue.bufferQueue">
             <summary>
-            队列头部
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.RawSocketQueue.end">
-            <summary>
-            队列尾部
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.RawSocketQueue.queueLock">
-            <summary>
-            弹出节点访问锁
+            缓冲区队列
             </summary>
         </member>
         <member name="M:AutoCSer.Net.RawSocketQueue.#ctor(System.Action{AutoCSer.Net.RawSocketBuffer})">

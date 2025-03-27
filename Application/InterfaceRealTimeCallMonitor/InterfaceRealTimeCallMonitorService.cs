@@ -294,7 +294,7 @@ namespace AutoCSer.CommandService
             {
                 if (checkTimeout(call.Value, call.Key, timestamp))
                 {
-                    if (!callback.Callback(new CallTimestamp(this, call.Value.CallData)) || --count <= 0) return;
+                    if (!callback.VirtualCallback(new CallTimestamp(this, call.Value.CallData)) || --count <= 0) return;
                 }
             }
             removeTimeout();

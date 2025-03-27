@@ -18,9 +18,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         void SnapshotSet64(long value);
         [ServerMethod(IsPersistence = false)]
         bool CheckSnapshot();
-        [ServerMethod(IsPersistence = false)]
         void SetValueCallback(int value, MethodCallback<int> callback);
-        [ServerMethod(IsPersistence = false)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
         void SetCallback(MethodCallback<int> callback);
         [ServerMethod(IsPersistence = false, IsSendOnly = true)]
         void SetValueSendOnly(int value);

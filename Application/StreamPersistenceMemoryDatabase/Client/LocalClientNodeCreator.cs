@@ -21,11 +21,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly Func<LocalClientNode, int, LocalServiceQueueNode<LocalResult>> LocalServiceCallNodeCreate = LocalServiceCallNode.Create;
+        internal static readonly Func<LocalClientNode, int, bool, LocalServiceQueueNode<LocalResult>> LocalServiceCallNodeCreate = LocalServiceCallNode.Create;
         /// <summary>
         /// 调用节点方法
         /// </summary>
-        internal static readonly Action<LocalClientNode, int, Action<LocalResult>> LocalServiceCallbackNodeCreate = LocalServiceCallbackNode.Create;
+        internal static readonly Action<LocalClientNode, int, Action<LocalResult>, bool> LocalServiceCallbackNodeCreate = LocalServiceCallbackNode.Create;
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -193,10 +193,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             switch (method.CallType)
                             {
                                 case CallTypeEnum.Call:
+                                    methodGenerator.int32(method.QueueNodeType == Net.CommandServer.ReadWriteNodeTypeEnum.Read ? 0 : 1);
                                     if (method.IsCallback) methodGenerator.call(LocalClientNodeCreator.LocalServiceCallbackNodeCreate.Method);
                                     else methodGenerator.call(LocalClientNodeCreator.LocalServiceCallNodeCreate.Method);
                                     break;
                                 case CallTypeEnum.CallOutput:
+                                    methodGenerator.int32(method.QueueNodeType == Net.CommandServer.ReadWriteNodeTypeEnum.Read ? 0 : 1);
                                     if (method.IsCallback) methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceCallbackOutputNodeCreateDelegate.Method);
                                     else methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceCallOutputNodeCreateDelegate.Method);
                                     break;
@@ -212,6 +214,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(StructGenericType.Get(method.InputParameterType.notNull().Type).LocalServiceSendOnlyNodeCreateDelegate.Method);
                                     break;
                                 case CallTypeEnum.KeepCallback:
+                                    methodGenerator.int32(method.QueueNodeType == Net.CommandServer.ReadWriteNodeTypeEnum.Read ? 0 : 1);
                                     if (method.IsCallback) methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackNodeCreateDelegate.Method);
                                     else methodGenerator.call(GenericType.Get(method.ReturnValueType).LocalServiceKeepCallbackEnumeratorNodeCreateDelegate.Method);
                                     break;
@@ -278,7 +281,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             LocalServiceQueueNode<LocalResult> IDictionary<KT, VT>.Clear()
             {
-                return LocalServiceCallNode.Create(this, 0);
+                return LocalServiceCallNode.Create(this, 0, false);
             }
             LocalServiceQueueNode<LocalResult> IDictionary<KT, VT>.Add(KT key, VT value)
             {

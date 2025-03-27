@@ -18,8 +18,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (config.OnlyLocalService)
             {
-                CommandServerCallQueue = new AutoCSer.Net.CommandServerCallQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null, 0);
-                CommandServerCallQueue.AddOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
+                CommandServerCallQueue = new AutoCSer.Net.CommandServerCallConcurrencyReadQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null);
+                CommandServerCallQueue.AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
             }
         }
         /// <summary>
@@ -99,7 +99,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public LocalServiceQueueNode<T> AppendQueueNode<T>(Func<T> getResult)
         {
-            return new LocalServiceCustomQueueNode<T>(this, getResult);
+            return new LocalServiceCustomQueueNode<T>(this, getResult, AutoCSer.Net.CommandServer.ReadWriteNodeTypeEnum.Read);
         }
     }
 }

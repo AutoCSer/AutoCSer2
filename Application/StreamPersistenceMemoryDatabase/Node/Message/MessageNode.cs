@@ -363,7 +363,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             for (int index = callbacks.Length; index != 0;)
             {
                 var checkCallback = callbackArray[--index].Callback.notNull();
-                if (!checkCallback.Callback(StreamPersistenceMemoryDatabaseCallQueue, default(T))) removeCallback(checkCallback);
+                if (!checkCallback.Callback(default(T))) removeCallback(checkCallback);
             }
             callbacks.PrepLength(1);
             if (fullCallbackIndex != callbacks.Length)
@@ -416,7 +416,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     while (true);
                     var callback = currentCallback.notNull();
 #pragma warning disable CS8631
-                    if (callback.Callback(StreamPersistenceMemoryDatabaseCallQueue, linkHead, end))
+                    if (callback.Callback(linkHead, end))
 #pragma warning restore CS8631
                     {
                         if (end == null) end = failedHead;
@@ -470,7 +470,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         while(currentCallback != null)
                         //do
                         {
-                            if (currentCallback.Callback(StreamPersistenceMemoryDatabaseCallQueue, message))
+                            if (currentCallback.Callback(message))
                             {
                                 nextFailed.LinkNext = appendArrayMessage(message);
                                 if (nextFailed.LinkNext == null) nextFailed = failedHead;
@@ -550,7 +550,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             while (currentCallback != null)
             //do
             {
-                if (currentCallback.Callback(StreamPersistenceMemoryDatabaseCallQueue, message))
+                if (currentCallback.Callback(message))
                 {
                     linkHead = appendArrayMessage(message) ?? failedHead;
                     return;
@@ -670,7 +670,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 bool isCallback = false;
                 try
                 {
-                    StreamPersistenceMemoryDatabaseCallQueue.AddOnly(new MessageNodeCheckTimeoutCallback<T>(this));
+                    StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(new MessageNodeCheckTimeoutCallback<T>(this));
                     isCallback = true;
                 }
                 finally

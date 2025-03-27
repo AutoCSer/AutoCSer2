@@ -63,7 +63,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        public override NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
+        public override NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
         {
             return new NodeIndex(CallStateEnum.OnlyMaster);
         }
@@ -73,7 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
-        public override RebuildResult Rebuild(CommandServerSocket socket, CommandServerCallQueue queue)
+        public override RebuildResult Rebuild(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue)
         {
             return new RebuildResult(CallStateEnum.OnlyMaster);
         }
@@ -108,7 +108,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="queue"></param>
         /// <param name="isBackup">是否备份客户端</param>
         /// <returns>从节点验证时间戳，负数表示 CallStateEnum 错误状态</returns>
-        public override long CreateSlave(CommandServerSocket socket, CommandServerCallQueue queue, bool isBackup)
+        public override long CreateSlave(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, bool isBackup)
         {
             return -(long)(byte)CallStateEnum.OnlyMaster;
         }

@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
@@ -12,7 +13,7 @@ namespace AutoCSer.CommandService.Search.ConditionData
     /// <typeparam name="NT">接口类型</typeparam>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    internal abstract class LoadCallback<NT, KT, VT> : QueueTaskNode
+    internal abstract class LoadCallback<NT, KT, VT> : ReadWriteQueueNode
         where NT : IConditionDataNode<KT, VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>

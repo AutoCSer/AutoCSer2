@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [0] 从节点添加修复方法目录与文件信息
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// long timestamp 创建从节点客户端信息时间戳
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory directory 修复方法目录信息
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodFile file 修复方法文件信息
@@ -30,7 +30,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [2] 调用节点方法
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// int methodIndex 调用方法编号
             /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [3] 调用节点方法
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
             /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum 
@@ -49,7 +49,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [4] 调用节点方法
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
             /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback 返回参数
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter 
@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [5] 调用节点方法
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// int methodIndex 调用方法编号
             /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback 返回参数
@@ -82,7 +82,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [8] 创建从节点
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// bool isBackup 是否备份客户端
             /// 返回值 long 从节点验证时间戳，负数表示 CallStateEnum 错误状态
             /// </summary>
@@ -90,7 +90,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [9] 获取节点标识
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// bool isCreate 关键字不存在时创建空闲节点标识
@@ -100,7 +100,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [10] 获取持久化回调异常位置数据
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// long timestamp 创建从节点客户端信息时间戳
             /// AutoCSer.Net.CommandServerKeepCallback{long} callback 
             /// 返回值 long 
@@ -109,7 +109,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [11] 获取持久化回调异常位置文件数据
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// long timestamp 创建从节点客户端信息时间戳
             /// uint fileHeadVersion 持久化回调异常位置文件头部版本信息
             /// ulong rebuildPosition 持久化流重建起始位置
@@ -121,7 +121,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [12] 获取持久化文件数据
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// long timestamp 创建从节点客户端信息时间戳
             /// uint fileHeadVersion 持久化文件头部版本信息
             /// ulong rebuildPosition 持久化流重建起始位置
@@ -143,7 +143,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [15] 从节点获取修复节点方法信息
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// long timestamp 创建从节点客户端信息时间戳
             /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodPosition} callback 获取修复节点方法信息委托
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodPosition 
@@ -157,7 +157,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [17] 调用节点方法
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
             /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} callback 返回参数
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
@@ -166,7 +166,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [18] 调用节点方法
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// int methodIndex 调用方法编号
             /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} callback 返回参数
@@ -176,14 +176,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [19] 重建持久化文件（清除无效数据），注意不支持快照的节点将被抛弃
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult 
             /// </summary>
             Rebuild = 19,
             /// <summary>
             /// [20] 移除从节点客户端信息
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
             /// long timestamp 创建从节点客户端信息时间戳
             /// </summary>
             RemoveSlave = 20,
@@ -199,7 +199,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [22] 调用节点方法
             /// AutoCSer.Net.CommandServerSocket socket 
-            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
             /// </summary>
             SendOnly = 22,
@@ -224,6 +224,70 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 string 
             /// </summary>
             GetNodeKeys = 25,
+            /// <summary>
+            /// [26] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter 
+            /// </summary>
+            CallInputOutputWrite = 26,
+            /// <summary>
+            /// [27] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum 
+            /// </summary>
+            CallInputWrite = 27,
+            /// <summary>
+            /// [28] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// int methodIndex 调用方法编号
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter 
+            /// </summary>
+            CallOutputWrite = 28,
+            /// <summary>
+            /// [29] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// int methodIndex 调用方法编号
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum} callback 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum 
+            /// </summary>
+            CallWrite = 29,
+            /// <summary>
+            /// [30] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            InputKeepCallbackWrite = 30,
+            /// <summary>
+            /// [31] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// int methodIndex 调用方法编号
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} callback 返回参数
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            KeepCallbackWrite = 31,
+            /// <summary>
+            /// [32] 调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter 请求参数
+            /// </summary>
+            SendOnlyWrite = 32,
     }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
 {

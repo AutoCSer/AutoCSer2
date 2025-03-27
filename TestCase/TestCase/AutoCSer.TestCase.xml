@@ -52,6 +52,16 @@
             队列接口测试
             </summary>
         </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientConcurrencyReadQueueController">
+            <summary>
+            队列接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientReadWriteQueueController">
+            <summary>
+            队列接口测试
+            </summary>
+        </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientCallbackController">
             <summary>
             回调接口测试
@@ -108,6 +118,16 @@
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientQueueController">
+            <summary>
+            队列接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientConcurrencyReadQueueController">
+            <summary>
+            队列接口测试（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientReadWriteQueueController">
             <summary>
             队列接口测试（套接字上下文绑定服务端）
             </summary>
@@ -250,6 +270,16 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.TestCase.IClientConcurrencyReadQueueController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IClientReadWriteQueueController">
+            <summary>
+            客户端测试接口
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientQueueController">
             <summary>
             客户端测试接口
@@ -260,7 +290,7 @@
             命令客户端测试
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientQueueController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+        <member name="M:AutoCSer.TestCase.ClientQueueController.TestCase(AutoCSer.TestCase.IClientQueueController,AutoCSer.TestCase.CommandServerSessionObject)">
             <summary>
             命令客户端测试
             </summary>
@@ -452,6 +482,26 @@
             服务端测试接口
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.IServerConcurrencyReadQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerConcurrencyReadQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.IServerReadWriteQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerReadWriteQueueController">
+            <summary>
+            服务端测试接口
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.IServerQueueController">
             <summary>
             服务端测试接口
@@ -541,6 +591,16 @@
             <param name="client"></param>
             <param name="clientSessionObject"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientConcurrencyReadQueueController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IClientReadWriteQueueController">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端）
+            </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryClientController">
             <summary>
@@ -655,7 +715,7 @@
             命令客户端测试（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.TestCase(AutoCSer.TestCase.ServerBindContext.IClientQueueController,AutoCSer.TestCase.CommandServerSessionObject)">
             <summary>
             命令客户端测试
             </summary>
@@ -784,6 +844,26 @@
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ServerKeepCallbackTaskController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerConcurrencyReadQueueController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerConcurrencyReadQueueController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.IServerReadWriteQueueController">
+            <summary>
+            服务端测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerReadWriteQueueController">
             <summary>
             服务端测试接口（套接字上下文绑定服务端）
             </summary>

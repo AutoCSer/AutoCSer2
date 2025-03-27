@@ -172,8 +172,8 @@ namespace AutoCSer.CommandService
         {
             IsDisposed = true;
 
-            if (Rebuilder != null) CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(Rebuilder, PersistenceRebuilderCallbackTypeEnum.Close));
-            CommandServerCallQueue.AddOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.NodeDispose));
+            if (Rebuilder != null) CommandServerCallQueue.AppendWriteOnly(new PersistenceRebuilderCallback(Rebuilder, PersistenceRebuilderCallbackTypeEnum.Close));
+            CommandServerCallQueue.AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.NodeDispose));
             removeHistoryFile?.Cancel();
         }
         /// <summary>
@@ -239,8 +239,8 @@ namespace AutoCSer.CommandService
         /// <param name="controller"></param>
         void ICommandServerBindController.Bind(CommandServerController controller)
         {
-            CommandServerCallQueue = controller.CallQueue;
-            if (IsMaster) CommandServerCallQueue.notNull().AddOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
+            CommandServerCallQueue = controller.CallConcurrencyReadQueue;
+            if (IsMaster) CommandServerCallQueue.notNull().AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
         }
         /// <summary>
         /// 根据节点全局关键字获取服务端节点
@@ -364,7 +364,7 @@ namespace AutoCSer.CommandService
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="isCreate">关键字不存在时创建空闲节点标识</param>
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
-        public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
+        public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
         {
             return GetNodeIndex(key, nodeInfo, isCreate);
         }
@@ -593,7 +593,20 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Call(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<CallStateEnum> callback)
+        public void Call(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<CallStateEnum> callback)
+        {
+            Call(index, methodIndex, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<CallStateEnum> callback)
         {
             Call(index, methodIndex, callback);
         }
@@ -636,7 +649,7 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">返回参数</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void CallOutput(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback)
+        public void CallOutput(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback)
         {
             CallOutput(index, methodIndex, callback);
         }
@@ -645,9 +658,20 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="queue"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallOutputWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback)
+        {
+            CallOutput(index, methodIndex, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
         /// <param name="parameter">请求参数</param>
         /// <param name="callback"></param>
-        public void CallInput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<CallStateEnum> callback)
+        public void CallInput(ref RequestParameter parameter, CommandServerCallback<CallStateEnum> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             var refCallback = callback;
@@ -668,8 +692,30 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
+        /// <param name="callback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallInput(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, RequestParameter parameter, CommandServerCallback<CallStateEnum> callback)
+        {
+            CallInput(ref parameter, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallInputWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, RequestParameter parameter, CommandServerCallback<CallStateEnum> callback)
+        {
+            CallInput(ref parameter, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="parameter">请求参数</param>
         /// <param name="callback">返回参数</param>
-        public void CallInputOutput(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback)
+        public void CallInputOutput(ref RequestParameter parameter, CommandServerCallback<ResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             var refCallback = callback;
@@ -690,9 +736,46 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="parameter">请求参数</param>
+        /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallInputOutput(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback)
+        {
+            CallInputOutput(ref parameter, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallInputOutputWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback)
+        {
+            CallInputOutput(ref parameter, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">请求参数</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public CommandServerSendOnly SendOnly(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter)
+        public CommandServerSendOnly SendOnly(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, RequestParameter parameter)
+        {
+            if (!IsDisposed && parameter.CallState == CallStateEnum.Success) ((SendOnlyMethodParameter)parameter.MethodParameter.notNull()).SendOnly();
+            return CommandServerSendOnly.Null;
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">请求参数</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public CommandServerSendOnly SendOnlyWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, RequestParameter parameter)
         {
             if (!IsDisposed && parameter.CallState == CallStateEnum.Success) ((SendOnlyMethodParameter)parameter.MethodParameter.notNull()).SendOnly();
             return CommandServerSendOnly.Null;
@@ -739,7 +822,7 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">返回参数</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void KeepCallback(CommandServerSocket socket, CommandServerCallQueue queue, NodeIndex index, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+        public void KeepCallback(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, NodeIndex index, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
         {
             KeepCallback(index, methodIndex, callback);
         }
@@ -748,10 +831,20 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="queue"></param>
-        /// <param name="parameter">请求参数</param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">返回参数</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void InputKeepCallback(CommandServerSocket socket, CommandServerCallQueue queue, RequestParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+        public void KeepCallbackWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, NodeIndex index, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+        {
+            KeepCallback(index, methodIndex, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+        internal void InputKeepCallback(ref RequestParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             var refCallback = callback;
@@ -765,6 +858,30 @@ namespace AutoCSer.CommandService
                 else state = CallStateEnum.Disposed;
             }
             finally { refCallback?.CallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void InputKeepCallback(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, RequestParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+        {
+            InputKeepCallback(ref parameter, callback);
+        }
+        /// <summary>
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">请求参数</param>
+        /// <param name="callback">返回参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void InputKeepCallbackWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, RequestParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+        {
+            InputKeepCallback(ref parameter, callback);
         }
         /// <summary>
         /// 设置自定义状态对象
@@ -836,7 +953,7 @@ namespace AutoCSer.CommandService
                                         serviceCallbackWait.WaitOne();
                                         if (Slave != null)
                                         {
-                                            CommandServerCallQueue.AddOnly(completedCallback.notNull());
+                                            CommandServerCallQueue.AppendWriteOnly(completedCallback.notNull());
                                             rebuildCompletedWaitHandle.Wait();
                                         }
                                         persistenceStream.Dispose();
@@ -949,7 +1066,7 @@ namespace AutoCSer.CommandService
                                     if (Interlocked.Increment(ref serviceCallbackCount) == 1) serviceCallbackWait.Reset();
                                     serviceCallback.PersistencePosition = PersistencePosition;
                                     serviceCallback.CheckRebuild = Rebuilder == null && rebuildLoadExceptionNode == null && Config.CheckRebuild(this);
-                                    CommandServerCallQueue.AddOnly(serviceCallback);
+                                    CommandServerCallQueue.AppendWriteOnly(serviceCallback);
                                     if (Rebuilder != null && !isRebuilderPersistenceWaitting) Thread.Sleep(0);
                                 }
                                 catch (Exception exception)
@@ -1162,7 +1279,7 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
-        public virtual RebuildResult Rebuild(CommandServerSocket socket, CommandServerCallQueue queue)
+        public virtual RebuildResult Rebuild(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue)
         {
             return Rebuild();
         }
@@ -1338,7 +1455,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="isBackup">是否备份客户端</param>
         /// <returns>从节点验证时间戳，负数表示 CallStateEnum 错误状态</returns>
-        public virtual long CreateSlave(CommandServerSocket socket, CommandServerCallQueue queue, bool isBackup)
+        public virtual long CreateSlave(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, bool isBackup)
         {
             if (CanCreateSlave)
             {
@@ -1387,7 +1504,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="timestamp">创建从节点客户端信息时间戳</param>
         /// <returns></returns>
-        public CommandServerSendOnly RemoveSlave(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp)
+        public CommandServerSendOnly RemoveSlave(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, long timestamp)
         {
             RemoveSlave(timestamp);
             return CommandServerSendOnly.Null;
@@ -1401,7 +1518,7 @@ namespace AutoCSer.CommandService
         /// <param name="directory">修复方法目录信息</param>
         /// <param name="file">修复方法文件信息</param>
         /// <returns></returns>
-        public CommandServerSendOnly AppendRepairNodeMethodDirectoryFile(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, RepairNodeMethodDirectory directory, RepairNodeMethodFile file)
+        public CommandServerSendOnly AppendRepairNodeMethodDirectoryFile(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, long timestamp, RepairNodeMethodDirectory directory, RepairNodeMethodFile file)
         {
             var left = default(ServiceSlave);
             var slave = getSlave(timestamp, out left);
@@ -1434,7 +1551,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="timestamp">创建从节点客户端信息时间戳</param>
         /// <param name="callback">获取修复节点方法信息委托</param>
-        public void GetRepairNodeMethodPosition(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, CommandServerKeepCallback<RepairNodeMethodPosition> callback)
+        public void GetRepairNodeMethodPosition(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, long timestamp, CommandServerKeepCallback<RepairNodeMethodPosition> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             var refCallback = callback;
@@ -1477,7 +1594,7 @@ namespace AutoCSer.CommandService
         /// <param name="rebuildPosition">持久化流重建起始位置</param>
         /// <param name="position">读取文件起始位置</param>
         /// <param name="callback"></param>
-        public void GetPersistenceFile(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, uint fileHeadVersion, ulong rebuildPosition, long position, CommandServerKeepCallback<PersistenceFileBuffer> callback)
+        public void GetPersistenceFile(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, long timestamp, uint fileHeadVersion, ulong rebuildPosition, long position, CommandServerKeepCallback<PersistenceFileBuffer> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             var refCallback = callback;
@@ -1526,7 +1643,7 @@ namespace AutoCSer.CommandService
         /// <param name="queue"></param>
         /// <param name="timestamp">创建从节点客户端信息时间戳</param>
         /// <param name="callback"></param>
-        public void GetPersistenceCallbackExceptionPosition(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, CommandServerKeepCallback<long> callback)
+        public void GetPersistenceCallbackExceptionPosition(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, long timestamp, CommandServerKeepCallback<long> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             try
@@ -1556,7 +1673,7 @@ namespace AutoCSer.CommandService
         /// <param name="rebuildPosition">持久化流重建起始位置</param>
         /// <param name="position">读取文件起始位置</param>
         /// <param name="callback"></param>
-        public void GetPersistenceCallbackExceptionPositionFile(CommandServerSocket socket, CommandServerCallQueue queue, long timestamp, uint fileHeadVersion, ulong rebuildPosition, long position, CommandServerKeepCallback<PersistenceFileBuffer> callback)
+        public void GetPersistenceCallbackExceptionPositionFile(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, long timestamp, uint fileHeadVersion, ulong rebuildPosition, long position, CommandServerKeepCallback<PersistenceFileBuffer> callback)
         {
             CallStateEnum state = CallStateEnum.Unknown;
             var refCallback = callback;

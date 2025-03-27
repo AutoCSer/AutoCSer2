@@ -276,7 +276,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             state = nodeMethod.CheckRepair(Type, methodInfo);
                             if (state == CallStateEnum.Success)
                             {
-                                Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), null, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
+                                Service.CommandServerCallQueue.AppendWriteOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), null, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
                                 state = CallStateEnum.Callbacked;
                             }
                         }
@@ -354,7 +354,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     nodeMethod = new ServerNodeMethod(Type, methodInfo, methodAttribute);
                     if (nodeMethod.CallType != CallTypeEnum.Unknown)
                     {
-                        Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
+                        Service.CommandServerCallQueue.AppendWriteOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
                         state = CallStateEnum.Callbacked;
                     }
                     else
@@ -367,7 +367,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (nodeMethod.RepairNodeMethod != methodInfo)
                     {
-                        Service.CommandServerCallQueue.AddOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
+                        Service.CommandServerCallQueue.AppendWriteOnly(new RepairNodeMethodCallback(this, await writeRepairNodeMethodFile(rawAssembly, methodInfo, methodAttribute), nodeMethod, nodeMethod.CreateMethod<T>(methodInfo), methodInfo, methodAttribute, callback));
                         state = CallStateEnum.Callbacked;
                     }
                     else state = CallStateEnum.Success;

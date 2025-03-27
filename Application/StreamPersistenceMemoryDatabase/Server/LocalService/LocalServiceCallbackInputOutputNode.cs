@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用节点方法队列节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class LocalServiceCallbackInputOutputNode<T> : QueueTaskNode
+    internal sealed class LocalServiceCallbackInputOutputNode<T> : ReadWriteQueueNode
     {
         /// <summary>
         /// 本地服务客户端节点
@@ -102,7 +103,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     var methodParameter = callInputOutputMethodParameter.notNull();
                     methodParameter.Parameter = parameter;
-                    clientNode.Client.Service.CommandServerCallQueue.AddOnly(new LocalServiceCallbackInputOutputNode<T>(clientNode, methodParameter, callback));
+                    LocalServiceCallbackInputOutputNode<T> node = new LocalServiceCallbackInputOutputNode<T>(clientNode, methodParameter, callback);
+                    if ((methodParameter.Method.Flags & MethodFlagsEnum.IsWriteQueue) == 0) clientNode.Client.Service.CommandServerCallQueue.AppendReadOnly(node);
+                    else clientNode.Client.Service.CommandServerCallQueue.AppendWriteOnly(node);
                     state = CallStateEnum.Callbacked;
                     return;
                 }

@@ -32,9 +32,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否忽略持久化回调异常，节点方法必须保证异常时还原恢复内存数据状态，必须关心 new 产生的内存不足异常，在修改数据以前应该将完成所有 new 操作
         /// </summary>
         IsIgnorePersistenceCallbackException = 0x10,
-        ///// <summary>
-        ///// 是否快照调用方法，该方法必须只有 1 个参数且类型匹配快照数据
-        ///// </summary>
-        //IsSnapshotMethod = 0x80,
+        /// <summary>
+        /// 本地调用是否添加到写操作队列
+        /// </summary>
+        IsWriteQueue = 0x80,
     }
 }

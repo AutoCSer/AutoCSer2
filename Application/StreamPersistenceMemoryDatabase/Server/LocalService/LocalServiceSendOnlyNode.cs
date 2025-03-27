@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 
@@ -8,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 本地服务调用节点方法队列节点
     /// </summary>
-    internal sealed class LocalServiceSendOnlyNode : QueueTaskNode
+    internal sealed class LocalServiceSendOnlyNode : ReadWriteQueueNode
     {
         /// <summary>
         /// 调用方法与参数信息
@@ -22,7 +23,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private LocalServiceSendOnlyNode(LocalClientNode clientNode, SendOnlyMethodParameter parameter)
         {
             this.parameter = parameter;
-            clientNode.Client.Service.CommandServerCallQueue.AddOnly(this);
+            if ((parameter.Method.Flags & MethodFlagsEnum.IsWriteQueue) == 0) clientNode.Client.Service.CommandServerCallQueue.AppendReadOnly(this);
+            else clientNode.Client.Service.CommandServerCallQueue.AppendWriteOnly(this);
+
         }
         /// <summary>
         /// 调用节点方法

@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
 
 namespace AutoCSer.CommandService.DeployTask
@@ -6,7 +7,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 发布任务状态变更回调日志回调
     /// </summary>
-    internal sealed class TaskBuilderCallback : QueueTaskNode
+    internal sealed class TaskBuilderCallback : ReadWriteQueueNode
     {
         /// <summary>
         /// 发布任务创建器

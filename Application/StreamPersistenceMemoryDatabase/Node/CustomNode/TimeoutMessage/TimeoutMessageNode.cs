@@ -316,7 +316,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void callback(T data)
         {
-            StreamPersistenceMemoryDatabaseCallQueue.AddOnly(new TimeoutMessageCallback<T>(this, data));
+            StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(new TimeoutMessageCallback<T>(this, data));
         }
         /// <summary>
         /// 获取执行任务消息数据回调
@@ -337,7 +337,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
                 bool isCallback = false;
                 try
                 {
-                    StreamPersistenceMemoryDatabaseCallQueue.AddOnly(new TimeoutCallback<T>(this));
+                    StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(new TimeoutCallback<T>(this));
                     isCallback = true;
                 }
                 finally

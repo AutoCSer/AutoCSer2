@@ -11,24 +11,23 @@ namespace AutoCSer.Extensions
     /// </summary>
     public static class MethodKeepCallbackExtension
     {
-        /// <summary>
-        /// 当前程序集
-        /// </summary>
-        private static readonly Assembly currentAssembly = typeof(MethodKeepCallbackExtension).Assembly;
+        ///// <summary>
+        ///// 当前程序集
+        ///// </summary>
+        //private static readonly Assembly currentAssembly = typeof(MethodKeepCallbackExtension).Assembly;
 
         /// <summary>
         /// 返回数据链表
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodCallback"></param>
-        /// <param name="queue"></param>
         /// <param name="head">开始节点</param>
         /// <param name="end">结束节点</param>
         /// <returns></returns>
 #if NetStandard21
-        internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, CommandServerCallQueue queue, T head, T? end)
+        internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, T head, T? end)
 #else
-        internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, CommandServerCallQueue queue, T head, T end)
+        internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, T head, T end)
 #endif
              where T : KeepCallbackReturnValueLink<T>
         {
@@ -42,29 +41,12 @@ namespace AutoCSer.Extensions
                 var next = head;
                 try
                 {
-                    if (!object.ReferenceEquals(callback.GetType().Assembly, currentAssembly))
+                    do
                     {
-                        CommandServerSocket socket = callback.Socket;
-                        if (!socket.IsClose)
-                        {
-                            do
-                            {
-                                ServerReturnValue<KeepCallbackResponseParameter> outputParameter = new ServerReturnValue<KeepCallbackResponseParameter>(KeepCallbackResponseParameter.Create(next, methodCallback.flag));
-                                queue.Send(socket, socket.GetOutput(callback.CallbackIdentity, callback.Method, ref outputParameter));
-                            }
-                            while ((next = next.notNull().LinkNext) != end);
-                            return isPush = true;
-                        }
+                        if (!callback.VirtualCallback(KeepCallbackResponseParameter.Create(next, methodCallback.flag))) return false;
                     }
-                    else
-                    {//本地模式
-                        do
-                        {
-                            if (!callback.VirtualCallback(KeepCallbackResponseParameter.Create(next, methodCallback.flag))) return false;
-                        }
-                        while ((next = next.notNull().LinkNext) != end);
-                        return isPush = true;
-                    }
+                    while ((next = next.notNull().LinkNext) != end);
+                    return isPush = true;
                 }
                 catch (Exception exception)
                 {

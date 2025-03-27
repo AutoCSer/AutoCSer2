@@ -31,7 +31,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #if NetStandard21
         [AllowNull]
 #endif
-        public CommandServerCallQueue StreamPersistenceMemoryDatabaseCallQueue { get; private set; }
+        public CommandServerCallReadWriteQueue StreamPersistenceMemoryDatabaseCallQueue { get; private set; }
         /// <summary>
         /// 判断节点是否已经被移除或者数据库服务是否已经释放资源
         /// </summary>

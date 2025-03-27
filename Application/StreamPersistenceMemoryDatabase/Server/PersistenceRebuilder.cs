@@ -199,6 +199,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 关闭重建操作（输出失败日志）
+        /// </summary>
+        internal void CloseLog()
+        {
+            Close(true);
+        }
+        /// <summary>
         /// 创建重建文件
         /// </summary>
         private unsafe void createFile()
@@ -221,7 +228,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 persistenceCallbackExceptionFilePosition = ServiceLoader.ExceptionPositionFileHeadSize;
                 persistencePosition = ServiceLoader.FileHeadSize;
-                Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
+                Service.CommandServerCallQueue.AppendReadOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
                 isPersistence = true;
             }
             finally
@@ -238,16 +245,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (snapshotTransactionNodeVersion == Service.SnapshotTransactionNodeVersion) return true;
             if (Interlocked.CompareExchange(ref isSnapshotTransactionNodeVersionRebuild, 1, 0) == 0)
             {
-                try
-                {
-                    Close();
-                }
-                finally
-                {
-                    Service = new PersistenceRebuilder(Service).Service;
-                }
+                Service.CommandServerCallQueue.AppendWriteOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.CloseVersion));
             }
             return false;
+        }
+        /// <summary>
+        /// 关闭版本重建
+        /// </summary>
+        internal void CloseVersion()
+        {
+            try
+            {
+                Close();
+            }
+            finally
+            {
+                Service = new PersistenceRebuilder(Service).Service;
+            }
         }
         /// <summary>
         /// 持久化下一个节点
@@ -281,7 +295,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                         finally
                         {
-                            if (!isPersistence) Close(true);
+                            if (!isPersistence) Service.CommandServerCallQueue.AppendWriteOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.CloseLog));
                         }
                     }
                 }
@@ -299,7 +313,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             try
             {
                 for (int nodeIndex = nodeCount - nodes[nodeCount].Value; nodeIndex != nodeCount; nodes[++nodeIndex].Key.GetSnapshotArray()) ;
-                Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.GetSnapshotResult));
+                Service.CommandServerCallQueue.ConcurrencyRead(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.GetSnapshotResult));
                 isPersistence = true;
             }
             finally
@@ -330,7 +344,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             finally
             {
-                if (!isPersistence) Close(true);
+                if (!isPersistence) Service.CommandServerCallQueue.AppendWriteOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.CloseLog));
             }
             NextNode();
         }
@@ -344,7 +358,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 if (node.notNull().Rebuild(this))
                 {
-                    Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
+                    Service.CommandServerCallQueue.AppendReadOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.NextNode));
                     isPersistence = true;
                     return;
                 }
@@ -700,7 +714,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (isClosedOrServiceDisposed) return;
                 if (persistence())
                 {
-                    Service.CommandServerCallQueue.AddOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.CheckQueue));
+                    Service.CommandServerCallQueue.AppendReadOnly(new PersistenceRebuilderCallback(this, PersistenceRebuilderCallbackTypeEnum.CheckQueue));
                     isPersistence = true;
                 }
             }

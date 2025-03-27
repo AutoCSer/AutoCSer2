@@ -168,7 +168,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!isClosed)
             {
                 var removeCallback = System.Threading.Interlocked.Exchange(ref this.removeCallback, null);
-                if (removeCallback != null) service.CommandServerCallQueue.AddOnly(removeCallback);
+                if (removeCallback != null) service.CommandServerCallQueue.AppendWriteOnly(removeCallback);
             }
         }
         /// <summary>
@@ -522,7 +522,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                 }
                 while (persistenceCallbackExceptionFilePosition < service.PersistenceCallbackExceptionFilePosition);
-                service.CommandServerCallQueue.AddOnly(new ServiceSlaveCallback(this, ServiceSlaveCallbackTypeEnum.CheckPersistenceCallbackExceptionPosition));
+                service.CommandServerCallQueue.AppendWriteOnly(new ServiceSlaveCallback(this, ServiceSlaveCallbackTypeEnum.CheckPersistenceCallbackExceptionPosition));
                 isFile = true;
             }
             catch (Exception exception)

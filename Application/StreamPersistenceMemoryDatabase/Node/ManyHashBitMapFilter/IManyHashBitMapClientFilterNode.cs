@@ -18,7 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 获取设置新位操作
         /// </summary>
         /// <param name="callback">设置位置</param>
-        [ServerMethod(IsPersistence = false, IsCallbackClient = true)]
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
         void GetBit(MethodKeepCallback<int> callback);
         /// <summary>
         /// 获取位图大小（位数量）
