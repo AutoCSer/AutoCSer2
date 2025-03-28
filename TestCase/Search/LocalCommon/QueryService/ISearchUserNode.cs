@@ -17,24 +17,24 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// 获取非索引条件数据用户分页数据
         /// </summary>
         /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
-        /// <param name="callback"></param>
+        /// <returns></returns>
         [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
-        void GetPage(SearchUserQueryParameter queryParameter, MethodCallback<PageResult<int>> callback);
+        PageResult<int> GetPage(SearchUserQueryParameter queryParameter);
         /// <summary>
         /// 获取非索引条件数据用户数组
         /// </summary>
         /// <param name="userIds">用户标识数组</param>
         /// <param name="users">用户数组</param>
-        /// <param name="callback"></param>
+        /// <returns></returns>
         [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
-        void GetArray(LeftArray<int> userIds, ArrayBuffer<SearchUser> users, MethodCallback<LeftArray<SearchUser>> callback);
+        LeftArray<SearchUser> GetArray(LeftArray<int> userIds, ArrayBuffer<SearchUser> users);
         /// <summary>
         /// 非索引条件过滤
         /// </summary>
         /// <param name="keys">关键字集合</param>
         /// <param name="isValue">条件委托</param>
-        /// <param name="callback"></param>
+        /// <returns></returns>
         [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
-        void Filter(ArrayBuffer<int> keys, Func<SearchUser, bool> isValue, MethodCallback<ArrayBuffer<int>> callback);
+        ArrayBuffer<int> Filter(ArrayBuffer<int> keys, Func<SearchUser, bool> isValue);
     }
 }

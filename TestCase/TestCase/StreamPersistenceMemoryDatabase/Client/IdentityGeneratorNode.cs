@@ -14,12 +14,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateIdentityGeneratorNode(nameof(IdentityGeneratorNode)));
         /// <summary>
+        /// 客户端节点单例（支持并发读取操作）
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateIdentityGeneratorNode(nameof(IdentityGeneratorNode)));
+        /// <summary>
         /// 64 位自增 ID 生成客户端示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
         {
-            var nodeResult = await nodeCache.GetNode();
+            if (!await test(nodeCache)) return false;
+            if (!await test(readWriteQueueNodeCache)) return false;
+            return true;
+        }
+        /// <summary>
+        /// 64 位自增 ID 生成客户端示例
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode> client)
+        {
+            var nodeResult = await client.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

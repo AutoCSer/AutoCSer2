@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 using System;
 using System.IO;
@@ -31,6 +32,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
                     .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                     .Append<IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
+                    //.Append<IReadWriteQueueService>(databaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())

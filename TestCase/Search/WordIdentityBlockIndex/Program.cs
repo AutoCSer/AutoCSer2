@@ -19,15 +19,19 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
                 PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.SearchWordIdentityBlockIndex)),
                 PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.SearchWordIdentityBlockIndex) + nameof(ServiceConfig.PersistenceSwitchPath))
             };
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService databaseService = databaseServiceConfig.Create<IServiceNode>(p => new ServiceNode(p));
-
+            ServiceConfig searchUserDatabaseServiceConfig = new ServiceConfig
+            {
+                PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.SearchWordIdentityBlockIndex.SearchUserNode)),
+                PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.SearchWordIdentityBlockIndex.SearchUserNode) + nameof(ServiceConfig.PersistenceSwitchPath))
+            };
             AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerConfig
             {
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.SearchWordIdentityBlockIndex),
             };
             await using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
                 .Append<ITimestampVerifyService>(server => new TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
-                .Append<IStreamPersistenceMemoryDatabaseService>(databaseService)
+                .Append<IReadWriteQueueService>(searchUserDatabaseServiceConfig.Create<ISearchUserServiceNode>(p => new SearchUserServiceNode(p)))
+                .Append<IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create<IServiceNode>(p => new ServiceNode(p)))
                 .CreateCommandListener(commandServerConfig))
             {
                 if (await commandListener.Start())

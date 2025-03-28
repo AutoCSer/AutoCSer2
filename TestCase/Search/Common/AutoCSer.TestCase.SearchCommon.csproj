@@ -34,6 +34,7 @@
     <Compile Include="QueryService\SearchUserQueryParameter.cs" />
     <Compile Include="QueryService\UserOrderEnum.cs" />
     <Compile Include="QueryService\UserQueryParameter.cs" />
+    <Compile Include="ConditionData\ISearchUserServiceNode.cs" />
     <Compile Include="WordIdentityBlockIndex\IServiceNode.cs" />
     <Compile Include="DataSource\IUserService.cs" />
     <Compile Include="{AutoCSer.TestCase.SearchCommon}.AutoCSer.cs" />

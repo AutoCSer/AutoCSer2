@@ -92,8 +92,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 CommandServerSocket socket = deserializer.Context.castType<CommandServerSocket>().notNull();
                 if (!object.ReferenceEquals(socket, CommandServerSocket.CommandServerSocketContext))
                 {
-                    CommandServerController<IStreamPersistenceMemoryDatabaseService> controller = (CommandServerController<IStreamPersistenceMemoryDatabaseService>)socket.CurrentController;
-                    MethodParameter = ((StreamPersistenceMemoryDatabaseService)controller.Controller)
+                    MethodParameter = ((StreamPersistenceMemoryDatabaseService)socket.CurrentController.GetControllerObject())
                         .CreateInputMethodParameter(new NodeIndex(*(int*)data, *(uint*)(data + sizeof(int))), *(int*)(data + (sizeof(int) + sizeof(uint))), out CallState);
                     if (MethodParameter != null)
                     {

@@ -33,6 +33,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateServerByteArrayMessageNode(nameof(ServerByteArrayMessageStringConsumer)));
         /// <summary>
+        /// 客户端节点单例（支持并发读取操作）
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateServerByteArrayMessageNode(nameof(ServerByteArrayMessageStringConsumer)));
+        /// <summary>
         /// 未完成消息集合
         /// </summary>
         private static HashSet<string> messages = new HashSet<string>();
@@ -46,7 +50,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
         /// <returns></returns>
         internal static async Task<bool> Test()
         {
-            var nodeResult = await nodeCache.GetNode();
+            if (!await test(nodeCache, CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.Client)) return false;
+            if (!await test(readWriteQueueNodeCache, CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.Client.Client)) return false;
+            return true;
+        }
+        /// <summary>
+        /// 客户端 string 二进制序列化消息客户端消费者示例
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage>> client, AutoCSer.Net.ICommandClient commandClient)
+        {
+            var nodeResult = await client.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -71,7 +85,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
                 }
             }
 
-            using (ServerByteArrayMessageStringConsumer consumer = new ServerByteArrayMessageStringConsumer(CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.Client, node))
+            using (ServerByteArrayMessageStringConsumer consumer = new ServerByteArrayMessageStringConsumer(commandClient, node))
             {
                 #region 等待测试消息完成
                 long timeout = Stopwatch.GetTimestamp() + AutoCSer.Date.GetTimestampBySeconds(10);

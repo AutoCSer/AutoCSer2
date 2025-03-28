@@ -26,10 +26,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         private readonly AutoCSer.SearchTree.Set<CompareKey<DateTime, int>> loginTimes;
         /// <summary>
-        /// 并发队列
-        /// </summary>
-        internal readonly ConcurrencyQueue ConcurrencyQueue;
-        /// <summary>
         /// 异步操作队列访问锁
         /// </summary>
         private readonly System.Threading.SemaphoreSlim queueLock;
@@ -46,7 +42,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         internal SearchUserNode() : base(LocalSearchUserServiceConfig.SearchUserNodeCache)
         {
-            ConcurrencyQueue = new ConcurrencyQueue(AutoCSer.Common.ProcessorCount);
             users = new SearchTree.Dictionary<int, SearchUser>();
             loginTimes = new SearchTree.Set<CompareKey<DateTime, int>>();
             queueLock = new System.Threading.SemaphoreSlim(1, 1);
@@ -266,12 +261,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         protected override ConditionDataUpdateStateEnum delete(int key)
         {
             SearchUser user;
-            ConcurrencyQueue.WaitQueue();
-            try
-            {
-                if (users.Remove(key, out user)) loginTimes.Remove(user.GetLoginTimeKey());
-            }
-            finally { ConcurrencyQueue.ReleaseQueue(); }
+            if (users.Remove(key, out user)) loginTimes.Remove(user.GetLoginTimeKey());
             return ConditionDataUpdateStateEnum.Success;
         }
         /// <summary>
@@ -301,80 +291,47 @@ namespace AutoCSer.TestCase.SearchQueryService
         protected override ConditionDataUpdateStateEnum completed(SearchUser value)
         {
             SearchUser historyUser;
-            ConcurrencyQueue.WaitQueue();
-            try
+            if (users.Set(value.Id, value, out historyUser)) loginTimes.Add(value.GetLoginTimeKey());
+            else if (value.LoginTime != historyUser.LoginTime)
             {
-                if (users.Set(value.Id, value, out historyUser)) loginTimes.Add(value.GetLoginTimeKey());
-                else if (value.LoginTime != historyUser.LoginTime)
-                {
-                    loginTimes.Add(value.GetLoginTimeKey());
-                    loginTimes.Remove(historyUser.GetLoginTimeKey());
-                }
+                loginTimes.Add(value.GetLoginTimeKey());
+                loginTimes.Remove(historyUser.GetLoginTimeKey());
             }
-            finally { ConcurrencyQueue.ReleaseQueue(); }
             return ConditionDataUpdateStateEnum.Success;
         }
         /// <summary>
         /// 获取非索引条件数据用户分页数据
         /// </summary>
         /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
-        /// <param name="callback"></param>
-        public void GetPage(SearchUserQueryParameter queryParameter, MethodCallback<PageResult<int>> callback)
-        {
-            bool isCallback = false;
-            try
-            {
-                if (queryParameter.IsSearchCondition) ConcurrencyQueue.Push(new SearchUserGetPageCallback(this, queryParameter, callback));
-                else
-                {
-                    switch (queryParameter.Order)
-                    {
-                        case UserOrderEnum.LoginTimeDesc: callback.Callback(queryParameter.GetDescPageResult(loginTimes, getLoginTimeUserId)); break;
-                        default: callback.Callback(queryParameter.GetDescKeyPageResult(users)); break;
-                    }
-                }
-                isCallback = true;
-            }
-            finally
-            {
-                if (!isCallback) callback.Callback(new PageResult<int>(CommandClientReturnTypeEnum.ServerException));
-            }
-        }
-        /// <summary>
-        /// 获取非索引条件数据用户分页数据
-        /// </summary>
-        /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
         /// <returns></returns>
-        internal PageResult<int> GetPage(SearchUserQueryParameter queryParameter)
+        public PageResult<int> GetPage(SearchUserQueryParameter queryParameter)
         {
-            PageArray<int> pageArray = queryParameter.GetPageArray<int>();
+            if (queryParameter.IsSearchCondition)
+            {
+                PageArray<int> pageArray = queryParameter.GetPageArray<int>();
+                switch (queryParameter.Order)
+                {
+                    case UserOrderEnum.LoginTimeDesc:
+                        SearchUser searchUser;
+                        foreach (CompareKey<DateTime, int> loginTime in loginTimes.Values)
+                        {
+                            if (users.TryGetValue(loginTime.Value2, out searchUser) && queryParameter.SearchCondition(searchUser) && pageArray.Add()) pageArray.Add(searchUser.Id);
+                        }
+                        break;
+                    default:
+                        foreach (SearchUser user in users.Values)
+                        {
+                            if (queryParameter.SearchCondition(user) && pageArray.Add()) pageArray.Add(user.Id);
+                        }
+                        break;
+                }
+                return pageArray.GetPageResult();
+            }
             switch (queryParameter.Order)
             {
-                case UserOrderEnum.LoginTimeDesc:
-                    SearchUser searchUser;
-                    foreach (CompareKey<DateTime, int> loginTime in loginTimes.Values)
-                    {
-                        if (users.TryGetValue(loginTime.Value2, out searchUser) && queryParameter.SearchCondition(searchUser) && pageArray.Add()) pageArray.Add(searchUser.Id);
-                    }
-                    break;
-                default:
-                    foreach (SearchUser user in users.Values)
-                    {
-                        if (queryParameter.SearchCondition(user) && pageArray.Add()) pageArray.Add(user.Id);
-                    }
-                    break;
+                case UserOrderEnum.LoginTimeDesc: return queryParameter.GetDescPageResult(loginTimes, getLoginTimeUserId);
+                default: return queryParameter.GetDescKeyPageResult(users);
             }
-            return pageArray.GetPageResult();
-        }
-        /// <summary>
-        /// 获取非索引条件数据用户数组
-        /// </summary>
-        /// <param name="userIds">用户标识数组</param>
-        /// <param name="users">用户数组</param>
-        /// <param name="callback"></param>
-        public void GetArray(LeftArray<int> userIds, ArrayBuffer<SearchUser> users, MethodCallback<LeftArray<SearchUser>> callback)
-        {
-            ConcurrencyQueue.Push(new SearchUserGetArrayCallback(this, userIds, users, callback));
         }
         /// <summary>
         /// 获取非索引条件数据用户数组
@@ -382,7 +339,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="userIds">用户标识数组</param>
         /// <param name="users">用户数组</param>
         /// <returns></returns>
-        internal LeftArray<SearchUser> GetArray(LeftArray<int> userIds, ArrayBuffer<SearchUser> users)
+        public LeftArray<SearchUser> GetArray(LeftArray<int> userIds, ArrayBuffer<SearchUser> users)
         {
             SearchUser user;
             foreach (int userId in userIds)
@@ -396,18 +353,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         /// <param name="userIds">用户标识数组</param>
         /// <param name="isValue">条件委托</param>
-        /// <param name="callback"></param>
-        public void Filter(ArrayBuffer<int> userIds, Func<SearchUser, bool> isValue, MethodCallback<ArrayBuffer<int>> callback)
-        {
-            ConcurrencyQueue.Push(new SearchUserFilterCallback(this, userIds, isValue, callback));
-        }
-        /// <summary>
-        /// 非索引条件过滤
-        /// </summary>
-        /// <param name="userIds">用户标识数组</param>
-        /// <param name="isValue">条件委托</param>
         /// <returns></returns>
-        internal ArrayBuffer<int> Filter(ArrayBuffer<int> userIds, Func<SearchUser, bool> isValue)
+        public ArrayBuffer<int> Filter(ArrayBuffer<int> userIds, Func<SearchUser, bool> isValue)
         {
             SearchUser user;
             foreach (int userId in userIds.GetLeftArray())

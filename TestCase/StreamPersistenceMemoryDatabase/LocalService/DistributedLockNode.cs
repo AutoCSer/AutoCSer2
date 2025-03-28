@@ -20,18 +20,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         /// </summary>
         private const int loopCount = 1 << 10;
 
-        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
+        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             LocalResult<IDistributedLockNodeLocalClientNode<int>> node = await client.GetOrCreateDistributedLockNode<int>(typeof(IDistributedLockNodeLocalClientNode<int>).FullName);
             if (!Program.Breakpoint(node)) return;
 
             Task[] tasks = new Task[10];
-            for (int index = 0; index != 10; ++index) tasks[index] = Test(node.Value);
+            for (int index = 0; index != 10; ++index) tasks[index] = test(node.Value);
             await Task.WhenAll(tasks);
 
-            completed();
+            completed(isReadWriteQueue);
         }
-        private static async Task Test(IDistributedLockNodeLocalClientNode<int> node)
+        private static async Task test(IDistributedLockNodeLocalClientNode<int> node)
         {
             for (int count = loopCount; count != 0; --count)
             {
@@ -53,9 +53,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
         }
 
-        private static void completed()
+        private static void completed(bool isReadWriteQueue)
         {
-            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} Completed*");
+            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }
 }

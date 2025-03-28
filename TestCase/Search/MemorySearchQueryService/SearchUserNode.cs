@@ -44,10 +44,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         public AutoCSer.CommandService.Search.IndexQuery.HashSetPool<int>[] HashSetPool { get; private set; }
         /// <summary>
-        /// 并发队列
-        /// </summary>
-        internal readonly ConcurrencyQueue ConcurrencyQueue;
-        /// <summary>
         /// 用户名称分词结果磁盘块索引信息节点
         /// </summary>
         private readonly HashCodeKeyIndexNode<int> userNameNode;
@@ -85,7 +81,6 @@ namespace AutoCSer.TestCase.SearchQueryService
             userBufferPool = new AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPoolArray<SearchUserSearchTreeNode>(8);
             HashSetPool = AutoCSer.CommandService.Search.IndexQuery.HashSetPool<int>.GetArray(256);
             searchUserNodeTimer = new SearchUserNodeTimer(60 * 60);
-            ConcurrencyQueue = new ConcurrencyQueue(AutoCSer.Common.ProcessorCount);
             users = new AutoCSer.SearchTree.NodeDictionary<int, SearchUserSearchTreeNode>();
             loginTimes = new AutoCSer.SearchTree.Set<CompareKey<DateTime, int>>();
             queueLock = new System.Threading.SemaphoreSlim(1, 1);
@@ -331,12 +326,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         protected override ConditionDataUpdateStateEnum delete(int key)
         {
             SearchUserSearchTreeNode user;
-            ConcurrencyQueue.WaitQueue();
-            try
-            {
-                if (users.Remove(key, out user)) loginTimes.Remove(user.GetLoginTimeKey());
-            }
-            finally { ConcurrencyQueue.ReleaseQueue(); }
+            if (users.Remove(key, out user)) loginTimes.Remove(user.GetLoginTimeKey());
             return ConditionDataUpdateStateEnum.Success;
         }
         /// <summary>
@@ -366,17 +356,12 @@ namespace AutoCSer.TestCase.SearchQueryService
         protected override ConditionDataUpdateStateEnum completed(BinarySerializeKeyValue<int, SearchUser> value)
         {
             SearchUserSearchTreeNode node = new SearchUserSearchTreeNode(ref value), historyUser;
-            ConcurrencyQueue.WaitQueue();
-            try
+            if (users.Set(node, out historyUser)) loginTimes.Add(node.GetLoginTimeKey());
+            else if (value.Value.LoginTime != historyUser.User.LoginTime)
             {
-                if (users.Set(node, out historyUser)) loginTimes.Add(node.GetLoginTimeKey());
-                else if (value.Value.LoginTime != historyUser.User.LoginTime)
-                {
-                    loginTimes.Add(node.GetLoginTimeKey());
-                    loginTimes.Remove(historyUser.GetLoginTimeKey());
-                }
+                loginTimes.Add(node.GetLoginTimeKey());
+                loginTimes.Remove(historyUser.GetLoginTimeKey());
             }
-            finally { ConcurrencyQueue.ReleaseQueue(); }
             return ConditionDataUpdateStateEnum.Success;
         }
         /// <summary>
@@ -385,98 +370,80 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
         /// <param name="userNameWordIdentitys">用户名称查询分词编号集合</param>
         /// <param name="userRemarkWordIdentitys">用户备注查询分词编号集合</param>
-        /// <param name="callback"></param>
-        public void GetPage(SearchUserQueryParameter queryParameter, int[] userNameWordIdentitys, int[] userRemarkWordIdentitys, MethodCallback<PageResult<int>> callback)
-        {
-            bool isCallback = false;
-            try
-            {
-                LeftArray<IIndexCondition<int>> conditions = new LeftArray<IIndexCondition<int>>(0);
-                if (userNameWordIdentitys.Length != 0)
-                {
-                    var indexCondition = userNameNode.GetIntIndexCondition(userNameWordIdentitys);
-                    if (indexCondition == null) return;
-                    conditions.Add(indexCondition);
-                }
-                if (userRemarkWordIdentitys.Length != 0)
-                {
-                    var indexCondition = userRemarkNode.GetIntIndexCondition(userRemarkWordIdentitys);
-                    if (indexCondition == null) return;
-                    conditions.Add(indexCondition);
-                }
-                if (queryParameter.IsSearchCondition || conditions.Count != 0) ConcurrencyQueue.Push(new SearchUserGetPageCallback(this, queryParameter, IndexConditionArray<int>.GetIndexCondition(conditions), callback));
-                else
-                {
-                    switch (queryParameter.Order)
-                    {
-                        case UserOrderEnum.LoginTimeDesc: callback.Callback(queryParameter.GetDescPageResult(loginTimes, getLoginTimeUserId)); break;
-                        default: callback.Callback(queryParameter.GetDescKeyPageResult(users)); break;
-                    }
-                }
-                isCallback = true;
-            }
-            finally
-            {
-                if (!isCallback) callback.Callback(new PageResult<int>(CommandClientReturnTypeEnum.ServerException));
-            }
-        }
-        /// <summary>
-        /// 获取非索引条件数据用户分页数据
-        /// </summary>
-        /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
-        /// <param name="indexCondition">索引条件</param>
         /// <returns></returns>
-        internal PageResult<int> GetPage(SearchUserQueryParameter queryParameter, IIndexCondition<int> indexCondition)
+        public PageResult<int> GetPage(SearchUserQueryParameter queryParameter, int[] userNameWordIdentitys, int[] userRemarkWordIdentitys)
         {
-            if (indexCondition != null)
+            LeftArray<IIndexCondition<int>> conditions = new LeftArray<IIndexCondition<int>>(0);
+            if (userNameWordIdentitys.Length != 0)
             {
-                AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer<SearchUserSearchTreeNode> users = userBufferPool.GetNull();
-                AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer<int> userIds = new QueryCondition<int, SearchUser>(this, indexCondition, queryParameter.SearchCondition).Query(queryParameter);
-                try
+                var indexCondition = userNameNode.GetIntIndexCondition(userNameWordIdentitys);
+                if (indexCondition == null) return queryParameter.GetPageResult<int>();
+                conditions.Add(indexCondition);
+            }
+            if (userRemarkWordIdentitys.Length != 0)
+            {
+                var indexCondition = userRemarkNode.GetIntIndexCondition(userRemarkWordIdentitys);
+                if (indexCondition == null) return queryParameter.GetPageResult<int>();
+                conditions.Add(indexCondition);
+            }
+            if (queryParameter.IsSearchCondition || conditions.Count != 0)
+            {
+                var indexCondition = IndexConditionArray<int>.GetIndexCondition(conditions);
+                if (indexCondition != null)
                 {
-                    switch (queryParameter.Order)
+                    AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer<SearchUserSearchTreeNode> users = userBufferPool.GetNull();
+                    AutoCSer.CommandService.Search.IndexQuery.ArrayBuffer<int> userIds = new QueryCondition<int, SearchUser>(this, indexCondition, queryParameter.SearchCondition).Query(queryParameter);
+                    try
                     {
-                        case UserOrderEnum.LoginTimeDesc:
-                            int count = userIds.Count;
-                            if (queryParameter.GetPageSize(count) > 0)
-                            {
-                                users = userBufferPool.GetBuffer(count);
-                                foreach (int userId in userIds.GetLeftArray())
+                        switch (queryParameter.Order)
+                        {
+                            case UserOrderEnum.LoginTimeDesc:
+                                int count = userIds.Count;
+                                if (queryParameter.GetPageSize(count) > 0)
                                 {
-                                    if (this.users.TryGetValue(userId, out SearchUserSearchTreeNode node)) users.Add(node);
-                                }                                
-                                userIds.Free();
-                                if (users.Count != 0) return queryParameter.GetPageResult(users.GetLeftArray(), SearchUserSearchTreeNode.LoginTimeDesc, SearchUserSearchTreeNode.GetId);
-                                return new PageResult<int>(Net.CommandClientReturnTypeEnum.ServerException);
-                            }
-                            return new PageResult<int>(EmptyArray<int>.Array, count, queryParameter.PageIndex, queryParameter.PageSize);
-                        default: return queryParameter.GetDescPageResult(userIds.GetLeftArray());
+                                    users = userBufferPool.GetBuffer(count);
+                                    foreach (int userId in userIds.GetLeftArray())
+                                    {
+                                        if (this.users.TryGetValue(userId, out SearchUserSearchTreeNode node)) users.Add(node);
+                                    }
+                                    userIds.Free();
+                                    if (users.Count != 0) return queryParameter.GetPageResult(users.GetLeftArray(), SearchUserSearchTreeNode.LoginTimeDesc, SearchUserSearchTreeNode.GetId);
+                                    return new PageResult<int>(Net.CommandClientReturnTypeEnum.ServerException);
+                                }
+                                return new PageResult<int>(EmptyArray<int>.Array, count, queryParameter.PageIndex, queryParameter.PageSize);
+                            default: return queryParameter.GetDescPageResult(userIds.GetLeftArray());
+                        }
+                    }
+                    finally
+                    {
+                        userIds.Free();
+                        users.Free();
                     }
                 }
-                finally
+                PageArray<int> pageArray = queryParameter.GetPageArray<int>();
+                switch (queryParameter.Order)
                 {
-                    userIds.Free();
-                    users.Free();
+                    case UserOrderEnum.LoginTimeDesc:
+                        SearchUserSearchTreeNode node;
+                        foreach (CompareKey<DateTime, int> loginTime in loginTimes.Values)
+                        {
+                            if (users.TryGetValue(loginTime.Value2, out node) && queryParameter.SearchCondition(node.User) && pageArray.Add()) pageArray.Add(node.Key);
+                        }
+                        break;
+                    default:
+                        foreach (SearchUserSearchTreeNode user in users.Values)
+                        {
+                            if (queryParameter.SearchCondition(user.User) && pageArray.Add()) pageArray.Add(user.Key);
+                        }
+                        break;
                 }
+                return pageArray.GetPageResult();
             }
-            PageArray<int> pageArray = queryParameter.GetPageArray<int>();
             switch (queryParameter.Order)
             {
-                case UserOrderEnum.LoginTimeDesc:
-                    SearchUserSearchTreeNode node;
-                    foreach (CompareKey<DateTime, int> loginTime in loginTimes.Values)
-                    {
-                        if (users.TryGetValue(loginTime.Value2, out node) && queryParameter.SearchCondition(node.User) && pageArray.Add()) pageArray.Add(node.Key);
-                    }
-                    break;
-                default:
-                    foreach (SearchUserSearchTreeNode user in users.Values)
-                    {
-                        if (queryParameter.SearchCondition(user.User) && pageArray.Add()) pageArray.Add(user.Key);
-                    }
-                    break;
+                case UserOrderEnum.LoginTimeDesc: return queryParameter.GetDescPageResult(loginTimes, getLoginTimeUserId);
+                default: return queryParameter.GetDescKeyPageResult(users);
             }
-            return pageArray.GetPageResult();
         }
         /// <summary>
         /// 获取数组缓冲区

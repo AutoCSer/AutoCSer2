@@ -17,8 +17,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
         /// <param name="userNameWordIdentitys">用户名称查询分词编号集合</param>
         /// <param name="userRemarkWordIdentitys">用户备注查询分词编号集合</param>
-        /// <param name="callback"></param>
+        /// <returns></returns>
         [ServerMethod(IsPersistence = false, IsWriteQueue = true)]
-        void GetPage(SearchUserQueryParameter queryParameter, int[] userNameWordIdentitys, int[] userRemarkWordIdentitys, MethodCallback<PageResult<int>> callback);
+        PageResult<int> GetPage(SearchUserQueryParameter queryParameter, int[] userNameWordIdentitys, int[] userRemarkWordIdentitys);
     }
 }

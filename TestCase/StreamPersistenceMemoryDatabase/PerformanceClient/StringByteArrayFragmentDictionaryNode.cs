@@ -17,27 +17,41 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayFragmentDictionaryNodeClientNode<string>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateByteArrayFragmentDictionaryNode<string>(typeof(IByteArrayFragmentDictionaryNodeClientNode<string>).FullName));
         /// <summary>
+        /// 客户端节点单例（支持并发读取操作）
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayFragmentDictionaryNodeClientNode<string>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateByteArrayFragmentDictionaryNode<string>(typeof(IByteArrayFragmentDictionaryNodeClientNode<string>).FullName));
+        /// <summary>
         /// 字典客户端测试
         /// </summary>
         /// <returns></returns>
         internal static async Task Test(Data.Address data)
         {
-            var node = await nodeCache.GetNode();
+            await test(data, false);
+            await test(data, true);
+        }
+        /// <summary>
+        /// 字典客户端测试
+        /// </summary>
+        /// <returns></returns>
+        private static async Task test(Data.Address data, bool isReadWriteQueue)
+        {
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayFragmentDictionaryNodeClientNode<string>> client = isReadWriteQueue ? readWriteQueueNodeCache : nodeCache;
+            var node = await client.GetNode();
             if (!node.IsSuccess)
             {
                 ConsoleWriteQueue.Breakpoint();
                 return;
             }
-            var synchronousNode = await nodeCache.GetSynchronousNode();//适合轻量级回调操作
+            var synchronousNode = await client.GetSynchronousNode();//适合轻量级回调操作
 
             await node.Value.ClearArray();
-            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetBinarySerialize), data);
-            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.GetBinarySerialize), data);
-            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetBinarySerialize), data, isReadWriteQueue);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.GetBinarySerialize), data, isReadWriteQueue);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data, isReadWriteQueue);
             await node.Value.ClearArray();
-            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetJsonSerialize), data);
-            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.GetJsonSerialize), data);
-            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.SetJsonSerialize), data, isReadWriteQueue);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.GetJsonSerialize), data, isReadWriteQueue);
+            await test(synchronousNode.Value, nameof(StringByteArrayFragmentDictionaryNode.Remove), data, isReadWriteQueue);
             await node.Value.ClearArray();
             Console.WriteLine();
         }
@@ -53,7 +67,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         /// <param name="data"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        private static async Task test(IByteArrayFragmentDictionaryNodeClientNode<string> client, string serverMethodName, Data.Address data, int taskCount = 1 << 13)
+        private static async Task test(IByteArrayFragmentDictionaryNodeClientNode<string> client, string serverMethodName, Data.Address data, bool isReadWriteQueue, int taskCount = 1 << 13)
         {
             StringByteArrayFragmentDictionaryNode[] tasks = new StringByteArrayFragmentDictionaryNode[taskCount];
             for (int index = 0; index != tasks.Length; tasks[index++] = new StringByteArrayFragmentDictionaryNode(client, data)) ;
@@ -80,7 +94,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                     foreach (StringByteArrayFragmentDictionaryNode task in tasks) task.Remove().NotWait();
                     break;
             }
-            await Wait(nameof(StringByteArrayFragmentDictionaryNode), serverMethodName);
+            await Wait(nameof(StringByteArrayFragmentDictionaryNode), isReadWriteQueue ? $"{serverMethodName}+{nameof(IReadWriteQueueService)}" : serverMethodName);
         }
 
         /// <summary>

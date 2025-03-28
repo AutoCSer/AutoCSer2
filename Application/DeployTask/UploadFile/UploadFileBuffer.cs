@@ -80,8 +80,7 @@ namespace AutoCSer.CommandService.DeployTask
                 UploaderIndex.Identity = *(uint*)(data + sizeof(int));
                 FileIndex.Index = *(int*)(data + (sizeof(int) + sizeof(uint)));
                 FileIndex.Identity = *(uint*)(data + (sizeof(int) * 2 + sizeof(uint)));
-                CommandServerController<IUploadFileService> controller = (CommandServerController<IUploadFileService>)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController;
-                State = ((UploadFileService)controller.Controller).UploadFileData(this);
+                State = ((UploadFileService)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController.GetControllerObject()).UploadFileData(this);
             }
         }
 

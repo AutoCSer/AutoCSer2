@@ -46,11 +46,11 @@ namespace AutoCSer.TestCase.SearchQueryService
         {
             PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(LocalSearchUserServiceConfig)),
             PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(LocalSearchUserServiceConfig) + nameof(PersistenceSwitchPath))
-        }.Create<IQueryServiceNode>(p => new QueryServiceNode(p));
+        }.Create<ISearchUserServiceNode>(p => new SearchUserServiceNode(p), -1);
         /// <summary>
         /// 日志流持久化内存数据库本地客户端
         /// </summary>
-        public static readonly LocalClient<IQueryServiceNodeLocalClientNode> Client = localService.CreateClient<IQueryServiceNodeLocalClientNode>();
+        public static readonly LocalClient<ISearchUserServiceNodeLocalClientNode> Client = localService.CreateClient<ISearchUserServiceNodeLocalClientNode>();
         /// <summary>
         /// 用户搜索非索引条件数据节点单例
         /// </summary>

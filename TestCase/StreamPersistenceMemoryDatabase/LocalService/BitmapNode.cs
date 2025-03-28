@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 {
     internal static class BitmapNode
     {
-        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
+        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             uint capacity = 10;
             LocalResult<IBitmapNodeLocalClientNode> node = await client.GetOrCreateBitmapNode(typeof(IBitmapNodeLocalClientNode).FullName, capacity);
@@ -112,11 +112,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            completed();
+            completed(isReadWriteQueue);
         }
-        private static void completed()
+        private static void completed(bool isReadWriteQueue)
         {
-            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} Completed*");
+            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }
 }

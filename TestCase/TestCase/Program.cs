@@ -1,5 +1,6 @@
 ﻿using AutoCSer;
 using AutoCSer.CommandService;
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
 using AutoCSer.Threading;
 using System;
@@ -37,8 +38,11 @@ namespace AutoCSer.TestCase
                 PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase)),
                 PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase) + nameof(StreamPersistenceMemoryDatabase.ServiceConfig.PersistenceSwitchPath))
             };
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService databaseService = databaseServiceConfig.Create();
-
+            StreamPersistenceMemoryDatabase.ServiceConfig readWriteQueueDatabaseServiceConfig = new StreamPersistenceMemoryDatabase.ServiceConfig
+            {
+                PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase)) + nameof(IReadWriteQueueService),
+                PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase) + nameof(IReadWriteQueueService) + nameof(StreamPersistenceMemoryDatabase.ServiceConfig.PersistenceSwitchPath))
+            };
             AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerConfig
             {
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
@@ -47,7 +51,8 @@ namespace AutoCSer.TestCase
             await
 #endif
             using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
-                .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseService)
+                .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create())
+                .Append<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IReadWriteQueueService>(readWriteQueueDatabaseServiceConfig.Create())
                 .CreateCommandListener(commandServerConfig))
             {
                 if (await commandListener.Start())

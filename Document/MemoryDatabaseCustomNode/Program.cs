@@ -24,6 +24,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             };
             await using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
                 .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseService)
+                //.Append<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IReadWriteQueueService>(databaseService)
                 .CreateCommandListener(commandServerConfig))
             {
                 if (await commandListener.Start())

@@ -18,23 +18,37 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionaryNodeClientNode<int, int>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName));
         /// <summary>
+        /// 客户端节点单例（支持并发读取操作）
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionaryNodeClientNode<int, int>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName));
+        /// <summary>
         /// 字典客户端测试
         /// </summary>
         /// <returns></returns>
         internal static async Task Test()
         {
-            var node = await nodeCache.GetNode();
+            await test(false);
+            await test(true);
+        }
+        /// <summary>
+        /// 字典客户端测试
+        /// </summary>
+        /// <returns></returns>
+        private static async Task test(bool isReadWriteQueue)
+        {
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionaryNodeClientNode<int, int>> client = isReadWriteQueue ? readWriteQueueNodeCache : nodeCache;
+            var node = await client.GetNode();
             if (!node.IsSuccess)
             {
                 ConsoleWriteQueue.Breakpoint();
                 return;
             }
-            var synchronousNode = await nodeCache.GetSynchronousNode();//适合轻量级回调操作
+            var synchronousNode = await client.GetSynchronousNode();//适合轻量级回调操作
 
             await node.Value.Renew(maxTestCount >> 2);
-            await test(synchronousNode.Value, nameof(IntDictionaryNode.Set));
-            await test(node.Value, nameof(IntDictionaryNode.Get));
-            await test(synchronousNode.Value, nameof(IntDictionaryNode.Remove));
+            await test(synchronousNode.Value, nameof(IntDictionaryNode.Set), isReadWriteQueue);
+            await test(node.Value, nameof(IntDictionaryNode.Get), isReadWriteQueue);
+            await test(synchronousNode.Value, nameof(IntDictionaryNode.Remove), isReadWriteQueue);
             await node.Value.Renew(0);
             Console.WriteLine();
         }
@@ -49,7 +63,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         /// <param name="serverMethodName"></param>
         /// <param name="taskCount"></param>
         /// <returns></returns>
-        private static async Task test(IDictionaryNodeClientNode<int, int> client, string serverMethodName, int taskCount = 1 << 13)
+        private static async Task test(IDictionaryNodeClientNode<int, int> client, string serverMethodName, bool isReadWriteQueue, int taskCount = 1 << 13)
         {
             IntDictionaryNode[] tasks = new IntDictionaryNode[taskCount];
             for (int index = 0; index != tasks.Length; tasks[index++] = new IntDictionaryNode(client)) ;
@@ -68,7 +82,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                     foreach (IntDictionaryNode task in tasks) task.Remove().NotWait();
                     break;
             }
-            await Wait(nameof(IntDictionaryNode), serverMethodName);
+            await Wait(nameof(IntDictionaryNode), isReadWriteQueue ? $"{serverMethodName}+{nameof(IReadWriteQueueService)}" : serverMethodName);
         }
 
         /// <summary>

@@ -47,7 +47,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         {
             PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(MemorySearchUserServiceConfig)),
             PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(MemorySearchUserServiceConfig) + nameof(PersistenceSwitchPath))
-        }.Create<IQueryServiceNode>(p => new QueryServiceNode(p));
+        }.Create<IQueryServiceNode>(p => new QueryServiceNode(p), -1);
         /// <summary>
         /// 日志流持久化内存数据库本地客户端
         /// </summary>

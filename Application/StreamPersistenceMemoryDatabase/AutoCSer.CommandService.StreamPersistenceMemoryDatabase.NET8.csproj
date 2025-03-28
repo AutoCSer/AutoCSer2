@@ -37,6 +37,7 @@
     <Compile Include="CallbackCommandResponseParameter.cs" />
     <Compile Include="CallbackCommandSimpleSerializeResponseParameter.cs" />
     <Compile Include="CallStateEnum.cs" />
+    <Compile Include="Client\ClientCache.cs" />
     <Compile Include="Client\DistributedClient.cs" />
     <Compile Include="Client\DistributedClientRepairNodeMethodState.cs" />
     <Compile Include="Client\KeepCallbackCommandResponse.cs" />
@@ -57,8 +58,6 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
-    <Compile Include="ConcurrencyQueue.cs" />
-    <Compile Include="ConcurrencyQueueTaskNode.cs" />
     <Compile Include="CreateNodeIndex.cs" />
     <Compile Include="Server\CreatingNodeInfo.cs" />
     <Compile Include="Culture\Chinese.cs" />
@@ -286,6 +285,8 @@
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
     <Compile Include="Server\CheckSnapshotCloneObject.cs" />
+    <Compile Include="Server\IReadWriteQueueService.cs" />
+    <Compile Include="Server\IStreamPersistenceMemoryDatabaseServiceBase.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNodeCallback.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputNode.cs" />

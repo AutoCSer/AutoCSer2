@@ -27279,7 +27279,7 @@
             </summary>
             <param name="server"></param>
             <param name="controller"></param>
-            <param name="maxConcurrency">最大读取操作并发数量</param>
+            <param name="maxConcurrency">最大读取操作并发数量，小于等于 0 表示处理器数量减去设置值（比如处理器数量为 4，并发数量设置为 -1，则读取并发数量为 4 - 1 = 3）</param>
         </member>
         <member name="F:AutoCSer.Net.CommandServerCallReadQueue.Null">
             <summary>
@@ -27583,7 +27583,7 @@
             </summary>
             <param name="server"></param>
             <param name="controller"></param>
-            <param name="maxConcurrency">最大读取操作并发数量</param>
+            <param name="maxConcurrency">最大读取操作并发数量，小于等于 0 表示处理器数量减去设置值（比如处理器数量为 4，并发数量设置为 -1，则读取并发数量为 4 - 1 = 3）</param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallWriteQueue.Close">
             <summary>
@@ -32401,7 +32401,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.MaxReadWriteQueueConcurrency">
             <summary>
-            默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量
+            默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.MaxTaskRunConcurrent">
@@ -35211,6 +35211,12 @@
             关闭控制器
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerController.GetControllerObject">
+            <summary>
+            控制器接口实例
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerController.SetCommandStartIndex(System.Int32)">
             <summary>
             设置起始命令序号
@@ -35479,6 +35485,12 @@
             关闭控制器
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerController`1.GetControllerObject">
+            <summary>
+            控制器接口实例
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerController`1.getController(AutoCSer.Net.CommandServerSocket)">
             <summary>
             获取控制器接口实例
@@ -35556,7 +35568,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.MaxReadWriteQueueConcurrency">
             <summary>
-            默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量
+            默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.TaskQueueMaxConcurrent">

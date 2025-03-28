@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -43,6 +44,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             where T : class, IServiceNode
         {
             return new LocalService(this, service => ServiceNode.CreateServiceNode(service, createServiceNode(service)));
+        }
+        /// <summary>
+        /// 创建默认日志流持久化内存数据库服务端（支持并发读取操作）
+        /// </summary>
+        /// <param name="maxConcurrency">最大读取操作并发数量，小于等于 0 表示处理器数量减去设置值（比如处理器数量为 4，并发数量设置为 -1，则读取并发数量为 4 - 1 = 3）</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public LocalService Create(int maxConcurrency)
+        {
+            return Create<IServiceNode>(service => new ServiceNode(service), maxConcurrency);
+        }
+        /// <summary>
+        /// 日志流持久化内存数据库服务端（支持并发读取操作）
+        /// </summary>
+        /// <typeparam name="T">节点服务接口类型</typeparam>
+        /// <param name="createServiceNode"></param>
+        /// <param name="maxConcurrency">最大读取操作并发数量，小于等于 0 表示处理器数量减去设置值（比如处理器数量为 4，并发数量设置为 -1，则读取并发数量为 4 - 1 = 3）</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public LocalService Create<T>(Func<LocalService, T> createServiceNode, int maxConcurrency)
+            where T : class, IServiceNode
+        {
+            return new LocalService(this, service => ServiceNode.CreateServiceNode(service, createServiceNode(service)), maxConcurrency);
         }
     }
 }

@@ -31,12 +31,10 @@
     <Compile Include="LocalWordIdentityBlockIndexServiceConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="QueryService.cs" />
+    <Compile Include="SearchUserServiceNode.cs" />
     <Compile Include="QueryServiceNode.cs" />
     <Compile Include="RemoveMarkHashIndexNode.cs" />
     <Compile Include="RemoveMarkHashKeyIndexNode.cs" />
-    <Compile Include="SearchUserFilterCallback.cs" />
-    <Compile Include="SearchUserGetArrayCallback.cs" />
-    <Compile Include="SearchUserGetPageCallback.cs" />
     <Compile Include="SearchUserNode.cs" />
     <Compile Include="LocalTrieGraphServiceConfig.cs" />
     <Compile Include="UserNameNode.cs" />

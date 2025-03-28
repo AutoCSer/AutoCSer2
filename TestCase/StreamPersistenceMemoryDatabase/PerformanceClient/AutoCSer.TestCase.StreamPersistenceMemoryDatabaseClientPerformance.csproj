@@ -29,6 +29,7 @@
     <Compile Include="IntByteArrayFragmentDictionaryNode.cs" />
     <Compile Include="IntDictionaryNode.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ReadWriteQueueClientSocketEvent.cs" />
     <Compile Include="StringByteArrayFragmentDictionaryNode.cs" />
   </ItemGroup>
 

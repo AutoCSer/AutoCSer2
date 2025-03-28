@@ -14,12 +14,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeClientNode<int>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateSortedSetNode<int>(nameof(SortedSetNode)));
         /// <summary>
+        /// 客户端节点单例（支持并发读取操作）
+        /// </summary>
+        private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeClientNode<int>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateSortedSetNode<int>(nameof(SortedSetNode)));
+        /// <summary>
         /// 红黑树哈希表客户端示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
         {
-            var nodeResult = await nodeCache.GetNode();
+            if (!await test(nodeCache)) return false;
+            if (!await test(readWriteQueueNodeCache)) return false;
+            return true;
+        }
+        /// <summary>
+        /// 红黑树哈希表客户端示例
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeClientNode<int>> client)
+        {
+            var nodeResult = await client.GetNode();
             if (!nodeResult.IsSuccess)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

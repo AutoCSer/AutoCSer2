@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using AutoCSer.CommandService;
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
@@ -21,11 +22,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                 ServiceConfig databaseServiceConfig = new ServiceConfig
                 {
                     PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance)),
-                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance) + nameof(ServiceConfig.PersistenceSwitchPath)),
-                    CanCreateSlave = true
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance) + nameof(ServiceConfig.PersistenceSwitchPath))
+                };
+                ServiceConfig readWriteQueueDatabaseServiceConfig = new ServiceConfig
+                {
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance)) + nameof(IReadWriteQueueService),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance) + nameof(IReadWriteQueueService) + nameof(ServiceConfig.PersistenceSwitchPath))
                 };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
                     .Append<IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create())
+                    .Append<IReadWriteQueueService>(readWriteQueueDatabaseServiceConfig.Create())
                     .CreateCommandListener(commandServerConfig))
                 {
                     if (await commandListener.Start())

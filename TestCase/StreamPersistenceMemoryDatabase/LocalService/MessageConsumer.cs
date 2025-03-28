@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         private static bool isCompleted;
         private static HashSet<TestClassMessage> messages;
         private static readonly object messageLock = new object();
-        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
+        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             LocalResult<IMessageNodeLocalClientNode<TestClassMessage>> node = await client.GetOrCreateMessageNode<TestClassMessage>(typeof(IMessageNodeLocalClientNode<TestClassMessage>).FullName, 1 << 10, 5, 1);
             if (!Program.Breakpoint(node)) return;
@@ -72,11 +72,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 if (!Program.Breakpoint(result)) return;
             }
 
-            completed();
+            completed(isReadWriteQueue);
         }
-        private static void completed()
+        private static void completed(bool isReadWriteQueue)
         {
-            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} Completed*");
+            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }
 }

@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 {
     internal static class CallbackNode
     {
-        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
+        internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             LocalResult<ICallbackNodeLocalClientNode> node = await client.GetOrCreateNode<ICallbackNodeLocalClientNode>(typeof(ICallbackNodeLocalClientNode).FullName, client.ClientNode.CreateCallbackNode);
             if (!Program.Breakpoint(node)) return;
@@ -225,11 +225,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 return;
             }
 
-            completed();
+            completed(isReadWriteQueue);
         }
-        private static void completed()
+        private static void completed(bool isReadWriteQueue)
         {
-            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} Completed*");
+            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }
 }

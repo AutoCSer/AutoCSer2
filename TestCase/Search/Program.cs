@@ -13,20 +13,23 @@ namespace AutoCSer.TestCase.Search
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
-            DataSourceCommandClientSocketEvent dataSourceClient = (DataSourceCommandClientSocketEvent)await DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent();
-            if (dataSourceClient == null)
+            do
             {
-                AutoCSer.ConsoleWriteQueue.Breakpoint("dataSourceClient is null");
+                DataSourceCommandClientSocketEvent dataSourceClient = (DataSourceCommandClientSocketEvent)await DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent();
+                if (dataSourceClient == null)
+                {
+                    AutoCSer.ConsoleWriteQueue.Breakpoint("dataSourceClient is null");
+                }
+                else
+                {
+                    await query(dataSourceClient, new UserQueryParameter { Name = "AutoCSer", Remark = "现在", Gender = GenderEnum.Male });
+                    await query(dataSourceClient, new UserQueryParameter { Gender = GenderEnum.Male });
+                    await query(dataSourceClient, new UserQueryParameter { Order = UserOrderEnum.IdDesc });
+                    await query(dataSourceClient, new UserQueryParameter { Order = UserOrderEnum.LoginTimeDesc });
+                }
+                Console.WriteLine("Press quit to exit.");
             }
-            else
-            {
-                await query(dataSourceClient, new UserQueryParameter { Name = "AutoCSer", Remark = "现在", Gender = GenderEnum.Male });
-                await query(dataSourceClient, new UserQueryParameter { Gender = GenderEnum.Male });
-                await query(dataSourceClient, new UserQueryParameter { Order = UserOrderEnum.IdDesc });
-                await query(dataSourceClient, new UserQueryParameter { Order = UserOrderEnum.LoginTimeDesc });
-            }
-            Console.WriteLine("Press quit to exit.");
-            while (Console.ReadLine() != "quit") ;
+            while (Console.ReadLine() != "quit");
         }
         private static async Task query(DataSourceCommandClientSocketEvent dataSourceClient, UserQueryParameter queryParameter)
         {

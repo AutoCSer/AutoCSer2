@@ -160,8 +160,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 MethodDirectoryName = methodDirectoryName;
                                 MethodName.Set(methodTypeName, methodName);
 
-                                CommandServerController<IStreamPersistenceMemoryDatabaseService> controller = (CommandServerController<IStreamPersistenceMemoryDatabaseService>)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController;
-                                StreamPersistenceMemoryDatabaseServiceBase service = (StreamPersistenceMemoryDatabaseService)controller.Controller;
+                                StreamPersistenceMemoryDatabaseServiceBase service = (StreamPersistenceMemoryDatabaseService)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController.GetControllerObject();
                                 MethodName.NodeTypeFullName = RemoteType.Name;
                                 service.AppendRepairNodeMethod(this).Wait();
                                 return;

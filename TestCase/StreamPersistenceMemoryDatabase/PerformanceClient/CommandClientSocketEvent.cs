@@ -14,7 +14,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         /// <summary>
         /// 日志流持久化内存数据库客户端接口
         /// </summary>
-        public IStreamPersistenceMemoryDatabaseClient StreamPersistenceMemoryDatabaseClient { get; private set; }
+        public AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient StreamPersistenceMemoryDatabaseClient { get; private set; }
+        /// <summary>
+        /// 日志流持久化内存数据库客户端接口（支持并发读取操作）
+        /// </summary>
+        public AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient StreamPersistenceMemoryDatabaseReadWriteQueueClient { get; private set; }
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -22,7 +26,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         {
             get
             {
-                yield return new CommandClientControllerCreatorParameter(typeof(IStreamPersistenceMemoryDatabaseService), typeof(IStreamPersistenceMemoryDatabaseClient));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService), typeof(AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient), null, nameof(StreamPersistenceMemoryDatabaseClient));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IReadWriteQueueService), typeof(AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClient), null, nameof(StreamPersistenceMemoryDatabaseReadWriteQueueClient));
             }
         }
         /// <summary>
@@ -32,12 +37,20 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         public CommandClientSocketEvent(ICommandClient client) : base(client) { }
 
         /// <summary>
-        /// 日志流持久化内存数据库客户端单例
+        /// 日志流持久化内存数据库客户端
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
+        internal static readonly AutoCSer.Net.CommandClient CommandClient = new AutoCSer.Net.CommandClient(new AutoCSer.Net.CommandClientConfig
         {
             Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
             GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
         });
+        /// <summary>
+        /// 日志流持久化内存数据库客户端单例
+        /// </summary>
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent>(CommandClient);
+        /// <summary>
+        /// 日志流持久化内存数据库客户端单例（支持并发读取操作）
+        /// </summary>
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent> StreamPersistenceMemoryDatabaseReadWriteQueueClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode, CommandClientSocketEvent>(CommandClient, (client) => new ReadWriteQueueClientSocketEvent(client));
     }
 }

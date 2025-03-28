@@ -26,9 +26,9 @@
     <Compile Include="DataSourceCommandClientSocketEvent.cs" />
     <Compile Include="DiskBlockCommandClientSocketEvent.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="SearchUserNode\SearchUserGetArrayCallback.cs" />
-    <Compile Include="SearchUserNode\SearchUserGetPageCallback.cs" />
+    <Compile Include="SearchUserNode\SearchUserCommandClientSocketEvent.cs" />
     <Compile Include="SearchUserNode\SearchUserNode.cs" />
+    <Compile Include="SearchUserNode\SearchUserServiceNode.cs" />
     <Compile Include="ServiceConfig.cs" />
     <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="DiskBlockIndexCommandClientSocketEvent.cs" />

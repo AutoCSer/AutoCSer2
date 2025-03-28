@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         private IDictionaryNodeLocalClientNode<int, int> node;
         internal PerformanceDictionaryNode() { }
-        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
+        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             LocalResult<IDictionaryNodeLocalClientNode<int, int>> node = await client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeLocalClientNode<int, int>).FullName, 0);
             if (!Program.Breakpoint(node)) return;
@@ -22,15 +22,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             LocalResult result = await this.node.Renew(maxTestCount);
             if (!Program.Breakpoint(result)) return;
 
+            string typeName = isReadWriteQueue ? $"{nameof(IReadWriteQueueService)}.{nameof(PerformanceDictionaryNode)}" : nameof(PerformanceDictionaryNode);
             int taskCount = getTaskCount();
             testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
-            await wait(nameof(PerformanceDictionaryNode), nameof(Set));
+            await wait(typeName, nameof(Set));
 
             taskCount = getTaskCount();
             testValue = reset(maxTestCount, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
-            await wait(nameof(PerformanceDictionaryNode), nameof(TryGetValue));
+            await wait(typeName, nameof(TryGetValue));
 
             result = await this.node.Renew(0);
             if (!Program.Breakpoint(result)) return;

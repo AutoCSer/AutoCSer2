@@ -44,6 +44,14 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.Server
             PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.Document.MemoryDatabaseLocalService)),
             PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.Document.MemoryDatabaseLocalService) + nameof(AutoCSer.Document.MemoryDatabaseLocalService.Server.ServiceConfig.PersistenceSwitchPath))
         }.Create();
+        ///// <summary>
+        ///// 日志流持久化内存数据库本地服务端（支持并发读取操作）
+        ///// </summary>
+        //private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalService localService = new AutoCSer.Document.MemoryDatabaseLocalService.Server.ServiceConfig
+        //{
+        //    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.Document.MemoryDatabaseLocalService)),
+        //    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.Document.MemoryDatabaseLocalService) + nameof(AutoCSer.Document.MemoryDatabaseLocalService.Server.ServiceConfig.PersistenceSwitchPath))
+        //}.Create(-1);
         /// <summary>
         /// 日志流持久化内存数据库本地客户端
         /// </summary>

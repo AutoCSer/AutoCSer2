@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         private ISearchTreeDictionaryNodeLocalClientNode<int, int> node;
         internal PerformanceSearchTreeDictionaryNode() { }
-        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
+        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             LocalResult<ISearchTreeDictionaryNodeLocalClientNode<int, int>> node = await client.GetOrCreateSearchTreeDictionaryNode<int, int>(typeof(ISearchTreeDictionaryNodeLocalClientNode<int, int>).FullName);
             if (!Program.Breakpoint(node)) return;
@@ -22,15 +22,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             LocalResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
+            string typeName = isReadWriteQueue ? $"{nameof(IReadWriteQueueService)}.{nameof(PerformanceSearchTreeDictionaryNode)}" : nameof(PerformanceSearchTreeDictionaryNode);
             int taskCount = getTaskCount();
             testValue = reset(maxTestCount >> 1, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
-            await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(Set));
+            await wait(typeName, nameof(Set));
 
             taskCount = getTaskCount();
             testValue = reset(maxTestCount >> 1, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
-            await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(TryGetValue));
+            await wait(typeName, nameof(TryGetValue));
 
             result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;

@@ -32,7 +32,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="QueryService.cs" />
     <Compile Include="QueryServiceNode.cs" />
-    <Compile Include="SearchUserGetPageCallback.cs" />
     <Compile Include="SearchUserNode.cs" />
     <Compile Include="SearchUserNodeTimer.cs" />
     <Compile Include="SearchUserSearchTreeNode.cs" />

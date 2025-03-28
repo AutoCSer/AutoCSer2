@@ -12,14 +12,14 @@
             非索引条件查询数据节点接口
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNode.GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter,System.Int32[],System.Int32[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult{System.Int32}})">
+        <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNode.GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter,System.Int32[],System.Int32[])">
             <summary>
             获取非索引条件数据用户分页数据
             </summary>
             <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
             <param name="userNameWordIdentitys">用户名称查询分词编号集合</param>
             <param name="userRemarkWordIdentitys">用户备注查询分词编号集合</param>
-            <param name="callback"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.SearchQueryService.IQueryService">
             <summary>

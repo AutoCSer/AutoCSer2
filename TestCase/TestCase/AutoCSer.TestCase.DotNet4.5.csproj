@@ -145,6 +145,7 @@
     <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayMessageJsonConsumer.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\MessageNode\ServerByteArrayMessageStringConsumer.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\QueueNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\ReadWriteQueueClientSocketEvent.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\SearchTreeDictionaryNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\SearchTreeSetNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\SortedDictionaryNode.cs" />

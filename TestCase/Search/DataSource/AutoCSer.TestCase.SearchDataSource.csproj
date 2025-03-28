@@ -32,6 +32,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="UserMessageNode\SearchUserMessageNode.cs" />
     <Compile Include="UserService.cs" />
+    <Compile Include="WordIdentityBlockIndex\SearchUserCommandClientSocketEvent.cs" />
   </ItemGroup>
 
   <ItemGroup>

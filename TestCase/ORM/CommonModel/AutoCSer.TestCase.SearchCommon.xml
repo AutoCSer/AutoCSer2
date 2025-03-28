@@ -12,19 +12,19 @@
             非索引条件查询数据节点接口
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.SearchCommon.ISearchUserNode.GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PageResult{System.Int32}})">
+        <member name="M:AutoCSer.TestCase.SearchCommon.ISearchUserNode.GetPage(AutoCSer.TestCase.SearchQueryService.SearchUserQueryParameter)">
             <summary>
             获取非索引条件数据用户分页数据
             </summary>
             <param name="queryParameter">用户搜索非索引条件数据查询参数</param>
-            <param name="callback"></param>
+            <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.SearchCommon.ISearchUserNode.GetArray(AutoCSer.LeftArray{System.Int32},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.LeftArray{AutoCSer.TestCase.SearchDataSource.SearchUser}})">
+        <member name="M:AutoCSer.TestCase.SearchCommon.ISearchUserNode.GetArray(AutoCSer.LeftArray{System.Int32})">
             <summary>
             获取非索引条件数据用户数组
             </summary>
             <param name="userIds">用户标识数组</param>
-            <param name="callback"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.SearchCommon.ISearchUserNodeClientNode">
             <summary>
@@ -899,6 +899,23 @@
             <param name="queryParameter">用户搜索查询参数</param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNode">
+            <summary>
+            创建分词结果磁盘块索引信息节点的自定义基础服务接口
+            </summary>
+            <summary>
+            创建分词结果磁盘块索引信息节点的自定义基础服务接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNode.CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建非索引条件查询数据节点 ISearchUserNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNode">
             <summary>
             创建分词结果磁盘块索引信息节点的自定义基础服务接口
@@ -925,7 +942,12 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNode.CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+        <member name="T:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeClientNode">
+            <summary>
+            创建分词结果磁盘块索引信息节点的自定义基础服务接口 客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeClientNode.CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             创建非索引条件查询数据节点 ISearchUserNode
             </summary>
@@ -957,14 +979,328 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeClientNode.CreateSearchUserNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+        <member name="T:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum">
             <summary>
-            创建非索引条件查询数据节点 ISearchUserNode
+            创建分词结果磁盘块索引信息节点的自定义基础服务接口 节点方法序号映射枚举类型
             </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateArrayNode">
+            <summary>
+            [0] 创建数组节点 ArrayNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int length 数组长度
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateBitmapNode">
+            <summary>
+            [1] 创建位图节点 BitmapNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            uint capacity 二进制位数量
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateByteArrayDictionaryNode">
+            <summary>
+            [2] 创建字典节点 ByteArrayDictionaryNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateByteArrayFragmentDictionaryNode">
+            <summary>
+            [3] 创建字典节点 ByteArrayFragmentDictionaryNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateByteArrayQueueNode">
+            <summary>
+            [4] 创建队列节点（先进先出） ByteArrayQueueNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateByteArrayStackNode">
+            <summary>
+            [5] 创建栈节点（后进先出） ByteArrayStackNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateDictionaryNode">
+            <summary>
+            [6] 创建字典节点 DictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateDistributedLockNode">
+            <summary>
+            [7] 创建分布式锁节点 DistributedLockNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateFragmentDictionaryNode">
+            <summary>
+            [8] 创建字典节点 FragmentDictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateFragmentHashSetNode">
+            <summary>
+            [9] 创建 256 基分片哈希表节点 FragmentHashSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateHashBytesDictionaryNode">
+            <summary>
+            [10] 创建字典节点 HashBytesDictionaryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateHashBytesFragmentDictionaryNode">
+            <summary>
+            [11] 创建字典节点 HashBytesFragmentDictionaryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateHashSetNode">
+            <summary>
+            [12] 创建哈希表节点 HashSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateIdentityGeneratorNode">
+            <summary>
+            [13] 创建 64 位自增ID 节点 IdentityGeneratorNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            long identity 起始分配 ID
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateLeftArrayNode">
+            <summary>
+            [14] 创建数组节点 LeftArrayNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateMessageNode">
+            <summary>
+            [15] 创建消息处理节点 MessageNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType messageType 消息数据类型
+            int arraySize 正在处理消息数组大小
+            int timeoutSeconds 消息处理超时秒数
+            int checkTimeoutSeconds 消息超时检查间隔秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateQueueNode">
+            <summary>
+            [16] 创建队列节点（先进先出） QueueNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateSearchTreeDictionaryNode">
+            <summary>
+            [17] 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateSearchTreeSetNode">
+            <summary>
+            [18] 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateServerByteArrayMessageNode">
+            <summary>
+            [19] 创建消息处理节点 MessageNode{ServerByteArrayMessage}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int arraySize 正在处理消息数组大小
+            int timeoutSeconds 消息处理超时秒数
+            int checkTimeoutSeconds 消息超时检查间隔秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateSortedDictionaryNode">
+            <summary>
+            [20] 创建排序字典节点 SortedDictionaryNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateSortedListNode">
+            <summary>
+            [21] 创建排序列表节点 SortedListNode{KT,VT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            AutoCSer.Reflection.RemoteType valueType 数据类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateSortedSetNode">
+            <summary>
+            [22] 创建排序集合节点 SortedSetNode{KT}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateStackNode">
+            <summary>
+            [23] 创建栈节点（后进先出） StackNode{T}
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.RemoveNode">
+            <summary>
+            [24] 删除节点
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            返回值 bool 是否成功删除节点，否则表示没有找到节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateServerRegistryNode">
+            <summary>
+            [25] 创建服务注册节点 IServerRegistryNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int loadTimeoutSeconds 冷启动会话超时秒数
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateProcessGuardNode">
+            <summary>
+            [26] 创建服务进程守护节点 IProcessGuardNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateManyHashBitMapClientFilterNode">
+            <summary>
+            [27] 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int size 位图大小（位数量）
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateManyHashBitMapFilterNode">
+            <summary>
+            [28] 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            int size 位图大小（位数量）
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.RemoveNodeByKey">
+            <summary>
+            [29] 删除节点
+            string key 节点全局关键字
+            返回值 bool 是否成功删除节点，否则表示没有找到节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateSearchUserNode">
+            <summary>
+            [256] 创建非索引条件查询数据节点 ISearchUserNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
         </member>
         <member name="T:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeMethodEnum">
             <summary>
@@ -1292,15 +1628,6 @@
         <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeMethodEnum.CreateUserRemarkWordIdentityBlockIndexNode">
             <summary>
             [257] 创建用户备注分词结果磁盘块索引信息节点 IWordIdentityBlockIndex
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
-            string key 节点全局关键字
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeMethodEnum.CreateSearchUserNode">
-            <summary>
-            [258] 创建非索引条件查询数据节点 ISearchUserNode
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息

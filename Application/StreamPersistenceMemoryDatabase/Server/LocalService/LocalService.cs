@@ -23,6 +23,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 日志流持久化内存数据库本地服务（支持并发读取操作）
+        /// </summary>
+        /// <param name="config">日志流持久化内存数据库服务端配置</param>
+        /// <param name="createServiceNode">创建服务基础操作节点委托</param>
+        /// <param name="maxConcurrency">最大读取操作并发数量，小于等于 0 表示处理器数量减去设置值（比如处理器数量为 4，并发数量设置为 -1，则读取并发数量为 4 - 1 = 3）</param>
+        internal LocalService(LocalServiceConfig config, Func<LocalService, ServerNode> createServiceNode, int maxConcurrency) : base(config, p => createServiceNode((LocalService)p), true)
+        {
+            if (config.OnlyLocalService)
+            {
+                CommandServerCallQueue = new AutoCSer.Net.CommandServerCallReadQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null, maxConcurrency);
+                CommandServerCallQueue.AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
+            }
+        }
+        /// <summary>
         /// 释放资源
         /// </summary>
         public override void Dispose()

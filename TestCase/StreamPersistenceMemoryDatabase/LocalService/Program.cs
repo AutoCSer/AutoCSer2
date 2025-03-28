@@ -23,9 +23,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                     PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)),
                     PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(ServiceConfig.PersistenceSwitchPath)),
                 };
+                ServiceConfig readWriteQueueDatabaseServiceConfig = new ServiceConfig
+                {
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)) + nameof(IReadWriteQueueService),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(IReadWriteQueueService) + nameof(ServiceConfig.PersistenceSwitchPath)),
+                };
                 using (LocalService cacheService = databaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
+                using (LocalService readWriteQueueCacheService = readWriteQueueDatabaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p), -1))
                 {
                     LocalClient<ICustomServiceNodeLocalClientNode> client = cacheService.CreateClient<ICustomServiceNodeLocalClientNode>();
+                    LocalClient<ICustomServiceNodeLocalClientNode> readWriteQueueClient = readWriteQueueCacheService.CreateClient<ICustomServiceNodeLocalClientNode>();
                     do
                     {
                         //await GameNode.Test(client);
@@ -33,27 +40,49 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                         //continue;
 
                         await Task.WhenAll(
-                            CallbackNode.Test(client)
-                            , DistributedLockNode.Test(client)
-                            , MessageConsumer.Test(client)
-                            , FragmentDictionaryNode.Test(client)
-                            , DictionaryNode.Test(client)
-                            , SearchTreeDictionaryNode.Test(client)
-                            , SearchTreeSetNode.Test(client)
-                            , SortedDictionaryNode.Test(client)
-                            , SortedListNode.Test(client)
-                            , SortedSetNode.Test(client)
-                            , FragmentHashSetNode.Test(client)
-                            , HashSetNode.Test(client)
-                            , BitmapNode.Test(client)
-                            , QueueNode.Test(client)
-                            , StackNode.Test(client)
-                            , LeftArrayNode.Test(client)
-                            , ArrayNode.Test(client)
+                            CallbackNode.Test(client, false)
+                            , DistributedLockNode.Test(client, false)
+                            , MessageConsumer.Test(client, false)
+                            , FragmentDictionaryNode.Test(client, false)
+                            , DictionaryNode.Test(client, false)
+                            , SearchTreeDictionaryNode.Test(client, false)
+                            , SearchTreeSetNode.Test(client, false)
+                            , SortedDictionaryNode.Test(client, false)
+                            , SortedListNode.Test(client, false)
+                            , SortedSetNode.Test(client, false)
+                            , FragmentHashSetNode.Test(client, false)
+                            , HashSetNode.Test(client, false)
+                            , BitmapNode.Test(client, false)
+                            , QueueNode.Test(client, false)
+                            , StackNode.Test(client, false)
+                            , LeftArrayNode.Test(client, false)
+                            , ArrayNode.Test(client, false)
                             );
-                        await new PerformanceDictionaryNode().Test(client);
-                        await new PerformanceSearchTreeDictionaryNode().Test(client);
-                        await new PerformanceMessageNode().Test(client);
+                        await Task.WhenAll(
+                            CallbackNode.Test(readWriteQueueClient, true)
+                            , DistributedLockNode.Test(readWriteQueueClient, true)
+                            , MessageConsumer.Test(readWriteQueueClient, true)
+                            , FragmentDictionaryNode.Test(readWriteQueueClient, true)
+                            , DictionaryNode.Test(readWriteQueueClient, true)
+                            , SearchTreeDictionaryNode.Test(readWriteQueueClient, true)
+                            , SearchTreeSetNode.Test(readWriteQueueClient, true)
+                            , SortedDictionaryNode.Test(readWriteQueueClient, true)
+                            , SortedListNode.Test(readWriteQueueClient, true)
+                            , SortedSetNode.Test(readWriteQueueClient, true)
+                            , FragmentHashSetNode.Test(readWriteQueueClient, true)
+                            , HashSetNode.Test(readWriteQueueClient, true)
+                            , BitmapNode.Test(readWriteQueueClient, true)
+                            , QueueNode.Test(readWriteQueueClient, true)
+                            , StackNode.Test(readWriteQueueClient, true)
+                            , LeftArrayNode.Test(readWriteQueueClient, true)
+                            , ArrayNode.Test(readWriteQueueClient, true)
+                            );
+                        await new PerformanceDictionaryNode().Test(client, false);
+                        await new PerformanceSearchTreeDictionaryNode().Test(client, false);
+                        await new PerformanceMessageNode().Test(client, false);
+                        await new PerformanceDictionaryNode().Test(readWriteQueueClient, true);
+                        await new PerformanceSearchTreeDictionaryNode().Test(readWriteQueueClient, true);
+                        await new PerformanceMessageNode().Test(readWriteQueueClient, true);
                     }
                     while (true);
                 }

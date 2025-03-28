@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         private IMessageNodeLocalClientNode<PerformanceMessage> node;
         private IMessageNodeLocalClientNode<PerformanceMessage> synchronousNode;
         internal PerformanceMessageNode() { }
-        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client)
+        internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             int taskCount = getTaskCount();
             LocalResult<IMessageNodeLocalClientNode<PerformanceMessage>> node = await client.GetOrCreateMessageNode<PerformanceMessage>(typeof(IMessageNodeLocalClientNode<PerformanceMessage>).FullName, taskCount, 5, 1);
@@ -25,11 +25,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             this.synchronousNode = LocalClientNode<IMessageNodeLocalClientNode<PerformanceMessage>>.GetSynchronousCallback(this.node = node.Value);
             LocalResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
+            string typeName = isReadWriteQueue ? $"{nameof(IReadWriteQueueService)}.{nameof(PerformanceMessageNode)}" : nameof(PerformanceMessageNode);
 
             using (IDisposable keepCallback = await this.synchronousNode.GetMessage(taskCount, onMessage))
             {
                 await Task.WhenAll(getAppendMessageTask(true));
-                await loopCompleted(nameof(PerformanceMessageNode), nameof(AppendMessage), nameof(this.node.Completed));
+                await loopCompleted(typeName, nameof(AppendMessage), nameof(this.node.Completed));
 
                 LocalResult<int> intResult = await this.node.GetCount();
                 if (!Program.Breakpoint(result)) return;

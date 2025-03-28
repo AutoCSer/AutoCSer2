@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService;
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 using AutoCSer.TestCase.SearchCommon;
 using AutoCSer.TestCase.SearchDataSource;
@@ -29,7 +30,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             get
             {
                 yield return new CommandClientControllerCreatorParameter(typeof(ITimestampVerifyService), typeof(ITimestampVerifyClient));
-                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(IStreamPersistenceMemoryDatabaseService), typeof(IStreamPersistenceMemoryDatabaseClient));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(IReadWriteQueueService), typeof(IStreamPersistenceMemoryDatabaseClient));
             }
         }
         /// <summary>
@@ -50,7 +51,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 日志流持久化内存数据库客户端单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeClientNode, WordIdentityBlockIndexCommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeClientNode, WordIdentityBlockIndexCommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeClientNode, WordIdentityBlockIndexCommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeClientNode, WordIdentityBlockIndexCommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
         {
             Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.SearchWordIdentityBlockIndex),
             GetSocketEventDelegate = (client) => new WordIdentityBlockIndexCommandClientSocketEvent(client)
