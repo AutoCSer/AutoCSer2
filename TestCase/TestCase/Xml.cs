@@ -100,7 +100,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            floatData = new Float { FloatPositiveInfinity = float.NaN, FloatNegativeInfinity = float.NaN, DoublePositiveInfinity = double.NaN, DoubleNegativeInfinity = double.NaN };
+            floatData = new Float { FloatPositiveInfinity = float.NaN, FloatNegativeInfinity = float.NaN, DoublePositiveInfinity = double.NaN, DoubleNegativeInfinity = double.NaN };//HalfPositiveInfinity = Half.NaN, HalfNegativeInfinity = Half.NaN, 
             xmlString = AutoCSer.XmlSerializer.Serialize(floatData);
             Float newFloatData = AutoCSer.XmlDeserializer.Deserialize<Float>(xmlString);
             if (!AutoCSer.FieldEquals.Comparor.Equals(floatData, newFloatData))

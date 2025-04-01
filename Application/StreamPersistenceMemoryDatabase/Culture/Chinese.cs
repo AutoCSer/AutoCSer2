@@ -25,7 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         /// <returns></returns>
         public override string GetServerSnapshotNodeNotImplemented(Type type)
         {
-            return $"服务端节点类型 {type.fullName()} 未实现快照接口 {typeof(ISnapshot<>).fullName()}";
+            return $"服务端节点类型 {type.fullName()} 未实现快照接口 {typeof(ISnapshot<>).fullName()} / {typeof(IEnumerableSnapshot<>).fullName()}";
         }
         /// <summary>
         /// 内存数据库初始化加载数据失败

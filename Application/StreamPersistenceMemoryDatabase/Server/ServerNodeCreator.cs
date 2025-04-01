@@ -119,11 +119,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isSnapshot = false;
             foreach (Type checkType in type.GetInterfaces())
             {
-                if (checkType.IsGenericType && checkType.GetGenericTypeDefinition() == typeof(ISnapshot<>))
+                if (checkType.IsGenericType)
                 {
-                    Type snapshotType = checkType.GetGenericArguments()[0];
-                    if (GetSnapshotMethod(snapshotType) == null) return CallStateEnum.NotFoundSnapshotMethod;
-                    isSnapshot = true;
+                    Type snapshotType = checkType.GetGenericTypeDefinition();
+                    if (snapshotType == typeof(ISnapshot<>) || snapshotType == typeof(IEnumerableSnapshot<>))
+                    {
+                        snapshotType = checkType.GetGenericArguments()[0];
+                        if (GetSnapshotMethod(snapshotType) == null) return CallStateEnum.NotFoundSnapshotMethod;
+                        isSnapshot = true;
+                    }
                 }
             }
             return isSnapshot ? CallStateEnum.Success : CallStateEnum.NotFoundSnapshotNode;

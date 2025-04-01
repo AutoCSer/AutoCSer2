@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.SearchQueryService
     /// <summary>
     /// 用户搜索非索引条件数据节点
     /// </summary>
-    internal sealed class SearchUserNode : ConditionDataLocalNode<ISearchUserNode, int, BinarySerializeKeyValue<int, SearchUser>, ISearchUserNodeLocalClientNode>, ISearchUserNode, ISnapshot<bool>, IQueryContext<int, SearchUser>
+    internal sealed class SearchUserNode : ConditionDataLocalNode<ISearchUserNode, int, BinarySerializeKeyValue<int, SearchUser>, ISearchUserNodeLocalClientNode>, ISearchUserNode, IEnumerableSnapshot<bool>, IQueryContext<int, SearchUser>
     {
         /// <summary>
         /// 用户搜索非索引条件数据
@@ -150,15 +150,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         public override void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<int, SearchUser>> array, ref LeftArray<BinarySerializeKeyValue<int, SearchUser>> newArray)
         {
             ServerNode.SetSearchTreeSnapshotResult(ref array, ref newArray);
-        }
-        /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
-        /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<bool>.GetSnapshotCapacity(ref object customObject)
-        {
-            return isLoaded ? 1 : 0;
         }
         /// <summary>
         /// 快照设置数据

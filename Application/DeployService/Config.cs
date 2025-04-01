@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using AutoCSer.Extensions;
 
 namespace AutoCSer.DeployService
 {
@@ -58,9 +59,9 @@ namespace AutoCSer.DeployService
                 {
                     Config Config = AutoCSer.JsonDeserializer.Deserialize<Config>(File.ReadAllText(JsonFile.FullName, Encoding.UTF8));
                     if (Config != null) return Config;
-                    AutoCSer.Threading.CatchTask.AddIgnoreException(AutoCSer.LogHelper.Error("JSON 配置文件 " + JsonFile.FullName + " 解析失败", LogLevelEnum.Error | LogLevelEnum.AutoCSer));
+                    AutoCSer.LogHelper.Error("JSON 配置文件 " + JsonFile.FullName + " 解析失败", LogLevelEnum.Error | LogLevelEnum.AutoCSer).NotWait();
                 }
-                else AutoCSer.Threading.CatchTask.AddIgnoreException(AutoCSer.LogHelper.Error("没有找到 JSON 配置文件 " + JsonFile.FullName, LogLevelEnum.Error | LogLevelEnum.AutoCSer));
+                else AutoCSer.LogHelper.Error("没有找到 JSON 配置文件 " + JsonFile.FullName, LogLevelEnum.Error | LogLevelEnum.AutoCSer).NotWait();
             }
             return Default;
         }

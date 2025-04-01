@@ -646,12 +646,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             AutoCSer.Common.Config.AppendRemoteType(typeof(ServerByteArrayMessage));
             AutoCSer.Common.Config.AppendRemoteType(typeof(BinaryMessage<>));
-            AutoCSer.Common.Config.AppendRemoteType(typeof(HashBytes));
-            AutoCSer.Common.Config.AppendRemoteType(typeof(HashSubString));
-            AutoCSer.Common.Config.AppendRemoteType(typeof(HashBytesFragmentDictionary256<>));
-            AutoCSer.Common.Config.AppendRemoteType(typeof(FragmentHashSet256<>));
-            AutoCSer.Common.Config.AppendRemoteType(typeof(AutoCSer.SearchTree.Set<>));
-            AutoCSer.Common.Config.AppendRemoteType(typeof(AutoCSer.SearchTree.PageArray<>));
+            //AutoCSer.Common.Config.AppendRemoteType(typeof(HashBytes));
+            //AutoCSer.Common.Config.AppendRemoteType(typeof(HashSubString));
+            //AutoCSer.Common.Config.AppendRemoteType(typeof(AutoCSer.SearchTree.Set<>));
+            //AutoCSer.Common.Config.AppendRemoteType(typeof(AutoCSer.SearchTree.PageArray<>));
             AutoCSer.Common.Config.AppendRemoteTypeAssembly(typeof(HashBytes).Assembly);
             //AutoCSer.Common.Config.AppendRemoteTypeAssembly(typeof(StreamPersistenceMemoryDatabaseServiceBase));
         }

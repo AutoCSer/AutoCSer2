@@ -57,11 +57,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="keys"></param>
         /// <returns></returns>
         [ServerMethod(IsPersistence = false)]
+#if NetStandard21
+        VT?[] GetValueArray(KT[] keys);
+#else
         VT[] GetValueArray(KT[] keys);
+#endif
         /// <summary>
         /// 清除所有数据
         /// </summary>
         void Clear();
+        /// <summary>
+        /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+        /// </summary>
+        void ReusableClear();
         /// <summary>
         /// 判断关键字是否存在
         /// </summary>
@@ -69,13 +77,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [ServerMethod(IsPersistence = false)]
         bool ContainsKey(KT key);
-        /// <summary>
-        /// 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [ServerMethod(IsPersistence = false)]
-        bool ContainsValue(VT value);
         /// <summary>
         /// 删除关键字
         /// </summary>

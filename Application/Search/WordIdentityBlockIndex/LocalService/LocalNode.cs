@@ -16,7 +16,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
     /// 分词结果磁盘块索引信息节点
     /// </summary>
     /// <typeparam name="T">分词数据关键字类型</typeparam>
-    public abstract class LocalNode<T> : MethodParameterCreatorNode<ILocalNode<T>, BinarySerializeKeyValue<T, BlockIndex>>, ILocalNode<T>, ISnapshot<BinarySerializeKeyValue<T, BlockIndex>>, ISnapshot<bool>
+    public abstract class LocalNode<T> : MethodParameterCreatorNode<ILocalNode<T>, BinarySerializeKeyValue<T, BlockIndex>>, ILocalNode<T>, ISnapshot<BinarySerializeKeyValue<T, BlockIndex>>, IEnumerableSnapshot<bool>
 #if NetStandard21
         where T : notnull, IEquatable<T>
 #else
@@ -47,6 +47,10 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// 是否已经加载初始化数据
         /// </summary>
         private bool isLoaded;
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<bool> IEnumerableSnapshot<bool>.SnapshotEnumerable { get { return new SnapshotGetValueEmpty<bool>(getIsLoaded); } }
         /// <summary>
         /// 分词结果磁盘块索引信息节点
         /// </summary>
@@ -199,31 +203,14 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             Datas.Add(value.Key, new LocalData<T>(value.Value));
         }
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// 是否已经加载初始化数据
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<bool>.GetSnapshotCapacity(ref object customObject)
+        /// <returns></returns>
+        private KeyValue<bool, bool> getIsLoaded()
         {
-            return isLoaded ? 1 : 0;
+            if (isLoaded) return new KeyValue<bool, bool>(true, true);
+            return default(KeyValue<bool, bool>);
         }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        SnapshotResult<bool> ISnapshot<bool>.GetSnapshotResult(bool[] snapshotArray, object customObject)
-        {
-            if (isLoaded) return new SnapshotResult<bool>(snapshotArray, true);
-            return new SnapshotResult<bool>(0);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        void ISnapshot<bool>.SetSnapshotResult(ref LeftArray<bool> array, ref LeftArray<bool> newArray) { }
         /// <summary>
         /// 快照设置数据
         /// </summary>
@@ -467,7 +454,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             try
             {
                 var data = default(LocalData<T>);
-                if (Datas.TryGetValue(key, out data)) data.Completed(this, key, blockIndex).NotWait();
+                if (Datas.TryGetValue(key, out data)) data.Completed(this, key, blockIndex).Catch();
                 state = WordIdentityBlockIndexUpdateStateEnum.Success;
             }
             finally { callback.Callback(state); }

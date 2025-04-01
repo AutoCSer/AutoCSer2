@@ -17,6 +17,12 @@ namespace AutoCSer.CommandService
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(TaskData value);
         /// <summary>
+        /// 快照设置数据
+        /// </summary>
+        /// <param name="value">数据</param>
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 2)]
+        void SnapshotSetIdentity(long value);
+        /// <summary>
         /// 创建任务
         /// </summary>
         /// <returns>任务标识ID</returns>

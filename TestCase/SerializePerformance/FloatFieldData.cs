@@ -10,9 +10,11 @@ namespace AutoCSer.TestCase.SerializePerformance
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
     class FloatFieldData : FieldData
     {
+        //public Half Half;
         public float Float;
         public double Double;
         public decimal Decimal;
+        //public Half? HalfNull;
         public float? FloatNull;
         public double? DoubleNull;
         public decimal? DecimalNull;

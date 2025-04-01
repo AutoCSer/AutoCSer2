@@ -11,51 +11,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     public sealed class HashBytesFragmentDictionaryNode : IHashBytesFragmentDictionaryNode
 #if NetStandard21
-        , ISnapshot<BinarySerializeKeyValue<byte[], byte[]?>>
+        , IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]?>>
 #else
-        , ISnapshot<BinarySerializeKeyValue<byte[], byte[]>>
+        , IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]>>
 #endif
     {
         /// <summary>
         /// 256 基分片 HashBytes 字典
         /// </summary>
 #if NetStandard21
-        private readonly HashBytesFragmentDictionary256<byte[]?> dictionary = new HashBytesFragmentDictionary256<byte[]?>();
+        private readonly FragmentSnapshotDictionary256<HashBytes, byte[]?> dictionary = new FragmentSnapshotDictionary256<HashBytes, byte[]?>();
 #else
-        private readonly HashBytesFragmentDictionary256<byte[]> dictionary = new HashBytesFragmentDictionary256<byte[]>();
+        private readonly FragmentSnapshotDictionary256<HashBytes, byte[]> dictionary = new FragmentSnapshotDictionary256<HashBytes, byte[]>();
 #endif
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// 快照集合
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        public int GetSnapshotCapacity(ref object customObject)
-        {
-            return dictionary.Count;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
 #if NetStandard21
-        public SnapshotResult<BinarySerializeKeyValue<byte[], byte[]?>> GetSnapshotResult(BinarySerializeKeyValue<byte[], byte[]?>[] snapshotArray, object customObject)
+        ISnapshotEnumerable<BinarySerializeKeyValue<byte[], byte[]?>> IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]?>>.SnapshotEnumerable { get { return new FragmentSnapshotDictionaryEnumerable256<byte[]?>(dictionary); } }
 #else
-        public SnapshotResult<BinarySerializeKeyValue<byte[], byte[]>> GetSnapshotResult(BinarySerializeKeyValue<byte[], byte[]>[] snapshotArray, object customObject)
-#endif
-        {
-            return ServerNode.GetSnapshotResult(dictionary, snapshotArray);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-#if NetStandard21
-        public void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<byte[], byte[]?>> array, ref LeftArray<BinarySerializeKeyValue<byte[], byte[]?>> newArray) { }
-#else
-        public void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<byte[], byte[]>> array, ref LeftArray<BinarySerializeKeyValue<byte[], byte[]>> newArray) { }
+        ISnapshotEnumerable<BinarySerializeKeyValue<byte[], byte[]>> IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]>>.SnapshotEnumerable { get { return new FragmentSnapshotDictionaryEnumerable256<byte[]>(dictionary); } }
 #endif
         /// <summary>
         /// 快照添加数据

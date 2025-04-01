@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -70,7 +71,7 @@ namespace AutoCSer.CommandService.DeployTask
             }
             catch (Exception catchException)
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(OnException(exception = catchException));
+                OnException(exception = catchException).NotWait();
             }
             finally
             {

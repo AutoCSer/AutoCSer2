@@ -97,7 +97,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
             bool isStart = false;
             try
             {
-                synchronous(cache.GetCacheArray()).NotWait();
+                synchronous(cache.GetCacheArray()).Catch();
                 isStart = true;
             }
             finally
@@ -150,7 +150,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
             {
                 CallbackValueLinkNode<T> node = queueHead;
                 queueHead = queueEnd = null;
-                synchronous(node).NotWait();
+                synchronous(node).Catch();
             }
             else callback.CancelKeep();
             return AutoCSer.Common.CompletedTask;
@@ -196,7 +196,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
                     node = queueHead;
                     queueHead = queueEnd = null;
                 }
-               synchronous(node.notNull()).NotWait();
+               synchronous(node.notNull()).Catch();
             }
             else
             {

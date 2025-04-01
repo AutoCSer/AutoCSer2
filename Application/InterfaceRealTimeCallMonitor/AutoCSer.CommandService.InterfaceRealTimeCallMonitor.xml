@@ -458,9 +458,19 @@
             字符串数组
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#LeftArray{System#String}}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.statistics">
             <summary>
             异常统计信息集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#BinarySerializeKeyValue{System#Int64,AutoCSer#CommandService#InterfaceRealTimeCallMonitor#ExceptionStatistics}}#SnapshotEnumerable">
+            <summary>
+            快照集合
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.count">
@@ -502,48 +512,17 @@
             移除当前节点
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#LeftArray{System#String}}#GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.getStringArray">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            获取字符串数组
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#LeftArray{System#String}}#GetSnapshotResult(AutoCSer.LeftArray{System.String}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#LeftArray{System#String}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.LeftArray{System.String}}@,AutoCSer.LeftArray{AutoCSer.LeftArray{System.String}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.SnapshotSetStringArray(AutoCSer.LeftArray{System.String})">
             <summary>
             快照设置数据
             </summary>
             <param name="stringArray">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#Int64,AutoCSer#CommandService#InterfaceRealTimeCallMonitor#ExceptionStatistics}}#GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{System#Int64,AutoCSer#CommandService#InterfaceRealTimeCallMonitor#ExceptionStatistics}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatisticsNode.SnapshotSet(AutoCSer.BinarySerializeKeyValue{System.Int64,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.ExceptionStatistics})">
             <summary>
@@ -1053,6 +1032,7 @@
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>

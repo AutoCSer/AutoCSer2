@@ -24,7 +24,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected UIntKeyUIntValueLocalCache(StreamPersistenceMemoryDatabaseLocalClientNodeCache<IRemoveMarkHashKeyIndexNodeLocalClientNode<uint>> node, long maxCount, int capacity = 1 << 16) : base(maxCount, capacity)
         {
             this.node = node;
-            getChangeKeys().NotWait();
+            getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合
@@ -48,7 +48,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         {
             base.Dispose();
             foreach (UIntIndex<uint> node in cache.Values) node.Free();
-            cache.Clear();
+            cache.ClearCount();
         }
         /// <summary>
         /// 创建索引数据磁盘块索引缓存节点

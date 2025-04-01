@@ -16,6 +16,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(DistributedLockIdentity<T> value);
         /// <summary>
+        /// 快照设置数据
+        /// </summary>
+        /// <param name="value">数据</param>
+        [ServerMethod(IsClientCall = false, SnapshotMethodSort = 2)]
+        void SnapshotSetIdentity(long value);
+        /// <summary>
         /// 申请锁
         /// </summary>
         /// <param name="key">锁关键字</param>

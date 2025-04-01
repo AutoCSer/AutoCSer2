@@ -11,18 +11,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     public sealed class HashBytesDictionaryNode : IHashBytesDictionaryNode
 #if NetStandard21
-        , ISnapshot<BinarySerializeKeyValue<byte[], byte[]?>>
+        , IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]?>>
 #else
-        , ISnapshot<BinarySerializeKeyValue<byte[], byte[]>>
+        , IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]>>
 #endif
     {
         /// <summary>
         /// 字典
         /// </summary>
 #if NetStandard21
-        private Dictionary<HashBytes, byte[]?> dictionary;
+        private SnapshotDictionary<HashBytes, byte[]?> dictionary;
 #else
-        private Dictionary<HashBytes, byte[]> dictionary;
+        private SnapshotDictionary<HashBytes, byte[]> dictionary;
+#endif
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+#if NetStandard21
+        ISnapshotEnumerable<BinarySerializeKeyValue<byte[], byte[]?>> IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]?>>.SnapshotEnumerable { get { return new SnapshotDictionaryNodeArray<byte[]?>(dictionary.Nodes); } }
+#else
+        ISnapshotEnumerable<BinarySerializeKeyValue<byte[], byte[]>> IEnumerableSnapshot<BinarySerializeKeyValue<byte[], byte[]>>.SnapshotEnumerable { get { return new SnapshotDictionaryNodeArray<byte[]>(dictionary.Nodes); } }
 #endif
         /// <summary>
         /// 字典节点
@@ -31,44 +39,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public HashBytesDictionaryNode(int capacity = 0)
         {
 #if NetStandard21
-            dictionary = DictionaryCreator<HashBytes>.Create<byte[]?>(capacity);
+            dictionary = new SnapshotDictionary<HashBytes, byte[]?>(capacity);
 #else
-            dictionary = DictionaryCreator<HashBytes>.Create<byte[]>(capacity);
+            dictionary = new SnapshotDictionary<HashBytes, byte[]>(capacity);
 #endif
         }
-        /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
-        /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        public int GetSnapshotCapacity(ref object customObject)
-        {
-            return dictionary.Count;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-#if NetStandard21
-        public SnapshotResult<BinarySerializeKeyValue<byte[], byte[]?>> GetSnapshotResult(BinarySerializeKeyValue<byte[], byte[]?>[] snapshotArray, object customObject)
-#else
-        public SnapshotResult<BinarySerializeKeyValue<byte[], byte[]>> GetSnapshotResult(BinarySerializeKeyValue<byte[], byte[]>[] snapshotArray, object customObject)
-#endif
-        {
-            return ServerNode.GetSnapshotResult(dictionary, snapshotArray);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-#if NetStandard21
-        public void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<byte[], byte[]?>> array, ref LeftArray<BinarySerializeKeyValue<byte[], byte[]?>> newArray) { }
-#else
-        public void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<byte[], byte[]>> array, ref LeftArray<BinarySerializeKeyValue<byte[], byte[]>> newArray) { }
-#endif
         /// <summary>
         /// 快照添加数据
         /// </summary>
@@ -87,11 +62,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="capacity">新容器初始化大小</param>
         public void Renew(int capacity = 0)
         {
-#if NetStandard21
-            dictionary = DictionaryCreator<HashBytes>.Create<byte[]?>(capacity);
-#else
-            dictionary = DictionaryCreator<HashBytes>.Create<byte[]>(capacity);
-#endif
+            dictionary.Renew(capacity);
         }
         /// <summary>
         /// 获取数据数量
@@ -171,7 +142,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public void Clear()
         {
-            dictionary.Clear();
+            dictionary.ClearArray();
         }
         /// <summary>
         /// 判断关键字是否存在

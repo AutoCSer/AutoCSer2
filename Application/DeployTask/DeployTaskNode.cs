@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 发布任务节点
     /// </summary>
-    public sealed class DeployTaskNode : MethodParameterCreatorNode<IDeployTaskNode, TaskData>, IDeployTaskNode, ISnapshot<TaskData>
+    public sealed class DeployTaskNode : MethodParameterCreatorNode<IDeployTaskNode, TaskData>, IDeployTaskNode, ISnapshot<TaskData>, IEnumerableSnapshot<long>
     {
         /// <summary>
         /// 未完成任务集合
@@ -27,6 +27,10 @@ namespace AutoCSer.CommandService
         /// 当前分配任务标识ID
         /// </summary>
         private long currentIdentity;
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<long> IEnumerableSnapshot<long>.SnapshotEnumerable { get { return new SnapshotGetValue<long>(getCurrentIdentity); } }
         /// <summary>
         /// 发布任务节点
         /// </summary>
@@ -98,7 +102,6 @@ namespace AutoCSer.CommandService
         {
             SnapshotResult<TaskData> result = new SnapshotResult<TaskData>(snapshotArray.Length);
             foreach (TaskBuilder builder in tasks.Values) result.Add(snapshotArray, builder.Data);
-            result.Add(snapshotArray, new TaskData(-currentIdentity));
             return result;
         }
         /// <summary>
@@ -107,8 +110,23 @@ namespace AutoCSer.CommandService
         /// <param name="value">数据</param>
         public void SnapshotSet(TaskData value)
         {
-            if (value.Identity >= 0) tasks.Add(value.Identity, new TaskBuilder(this, value));
-            else currentIdentity = -value.Identity;
+            tasks.Add(value.Identity, new TaskBuilder(this, value));
+        }
+        /// <summary>
+        /// 获取当前分配任务标识ID
+        /// </summary>
+        /// <returns></returns>
+        private long getCurrentIdentity()
+        {
+            return currentIdentity;
+        }
+        /// <summary>
+        /// 快照设置数据
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void SnapshotSetIdentity(long value)
+        {
+            currentIdentity = value;
         }
         /// <summary>
         /// 创建任务

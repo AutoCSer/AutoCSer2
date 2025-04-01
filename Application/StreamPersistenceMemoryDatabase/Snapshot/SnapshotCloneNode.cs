@@ -19,6 +19,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal override void GetResult()
         {
+            base.GetResult();
             int count = result.Count;
             if (count != 0)
             {

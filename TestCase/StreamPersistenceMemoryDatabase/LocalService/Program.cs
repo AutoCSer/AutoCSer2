@@ -58,6 +58,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                             , LeftArrayNode.Test(client, false)
                             , ArrayNode.Test(client, false)
                             );
+                        await new PerformanceDictionaryNode().Test(client, false);
+                        await new PerformanceSearchTreeDictionaryNode().Test(client, false);
+                        await new PerformanceMessageNode().Test(client, false);
                         await Task.WhenAll(
                             CallbackNode.Test(readWriteQueueClient, true)
                             , DistributedLockNode.Test(readWriteQueueClient, true)
@@ -77,9 +80,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                             , LeftArrayNode.Test(readWriteQueueClient, true)
                             , ArrayNode.Test(readWriteQueueClient, true)
                             );
-                        await new PerformanceDictionaryNode().Test(client, false);
-                        await new PerformanceSearchTreeDictionaryNode().Test(client, false);
-                        await new PerformanceMessageNode().Test(client, false);
                         await new PerformanceDictionaryNode().Test(readWriteQueueClient, true);
                         await new PerformanceSearchTreeDictionaryNode().Test(readWriteQueueClient, true);
                         await new PerformanceMessageNode().Test(readWriteQueueClient, true);

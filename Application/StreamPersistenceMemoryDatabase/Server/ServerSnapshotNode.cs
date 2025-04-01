@@ -41,22 +41,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             object targetObject = target.castObject();
             foreach (Type type in targetObject.GetType().GetInterfaces())
             {
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ISnapshot<>))
+                if (type.IsGenericType)
                 {
-                    Type snapshotType = type.GetGenericArguments()[0];
-                    for (var baseType = snapshotType.BaseType; baseType != typeof(object) && baseType != null; baseType = baseType.BaseType)
+                    Type snapshotType = type.GetGenericTypeDefinition();
+                    if (snapshotType == typeof(ISnapshot<>))
                     {
-                        if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(SnapshotCloneObject<>)
-                            && snapshotType == baseType.GetGenericArguments()[0])
+                        snapshotType = type.GetGenericArguments()[0];
+                        for (var baseType = snapshotType.BaseType; baseType != typeof(object) && baseType != null; baseType = baseType.BaseType)
                         {
-                            snapshots.Add(SnapshotCloneObjectGenericType.Get(snapshotType).CreateSnapshotCloneNode(targetObject));
-                            snapshotType = type;
-                            break;
+                            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(SnapshotCloneObject<>)
+                                && snapshotType == baseType.GetGenericArguments()[0])
+                            {
+                                snapshots.Add(SnapshotCloneObjectGenericType.Get(snapshotType).CreateSnapshotCloneNode(targetObject));
+                                snapshotType = type;
+                                break;
+                            }
+                        }
+                        if (!object.ReferenceEquals(snapshotType, type))
+                        {
+                            snapshots.Add(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(snapshotType).CreateSnapshotNode(targetObject));
                         }
                     }
-                    if (!object.ReferenceEquals(snapshotType, type))
+                    else if(snapshotType == typeof(IEnumerableSnapshot<>))
                     {
-                        snapshots.Add(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(snapshotType).CreateSnapshotNode(targetObject));
+                        snapshots.Add(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.GetGenericArguments()[0]).CreateEnumerableSnapshotNode(targetObject));
                     }
                 }
             }

@@ -163,6 +163,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="target"></param>
         /// <returns></returns>
         internal abstract SnapshotNode CreateSnapshotNode(object target);
+        /// <summary>
+        /// 快照接口节点
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        internal abstract SnapshotNode CreateEnumerableSnapshotNode(object target);
 
         /// <summary>
         /// 创建泛型类型元数据
@@ -377,6 +383,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         internal override SnapshotNode CreateSnapshotNode(object target)
         {
             return new SnapshotNode<T>((ISnapshot<T>)target);
+        }
+        /// <summary>
+        /// 快照接口节点
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        internal override SnapshotNode CreateEnumerableSnapshotNode(object target)
+        {
+            return new EnumerableSnapshotNode<T>((IEnumerableSnapshot<T>)target);
         }
     }
 }

@@ -3764,6 +3764,12 @@
             <param name="key">键</param>
             <param name="value">值</param>
         </member>
+        <member name="M:AutoCSer.BinarySerializeKeyValue`2.GetKeyValue">
+            <summary>
+            获取键值对
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Breakpoint">
             <summary>
             测试断点
@@ -4654,84 +4660,6 @@
             <summary>
             空表达式节点
             </summary>
-        </member>
-        <member name="T:AutoCSer.FragmentHashSet256`1">
-            <summary>
-            256 基分片 哈希表
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.FragmentHashSet256`1.hashSets">
-            <summary>
-            哈希表
-            </summary>
-        </member>
-        <member name="P:AutoCSer.FragmentHashSet256`1.Count">
-            <summary>
-            数据数量
-            </summary>
-        </member>
-        <member name="P:AutoCSer.FragmentHashSet256`1.Values">
-            <summary>
-            数据集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.FragmentHashSet256`1.Clear">
-            <summary>
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.FragmentHashSet256`1.ClearArray">
-            <summary>
-            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.FragmentHashSet256`1.Add(`0)">
-            <summary>
-            添加数据
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.FragmentHashSet256`1.GetOrCreateHashSet(`0)">
-            <summary>
-            根据数据获取哈希表，不存在时创建哈希表
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.FragmentHashSet256`1.Contains(`0)">
-            <summary>
-            判断数据是否存在
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.FragmentHashSet256`1.Remove(`0)">
-            <summary>
-            删除数据
-            </summary>
-            <param name="value"></param>
-            <returns>是否存在数据</returns>
-        </member>
-        <member name="M:AutoCSer.FragmentHashSet256`1.GetArray">
-            <summary>
-            获取数据集合
-            </summary>
-            <returns>数据集合</returns>
-        </member>
-        <member name="T:AutoCSer.HashBytesFragmentDictionary256`1">
-            <summary>
-            256 基分片 HashBytes 字典
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:AutoCSer.HashBytesFragmentDictionary256`1.GetIndex(AutoCSer.Memory.HashBytes)">
-            <summary>
-            获取分片索引
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.HashSubString">
             <summary>
@@ -8905,7 +8833,7 @@
             <param name="nodeIndex"></param>
             <param name="hashIndex"></param>
         </member>
-        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.ClearCount">
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.ClearArray">
             <summary>
             清除数据
             </summary>

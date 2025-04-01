@@ -10220,12 +10220,32 @@
             </summary>
             <param name="task"></param>
         </member>
+        <member name="M:AutoCSer.Extensions.TaskExtension.Catch(System.Threading.Tasks.Task,System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            捕获并输出异常日志
+            </summary>
+            <param name="task"></param>
+            <param name="isQueue">默认为 false 表示不加入未完成队列</param>
+            <param name="callerFilePath">调用文件路径</param>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerLineNumber">所在文件行数</param>
+        </member>
         <member name="M:AutoCSer.Extensions.TaskExtension.NotWait(System.Threading.Tasks.ValueTask)">
             <summary>
             A warning used to clear an await inside async without waiting for the task to execute
             不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
             </summary>
             <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtension.Catch(System.Threading.Tasks.ValueTask,System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            捕获并输出异常日志
+            </summary>
+            <param name="task"></param>
+            <param name="isQueue">默认为 false 表示不加入未完成队列</param>
+            <param name="callerFilePath">调用文件路径</param>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerLineNumber">所在文件行数</param>
         </member>
         <member name="M:AutoCSer.Extensions.TaskExtension.getResult``1(System.Threading.Tasks.Task{``0})">
             <summary>
@@ -11067,7 +11087,7 @@
             <param name="key"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.FragmentDictionary256`2.GetIndex(`0)">
+        <member name="M:AutoCSer.FragmentDictionary256`2.getIndex(`0)">
             <summary>
             获取分片索引
             </summary>
@@ -11309,6 +11329,11 @@
         <member name="F:AutoCSer.Json.BinaryMixTypeEnum.String">
             <summary>
             长度用 4 Byte 表示的字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.UInt128">
+            <summary>
+            Int128
             </summary>
         </member>
         <member name="F:AutoCSer.Json.BinaryMixTypeEnum.ArrayByte">
@@ -15847,13 +15872,13 @@
         </member>
         <member name="M:AutoCSer.Memory.CharStream.WriteJson(System.Single)">
             <summary>
-            输出 double 值
+            输出 float 值
             </summary>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.Memory.CharStream.WriteJsonInfinity(System.Single)">
             <summary>
-            输出 double 值
+            输出 float 值
             </summary>
             <param name="value"></param>
         </member>
@@ -43899,9 +43924,9 @@
             捕获异常任务
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.CatchTask.onException">
+        <member name="F:AutoCSer.Threading.CatchTask.Task">
             <summary>
-            异常处理委托
+            任务
             </summary>
         </member>
         <member name="F:AutoCSer.Threading.CatchTask.CallerFilePath">
@@ -43909,33 +43934,37 @@
             调用文件路径
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.CatchTask.CallerLineNumber">
-            <summary>
-            所在文件行数
-            </summary>
-        </member>
         <member name="F:AutoCSer.Threading.CatchTask.CallerMemberName">
             <summary>
             调用成员名称
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.CatchTask.#ctor(System.Action{System.AggregateException},System.String,System.Int32,System.String)">
+        <member name="F:AutoCSer.Threading.CatchTask.CallerLineNumber">
+            <summary>
+            所在文件行数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.CatchTask.isQueue">
+            <summary>
+            是否加入未完成队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.CatchTask.#ctor(System.Threading.Tasks.Task,System.Boolean,System.String,System.String,System.Int32)">
             <summary>
             捕获异常线程
             </summary>
-            <param name="onException">异常处理委托</param>
+            <param name="task">任务</param>
+            <param name="isQueue">是否加入未完成队列</param>
             <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
             <param name="callerMemberName">调用成员名称</param>
+            <param name="callerLineNumber">所在文件行数</param>
         </member>
-        <member name="M:AutoCSer.Threading.CatchTask.checkException(System.AggregateException,System.Action{System.AggregateException})">
+        <member name="M:AutoCSer.Threading.CatchTask.onCompleted">
             <summary>
-            异常回调
+            任务完成处理
             </summary>
-            <param name="exception"></param>
-            <param name="onException"></param>
         </member>
-        <member name="F:AutoCSer.Threading.CatchTask.TaskLink">
+        <member name="F:AutoCSer.Threading.CatchTask.queue">
             <summary>
             未释放任务集合
             </summary>
@@ -43943,127 +43972,6 @@
         <member name="P:AutoCSer.Threading.CatchTask.Tasks">
             <summary>
             枚举所有未释放任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask.Add(System.Threading.Tasks.Task,System.Action{System.AggregateException},System.String,System.Int32,System.String)">
-            <summary>
-            添加监视任务
-            </summary>
-            <param name="task">线程任务委托</param>
-            <param name="onException">异常处理委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask.AddIgnoreException(System.Threading.Tasks.Task,System.String,System.Int32,System.String)">
-            <summary>
-            添加监视任务
-            </summary>
-            <param name="task">线程任务委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask.Add(System.Threading.Tasks.ValueTask,System.Action{System.AggregateException},System.String,System.Int32,System.String)">
-            <summary>
-            添加监视任务
-            </summary>
-            <param name="task">线程任务委托</param>
-            <param name="onException">异常处理委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask.AddIgnoreException(System.Threading.Tasks.ValueTask,System.String,System.Int32,System.String)">
-            <summary>
-            添加监视任务
-            </summary>
-            <param name="task">线程任务委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask.Add``1(System.Threading.Tasks.Task{``0},System.Action{System.AggregateException},System.String,System.Int32,System.String)">
-            <summary>
-            添加监视任务
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="task">线程任务委托</param>
-            <param name="onException">异常处理委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask.AddIgnoreException``1(System.Threading.Tasks.Task{``0},System.String,System.Int32,System.String)">
-            <summary>
-            添加监视任务
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="task">线程任务委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask.ignoreException(System.AggregateException)">
-            <summary>
-            忽略异常处理
-            </summary>
-            <param name="exception"></param>
-        </member>
-        <member name="F:AutoCSer.Threading.CatchTask.IgnoreException">
-            <summary>
-            忽略异常处理
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.CatchTaskOnly">
-            <summary>
-            捕获异常任务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.CatchTaskOnly.task">
-            <summary>
-            任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTaskOnly.#ctor(System.Action{System.AggregateException},System.String,System.Int32,System.String,System.Threading.Tasks.Task)">
-            <summary>
-            捕获异常线程
-            </summary>
-            <param name="onException">异常处理委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="task">线程任务委托</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTaskOnly.OnCompleted">
-            <summary>
-            任务完成检测
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.CatchTask`1">
-            <summary>
-            捕获异常任务
-            </summary>
-            <typeparam name="T">返回值类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Threading.CatchTask`1.task">
-            <summary>
-            任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask`1.#ctor(System.Action{System.AggregateException},System.String,System.Int32,System.String,System.Threading.Tasks.Task{`0})">
-            <summary>
-            捕获异常线程
-            </summary>
-            <param name="onException">异常处理委托</param>
-            <param name="callerFilePath">调用文件路径</param>
-            <param name="callerLineNumber">所在文件行数</param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="task">线程任务委托</param>
-        </member>
-        <member name="M:AutoCSer.Threading.CatchTask`1.OnCompleted">
-            <summary>
-            任务完成检测
             </summary>
         </member>
         <member name="T:AutoCSer.Threading.DoubleLink`1">
@@ -45570,11 +45478,6 @@
         <member name="T:AutoCSer.TextSerialize.Common">
             <summary>
             公共调用
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TextSerialize.Common.StringBufferSize">
-            <summary>
-            字符串缓存区大小
             </summary>
         </member>
         <member name="M:AutoCSer.TextSerialize.Common.GetSerializeFields``1(AutoCSer.Metadata.FieldIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
@@ -47630,7 +47533,22 @@
             解析结束位置
             </summary>
         </member>
-        <member name="F:AutoCSer.TextDeserializer`1.stringBuffer">
+        <member name="F:AutoCSer.TextDeserializer`1.stringBuffer4">
+            <summary>
+            临时字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.stringBuffer8">
+            <summary>
+            临时字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.stringBuffer16">
+            <summary>
+            临时字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TextDeserializer`1.stringBuffer40">
             <summary>
             临时字符串
             </summary>
@@ -47651,16 +47569,16 @@
             释放 XML 解析器（线程静态实例模式）
             </summary>
         </member>
-        <member name="M:AutoCSer.TextDeserializer`1.fillStringBuffer(System.Char*,System.Int32)">
+        <member name="M:AutoCSer.TextDeserializer`1.getStringBuffer(System.Int32)">
             <summary>
-            临时字符串填充空格
+            获取临时字符串
             </summary>
-            <param name="bufferFixed"></param>
-            <param name="length"></param>
+            <param name="byteSize"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.TextDeserializer`1.GetStringBuffer(AutoCSer.Memory.Pointer@)">
             <summary>
-            获取数字字符串
+            获取临时字符串
             </summary>
             <param name="buffer"></param>
             <returns></returns>
@@ -48346,6 +48264,16 @@
             哈希取余
             </summary>
         </member>
+        <member name="F:AutoCSer.ReusableDictionary.maxRemoveCount">
+            <summary>
+            最大删除数据位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.ReusableDictionary.NodeArrayClearCount">
+            <summary>
+            需要清理的数组位置
+            </summary>
+        </member>
         <member name="M:AutoCSer.ReusableDictionary.#ctor">
             <summary>
             空字典
@@ -48357,9 +48285,25 @@
             </summary>
             <param name="capacity">容器初始化大小</param>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary.Clear">
+        <member name="M:AutoCSer.ReusableDictionary.clear">
             <summary>
-            清除数据
+            清除计数位置信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary.removeCount">
+            <summary>
+            删除数据移动结束位置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary.ClearCount">
+            <summary>
+            清除计数位置信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary.clearRemoveCount">
+            <summary>
+            清除计数位置信息
             </summary>
         </member>
         <member name="M:AutoCSer.ReusableDictionary.GetResizeCapacity(System.Int32)">
@@ -48435,7 +48379,7 @@
             <param name="nodes"></param>
             <param name="rollIndex"></param>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`1.ClearCount">
+        <member name="M:AutoCSer.ReusableDictionary`1.ClearArray">
             <summary>
             清除数据
             </summary>
@@ -50230,6 +50174,11 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Random.Next">
+            <summary>
+            获取下一个随机数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Random.NextHalf">
             <summary>
             获取下一个随机数
             </summary>

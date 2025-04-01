@@ -801,7 +801,7 @@ namespace AutoCSer.TestCase.NetCoreWeb
             {
                 appendView(new AutoCSer.NetCoreWeb.ViewRequest(this, typeof(AutoCSer.TestCase.NetCoreWeb.ExampleView), () => new AutoCSer.TestCase.NetCoreWeb.ExampleView(), typeof(int), "left"));
                 appendView(new AutoCSer.NetCoreWeb.ViewRequest(this, typeof(AutoCSer.TestCase.NetCoreWeb.ViewHelp), () => new AutoCSer.TestCase.NetCoreWeb.ViewHelp(), typeof(AutoCSer.NetCoreWeb.ViewMiddleware), "viewMiddleware"));
-                AutoCSer.Threading.CatchTask.Add(load());
+                AutoCSer.Extensions.TaskExtension.Catch(load());
             }
     }
 }

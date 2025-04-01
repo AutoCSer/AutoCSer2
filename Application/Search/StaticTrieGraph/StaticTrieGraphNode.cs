@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService.Search
     /// <summary>
     /// 字符串 Trie 图节点
     /// </summary>
-    public sealed unsafe class StaticTrieGraphNode : ContextNode<IStaticTrieGraphNode, GraphData>, IStaticTrieGraphNode, ISnapshot<GraphData>, ISnapshot<string>, ISnapshot<BinarySerializeKeyValue<SubString, int>>
+    public sealed unsafe class StaticTrieGraphNode : ContextNode<IStaticTrieGraphNode>, IStaticTrieGraphNode, IEnumerableSnapshot<GraphData>, IEnumerableSnapshot<string>, IEnumerableSnapshot<BinarySerializeKeyValue<SubString, int>>
     {
         /// <summary>
         /// 未知词语长度
@@ -48,6 +48,10 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         private GraphData graphData;
         /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<GraphData> IEnumerableSnapshot<GraphData>.SnapshotEnumerable { get { return new SnapshotGetValueEmpty<GraphData>(getGraphData); } }
+        /// <summary>
         /// 分词格式化文本
         /// </summary>
         private string formatedText;
@@ -58,7 +62,17 @@ namespace AutoCSer.CommandService.Search
         /// <summary>
         /// 未知词语集合
         /// </summary>
-        private readonly FragmentDictionary256<HashSubString, int> words;
+        private readonly FragmentSnapshotDictionary256<HashSubString, int> words;
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<BinarySerializeKeyValue<SubString, int>> IEnumerableSnapshot<BinarySerializeKeyValue<SubString, int>>.SnapshotEnumerable
+        {
+            get
+            {
+                return words.GetBinarySerializeKeyValueSnapshot().Cast<BinarySerializeKeyValue<HashSubString, int>, BinarySerializeKeyValue<SubString, int>>(p => new BinarySerializeKeyValue<SubString, int>(p.Key.String, p.Value), IsGraph);
+            }
+        }
         /// <summary>
         /// 文本分词结果
         /// </summary>
@@ -80,6 +94,10 @@ namespace AutoCSer.CommandService.Search
         private TreeBuilder builder;
 #endif
         /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<string> IEnumerableSnapshot<string>.SnapshotEnumerable { get { return new SnapshotGetEnumerable<string>(getWords); } }
+        /// <summary>
         /// 字符串 Trie 图节点
         /// </summary>
         /// <param name="maxTrieWordSize">Trie 词语最大文字长度</param>
@@ -100,7 +118,7 @@ namespace AutoCSer.CommandService.Search
             wordSegments.SetEmpty();
             wordSegmentIdentityMap = EmptyArray<ulong>.Array;
             wordString = AutoCSer.Common.AllocateString(wordStringLength);
-            words = new FragmentDictionary256<HashSubString, int>();
+            words = new FragmentSnapshotDictionary256<HashSubString, int>();
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -126,24 +144,13 @@ namespace AutoCSer.CommandService.Search
             return builder = new TreeBuilder(this);
         }
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// 获取 Trie 图序列化数据
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<GraphData>.GetSnapshotCapacity(ref object customObject)
+        /// <returns></returns>
+        private KeyValue<bool, GraphData> getGraphData()
         {
-            return graphData.IsGraph ? 1 : 0;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        SnapshotResult<GraphData> ISnapshot<GraphData>.GetSnapshotResult(GraphData[] snapshotArray, object customObject)
-        {
-            if (graphData.IsGraph) return new SnapshotResult<GraphData>(snapshotArray, graphData);
-            return new SnapshotResult<GraphData>(0);
+            if (graphData.IsGraph) return new KeyValue<bool, GraphData>(true, graphData);
+            return default(KeyValue<bool, GraphData>);
         }
         /// <summary>
         /// 快照设置数据
@@ -155,33 +162,13 @@ namespace AutoCSer.CommandService.Search
             builder = null;
         }
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// 获取 Trie 图词语集合
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<string>.GetSnapshotCapacity(ref object customObject)
+        /// <returns></returns>
+        private IEnumerable<string> getWords()
         {
-            if (graphData.IsGraph) return 0;
-            return builder.notNull().Words.Length;
+            return graphData.IsGraph ? (IEnumerable<string>)EmptyArray<string>.Array : builder.notNull().Words;
         }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        SnapshotResult<string> ISnapshot<string>.GetSnapshotResult(string[] snapshotArray, object customObject)
-        {
-            if (graphData.IsGraph) return new SnapshotResult<string>(0);
-            LeftArray<string> words = builder.notNull().Words;
-            return new SnapshotResult<string>(snapshotArray, words, words.Length);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        void ISnapshot<string>.SetSnapshotResult(ref LeftArray<string> array, ref LeftArray<string> newArray) { }
         /// <summary>
         /// 快照设置数据
         /// </summary>
@@ -191,45 +178,13 @@ namespace AutoCSer.CommandService.Search
             getTreeBuilder().Append(value);
         }
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
-        /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<BinarySerializeKeyValue<SubString, int>>.GetSnapshotCapacity(ref object customObject)
-        {
-            if (graphData.IsGraph) return words.Count;
-            return 0;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        SnapshotResult<BinarySerializeKeyValue<SubString, int>> ISnapshot<BinarySerializeKeyValue<SubString, int>>.GetSnapshotResult(BinarySerializeKeyValue<SubString, int>[] snapshotArray, object customObject)
-        {
-            if (graphData.IsGraph)
-            {
-                SnapshotResult<BinarySerializeKeyValue<SubString, int>> result = new SnapshotResult<BinarySerializeKeyValue<SubString, int>>(words.Count, snapshotArray.Length);
-                foreach (KeyValuePair<HashSubString, int> word in words.KeyValues) result.Add(snapshotArray, new BinarySerializeKeyValue<SubString, int>(word.Key.String, word.Value));
-                return result;
-            }
-            return new SnapshotResult<BinarySerializeKeyValue<SubString, int>>(0);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        void ISnapshot<BinarySerializeKeyValue<SubString, int>>.SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<SubString, int>> array, ref LeftArray<BinarySerializeKeyValue<SubString, int>> newArray) { }
-        /// <summary>
         /// 快照设置数据
         /// </summary>
         /// <param name="value">数据</param>
         public void SnapshotSetWordIdentity(BinarySerializeKeyValue<SubString, int> value)
         {
             getWord(ref value.Key, true);
-            words.Add(value.Key, value.Value);
+            words.TryAdd(value.Key, value.Value);
         }
         /// <summary>
         /// 获取未知词语字符串
@@ -590,7 +545,7 @@ namespace AutoCSer.CommandService.Search
                         if (graphData.IsCurrentIdentity && length <= maxWordSize)
                         {
                             getWord(ref word, false);
-                            words.Add(word, identity = graphData.CurrentIdentity);
+                            words.TryAdd(word, identity = graphData.CurrentIdentity);
                             --graphData.CurrentIdentity;
                             wordSegments.Array[wordSegments.Length++].Set(word, identity);
                             setIdentityMap(identity);

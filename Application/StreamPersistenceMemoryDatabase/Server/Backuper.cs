@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -85,7 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (!IsDisposed)
                     {
-                        if (isRetry) AutoCSer.Threading.CatchTask.AddIgnoreException(delayLoad());
+                        if (isRetry) delayLoad().Catch();
                         else IsDisposed = true;
                     }
                 }

@@ -691,6 +691,34 @@ namespace AutoCSer
             }
             CharStream.Write(value);
         }
+        ///// <summary>
+        ///// 数字转换
+        ///// </summary>
+        ///// <param name="value">数字</param>
+        //public void PrimitiveSerialize(Int128 value)
+        //{
+        //    string stringValue = value.ToString();
+        //    if (CharStream.PrepCharSize(stringValue.Length + 8)) CharStream.Data.Pointer.SimpleWrite(stringValue);
+        //}
+        ///// <summary>
+        ///// 数字转换
+        ///// </summary>
+        ///// <param name="value">数字</param>
+        //public void PrimitiveSerialize(UInt128 value)
+        //{
+        //    string stringValue = value.ToString();
+        //    if (CharStream.PrepCharSize(stringValue.Length + 8)) CharStream.Data.Pointer.SimpleWrite(stringValue);
+        //}
+        ///// <summary>
+        ///// 数字转换
+        ///// </summary>
+        ///// <param name="value">数字</param>
+        //[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public void PrimitiveSerialize(Half value)
+        //{
+        //    if (Config.IsInfinityToNaN) CharStream.WriteJson(value);
+        //    else CharStream.WriteJsonInfinity(value);
+        //}
         /// <summary>
         /// 数字转换
         /// </summary>
@@ -1330,6 +1358,12 @@ namespace AutoCSer
             SerializeDelegates.Add(typeof(long?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, long?>)primitiveSerialize));
             SerializeDelegates.Add(typeof(ulong), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, ulong>)primitiveSerialize));
             SerializeDelegates.Add(typeof(ulong?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, ulong?>)primitiveSerialize));
+            //SerializeDelegates.Add(typeof(Int128), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Int128>)primitiveSerialize));
+            //SerializeDelegates.Add(typeof(Int128?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Int128?>)primitiveSerialize));
+            //SerializeDelegates.Add(typeof(UInt128), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, UInt128>)primitiveSerialize));
+            //SerializeDelegates.Add(typeof(UInt128?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, UInt128?>)primitiveSerialize));
+            //SerializeDelegates.Add(typeof(Half), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Half>)primitiveSerialize));
+            //SerializeDelegates.Add(typeof(Half?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Half?>)primitiveSerialize));
             SerializeDelegates.Add(typeof(float), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, float>)primitiveSerialize));
             SerializeDelegates.Add(typeof(float?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, float?>)primitiveSerialize));
             SerializeDelegates.Add(typeof(double), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, double>)primitiveSerialize));

@@ -1610,11 +1610,12 @@
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient`1.GetOrCreateHashSetNode``1(System.String,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient`1.GetOrCreateHashSetNode``1(System.String,System.Int32,System.Boolean)">
             <summary>
             获取哈希表节点，不存在则创建节点 HashSetNode{KT}
             </summary>
             <param name="key">节点全局关键字</param>
+            <param name="capacity">容器初始化大小</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -3104,7 +3105,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
             <summary>
             创建哈希表节点 IHashSetNode{KT}
             </summary>
@@ -3112,6 +3113,7 @@
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.create``1">
@@ -3185,7 +3187,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType`1.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType`1.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
             <summary>
             创建哈希表节点 IHashSetNode{KT}
             </summary>
@@ -3193,6 +3195,7 @@
             <param name="index">节点索引信息</param>
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.StructGenericType">
@@ -3696,6 +3699,13 @@
             <param name="target"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.CreateEnumerableSnapshotNode(System.Object)">
+            <summary>
+            快照接口节点
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.create``1">
             <summary>
             创建泛型类型元数据
@@ -3901,6 +3911,13 @@
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType`1.CreateSnapshotNode(System.Object)">
+            <summary>
+            快照接口节点
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType`1.CreateEnumerableSnapshotNode(System.Object)">
             <summary>
             快照接口节点
             </summary>
@@ -6137,33 +6154,16 @@
             多哈希位图数据
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ManyHashBitMap}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.#ctor(System.Int32)">
             <summary>
             多哈希位图过滤节点（类似布隆过滤器）
             </summary>
             <param name="size">位图大小（位数量）</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}@,AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap)">
             <summary>
@@ -6211,6 +6211,11 @@
             多哈希位图数据
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ManyHashBitMap}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.callbacks">
             <summary>
             设置新位回调委托集合
@@ -6221,28 +6226,6 @@
             多哈希位图客户端同步过滤节点（类似布隆过滤器，适合小容器）
             </summary>
             <param name="size">位图大小（位数量）</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}@,AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap)">
             <summary>
@@ -7222,16 +7205,16 @@
             <param name="value"></param>
             <returns>是否删除成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeLocalClientNode`1.Renew">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeLocalClientNode`1.Renew(System.Int32)">
             <summary>
             清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
+            <param name="capacity">容器初始化大小</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeLocalClientNode`1.GetArray">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeLocalClientNode`1.ReusableClear">
             <summary>
-            获取数组
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeLocalClientNode`1.AddValues(`0[])">
             <summary>
@@ -7287,16 +7270,16 @@
             <param name="value"></param>
             <returns>是否删除成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode`1.Renew">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode`1.Renew(System.Int32)">
             <summary>
             清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
+            <param name="capacity">容器初始化大小</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode`1.GetArray">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode`1.ReusableClear">
             <summary>
-            获取数组
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode`1.AddValues(`0[])">
             <summary>
@@ -7371,6 +7354,11 @@
             <param name="values"></param>
             <returns>删除数据数量</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeLocalClientNode`1.ReusableClear">
+            <summary>
+            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeClientNode`1">
             <summary>
             256 基分片 哈希表 节点接口 客户端节点接口
@@ -7429,6 +7417,11 @@
             </summary>
             <param name="values"></param>
             <returns>删除数据数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeClientNode`1.ReusableClear">
+            <summary>
+            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNodeLocalClientNode`2">
             <summary>
@@ -7602,12 +7595,10 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.ContainsValue(`1)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.ReusableClear">
             <summary>
-            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
-            <param name="value"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.Count">
             <summary>
@@ -7753,6 +7744,11 @@
             </summary>
             <param name="keys"></param>
             <returns>删除关键字数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeLocalClientNode`2.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2">
             <summary>
@@ -8098,12 +8094,10 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.ContainsValue(`1)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.ReusableClear">
             <summary>
-            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
-            <param name="value"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.Count">
             <summary>
@@ -8250,6 +8244,11 @@
             <param name="keys"></param>
             <returns>删除关键字数量</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeClientNode`2.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1">
             <summary>
             字典节点
@@ -8261,33 +8260,16 @@
             字典
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#BinarySerializeKeyValue{KT,System#Byte[]}}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.#ctor(System.Int32)">
             <summary>
             字典节点
             </summary>
             <param name="capacity">容器初始化大小</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.SnapshotAdd(AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]})">
             <summary>
@@ -8394,33 +8376,16 @@
             字典
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#BinarySerializeKeyValue{System#Byte[],System#Byte[]}}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.#ctor(System.Int32)">
             <summary>
             字典节点
             </summary>
             <param name="capacity">容器初始化大小</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.SnapshotAdd(AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]})">
             <summary>
@@ -8631,9 +8596,19 @@
             锁信息集合
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#DistributedLockIdentity{T}}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.Identity">
             <summary>
             当前分配锁操作标识
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{System#Int64}#SnapshotEnumerable">
+            <summary>
+            快照集合
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.#ctor">
@@ -8641,22 +8616,19 @@
             分布式锁节点
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.getIdentity">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            获取当前分配锁操作标识
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{`0}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockIdentity{`0})">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DistributedLockNode`1.SnapshotSetIdentity(System.Int64)">
             <summary>
             快照设置数据
             </summary>
@@ -8757,6 +8729,12 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.SnapshotSetIdentity(System.Int64)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNode`1.Enter(`0,System.UInt16,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Int64})">
             <summary>
             申请锁
@@ -8796,27 +8774,10 @@
             256 基分片 哈希表
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.GetSnapshotCapacity(System.Object@)">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{T}#SnapshotEnumerable">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            快照集合
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.GetSnapshotResult(`0[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.SetSnapshotResult(AutoCSer.LeftArray{`0}@,AutoCSer.LeftArray{`0}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.Count">
             <summary>
@@ -8827,6 +8788,11 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.Clear">
             <summary>
             清除数据（保留分片数组）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.ReusableClear">
+            <summary>
+            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentHashSetNode`1.ClearArray">
@@ -8881,27 +8847,10 @@
             256 基分片字典
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.GetSnapshotCapacity(System.Object@)">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#KeyValue{KT,VT}}#SnapshotEnumerable">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            快照集合
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.GetSnapshotResult(AutoCSer.KeyValue{`0,`1}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.KeyValue{`0,`1}}@,AutoCSer.LeftArray{AutoCSer.KeyValue{`0,`1}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.SnapshotAdd(AutoCSer.KeyValue{`0,`1})">
             <summary>
@@ -8932,6 +8881,11 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.Clear">
             <summary>
             清除数据（保留分片数组）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentDictionaryNode`2.ClearArray">
@@ -8994,27 +8948,10 @@
             256 基分片字典
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayFragmentDictionaryNode`1.GetSnapshotCapacity(System.Object@)">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayFragmentDictionaryNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#BinarySerializeKeyValue{KT,System#Byte[]}}#SnapshotEnumerable">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            快照集合
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayFragmentDictionaryNode`1.GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayFragmentDictionaryNode`1.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayFragmentDictionaryNode`1.SnapshotAdd(AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]})">
             <summary>
@@ -9121,37 +9058,22 @@
             哈希表
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.#ctor">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{T}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.#ctor(System.Int32)">
             <summary>
             哈希表节点
             </summary>
+            <param name="capacity">容器初始化大小</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.GetSnapshotResult(`0[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.SetSnapshotResult(AutoCSer.LeftArray{`0}@,AutoCSer.LeftArray{`0}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.Renew">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.Renew(System.Int32)">
             <summary>
             清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
+            <param name="capacity">容器初始化大小</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.Count">
             <summary>
@@ -9178,6 +9100,11 @@
             清除所有数据
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.Contains(`0)">
             <summary>
             判断关键字是否存在
@@ -9199,12 +9126,6 @@
             <param name="values"></param>
             <returns>删除数据数量</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.GetArray">
-            <summary>
-            获取数组
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesFragmentDictionaryNode">
             <summary>
             256 基分片 HashBytes 字典 节点
@@ -9215,27 +9136,10 @@
             256 基分片 HashBytes 字典
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesFragmentDictionaryNode.GetSnapshotCapacity(System.Object@)">
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesFragmentDictionaryNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#BinarySerializeKeyValue{System#Byte[],System#Byte[]}}#SnapshotEnumerable">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            快照集合
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesFragmentDictionaryNode.GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesFragmentDictionaryNode.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesFragmentDictionaryNode.SnapshotAdd(AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]})">
             <summary>
@@ -9366,33 +9270,22 @@
             当前分配 ID
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{System#Int64}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.#ctor(System.Int64)">
             <summary>
             位图节点
             </summary>
             <param name="identity">当前分配 ID</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.getIdentity">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            获取当前分配锁操作标识
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.GetSnapshotResult(System.Int64[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.SetSnapshotResult(AutoCSer.LeftArray{System.Int64}@,AutoCSer.LeftArray{System.Int64}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode.SnapshotSet(System.Int64)">
             <summary>
@@ -10326,6 +10219,11 @@
             清除数据（保留分片数组）
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode`1.ReusableClear">
+            <summary>
+            可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNode`1.ClearArray">
             <summary>
             清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
@@ -10407,6 +10305,11 @@
             清除数据（保留分片数组）
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode`2.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNode`2.ClearArray">
             <summary>
             清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
@@ -10465,10 +10368,11 @@
             哈希表节点接口
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode`1.Renew">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode`1.Renew(System.Int32)">
             <summary>
             清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
+            <param name="capacity">容器初始化大小</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode`1.Count">
             <summary>
@@ -10495,6 +10399,11 @@
             清除所有数据
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode`1.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode`1.Contains(`0)">
             <summary>
             判断关键字是否存在
@@ -10515,12 +10424,6 @@
             </summary>
             <param name="values"></param>
             <returns>删除数据数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNode`1.GetArray">
-            <summary>
-            获取数组
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNode`1">
             <summary>
@@ -13183,6 +13086,11 @@
             被守护进程集合
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ProcessGuardInfo}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.switchCallbacks">
             <summary>
             切换进程回调委托集合
@@ -13192,21 +13100,6 @@
             <summary>
             进程守护节点
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.GetSnapshotResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.SnapshotSet(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
             <summary>
@@ -17336,33 +17229,16 @@
             字典
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#KeyValue{KT,VT}}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.#ctor(System.Int32)">
             <summary>
             字典节点
             </summary>
             <param name="capacity">容器初始化大小</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.GetSnapshotResult(AutoCSer.KeyValue{`0,`1}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.KeyValue{`0,`1}}@,AutoCSer.LeftArray{AutoCSer.KeyValue{`0,`1}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.SnapshotAdd(AutoCSer.KeyValue{`0,`1})">
             <summary>
@@ -17417,18 +17293,16 @@
             清除所有数据
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.ContainsKey(`0)">
             <summary>
             判断关键字是否存在
             </summary>
             <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.ContainsValue(`1)">
-            <summary>
-            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
-            </summary>
-            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.Remove(`0)">
@@ -17515,18 +17389,16 @@
             清除所有数据
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.ContainsKey(`0)">
             <summary>
             判断关键字是否存在
             </summary>
             <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.ContainsValue(`1)">
-            <summary>
-            判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
-            </summary>
-            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.Remove(`0)">
@@ -18391,7 +18263,7 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -18399,6 +18271,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
+            <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateSearchTreeSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -19518,6 +19391,438 @@
             释放节点资源
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptySnapshot`1">
+            <summary>
+            空快照
+            </summary>
+            <typeparam name="T">快照数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptySnapshot`1.#ctor">
+            <summary>
+            空快照
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptySnapshot`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptySnapshot`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptySnapshot`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptySnapshot`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EmptySnapshot`1.Empty">
+            <summary>
+            空快照
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1">
+            <summary>
+            256 基分片 快照哈希表快照集合
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1.hashSet">
+            <summary>
+            256 基分片 快照哈希表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1.snapshotArray">
+            <summary>
+            快照哈希表节点数组集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256{`0})">
+            <summary>
+            256 基分片 快照哈希表快照集合
+            </summary>
+            <param name="hashSet">256 基分片 快照哈希表</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSetEnumerable256`1.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1">
+            <summary>
+            256 基分片 快照哈希表
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.HashSets">
+            <summary>
+            哈希表
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.GetSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.ClearCount">
+            <summary>
+            清除计数位置信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.ClearArray">
+            <summary>
+            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.GetOrCreateHashSet(`0)">
+            <summary>
+            根据数据获取哈希表，不存在时创建哈希表
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.Contains(`0)">
+            <summary>
+            判断数据是否存在
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.Remove(`0)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2">
+            <summary>
+            256 基分片 快照字典
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Dictionarys">
+            <summary>
+            字典
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Item(`0)">
+            <summary>
+            获取或者设置数据
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.KeyValues">
+            <summary>
+            键值对集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Keys">
+            <summary>
+            关键字集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.GetKeyValueSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.GetBinarySerializeKeyValueSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.GetValueSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Clear">
+            <summary>
+            清除数据（保留分片数组）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.ClearCount">
+            <summary>
+            清除计数位置信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.ClearArray">
+            <summary>
+            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.getIndex(`0)">
+            <summary>
+            获取分片索引
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.GetOrCreateDictionary(`0)">
+            <summary>
+            根据关键字获取字典，不存在时创建字典
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.TryAdd(`0,`1)">
+            <summary>
+            如果关键字不存在则添加数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>是否添加数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Set(`0,`1,`1@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="removeValue">被删除数据</param>
+            <returns>是否存在替换的被删除数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.ContainsKey(`0)">
+            <summary>
+            判断关键字是否存在
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Remove(`0)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.Remove(`0,`1@)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.RemoveKeys(`0[])">
+            <summary>
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.TryGetValue(`0,`1@)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.TryGetValue(`0,`1@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary{`0,`1}@)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="dictionary"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.GetValueArray(`0[])">
+            <summary>
+            根据关键字集合获取匹配数据数组
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2">
+            <summary>
+            256 基分片 快照字典快照集合
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.dictionary">
+            <summary>
+            256 基分片 快照字典
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.snapshotArray">
+            <summary>
+            快照字典节点数组集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256{`0,`1})">
+            <summary>
+            256 基分片 快照字典快照集合
+            </summary>
+            <param name="dictionary">256 基分片 快照字典</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{AutoCSer#BinarySerializeKeyValue{KT,VT}}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{AutoCSer#KeyValue{KT,VT}}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{VT}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`2.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1">
+            <summary>
+            256 基分片 快照字典快照集合
+            </summary>
+            <typeparam name="VT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1.dictionary">
+            <summary>
+            256 基分片 快照字典
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1.snapshotArray">
+            <summary>
+            快照字典节点数组集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256{AutoCSer.Memory.HashBytes,`0})">
+            <summary>
+            256 基分片 快照字典快照集合
+            </summary>
+            <param name="dictionary">256 基分片 快照字典</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{AutoCSer#BinarySerializeKeyValue{System#Byte[],VT}}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionaryEnumerable256`1.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IEnumerableSnapshot`1">
+            <summary>
+            节点快照功能接口
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IEnumerableSnapshot`1.SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable`1">
+            <summary>
+            快照集合
+            </summary>
+            <typeparam name="T">快照对象类星体</typeparam>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable`1.SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable`1.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable`1.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable`1.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneNode`1">
             <summary>
             快照克隆接口节点
@@ -19590,6 +19895,867 @@
             <param name="values">快照数据集合</param>
             <param name="count">快照数据总数</param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2">
+            <summary>
+            快照数据类型转换
+            </summary>
+            <typeparam name="ST">数据类型</typeparam>
+            <typeparam name="T">持久化类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.snapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.getValue">
+            <summary>
+            数据类型转换委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.getIsSnapshot">
+            <summary>
+            判断快照是否有效
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.isSnapshot">
+            <summary>
+            快照是否有效
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{`0},System.Func{`0,`1},System.Func{System.Boolean})">
+            <summary>
+            快照数据类型转换
+            </summary>
+            <param name="snapshot">快照集合</param>
+            <param name="getValue">持久化类型</param>
+            <param name="getIsSnapshot">持久化类型</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.getSnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCastEmpty`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetEnumerable`1">
+            <summary>
+            获取快照集合
+            </summary>
+            <typeparam name="T">快照数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetEnumerable`1.#ctor(System.Func{System.Collections.Generic.IEnumerable{`0}})">
+            <summary>
+            单值快照
+            </summary>
+            <param name="getValue">快照数据</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetEnumerable`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1">
+            <summary>
+            单值快照
+            </summary>
+            <typeparam name="T">快照数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1.getValue">
+            <summary>
+            获取快照数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1.value">
+            <summary>
+            快照数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1.#ctor(System.Func{`0})">
+            <summary>
+            单值快照
+            </summary>
+            <param name="getValue">快照数据</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValue`1.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValueEmpty`1">
+            <summary>
+            单值快照
+            </summary>
+            <typeparam name="T">快照数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValueEmpty`1.#ctor(System.Func{AutoCSer.KeyValue{System.Boolean,`0}})">
+            <summary>
+            单值快照
+            </summary>
+            <param name="getValue">快照数据</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotGetValueEmpty`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotValue`1">
+            <summary>
+            固定值快照
+            </summary>
+            <typeparam name="T">快照数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotValue`1.value">
+            <summary>
+            快照数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotValue`1.#ctor(`0)">
+            <summary>
+            固定值快照
+            </summary>
+            <param name="value">快照数据</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotValue`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotValue`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotValue`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotValue`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2">
+            <summary>
+            快照数据类型转换
+            </summary>
+            <typeparam name="ST">数据类型</typeparam>
+            <typeparam name="T">持久化类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2.snapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2.getValue">
+            <summary>
+            数据类型转换委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{`0},System.Func{`0,`1})">
+            <summary>
+            快照数据类型转换
+            </summary>
+            <param name="snapshot">快照集合</param>
+            <param name="getValue">持久化类型</param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotEnumerableCast`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{T}#CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1">
+            <summary>
+            快照哈希表
+            </summary>
+            <typeparam name="T">关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Nodes">
+            <summary>
+            快照哈希表节点数组
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.ValueSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.#ctor(System.Int32)">
+            <summary>
+            可重用哈希表
+            </summary>
+            <param name="capacity">容器初始化大小</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Renew(System.Int32)">
+            <summary>
+            清除所有数据并重建容器
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.ClearArray">
+            <summary>
+            清理数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.changeIndex(System.Int32)">
+            <summary>
+            尝试修改访问节点索引位置
+            </summary>
+            <param name="nodeIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.change(System.Int32,System.Int32)">
+            <summary>
+            交换节点位置
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="changeIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Contains(`0,System.Boolean)">
+            <summary>
+            判断是否存在关键字
+            </summary>
+            <param name="key">关键字</param>
+            <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Add(`0,System.Boolean)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否添加数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.add(`0,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.resize">
+            <summary>
+            重组数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.resize(AutoCSer.ReusableHashNode{`0}[],System.Int32)">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+            <param name="rollIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.add(System.UInt32,`0)">
+            <summary>
+            新增数据
+            </summary>
+            <param name="hashCode"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Remove(`0)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.remove(System.Int32,System.Int32)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="hashIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.RemoveRoll">
+            <summary>
+            删除滚动索引位置数据
+            </summary>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.RemoveKeys(`0[])">
+            <summary>
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2">
+            <summary>
+            快照字典
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型，必须是只读类型（不允许存在成员变更操作）</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Nodes">
+            <summary>
+            快照字典节点数组
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.KeyValueSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.BinarySerializeKeyValueSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.ValueSnapshot">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.KeyValues">
+            <summary>
+            键值对集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Keys">
+            <summary>
+            关键字集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Item(`0)">
+            <summary>
+            获取或者设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.#ctor(System.Int32)">
+            <summary>
+            可重用字典
+            </summary>
+            <param name="capacity">容器初始化大小</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Renew(System.Int32)">
+            <summary>
+            清除所有数据并重建容器
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.ClearArray">
+            <summary>
+            清理数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.changeIndex(System.Int32)">
+            <summary>
+            尝试修改访问节点索引位置
+            </summary>
+            <param name="nodeIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.change(System.Int32,System.Int32)">
+            <summary>
+            交换节点位置
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="changeIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.TryGetValue(`0,`1@,System.Boolean)">
+            <summary>
+            尝试获取数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">目标数据</param>
+            <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否获取成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Set(`0,`1,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Set(AutoCSer.BinarySerializeKeyValue{`0,`1}@,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="keyValue"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Set(AutoCSer.KeyValue{`0,`1}@,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="keyValue"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.TryAdd(`0,`1,System.Boolean)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否添加数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.set(`0,`1,System.Boolean,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <param name="isAdd"></param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.resize">
+            <summary>
+            重组数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.resize(AutoCSer.ReusableHashNode{AutoCSer.BinarySerializeKeyValue{`0,`1}}[],System.Int32)">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+            <param name="rollIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.add(System.UInt32,AutoCSer.BinarySerializeKeyValue{`0,`1})">
+            <summary>
+            新增数据
+            </summary>
+            <param name="hashCode"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.ContainsKey(`0,System.Boolean)">
+            <summary>
+            判断是否存在关键字
+            </summary>
+            <param name="key">关键字</param>
+            <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Remove(`0)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Remove(`0,`1@)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <param name="value">被删除数据</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.remove(System.Int32,System.Int32)">
+            <summary>
+            删除节点
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="hashIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.RemoveRoll">
+            <summary>
+            删除滚动索引位置数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.RemoveRoll(AutoCSer.BinarySerializeKeyValue{`0,`1}@)">
+            <summary>
+            删除滚动索引位置数据
+            </summary>
+            <param name="value">被删除数据</param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.RemoveRoll(`1@)">
+            <summary>
+            删除滚动索引位置数据
+            </summary>
+            <param name="value">被删除数据</param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.GetValueArray(`0[])">
+            <summary>
+            根据关键字集合获取匹配数据数组
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.RemoveKeys(`0[])">
+            <summary>
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1">
+            <summary>
+            快照哈希表节点数组
+            </summary>
+            <typeparam name="T">关键字类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.hashSet">
+            <summary>
+            快照哈希表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.Nodes">
+            <summary>
+            快照哈希表节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.snapshotNodes">
+            <summary>
+            快照数据集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.newSnapshotNodes">
+            <summary>
+            超预申请快照数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.snapshotCount">
+            <summary>
+            快照数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet{`0},System.Int32)">
+            <summary>
+            快照哈希表节点数组
+            </summary>
+            <param name="dictionary"></param>
+            <param name="capacity"></param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.TrySetSnapshotValue(System.Int32)">
+            <summary>
+            设置快照数据
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSetNodeArray`1.ClearArray">
+            <summary>
+            清理数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2">
+            <summary>
+            快照字典节点数组
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.dictionary">
+            <summary>
+            快照字典
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.Nodes">
+            <summary>
+            快照字典节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.snapshotNodes">
+            <summary>
+            快照数据集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.newSnapshotNodes">
+            <summary>
+            超预申请快照数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.snapshotCount">
+            <summary>
+            快照数据数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary{`0,`1},System.Int32)">
+            <summary>
+            快照字典节点数组
+            </summary>
+            <param name="dictionary"></param>
+            <param name="capacity"></param>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{AutoCSer#KeyValue{KT,VT}}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{AutoCSer#BinarySerializeKeyValue{KT,VT}}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshotEnumerable{VT}#SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.SetValue(System.Int32,`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.TrySetSnapshotKeyValue(System.Int32)">
+            <summary>
+            设置快照数据
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`2.ClearArray">
+            <summary>
+            清理数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`1">
+            <summary>
+            快照字典节点数组
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`1.array">
+            <summary>
+            快照字典节点数组
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`1.SnapshotValues">
+            <summary>
+            获取快照对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{AutoCSer.BinarySerializeKeyValue{AutoCSer.Memory.HashBytes,`0}})">
+            <summary>
+            快照字典节点数组
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`1.GetSnapshotValueArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`1.GetSnapshotResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionaryNodeArray`1.CloseSnapshot">
+            <summary>
+            关闭快照操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1">
+            <summary>
+            快照接口节点
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.target">
+            <summary>
+            操作节点对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.values">
+            <summary>
+            快照集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IEnumerableSnapshot{`0})">
+            <summary>
+            快照接口节点
+            </summary>
+            <param name="target">操作节点对象</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.Close">
+            <summary>
+            关闭重建
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.GetArray">
+            <summary>
+            预申请快照容器数组
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.GetResult">
+            <summary>
+            获取快照数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder)">
+            <summary>
+            持久化重建
+            </summary>
+            <param name="rebuilder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotArrayNode`1">
+            <summary>
+            快照节点
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotArrayNode`1.Value">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotArrayNode`1.IsSnapshot">
+            <summary>
+            是否存在快照数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotArrayNode`1.TrySet(`0)">
+            <summary>
+            设置快照数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2">
+            <summary>
+            快照字典节点
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2.key">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2.Value">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2.BinarySerializeKeyValue">
+            <summary>
+            键值对
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2.KeyValue">
+            <summary>
+            键值对
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2.IsSnapshot">
+            <summary>
+            是否存在快照数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2.TrySet(`0,`1)">
+            <summary>
+            设置快照数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionarySnapshotNode`2.TrySet(AutoCSer.BinarySerializeKeyValue{`0,`1}@)">
+            <summary>
+            设置快照数据
+            </summary>
+            <param name="keyValue"></param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethod">
             <summary>
@@ -22149,14 +23315,6 @@
             <param name="snapshotArray">预申请的快照数据容器</param>
             <returns>快照数据信息</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.GetSnapshotResult``2(System.Collections.Generic.ICollection{System.Collections.Generic.KeyValuePair{``0,``1}},AutoCSer.BinarySerializeKeyValue{``0,``1}[])">
-            <summary>
-            获取快照数据集合
-            </summary>
-            <param name="values"></param>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <returns>快照数据信息</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.GetSnapshotResult``2(System.Collections.Generic.ICollection{System.Collections.Generic.KeyValuePair{``0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CheckSnapshotCloneObject{``1}}},AutoCSer.KeyValue{``0,``1}[])">
             <summary>
             获取快照数据集合
@@ -22165,39 +23323,7 @@
             <param name="snapshotArray">预申请的快照数据容器</param>
             <returns>快照数据信息</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.GetSnapshotResult``1(System.Collections.Generic.ICollection{System.Collections.Generic.KeyValuePair{AutoCSer.Memory.HashBytes,``0}},AutoCSer.BinarySerializeKeyValue{System.Byte[],``0}[])">
-            <summary>
-            获取快照数据集合
-            </summary>
-            <param name="values"></param>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <returns>快照数据信息</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.GetSnapshotResult``1(System.Collections.Generic.ICollection{System.Collections.Generic.KeyValuePair{AutoCSer.Memory.HashBytes,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CheckSnapshotCloneObject{``0}}},AutoCSer.KeyValue{System.Byte[],``0}[])">
-            <summary>
-            获取快照数据集合
-            </summary>
-            <param name="values"></param>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.GetSnapshotResult``2(AutoCSer.FragmentDictionary256{``0,``1},AutoCSer.KeyValue{``0,``1}[])">
-            <summary>
-            获取快照数据集合
-            </summary>
-            <param name="values"></param>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.GetSnapshotResult``2(AutoCSer.FragmentDictionary256{``0,``1},AutoCSer.BinarySerializeKeyValue{``0,``1}[])">
-            <summary>
-            获取快照数据集合
-            </summary>
-            <param name="values"></param>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.GetSnapshotResult``1(AutoCSer.HashBytesFragmentDictionary256{``0},AutoCSer.BinarySerializeKeyValue{System.Byte[],``0}[])">
             <summary>
             获取快照数据集合
             </summary>
@@ -23363,6 +24489,14 @@
             <param name="newArray"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.Rebuild``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{``0})">
+            <summary>
+            当前节点持久化操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.PushQueue(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
             <summary>
             添加调用队列
@@ -24157,7 +25291,7 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -24165,6 +25299,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
+            <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateSearchTreeSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -26201,7 +27336,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -26209,6 +27344,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
+            <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
@@ -27005,7 +28141,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -27013,6 +28149,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
+            <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
@@ -27748,11 +28885,9 @@
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.ContainsValue">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.ReusableClear">
             <summary>
-            [2] 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
-            VT value 
-            返回值 bool 
+            [2] 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.Count">
@@ -27858,6 +28993,12 @@
             返回值 long 失败返回 0
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeMethodEnum.SnapshotSetIdentity">
+            <summary>
+            [4] 快照设置数据
+            long value 数据
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeMethodEnum">
             <summary>
             256 基分片字典 节点接口 节点方法序号映射枚举类型
@@ -27943,6 +29084,11 @@
             返回值 int 删除关键字数量
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeMethodEnum.ReusableClear">
+            <summary>
+            [12] 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeMethodEnum">
             <summary>
             256 基分片 哈希表 节点接口 节点方法序号映射枚举类型
@@ -27997,6 +29143,11 @@
             [7] 删除关键字
             T[] values 
             返回值 int 删除数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeMethodEnum.ReusableClear">
+            <summary>
+            [8] 可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashBytesDictionaryNodeMethodEnum">
@@ -28210,12 +29361,12 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeMethodEnum.Renew">
             <summary>
             [5] 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            int capacity 容器初始化大小
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeMethodEnum.GetArray">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeMethodEnum.ReusableClear">
             <summary>
-            [6] 获取数组
-            返回值 T[] 
+            [6] 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeMethodEnum.AddValues">
@@ -29152,6 +30303,7 @@
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -30489,11 +31641,12 @@
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateHashSetNode``1(System.String,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateHashSetNode``1(System.String,System.Int32,System.Boolean)">
             <summary>
             获取哈希表节点，不存在则创建节点 HashSetNode{KT}
             </summary>
             <param name="key">节点全局关键字</param>
+            <param name="capacity">容器初始化大小</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -32688,6 +33841,32 @@
             <typeparam name="T">节点服务接口类型</typeparam>
             <param name="createServiceNode"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.SnapshotEnumerableExtension">
+            <summary>
+            快照集合扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SnapshotEnumerableExtension.Cast``2(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            快照数据类型转换
+            </summary>
+            <typeparam name="ST">数据类型</typeparam>
+            <typeparam name="T">持久化类型</typeparam>
+            <param name="snapshot">快照集合</param>
+            <param name="getValue">持久化类型</param>
+            <returns>快照集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SnapshotEnumerableExtension.Cast``2(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{``0},System.Func{``0,``1},System.Func{System.Boolean})">
+            <summary>
+            快照数据类型转换
+            </summary>
+            <typeparam name="ST">数据类型</typeparam>
+            <typeparam name="T">持久化类型</typeparam>
+            <param name="snapshot">快照集合</param>
+            <param name="getValue">持久化类型</param>
+            <param name="getIsSnapshot">持久化类型</param>
+            <returns>快照集合</returns>
         </member>
         <member name="T:AutoCSer.Extensions.BitmapNodeClientNodeExtension">
             <summary>

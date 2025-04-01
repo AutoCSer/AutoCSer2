@@ -42,5 +42,14 @@ namespace AutoCSer
             Key = key;
             Value = value;
         }
+        /// <summary>
+        /// 获取键值对
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public KeyValue<KT, VT> GetKeyValue()
+        {
+            return new KeyValue<KT, VT>(Key, Value);
+        }
     }
 }

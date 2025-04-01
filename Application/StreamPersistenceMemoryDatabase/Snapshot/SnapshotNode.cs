@@ -46,7 +46,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             foreach (Type checkType in type.GetInterfaces())
             {
-                if (checkType.IsGenericType && checkType.GetGenericTypeDefinition() == typeof(ISnapshot<>)) return true;
+                if (checkType.IsGenericType)
+                {
+                    Type snapshotType = checkType.GetGenericTypeDefinition();
+                    if (snapshotType == typeof(ISnapshot<>) || snapshotType == typeof(IEnumerableSnapshot<>)) return true;
+                }
             }
             return false;
         }

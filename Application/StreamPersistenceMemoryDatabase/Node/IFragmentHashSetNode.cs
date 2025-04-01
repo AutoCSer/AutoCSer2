@@ -18,6 +18,10 @@
         /// </summary>
         void Clear();
         /// <summary>
+        /// 可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+        /// </summary>
+        void ReusableClear();
+        /// <summary>
         /// 清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>
         void ClearArray();

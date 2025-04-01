@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.IO;
+using AutoCSer.Extensions;
 
 namespace AutoCSer.DeployService
 {
@@ -35,7 +36,7 @@ namespace AutoCSer.DeployService
             {
                 FileInfo BatFile = new FileInfo(BatFileName);
                 if (BatFile.Exists) Process.Start(BatFile.FullName);
-                else AutoCSer.Threading.CatchTask.AddIgnoreException(AutoCSer.LogHelper.Error("没有找到批处理文件 " + BatFile.FullName, LogLevelEnum.Error | LogLevelEnum.AutoCSer));
+                else AutoCSer.LogHelper.Error("没有找到批处理文件 " + BatFile.FullName, LogLevelEnum.Error | LogLevelEnum.AutoCSer).NotWait();
             }
         }
         /// <summary>

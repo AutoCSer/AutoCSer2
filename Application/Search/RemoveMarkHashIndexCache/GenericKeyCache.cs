@@ -61,7 +61,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
                 return;
             }
             command.Dispose();
-            if (!isDispose) getChangeKeys().NotWait();
+            if (!isDispose) getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合
@@ -85,7 +85,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
                 finally { Monitor.Exit(CacheLock); }
                 return;
             }
-            if (!isDispose) getChangeKeys().NotWait();
+            if (!isDispose) getChangeKeys().Catch();
         }
         /// <summary>
         /// 淘汰缓存数据
@@ -205,7 +205,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected GenericKeyCache(StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashIndexNodeClientNode<KT, VT>> node, long maxCount, int capacity = 1 << 16) : base(maxCount, capacity)
         {
             this.node = node;
-            getChangeKeys().NotWait();
+            getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合

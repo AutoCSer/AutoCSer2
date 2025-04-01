@@ -45,7 +45,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         private void append(CallData callData, DateTime callTime, Task<ResponseResult<IExceptionStatisticsNodeClientNode>> task)
         {
             if (task.IsCompleted) append(callData, callTime, task.Result);
-            else appendAsync(callData, callTime, task).NotWait();
+            else appendAsync(callData, callTime, task).Catch();
         }
         /// <summary>
         /// 添加异常调用统计信息

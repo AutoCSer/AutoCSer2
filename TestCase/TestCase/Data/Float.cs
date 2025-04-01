@@ -8,6 +8,12 @@ namespace AutoCSer.TestCase.Data
     /// </summary>
     public class Float
     {
+        //public Half HalfMin = Half.MinValue;
+        //public Half HalfMax = Half.MaxValue;
+        //public Half HalfNaN = Half.NaN;
+        //public Half HalfPositiveInfinity = Half.PositiveInfinity;
+        //public Half HalfNegativeInfinity = Half.NegativeInfinity;
+
         public float FloatMin = float.MinValue;
         public float FloatMax = float.MaxValue;
         public float FloatNaN = float.NaN;

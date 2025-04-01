@@ -121,8 +121,8 @@ namespace AutoCSer.CommandService.DeployTask
                 {
                     try
                     {
-                        clientFiles.Clear();
-                        clientDirectorys.Clear();
+                        clientFiles.ClearCount();
+                        clientDirectorys.ClearCount();
                         if (IsDelete)
                         {
                             if (await AutoCSer.Common.DirectoryExists(clientDirectory))

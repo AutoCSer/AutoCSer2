@@ -6,6 +6,7 @@
     <AssemblyName>AutoCSer.TestCase</AssemblyName>
     <RootNamespace>AutoCSer.TestCase</RootNamespace>
     <LangVersion>8.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

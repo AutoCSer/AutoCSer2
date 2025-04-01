@@ -40,10 +40,7 @@ namespace AutoCSer
         /// </summary>
         public void Clear()
         {
-            foreach (HashSet<T> hashSet in hashSets)
-            {
-                if (hashSet != null) hashSet.Clear();
-            }
+            foreach (HashSet<T> hashSet in hashSets) hashSet?.Clear();
             Count = 0;
         }
         /// <summary>

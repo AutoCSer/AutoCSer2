@@ -160,7 +160,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         internal void DisposeCallback()
         {
-            if(dataCache.Count != 0) indexCache.Clear();
+            if(dataCache.Count != 0) indexCache.ClearCount();
             Monitor.Enter(dataCacheLock);
             try
             {

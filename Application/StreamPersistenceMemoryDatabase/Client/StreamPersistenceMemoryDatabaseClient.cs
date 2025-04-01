@@ -1422,13 +1422,14 @@ namespace AutoCSer.CommandService
         /// 获取哈希表节点，不存在则创建节点 HashSetNode{KT}
         /// </summary>
         /// <param name="key">节点全局关键字</param>
+        /// <param name="capacity">容器初始化大小</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IHashSetNodeClientNode<KT>>> GetOrCreateHashSetNode<KT>(string key, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<ResponseResult<IHashSetNodeClientNode<KT>>> GetOrCreateHashSetNode<KT>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
-            return GetOrCreateNode<IHashSetNodeClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateHashSetNode(index, nodeKey, nodeInfo, typeof(KT)), isPersistenceCallbackExceptionRenewNode);
+            return GetOrCreateNode<IHashSetNodeClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateHashSetNode(index, nodeKey, nodeInfo, typeof(KT), capacity), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取二叉搜索树集合节点，不存在则创建节点 SearchTreeSetNode{KT}

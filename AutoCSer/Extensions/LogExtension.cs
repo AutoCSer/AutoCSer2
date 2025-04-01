@@ -45,7 +45,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber));
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
             }
             catch { }
         }
@@ -66,7 +66,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber));
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
             }
             catch { }
         }
@@ -88,7 +88,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Exception(exception, message, level, callerMemberName, callerFilePath, callerLineNumber));
+                log.Exception(exception, message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
             }
             catch { }
         }
@@ -128,7 +128,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber));
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
             }
             catch { }
         }
@@ -168,7 +168,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber));
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
             }
             catch { }
         }
@@ -208,7 +208,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber));
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
             }
             catch { }
         }
@@ -248,7 +248,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber));
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
             }
             catch { }
         }
@@ -259,7 +259,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(log.Flush());
+                log.Flush().NotWait();
             }
             catch { }
         }

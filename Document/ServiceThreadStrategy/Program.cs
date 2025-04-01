@@ -48,7 +48,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy
             {
                 if (await commandListener.Start())
                 {
-                    client().NotWait();
+                    client().Catch();
 
                     Console.WriteLine("Press quit to exit.");
                     while (Console.ReadLine() != "quit") ;

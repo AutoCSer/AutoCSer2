@@ -722,14 +722,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="keyType">关键字类型</param>
+        /// <param name="capacity">容器初始化大小</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
+        public virtual NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
         {
             var type = default(Type);
             CallStateEnum state = getEquatableType(ref keyType, ref type);
             if (state == CallStateEnum.Success)
             {
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateHashSetNode(this, index, key, nodeInfo);
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateHashSetNode(this, index, key, nodeInfo, capacity);
             }
             return new NodeIndex(state);
         }

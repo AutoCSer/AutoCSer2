@@ -10,46 +10,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    public sealed class DictionaryNode<KT, VT> : IDictionaryNode<KT, VT>, ISnapshot<KeyValue<KT, VT>>
+    public sealed class DictionaryNode<KT, VT> : IDictionaryNode<KT, VT>, IEnumerableSnapshot<KeyValue<KT, VT>>
         where KT : IEquatable<KT>
     {
         /// <summary>
         /// 字典
         /// </summary>
-        private Dictionary<KT, VT> dictionary;
+        private SnapshotDictionary<KT, VT> dictionary;
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<KeyValue<KT, VT>> IEnumerableSnapshot<KeyValue<KT, VT>>.SnapshotEnumerable { get { return dictionary.Nodes; } }
         /// <summary>
         /// 字典节点
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
         public DictionaryNode(int capacity = 0)
         {
-            dictionary = DictionaryCreator<KT>.Create<VT>(capacity);
+            dictionary = new SnapshotDictionary<KT, VT>(capacity);
         }
-        /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
-        /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        public int GetSnapshotCapacity(ref object customObject)
-        {
-            return dictionary.Count;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        public SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult(KeyValue<KT, VT>[] snapshotArray, object customObject)
-        {
-            return ServerNode.GetSnapshotResult(dictionary, snapshotArray);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        public void SetSnapshotResult(ref LeftArray<KeyValue<KT, VT>> array, ref LeftArray<KeyValue<KT, VT>> newArray) { }
         /// <summary>
         /// 快照添加数据
         /// </summary>
@@ -64,7 +43,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="capacity">新容器初始化大小</param>
         public void Renew(int capacity = 0)
         {
-            dictionary = DictionaryCreator<KT>.Create<VT>(capacity);
+            dictionary.Renew(capacity);
         }
         /// <summary>
         /// 获取数据数量
@@ -115,16 +94,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="keys"></param>
         /// <returns></returns>
+#if NetStandard21
+        public VT?[] GetValueArray(KT[] keys)
+#else
         public VT[] GetValueArray(KT[] keys)
+#endif
         {
-            return dictionary.getValueArray(keys);
+            return dictionary.GetValueArray(keys);
         }
         /// <summary>
         /// 清除所有数据
         /// </summary>
         public void Clear()
         {
-            dictionary.Clear();
+            dictionary.ClearArray();
+        }
+        /// <summary>
+        /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+        /// </summary>
+        public void ReusableClear()
+        {
+            dictionary.ClearCount();
         }
         /// <summary>
         /// 判断关键字是否存在
@@ -134,15 +124,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool ContainsKey(KT key)
         {
             return key != null && dictionary.ContainsKey(key);
-        }
-        /// <summary>
-        /// 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public bool ContainsValue(VT value)
-        {
-            return dictionary.ContainsValue(value);
         }
         /// <summary>
         /// 删除关键字
@@ -160,7 +141,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>删除关键字数量</returns>
         public int RemoveKeys(KT[] keys)
         {
-            return dictionary.removeKeys(keys);
+            return dictionary.RemoveKeys(keys);
         }
         /// <summary>
         /// 删除关键字并返回被删除数据

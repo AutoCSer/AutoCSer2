@@ -136,7 +136,7 @@ namespace AutoCSer.CommandService.DeployTask
                 file.FileIndex = synchronousFileCount;
                 files[synchronousFileCount++] = file;
                 Monitor.Exit(fileLock);
-                file.Synchronous().NotWait();
+                file.Synchronous().Catch();
             }
             else
             {
@@ -164,7 +164,7 @@ namespace AutoCSer.CommandService.DeployTask
                     nextUploadFile.FileIndex = index;
                     files[index] = nextUploadFile;
                     Monitor.Exit(fileLock);
-                    nextUploadFile.Synchronous().NotWait();
+                    nextUploadFile.Synchronous().Catch();
                 }
                 else
                 {
@@ -181,7 +181,7 @@ namespace AutoCSer.CommandService.DeployTask
                         else Interlocked.Exchange(ref isSynchronousPath, 0);
                     }
                     Monitor.Exit(fileLock);
-                    if (directory.Key != null) synchronous(directory.Key, directory.Value.notNull()).NotWait();
+                    if (directory.Key != null) synchronous(directory.Key, directory.Value.notNull()).Catch();
                 }
             }
             onCompleted(file.ClientFile, file.FileInfo.FullName);

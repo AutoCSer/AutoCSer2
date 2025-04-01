@@ -9,51 +9,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 哈希表节点
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    public sealed class HashSetNode<T> : IHashSetNode<T>, ISnapshot<T>
+    public sealed class HashSetNode<T> : IHashSetNode<T>, IEnumerableSnapshot<T>
         where T : IEquatable<T>
     {
         /// <summary>
         /// 哈希表
         /// </summary>
-        private HashSet<T> hashSet;
+        private SnapshotHashSet<T> hashSet;
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<T> IEnumerableSnapshot<T>.SnapshotEnumerable { get { return hashSet.Nodes; } }
         /// <summary>
         /// 哈希表节点
         /// </summary>
-        public HashSetNode()
+        /// <param name="capacity">容器初始化大小</param>
+        public HashSetNode(int capacity = 0)
         {
-            hashSet = HashSetCreator<T>.Create();
+            hashSet = new SnapshotHashSet<T>(capacity);
         }
-        /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
-        /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        public int GetSnapshotCapacity(ref object customObject)
-        {
-            return hashSet.Count;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        public SnapshotResult<T> GetSnapshotResult(T[] snapshotArray, object customObject)
-        {
-            return new SnapshotResult<T>(snapshotArray, hashSet);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        public void SetSnapshotResult(ref LeftArray<T> array, ref LeftArray<T> newArray) { }
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>
-        public void Renew()
+        /// <param name="capacity">容器初始化大小</param>
+        public void Renew(int capacity = 0)
         {
-            hashSet = HashSetCreator<T>.Create();
+            hashSet.Renew(capacity);
         }
         /// <summary>
         /// 获取数据数量
@@ -95,7 +76,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public void Clear()
         {
-            hashSet.Clear();
+            hashSet.ClearArray();
+        }
+        /// <summary>
+        /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+        /// </summary>
+        public void ReusableClear()
+        {
+            hashSet.ClearCount();
         }
         /// <summary>
         /// 判断关键字是否存在
@@ -132,14 +120,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return count;
             }
             return 0;
-        }
-        /// <summary>
-        /// 获取数组
-        /// </summary>
-        /// <returns></returns>
-        public T[] GetArray()
-        {
-            return hashSet.getArray();
         }
     }
 }

@@ -456,23 +456,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return result;
         }
-        /// <summary>
-        /// 获取快照数据集合
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <returns>快照数据信息</returns>
-        public static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, VT>> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
-        {
-            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
-            SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
-            foreach (KeyValuePair<KT, VT> value in values)
-            {
-                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
-                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
-            }
-            return result;
-        }
+        ///// <summary>
+        ///// 获取快照数据集合
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <param name="snapshotArray">预申请的快照数据容器</param>
+        ///// <returns>快照数据信息</returns>
+        //public static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, VT>> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
+        //{
+        //    if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
+        //    SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+        //    foreach (KeyValuePair<KT, VT> value in values)
+        //    {
+        //        if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+        //        else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+        //    }
+        //    return result;
+        //}
         /// <summary>
         /// 获取快照数据集合
         /// </summary>
@@ -491,23 +491,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return result;
         }
-        /// <summary>
-        /// 获取快照数据集合
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <returns>快照数据信息</returns>
-        internal static SnapshotResult<BinarySerializeKeyValue<byte[], VT>> GetSnapshotResult<VT>(ICollection<KeyValuePair<HashBytes, VT>> values, BinarySerializeKeyValue<byte[], VT>[] snapshotArray)
-        {
-            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(0);
-            SnapshotResult<BinarySerializeKeyValue<byte[], VT>> result = new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
-            foreach (KeyValuePair<HashBytes, VT> value in values)
-            {
-                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
-                else result.Array.Array[result.Array.Length++].Set(value.Key.SubArray.Array, value.Value);
-            }
-            return result;
-        }
+        ///// <summary>
+        ///// 获取快照数据集合
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <param name="snapshotArray">预申请的快照数据容器</param>
+        ///// <returns>快照数据信息</returns>
+        //internal static SnapshotResult<BinarySerializeKeyValue<byte[], VT>> GetSnapshotResult<VT>(ICollection<KeyValuePair<HashBytes, VT>> values, BinarySerializeKeyValue<byte[], VT>[] snapshotArray)
+        //{
+        //    if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(0);
+        //    SnapshotResult<BinarySerializeKeyValue<byte[], VT>> result = new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
+        //    foreach (KeyValuePair<HashBytes, VT> value in values)
+        //    {
+        //        if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
+        //        else result.Array.Array[result.Array.Length++].Set(value.Key.SubArray.Array, value.Value);
+        //    }
+        //    return result;
+        //}
         /// <summary>
         /// 获取快照数据集合
         /// </summary>
@@ -526,59 +526,59 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return result;
         }
-        /// <summary>
-        /// 获取快照数据集合
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <returns>快照数据信息</returns>
-        internal static SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult<KT, VT>(FragmentDictionary256<KT, VT> values, KeyValue<KT, VT>[] snapshotArray)
-            where KT : IEquatable<KT>
-        {
-            if (values.Count == 0) return new SnapshotResult<KeyValue<KT, VT>>(0);
-            SnapshotResult<KeyValue<KT, VT>> result = new SnapshotResult<KeyValue<KT, VT>>(values.Count, snapshotArray.Length);
-            foreach (KeyValuePair<KT, VT> value in values.KeyValues)
-            {
-                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
-                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
-            }
-            return result;
-        }
-        /// <summary>
-        /// 获取快照数据集合
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <returns>快照数据信息</returns>
-        internal static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(FragmentDictionary256<KT, VT> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
-            where KT : IEquatable<KT>
-        {
-            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
-            SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
-            foreach (KeyValuePair<KT, VT> value in values.KeyValues)
-            {
-                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
-                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
-            }
-            return result;
-        }
-        /// <summary>
-        /// 获取快照数据集合
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <returns>快照数据信息</returns>
-        internal static SnapshotResult<BinarySerializeKeyValue<byte[], VT>> GetSnapshotResult<VT>(HashBytesFragmentDictionary256<VT> values, BinarySerializeKeyValue<byte[], VT>[] snapshotArray)
-        {
-            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(0);
-            SnapshotResult<BinarySerializeKeyValue<byte[], VT>> result = new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
-            foreach (KeyValuePair<HashBytes, VT> value in values.KeyValues)
-            {
-                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
-                else result.Array.Array[result.Array.Length++].Set(value.Key.SubArray.Array, value.Value);
-            }
-            return result;
-        }
+        ///// <summary>
+        ///// 获取快照数据集合
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <param name="snapshotArray">预申请的快照数据容器</param>
+        ///// <returns>快照数据信息</returns>
+        //internal static SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult<KT, VT>(FragmentDictionary256<KT, VT> values, KeyValue<KT, VT>[] snapshotArray)
+        //    where KT : IEquatable<KT>
+        //{
+        //    if (values.Count == 0) return new SnapshotResult<KeyValue<KT, VT>>(0);
+        //    SnapshotResult<KeyValue<KT, VT>> result = new SnapshotResult<KeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+        //    foreach (KeyValuePair<KT, VT> value in values.KeyValues)
+        //    {
+        //        if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+        //        else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+        //    }
+        //    return result;
+        //}
+        ///// <summary>
+        ///// 获取快照数据集合
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <param name="snapshotArray">预申请的快照数据容器</param>
+        ///// <returns>快照数据信息</returns>
+        //internal static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(FragmentDictionary256<KT, VT> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
+        //    where KT : IEquatable<KT>
+        //{
+        //    if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
+        //    SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+        //    foreach (KeyValuePair<KT, VT> value in values.KeyValues)
+        //    {
+        //        if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+        //        else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+        //    }
+        //    return result;
+        //}
+        ///// <summary>
+        ///// 获取快照数据集合
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <param name="snapshotArray">预申请的快照数据容器</param>
+        ///// <returns>快照数据信息</returns>
+        //internal static SnapshotResult<BinarySerializeKeyValue<byte[], VT>> GetSnapshotResult<VT>(HashBytesFragmentDictionary256<VT> values, BinarySerializeKeyValue<byte[], VT>[] snapshotArray)
+        //{
+        //    if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(0);
+        //    SnapshotResult<BinarySerializeKeyValue<byte[], VT>> result = new SnapshotResult<BinarySerializeKeyValue<byte[], VT>>(values.Count, snapshotArray.Length);
+        //    foreach (KeyValuePair<HashBytes, VT> value in values.KeyValues)
+        //    {
+        //        if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key.SubArray.Array, value.Value);
+        //        else result.Array.Array[result.Array.Length++].Set(value.Key.SubArray.Array, value.Value);
+        //    }
+        //    return result;
+        //}
         ///// <summary>
         ///// 获取快照数据集合
         ///// </summary>

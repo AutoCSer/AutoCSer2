@@ -526,6 +526,11 @@ namespace AutoCSer.CommandService.DeployTask
             /// System.DateTime closeTime 关闭任务时间
             /// </summary>
             Close = 8,
+            /// <summary>
+            /// [9] 快照设置数据
+            /// long value 数据
+            /// </summary>
+            SnapshotSetIdentity = 9,
         }
 }
 #endif

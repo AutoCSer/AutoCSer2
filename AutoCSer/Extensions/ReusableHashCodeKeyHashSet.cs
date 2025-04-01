@@ -139,7 +139,7 @@ namespace AutoCSer
 
             this.Nodes = new ReusableHashNode[capacity];
             CapacityDivision.Set(capacity);
-            Clear();
+            clearRemoveCount();
             for (int index = 0; index != nodes.Length; ++index) add(nodes[index].HashCode);
         }
         /// <summary>
@@ -290,13 +290,13 @@ namespace AutoCSer
                     {
                         if (node.Next == int.MaxValue)
                         {
-                            if (nodeIndex != --Count) remove(nodeIndex, node.HashIndex);
+                            if (nodeIndex != removeCount()) remove(nodeIndex, node.HashIndex);
                         }
                         else
                         {
                             Nodes[node.Next].Source = (uint)hashIndex;
                             Nodes[hashIndex].HashIndex = node.Next;
-                            if (nodeIndex != --Count) remove(nodeIndex, Nodes[nodeIndex].HashIndex);
+                            if (nodeIndex != removeCount()) remove(nodeIndex, Nodes[nodeIndex].HashIndex);
                         }
                         return true;
                     }
@@ -313,7 +313,7 @@ namespace AutoCSer
                             {
                                 if (node.Next != int.MaxValue) Nodes[node.Next].SetNextSource(nodeIndex);
                                 Nodes[nodeIndex].Next = node.Next;
-                                if (nextNodeIndex != --Count) remove(nextNodeIndex, node.HashIndex);
+                                if (nextNodeIndex != removeCount()) remove(nextNodeIndex, node.HashIndex);
                                 return true;
                             }
                         }
@@ -339,12 +339,13 @@ namespace AutoCSer
         /// <summary>
         /// 清除数据
         /// </summary>
-        internal void ClearCount()
+        internal void ClearArray()
         {
-            if (Count != 0)
+            int count = NodeArrayClearCount;
+            if (count != 0)
             {
-                Array.Clear(Nodes, 0, Count);
-                Clear();
+                Array.Clear(Nodes, 0, count);
+                clearRemoveCount();
             }
         }
         /// <summary>

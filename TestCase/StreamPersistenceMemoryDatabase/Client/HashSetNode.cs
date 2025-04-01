@@ -77,7 +77,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}+ERROR*");
                 return;
             }
-            result = await node.Value.Renew();
+            result = await node.Value.Renew(0);
             if (!Program.Breakpoint(result)) return;
             intResult = await node.Value.Count();
             if (!Program.Breakpoint(intResult)) return;

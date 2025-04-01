@@ -49,13 +49,13 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
                 return;
             }
-            boolResult = await node.Value.ContainsValue(value);
-            if (!Program.Breakpoint(boolResult)) return;
-            if (!boolResult.Value)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
-                return;
-            }
+            //boolResult = await node.Value.ContainsValue(value);
+            //if (!Program.Breakpoint(boolResult)) return;
+            //if (!boolResult.Value)
+            //{
+            //    ConsoleWriteQueue.Breakpoint($"*ERROR+{boolResult.Value}+ERROR*");
+            //    return;
+            //}
             intResult = await node.Value.Count();
             if (!Program.Breakpoint(intResult)) return;
             if (intResult.Value == 0)

@@ -39,6 +39,10 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         protected bool isLoaded;
         /// <summary>
+        /// 快照集合
+        /// </summary>
+        public ISnapshotEnumerable<bool> SnapshotEnumerable { get { return new SnapshotGetValueEmpty<bool>(getIsLoaded); } }
+        /// <summary>
         /// 非索引条件查询数据节点
         /// </summary>
         protected ConditionDataNode() { }
@@ -52,7 +56,7 @@ namespace AutoCSer.CommandService.Search
         public override NT StreamPersistenceMemoryDatabaseServiceLoaded()
 #endif
         {
-            if (!isLoaded) load().NotWait();
+            if (!isLoaded) load().Catch();
             return default(NT);
         }
         /// <summary>
@@ -92,22 +96,14 @@ namespace AutoCSer.CommandService.Search
         /// <param name="value">数据</param>
         public abstract void SnapshotSet(VT value);
         /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+        /// 是否已经加载初始化数据
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        public SnapshotResult<bool> GetSnapshotResult(bool[] snapshotArray, object customObject)
+        /// <returns></returns>
+        private KeyValue<bool, bool> getIsLoaded()
         {
-            if (isLoaded) return new SnapshotResult<bool>(snapshotArray, true);
-            return new SnapshotResult<bool>(0);
+            if (isLoaded) return new KeyValue<bool, bool>(true, true);
+            return default(KeyValue<bool, bool>);
         }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        public void SetSnapshotResult(ref LeftArray<bool> array, ref LeftArray<bool> newArray) { }
         /// <summary>
         /// 快照设置数据
         /// </summary>

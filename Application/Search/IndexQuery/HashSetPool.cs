@@ -92,7 +92,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
             if (hashSets.TryPop(out hashSet))
             {
                 Monitor.Exit(this);
-                hashSet.Clear();
+                hashSet.ClearCount();
                 return hashSet;
             }
             if (buffers.TryPop(out buffer))

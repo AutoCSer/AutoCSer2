@@ -299,7 +299,7 @@ namespace AutoCSer.Drawing.Gif
                 byte* bitmapFixed = (byte*)bitmap.Scan0, currentBitmap = bitmapFixed + bitmap.Stride * (bitmapTopOffset - 1) + (bitmapLeftOffset + width) * 3, endColor = bitmapFixed + (bitmap.Height * bitmap.Stride - 3);
                 LockBitmapColor* currentColor = colorFixed;
                 int bitMapSpace = bitmap.Stride - (width << 1) - width;
-                colorIndexs.Clear();
+                colorIndexs.ClearCount();
                 for (int colorIndex, row = height; row != 0; --row)
                 {
                     currentBitmap += bitMapSpace;

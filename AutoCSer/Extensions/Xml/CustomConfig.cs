@@ -77,6 +77,42 @@ namespace AutoCSer.Xml
             }
             return null;
         }
+        ///// <summary>
+        ///// 自定义反序列化整数
+        ///// </summary>
+        ///// <param name="deserializer"></param>
+        ///// <param name="buffer"></param>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //public virtual bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref Int128 value)
+        //{
+        //    var stringBuffer = deserializer.GetStringBuffer(ref buffer);
+        //    return stringBuffer.Length != 0 && Int128.TryParse(stringBuffer, out value);
+        //}
+        ///// <summary>
+        ///// 自定义反序列化整数
+        ///// </summary>
+        ///// <param name="deserializer"></param>
+        ///// <param name="buffer"></param>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //public virtual bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref UInt128 value)
+        //{
+        //    var stringBuffer = deserializer.GetStringBuffer(ref buffer);
+        //    return stringBuffer.Length != 0 && UInt128.TryParse(stringBuffer, out value);
+        //}
+        ///// <summary>
+        ///// 自定义反序列化浮点数
+        ///// </summary>
+        ///// <param name="deserializer"></param>
+        ///// <param name="buffer"></param>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //public virtual bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref Half value)
+        //{
+        //    var stringBuffer = deserializer.GetStringBuffer(ref buffer);
+        //    return stringBuffer.Length != 0 && Half.TryParse(stringBuffer, out value);
+        //}
         /// <summary>
         /// 自定义反序列化浮点数
         /// </summary>

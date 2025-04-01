@@ -36,8 +36,8 @@ namespace AutoCSer.Document.ServerRegistry
 
                     await using (var messageServer = await AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Create((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistryPort - 1))
                     {
-                        AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Test().NotWait();
-                        AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryClusterClient.Test().NotWait();
+                        AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Test().Catch();
+                        AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryClusterClient.Test().Catch();
 
                         Console.WriteLine("Press quit to exit.");
                         while (Console.ReadLine() != "quit") ;

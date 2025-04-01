@@ -65,7 +65,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
                 return;
             }
             command.Dispose();
-            if (!isDispose) getChangeKeys().NotWait();
+            if (!isDispose) getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合
@@ -80,7 +80,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
                 return;
             }
             command.Dispose();
-            if (!isDispose) getChangeKeys().NotWait();
+            if (!isDispose) getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合
@@ -93,7 +93,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
                 getChangeKeys(result.Value);
                 return;
             }
-            if (!isDispose) getChangeKeys().NotWait();
+            if (!isDispose) getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合
@@ -106,7 +106,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
                 getChangeKeys((uint)result.Value);
                 return;
             }
-            if (!isDispose) getChangeKeys().NotWait();
+            if (!isDispose) getChangeKeys().Catch();
         }
         /// <summary>
         /// 淘汰缓存数据
@@ -317,7 +317,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected UIntKeyCache(StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashIndexNodeClientNode<uint, VT>> node, long maxCount, int capacity = 1 << 16) : base(maxCount, capacity)
         {
             this.node = node;
-            getChangeKeys().NotWait();
+            getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合

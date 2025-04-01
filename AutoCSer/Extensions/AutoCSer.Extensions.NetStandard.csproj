@@ -76,7 +76,6 @@
     <Compile Include="Extensions\ThreadPoolExtension.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="FragmentHashSet256.cs" />
-    <Compile Include="HashBytesFragmentDictionary256.cs" />
     <Compile Include="HashSubString.cs" />
     <Compile Include="Html\RawNode.cs" />
     <Compile Include="Html\RawNodeTypeEnum.cs" />

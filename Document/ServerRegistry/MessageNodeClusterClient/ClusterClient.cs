@@ -41,7 +41,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
             });
             NodeCache = client.CreateNode(client => client.GetOrCreateServerByteArrayMessageNode(nameof(AutoCSer.Document.ServerRegistry.MessageNodeClusterClient)));
-            check().NotWait();
+            check().Catch();
         }
         /// <summary>
         /// 获取客户端连接

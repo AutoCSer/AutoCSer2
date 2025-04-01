@@ -127,7 +127,7 @@ namespace AutoCSer.CommandService.DeployTask
             }
             catch (Exception catchException)
             {
-                AutoCSer.Threading.CatchTask.AddIgnoreException(databaseBackup.OnException(exception = catchException));
+                databaseBackup.OnException(exception = catchException).NotWait();
                 if (File.Exists(backupFullName)) File.Delete(backupFullName);
                 if (File.Exists(compressionFullName)) File.Delete(compressionFullName);
             }

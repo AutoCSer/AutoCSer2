@@ -7,38 +7,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    public sealed class FragmentDictionaryNode<KT, VT> : IFragmentDictionaryNode<KT, VT>, ISnapshot<KeyValue<KT, VT>>
+    public sealed class FragmentDictionaryNode<KT, VT> : IFragmentDictionaryNode<KT, VT>, IEnumerableSnapshot<KeyValue<KT, VT>>
         where KT : IEquatable<KT>
     {
         /// <summary>
         /// 256 基分片字典
         /// </summary>
-        private readonly FragmentDictionary256<KT, VT> dictionary = new FragmentDictionary256<KT, VT>();
+        private readonly FragmentSnapshotDictionary256<KT, VT> dictionary = new FragmentSnapshotDictionary256<KT, VT>();
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// 快照集合
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        public int GetSnapshotCapacity(ref object customObject)
-        {
-            return dictionary.Count;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        public SnapshotResult<KeyValue<KT, VT>> GetSnapshotResult(KeyValue<KT, VT>[] snapshotArray, object customObject)
-        {
-            return ServerNode.GetSnapshotResult(dictionary, snapshotArray);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        public void SetSnapshotResult(ref LeftArray<KeyValue<KT, VT>> array, ref LeftArray<KeyValue<KT, VT>> newArray) { }
+        ISnapshotEnumerable<KeyValue<KT, VT>> IEnumerableSnapshot<KeyValue<KT, VT>>.SnapshotEnumerable { get { return dictionary.GetKeyValueSnapshot(); } }
         /// <summary>
         /// 快照添加数据
         /// </summary>
@@ -78,6 +57,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public void Clear()
         {
             dictionary.Clear();
+        }
+        /// <summary>
+        /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+        /// </summary>
+        public void ReusableClear()
+        {
+            dictionary.ClearCount();
         }
         /// <summary>
         /// 清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）

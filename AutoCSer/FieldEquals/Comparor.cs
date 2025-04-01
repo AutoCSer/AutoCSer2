@@ -38,6 +38,25 @@ namespace AutoCSer.FieldEquals
             Breakpoint(typeof(object), left != null, right != null);
             return false;
         }
+#if NET8
+        /// <summary>
+        /// 浮点数比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        internal static bool Equals(Half left, Half right)
+        {
+            if (Half.IsNaN(left))
+            {
+                if (Half.IsNaN(right)) return true;
+            }
+            if (left == right) return true;
+            if ((!Half.IsNaN(right) && Half.Parse(left.ToString()) == right)) return true;
+            Breakpoint(typeof(Half), left, right);
+            return false;
+        }
+#endif
         /// <summary>
         /// 浮点数比较
         /// </summary>
@@ -383,6 +402,9 @@ namespace AutoCSer.FieldEquals
             Type type = typeof(T);
             if (typeof(IEquatable<T>).IsAssignableFrom(type))
             {
+#if NET8
+                if (type == typeof(Half)) return (Func<Half, Half, bool>)Comparor.Equals;
+#endif
                 if (type == typeof(float)) return (Func<float, float, bool>)Comparor.Equals;
                 if (type == typeof(double)) return (Func<double, double, bool>)Comparor.Equals;
                 EquatableGenericType equatableGenericType = EquatableGenericType.Get(type);

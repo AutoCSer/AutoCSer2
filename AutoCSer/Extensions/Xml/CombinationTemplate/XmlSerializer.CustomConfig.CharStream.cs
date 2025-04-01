@@ -1,6 +1,7 @@
 ﻿using System;
 /*decimal;float;double*/
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>

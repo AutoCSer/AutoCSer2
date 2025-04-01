@@ -33,7 +33,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected GenericKeyLocalCache(StreamPersistenceMemoryDatabaseLocalClientNodeCache<IRemoveMarkHashIndexNodeLocalClientNode<KT, VT>> node, long maxCount, int capacity = 1 << 16) : base(maxCount, capacity)
         {
             this.node = node;
-            getChangeKeys().NotWait();
+            getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合

@@ -92,7 +92,7 @@ namespace AutoCSer.Extensions.Threading
                         await taskLock.WaitAsync();
                         ++taskCount;
                         isRun = false;
-                        run(value).NotWait();
+                        run(value).Catch();
                         isRun = true;
                     }
                 }

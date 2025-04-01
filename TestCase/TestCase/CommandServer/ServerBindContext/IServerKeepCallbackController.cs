@@ -55,20 +55,20 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         void IServerKeepCallbackController.KeepCallbackCountReturn(int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCount(int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCountReturn(CommandServerKeepCallbackCount<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(), Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(), Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCount(CommandServerKeepCallbackCount Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).Catch();
         }
 
         void IServerKeepCallbackController.KeepCallbackQueueReturn(CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
@@ -91,20 +91,20 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         void IServerKeepCallbackController.KeepCallbackCountQueueReturn(CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueue(CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
             ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueueReturn(CommandServerCallQueue queue, CommandServerKeepCallbackCount<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(), Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(), Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueue(CommandServerCallLowPriorityQueue queue, CommandServerKeepCallbackCount Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).NotWait();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).Catch();
         }
     }
 }

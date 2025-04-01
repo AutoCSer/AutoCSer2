@@ -22,7 +22,7 @@ namespace AutoCSer.TestCase.NetCoreWeb
             Program program = new Program(args);
             if (!await program.switchProcess())
             {
-                program.start().NotWait();
+                program.start().Catch();
                 Console.WriteLine("Press quit to exit.");
                 while (Console.ReadLine() != "quit") ;
                 await program.exit();

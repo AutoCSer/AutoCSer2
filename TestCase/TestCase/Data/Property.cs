@@ -20,8 +20,11 @@ namespace AutoCSer.TestCase.Data
         public uint UInt { get; set; }
         public long Long { get; set; }
         public ulong ULong { get; set; }
+        //public Int128 Int128 { get; set; }
+        //public UInt128 UInt128 { get; set; }
         public DateTime DateTime { get; set; }
         public TimeSpan TimeSpan { get; set; }
+        //public Half Half { get; set; }
         public float Float { get; set; }
         public double Double { get; set; }
         public decimal Decimal { get; set; }
@@ -37,8 +40,11 @@ namespace AutoCSer.TestCase.Data
         public uint? UIntNull { get; set; }
         public long? LongNull { get; set; }
         public ulong? ULongNull { get; set; }
+        //public Int128? Int128Null { get; set; }
+        //public UInt128? UInt128Null { get; set; }
         public DateTime? DateTimeNull { get; set; }
         public TimeSpan? TimeSpanNull { get; set; }
+        //public Half? HalfNull { get; set; }
         public float? FloatNull { get; set; }
         public double? DoubleNull { get; set; }
         public decimal? DecimalNull { get; set; }

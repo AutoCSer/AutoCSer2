@@ -59,6 +59,7 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
     <Compile Include="CreateNodeIndex.cs" />
+    <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
     <Compile Include="Server\CreatingNodeInfo.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
@@ -301,17 +302,37 @@
     <Compile Include="Server\ServerNodeMethodIndexAttribute.cs" />
     <Compile Include="Server\ServerSnapshotNode.cs" />
     <Compile Include="Server\ServiceCallbackTypeEnum.cs" />
-    <Compile Include="Server\SnapshotCloneNode.cs" />
-    <Compile Include="Server\SnapshotCloneObject.cs" />
-    <Compile Include="Server\SnapshotMethod.cs" />
-    <Compile Include="Server\SnapshotNode.cs" />
-    <Compile Include="Server\SnapshotResult.cs" />
+    <Compile Include="Snapshot\EmptySnapshot.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotHashSetEnumerable256.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotHashSet256.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotDictionary256.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotDictionaryEnumerable256.cs" />
+    <Compile Include="Snapshot\IEnumerableSnapshot.cs" />
+    <Compile Include="Snapshot\ISnapshotEnumerable.cs" />
+    <Compile Include="Snapshot\SnapshotCloneNode.cs" />
+    <Compile Include="Snapshot\SnapshotCloneObject.cs" />
+    <Compile Include="Snapshot\SnapshotEnumerableCastEmpty.cs" />
+    <Compile Include="Snapshot\SnapshotGetEnumerable.cs" />
+    <Compile Include="Snapshot\SnapshotGetValue.cs" />
+    <Compile Include="Snapshot\SnapshotGetValueEmpty.cs" />
+    <Compile Include="Snapshot\SnapshotValue.cs" />
+    <Compile Include="Snapshot\SnapshotEnumerableCast.cs" />
+    <Compile Include="Snapshot\SnapshotHashSet.cs" />
+    <Compile Include="Snapshot\SnapshotDictionary.cs" />
+    <Compile Include="Snapshot\SnapshotHashSetNodeArray.cs" />
+    <Compile Include="Snapshot\SnapshotDictionaryNodeArray.cs" />
+    <Compile Include="Snapshot\EnumerableSnapshotNode.cs" />
+    <Compile Include="Snapshot\SnapshotArrayNode.cs" />
+    <Compile Include="Snapshot\SnapshotDictionarySnapshotNode.cs" />
+    <Compile Include="Snapshot\SnapshotMethod.cs" />
+    <Compile Include="Snapshot\SnapshotNode.cs" />
+    <Compile Include="Snapshot\SnapshotResult.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceBase.cs" />
     <Compile Include="Server\ContextNode.cs" />
     <Compile Include="Server\EmptyCommandServerCallback.cs" />
     <Compile Include="Server\INode.cs" />
     <Compile Include="Server\ISlaveLoader.cs" />
-    <Compile Include="Server\ISnapshot.cs" />
+    <Compile Include="Snapshot\ISnapshot.cs" />
     <Compile Include="Server\IStreamPersistenceMemoryDatabaseService.cs" />
     <Compile Include="Method\Method.cs" />
     <Compile Include="Server\LocalService\LocalService.cs" />
@@ -361,7 +382,7 @@
     <Compile Include="Server\SlaveLoader.cs" />
     <Compile Include="Server\SlaveServiceConfig.cs" />
     <Compile Include="Server\SlaveServiceLoadTypeEnum.cs" />
-    <Compile Include="Server\SnapshotMethodSerializer.cs" />
+    <Compile Include="Snapshot\SnapshotMethodSerializer.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseService.cs" />
     <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceConfig.cs" />
     <Compile Include="Server\SlaveService.cs" />
@@ -376,7 +397,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
   </ItemGroup>
-	
+
   <ItemGroup>
     <Reference Include="AutoCSer">
       <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>

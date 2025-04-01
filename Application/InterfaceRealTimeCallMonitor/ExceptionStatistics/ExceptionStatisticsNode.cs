@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// <summary>
     /// 异常调用统计信息节点
     /// </summary>
-    public sealed class ExceptionStatisticsNode : MethodParameterCreatorNode<IExceptionStatisticsNode, BinarySerializeKeyValue<long, ExceptionStatistics>>, IExceptionStatisticsNode, ISnapshot<LeftArray<string>>, ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>
+    public sealed class ExceptionStatisticsNode : MethodParameterCreatorNode<IExceptionStatisticsNode>, IExceptionStatisticsNode, IEnumerableSnapshot<LeftArray<string>>, IEnumerableSnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>
     {
         /// <summary>
         /// 节点自动移除时间
@@ -24,9 +24,17 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// </summary>
         private LeftArray<string> stringArray;
         /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<LeftArray<string>> IEnumerableSnapshot<LeftArray<string>>.SnapshotEnumerable { get { return new SnapshotGetValue<LeftArray<string>>(getStringArray); } }
+        /// <summary>
         /// 异常统计信息集合
         /// </summary>
-        private readonly Dictionary<long, ExceptionStatistics> statistics;
+        private readonly SnapshotDictionary<long, ExceptionStatistics> statistics;
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<BinarySerializeKeyValue<long, ExceptionStatistics>> IEnumerableSnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>.SnapshotEnumerable { get { return statistics.BinarySerializeKeyValueSnapshot; } }
         /// <summary>
         /// 异常调用总次数
         /// </summary>
@@ -50,7 +58,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             CallTimeCount = Math.Max(CallTimeCount, 0);
             stringArray.SetEmpty();
             strings = DictionaryCreator.CreateAny<string, int>();
-            statistics = DictionaryCreator.CreateLong<ExceptionStatistics>();
+            statistics = new SnapshotDictionary<long, ExceptionStatistics>();
         }
         /// <summary>
         /// 初始化加载完毕处理
@@ -87,34 +95,19 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// </summary>
         public void RemoveNode()
         {
+            statistics.ClearCount();
+            stringArray.SetEmpty();
             StreamPersistenceMemoryDatabaseService.RemoveNode(StreamPersistenceMemoryDatabaseNode.Index);
         }
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
+        /// 获取字符串数组
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<LeftArray<string>>.GetSnapshotCapacity(ref object customObject)
+        /// <returns></returns>
+        private LeftArray<string> getStringArray()
         {
-            return checkRemoveTime() ? 1 : 0;
+            checkRemoveTime();
+            return stringArray;
         }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        SnapshotResult<LeftArray<string>> ISnapshot<LeftArray<string>>.GetSnapshotResult(LeftArray<string>[] snapshotArray, object customObject)
-        {
-            if (!isRemove) return new SnapshotResult<LeftArray<string>>(snapshotArray, stringArray);
-            return new SnapshotResult<LeftArray<string>>(0);
-        }
-        /// <summary>
-        /// 持久化之前重组快照数据
-        /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
-        void ISnapshot<LeftArray<string>>.SetSnapshotResult(ref LeftArray<LeftArray<string>> array, ref LeftArray<LeftArray<string>> newArray) { }
         /// <summary>
         /// 快照设置数据
         /// </summary>
@@ -125,32 +118,12 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             foreach(string value in stringArray) strings.Add(value, strings.Count);
         }
         /// <summary>
-        /// 获取快照数据集合容器大小，用于预申请快照数据容器
-        /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
-        int ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>.GetSnapshotCapacity(ref object customObject)
-        {
-            return checkRemoveTime() ? statistics.Count : 0;
-        }
-        /// <summary>
-        /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-        /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
-        SnapshotResult<BinarySerializeKeyValue<long, ExceptionStatistics>> ISnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>.GetSnapshotResult(BinarySerializeKeyValue<long, ExceptionStatistics>[] snapshotArray, object customObject)
-        {
-            if (!isRemove) return ServerNode.GetSnapshotResult(statistics, snapshotArray);
-            return new SnapshotResult<BinarySerializeKeyValue<long, ExceptionStatistics>>(0);
-        }
-        /// <summary>
         /// 快照设置数据
         /// </summary>
         /// <param name="value">数据</param>
         public void SnapshotSet(BinarySerializeKeyValue<long, ExceptionStatistics> value)
         {
-            statistics.Add(value.Key, value.Value);
+            statistics.Set(ref value);
         }
         /// <summary>
         ///  获取字符串缓存编号
@@ -208,7 +181,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
                 var count = default(ExceptionStatistics);
                 long index = getIndex(callType, callName);
                 if (statistics.TryGetValue(index, out count)) count.Append(callTime);
-                else statistics.Add(index, new ExceptionStatistics(this, callTime));
+                else statistics.Set(index, new ExceptionStatistics(this, callTime));
                 ++this.count;
             }
         }
@@ -252,7 +225,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <param name="callback">获取数量调用异常统计信息回调委托</param>
         public void GetManyStatistics(int count, MethodKeepCallback<CallExceptionStatistics> callback)
         {
-            foreach (KeyValuePair<long, ExceptionStatistics> exceptionStatistics in statistics)
+            foreach (BinarySerializeKeyValue<long, ExceptionStatistics> exceptionStatistics in statistics.KeyValues)
             {
                 if (!callback.Callback(new CallExceptionStatistics(stringArray[(int)(exceptionStatistics.Key >> 32)], stringArray[(int)exceptionStatistics.Key], exceptionStatistics.Value))) return;
                 if (--count <= 0) return;

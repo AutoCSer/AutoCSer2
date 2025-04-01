@@ -303,7 +303,7 @@ namespace AutoCSer.CommandService.DeployTask
                     try
                     {
                         string clientPath = clientDirectory.FullName;
-                        clientFiles.Clear();
+                        clientFiles.ClearCount();
                         foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(clientDirectory))
                         {
                             if (isExtension(file)) clientFiles.Set(file.Name, file);
@@ -376,7 +376,7 @@ namespace AutoCSer.CommandService.DeployTask
                             if (fileName != null) appendFile(new UploadFile(this, file, fileName));
                         }
 
-                        clientDirectorys.Clear();
+                        clientDirectorys.ClearCount();
                         foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(clientDirectory)) clientDirectorys.Set(directory.Name, directory);
                         var directoryCommand = await Client.UploadFileClient.GetDirectoryNames(UploaderInfo.Index, serverPath);
                         if (directoryCommand != null)

@@ -114,6 +114,21 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             if (Interlocked.Decrement(ref callbackCount) == 0) waitLock.Release();
         }
         /// <summary>
+        /// 返回值验证
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="returnValue"></param>
+        protected static void checkReturnValue(int value, ResponseResult<int> returnValue)
+        {
+            if (returnValue.IsSuccess && returnValue.Value == value)
+            {
+                if (Interlocked.Decrement(ref callbackCount) == 0) waitLock.Release();
+                return;
+            }
+            Interlocked.Increment(ref errorCount);
+            if (Interlocked.Decrement(ref callbackCount) == 0) waitLock.Release();
+        }
+        /// <summary>
         /// 检查未回调次数
         /// </summary>
         /// <returns></returns>

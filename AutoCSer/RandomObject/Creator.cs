@@ -300,6 +300,66 @@ namespace AutoCSer.RandomObject
             }
             return AutoCSer.Random.Default.NextULong();
         }
+#if NET8
+        /// <summary>
+        /// 创建随机数
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        internal static Int128 CreateInt128(Config config)
+        {
+            switch (AutoCSer.Random.Default.NextByte())
+            {
+                case 0: return Int128.MinValue;
+                case 1: return Int128.MaxValue;
+            }
+            return new Int128(AutoCSer.Random.Default.NextULong(), AutoCSer.Random.Default.NextULong());
+        }
+        /// <summary>
+        /// 创建随机数
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        internal static UInt128 CreateUInt128(Config config)
+        {
+            switch (AutoCSer.Random.Default.NextByte())
+            {
+                case 0: return UInt128.MinValue;
+                case 1: return UInt128.MaxValue;
+            }
+            return new UInt128(AutoCSer.Random.Default.NextULong(), AutoCSer.Random.Default.NextULong());
+        }
+        /// <summary>
+        /// 创建随机数
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        private static Half createHalf(Config config)
+        {
+            if (config.IsParseFloat)
+            {
+                switch (AutoCSer.Random.Default.NextByte())
+                {
+                    case 0: return Half.MinValue;
+                    case 1: return Half.MaxValue;
+                    case 2: return Half.Epsilon;
+                }
+                Half value = AutoCSer.Random.Default.NextHalf();
+                if (Half.IsNaN(value) || Half.IsInfinity(value)) return Half.MinValue;
+                return Half.Parse(value.ToString());
+            }
+            switch (AutoCSer.Random.Default.NextByte())
+            {
+                case 0: return Half.MinValue;
+                case 1: return Half.MaxValue;
+                case 2: return Half.Epsilon;
+                case 3: return Half.NaN;
+                case 4: return Half.PositiveInfinity;
+                case 5: return Half.NegativeInfinity;
+            }
+            return AutoCSer.Random.Default.NextHalf();
+        }
+#endif
         /// <summary>
         /// 随机数除数
         /// </summary>
@@ -562,6 +622,11 @@ namespace AutoCSer.RandomObject
             createDelegates.Add(typeof(DateTimeOffset), (Func<Config, DateTimeOffset>)createDateTimeOffset);
             createDelegates.Add(typeof(TimeSpan), (Func<Config, TimeSpan>)CreateTimeSpan);
 #if NetStandard21
+#if NET8
+            createDelegates.Add(typeof(Half), (Func<Config, Half>)createHalf);
+            createDelegates.Add(typeof(Int128), (Func<Config, Int128>)CreateInt128);
+            createDelegates.Add(typeof(UInt128), (Func<Config, UInt128>)CreateUInt128);
+#endif
             createDelegates.Add(typeof(string), (Func<Config, string?>)createString);
 #else
             createDelegates.Add(typeof(string), (Func<Config, string>)createString);

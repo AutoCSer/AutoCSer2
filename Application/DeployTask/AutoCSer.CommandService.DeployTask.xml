@@ -3359,6 +3359,11 @@
             当前分配任务标识ID
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.DeployTaskNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{System#Int64}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.#ctor(System.Int32)">
             <summary>
             发布任务节点
@@ -3397,6 +3402,18 @@
             <returns>快照数据信息</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.SnapshotSet(AutoCSer.CommandService.DeployTask.TaskData)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskNode.getCurrentIdentity">
+            <summary>
+            获取当前分配任务标识ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTaskNode.SnapshotSetIdentity(System.Int64)">
             <summary>
             快照设置数据
             </summary>
@@ -3471,6 +3488,12 @@
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.SnapshotSet(AutoCSer.CommandService.DeployTask.TaskData)">
+            <summary>
+            快照设置数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.IDeployTaskNode.SnapshotSetIdentity(System.Int64)">
             <summary>
             快照设置数据
             </summary>
@@ -3695,6 +3718,12 @@
             [8] 关闭任务
             long identity 任务标识ID
             System.DateTime closeTime 关闭任务时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.SnapshotSetIdentity">
+            <summary>
+            [9] 快照设置数据
+            long value 数据
             </summary>
         </member>
         <member name="T:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension">

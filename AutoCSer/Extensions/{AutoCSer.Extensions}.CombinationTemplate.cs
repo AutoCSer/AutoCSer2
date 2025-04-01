@@ -5474,6 +5474,7 @@ namespace AutoCSer.Extensions
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5518,6 +5519,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5562,6 +5564,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5606,6 +5609,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5650,6 +5654,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5694,6 +5699,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5738,6 +5744,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5782,6 +5789,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5826,6 +5834,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5870,6 +5879,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5914,6 +5924,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5958,6 +5969,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -6002,6 +6014,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -6046,6 +6059,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -6090,6 +6104,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -6880,6 +6895,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -6910,6 +6926,7 @@ namespace AutoCSer
     }
 }
 
+//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>

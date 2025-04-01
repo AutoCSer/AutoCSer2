@@ -56,8 +56,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal abstract NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo);
+        internal abstract NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
 
         /// <summary>
         /// 创建泛型类型元数据
@@ -160,10 +161,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="index">节点索引信息</param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal override NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
+        internal override NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
-            return node.CreateSnapshotNode<IHashSetNode<T>>(index, key, nodeInfo, () => new HashSetNode<T>());
+            return node.CreateSnapshotNode<IHashSetNode<T>>(index, key, nodeInfo, () => new HashSetNode<T>(capacity));
         }
     }
 }

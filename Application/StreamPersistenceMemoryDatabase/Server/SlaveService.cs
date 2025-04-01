@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -176,7 +177,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (!IsDisposed)
                     {
-                        if (isRetry) AutoCSer.Threading.CatchTask.AddIgnoreException(delayLoad());
+                        if (isRetry) delayLoad().Catch();
                         else Dispose();
                     }
                 }

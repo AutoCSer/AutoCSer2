@@ -780,11 +780,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> ContainsKey(KT key);
             /// <summary>
-            /// 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
-            /// <param name="value"></param>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> ContainsValue(VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter ReusableClear();
             /// <summary>
             /// 获取数据数量
             /// </summary>
@@ -940,6 +938,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keys"></param>
             /// <returns>删除关键字数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveKeys(KT[] keys);
+            /// <summary>
+            /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter ReusableClear();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -992,6 +994,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="values"></param>
             /// <returns>删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> RemoveValues(T[] values);
+            /// <summary>
+            /// 可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter ReusableClear();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1176,12 +1182,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Renew();
+            /// <param name="capacity">容器初始化大小</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Renew(int capacity);
             /// <summary>
-            /// 获取数组
+            /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<T[]> GetArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter ReusableClear();
             /// <summary>
             /// 如果关键字不存在则添加数据
             /// </summary>
@@ -1975,8 +1981,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">节点全局关键字</param>
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
+            /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
             /// <summary>
             /// 创建 64 位自增ID 节点 IdentityGeneratorNode
             /// </summary>
@@ -2614,11 +2621,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsKey(KT key);
             /// <summary>
-            /// 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
+            /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
-            /// <param name="value"></param>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> ContainsValue(VT value);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReusableClear();
             /// <summary>
             /// 获取数据数量
             /// </summary>
@@ -2774,6 +2779,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keys"></param>
             /// <returns>删除关键字数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveKeys(KT[] keys);
+            /// <summary>
+            /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReusableClear();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2826,6 +2835,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="values"></param>
             /// <returns>删除数据数量</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> RemoveValues(T[] values);
+            /// <summary>
+            /// 可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReusableClear();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -2865,12 +2878,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             /// </summary>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Renew();
+            /// <param name="capacity">容器初始化大小</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Renew(int capacity);
             /// <summary>
-            /// 获取数组
+            /// 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T[]>> GetArray();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ReusableClear();
             /// <summary>
             /// 如果关键字不存在则添加数据
             /// </summary>
@@ -3535,8 +3548,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">节点全局关键字</param>
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
+            /// <param name="capacity">容器初始化大小</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
             /// <summary>
             /// 创建 64 位自增ID 节点 IdentityGeneratorNode
             /// </summary>
@@ -4524,11 +4538,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             ContainsKey = 1,
             /// <summary>
-            /// [2] 判断数据是否存在，时间复杂度 O(n) 不建议调用（由于缓存数据是序列化的对象副本，所以判断是否对象相等的前提是实现 IEquatable{VT} ）
-            /// VT value 
-            /// 返回值 bool 
+            /// [2] 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
-            ContainsValue = 2,
+            ReusableClear = 2,
             /// <summary>
             /// [3] 获取数据数量
             /// 返回值 int 
@@ -4626,6 +4638,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 long 失败返回 0
             /// </summary>
             TryEnter = 3,
+            /// <summary>
+            /// [4] 快照设置数据
+            /// long value 数据
+            /// </summary>
+            SnapshotSetIdentity = 4,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4707,6 +4724,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 int 删除关键字数量
             /// </summary>
             RemoveKeys = 11,
+            /// <summary>
+            /// [12] 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            ReusableClear = 12,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4763,6 +4784,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 int 删除数据数量
             /// </summary>
             RemoveValues = 7,
+            /// <summary>
+            /// [8] 可重用哈希表重置数据位置（存在引用类型数据会造成内存泄露）
+            /// </summary>
+            ReusableClear = 8,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4968,13 +4993,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Remove = 4,
             /// <summary>
             /// [5] 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            /// int capacity 容器初始化大小
             /// </summary>
             Renew = 5,
             /// <summary>
-            /// [6] 获取数组
-            /// 返回值 T[] 
+            /// [6] 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             /// </summary>
-            GetArray = 6,
+            ReusableClear = 6,
             /// <summary>
             /// [7] 如果关键字不存在则添加数据
             /// T[] values 
@@ -5871,6 +5896,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
+            /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateHashSetNode = 12,

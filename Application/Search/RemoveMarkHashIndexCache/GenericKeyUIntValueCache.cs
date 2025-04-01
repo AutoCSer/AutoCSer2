@@ -35,7 +35,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         protected GenericKeyUIntValueCache(StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<KT>> node, long maxCount, int capacity) : base(maxCount, capacity)
         {
             this.node = node;
-            getChangeKeys().NotWait();
+            getChangeKeys().Catch();
         }
         /// <summary>
         /// 获取更新关键字集合
@@ -59,7 +59,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         {
             base.Dispose();
             foreach (UIntIndex<KT, VT> node in cache.Values) node.Free();
-            cache.Clear();
+            cache.ClearCount();
         }
     }
     /// <summary>

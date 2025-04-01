@@ -1697,6 +1697,84 @@ namespace AutoCSer
         {
             return *valueStart == '-' && ((*(long*)(valueStart + 1) ^ ('I' + ('n' << 16) + ((long)'f' << 32) + ((long)'i' << 48))) | (*(long*)(valueStart + 5) ^ ('n' + ('i' << 16) + ((long)'t' << 32) + ((long)'y' << 48)))) == 0;
         }
+        ///// <summary>
+        ///// 数字解析
+        ///// </summary>
+        ///// <param name="value">数据</param>
+        //public void PrimitiveDeserialize(ref Int128 value)
+        //{
+        //    getValue();
+        //    if (State == DeserializeStateEnum.Success)
+        //    {
+        //        if (valueSize != 0 && XmlSerializer.CustomConfig.Deserialize(this, new AutoCSer.Memory.Pointer(valueStart, valueSize << 1), ref value))
+        //        {
+        //            getValueEnd();
+        //            return;
+        //        }
+        //        State = DeserializeStateEnum.NotNumber;
+        //    }
+        //}
+        ///// <summary>
+        ///// 数字解析
+        ///// </summary>
+        ///// <param name="value">数据</param>
+        //public void PrimitiveDeserialize(ref UInt128 value)
+        //{
+        //    getValue();
+        //    if (State == DeserializeStateEnum.Success)
+        //    {
+        //        if (valueSize != 0 && XmlSerializer.CustomConfig.Deserialize(this, new AutoCSer.Memory.Pointer(valueStart, valueSize << 1), ref value))
+        //        {
+        //            getValueEnd();
+        //            return;
+        //        }
+        //        State = DeserializeStateEnum.NotNumber;
+        //    }
+        //}
+        ///// <summary>
+        ///// 数字解析
+        ///// </summary>
+        ///// <param name="value">数据</param>
+        //public void PrimitiveDeserialize(ref Half value)
+        //{
+        //    getValue();
+        //    if (State == DeserializeStateEnum.Success)
+        //    {
+        //        if (valueSize != 0)
+        //        {
+        //            switch (valueSize)
+        //            {
+        //                case 3:
+        //                    if (isNaN())
+        //                    {
+        //                        value = Half.NaN;
+        //                        return;
+        //                    }
+        //                    break;
+        //                case 8:
+        //                    if (isPositiveInfinity())
+        //                    {
+        //                        value = Half.PositiveInfinity;
+        //                        return;
+        //                    }
+        //                    break;
+        //                case 9:
+        //                    if (isNegativeInfinity())
+        //                    {
+        //                        value = Half.NegativeInfinity;
+        //                        return;
+        //                    }
+        //                    break;
+        //            }
+        //            if (XmlSerializer.CustomConfig.Deserialize(this, new AutoCSer.Memory.Pointer(valueStart, valueSize << 1), ref value))
+        //            {
+        //                getValueEnd();
+        //                return;
+        //            }
+        //        }
+        //        State = DeserializeStateEnum.NotNumber;
+        //    }
+        //}
         /// <summary>
         /// 数字解析
         /// </summary>
@@ -2798,6 +2876,12 @@ namespace AutoCSer
             deserializeDelegates.Add(typeof(long?), (DeserializeDelegate<long?>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(ulong), (DeserializeDelegate<ulong>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(ulong?), (DeserializeDelegate<ulong?>)primitiveDeserialize);
+            //deserializeDelegates.Add(typeof(Int128), (DeserializeDelegate<Int128>)primitiveDeserialize);
+            //deserializeDelegates.Add(typeof(Int128?), (DeserializeDelegate<Int128?>)primitiveDeserialize);
+            //deserializeDelegates.Add(typeof(UInt128), (DeserializeDelegate<UInt128>)primitiveDeserialize);
+            //deserializeDelegates.Add(typeof(UInt128?), (DeserializeDelegate<UInt128?>)primitiveDeserialize);
+            //deserializeDelegates.Add(typeof(Half), (DeserializeDelegate<Half>)primitiveDeserialize);
+            //deserializeDelegates.Add(typeof(Half?), (DeserializeDelegate<Half?>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(float), (DeserializeDelegate<float>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(float?), (DeserializeDelegate<float?>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(double), (DeserializeDelegate<double>)primitiveDeserialize);

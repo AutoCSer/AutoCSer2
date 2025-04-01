@@ -21,6 +21,27 @@ namespace AutoCSer.Extensions
         /// <param name="task"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NotWait(this Task task) { }
+        /// <summary>
+        /// 捕获并输出异常日志
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="isQueue">默认为 false 表示不加入未完成队列</param>
+        /// <param name="callerFilePath">调用文件路径</param>
+        /// <param name="callerMemberName">调用成员名称</param>
+        /// <param name="callerLineNumber">所在文件行数</param>
+#if NetStandard21
+        public static void Catch(this Task task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
+        public static void Catch(this Task task, bool isQueue = false, [CallerFilePath] string callerFilePath = null, [CallerMemberName] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
+        {
+            if (task.IsCompleted)
+            {
+                var exception = task.Exception;
+                if (exception != null) AutoCSer.LogHelper.Default.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception, callerFilePath, callerMemberName, callerLineNumber);
+            }
+            else new AutoCSer.Threading.CatchTask(task, isQueue, callerFilePath ?? string.Empty, callerMemberName ?? string.Empty, callerLineNumber);
+        }
 #if NetStandard21
         /// <summary>
         /// A warning used to clear an await inside async without waiting for the task to execute
@@ -29,6 +50,19 @@ namespace AutoCSer.Extensions
         /// <param name="task"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NotWait(this ValueTask task) { }
+        /// <summary>
+        /// 捕获并输出异常日志
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="isQueue">默认为 false 表示不加入未完成队列</param>
+        /// <param name="callerFilePath">调用文件路径</param>
+        /// <param name="callerMemberName">调用成员名称</param>
+        /// <param name="callerLineNumber">所在文件行数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+        {
+            Catch(task.AsTask(), isQueue, callerFilePath, callerMemberName, callerLineNumber);
+        }
 #endif
         //        /// <summary>
         //        /// ValueTask 兼容

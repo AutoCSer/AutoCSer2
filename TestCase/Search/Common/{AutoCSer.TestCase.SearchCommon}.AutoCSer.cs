@@ -397,6 +397,7 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
+            /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateHashSetNode = 12,
@@ -698,6 +699,7 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
+            /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateHashSetNode = 12,
@@ -998,6 +1000,7 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
+            /// int capacity 容器初始化大小
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateHashSetNode = 12,

@@ -628,7 +628,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     }
                 }
             _code_.Add(@"
-                AutoCSer.Threading.CatchTask.Add(load());
+                AutoCSer.Extensions.TaskExtension.Catch(load());
             }");
                 if (_isOut_) outEnd();
             }

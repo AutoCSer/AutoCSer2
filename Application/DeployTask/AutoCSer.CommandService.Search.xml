@@ -6346,6 +6346,11 @@
             是否已经加载初始化数据
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.Search.ConditionDataNode`3.SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.#ctor">
             <summary>
             非索引条件查询数据节点
@@ -6390,20 +6395,11 @@
             </summary>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.GetSnapshotResult(System.Boolean[],System.Object)">
+        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.getIsLoaded">
             <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            是否已经加载初始化数据
             </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.SetSnapshotResult(AutoCSer.LeftArray{System.Boolean}@,AutoCSer.LeftArray{System.Boolean}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.Search.ConditionDataNode`3.SnapshotSetLoaded(System.Boolean)">
             <summary>
@@ -7948,6 +7944,11 @@
             是否已经加载初始化数据
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{System#Boolean}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode},AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache{AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeLocalClientNode{`0}})">
             <summary>
             分词结果磁盘块索引信息节点
@@ -8002,27 +8003,11 @@
             </summary>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#Boolean}#GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.getIsLoaded">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            是否已经加载初始化数据
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#Boolean}#GetSnapshotResult(System.Boolean[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#Boolean}#SetSnapshotResult(AutoCSer.LeftArray{System.Boolean}@,AutoCSer.LeftArray{System.Boolean}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.LocalNode`1.SnapshotSetLoaded(System.Boolean)">
             <summary>
@@ -8538,6 +8523,11 @@
             是否已经加载初始化数据
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{System#Boolean}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeClientNode},AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeClientNode{`0}})">
             <summary>
             分词结果磁盘块索引信息节点
@@ -8592,27 +8582,11 @@
             </summary>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#Boolean}#GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.getIsLoaded">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            是否已经加载初始化数据
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#Boolean}#GetSnapshotResult(System.Boolean[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#Boolean}#SetSnapshotResult(AutoCSer.LeftArray{System.Boolean}@,AutoCSer.LeftArray{System.Boolean}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1.SnapshotSetLoaded(System.Boolean)">
             <summary>
@@ -9118,6 +9092,11 @@
             Trie 图序列化数据
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#CommandService#Search#StaticTrieGraph#GraphData}#SnapshotEnumerable">
+            <summary>
+            快照集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.formatedText">
             <summary>
             分词格式化文本
@@ -9131,6 +9110,11 @@
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.words">
             <summary>
             未知词语集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#BinarySerializeKeyValue{AutoCSer#SubString,System#Int32}}#SnapshotEnumerable">
+            <summary>
+            快照集合
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.wordSegments">
@@ -9151,6 +9135,11 @@
         <member name="F:AutoCSer.CommandService.Search.StaticTrieGraphNode.builder">
             <summary>
             Trie 树初始化创建器
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{System#String}#SnapshotEnumerable">
+            <summary>
+            快照集合
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.#ctor(System.Byte,System.Byte,AutoCSer.CommandService.Search.StaticTrieGraph.WordSegmentFlags,System.String)">
@@ -9174,20 +9163,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#CommandService#Search#StaticTrieGraph#GraphData}#GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.getGraphData">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            获取 Trie 图序列化数据
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#CommandService#Search#StaticTrieGraph#GraphData}#GetSnapshotResult(AutoCSer.CommandService.Search.StaticTrieGraph.GraphData[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.SnapshotSetGraph(AutoCSer.CommandService.Search.StaticTrieGraph.GraphData)">
             <summary>
@@ -9195,55 +9175,17 @@
             </summary>
             <param name="value">数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#String}#GetSnapshotCapacity(System.Object@)">
+        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.getWords">
             <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
+            获取 Trie 图词语集合
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#String}#GetSnapshotResult(System.String[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{System#String}#SetSnapshotResult(AutoCSer.LeftArray{System.String}@,AutoCSer.LeftArray{System.String}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.SnapshotSetWord(System.String)">
             <summary>
             快照设置数据
             </summary>
             <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{AutoCSer#SubString,System#Int32}}#GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{AutoCSer#SubString,System#Int32}}#GetSnapshotResult(AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32}[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ISnapshot{AutoCSer#BinarySerializeKeyValue{AutoCSer#SubString,System#Int32}}#SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32}}@,AutoCSer.LeftArray{AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.Search.StaticTrieGraphNode.SnapshotSetWordIdentity(AutoCSer.BinarySerializeKeyValue{AutoCSer.SubString,System.Int32})">
             <summary>
@@ -9782,6 +9724,7 @@
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -10117,6 +10060,7 @@
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 关键字类型
+            int capacity 容器初始化大小
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>

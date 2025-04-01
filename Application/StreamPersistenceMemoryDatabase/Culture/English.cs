@@ -25,7 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         /// <returns></returns>
         public override string GetServerSnapshotNodeNotImplemented(Type type)
         {
-            return $"Server node type {type.fullName()} Snapshot interface {typeof(ISnapshot<>).fullName()} is not implemented.";
+            return $"Server node type {type.fullName()} Snapshot interface {typeof(ISnapshot<>).fullName()} or {typeof(IEnumerableSnapshot<>).fullName()} is not implemented.";
         }
         /// <summary>
         /// Failed to load data during memory database initialization

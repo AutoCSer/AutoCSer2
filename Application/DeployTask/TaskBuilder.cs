@@ -91,7 +91,7 @@ namespace AutoCSer.CommandService.DeployTask
             long seconds = (long)(Data.StartTime - AutoCSer.Threading.SecondTimer.UtcNow).TotalSeconds;
             if (seconds <= 0)
             {
-                OnTimerAsync().NotWait();
+                OnTimerAsync().Catch();
                 Data.Start();
                 return OperationStateEnum.Success;
             }
