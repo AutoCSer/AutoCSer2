@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Algorithm;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -8,9 +9,217 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照字典
     /// </summary>
+    /// <typeparam name="T">数据类型</typeparam>
+    public abstract class SnapshotDictionary<T> : ReusableDictionary
+    {
+        /// <summary>
+        /// 快照字典
+        /// </summary>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        protected SnapshotDictionary(int capacity, ReusableDictionaryGroupTypeEnum groupType) : base(capacity, groupType) { }
+        /// <summary>
+        /// 交换节点位置
+        /// </summary>
+        /// <param name="nodeIndex"></param>
+        /// <param name="changeIndex"></param>
+        /// <param name="nodeArray"></param>
+        protected void change(int nodeIndex, int changeIndex, ReusableHashNode<T>[] nodeArray)
+        {
+            ReusableHashNode<T> node = nodeArray[nodeIndex], changeNode = nodeArray[changeIndex];
+            if (node.HashCode != changeNode.HashCode)
+            {
+                if (CapacityDivision.GetMod(node.HashCode) != CapacityDivision.GetMod(changeNode.HashCode))
+                {
+                    if (node.SourceHigh == 0) nodeArray[(int)node.Source].HashIndex = changeIndex;
+                    else nodeArray[node.SourceIndex].Next = changeIndex;
+                    if (node.Next != int.MaxValue) nodeArray[node.Next].SetNextSource(changeIndex);
+
+                    if (changeNode.SourceHigh == 0) nodeArray[(int)changeNode.Source].HashIndex = nodeIndex;
+                    else nodeArray[changeNode.SourceIndex].Next = nodeIndex;
+                    if (changeNode.Next != int.MaxValue) nodeArray[changeNode.Next].SetNextSource(nodeIndex);
+
+                    node.HashIndex = nodeArray[changeIndex].HashIndex;
+                    changeNode.HashIndex = nodeArray[nodeIndex].HashIndex;
+                    nodeArray[changeIndex] = node;
+                    nodeArray[nodeIndex] = changeNode;
+                }
+                else
+                {
+                    nodeArray[changeIndex].Set(node.HashCode, node.Value);
+                    nodeArray[nodeIndex].Set(changeNode.HashCode, changeNode.Value);
+                }
+            }
+            else
+            {
+                nodeArray[changeIndex].Value = node.Value;
+                nodeArray[nodeIndex].Value = changeNode.Value;
+            }
+        }
+        /// <summary>
+        /// 重组数据
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="nodeArray"></param>
+        protected unsafe void resizeHashIndex(ReusableHashNode<T>[] nodes, ReusableHashNode<T>[] nodeArray)
+        {
+            IntegerDivision capacityDivision = CapacityDivision;
+            int count = nodes.Length, hashIndex;
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((count + 1) * sizeof(long));
+            try
+            {
+                byte* start = buffer.Pointer.Byte, current = start, write = start;
+                for (hashIndex = 0; hashIndex != count; ++hashIndex)
+                {
+                    *(int*)current = hashIndex;
+                    *(uint*)(current + sizeof(int)) = capacityDivision.GetMod(nodes[hashIndex].HashCode);
+                    current += sizeof(long);
+                }
+                QuickSort.SortLong(start, current - sizeof(long));
+                *(int*)current = int.MaxValue;
+                do
+                {
+                    if ((hashIndex = *(int*)(start + sizeof(int))) < count)
+                    {
+                        if (hashIndex != *(int*)(start + (sizeof(int) + sizeof(long))))
+                        {
+                            nodeArray[hashIndex].SetHashIndex(hashIndex, ref nodes[*(int*)start]);
+                            start += sizeof(long);
+                        }
+                        else
+                        {
+                            *(long*)write = *(long*)start;
+                            *(long*)(write + sizeof(long)) = *(long*)(start + sizeof(long));
+                            for (start += sizeof(long) * 2, write += sizeof(long) * 2; hashIndex == *(int*)(start + sizeof(int)); start += sizeof(long), write += sizeof(long)) *(long*)write = *(long*)start;
+                        }
+                    }
+                    else
+                    {
+                        long size = current - start;
+                        AutoCSer.Common.CopyTo(start, write, (int)size);
+                        write += size;
+                        break;
+                    }
+                }
+                while (start != current);
+                start = buffer.Pointer.Byte;
+                for (int index = 0, lastHashIndex = int.MinValue, lastIndex = 0; start != write; start += sizeof(long), lastIndex = index++)
+                {
+                    hashIndex = *(int*)(start + sizeof(int));
+                    while (nodeArray[index].Next != 0) ++index;
+                    if (lastHashIndex != hashIndex)
+                    {
+                        nodeArray[hashIndex].HashIndex = index;
+                        nodeArray[index].Set((uint)hashIndex, ref nodes[*(int*)start]);
+                        lastHashIndex = hashIndex;
+                    }
+                    else
+                    {
+                        nodeArray[lastIndex].Next = index;
+                        nodeArray[index].SetNext((uint)lastIndex, ref nodes[*(int*)start]);
+                    }
+                }
+            }
+            finally { buffer.PushOnly(); }
+            maxRemoveCount = 0;
+            Count = count;
+        }
+        /// <summary>
+        /// 重组数据
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="nodeArray"></param>
+        protected unsafe void resizeHashIndexSort(ReusableHashNode<T>[] nodes, ReusableHashNode<T>[] nodeArray)
+        {
+            IntegerDivision capacityDivision = CapacityDivision;
+            int count = nodes.Length, hashIndex;
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer(count * sizeof(long));
+            try
+            {
+                byte* start = buffer.Pointer.Byte, current = start;
+                for (hashIndex = 0; hashIndex != count; ++hashIndex)
+                {
+                    *(int*)current = hashIndex;
+                    *(uint*)(current + sizeof(int)) = capacityDivision.GetMod(nodes[hashIndex].HashCode);
+                    current += sizeof(long);
+                }
+                QuickSort.SortLong(start, current - sizeof(long));
+                int index = 0, lastHashIndex = int.MinValue;
+                do
+                {
+                    hashIndex = *(int*)(start + sizeof(int));
+                    if (lastHashIndex != hashIndex)
+                    {
+                        nodeArray[hashIndex].HashIndex = index;
+                        nodeArray[index].Set((uint)hashIndex, ref nodes[*(int*)start]);
+                        lastHashIndex = hashIndex;
+                    }
+                    else
+                    {
+                        nodeArray[hashIndex = index - 1].Next = index;
+                        nodeArray[index].SetNext((uint)hashIndex, ref nodes[*(int*)start]);
+                    }
+                    start += sizeof(long);
+                }
+                while (++index != count);
+            }
+            finally { buffer.PushOnly(); }
+            maxRemoveCount = 0;
+            Count = count;
+        }
+        /// <summary>
+        /// 重组数据
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="rollIndex"></param>
+        /// <param name="nodeArray"></param>
+        protected void resizeRoll(ReusableHashNode<T>[] nodes, int rollIndex, ReusableHashNode<T>[] nodeArray)
+        {
+            clearRemoveCount();
+            for (int index = rollIndex; index != nodes.Length; ++index)
+            {
+#if NetStandard21
+                ref ReusableHashNode<T> node = ref nodes[index];
+#else
+                ReusableHashNode<T> node = nodes[index];
+#endif
+                add(node.HashCode, node.Value, nodeArray);
+            }
+            for (int index = 0; index != rollIndex; ++index)
+            {
+#if NetStandard21
+                ref ReusableHashNode<T> node = ref nodes[index];
+#else
+                ReusableHashNode<T> node = nodes[index];
+#endif
+                add(node.HashCode, node.Value, nodeArray);
+            }
+        }
+        /// <summary>
+        /// 新增数据
+        /// </summary>
+        /// <param name="hashCode"></param>
+        /// <param name="value"></param>
+        /// <param name="nodeArray"></param>
+        /// <returns></returns>
+        protected void add(uint hashCode, T value, ReusableHashNode<T>[] nodeArray)
+        {
+            int hashIndex = (int)CapacityDivision.GetMod(hashCode), linkIndex = nodeArray[hashIndex].HashIndex;
+            if (linkIndex < Count && nodeArray[linkIndex].Source == (uint)hashIndex)
+            {
+                nodeArray[linkIndex].SetNextSource(Count);
+                nodeArray[Count].Set((uint)hashIndex, hashCode, value, linkIndex);
+            }
+            else nodeArray[Count].Set((uint)hashIndex, hashCode, value);
+            nodeArray[hashIndex].HashIndex = Count++;
+        }
+    }
+    /// <summary>
+    /// 快照字典
+    /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型，必须是只读类型（不允许存在成员变更操作）</typeparam>
-    public sealed class SnapshotDictionary<KT, VT> : ReusableDictionary
+    public sealed class SnapshotDictionary<KT, VT> : SnapshotDictionary<BinarySerializeKeyValue<KT, VT>>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
 #else
@@ -97,16 +306,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             get
             {
                 var value = default(VT);
-                if (TryGetValue(key, out value)) return value;
+                if (TryGetValue(key, (uint)key.GetHashCode(), out value)) return value;
                 throw new IndexOutOfRangeException();
             }
-            set { Set(key, value); }
+            set { Set(key, (uint)key.GetHashCode(), value); }
         }
         /// <summary>
-        /// 可重用字典
+        /// 快照字典
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
-        public SnapshotDictionary(int capacity = 0) : base(capacity)
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        public SnapshotDictionary(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex) : base(capacity, groupType)
         {
             Nodes = new SnapshotDictionaryNodeArray<KT, VT>(this, (int)CapacityDivision.Divisor);
         }
@@ -144,47 +354,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (orderIndex <= rollEndIndex + ((Count - rollEndIndex) >> 1))
             {
                 int changeIndex = nodeIndex + ((Count - orderIndex) >> 1);
-                if (nodeIndex != changeIndex) change(nodeIndex, changeIndex < Count ? changeIndex : changeIndex - Count);
-            }
-        }
-        /// <summary>
-        /// 交换节点位置
-        /// </summary>
-        /// <param name="nodeIndex"></param>
-        /// <param name="changeIndex"></param>
-        private void change(int nodeIndex, int changeIndex)
-        {
-            ReusableHashNode<BinarySerializeKeyValue<KT, VT>>[] nodeArray = Nodes.Nodes;
-            Nodes.TrySetSnapshotKeyValue(changeIndex);
-            Nodes.TrySetSnapshotKeyValue(nodeIndex);
-            ReusableHashNode<BinarySerializeKeyValue<KT, VT>> node = nodeArray[nodeIndex], changeNode = nodeArray[changeIndex];
-            if (node.HashCode != changeNode.HashCode)
-            {
-                if (CapacityDivision.GetMod(node.HashCode) != CapacityDivision.GetMod(changeNode.HashCode))
+                if (nodeIndex != changeIndex)
                 {
-                    if (node.SourceHigh == 0) nodeArray[(int)node.Source].HashIndex = changeIndex;
-                    else nodeArray[node.SourceIndex].Next = changeIndex;
-                    if (node.Next != int.MaxValue) nodeArray[node.Next].SetNextSource(changeIndex);
-
-                    if (changeNode.SourceHigh == 0) nodeArray[(int)changeNode.Source].HashIndex = nodeIndex;
-                    else nodeArray[changeNode.SourceIndex].Next = nodeIndex;
-                    if (changeNode.Next != int.MaxValue) nodeArray[changeNode.Next].SetNextSource(nodeIndex);
-
-                    node.HashIndex = nodeArray[changeIndex].HashIndex;
-                    changeNode.HashIndex = nodeArray[nodeIndex].HashIndex;
-                    nodeArray[changeIndex] = node;
-                    nodeArray[nodeIndex] = changeNode;
+                    if (changeIndex >= Count) changeIndex -= Count;
+                    Nodes.TrySetSnapshotKeyValue(changeIndex);
+                    Nodes.TrySetSnapshotKeyValue(nodeIndex);
+                    change(nodeIndex, changeIndex, Nodes.Nodes);
                 }
-                else
-                {
-                    nodeArray[changeIndex].Set(node.HashCode, node.Value);
-                    nodeArray[nodeIndex].Set(changeNode.HashCode, changeNode.Value);
-                }
-            }
-            else
-            {
-                nodeArray[changeIndex].Value = node.Value;
-                nodeArray[nodeIndex].Value = changeNode.Value;
             }
         }
         /// <summary>
@@ -194,16 +370,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value">目标数据</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否获取成功</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public bool TryGetValue(KT key, [MaybeNullWhen(false)] out VT value, bool isRoll = false)
 #else
         public bool TryGetValue(KT key, out VT value, bool isRoll = false)
 #endif
         {
+            return TryGetValue(key, (uint)key.GetHashCode(), out value, isRoll);
+        }
+        /// <summary>
+        /// 尝试获取数据
+        /// </summary>
+        /// <param name="key">关键字</param>
+        /// <param name="hashCode">哈希值</param>
+        /// <param name="value">目标数据</param>
+        /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+        /// <returns>是否获取成功</returns>
+#if NetStandard21
+        internal bool TryGetValue(KT key, uint hashCode, [MaybeNullWhen(false)] out VT value, bool isRoll = false)
+#else
+        internal bool TryGetValue(KT key, uint hashCode, out VT value, bool isRoll = false)
+#endif
+        {
             if (Count != 0)
             {
                 ReusableHashNode<BinarySerializeKeyValue<KT, VT>>[] nodeArray = Nodes.Nodes;
-                uint hashCode = (uint)key.GetHashCode();
                 int hashIndex = (int)CapacityDivision.GetMod(hashCode), nodeIndex = nodeArray[hashIndex].HashIndex;
                 if (nodeIndex < Count)
                 {
@@ -215,7 +407,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (node.HashCode == hashCode && node.Source == hashIndex && node.Value.Key.Equals(key))
                     {
                         value = node.Value.Value;
-                        if (!isRoll) return true;
+                        if (!isRoll || groupType != ReusableDictionaryGroupTypeEnum.Roll) return true;
                         changeIndex(nodeIndex);
                         return true;
                     }
@@ -231,7 +423,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             if (node.HashCode == hashCode && node.Value.Key.Equals(key))
                             {
                                 value = node.Value.Value;
-                                if (!isRoll) return true;
+                                if (!isRoll || groupType != ReusableDictionaryGroupTypeEnum.Roll) return true;
                                 changeIndex(nodeIndex);
                                 return true;
                             }
@@ -243,6 +435,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// 添加数据
+        /// </summary>
+        /// <param name="hashCode">哈希值</param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void Add(uint hashCode, BinarySerializeKeyValue<KT, VT> value)
+        {
+            if (Count == CapacityDivision.Divisor) resize();
+            add(hashCode, value, Nodes.Nodes);
+        }
+        /// <summary>
         /// 设置数据
         /// </summary>
         /// <param name="key">关键字</param>
@@ -252,7 +455,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Set(KT key, VT value, bool isRoll = false)
         {
-            return set(key, value, isRoll, false);
+            return set(key, (uint)key.GetHashCode(), value, isRoll, false);
+        }
+        /// <summary>
+        /// 设置数据
+        /// </summary>
+        /// <param name="key">关键字</param>
+        /// <param name="hashCode">哈希值</param>
+        /// <param name="value"></param>
+        /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+        /// <returns>是否新增数据</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool Set(KT key, uint hashCode, VT value, bool isRoll = false)
+        {
+            return set(key, hashCode, value, isRoll, false);
         }
         /// <summary>
         /// 设置数据
@@ -263,7 +479,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Set(ref BinarySerializeKeyValue<KT, VT> keyValue, bool isRoll = false)
         {
-            return set(keyValue.Key, keyValue.Value, isRoll, false);
+            return set(keyValue.Key, (uint)keyValue.Key.GetHashCode(), keyValue.Value, isRoll, false);
         }
         /// <summary>
         /// 设置数据
@@ -274,7 +490,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Set(ref KeyValue<KT, VT> keyValue, bool isRoll = false)
         {
-            return set(keyValue.Key, keyValue.Value, isRoll, false);
+            return set(keyValue.Key, (uint)keyValue.Key.GetHashCode(), keyValue.Value, isRoll, false);
         }
         /// <summary>
         /// 添加数据
@@ -286,19 +502,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool TryAdd(KT key, VT value, bool isRoll = false)
         {
-            return set(key, value, isRoll, true);
+            return set(key, (uint)key.GetHashCode(), value, isRoll, true);
+        }
+        /// <summary>
+        /// 添加数据
+        /// </summary>
+        /// <param name="key">关键字</param>
+        /// <param name="value"></param>
+        /// <param name="hashCode">哈希值</param>
+        /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+        /// <returns>是否添加数据</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool TryAdd(KT key, uint hashCode, VT value, bool isRoll = false)
+        {
+            return set(key, hashCode, value, isRoll, true);
         }
         /// <summary>
         /// 设置数据
         /// </summary>
         /// <param name="key">关键字</param>
         /// <param name="value"></param>
+        /// <param name="hashCode">哈希值</param>
         /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <param name="isAdd"></param>
         /// <returns>是否新增数据</returns>
-        private bool set(KT key, VT value, bool isRoll, bool isAdd)
+        private bool set(KT key, uint hashCode, VT value, bool isRoll, bool isAdd)
         {
-            uint hashCode = (uint)key.GetHashCode();
             int hashIndex = (int)CapacityDivision.GetMod(hashCode);
             ReusableHashNode<BinarySerializeKeyValue<KT, VT>>[] nodeArray = Nodes.Nodes;
             if (Count != 0)
@@ -315,12 +544,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
                         if (hashCode == node.HashCode && node.Value.Key.Equals(key))
                         {
-                            if (!isAdd)
-                            {
-                                Nodes.SetValue(nodeIndex, value);
-                                if (!isRoll) return false;
-                                changeIndex(nodeIndex);
-                            }
+                            if (!isAdd) Nodes.SetValue(nodeIndex, value);
+                            if (!isRoll || groupType != ReusableDictionaryGroupTypeEnum.Roll) return false;
+                            changeIndex(nodeIndex);
                             return false;
                         }
                         if (node.Next == int.MaxValue)
@@ -334,7 +560,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             else
                             {
                                 resize();
-                                add(hashCode, new BinarySerializeKeyValue<KT, VT>(key, value));
+                                add(hashCode, new BinarySerializeKeyValue<KT, VT>(key, value), Nodes.Nodes);
                             }
                             return true;
                         }
@@ -351,7 +577,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 else
                 {
                     resize();
-                    add(hashCode, new BinarySerializeKeyValue<KT, VT>(key, value));
+                    add(hashCode, new BinarySerializeKeyValue<KT, VT>(key, value), Nodes.Nodes);
                 }
             }
             else
@@ -373,52 +599,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 
             Nodes = new SnapshotDictionaryNodeArray<KT, VT>(this, capacity);
             CapacityDivision.Set(capacity);
-            resize(nodeArray, rollIndex);
-        }
-        /// <summary>
-        /// 重组数据
-        /// </summary>
-        /// <param name="nodes"></param>
-        /// <param name="rollIndex"></param>
-        private void resize(ReusableHashNode<BinarySerializeKeyValue<KT, VT>>[] nodes, int rollIndex)
-        {
-            clearRemoveCount();
-            for (int index = rollIndex; index != nodes.Length; ++index)
+            switch (groupType)
             {
-#if NetStandard21
-                ref ReusableHashNode<BinarySerializeKeyValue<KT, VT>> node = ref nodes[index];
-#else
-                ReusableHashNode<BinarySerializeKeyValue<KT, VT>> node = nodes[index];
-#endif
-                add(node.HashCode, node.Value);
+                case ReusableDictionaryGroupTypeEnum.HashIndexSort: resizeHashIndexSort(nodeArray, Nodes.Nodes); return;
+                case ReusableDictionaryGroupTypeEnum.Roll: resizeRoll(nodeArray, rollIndex, Nodes.Nodes); return;
+                default: resizeHashIndex(nodeArray, Nodes.Nodes); return;
             }
-            for (int index = 0; index != rollIndex; ++index)
-            {
-#if NetStandard21
-                ref ReusableHashNode<BinarySerializeKeyValue<KT, VT>> node = ref nodes[index];
-#else
-                ReusableHashNode<BinarySerializeKeyValue<KT, VT>> node = nodes[index];
-#endif
-                add(node.HashCode, node.Value);
-            }
-        }
-        /// <summary>
-        /// 新增数据
-        /// </summary>
-        /// <param name="hashCode"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private void add(uint hashCode, BinarySerializeKeyValue<KT, VT> value)
-        {
-            ReusableHashNode<BinarySerializeKeyValue<KT, VT>>[] nodeArray = Nodes.Nodes;
-            int hashIndex = (int)CapacityDivision.GetMod(hashCode), linkIndex = nodeArray[hashIndex].HashIndex;
-            if (linkIndex < Count && nodeArray[linkIndex].Source == (uint)hashIndex)
-            {
-                nodeArray[linkIndex].SetNextSource(Count);
-                nodeArray[Count].Set((uint)hashIndex, hashCode, value, linkIndex);
-            }
-            else nodeArray[Count].Set((uint)hashIndex, hashCode, value);
-            nodeArray[hashIndex].HashIndex = Count++;
         }
 
         /// <summary>
@@ -431,7 +617,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool ContainsKey(KT key, bool isRoll = false)
         {
             var value = default(VT);
-            return TryGetValue(key, out value, isRoll);
+            return TryGetValue(key, (uint)key.GetHashCode(), out value, isRoll);
+        }
+        /// <summary>
+        /// 判断是否存在关键字
+        /// </summary>
+        /// <param name="key">关键字</param>
+        /// <param name="hashCode">哈希值</param>
+        /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+        /// <returns>是否存在关键字</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool ContainsKey(KT key, uint hashCode, bool isRoll = false)
+        {
+            var value = default(VT);
+            return TryGetValue(key, hashCode, out value, isRoll);
         }
         /// <summary>
         /// 删除关键字
@@ -442,7 +641,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool Remove(KT key)
         {
             var value = default(VT);
-            return Remove(key, out value);
+            return Remove(key, (uint)key.GetHashCode(), out value);
+        }
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashCode">哈希值</param>
+        /// <returns>是否存在关键字</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool Remove(KT key, uint hashCode)
+        {
+            var value = default(VT);
+            return Remove(key, hashCode, out value);
         }
         /// <summary>
         /// 删除关键字
@@ -450,16 +661,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key"></param>
         /// <param name="value">被删除数据</param>
         /// <returns>是否存在关键字</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public bool Remove(KT key, [MaybeNullWhen(false)] out VT value)
 #else
         public bool Remove(KT key, out VT value)
 #endif
         {
+            return Remove(key, (uint)key.GetHashCode(), out value);
+        }
+        /// <summary>
+        /// 删除关键字
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashCode">哈希值</param>
+        /// <param name="value">被删除数据</param>
+        /// <returns>是否存在关键字</returns>
+#if NetStandard21
+        internal bool Remove(KT key, uint hashCode, [MaybeNullWhen(false)] out VT value)
+#else
+        internal bool Remove(KT key, uint hashCode, out VT value)
+#endif
+        {
             if (Count != 0)
             {
                 ReusableHashNode<BinarySerializeKeyValue<KT, VT>>[] nodeArray = Nodes.Nodes;
-                uint hashCode = (uint)key.GetHashCode();
                 int hashIndex = (int)CapacityDivision.GetMod(hashCode), nodeIndex = nodeArray[hashIndex].HashIndex;
                 if (nodeIndex < Count)
                 {
@@ -536,12 +762,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 删除滚动索引位置数据
         /// </summary>
         /// <param name="value">被删除数据</param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         public bool RemoveRoll(out BinarySerializeKeyValue<KT, VT> value)
         {
-            if (Count != 0)
+            if (Count != 0 && groupType == ReusableDictionaryGroupTypeEnum.Roll)
             {
                 ReusableHashNode<BinarySerializeKeyValue<KT, VT>>[] nodeArray = Nodes.Nodes;
+                if (rollIndex >= Count) rollIndex = 0;
 #if NetStandard21
                 ref ReusableHashNode<BinarySerializeKeyValue<KT, VT>> node = ref nodeArray[rollIndex];
 #else
@@ -584,7 +811,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 删除滚动索引位置数据
         /// </summary>
         /// <param name="value">被删除数据</param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>是否存在数据，非 Roll 类型也返回 false</returns>
 #if NetStandard21
         public bool RemoveRoll([MaybeNullWhen(false)] out VT value)
 #else
@@ -618,7 +845,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 int index = 0;
                 foreach (KT key in keys)
                 {
-                    if (key != null && TryGetValue(key, out value)) values[index] = value;
+                    if (key != null && TryGetValue(key, (uint)key.GetHashCode(), out value)) values[index] = value;
                     ++index;
                 }
                 return values;

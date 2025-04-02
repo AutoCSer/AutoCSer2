@@ -79,7 +79,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             T key = distributedLock.Identity.Key;
             var removeLock = default(DistributedLock<T>);
-            if (locks.TryGetValue(key, out removeLock) && object.ReferenceEquals(distributedLock, removeLock)) locks.Remove(key);
+            if (locks.TryGetValue(key, (uint)key.GetHashCode(), out removeLock) && object.ReferenceEquals(distributedLock, removeLock)) locks.Remove(key);
         }
         /// <summary>
         /// 申请锁
@@ -92,9 +92,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (key != null && timeoutSeconds != 0)
             {
                 var distributedLock = default(DistributedLock<T>);
-                if (!locks.TryGetValue(key, out distributedLock))
+                uint hashCode = (uint)key.GetHashCode();
+                if (!locks.TryGetValue(key, hashCode, out distributedLock))
                 {
-                    locks.TryAdd(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
+                    locks.Add(hashCode, new BinarySerializeKeyValue<T, DistributedLock<T>>(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds)));
                     StreamPersistenceMemoryDatabaseNode.IsPersistenceCallbackChanged = true;
                     callback.SynchronousCallback(distributedLock.Identity.Identity);
                 }
@@ -118,9 +119,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (key != null && timeoutSeconds != 0)
             {
                 var distributedLock = default(DistributedLock<T>);
-                if (!locks.TryGetValue(key, out distributedLock))
+                uint hashCode = (uint)key.GetHashCode();
+                if (!locks.TryGetValue(key, hashCode, out distributedLock))
                 {
-                    locks.TryAdd(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds));
+                    locks.Add(hashCode, new BinarySerializeKeyValue<T, DistributedLock<T>>(key, distributedLock = new DistributedLock<T>(this, key, timeoutSeconds)));
                     return distributedLock.Identity.Identity;
                 }
             }
@@ -136,7 +138,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (key != null)
             {
                 var distributedLock = default(DistributedLock<T>);
-                if (locks.TryGetValue(key, out distributedLock)) distributedLock.Release(identity);
+                if (locks.TryGetValue(key, (uint)key.GetHashCode(), out distributedLock)) distributedLock.Release(identity);
             }
         }
     }

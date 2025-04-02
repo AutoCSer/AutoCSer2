@@ -122,8 +122,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType);
         /// <summary>
         /// 创建字典节点 ByteArrayDictionaryNode{KT}
         /// </summary>
@@ -132,8 +133,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="keyType">关键字类型</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateByteArrayDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+        NodeIndex CreateByteArrayDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, ReusableDictionaryGroupTypeEnum groupType);
         /// <summary>
         /// 创建字典节点 DictionaryNode{KT,VT}
         /// </summary>
@@ -143,8 +145,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="keyType">关键字类型</param>
         /// <param name="valueType">数据类型</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
+        NodeIndex CreateDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity, ReusableDictionaryGroupTypeEnum groupType);
         /// <summary>
         /// 创建二叉搜索树节点 SearchTreeDictionaryNode{KT,VT}
         /// </summary>
@@ -193,8 +196,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="keyType">关键字类型</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+        NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, ReusableDictionaryGroupTypeEnum groupType);
         /// <summary>
         /// 创建二叉搜索树集合节点 SearchTreeSetNode{KT}
         /// </summary>

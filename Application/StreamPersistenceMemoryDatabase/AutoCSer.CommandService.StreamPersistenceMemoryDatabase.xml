@@ -1568,12 +1568,13 @@
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient`1.GetOrCreateDictionaryNode``2(System.String,System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient`1.GetOrCreateDictionaryNode``2(System.String,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum,System.Boolean)">
             <summary>
             获取字典节点，不存在则创建节点 DictionaryNode{KT,VT}
             </summary>
             <param name="key">节点全局关键字</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -1610,12 +1611,13 @@
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient`1.GetOrCreateHashSetNode``1(System.String,System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient`1.GetOrCreateHashSetNode``1(System.String,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum,System.Boolean)">
             <summary>
             获取哈希表节点，不存在则创建节点 HashSetNode{KT}
             </summary>
             <param name="key">节点全局关键字</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -2989,7 +2991,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 IDictionaryNode{KT,T}
             </summary>
@@ -2998,6 +3000,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">二进制位数量</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.create``2">
@@ -3048,7 +3051,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2`2.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2`2.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 IDictionaryNode{KT,T}
             </summary>
@@ -3057,6 +3060,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType">
@@ -3084,7 +3088,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 IByteArrayDictionaryNode{KT}
             </summary>
@@ -3093,6 +3097,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.CreateFragmentHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -3105,7 +3110,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建哈希表节点 IHashSetNode{KT}
             </summary>
@@ -3114,6 +3119,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.create``1">
@@ -3166,7 +3172,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType`1.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType`1.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 IByteArrayDictionaryNode{KT}
             </summary>
@@ -3175,6 +3181,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType`1.CreateFragmentHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -3187,7 +3194,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType`1.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType`1.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建哈希表节点 IHashSetNode{KT}
             </summary>
@@ -3196,6 +3203,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.StructGenericType">
@@ -8265,11 +8273,12 @@
             快照集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             字典节点
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ByteArrayDictionaryNode`1.SnapshotAdd(AutoCSer.BinarySerializeKeyValue{`0,System.Byte[]})">
             <summary>
@@ -8381,11 +8390,12 @@
             快照集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             字典节点
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashBytesDictionaryNode.SnapshotAdd(AutoCSer.BinarySerializeKeyValue{System.Byte[],System.Byte[]})">
             <summary>
@@ -9063,11 +9073,12 @@
             快照集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             哈希表节点
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.HashSetNode`1.Renew(System.Int32)">
             <summary>
@@ -17234,11 +17245,12 @@
             快照集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             字典节点
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.SnapshotAdd(AutoCSer.KeyValue{`0,`1})">
             <summary>
@@ -18186,7 +18198,7 @@
             <param name="valueType">数据类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 HashBytesDictionaryNode
             </summary>
@@ -18194,9 +18206,10 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 ByteArrayDictionaryNode{KT}
             </summary>
@@ -18205,9 +18218,10 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 DictionaryNode{KT,VT}
             </summary>
@@ -18217,6 +18231,7 @@
             <param name="keyType">关键字类型</param>
             <param name="valueType">数据类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateSearchTreeDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType)">
@@ -18263,7 +18278,7 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -18272,6 +18287,7 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateSearchTreeSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -19517,13 +19533,6 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.GetOrCreateHashSet(`0)">
-            <summary>
-            根据数据获取哈希表，不存在时创建哈希表
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotHashSet256`1.Contains(`0)">
             <summary>
             判断数据是否存在
@@ -19606,20 +19615,6 @@
             <summary>
             清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.getIndex(`0)">
-            <summary>
-            获取分片索引
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.GetOrCreateDictionary(`0)">
-            <summary>
-            根据关键字获取字典，不存在时创建字典
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256`2.TryAdd(`0,`1)">
             <summary>
@@ -20135,11 +20130,12 @@
             数据集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
-            可重用哈希表
+            快照哈希表
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Renew(System.Int32)">
             <summary>
@@ -20158,18 +20154,20 @@
             </summary>
             <param name="nodeIndex"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.change(System.Int32,System.Int32)">
-            <summary>
-            交换节点位置
-            </summary>
-            <param name="nodeIndex"></param>
-            <param name="changeIndex"></param>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Contains(`0,System.Boolean)">
             <summary>
             判断是否存在关键字
             </summary>
             <param name="key">关键字</param>
+            <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Contains(`0,System.UInt32,System.Boolean)">
+            <summary>
+            判断是否存在关键字
+            </summary>
+            <param name="key">关键字</param>
+            <param name="hashCode"></param>
             <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <returns>是否存在关键字</returns>
         </member>
@@ -20181,11 +20179,12 @@
             <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <returns>是否添加数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.add(`0,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Add(`0,System.UInt32,System.Boolean)">
             <summary>
             设置数据
             </summary>
             <param name="key">关键字</param>
+            <param name="hashCode"></param>
             <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <returns>是否新增数据</returns>
         </member>
@@ -20194,26 +20193,19 @@
             重组数据
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.resize(AutoCSer.ReusableHashNode{`0}[],System.Int32)">
-            <summary>
-            重组数据
-            </summary>
-            <param name="nodes"></param>
-            <param name="rollIndex"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.add(System.UInt32,`0)">
-            <summary>
-            新增数据
-            </summary>
-            <param name="hashCode"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Remove(`0)">
             <summary>
             删除关键字
             </summary>
             <param name="key"></param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.Remove(`0,System.UInt32)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <param name="hashCode"></param>
             <returns>是否存在关键字</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.remove(System.Int32,System.Int32)">
@@ -20227,7 +20219,7 @@
             <summary>
             删除滚动索引位置数据
             </summary>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet`1.RemoveKeys(`0[])">
             <summary>
@@ -20235,6 +20227,58 @@
             </summary>
             <param name="keys"></param>
             <returns>删除关键字数量</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`1">
+            <summary>
+            快照字典
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`1.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
+            <summary>
+            快照字典
+            </summary>
+            <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`1.change(System.Int32,System.Int32,AutoCSer.ReusableHashNode{`0}[])">
+            <summary>
+            交换节点位置
+            </summary>
+            <param name="nodeIndex"></param>
+            <param name="changeIndex"></param>
+            <param name="nodeArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`1.resizeHashIndex(AutoCSer.ReusableHashNode{`0}[],AutoCSer.ReusableHashNode{`0}[])">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+            <param name="nodeArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`1.resizeHashIndexSort(AutoCSer.ReusableHashNode{`0}[],AutoCSer.ReusableHashNode{`0}[])">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+            <param name="nodeArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`1.resizeRoll(AutoCSer.ReusableHashNode{`0}[],System.Int32,AutoCSer.ReusableHashNode{`0}[])">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+            <param name="rollIndex"></param>
+            <param name="nodeArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`1.add(System.UInt32,`0,AutoCSer.ReusableHashNode{`0}[])">
+            <summary>
+            新增数据
+            </summary>
+            <param name="hashCode"></param>
+            <param name="value"></param>
+            <param name="nodeArray"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2">
             <summary>
@@ -20285,11 +20329,12 @@
             <param name="key">关键字</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.#ctor(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
-            可重用字典
+            快照字典
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Renew(System.Int32)">
             <summary>
@@ -20308,13 +20353,6 @@
             </summary>
             <param name="nodeIndex"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.change(System.Int32,System.Int32)">
-            <summary>
-            交换节点位置
-            </summary>
-            <param name="nodeIndex"></param>
-            <param name="changeIndex"></param>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.TryGetValue(`0,`1@,System.Boolean)">
             <summary>
             尝试获取数据
@@ -20324,11 +20362,38 @@
             <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <returns>是否获取成功</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.TryGetValue(`0,System.UInt32,`1@,System.Boolean)">
+            <summary>
+            尝试获取数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="hashCode">哈希值</param>
+            <param name="value">目标数据</param>
+            <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否获取成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Add(System.UInt32,AutoCSer.BinarySerializeKeyValue{`0,`1})">
+            <summary>
+            添加数据
+            </summary>
+            <param name="hashCode">哈希值</param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Set(`0,`1,System.Boolean)">
             <summary>
             设置数据
             </summary>
             <param name="key">关键字</param>
+            <param name="value"></param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否新增数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Set(`0,System.UInt32,`1,System.Boolean)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="hashCode">哈希值</param>
             <param name="value"></param>
             <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <returns>是否新增数据</returns>
@@ -20358,12 +20423,23 @@
             <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <returns>是否添加数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.set(`0,`1,System.Boolean,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.TryAdd(`0,System.UInt32,`1,System.Boolean)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value"></param>
+            <param name="hashCode">哈希值</param>
+            <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否添加数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.set(`0,System.UInt32,`1,System.Boolean,System.Boolean)">
             <summary>
             设置数据
             </summary>
             <param name="key">关键字</param>
             <param name="value"></param>
+            <param name="hashCode">哈希值</param>
             <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <param name="isAdd"></param>
             <returns>是否新增数据</returns>
@@ -20373,26 +20449,20 @@
             重组数据
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.resize(AutoCSer.ReusableHashNode{AutoCSer.BinarySerializeKeyValue{`0,`1}}[],System.Int32)">
-            <summary>
-            重组数据
-            </summary>
-            <param name="nodes"></param>
-            <param name="rollIndex"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.add(System.UInt32,AutoCSer.BinarySerializeKeyValue{`0,`1})">
-            <summary>
-            新增数据
-            </summary>
-            <param name="hashCode"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.ContainsKey(`0,System.Boolean)">
             <summary>
             判断是否存在关键字
             </summary>
             <param name="key">关键字</param>
+            <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.ContainsKey(`0,System.UInt32,System.Boolean)">
+            <summary>
+            判断是否存在关键字
+            </summary>
+            <param name="key">关键字</param>
+            <param name="hashCode">哈希值</param>
             <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
             <returns>是否存在关键字</returns>
         </member>
@@ -20403,11 +20473,28 @@
             <param name="key"></param>
             <returns>是否存在关键字</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Remove(`0,System.UInt32)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <param name="hashCode">哈希值</param>
+            <returns>是否存在关键字</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Remove(`0,`1@)">
             <summary>
             删除关键字
             </summary>
             <param name="key"></param>
+            <param name="value">被删除数据</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.Remove(`0,System.UInt32,`1@)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <param name="hashCode">哈希值</param>
             <param name="value">被删除数据</param>
             <returns>是否存在关键字</returns>
         </member>
@@ -20428,14 +20515,14 @@
             删除滚动索引位置数据
             </summary>
             <param name="value">被删除数据</param>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.RemoveRoll(`1@)">
             <summary>
             删除滚动索引位置数据
             </summary>
             <param name="value">被删除数据</param>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary`2.GetValueArray(`0[])">
             <summary>
@@ -25196,7 +25283,7 @@
             <param name="valueType">数据类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 HashBytesDictionaryNode
             </summary>
@@ -25204,9 +25291,10 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 ByteArrayDictionaryNode{KT}
             </summary>
@@ -25215,9 +25303,10 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 DictionaryNode{KT,VT}
             </summary>
@@ -25227,6 +25316,7 @@
             <param name="keyType">关键字类型</param>
             <param name="valueType">数据类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.getComparableType(AutoCSer.Reflection.RemoteType@,System.Type@)">
@@ -25291,7 +25381,7 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -25300,6 +25390,7 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateSearchTreeSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -27233,7 +27324,7 @@
             <param name="capacity">二进制位数量</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 ByteArrayDictionaryNode{KT}
             </summary>
@@ -27242,6 +27333,7 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateByteArrayFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -27274,7 +27366,7 @@
             <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 DictionaryNode{KT,VT}
             </summary>
@@ -27284,6 +27376,7 @@
             <param name="keyType">关键字类型</param>
             <param name="valueType">数据类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -27317,7 +27410,7 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 HashBytesDictionaryNode
             </summary>
@@ -27325,6 +27418,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -27336,7 +27430,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -27345,6 +27439,7 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
@@ -28038,7 +28133,7 @@
             <param name="capacity">二进制位数量</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 ByteArrayDictionaryNode{KT}
             </summary>
@@ -28047,6 +28142,7 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateByteArrayFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -28079,7 +28175,7 @@
             <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 DictionaryNode{KT,VT}
             </summary>
@@ -28089,6 +28185,7 @@
             <param name="keyType">关键字类型</param>
             <param name="valueType">数据类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateDistributedLockNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
@@ -28122,7 +28219,7 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建字典节点 HashBytesDictionaryNode
             </summary>
@@ -28130,6 +28227,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -28141,7 +28239,7 @@
             <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             创建哈希表节点 HashSetNode{KT}
             </summary>
@@ -28150,6 +28248,7 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
@@ -30201,6 +30300,7 @@
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 关键字类型
             int capacity 容器初始化大小
+            AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -30243,6 +30343,7 @@
             AutoCSer.Reflection.RemoteType keyType 关键字类型
             AutoCSer.Reflection.RemoteType valueType 数据类型
             int capacity 容器初始化大小
+            AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -30284,6 +30385,7 @@
             string key 节点全局关键字
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             int capacity 容器初始化大小
+            AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -30304,6 +30406,7 @@
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             AutoCSer.Reflection.RemoteType keyType 关键字类型
             int capacity 容器初始化大小
+            AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
@@ -31581,30 +31684,33 @@
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateHashBytesDictionaryNode(System.String,System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateHashBytesDictionaryNode(System.String,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum,System.Boolean)">
             <summary>
             获取字典节点，不存在则创建节点 HashBytesDictionaryNode
             </summary>
             <param name="key">节点全局关键字</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateByteArrayDictionaryNode``1(System.String,System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateByteArrayDictionaryNode``1(System.String,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum,System.Boolean)">
             <summary>
             获取字典节点，不存在则创建节点 ByteArrayDictionaryNode{KT}
             </summary>
             <param name="key">节点全局关键字</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateDictionaryNode``2(System.String,System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateDictionaryNode``2(System.String,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum,System.Boolean)">
             <summary>
             获取字典节点，不存在则创建节点 DictionaryNode{KT,VT}
             </summary>
             <param name="key">节点全局关键字</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -31641,12 +31747,13 @@
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateHashSetNode``1(System.String,System.Int32,System.Boolean)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateHashSetNode``1(System.String,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum,System.Boolean)">
             <summary>
             获取哈希表节点，不存在则创建节点 HashSetNode{KT}
             </summary>
             <param name="key">节点全局关键字</param>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
             <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>

@@ -8,15 +8,6 @@ namespace AutoCSer.Extensions
     public static unsafe partial class ArraySort
     {
         /// <summary>
-        /// 数组排序
-        /// </summary>
-        /// <param name="array">长度大于 1</param>
-        internal static void QuickSort(this int[] array)
-        {
-            fixed (int* arrayFixed = array) AutoCSer.Algorithm.QuickSort.SortInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
-        }
-
-        /// <summary>
         /// 随机排序
         /// </summary>
         /// <typeparam name="T">值类型</typeparam>

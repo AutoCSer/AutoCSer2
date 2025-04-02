@@ -36,12 +36,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 字典节点
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
-        public ByteArrayDictionaryNode(int capacity = 0)
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        public ByteArrayDictionaryNode(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex)
         {
 #if NetStandard21
-            dictionary = new SnapshotDictionary<KT, byte[]?>(capacity);
+            dictionary = new SnapshotDictionary<KT, byte[]?>(capacity, groupType);
 #else
-            dictionary = new SnapshotDictionary<KT, byte[]>(capacity);
+            dictionary = new SnapshotDictionary<KT, byte[]>(capacity, groupType);
 #endif
         }
         /// <summary>
@@ -76,7 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         public bool TryAdd(KT key, ServerByteArray value)
         {
-            return key != null && dictionary.TryAdd(key, value);
+            return key != null && dictionary.TryAdd(key, (uint)key.GetHashCode(), value);
         }
         /// <summary>
         /// 强制设置数据，如果关键字已存在则覆盖
@@ -105,7 +106,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             var value = default(byte[]);
-            if (key != null && dictionary.TryGetValue(key, out value)) return value;
+            if (key != null && dictionary.TryGetValue(key, (uint)key.GetHashCode(), out value)) return value;
 #if NetStandard21
             return default(ValueResult<byte[]?>);
 #else
@@ -135,7 +136,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (key != null)
             {
                 var value = default(byte[]);
-                if (dictionary.TryGetValue(key, out value)) return (ResponseServerByteArray)value;
+                if (dictionary.TryGetValue(key, (uint)key.GetHashCode(), out value)) return (ResponseServerByteArray)value;
             }
             return (ResponseServerByteArray)CallStateEnum.NullResponseParameter;
         }
@@ -153,7 +154,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool ContainsKey(KT key)
         {
-            return key != null && dictionary.ContainsKey(key);
+            return key != null && dictionary.ContainsKey(key, (uint)key.GetHashCode());
         }
         /// <summary>
         /// 删除关键字
@@ -162,7 +163,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否删除成功</returns>
         public bool Remove(KT key)
         {
-            return key != null && dictionary.Remove(key);
+            return key != null && dictionary.Remove(key, (uint)key.GetHashCode());
         }
         /// <summary>
         /// 删除关键字
@@ -187,7 +188,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (key != null)
             {
                 var value = default(byte[]);
-                if (dictionary.Remove(key, out value)) return value;
+                if (dictionary.Remove(key, (uint)key.GetHashCode(), out value)) return value;
             }
 #if NetStandard21
             return default(ValueResult<byte[]?>);
@@ -205,7 +206,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (key != null)
             {
                 var value = default(byte[]);
-                if (dictionary.Remove(key, out value)) return (ResponseServerByteArray)value;
+                if (dictionary.Remove(key, (uint)key.GetHashCode(), out value)) return (ResponseServerByteArray)value;
             }
             return (ResponseServerByteArray)CallStateEnum.NullResponseParameter;
         }

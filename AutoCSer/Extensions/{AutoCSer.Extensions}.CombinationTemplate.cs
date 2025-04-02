@@ -79,6 +79,38 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 数组排序
         /// </summary>
+        /// <param name="array">长度大于 1</param>
+        internal static void QuickSort(this LeftArray<int> array)
+        {
+            fixed (int* arrayFixed = array.GetFixedBuffer()) AutoCSer.Algorithm.QuickSort.SortInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
+        }
+    }
+    /// <summary>
+    /// 数组扩展
+    /// </summary>
+    public static unsafe partial class ArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
+        /// <param name="array">长度大于 1</param>
+        internal static void QuickSort(this int[] array)
+        {
+            fixed (int* arrayFixed = array) AutoCSer.Algorithm.QuickSort.SortInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// 数组子串扩展
+    /// </summary>
+    public static unsafe partial class LeftArraySort
+    {
+        /// <summary>
+        /// 数组排序
+        /// </summary>
         /// <param name="array"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Sort(this LeftArray<long> array)
@@ -4887,107 +4919,6 @@ namespace AutoCSer.Extensions
     }
 }
 
-namespace AutoCSer.Algorithm
-{
-    /// <summary>
-    /// 指针快速排序
-    /// </summary>
-    internal static partial class UnsafeQuickSort
-    {
-        /// <summary>
-        /// 快速排序
-        /// </summary>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="endIndex">结束位置 - sizeof(long)</param>
-        internal unsafe static void SortLong(byte* startIndex, byte* endIndex)
-        {
-            do
-            {
-                long distance = endIndex - startIndex;
-                if (distance == sizeof(long))
-                {
-                    if (*(long*)endIndex < *(long*)startIndex)
-                    {
-                        long startValue = *(long*)startIndex;
-                        *(long*)startIndex = *(long*)endIndex;
-                        *(long*)endIndex = startValue;
-                    }
-                    break;
-                }
-
-                byte* averageIndex = startIndex + ((distance / (sizeof(long) * 2)) * sizeof(long));
-                long value = *(long*)averageIndex, swapValue = *(long*)endIndex;
-                if (value < *(long*)startIndex)
-                {
-                    if (swapValue < *(long*)startIndex)
-                    {
-                        *(long*)endIndex = *(long*)startIndex;
-                        if (swapValue < value) *(long*)startIndex = swapValue;
-                        else
-                        {
-                            *(long*)startIndex = value;
-                            *(long*)averageIndex = value = swapValue;
-                        }
-                    }
-                    else
-                    {
-                        *(long*)averageIndex = *(long*)startIndex;
-                        *(long*)startIndex = value;
-                        value = *(long*)averageIndex;
-                    }
-                }
-                else if (*(long*)endIndex < value)
-                {
-                    *(long*)endIndex = value;
-                    if (swapValue < *(long*)startIndex)
-                    {
-                        value = *(long*)startIndex;
-                        *(long*)startIndex = swapValue;
-                        *(long*)averageIndex = value;
-                    }
-                    else
-                    {
-                        *(long*)averageIndex = swapValue;
-                        value = swapValue;
-                    }
-                }
-                byte* leftIndex = startIndex + sizeof(long), rightIndex = endIndex - sizeof(long);
-                do
-                {
-                    while (value > *(long*)leftIndex) leftIndex += sizeof(long);
-                    while (*(long*)rightIndex > value) rightIndex -= sizeof(long);
-                    if (leftIndex < rightIndex)
-                    {
-                        swapValue = *(long*)leftIndex;
-                        *(long*)leftIndex = *(long*)rightIndex;
-                        *(long*)rightIndex = swapValue;
-                    }
-                    else
-                    {
-                        if (leftIndex == rightIndex)
-                        {
-                            leftIndex += sizeof(long);
-                            rightIndex -= sizeof(long);
-                        }
-                        break;
-                    }
-                }
-                while ((leftIndex += sizeof(long)) <= (rightIndex -= sizeof(long)));
-                if (rightIndex - startIndex <= endIndex - leftIndex)
-                {
-                    if (startIndex < rightIndex) SortLong(startIndex, rightIndex);
-                    startIndex = leftIndex;
-                }
-                else
-                {
-                    if (leftIndex < endIndex) SortLong(leftIndex, endIndex);
-                    endIndex = rightIndex;
-                }
-            }
-            while (startIndex < endIndex);
-        }
-    }
-}
 namespace AutoCSer.Extensions
 {
     /// <summary>
@@ -4999,9 +4930,9 @@ namespace AutoCSer.Extensions
         /// 数组排序
         /// </summary>
         /// <param name="array">长度大于 1</param>
-        internal static void QuickSort(this LeftArray<long> array)
+        internal static void QuickSort(this LeftArray<uint> array)
         {
-            fixed (long* arrayFixed = array.GetFixedBuffer()) AutoCSer.Algorithm.UnsafeQuickSort.SortLong((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
+            fixed (uint* arrayFixed = array.GetFixedBuffer()) AutoCSer.Algorithm.UnsafeQuickSort.SortUInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
         }
     }
     /// <summary>
@@ -5013,9 +4944,9 @@ namespace AutoCSer.Extensions
         /// 数组排序
         /// </summary>
         /// <param name="array">长度大于 1</param>
-        internal static void QuickSort(this long[] array)
+        internal static void QuickSort(this uint[] array)
         {
-            fixed (long* arrayFixed = array) AutoCSer.Algorithm.UnsafeQuickSort.SortLong((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
+            fixed (uint* arrayFixed = array) AutoCSer.Algorithm.UnsafeQuickSort.SortUInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
         }
     }
 }
@@ -5118,37 +5049,6 @@ namespace AutoCSer.Algorithm
                 }
             }
             while (startIndex < endIndex);
-        }
-    }
-}
-namespace AutoCSer.Extensions
-{
-    /// <summary>
-    /// 数组子串扩展
-    /// </summary>
-    public static unsafe partial class LeftArraySort
-    {
-        /// <summary>
-        /// 数组排序
-        /// </summary>
-        /// <param name="array">长度大于 1</param>
-        internal static void QuickSort(this LeftArray<uint> array)
-        {
-            fixed (uint* arrayFixed = array.GetFixedBuffer()) AutoCSer.Algorithm.UnsafeQuickSort.SortUInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
-        }
-    }
-    /// <summary>
-    /// 数组扩展
-    /// </summary>
-    public static unsafe partial class ArraySort
-    {
-        /// <summary>
-        /// 数组排序
-        /// </summary>
-        /// <param name="array">长度大于 1</param>
-        internal static void QuickSort(this uint[] array)
-        {
-            fixed (uint* arrayFixed = array) AutoCSer.Algorithm.UnsafeQuickSort.SortUInt((byte*)arrayFixed, (byte*)(arrayFixed + (array.Length - 1)));
         }
     }
 }

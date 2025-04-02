@@ -26,11 +26,11 @@
   <ItemGroup>
     <Compile Include="CommandClientSocketEvent.cs" />
     <Compile Include="Data\Address.cs" />
-    <Compile Include="IntByteArrayFragmentDictionaryNode.cs" />
+    <Compile Include="IntByteArrayDictionaryNode.cs" />
     <Compile Include="IntDictionaryNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ReadWriteQueueClientSocketEvent.cs" />
-    <Compile Include="StringByteArrayFragmentDictionaryNode.cs" />
+    <Compile Include="StringByteArrayDictionaryNode.cs" />
   </ItemGroup>
 
   <ItemGroup>

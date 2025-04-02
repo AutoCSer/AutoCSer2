@@ -32,6 +32,8 @@
     <Compile Include="Algorithm\CombinationTemplate\SortIndex.QuickRangeSort.cs" />
     <Compile Include="Algorithm\CombinationTemplate\SortIndex.QuickSort.cs" />
     <Compile Include="Algorithm\CombinationTemplate\SortIndex.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\QuickSort.Array.cs" />
+    <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.Array.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickRangeSort.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeSortArray.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.cs" />

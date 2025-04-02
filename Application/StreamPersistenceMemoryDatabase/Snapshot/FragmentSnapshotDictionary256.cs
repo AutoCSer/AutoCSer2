@@ -35,14 +35,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             get
             {
-                return Dictionarys[getIndex(key)].notNull()[key];
+                var value = default(VT);
+                if (TryGetValue(key, out value)) return value;
+                throw new IndexOutOfRangeException();
             }
             set
             {
-                SnapshotDictionary<KT, VT> dictionary = GetOrCreateDictionary(key);
-                int count = dictionary.Count;
-                dictionary[key] = value;
-                Count += dictionary.Count - count;
+                var removeValue = default(VT);
+                Set(key, value, out removeValue);
             }
         }
         /// <summary>
@@ -131,28 +131,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Count = 0;
         }
         /// <summary>
-        /// 获取分片索引
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private int getIndex(KT key)
-        {
-            return key.GetHashCode() & 0xff;
-        }
-        /// <summary>
-        /// 根据关键字获取字典，不存在时创建字典
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        internal SnapshotDictionary<KT, VT> GetOrCreateDictionary(KT key)
-        {
-            int index = getIndex(key);
-            var dictionary = Dictionarys[index];
-            if (dictionary == null) Dictionarys[index] = dictionary = new SnapshotDictionary<KT, VT>();
-            return dictionary;
-        }
-        /// <summary>
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <param name="key"></param>
@@ -161,12 +139,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool TryAdd(KT key, VT value)
         {
-            if (GetOrCreateDictionary(key).TryAdd(key, value))
+            uint hashCode = (uint)key.GetHashCode();
+            int index = (int)(hashCode & 0xff);
+            var dictionary = Dictionarys[index];
+            if (dictionary != null)
             {
-                ++Count;
-                return true;
+                if (dictionary.TryAdd(key, hashCode, value))
+                {
+                    ++Count;
+                    return true;
+                }
+                return false;
             }
-            return false;
+            Dictionarys[index] = dictionary = new SnapshotDictionary<KT, VT>();
+            dictionary.Set(key, hashCode, value);
+            ++Count;
+            return true;
         }
         /// <summary>
         /// 设置数据
@@ -181,19 +169,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool Set(KT key, VT value, out VT removeValue)
 #endif
         {
-            int index = getIndex(key);
+            uint hashCode = (uint)key.GetHashCode();
+            int index = (int)(hashCode & 0xff);
             var dictionary = Dictionarys[index];
-            if (dictionary == null)
+            if (dictionary != null)
+            {
+                if (dictionary.TryGetValue(key, hashCode, out removeValue))
+                {
+                    dictionary.Set(key, hashCode, value);
+                    return true;
+                }
+            }
+            else
             {
                 Dictionarys[index] = dictionary = new SnapshotDictionary<KT, VT>();
                 removeValue = default(VT);
             }
-            else if (dictionary.TryGetValue(key, out removeValue))
-            {
-                dictionary[key] = value;
-                return true;
-            }
-            dictionary.Set(key, value);
+            dictionary.Add(hashCode, new BinarySerializeKeyValue<KT, VT>(key, value));
             ++Count;
             return false;
         }
@@ -205,8 +197,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool ContainsKey(KT key)
         {
-            var dictionary = Dictionarys[getIndex(key)];
-            return dictionary != null && dictionary.ContainsKey(key);
+            uint hashCode = (uint)key.GetHashCode();
+            var dictionary = Dictionarys[hashCode & 0xff];
+            return dictionary != null && dictionary.ContainsKey(key, hashCode);
         }
         /// <summary>
         /// 删除关键字
@@ -215,8 +208,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否存在关键字</returns>
         public bool Remove(KT key)
         {
-            var dictionary = Dictionarys[getIndex(key)];
-            if (dictionary != null && dictionary.Remove(key))
+            uint hashCode = (uint)key.GetHashCode();
+            var dictionary = Dictionarys[hashCode & 0xff];
+            if (dictionary != null && dictionary.Remove(key, hashCode))
             {
                 --Count;
                 return true;
@@ -235,10 +229,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool Remove(KT key, out VT value)
 #endif
         {
-            var dictionary = Dictionarys[getIndex(key)];
+            uint hashCode = (uint)key.GetHashCode();
+            var dictionary = Dictionarys[hashCode & 0xff];
             if (dictionary != null)
             {
-                if (dictionary.Remove(key, out value))
+                if (dictionary.Remove(key, hashCode, out value))
                 {
                     --Count;
                     return true;
@@ -289,8 +284,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal bool TryGetValue(KT key, out VT value, out SnapshotDictionary<KT, VT> dictionary)
 #endif
         {
-            dictionary = Dictionarys[getIndex(key)];
-            if (dictionary != null) return dictionary.TryGetValue(key, out value);
+            uint hashCode = (uint)key.GetHashCode();
+            dictionary = Dictionarys[hashCode & 0xff];
+            if (dictionary != null) return dictionary.TryGetValue(key, hashCode, out value);
             value = default(VT);
             return false;
         }

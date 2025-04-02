@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Algorithm;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -69,7 +70,7 @@ namespace AutoCSer
         /// 可重用字典
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
-        public ReusableHashCodeKeyHashSet(int capacity = 0) : base(capacity)
+        public ReusableHashCodeKeyHashSet(int capacity = 0) : base(capacity, ReusableDictionaryGroupTypeEnum.HashIndex)
         {
             Nodes = new ReusableHashNode[(int)CapacityDivision.Divisor];
         }
@@ -77,17 +78,21 @@ namespace AutoCSer
         /// 可重用哈希表
         /// </summary>
         /// <param name="values">初始化数据</param>
-        public ReusableHashCodeKeyHashSet(uint[] values) : this(values.Length)
+        internal ReusableHashCodeKeyHashSet(uint[] values) : this(values.Length)
         {
-            foreach (uint value in values) add(value);
+            int count = 0;
+            foreach (uint value in values) Nodes[count++].HashCode = value;
+            resizeHashIndex(Nodes, count);
         }
         /// <summary>
         /// 可重用哈希表
         /// </summary>
         /// <param name="values">初始化数据</param>
-        public ReusableHashCodeKeyHashSet(int[] values) : this(values.Length)
+        internal ReusableHashCodeKeyHashSet(int[] values) : this(values.Length)
         {
-            foreach (int value in values) add((uint)value);
+            int count = 0;
+            foreach (int value in values) Nodes[count++].HashCode = (uint)value;
+            resizeHashIndex(Nodes, count);
         }
         /// <summary>
         /// 可重用哈希表
@@ -96,14 +101,7 @@ namespace AutoCSer
         public ReusableHashCodeKeyHashSet(ReusableHashCodeKeyHashSet hashSet) : this(hashSet.Count)
         {
             int count = hashSet.Count;
-            if (count != 0)
-            {
-                foreach (ReusableHashNode value in hashSet.Nodes)
-                {
-                    add(value.HashCode);
-                    if (--count == 0) break;
-                }
-            }
+            if (count != 0) resizeHashIndex(hashSet.Nodes, count);
         }
         /// <summary>
         /// 可重用哈希表
@@ -111,7 +109,13 @@ namespace AutoCSer
         /// <param name="hashSet">初始化数据</param>
         public unsafe ReusableHashCodeKeyHashSet(RemoveMarkHashSet hashSet) : this(hashSet.Count)
         {
-            for (RemoveMarkHashNode* node = (RemoveMarkHashNode*)hashSet.Nodes.Data, end = node + hashSet.Count; node != end; add((*node++).HashCode)) ;
+            int count = hashSet.Count;
+            if (count != 0)
+            {
+                RemoveMarkHashNode* node = (RemoveMarkHashNode*)hashSet.Nodes.Data;
+                for (int index = 0; index != count; ++index) Nodes[index].HashCode = node[index].HashCode;
+                resizeHashIndex(Nodes, count);
+            }
         }
         /// <summary>
         /// 新增数据
@@ -139,8 +143,74 @@ namespace AutoCSer
 
             this.Nodes = new ReusableHashNode[capacity];
             CapacityDivision.Set(capacity);
-            clearRemoveCount();
-            for (int index = 0; index != nodes.Length; ++index) add(nodes[index].HashCode);
+            resizeHashIndex(nodes, nodes.Length);
+        }
+        /// <summary>
+        /// 重组数据
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="count"></param>
+        private unsafe void resizeHashIndex(ReusableHashNode[] nodes, int count)
+        {
+            int hashIndex;
+            IntegerDivision capacityDivision = CapacityDivision;
+            AutoCSer.Memory.UnmanagedPoolPointer buffer = AutoCSer.Memory.UnmanagedPool.GetPoolPointer((count + 1) * sizeof(long));
+            try
+            {
+                byte* start = buffer.Pointer.Byte, current = start, write = start;
+                for (hashIndex = 0; hashIndex != count; ++hashIndex)
+                {
+                    *(uint*)(current + sizeof(int)) = capacityDivision.GetMod(*(uint*)current = nodes[hashIndex].HashCode);
+                    current += sizeof(long);
+                }
+                QuickSort.SortLong(start, current - sizeof(long));
+                *(int*)current = int.MaxValue;
+                do
+                {
+                    if ((hashIndex = *(int*)(start + sizeof(int))) < count)
+                    {
+                        if (hashIndex != *(int*)(start + (sizeof(int) + sizeof(long))))
+                        {
+                            Nodes[hashIndex].SetHashIndex(hashIndex, *(uint*)start);
+                            start += sizeof(long);
+                        }
+                        else
+                        {
+                            *(long*)write = *(long*)start;
+                            *(long*)(write + sizeof(long)) = *(long*)(start + sizeof(long));
+                            for (start += sizeof(long) * 2, write += sizeof(long) * 2; hashIndex == *(int*)(start + sizeof(int)); start += sizeof(long), write += sizeof(long)) *(long*)write = *(long*)start;
+                        }
+                    }
+                    else
+                    {
+                        long size = current - start;
+                        AutoCSer.Common.CopyTo(start, write, (int)size);
+                        write += size;
+                        break;
+                    }
+                }
+                while (start != current);
+                start = buffer.Pointer.Byte;
+                for (int index = 0, lastHashIndex = int.MinValue, lastIndex = 0; start != write; start += sizeof(long), lastIndex = index++)
+                {
+                    hashIndex = *(int*)(start + sizeof(int));
+                    while (Nodes[index].Next != 0) ++index;
+                    if (lastHashIndex != hashIndex)
+                    {
+                        Nodes[hashIndex].HashIndex = index;
+                        Nodes[index].Set((uint)hashIndex, *(uint*)start);
+                        lastHashIndex = hashIndex;
+                    }
+                    else
+                    {
+                        Nodes[lastIndex].Next = index;
+                        Nodes[index].SetNext((uint)lastIndex, *(uint*)start);
+                    }
+                }
+            }
+            finally { buffer.PushOnly(); }
+            maxRemoveCount = 0;
+            Count = count;
         }
         /// <summary>
         /// 新增数据

@@ -24,9 +24,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 哈希表节点
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
-        public HashSetNode(int capacity = 0)
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        public HashSetNode(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex)
         {
-            hashSet = new SnapshotHashSet<T>(capacity);
+            hashSet = new SnapshotHashSet<T>(capacity, groupType);
         }
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
@@ -51,7 +52,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加成功，否则表示关键字已经存在</returns>
         public bool Add(T value)
         {
-            return value != null && hashSet.Add(value);
+            return value != null && hashSet.Add(value, (uint)value.GetHashCode());
         }
         /// <summary>
         /// 如果关键字不存在则添加数据
@@ -65,7 +66,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 int count = 0;
                 foreach (T value in values)
                 {
-                    if (value != null && hashSet.Add(value)) ++count;
+                    if (value != null && hashSet.Add(value, (uint)value.GetHashCode())) ++count;
                 }
                 return count;
             }
@@ -92,7 +93,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool Contains(T value)
         {
-            return value != null && hashSet.Contains(value);
+            return value != null && hashSet.Contains(value, (uint)value.GetHashCode());
         }
         /// <summary>
         /// 删除关键字
@@ -101,7 +102,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否删除成功</returns>
         public bool Remove(T value)
         {
-            return value != null && hashSet.Remove(value);
+            return value != null && hashSet.Remove(value, (uint)value.GetHashCode());
         }
         /// <summary>
         /// 删除关键字
@@ -115,7 +116,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 int count = 0;
                 foreach (T value in values)
                 {
-                    if (value != null && hashSet.Remove(value)) ++count;
+                    if (value != null && hashSet.Remove(value, (uint)value.GetHashCode())) ++count;
                 }
                 return count;
             }

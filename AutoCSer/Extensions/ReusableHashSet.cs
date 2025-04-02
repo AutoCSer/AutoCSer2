@@ -37,7 +37,7 @@ namespace AutoCSer
         /// 可重用哈希表
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
-        public ReusableHashSet(int capacity = 0) : base(capacity) { }
+        public ReusableHashSet(int capacity = 0) : base(capacity, ReusableDictionaryGroupTypeEnum.HashIndex) { }
         /// <summary>
         /// 新增数据
         /// </summary>

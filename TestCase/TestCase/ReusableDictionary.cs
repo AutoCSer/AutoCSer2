@@ -33,10 +33,42 @@ namespace AutoCSer.TestCase
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
+            AutoCSer.ReusableDictionary<int, int> dictionarySort = new ReusableDictionary<int, int>(0, ReusableDictionaryGroupTypeEnum.HashIndexSort);
+            foreach (int value in data)
+            {
+                if (!dictionarySort.Set(value, value + random))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            AutoCSer.ReusableDictionary<int, int> dictionaryRoll = new ReusableDictionary<int, int>(0, ReusableDictionaryGroupTypeEnum.Roll);
+            foreach (int value in data)
+            {
+                if (!dictionaryRoll.Set(value, value + random, true))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
             AutoCSer.ReusableHashCodeKeyDictionary<int> hashCodeKeyDictionary = new ReusableHashCodeKeyDictionary<int>();
             foreach (int value in data)
             {
                 if (!hashCodeKeyDictionary.Set(value, value + random))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            AutoCSer.ReusableHashCodeKeyDictionary<int> hashCodeKeyDictionarySort = new ReusableHashCodeKeyDictionary<int>(0, ReusableDictionaryGroupTypeEnum.HashIndexSort);
+            foreach (int value in data)
+            {
+                if (!hashCodeKeyDictionarySort.Set(value, value + random))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            AutoCSer.ReusableHashCodeKeyDictionary<int> hashCodeKeyDictionaryRoll = new ReusableHashCodeKeyDictionary<int>(0, ReusableDictionaryGroupTypeEnum.Roll);
+            foreach (int value in data)
+            {
+                if (!hashCodeKeyDictionaryRoll.Set(value, value + random, true))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
@@ -81,6 +113,22 @@ namespace AutoCSer.TestCase
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary<int, ReusableDictionary> snapshotDictionarySort = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary<int, ReusableDictionary>(0, ReusableDictionaryGroupTypeEnum.HashIndexSort);
+            foreach (int value in data)
+            {
+                if (!snapshotDictionarySort.Set(value, new ReusableDictionary(value + random)))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary<int, ReusableDictionary> snapshotDictionaryRoll = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotDictionary<int, ReusableDictionary>(0, ReusableDictionaryGroupTypeEnum.Roll);
+            foreach (int value in data)
+            {
+                if (!snapshotDictionaryRoll.Set(value, new ReusableDictionary(value + random), true))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256<int, int> fragmentSnapshotDictionary = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.FragmentSnapshotDictionary256<int, int>();
             foreach (int value in data)
             {
@@ -93,6 +141,22 @@ namespace AutoCSer.TestCase
             foreach (int value in data)
             {
                 if (!snapshotHashSet.Add(value))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet<int> snapshotHashSetSort = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet<int>(0, ReusableDictionaryGroupTypeEnum.HashIndexSort);
+            foreach (int value in data)
+            {
+                if (!snapshotHashSetSort.Add(value))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet<int> snapshotHashSetRoll = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotHashSet<int>(0, ReusableDictionaryGroupTypeEnum.Roll);
+            foreach (int value in data)
+            {
+                if (!snapshotHashSetRoll.Add(value, true))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
@@ -122,12 +186,56 @@ namespace AutoCSer.TestCase
             }
             foreach (int value in data)
             {
+                if (!dictionarySort.Remove(value, out removeValue) || removeValue != value + random)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (dictionarySort.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
+                if (!dictionaryRoll.Remove(value, out removeValue) || removeValue != value + random)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (dictionaryRoll.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
                 if (!hashCodeKeyDictionary.Remove(value, out removeValue) || removeValue != value + random)
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
             }
             if (hashCodeKeyDictionary.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
+                if (!hashCodeKeyDictionarySort.Remove(value, out removeValue) || removeValue != value + random)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (hashCodeKeyDictionarySort.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
+                if (!hashCodeKeyDictionaryRoll.Remove(value, out removeValue) || removeValue != value + random)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (hashCodeKeyDictionaryRoll.Count != 0)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -189,6 +297,28 @@ namespace AutoCSer.TestCase
             }
             foreach (int value in data)
             {
+                if (!snapshotDictionarySort.Remove(value, out removeSnapshotValue) || removeSnapshotValue.value != value + random)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (snapshotDictionarySort.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
+                if (!snapshotDictionaryRoll.Remove(value, out removeSnapshotValue) || removeSnapshotValue.value != value + random)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (snapshotDictionaryRoll.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
                 if (!fragmentSnapshotDictionary.Remove(value, out removeValue) || removeValue != value + random)
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
@@ -206,6 +336,28 @@ namespace AutoCSer.TestCase
                 }
             }
             if (snapshotHashSet.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
+                if (!snapshotHashSetSort.Remove(value))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (snapshotHashSetSort.Count != 0)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            foreach (int value in data)
+            {
+                if (!snapshotHashSetRoll.Remove(value))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            if (snapshotHashSetRoll.Count != 0)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

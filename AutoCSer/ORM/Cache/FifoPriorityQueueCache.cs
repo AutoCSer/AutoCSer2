@@ -67,7 +67,7 @@ namespace AutoCSer.ORM
             this.capacity = Math.Max(capacity, 1);
             this.getKey = getKey;
             this.getValue = getValue;
-            cache = new ReusableDictionary<RandomKey<KT>, VT>(this.capacity);
+            cache = new ReusableDictionary<RandomKey<KT>, VT>(this.capacity, ReusableDictionaryGroupTypeEnum.Roll);
         }
         /// <summary>
         /// 先进先出队列缓存

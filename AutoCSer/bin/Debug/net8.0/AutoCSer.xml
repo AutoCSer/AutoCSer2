@@ -4,6 +4,28 @@
         <name>AutoCSer</name>
     </assembly>
     <members>
+        <member name="T:AutoCSer.Algorithm.QuickSort">
+            <summary>
+            指针快速排序
+            </summary>
+            <summary>
+            指针快速排序
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.QuickSort.SortLong(System.Byte*,System.Byte*)">
+            <summary>
+            快速排序
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="endIndex">结束位置 - sizeof(long)</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.QuickSort.SortInt(System.Byte*,System.Byte*)">
+            <summary>
+            快速排序
+            </summary>
+            <param name="startIndex">起始位置</param>
+            <param name="endIndex">结束位置 - sizeof(int)</param>
+        </member>
         <member name="T:AutoCSer.Algorithm.IntegerDivision">
             <summary>
             31b 整数除法
@@ -76,65 +98,51 @@
             <param name="dividend">被除数，必须大于 0</param>
             <returns>模数（余数）</returns>
         </member>
-        <member name="T:AutoCSer.Algorithm.QuickSort">
-            <summary>
-            快速排序
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Algorithm.QuickSort.Sorter`1">
+        <member name="T:AutoCSer.Algorithm.QuickSort`1">
             <summary>
             排序器
             </summary>
             <typeparam name="T">排序数据类型</typeparam>
         </member>
-        <member name="F:AutoCSer.Algorithm.QuickSort.Sorter`1.Array">
+        <member name="F:AutoCSer.Algorithm.QuickSort`1.Array">
             <summary>
             待排序数组
             </summary>
         </member>
-        <member name="F:AutoCSer.Algorithm.QuickSort.Sorter`1.Comparer">
+        <member name="F:AutoCSer.Algorithm.QuickSort`1.Comparer">
             <summary>
             排序比较器
             </summary>
         </member>
-        <member name="M:AutoCSer.Algorithm.QuickSort.Sorter`1.#ctor(`0[],System.Func{`0,`0,System.Int32})">
+        <member name="M:AutoCSer.Algorithm.QuickSort`1.#ctor(`0[],System.Func{`0,`0,System.Int32})">
             <summary>
             排序器
             </summary>
             <param name="array"></param>
             <param name="comparer"></param>
         </member>
-        <member name="M:AutoCSer.Algorithm.QuickSort.Sorter`1.Sort(System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Algorithm.QuickSort`1.Sort(System.Int32,System.Int32)">
             <summary>
             范围排序
             </summary>
             <param name="startIndex">起始位置</param>
             <param name="endIndex">结束位置-1</param>
         </member>
-        <member name="M:AutoCSer.Algorithm.QuickSort.Sort``1(``0[],System.Func{``0,``0,System.Int32})">
+        <member name="M:AutoCSer.Algorithm.QuickSort`1.Sort(`0[],System.Func{`0,`0,System.Int32})">
             <summary>
             数组排序
             </summary>
-            <typeparam name="T">排序数据类型</typeparam>
             <param name="array">待排序数组</param>
             <param name="comparer">排序比较器</param>
         </member>
-        <member name="M:AutoCSer.Algorithm.QuickSort.Sort``1(``0[],System.Func{``0,``0,System.Int32},System.Int32,System.Int32)">
+        <member name="M:AutoCSer.Algorithm.QuickSort`1.Sort(`0[],System.Func{`0,`0,System.Int32},System.Int32,System.Int32)">
             <summary>
             数组范围排序
             </summary>
-            <typeparam name="T">排序数据类型</typeparam>
             <param name="array">待排序数组</param>
             <param name="comparer">排序比较器</param>
             <param name="startIndex">起始位置</param>
             <param name="count">排序数据数量</param>
-        </member>
-        <member name="M:AutoCSer.Algorithm.QuickSort.SortInt(System.Byte*,System.Byte*)">
-            <summary>
-            快速排序
-            </summary>
-            <param name="startIndex">起始位置</param>
-            <param name="endIndex">结束位置-sizeof(int)</param>
         </member>
         <member name="T:AutoCSer.Algorithm.TopologySort">
             <summary>
@@ -42881,6 +42889,26 @@
             合法远程类型标记（程序集在配置中时生效）
             </summary>
         </member>
+        <member name="T:AutoCSer.ReusableDictionaryGroupTypeEnum">
+            <summary>
+            可重用字典重组操作类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionaryGroupTypeEnum.HashIndex">
+            <summary>
+            重组索引范围内无冲突数据位置直接匹配哈希索引位置，避免二次随机内存访问
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionaryGroupTypeEnum.HashIndexSort">
+            <summary>
+            按照哈希索引位置排序，可以保证冲突数据内存的连续，但是会产生二次随机内存访问
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ReusableDictionaryGroupTypeEnum.Roll">
+            <summary>
+            滚动索引位置（用于优先级淘汰策略），既不保证匹配哈希索引位置，也不保证内存的连续性，可能需要 n 次随机内存访问
+            </summary>
+        </member>
         <member name="T:AutoCSer.ReusableHashNode`1">
             <summary>
             可重用哈希节点
@@ -42952,6 +42980,27 @@
             <param name="hashCode"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.ReusableHashNode`1.Set(System.UInt32,AutoCSer.ReusableHashNode{`0}@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="source"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashNode`1.SetNext(System.UInt32,AutoCSer.ReusableHashNode{`0}@)">
+            <summary>
+            设置后续节点数据
+            </summary>
+            <param name="source"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashNode`1.SetHashIndex(System.Int32,AutoCSer.ReusableHashNode{`0}@)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="hashIndex"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.ReusableHashCodeKeyDictionary`1">
             <summary>
             可重用字典（主要用于非引用类型缓冲区，避免 new / Clear 开销）
@@ -42987,11 +43036,12 @@
             <param name="key">关键字</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.#ctor(System.Int32)">
+        <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             可重用字典
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.TryGetValue(System.Int32,`0@,System.Boolean)">
             <summary>
@@ -43113,21 +43163,21 @@
             删除滚动索引位置数据
             </summary>
             <param name="value">被删除数据</param>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.RemoveRoll(AutoCSer.KeyValue{System.UInt32,`0}@)">
             <summary>
             删除滚动索引位置数据
             </summary>
             <param name="value">被删除数据</param>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="M:AutoCSer.ReusableHashCodeKeyDictionary`1.RemoveRoll(`0@)">
             <summary>
             删除滚动索引位置数据
             </summary>
             <param name="value">被删除数据</param>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="T:AutoCSer.Threading.ActionQueueTaskNode">
             <summary>
@@ -48269,6 +48319,11 @@
             最大删除数据位置
             </summary>
         </member>
+        <member name="F:AutoCSer.ReusableDictionary.groupType">
+            <summary>
+            可重用字典重组操作类型
+            </summary>
+        </member>
         <member name="P:AutoCSer.ReusableDictionary.NodeArrayClearCount">
             <summary>
             需要清理的数组位置
@@ -48279,11 +48334,12 @@
             空字典
             </summary>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary.#ctor(System.Int32)">
+        <member name="M:AutoCSer.ReusableDictionary.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             可重用字典
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.ReusableDictionary.clear">
             <summary>
@@ -48353,11 +48409,12 @@
             节点集合
             </summary>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`1.#ctor(System.Int32)">
+        <member name="M:AutoCSer.ReusableDictionary`1.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             可重用字典
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.ReusableDictionary`1.add(System.UInt32,`0)">
             <summary>
@@ -48373,6 +48430,25 @@
             </summary>
         </member>
         <member name="M:AutoCSer.ReusableDictionary`1.resize(AutoCSer.ReusableHashNode{`0}[],System.Int32)">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+            <param name="rollIndex"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.resizeHashIndex(AutoCSer.ReusableHashNode{`0}[])">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.resizeHashIndexSort(AutoCSer.ReusableHashNode{`0}[])">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableDictionary`1.resizeRoll(AutoCSer.ReusableHashNode{`0}[],System.Int32)">
             <summary>
             重组数据
             </summary>
@@ -48439,11 +48515,12 @@
             <param name="key">关键字</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ReusableDictionary`2.#ctor(System.Int32)">
+        <member name="M:AutoCSer.ReusableDictionary`2.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
             <summary>
             可重用字典
             </summary>
             <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
         </member>
         <member name="M:AutoCSer.ReusableDictionary`2.TryGetValue(`0,`1@,System.Boolean)">
             <summary>
@@ -48515,14 +48592,14 @@
             删除滚动索引位置数据
             </summary>
             <param name="value">被删除数据</param>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="M:AutoCSer.ReusableDictionary`2.RemoveRoll(`1@)">
             <summary>
             删除滚动索引位置数据
             </summary>
             <param name="value">被删除数据</param>
-            <returns>是否存在数据</returns>
+            <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         </member>
         <member name="T:AutoCSer.SimpleSerialize.Deserializer">
             <summary>

@@ -42,7 +42,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 数据缓存
         /// </summary>
-        private readonly ReusableDictionary<long, HashBytes> indexCache = new ReusableDictionary<long, HashBytes>();
+        private readonly ReusableDictionary<long, HashBytes> indexCache = new ReusableDictionary<long, HashBytes>(0, ReusableDictionaryGroupTypeEnum.Roll);
         /// <summary>
         /// 写入数据请求缓存
         /// </summary>

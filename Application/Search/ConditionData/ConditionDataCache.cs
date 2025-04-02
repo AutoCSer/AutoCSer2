@@ -32,7 +32,7 @@ namespace AutoCSer.CommandService.Search
         {
             this.maxCount = Math.Max(maxCount, 1);
             cacheLock = new object();
-            cache = new ReusableHashCodeKeyDictionary<T>(maxCount + 1);
+            cache = new ReusableHashCodeKeyDictionary<T>(maxCount + 1, ReusableDictionaryGroupTypeEnum.Roll);
         }
         /// <summary>
         /// 删除缓存数据
@@ -135,7 +135,7 @@ namespace AutoCSer.CommandService.Search
         {
             this.maxCount = Math.Max(maxCount, 1);
             cacheLock = new object();
-            cache = new ReusableDictionary<KT, VT>(maxCount + 1);
+            cache = new ReusableDictionary<KT, VT>(maxCount + 1, ReusableDictionaryGroupTypeEnum.Roll);
         }
         /// <summary>
         /// 删除缓存数据

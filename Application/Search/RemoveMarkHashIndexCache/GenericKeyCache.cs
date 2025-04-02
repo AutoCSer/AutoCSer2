@@ -35,7 +35,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <param name="capacity">容器初始化大小</param>
         protected GenericKeyCache(long maxCount, int capacity) : base(maxCount)
         {
-            cache = new ReusableDictionary<KT, NT>(capacity);
+            cache = new ReusableDictionary<KT, NT>(capacity, ReusableDictionaryGroupTypeEnum.Roll);
         }
         /// <summary>
         /// 获取更新关键字集合

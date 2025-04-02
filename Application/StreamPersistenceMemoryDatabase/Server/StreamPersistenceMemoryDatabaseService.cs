@@ -1176,6 +1176,7 @@ namespace AutoCSer.CommandService
                                 }
                                 else if (head == null)
                                 {
+                                    AutoCSer.Threading.ThreadYield.YieldOnly();
                                     if ((current = PersistenceQueue.GetQueue(out end)) == null)
                                     {
                                         if (IsDisposed) return;
@@ -1185,6 +1186,7 @@ namespace AutoCSer.CommandService
                                 }
                                 else if (current == null)
                                 {
+                                    AutoCSer.Threading.ThreadYield.YieldOnly();
 #pragma warning disable CS8601
                                     PersistenceQueue.GetQueueToEnd(ref current, ref end);
 #pragma warning restore CS8601
@@ -1196,6 +1198,7 @@ namespace AutoCSer.CommandService
                                 }
                                 else
                                 {
+                                    AutoCSer.Threading.ThreadYield.YieldOnly();
 #pragma warning disable CS8601
                                     PersistenceQueue.GetQueueToEnd(ref end);
 #pragma warning restore CS8601

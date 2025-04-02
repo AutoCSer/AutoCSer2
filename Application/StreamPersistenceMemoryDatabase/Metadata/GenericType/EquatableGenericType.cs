@@ -38,8 +38,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal abstract NodeIndex CreateByteArrayDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        internal abstract NodeIndex CreateByteArrayDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType);
         /// <summary>
         /// 创建 256 基分片哈希表节点 IFragmentHashSetNode{KT}
         /// </summary>
@@ -57,8 +58,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal abstract NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        internal abstract NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType);
 
         /// <summary>
         /// 创建泛型类型元数据
@@ -137,10 +139,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal override NodeIndex CreateByteArrayDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        internal override NodeIndex CreateByteArrayDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
-            return node.CreateSnapshotNode<IByteArrayDictionaryNode<T>>(index, key, nodeInfo, () => new ByteArrayDictionaryNode<T>(capacity));
+            return node.CreateSnapshotNode<IByteArrayDictionaryNode<T>>(index, key, nodeInfo, () => new ByteArrayDictionaryNode<T>(capacity, groupType));
         }
         /// <summary>
         /// 创建 256 基分片哈希表节点 IFragmentHashSetNode{KT}
@@ -162,10 +165,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal override NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        internal override NodeIndex CreateHashSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
-            return node.CreateSnapshotNode<IHashSetNode<T>>(index, key, nodeInfo, () => new HashSetNode<T>(capacity));
+            return node.CreateSnapshotNode<IHashSetNode<T>>(index, key, nodeInfo, () => new HashSetNode<T>(capacity, groupType));
         }
     }
 }

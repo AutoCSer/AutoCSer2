@@ -1889,8 +1889,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建字典节点 ByteArrayFragmentDictionaryNode{KT}
             /// </summary>
@@ -1927,8 +1928,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="valueType">数据类型</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建分布式锁节点 DistributedLockNode{KT}
             /// </summary>
@@ -1964,8 +1966,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">节点全局关键字</param>
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建字典节点 HashBytesFragmentDictionaryNode
             /// </summary>
@@ -1982,8 +1985,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建 64 位自增ID 节点 IdentityGeneratorNode
             /// </summary>
@@ -3456,8 +3460,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建字典节点 ByteArrayFragmentDictionaryNode{KT}
             /// </summary>
@@ -3494,8 +3499,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="keyType">关键字类型</param>
             /// <param name="valueType">数据类型</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建分布式锁节点 DistributedLockNode{KT}
             /// </summary>
@@ -3531,8 +3537,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">节点全局关键字</param>
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建字典节点 HashBytesFragmentDictionaryNode
             /// </summary>
@@ -3549,8 +3556,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="nodeInfo">节点信息</param>
             /// <param name="keyType">关键字类型</param>
             /// <param name="capacity">容器初始化大小</param>
+            /// <param name="groupType">可重用字典重组操作类型</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateHashSetNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, AutoCSer.ReusableDictionaryGroupTypeEnum groupType);
             /// <summary>
             /// 创建 64 位自增ID 节点 IdentityGeneratorNode
             /// </summary>
@@ -5804,6 +5812,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
             /// int capacity 容器初始化大小
+            /// AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateByteArrayDictionaryNode = 2,
@@ -5842,6 +5851,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
             /// AutoCSer.Reflection.RemoteType valueType 数据类型
             /// int capacity 容器初始化大小
+            /// AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateDictionaryNode = 6,
@@ -5879,6 +5889,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// string key 节点全局关键字
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// int capacity 容器初始化大小
+            /// AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateHashBytesDictionaryNode = 10,
@@ -5897,6 +5908,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
             /// AutoCSer.Reflection.RemoteType keyType 关键字类型
             /// int capacity 容器初始化大小
+            /// AutoCSer.ReusableDictionaryGroupTypeEnum groupType 可重用字典重组操作类型
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreateHashSetNode = 12,

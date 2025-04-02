@@ -29,8 +29,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">二进制位数量</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal abstract NodeIndex CreateDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        internal abstract NodeIndex CreateDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType);
 
         /// <summary>
         /// 创建泛型类型元数据
@@ -105,10 +106,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        internal override NodeIndex CreateDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        internal override NodeIndex CreateDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
-            return node.CreateSnapshotNode<IDictionaryNode<T1, T2>>(index, key, nodeInfo, () => new DictionaryNode<T1, T2>(capacity));
+            return node.CreateSnapshotNode<IDictionaryNode<T1, T2>>(index, key, nodeInfo, () => new DictionaryNode<T1, T2>(capacity, groupType));
         }
     }
 }

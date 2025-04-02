@@ -145,7 +145,7 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static T[] sort<T>(this T[] array, Func<T, T, int> comparer)
         {
-            AutoCSer.Algorithm.QuickSort.Sort(array, comparer);
+            AutoCSer.Algorithm.QuickSort<T>.Sort(array, comparer);
             return array;
         }
 

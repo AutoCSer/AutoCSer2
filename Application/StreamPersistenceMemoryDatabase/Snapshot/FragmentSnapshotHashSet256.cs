@@ -72,27 +72,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Add(T value)
         {
-            if (GetOrCreateHashSet(value).Add(value))
-            {
-                ++Count;
-                return true;
-            }
-            return false;
-        }
-        /// <summary>
-        /// 根据数据获取哈希表，不存在时创建哈希表
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        internal SnapshotHashSet<T> GetOrCreateHashSet(T value)
-        {
-            int index = value.GetHashCode() & 0xff;
+            uint hashCode = (uint)value.GetHashCode();
+            int index = (int)(hashCode & 0xff);
             var hashSet = HashSets[index];
-            if (hashSet == null) HashSets[index] = hashSet = new SnapshotHashSet<T>();
-            return hashSet;
+            if (hashSet != null)
+            {
+                if (hashSet.Add(value, hashCode))
+                {
+                    ++Count;
+                    return true;
+                }
+                return false;
+            }
+            HashSets[index] = hashSet = new SnapshotHashSet<T>();
+            hashSet.Add(value, hashCode);
+            ++Count;
+            return true;
         }
         /// <summary>
         /// 判断数据是否存在
@@ -102,8 +99,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(T value)
         {
-            var hashSet = HashSets[value.GetHashCode() & 0xff];
-            return hashSet != null && hashSet.Contains(value);
+            uint hashCode = (uint)value.GetHashCode();
+            var hashSet = HashSets[hashCode & 0xff];
+            return hashSet != null && hashSet.Contains(value, hashCode);
         }
         /// <summary>
         /// 删除数据
@@ -112,8 +110,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否存在数据</returns>
         public bool Remove(T value)
         {
-            var hashSet = HashSets[value.GetHashCode() & 0xff];
-            if (hashSet != null && hashSet.Remove(value))
+            uint hashCode = (uint)value.GetHashCode();
+            var hashSet = HashSets[hashCode & 0xff];
+            if (hashSet != null && hashSet.Remove(value, hashCode))
             {
                 --Count;
                 return true;

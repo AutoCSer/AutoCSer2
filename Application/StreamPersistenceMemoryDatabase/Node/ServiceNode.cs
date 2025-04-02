@@ -550,10 +550,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        public virtual NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
-            return CreateSnapshotNode<IHashBytesDictionaryNode>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity));
+            return CreateSnapshotNode<IHashBytesDictionaryNode>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity, groupType));
         }
         /// <summary>
         /// 创建字典节点 ByteArrayDictionaryNode{KT}
@@ -563,14 +564,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="keyType">关键字类型</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
+        public virtual NodeIndex CreateByteArrayDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
             var type = default(Type);
             CallStateEnum state = getEquatableType(ref keyType, ref type);
             if (state == CallStateEnum.Success)
             {
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateByteArrayDictionaryNode(this, index, key, nodeInfo, capacity);
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateByteArrayDictionaryNode(this, index, key, nodeInfo, capacity, groupType);
             }
             return new NodeIndex(state);
         }
@@ -583,15 +585,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="keyType">关键字类型</param>
         /// <param name="valueType">数据类型</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity)
+        public virtual NodeIndex CreateDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType, int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
             var type = default(Type);
             var type2 = default(Type);
             CallStateEnum state = getEquatableType(ref keyType, ref type, ref valueType, ref type2);
             if (state == CallStateEnum.Success)
             {
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.Get(type.notNull(), type2.notNull()).CreateDictionaryNode(this, index, key, nodeInfo, capacity);
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.Get(type.notNull(), type2.notNull()).CreateDictionaryNode(this, index, key, nodeInfo, capacity, groupType);
             }
             return new NodeIndex(state);
         }
@@ -723,14 +726,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="keyType">关键字类型</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity)
+        public virtual NodeIndex CreateHashSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
             var type = default(Type);
             CallStateEnum state = getEquatableType(ref keyType, ref type);
             if (state == CallStateEnum.Success)
             {
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateHashSetNode(this, index, key, nodeInfo, capacity);
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateHashSetNode(this, index, key, nodeInfo, capacity, groupType);
             }
             return new NodeIndex(state);
         }

@@ -74,5 +74,30 @@ namespace AutoCSer
             HashCode = hashCode;
             Next = next;
         }
+        /// <summary>
+        /// 设置后续节点数据
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="hashCode"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetNext(uint source, uint hashCode)
+        {
+            Source = source | 0x80000000U;
+            this.HashCode = hashCode;
+            Next = int.MaxValue;
+        }
+        /// <summary>
+        /// 设置数据
+        /// </summary>
+        /// <param name="hashIndex"></param>
+        /// <param name="hashCode"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetHashIndex(int hashIndex, uint hashCode)
+        {
+            HashIndex = hashIndex;
+            Source = (uint)hashIndex;
+            this.HashCode = hashCode;
+            Next = int.MaxValue;
+        }
     }
 }

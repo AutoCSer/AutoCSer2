@@ -135,6 +135,9 @@
             <summary>
             数组子串扩展
             </summary>
+            <summary>
+            数组子串扩展
+            </summary>
         </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.Sort(AutoCSer.LeftArray{System.UInt64})">
             <summary>
@@ -174,6 +177,18 @@
             <param name="getValue">排序数据获取器</param>
             <returns>排序数据集合</returns>
         </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.Int64})">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.UInt64})">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
+        </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.BinaryIndexOfLess(AutoCSer.LeftArray{System.UInt64},System.UInt64)">
             <summary>
             二分查找匹配值之前的位置(用于查找插入值的位置)
@@ -206,18 +221,6 @@
             <param name="value">添加新数据</param>
             <returns>添加新数据位置，失败返回-1</returns>
         </member>
-        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.UInt64})">
-            <summary>
-            数组排序
-            </summary>
-            <param name="array">长度大于 1</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.Int32})">
-            <summary>
-            数组排序
-            </summary>
-            <param name="array">长度大于 1</param>
-        </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSort``1(AutoCSer.LeftArray{``0},System.Func{``0,``0,System.Int32},System.Int32,System.Int32)">
             <summary>
             范围排序
@@ -238,6 +241,12 @@
             <param name="skipCount">获取跳过数据数量</param>
             <param name="count">获取数据记录数量</param>
             <returns>已排序数据</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.Int32})">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
         </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.Sort(AutoCSer.LeftArray{System.Int64})">
             <summary>
@@ -481,12 +490,6 @@
             <param name="skipCount">获取跳过数据数量</param>
             <param name="count">获取数据记录数量，大于 0</param>
         </member>
-        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.Int64})">
-            <summary>
-            数组排序
-            </summary>
-            <param name="array">长度大于 1</param>
-        </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.QuickSort(AutoCSer.LeftArray{System.UInt32})">
             <summary>
             数组排序
@@ -618,28 +621,31 @@
             数组扩展
             </summary>
             <summary>
-            数组子串扩展
-            </summary>
-            <summary>
-            数组子串扩展
-            </summary>
-            <summary>
-            数组子串扩展
-            </summary>
-            <summary>
-            数组子串扩展
-            </summary>
-            <summary>
-            数组子串扩展
-            </summary>
-            <summary>
-            数组子串扩展
-            </summary>
-            <summary>
-            数组子串扩展
+            数组扩展
             </summary>
             <summary>
             数组扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
+            </summary>
+            <summary>
+            数组子串扩展
             </summary>
             <summary>
             数组扩展
@@ -767,13 +773,13 @@
             <param name="endIndex">排序结束位置</param>
             <param name="sortIndex">排序索引</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.UInt64[])">
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int64[])">
             <summary>
             数组排序
             </summary>
             <param name="array">长度大于 1</param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int32[])">
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.UInt64[])">
             <summary>
             数组排序
             </summary>
@@ -785,6 +791,12 @@
             </summary>
             <typeparam name="T">值类型</typeparam>
             <param name="array">排序数组</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int32[])">
+            <summary>
+            数组排序
+            </summary>
+            <param name="array">长度大于 1</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.Sort(System.Int64[])">
             <summary>
@@ -1321,12 +1333,6 @@
             <param name="array">待排序数组</param>
             <param name="skipCount">获取跳过数据数量</param>
             <param name="count">获取数据记录数量，大于 0</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int64[])">
-            <summary>
-            数组排序
-            </summary>
-            <param name="array">长度大于 1</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.UInt32[])">
             <summary>
@@ -2934,9 +2940,6 @@
             <summary>
             指针快速排序
             </summary>
-            <summary>
-            指针快速排序
-            </summary>
         </member>
         <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortULong(System.Byte*,System.Byte*)">
             <summary>
@@ -2944,13 +2947,6 @@
             </summary>
             <param name="startIndex">起始位置</param>
             <param name="endIndex">结束位置 - sizeof(ulong)</param>
-        </member>
-        <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortLong(System.Byte*,System.Byte*)">
-            <summary>
-            快速排序
-            </summary>
-            <param name="startIndex">起始位置</param>
-            <param name="endIndex">结束位置 - sizeof(long)</param>
         </member>
         <member name="M:AutoCSer.Algorithm.UnsafeQuickSort.SortUInt(System.Byte*,System.Byte*)">
             <summary>
@@ -8784,6 +8780,13 @@
             重组数据
             </summary>
         </member>
+        <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.resizeHashIndex(AutoCSer.ReusableHashNode[],System.Int32)">
+            <summary>
+            重组数据
+            </summary>
+            <param name="nodes"></param>
+            <param name="count"></param>
+        </member>
         <member name="M:AutoCSer.ReusableHashCodeKeyHashSet.Add(System.Int32)">
             <summary>
             新增数据
@@ -8954,6 +8957,20 @@
             <param name="source"></param>
             <param name="hashCode"></param>
             <param name="next"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashNode.SetNext(System.UInt32,System.UInt32)">
+            <summary>
+            设置后续节点数据
+            </summary>
+            <param name="source"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.ReusableHashNode.SetHashIndex(System.Int32,System.UInt32)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="hashIndex"></param>
+            <param name="hashCode"></param>
         </member>
         <member name="T:AutoCSer.RingQueue`1">
             <summary>

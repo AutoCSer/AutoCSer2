@@ -138,7 +138,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public void Remove(int processId, DateTime startTime, string processName)
         {
             var guardProcess = default(GuardProcess);
-            if (guards.TryGetValue(processId, out guardProcess))
+            if (guards.TryGetValue(processId, (uint)processId.GetHashCode(), out guardProcess))
             {
                 ProcessGuardInfo info = guardProcess.ProcessInfo;
                 if (info.StartTime == startTime && info.ProcessName == processName)
@@ -157,7 +157,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ProcessGuardInfo info = guardProcess.ProcessInfo;
             int processID = info.ProcessID;
             var existsGuardProcess = default(GuardProcess);
-            if (guards.TryGetValue(processID, out existsGuardProcess)
+            if (guards.TryGetValue(processID, (uint)processID.GetHashCode(), out existsGuardProcess)
                 && object.ReferenceEquals(guardProcess, existsGuardProcess))
             {
                 StreamPersistenceMemoryDatabaseMethodParameterCreator.Remove(processID, info.StartTime, info.ProcessName);

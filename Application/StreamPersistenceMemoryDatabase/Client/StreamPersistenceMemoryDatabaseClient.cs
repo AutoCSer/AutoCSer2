@@ -1336,38 +1336,41 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IHashBytesDictionaryNodeClientNode>> GetOrCreateHashBytesDictionaryNode(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<ResponseResult<IHashBytesDictionaryNodeClientNode>> GetOrCreateHashBytesDictionaryNode(string key, int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex, bool isPersistenceCallbackExceptionRenewNode = false)
         {
-            return GetOrCreateNode<IHashBytesDictionaryNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateHashBytesDictionaryNode(index, nodeKey, nodeInfo, capacity), isPersistenceCallbackExceptionRenewNode);
+            return GetOrCreateNode<IHashBytesDictionaryNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateHashBytesDictionaryNode(index, nodeKey, nodeInfo, capacity, groupType), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取字典节点，不存在则创建节点 ByteArrayDictionaryNode{KT}
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IByteArrayDictionaryNodeClientNode<KT>>> GetOrCreateByteArrayDictionaryNode<KT>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<ResponseResult<IByteArrayDictionaryNodeClientNode<KT>>> GetOrCreateByteArrayDictionaryNode<KT>(string key, int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
-            return GetOrCreateNode<IByteArrayDictionaryNodeClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateByteArrayDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), capacity), isPersistenceCallbackExceptionRenewNode);
+            return GetOrCreateNode<IByteArrayDictionaryNodeClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateByteArrayDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), capacity, groupType), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取字典节点，不存在则创建节点 DictionaryNode{KT,VT}
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IDictionaryNodeClientNode<KT, VT>>> GetOrCreateDictionaryNode<KT, VT>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<ResponseResult<IDictionaryNodeClientNode<KT, VT>>> GetOrCreateDictionaryNode<KT, VT>(string key, int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
-            return GetOrCreateNode<IDictionaryNodeClientNode<KT, VT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), typeof(VT), capacity), isPersistenceCallbackExceptionRenewNode);
+            return GetOrCreateNode<IDictionaryNodeClientNode<KT, VT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateDictionaryNode(index, nodeKey, nodeInfo, typeof(KT), typeof(VT), capacity, groupType), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取二叉搜索树节点，不存在则创建节点 SearchTreeDictionaryNode{KT,VT}
@@ -1423,13 +1426,14 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="key">节点全局关键字</param>
         /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
         /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public Task<ResponseResult<IHashSetNodeClientNode<KT>>> GetOrCreateHashSetNode<KT>(string key, int capacity = 0, bool isPersistenceCallbackExceptionRenewNode = false)
+        public Task<ResponseResult<IHashSetNodeClientNode<KT>>> GetOrCreateHashSetNode<KT>(string key, int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex, bool isPersistenceCallbackExceptionRenewNode = false)
             where KT : IEquatable<KT>
         {
-            return GetOrCreateNode<IHashSetNodeClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateHashSetNode(index, nodeKey, nodeInfo, typeof(KT), capacity), isPersistenceCallbackExceptionRenewNode);
+            return GetOrCreateNode<IHashSetNodeClientNode<KT>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateHashSetNode(index, nodeKey, nodeInfo, typeof(KT), capacity, groupType), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
         /// 获取二叉搜索树集合节点，不存在则创建节点 SearchTreeSetNode{KT}

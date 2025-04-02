@@ -36,12 +36,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 字典节点
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
-        public HashBytesDictionaryNode(int capacity = 0)
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        public HashBytesDictionaryNode(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex)
         {
 #if NetStandard21
-            dictionary = new SnapshotDictionary<HashBytes, byte[]?>(capacity);
+            dictionary = new SnapshotDictionary<HashBytes, byte[]?>(capacity, groupType);
 #else
-            dictionary = new SnapshotDictionary<HashBytes, byte[]>(capacity);
+            dictionary = new SnapshotDictionary<HashBytes, byte[]>(capacity, groupType);
 #endif
         }
         /// <summary>
