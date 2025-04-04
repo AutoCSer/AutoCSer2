@@ -81,6 +81,9 @@
     <Compile Include="Html\RawNode.cs" />
     <Compile Include="IO\StreamPersistenceLoader.cs" />
     <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
+    <Compile Include="Extensions\MemberCopyExtension.cs" />
+    <Compile Include="MemberCopy\MemberCopy.cs" />
+    <Compile Include="MemberCopy\MemberDynamicMethod.cs" />
     <Compile Include="Memory\BitMap.cs" />
     <Compile Include="Memory\BufferCount.cs" />
     <Compile Include="Memory\ByteArrayBufferObject.cs" />

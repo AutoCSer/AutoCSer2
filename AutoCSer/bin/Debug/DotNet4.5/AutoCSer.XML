@@ -460,11 +460,6 @@
             下一个对象引用位置
             </summary>
         </member>
-        <member name="F:AutoCSer.BinaryDeserializer.GlobalVersion">
-            <summary>
-            全局版本编号
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinaryDeserializer.objectReferencePoint">
             <summary>
             下一个对象引用位置
@@ -3466,12 +3461,7 @@
         </member>
         <member name="F:AutoCSer.BinarySerializeAttribute.IsMemberMap">
             <summary>
-            是否序列化成员位图，默认为 true 在 IsAnonymousFields 为 false 时生效
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializeAttribute.IsAnonymousFields">
-            <summary>
-            是否选择匿名字段，默认为 false
+            是否序列化成员位图
             </summary>
         </member>
         <member name="M:AutoCSer.BinarySerializeAttribute.GetIsMemberMap(System.Type)">
@@ -3511,11 +3501,6 @@
             是否序列化成员位图
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerializeConfig.GlobalVersionValue">
-            <summary>
-            是否检测全局版本编号
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerializeConfig.ObjectReference">
             <summary>
             是否存在对象引用
@@ -3541,11 +3526,6 @@
             最大节点检测深度，默认为 64（过大的深度会造成堆栈溢出，所以该序列化组件不适合序列化链表结构，如果存在该类似需求请自定义序列化转换为数组处理）
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerializeConfig.GlobalVersion">
-            <summary>
-            全局版本编号
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerializeConfig.StreamSeek">
             <summary>
             序列化输出缓冲区预留字节数，默认为 0 表示不预留
@@ -3567,26 +3547,6 @@
         <member name="T:AutoCSer.BinarySerializeMemberAttribute">
             <summary>
             二进制数据序列化成员配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializeMemberAttribute.GlobalVersion">
-            <summary>
-            全局版本编号（添加字段）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializeMemberAttribute.RemoveGlobalVersion">
-            <summary>
-            全局版本编号（删除字段），大于添加字段全局版本编号时有效 ，静态字段不能用 public 修饰
-            </summary>
-        </member>
-        <member name="P:AutoCSer.BinarySerializeMemberAttribute.IsRemove">
-            <summary>
-            字段是否已经被删除
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializeMemberAttribute.IsRemovePublic">
-            <summary>
-            默认为 true 表示字段删除前用 public 修饰
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerializeMemberAttribute.IsJsonMember">
@@ -6918,14 +6878,6 @@
             <param name="attribute"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.AppendField(AutoCSer.LeftArray{AutoCSer.BinarySerialize.DeserializeVersionField}@,AutoCSer.Metadata.FieldIndex[],System.Int32)">
-            <summary>
-            追加字段信息
-            </summary>
-            <param name="attributeFields"></param>
-            <param name="fieldIndexs"></param>
-            <param name="anonymousDepth"></param>
-        </member>
         <member name="F:AutoCSer.BinarySerialize.Common.memberDeserializeDelegates">
             <summary>
             成员反序列化委托集合
@@ -6949,15 +6901,6 @@
             </summary>
             <param name="type">成员类型</param>
             <returns>成员反序列化委托</returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.AppendAnonymousField``1(AutoCSer.Metadata.MemberFiltersEnum,AutoCSer.LeftArray{AutoCSer.BinarySerialize.DeserializeVersionField}@,System.Int32@)">
-            <summary>
-            追加字段信息（包括匿名字段）
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="memberFilter"></param>
-            <param name="attributeFields"></param>
-            <param name="anonymousDepth"></param>
         </member>
         <member name="T:AutoCSer.BinarySerialize.CustomConfig">
             <summary>
@@ -7295,142 +7238,6 @@
             构造函数返回 null 值
             </summary>
         </member>
-        <member name="T:AutoCSer.BinarySerialize.DeserializeVersionField">
-            <summary>
-            二进制数据反序列化版本字段信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionField.Field">
-            <summary>
-            字段索引
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionField.Attribute">
-            <summary>
-            二进制数据序列化成员配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionField.AnonymousDepth">
-            <summary>
-            匿名深度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionField.IsRemove">
-            <summary>
-            是否删除字段
-            </summary>
-        </member>
-        <member name="P:AutoCSer.BinarySerialize.DeserializeVersionField.GlobalVersion">
-            <summary>
-            全局版本编号
-            </summary>
-        </member>
-        <member name="P:AutoCSer.BinarySerialize.DeserializeVersionField.sortMemberFilters">
-            <summary>
-            静态成员转换为实例成员
-            </summary>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeVersionField.#ctor(AutoCSer.Metadata.FieldIndex,AutoCSer.BinarySerializeMemberAttribute,System.Int32)">
-            <summary>
-            二进制数据反序列化版本字段信息
-            </summary>
-            <param name="field"></param>
-            <param name="attribute"></param>
-            <param name="anonymousDepth"></param>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeVersionField.Copy(System.Int32)">
-            <summary>
-            复制字段索引
-            </summary>
-            <param name="memberIndex"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionField.GlobalVersionSort">
-            <summary>
-            全局版本编号排序比较
-            </summary>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeVersionField.globalVersionSort(AutoCSer.BinarySerialize.DeserializeVersionField,AutoCSer.BinarySerialize.DeserializeVersionField)">
-            <summary>
-            全局版本编号排序比较
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionField.MemberNameSort">
-            <summary>
-            成员名称排序比较
-            </summary>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeVersionField.memberNameSort(AutoCSer.BinarySerialize.DeserializeVersionField,AutoCSer.BinarySerialize.DeserializeVersionField)">
-            <summary>
-            成员名称排序比较
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.BinarySerialize.DeserializeVersionFields`1">
-            <summary>
-            二进制数据反序列化版本字段信息
-            </summary>
-            <typeparam name="T">对象类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionFields`1.GlobalVersion">
-            <summary>
-            全局版本编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionFields`1.removeMemberCount">
-            <summary>
-            被删除成员数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionFields`1.noSerializeMemberCount">
-            <summary>
-            非序列化成员数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionFields`1.fields">
-            <summary>
-            字段集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionFields`1.createLock">
-            <summary>
-            二进制数据反序列化访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.DeserializeVersionFields`1.Deserializer">
-            <summary>
-            二进制数据反序列化
-            </summary>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeVersionFields`1.#ctor(System.UInt32,AutoCSer.BinarySerialize.DeserializeVersionField[],System.UInt32,System.Int32,System.Object)">
-            <summary>
-            二进制数据反序列化版本字段信息
-            </summary>
-            <param name="globalVersion">全局版本编号</param>
-            <param name="fields">字段集合</param>
-            <param name="removeMemberCount">被删除成员数量</param>
-            <param name="noSerializeMemberCount">非序列化成员数量</param>
-            <param name="createLock">二进制数据反序列化访问锁</param>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeVersionFields`1.Create(AutoCSer.BinarySerializeAttribute)">
-            <summary>
-            创建二进制数据反序列化
-            </summary>
-            <param name="attribute"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeVersionFields`1.CreateOnly(AutoCSer.BinarySerializeAttribute)">
-            <summary>
-            创建二进制数据反序列化
-            </summary>
-            <param name="attribute"></param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.BinarySerialize.FieldSize">
             <summary>
             字段信息
@@ -7502,14 +7309,13 @@
             固定序列化字段字节数
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.Metadata.FieldIndex[],System.Boolean,System.Int32@,System.Boolean)">
+        <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex},System.Boolean,System.Int32@)">
             <summary>
             字段成员集合
             </summary>
             <param name="fieldIndexs"></param>
             <param name="isJson"></param>
             <param name="memberCountVerify"></param>
-            <param name="isAnonymousFields"></param>
             <returns>字段成员集合</returns>
         </member>
         <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.LeftArray{AutoCSer.BinarySerialize.FieldSize}@,AutoCSer.LeftArray{AutoCSer.BinarySerialize.FieldSize}@,AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex}@,System.Int32,System.Boolean,System.Int32@)">
@@ -7684,11 +7490,6 @@
             JSON混合序列化成员索引集合
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.globalVersion">
-            <summary>
-            全局版本编号
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.fixedFillSize">
             <summary>
             固定分组填充字节数
@@ -7698,21 +7499,6 @@
             <summary>
             序列化成员数量
             </summary>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.TypeDeserializer`1.#ctor(System.UInt32,AutoCSer.BinarySerialize.FieldSizeArray@,System.Int32)">
-            <summary>
-            二进制数据反序列化
-            </summary>
-            <param name="globalVersion"></param>
-            <param name="fields"></param>
-            <param name="memberCountVerify"></param>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.TypeDeserializer`1.MemberDeserialize(AutoCSer.BinaryDeserializer,`0@)">
-            <summary>
-            对象序列化
-            </summary>
-            <param name="deserializer">二进制数据反序列化</param>
-            <param name="value">数据对象</param>
         </member>
         <member name="M:AutoCSer.BinarySerialize.TypeDeserializer`1.nullMember(AutoCSer.BinaryDeserializer,`0@)">
             <summary>
@@ -7739,16 +7525,6 @@
             反序列化委托
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.defaultDeserializer">
-            <summary>
-            二进制数据反序列化当前版本
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.versionDeserializers">
-            <summary>
-            二进制数据反序列化历史版本
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.pushType">
             <summary>
             引用执行类型
@@ -7771,12 +7547,12 @@
             <param name="deserializer"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.TypeDeserializer`1.deserializeVersion(AutoCSer.BinaryDeserializer,`0@)">
+        <member name="M:AutoCSer.BinarySerialize.TypeDeserializer`1.MemberDeserialize(AutoCSer.BinaryDeserializer,`0@)">
             <summary>
-            检查版本的反序列化
+            对象序列化
             </summary>
-            <param name="deserializer"></param>
-            <param name="value"></param>
+            <param name="deserializer">二进制数据反序列化</param>
+            <param name="value">数据对象</param>
         </member>
         <member name="T:AutoCSer.BinarySerialize.DeserializeArrayMap">
             <summary>
@@ -9991,13 +9767,6 @@
             <param name="field"></param>
             <param name="name">字段名称或者属性名称</param>
             <returns>是否属性</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.FieldInfoExtension.getPropertyMemberInfo(System.Reflection.FieldInfo)">
-            <summary>
-            根据匿名字段获取对应属性
-            </summary>
-            <param name="field"></param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.Extensions.IDisposableExtension">
             <summary>
@@ -16986,11 +16755,6 @@
             文档类型，用于 WEB API 等接口文档的 JSON 序列化描述
             </summary>
         </member>
-        <member name="F:AutoCSer.JsonSerializeAttribute.AnonymousTypeMember">
-            <summary>
-            匿名类型序列化配置
-            </summary>
-        </member>
         <member name="T:AutoCSer.JsonSerializeConfig">
             <summary>
             JSON 序列化配置参数
@@ -20061,6 +19825,36 @@
             JSON 字典反序列化委托
             </summary>
         </member>
+        <member name="T:AutoCSer.Metadata.MemberGroup">
+            <summary>
+            成员分组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Metadata.MemberGroup.PublicFields">
+            <summary>
+            公有动态字段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Metadata.MemberGroup.NonPublicFields">
+            <summary>
+            非公有动态字段
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Metadata.MemberGroup.PublicProperties">
+            <summary>
+            公有动态属性
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Metadata.MemberGroup.NonPublicProperties">
+            <summary>
+            非公有动态属性
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberGroup.#ctor">
+            <summary>
+            成员分组
+            </summary>
+        </member>
         <member name="T:AutoCSer.Metadata.MemberMapData`1">
             <summary>
             成员位图
@@ -20074,7 +19868,7 @@
         </member>
         <member name="F:AutoCSer.Metadata.MemberMapData`1.map">
             <summary>
-            超过 64 位的成员位图
+            超过 64 位的成员位图，null 表示默认全部成员有效
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.MemberMapData`1.IsDefault">
@@ -20193,6 +19987,13 @@
             <param name="deserializer"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Metadata.MemberMapData`1.GetMemberIndex(System.String)">
+            <summary>
+            获取成员位图索引
+            </summary>
+            <param name="memberName"></param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.Metadata.MemberMapData`1.nameIndexSearcher">
             <summary>
             名称索引查找数据
@@ -20248,6 +20049,11 @@
             成员位图
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.MemberMap`1.IsDefault">
+            <summary>
+            是否默认全部成员有效
+            </summary>
+        </member>
         <member name="M:AutoCSer.Metadata.MemberMap`1.#ctor">
             <summary>
             成员位图对象
@@ -20271,20 +20077,55 @@
             </summary>
             <param name="memberMap"></param>
         </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.GetMemberIndex(System.String)">
+            <summary>
+            获取成员位图索引
+            </summary>
+            <param name="memberName">成员名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.GetMemberIndex``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            获取成员位图索引
+            </summary>
+            <typeparam name="VT"></typeparam>
+            <param name="member">成员</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.ClearMember(AutoCSer.Metadata.MemberMapIndex{`0})">
+            <summary>
+            清除成员索引,忽略默认成员
+            </summary>
+            <param name="memberIndex">成员索引</param>
+        </member>
         <member name="M:AutoCSer.Metadata.MemberMap`1.ClearMember``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             清除成员索引,忽略默认成员
             </summary>
-            <typeparam name="returnType"></typeparam>
+            <typeparam name="VT"></typeparam>
             <param name="member">成员</param>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.SetMember(AutoCSer.Metadata.MemberMapIndex{`0})">
+            <summary>
+            设置成员索引,忽略默认成员
+            </summary>
+            <param name="memberIndex">成员索引</param>
+            <returns>是否成功</returns>
         </member>
         <member name="M:AutoCSer.Metadata.MemberMap`1.SetMember``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
             设置成员索引,忽略默认成员
             </summary>
-            <typeparam name="returnType"></typeparam>
+            <typeparam name="VT"></typeparam>
             <param name="member">成员</param>
             <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMap`1.IsMember(AutoCSer.Metadata.MemberMapIndex{`0})">
+            <summary>
+            判断成员索引是否有效
+            </summary>
+            <param name="memberIndex">成员索引</param>
+            <returns>成员索引是否有效</returns>
         </member>
         <member name="M:AutoCSer.Metadata.MemberMap`1.IsMember(AutoCSer.Metadata.MemberMap{`0},System.Int32)">
             <summary>
@@ -20319,6 +20160,23 @@
             空成员位图
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Metadata.MemberMapIndex`1">
+            <summary>
+            成员位图索引
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Metadata.MemberMapIndex`1.MemberIndex">
+            <summary>
+            成员位图索引，负数为无效索引
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberMapIndex`1.#ctor(System.String)">
+            <summary>
+            成员位图索引
+            </summary>
+            <param name="memberName">成员名称</param>
         </member>
         <member name="T:AutoCSer.Metadata.MemberMapValue`1">
             <summary>
@@ -20491,18 +20349,33 @@
             字段索引
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.FieldIndex.AnonymousName">
+        <member name="F:AutoCSer.Metadata.FieldIndex.AnonymousProperty">
+            <summary>
+            匿名字段绑定属性
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Metadata.FieldIndex.AnonymousName">
             <summary>
             匿名字段名称（如果是属性生成则转换为属性名称）
             </summary>
         </member>
-        <member name="M:AutoCSer.Metadata.FieldIndex.#ctor(System.Reflection.FieldInfo,AutoCSer.Metadata.MemberFiltersEnum,System.Int32)">
+        <member name="M:AutoCSer.Metadata.FieldIndex.#ctor(System.Reflection.FieldInfo,AutoCSer.Metadata.MemberFiltersEnum,System.Int32,System.String)">
             <summary>
             字段信息
             </summary>
             <param name="field">字段信息</param>
             <param name="filter">选择类型</param>
             <param name="index">成员编号</param>
+            <param name="anonymousName">匿名字段名称</param>
+        </member>
+        <member name="M:AutoCSer.Metadata.FieldIndex.#ctor(System.Reflection.FieldInfo,AutoCSer.Metadata.MemberFiltersEnum,System.Int32,AutoCSer.Metadata.PropertyIndex)">
+            <summary>
+            字段信息
+            </summary>
+            <param name="field">字段信息</param>
+            <param name="filter">选择类型</param>
+            <param name="index">成员编号</param>
+            <param name="anonymousProperty">匿名字段绑定属性</param>
         </member>
         <member name="M:AutoCSer.Metadata.FieldIndex.GetValue(System.Object)">
             <summary>
@@ -21181,11 +21054,6 @@
             设置成员索引
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetMemberIndexGroup">
-            <summary>
-            获取成员索引分组
-            </summary>
-        </member>
         <member name="P:AutoCSer.Metadata.GenericType.IsSerializeConstructor">
             <summary>
             判断构造函数是否支持数据反序列化
@@ -21194,31 +21062,6 @@
         <member name="P:AutoCSer.Metadata.GenericType.LeftArrayDefaultConstructorDelegate">
             <summary>
             数组字串构造函数
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Metadata.GenericType.GetAnonymousFieldsDelegate">
-            <summary>
-            获取字段集合（包括匿名字段）
-            </summary>
-            <param name="memberFilter">成员选择类型</param>
-            <param name="fields">成员选择类型</param>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetAnonymousFields">
-            <summary>
-            获取字段集合（包括匿名字段）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Metadata.GenericType.AppendAnonymousFieldDelegate">
-            <summary>
-            追加字段信息（包括匿名字段）
-            </summary>
-            <param name="memberFilter"></param>
-            <param name="attributeFields"></param>
-            <param name="anonymousDepth"></param>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.AppendAnonymousField">
-            <summary>
-            追加字段信息（包括匿名字段）
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.JsonSerializeDelegateReference">
@@ -21770,11 +21613,6 @@
             设置成员索引
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetMemberIndexGroup">
-            <summary>
-            获取成员索引分组
-            </summary>
-        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.IsSerializeConstructor">
             <summary>
             是否存在默认构造函数
@@ -21796,16 +21634,6 @@
             数组字串构造函数
             </summary>
             <returns></returns>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetAnonymousFields">
-            <summary>
-            获取字段集合（包括匿名字段）
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.AppendAnonymousField">
-            <summary>
-            追加字段信息（包括匿名字段）
-            </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.JsonSerializeDelegateReference">
             <summary>
@@ -22994,104 +22822,6 @@
             成员索引分组
             </summary>
         </member>
-        <member name="T:AutoCSer.Metadata.MemberIndexGroup.Group">
-            <summary>
-            动态成员分组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.Group.PublicFields">
-            <summary>
-            公有动态字段
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.Group.NonPublicFields">
-            <summary>
-            非公有动态字段
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.Group.PublicProperties">
-            <summary>
-            公有动态属性
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.Group.NonPublicProperties">
-            <summary>
-            非公有动态属性
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.Group.AnonymousFields">
-            <summary>
-            匿名字段
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup.Group.#ctor(System.Type,System.Boolean)">
-            <summary>
-            动态成员分组
-            </summary>
-            <param name="type">目标类型</param>
-            <param name="isStatic">是否静态成员</param>
-        </member>
-        <member name="T:AutoCSer.Metadata.MemberIndexGroup.TypeDepth">
-            <summary>
-            类型深度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.member">
-            <summary>
-            成员信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.Depth">
-            <summary>
-            类型深度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.isField">
-            <summary>
-            是否字段
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.isPublic">
-            <summary>
-            是否共有成员
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.PublicField">
-            <summary>
-            共有字段成员
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.NonPublicField">
-            <summary>
-            非共有字段成员
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.PublicProperty">
-            <summary>
-            共有属性成员
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.NonPublicProperty">
-            <summary>
-            非共有属性成员
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.#ctor(System.Type,System.Reflection.FieldInfo,System.Boolean)">
-            <summary>
-            类型深度
-            </summary>
-            <param name="type">类型</param>
-            <param name="field">成员字段</param>
-            <param name="isPublic">是否共有成员</param>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup.TypeDepth.#ctor(System.Type,System.Reflection.PropertyInfo,System.Boolean)">
-            <summary>
-            类型深度
-            </summary>
-            <param name="type">类型</param>
-            <param name="property">成员属性</param>
-            <param name="isPublic">是否共有成员</param>
-        </member>
         <member name="F:AutoCSer.Metadata.MemberIndexGroup.PublicFields">
             <summary>
             公有字段
@@ -23117,34 +22847,16 @@
             非公有属性
             </summary>
         </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.AnonymousFields">
-            <summary>
-            匿名字段
-            </summary>
-        </member>
         <member name="F:AutoCSer.Metadata.MemberIndexGroup.MemberCount">
             <summary>
             所有成员数量
             </summary>
         </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup.clearCache">
-            <summary>
-            清除缓存委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup.#ctor(System.Type,System.Boolean,System.Action{AutoCSer.Metadata.MemberIndexGroup})">
+        <member name="M:AutoCSer.Metadata.MemberIndexGroup.#ctor(System.Type)">
             <summary>
             成员索引分组
             </summary>
-            <param name="type">对象类型</param>
-            <param name="isStatic">是否静态成员</param>
-            <param name="clearCache">清除缓存委托</param>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup.OnTimer">
-            <summary>
-            清除缓存
-            </summary>
-            <returns></returns>
+            <param name="type"></param>
         </member>
         <member name="M:AutoCSer.Metadata.MemberIndexGroup.GetAllMembers">
             <summary>
@@ -23165,6 +22877,30 @@
             <param name="filter">选择类型</param>
             <param name="isFilter">是否完全匹配选择类型</param>
             <returns>成员信息集合</returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberIndexGroup.GetFields(System.Type,AutoCSer.Metadata.MemberFiltersEnum)">
+            <summary>
+            获取字段集合
+            </summary>
+            <param name="type"></param>
+            <param name="memberFilter">成员选择类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(System.Type,AutoCSer.Metadata.MemberFiltersEnum)">
+            <summary>
+            获取字段集合（包括匿名字段）
+            </summary>
+            <param name="type"></param>
+            <param name="memberFilter">成员选择类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberIndexGroup.GetProperties(System.Type,AutoCSer.Metadata.MemberFiltersEnum)">
+            <summary>
+            获取属性集合
+            </summary>
+            <param name="type"></param>
+            <param name="memberFilter">成员选择类型</param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Metadata.MemberIndexGroup.Compare(System.Reflection.FieldInfo,System.Reflection.FieldInfo)">
             <summary>
@@ -23192,68 +22928,44 @@
             字符串比较大小
             </summary>
         </member>
-        <member name="T:AutoCSer.Metadata.MemberIndexGroup`1">
+        <member name="F:AutoCSer.Metadata.MemberIndexGroup.groups">
             <summary>
-            成员索引分组
-            </summary>
-            <typeparam name="T">对象类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup`1.cache">
-            <summary>
-            成员索引分组缓存数据
+            成员索引分组缓存
             </summary>
         </member>
-        <member name="F:AutoCSer.Metadata.MemberIndexGroup`1.cacheLock">
+        <member name="F:AutoCSer.Metadata.MemberIndexGroup.groupLock">
             <summary>
-            成员索引分组缓存数据访问锁
+            成员索引分组缓存访问锁
             </summary>
         </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup`1.Get">
+        <member name="M:AutoCSer.Metadata.MemberIndexGroup.GetGroup(System.Type)">
             <summary>
             获取成员索引分组
             </summary>
+            <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup`1.clearCache(AutoCSer.Metadata.MemberIndexGroup)">
+        <member name="F:AutoCSer.Metadata.MemberIndexGroup.declaredOnlyAnonymousFields">
             <summary>
-            清除缓存数据
+            匿名字段集合缓存
             </summary>
-            <param name="clearCache"></param>
         </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup`1.GetFields(AutoCSer.Metadata.MemberFiltersEnum)">
+        <member name="F:AutoCSer.Metadata.MemberIndexGroup.declaredOnlyAnonymousFieldLock">
             <summary>
-            获取字段集合
+            匿名字段集合缓存访问锁
             </summary>
-            <param name="memberFilter">成员选择类型</param>
+        </member>
+        <member name="M:AutoCSer.Metadata.MemberIndexGroup.getDeclaredOnlyAnonymousFields(System.Type)">
+            <summary>
+            获取匿名字段集合
+            </summary>
+            <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup`1.GetProperties(AutoCSer.Metadata.MemberFiltersEnum)">
+        <member name="M:AutoCSer.Metadata.MemberIndexGroup.clearCache">
             <summary>
-            获取属性集合
+            清除缓存信息
             </summary>
-            <param name="memberFilter">成员选择类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup`1.getAnonymousFields(AutoCSer.Metadata.MemberFiltersEnum)">
-            <summary>
-            获取字段集合（包括匿名字段）
-            </summary>
-            <param name="memberFilter">成员选择类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup`1.GetAnonymousFields(AutoCSer.Metadata.MemberFiltersEnum,AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex}@)">
-            <summary>
-            获取字段集合（包括匿名字段）
-            </summary>
-            <param name="memberFilter">成员选择类型</param>
-            <param name="fields">成员选择类型</param>
-        </member>
-        <member name="M:AutoCSer.Metadata.MemberIndexGroup`1.GetAnonymousFields(AutoCSer.Metadata.MemberFiltersEnum)">
-            <summary>
-            获取字段集合（包括匿名字段）
-            </summary>
-            <param name="memberFilter">成员选择类型</param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.Metadata.MemberIndexInfo">
             <summary>
@@ -23377,13 +23089,19 @@
             属性索引
             </summary>
         </member>
-        <member name="M:AutoCSer.Metadata.PropertyIndex.#ctor(System.Reflection.PropertyInfo,AutoCSer.Metadata.MemberFiltersEnum,System.Int32)">
+        <member name="F:AutoCSer.Metadata.PropertyIndex.AnonymousField">
+            <summary>
+            匿名字段
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Metadata.PropertyIndex.#ctor(System.Reflection.PropertyInfo,AutoCSer.Metadata.MemberFiltersEnum,System.Int32,System.Reflection.FieldInfo)">
             <summary>
             属性信息
             </summary>
             <param name="property">属性信息</param>
             <param name="filter">选择类型</param>
             <param name="index">成员编号</param>
+            <param name="anonymousField">匿名字段</param>
         </member>
         <member name="M:AutoCSer.Metadata.PropertyIndex.GetValue(System.Object)">
             <summary>
@@ -44205,13 +43923,6 @@
             <param name="value">数据匹配</param>
             <returns>是否存在移除数据</returns>
         </member>
-        <member name="M:AutoCSer.LeftArray`1.RemoveToEnd(System.Func{`0,System.Boolean})">
-            <summary>
-            移除第一个匹配数据，然后将最后一个数据移动到被删除数据位置
-            </summary>
-            <param name="isValue">数据匹配器</param>
-            <returns>是否存在移除数据</returns>
-        </member>
         <member name="M:AutoCSer.LeftArray`1.RemoveAllToEnd(System.Func{`0,System.Boolean})">
             <summary>
             移除所有匹配数据，每次删除操作将当前最后一个数据移动到删除数据位置
@@ -49062,7 +48773,7 @@
             公共调用
             </summary>
         </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeFields``1(AutoCSer.Metadata.FieldIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeFields``1(AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex},AutoCSer.TextSerialize.SerializeAttribute)">
             <summary>
             获取字段成员集合
             </summary>
@@ -49071,7 +48782,7 @@
             <param name="typeAttribute">类型配置</param>
             <returns>字段成员集合</returns>
         </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeProperties``1(AutoCSer.Metadata.PropertyIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+        <member name="M:AutoCSer.TextSerialize.Common.GetSerializeProperties``1(AutoCSer.LeftArray{AutoCSer.Metadata.PropertyIndex},AutoCSer.TextSerialize.SerializeAttribute)">
             <summary>
             获取属性成员集合
             </summary>
@@ -49080,7 +48791,7 @@
             <param name="typeAttribute">类型配置</param>
             <returns>属性成员集合</returns>
         </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeFields``1(AutoCSer.Metadata.FieldIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeFields``1(AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex},AutoCSer.TextSerialize.SerializeAttribute)">
             <summary>
             获取字段成员集合
             </summary>
@@ -49089,7 +48800,7 @@
             <param name="typeAttribute">类型配置</param>
             <returns>字段成员集合</returns>
         </member>
-        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeProperties``1(AutoCSer.Metadata.PropertyIndex[],AutoCSer.TextSerialize.SerializeAttribute)">
+        <member name="M:AutoCSer.TextSerialize.Common.GetDeserializeProperties``1(AutoCSer.LeftArray{AutoCSer.Metadata.PropertyIndex},AutoCSer.TextSerialize.SerializeAttribute)">
             <summary>
             获取属性成员集合
             </summary>
@@ -49331,7 +49042,7 @@
             成员自定义属性
             </summary>
         </member>
-        <member name="M:AutoCSer.TextSerialize.PropertyMethod`1.#ctor(AutoCSer.Metadata.PropertyIndex,System.Reflection.MethodInfo,`0)">
+        <member name="M:AutoCSer.TextSerialize.PropertyMethod`1.#ctor(AutoCSer.Metadata.PropertyIndex,`0,System.Reflection.MethodInfo)">
             <summary>
             属性成员信息
             </summary>

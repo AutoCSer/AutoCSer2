@@ -300,7 +300,7 @@ namespace AutoCSer.ORM
         {
             Type modelType = typeof(T);
             if (attribute == null) attribute = modelType.GetCustomAttribute<ModelAttribute>(true) ?? TableWriter.DefaultAttribute;
-            LeftArray<Member> memberList = Member.Get(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), MemberIndexGroup<T>.GetProperties(attribute.MemberFilters), true);
+            LeftArray<Member> memberList = Member.Get(MemberIndexGroup.GetFields(typeof(T), attribute.MemberFilters), MemberIndexGroup.GetProperties(typeof(T), attribute.MemberFilters), true);
             memberList.Sort(Member.Sort);
             Member[] members = memberList.ToArray();
             var primaryKey = default(Member);

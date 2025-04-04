@@ -56,6 +56,12 @@
     <Compile Include="Metadata\StructGenericType.cs" />
     <Compile Include="{AutoCSer.RandomObject}.CombinationTemplate.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
+      <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
+      <Name>AutoCSer.Extensions.DotNet4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>del $(ProjectDir)obj\project.* /Q</PreBuildEvent>

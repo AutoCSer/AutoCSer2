@@ -3254,7 +3254,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.ORM.Member.Get(AutoCSer.Metadata.FieldIndex[],AutoCSer.Metadata.PropertyIndex[],System.Boolean)">
+        <member name="M:AutoCSer.ORM.Member.Get(AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex},AutoCSer.LeftArray{AutoCSer.Metadata.PropertyIndex},System.Boolean)">
             <summary>
             获取字段成员集合
             </summary>

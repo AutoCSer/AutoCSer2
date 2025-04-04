@@ -10,6 +10,10 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="**" />
     <EmbeddedResource Remove="**" />
@@ -22,7 +26,6 @@
     <Compile Include="BinarySerialize\Custom.cs" />
     <Compile Include="BinarySerialize\DisabledMemberMap.cs" />
     <Compile Include="BinarySerialize\DisabledReference.cs" />
-    <Compile Include="BinarySerialize\GlobalVersion.cs" />
     <Compile Include="BinarySerialize\IgnoreMember.cs" />
     <Compile Include="BinarySerialize\JsonMember.cs" />
     <Compile Include="BinarySerialize\LoopReference.cs" />

@@ -12,9 +12,9 @@ namespace AutoCSer.Document.ServiceDataSerialize.JsonSerialize
         /// </summary>
         public int Value1;
         /// <summary>
-        /// 字段成员
+        /// 属性成员
         /// </summary>
-        public int Value2;
+        public int Value2 { get; set; }
         /// <summary>
         /// 字段成员
         /// </summary>

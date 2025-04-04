@@ -275,7 +275,7 @@ namespace AutoCSer.CodeGenerator
             Dictionary<HashSubString, AutoCSer.Metadata.MemberIndexInfo> values;
             if (memberCache.TryGetValue(type, out values)) return values;
             memberCache[type] = values = AutoCSer.Extensions.DictionaryCreator.CreateHashSubString<AutoCSer.Metadata.MemberIndexInfo>();
-            foreach (AutoCSer.Metadata.MemberIndexInfo member in AutoCSer.Metadata.GenericType.Get(type).GetMemberIndexGroup.Find(MemberFiltersEnum.PublicInstance))
+            foreach (AutoCSer.Metadata.MemberIndexInfo member in MemberIndexGroup.GetGroup(type).Find(MemberFiltersEnum.PublicInstance))
             {
                 HashSubString name = member.Member.Name;
                 if (!values.ContainsKey(name)) values.Add(name, member);

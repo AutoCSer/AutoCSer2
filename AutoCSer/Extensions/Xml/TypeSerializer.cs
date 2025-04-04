@@ -201,8 +201,8 @@ namespace AutoCSer.Xml
             {
                 if (object.ReferenceEquals(attribute, XmlSerializer.AllMemberAttribute) && type.Name[0] == '<') attribute = XmlSerializeAttribute.AnonymousTypeMember;
                 emptyString = @"<" + type.Name + @"></" + type.Name + @">";
-                var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), attribute);
-                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetProperties(attribute.MemberFilters), attribute);
+                var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(type, attribute.MemberFilters), attribute);
+                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(type, attribute.MemberFilters), attribute);
                 if ((fields.Length | properties.Length) != 0)
                 {
                     DefaultSerializer = MemberSerialize;
@@ -227,8 +227,16 @@ namespace AutoCSer.Xml
                     foreach (AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute> member in properties)
                     {
                         MethodInfo serializeMethod = Common.GetMemberSerializeDelegate(member.Property.Member.PropertyType).Method;
-                        dynamicMethod.Push(member.Property, member.Method, serializeMethod, member.MemberAttribute);
-                        memberMapDynamicMethod.Push(member.Property, member.Method, serializeMethod, member.MemberAttribute);
+                        if (member.Method == null)
+                        {
+                            dynamicMethod.Push(member.Property.AnonymousField.notNull(), serializeMethod, member.MemberAttribute);
+                            memberMapDynamicMethod.Push(member.Property.AnonymousField.notNull(), serializeMethod, member.MemberAttribute);
+                        }
+                        else
+                        {
+                            dynamicMethod.Push(member.Property, member.Method, serializeMethod, member.MemberAttribute);
+                            memberMapDynamicMethod.Push(member.Property, member.Method, serializeMethod, member.MemberAttribute);
+                        }
                     }
                     memberSerializer = (Action<XmlSerializer, T>)dynamicMethod.Create(typeof(Action<XmlSerializer, T>));
                     memberMapSerializer = (Action<MemberMap<T>, XmlSerializer, T, CharStream>)memberMapDynamicMethod.Create(typeof(Action<MemberMap<T>, XmlSerializer, T, CharStream>));

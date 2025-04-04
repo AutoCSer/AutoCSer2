@@ -5,7 +5,6 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
     /// <summary>
     /// 自动属性匿名字段设置 示例
     /// </summary>
-    [AutoCSer.BinarySerialize(IsAnonymousFields = true)]
     class Property
     {
         /// <summary>

@@ -8,7 +8,6 @@ namespace AutoCSer.TestCase.CommonModel.TableModel.CustomColumn
     /// 自定义属性列（二进制序列化不支持属性，需要配置序列化匿名字段以支持 RPC 传参）
     /// </summary>
     [AutoCSer.ORM.CustomColumn(MemberFilters = Metadata.MemberFiltersEnum.Instance, NameConcatType = AutoCSer.ORM.CustomColumnNameConcatTypeEnum.Node)]
-    [AutoCSer.BinarySerialize(IsAnonymousFields = true)]
     public struct CustomColumnProperty
     {
         /// <summary>

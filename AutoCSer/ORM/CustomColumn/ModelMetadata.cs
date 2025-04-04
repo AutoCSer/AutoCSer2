@@ -166,7 +166,7 @@ namespace AutoCSer.ORM.CustomColumn
             Attribute = typeof(T).GetCustomAttribute<CustomColumnAttribute>(true);
             if (Attribute != null)
             {
-                LeftArray<Member> members = Member.Get(MemberIndexGroup<T>.GetFields(Attribute.MemberFilters), MemberIndexGroup<T>.GetProperties(Attribute.MemberFilters), false);
+                LeftArray<Member> members = Member.Get(MemberIndexGroup.GetFields(typeof(T), Attribute.MemberFilters), MemberIndexGroup.GetProperties(typeof(T), Attribute.MemberFilters), false);
                 members.Sort(Member.Sort);
                 Members = members.ToArray();
                 if (Members.Length == 0) Attribute = null;

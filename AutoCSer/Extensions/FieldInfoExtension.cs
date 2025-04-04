@@ -23,20 +23,5 @@ namespace AutoCSer.Extensions
             name = name.Substring(1, name.IndexOf('>') - 1);
             return true;
         }
-        /// <summary>
-        /// 根据匿名字段获取对应属性
-        /// </summary>
-        /// <param name="field"></param>
-        /// <returns></returns>
-#if NetStandard21
-        public static MemberInfo? getPropertyMemberInfo(this FieldInfo field)
-#else
-        public static MemberInfo getPropertyMemberInfo(this FieldInfo field)
-#endif
-        {
-            string name;
-            if (!getAnonymousName(field, out name)) return null;
-            return field.DeclaringType.notNull().GetProperty(name, field.FieldType, EmptyArray<Type>.Array);
-        }
     }
 }

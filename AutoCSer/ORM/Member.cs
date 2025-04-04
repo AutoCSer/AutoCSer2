@@ -408,7 +408,7 @@ namespace AutoCSer.ORM
         /// <param name="properties"></param>
         /// <param name="isModel"></param>
         /// <returns>字段成员集合</returns>
-        internal static LeftArray<Member> Get(FieldIndex[] fields, PropertyIndex[] properties, bool isModel)
+        internal static LeftArray<Member> Get(LeftArray<FieldIndex> fields, LeftArray<PropertyIndex> properties, bool isModel)
         {
             return get(fields, properties, isModel, fields.Length + properties.Length);
         }

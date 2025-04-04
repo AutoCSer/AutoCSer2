@@ -424,8 +424,8 @@ namespace AutoCSer.Xml
             else
             {
                 Type type = typeof(T);
-                var  fields = AutoCSer.TextSerialize.Common.GetDeserializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), attribute);
-                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup<T>.GetProperties(attribute.MemberFilters), attribute);
+                var  fields = AutoCSer.TextSerialize.Common.GetDeserializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(type, attribute.MemberFilters), attribute);
+                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(type, attribute.MemberFilters), attribute);
                 int count = fields.Length + properties.Length;
                 if (count != 0)
                 {
@@ -435,12 +435,21 @@ namespace AutoCSer.Xml
                     foreach (var member in fields)
                     {
                         deserializers[index].Set(Common.CreateDynamicMethod(type, member.Key.Member), member.Key, member.Value);
-                        names[index++] = member.Key.AnonymousName;
+                        names[index++] = member.Key.Member.Name;
                     }
                     foreach (AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute> member in properties)
                     {
-                        deserializers[index].Set(Common.CreateDynamicMethod(type, member.Property.Member, member.Method), member.Property, member.MemberAttribute);
-                        names[index++] = member.Property.Member.Name;
+                        if (member.Method == null)
+                        {
+                            FieldIndex field = member.Property.AnonymousField.notNull();
+                            deserializers[index].Set(Common.CreateDynamicMethod(type, field.Member), field, member.MemberAttribute);
+                            names[index++] = field.AnonymousName;
+                        }
+                        else
+                        {
+                            deserializers[index].Set(Common.CreateDynamicMethod(type, member.Property.Member, member.Method), member.Property, member.MemberAttribute);
+                            names[index++] = member.Property.Member.Name;
+                        }
                     }
 #if NetStandard21
                     DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T?>)deserializeValue : (XmlDeserializer.DeserializeDelegate<T?>)deserializeClass;

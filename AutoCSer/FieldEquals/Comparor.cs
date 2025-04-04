@@ -446,7 +446,7 @@ namespace AutoCSer.FieldEquals
             EqualsComparor = (Func<T, T, bool>)dynamicMethod.Create(typeof(Func<T, T, bool>));
 
             dynamicMethod = new MemberDynamicMethod(genericType, true);
-            foreach (AutoCSer.Metadata.FieldIndex field in AutoCSer.Metadata.MemberIndexGroup<T>.GetFields(AutoCSer.Metadata.MemberFiltersEnum.InstanceField))
+            foreach (AutoCSer.Metadata.FieldIndex field in AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(typeof(T), AutoCSer.Metadata.MemberFiltersEnum.InstanceField))
             {
                 dynamicMethod.Push(field.Member, field.MemberIndex);
             }

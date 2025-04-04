@@ -205,11 +205,7 @@ namespace AutoCSer.Reflection
         static XmlDocument()
         {
             int clearSeconds = AutoCSer.Common.Config.GetMemoryCacheClearSeconds();
-            if (clearSeconds > 0)
-            {
-                new SecondTimerArrayActionNode(clearAssemblys, AutoCSer.Threading.SecondTimer.InternalTaskArray, clearSeconds, SecondTimerKeepModeEnum.After, clearSeconds)
-                    .AppendTaskArray();
-            }
+            if (clearSeconds > 0) AutoCSer.Threading.SecondTimer.InternalTaskArray.Append(clearAssemblys, clearSeconds, Threading.SecondTimerKeepModeEnum.After, clearSeconds);
             //AutoCSer.Memory.Common.AddClearCache(clearAssemblys, 60 * 60);
         }
     }

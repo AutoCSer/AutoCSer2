@@ -64,6 +64,7 @@
     <Compile Include="Expression\ParenthesisNode.cs" />
     <Compile Include="Expression\ValueNode.cs" />
     <Compile Include="Extensions\ArraySort.cs" />
+    <Compile Include="Extensions\MemberCopyExtension.cs" />
     <Compile Include="Extensions\ThreadPoolExtension.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Extensions\FileInfoExtension.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="Html\RawNode.cs" />
     <Compile Include="IO\StreamPersistenceLoader.cs" />
     <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
+    <Compile Include="MemberCopy\MemberCopy.cs" />
+    <Compile Include="MemberCopy\MemberDynamicMethod.cs" />
     <Compile Include="Memory\BitMap.cs" />
     <Compile Include="Memory\BufferCount.cs" />
     <Compile Include="Memory\ByteArrayBufferObject.cs" />

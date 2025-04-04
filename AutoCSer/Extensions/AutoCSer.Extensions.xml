@@ -1670,6 +1670,75 @@
             <typeparam name="T">数据类型</typeparam>
             <returns>字典</returns>
         </member>
+        <member name="T:AutoCSer.Extensions.MemberCopyExtension">
+            <summary>
+            成员复制扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``2(``1,AutoCSer.Metadata.MemberMap{``1})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="VT">对象类型</typeparam>
+            <typeparam name="BT">复制成员对象类型</typeparam>
+            <param name="value">被复制对象</param>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``2(``0,AutoCSer.Metadata.MemberMap{``1})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="VT">对象类型</typeparam>
+            <typeparam name="BT">复制成员对象类型</typeparam>
+            <param name="value">被复制对象</param>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``1(``0,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">被复制对象</param>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyTo``1(``0,``0,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">读取数据对象</param>
+            <param name="writeValue">写入数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyTo``1(``0,``0@,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">读取数据对象</param>
+            <param name="writeValue">写入数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyFrom``1(``0,``0,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">写入数据对象</param>
+            <param name="readValue">读取数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberwiseClone``1(``0)">
+            <summary>
+            对象浅复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Extensions.ThreadPoolExtension">
             <summary>
             线程池相关扩展
@@ -1930,6 +1999,13 @@
             <param name="typeNameBuilder"></param>
             <param name="tempName"></param>
             <param name="nameFixed"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.TypeNameExtension.getPropertyMemberInfo(System.Reflection.FieldInfo)">
+            <summary>
+            根据匿名字段获取对应属性
+            </summary>
+            <param name="field"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Extensions.Memory.Common">
@@ -2286,6 +2362,16 @@
             接口队列任务节点设置返回值
             </summary>
         </member>
+        <member name="P:AutoCSer.Extensions.Metadata.GenericType.MemberCopyArrayDelegate">
+            <summary>
+            数组复制
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Metadata.GenericType.MemberMapCopyArrayDelegate">
+            <summary>
+            数组复制
+            </summary>
+        </member>
         <member name="M:AutoCSer.Extensions.Metadata.GenericType.create``1">
             <summary>
             创建泛型类型元数据
@@ -2385,6 +2471,16 @@
         <member name="P:AutoCSer.Extensions.Metadata.GenericType`1.InterfaceControllerTaskQueueNodeSetReturn">
             <summary>
             接口队列任务节点设置返回值
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Metadata.GenericType`1.MemberCopyArrayDelegate">
+            <summary>
+            数组复制
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Extensions.Metadata.GenericType`1.MemberMapCopyArrayDelegate">
+            <summary>
+            数组复制
             </summary>
         </member>
         <member name="T:AutoCSer.Extensions.Metadata.GenericType2">
@@ -5111,6 +5207,147 @@
             设置读取文件结果
             </summary>
             <param name="size"></param>
+        </member>
+        <member name="T:AutoCSer.MemberCopy`1">
+            <summary>
+            成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.MemberCopy`1.Copy(`0@,`0,AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <param name="writeValue">写入数据对象</param>
+            <param name="readValue">读取数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy`1.Copy(`0,`0,AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <param name="writeValue">写入数据对象</param>
+            <param name="readValue">读取数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="T:AutoCSer.MemberCopy`1.Copyer">
+            <summary>
+            成员复制委托
+            </summary>
+            <param name="writeValue">写入数据对象</param>
+            <param name="readValue">读取数据对象</param>
+        </member>
+        <member name="T:AutoCSer.MemberCopy`1.MemberMapCopyer">
+            <summary>
+            成员复制委托
+            </summary>
+            <param name="writeValue">写入数据对象</param>
+            <param name="readValue">读取数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="F:AutoCSer.MemberCopy`1.isValueType">
+            <summary>
+            是否值类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopy`1.isValueCopy">
+            <summary>
+            是否采用值类型复制模式
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopy`1.defaultCopyer">
+            <summary>
+            默认成员复制委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopy`1.defaultMemberCopyer">
+            <summary>
+            默认成员复制委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.MemberCopy`1.CopyArray(`0[]@,`0[])">
+            <summary>
+            数组复制
+            </summary>
+            <param name="writeArray"></param>
+            <param name="readArray"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy`1.CopyArray(`0[]@,`0[],AutoCSer.Metadata.MemberMap{`0[]})">
+            <summary>
+            数组复制
+            </summary>
+            <param name="writeArray"></param>
+            <param name="readArray"></param>
+            <param name="memberMap"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy`1.noCopy(`0@,`0)">
+            <summary>
+            没有复制字段
+            </summary>
+            <param name="writeValue"></param>
+            <param name="readValue"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy`1.noCopy(`0@,`0,AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            没有复制字段
+            </summary>
+            <param name="writeValue"></param>
+            <param name="readValue"></param>
+            <param name="memberMap"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy`1.MemberwiseClone(`0)">
+            <summary>
+            对象浅复制
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.MemberCopy.MemberDynamicMethod">
+            <summary>
+            动态函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopy.MemberDynamicMethod.dynamicMethod">
+            <summary>
+            动态函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopy.MemberDynamicMethod.generator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopy.MemberDynamicMethod.isValueType">
+            <summary>
+            是否值类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.MemberCopy.MemberDynamicMethod.#ctor(System.Type,System.Reflection.Emit.DynamicMethod)">
+            <summary>
+            动态函数
+            </summary>
+            <param name="type"></param>
+            <param name="dynamicMethod"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy.MemberDynamicMethod.Push(AutoCSer.Metadata.FieldIndex)">
+            <summary>
+            添加字段
+            </summary>
+            <param name="field">字段信息</param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy.MemberDynamicMethod.PushMemberMap(AutoCSer.Metadata.FieldIndex,AutoCSer.Metadata.GenericType)">
+            <summary>
+            添加字段
+            </summary>
+            <param name="field">字段信息</param>
+            <param name="genericType"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopy.MemberDynamicMethod.Create(System.Type)">
+            <summary>
+            创建成员复制委托
+            </summary>
+            <param name="type">委托类型</param>
+            <returns>成员复制委托</returns>
         </member>
         <member name="T:AutoCSer.Memory.BitMap">
             <summary>

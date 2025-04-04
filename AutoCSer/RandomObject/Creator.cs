@@ -632,12 +632,7 @@ namespace AutoCSer.RandomObject
             createDelegates.Add(typeof(string), (Func<Config, string>)createString);
 #endif
             int clearSeconds = AutoCSer.Common.Config.GetMemoryCacheClearSeconds();
-            if (clearSeconds > 0)
-            {
-                new SecondTimerArrayActionNode(DefaultConfig.ClearHistory, AutoCSer.Threading.SecondTimer.InternalTaskArray, clearSeconds, SecondTimerKeepModeEnum.After, clearSeconds)
-                    .AppendTaskArray();
-            }
-            //AutoCSer.Memory.Common.AddClearCache(DefaultConfig.ClearHistory, AutoCSer.Common.Config.GetMemoryCacheClearSeconds());
+            if (clearSeconds > 0) AutoCSer.Threading.SecondTimer.InternalTaskArray.Append(DefaultConfig.ClearHistory, clearSeconds, Threading.SecondTimerKeepModeEnum.After, clearSeconds);
             AutoCSer.Memory.ObjectRoot.ScanType.Add(typeof(Creator));
         }
     }

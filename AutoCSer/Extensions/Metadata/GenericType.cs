@@ -76,7 +76,16 @@ namespace AutoCSer.Extensions.Metadata
         /// 接口队列任务节点设置返回值
         /// </summary>
         internal abstract Delegate InterfaceControllerTaskQueueNodeSetReturn { get; }
-        
+
+        /// <summary>
+        /// 数组复制
+        /// </summary>
+        internal abstract Delegate MemberCopyArrayDelegate { get; }
+        /// <summary>
+        /// 数组复制
+        /// </summary>
+        internal abstract Delegate MemberMapCopyArrayDelegate { get; }
+
         /// <summary>
         /// 创建泛型类型元数据
         /// </summary>
@@ -211,5 +220,20 @@ namespace AutoCSer.Extensions.Metadata
         /// 接口队列任务节点设置返回值
         /// </summary>
         internal override Delegate InterfaceControllerTaskQueueNodeSetReturn { get { return (Action<InterfaceControllerTaskQueueNode<T>, T>)InterfaceControllerTaskQueueNode<T>.SetReturn; } }
+
+        /// <summary>
+        /// 数组复制
+        /// </summary>
+        internal override Delegate MemberCopyArrayDelegate
+        {
+            get { return (AutoCSer.MemberCopy<T[]>.Copyer)AutoCSer.MemberCopy<T>.CopyArray; }
+        }
+        /// <summary>
+        /// 数组复制
+        /// </summary>
+        internal override Delegate MemberMapCopyArrayDelegate
+        {
+            get { return (AutoCSer.MemberCopy<T[]>.MemberMapCopyer)AutoCSer.MemberCopy<T>.CopyArray; }
+        }
     }
 }

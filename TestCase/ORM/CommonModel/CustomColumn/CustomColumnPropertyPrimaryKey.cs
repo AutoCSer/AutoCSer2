@@ -8,7 +8,6 @@ namespace AutoCSer.TestCase.CommonModel.TableModel.CustomColumn
     /// 自定义组合属性列关键字，需要实现接口 IEquatable{T}，如果有缓存关键字需求需要同时重写 Equals 与 GetHashCode（二进制序列化不支持属性，需要配置序列化匿名字段以支持 RPC 传参）
     /// </summary>
     [AutoCSer.ORM.CustomColumn(MemberFilters = Metadata.MemberFiltersEnum.Instance, NameConcatType = AutoCSer.ORM.CustomColumnNameConcatTypeEnum.Node)]
-    [AutoCSer.BinarySerialize(IsAnonymousFields = true)]
     public struct CustomColumnPropertyPrimaryKey : IEquatable<CustomColumnPropertyPrimaryKey>
     {
         public int IntKey { get; set; }

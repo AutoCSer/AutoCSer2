@@ -8,7 +8,6 @@ namespace AutoCSer.TestCase.CommonModel.TableModel
     /// 属性测试模型（二进制序列化不支持属性，需要配置序列化匿名字段以支持 RPC 传参）
     /// </summary>
     [AutoCSer.ORM.Model(MemberFilters = Metadata.MemberFiltersEnum.PublicInstance)]
-    [AutoCSer.BinarySerialize(IsAnonymousFields = true)]
     public class PropertyModel
     {
         /// <summary>

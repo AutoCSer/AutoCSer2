@@ -54,7 +54,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />
-    <ProjectReference Include="..\FieldEquals\AutoCSer.FieldEquals.NetStandard2.1.csproj" />
   </ItemGroup>
 
 </Project>

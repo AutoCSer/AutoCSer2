@@ -77,7 +77,7 @@ namespace AutoCSer.ORM.RemoteProxy
         static ModelReader()
         {
             ModelAttribute attribute = TableWriter.DefaultAttribute;
-            LeftArray<Member> members = Member.Get(MemberIndexGroup<T>.GetFields(attribute.MemberFilters), MemberIndexGroup<T>.GetProperties(attribute.MemberFilters), true);
+            LeftArray<Member> members = Member.Get(MemberIndexGroup.GetFields(typeof(T), attribute.MemberFilters), MemberIndexGroup.GetProperties(typeof(T), attribute.MemberFilters), true);
             int columnIndexCount = members.Length;
             foreach (Member member in members)
             {

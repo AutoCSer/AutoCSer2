@@ -14,7 +14,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
         /// <summary>
         /// 字段成员
         /// </summary>
-        public int Value2;
+        public int Value2 { get; set; }
         /// <summary>
         /// 字段成员
         /// </summary>

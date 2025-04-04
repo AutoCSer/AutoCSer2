@@ -48,9 +48,9 @@ namespace AutoCSer.TestCase.SerializePerformance
                     binary(floatFiledData, count);
                     binarThreadStatic(floatFiledData, count);
 
-                    BinaryPropertyData binaryPropertyData = AutoCSer.RandomObject.Creator<BinaryPropertyData>.CreateNotNull();
-                    binary(binaryPropertyData, count);
-                    binarThreadStatic(binaryPropertyData, count);
+                    floatPropertyData = AutoCSer.RandomObject.Creator<FloatPropertyData>.CreateNotNull();
+                    binary(floatPropertyData, count);
+                    binarThreadStatic(floatPropertyData, count);
                 }
 
                 if (isBinaryJson)

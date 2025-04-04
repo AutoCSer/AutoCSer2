@@ -2,6 +2,7 @@
 using AutoCSer.Reflection;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Extensions
@@ -9,7 +10,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 类型扩展操作
     /// </summary>
-    internal static class TypeNameExtension
+    public static class TypeNameExtension
     {
         /// <summary>
         /// 获取类型名称
@@ -76,6 +77,22 @@ namespace AutoCSer.Extensions
             CharStream nameStream = typeNameBuilder.NameStream;
             if (nameStream.Data.Pointer.Data == nameFixed) return new SubString(0, nameStream.Data.Pointer.CurrentIndex >> 1, tempName);
             return nameStream.ToString();
+        }
+
+        /// <summary>
+        /// 根据匿名字段获取对应属性
+        /// </summary>
+        /// <param name="field"></param>
+        /// <returns></returns>
+#if NetStandard21
+        public static MemberInfo? getPropertyMemberInfo(this FieldInfo field)
+#else
+        public static MemberInfo getPropertyMemberInfo(this FieldInfo field)
+#endif
+        {
+            string name;
+            if (!field.getAnonymousName(out name)) return null;
+            return field.DeclaringType.notNull().GetProperty(name, field.FieldType, EmptyArray<Type>.Array);
         }
     }
 }

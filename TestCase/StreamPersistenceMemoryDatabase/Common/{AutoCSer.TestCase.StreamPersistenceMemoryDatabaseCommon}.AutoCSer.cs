@@ -42,7 +42,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 回调测试节点 客户端节点接口
+        ///  客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode))]
         public partial interface ICallbackNodeClientNode
@@ -175,26 +175,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 客户端节点接口
+        ///  客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode))]
         public partial interface ICustomServiceNodeClientNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeClientNode
         {
             /// <summary>
-            /// 创建回调测试节点 ICallbackNode
+            /// 
             /// </summary>
-            /// <param name="index">节点索引信息</param>
-            /// <param name="key">节点全局关键字</param>
-            /// <param name="nodeInfo">节点信息</param>
-            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            /// <param name="index"></param>
+            /// <param name="key"></param>
+            /// <param name="nodeInfo"></param>
+            /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
             /// <summary>
-            /// 创建游戏测试节点 GameNode
+            /// 
             /// </summary>
-            /// <param name="index">节点索引信息</param>
-            /// <param name="key">节点全局关键字</param>
-            /// <param name="nodeInfo">节点信息</param>
-            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            /// <param name="index"></param>
+            /// <param name="key"></param>
+            /// <param name="nodeInfo"></param>
+            /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
@@ -234,7 +234,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 回调测试节点 客户端节点接口
+        ///  客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode))]
         public partial interface ICallbackNodeLocalClientNode
@@ -367,26 +367,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 客户端节点接口
+        ///  客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode))]
         public partial interface ICustomServiceNodeLocalClientNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode
         {
             /// <summary>
-            /// 创建回调测试节点 ICallbackNode
+            /// 
             /// </summary>
-            /// <param name="index">节点索引信息</param>
-            /// <param name="key">节点全局关键字</param>
-            /// <param name="nodeInfo">节点信息</param>
-            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            /// <param name="index"></param>
+            /// <param name="key"></param>
+            /// <param name="nodeInfo"></param>
+            /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
             /// <summary>
-            /// 创建游戏测试节点 GameNode
+            /// 
             /// </summary>
-            /// <param name="index">节点索引信息</param>
-            /// <param name="key">节点全局关键字</param>
-            /// <param name="nodeInfo">节点信息</param>
-            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            /// <param name="index"></param>
+            /// <param name="key"></param>
+            /// <param name="nodeInfo"></param>
+            /// <returns></returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateGameNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
@@ -430,12 +430,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 回调测试节点
+        /// 
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ICallbackNodeMethodEnum))]
         public partial interface ICallbackNode { }
         /// <summary>
-        /// 回调测试节点 节点方法序号映射枚举类型
+        ///  节点方法序号映射枚举类型
         /// </summary>
         public enum ICallbackNodeMethodEnum
         {
@@ -640,12 +640,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// 服务基础操作自定义扩展接口（用于添加自定义节点创建接口）
+        /// 
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ICustomServiceNodeMethodEnum))]
         public partial interface ICustomServiceNode { }
         /// <summary>
-        /// 服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 节点方法序号映射枚举类型
+        ///  节点方法序号映射枚举类型
         /// </summary>
         public enum ICustomServiceNodeMethodEnum
         {
@@ -934,19 +934,19 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             /// </summary>
             RemoveNodeByKey = 29,
             /// <summary>
-            /// [256] 创建回调测试节点 ICallbackNode
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
-            /// string key 节点全局关键字
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// [256] 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
+            /// string key 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
             /// </summary>
             CreateCallbackNode = 256,
             /// <summary>
-            /// [257] 创建游戏测试节点 GameNode
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
-            /// string key 节点全局关键字
-            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// [257] 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 
+            /// string key 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 
             /// </summary>
             CreateGameNode = 257,
         }

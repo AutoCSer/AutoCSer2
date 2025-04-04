@@ -8,7 +8,6 @@ namespace AutoCSer.TestCase.Data
     /// 继承属性数据定义(引用类型外壳)
     /// </summary>
     [AutoCSer.AOT.Preserve(AllMembers = true)]
-    [AutoCSer.BinarySerialize(IsAnonymousFields = true)]
     internal class InheritProperty : Property
     {
         public bool Bool2 { get; set; }

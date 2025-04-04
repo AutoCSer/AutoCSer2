@@ -26,7 +26,6 @@
     <Compile Include="Config.cs" />
     <Compile Include="FieldData.cs" />
     <Compile Include="FloatFieldData.cs" />
-    <Compile Include="BinaryPropertyData.cs" />
     <Compile Include="FloatPropertyData.cs" />
     <Compile Include="JsonFloatFieldData.cs" />
     <Compile Include="JsonFloatPropertyData.cs" />
