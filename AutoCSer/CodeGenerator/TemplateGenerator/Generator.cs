@@ -19,6 +19,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         internal ProjectParameter ProjectParameter;
         /// <summary>
+        /// 代码生成器配置
+        /// </summary>
+        protected GeneratorAttribute generatorAttribute;
+        /// <summary>
         /// 程序集
         /// </summary>
         protected Assembly assembly;
@@ -66,10 +70,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         private TypeDefinition _definition_;
         /// <summary>
-        /// 代码生成语言
-        /// </summary>
-        protected CodeLanguageEnum _language_;
-        /// <summary>
         /// 临时逻辑变量
         /// </summary>
         protected bool _if_;
@@ -95,19 +95,17 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 输出类定义开始段代码
         /// </summary>
-        /// <param name="language">代码生成语言</param>
         /// <param name="isOutDefinition">是否输出类定义</param>
         /// <returns>类定义</returns>
-        protected bool outStart(CodeLanguageEnum language, bool isOutDefinition)
+        protected bool outStart(bool isOutDefinition)
         {
             _definition_ = null;
-            _language_ = language;
             if (isOutDefinition)
             {
                 _code_.Array.Length = 0;
                 if (Coder.Add(GetType(), CurrentType.Type))
                 {
-                    switch (_language_)
+                    switch (generatorAttribute.Language)
                     {
                         case CodeLanguageEnum.JavaScript:
                         case CodeLanguageEnum.TypeScript:
@@ -128,7 +126,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         protected void outEnd()
         {
             _code_.Add(_definition_.End);
-            switch (_language_)
+            switch (generatorAttribute.Language)
             {
                 case CodeLanguageEnum.JavaScript:
                 case CodeLanguageEnum.TypeScript:
@@ -144,7 +142,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="code"></param>
         protected virtual void addCode(string code)
         {
-            Coder.Add(code, _language_);
+            Coder.Add(code, generatorAttribute.CodeLanguage);
         }
         /// <summary>
         /// 获取数据数量

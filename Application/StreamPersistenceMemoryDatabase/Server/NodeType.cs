@@ -190,10 +190,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (ServerNodeMethodIndexAttribute.MethodIndexEnumType != null)
                 {
                     Array enums = System.Enum.GetValues(ServerNodeMethodIndexAttribute.MethodIndexEnumType);
-                    enumNames = DictionaryCreator.CreateAny<string, object>(enums.Length);
+                    enumNames = DictionaryCreator<string>.Create<object>(enums.Length);
                     foreach (object value in enums) enumNames.Add(value.ToString().notNull(), value);
                 }
-                else enumNames = DictionaryCreator.CreateAny<string, object>();
+                else enumNames = DictionaryCreator<string>.Create<object>();
                 foreach (ClientNodeMethod method in methodArray)
                 {
                     if (method.MethodIndex < 0)

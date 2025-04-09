@@ -90,7 +90,7 @@ namespace AutoCSer.ORM
             }
             columnCount += columnIndexCount;
             Columns = new CustomColumnName[columnCount];
-            ColumnNames = DictionaryCreator.CreateAny<string, MemberColumnIndex>(columnIndexCount);
+            ColumnNames = DictionaryCreator<string>.Create<MemberColumnIndex>(columnIndexCount);
             columnCount = 0;
             MemberColumnIndex memberColumnIndex;
             foreach (Member member in Members)

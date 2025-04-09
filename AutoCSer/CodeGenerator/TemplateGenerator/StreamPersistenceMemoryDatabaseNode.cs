@@ -117,7 +117,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             }
             methodIndex = 0;
-            HashSet<string> names = HashSetCreator.CreateAny<string>();
+            HashSet<string> names = HashSetCreator<string>.Create();
             foreach (NodeMethod method in Methods)
             {
                 if (method.EnumName == null) method.EnumName = method.Method?.MethodName;

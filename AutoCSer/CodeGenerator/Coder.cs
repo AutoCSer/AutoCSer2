@@ -135,7 +135,7 @@ using AutoCSer;
         /// <summary>
         /// CSharp代码树节点缓存
         /// </summary>
-        private static readonly Dictionary<string, TreeBuilderNode> nodeCache = DictionaryCreator.CreateAny<string, TreeBuilderNode>();
+        private static readonly Dictionary<string, TreeBuilderNode> nodeCache = DictionaryCreator<string>.Create<TreeBuilderNode>();
         /// <summary>
         /// 添加代码
         /// </summary>
@@ -194,10 +194,11 @@ using AutoCSer;
                     switch (index)
                     {
                         case (int)CodeLanguageEnum.CSharp:
+                        case (int)CodeLanguageEnum.COUNT:
                             string code = string.Concat(builder.Array);
                             if (!string.IsNullOrEmpty(code))
                             {
-                                string fileName = Path.Combine(parameter.ProjectPath, "{" + parameter.DefaultNamespace + "}.AutoCSer.cs");
+                                string fileName = Path.Combine(parameter.ProjectPath, index != (int)CodeLanguageEnum.COUNT ? "{" + parameter.DefaultNamespace + "}.AutoCSer.cs" : ("{" + parameter.DefaultNamespace + "}.AOT.AutoCSer.cs"));
                                 if (await WriteFile(fileName, WarningCode + code + FileEndCode))
                                 {
                                     Messages.Message($"{fileName} 被修改");
@@ -254,7 +255,7 @@ using AutoCSer;
 
         static Coder()
         {
-            codes = new ListArray<string>[(byte)CodeLanguageEnum.COUNT];
+            codes = new ListArray<string>[(byte)CodeLanguageEnum.COUNT + 1];
             for (int index = codes.Length; index != 0; codes[--index] = new ListArray<string>()) ;
         }
     }

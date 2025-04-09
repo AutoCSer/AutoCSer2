@@ -5,11 +5,13 @@ using System.Collections.Generic;
 #pragma warning disable
 namespace AutoCSer.TestCase.Data
 {
-   /// <summary>
+    /// <summary>
     /// 字段数据定义(引用类型外壳)
     /// </summary>
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.AOT.Preserve(AllMembers = true)]
-    internal class Field
+    internal partial class Field
     {
         public bool Bool;
         public byte Byte;

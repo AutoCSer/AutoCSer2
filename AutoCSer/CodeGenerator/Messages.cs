@@ -15,7 +15,7 @@ namespace AutoCSer.CodeGenerator
         /// <summary>
         /// 提示信息集合
         /// </summary>
-        private static readonly HashSet<string> messages = HashSetCreator.CreateOnly<string>();
+        private static readonly HashSet<string> messages = HashSetCreator<string>.Create();
         /// <summary>
         /// 是否存在提示信息
         /// </summary>
@@ -39,7 +39,7 @@ namespace AutoCSer.CodeGenerator
         /// <summary>
         /// 错误信息集合
         /// </summary>
-        private static readonly HashSet<string> errors = HashSetCreator.CreateOnly<string>();
+        private static readonly HashSet<string> errors = HashSetCreator<string>.Create();
         /// <summary>
         /// 是否存在错误或者异常信息
         /// </summary>

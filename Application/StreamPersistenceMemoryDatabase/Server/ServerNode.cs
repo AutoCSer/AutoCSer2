@@ -148,7 +148,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void AppendSnapshotTransaction(string key, ServerNode node)
         {
             ++NodeCreator.Service.SnapshotTransactionNodeVersion;
-            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = DictionaryCreator.CreateAny<string, ServerNode>();
+            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = DictionaryCreator<string>.Create<ServerNode>();
             SnapshotTransactionNodes.Add(key, node);
             node.appendSnapshotTransaction(this);
         }
@@ -159,7 +159,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void appendSnapshotTransaction(ServerNode node)
         {
-            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = DictionaryCreator.CreateAny<string, ServerNode>();
+            if (SnapshotTransactionNodes == null) SnapshotTransactionNodes = DictionaryCreator<string>.Create<ServerNode>();
             SnapshotTransactionNodes.Add(node.Key, node);
         }
         /// <summary>

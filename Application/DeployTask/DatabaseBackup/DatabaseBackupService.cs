@@ -39,7 +39,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 当前处理的数据库备份器
         /// </summary>
-        protected readonly Dictionary<string, DatabaseBackuper> databaseBackupers = DictionaryCreator.CreateAny<string, DatabaseBackuper>();
+        protected readonly Dictionary<string, DatabaseBackuper> databaseBackupers = DictionaryCreator<string>.Create<DatabaseBackuper>();
         /// <summary>
         /// 备份数据库并返回文件名称
         /// </summary>

@@ -214,6 +214,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <param name="key"></param>
         internal void Release(SemaphoreSlimCache semaphoreSlim, KT key)
         {
+            semaphoreSlim.Lock.Release();
             Monitor.Enter(loadLocks);
             if (--semaphoreSlim.Count == 0)
             {

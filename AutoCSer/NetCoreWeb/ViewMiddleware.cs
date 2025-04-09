@@ -289,11 +289,11 @@ namespace AutoCSer.NetCoreWeb
             helpLock = new object();
             LoadLock = new SemaphoreSlim(1, 1);
             routeNode = new JsonApiRouteNode(null, 1);
-            requests = DictionaryCreator.CreateAny<string, KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>>();
-            viewHelpTypes = DictionaryCreator.CreateAny<string, ViewHelpView>();
-            controllerHelpViews = DictionaryCreator.CreateAny<string, JsonApiControllerHelpView>();
+            requests = DictionaryCreator<string>.Create<KeyValue<ViewMiddlewareRequest, ViewRequestTypeEnum>>();
+            viewHelpTypes = DictionaryCreator<string>.Create<ViewHelpView>();
+            controllerHelpViews = DictionaryCreator<string>.Create<JsonApiControllerHelpView>();
             typeHelpViews = DictionaryCreator.CreateHashObject<Type, TypeHelpView>();
-            typeHelpViewNames = DictionaryCreator.CreateAny<string, TypeHelpView>();
+            typeHelpViewNames = DictionaryCreator<string>.Create<TypeHelpView>();
         }
         /// <summary>
         /// 添加数据视图

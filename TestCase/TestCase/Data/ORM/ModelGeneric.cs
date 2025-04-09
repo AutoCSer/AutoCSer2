@@ -18,8 +18,8 @@ namespace AutoCSer.TestCase.Data.ORM
     /// <summary>
     /// ORM 关联模型定义
     /// </summary>
-    public class ModelGeneric : ModelGeneric<ModelAssociated>
+    [AutoCSer.CodeGenerator.BinarySerialize]
+    public partial class ModelGeneric : ModelGeneric<ModelAssociated>
     {
-
     }
 }

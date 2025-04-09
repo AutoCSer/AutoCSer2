@@ -15,11 +15,11 @@ namespace AutoCSer.ObjectRoot
         /// <summary>
         /// 已添加扫描程序集
         /// </summary>
-        public readonly HashSet<Assembly> ScanAssemblys = HashSetCreator.CreateOnly<Assembly>();
+        public readonly HashSet<HashObject<Assembly>> ScanAssemblys = HashSetCreator.CreateHashObject<Assembly>();
         /// <summary>
         /// 已添加扫描的类型
         /// </summary>
-        public readonly HashSet<Type> ScanTypes = HashSetCreator.CreateOnly<Type>();
+        public readonly HashSet<HashObject<Type>> ScanTypes = HashSetCreator.CreateHashObject<Type>();
         /// <summary>
         /// 每个静态根对象最大统计对象数量
         /// </summary>

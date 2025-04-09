@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 默认空待加载修复方法节点集合
         /// </summary>
-        internal static readonly Dictionary<ulong, RepairNodeMethodLoader> NullRepairNodeMethodLoaders = AutoCSer.Extensions.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
+        internal static readonly Dictionary<ulong, RepairNodeMethodLoader> NullRepairNodeMethodLoaders = AutoCSer.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
 
         /// <summary>
         /// 日志流持久化内存数据库服务端配置
@@ -232,11 +232,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CanCreateSlave = isMaster & config.CanCreateSlave;
             NodeIndex = 1;
             CurrentCallIsPersistence = true;
-            nodeDictionary = DictionaryCreator.CreateAny<string, ServerNode>();
-            CreateNodes = DictionaryCreator.CreateAny<string, CreatingNodeInfo>();
+            nodeDictionary = DictionaryCreator<string>.Create<ServerNode>();
+            CreateNodes = DictionaryCreator<string>.Create<CreatingNodeInfo>();
             nodeCreatorLock = new object();
             nodeCreators = DictionaryCreator.CreateHashObject<Type, ServerNodeCreator>();
-            RepairNodeMethodLoaders = AutoCSer.Extensions.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
+            RepairNodeMethodLoaders = AutoCSer.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
             PersistenceDataPositionBuffer = AutoCSer.Common.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
             Nodes = new NodeIdentity[sizeof(int)];
         }

@@ -334,7 +334,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (repairMethod == null) return createMethod<T>(null);
             HashObject<MethodInfo> hashKey = repairMethod;
-            if (repairMethods == null) repairMethods = DictionaryCreator<HashObject<MethodInfo>>.Create<Method>();
+            if (repairMethods == null) repairMethods = DictionaryCreator.CreateHashObject<MethodInfo, Method>();
             var method = default(Method);
             if (!repairMethods.TryGetValue(hashKey, out method)) repairMethods.Add(hashKey, method = createMethod<T>(repairMethod));
             return method;

@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             this.removeTime = removeTime;
             CallTimeCount = Math.Max(CallTimeCount, 0);
             stringArray.SetEmpty();
-            strings = DictionaryCreator.CreateAny<string, int>();
+            strings = DictionaryCreator<string>.Create<int>();
             statistics = new SnapshotDictionary<long, ExceptionStatistics>();
         }
         /// <summary>

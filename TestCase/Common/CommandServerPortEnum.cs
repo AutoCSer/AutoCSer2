@@ -65,8 +65,8 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         ORM,
         /// <summary>
-        /// Log stream persistence memory cache test port
-        /// 日志流持久化内存缓存测试端口
+        /// Log stream persistence memory database test port
+        /// 日志流持久化内存数据库测试端口
         /// </summary>
         StreamPersistenceMemoryDatabase,
         /// <summary>

@@ -1602,68 +1602,7 @@
             创建字典
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateOnly``2">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="KT">关键字类型</typeparam>
-            <typeparam name="VT">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateAny``2(System.Int32)">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="KT">关键字类型</typeparam>
-            <typeparam name="VT">数据类型</typeparam>
-            <param name="capacity">初始化容器尺寸</param>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateChar``1">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateLong``1">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateLong``1(System.Int32)">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <param name="capacity">初始化容器尺寸</param>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateULong``1">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
         <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateHashSubString``1">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateHashSubString``1(System.Int32)">
-            <summary>
-            创建字典
-            </summary>
-            <typeparam name="T">数据类型</typeparam>
-            <param name="capacity">初始化容器尺寸</param>
-            <returns>字典</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryCreator.CreateEndPoint``1">
             <summary>
             创建字典
             </summary>
@@ -3901,6 +3840,16 @@
             <summary>
             添加测试断点信息并返回 false
             </summary>
+            <param name="callerMemberName">调用成员名称</param>
+            <param name="callerFilePath">调用源代码文件路径</param>
+            <param name="callerLineNumber">调用源代码行号</param>
+            <returns>返回值状态是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Breakpoint.ReturnFalse``1(``0,System.String,System.String,System.Int32)">
+            <summary>
+            添加测试断点信息并返回 false
+            </summary>
+            <param name="message">附加信息</param>
             <param name="callerMemberName">调用成员名称</param>
             <param name="callerFilePath">调用源代码文件路径</param>
             <param name="callerLineNumber">调用源代码行号</param>
@@ -13213,11 +13162,6 @@
             枚举值解析
             </summary>
         </member>
-        <member name="F:AutoCSer.Xml.EnumULongDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
-            </summary>
-        </member>
         <member name="M:AutoCSer.Xml.EnumULongDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">
             <summary>
             数值解析
@@ -14409,11 +14353,6 @@
             枚举值解析
             </summary>
         </member>
-        <member name="F:AutoCSer.Xml.EnumLongDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
-            </summary>
-        </member>
         <member name="M:AutoCSer.Xml.EnumLongDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">
             <summary>
             数值解析
@@ -14439,11 +14378,6 @@
         <member name="T:AutoCSer.Xml.EnumUIntDeserialize`1">
             <summary>
             枚举值解析
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Xml.EnumUIntDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
             </summary>
         </member>
         <member name="M:AutoCSer.Xml.EnumUIntDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">
@@ -14473,11 +14407,6 @@
             枚举值解析
             </summary>
         </member>
-        <member name="F:AutoCSer.Xml.EnumIntDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
-            </summary>
-        </member>
         <member name="M:AutoCSer.Xml.EnumIntDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">
             <summary>
             数值解析
@@ -14503,11 +14432,6 @@
         <member name="T:AutoCSer.Xml.EnumUShortDeserialize`1">
             <summary>
             枚举值解析
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Xml.EnumUShortDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
             </summary>
         </member>
         <member name="M:AutoCSer.Xml.EnumUShortDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">
@@ -14537,11 +14461,6 @@
             枚举值解析
             </summary>
         </member>
-        <member name="F:AutoCSer.Xml.EnumShortDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
-            </summary>
-        </member>
         <member name="M:AutoCSer.Xml.EnumShortDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">
             <summary>
             数值解析
@@ -14569,11 +14488,6 @@
             枚举值解析
             </summary>
         </member>
-        <member name="F:AutoCSer.Xml.EnumByteDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
-            </summary>
-        </member>
         <member name="M:AutoCSer.Xml.EnumByteDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">
             <summary>
             数值解析
@@ -14599,11 +14513,6 @@
         <member name="T:AutoCSer.Xml.EnumSByteDeserialize`1">
             <summary>
             枚举值解析
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Xml.EnumSByteDeserialize`1.enumInts">
-            <summary>
-            枚举值集合
             </summary>
         </member>
         <member name="M:AutoCSer.Xml.EnumSByteDeserialize`1.tryDeserializeNumber(AutoCSer.XmlDeserializer,`0@)">

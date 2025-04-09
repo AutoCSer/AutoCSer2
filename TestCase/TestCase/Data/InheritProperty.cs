@@ -7,8 +7,9 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 继承属性数据定义(引用类型外壳)
     /// </summary>
+    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.AOT.Preserve(AllMembers = true)]
-    internal class InheritProperty : Property
+    internal partial class InheritProperty : Property
     {
         public bool Bool2 { get; set; }
         public byte Byte2 { get; set; }

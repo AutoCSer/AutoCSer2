@@ -113,7 +113,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             checkTimer = new MessageNodeCheckTimer<T>(Math.Max(checkTimeoutSeconds, 1));
             MessageArray = new MessageArrayItem<T>[Math.Max(arraySize, 1)];
             callbacks = new LeftArray<MessageNodeCallbackCount<T>>(sizeof(int));
-            timeoutMessages = AutoCSer.Extensions.DictionaryCreator.CreateLong<T>();
+            timeoutMessages = AutoCSer.DictionaryCreator.CreateLong<T>();
             for (int index = 0; index != MessageArray.Length; MessageArray[index].NextIndex = ++index) ;
             MessageArray[MessageArray.Length - 1].NextIndex = -1;
             linkEnd = linkHead = nextFailed = failedEnd = failedHead = AutoCSer.Metadata.DefaultConstructor<T>.Constructor().notNull();

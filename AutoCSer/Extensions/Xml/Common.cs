@@ -114,7 +114,7 @@ namespace AutoCSer.Xml
         /// <summary>
         /// 成员序列化委托集合
         /// </summary>
-        private static readonly Dictionary<HashObject<Type>, Delegate> memberSerializeDelegates = DictionaryCreator<HashObject<Type>>.Create<Delegate>();
+        private static readonly Dictionary<HashObject<Type>, Delegate> memberSerializeDelegates = DictionaryCreator.CreateHashObject<Type, Delegate>();
         /// <summary>
         /// 成员序列化委托集合访问锁
         /// </summary>
@@ -444,7 +444,7 @@ namespace AutoCSer.Xml
         /// <summary>
         /// 成员反序列化委托集合
         /// </summary>
-        private static readonly Dictionary<HashObject<Type>, Delegate> memberDeserializeDelegates = DictionaryCreator<HashObject<Type>>.Create<Delegate>();
+        private static readonly Dictionary<HashObject<Type>, Delegate> memberDeserializeDelegates = DictionaryCreator.CreateHashObject<Type, Delegate>();
         /// <summary>
         /// 成员反序列化委托集合访问锁
         /// </summary>

@@ -12,7 +12,8 @@ namespace AutoCSer.CodeGenerator
         /// 代码生成入口
         /// </summary>
         /// <param name="parameter">安装参数</param>
+        /// <param name="attribute">代码生成器配置</param>
         /// <returns>是否生成成功</returns>
-        Task<bool> Run(ProjectParameter parameter);
+        Task<bool> Run(ProjectParameter parameter, GeneratorAttribute attribute);
     }
 }

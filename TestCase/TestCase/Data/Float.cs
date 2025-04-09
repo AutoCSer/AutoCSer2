@@ -6,7 +6,8 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 浮点数测试
     /// </summary>
-    public class Float
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    public partial class Float
     {
         //public Half HalfMin = Half.MinValue;
         //public Half HalfMax = Half.MaxValue;

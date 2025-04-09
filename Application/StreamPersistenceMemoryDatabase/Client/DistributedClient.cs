@@ -27,7 +27,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private DistributedClient()
         {
             clientLock = new System.Threading.SemaphoreSlim(1, 1);
-            clients = DictionaryCreator.CreateAny<string, Task<StreamPersistenceMemoryDatabaseClient>>();
+            clients = DictionaryCreator<string>.Create<Task<StreamPersistenceMemoryDatabaseClient>>();
         }
         /// <summary>
         /// 根据节点全局关键字创建客户端

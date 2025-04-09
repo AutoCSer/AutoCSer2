@@ -45,6 +45,8 @@
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="GeneratorAttribute.cs" />
     <Compile Include="IGenerator.cs" />
+    <Compile Include="Metadata\PropertyIndex.cs" />
+    <Compile Include="Metadata\FieldIndex.cs" />
     <Compile Include="Metadata\GenericType\GenericType.cs" />
     <Compile Include="Metadata\MethodParameter.cs" />
     <Compile Include="NetCoreWebView\CodeFragment.cs" />
@@ -59,6 +61,9 @@
     <Compile Include="NetCoreWebView\TreeBuilderTagTypeEnum.cs" />
     <Compile Include="NetCoreWebView\JavaScriptTreeTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateGenerator\BinarySerialize.cs" />
+    <Compile Include="TemplateGenerator\JsonSerialize.cs" />
+    <Compile Include="TemplateGenerator\SimpleSerialize.cs" />
     <Compile Include="TemplateGenerator\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\JavaScriptTypeDefinition.cs" />
     <Compile Include="TemplateGenerator\NetCoreWebView.cs" />
@@ -67,6 +72,9 @@
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseClientNode.cs" />
+    <Compile Include="Template\BinarySerialize.cs" />
+    <Compile Include="Template\JsonSerialize.cs" />
+    <Compile Include="Template\SimpleSerialize.cs" />
     <Compile Include="Template\NetCoreWebViewMiddleware.cs" />
     <Compile Include="Template\NetCoreWebView.cs" />
     <Compile Include="Template\CommandServerClientController.cs" />

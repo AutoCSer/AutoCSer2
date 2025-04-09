@@ -7,8 +7,10 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 属性数据定义(引用类型外壳)
     /// </summary>
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.AOT.Preserve(AllMembers = true)]
-    internal class Property
+    internal partial class Property
     {
         public bool Bool { get; set; }
         public byte Byte { get; set; }

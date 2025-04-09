@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
 

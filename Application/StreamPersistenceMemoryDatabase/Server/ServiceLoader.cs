@@ -231,15 +231,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!persistenceCallbackExceptionPositions.Contains(dataPosition))
                     {
                         NodeIndex index = *(NodeIndex*)(dataFixed + bufferIndex);
+                        var node = default(ServerNode);
                         int methodIndex = *(int*)(dataFixed + (bufferIndex + sizeof(NodeIndex)));
                         ++loadCount;
-                        CallStateEnum state = service.Load(index, methodIndex, deserializer.notNull(), new SubArray<byte>(bufferIndex + (sizeof(NodeIndex) + sizeof(int) * 2), parameterSize, data.Array));
+                        CallStateEnum state = service.Load(index, methodIndex, deserializer.notNull(), new SubArray<byte>(bufferIndex + (sizeof(NodeIndex) + sizeof(int) * 2), parameterSize, data.Array), out node);
                         switch (state)
                         {
-                            case CallStateEnum.Success:
-                            case CallStateEnum.PersistenceCallbackException:
+                            case CallStateEnum.Success: break;
+                            default:
+                                if (node == null) throw new InvalidCastException(Culture.Configuration.Default.GetServiceLoaderFailed(state, persistenceFileName, position, bufferIndex - data.Start));
+                                node.SetLoadException();
                                 break;
-                            default: throw new InvalidCastException(Culture.Configuration.Default.GetServiceLoaderFailed(state, persistenceFileName, position, bufferIndex - data.Start));
                         }
                     }
                     bufferSize -= dataSize;

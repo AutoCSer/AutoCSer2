@@ -142,7 +142,6 @@ namespace AutoCSer
         /// <param name="key"></param>
         /// <param name="heapIndex"></param>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private int getPushIndex(KT key, int heapIndex)
         {
             int* heapFixed = Heap.Int;

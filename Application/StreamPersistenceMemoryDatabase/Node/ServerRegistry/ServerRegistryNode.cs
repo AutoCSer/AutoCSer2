@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
         public ServerRegistryNode(int loadTimeoutSeconds = DefaultLoadTimeoutSeconds)
         {
-            logAssemblers = DictionaryCreator.CreateAny<string, ServerRegistryLogAssembler>();
+            logAssemblers = DictionaryCreator<string>.Create<ServerRegistryLogAssembler>();
             sessions = DictionaryCreator.CreateLong<ServerRegistrySession>();
 #if NetStandard21
             logCallbacks = new LeftArray<MethodKeepCallback<ServerRegistryLog?>>(0);

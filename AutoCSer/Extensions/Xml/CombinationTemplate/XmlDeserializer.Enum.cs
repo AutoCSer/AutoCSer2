@@ -10,10 +10,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
-        /// <summary>
         /// 数值解析
         /// </summary>
         /// <param name="deserializer"></param>
@@ -60,22 +56,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        ulong intValue = enumInts.ULong[index];
-                        intValue |= enumInts.ULong[nextIndex];
+                        ulong intValue = AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.ULong[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, ulong>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumULongDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(ulong), false);
-            ulong* data = enumInts.ULong;
-            foreach (T value in enumValues) *(ulong*)data++ = AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(value);
         }
     }
 }

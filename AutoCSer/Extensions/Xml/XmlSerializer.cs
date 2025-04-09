@@ -1382,7 +1382,7 @@ namespace AutoCSer
             SerializeDelegates.Add(typeof(SubString), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, SubString>)primitiveSerialize));
             SerializeDelegates.Add(typeof(object), new AutoCSer.TextSerialize.DelegateReference { Delegate = new AutoCSer.TextSerialize.SerializeDelegate((Action<XmlSerializer, object>)primitiveSerialize), PushType = AutoCSer.TextSerialize.PushTypeEnum.DepthCount, IsUnknownMember = true, IsCompleted = true });
             SerializeDelegates.Add(typeof(XmlNode), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, XmlNode>)primitiveSerialize));
-
+#if !AOT
             foreach (AutoCSer.TextSerialize.SerializeDelegate serializeDelegate in CustomConfig.PrimitiveSerializeDelegates)
             {
                 var type = default(Type);
@@ -1392,6 +1392,7 @@ namespace AutoCSer
                     SerializeDelegates[type] = serializeDelegateReference;
                 }
             }
+#endif
         }
     }
 }

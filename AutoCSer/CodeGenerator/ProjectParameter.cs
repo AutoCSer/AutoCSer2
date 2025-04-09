@@ -158,9 +158,10 @@ namespace AutoCSer.CodeGenerator
         /// 运行代码生成
         /// </summary>
         /// <param name="generator">代码生成接口</param>
-        private async Task run(IGenerator generator)
+        /// <param name="attribute">代码生成器配置</param>
+        private async Task run(IGenerator generator, GeneratorAttribute attribute)
         {
-            if (generator != null && !await generator.Run(this)) Messages.Error($"{generator.GetType().fullName()} 生成代码失败");
+            if (generator != null && !await generator.Run(this, attribute)) Messages.Error($"{generator.GetType().fullName()} 生成代码失败");
         }
         /// <summary>
         /// 启动代码生成
@@ -174,7 +175,7 @@ namespace AutoCSer.CodeGenerator
             }
             try
             {
-                if (IsAutoCSerCodeGenerator || IsCustomCodeGenerator) await run(new CSharper());
+                if (IsAutoCSerCodeGenerator || IsCustomCodeGenerator) await run(new CSharper(), null);
                 else
                 {
                     KeyValue<Type, GeneratorAttribute>[] generators = (CustomConfig.Default.IsAutoCSer ? CurrentAssembly.GetTypes() : EmptyArray<Type>.Array)
@@ -187,12 +188,22 @@ namespace AutoCSer.CodeGenerator
                     if (generators.Length != 0)
                     {
                         generators = generators.sort((left, right) => string.CompareOrdinal(left.Key.FullName, right.Key.FullName));
-                        HashSet<Type> types = new HashSet<Type>(generators.Select(value => value.Key));
-                        KeyValue<Type, Type>[] depends = generators
+                        HashSet<HashObject<Type>> types = new HashSet<HashObject<Type>>(generators.Select(value => (HashObject<Type>)value.Key));
+                        KeyValue<HashObject<Type>, HashObject<Type>>[] depends = generators
                             .Where(value => value.Value.DependType != null && types.Contains(value.Value.DependType))
-                            .Select(value => new KeyValue<Type, Type>(value.Key, value.Value.DependType))
+                            .Select(value => new KeyValue<HashObject<Type>, HashObject<Type>>(value.Key, value.Value.DependType))
                             .ToArray();
-                        foreach (Type type in AutoCSer.Algorithm.TopologySort.Sort(depends, types, true)) await run(type.Assembly.CreateInstance(type.FullName) as IGenerator);
+                        foreach (HashObject<Type> type in AutoCSer.Algorithm.TopologySort.Sort(depends, types, true))
+                        {
+                            foreach(KeyValue<Type, GeneratorAttribute> generator in generators)
+                            {
+                                if (type.Value == generator.Key)
+                                {
+                                    await run(type.Value.Assembly.CreateInstance(type.Value.FullName) as IGenerator, generator.Value);
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -213,7 +224,7 @@ namespace AutoCSer.CodeGenerator
             try
             {
                 await AutoCSer.LogHelper.Info(string.Join(@""", @""", args), LogLevelEnum.Info | LogLevelEnum.AutoCSer);
-                //args = new string[] { @"AutoCSer.TestCase.BusinessService", @"C:\AutoCSer2\TestCase\ORM\BusinessService\ ", @"C:\AutoCSer2\TestCase\ORM\BusinessService\bin\Release\net8.0\AutoCSer.TestCase.BusinessService.dll ", @"AutoCSer.TestCase.BusinessService" };
+                //args = new string[] { @"AutoCSer.TestCase.NET8", @"C:\AutoCSer2\TestCase\TestCase\ ", @"C:\AutoCSer2\TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.dll ", @"AutoCSer.TestCase" };
                 if (args.Length >= 4)
                 {
                     ProjectParameter parameter = new ProjectParameter(args[0].TrimEnd(' '), args[1].TrimEnd(' '), args[2].TrimEnd(' '), args[3].TrimEnd(' '), args.Length > 4);

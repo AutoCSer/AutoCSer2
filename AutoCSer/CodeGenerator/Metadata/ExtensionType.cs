@@ -24,7 +24,7 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// <summary>
         /// 类型
         /// </summary>
-        internal Type Type { get; private set; }
+        public readonly Type Type;
         /// <summary>
         /// 类型名称
         /// </summary>
@@ -105,7 +105,7 @@ namespace AutoCSer.CodeGenerator.Metadata
             Type = type;
         }
         /// <summary>
-        /// 是否引用类型
+        /// 是否 null 判定类型
         /// </summary>
         public bool IsNull
         {
@@ -117,6 +117,13 @@ namespace AutoCSer.CodeGenerator.Metadata
         public bool IsStruct
         {
             get { return Type.isStruct() && !Type.isValueTypeNullable(); }
+        }
+        /// <summary>
+        /// 是否 object
+        /// </summary>
+        public bool IsObject
+        {
+            get { return Type == typeof(object); }
         }
         /// <summary>
         /// 是否字符串

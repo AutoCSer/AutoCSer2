@@ -58,15 +58,15 @@ namespace AutoCSer.TestCase.FileSynchronousClient
         }
         private static readonly byte[] leftBuffer = new byte[1 << 20];
         private static readonly byte[] rightBuffer = new byte[1 << 20];
-        private static readonly Dictionary<string, FileInfo> emptyFiles = DictionaryCreator.CreateAny<string, FileInfo>(0);
-        private static readonly Dictionary<string, DirectoryInfo> emptyDirectorys = DictionaryCreator.CreateAny<string, DirectoryInfo>(0);
+        private static readonly Dictionary<string, FileInfo> emptyFiles = DictionaryCreator<string>.Create<FileInfo>(0);
+        private static readonly Dictionary<string, DirectoryInfo> emptyDirectorys = DictionaryCreator<string>.Create<DirectoryInfo>(0);
         private static async Task compare(DirectoryInfo leftDirectory, DirectoryInfo rightDirectory)
         {
             Dictionary<string, FileInfo> rightFiles = emptyFiles;
             FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(rightDirectory);
             if (files.Length != 0)
             {
-                rightFiles = DictionaryCreator.CreateAny<string, FileInfo>(files.Length);
+                rightFiles = DictionaryCreator<string>.Create<FileInfo>(files.Length);
                 foreach (FileInfo file in files) rightFiles.Add(file.Name, file);
             }
             foreach(FileInfo file in await AutoCSer.Common.DirectoryGetFiles(leftDirectory))
@@ -114,7 +114,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
             DirectoryInfo[] directorys = await AutoCSer.Common.GetDirectories(rightDirectory);
             if (directorys.Length != 0)
             {
-                rightDictionarys = DictionaryCreator.CreateAny<string, DirectoryInfo>(directorys.Length);
+                rightDictionarys = DictionaryCreator<string>.Create<DirectoryInfo>(directorys.Length);
                 foreach (DirectoryInfo directory in directorys) rightDictionarys.Add(directory.Name, directory);
             }
             foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(leftDirectory))

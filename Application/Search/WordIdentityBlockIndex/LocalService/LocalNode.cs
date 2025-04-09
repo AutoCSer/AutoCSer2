@@ -243,6 +243,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// <param name="key"></param>
         internal void Release(SemaphoreSlimCache semaphoreSlim, T key)
         {
+            semaphoreSlim.Lock.Release();
             Monitor.Enter(queueLocks);
             if (--semaphoreSlim.Count == 0)
             {

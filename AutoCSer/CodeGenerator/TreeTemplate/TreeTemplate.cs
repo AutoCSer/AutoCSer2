@@ -17,7 +17,7 @@ namespace AutoCSer.CodeGenerator
         /// <summary>
         /// 成员树
         /// </summary>
-        internal readonly Dictionary<TreeTemplateMemberNode, Dictionary<HashSubString, TreeTemplateMemberNode>> memberPaths = AutoCSer.Extensions.DictionaryCreator.CreateOnly<TreeTemplateMemberNode, Dictionary<HashSubString, TreeTemplateMemberNode>>();
+        internal readonly Dictionary<TreeTemplateMemberNode, Dictionary<HashSubString, TreeTemplateMemberNode>> memberPaths = new Dictionary<TreeTemplateMemberNode, Dictionary<HashSubString, TreeTemplateMemberNode>>();
         /// <summary>
         /// 当前成员节点集合
         /// </summary>
@@ -67,7 +67,7 @@ namespace AutoCSer.CodeGenerator
         /// <summary>
         /// 子段程序代码集合
         /// </summary>
-        internal Dictionary<string, string> PartCodes = DictionaryCreator.CreateAny<string, string>();
+        internal Dictionary<string, string> PartCodes = DictionaryCreator<string>.Create<string>();
         /// <summary>
         /// 截断代码字符串
         /// </summary>
@@ -301,7 +301,7 @@ namespace AutoCSer.CodeGenerator
         /// <summary>
         /// 模板command+解析器
         /// </summary>
-        protected readonly Dictionary<string, Action<T>> creators = DictionaryCreator.CreateAny<string, Action<T>>();
+        protected readonly Dictionary<string, Action<T>> creators = DictionaryCreator<string>.Create<Action<T>>();
         /// <summary>
         /// 引用代码树节点
         /// </summary>

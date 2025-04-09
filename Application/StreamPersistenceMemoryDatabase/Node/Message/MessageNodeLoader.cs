@@ -30,8 +30,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal MessageNodeLoader(MessageNode<T> messageNode)
         {
             this.messageNode = messageNode;
-            messages = AutoCSer.Extensions.DictionaryCreator.CreateLong<T>(messageNode.MessageArray.Length);
-            failedMessages = AutoCSer.Extensions.DictionaryCreator.CreateLong<T>();
+            messages = AutoCSer.DictionaryCreator.CreateLong<T>(messageNode.MessageArray.Length);
+            failedMessages = AutoCSer.DictionaryCreator.CreateLong<T>();
         }
         /// <summary>
         /// 初始化加载完毕处理

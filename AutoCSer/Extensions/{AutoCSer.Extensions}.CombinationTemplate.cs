@@ -6118,10 +6118,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
-        /// <summary>
         /// 数值解析
         /// </summary>
         /// <param name="deserializer"></param>
@@ -6168,22 +6164,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        long intValue = enumInts.Long[index];
-                        intValue |= enumInts.Long[nextIndex];
+                        long intValue = AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.Long[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, long>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumLongDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(long), false);
-            long* data = enumInts.Long;
-            foreach (T value in enumValues) *(long*)data++ = AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(value);
         }
     }
 }
@@ -6196,10 +6186,6 @@ namespace AutoCSer.Xml
     internal sealed unsafe class EnumUIntDeserialize<T> : EnumDeserialize<T>
         where T : struct, IConvertible
     {
-        /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
         /// <summary>
         /// 数值解析
         /// </summary>
@@ -6247,22 +6233,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        uint intValue = enumInts.UInt[index];
-                        intValue |= enumInts.UInt[nextIndex];
+                        uint intValue = AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.UInt[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, uint>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumUIntDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(uint), false);
-            uint* data = enumInts.UInt;
-            foreach (T value in enumValues) *(uint*)data++ = AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(value);
         }
     }
 }
@@ -6275,10 +6255,6 @@ namespace AutoCSer.Xml
     internal sealed unsafe class EnumIntDeserialize<T> : EnumDeserialize<T>
         where T : struct, IConvertible
     {
-        /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
         /// <summary>
         /// 数值解析
         /// </summary>
@@ -6326,22 +6302,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        int intValue = enumInts.Int[index];
-                        intValue |= enumInts.Int[nextIndex];
+                        int intValue = AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.Int[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, int>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumIntDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(int), false);
-            int* data = enumInts.Int;
-            foreach (T value in enumValues) *(int*)data++ = AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(value);
         }
     }
 }
@@ -6354,10 +6324,6 @@ namespace AutoCSer.Xml
     internal sealed unsafe class EnumUShortDeserialize<T> : EnumDeserialize<T>
         where T : struct, IConvertible
     {
-        /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
         /// <summary>
         /// 数值解析
         /// </summary>
@@ -6405,22 +6371,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        ushort intValue = enumInts.UShort[index];
-                        intValue |= enumInts.UShort[nextIndex];
+                        ushort intValue = AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.UShort[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, ushort>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumUShortDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(ushort), false);
-            ushort* data = enumInts.UShort;
-            foreach (T value in enumValues) *(ushort*)data++ = AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(value);
         }
     }
 }
@@ -6433,10 +6393,6 @@ namespace AutoCSer.Xml
     internal sealed unsafe class EnumShortDeserialize<T> : EnumDeserialize<T>
         where T : struct, IConvertible
     {
-        /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
         /// <summary>
         /// 数值解析
         /// </summary>
@@ -6484,22 +6440,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        short intValue = enumInts.Short[index];
-                        intValue |= enumInts.Short[nextIndex];
+                        short intValue = AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.Short[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, short>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumShortDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(short), false);
-            short* data = enumInts.Short;
-            foreach (T value in enumValues) *(short*)data++ = AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(value);
         }
     }
 }
@@ -6512,10 +6462,6 @@ namespace AutoCSer.Xml
     internal sealed unsafe class EnumByteDeserialize<T> : EnumDeserialize<T>
         where T : struct, IConvertible
     {
-        /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
         /// <summary>
         /// 数值解析
         /// </summary>
@@ -6563,22 +6509,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        byte intValue = enumInts.Byte[index];
-                        intValue |= enumInts.Byte[nextIndex];
+                        byte intValue = AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.Byte[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, byte>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumByteDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(byte), false);
-            byte* data = enumInts.Byte;
-            foreach (T value in enumValues) *(byte*)data++ = AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(value);
         }
     }
 }
@@ -6591,10 +6531,6 @@ namespace AutoCSer.Xml
     internal sealed unsafe class EnumSByteDeserialize<T> : EnumDeserialize<T>
         where T : struct, IConvertible
     {
-        /// <summary>
-        /// 枚举值集合
-        /// </summary>
-        private static AutoCSer.Memory.Pointer enumInts;
         /// <summary>
         /// 数值解析
         /// </summary>
@@ -6642,22 +6578,16 @@ namespace AutoCSer.Xml
                     getIndex(deserializer, ref value, out index, ref nextIndex);
                     if (nextIndex != -1)
                     {
-                        sbyte intValue = enumInts.SByte[index];
-                        intValue |= enumInts.SByte[nextIndex];
+                        sbyte intValue = AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(enumValues[index]);
+                        intValue |= AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(enumValues[nextIndex]);
                         while (deserializer.IsNextFlagEnum() != 0)
                         {
-                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= enumInts.SByte[index];
+                            if ((index = enumSearcher.NextFlagEnum(deserializer)) != -1) intValue |= AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(enumValues[index]);
                         }
                         value = AutoCSer.Metadata.EnumGenericType<T, sbyte>.FromInt(intValue);
                     }
                 }
             }
-        }
-        static EnumSByteDeserialize()
-        {
-            enumInts = AutoCSer.Memory.Unmanaged.GetStaticPointer(enumValues.Length * sizeof(sbyte), false);
-            sbyte* data = enumInts.SByte;
-            foreach (T value in enumValues) *(sbyte*)data++ = AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(value);
         }
     }
 }

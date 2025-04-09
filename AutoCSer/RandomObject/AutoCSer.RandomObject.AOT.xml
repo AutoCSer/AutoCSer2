@@ -1,0 +1,838 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.RandomObject.AOT</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.RandomObject.CombinationTemplateConfig">
+            <summary>
+            自定义简单组合模板参数
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Creator">
+            <summary>
+            随机生成枚举数据
+            </summary>
+            <summary>
+            随机对象生成
+            </summary>
+            <summary>
+            随机生成枚举数据
+            </summary>
+            <summary>
+            随机生成枚举数据
+            </summary>
+            <summary>
+            随机生成枚举数据
+            </summary>
+            <summary>
+            随机生成枚举数据
+            </summary>
+            <summary>
+            随机生成枚举数据
+            </summary>
+            <summary>
+            随机生成枚举数据
+            </summary>
+            <summary>
+            随机生成枚举数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumULong``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Creator.DefaultConfig">
+            <summary>
+            公共默认配置参数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.Create``1(AutoCSer.RandomObject.Config,System.Boolean)">
+            <summary>
+            创建随机对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <param name="isNullable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateMember``1(``0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机成员对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateNullable``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建可空随机对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateArray``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createArray``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateDictionary``3(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机字典
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateCollection``2(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createBool(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateByte(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateSByte(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateShort(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateUShort(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateInt(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateUInt(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateLong(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateULong(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Creator.decimalDiv">
+            <summary>
+            随机数除数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createDecimal(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createGuid(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createChar(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机字符
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createString(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机字符串
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createSubString(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机字符串
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createFloat(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createDouble(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateDateTime(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机时间
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.createDateTimeOffset(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机时间戳
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateTimeSpan(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机时间
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Creator.createDelegates">
+            <summary>
+            基本类型随机数创建函数信息集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.GetDelegate(System.Type)">
+            <summary>
+            获取基本类型随机数创建函数信息
+            </summary>
+            <param name="type"></param>
+            <returns>基本类型随机数创建函数信息</returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.Create``1(``0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumLong``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumUInt``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumInt``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumUShort``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumShort``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumByte``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.EnumSByte``1(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机枚举值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Config">
+            <summary>
+            随机对象生成配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MinDateTime">
+            <summary>
+            最小时间值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MaxDateTime">
+            <summary>
+            最大时间值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MinDecimal">
+            <summary>
+            最小数字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MaxDecimal">
+            <summary>
+            最大数字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.MaxArraySize">
+            <summary>
+            数组最大容量，默认为 15
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.IsSecondDateTime">
+            <summary>
+            时间是否精确到秒
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.IsParseFloat">
+            <summary>
+            浮点数是否转换成字符串
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.IsAscii">
+            <summary>
+            字符是否ASCII
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.IsNullChar">
+            <summary>
+            是否生成字符0
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.IsHistory">
+            <summary>
+            是否保存历史对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.GetCustomCreator(System.Type)">
+            <summary>
+            获取自定义生成委托
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.CreateNotSupport``1">
+            <summary>
+            创建不支持对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Config.history">
+            <summary>
+            历史对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.TryGetValue(System.Type)">
+            <summary>
+            获取历史对象
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.SaveHistory(System.Type,System.Object)">
+            <summary>
+            保存历史对象
+            </summary>
+            <param name="type"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.ClearHistory">
+            <summary>
+            清理历史对象集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.CreateString(System.Char,System.Char)">
+            <summary>
+            创建字符串
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Config.CreateDateTime">
+            <summary>
+            创建时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Creator`1">
+            <summary>
+            随机对象生成
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Creator`1.MemberCreator">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Creator`1.memberCreator">
+            <summary>
+            创建随机对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Creator`1.defaultCreator">
+            <summary>
+            基本类型随机数创建函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.Create(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.CreateNotNull(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.create(`0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.Create(`0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.CreateMember(`0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机对象
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.createDefault(AutoCSer.RandomObject.Config)">
+            <summary>
+            不支持类型创建默认值
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.createDefault(`0@,AutoCSer.RandomObject.Config)">
+            <summary>
+            不支持类型
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator`1.getDelegate">
+            <summary>
+            获取随机数创建委托
+            </summary>
+            <returns>随机数创建委托</returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.IgnoreAttribute">
+            <summary>
+            忽略成员配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.MemberAttribute">
+            <summary>
+            成员配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberAttribute.IsNullable">
+            <summary>
+            默认为 true 表示允许 null 值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberAttribute.Default">
+            <summary>
+            默认成员配置
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.MemberDynamicMethod">
+            <summary>
+            动态函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberDynamicMethod.dynamicMethod">
+            <summary>
+            动态函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberDynamicMethod.generator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberDynamicMethod.type">
+            <summary>
+            数据类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.MemberDynamicMethod.isValueType">
+            <summary>
+            是否值类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.#ctor(System.Type)">
+            <summary>
+            动态函数
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Push(System.Reflection.FieldInfo,AutoCSer.RandomObject.MemberAttribute)">
+            <summary>
+            添加字段
+            </summary>
+            <param name="field">字段信息</param>
+            <param name="attribute"></param>
+        </member>
+        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Base">
+            <summary>
+            基类调用
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.MemberDynamicMethod.Create(System.Type)">
+            <summary>
+            创建委托
+            </summary>
+            <param name="type">委托类型</param>
+            <returns>委托</returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.CollectionGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.CollectionGenericType.CreateCollectionDelegate">
+            <summary>
+            创建随机集合委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.CollectionGenericType.create``2">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Metadata.CollectionGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.CollectionGenericType.Get(System.Type,System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <param name="interfaceType">ICollection 类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.CollectionGenericType`2">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="VT"></typeparam>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.CollectionGenericType`2.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.CollectionGenericType`2.CreateCollectionDelegate">
+            <summary>
+            创建随机集合委托
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.DictionaryGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.DictionaryGenericType.CreateDictionaryDelegate">
+            <summary>
+            创建随机字典委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.DictionaryGenericType.create``3">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Metadata.DictionaryGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.DictionaryGenericType.Get(System.Type,System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <param name="interfaceType">IDictionary 类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.DictionaryGenericType`3">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.DictionaryGenericType`3.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.DictionaryGenericType`3.CreateDictionaryDelegate">
+            <summary>
+            创建随机字典委托
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.EnumGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.EnumGenericType.CreateEnumDelegate">
+            <summary>
+            创建随机枚举值委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.EnumGenericType.create``2">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="UT"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Metadata.EnumGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.EnumGenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.EnumGenericType`2">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="UT"></typeparam>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.EnumGenericType`2.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.EnumGenericType`2.CreateEnumDelegate">
+            <summary>
+            创建随机枚举值委托
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.GenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType.CreateDelegate">
+            <summary>
+            创建随机对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType.CreateMemberDelegate">
+            <summary>
+            创建随机对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType.CreateArrayDelegate">
+            <summary>
+            创建随机对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.GenericType.create``1">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Metadata.GenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.GenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.GenericType`1">
+            <summary>
+            泛型类型元数据
+            </summary>
+            <typeparam name="T">泛型类型</typeparam>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType`1.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType`1.CreateDelegate">
+            <summary>
+            创建随机对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType`1.CreateMemberDelegate">
+            <summary>
+            创建随机对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType`1.CreateArrayDelegate">
+            <summary>
+            创建随机对象
+            </summary>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.StructGenericType">
+            <summary>
+            泛型类型元数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.StructGenericType.CreateNullableDelegate">
+            <summary>
+            创建可空类型委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.StructGenericType.create``1">
+            <summary>
+            创建泛型类型元数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Metadata.StructGenericType.lastGenericType">
+            <summary>
+            最后一次访问的泛型类型元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Metadata.StructGenericType.Get(System.Type)">
+            <summary>
+            获取泛型类型元数据
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.RandomObject.Metadata.StructGenericType`1">
+            <summary>
+            泛型代理
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.StructGenericType`1.CurrentType">
+            <summary>
+            获取当前泛型类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.RandomObject.Metadata.StructGenericType`1.CreateNullableDelegate">
+            <summary>
+            创建可空类型委托
+            </summary>
+        </member>
+    </members>
+</doc>

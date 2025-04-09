@@ -83,7 +83,7 @@ namespace AutoCSer.ORM.RemoteProxy
             {
                 if (member.CustomColumnAttribute != null) columnIndexCount += member.CustomColumnNames.Length;
             }
-            Dictionary<string, int> columnIndexs = DictionaryCreator.CreateAny<string, int>(columnIndexCount);
+            Dictionary<string, int> columnIndexs = DictionaryCreator<string>.Create<int>(columnIndexCount);
             foreach (Member member in members)
             {
                 if (member.ReaderDataType != ReaderDataTypeEnum.CustomColumn) columnIndexs.Add(member.MemberIndex.Member.Name, columnIndexs.Count);

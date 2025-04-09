@@ -86,7 +86,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 foreach (KeyValue<int, string> enumValue in enumValues) Methods[enumValue.Key].EnumName = enumValue.Value;
             }
             methodIndex = 0;
-            HashSet<string> names = HashSetCreator.CreateAny<string>();
+            HashSet<string> names = HashSetCreator<string>.Create();
             foreach (MethodInfo methodEnum in Methods)
             {
                 if (methodEnum.EnumName != null && !names.Add(methodEnum.EnumName))
@@ -131,7 +131,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="code"></param>
         protected override void addCode(string code)
         {
-            if (CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath.Length == 0) Coder.Add(code, _language_);
+            if (CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath.Length == 0) Coder.Add(code, generatorAttribute.Language);
             else enumCode = Coder.WarningCode + code + Coder.FileEndCode;
         }
     }

@@ -184,7 +184,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         RepairMethodParameterTypeNotMatch,
         /// <summary>
-        /// 绑定方法编号以被使用，要修改该方法请调用修复功能
+        /// 绑定方法编号已被使用，要修改该方法请调用修复功能
         /// </summary>
         BindMethodIndexUsed,
         /// <summary>
@@ -200,7 +200,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         FileHeadNotMatch,
         /// <summary>
-        /// 文件持久化位置不再范围内，说明服务端重建处理过
+        /// 文件持久化位置不在范围内，说明服务端重建处理过
         /// </summary>
         FilePositionOutOfRange,
         /// <summary>

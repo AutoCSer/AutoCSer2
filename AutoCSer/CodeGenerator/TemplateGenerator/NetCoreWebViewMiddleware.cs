@@ -68,12 +68,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 代码生成入口
         /// </summary>
         /// <param name="parameter">安装参数</param>
+        /// <param name="attribute">代码生成器配置</param>
         /// <returns>是否生成成功</returns>
-        public Task<bool> Run(ProjectParameter parameter)
+        public Task<bool> Run(ProjectParameter parameter, GeneratorAttribute attribute)
         {
             if (HtmlGenerator.ViewMiddleware != null)
             {
                 ProjectParameter = parameter;
+                generatorAttribute = attribute;
                 assembly = parameter.Assembly;
                 CurrentType = HtmlGenerator.ViewMiddleware.GetType();
                 Views = NetCoreWebView.Views.Values.getArray();

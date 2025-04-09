@@ -1328,12 +1328,17 @@ namespace AutoCSer.CommandService
         /// <param name="methodIndex"></param>
         /// <param name="deserializer"></param>
         /// <param name="data"></param>
+        /// <param name="node"></param>
         /// <returns></returns>
-        internal CallStateEnum Load(NodeIndex index, int methodIndex, BinaryDeserializer deserializer, SubArray<byte> data)
+#if NetStandard21
+        internal CallStateEnum Load(NodeIndex index, int methodIndex, BinaryDeserializer deserializer, SubArray<byte> data, out ServerNode? node)
+#else
+        internal CallStateEnum Load(NodeIndex index, int methodIndex, BinaryDeserializer deserializer, SubArray<byte> data, out ServerNode node)
+#endif
         {
             if ((uint)index.Index < (uint)NodeIndex)
             {
-                var node = Nodes[index.Index].Get(index.Identity);
+                node = Nodes[index.Index].Get(index.Identity);
                 if (node != null)
                 {
                     if ((uint)methodIndex < (uint)node.NodeCreator.Methods.Length)
@@ -1428,6 +1433,7 @@ namespace AutoCSer.CommandService
                 }
                 return CallStateEnum.NodeIdentityNotMatch;
             }
+            node = null;
             return CallStateEnum.NodeIndexOutOfRange;
         }
         /// <summary>

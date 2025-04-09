@@ -459,7 +459,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.BindMethodIndexUsed">
             <summary>
-            绑定方法编号以被使用，要修改该方法请调用修复功能
+            绑定方法编号已被使用，要修改该方法请调用修复功能
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.BindMethodNotSupportBeforePersistence">
@@ -479,7 +479,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.FilePositionOutOfRange">
             <summary>
-            文件持久化位置不再范围内，说明服务端重建处理过
+            文件持久化位置不在范围内，说明服务端重建处理过
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.CanNotCreateSlave">
@@ -33470,7 +33470,7 @@
             持久化
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.Load(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.BinaryDeserializer,AutoCSer.SubArray{System.Byte})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.Load(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.BinaryDeserializer,AutoCSer.SubArray{System.Byte},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode@)">
             <summary>
             初始化加载数据
             </summary>
@@ -33478,6 +33478,7 @@
             <param name="methodIndex"></param>
             <param name="deserializer"></param>
             <param name="data"></param>
+            <param name="node"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.SetRebuild(System.Int64,System.Int64,System.Int64)">

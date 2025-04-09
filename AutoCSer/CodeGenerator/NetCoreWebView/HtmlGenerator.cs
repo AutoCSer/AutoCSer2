@@ -44,7 +44,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// <summary>
         /// 数据视图集合
         /// </summary>
-        internal static Dictionary<string, View> Views = DictionaryCreator.CreateAny<string, View>();
+        internal static Dictionary<string, View> Views = DictionaryCreator<string>.Create<View>();
 
         /// <summary>
         /// 安装参数
@@ -66,8 +66,9 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
         /// 代码生成入口
         /// </summary>
         /// <param name="parameter">安装参数</param>
+        /// <param name="attribute">代码生成器配置</param>
         /// <returns>是否生成成功</returns>
-        public async Task<bool> Run(ProjectParameter parameter)
+        public async Task<bool> Run(ProjectParameter parameter, GeneratorAttribute attribute)
         {
             foreach (Type type in parameter.Types)
             {
@@ -115,8 +116,8 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                 if (directory != null && await AutoCSer.Common.DirectoryExists(directory)) await copyAutoCSerScript(directory);
                 else Messages.Message($"没有找到 AutoCSer TypeScript / JavaScript 文件目录 {directory?.FullName ?? "Script"}");
 
-                includeHtmlFiles = DictionaryCreator.CreateAny<string, HtmlFile>();
-                javaScriptFiles = DictionaryCreator.CreateAny<string, JavaScriptFile>();
+                includeHtmlFiles = DictionaryCreator<string>.Create<HtmlFile>();
+                javaScriptFiles = DictionaryCreator<string>.Create<JavaScriptFile>();
                 FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(new DirectoryInfo(parameter.ProjectPath), "*" + PageHtmlFileExtension, SearchOption.AllDirectories);
                 LeftArray<HtmlFile> pages = new LeftArray<HtmlFile>(files.Length);
                 foreach (FileInfo htmlPageFile in files)
@@ -145,7 +146,7 @@ namespace AutoCSer.CodeGenerator.NetCoreWebView
                     await page.CreateFile(codes, ++scriptVersion);
                 }
 
-                includeCssFiles = DictionaryCreator.CreateAny<string, CssFile>();
+                includeCssFiles = DictionaryCreator<string>.Create<CssFile>();
                 files = await AutoCSer.Common.DirectoryGetFiles(new DirectoryInfo(parameter.ProjectPath), "*" + PageCssFileExtension, SearchOption.AllDirectories);
                 LeftArray<CssFile> cssFiles = new LeftArray<CssFile>(files.Length);
                 foreach (FileInfo cssFile in files)

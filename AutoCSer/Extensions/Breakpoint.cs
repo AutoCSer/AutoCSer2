@@ -76,5 +76,22 @@ namespace AutoCSer
             AutoCSer.ConsoleWriteQueue.Breakpoint(nameof(ReturnFalse), callerMemberName, callerFilePath, callerLineNumber);
             return false;
         }
+        /// <summary>
+        /// 添加测试断点信息并返回 false
+        /// </summary>
+        /// <param name="message">附加信息</param>
+        /// <param name="callerMemberName">调用成员名称</param>
+        /// <param name="callerFilePath">调用源代码文件路径</param>
+        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <returns>返回值状态是否成功</returns>
+#if NetStandard21
+        public static bool ReturnFalse<T>(T message, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
+        public static bool ReturnFalse<T>(T message, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
+        {
+            AutoCSer.ConsoleWriteQueue.Breakpoint(AutoCSer.JsonSerializer.Serialize(message), callerMemberName, callerFilePath, callerLineNumber);
+            return false;
+        }
     }
 }

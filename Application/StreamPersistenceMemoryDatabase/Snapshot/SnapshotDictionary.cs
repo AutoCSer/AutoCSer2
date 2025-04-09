@@ -76,7 +76,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     current += sizeof(long);
                 }
                 QuickSort.SortLong(start, current - sizeof(long));
-                *(int*)current = int.MaxValue;
+                *(int*)(current + sizeof(int)) = int.MaxValue;
                 do
                 {
                     if ((hashIndex = *(int*)(start + sizeof(int))) < count)

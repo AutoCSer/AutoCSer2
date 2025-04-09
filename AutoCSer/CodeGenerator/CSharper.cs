@@ -75,7 +75,7 @@ namespace AutoCSer.CodeGenerator
         /// <param name=""isOut"">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.", Attribute.Language.ToString(), @", _isOut_))
+            if (outStart(_isOut_))
             {
                 ");
                 switch (Attribute.Language)
@@ -138,8 +138,9 @@ namespace AutoCSer.CodeGenerator
         /// 安装入口
         /// </summary>
         /// <param name="parameter">安装参数</param>
+        /// <param name="attribute">代码生成器配置</param>
         /// <returns>是否安装成功</returns>
-        public async Task<bool> Run(ProjectParameter parameter)
+        public async Task<bool> Run(ProjectParameter parameter, GeneratorAttribute attribute)
         {
             if (parameter.IsAutoCSerCodeGenerator || parameter.IsCustomCodeGenerator)
             {

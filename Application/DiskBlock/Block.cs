@@ -24,7 +24,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <summary>
         /// 读取数据请求缓存
         /// </summary>
-        private readonly Dictionary<long, ReadRequest> readCache = AutoCSer.Extensions.DictionaryCreator.CreateLong<ReadRequest>();
+        private readonly Dictionary<long, ReadRequest> readCache = AutoCSer.DictionaryCreator.CreateLong<ReadRequest>();
         /// <summary>
         /// 文件流起始写入位置
         /// </summary>

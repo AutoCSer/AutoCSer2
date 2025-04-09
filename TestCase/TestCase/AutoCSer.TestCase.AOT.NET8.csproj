@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;AOT;NetStandard21</DefineConstants>
+    <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.AOT.xml</DocumentationFile>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>AOT;NetStandard21</DefineConstants>
+    <DocumentationFile>C:\AutoCSer2\TestCase\TestCase\AutoCSer.TestCase.AOT.xml</DocumentationFile>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BinarySerialize.cs" />
+    <Compile Include="Data\Field.cs" />
+    <Compile Include="Data\Float.cs" />
+    <Compile Include="Data\InheritProperty.cs" />
+    <Compile Include="Data\JsonEmpty.cs" />
+    <Compile Include="Data\JsonField.cs" />
+    <Compile Include="Data\JsonProperty.cs" />
+    <Compile Include="Data\MemberClass.cs" />
+    <Compile Include="Data\NoMemberClass.cs" />
+    <Compile Include="Data\ORM\BusinessModel.cs" />
+    <Compile Include="Data\ORM\BusinessModelAssociated.cs" />
+    <Compile Include="Data\ORM\CommonModel.cs" />
+    <Compile Include="Data\ORM\ModelAssociated.cs" />
+    <Compile Include="Data\ORM\ModelGeneric.cs" />
+    <Compile Include="Data\Property.cs" />
+    <Compile Include="Data\JsonStructField.cs" />
+    <Compile Include="Data\StructField.cs" />
+    <Compile Include="Data\JsonStructProperty.cs" />
+    <Compile Include="Data\StructProperty.cs" />
+    <Compile Include="Program.AOT.cs" />
+    <Compile Include="ReusableDictionary.cs" />
+    <Compile Include="SearchTree.cs" />
+    <Compile Include="Json.cs" />
+    <Compile Include="{AutoCSer.TestCase}.AOT.AutoCSer.cs" />
+    <Compile Include="{AutoCSer.TestCase}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.AOT.NET8.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.AOT.NET8.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
+  
+</Project>

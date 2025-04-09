@@ -146,6 +146,16 @@ namespace AutoCSer.Extensions
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == genericDefinitionInterfaceType;
         }
+        /// <summary>
+        /// 获取泛型定义类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static Type getGenericTypeDefinition(this Type type)
+        {
+            return !type.IsGenericType || type.IsGenericTypeDefinition ? type : type.GetGenericTypeDefinition();
+        }
 
         //static TypeExtension()
         //{

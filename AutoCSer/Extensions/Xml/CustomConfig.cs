@@ -14,8 +14,10 @@ namespace AutoCSer.Xml
         /// <returns></returns>
         public virtual AutoCSer.TextSerialize.SerializeDelegate GetCustomSerializeDelegate(Type type)
         {
+#if !AOT
             AutoCSer.TextSerialize.SerializeDelegate serializeDelegate;
             if (getCustomSerializeDelegate(type, out serializeDelegate)) return serializeDelegate;
+#endif
             if (typeof(ICustomSerialize).IsAssignableFrom(type) && typeof(ICustomSerialize<>).MakeGenericType(type).IsAssignableFrom(type))
             {
                 return new AutoCSer.TextSerialize.SerializeDelegate(CustomSerializeGenericType.Get(type).SerializeDelegate, getCustomSerializeReferenceTypes<XmlSerializeAttribute>(type));
@@ -68,8 +70,10 @@ namespace AutoCSer.Xml
         public virtual Delegate GeteCustomDeserializDelegate(Type type)
 #endif
         {
+#if !AOT
             var deserializDelegate = default(Delegate);
-            if (geteCustomDeserializDelegate(type, out deserializDelegate)) return deserializDelegate;
+            if (geteCustomDeserializeDelegate(type, out deserializDelegate)) return deserializDelegate;
+#endif
 
             if (typeof(ICustomSerialize).IsAssignableFrom(type) && typeof(ICustomSerialize<>).MakeGenericType(type).IsAssignableFrom(type))
             {

@@ -72,6 +72,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 预申请快照容器数组
         /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetSnapshotValueArray()
         {
             int count = hashSet.Count;
@@ -80,6 +81,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取快照数据集合
         /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetSnapshotResult()
         {
             int count = hashSet.Count, newSize = count - snapshotNodes.Length;
@@ -89,6 +91,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 关闭快照操作
         /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void CloseSnapshot()
         {
             snapshotCount = 0;

@@ -2905,12 +2905,13 @@ namespace AutoCSer
             deserializeDelegates.Add(typeof(string), (DeserializeDelegate<string>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(object), (DeserializeDelegate<object>)primitiveDeserialize);
 #endif
-
+#if !AOT
             foreach (Delegate deserializeDelegate in AutoCSer.XmlSerializer.CustomConfig.PrimitiveDeserializeDelegates)
             {
                 var type = AutoCSer.Common.CheckDeserializeType(typeof(XmlDeserializer), deserializeDelegate);
                 if (type != null) deserializeDelegates[type] = deserializeDelegate;
             }
+#endif
         }
     }
 }

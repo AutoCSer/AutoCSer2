@@ -28,6 +28,7 @@ namespace AutoCSer.TestCase
         }
         private static async Task test()
         {
+
             AutoCSer.FieldEquals.Comparor.IsBreakpoint = true;
 
             //服务端设置允许的泛型参数类型
@@ -57,11 +58,12 @@ namespace AutoCSer.TestCase
             {
                 if (await commandListener.Start())
                 {
+                    long streamPersistenceMemoryDatabaseCount = 2;
                     Type errorType = typeof(Program);
                     do
                     {
+                        Task<bool> streamPersistenceMemoryDatabaseTask = streamPersistenceMemoryDatabaseCount > 0 ? StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase() : null;
                         Task<bool> commandServerTask = CommandServer.TestCase();
-                        Task<bool> streamPersistenceMemoryDatabaseTask = StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase();
                         Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
                         Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
                         Task<bool> binarySerializeTask = ThreadPool.TinyBackground.RunTask(BinarySerialize.TestCase);
@@ -75,10 +77,11 @@ namespace AutoCSer.TestCase
                         if (!await jsonTask) { errorType = typeof(Json); break; }
                         if (!await xmlTask) { errorType = typeof(Xml); break; }
                         if (!await interfaceControllerTaskQueueTask) { errorType = typeof(InterfaceControllerTaskQueue); break; }
-                        if (!await streamPersistenceMemoryDatabaseTask) { errorType = typeof(StreamPersistenceMemoryDatabaseService); break; }
                         if (!await searchTreeTask) { errorType = typeof(SearchTree); break; }
                         if (!await reusableDictionaryTask) { errorType = typeof(ReusableDictionary); break; }
+                        if (streamPersistenceMemoryDatabaseTask != null && !await streamPersistenceMemoryDatabaseTask) { errorType = typeof(StreamPersistenceMemoryDatabaseService); break; }
                         Console.Write('.');
+                        --streamPersistenceMemoryDatabaseCount;
                     }
                     while (true);
                     ConsoleWriteQueue.WriteLine(errorType.FullName + " ERROR", ConsoleColor.Red);

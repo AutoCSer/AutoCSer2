@@ -8,6 +8,2379 @@ using AutoCSer;
 
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
+    internal partial class BinarySerialize
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(_isOut_))
+            {
+                
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""serializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(FixedBinarySerializeMethodName);
+            _code_.Add(@"(AutoCSer.BinarySerializer serializer, ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FixedFields;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.fixedBinarySerialize(serializer);");
+            }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""deserializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(FixedBinaryDeserializeMethodName);
+            _code_.Add(@"(AutoCSer.BinaryDeserializer deserializer, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FixedFields;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.fixedBinaryDeserialize(deserializer);");
+            }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FixedFields;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""__serializer__""></param>
+            private void fixedBinarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FixedFields;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __serializer__.Stream.Write((");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.UnderlyingType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@")this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __serializer__.BinarySerialize(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""__deserializer__""></param>
+            private void fixedBinaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FixedFields;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = (");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@")__deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _code_.Add(@"();");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.IsProperty)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                var ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";
+                __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _code_.Add(@"(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");
+                this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsProperty)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _code_.Add(@"(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }");
+            }
+            _if_ = false;
+                    if (IsMemberMap)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""memberMap""></param>
+            /// <param name=""serializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(FixedBinarySerializeMemberMapMethodName);
+            _code_.Add(@"(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> memberMap, AutoCSer.BinarySerializer serializer, ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FixedFields;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.fixedBinarySerialize(memberMap, serializer);");
+            }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""memberMap""></param>
+            /// <param name=""deserializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(FixedBinaryDeserializeMemberMapMethodName);
+            _code_.Add(@"(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> memberMap, AutoCSer.BinaryDeserializer deserializer, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FixedFields;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.fixedBinaryDeserialize(memberMap, deserializer);");
+            }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FixedFields;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""__memberMap__""></param>
+            /// <param name=""__serializer__""></param>
+            private void fixedBinarySerialize(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> __memberMap__, AutoCSer.BinarySerializer __serializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FixedFields;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                if (__memberMap__.IsMember(");
+            _code_.Add(_value2_.MemberIndex.ToString());
+            _code_.Add(@"))
+                {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __serializer__.Stream.Write((");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.UnderlyingType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@")this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __serializer__.BinarySerialize(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""__memberMap__""></param>
+            /// <param name=""__deserializer__""></param>
+            private void fixedBinaryDeserialize(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> __memberMap__, AutoCSer.BinaryDeserializer __deserializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FixedFields;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                if (__memberMap__.IsMember(");
+            _code_.Add(_value2_.MemberIndex.ToString());
+            _code_.Add(@"))
+                {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = (");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@")__deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _code_.Add(@"();");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.IsProperty)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    var ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";
+                    __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _code_.Add(@"(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");
+                    this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsProperty)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _code_.Add(@"(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            }
+            _code_.Add(@"
+                }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }");
+            }
+            }
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""serializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(BinarySerializeMethodName);
+            _code_.Add(@"(AutoCSer.BinarySerializer serializer, ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FieldArray;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.binarySerialize(serializer);");
+            }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""deserializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(BinaryDeserializeMethodName);
+            _code_.Add(@"(AutoCSer.BinaryDeserializer deserializer, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FieldArray;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.binaryDeserialize(deserializer);");
+            }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FieldArray;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""__serializer__""></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FieldArray;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                __serializer__.");
+            _code_.Add(_value2_.SerializeMethodName);
+            _if_ = false;
+                    if (_value2_.IsGenericType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"<");
+            _code_.Add(_value2_.GenericTypeName);
+            _code_.Add(@">");
+            }
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""__deserializer__""></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FieldArray;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.IsProperty)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                var ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";
+                __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _if_ = false;
+                    if (_value2_.IsGenericType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"<");
+            _code_.Add(_value2_.GenericTypeName);
+            _code_.Add(@">");
+            }
+            _code_.Add(@"(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");
+                this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsProperty)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _if_ = false;
+                    if (_value2_.IsGenericType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"<");
+            _code_.Add(_value2_.GenericTypeName);
+            _code_.Add(@">");
+            }
+            _code_.Add(@"(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }");
+            }
+            _if_ = false;
+                    if (IsMemberMap)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""memberMap""></param>
+            /// <param name=""serializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(BinarySerializeMemberMapMethodName);
+            _code_.Add(@"(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> memberMap, AutoCSer.BinarySerializer serializer, ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FieldArray;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.binarySerialize(memberMap, serializer);");
+            }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""memberMap""></param>
+            /// <param name=""deserializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(BinaryDeserializeMemberMapMethodName);
+            _code_.Add(@"(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> memberMap, AutoCSer.BinaryDeserializer deserializer, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FieldArray;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.binaryDeserialize(memberMap, deserializer);");
+            }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_ = FieldArray;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name=""__memberMap__""></param>
+            /// <param name=""__serializer__""></param>
+            private void binarySerialize(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> __memberMap__, AutoCSer.BinarySerializer __serializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FieldArray;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                if (__memberMap__.IsMember(");
+            _code_.Add(_value2_.MemberIndex.ToString());
+            _code_.Add(@")) __serializer__.");
+            _code_.Add(_value2_.SerializeMethodName);
+            _if_ = false;
+                    if (_value2_.IsGenericType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"<");
+            _code_.Add(_value2_.GenericTypeName);
+            _code_.Add(@">");
+            }
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name=""__memberMap__""></param>
+            /// <param name=""__deserializer__""></param>
+            private void binaryDeserialize(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> __memberMap__, AutoCSer.BinaryDeserializer __deserializer__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember[] _value1_;
+                    _value1_ = FieldArray;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.BinarySerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                if (__memberMap__.IsMember(");
+            _code_.Add(_value2_.MemberIndex.ToString());
+            _code_.Add(@"))
+                {");
+            _if_ = false;
+                    if (_value2_.IsProperty)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    var ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";
+                    __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _if_ = false;
+                    if (_value2_.IsGenericType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"<");
+            _code_.Add(_value2_.GenericTypeName);
+            _code_.Add(@">");
+            }
+            _code_.Add(@"(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");
+                    this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsProperty)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.");
+            _code_.Add(_value2_.DeserializeMethodName);
+            _if_ = false;
+                    if (_value2_.IsGenericType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"<");
+            _code_.Add(_value2_.GenericTypeName);
+            _code_.Add(@">");
+            }
+            _code_.Add(@"(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }");
+            }
+            }
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
+    internal partial class JsonSerialize
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(_isOut_))
+            {
+                
+            _code_.Add(@"
+            /// <summary>
+            /// JSON 序列化
+            /// </summary>
+            /// <param name=""serializer""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(JsonSerializeMethodName);
+            _code_.Add(@"(AutoCSer.JsonSerializer serializer, ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_ = Members;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.jsonSerialize(serializer);");
+            }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// JSON 序列化
+            /// </summary>
+            /// <param name=""memberMap""></param>
+            /// <param name=""serializer""></param>
+            /// <param name=""value""></param>
+            /// <param name=""stream""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(JsonSerializeMemberMapMethodName);
+            _code_.Add(@"(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> memberMap, JsonSerializer serializer, ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value, AutoCSer.Memory.CharStream stream)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_ = Members;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.jsonSerialize(memberMap, serializer, stream);");
+            }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_ = Members;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// JSON 序列化
+            /// </summary>
+            /// <param name=""__serializer__""></param>
+            private void jsonSerialize(AutoCSer.JsonSerializer __serializer__)
+            {
+                AutoCSer.Memory.CharStream __stream__ = __serializer__.CharStream;");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_;
+                    _value1_ = Members;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _if_ = false;
+                if (!(bool)IsFirstMember)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __stream__.Write(',');");
+            }
+            _code_.Add(@"
+                __stream__.SimpleWrite(@""");
+            _code_.Add(_value2_.SerializeMemberName);
+            _code_.Add(@""");");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsValueType)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __serializer__.");
+            _code_.Add(_value2_.EnumJsonSerializeMethodName);
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __serializer__.");
+            _code_.Add(_value2_.SerializeMethodName);
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsValueType)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                if (");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" == null) __stream__.WriteJsonNull();
+                else __serializer__.");
+            _code_.Add(_value2_.SerializeMethodName);
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// JSON 序列化
+            /// </summary>
+            /// <param name=""__memberMap__""></param>
+            /// <param name=""__serializer__""></param>
+            /// <param name=""__stream__""></param>
+            private void jsonSerialize(AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> __memberMap__, JsonSerializer __serializer__, AutoCSer.Memory.CharStream __stream__)
+            {
+                bool isNext = false;");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_;
+                    _value1_ = Members;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                if (__memberMap__.IsMember(");
+            _code_.Add(_value2_.MemberIndex.ToString());
+            _code_.Add(@"))
+                {
+                    if (isNext) __stream__.Write(',');
+                    else isNext = true;
+                    __stream__.SimpleWrite(@""");
+            _code_.Add(_value2_.SerializeMemberName);
+            _code_.Add(@""");");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsValueType)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __serializer__.");
+            _code_.Add(_value2_.EnumJsonSerializeMethodName);
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __serializer__.");
+            _code_.Add(_value2_.SerializeMethodName);
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsValueType)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    if (");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" == null) __stream__.WriteJsonNull();
+                    else __serializer__.");
+            _code_.Add(_value2_.SerializeMethodName);
+            _code_.Add(@"(");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }");
+            }
+            _code_.Add(@"
+            /// <summary>
+            /// JSON 反序列化
+            /// </summary>
+            /// <param name=""deserializer""></param>
+            /// <param name=""value""></param>
+            /// <param name=""names""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(JsonDeserializeMethodName);
+            _code_.Add(@"(AutoCSer.JsonDeserializer deserializer, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value, ref AutoCSer.Memory.Pointer names)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_ = DeserializeMembers;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.jsonDeserialize(deserializer, ref names);");
+            }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// JSON 反序列化
+            /// </summary>
+            /// <param name=""deserializer""></param>
+            /// <param name=""value""></param>
+            /// <param name=""names""></param>
+            /// <param name=""memberMap""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(JsonDeserializeMemberMapMethodName);
+            _code_.Add(@"(AutoCSer.JsonDeserializer deserializer, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value, ref AutoCSer.Memory.Pointer names, AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> memberMap)
+            {");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_ = DeserializeMembers;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.jsonDeserialize(deserializer, ref names, memberMap);");
+            }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_ = DeserializeMembers;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[]))
+                    {
+                    if (_value1_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// JSON 反序列化
+            /// </summary>
+            /// <param name=""__deserializer__""></param>
+            /// <param name=""__names__""></param>
+            private void jsonDeserialize(AutoCSer.JsonDeserializer __deserializer__, ref AutoCSer.Memory.Pointer __names__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_;
+                    _value1_ = DeserializeMembers;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                if (__deserializer__.IsName(ref __names__))
+                {");
+            _if_ = false;
+                if (!(bool)_value2_.IsField)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    var ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.");
+            _code_.Add(_value2_.EnumJsonDeserializeMethodName);
+            _code_.Add(@"(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.JsonDeserialize(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                    this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                    if (_value2_.IsField)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.");
+            _code_.Add(_value2_.EnumJsonDeserializeMethodName);
+            _code_.Add(@"(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.JsonDeserialize(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            }
+            _code_.Add(@"
+                    if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
+                }
+                else return;");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }
+            /// <summary>
+            /// JSON 反序列化
+            /// </summary>
+            /// <param name=""__deserializer__""></param>
+            /// <param name=""__names__""></param>
+            /// <param name=""__memberMap__""></param>
+            private void jsonDeserialize(AutoCSer.JsonDeserializer __deserializer__, ref AutoCSer.Memory.Pointer __names__, AutoCSer.Metadata.MemberMap<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"> __memberMap__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_;
+                    _value1_ = DeserializeMembers;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                if (__deserializer__.IsName(ref __names__))
+                {");
+            _if_ = false;
+                if (!(bool)_value2_.IsField)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    var ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.");
+            _code_.Add(_value2_.EnumJsonDeserializeMethodName);
+            _code_.Add(@"(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.JsonDeserialize(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                    this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                    if (_value2_.IsField)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.");
+            _code_.Add(_value2_.EnumJsonDeserializeMethodName);
+            _code_.Add(@"(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __deserializer__.JsonDeserialize(ref this.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            }
+            _code_.Add(@"
+                    if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(");
+            _code_.Add(_value2_.MemberIndex.ToString());
+            _code_.Add(@");
+                    else return;
+                }
+                else return;");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            }");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember[] _value1_;
+                    _value1_ = DeserializeMembers;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.JsonSerialize.SerializeMember _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+            /// <summary>
+            /// 成员 JSON 反序列化
+            /// </summary>
+            /// <param name=""__deserializer__""></param>
+            /// <param name=""__value__""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(_value2_.MemberJsonDeserializeMethodName);
+            _code_.Add(@"(AutoCSer.JsonDeserializer __deserializer__, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = CurrentType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" __value__)
+            {");
+            _if_ = false;
+                if (!(bool)_value2_.IsField)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                var ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = __value__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __deserializer__.");
+            _code_.Add(_value2_.EnumJsonDeserializeMethodName);
+            _code_.Add(@"(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __deserializer__.JsonDeserialize(ref ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                __value__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                    if (_value2_.IsField)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                    if (_value4_.IsEnum)
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __deserializer__.");
+            _code_.Add(_value2_.EnumJsonDeserializeMethodName);
+            _code_.Add(@"(ref __value__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                {
+                    System.Type _value4_ = _value3_.Type;
+                    if (_value4_ != default(System.Type))
+                    {
+                if (!(bool)_value4_.IsEnum)
+                {
+                    _if_ = true;
+                }
+                    }
+                }
+                    }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __deserializer__.JsonDeserialize(ref __value__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@");");
+            }
+            }
+            _code_.Add(@"
+            }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            }
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
+    internal partial class SimpleSerialize
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(_isOut_))
+            {
+                
+            _code_.Add(@"
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name=""stream""></param>
+            /// <param name=""value""></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public static void ");
+            _code_.Add(SimpleSerializeMethodName);
+            _code_.Add(@"(AutoCSer.Memory.UnmanagedStream stream, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name=""__stream__""></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(");
+            _code_.Add(PrepSize.ToString());
+            _code_.Add(@"))
+                {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField[] _value1_;
+                    _value1_ = FixedFields;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.IsEnum)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __stream__.Write((");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.UnderlyingType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@")this.");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsEnum)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@");");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _if_ = false;
+                    if (FixedFillSize != default(int))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    __stream__.TryMoveSize(");
+            _code_.Add(FixedFillSize.ToString());
+            _code_.Add(@");");
+            }
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField[] _value1_;
+                    _value1_ = FieldArray;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@");");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+                }
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name=""start""></param>
+            /// <param name=""value""></param>
+            /// <param name=""end""></param>
+            /// <returns></returns>
+            public static byte* ");
+            _code_.Add(SimpleDeserializeMethodName);
+            _code_.Add(@"(byte* start, ref ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@" value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name=""__start__""></param>
+            /// <param name=""__end__""></param>
+            /// <returns></returns>
+            private byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField[] _value1_;
+                    _value1_ = FixedFields;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.IsEnum)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.UnderlyingType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@" = 0;
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref ");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@");
+                this.");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@" = (");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@")");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@";");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsEnum)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                if (__start__ == null || __start__ > __end__) return null;");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _if_ = false;
+                    if (FixedFillSize != default(int))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __start__ += ");
+            _code_.Add(FixedFillSize.ToString());
+            _code_.Add(@";");
+            }
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField[] _value1_;
+                    _value1_ = FieldArray;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.IsString)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@", __end__);");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsString)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.");
+            _code_.Add(_value2_.FieldName);
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+                if (__start__ == null || __start__ > __end__) return null;");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+                return __start__;
+            }");
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
     internal partial class CommandServerMethodIndexEnumType
     {
         /// <summary>
@@ -16,7 +2389,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="isOut">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            if (outStart(_isOut_))
             {
                 
                 {
@@ -143,7 +2516,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="isOut">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            if (outStart(_isOut_))
             {
                 
             _code_.Add(@"
@@ -565,7 +2938,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="isOut">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            if (outStart(_isOut_))
             {
                 
             _code_.Add(@"
@@ -646,7 +3019,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="isOut">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            if (outStart(_isOut_))
             {
                 
             _code_.Add(@"
@@ -832,7 +3205,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="isOut">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            if (outStart(_isOut_))
             {
                 
             _code_.Add(@"
@@ -993,7 +3366,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="isOut">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            if (outStart(_isOut_))
             {
                 
             _code_.Add(@"
@@ -1202,7 +3575,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="isOut">是否输出类定义代码</param>
         protected override void create(bool _isOut_)
         {
-            if (outStart(AutoCSer.CodeGenerator.CodeLanguageEnum.CSharp, _isOut_))
+            if (outStart(_isOut_))
             {
                 
             _code_.Add(@"

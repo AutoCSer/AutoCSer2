@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase
                 dictionary.Set(value, value + random);
                 //if(!dictionary.Check(++nextValue))
                 //{
-                //    return AutoCSer.Breakpoint.ReturnFalse();
+                //    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 //}
             }
             nextValue = 0;
@@ -37,7 +37,7 @@ namespace AutoCSer.TestCase
             {
                 if (value.Key != nextValue || value.Value != nextValue + random)
                 {
-                    return AutoCSer.Breakpoint.ReturnFalse();
+                    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 }
                 ++nextValue;
             }
@@ -49,7 +49,7 @@ namespace AutoCSer.TestCase
                 searchTreeSet.Add(value + random);
                 //if (!searchTreeSet.Check(++nextValue))
                 //{
-                //    return AutoCSer.Breakpoint.ReturnFalse();
+                //    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 //}
             }
             nextValue = 0;
@@ -57,7 +57,7 @@ namespace AutoCSer.TestCase
             {
                 if (value != nextValue + random)
                 {
-                    return AutoCSer.Breakpoint.ReturnFalse();
+                    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 }
                 ++nextValue;
             }
@@ -69,7 +69,7 @@ namespace AutoCSer.TestCase
                 nodeDictionary.Set(new SearchTree(value, value + random));
                 //if (!nodeDictionary.Check(++nextValue))
                 //{
-                //    return AutoCSer.Breakpoint.ReturnFalse();
+                //    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 //}
             }
             nextValue = 0;
@@ -77,7 +77,7 @@ namespace AutoCSer.TestCase
             {
                 if (value.Key != nextValue || value.value != nextValue + random)
                 {
-                    return AutoCSer.Breakpoint.ReturnFalse();
+                    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 }
                 ++nextValue;
             }
@@ -88,35 +88,35 @@ namespace AutoCSer.TestCase
             {
                 if (!dictionary.Remove(value, out removeValue) || removeValue != value + random)
                 {
-                    return AutoCSer.Breakpoint.ReturnFalse();
+                    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 }
             }
             if (dictionary.Count != 0)
             {
-                return AutoCSer.Breakpoint.ReturnFalse();
+                return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
             }
             foreach (int value in data)
             {
                 if (!searchTreeSet.Remove(value + random))
                 {
-                    return AutoCSer.Breakpoint.ReturnFalse();
+                    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 }
             }
             if (searchTreeSet.Count != 0)
             {
-                return AutoCSer.Breakpoint.ReturnFalse();
+                return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
             }
             SearchTree removeNodeValue;
             foreach (int value in data)
             {
                 if (!nodeDictionary.Remove(value, out removeNodeValue) || removeNodeValue.value != value + random)
                 {
-                    return AutoCSer.Breakpoint.ReturnFalse();
+                    return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
                 }
             }
             if (nodeDictionary.Count != 0)
             {
-                return AutoCSer.Breakpoint.ReturnFalse();
+                return AutoCSer.Breakpoint.ReturnFalse(new KeyValue<int, int[]>(random, data));
             }
 
             return true;

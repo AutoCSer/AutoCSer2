@@ -179,7 +179,7 @@ namespace AutoCSer.CommandService.DeployTask
                 FileInfo[] files = await AutoCSer.Common.DirectoryGetFiles(backupDirectory);
                 if (files.Length != 0)
                 {
-                    backupFiles = DictionaryCreator.CreateAny<string, FileInfo>(files.Length);
+                    backupFiles = DictionaryCreator<string>.Create<FileInfo>(files.Length);
                     foreach (FileInfo file in files)
                     {
                         if (isExtension(file)) backupFiles.Add(file.Name, file);

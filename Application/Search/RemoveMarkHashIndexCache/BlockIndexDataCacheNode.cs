@@ -436,7 +436,6 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <param name="semaphoreSlim"></param>
         internal override void Release(SemaphoreSlimCache semaphoreSlim)
         {
-            semaphoreSlim.Lock.Release();
             ((BlockIndexDataCache<KT, VT>)cache).Release(semaphoreSlim, Key);
         }
     }

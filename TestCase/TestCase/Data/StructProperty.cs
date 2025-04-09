@@ -7,8 +7,9 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 属性数据定义(值类型外壳)
     /// </summary>
+    [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.AOT.Preserve(AllMembers = true)]
-    internal struct StructProperty
+    internal partial struct StructProperty
     {
         public bool Bool { get; set; }
         public byte Byte { get; set; }

@@ -31,7 +31,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public ProcessGuardNode()
         {
             guards = new SnapshotDictionary<int, GuardProcess>();
-            switchCallbacks = DictionaryCreator.CreateAny<string, MethodCallback<bool>>();
+            switchCallbacks = DictionaryCreator<string>.Create<MethodCallback<bool>>();
         }
         /// <summary>
         /// 快照设置数据

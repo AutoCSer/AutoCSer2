@@ -8,9 +8,12 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 字段数据定义(值类型外壳)
     /// </summary>
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.AOT.Preserve(AllMembers = true)]
-    internal struct StructField
+    internal partial struct StructField
     {
+
         public bool Bool;
         public byte Byte;
         public sbyte SByte;

@@ -104,7 +104,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             Service = service;
             nodes = new KeyValue<ServerNode, int>[service.NodeIndex];
-            snapshotTransactionNodes = DictionaryCreator.CreateAny<string, ServerNode>();
+            snapshotTransactionNodes = DictionaryCreator<string>.Create<ServerNode>();
             snapshotTransactionNodeVersion = Service.SnapshotTransactionNodeVersion;
             service.Rebuilder = this;
 #if NetStandard21

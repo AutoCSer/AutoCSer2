@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.FieldEquals.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.FieldEquals</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.AOT.xml</DocumentationFile>
+    <DefineConstants>DEBUG;NetStandard21</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.AOT.xml</DocumentationFile>
+    <DefineConstants>NetStandard21</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CombinationTemplateConfig.cs" />
+    <Compile Include="CombinationTemplate\Comparor.Enum.cs" />
+    <Compile Include="Comparor.cs" />
+    <Compile Include="IgnoreAttribute.cs" />
+    <Compile Include="MemberDynamicMethod.cs" />
+    <Compile Include="Metadata\CollectionGenericType.cs" />
+    <Compile Include="Metadata\DictionaryGenericType.cs" />
+    <Compile Include="Metadata\EnumGenericType.cs" />
+    <Compile Include="Metadata\EquatableGenericType.cs" />
+    <Compile Include="Metadata\GenericType.cs" />
+    <Compile Include="Metadata\StructGenericType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="{AutoCSer.FieldEquals}.CombinationTemplate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
+  </ItemGroup>
+
+</Project>
