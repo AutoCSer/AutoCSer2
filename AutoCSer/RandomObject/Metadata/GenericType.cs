@@ -15,7 +15,7 @@ namespace AutoCSer.RandomObject.Metadata
         /// <summary>
         /// 创建随机对象
         /// </summary>
-        internal abstract Delegate CreateMemberDelegate { get; }
+        internal abstract Delegate CreateBaseDelegate { get; }
         /// <summary>
         /// 创建随机对象
         /// </summary>
@@ -27,7 +27,6 @@ namespace AutoCSer.RandomObject.Metadata
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static GenericType create<T>()
         {
             return new GenericType<T>();
@@ -76,7 +75,7 @@ namespace AutoCSer.RandomObject.Metadata
         /// <summary>
         /// 创建随机对象
         /// </summary>
-        internal override Delegate CreateMemberDelegate { get { return (Creator<T>.MemberCreator)Creator.CreateMember<T>; } }
+        internal override Delegate CreateBaseDelegate { get { return (Creator<T>.MemberCreator)Creator.CreateBase<T>; } }
         /// <summary>
         /// 创建随机对象
         /// </summary>

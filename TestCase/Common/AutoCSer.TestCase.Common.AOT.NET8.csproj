@@ -8,6 +8,11 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="ClientPerformance.cs" />
     <Compile Include="CommandServerPortEnum.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Data\Enum\ByteEnum.cs" />

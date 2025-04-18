@@ -6,7 +6,11 @@ namespace AutoCSer.TestCase.Data.ORM
     /// <summary>
     /// ORM 业务模型定义
     /// </summary>
-    public class BusinessModelAssociated : ModelAssociated
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+#endif
+    public partial class BusinessModelAssociated : ModelAssociated
     {
         public int Other;
     }

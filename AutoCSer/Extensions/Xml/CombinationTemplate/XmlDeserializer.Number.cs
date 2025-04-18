@@ -12,7 +12,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref ulong value)
+        public void XmlDeserialize(ref ulong value)
         {
             searchValue();
             DeserializeNumber(ref value);

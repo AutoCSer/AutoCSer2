@@ -12,8 +12,7 @@ namespace AutoCSer.CodeGenerator.Template
             /// </summary>
             /// <param name="stream"></param>
             /// <param name="value"></param>
-            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-            public static void @SimpleSerializeMethodName(AutoCSer.Memory.UnmanagedStream stream, ref @CurrentType.FullName value)
+            internal static void @SimpleSerializeMethodName(AutoCSer.Memory.UnmanagedStream stream, ref @CurrentType.FullName value)
             {
                 value.simpleSerialize(stream);
             }
@@ -48,7 +47,7 @@ namespace AutoCSer.CodeGenerator.Template
             /// <param name="value"></param>
             /// <param name="end"></param>
             /// <returns></returns>
-            public static byte* @SimpleDeserializeMethodName(byte* start, ref @CurrentType.FullName value, byte* end)
+            internal static byte* @SimpleDeserializeMethodName(byte* start, ref @CurrentType.FullName value, byte* end)
             {
                 return value.simpleDeserialize(start, end);
             }
@@ -85,34 +84,20 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP FieldArray
                 return __start__;
             }
-            #region NOTE
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void @SimpleSerializeMethodName()
+            {
+                @CurrentType.FullName value = default(@CurrentType.FullName);
+                @SimpleSerializeMethodName(null, ref value);
+                @SimpleDeserializeMethodName(null, ref value, null);
+                AutoCSer.SimpleSerialize.Serializer.Serialize<@CurrentType.FullName>(null, default(@CurrentType.FullName));
+            }
+            #endregion PART CLASS
             private const int PrepSize = 0;
             private const int FixedFillSize = 0;
             private string FieldName;
-            #endregion NOTE
-            #endregion PART CLASS
         }
     }
-    #region NOTE
-    /// <summary>
-    /// CSharp 模板公用模糊类型
-    /// </summary>
-    internal partial class Pub
-    {
-        public unsafe partial class FullName
-        {
-            public static implicit operator int(FullName value) { return 0; }
-            public static implicit operator FullName(int value) { return null; }
-            public static implicit operator string(FullName value) { return null; }
-            public void simpleSerialize(object value) { }
-            public byte* simpleDeserialize(params byte*[] values) { return null; }
-        }
-        public partial class UnderlyingType : Pub
-        {
-        }
-        public partial class MemberType : Pub
-        {
-        }
-    }
-    #endregion NOTE
 }

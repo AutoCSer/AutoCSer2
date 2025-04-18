@@ -2,6 +2,7 @@
 using AutoCSer.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 
@@ -13,16 +14,25 @@ namespace AutoCSer.Xml
     /// <typeparam name="T">目标类型</typeparam>
     internal static class TypeDeserializer<T>
     {
+#if AOT
+        /// <summary>
+        /// 成员解析
+        /// </summary>
+        private static readonly XmlDeserializer.MemberDeserializeDelegate<T> memberIndexDeserializer;
+        /// <summary>
+        /// JSON 反序列化
+        /// </summary>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        /// <param name="memberIndex"></param>
+        private static void nullMemberIndex(XmlDeserializer deserializer, ref T value, int memberIndex) { }
+#endif
         /// <summary>
         /// 成员解析器过滤
         /// </summary>
         [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
         private struct TryDeserializeFilter
         {
-            /// <summary>
-            /// 成员解析器
-            /// </summary>
-            private XmlDeserializer.DeserializeDelegate<T> deserialize;
             /// <summary>
             /// 集合子节点名称
             /// </summary>
@@ -35,20 +45,79 @@ namespace AutoCSer.Xml
             /// 成员位图索引
             /// </summary>
             private int memberMapIndex;
+#if AOT
             /// <summary>
             /// 设置数据
             /// </summary>
-            /// <param name="dynamicMethod"></param>
+            /// <param name="member"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Set(KeyValue<int, string?> member)
+            {
+                memberMapIndex = member.Key;
+                itemName = member.Value;
+            }
+            /// <summary>
+            /// 成员解析器
+            /// </summary>
+            /// <param name="deserializer">XML 反序列化</param>
+            /// <param name="value">目标数据</param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Call(XmlDeserializer deserializer, ref T value)
+            {
+                deserializer.ItemName = itemName;
+                memberIndexDeserializer(deserializer, ref value, memberMapIndex);
+            }
+            /// <summary>
+            /// 成员解析器
+            /// </summary>
+            /// <param name="deserializer">XML 反序列化</param>
+            /// <param name="memberMap">成员位图</param>
+            /// <param name="value">目标数据</param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Call(XmlDeserializer deserializer, MemberMap<T> memberMap, ref T value)
+            {
+                deserializer.ItemName = itemName;
+                memberIndexDeserializer(deserializer, ref value, memberMapIndex);
+                if (deserializer.State == DeserializeStateEnum.Success) memberMap.MemberMapData.SetMember(memberMapIndex);
+            }
+            /// <summary>
+            /// 成员解析器
+            /// </summary>
+            /// <param name="deserializer">XML 反序列化</param>
+            /// <param name="memberMap">成员位图</param>
+            /// <param name="value">目标数据</param>
+            /// <returns></returns>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public int TryCall(XmlDeserializer deserializer, MemberMap<T> memberMap, ref T value)
+            {
+                deserializer.ItemName = itemName;
+                memberIndexDeserializer(deserializer, ref value, memberMapIndex);
+                if (deserializer.State == DeserializeStateEnum.Success)
+                {
+                    memberMap.MemberMapData.SetMember(memberMapIndex);
+                    return 1;
+                }
+                return 0;
+            }
+#else
+            /// <summary>
+            /// 成员解析器
+            /// </summary>
+            private XmlDeserializer.DeserializeDelegate<T> deserialize;
+            /// <summary>
+            /// 设置数据
+            /// </summary>
+            /// <param name="method"></param>
             /// <param name="member"></param>
             /// <param name="memberAttribute"></param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-            public void Set(DynamicMethod dynamicMethod, MemberIndexInfo member, XmlSerializeMemberAttribute? memberAttribute)
+            public void Set(MethodInfo method, MemberIndexInfo member, XmlSerializeMemberAttribute? memberAttribute)
 #else
-            public void Set(DynamicMethod dynamicMethod, MemberIndexInfo member, XmlSerializeMemberAttribute memberAttribute)
+            public void Set(MethodInfo method, MemberIndexInfo member, XmlSerializeMemberAttribute memberAttribute)
 #endif
             {
-                deserialize = (XmlDeserializer.DeserializeDelegate<T>)dynamicMethod.CreateDelegate(typeof(XmlDeserializer.DeserializeDelegate<T>));
+                deserialize = (XmlDeserializer.DeserializeDelegate<T>)method.CreateDelegate(typeof(XmlDeserializer.DeserializeDelegate<T>));
                 itemName = memberAttribute?.ItemName;
                 memberMapIndex = member.MemberIndex;
             }
@@ -95,6 +164,7 @@ namespace AutoCSer.Xml
                 }
                 return 0;
             }
+#endif
         }
         /// <summary>
         /// 解析委托
@@ -179,7 +249,11 @@ namespace AutoCSer.Xml
             {
                 while (deserializer.IsName(names, ref index))
                 {
-                    if (index == -1) return;
+                    if (index == -1)
+                    {
+                        if (deserializer.IsValue() != 0) deserializer.IgnoreValue();
+                        return;
+                    }
                     memberDeserializers[index].Call(deserializer, ref value);
                     if (deserializer.State != DeserializeStateEnum.Success) return;
                     if (deserializer.IsNameEnd(names) == 0)
@@ -221,7 +295,11 @@ namespace AutoCSer.Xml
                     deserializer.MemberMap = null;
                     while (deserializer.IsName(names, ref index))
                     {
-                        if (index == -1) return;
+                        if (index == -1)
+                        {
+                            if (deserializer.IsValue() != 0) deserializer.IgnoreValue();
+                            return;
+                        }
                         memberDeserializers[index].Call(deserializer, memberMapObject, ref value);
                         if (deserializer.State != DeserializeStateEnum.Success) return;
                         if (deserializer.IsNameEnd(names) == 0)
@@ -411,8 +489,13 @@ namespace AutoCSer.Xml
         unsafe static TypeDeserializer()
         {
             XmlSerializeAttribute attribute;
+#if AOT
+            var deserializeDelegate = Common.GetTypeDeserializeDelegate<T>(out attribute);
+#else
             AutoCSer.Extensions.Metadata.GenericType<T> genericType = new AutoCSer.Extensions.Metadata.GenericType<T>();
-            var deserializeDelegate = Common.GetTypeDeserializeDelegate(genericType, out attribute);
+            var baseType = default(Type);
+            var deserializeDelegate = Common.GetTypeDeserializeDelegate(genericType, out attribute, out baseType);
+#endif
             if (deserializeDelegate != null)
             {
 #if NetStandard21
@@ -424,8 +507,41 @@ namespace AutoCSer.Xml
             else
             {
                 Type type = typeof(T);
-                var  fields = AutoCSer.TextSerialize.Common.GetDeserializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(type, attribute.MemberFilters), attribute);
-                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(type, attribute.MemberFilters), attribute);
+#if AOT
+                Type refType = type.MakeByRefType(), pointerRefType = typeof(AutoCSer.Memory.Pointer).MakeByRefType();
+                var memberMethod = type.GetMethod(XmlDeserializer.XmlDeserializeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(XmlDeserializer), refType, typeof(int) });
+                if (memberMethod != null && !memberMethod.IsGenericMethod && memberMethod.ReturnType == typeof(void))
+                {
+                    var memberNameMethod = type.GetMethod(XmlDeserializer.XmlDeserializeMemberNameMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, EmptyArray<Type>.Array);
+                    if (memberNameMethod != null && !memberNameMethod.IsGenericMethod && memberNameMethod.ReturnType == typeof(AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string?>>>))
+                    {
+                        AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string?>>> names = memberNameMethod.Invoke(null, null).castValue<AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string?>>>>();
+                        if (names.Key.Length != 0)
+                        {
+                            int index = 0;
+                            TryDeserializeFilter[] deserializers = new TryDeserializeFilter[names.Key.Length];
+                            foreach (KeyValue<int, string?> member in names.Value) deserializers[index++].Set(member);
+                            memberDeserializers = deserializers;
+                            MemberNameSearcher searcher = MemberNameSearcher.Get(type, names.Key);
+                            memberNames = searcher.Names;
+                            memberSearcher = searcher.Searcher;
+                        }
+                        else
+                        {
+                            memberDeserializers = EmptyArray<TryDeserializeFilter>.Array;
+                            memberNames = MemberNameSearcher.Null.Names;
+                            memberSearcher = MemberNameSearcher.Null.Searcher;
+                        }
+                        memberIndexDeserializer = (XmlDeserializer.MemberDeserializeDelegate<T>)memberMethod.CreateDelegate(typeof(XmlDeserializer.MemberDeserializeDelegate<T>));
+                        DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T?>)deserializeValue : (XmlDeserializer.DeserializeDelegate<T?>)deserializeClass;
+                        return;
+                    }
+                    throw new MissingMethodException(type.fullName(), XmlDeserializer.XmlDeserializeMemberNameMethodName);
+                }
+                throw new MissingMethodException(type.fullName(), XmlDeserializer.XmlDeserializeMethodName);
+#else
+                var  fields = AutoCSer.TextSerialize.Common.GetDeserializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(baseType ?? type, attribute.MemberFilters), attribute);
+                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(baseType ?? type, attribute.MemberFilters), attribute);
                 int count = fields.Length + properties.Length;
                 if (count != 0)
                 {
@@ -467,7 +583,11 @@ namespace AutoCSer.Xml
 #else
                 DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T>)noMemberValue : (XmlDeserializer.DeserializeDelegate<T>)noMember;
 #endif
+#endif
             }
+#if AOT
+            memberIndexDeserializer = nullMemberIndex;
+#endif
             memberDeserializers = EmptyArray<TryDeserializeFilter>.Array;
             memberNames = MemberNameSearcher.Null.Names;
             memberSearcher = MemberNameSearcher.Null.Searcher;

@@ -82,6 +82,7 @@
     <Compile Include="IO\StreamPersistenceLoader.cs" />
     <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
     <Compile Include="Extensions\MemberCopyExtension.cs" />
+    <Compile Include="MemberCopy\MemberCopyMethod.cs" />
     <Compile Include="MemberCopy\MemberCopy.cs" />
     <Compile Include="MemberCopy\MemberDynamicMethod.cs" />
     <Compile Include="Memory\BitMap.cs" />

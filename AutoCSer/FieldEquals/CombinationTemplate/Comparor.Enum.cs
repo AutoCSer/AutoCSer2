@@ -15,11 +15,17 @@ namespace AutoCSer.FieldEquals
         /// <param name="right"></param>
         /// <returns></returns>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool EnumULong<T>(T left, T right) where T : struct, IConvertible
+        public static bool EnumULong<T>(T left, T right) where T : struct, IConvertible
         {
             if (AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(left) == AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(right)) return true;
             Breakpoint(left, right);
             return false;
         }
+#if AOT
+        /// <summary>
+        /// 枚举值比较
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumULongMethod = AutoCSer.Extensions.NullableReferenceExtension.notNull(typeof(Comparor).GetMethod(nameof(EnumULong), System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public));
+#endif
     }
 }

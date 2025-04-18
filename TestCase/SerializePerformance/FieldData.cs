@@ -6,9 +6,16 @@ namespace AutoCSer.TestCase.SerializePerformance
     /// <summary>
     /// 字段测试数据
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.XmlSerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+    [AutoCSer.CodeGenerator.RandomObject]
+#endif
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
-    class FieldData
+    partial class FieldData
     {
         public bool Bool;
         public byte Byte;

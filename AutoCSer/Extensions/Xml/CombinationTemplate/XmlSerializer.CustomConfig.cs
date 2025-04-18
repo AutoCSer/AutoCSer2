@@ -13,7 +13,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数据</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(DateTime value)
+        public void XmlSerialize(DateTime value)
         {
             int size = CustomConfig.Write(this, value);
             if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
@@ -26,7 +26,16 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, DateTime value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数据转换
+        /// </summary>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(DateTime? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
         }
         /// <summary>
         /// 数据转换
@@ -36,7 +45,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, DateTime? value)
         {
-            if (value.HasValue) serializer.PrimitiveSerialize(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }

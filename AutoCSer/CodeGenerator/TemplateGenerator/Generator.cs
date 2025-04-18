@@ -142,7 +142,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="code"></param>
         protected virtual void addCode(string code)
         {
-            Coder.Add(code, generatorAttribute.CodeLanguage);
+            Coder.Add(code, generatorAttribute.Language);
         }
         /// <summary>
         /// 获取数据数量

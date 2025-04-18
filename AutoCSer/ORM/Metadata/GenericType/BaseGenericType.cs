@@ -21,7 +21,6 @@ namespace AutoCSer.ORM.Metadata
         /// <typeparam name="BT"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static BaseGenericType create<T, BT>()
             where T : class, BT
             where BT : class

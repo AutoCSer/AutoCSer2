@@ -30,29 +30,4 @@ namespace AutoCSer.CodeGenerator.Template
         }
         #endregion PART CLASS
     }
-    #region NOTE
-    /// <summary>
-    /// CSharp 模板公用模糊类型
-    /// </summary>
-    internal partial class Pub
-    {
-        public partial class FullName : Pub, IEquatable<FullName>
-        {
-            public bool Equals(FullName other) { return false; }
-        }
-        public partial class GenericDefinitionFullName : Pub
-        {
-        }
-        public partial class CurrentType : Pub
-        {
-        }
-        public partial class MethodReturnType : Pub
-        {
-        }
-        public partial class ParameterType : Pub
-        {
-
-        }
-    }
-    #endregion NOTE
 }

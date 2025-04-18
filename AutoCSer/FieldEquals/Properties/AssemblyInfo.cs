@@ -18,3 +18,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("2.0.0.0")]
 #endif
 [assembly: Guid("13510310-674e-8c37-4e39-13510c060003")]
+#if AOT
+[assembly: InternalsVisibleTo("AutoCSer.CodeGenerator.AOT")]
+#endif

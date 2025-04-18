@@ -1,4 +1,5 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.CodeGenerator;
+using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.Metadata;
 using System;
@@ -12,7 +13,11 @@ namespace AutoCSer.Xml
     /// 类型序列化
     /// </summary>
     /// <typeparam name="T">目标类型</typeparam>
+#if AOT
+    public unsafe static class TypeSerializer<T>
+#else
     internal unsafe static class TypeSerializer<T>
+#endif
     {
         /// <summary>
         /// 转换委托
@@ -187,22 +192,59 @@ namespace AutoCSer.Xml
         static TypeSerializer()
         {
             Type type = typeof(T);
-            AutoCSer.Extensions.Metadata.GenericType<T> genericType = new AutoCSer.Extensions.Metadata.GenericType<T>();
             XmlSerializeAttribute attribute;
-            if (Common.GetTypeSerializeDelegate(genericType, out SerializeDelegateReference, out attribute))
+#if AOT
+            TextSerializeMethodInfo serializeMethodInfo = default(TextSerializeMethodInfo);
+            if (Common.GetTypeSerializeDelegate<T>(out SerializeDelegateReference, ref serializeMethodInfo, out attribute))
+#else
+            AutoCSer.Extensions.Metadata.GenericType<T> genericType = new AutoCSer.Extensions.Metadata.GenericType<T>();
+            var baseType = typeof(Type);
+            if (Common.GetTypeSerializeDelegate(genericType, out SerializeDelegateReference, out attribute, out baseType))
+#endif
             {
                 DefaultSerializer = (Action<XmlSerializer, T>)SerializeDelegateReference.Delegate.GetRemoveDelegate();
                 Common.CheckCompleted(type, ref SerializeDelegateReference);
                 memberSerializer = nullMember;
                 memberMapSerializer = nullMemberMap;
+#if AOT
+                emptyString = serializeMethodInfo.IsEmptyString ? @"<" + type.Name + @"></" + type.Name + @">" : string.Empty;
+#else
                 emptyString = string.Empty;
+#endif
             }
             else
             {
                 if (object.ReferenceEquals(attribute, XmlSerializer.AllMemberAttribute) && type.Name[0] == '<') attribute = XmlSerializeAttribute.AnonymousTypeMember;
                 emptyString = @"<" + type.Name + @"></" + type.Name + @">";
-                var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(type, attribute.MemberFilters), attribute);
-                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(type, attribute.MemberFilters), attribute);
+#if AOT
+                DefaultSerializer = MemberSerialize;
+                var method = typeof(T).GetMethod(XmlSerializer.XmlSerializeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(XmlSerializer), typeof(T) });
+                if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(void))
+                {
+                    var memberMapMethod = typeof(T).GetMethod(XmlSerializer.XmlSerializeMemberMapMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(MemberMap<T>), typeof(XmlSerializer), typeof(T), typeof(CharStream) });
+                    if (memberMapMethod != null && !memberMapMethod.IsGenericMethod && memberMapMethod.ReturnType == typeof(void))
+                    {
+                        memberSerializer = (Action<XmlSerializer, T>)method.CreateDelegate(typeof(Action<XmlSerializer, T>));
+                        memberMapSerializer = (Action<MemberMap<T>, XmlSerializer, T, CharStream>)memberMapMethod.CreateDelegate(typeof(Action<MemberMap<T>, XmlSerializer, T, CharStream>));
+                        if (attribute.CheckLoopReference)
+                        {
+                            var memberTypeMethod = type.GetMethod(XmlSerializer.XmlSerializeMemberTypeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, EmptyArray<Type>.Array);
+                            if (memberTypeMethod != null && !memberTypeMethod.IsGenericMethod && memberTypeMethod.ReturnType == typeof(AutoCSer.LeftArray<Type>))
+                            {
+                                SerializeDelegateReference.SetMember(DefaultSerializer, memberTypeMethod.Invoke(null, null).castValue<AutoCSer.LeftArray<Type>>().ToArray());
+                                Common.CheckCompleted(type, ref SerializeDelegateReference);
+                                return;
+                            }
+                        }
+                        SerializeDelegateReference.SetNoLoop(DefaultSerializer);
+                        return;
+                    }
+                    throw new MissingMethodException(typeof(T).fullName(), XmlSerializer.XmlSerializeMemberMapMethodName);
+                }
+                throw new MissingMethodException(typeof(T).fullName(), XmlSerializer.XmlSerializeMethodName);
+#else
+                var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(baseType ?? type, attribute.MemberFilters), attribute);
+                LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(baseType ?? type, attribute.MemberFilters), attribute);
                 if ((fields.Length | properties.Length) != 0)
                 {
                     DefaultSerializer = MemberSerialize;
@@ -215,7 +257,6 @@ namespace AutoCSer.Xml
                         Common.CheckCompleted(type, ref SerializeDelegateReference);
                     }
                     else SerializeDelegateReference.SetNoLoop(DefaultSerializer);
-
                     SerializeMemberDynamicMethod dynamicMethod = new SerializeMemberDynamicMethod(type);
                     SerializeMemberMapDynamicMethod memberMapDynamicMethod = new SerializeMemberMapDynamicMethod(new AutoCSer.Metadata.GenericType<T>());
                     foreach (var member in fields)
@@ -255,6 +296,7 @@ namespace AutoCSer.Xml
                     }
                     SerializeDelegateReference.SetNoLoop(DefaultSerializer);
                 }
+#endif
             }
         }
     }

@@ -19,7 +19,6 @@ namespace AutoCSer.NetCoreWeb.Metadata
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static CollectionGenericType create<T>()
             where T : System.Collections.ICollection
         {

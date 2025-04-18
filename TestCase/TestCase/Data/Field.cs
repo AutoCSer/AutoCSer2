@@ -8,9 +8,15 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 字段数据定义(引用类型外壳)
     /// </summary>
-    [AutoCSer.CodeGenerator.JsonSerialize]
+#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.AOT.Preserve(AllMembers = true)]
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.XmlSerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+    [AutoCSer.CodeGenerator.RandomObject]
+    [AutoCSer.CodeGenerator.FieldEquals]
+    [AutoCSer.CodeGenerator.MemberCopy]
+#endif
     internal partial class Field
     {
         public bool Bool;

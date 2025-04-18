@@ -23,7 +23,6 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static GenericType create<T>()
         {
             return new GenericType<T>();
@@ -64,10 +63,20 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 调用对象对比委托
         /// </summary>
-        internal override Delegate CallEqualsDelegate { get { return (Func<T, T, bool>)Comparor.CallEquals<T>; } }
+        internal override Delegate CallEqualsDelegate
+        {
+            get
+            {
+#if AOT
+                return (Func<object, object, bool>)Comparor.CallEquals<T>;
+#else
+                return (Func<T, T, bool>)Comparor.CallEquals<T>;
+#endif
+            }
+        }
         /// <summary>
         /// 数组对象对比委托
         /// </summary>
-        internal override Delegate ArrayDelegate { get { return (Func<T[], T[], bool>)Comparor.Equals<T>; } }
+        internal override Delegate ArrayDelegate { get { return (Func<T[], T[], bool>)Comparor.ArrayEquals<T>; } }
     }
 }

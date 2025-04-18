@@ -5390,19 +5390,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref long value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref long? value)
+        public void XmlDeserialize(ref long? value)
         {
             if (IsValue() == 0) value = default(long);
             else
             {
                 long newValue = default(long);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5414,7 +5414,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref long? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5435,19 +5435,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref uint value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref uint? value)
+        public void XmlDeserialize(ref uint? value)
         {
             if (IsValue() == 0) value = default(uint);
             else
             {
                 uint newValue = default(uint);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5459,7 +5459,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref uint? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5480,19 +5480,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref int value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref int? value)
+        public void XmlDeserialize(ref int? value)
         {
             if (IsValue() == 0) value = default(int);
             else
             {
                 int newValue = default(int);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5504,7 +5504,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref int? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5525,19 +5525,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref ushort value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref ushort? value)
+        public void XmlDeserialize(ref ushort? value)
         {
             if (IsValue() == 0) value = default(ushort);
             else
             {
                 ushort newValue = default(ushort);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5549,7 +5549,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref ushort? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5570,19 +5570,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref short value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref short? value)
+        public void XmlDeserialize(ref short? value)
         {
             if (IsValue() == 0) value = default(short);
             else
             {
                 short newValue = default(short);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5594,7 +5594,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref short? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5615,19 +5615,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref byte value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref byte? value)
+        public void XmlDeserialize(ref byte? value)
         {
             if (IsValue() == 0) value = default(byte);
             else
             {
                 byte newValue = default(byte);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5639,7 +5639,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref byte? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5660,19 +5660,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref sbyte value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref sbyte? value)
+        public void XmlDeserialize(ref sbyte? value)
         {
             if (IsValue() == 0) value = default(sbyte);
             else
             {
                 sbyte newValue = default(sbyte);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5684,7 +5684,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref sbyte? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5705,19 +5705,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref bool value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref bool? value)
+        public void XmlDeserialize(ref bool? value)
         {
             if (IsValue() == 0) value = default(bool);
             else
             {
                 bool newValue = default(bool);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5729,7 +5729,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref bool? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5750,19 +5750,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref float value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref float? value)
+        public void XmlDeserialize(ref float? value)
         {
             if (IsValue() == 0) value = default(float);
             else
             {
                 float newValue = default(float);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5774,7 +5774,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref float? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5795,19 +5795,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref double value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref double? value)
+        public void XmlDeserialize(ref double? value)
         {
             if (IsValue() == 0) value = default(double);
             else
             {
                 double newValue = default(double);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5819,7 +5819,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref double? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5840,19 +5840,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref decimal value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref decimal? value)
+        public void XmlDeserialize(ref decimal? value)
         {
             if (IsValue() == 0) value = default(decimal);
             else
             {
                 decimal newValue = default(decimal);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5864,7 +5864,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref decimal? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5885,19 +5885,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref char value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref char? value)
+        public void XmlDeserialize(ref char? value)
         {
             if (IsValue() == 0) value = default(char);
             else
             {
                 char newValue = default(char);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5909,7 +5909,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref char? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5930,19 +5930,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref DateTime value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref DateTime? value)
+        public void XmlDeserialize(ref DateTime? value)
         {
             if (IsValue() == 0) value = default(DateTime);
             else
             {
                 DateTime newValue = default(DateTime);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5954,7 +5954,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref DateTime? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -5975,19 +5975,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref TimeSpan value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref TimeSpan? value)
+        public void XmlDeserialize(ref TimeSpan? value)
         {
             if (IsValue() == 0) value = default(TimeSpan);
             else
             {
                 TimeSpan newValue = default(TimeSpan);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -5999,7 +5999,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref TimeSpan? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -6020,19 +6020,19 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref Guid value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref Guid? value)
+        public void XmlDeserialize(ref Guid? value)
         {
             if (IsValue() == 0) value = default(Guid);
             else
             {
                 Guid newValue = default(Guid);
-                PrimitiveDeserialize(ref newValue);
+                XmlDeserialize(ref newValue);
                 value = newValue;
             }
         }
@@ -6044,7 +6044,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref Guid? value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
     }
 }
@@ -6060,7 +6060,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref DateTime value)
+        public void XmlDeserialize(ref DateTime value)
         {
             getValue();
             if (State == AutoCSer.Xml.DeserializeStateEnum.Success)
@@ -6090,7 +6090,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref TimeSpan value)
+        public void XmlDeserialize(ref TimeSpan value)
         {
             getValue();
             if (State == AutoCSer.Xml.DeserializeStateEnum.Success)
@@ -6109,6 +6109,92 @@ namespace AutoCSer
     }
 }
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumLong<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberSigned())
+            {
+                long intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, long>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumLong<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumLongDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsLong<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumLongDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumLong<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumLongDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsLong<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumLongDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumLongMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsLongMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsLong<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -6118,23 +6204,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberSigned())
-            {
-                long intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, long>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -6142,7 +6211,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumLong(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -6151,7 +6220,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumLong(ref value))
             {
                 if (enumSearcher.State == null)
                 {
@@ -6178,6 +6247,92 @@ namespace AutoCSer.Xml
     }
 }
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumUInt<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberUnsigned())
+            {
+                uint intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, uint>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumUInt<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUIntDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsUInt<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUIntDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumUInt<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUIntDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsUInt<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUIntDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumUIntMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsUIntMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsUInt<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -6187,23 +6342,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberUnsigned())
-            {
-                uint intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, uint>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -6211,7 +6349,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumUInt(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -6220,7 +6358,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumUInt(ref value))
             {
                 if (enumSearcher.State == null)
                 {
@@ -6247,6 +6385,92 @@ namespace AutoCSer.Xml
     }
 }
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumInt<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberSigned())
+            {
+                int intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, int>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumInt<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumIntDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsInt<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumIntDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumInt<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumIntDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsInt<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumIntDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumIntMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsIntMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsInt<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -6256,23 +6480,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberSigned())
-            {
-                int intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, int>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -6280,7 +6487,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumInt(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -6289,7 +6496,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumInt(ref value))
             {
                 if (enumSearcher.State == null)
                 {
@@ -6316,6 +6523,92 @@ namespace AutoCSer.Xml
     }
 }
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumUShort<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberUnsigned())
+            {
+                ushort intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, ushort>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumUShort<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUShortDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsUShort<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUShortDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumUShort<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUShortDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsUShort<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumUShortDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumUShortMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsUShortMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsUShort<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -6325,23 +6618,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberUnsigned())
-            {
-                ushort intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, ushort>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -6349,7 +6625,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumUShort(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -6358,7 +6634,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumUShort(ref value))
             {
                 if (enumSearcher.State == null)
                 {
@@ -6385,6 +6661,92 @@ namespace AutoCSer.Xml
     }
 }
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumShort<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberSigned())
+            {
+                short intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, short>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumShort<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumShortDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsShort<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumShortDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumShort<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumShortDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsShort<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumShortDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumShortMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsShortMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsShort<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -6394,23 +6756,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberSigned())
-            {
-                short intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, short>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -6418,7 +6763,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumShort(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -6427,7 +6772,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumShort(ref value))
             {
                 if (enumSearcher.State == null)
                 {
@@ -6454,6 +6799,92 @@ namespace AutoCSer.Xml
     }
 }
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumByte<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberUnsigned())
+            {
+                byte intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, byte>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumByte<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumByteDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsByte<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumByteDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumByte<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumByteDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsByte<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumByteDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumByteMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsByteMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsByte<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -6463,23 +6894,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberUnsigned())
-            {
-                byte intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, byte>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -6487,7 +6901,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumByte(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -6496,7 +6910,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumByte(ref value))
             {
                 if (enumSearcher.State == null)
                 {
@@ -6523,6 +6937,92 @@ namespace AutoCSer.Xml
     }
 }
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumSByte<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberSigned())
+            {
+                sbyte intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, sbyte>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumSByte<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumSByteDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsSByte<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumSByteDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumSByte<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumSByteDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsSByte<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumSByteDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumSByteMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsSByteMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsSByte<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -6532,23 +7032,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberSigned())
-            {
-                sbyte intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, sbyte>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -6556,7 +7039,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumSByte(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -6565,7 +7048,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumSByte(ref value))
             {
                 if (enumSearcher.State == null)
                 {
@@ -6603,7 +7086,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref long value)
+        public void XmlDeserialize(ref long value)
         {
             searchValue();
             DeserializeNumber(ref value);
@@ -6622,7 +7105,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref uint value)
+        public void XmlDeserialize(ref uint value)
         {
             searchValue();
             DeserializeNumber(ref value);
@@ -6641,7 +7124,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref int value)
+        public void XmlDeserialize(ref int value)
         {
             searchValue();
             DeserializeNumber(ref value);
@@ -6660,7 +7143,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref ushort value)
+        public void XmlDeserialize(ref ushort value)
         {
             searchValue();
             DeserializeNumber(ref value);
@@ -6679,7 +7162,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref short value)
+        public void XmlDeserialize(ref short value)
         {
             searchValue();
             DeserializeNumber(ref value);
@@ -6698,7 +7181,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref byte value)
+        public void XmlDeserialize(ref byte value)
         {
             searchValue();
             DeserializeNumber(ref value);
@@ -6717,7 +7200,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref sbyte value)
+        public void XmlDeserialize(ref sbyte value)
         {
             searchValue();
             DeserializeNumber(ref value);
@@ -6741,7 +7224,16 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, float value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(float? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
         }
         /// <summary>
         /// 数字转换
@@ -6751,7 +7243,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, float? value)
         {
-            if (value.HasValue) serializer.PrimitiveSerialize(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -6772,7 +7264,16 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, double value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(double? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
         }
         /// <summary>
         /// 数字转换
@@ -6782,7 +7283,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, double? value)
         {
-            if (value.HasValue) serializer.PrimitiveSerialize(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -6799,7 +7300,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数据</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(TimeSpan value)
+        public void XmlSerialize(TimeSpan value)
         {
             int size = CustomConfig.Write(this, value);
             if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
@@ -6812,7 +7313,16 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, TimeSpan value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数据转换
+        /// </summary>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(TimeSpan? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
         }
         /// <summary>
         /// 数据转换
@@ -6822,7 +7332,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, TimeSpan? value)
         {
-            if (value.HasValue) serializer.PrimitiveSerialize(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -6835,13 +7345,13 @@ namespace AutoCSer
     public sealed unsafe partial class XmlSerializer
     {
         /// <summary>
-        /// 枚举值序列化
+        /// 枚举值序列化（用于代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void enumLong<T>(T value) where T : struct, IConvertible
+        public void EnumLong<T>(T value) where T : struct, IConvertible
         {
-            if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(value));
+            if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
@@ -6851,10 +7361,16 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumLong<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
+        public static void EnumLong<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
         {
-            serializer.enumLong(value);
+            serializer.EnumLong(value);
         }
+#if AOT
+        /// <summary>
+        /// 枚举值序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumLongMethod;
+#endif
     }
 }
 
@@ -6866,13 +7382,13 @@ namespace AutoCSer
     public sealed unsafe partial class XmlSerializer
     {
         /// <summary>
-        /// 枚举值序列化
+        /// 枚举值序列化（用于代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void enumUInt<T>(T value) where T : struct, IConvertible
+        public void EnumUInt<T>(T value) where T : struct, IConvertible
         {
-            if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(value));
+            if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
@@ -6882,10 +7398,16 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumUInt<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
+        public static void EnumUInt<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
         {
-            serializer.enumUInt(value);
+            serializer.EnumUInt(value);
         }
+#if AOT
+        /// <summary>
+        /// 枚举值序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumUIntMethod;
+#endif
     }
 }
 
@@ -6897,13 +7419,13 @@ namespace AutoCSer
     public sealed unsafe partial class XmlSerializer
     {
         /// <summary>
-        /// 枚举值序列化
+        /// 枚举值序列化（用于代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void enumInt<T>(T value) where T : struct, IConvertible
+        public void EnumInt<T>(T value) where T : struct, IConvertible
         {
-            if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(value));
+            if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
@@ -6913,10 +7435,16 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumInt<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
+        public static void EnumInt<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
         {
-            serializer.enumInt(value);
+            serializer.EnumInt(value);
         }
+#if AOT
+        /// <summary>
+        /// 枚举值序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumIntMethod;
+#endif
     }
 }
 
@@ -6928,13 +7456,13 @@ namespace AutoCSer
     public sealed unsafe partial class XmlSerializer
     {
         /// <summary>
-        /// 枚举值序列化
+        /// 枚举值序列化（用于代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void enumUShort<T>(T value) where T : struct, IConvertible
+        public void EnumUShort<T>(T value) where T : struct, IConvertible
         {
-            if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(value));
+            if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
@@ -6944,10 +7472,16 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumUShort<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
+        public static void EnumUShort<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
         {
-            serializer.enumUShort(value);
+            serializer.EnumUShort(value);
         }
+#if AOT
+        /// <summary>
+        /// 枚举值序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumUShortMethod;
+#endif
     }
 }
 
@@ -6959,13 +7493,13 @@ namespace AutoCSer
     public sealed unsafe partial class XmlSerializer
     {
         /// <summary>
-        /// 枚举值序列化
+        /// 枚举值序列化（用于代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void enumShort<T>(T value) where T : struct, IConvertible
+        public void EnumShort<T>(T value) where T : struct, IConvertible
         {
-            if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(value));
+            if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
@@ -6975,10 +7509,16 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumShort<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
+        public static void EnumShort<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
         {
-            serializer.enumShort(value);
+            serializer.EnumShort(value);
         }
+#if AOT
+        /// <summary>
+        /// 枚举值序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumShortMethod;
+#endif
     }
 }
 
@@ -6990,13 +7530,13 @@ namespace AutoCSer
     public sealed unsafe partial class XmlSerializer
     {
         /// <summary>
-        /// 枚举值序列化
+        /// 枚举值序列化（用于代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void enumByte<T>(T value) where T : struct, IConvertible
+        public void EnumByte<T>(T value) where T : struct, IConvertible
         {
-            if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(value));
+            if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
@@ -7006,10 +7546,16 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumByte<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
+        public static void EnumByte<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
         {
-            serializer.enumByte(value);
+            serializer.EnumByte(value);
         }
+#if AOT
+        /// <summary>
+        /// 枚举值序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumByteMethod;
+#endif
     }
 }
 
@@ -7021,13 +7567,13 @@ namespace AutoCSer
     public sealed unsafe partial class XmlSerializer
     {
         /// <summary>
-        /// 枚举值序列化
+        /// 枚举值序列化（用于代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void enumSByte<T>(T value) where T : struct, IConvertible
+        public void EnumSByte<T>(T value) where T : struct, IConvertible
         {
-            if (!Config.IsEnumToString) PrimitiveSerialize(AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(value));
+            if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
@@ -7037,10 +7583,16 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumSByte<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
+        public static void EnumSByte<T>(XmlSerializer serializer, T value) where T : struct, IConvertible
         {
-            serializer.enumSByte(value);
+            serializer.EnumSByte(value);
         }
+#if AOT
+        /// <summary>
+        /// 枚举值序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumSByteMethod;
+#endif
     }
 }
 
@@ -7056,7 +7608,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(long value)
+        public void XmlSerialize(long value)
         {
             CharStream.WriteString(value);
         }
@@ -7073,12 +7625,21 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(long? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, long? value)
         {
-            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7095,7 +7656,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(uint value)
+        public void XmlSerialize(uint value)
         {
             CharStream.WriteString(value);
         }
@@ -7112,12 +7673,21 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(uint? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, uint? value)
         {
-            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7134,7 +7704,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(int value)
+        public void XmlSerialize(int value)
         {
             CharStream.WriteString(value);
         }
@@ -7151,12 +7721,21 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(int? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, int? value)
         {
-            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7173,7 +7752,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(ushort value)
+        public void XmlSerialize(ushort value)
         {
             CharStream.WriteString(value);
         }
@@ -7190,12 +7769,21 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(ushort? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, ushort? value)
         {
-            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7212,7 +7800,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(short value)
+        public void XmlSerialize(short value)
         {
             CharStream.WriteString(value);
         }
@@ -7229,12 +7817,21 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(short? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, short? value)
         {
-            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7251,7 +7848,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(byte value)
+        public void XmlSerialize(byte value)
         {
             CharStream.WriteString(value);
         }
@@ -7268,12 +7865,21 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(byte? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, byte? value)
         {
-            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7290,7 +7896,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(sbyte value)
+        public void XmlSerialize(sbyte value)
         {
             CharStream.WriteString(value);
         }
@@ -7307,12 +7913,21 @@ namespace AutoCSer
         /// <summary>
         /// 数字转换
         /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(sbyte? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, sbyte? value)
         {
-            if (value.HasValue) serializer.CharStream.WriteString(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7332,7 +7947,16 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, bool value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数据转换
+        /// </summary>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(bool? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
         }
         /// <summary>
         /// 数据转换
@@ -7342,7 +7966,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, bool? value)
         {
-            if (value.HasValue) serializer.PrimitiveSerialize(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }
@@ -7362,7 +7986,16 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, Guid value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数据转换
+        /// </summary>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Guid? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
         }
         /// <summary>
         /// 数据转换
@@ -7372,7 +8005,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, Guid? value)
         {
-            if (value.HasValue) serializer.PrimitiveSerialize(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }

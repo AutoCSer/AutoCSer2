@@ -31,6 +31,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Creator.cs" />
     <Compile Include="IgnoreAttribute.cs" />
+    <Compile Include="Member.cs" />
     <Compile Include="MemberAttribute.cs" />
     <Compile Include="MemberDynamicMethod.cs" />
     <Compile Include="Metadata\CollectionGenericType.cs" />

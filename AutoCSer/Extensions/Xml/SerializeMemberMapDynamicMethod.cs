@@ -40,9 +40,9 @@ namespace AutoCSer.Xml
             dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "XmlMemberMapSerializer", null, new Type[] { genericType.GetMemberMapType, typeof(XmlSerializer), type, typeof(CharStream) }, type, true);
             generator = dynamicMethod.GetILGenerator();
 
-            generator.DeclareLocal(typeof(int));
-            generator.Emit(OpCodes.Ldc_I4_0);
-            generator.Emit(OpCodes.Stloc_0);
+            //generator.DeclareLocal(typeof(int));
+            //generator.Emit(OpCodes.Ldc_I4_0);
+            //generator.Emit(OpCodes.Stloc_0);
 
             isValueType = type.IsValueType;
         }

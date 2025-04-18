@@ -67,6 +67,9 @@ namespace AutoCSer.TestCase.SerializePerformance
                 Console.WriteLine(@"Sleep 3000ms
 ");
                 System.Threading.Thread.Sleep(3000);
+#if AOT
+                AutoCSer.TestCase.SerializePerformance.AOT.AotMethod.Call();
+#endif
             }
             while (true);
         }

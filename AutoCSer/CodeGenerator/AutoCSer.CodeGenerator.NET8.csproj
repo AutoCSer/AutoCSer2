@@ -61,9 +61,6 @@
     <Compile Include="NetCoreWebView\TreeBuilderTagTypeEnum.cs" />
     <Compile Include="NetCoreWebView\JavaScriptTreeTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplateGenerator\BinarySerialize.cs" />
-    <Compile Include="TemplateGenerator\JsonSerialize.cs" />
-    <Compile Include="TemplateGenerator\SimpleSerialize.cs" />
     <Compile Include="TemplateGenerator\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\JavaScriptTypeDefinition.cs" />
     <Compile Include="TemplateGenerator\NetCoreWebView.cs" />
@@ -72,12 +69,10 @@
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseClientNode.cs" />
-    <Compile Include="Template\BinarySerialize.cs" />
-    <Compile Include="Template\JsonSerialize.cs" />
-    <Compile Include="Template\SimpleSerialize.cs" />
     <Compile Include="Template\NetCoreWebViewMiddleware.cs" />
     <Compile Include="Template\NetCoreWebView.cs" />
     <Compile Include="Template\CommandServerClientController.cs" />
+    <Compile Include="Template\Pub.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseNode.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseClientNode.cs" />
@@ -162,7 +157,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
     <ProjectReference Include="..\Extensions\AutoCSer.Extensions.NET8.csproj" />
+    <ProjectReference Include="..\FieldEquals\AutoCSer.FieldEquals.NET8.csproj" />
     <ProjectReference Include="..\NetCoreWeb\AutoCSer.NetCoreWeb.NET8.csproj" />
+    <ProjectReference Include="..\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

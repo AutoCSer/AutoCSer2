@@ -5,7 +5,9 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-#if !DotNet45
+using AutoCSer.CodeGenerator.Template;
+using System.Reflection;
+#if !DotNet45 && !AOT
 using AutoCSer.CodeGenerator.NetCoreWebView;
 using AutoCSer.NetCoreWeb;
 #endif
@@ -38,7 +40,7 @@ namespace AutoCSer.CodeGenerator
             switch (language)
             {
                 case CodeLanguageEnum.TypeScript: extensionName = ".ts.txt"; break;
-#if !DotNet45
+#if !DotNet45 && !AOT
                 case CodeLanguageEnum.JavaScript: extensionName = ViewMiddleware.JavaScriptFileExtension; break;
 #endif
                 default: extensionName = ".cs"; break;
@@ -165,6 +167,9 @@ using AutoCSer;
         /// </summary>
         internal static async Task Output(ProjectParameter parameter)
         {
+#if AOT
+            await new AutoCSer.CodeGenerator.TemplateGenerator.AotMethod().Run(parameter, new GeneratorAttribute { IsAOT = true });
+#endif
             ListArray<string>[] builders = new ListArray<string>[codes.Length];
             for (int index = codes.Length; index != 0;)
             {
@@ -194,11 +199,14 @@ using AutoCSer;
                     switch (index)
                     {
                         case (int)CodeLanguageEnum.CSharp:
-                        case (int)CodeLanguageEnum.COUNT:
                             string code = string.Concat(builder.Array);
                             if (!string.IsNullOrEmpty(code))
                             {
-                                string fileName = Path.Combine(parameter.ProjectPath, index != (int)CodeLanguageEnum.COUNT ? "{" + parameter.DefaultNamespace + "}.AutoCSer.cs" : ("{" + parameter.DefaultNamespace + "}.AOT.AutoCSer.cs"));
+#if AOT
+                                string fileName = Path.Combine(parameter.ProjectPath, "{" + parameter.DefaultNamespace + "}.AOT.AutoCSer.cs");
+#else
+                                string fileName = Path.Combine(parameter.ProjectPath, "{" + parameter.DefaultNamespace + "}.AutoCSer.cs");
+#endif
                                 if (await WriteFile(fileName, WarningCode + code + FileEndCode))
                                 {
                                     Messages.Message($"{fileName} 被修改");
@@ -255,7 +263,7 @@ using AutoCSer;
 
         static Coder()
         {
-            codes = new ListArray<string>[(byte)CodeLanguageEnum.COUNT + 1];
+            codes = new ListArray<string>[(byte)CodeLanguageEnum.COUNT];
             for (int index = codes.Length; index != 0; codes[--index] = new ListArray<string>()) ;
         }
     }

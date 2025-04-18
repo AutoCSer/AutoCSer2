@@ -46,6 +46,11 @@
             <param name="config"></param>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.RandomObject.Creator.CreateRandomObjectMethodName">
+            <summary>
+            随机对象生成方法名称
+            </summary>
+        </member>
         <member name="F:AutoCSer.RandomObject.Creator.DefaultConfig">
             <summary>
             公共默认配置参数
@@ -60,7 +65,7 @@
             <param name="isNullable"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.CreateMember``1(``0@,AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateBase``1(``0@,AutoCSer.RandomObject.Config)">
             <summary>
             创建随机成员对象
             </summary>
@@ -111,7 +116,25 @@
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createBool(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateKeyValue``2(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机键值对
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateKeyValuePair``2(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机键值对
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateBool(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机数
             </summary>
@@ -179,49 +202,49 @@
             随机数除数
             </summary>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createDecimal(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateDecimal(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机数
             </summary>
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createGuid(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateGuid(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机数
             </summary>
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createChar(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateChar(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机字符
             </summary>
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createString(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateString(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机字符串
             </summary>
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createSubString(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateSubString(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机字符串
             </summary>
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createFloat(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateFloat(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机数
             </summary>
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createDouble(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateDouble(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机数
             </summary>
@@ -235,7 +258,7 @@
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.RandomObject.Creator.createDateTimeOffset(AutoCSer.RandomObject.Config)">
+        <member name="M:AutoCSer.RandomObject.Creator.CreateDateTimeOffset(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机时间戳
             </summary>
@@ -247,6 +270,13 @@
             创建随机时间
             </summary>
             <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.GetRandomObjectFields(System.Reflection.FieldInfo[])">
+            <summary>
+            获取随机对象生成成员
+            </summary>
+            <param name="fields"></param>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.RandomObject.Creator.createDelegates">
@@ -514,6 +544,34 @@
             忽略成员配置
             </summary>
         </member>
+        <member name="T:AutoCSer.RandomObject.Member">
+            <summary>
+            成员信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Member.Field">
+            <summary>
+            字段信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Member.NameMember">
+            <summary>
+            成员名称信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.RandomObject.Member.Attribute">
+            <summary>
+            成员配置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Member.#ctor(System.Reflection.FieldInfo,System.Reflection.MemberInfo,AutoCSer.RandomObject.MemberAttribute)">
+            <summary>
+            成员信息
+            </summary>
+            <param name="field"></param>
+            <param name="nameMember"></param>
+            <param name="attribute"></param>
+        </member>
         <member name="T:AutoCSer.RandomObject.MemberAttribute">
             <summary>
             成员配置
@@ -734,7 +792,7 @@
             创建随机对象
             </summary>
         </member>
-        <member name="P:AutoCSer.RandomObject.Metadata.GenericType.CreateMemberDelegate">
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType.CreateBaseDelegate">
             <summary>
             创建随机对象
             </summary>
@@ -779,7 +837,7 @@
             创建随机对象
             </summary>
         </member>
-        <member name="P:AutoCSer.RandomObject.Metadata.GenericType`1.CreateMemberDelegate">
+        <member name="P:AutoCSer.RandomObject.Metadata.GenericType`1.CreateBaseDelegate">
             <summary>
             创建随机对象
             </summary>

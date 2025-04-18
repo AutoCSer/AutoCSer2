@@ -6,8 +6,14 @@ namespace AutoCSer.TestCase.SerializePerformance
     /// <summary>
     /// JSON 序列化属性测试数据
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.XmlSerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+    [AutoCSer.CodeGenerator.RandomObject]
+#endif
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
-    class PropertyData
+    partial class PropertyData
     {
         public bool Bool { get; set; }
         public byte Byte { get; set; }

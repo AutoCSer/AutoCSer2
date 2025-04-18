@@ -1,6 +1,92 @@
 ﻿using System;
 /*ulong,ULong,Unsigned;long,Long,Signed;uint,UInt,Unsigned;int,Int,Signed;ushort,UShort,Unsigned;short,Short,Signed;byte,Byte,Unsigned;sbyte,SByte,Signed*/
 
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 数值解析
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal bool TryDeserializeEnumULong<T>(ref T value) where T : struct, IConvertible
+        {
+            if (IsEnumNumberUnsigned())
+            {
+                ulong intValue = 0;
+                DeserializeNumber(ref intValue);
+                value = AutoCSer.Metadata.EnumGenericType<T, ulong>.FromInt(intValue);
+            }
+            else if (State == AutoCSer.Xml.DeserializeStateEnum.Success) return false;
+            return true;
+        }
+#if AOT
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumULong<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumULongDeserialize<T>.Deserialize(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void EnumFlagsULong<T>(ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumULongDeserialize<T>.DeserializeFlags(this, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumULong<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumULongDeserialize<T>.Deserialize(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsULong<T>(XmlDeserializer deserializer, ref T value) where T : struct, IConvertible
+        {
+            AutoCSer.Xml.EnumULongDeserialize<T>.DeserializeFlags(deserializer, ref value);
+        }
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumULongMethod;
+        /// <summary>
+        /// 枚举值反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo EnumFlagsULongMethod;
+#else
+        /// <summary>
+        /// 枚举反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void EnumFlagsULong<T>(XmlDeserializer deserializer, ref T value) { }
+#endif
+    }
+}
 namespace AutoCSer.Xml
 {
     /// <summary>
@@ -10,23 +96,6 @@ namespace AutoCSer.Xml
         where T : struct, IConvertible
     {
         /// <summary>
-        /// 数值解析
-        /// </summary>
-        /// <param name="deserializer"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static bool tryDeserializeNumber(XmlDeserializer deserializer, ref T value)
-        {
-            if (deserializer.IsEnumNumberUnsigned())
-            {
-                ulong intValue = 0;
-                deserializer.DeserializeNumber(ref intValue);
-                value = AutoCSer.Metadata.EnumGenericType<T, ulong>.FromInt(intValue);
-            }
-            else if (deserializer.State == DeserializeStateEnum.Success) return false;
-            return true;
-        }
-        /// <summary>
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
@@ -34,7 +103,7 @@ namespace AutoCSer.Xml
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value)) deserialize(deserializer, ref value);
+            if (!deserializer.TryDeserializeEnumULong(ref value)) deserialize(deserializer, ref value);
         }
         /// <summary>
         /// 枚举值解析
@@ -43,7 +112,7 @@ namespace AutoCSer.Xml
         /// <param name="value">目标数据</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
-            if (!tryDeserializeNumber(deserializer, ref value))
+            if (!deserializer.TryDeserializeEnumULong(ref value))
             {
                 if (enumSearcher.State == null)
                 {

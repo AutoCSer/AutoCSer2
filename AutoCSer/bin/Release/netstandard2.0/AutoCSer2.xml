@@ -211,21 +211,6 @@
             <param name="isDesc">是否反向排序</param>
             <returns>排序结果</returns>
         </member>
-        <member name="T:AutoCSer.AOT.Preserve">
-            <summary>
-            AOT 编译连接
-            </summary>
-        </member>
-        <member name="F:AutoCSer.AOT.Preserve.AllMembers">
-            <summary>
-            是否编译连接所有成员，作用于类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.AOT.Preserve.Conditional">
-            <summary>
-            当类型被引用时才编译连接，作用于成员
-            </summary>
-        </member>
         <member name="T:AutoCSer.ArrayValue`1">
             <summary>
             数组元素，用于一次性操作数据元素
@@ -395,16 +380,6 @@
             二进制反数据序列化
             </summary>
         </member>
-        <member name="F:AutoCSer.BinaryDeserializer.FixedBinaryDeserializeMethodName">
-            <summary>
-            二进制反数据序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinaryDeserializer.FixedBinaryDeserializeMemberMapMethodName">
-            <summary>
-            二进制反数据序列化方法名称
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinaryDeserializer.BinaryDeserializeMethodName">
             <summary>
             二进制反数据序列化方法名称
@@ -413,6 +388,11 @@
         <member name="F:AutoCSer.BinaryDeserializer.BinaryDeserializeMemberMapMethodName">
             <summary>
             二进制反数据序列化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinaryDeserializer.BinarySerializeMemberCountVerifyMethodName">
+            <summary>
+            获取二进制序列化成员数量信息方法名称
             </summary>
         </member>
         <member name="F:AutoCSer.BinaryDeserializer.DefaultConfig">
@@ -478,6 +458,11 @@
         <member name="F:AutoCSer.BinaryDeserializer.objectReference">
             <summary>
             下一个对象引用位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinaryDeserializer.fixedCurrent">
+            <summary>
+            固定数据起始位置
             </summary>
         </member>
         <member name="F:AutoCSer.BinaryDeserializer.objectReferencePoint">
@@ -652,6 +637,13 @@
             <param name="deserializer"></param>
             <param name="value">目标数据</param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.ICustom``1(AutoCSer.BinaryDeserializer,``0@)">
+            <summary>
+            自定义反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.Json``1(``0@)">
             <summary>
             二进制混杂 JSON 反序列化
@@ -816,7 +808,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.Array``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.ListArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
             数组转换
             </summary>
@@ -831,7 +823,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.Array``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.LeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
             数组转换
             </summary>
@@ -861,7 +853,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.StructArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.StructListArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
             数组转换
             </summary>
@@ -876,7 +868,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.StructArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.StructLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
             数组转换
             </summary>
@@ -906,7 +898,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.NullableArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{System.Nullable{``0}}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.NullableListArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{System.Nullable{``0}}@)">
             <summary>
             数组转换
             </summary>
@@ -921,7 +913,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.NullableArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{System.Nullable{``0}}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.NullableLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{System.Nullable{``0}}@)">
             <summary>
             数组转换
             </summary>
@@ -964,13 +956,6 @@
             <typeparam name="VT"></typeparam>
             <param name="deserializer"></param>
             <param name="dictionary"></param>
-        </member>
-        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJsonNotNullCheckZore``1(``0@)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.deserializeJson``1(``0@,System.Int32)">
             <summary>
@@ -1466,24 +1451,53 @@
             <param name="customError">自定义错误</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.DeserializeMethodName(System.String@)">
+        <member name="M:AutoCSer.BinaryDeserializer.FixedFillSize(AutoCSer.BinaryDeserializer,System.Int32)">
             <summary>
-            二进制反序列化模板
+            固定分组填充字节数
             </summary>
-            <param name="value"></param>
+            <param name="deserializer"></param>
+            <param name="fixedFillSize"></param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.DeserializeMethodName``1(System.String@)">
+        <member name="M:AutoCSer.BinaryDeserializer.SetFixedCurrent(AutoCSer.BinaryDeserializer)">
             <summary>
-            二进制反序列化模板
+            设置固定数据起始位置
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SetFixedCurrentEnd(AutoCSer.BinaryDeserializer)">
+            <summary>
+            设置固定数据结束位置
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeJsonNotNullCheckZore``1(``0@)">
+            <summary>
+            JSON 反序列化
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.DeserializeMethodName">
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize``1">
             <summary>
-            二进制反序列化模板
+            代码生成调用激活 AOT 反射
             </summary>
-            <returns></returns>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.FixedFillSize(System.Int32)">
+            <summary>
+            固定分组填充字节数（用于代码生成，不允许开发者调用）
+            </summary>
+            <param name="fixedFillSize"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SetFixedCurrent">
+            <summary>
+            设置固定数据起始位置（用于代码生成，不允许开发者调用）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SetFixedCurrentEnd">
+            <summary>
+            设置固定数据结束位置（用于代码生成，不允许开发者调用）
+            </summary>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.Deserialize``1(System.Byte[],AutoCSer.BinarySerialize.DeserializeConfig)">
             <summary>
@@ -1706,7 +1720,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumULongArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -1721,7 +1735,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumULongArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -1734,9 +1748,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumULongArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumULongLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2632,7 +2646,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumLongArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2647,7 +2661,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumLongArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2660,9 +2674,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumLongArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumLongLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2685,7 +2699,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumUIntArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2700,7 +2714,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumUIntArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2713,9 +2727,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumUIntArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumUIntLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2738,7 +2752,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumIntArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2753,7 +2767,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumIntArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2766,9 +2780,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumIntArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumIntLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2791,7 +2805,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumUShortArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2806,7 +2820,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumUShortArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2819,9 +2833,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumUShortArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumUShortLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2844,7 +2858,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumShortArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2859,7 +2873,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumShortArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2872,9 +2886,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumShortArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumShortLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2897,7 +2911,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumByteArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2912,7 +2926,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumByteArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2925,9 +2939,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumByteArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumByteLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2950,7 +2964,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumSByteArray``1(AutoCSer.BinaryDeserializer,``0[]@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2965,7 +2979,7 @@
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.EnumSByteArray``1(AutoCSer.BinaryDeserializer,AutoCSer.ListArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -2978,9 +2992,9 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组反序列化</param>
         </member>
-        <member name="M:AutoCSer.BinaryDeserializer.EnumSByteArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.BinaryDeserializer.EnumSByteLeftArray``1(AutoCSer.BinaryDeserializer,AutoCSer.LeftArray{``0}@)">
             <summary>
-            枚举数组反序列化
+            枚举数组反序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="deserializer"></param>
@@ -3832,16 +3846,6 @@
             二进制数据序列化
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerializer.FixedBinarySerializeMethodName">
-            <summary>
-            二进制序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializer.FixedBinarySerializeMemberMapMethodName">
-            <summary>
-            二进制序列化方法名称
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerializer.BinarySerializeMethodName">
             <summary>
             二进制序列化方法名称
@@ -3850,6 +3854,11 @@
         <member name="F:AutoCSer.BinarySerializer.BinarySerializeMemberMapMethodName">
             <summary>
             二进制序列化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerializer.BinarySerializeMemberTypeMethodName">
+            <summary>
+            获取二进制序列化成员类型方法名称
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerializer.NullValue">
@@ -4094,6 +4103,14 @@
             <param name="binarySerializer"></param>
             <param name="value">数据对象</param>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.ICustom``1(AutoCSer.BinarySerializer,``0)">
+            <summary>
+            自定义序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.createJsonSerializer">
             <summary>
             获取 JSON 序列化
@@ -4121,15 +4138,6 @@
             <typeparam name="T"></typeparam>
             <param name="value"></param>
             <param name="memberMap"></param>
-        </member>
-        <member name="M:AutoCSer.BinarySerializer.GetJsonMemberMap``1(AutoCSer.Metadata.MemberMap{``0},AutoCSer.Memory.Pointer@)">
-            <summary>
-            获取JSON成员位图
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="memberMap"></param>
-            <param name="memberIndexs"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.BinarySerializer.Json``1(``0)">
             <summary>
@@ -4175,6 +4183,14 @@
             <param name="binarySerializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.baseSerialize``2(``0)">
+            <summary>
+            基类序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="BT"></typeparam>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.Base``2(AutoCSer.BinarySerializer,``0)">
             <summary>
             基类序列化
@@ -4217,14 +4233,14 @@
             </summary>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.Array``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.ListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             数组转换
             </summary>
             <param name="binarySerializer"></param>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.Array``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.LeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             数组转换
             </summary>
@@ -4257,14 +4273,14 @@
             </summary>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.StructArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.StructListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             数组转换
             </summary>
             <param name="binarySerializer"></param>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.StructArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.StructLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             数组转换
             </summary>
@@ -4297,14 +4313,14 @@
             </summary>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.NullableArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{System.Nullable{``0}})">
+        <member name="M:AutoCSer.BinarySerializer.NullableListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{System.Nullable{``0}})">
             <summary>
             数组转换
             </summary>
             <param name="binarySerializer"></param>
             <param name="array">数组对象</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.NullableArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{System.Nullable{``0}})">
+        <member name="M:AutoCSer.BinarySerializer.NullableLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{System.Nullable{``0}})">
             <summary>
             数组转换
             </summary>
@@ -4805,18 +4821,55 @@
             <param name="binarySerializer"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.SerializeMethodName(System.Object)">
+        <member name="M:AutoCSer.BinarySerializer.FixedFillSize(AutoCSer.BinarySerializer,System.Int32)">
             <summary>
-            序列化模板
+            填充空白字节
             </summary>
-            <param name="value"></param>
+            <param name="serializer"></param>
+            <param name="fixedFillSize"></param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.SerializeMethodName``1(System.Object)">
+        <member name="M:AutoCSer.BinarySerializer.GetStreamCurrentIndex(AutoCSer.BinarySerializer)">
             <summary>
-            序列化模板
+            获取当前流位置
+            </summary>
+            <param name="serializer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeFill(AutoCSer.BinarySerializer,System.Int32)">
+            <summary>
+            补白对齐 4 字节
+            </summary>
+            <param name="serializer"></param>
+            <param name="startIndex"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.GetJsonMemberMap``1(AutoCSer.Metadata.MemberMap{``0},AutoCSer.Memory.Pointer@)">
+            <summary>
+            获取JSON成员位图
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="value"></param>
+            <param name="memberMap"></param>
+            <param name="memberIndexs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeFill(System.Int32)">
+            <summary>
+            补白对齐 4 字节（用于代码生成，不允许开发者调用）
+            </summary>
+            <param name="startIndex"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.FixedFillSize(System.Int32)">
+            <summary>
+            填充空白字节（用于代码生成，不允许开发者调用）
+            </summary>
+            <param name="fixedFillSize"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.WriteMemberCountVerify(System.Int32,System.Int32)">
+            <summary>
+            写入序列化成员数量（用于代码生成，不允许开发者调用）
+            </summary>
+            <param name="prepSize"></param>
+            <param name="memberCountVerify"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.BinarySerializer.Serialize``1(``0,AutoCSer.BinarySerializeConfig)">
             <summary>
@@ -5035,7 +5088,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumULongArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumULongListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -5043,7 +5096,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumULongArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumULongLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6195,7 +6248,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumLongArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumLongListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6203,7 +6256,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumLongArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumLongLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6241,7 +6294,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumUIntArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumUIntListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6249,7 +6302,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumUIntArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumUIntLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6287,7 +6340,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumIntArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumIntListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6295,7 +6348,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumIntArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumIntLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6333,7 +6386,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumUShortArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumUShortListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6341,7 +6394,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumUShortArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumUShortLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6379,7 +6432,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumShortArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumShortListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6387,7 +6440,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumShortArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumShortLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6425,7 +6478,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumByteArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumByteListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6433,7 +6486,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumByteArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumByteLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6471,7 +6524,7 @@
             <typeparam name="T"></typeparam>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumSByteArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumSByteListArray``1(AutoCSer.BinarySerializer,AutoCSer.ListArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6479,7 +6532,7 @@
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.EnumSByteArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
+        <member name="M:AutoCSer.BinarySerializer.EnumSByteLeftArray``1(AutoCSer.BinarySerializer,AutoCSer.LeftArray{``0})">
             <summary>
             枚举数组序列化
             </summary>
@@ -6637,132 +6690,6 @@
             <param name="binarySerializer"></param>
             <param name="value"></param>
         </member>
-        <member name="T:AutoCSer.CodeGenerator.BinarySerializeAttribute">
-            <summary>
-            二进制序列化代码生成配置（用于 AOT 环境）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CodeGenerator.BinarySerializeMethodInfo">
-            <summary>
-            二进制序列化信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.EnumArrayElementType">
-            <summary>
-            枚举数组的元素类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.GenericType">
-            <summary>
-            泛型参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.GenericType1">
-            <summary>
-            泛型参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.GenericType2">
-            <summary>
-            泛型参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.IsCusotm">
-            <summary>
-            是否自定义序列化接口
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.IsNullableArray">
-            <summary>
-            是否可空数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.IsStructArray">
-            <summary>
-            是否结构体数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.IsDictionary">
-            <summary>
-            是否字典
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.IsCollection">
-            <summary>
-            是否集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.IsJson">
-            <summary>
-            是否 JSON 序列化
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.Set(System.Type,AutoCSer.Metadata.DictionaryGenericType)">
-            <summary>
-            设置字典泛型参数
-            </summary>
-            <param name="type"></param>
-            <param name="genericType"></param>
-        </member>
-        <member name="M:AutoCSer.CodeGenerator.BinarySerializeMethodInfo.Set(System.Type,AutoCSer.Metadata.CollectionGenericType)">
-            <summary>
-            设置集合泛型参数
-            </summary>
-            <param name="type"></param>
-            <param name="genericType"></param>
-        </member>
-        <member name="T:AutoCSer.CodeGenerator.AwaitResultTypeAttribute">
-            <summary>
-            代码生成模板支持 await 泛型申明
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CodeGenerator.JsonSerializeAttribute">
-            <summary>
-            JSON 序列化代码生成配置（用于 AOT 环境）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CodeGenerator.JsonSerializeMethodInfo">
-            <summary>
-            JSON 序列化信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.JsonSerializeMethodInfo.IsTypeSerialize">
-            <summary>
-            是否类型序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.JsonSerializeMethodInfo.IsCusotm">
-            <summary>
-            是否自定义序列化接口
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CodeGenerator.CombinationTemplateConfig">
-            <summary>
-            自定义简单组合模板参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CodeGenerator.CombinationTemplateConfig.DefaultTemplatePath">
-            <summary>
-            默认自定义模板相对项目路径
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CodeGenerator.CombinationTemplateConfig.TemplatePath">
-            <summary>
-            自定义模板相对项目路径
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CodeGenerator.CombinationTemplateConfig.GetCodeFileName(System.String)">
-            <summary>
-            获取目标代码文件名称（默认为项目命名空间）
-            </summary>
-            <param name="defaultNamespace"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CodeGenerator.SimpleSerializeAttribute">
-            <summary>
-            简单序列化代码生成配置（用于 AOT 环境）
-            </summary>
-        </member>
         <member name="T:AutoCSer.BinarySerialize.CustomSerializeGenericType">
             <summary>
             自定义二进制序列化泛型类型元数据
@@ -6802,20 +6729,6 @@
             泛型代理
             </summary>
             <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.CustomSerializeGenericType`1.Serialize(AutoCSer.BinarySerializer,`0)">
-            <summary>
-            自定义序列化
-            </summary>
-            <param name="serializer"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.CustomSerializeGenericType`1.Deserialize(AutoCSer.BinaryDeserializer,`0@)">
-            <summary>
-            自定义反序列化
-            </summary>
-            <param name="deserializer"></param>
-            <param name="value"></param>
         </member>
         <member name="P:AutoCSer.BinarySerialize.CustomSerializeGenericType`1.SerializeDelegate">
             <summary>
@@ -7161,25 +7074,6 @@
             公共调用
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.GetTypeSerializeDelegate(System.Type,AutoCSer.Metadata.GenericType@,AutoCSer.BinarySerialize.SerializeDelegateReference@,AutoCSer.CodeGenerator.BinarySerializeMethodInfo@)">
-            <summary>
-            获取类型默认序列化委托
-            </summary>
-            <param name="type"></param>
-            <param name="genericType"></param>
-            <param name="serializeDelegateReference"></param>
-            <param name="binarySerializeMethodInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.GetTypeSerializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.BinarySerialize.SerializeDelegateReference@,AutoCSer.BinarySerializeAttribute@)">
-            <summary>
-            获取类型默认序列化委托
-            </summary>
-            <param name="genericType"></param>
-            <param name="serializeDelegateReference"></param>
-            <param name="attribute"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.BinarySerialize.Common.GetBaseAttribute(System.Type,AutoCSer.BinarySerializeAttribute@)">
             <summary>
             获取二进制数据序列化类型配置
@@ -7193,42 +7087,29 @@
             成员序列化委托集合访问锁
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.GetMemberSerializeDelegate(System.Type,AutoCSer.CodeGenerator.BinarySerializeMethodInfo@)">
-            <summary>
-            获取成员序列化委托
-            </summary>
-            <param name="type">成员类型</param>
-            <param name="binarySerializeMethodInfo"></param>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.getTypeDeserializeDelegate(System.Type,AutoCSer.Metadata.GenericType@,AutoCSer.BinarySerialize.DeserializeDelegate@)">
-            <summary>
-            获取类型默认反序列化委托
-            </summary>
-            <param name="type"></param>
-            <param name="genericType"></param>
-            <param name="deserializeDelegate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.GetTypeDeserializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.BinarySerialize.DeserializeDelegate@,AutoCSer.BinarySerializeAttribute@)">
-            <summary>
-            获取类型默认反序列化委托
-            </summary>
-            <param name="genericType"></param>
-            <param name="deserializeDelegate"></param>
-            <param name="attribute"></param>
-            <returns></returns>
-        </member>
         <member name="F:AutoCSer.BinarySerialize.Common.memberDeserializeDelegateLock">
             <summary>
             成员反序列化委托集合访问锁
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.Common.getMemberDeserializeDelegate(System.Type)">
+        <member name="M:AutoCSer.BinarySerialize.Common.GetTypeSerializeDelegate(System.Type,AutoCSer.Metadata.GenericType@,AutoCSer.BinarySerialize.SerializeDelegateReference@)">
             <summary>
-            获取成员反序列化委托
+            获取类型默认序列化委托
             </summary>
-            <param name="type">成员类型</param>
-            <returns>成员反序列化委托</returns>
+            <param name="type"></param>
+            <param name="genericType"></param>
+            <param name="serializeDelegateReference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.Common.GetTypeSerializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.BinarySerialize.SerializeDelegateReference@,AutoCSer.BinarySerializeAttribute@,System.Type@)">
+            <summary>
+            获取类型默认序列化委托
+            </summary>
+            <param name="genericType"></param>
+            <param name="serializeDelegateReference"></param>
+            <param name="attribute"></param>
+            <param name="baseType"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.BinarySerialize.Common.memberSerializeDelegates">
             <summary>
@@ -7240,6 +7121,32 @@
             获取成员序列化委托
             </summary>
             <param name="type">成员类型</param>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.Common.GetMemberSerializeDelegate(System.Type,System.Type@)">
+            <summary>
+            获取成员序列化委托
+            </summary>
+            <param name="type">成员类型</param>
+            <param name="baseType"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.Common.getTypeDeserializeDelegate(System.Type,AutoCSer.Metadata.GenericType@,AutoCSer.BinarySerialize.DeserializeDelegate@)">
+            <summary>
+            获取类型默认反序列化委托
+            </summary>
+            <param name="type"></param>
+            <param name="genericType"></param>
+            <param name="deserializeDelegate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.Common.GetTypeDeserializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.BinarySerialize.DeserializeDelegate@,AutoCSer.BinarySerializeAttribute@,System.Type@)">
+            <summary>
+            获取类型默认反序列化委托
+            </summary>
+            <param name="genericType"></param>
+            <param name="deserializeDelegate"></param>
+            <param name="attribute"></param>
+            <param name="baseType"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.BinarySerialize.Common.memberDeserializeDelegates">
             <summary>
@@ -7253,10 +7160,24 @@
             <param name="type">成员类型</param>
             <returns>成员反序列化委托</returns>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.Common.getMemberDeserializeDelegate(System.Type)">
+            <summary>
+            获取成员反序列化委托
+            </summary>
+            <param name="type">成员类型</param>
+            <returns>成员反序列化委托</returns>
+        </member>
         <member name="T:AutoCSer.BinarySerialize.CustomConfig">
             <summary>
             自定义全局配置
             </summary>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.CustomConfig.GetCustomSerializeDelegate(System.Type)">
+            <summary>
+            根据类型获取自定义类型(比如泛型)序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.BinarySerializer，第二参数类型为具体数据类型，返回值类型为 void
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.BinarySerialize.CustomConfig.customSerializeDelegate">
             <summary>
@@ -7294,12 +7215,11 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.CustomConfig.GetCustomSerializeDelegate(System.Type,AutoCSer.CodeGenerator.BinarySerializeMethodInfo@)">
+        <member name="M:AutoCSer.BinarySerialize.CustomConfig.GetCustomDeserializeDelegate(System.Type)">
             <summary>
-            根据类型获取自定义类型(比如泛型)序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.BinarySerializer，第二参数类型为具体数据类型，返回值类型为 void
+            根据类型获取自定义类型(比如泛型)序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.BinaryDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void
             </summary>
             <param name="type"></param>
-            <param name="binarySerializeMethodInfo"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.BinarySerialize.CustomConfig.NotSupport``1(AutoCSer.BinarySerializer,``0)">
@@ -7310,13 +7230,6 @@
             <param name="binarySerializer"></param>
             <param name="value"></param>
             <returns>未写入字节数量</returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.CustomConfig.GetCustomDeserializeDelegate(System.Type)">
-            <summary>
-            根据类型获取自定义类型(比如泛型)序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.BinaryDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.BinarySerialize.CustomConfig.NotSupport``1(AutoCSer.BinaryDeserializer,``0@)">
             <summary>
@@ -7450,12 +7363,23 @@
             </summary>
             <param name="field">字段信息</param>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.DeserializeMemberDynamicMethod.FixedFillSize(System.Int32)">
+            <summary>
+            固定分组填充字节数
+            </summary>
+            <param name="fixedFillSize"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.DeserializeMemberDynamicMethod.Create(System.Type)">
             <summary>
             创建成员转换委托
             </summary>
             <param name="type">委托类型</param>
             <returns>成员转换委托</returns>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.DeserializeMemberDynamicMethod.fixedFillSizeDelegate">
+            <summary>
+            固定分组填充字节数
+            </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod">
             <summary>
@@ -7477,17 +7401,23 @@
             
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.isFixedFillSize">
+            <summary>
+            是否需要补全字节数
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.isValueType">
             <summary>
             是否值类型
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.#ctor(AutoCSer.Metadata.GenericType,System.String)">
+        <member name="M:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.#ctor(AutoCSer.Metadata.GenericType,System.String,System.Boolean)">
             <summary>
             动态函数
             </summary>
             <param name="genericType"></param>
             <param name="name"></param>
+            <param name="isFixedFillSize"></param>
         </member>
         <member name="M:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.Push(AutoCSer.BinarySerialize.FieldSize)">
             <summary>
@@ -7495,12 +7425,27 @@
             </summary>
             <param name="field">字段信息</param>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.SetFixedCurrentEnd">
+            <summary>
+            设置固定数据结束位置
+            </summary>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.Create(System.Type)">
             <summary>
             创建成员转换委托
             </summary>
             <param name="type">委托类型</param>
             <returns>成员转换委托</returns>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.setFixedCurrentDelegate">
+            <summary>
+            设置固定数据起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.DeserializeMemberMapDynamicMethod.setFixedCurrentEndDelegate">
+            <summary>
+            设置固定数据结束位置
+            </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.FieldSize">
             <summary>
@@ -7583,6 +7528,11 @@
             固定序列化字段字节数
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.FieldSizeArray.AnyFixedSize">
+            <summary>
+            固定序列化字段字节数
+            </summary>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex},System.Boolean,System.Int32@)">
             <summary>
             字段成员集合
@@ -7591,17 +7541,6 @@
             <param name="isJson"></param>
             <param name="memberCountVerify"></param>
             <returns>字段成员集合</returns>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.#ctor(AutoCSer.LeftArray{AutoCSer.BinarySerialize.FieldSize}@,AutoCSer.LeftArray{AutoCSer.BinarySerialize.FieldSize}@,AutoCSer.LeftArray{AutoCSer.Metadata.FieldIndex}@,System.Int32,System.Boolean,System.Int32@)">
-            <summary>
-            字段集合信息
-            </summary>
-            <param name="fixedFields">固定序列化字段</param>
-            <param name="fields">非固定序列化字段</param>
-            <param name="jsonFields">JSON 混合序列化字段</param>
-            <param name="fixedSize">固定序列化字段字节数</param>
-            <param name="isJson"></param>
-            <param name="memberCountVerify">序列化成员数量</param>
         </member>
         <member name="T:AutoCSer.BinarySerialize.SerializeMemberDynamicMethod">
             <summary>
@@ -7636,12 +7575,23 @@
             </summary>
             <param name="field">字段信息</param>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeMemberDynamicMethod.FixedFillSize(System.Int32)">
+            <summary>
+            填充空白字节
+            </summary>
+            <param name="size"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeMemberDynamicMethod.Create(System.Type)">
             <summary>
             创建成员转换委托
             </summary>
             <param name="type">委托类型</param>
             <returns>成员转换委托</returns>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.SerializeMemberDynamicMethod.fixedFillSizeDelegate">
+            <summary>
+            填充空白字节
+            </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod">
             <summary>
@@ -7663,17 +7613,28 @@
             
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.startIndexLocalBuilder">
+            <summary>
+            开始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.isFixedFillSize">
+            <summary>
+            是否需要补全字节数
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.isValueType">
             <summary>
             是否值类型
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.#ctor(AutoCSer.Metadata.GenericType,System.String)">
+        <member name="M:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.#ctor(AutoCSer.Metadata.GenericType,System.String,System.Boolean)">
             <summary>
             动态函数
             </summary>
             <param name="genericType"></param>
             <param name="name"></param>
+            <param name="isFixedFillSize"></param>
         </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.Push(AutoCSer.BinarySerialize.FieldSize)">
             <summary>
@@ -7681,12 +7642,27 @@
             </summary>
             <param name="field">字段信息</param>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.SerializeFill">
+            <summary>
+            补白对齐 4 字节
+            </summary>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.Create(System.Type)">
             <summary>
             创建成员转换委托
             </summary>
             <param name="type">委托类型</param>
             <returns>成员转换委托</returns>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.getStreamCurrentIndexDelegate">
+            <summary>
+            获取当前流位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.SerializeMemberMapDynamicMethod.serializeFillDelegate">
+            <summary>
+            补白对齐 4 字节
+            </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.ThreadStaticSerializer">
             <summary>
@@ -7734,16 +7710,6 @@
             <param name="deserializer">二进制数据反序列化</param>
             <param name="value">目标数据</param>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.fixedMemberDeserializer">
-            <summary>
-            固定分组成员序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.fixedMemberMapDeserializer">
-            <summary>
-            固定分组成员位图序列化
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.memberDeserializer">
             <summary>
             成员序列化
@@ -7764,9 +7730,9 @@
             JSON混合序列化成员索引集合
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.fixedFillSize">
+        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.isJson">
             <summary>
-            固定分组填充字节数
+            当没有 JSON 序列化成员时是否预留 JSON 序列化标记
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.memberCountVerify">
@@ -7807,11 +7773,6 @@
         <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.isMemberMap">
             <summary>
             是否处理成员位图
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeDeserializer`1.isJson">
-            <summary>
-            当没有 JSON 序列化成员时是否预留 JSON 序列化标记
             </summary>
         </member>
         <member name="M:AutoCSer.BinarySerialize.TypeDeserializer`1.Deserialize(AutoCSer.BinaryDeserializer,`0@)">
@@ -7927,6 +7888,14 @@
             <param name="delegateValue">二进制序列化委托必须是静态方法，第一个参数类型为 AutoCSer.BinarySerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
             <param name="referenceTypes">需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知</param>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeDelegate.#ctor(System.Delegate,System.Type[],System.Boolean)">
+            <summary>
+            自定义二进制序列化委托
+            </summary>
+            <param name="delegateValue">二进制序列化委托</param>
+            <param name="referenceTypes">需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知</param>
+            <param name="isCollection">是否集合</param>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeDelegate.#ctor(System.Delegate,System.Delegate,System.Type[],System.Boolean)">
             <summary>
             自定义二进制序列化委托
@@ -8019,17 +7988,10 @@
             自定义序列化委托
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.SerializeDelegateReference.ReferenceGenericTypes">
+        <member name="F:AutoCSer.BinarySerialize.SerializeDelegateReference.ReferenceTypes">
             <summary>
             需要循环引用检查的类型
             </summary>
-        </member>
-        <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.SetPrimitive(System.Delegate,AutoCSer.Metadata.GenericType)">
-            <summary>
-            设置自定义序列化委托
-            </summary>
-            <param name="delegateValue"></param>
-            <param name="referenceGenericType"></param>
         </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.#ctor(System.Delegate,System.Delegate)">
             <summary>
@@ -8038,19 +8000,26 @@
             <param name="delegateValue">序列化委托</param>
             <param name="memberDelegateValue">序列化委托</param>
         </member>
-        <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.#ctor(System.Delegate,AutoCSer.Metadata.GenericType)">
-            <summary>
-            序列化委托循环引用信息
-            </summary>
-            <param name="delegateValue">JSON 序列化委托</param>
-            <param name="referenceGenericType">需要循环引用检查的类型</param>
-        </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.SetPrimitive(System.Delegate,System.Delegate)">
             <summary>
             设置自定义序列化委托
             </summary>
             <param name="delegateValue"></param>
             <param name="memberDelegateValue"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.#ctor(System.Delegate,AutoCSer.Metadata.GenericType)">
+            <summary>
+            序列化委托循环引用信息
+            </summary>
+            <param name="delegateValue">JSON 序列化委托</param>
+            <param name="referenceType">需要循环引用检查的类型</param>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.SetPrimitive(System.Delegate,AutoCSer.Metadata.GenericType)">
+            <summary>
+            设置自定义序列化委托
+            </summary>
+            <param name="delegateValue"></param>
+            <param name="referenceType"></param>
         </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeDelegateReference.SetUnknown(System.Type,System.Delegate,System.Delegate)">
             <summary>
@@ -8124,16 +8093,6 @@
             序列化委托
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.fixedMemberSerializer">
-            <summary>
-            固定分组成员序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.fixedMemberMapSerializer">
-            <summary>
-            固定分组成员位图序列化
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.memberSerializer">
             <summary>
             成员序列化
@@ -8159,29 +8118,24 @@
             JSON混合序列化成员索引集合
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.memberCountVerify">
-            <summary>
-            序列化成员数量
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.fixedSize">
             <summary>
             固定分组字节数
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.fixedFillSize">
+        <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.memberCountVerify">
             <summary>
-            固定分组填充字节数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.isMemberMap">
-            <summary>
-            是否处理成员位图
+            序列化成员数量
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.isJson">
             <summary>
             当没有 JSON 序列化成员时是否预留 JSON 序列化标记
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.TypeSerializer`1.isMemberMap">
+            <summary>
+            是否处理成员位图
             </summary>
         </member>
         <member name="M:AutoCSer.BinarySerialize.TypeSerializer`1.Serialize(AutoCSer.BinarySerializer,`0@)">
@@ -8233,6 +8187,33 @@
             <param name="memberMap"></param>
             <param name="binarySerializer"></param>
             <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.CodeGenerator.AwaitResultTypeAttribute">
+            <summary>
+            代码生成模板支持 await 泛型申明
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CodeGenerator.CombinationTemplateConfig">
+            <summary>
+            自定义简单组合模板参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.CombinationTemplateConfig.DefaultTemplatePath">
+            <summary>
+            默认自定义模板相对项目路径
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CodeGenerator.CombinationTemplateConfig.TemplatePath">
+            <summary>
+            自定义模板相对项目路径
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CodeGenerator.CombinationTemplateConfig.GetCodeFileName(System.String)">
+            <summary>
+            获取目标代码文件名称（默认为项目命名空间）
+            </summary>
+            <param name="defaultNamespace"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Common">
             <summary>
@@ -8775,6 +8756,14 @@
             <param name="fileName"></param>
             <param name="text"></param>
             <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Common.WriteAllBytes(System.String,System.Byte[])">
+            <summary>
+            将数据写入文件，文件不存在则创建文件
+            </summary>
+            <param name="fileName"></param>
+            <param name="data"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Common.FileCopyTo(System.IO.FileInfo,System.String,System.Boolean)">
@@ -11545,6 +11534,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsULong``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
+        </member>
         <member name="F:AutoCSer.JsonDeserializer.JsonDeserializeMethodName">
             <summary>
             JSON 反序列化方法名称
@@ -11553,6 +11550,11 @@
         <member name="F:AutoCSer.JsonDeserializer.JsonDeserializeMemberMapMethodName">
             <summary>
             JSON 反序列化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonDeserializer.JsonDeserializeMemberNameMethodName">
+            <summary>
+            获取 JSON 反序列化成员名称
             </summary>
         </member>
         <member name="F:AutoCSer.JsonDeserializer.NullStringValue">
@@ -11713,6 +11715,13 @@
             <param name="jsonDeserializer">JSON 反序列化</param>
             <param name="value">目标数据</param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.ICustom``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            自定义反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.NotSupport``1(AutoCSer.JsonDeserializer,``0@)">
             <summary>
             自定义反序列化不支持类型
@@ -11729,7 +11738,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.JsonDeserializer.baseeSerialize``2(``0@)">
+        <member name="M:AutoCSer.JsonDeserializer.baseSerialize``2(``0@)">
             <summary>
             基类转换
             </summary>
@@ -11772,6 +11781,32 @@
             数组解析
             </summary>
             <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize``1(AutoCSer.LeftArray{``0}@)">
+            <summary>
+            数组解析
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.LeftArray``1(AutoCSer.JsonDeserializer,AutoCSer.LeftArray{``0}@)">
+            <summary>
+            数组解析
+            </summary>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize``1(AutoCSer.ListArray{``0}@)">
+            <summary>
+            数组解析
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.ListArray``1(AutoCSer.JsonDeserializer,AutoCSer.ListArray{``0}@)">
+            <summary>
+            数组解析
+            </summary>
             <param name="jsonDeserializer">JSON 反序列化</param>
             <param name="array"></param>
         </member>
@@ -11856,7 +11891,7 @@
             <typeparam name="VT"></typeparam>
             <param name="dictionary"></param>
         </member>
-        <member name="M:AutoCSer.JsonDeserializer.Dictionary``3(AutoCSer.JsonDeserializer,``0@)">
+        <member name="M:AutoCSer.JsonDeserializer.IDictionary``3(AutoCSer.JsonDeserializer,``0@)">
             <summary>
             字典反序列化
             </summary>
@@ -12717,20 +12752,6 @@
             <param name="customError">自定义错误</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize``1(``0@)">
-            <summary>
-            JSON 反序列化
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.JsonDeserializer.EnumJsonDeserializeMethodName``1(``0@)">
-            <summary>
-            枚举序列化模板
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-        </member>
         <member name="M:AutoCSer.JsonDeserializer.Deserialize``1(System.String,AutoCSer.JsonDeserializeConfig)">
             <summary>
             JSON 反序列化
@@ -12981,12 +13002,28 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsLong``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumUInt``1(``0@)">
             <summary>
             枚举数值解析
             </summary>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsUInt``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumInt``1(``0@)">
             <summary>
@@ -12995,12 +13032,28 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsInt``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumUShort``1(``0@)">
             <summary>
             枚举数值解析
             </summary>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsUShort``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumShort``1(``0@)">
             <summary>
@@ -13009,6 +13062,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsShort``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumByte``1(``0@)">
             <summary>
             枚举数值解析
@@ -13016,12 +13077,28 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsByte``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumSByte``1(``0@)">
             <summary>
             枚举数值解析
             </summary>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.EnumFlagsSByte``1(AutoCSer.JsonDeserializer,``0@)">
+            <summary>
+            枚举反序列化模板
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Int64[]@)">
             <summary>
@@ -13437,24 +13514,10 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:AutoCSer.Json.CustomSerializeGenericType`1.Serialize(AutoCSer.JsonSerializer,`0)">
-            <summary>
-            自定义序列化
-            </summary>
-            <param name="serializer"></param>
-            <param name="value"></param>
-        </member>
         <member name="P:AutoCSer.Json.CustomSerializeGenericType`1.SerializeDelegate">
             <summary>
             自定义序列化委托
             </summary>
-        </member>
-        <member name="M:AutoCSer.Json.CustomSerializeGenericType`1.Deserialize(AutoCSer.JsonDeserializer,`0@)">
-            <summary>
-            自定义反序列化
-            </summary>
-            <param name="deserializer"></param>
-            <param name="value"></param>
         </member>
         <member name="P:AutoCSer.Json.CustomSerializeGenericType`1.DeserializeDelegate">
             <summary>
@@ -14319,31 +14382,23 @@
             公共调用
             </summary>
         </member>
-        <member name="M:AutoCSer.Json.Common.GetTypeSerializeDelegate(System.Type,AutoCSer.Metadata.GenericType@,AutoCSer.TextSerialize.DelegateReference@,AutoCSer.CodeGenerator.JsonSerializeMethodInfo@)">
+        <member name="M:AutoCSer.Json.Common.GetTypeSerializeDelegate(System.Type,AutoCSer.Metadata.GenericType@,AutoCSer.TextSerialize.DelegateReference@)">
             <summary>
             获取类型默认序列化委托
             </summary>
             <param name="type"></param>
             <param name="genericType"></param>
             <param name="serializeDelegateReference"></param>
-            <param name="jsonSerializeMethodInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Json.Common.GetTypeSerializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.TextSerialize.DelegateReference@,AutoCSer.JsonSerializeAttribute@)">
+        <member name="M:AutoCSer.Json.Common.GetTypeSerializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.TextSerialize.DelegateReference@,AutoCSer.JsonSerializeAttribute@,System.Type@)">
             <summary>
             获取类型默认序列化委托
             </summary>
             <param name="genericType"></param>
             <param name="serializeDelegateReference"></param>
             <param name="attribute"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Json.Common.GetBaseAttribute(System.Type,AutoCSer.JsonSerializeAttribute@)">
-            <summary>
-            获取 JSON 序列化类型配置
-            </summary>
-            <param name="type"></param>
-            <param name="attribute"></param>
+            <param name="baseType"></param>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.Json.Common.memberSerializeDelegates">
@@ -14367,38 +14422,6 @@
             获取成员序列化委托
             </summary>
             <param name="type">成员类型</param>
-        </member>
-        <member name="M:AutoCSer.Json.Common.CheckCompleted(System.Type,AutoCSer.TextSerialize.DelegateReference@)">
-            <summary>
-            计算状态完成检查
-            </summary>
-            <param name="type"></param>
-            <param name="reference"></param>
-        </member>
-        <member name="M:AutoCSer.Json.Common.Check(AutoCSer.TextSerialize.LoopTypeArray@,System.Type,System.Collections.Generic.HashSet{AutoCSer.HashObject{System.Type}})">
-            <summary>
-            循环引用检查
-            </summary>
-            <param name="array"></param>
-            <param name="type"></param>
-            <param name="types"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Json.Common.getTypeDeserializeDelegate(System.Type,AutoCSer.Metadata.GenericType@)">
-            <summary>
-            获取类型默认反序列化委托
-            </summary>
-            <param name="type"></param>
-            <param name="genericType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Json.Common.GetTypeDeserializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.JsonSerializeAttribute@)">
-            <summary>
-            获取类型默认反序列化委托
-            </summary>
-            <param name="genericType"></param>
-            <param name="attribute"></param>
-            <returns></returns>
         </member>
         <member name="F:AutoCSer.Json.Common.memberDeserializeDelegates">
             <summary>
@@ -14424,17 +14447,65 @@
             <param name="type">成员类型</param>
             <returns>成员反序列化委托</returns>
         </member>
+        <member name="M:AutoCSer.Json.Common.getTypeDeserializeDelegate(System.Type,AutoCSer.Metadata.GenericType@)">
+            <summary>
+            获取类型默认反序列化委托
+            </summary>
+            <param name="type"></param>
+            <param name="genericType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Json.Common.GetTypeDeserializeDelegate(AutoCSer.Metadata.GenericType,AutoCSer.JsonSerializeAttribute@,System.Type@)">
+            <summary>
+            获取类型默认反序列化委托
+            </summary>
+            <param name="genericType"></param>
+            <param name="attribute"></param>
+            <param name="baseType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Json.Common.GetBaseAttribute(System.Type,AutoCSer.JsonSerializeAttribute,AutoCSer.JsonSerializeAttribute@)">
+            <summary>
+            获取 JSON 序列化类型配置
+            </summary>
+            <param name="type"></param>
+            <param name="defaultAttribute"></param>
+            <param name="attribute"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Json.Common.CheckCompleted(System.Type,AutoCSer.TextSerialize.DelegateReference@)">
+            <summary>
+            计算状态完成检查
+            </summary>
+            <param name="type"></param>
+            <param name="reference"></param>
+        </member>
+        <member name="M:AutoCSer.Json.Common.Check(AutoCSer.TextSerialize.LoopTypeArray@,System.Type,System.Collections.Generic.HashSet{AutoCSer.HashObject{System.Type}})">
+            <summary>
+            循环引用检查
+            </summary>
+            <param name="array"></param>
+            <param name="type"></param>
+            <param name="types"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Json.CustomConfig">
             <summary>
             自定义全局配置
             </summary>
         </member>
-        <member name="M:AutoCSer.Json.CustomConfig.GetCustomSerializeDelegate(System.Type,AutoCSer.CodeGenerator.JsonSerializeMethodInfo@)">
+        <member name="M:AutoCSer.Json.CustomConfig.GetCustomSerializeDelegate(System.Type)">
             <summary>
             根据类型获取 JSON 自定义类型(比如泛型)序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer，第二参数类型为具体数据类型，返回值类型为 void
             </summary>
             <param name="type"></param>
-            <param name="jsonSerializeMethodInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Json.CustomConfig.GeteCustomDeserializeDelegate(System.Type)">
+            <summary>
+            根据类型获取 JSON 自定义类型(比如泛型)序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.JsonDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void
+            </summary>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Json.CustomConfig.Write(AutoCSer.JsonSerializer,System.DateTime)">
@@ -14461,13 +14532,6 @@
             <param name="serializer"></param>
             <param name="value"></param>
             <returns>未写入字符数量</returns>
-        </member>
-        <member name="M:AutoCSer.Json.CustomConfig.GeteCustomDeserializeDelegate(System.Type)">
-            <summary>
-            根据类型获取 JSON 自定义类型(比如泛型)序列化函数，必须是静态方法，第一个参数类型为 AutoCSer.JsonDeserializer，第二参数类型为具体数据类型 ref，返回值类型为 void
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Json.CustomConfig.Deserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer,System.Single@)">
             <summary>
@@ -14706,6 +14770,13 @@
             <param name="method"></param>
             <param name="member"></param>
         </member>
+        <member name="M:AutoCSer.Json.TypeDeserializer`1.TryDeserializeFilter.Call(AutoCSer.JsonDeserializer,`0@)">
+            <summary>
+            成员解析器
+            </summary>
+            <param name="jsonDeserializer">JSON 反序列化</param>
+            <param name="value">目标数据</param>
+        </member>
         <member name="M:AutoCSer.Json.TypeDeserializer`1.TryDeserializeFilter.Call(AutoCSer.JsonDeserializer,AutoCSer.Metadata.MemberMap{`0},`0@)">
             <summary>
             成员解析器
@@ -14713,6 +14784,11 @@
             <param name="jsonDeserializer">JSON 反序列化</param>
             <param name="memberMap">成员位图</param>
             <param name="value">目标数据</param>
+        </member>
+        <member name="F:AutoCSer.Json.TypeDeserializer`1.memberDeserializers">
+            <summary>
+            成员解析器集合
+            </summary>
         </member>
         <member name="T:AutoCSer.Json.TypeDeserializer`1.DeserializeMember">
             <summary>
@@ -14744,11 +14820,6 @@
         <member name="F:AutoCSer.Json.TypeDeserializer`1.memberMapDeserializer">
             <summary>
             默认名称解析
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Json.TypeDeserializer`1.memberDeserializers">
-            <summary>
-            成员解析器集合
             </summary>
         </member>
         <member name="F:AutoCSer.Json.TypeDeserializer`1.memberSearcher">
@@ -16114,12 +16185,31 @@
             默认构造函数
             </summary>
         </member>
+        <member name="F:AutoCSer.Metadata.DefaultConstructor.DefaultConstructorMethodName">
+            <summary>
+            默认构造函数方法名称
+            </summary>
+        </member>
         <member name="M:AutoCSer.Metadata.DefaultConstructor.GetConstructor``1">
             <summary>
             获取自定义创建对象的默认构造函数，用于反序列化
             </summary>
             <typeparam name="T"></typeparam>
             <returns>委托返回值的 T 类型对象不允许为 null</returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.DefaultConstructor.LeftArrayDefaultConstructor``1">
+            <summary>
+            数组字串构造函数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor``1">
+            <summary>
+            是否存在默认构造函数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.Metadata.DefaultConstructor.CallMemberwiseClone">
             <summary>
@@ -16215,6 +16305,11 @@
             </summary>
             <param name="serializeDelegateReference"></param>
         </member>
+        <member name="P:AutoCSer.Metadata.BaseGenericType.BinarySerializeBaseDelegate">
+            <summary>
+            获取基类二进制序列化委托
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.BaseGenericType.BinaryDeserializeBaseDelegate">
             <summary>
             获取基类二进制反序列化委托
@@ -16290,6 +16385,11 @@
             获取基类二进制序列化委托
             </summary>
             <param name="serializeDelegateReference"></param>
+        </member>
+        <member name="P:AutoCSer.Metadata.BaseGenericType`2.BinarySerializeBaseDelegate">
+            <summary>
+            获取基类二进制序列化委托
+            </summary>
         </member>
         <member name="P:AutoCSer.Metadata.BaseGenericType`2.BinaryDeserializeBaseDelegate">
             <summary>
@@ -16678,26 +16778,15 @@
             泛型类型元数据
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType.JsonSerializeEnumDelegate">
+        <member name="P:AutoCSer.Metadata.EnumGenericType.SimpleSerializeEnumDelegate">
             <summary>
-            获取 JSON 序列化枚举委托
+            获取简单序列化枚举委托
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType.JsonDeserializeEnumDelegate">
+        <member name="P:AutoCSer.Metadata.EnumGenericType.SimpleDeserializeEnumDelegate">
             <summary>
-            获取 JSON 反序列化枚举委托
+            获取简单反序列化枚举委托
             </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType.JsonDeserializeEnumFlagsDelegate">
-            <summary>
-            获取 JSON 反序列化枚举委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Metadata.EnumGenericType.GetBinarySerializeEnumDelegate(AutoCSer.BinarySerialize.SerializeDelegateReference@)">
-            <summary>
-            获取获取二进制序列化枚举委托
-            </summary>
-            <param name="serializeDelegateReference"></param>
         </member>
         <member name="P:AutoCSer.Metadata.EnumGenericType.BinarySerializeEnumArrayDelegate">
             <summary>
@@ -16729,21 +16818,32 @@
             获取二进制反序列化枚举数组委托
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.EnumGenericType.JsonSerializeEnumDelegate">
+            <summary>
+            获取 JSON 序列化枚举委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.EnumGenericType.JsonDeserializeEnumDelegate">
+            <summary>
+            获取 JSON 反序列化枚举委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.EnumGenericType.JsonDeserializeEnumFlagsDelegate">
+            <summary>
+            获取 JSON 反序列化枚举委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Metadata.EnumGenericType.GetBinarySerializeEnumDelegate(AutoCSer.BinarySerialize.SerializeDelegateReference@)">
+            <summary>
+            获取获取二进制序列化枚举委托
+            </summary>
+            <param name="serializeDelegateReference"></param>
+        </member>
         <member name="M:AutoCSer.Metadata.EnumGenericType.GetBinaryDeserializeEnumDelegate(AutoCSer.BinarySerialize.DeserializeDelegate@)">
             <summary>
             获取二进制反序列化枚举委托
             </summary>
             <param name="deserializeDelegate"></param>
-        </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType.SimpleSerializeEnumDelegate">
-            <summary>
-            获取简单序列化枚举委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType.SimpleDeserializeEnumDelegate">
-            <summary>
-            获取简单反序列化枚举委托
-            </summary>
         </member>
         <member name="M:AutoCSer.Metadata.EnumGenericType.create``2">
             <summary>
@@ -16784,19 +16884,14 @@
             获取当前泛型类型
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType`2.JsonSerializeEnumDelegate">
+        <member name="P:AutoCSer.Metadata.EnumGenericType`2.SimpleSerializeEnumDelegate">
             <summary>
-            获取 JSON 序列化枚举委托
+            获取简单序列化枚举委托
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType`2.JsonDeserializeEnumDelegate">
+        <member name="P:AutoCSer.Metadata.EnumGenericType`2.SimpleDeserializeEnumDelegate">
             <summary>
-            获取 JSON 反序列化枚举委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType`2.JsonDeserializeEnumFlagsDelegate">
-            <summary>
-            获取 JSON 反序列化枚举委托
+            获取简单反序列化枚举委托
             </summary>
         </member>
         <member name="M:AutoCSer.Metadata.EnumGenericType`2.GetBinarySerializeEnumDelegate(AutoCSer.BinarySerialize.SerializeDelegateReference@)">
@@ -16841,14 +16936,19 @@
             </summary>
             <param name="deserializeDelegate"></param>
         </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType`2.SimpleSerializeEnumDelegate">
+        <member name="P:AutoCSer.Metadata.EnumGenericType`2.JsonSerializeEnumDelegate">
             <summary>
-            获取简单序列化枚举委托
+            获取 JSON 序列化枚举委托
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.EnumGenericType`2.SimpleDeserializeEnumDelegate">
+        <member name="P:AutoCSer.Metadata.EnumGenericType`2.JsonDeserializeEnumDelegate">
             <summary>
-            获取简单反序列化枚举委托
+            获取 JSON 反序列化枚举委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.EnumGenericType`2.JsonDeserializeEnumFlagsDelegate">
+            <summary>
+            获取 JSON 反序列化枚举委托
             </summary>
         </member>
         <member name="F:AutoCSer.Metadata.EnumGenericType`2.UnderlyingType">
@@ -16871,11 +16971,6 @@
             泛型类型元数据
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetMemberMapType">
-            <summary>
-            获取成员委托类型
-            </summary>
-        </member>
         <member name="P:AutoCSer.Metadata.GenericType.GetMemberMapIsMemberDelegate">
             <summary>
             判断成员索引是否有效
@@ -16884,6 +16979,11 @@
         <member name="P:AutoCSer.Metadata.GenericType.GetMemberMapSetMemberDelegate">
             <summary>
             设置成员索引
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.GetMemberMapType">
+            <summary>
+            获取成员委托类型
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.IsSerializeConstructor">
@@ -16935,16 +17035,6 @@
         <member name="P:AutoCSer.Metadata.GenericType.JsonDeserializeDelegate">
             <summary>
             JSON 反序列化类型
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.JsonSerializeObjectGenericDelegate">
-            <summary>
-            JSON 序列化
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.JsonSerializeStreamObjectDelegate">
-            <summary>
-            JSON 序列化
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.JsonSerializeLeftArrayDelegate">
@@ -17007,6 +17097,27 @@
             二进制混杂 JSON 反序列化
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.BinaryDeserializeDelegate">
+            <summary>
+            二进制反序列化类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.JsonSerializeObjectGenericDelegate">
+            <summary>
+            JSON 序列化
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.JsonSerializeStreamObjectDelegate">
+            <summary>
+            JSON 序列化
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Metadata.GenericType.GetBinarySerializeStructArrayDelegate(AutoCSer.BinarySerialize.SerializeDelegateReference@)">
+            <summary>
+            二进制序列化数组
+            </summary>
+            <param name="serializeDelegateReference"></param>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.BinarySerializeJsonDelegate">
             <summary>
             二进制混杂 JSON 序列化
@@ -17033,22 +17144,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Metadata.GenericType.GetBinarySerializeStructArrayDelegate(AutoCSer.BinarySerialize.SerializeDelegateReference@)">
-            <summary>
-            二进制序列化数组
-            </summary>
-            <param name="serializeDelegateReference"></param>
-        </member>
         <member name="P:AutoCSer.Metadata.GenericType.BinaryDeserializeRealTypeObjectDelegate">
             <summary>
             获取二进制反序列化函数信息
             </summary>
             <returns></returns>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.BinaryDeserializeDelegate">
-            <summary>
-            二进制反序列化类型
-            </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType.TaskType">
             <summary>
@@ -17440,11 +17540,6 @@
             获取当前泛型类型
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetMemberMapType">
-            <summary>
-            获取成员委托类型
-            </summary>
-        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.GetMemberMapIsMemberDelegate">
             <summary>
             判断成员索引是否有效
@@ -17453,6 +17548,11 @@
         <member name="P:AutoCSer.Metadata.GenericType`1.GetMemberMapSetMemberDelegate">
             <summary>
             设置成员索引
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.GetMemberMapType">
+            <summary>
+            获取成员委托类型
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.IsSerializeConstructor">
@@ -17470,12 +17570,6 @@
             <summary>
             数组字串构造函数
             </summary>
-        </member>
-        <member name="M:AutoCSer.Metadata.GenericType`1.leftArrayDefaultConstructor">
-            <summary>
-            数组字串构造函数
-            </summary>
-            <returns></returns>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.JsonSerializeDelegateReference">
             <summary>
@@ -17516,16 +17610,6 @@
         <member name="P:AutoCSer.Metadata.GenericType`1.JsonDeserializeDelegate">
             <summary>
             JSON 反序列化类型
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.JsonSerializeObjectGenericDelegate">
-            <summary>
-            JSON 序列化
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.JsonSerializeStreamObjectDelegate">
-            <summary>
-            JSON 序列化
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.JsonSerializeLeftArrayDelegate">
@@ -17588,6 +17672,27 @@
             二进制混杂 JSON 反序列化
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.BinaryDeserializeDelegate">
+            <summary>
+            二进制反序列化类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.JsonSerializeObjectGenericDelegate">
+            <summary>
+            JSON 序列化
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.JsonSerializeStreamObjectDelegate">
+            <summary>
+            JSON 序列化
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Metadata.GenericType`1.GetBinarySerializeStructArrayDelegate(AutoCSer.BinarySerialize.SerializeDelegateReference@)">
+            <summary>
+            二进制序列化数组
+            </summary>
+            <param name="serializeDelegateReference"></param>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.BinarySerializeJsonDelegate">
             <summary>
             二进制混杂 JSON 序列化
@@ -17614,22 +17719,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Metadata.GenericType`1.GetBinarySerializeStructArrayDelegate(AutoCSer.BinarySerialize.SerializeDelegateReference@)">
-            <summary>
-            二进制序列化数组
-            </summary>
-            <param name="serializeDelegateReference"></param>
-        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.BinaryDeserializeRealTypeObjectDelegate">
             <summary>
             获取二进制反序列化函数信息
             </summary>
             <returns></returns>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.BinaryDeserializeDelegate">
-            <summary>
-            二进制反序列化类型
-            </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.TaskType">
             <summary>
@@ -42378,7 +42472,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumULong``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -42412,6 +42506,11 @@
         <member name="F:AutoCSer.JsonSerializer.JsonSerializeMemberMapMethodName">
             <summary>
             JSON 序列化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.JsonSerializer.JsonSerializeMemberTypeMethodName">
+            <summary>
+            获取 JSON 序列化成员类型方法名称
             </summary>
         </member>
         <member name="F:AutoCSer.JsonSerializer.NullString">
@@ -42595,6 +42694,13 @@
             <param name="jsonSerializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.ICustom``1(AutoCSer.JsonSerializer,``0)">
+            <summary>
+            自定义序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.Object``1(``0)">
             <summary>
             object 对象转换JSON字符串
@@ -42666,6 +42772,22 @@
             <param name="jsonSerializer"></param>
             <param name="array">数组对象</param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.LeftArray``1(AutoCSer.JsonSerializer,AutoCSer.LeftArray{``0})">
+            <summary>
+            数组序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonSerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.ListArray``1(AutoCSer.JsonSerializer,AutoCSer.ListArray{``0})">
+            <summary>
+            数组序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonSerializer"></param>
+            <param name="array">数组对象</param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.JsonSerialize``1(System.Collections.Generic.ICollection{``0})">
             <summary>
             集合序列化
@@ -42697,7 +42819,7 @@
             <param name="jsonSerializer"></param>
             <param name="dictionary"></param>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.StringDictionary``2(AutoCSer.JsonSerializer,``0)">
+        <member name="M:AutoCSer.JsonSerializer.StringIDictionary``2(AutoCSer.JsonSerializer,``0)">
             <summary>
             字典序列化
             </summary>
@@ -42723,7 +42845,7 @@
             <param name="jsonSerializer"></param>
             <param name="dictionary"></param>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.Dictionary``3(AutoCSer.JsonSerializer,``0)">
+        <member name="M:AutoCSer.JsonSerializer.IDictionary``3(AutoCSer.JsonSerializer,``0)">
             <summary>
             字典序列化
             </summary>
@@ -42947,7 +43069,7 @@
             <param name="jsonSerializer"></param>
             <param name="value">数字</param>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.PrimitiveSerialize(System.String)">
+        <member name="M:AutoCSer.JsonSerializer.JsonSerializeNull(System.String)">
             <summary>
             字符串转换
             </summary>
@@ -43061,17 +43183,48 @@
             <typeparam name="T"></typeparam>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.EnumJsonSerializeMethodName(System.Object)">
+        <member name="M:AutoCSer.JsonSerializer.SerializeObject(System.Object,AutoCSer.JsonSerializeConfig)">
             <summary>
-            枚举序列化模板
+            对象转换 JSON 字符串
             </summary>
-            <param name="value"></param>
+            <param name="value">数据对象</param>
+            <param name="config">配置参数</param>
+            <returns>JSON 字符串</returns>
         </member>
-        <member name="M:AutoCSer.JsonSerializer.SerializeMethodName(System.Object)">
+        <member name="M:AutoCSer.JsonSerializer.SerializeObject(System.Object,AutoCSer.TextSerialize.WarningEnum@,AutoCSer.JsonSerializeConfig)">
             <summary>
-            序列化模板
+            对象转换 JSON 字符串
             </summary>
-            <param name="value"></param>
+            <param name="value">数据对象</param>
+            <param name="warning">警告提示状态</param>
+            <param name="config">配置参数</param>
+            <returns>JSON 字符串</returns>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.Serialize``1(System.Object,AutoCSer.JsonSerializeConfig)">
+            <summary>
+            对象转换 JSON 字符串
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="objectValue">数据对象</param>
+            <param name="config">配置参数</param>
+            <returns>JSON 字符串 + 警告提示状态</returns>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.SerializeObject(System.Object,AutoCSer.Memory.CharStream,AutoCSer.JsonSerializeConfig)">
+            <summary>
+            对象转换 JSON 字符串
+            </summary>
+            <param name="value">数据对象</param>
+            <param name="jsonStream">JSON 输出缓冲区</param>
+            <param name="config">配置参数</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.Serialize``1(System.Object,AutoCSer.Memory.CharStream,AutoCSer.JsonSerializeConfig)">
+            <summary>
+            对象转换 JSON 字符串
+            </summary>
+            <typeparam name="T">目标数据类型</typeparam>
+            <param name="objectValue">数据对象</param>
+            <param name="jsonStream">JSON 输出缓冲区</param>
+            <param name="config">配置参数</param>
         </member>
         <member name="M:AutoCSer.JsonSerializer.Serialize``1(``0,AutoCSer.JsonSerializeConfig)">
             <summary>
@@ -43126,49 +43279,6 @@
             </summary>
             <typeparam name="T">目标数据类型</typeparam>
             <param name="value">数据对象</param>
-            <param name="jsonStream">JSON 输出缓冲区</param>
-            <param name="config">配置参数</param>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.SerializeObject(System.Object,AutoCSer.JsonSerializeConfig)">
-            <summary>
-            对象转换 JSON 字符串
-            </summary>
-            <param name="value">数据对象</param>
-            <param name="config">配置参数</param>
-            <returns>JSON 字符串</returns>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.SerializeObject(System.Object,AutoCSer.TextSerialize.WarningEnum@,AutoCSer.JsonSerializeConfig)">
-            <summary>
-            对象转换 JSON 字符串
-            </summary>
-            <param name="value">数据对象</param>
-            <param name="warning">警告提示状态</param>
-            <param name="config">配置参数</param>
-            <returns>JSON 字符串</returns>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.Serialize``1(System.Object,AutoCSer.JsonSerializeConfig)">
-            <summary>
-            对象转换 JSON 字符串
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="objectValue">数据对象</param>
-            <param name="config">配置参数</param>
-            <returns>JSON 字符串 + 警告提示状态</returns>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.SerializeObject(System.Object,AutoCSer.Memory.CharStream,AutoCSer.JsonSerializeConfig)">
-            <summary>
-            对象转换 JSON 字符串
-            </summary>
-            <param name="value">数据对象</param>
-            <param name="jsonStream">JSON 输出缓冲区</param>
-            <param name="config">配置参数</param>
-        </member>
-        <member name="M:AutoCSer.JsonSerializer.Serialize``1(System.Object,AutoCSer.Memory.CharStream,AutoCSer.JsonSerializeConfig)">
-            <summary>
-            对象转换 JSON 字符串
-            </summary>
-            <typeparam name="T">目标数据类型</typeparam>
-            <param name="objectValue">数据对象</param>
             <param name="jsonStream">JSON 输出缓冲区</param>
             <param name="config">配置参数</param>
         </member>
@@ -43427,7 +43537,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumLong``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -43442,7 +43552,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumUInt``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -43457,7 +43567,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumInt``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -43472,7 +43582,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumUShort``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -43487,7 +43597,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumShort``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -43502,7 +43612,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumByte``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -43517,7 +43627,7 @@
         </member>
         <member name="M:AutoCSer.JsonSerializer.EnumSByte``1(``0)">
             <summary>
-            枚举值序列化
+            枚举值序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -44196,20 +44306,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.LeftArray`1.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.LeftArray{`0})">
-            <summary>
-            数组序列化
-            </summary>
-            <param name="jsonSerializer"></param>
-            <param name="array">数组对象</param>
-        </member>
-        <member name="M:AutoCSer.LeftArray`1.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.LeftArray{`0}@)">
-            <summary>
-            数组解析
-            </summary>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="array"></param>
-        </member>
         <member name="T:AutoCSer.ListArray`1">
             <summary>
             单向动态数组
@@ -44369,20 +44465,6 @@
             <param name="toString">字符串转换器</param>
             <param name="join">连接串</param>
             <returns>字符串</returns>
-        </member>
-        <member name="M:AutoCSer.ListArray`1.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.ListArray{`0})">
-            <summary>
-            数组序列化
-            </summary>
-            <param name="jsonSerializer"></param>
-            <param name="array">数组对象</param>
-        </member>
-        <member name="M:AutoCSer.ListArray`1.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.ListArray{`0}@)">
-            <summary>
-            数组解析
-            </summary>
-            <param name="jsonDeserializer">JSON 反序列化</param>
-            <param name="array"></param>
         </member>
         <member name="T:AutoCSer.Reflection.Emit.Module">
             <summary>
@@ -46820,7 +46902,7 @@
             序列化委托
             </summary>
         </member>
-        <member name="F:AutoCSer.TextSerialize.DelegateReference.ReferenceGenericTypes">
+        <member name="F:AutoCSer.TextSerialize.DelegateReference.ReferenceTypes">
             <summary>
             需要循环引用检查的类型
             </summary>

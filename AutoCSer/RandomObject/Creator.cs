@@ -1,10 +1,12 @@
 ﻿using AutoCSer.Extensions;
-using AutoCSer.RandomObject.Metadata;
 using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+#if !AOT
+using AutoCSer.RandomObject.Metadata;
+#endif
 
 namespace AutoCSer.RandomObject
 {
@@ -13,6 +15,10 @@ namespace AutoCSer.RandomObject
     /// </summary>
     public static partial class Creator
     {
+        /// <summary>
+        /// 随机对象生成方法名称
+        /// </summary>
+        internal const string CreateRandomObjectMethodName = "CreateRandomObject";
         /// <summary>
         /// 公共默认配置参数
         /// </summary>
@@ -26,9 +32,13 @@ namespace AutoCSer.RandomObject
         /// <param name="isNullable"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static T? Create<T>(Config config, bool isNullable)
+        public static T? Create<
+#if AOT
+            [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
+#endif
+        T>(Config config, bool isNullable)
 #else
-        internal static T Create<T>(Config config, bool isNullable)
+        public static T Create<T>(Config config, bool isNullable)
 #endif
         {
             var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
@@ -42,7 +52,7 @@ namespace AutoCSer.RandomObject
         /// <param name="value"></param>
         /// <param name="config"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void CreateMember<T>(ref T value, Config config)
+        public static void CreateBase<T>(ref T value, Config config)
         {
             Creator<T>.CreateMember(ref value, config);
         }
@@ -53,9 +63,9 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static T? CreateNullable<T>(Config config) where T : struct
+        public static T? CreateNullable<T>(Config config) where T : struct
         {
-            if (createBool(config)) return Create<T>(config, false);
+            if (CreateBool(config)) return Create<T>(config, false);
             return new T?();
         }
         /// <summary>
@@ -65,9 +75,9 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static T?[]? CreateArray<T>(Config config)
+        public static T?[]? CreateArray<T>(Config config)
 #else
-        internal static T[] CreateArray<T>(Config config)
+        public static T[] CreateArray<T>(Config config)
 #endif
         {
             var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
@@ -120,9 +130,9 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static T? CreateDictionary<T, KT, VT>(Config config) where T : IDictionary<KT, VT?>
+        public static T? CreateDictionary<T, KT, VT>(Config config) where T : IDictionary<KT, VT?>
 #else
-        internal static T CreateDictionary<T, KT, VT>(Config config) where T : IDictionary<KT, VT>
+        public static T CreateDictionary<T, KT, VT>(Config config) where T : IDictionary<KT, VT>
 #endif
         {
             var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
@@ -157,9 +167,9 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static T? CreateCollection<T, VT>(Config config) where T : ICollection<VT?>
+        public static T? CreateCollection<T, VT>(Config config) where T : ICollection<VT?>
 #else
-        internal static T CreateCollection<T, VT>(Config config) where T : ICollection<VT>
+        public static T CreateCollection<T, VT>(Config config) where T : ICollection<VT>
 #endif
         {
             var customCreator = config.GetCustomCreator(typeof(T)).castType<Func<Config, bool, T>>();
@@ -185,6 +195,90 @@ namespace AutoCSer.RandomObject
             }
             return customCreator(config, true);
         }
+        /// <summary>
+        /// 创建随机键值对
+        /// </summary>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static KeyValue<KT?, VT?> CreateKeyValue<KT, VT>(Config config)
+        {
+            return new KeyValue<KT?, VT?>(Create<KT>(config, true), Create<VT>(config, true));
+        }
+#else
+        public static KeyValue<KT, VT> CreateKeyValue<KT, VT>(Config config)
+        {
+            return new KeyValue<KT, VT>(Create<KT>(config, true), Create<VT>(config, true));
+        }
+#endif
+        /// <summary>
+        /// 创建随机键值对
+        /// </summary>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static KeyValuePair<KT?, VT?> CreateKeyValuePair<KT, VT>(Config config)
+        {
+            return new KeyValuePair<KT?, VT?>(Create<KT>(config, true), Create<VT>(config, true));
+        }
+#else
+        public static KeyValuePair<KT, VT> CreateKeyValuePair<KT, VT>(Config config)
+        {
+            return new KeyValuePair<KT, VT>(Create<KT>(config, true), Create<VT>(config, true));
+        }
+#endif
+#if AOT
+        /// <summary>
+        /// 创建随机数组
+        /// </summary>
+        internal static readonly MethodInfo CreateArrayMethod = typeof(Creator).GetMethod(nameof(CreateArray), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 创建可空随机对象
+        /// </summary>
+        internal static readonly MethodInfo CreateNullableMethod = typeof(Creator).GetMethod(nameof(CreateNullable), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 创建随机字典
+        /// </summary>
+        internal static readonly MethodInfo CreateDictionaryMethod = typeof(Creator).GetMethod(nameof(CreateDictionary), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 创建随机集合
+        /// </summary>
+        internal static readonly MethodInfo CreateCollectionMethod = typeof(Creator).GetMethod(nameof(CreateCollection), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 创建随机键值对
+        /// </summary>
+        internal static readonly MethodInfo CreateKeyValueMethod = typeof(Creator).GetMethod(nameof(CreateKeyValue), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 创建随机键值对
+        /// </summary>
+        internal static readonly MethodInfo CreateKeyValuePairMethod = typeof(Creator).GetMethod(nameof(CreateKeyValuePair), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 代码生成调用激活 AOT 反射
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T? CallCreate<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)] T>(object? parameter = null)
+        {
+            return Creator.Create<T>(DefaultConfig, false);
+        }
+        /// <summary>
+        /// 代码生成模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        internal static void ReflectionMethodName<T>(object value) { }
+        ///// <summary>
+        ///// 代码生成模板
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <returns></returns>
+        //internal static T? CallCreate<T>() { return default(T); }
+#endif
 
         /// <summary>
         /// 创建随机数
@@ -192,7 +286,7 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private static bool createBool(Config config)
+        public static bool CreateBool(Config config)
         {
             return AutoCSer.Random.Default.NextBit() != 0;
         }
@@ -202,7 +296,7 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static byte CreateByte(Config config)
+        public static byte CreateByte(Config config)
         {
             return AutoCSer.Random.Default.NextByte();
         }
@@ -212,7 +306,7 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static sbyte CreateSByte(Config config)
+        public static sbyte CreateSByte(Config config)
         {
             return (sbyte)AutoCSer.Random.Default.NextByte();
         }
@@ -221,7 +315,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static short CreateShort(Config config)
+        public static short CreateShort(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -235,7 +329,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static ushort CreateUShort(Config config)
+        public static ushort CreateUShort(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -249,7 +343,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static int CreateInt(Config config)
+        public static int CreateInt(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -263,7 +357,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static uint CreateUInt(Config config)
+        public static uint CreateUInt(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -277,7 +371,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static long CreateLong(Config config)
+        public static long CreateLong(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -291,7 +385,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static ulong CreateULong(Config config)
+        public static ulong CreateULong(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -306,7 +400,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static Int128 CreateInt128(Config config)
+        public static Int128 CreateInt128(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -320,7 +414,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static UInt128 CreateUInt128(Config config)
+        public static UInt128 CreateUInt128(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -334,7 +428,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static Half createHalf(Config config)
+        public static Half CreateHalf(Config config)
         {
             if (config.IsParseFloat)
             {
@@ -369,7 +463,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static decimal createDecimal(Config config)
+        public static decimal CreateDecimal(Config config)
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
@@ -388,7 +482,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static System.Guid createGuid(Config config)
+        public static System.Guid CreateGuid(Config config)
         {
             return System.Guid.NewGuid();
         }
@@ -397,7 +491,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static char createChar(Config config)
+        public static char CreateChar(Config config)
         {
             if (config.IsAscii) return (char)((AutoCSer.Random.Default.NextByte() % (0x7f - ' ')) + ' ');
             if (config.IsNullChar) return (char)AutoCSer.Random.Default.NextUShort();
@@ -410,9 +504,9 @@ namespace AutoCSer.RandomObject
         /// <param name="config"></param>
         /// <returns></returns>
 #if NetStandard21
-        private static string? createString(Config config)
+        public static string? CreateString(Config config)
 #else
-        private static string createString(Config config)
+        public static string CreateString(Config config)
 #endif
         {
             var historyValue = config.TryGetValue(typeof(string));
@@ -428,16 +522,16 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static SubString createSubString(Config config)
+        public static SubString CreateSubString(Config config)
         {
-            return createString(config) ?? string.Empty;
+            return CreateString(config) ?? string.Empty;
         }
         /// <summary>
         /// 创建随机数
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static float createFloat(Config config)
+        public static float CreateFloat(Config config)
         {
             if (config.IsParseFloat)
             {
@@ -467,7 +561,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static double createDouble(Config config)
+        public static double CreateDouble(Config config)
         {
             if (config.IsParseFloat)
             {
@@ -531,7 +625,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static DateTime CreateDateTime(Config config)
+        public static DateTime CreateDateTime(Config config)
         {
             long startTicks = config.MinDateTime.Ticks, mod = config.MaxDateTime.Ticks - startTicks;
             if (config.IsSecondDateTime)
@@ -550,7 +644,7 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        private static DateTimeOffset createDateTimeOffset(Config config)
+        public static DateTimeOffset CreateDateTimeOffset(Config config)
         {
             return CreateDateTime(config);
         }
@@ -559,11 +653,24 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static TimeSpan CreateTimeSpan(Config config)
+        public static TimeSpan CreateTimeSpan(Config config)
         {
             return new TimeSpan((long)(AutoCSer.Random.Default.NextULong() % (ulong)TimeSpan.TicksPerDay));
         }
 
+        /// <summary>
+        /// 获取随机对象生成成员
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <returns></returns>
+        internal static IEnumerable<Member> GetRandomObjectFields(FieldInfo[] fields)
+        {
+            foreach (FieldInfo field in fields)
+            {
+                MemberInfo member = field.getPropertyMemberInfo() ?? field;
+                if (member.GetCustomAttribute(typeof(IgnoreAttribute), false) == null) yield return new Member(field, member, member.GetCustomAttribute<MemberAttribute>(false) ?? MemberAttribute.Default);
+            }
+        }
         /// <summary>
         /// 基本类型随机数创建函数信息集合
         /// </summary>
@@ -581,7 +688,7 @@ namespace AutoCSer.RandomObject
         {
             var method = default(Delegate);
             if (!createDelegates.TryGetValue(type, out method)) return null;
-            createDelegates.Remove(type);
+            //createDelegates.Remove(type);
             return method;
         }
 
@@ -603,7 +710,7 @@ namespace AutoCSer.RandomObject
         static Creator()
         {
             createDelegates = DictionaryCreator.CreateHashObject<System.Type, Delegate>();
-            createDelegates.Add(typeof(bool), (Func<Config, bool>)createBool);
+            createDelegates.Add(typeof(bool), (Func<Config, bool>)CreateBool);
             createDelegates.Add(typeof(byte), (Func<Config, byte>)CreateByte);
             createDelegates.Add(typeof(sbyte), (Func<Config, sbyte>)CreateSByte);
             createDelegates.Add(typeof(short), (Func<Config, short>)CreateShort);
@@ -612,24 +719,24 @@ namespace AutoCSer.RandomObject
             createDelegates.Add(typeof(uint), (Func<Config, uint>)CreateUInt);
             createDelegates.Add(typeof(long), (Func<Config, long>)CreateLong);
             createDelegates.Add(typeof(ulong), (Func<Config, ulong>)CreateULong);
-            createDelegates.Add(typeof(decimal), (Func<Config, decimal>)createDecimal);
-            createDelegates.Add(typeof(Guid), (Func<Config, Guid>)createGuid);
-            createDelegates.Add(typeof(char), (Func<Config, char>)createChar);
-            createDelegates.Add(typeof(SubString), (Func<Config, SubString>)createSubString);
-            createDelegates.Add(typeof(float), (Func<Config, float>)createFloat);
-            createDelegates.Add(typeof(double), (Func<Config, double>)createDouble);
+            createDelegates.Add(typeof(decimal), (Func<Config, decimal>)CreateDecimal);
+            createDelegates.Add(typeof(Guid), (Func<Config, Guid>)CreateGuid);
+            createDelegates.Add(typeof(char), (Func<Config, char>)CreateChar);
+            createDelegates.Add(typeof(SubString), (Func<Config, SubString>)CreateSubString);
+            createDelegates.Add(typeof(float), (Func<Config, float>)CreateFloat);
+            createDelegates.Add(typeof(double), (Func<Config, double>)CreateDouble);
             createDelegates.Add(typeof(DateTime), (Func<Config, DateTime>)CreateDateTime);
-            createDelegates.Add(typeof(DateTimeOffset), (Func<Config, DateTimeOffset>)createDateTimeOffset);
+            createDelegates.Add(typeof(DateTimeOffset), (Func<Config, DateTimeOffset>)CreateDateTimeOffset);
             createDelegates.Add(typeof(TimeSpan), (Func<Config, TimeSpan>)CreateTimeSpan);
 #if NetStandard21
 #if NET8
-            createDelegates.Add(typeof(Half), (Func<Config, Half>)createHalf);
+            createDelegates.Add(typeof(Half), (Func<Config, Half>)CreateHalf);
             createDelegates.Add(typeof(Int128), (Func<Config, Int128>)CreateInt128);
             createDelegates.Add(typeof(UInt128), (Func<Config, UInt128>)CreateUInt128);
 #endif
-            createDelegates.Add(typeof(string), (Func<Config, string?>)createString);
+            createDelegates.Add(typeof(string), (Func<Config, string?>)CreateString);
 #else
-            createDelegates.Add(typeof(string), (Func<Config, string>)createString);
+            createDelegates.Add(typeof(string), (Func<Config, string>)CreateString);
 #endif
             int clearSeconds = AutoCSer.Common.Config.GetMemoryCacheClearSeconds();
             if (clearSeconds > 0) AutoCSer.Threading.SecondTimer.InternalTaskArray.Append(DefaultConfig.ClearHistory, clearSeconds, Threading.SecondTimerKeepModeEnum.After, clearSeconds);
@@ -784,22 +891,82 @@ namespace AutoCSer.RandomObject
             if (createDelegate != null) return createDelegate;
             if (type.IsArray)
             {
-                if (type.GetArrayRank() == 1) return GenericType.Get(type.GetElementType().notNull()).CreateArrayDelegate;
+                if (type.GetArrayRank() == 1)
+                {
+#if AOT
+                    return Creator.CreateArrayMethod.MakeGenericMethod(type.GetElementType().notNull()).CreateDelegate(typeof(Func<Config, T?>));
+#else
+                    return GenericType.Get(type.GetElementType().notNull()).CreateArrayDelegate;
+#endif
+                }
 #if NetStandard21
                 return (Func<Config, T?>)createDefault;
 #else
                 return (Func<Config, T>)createDefault;
 #endif
             }
-            if (type.IsEnum) return EnumGenericType.Get(type).CreateEnumDelegate;
-            if (type.isValueTypeNullable()) return StructGenericType.Get(type.GetGenericArguments()[0]).CreateNullableDelegate;
+            if (type.IsEnum)
+            {
+#if AOT
+                switch (AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(type)))
+                {
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Int: return Creator.CreateEnumIntMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UInt: return Creator.CreateEnumUIntMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Byte: return Creator.CreateEnumByteMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.ULong: return  Creator.CreateEnumULongMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UShort: return Creator.CreateEnumUShortMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Long: return Creator.CreateEnumLongMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Short: return Creator.CreateEnumShortMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.SByte: return Creator.CreateEnumSByteMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<Config, T?>));
+                }
+#else
+                return EnumGenericType.Get(type).CreateEnumDelegate;
+#endif
+            }
+            if (type.isValueTypeNullable())
+            {
+#if AOT
+                return Creator.CreateNullableMethod.MakeGenericMethod(type.GetGenericArguments()[0]).CreateDelegate(typeof(Func<Config, T?>));
+#else
+                return StructGenericType.Get(type.GetGenericArguments()[0]).CreateNullableDelegate;
+#endif
+            }
+#if AOT
+            if (type.IsValueType && type.IsGenericType)
+            {
+                Type genericType = type.GetGenericTypeDefinition();
+                if (genericType == typeof(KeyValuePair<,>)) return Creator.CreateKeyValuePairMethod.MakeGenericMethod(type.GetGenericArguments()).CreateDelegate(typeof(Func<Config, T?>));
+                if (genericType == typeof(KeyValue<,>)) return Creator.CreateKeyValueMethod.MakeGenericMethod(type.GetGenericArguments()).CreateDelegate(typeof(Func<Config, T?>));
+            }
+#endif
+            var collectionType = default(Type);
             foreach (Type interfaceType in type.getGenericInterface())
             {
                 Type genericType = interfaceType.GetGenericTypeDefinition();
-                if (genericType == typeof(IDictionary<,>)) return DictionaryGenericType.Get(type, interfaceType).CreateDictionaryDelegate;
-                if (genericType == typeof(ICollection<>)) return CollectionGenericType.Get(type, interfaceType).CreateCollectionDelegate;
+                if (genericType == typeof(IDictionary<,>))
+                {
+#if AOT
+                    Type[] types = interfaceType.GetGenericArguments();
+                    return Creator.CreateDictionaryMethod.MakeGenericMethod(type, types[0], types[1]).CreateDelegate(typeof(Func<Config, T?>));
+#else
+                    return DictionaryGenericType.Get(type, interfaceType).CreateDictionaryDelegate;
+#endif
+                }
+                if (collectionType == null && genericType == typeof(ICollection<>)) collectionType = interfaceType;
             }
-            if (!AutoCSer.Metadata.GenericType<T>.GetIsSerializeConstructor())
+            if(collectionType != null)
+            {
+#if AOT
+                return Creator.CreateCollectionMethod.MakeGenericMethod(type, collectionType.GetGenericArguments()[0]).CreateDelegate(typeof(Func<Config, T?>));
+#else
+                return CollectionGenericType.Get(type, collectionType).CreateCollectionDelegate;
+#endif
+            }
+#if AOT
+            if (!type.IsValueType && AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructorMethod.MakeGenericMethod(type).Invoke(null, null) == null)
+#else
+            if (!AutoCSer.Metadata.GenericType.Get(type).IsSerializeConstructor)
+#endif
             {
 #if NetStandard21
                 return (Func<Config, T?>)createDefault;
@@ -823,18 +990,21 @@ namespace AutoCSer.RandomObject
                 return;
             }
             Type type = typeof(T);
-            MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(type);
-            foreach (FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly))
+#if AOT
+            var method = type.GetMethod(Creator.CreateRandomObjectMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type.MakeByRefType(), typeof(Config) });
+            if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(void))
             {
-                MemberInfo member = field.getPropertyMemberInfo() ?? field;
-                if (member.GetCustomAttribute(typeof(IgnoreAttribute), false) == null)
-                {
-                    MemberAttribute attribute = member.GetCustomAttribute<MemberAttribute>(false) ?? MemberAttribute.Default;
-                    dynamicMethod.Push(field, attribute);
-                }
+                memberCreator = (MemberCreator)method.CreateDelegate(typeof(MemberCreator));
+                return;
             }
+            throw new MissingMethodException(type.fullName(), Creator.CreateRandomObjectMethodName);
+#else
+            FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly);
+            MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(type);
+            foreach (Member field in Creator.GetRandomObjectFields(fields)) dynamicMethod.Push(field.Field, field.Attribute);
             dynamicMethod.Base();
             memberCreator = (MemberCreator)dynamicMethod.Create(typeof(MemberCreator));
+#endif
         }
     }
 }

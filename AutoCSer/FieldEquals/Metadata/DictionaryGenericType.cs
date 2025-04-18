@@ -22,7 +22,6 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <typeparam name="VT"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static DictionaryGenericType create<T, KT, VT>()
             where T : IDictionary<KT, VT>
         {
@@ -68,6 +67,6 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 字典比较委托
         /// </summary>
-        internal override Delegate EqualsDelegate { get { return (Func<T, T, bool>)Comparor.Equals<T, KT, VT>; } }
+        internal override Delegate EqualsDelegate { get { return (Func<T, T, bool>)Comparor.DictionaryEquals<T, KT, VT>; } }
     }
 }

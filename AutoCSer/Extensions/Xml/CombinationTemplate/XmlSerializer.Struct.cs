@@ -16,7 +16,16 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, char value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数据转换
+        /// </summary>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(char? value)
+        {
+            if (value.HasValue) XmlSerialize(value.Value);
         }
         /// <summary>
         /// 数据转换
@@ -26,7 +35,7 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, char? value)
         {
-            if (value.HasValue) serializer.PrimitiveSerialize(value.Value);
+            serializer.XmlSerialize(value);
         }
     }
 }

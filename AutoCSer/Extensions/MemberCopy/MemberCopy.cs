@@ -1,7 +1,7 @@
 ﻿using AutoCSer.Extensions;
-using AutoCSer.MemberCopy;
 using AutoCSer.Metadata;
 using System;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 
@@ -11,7 +11,11 @@ namespace AutoCSer
     /// 成员复制
     /// </summary>
     /// <typeparam name="T">对象类型</typeparam>
-    public static class MemberCopy<T>
+    public static class MemberCopy<
+#if AOT
+        [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)]
+#endif
+    T>
     {
         /// <summary>
         /// 对象成员复制
@@ -138,9 +142,15 @@ namespace AutoCSer
             {
                 if (type.GetArrayRank() == 1)
                 {
+#if AOT
+                    //Type elementType = type.GetElementType().notNull();
+                    //defaultCopyer = (Copyer)MemberCopyMethod.CopyArrayMethod.MakeGenericMethod(elementType).CreateDelegate(typeof(Copyer));
+                    //defaultMemberCopyer = (MemberMapCopyer)MemberCopyMethod.CopyArrayMemberMapMethod.MakeGenericMethod(elementType).CreateDelegate(typeof(MemberMapCopyer));
+#else
                     AutoCSer.Extensions.Metadata.GenericType genericType = AutoCSer.Extensions.Metadata.GenericType.Get(type.GetElementType().notNull());
                     defaultCopyer = (Copyer)genericType.MemberCopyArrayDelegate;
                     defaultMemberCopyer = (MemberMapCopyer)genericType.MemberMapCopyArrayDelegate;
+#endif
                     return;
                 }
             }
@@ -149,13 +159,29 @@ namespace AutoCSer
                 if (type.IsEnum || type.IsPointer || type.IsInterface || typeof(Delegate).IsAssignableFrom(type)) isValueCopy = true;
                 else
                 {
+#if AOT
+                    Type refType = type.MakeByRefType();
+                    var method = type.GetMethod(MemberCopyMethod.MemberCopyMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { refType, type });
+                    if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(void))
+                    {
+                        var memberMapMethod = type.GetMethod(MemberCopyMethod.MemberMapCopyMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { refType, type, typeof(MemberMap<T>) });
+                        if (memberMapMethod != null && !memberMapMethod.IsGenericMethod && memberMapMethod.ReturnType == typeof(void))
+                        {
+                            defaultCopyer = (Copyer)method.CreateDelegate(typeof(Copyer));
+                            defaultMemberCopyer = (MemberMapCopyer)memberMapMethod.CreateDelegate(typeof(MemberMapCopyer));
+                            return;
+                        }
+                        throw new MissingMethodException(typeof(T).fullName(), MemberCopyMethod.MemberMapCopyMethodName);
+                    }
+                    throw new MissingMethodException(typeof(T).fullName(), MemberCopyMethod.MemberCopyMethodName);
+#else
                     LeftArray<FieldIndex> fields = MemberIndexGroup.GetAnonymousFields(type);
                     if (fields.Length != 0)
                     {
                         Type refType = type.MakeByRefType();
                         GenericType genericType = new GenericType<T>();
-                        MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(type, new DynamicMethod("MemberCopyer", null, new Type[] { refType, type }, type, true));
-                        MemberDynamicMethod memberMapDynamicMethod = new MemberDynamicMethod(type, new DynamicMethod("MemberMapCopyer", null, new Type[] { refType, type, typeof(MemberMap<T>) }, type, true));
+                        AutoCSer.MemberCopy.MemberDynamicMethod dynamicMethod = new AutoCSer.MemberCopy.MemberDynamicMethod(type, new DynamicMethod("MemberCopyer", null, new Type[] { refType, type }, type, true));
+                        AutoCSer.MemberCopy.MemberDynamicMethod memberMapDynamicMethod = new AutoCSer.MemberCopy.MemberDynamicMethod(type, new DynamicMethod("MemberMapCopyer", null, new Type[] { refType, type, typeof(MemberMap<T>) }, type, true));
                         foreach (FieldIndex field in fields)
                         {
                             dynamicMethod.Push(field);
@@ -165,6 +191,7 @@ namespace AutoCSer
                         defaultMemberCopyer = (MemberMapCopyer)memberMapDynamicMethod.Create(typeof(MemberMapCopyer));
                         return;
                     }
+#endif
                 }
             }
             defaultCopyer = noCopy;

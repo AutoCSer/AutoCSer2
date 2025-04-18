@@ -36,7 +36,11 @@ namespace AutoCSer.Xml
         /// </summary>
         /// <param name="type"></param>
         /// <param name="names"></param>
+#if AOT
+        private MemberNameSearcher(Type type, LeftArray<string> names)
+#else
         private MemberNameSearcher(Type type, string[] names)
+#endif
         {
             this.type = type;
             int maxNameLength = 0, nameLength = 0;
@@ -85,7 +89,11 @@ namespace AutoCSer.Xml
         /// <param name="type">类型</param>
         /// <param name="names"></param>
         /// <returns>成员名称查找数据</returns>
+#if AOT
+        internal static MemberNameSearcher Get(Type type, LeftArray<string> names)
+#else
         internal static MemberNameSearcher Get(Type type, string[] names)
+#endif
         {
             if (!type.IsGenericType) return new MemberNameSearcher(type, names);
 

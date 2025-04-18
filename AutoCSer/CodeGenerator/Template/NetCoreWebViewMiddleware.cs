@@ -25,16 +25,4 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion PART CLASS
         }
     }
-    #region NOTE
-    /// <summary>
-    /// CSharp 模板公用模糊类型
-    /// </summary>
-    internal partial class Pub
-    {
-        public partial class NetCoreWebViewTypeFullName : AutoCSer.NetCoreWeb.View
-        {
-        }
-        public static readonly string ParameterName = null;
-    }
-    #endregion NOTE
 }

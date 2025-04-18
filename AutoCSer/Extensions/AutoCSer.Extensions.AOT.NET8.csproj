@@ -11,12 +11,14 @@
     <DocumentationFile>C:\AutoCSer2\AutoCSer\Extensions\AutoCSer.Extensions.AOT.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;AOT;NetStandard21;NET8</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>C:\AutoCSer2\AutoCSer\Extensions\AutoCSer.Extensions.AOT.xml</DocumentationFile>
     <DefineConstants>AOT;NetStandard21;NET8</DefineConstants>
+    <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
   <ItemGroup>
@@ -80,8 +82,9 @@
     <Compile Include="Html\RawNode.cs" />
     <Compile Include="IO\StreamPersistenceLoader.cs" />
     <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
+    <Compile Include="MemberCopy\CodeGenerator\MemberCopyAttribute.cs" />
     <Compile Include="MemberCopy\MemberCopy.cs" />
-    <Compile Include="MemberCopy\MemberDynamicMethod.cs" />
+    <Compile Include="MemberCopy\MemberCopyMethod.cs" />
     <Compile Include="Memory\BitMap.cs" />
     <Compile Include="Memory\BufferCount.cs" />
     <Compile Include="Memory\ByteArrayBufferObject.cs" />
@@ -90,12 +93,6 @@
     <Compile Include="Memory\Unmanaged.cs" />
     <Compile Include="MessagePack\DataTypeEnum.cs" />
     <Compile Include="MessagePack\PointerNode.cs" />
-    <Compile Include="Metadata\BaseGenericType.cs" />
-    <Compile Include="Metadata\CollectionGenericType.cs" />
-    <Compile Include="Metadata\EnumGenericType.cs" />
-    <Compile Include="Metadata\GenericType.cs" />
-    <Compile Include="Metadata\GenericType2.cs" />
-    <Compile Include="Metadata\StructGenericType.cs" />
     <Compile Include="Net\Packet\Arp.cs" />
     <Compile Include="Net\Packet\Ethernet.cs" />
     <Compile Include="Net\Packet\EthernetCodeEnum.cs" />
@@ -162,23 +159,16 @@
     <Compile Include="Threading\DistributedMillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\EnumerableValueTask.cs" />
     <Compile Include="Threading\EnumerableTask.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueue.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueCustomNode.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueMethodAttribute.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueNode.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueNodeBase.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceControllerMatchMethod.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceControllerMethod.cs" />
     <Compile Include="Threading\LocalMillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\MillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockManager.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockCount.cs" />
     <Compile Include="Threading\SemaphoreSlimCache.cs" />
     <Compile Include="Threading\SynchronizationContextAction.cs" />
-    <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceController.cs" />
     <Compile Include="Threading\TaskRunTimer.cs" />
     <Compile Include="Threading\ThreadPoolTask.cs" />
     <Compile Include="UnmanagedRemoveMarkHashSetCapacity.cs" />
+    <Compile Include="Xml\CodeGenerator\XmlSerializeAttribute.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.CustomConfig.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Number.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Enum.cs" />
@@ -190,7 +180,6 @@
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.Enum.cs" />
     <Compile Include="Xml\Common.cs" />
     <Compile Include="Xml\CustomConfig.cs" />
-    <Compile Include="Xml\CustomSerializeGenericType.cs" />
     <Compile Include="Xml\DeserializeResult.cs" />
     <Compile Include="Xml\DeserializeStateEnum.cs" />
     <Compile Include="Xml\EnumDeserialize.cs" />
@@ -198,8 +187,6 @@
     <Compile Include="Xml\MemberNameSearcher.cs" />
     <Compile Include="Xml\XmlNode.cs" />
     <Compile Include="Xml\XmlNodeTypeEnum.cs" />
-    <Compile Include="Xml\SerializeMemberDynamicMethod.cs" />
-    <Compile Include="Xml\SerializeMemberMapDynamicMethod.cs" />
     <Compile Include="Xml\StateSearcher.cs" />
     <Compile Include="Xml\ThreadStaticDeserializer.cs" />
     <Compile Include="Xml\ThreadStaticSerializer.cs" />
@@ -211,6 +198,7 @@
     <Compile Include="Xml\XmlSerializeConfig.cs" />
     <Compile Include="Xml\XmlSerializeMemberAttribute.cs" />
     <Compile Include="Xml\XmlSerializer.cs" />
+    <Compile Include="{AutoCSer.Extensions.AOT}.AOT.AutoCSer.cs" />
     <Compile Include="{AutoCSer.Extensions}.CombinationTemplate.cs" />
   </ItemGroup>
 
@@ -219,5 +207,9 @@
       <HintPath>..\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+  </Target>
   
 </Project>

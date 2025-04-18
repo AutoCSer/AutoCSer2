@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !DotNet45
+#if !DotNet45 && !AOT
 using AutoCSer.NetCoreWeb;
 #endif
 
@@ -41,7 +41,7 @@ namespace AutoCSer.CodeGenerator
         /// 成员类型
         /// </summary>
         internal ExtensionType Type { get; private set; }
-#if !DotNet45
+#if !DotNet45 && !AOT
         /// <summary>
         /// await 成员原类型
         /// </summary>
@@ -66,7 +66,7 @@ namespace AutoCSer.CodeGenerator
         {
             get
             {
-#if DotNet45
+#if DotNet45 || AOT
                 return Path;
 #else
                 return AwaitType != null ? "(await " + Path + ")" : Path;
@@ -108,11 +108,11 @@ namespace AutoCSer.CodeGenerator
         /// <param name="type">成员类型</param>
         /// <param name="name">当前节点成员名称</param>
         /// <param name="path">当前节点成员名称</param>
-#if !DotNet45
+#if !DotNet45 && !AOT
         /// <param name="viewMemberAttribute">数据视图成员自定义属性</param>
 #endif
         internal TreeTemplateMemberNode(TreeTemplate template, ExtensionType type, ref SubString name, string path
-#if !DotNet45
+#if !DotNet45 && !AOT
         , ViewMemberAttribute viewMemberAttribute = null
 #endif
             )
@@ -121,7 +121,7 @@ namespace AutoCSer.CodeGenerator
             this.Type = type;
             this.name = name;
             Path = path;
-#if !DotNet45
+#if !DotNet45 && !AOT
             if (template.IsJavaScript)
             {
                 Type awaitResultType = TypeHelpView.GetAwaitResultType(type.Type);
@@ -192,7 +192,7 @@ namespace AutoCSer.CodeGenerator
                 if (getMembers(Type.Type).TryGetValue(name, out member))
                 {
                     if (member.IsIgnore) isPath = false;
-#if DotNet45
+#if DotNet45 || AOT
                     value = new TreeTemplateMemberNode(template, member.TemplateMemberType, ref name, null);
 #else
                     ViewMemberAttribute viewMemberAttribute = null;

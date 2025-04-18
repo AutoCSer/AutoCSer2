@@ -1,5 +1,8 @@
 ﻿using AutoCSer.CodeGenerator.Metadata;
+using AutoCSer.Extensions;
+using AutoCSer.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CodeGenerator.TemplateGenerator
@@ -46,10 +49,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public string MemberName { get { return member.Member.Name; } }
             /// <summary>
-            /// 成员反序列化方法名称
-            /// </summary>
-            public string MemberJsonDeserializeMethodName { get { return AutoCSer.JsonDeserializer.JsonDeserializeMethodName + MemberName; } }
-            /// <summary>
             /// 序列化成员名称
             /// </summary>
             public string SerializeMemberName;
@@ -58,13 +57,17 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public int MemberIndex { get { return member.MemberIndex; } }
             /// <summary>
+            /// 成员编号
+            /// </summary>
+            public int IntMemberIndex { get { return MemberIndex; } }
+            /// <summary>
             /// 是否成员字段
             /// </summary>
             public readonly bool IsField;
             /// <summary>
             /// JSON 序列化信息
             /// </summary>
-            public readonly JsonSerializeMethodInfo MethodInfo;
+            public readonly TextSerializeMethodInfo MethodInfo;
             /// <summary>
             /// 序列化方法名称
             /// </summary>
@@ -72,10 +75,21 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 get
                 {
+                    if (MemberType.Type.IsGenericParameter || MethodInfo.IsTypeSerialize) return nameof(AutoCSer.JsonSerializer.JsonSerializeType);
                     if (MemberType.IsObject) return nameof(AutoCSer.JsonSerializer.JsonSerializeObject);
-                    if (MethodInfo.IsTypeSerialize) return nameof(AutoCSer.JsonSerializer.JsonSerializeType);
-                    if (MethodInfo.IsCusotm) return "ICustomSerialize";
+                    if (MethodInfo.IsCusotm) return nameof(AutoCSer.JsonSerializer.ICustom);
                     return AutoCSer.JsonSerializer.JsonSerializeMethodName;
+                }
+            }
+            /// <summary>
+            /// 序列化方法名称
+            /// </summary>
+            public string DeserializeMethodName
+            {
+                get
+                {
+                    //if (MemberType.Type.IsGenericParameter) return "GenericParameter";
+                    return AutoCSer.JsonDeserializer.JsonDeserializeMethodName;
                 }
             }
             /// <summary>
@@ -89,10 +103,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 this.member = member;
                 MemberType = memberType;
                 IsField = isField;
-                var genericType = default(AutoCSer.Metadata.GenericType);
-                AutoCSer.TextSerialize.DelegateReference serializeDelegateReference;
                 SerializeMemberName = "\"\"" + MemberName + "\"\":";
-                AutoCSer.Json.Common.GetTypeSerializeDelegate(memberType, ref genericType, out serializeDelegateReference, ref MethodInfo);
+                if (!memberType.IsGenericParameter)
+                {
+                    Type baseType;
+                    AutoCSer.JsonSerializeAttribute attribute;
+                    getSerializeMethodInfo(memberType, ref MethodInfo, out attribute, out baseType);
+                    types.Add(memberType);
+                }
             }
             /// <summary>
             /// 成员信息
@@ -119,6 +137,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public string JsonSerializeMemberMapMethodName { get { return AutoCSer.JsonSerializer.JsonSerializeMemberMapMethodName; } }
         /// <summary>
+        /// 获取 JSON 序列化成员类型方法名称
+        /// </summary>
+        public string JsonSerializeMemberTypeMethodName { get { return AutoCSer.JsonSerializer.JsonSerializeMemberTypeMethodName; } }
+        /// <summary>
         /// 反序列化方法名称
         /// </summary>
         public string JsonDeserializeMethodName { get { return AutoCSer.JsonDeserializer.JsonDeserializeMethodName; } }
@@ -126,6 +148,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 反序列化方法名称
         /// </summary>
         public string JsonDeserializeMemberMapMethodName { get { return AutoCSer.JsonDeserializer.JsonDeserializeMemberMapMethodName; } }
+        /// <summary>
+        /// 获取 JSON 反序列化成员名称方法名称
+        /// </summary>
+        public string JsonDeserializeMemberNameMethodName { get { return AutoCSer.JsonDeserializer.JsonDeserializeMemberNameMethodName; } }
         /// <summary>
         /// 是否第一个成员
         /// </summary>
@@ -153,35 +179,59 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 反序列化成员集合
         /// </summary>
         public SerializeMember[] DeserializeMembers;
+        /// <summary>
+        /// 反序列化成员数量
+        /// </summary>
+        public int DeserializeMemberCount { get { return DeserializeMembers.Length; } }
+        /// <summary>
+        /// 成员类型集合
+        /// </summary>
+        public AotMethod.ReflectionMemberType[] MemberTypes;
+        /// <summary>
+        /// 成员类型数量
+        /// </summary>
+        public int MemberTypeCount { get { return MemberTypes.Length; } }
 
         /// <summary>
         /// 安装下一个类型
         /// </summary>
         protected override Task nextCreate()
         {
-            if (CurrentType.Type.IsGenericTypeDefinition) return AutoCSer.Common.CompletedTask;
-            var genericType = default(AutoCSer.Metadata.GenericType);
-            AutoCSer.TextSerialize.DelegateReference serializeDelegateReference;
-            JsonSerializeMethodInfo jsonSerializeMethodInfo = default(JsonSerializeMethodInfo);
-            if (AutoCSer.Json.Common.GetTypeSerializeDelegate(CurrentType.Type, ref genericType, out serializeDelegateReference, ref jsonSerializeMethodInfo)) return AutoCSer.Common.CompletedTask;
-            AutoCSer.JsonSerializeAttribute attribute = JsonSerializer.AllMemberAttribute;
-            var type = AutoCSer.Json.Common.GetBaseAttribute(CurrentType.Type, ref attribute);
-            var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<JsonSerializeMemberAttribute>(AutoCSer.Metadata.MemberIndexGroup.GetFields(type ?? CurrentType.Type, attribute.MemberFilters), attribute);
-            LeftArray<AutoCSer.TextSerialize.PropertyMethod<JsonSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<JsonSerializeMemberAttribute>(AutoCSer.Metadata.MemberIndexGroup.GetProperties(type ?? CurrentType.Type, attribute.MemberFilters), attribute);
-            LeftArray<AutoCSer.TextSerialize.PropertyMethod<JsonSerializeMemberAttribute>> deserializeProperties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<JsonSerializeMemberAttribute>(AutoCSer.Metadata.MemberIndexGroup.GetProperties(type ?? CurrentType.Type, attribute.MemberFilters), attribute);
+            Type type = CurrentType.Type, baseType;
+            TextSerializeMethodInfo serializeMethodInfo = default(TextSerializeMethodInfo);
+            AutoCSer.JsonSerializeAttribute attribute;
+            if (getSerializeMethodInfo(type, ref serializeMethodInfo, out attribute, out baseType))
+            {
+                if (baseType != null) types.Add(type);
+                return AutoCSer.Common.CompletedTask;
+            }
+            HashSet<HashObject<Type>> memberTypes = HashSetCreator.CreateHashObject<Type>();
+            var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<JsonSerializeMemberAttribute>(AutoCSer.Metadata.MemberIndexGroup.GetFields(type, attribute.MemberFilters), attribute);
+            LeftArray<AutoCSer.TextSerialize.PropertyMethod<JsonSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<JsonSerializeMemberAttribute>(AutoCSer.Metadata.MemberIndexGroup.GetProperties(type, attribute.MemberFilters), attribute);
+            LeftArray<AutoCSer.TextSerialize.PropertyMethod<JsonSerializeMemberAttribute>> deserializeProperties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<JsonSerializeMemberAttribute>(AutoCSer.Metadata.MemberIndexGroup.GetProperties(type, attribute.MemberFilters), attribute);
             LeftArray<SerializeMember> members = new LeftArray<SerializeMember>(fields.Length + properties.Length), deserializeMembers = new LeftArray<SerializeMember>(fields.Length + deserializeProperties.Length);
             foreach (var field in fields)
             {
                 SerializeMember member = new SerializeMember(field.Key);
                 members.Add(member);
                 deserializeMembers.Add(member);
+                Type memberType = member.MemberType.Type;
+                if (!memberType.IsGenericParameter) memberTypes.Add(memberType);
             }
-            foreach (AutoCSer.TextSerialize.PropertyMethod<JsonSerializeMemberAttribute> member in properties) members.Add(new SerializeMember(member.Property));
+            foreach (AutoCSer.TextSerialize.PropertyMethod<JsonSerializeMemberAttribute> property in properties)
+            {
+                SerializeMember member = new SerializeMember(property.Property);
+                members.Add(member);
+                Type memberType = member.MemberType.Type;
+                if (!memberType.IsGenericParameter) memberTypes.Add(memberType);
+            }
             foreach (AutoCSer.TextSerialize.PropertyMethod<JsonSerializeMemberAttribute> member in deserializeProperties) deserializeMembers.Add(new SerializeMember(member.Property));
             Members = members.ToArray();
             DeserializeMembers = deserializeMembers.ToArray();
+            MemberTypes = memberTypes.getArray(p => new AotMethod.ReflectionMemberType(p.Value));
             isFirstMember = true;
             create(true);
+            AotMethod.Append(CurrentType, JsonSerializeMethodName);
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
@@ -189,5 +239,253 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         /// <returns></returns>
         protected override Task onCreated() { return AutoCSer.Common.CompletedTask; }
+
+        /// <summary>
+        /// 获取序列化信息
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="serializeMethodInfo"></param>
+        /// <param name="attribute"></param>
+        /// <param name="baseType"></param>
+        /// <returns></returns>
+        private static bool getSerializeMethodInfo(Type type, ref TextSerializeMethodInfo serializeMethodInfo, out AutoCSer.JsonSerializeAttribute attribute, out Type baseType)
+        {
+            attribute = JsonSerializer.AllMemberAttribute;
+            baseType = null;
+            if (JsonSerializer.SerializeDelegates.ContainsKey(type)) return true;
+            if (typeof(ICustomSerialize).IsAssignableFrom(type) && typeof(ICustomSerialize<>).MakeGenericType(type).IsAssignableFrom(type)) return serializeMethodInfo.IsCusotm = true;
+            if (type.IsGenericType)
+            {
+                Type genericTypeDefinition = type.GetGenericTypeDefinition();
+                if (genericTypeDefinition == typeof(LeftArray<>) || genericTypeDefinition == typeof(ListArray<>)) return true;
+            }
+            if (type.IsArray || type.IsEnum || type.isSerializeNotSupport()) return true;
+            if (type.IsGenericType)
+            {
+                Type genericTypeDefinition = type.GetGenericTypeDefinition();
+                if (genericTypeDefinition == typeof(Dictionary<,>) || genericTypeDefinition == typeof(Nullable<>) || genericTypeDefinition == typeof(KeyValuePair<,>)) return true;
+            }
+
+            if (type.IsValueType || AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructorMethod.MakeGenericMethod(type).Invoke(null, null) != null)
+            {
+                foreach (Type interfaceType in type.getGenericInterface())
+                {
+                    Type genericTypeDefinition = interfaceType.GetGenericTypeDefinition();
+                    if (genericTypeDefinition == typeof(IDictionary<,>) || genericTypeDefinition == typeof(ICollection<>)) return true;
+                }
+            }
+            baseType = AutoCSer.Json.Common.GetBaseAttribute(type, JsonSerializer.AllMemberAttribute, ref attribute);
+            if (baseType != null) return true;
+            serializeMethodInfo.IsTypeSerialize = true;
+            return false;
+        }
+        /// <summary>
+        /// 成员类型集合
+        /// </summary>
+        private static readonly HashSet<HashObject<Type>> types = HashSetCreator.CreateHashObject<Type>();
+        /// <summary>
+        /// 成员类型集合
+        /// </summary>
+        /// <param name="deserializeMemberTypes"></param>
+        /// <returns></returns>
+        internal static LeftArray<AotMethod.ReflectionMemberType> GetReflectionMemberTypes(out LeftArray<AotMethod.ReflectionMemberType> deserializeMemberTypes)
+        {
+            LeftArray<AotMethod.ReflectionMemberType> memberTypes = new LeftArray<AotMethod.ReflectionMemberType>(types.Count);
+            deserializeMemberTypes = new LeftArray<AotMethod.ReflectionMemberType>(types.Count);
+            foreach (HashObject<Type> type in types.getArray()) getMemberType(type.Value, ref memberTypes, ref deserializeMemberTypes);
+            return memberTypes;
+        }
+        /// <summary>
+        /// 获取成员类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="memberTypes"></param>
+        /// <param name="deserializeMemberTypes"></param>
+        private static void getMemberType(Type type, ref LeftArray<AotMethod.ReflectionMemberType> memberTypes, ref LeftArray<AotMethod.ReflectionMemberType> deserializeMemberTypes)
+        {
+            if (JsonSerializer.SerializeDelegates.ContainsKey(type))
+            {
+                memberTypes.Add(new AotMethod.ReflectionMemberType(type));
+                return;
+            }
+            AotMethod.ReflectionMemberType memberType;
+            if (typeof(ICustomSerialize).IsAssignableFrom(type) && typeof(ICustomSerialize<>).MakeGenericType(type).IsAssignableFrom(type))
+            {
+                memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.ICustom), type.fullName());
+                memberTypes.Add(memberType);
+                deserializeMemberTypes.Add(memberType);
+                return;
+            }
+            if (type.IsGenericType)
+            {
+                Type genericTypeDefinition = type.GetGenericTypeDefinition();
+                if (genericTypeDefinition == typeof(LeftArray<>))
+                {
+                    Type elementType = type.GetGenericArguments()[0];
+                    memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.LeftArray), elementType.fullName());
+                    memberTypes.Add(memberType);
+                    deserializeMemberTypes.Add(memberType);
+                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                    return;
+                }
+                if (genericTypeDefinition == typeof(ListArray<>))
+                {
+                    Type elementType = type.GetGenericArguments()[0];
+                    memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.ListArray), elementType.fullName());
+                    memberTypes.Add(memberType);
+                    deserializeMemberTypes.Add(memberType);
+                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                    return;
+                }
+            }
+            if (type.IsArray)
+            {
+                if (type.GetArrayRank() == 1)
+                {
+                    var elementType = type.GetElementType().notNull();
+                    if (!elementType.isSerializeNotSupport())
+                    {
+                        memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.Array), elementType.fullName());
+                        deserializeMemberTypes.Add(memberType);
+                        if (elementType.isNullable())
+                        {
+                            memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.NullableArray), elementType.GetGenericArguments()[0].fullName()));
+                            if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                        }
+                        else
+                        {
+                            memberTypes.Add(memberType);
+                            if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                        }
+                        return;
+                    }
+                }
+                memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.NotSupport), type.fullName());
+                memberTypes.Add(memberType);
+                deserializeMemberTypes.Add(memberType);
+                return;
+            }
+            if (type.IsEnum)
+            {
+                string methodName = null;
+                switch (AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(type)))
+                {
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Int: methodName = nameof(JsonSerializer.EnumInt); break;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UInt: methodName = nameof(JsonSerializer.EnumUInt); break;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Byte: methodName = nameof(JsonSerializer.EnumByte); break;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.ULong: methodName = nameof(JsonSerializer.EnumULong); break;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UShort: methodName = nameof(JsonSerializer.EnumUShort); break;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Long: methodName = nameof(JsonSerializer.EnumLong); break;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Short: methodName = nameof(JsonSerializer.EnumShort); break;
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.SByte: methodName = nameof(JsonSerializer.EnumSByte); break;
+                }
+                memberType = new AotMethod.ReflectionMemberType(type, methodName, type.fullName());
+                memberTypes.Add(memberType);
+                if (type.IsDefined(typeof(FlagsAttribute), false))
+                {
+                    switch (AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(type)))
+                    {
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.Int: methodName = nameof(JsonDeserializer.EnumFlagsInt); break;
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.UInt: methodName = nameof(JsonDeserializer.EnumFlagsUInt); break;
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.Byte: methodName = nameof(JsonDeserializer.EnumFlagsByte); break;
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.ULong: methodName = nameof(JsonDeserializer.EnumFlagsULong); break;
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.UShort: methodName = nameof(JsonDeserializer.EnumFlagsUShort); break;
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.Long: methodName = nameof(JsonDeserializer.EnumFlagsLong); break;
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.Short: methodName = nameof(JsonDeserializer.EnumFlagsShort); break;
+                        case AutoCSer.Metadata.UnderlyingTypeEnum.SByte: methodName = nameof(JsonDeserializer.EnumFlagsSByte); break;
+                    }
+                    deserializeMemberTypes.Add(new AotMethod.ReflectionMemberType(type, methodName, type.fullName()));
+                }
+                else deserializeMemberTypes.Add(memberType);
+                return;
+            }
+            if (type.isSerializeNotSupport())
+            {
+                memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.NotSupport), type.fullName());
+                memberTypes.Add(memberType);
+                deserializeMemberTypes.Add(memberType);
+                return;
+            }
+            if (type.IsGenericType)
+            {
+                Type genericTypeDefinition = type.GetGenericTypeDefinition();
+                if (genericTypeDefinition == typeof(Dictionary<,>))
+                {
+                    Type[] referenceTypes = type.GetGenericArguments();
+                    memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.Dictionary), $"{referenceTypes[0].fullName()}, {referenceTypes[1].fullName()}");
+                    deserializeMemberTypes.Add(memberType);
+                    if (referenceTypes[0] == typeof(string)) memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.StringDictionary), referenceTypes[1].fullName()));
+                    else memberTypes.Add(memberType);
+                    foreach (var elementType in referenceTypes)
+                    {
+                        if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                    }
+                    return;
+                }
+                if (genericTypeDefinition == typeof(Nullable<>))
+                {
+                    Type elementType = type.GetGenericArguments()[0];
+                    memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.Nullable), elementType.fullName());
+                    memberTypes.Add(memberType);
+                    deserializeMemberTypes.Add(memberType);
+                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                    return;
+                }
+                if (genericTypeDefinition == typeof(KeyValuePair<,>))
+                {
+                    Type[] referenceTypes = type.GetGenericArguments();
+                    memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.KeyValuePair), $"{referenceTypes[0].fullName()}, {referenceTypes[1].fullName()}");
+                    memberTypes.Add(memberType);
+                    deserializeMemberTypes.Add(memberType);
+                    foreach (var elementType in referenceTypes)
+                    {
+                        if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                    }
+                    return;
+                }
+            }
+            if (type.IsValueType || AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructorMethod.MakeGenericMethod(type).Invoke(null, null) != null)
+            {
+                var collectionType = default(Type);
+                foreach (Type interfaceType in type.getGenericInterface())
+                {
+                    Type genericTypeDefinition = interfaceType.GetGenericTypeDefinition();
+                    if (genericTypeDefinition == typeof(IDictionary<,>))
+                    {
+                        Type[] referenceTypes = type.GetGenericArguments();
+                        memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.IDictionary), $"{type.fullName()}, {referenceTypes[0].fullName()}, {referenceTypes[1].fullName()}");
+                        deserializeMemberTypes.Add(memberType);
+                        if (referenceTypes[0] == typeof(string)) memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.StringIDictionary), $"{type.fullName()}, {referenceTypes[1].fullName()}"));
+                        else memberTypes.Add(memberType);
+                        foreach (var elementType in referenceTypes)
+                        {
+                            if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                        }
+                        return;
+                    }
+                    if (collectionType == null && genericTypeDefinition == typeof(ICollection<>)) collectionType = interfaceType;
+                }
+                if (collectionType != null)
+                {
+                    Type elementType = collectionType.GetGenericArguments()[0];
+                    memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.Collection), $"{type.fullName()}, {elementType.fullName()}");
+                    memberTypes.Add(memberType);
+                    deserializeMemberTypes.Add(memberType);
+                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes, ref deserializeMemberTypes);
+                    return;
+                }
+            }
+            AutoCSer.JsonSerializeAttribute attribute = JsonSerializer.AllMemberAttribute;
+            var baseType = AutoCSer.Json.Common.GetBaseAttribute(type, JsonSerializer.AllMemberAttribute, ref attribute);
+            if (baseType != null)
+            {
+                memberType = new AotMethod.ReflectionMemberType(type, nameof(JsonSerializer.Base), $"{type.fullName()}, {baseType.fullName()}");
+                memberTypes.Add(memberType);
+                deserializeMemberTypes.Add(memberType);
+                return;
+            }
+            memberTypes.Add(new AotMethod.ReflectionMemberType(type));
+            return;
+        }
     }
 }

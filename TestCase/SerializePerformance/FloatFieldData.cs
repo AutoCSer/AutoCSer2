@@ -6,9 +6,16 @@ namespace AutoCSer.TestCase.SerializePerformance
     /// <summary>
     /// 浮点数字段测试数据
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.XmlSerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+    [AutoCSer.CodeGenerator.RandomObject]
+#endif
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
-    class FloatFieldData : FieldData
+    partial class FloatFieldData : FieldData
     {
         //public Half Half;
         public float Float;

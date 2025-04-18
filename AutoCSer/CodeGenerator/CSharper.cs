@@ -150,7 +150,11 @@ namespace AutoCSer.CodeGenerator
                     codes.Add(definition.ToString());
                     if (Messages.IsError) return false;
                 }
+#if AOT
+                string fileName = parameter.ProjectPath + @"{AutoCSer}.AOT.CSharper.cs";
+#else
                 string fileName = parameter.ProjectPath + @"{AutoCSer}.CSharper.cs";
+#endif
                 if (await Coder.WriteFile(fileName, Coder.WarningCode + string.Concat(codes.ToArray()) + Coder.FileEndCode))
                 {
                     Messages.Error(fileName + " 被修改");

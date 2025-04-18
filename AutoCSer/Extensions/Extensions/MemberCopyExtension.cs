@@ -18,7 +18,11 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static VT? memberCopy<VT, BT>(this BT? value, AutoCSer.Metadata.MemberMap<BT>? memberMap = null)
+        public static VT? memberCopy<
+#if AOT
+                [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
+#endif
+        VT, BT>(this BT? value, AutoCSer.Metadata.MemberMap<BT>? memberMap = null)
 #else
         public static VT memberCopy<VT, BT>(this BT value, AutoCSer.Metadata.MemberMap<BT> memberMap = null)
 #endif
@@ -60,7 +64,11 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static T? memberCopy<T>(this T? value, AutoCSer.Metadata.MemberMap<T>? memberMap = null)
+        public static T? memberCopy<
+#if AOT
+                [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
+#endif
+        T>(this T? value, AutoCSer.Metadata.MemberMap<T>? memberMap = null)
 #else
         public static T memberCopy<T>(this T value, AutoCSer.Metadata.MemberMap<T> memberMap = null)
 #endif

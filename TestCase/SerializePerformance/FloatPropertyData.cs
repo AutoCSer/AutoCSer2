@@ -6,8 +6,15 @@ namespace AutoCSer.TestCase.SerializePerformance
     /// <summary>
     /// JSON 序列化属性测试数据
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.XmlSerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+    [AutoCSer.CodeGenerator.RandomObject]
+#endif
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
-    class FloatPropertyData : PropertyData
+    partial class FloatPropertyData : PropertyData
     {
         //public Half Half { get; set; }
         public float Float { get; set; }

@@ -60,121 +60,155 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
-            if (!await DictionaryNode.Test())
+
+            Task<bool> distributedLockNodeTask = DistributedLockNode.Test();
+            Task<bool> binaryMessageConsumerTask = MessageNode.BinaryMessageConsumer.Test();
+            Task<bool> serverByteArrayMessageJsonConsumerTask = MessageNode.ServerByteArrayMessageJsonConsumer.Test();
+            Task<bool> serverByteArrayMessageConsumerTask = MessageNode.ServerByteArrayMessageConsumer.Test();
+            Task<bool> serverByteArrayMessageStringConsumerTask = MessageNode.ServerByteArrayMessageStringConsumer.Test();
+            Task<bool> serverByteArrayBinaryMessageConsumerTask = MessageNode.ServerByteArrayBinaryMessageConsumer.Test();
+
+            Task<bool> dictionaryNodeTask = DictionaryNode.Test();
+            Task<bool> byteArrayDictionaryNodeTask = ByteArrayDictionaryNode.Test();
+            Task<bool> hashBytesDictionaryNodeTask = HashBytesDictionaryNode.Test();
+            Task<bool> fragmentDictionaryNodeTask = FragmentDictionaryNode.Test();
+            Task<bool> byteArrayFragmentDictionaryNodeTask = ByteArrayFragmentDictionaryNode.Test();
+            Task<bool> hashBytesFragmentDictionaryNodeTask = HashBytesFragmentDictionaryNode.Test();
+
+            Task<bool> manyHashBitMapClientFilterNodeTask = ManyHashBitMapClientFilterNode.Test();
+            Task<bool> manyHashBitMapFilterNodeTask = ManyHashBitMapFilterNode.Test();
+            Task<bool> sortedDictionaryNodeTask = SortedDictionaryNode.Test();
+            Task<bool> sortedSetNodeTask = SortedSetNode.Test();
+            Task<bool> searchTreeDictionaryNodeTask = SearchTreeDictionaryNode.Test();
+            Task<bool> searchTreeSetNodeTask = SearchTreeSetNode.Test();
+            Task<bool> hashSetNodeTask = HashSetNode.Test();
+            Task<bool> fragmentHashSetNodeTask = FragmentHashSetNode.Test();
+            Task<bool> identityGeneratorNodeTask = IdentityGeneratorNode.Test();
+            Task<bool> queueNodeTask = QueueNode.Test();
+            Task<bool> byteArrayQueueNodeTask = ByteArrayQueueNode.Test();
+            Task<bool> stackNodeTask = StackNode.Test();
+            Task<bool> byteArrayStackNodeTask = ByteArrayStackNode.Test();
+            Task<bool> arrayNodeTask = ArrayNode.Test();
+            Task<bool> leftArrayNodeTask = LeftArrayNode.Test();
+            Task<bool> sortedListNodeTask = SortedListNode.Test();
+            Task<bool> bitmapNodeTask = BitmapNode.Test();
+
+
+            if (!await dictionaryNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await ByteArrayDictionaryNode.Test())
+            if (!await byteArrayDictionaryNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await HashBytesDictionaryNode.Test())
+            if (!await hashBytesDictionaryNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await FragmentDictionaryNode.Test())
+            if (!await fragmentDictionaryNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await ByteArrayFragmentDictionaryNode.Test())
+            if (!await byteArrayFragmentDictionaryNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await HashBytesFragmentDictionaryNode.Test())
+            if (!await hashBytesFragmentDictionaryNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await MessageNode.BinaryMessageConsumer.Test())
+            if (!await manyHashBitMapClientFilterNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await MessageNode.ServerByteArrayMessageJsonConsumer.Test())
+            if (!await manyHashBitMapFilterNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await MessageNode.ServerByteArrayMessageConsumer.Test())
+            if (!await sortedDictionaryNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await MessageNode.ServerByteArrayMessageStringConsumer.Test())
+            if (!await sortedSetNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await MessageNode.ServerByteArrayBinaryMessageConsumer.Test())
+            if (!await searchTreeDictionaryNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await searchTreeSetNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await hashSetNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await fragmentHashSetNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await identityGeneratorNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await queueNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await byteArrayQueueNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await stackNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await byteArrayStackNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await arrayNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await leftArrayNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await sortedListNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await bitmapNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            if (!await DistributedLockNode.Test())
+            if (!await binaryMessageConsumerTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await ManyHashBitMapClientFilterNode.Test())
+            if (!await serverByteArrayMessageJsonConsumerTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await ManyHashBitMapFilterNode.Test())
+            if (!await serverByteArrayMessageConsumerTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await SortedDictionaryNode.Test())
+            if (!await serverByteArrayMessageStringConsumerTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await SortedSetNode.Test())
+            if (!await serverByteArrayBinaryMessageConsumerTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            if (!await SearchTreeDictionaryNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await SearchTreeSetNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await HashSetNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await FragmentHashSetNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await IdentityGeneratorNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await QueueNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await ByteArrayQueueNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await StackNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await ByteArrayStackNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await ArrayNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await LeftArrayNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await SortedListNode.Test())
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
-            if (!await BitmapNode.Test())
+            if (!await distributedLockNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

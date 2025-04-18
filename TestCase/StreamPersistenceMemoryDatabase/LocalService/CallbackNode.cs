@@ -28,15 +28,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
                 return;
             }
-            value = AutoCSer.Random.Default.Next();
-            LocalServiceQueueNode<LocalResult<int>> callbackTask = node.Value.SetCallback();
-            node.Value.SetValueSendOnly(value);
-            intResult = await callbackTask;
-            if (!Program.Breakpoint(intResult)) return;
-            if (intResult.Value != value + 1)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
-                return;
+            if (!isReadWriteQueue)
+            {//读写队列模式可能影响调用执行顺序
+                value = AutoCSer.Random.Default.Next();
+                LocalServiceQueueNode<LocalResult<int>> callbackTask = node.Value.SetCallback();
+                node.Value.SetValueSendOnly(value);
+                intResult = await callbackTask;
+                if (!Program.Breakpoint(intResult)) return;
+                if (intResult.Value != value + 1)
+                {
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                    return;
+                }
             }
             value = AutoCSer.Random.Default.Next();
             intResult = await node.Value.SetValueCallbackPersistence(value);
@@ -46,17 +49,19 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
                 return;
             }
-            value = AutoCSer.Random.Default.Next();
-            callbackTask = node.Value.SetCallbackPersistence();
-            node.Value.SetValuePersistenceSendOnly(value);
-            intResult = await callbackTask;
-            if (!Program.Breakpoint(intResult)) return;
-            if (intResult.Value != value + 1)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
-                return;
+            if (!isReadWriteQueue)
+            {//读写队列模式可能影响调用执行顺序
+                value = AutoCSer.Random.Default.Next();
+                LocalServiceQueueNode<LocalResult<int>> callbackTask = node.Value.SetCallbackPersistence();
+                node.Value.SetValuePersistenceSendOnly(value);
+                intResult = await callbackTask;
+                if (!Program.Breakpoint(intResult)) return;
+                if (intResult.Value != value + 1)
+                {
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                    return;
+                }
             }
-
             value = AutoCSer.Random.Default.Next();
             int count = 10, currentValue = value;
             LocalKeepCallback<int> keepCallback = await node.Value.InputKeepCallback(value, count);
@@ -140,15 +145,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
                 return;
             }
-            callbackTask = node.Value.SetCallback();
-            result = await node.Value.Callback();
-            if (!Program.Breakpoint(result)) return;
-            intResult = await callbackTask;
-            if (!Program.Breakpoint(intResult)) return;
-            if (intResult.Value != value + 1)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
-                return;
+            if (!isReadWriteQueue)
+            {//读写队列模式可能影响调用执行顺序
+                LocalServiceQueueNode<LocalResult<int>> callbackTask = node.Value.SetCallback();
+                result = await node.Value.Callback();
+                if (!Program.Breakpoint(result)) return;
+                intResult = await callbackTask;
+                if (!Program.Breakpoint(intResult)) return;
+                if (intResult.Value != value + 1)
+                {
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                    return;
+                }
             }
 
             System.Threading.AutoResetEvent callbackWait = new System.Threading.AutoResetEvent(false);
@@ -173,20 +181,23 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 return;
             }
 
-            callbackTask = node.Value.SetCallback();
-            node.Value.CallbackCommand(p =>
-            {
-                result = p;
-                callbackWait.Set();
-            });
-            callbackWait.WaitOne();
-            if (!Program.Breakpoint(result)) return;
-            intResult = await callbackTask;
-            if (!Program.Breakpoint(intResult)) return;
-            if (intResult.Value != value + 1)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
-                return;
+            if (!isReadWriteQueue)
+            {//读写队列模式可能影响调用执行顺序
+                LocalServiceQueueNode<LocalResult<int>> callbackTask = node.Value.SetCallback();
+                node.Value.CallbackCommand(p =>
+                {
+                    result = p;
+                    callbackWait.Set();
+                });
+                callbackWait.WaitOne();
+                if (!Program.Breakpoint(result)) return;
+                intResult = await callbackTask;
+                if (!Program.Breakpoint(intResult)) return;
+                if (intResult.Value != value + 1)
+                {
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                    return;
+                }
             }
 
             node.Value.CallInoutOutputCommand(value, p =>

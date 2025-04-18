@@ -26,14 +26,6 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion LOOP Methods
             #endregion PART CLASS
         }
-    }
-    #region NOTE
-    /// <summary>
-    /// CSharp 模板公用模糊类型
-    /// </summary>
-    internal partial class Pub
-    {
         public const int MethodIndex = 0;
     }
-    #endregion NOTE
 }

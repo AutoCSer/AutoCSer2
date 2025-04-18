@@ -6,7 +6,12 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 浮点数测试
     /// </summary>
+#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.XmlSerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+    [AutoCSer.CodeGenerator.FieldEquals]
+#endif
     public partial class Float
     {
         //public Half HalfMin = Half.MinValue;

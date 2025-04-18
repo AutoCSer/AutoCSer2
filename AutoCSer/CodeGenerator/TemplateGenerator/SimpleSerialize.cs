@@ -101,6 +101,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             FixedFields = fields.FixedFields.getArray(p => new SerializeField(p));
             FieldArray = fields.FieldArray.getArray(p => new SerializeField(p));
             create(true);
+            AotMethod.Append(CurrentType, SimpleSerializeMethodName);
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>

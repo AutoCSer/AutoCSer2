@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 命令客户端套接字事件
     /// </summary>
-    internal sealed class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent
+    internal sealed partial class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent
     {
         /// <summary>
         /// 同步接口测试

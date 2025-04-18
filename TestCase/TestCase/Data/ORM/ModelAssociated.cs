@@ -6,8 +6,12 @@ namespace AutoCSer.TestCase.Data.ORM
     /// <summary>
     /// ORM 基本数据模型定义
     /// </summary>
+#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.AOT.Preserve(AllMembers = true)]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+    [AutoCSer.CodeGenerator.FieldEquals]
+    [AutoCSer.CodeGenerator.RandomObject]
+#endif
     [AutoCSer.BinarySerialize]
     public partial class ModelAssociated
     {

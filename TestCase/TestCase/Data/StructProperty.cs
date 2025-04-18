@@ -7,8 +7,12 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 属性数据定义(值类型外壳)
     /// </summary>
+#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
-    [AutoCSer.AOT.Preserve(AllMembers = true)]
+    [AutoCSer.CodeGenerator.XmlSerialize]
+    [AutoCSer.CodeGenerator.RandomObject]
+    [AutoCSer.CodeGenerator.FieldEquals]
+#endif
     internal partial struct StructProperty
     {
         public bool Bool { get; set; }

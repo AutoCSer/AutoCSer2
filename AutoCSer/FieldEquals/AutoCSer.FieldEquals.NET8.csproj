@@ -28,6 +28,7 @@
     <Compile Include="CombinationTemplate\Comparor.Enum.cs" />
     <Compile Include="Comparor.cs" />
     <Compile Include="IgnoreAttribute.cs" />
+    <Compile Include="Member.cs" />
     <Compile Include="MemberDynamicMethod.cs" />
     <Compile Include="Metadata\CollectionGenericType.cs" />
     <Compile Include="Metadata\DictionaryGenericType.cs" />

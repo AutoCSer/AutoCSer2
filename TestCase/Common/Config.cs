@@ -31,7 +31,10 @@ namespace AutoCSer.TestCase.Common
             DirectoryInfo directory = AutoCSer.Common.ApplicationDirectory, parentDirectory = directory.Parent;
             while (parentDirectory != null && parentDirectory.Name != "AutoCSer2") parentDirectory = parentDirectory.Parent;
             AutoCSerPath = parentDirectory?.FullName;
-            AutoCSerTemporaryFilePath = Path.Combine(parentDirectory?.Parent.FullName ?? directory.FullName, nameof(AutoCSerTemporaryFilePath));
+
+            string defaultPath = @"d:\" + nameof(AutoCSerTemporaryFilePath);
+            if (Directory.Exists(defaultPath)) AutoCSerTemporaryFilePath = defaultPath;
+            else AutoCSerTemporaryFilePath = Path.Combine(parentDirectory?.Parent.FullName ?? directory.FullName, nameof(AutoCSerTemporaryFilePath));
         }
     }
 }

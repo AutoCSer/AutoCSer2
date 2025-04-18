@@ -32,21 +32,23 @@ namespace AutoCSer.CodeGenerator
         /// </summary>
         public bool CheckDotNet45 = false;
 #endif
+#if AOT
         /// <summary>
         /// 是否 C# AOT 代码
         /// </summary>
         public bool IsAOT;
+#endif
         /// <summary>
         /// 代码生成语言
         /// </summary>
         public CodeLanguageEnum Language = CodeLanguageEnum.CSharp;
-        /// <summary>
-        /// 代码生成语言编号
-        /// </summary>
-        internal CodeLanguageEnum CodeLanguage
-        {
-            get { return IsAOT && Language == CodeLanguageEnum.CSharp ? CodeLanguageEnum.COUNT : Language; }
-        }
+        ///// <summary>
+        ///// 代码生成语言编号
+        ///// </summary>
+        //internal CodeLanguageEnum CodeLanguage
+        //{
+        //    get { return IsAOT && Language == CodeLanguageEnum.CSharp ? CodeLanguageEnum.COUNT : Language; }
+        //}
         /// <summary>
         /// 获取模板文件名，不包括扩展名
         /// </summary>

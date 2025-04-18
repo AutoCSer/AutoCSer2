@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using AutoCSer.Extensions;
 using AutoCSer.TestCase.Data;
 
@@ -14,6 +16,10 @@ namespace AutoCSer.TestCase
         /// 随机对象生成参数
         /// </summary>
         private static readonly AutoCSer.RandomObject.Config randomConfig = new AutoCSer.RandomObject.Config();
+        ///// <summary>
+        ///// 是否写入测试数据文件
+        ///// </summary>
+        //private static bool isWriteFile = true;
 
         /// <summary>
         /// 二进制序列化测试
@@ -22,12 +28,19 @@ namespace AutoCSer.TestCase
 #if TEST
         [AutoCSer.Metadata.TestMethod]
 #endif
-        internal static bool TestCase()
+        internal static async Task<bool> TestCase()
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
             #region 引用类型二进制序列化测试
             Data.Field fieldData = AutoCSer.RandomObject.Creator<Data.Field>.Create(randomConfig);
+            Data.Field newFieldData = fieldData.memberCopy();
+            if (!AutoCSer.FieldEquals.Comparor.Equals(fieldData, newFieldData))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
             byte[] data = AutoCSer.BinarySerializer.Serialize(fieldData);
-            Data.Field newFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.Field>(data);
+            newFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.Field>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(fieldData, newFieldData))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -96,7 +109,7 @@ namespace AutoCSer.TestCase
             }
             var jsonEmptyData = default(JsonEmpty);
             AutoCSer.BinarySerialize.DeserializeResult result = AutoCSer.BinaryDeserializer.Deserialize<JsonEmpty>(data, ref jsonEmptyData);
-            if(result.State != AutoCSer.BinarySerialize.DeserializeStateEnum.Success || jsonEmptyData == null)
+            if (result.State != AutoCSer.BinarySerialize.DeserializeStateEnum.Success || jsonEmptyData == null)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -125,16 +138,25 @@ namespace AutoCSer.TestCase
             Data.JsonStructProperty newJsonStructPropertyData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonStructProperty>(data);
             if (!AutoCSer.FieldEquals.Comparor.Equals(jsonStructPropertyData, newJsonStructPropertyData))
             {
+                //if (isWriteFile) await AutoCSer.Common.WriteAllBytes(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, $"{nameof(Data.JsonStructProperty)}.AOT.data"), data);
+                //if (isWriteFile) await AutoCSer.Common.WriteAllBytes(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, $"{nameof(Data.JsonStructProperty)}.new.AOT.data"), AutoCSer.BinarySerializer.Serialize(newJsonStructPropertyData));
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
             #region ORM 关联数据二进制序列化测试
+            //data = await File.ReadAllBytesAsync(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, $"{nameof(Data.ORM.ModelGeneric)}.AOT.data"));
+            //byte[] mewData = await File.ReadAllBytesAsync(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, $"{nameof(Data.ORM.ModelGeneric)}.new.AOT.data"));
+            //Console.WriteLine(mewData.Length);
             Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(model);
             Data.ORM.BusinessModel businessModel = AutoCSer.BinaryDeserializer.Deserialize<Data.ORM.BusinessModel>(data);
-            if (!ModelComparor(model, businessModel)) return AutoCSer.Breakpoint.ReturnFalse();
-
+            if (!ModelComparor(model, businessModel))
+            {
+                //if (isWriteFile) await File.WriteAllBytesAsync(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, $"{nameof(Data.ORM.ModelGeneric)}.AOT.data"), data);
+                //if (isWriteFile) await File.WriteAllBytesAsync(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, $"{nameof(Data.ORM.ModelGeneric)}.new.AOT.data"), AutoCSer.BinarySerializer.Serialize(businessModel));
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
             data = AutoCSer.BinarySerializer.Serialize(businessModel);
             model = AutoCSer.BinaryDeserializer.Deserialize<Data.ORM.ModelGeneric>(data);
             if (!ModelComparor(model, businessModel)) return AutoCSer.Breakpoint.ReturnFalse();
@@ -148,7 +170,7 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-
+            //isWriteFile = false;
             return true;
         }
         internal static bool ModelComparor(Data.ORM.ModelGeneric model, Data.ORM.BusinessModel businessModel)

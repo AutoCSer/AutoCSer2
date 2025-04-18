@@ -28,7 +28,6 @@ namespace AutoCSer.Extensions.Metadata
         /// <typeparam name="UT"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static EnumGenericType create<T, UT>()
             where T : struct, IConvertible
             where UT : struct, IConvertible

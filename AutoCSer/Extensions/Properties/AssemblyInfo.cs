@@ -18,7 +18,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("2.0.0.0")]
 #endif
 [assembly: Guid("13510310-674e-8c37-4e39-13510c060001")]
-
+#if AOT
+[assembly: InternalsVisibleTo("AutoCSer.CodeGenerator.AOT")]
+#else
 [assembly: InternalsVisibleTo("AutoCSer.DynamicAssembly")]
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator")]
 [assembly: InternalsVisibleTo("AutoCSer.NetCoreWeb")]
@@ -28,3 +30,4 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.Search")]
 
 [assembly: InternalsVisibleTo("AutoCSer.Custom")]//预留程序集名称，开发者可以自建项目暴露 AutoCSer 的 internal 访问权限
+#endif

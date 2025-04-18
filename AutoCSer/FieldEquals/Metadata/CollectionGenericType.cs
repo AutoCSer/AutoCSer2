@@ -21,7 +21,6 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <typeparam name="VT"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static CollectionGenericType create<T, VT>()
             where T : ICollection<VT>
         {
@@ -66,6 +65,6 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 对象对比委托
         /// </summary>
-        internal override Delegate EqualsDelegate { get { return (Func<T, T, bool>)Comparor.Equals<T, VT>; } }
+        internal override Delegate EqualsDelegate { get { return (Func<T, T, bool>)Comparor.CollectionEquals<T, VT>; } }
     }
 }

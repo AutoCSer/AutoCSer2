@@ -4,6 +4,7 @@ using AutoCSer.Metadata;
 using AutoCSer.Xml;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer
@@ -13,6 +14,18 @@ namespace AutoCSer
     /// </summary>
     public unsafe sealed partial class XmlSerializer : TextSerializer<XmlSerializer, XmlSerializeConfig>
     {
+        /// <summary>
+        /// XML 序列化方法名称
+        /// </summary>
+        internal const string XmlSerializeMethodName = "XmlSerialize";
+        /// <summary>
+        /// XML 序列化方法名称
+        /// </summary>
+        internal const string XmlSerializeMemberMapMethodName = "XmlSerializeMemberMap";
+        /// <summary>
+        /// 获取 XML 序列化成员类型方法名称
+        /// </summary>
+        internal const string XmlSerializeMemberTypeMethodName = "XmlSerializeMemberTypes";
         /// <summary>
         /// XML 自定义全局配置
         /// </summary>
@@ -326,11 +339,11 @@ namespace AutoCSer
             switch (length)
             {
                 case 1:
-                    PrimitiveSerialize(*start);
+                    XmlSerialize(*start);
                     return;
                 case 2:
-                    PrimitiveSerialize(*start);
-                    PrimitiveSerialize(*(start + 1));
+                    XmlSerialize(*start);
+                    XmlSerialize(*(start + 1));
                     return;
             }
             char* end = start + (length - 1);
@@ -470,6 +483,19 @@ namespace AutoCSer
         /// <summary>
         /// 转换 XML 字符串
         /// </summary>
+        /// <param name="value">数据对象</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public void XmlSerializeType<T>(T? value)
+#else
+        public void XmlSerializeType<T>(T value)
+#endif
+        {
+            if (value != null) TypeSerializer<T>.Serialize(this, ref value);
+        }
+        /// <summary>
+        /// 转换 XML 字符串
+        /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value">数据对象</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -482,6 +508,16 @@ namespace AutoCSer
             if (value != null) TypeSerializer<T>.Serialize(serializer, ref value);
         }
         /// <summary>
+        /// 自定义序列化
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void ICustom<T>(AutoCSer.XmlSerializer serializer, T value) where T : ICustomSerialize<T>
+        {
+            if (value != null) value.Serialize(serializer);
+        }
+        /// <summary>
         /// 基类序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -490,9 +526,9 @@ namespace AutoCSer
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void Base<T, BT>(XmlSerializer serializer, T? value)
+        public static void Base<T, BT>(XmlSerializer serializer, T? value)
 #else
-        internal static void Base<T, BT>(XmlSerializer serializer, T value)
+        public static void Base<T, BT>(XmlSerializer serializer, T value)
 #endif
             where T : class, BT
         {
@@ -503,7 +539,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        private void nullable<T>(ref T? value) where T : struct
+        public void XmlSerialize<T>(T? value) where T : struct
         {
             if (value.HasValue)
             {
@@ -519,9 +555,9 @@ namespace AutoCSer
         /// <param name="serializer"></param>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void Nullable<T>(XmlSerializer serializer, T? value) where T : struct
+        public static void Nullable<T>(XmlSerializer serializer, T? value) where T : struct
         {
-            serializer.nullable(ref value);
+            serializer.XmlSerialize(value);
         }
         /// <summary>
         /// 数组序列化
@@ -529,9 +565,9 @@ namespace AutoCSer
         /// <typeparam name="T"></typeparam>
         /// <param name="array">数组对象</param>
 #if NetStandard21
-        private void array<T>(T?[] array)
+        public void XmlSerialize<T>(T?[] array)
 #else
-        private void array<T>(T[] array)
+        public void XmlSerialize<T>(T[] array)
 #endif
         {
             string itemName = GetItemName();
@@ -554,12 +590,12 @@ namespace AutoCSer
         /// <param name="array">数组对象</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void Array<T>(XmlSerializer serializer, T?[]? array)
+        public static void Array<T>(XmlSerializer serializer, T?[]? array)
 #else
-        internal static void Array<T>(XmlSerializer serializer, T[] array)
+        public static void Array<T>(XmlSerializer serializer, T[] array)
 #endif
         {
-            if (array != null) serializer.array(array);
+            if (array != null) serializer.XmlSerialize(array);
         }
         /// <summary>
         /// 集合序列化
@@ -567,9 +603,9 @@ namespace AutoCSer
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
 #if NetStandard21
-        internal void collection<T>(ICollection<T?> array)
+        public void XmlSerialize<T>(ICollection<T?> array)
 #else
-        internal void collection<T>(ICollection<T> array)
+        public void XmlSerialize<T>(ICollection<T> array)
 #endif
         {
             string itemName = GetItemName();
@@ -593,12 +629,12 @@ namespace AutoCSer
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void Collection<T, VT>(XmlSerializer serializer, T? value) where T : ICollection<VT?>
+        public static void Collection<T, VT>(XmlSerializer serializer, T? value) where T : ICollection<VT?>
 #else
-        internal static void Collection<T, VT>(XmlSerializer serializer, T value) where T : ICollection<VT>
+        public static void Collection<T, VT>(XmlSerializer serializer, T value) where T : ICollection<VT>
 #endif
         {
-            if (value != null) serializer.collection(value);
+            if (value != null) serializer.XmlSerialize(value);
         }
         /// <summary>
         /// 自定义序列化不支持类型
@@ -606,7 +642,7 @@ namespace AutoCSer
         /// <typeparam name="T"></typeparam>
         /// <param name="serializer"></param>
         /// <param name="value"></param>
-        internal static void NotSupport<T>(XmlSerializer serializer, T value)
+        public static void NotSupport<T>(XmlSerializer serializer, T value)
         {
             int size = CustomConfig.NotSupport(serializer, value);
             if (size > 0) serializer.CharStream.Data.Pointer.CheckMoveSize(size << 1);
@@ -616,7 +652,7 @@ namespace AutoCSer
         /// 逻辑值转换
         /// </summary>
         /// <param name="value">逻辑值</param>
-        public void PrimitiveSerialize(bool value)
+        public void XmlSerialize(bool value)
         {
             if (value)
             {
@@ -637,7 +673,7 @@ namespace AutoCSer
         /// 字符转换
         /// </summary>
         /// <param name="value">字符</param>
-        public void PrimitiveSerialize(char value)
+        public void XmlSerialize(char value)
         {
             if (((bits[(byte)value] & XmlDeserializer.EncodeSpaceBit) | (value & 0xff00)) == 0)
             {
@@ -724,7 +760,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(float value)
+        public void XmlSerialize(float value)
         {
             if (Config.IsInfinityToNaN) CharStream.WriteJson(value);
             else CharStream.WriteJsonInfinity(value);
@@ -736,7 +772,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(double value)
+        public void XmlSerialize(double value)
         {
             if (Config.IsInfinityToNaN) CharStream.WriteJson(value);
             else CharStream.WriteJsonInfinity(value);
@@ -748,7 +784,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数字</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(decimal value)
+        public void XmlSerialize(decimal value)
         {
             int size = CustomConfig.Write(CharStream, value);
             if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
@@ -757,7 +793,7 @@ namespace AutoCSer
         /// 时间转换
         /// </summary>
         /// <param name="value">时间</param>
-        internal void SerializeDateTime(DateTime value)
+        internal void PrimitiveSerialize(DateTime value)
         {
             switch (value.Kind)
             {
@@ -791,7 +827,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">时间</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void SerializeTimeSpan(TimeSpan value)
+        internal void PrimitiveSerialize(TimeSpan value)
         {
             char* chars = CharStream.GetPrepCharSizeCurrent(10 + 16);
             if (chars != null) CharStream.Data.Pointer.MoveSize(AutoCSer.Date.ToString(value, chars) << 1);
@@ -801,7 +837,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void PrimitiveSerialize(Guid value)
+        public void XmlSerialize(Guid value)
         {
             byte* data = CharStream.GetBeforeMove(36 * sizeof(char));
             if (data != null) new GuidCreator { Value = value }.ToString((char*)data);
@@ -820,9 +856,9 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
-        public void PrimitiveSerialize(string? value)
+        public void XmlSerialize(string? value)
 #else
-        public void PrimitiveSerialize(string value)
+        public void XmlSerialize(string value)
 #endif
         {
             if (value != null)
@@ -843,13 +879,13 @@ namespace AutoCSer
         private static void primitiveSerialize(XmlSerializer serializer, string value)
 #endif
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
         }
         /// <summary>
         /// 字符串转换
         /// </summary>
         /// <param name="value"></param>
-        public void PrimitiveSerialize(SubString value)
+        public void XmlSerialize(SubString value)
         {
             if (value.String != null)
             {
@@ -868,19 +904,26 @@ namespace AutoCSer
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, SubString value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
         }
         /// <summary>
         /// object 转换
         /// </summary>
         /// <param name="value"></param>
-        internal void PrimitiveSerialize(object value)
+        public void XmlSerializeObject(object value)
         {
-            if (value.GetType() == typeof(XmlNode)) PrimitiveSerialize((XmlNode)value);
+            if (value.GetType() == typeof(XmlNode)) XmlSerialize((XmlNode)value);
             else if (Config.IsObject)
             {
                 Type type = value.GetType();
-                if (type != typeof(object)) AutoCSer.Extensions.Metadata.GenericType.Get(type).XmlSerializeObjectDelegate(this, value);
+                if (type != typeof(object))
+                {
+#if AOT
+                    ObjectMethod.MakeGenericMethod(type).Invoke(null, new object[] { this, value });
+#else
+                    AutoCSer.Extensions.Metadata.GenericType.Get(type).XmlSerializeObjectDelegate(this, value);
+#endif
+                }
             }
         }
         /// <summary>
@@ -895,7 +938,7 @@ namespace AutoCSer
         private static void primitiveSerialize(XmlSerializer serializer, object value)
 #endif
         {
-            if (value != null) serializer.PrimitiveSerialize(value);
+            if (value != null) serializer.XmlSerializeObject(value);
         }
         /// <summary>
         /// object 对象转换XML字符串
@@ -915,9 +958,9 @@ namespace AutoCSer
         /// <param name="value">数据对象</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void Object<T>(XmlSerializer serializer, object? value)
+        public static void Object<T>(XmlSerializer serializer, object? value)
 #else
-        internal static void Object<T>(XmlSerializer serializer, object value)
+        public static void Object<T>(XmlSerializer serializer, object value)
 #endif
         {
             if (value != null) serializer.Object((T)value);
@@ -926,12 +969,12 @@ namespace AutoCSer
         /// Node 转换
         /// </summary>
         /// <param name="value"></param>
-        internal void PrimitiveSerialize(XmlNode value)
+        public void XmlSerialize(XmlNode value)
         {
             switch (value.Type)
             {
                 case XmlNodeTypeEnum.String:
-                    PrimitiveSerialize(value.String);
+                    XmlSerialize(value.String);
                     return;
                 case XmlNodeTypeEnum.EncodeString:
                 case XmlNodeTypeEnum.TempString:
@@ -944,7 +987,7 @@ namespace AutoCSer
                         {
                             char* start = nameFixed + node.Key.Start;
                             nameStart(start, node.Key.Length);
-                            PrimitiveSerialize(node.Value);
+                            XmlSerialize(node.Value);
                             nameEnd(start, node.Key.Length);
                         }
                     }
@@ -959,7 +1002,7 @@ namespace AutoCSer
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, XmlNode value)
         {
-            serializer.PrimitiveSerialize(value);
+            serializer.XmlSerialize(value);
         }
 
         /// <summary>
@@ -981,6 +1024,297 @@ namespace AutoCSer
                 --forefather.Reserve;
             }
         }
+#if AOT
+        /// <summary>
+        /// 自定义 XML 序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void ICustom<T>(ICustomSerialize<T> value)
+        {
+            value.Serialize(this);
+        }
+        /// <summary>
+        /// 是否输出模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="xmlSerializer"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsOutputGenericParameter<T>(XmlSerializer xmlSerializer, T value)
+        {
+            Type type = typeof(T);
+            if (type.IsValueType)
+            {
+                if (type == typeof(SubString)) return IsOutputSubString(xmlSerializer, value.castValue<SubString>());
+                if (!xmlSerializer.Config.IsOutputNull && type.IsGenericType && type.IsValueType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    return NullableHasValueMethod.MakeGenericMethod(type.GetGenericArguments()[0]).Invoke(null, new object?[] { value }) != null;
+                }
+                return true;
+            }
+            if(type == typeof(string)) return xmlSerializer.isOutputString(value.castType<string>());
+            return IsOutput(xmlSerializer, value);
+        }
+        /// <summary>
+        /// 判断可空类型是否存在值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static object? NullableHasValue<T>(object value) where T : struct
+        {
+            return ((T?)value).HasValue ? AutoCSer.Common.EmptyObject : null;
+        }
+        /// <summary>
+        /// 键值对转换
+        /// </summary>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize<KT, VT>(KeyValue<KT, VT> value)
+        {
+            BinarySerializeKeyValue<KT, VT> keyValue = new BinarySerializeKeyValue<KT, VT>(value);
+            TypeSerializer<BinarySerializeKeyValue<KT, VT>>.Serialize(this, ref keyValue);
+        }
+        /// <summary>
+        /// 键值对转换
+        /// </summary>
+        /// <param name="xmlSerializer"></param>
+        /// <param name="value"></param>
+        public static void KeyValue<KT, VT>(XmlSerializer xmlSerializer, KeyValue<KT, VT> value)
+        {
+            xmlSerializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 键值对转换
+        /// </summary>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize<KT, VT>(KeyValuePair<KT, VT> value)
+        {
+            BinarySerializeKeyValue<KT, VT> keyValue = new BinarySerializeKeyValue<KT, VT>(value);
+            TypeSerializer<BinarySerializeKeyValue<KT, VT>>.Serialize(this, ref keyValue);
+        }
+        /// <summary>
+        /// 键值对转换
+        /// </summary>
+        /// <param name="xmlSerializer"></param>
+        /// <param name="value"></param>
+        public static void KeyValuePair<KT, VT>(XmlSerializer xmlSerializer, KeyValuePair<KT, VT> value)
+        {
+            xmlSerializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 代码生成调用激活 AOT 反射
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void XmlSerialize<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)] T>()
+        {
+        }
+        /// <summary>
+        /// 代码生成调用激活 AOT 反射
+        /// </summary>
+        /// <param name="type"></param>
+        public static void TypeSerialize([System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicFields)] Type type)
+        {
+        }
+        /// <summary>
+        /// 判断可空类型是否存在值
+        /// </summary>
+        internal static readonly MethodInfo NullableHasValueMethod;
+        /// <summary>
+        /// object 序列化
+        /// </summary>
+        internal static readonly MethodInfo ObjectMethod;
+        /// <summary>
+        /// 不支持类型序列化
+        /// </summary>
+        internal static readonly MethodInfo NotSupportMethod;
+        /// <summary>
+        /// 基类序列化
+        /// </summary>
+        internal static readonly MethodInfo BaseMethod;
+        /// <summary>
+        /// 自定义序列化
+        /// </summary>
+        internal static readonly MethodInfo ICustomMethod;
+        /// <summary>
+        /// 数组序列化
+        /// </summary>
+        internal static readonly MethodInfo ArrayMethod;
+        /// <summary>
+        /// 可空数据序列化
+        /// </summary>
+        internal static readonly MethodInfo NullableMethod;
+        /// <summary>
+        /// 集合序列化
+        /// </summary>
+        internal static readonly MethodInfo CollectionMethod;
+        /// <summary>
+        /// 键值对序列化
+        /// </summary>
+        internal static readonly MethodInfo KeyValueMethod;
+        /// <summary>
+        /// 键值对序列化
+        /// </summary>
+        internal static readonly MethodInfo KeyValuePairMethod;
+        /// <summary>
+        /// 是否输出模板
+        /// </summary>
+        /// <param name="xmlSerializer"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static bool IsOutputMethodName(XmlSerializer xmlSerializer, object value) { return false; }
+        /// <summary>
+        /// 枚举序列化模板
+        /// </summary>
+        /// <param name="value"></param>
+        internal void EnumXmlSerializeMethodName(object value) { }
+        /// <summary>
+        /// 序列化模板
+        /// </summary>
+        /// <param name="value"></param>
+        internal void SerializeMethodName(object value) { }
+        ///// <summary>
+        ///// 自定义 XML 序列化
+        ///// </summary>
+        ///// <param name="value"></param>
+        //internal void ICustom(object value) { }
+        ///// <summary>
+        ///// 键值对序列化模板
+        ///// </summary>
+        ///// <param name="xmlSerializer"></param>
+        ///// <param name="value"></param>
+        //internal static void KeyValue<KT, VT>(XmlSerializer xmlSerializer, KeyValue<KT, VT> value) { }
+        ///// <summary>
+        ///// 键值对序列化模板
+        ///// </summary>
+        ///// <param name="xmlSerializer"></param>
+        ///// <param name="value"></param>
+        //internal static void KeyValuePair<KT, VT>(XmlSerializer xmlSerializer, KeyValuePair<KT, VT> value) { }
+        ///// <summary>
+        ///// 是否输出模板
+        ///// </summary>
+        ///// <param name="xmlSerializer"></param>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //internal static bool IsOutputGenericParameter(XmlSerializer xmlSerializer, object value) { return false; }
+        ///// <summary>
+        ///// 序列化模板
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        //internal static void XmlSerialize<T>() { }
+        ///// <summary>
+        ///// 序列化模板
+        ///// </summary>
+        ///// <returns></returns>
+        //internal static void TypeSerialize(Type type) { }
+        /// <summary>
+        /// 序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        internal static void ReflectionMethodName<T>(params object[] values) { }
+        /// <summary>
+        /// 序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TT"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static void NullableHasValue<T, TT>(object value) { }
+#else
+        /// <summary>
+        /// 对象转换 XML 字符串
+        /// </summary>
+        /// <param name="value">数据对象</param>
+        /// <param name="config">配置参数</param>
+        /// <returns>XML 字符串</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static string SerializeObject(object? value, XmlSerializeConfig? config = null)
+#else
+        public static string SerializeObject(object value, XmlSerializeConfig config = null)
+#endif
+        {
+            if (value != null) return AutoCSer.Extensions.Metadata.GenericType.Get(value.GetType()).XmlSerializeObjectGenericDelegate(value, config).Key;
+            AutoCSer.TextSerialize.WarningEnum warning;
+            return Serialize(ref value, out warning, config);
+        }
+        /// <summary>
+        /// 对象转换 XML 字符串
+        /// </summary>
+        /// <param name="value">数据对象</param>
+        /// <param name="warning">警告提示状态</param>
+        /// <param name="config">配置参数</param>
+        /// <returns>XML 字符串</returns>
+#if NetStandard21
+        public static string SerializeObject(object? value, out AutoCSer.TextSerialize.WarningEnum warning, XmlSerializeConfig? config = null)
+#else
+        public static string SerializeObject(object value, out AutoCSer.TextSerialize.WarningEnum warning, XmlSerializeConfig config = null)
+#endif
+        {
+            if (value != null)
+            {
+                KeyValue<string, AutoCSer.TextSerialize.WarningEnum> xml = AutoCSer.Extensions.Metadata.GenericType.Get(value.GetType()).XmlSerializeObjectGenericDelegate(value, config);
+                warning = xml.Value;
+                return xml.Key;
+            }
+            return Serialize(ref value, out warning, config);
+        }
+        /// <summary>
+        /// 对象转换 XML 字符串
+        /// </summary>
+        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <param name="objectValue">数据对象</param>
+        /// <param name="config">配置参数</param>
+        /// <returns>XML 字符串 + 警告提示状态</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static KeyValue<string, AutoCSer.TextSerialize.WarningEnum> Serialize<T>(object objectValue, XmlSerializeConfig? config)
+#else
+        internal static KeyValue<string, AutoCSer.TextSerialize.WarningEnum> Serialize<T>(object objectValue, XmlSerializeConfig config)
+#endif
+        {
+            var value = (T)objectValue;
+            AutoCSer.TextSerialize.WarningEnum warning;
+            return new KeyValue<string, AutoCSer.TextSerialize.WarningEnum>(Serialize(ref value, out warning, config), warning);
+        }
+        /// <summary>
+        /// 对象转换 XML 字符串
+        /// </summary>
+        /// <param name="value">数据对象</param>
+        /// <param name="charStream">XML 输出缓冲区</param>
+        /// <param name="config">配置参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static AutoCSer.TextSerialize.WarningEnum SerializeObject(object? value, CharStream charStream, XmlSerializeConfig? config = null)
+#else
+        public static AutoCSer.TextSerialize.WarningEnum SerializeObject(object value, CharStream charStream, XmlSerializeConfig config = null)
+#endif
+        {
+            if (value != null) return AutoCSer.Extensions.Metadata.GenericType.Get(value.GetType()).XmlSerializeStreamObjectDelegate(value, charStream, config);
+            return Serialize(ref value, charStream, config);
+        }
+        /// <summary>
+        /// 对象转换 XML 字符串
+        /// </summary>
+        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <param name="objectValue">数据对象</param>
+        /// <param name="charStream">XML 输出缓冲区</param>
+        /// <param name="config">配置参数</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static AutoCSer.TextSerialize.WarningEnum Serialize<T>(object objectValue, CharStream charStream, XmlSerializeConfig? config)
+#else
+        internal static AutoCSer.TextSerialize.WarningEnum Serialize<T>(object objectValue, CharStream charStream, XmlSerializeConfig config)
+#endif
+        {
+            var value = (T)objectValue;
+            return Serialize(ref value, charStream, config);
+        }
+#endif
 
         /// <summary>
         /// 是否输出字符串
@@ -989,7 +1323,7 @@ namespace AutoCSer
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool IsOutputSubString(XmlSerializer xmlSerializer, SubString value)
+        public static bool IsOutputSubString(XmlSerializer xmlSerializer, SubString value)
         {
             return value.Length != 0 || xmlSerializer.Config.IsOutputEmptyString;
         }
@@ -1016,9 +1350,9 @@ namespace AutoCSer
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static bool IsOutputString(XmlSerializer xmlSerializer, string? value)
+        public static bool IsOutputString(XmlSerializer xmlSerializer, string? value)
 #else
-        internal static bool IsOutputString(XmlSerializer xmlSerializer, string value)
+        public static bool IsOutputString(XmlSerializer xmlSerializer, string value)
 #endif
         {
             return xmlSerializer.isOutputString(value);
@@ -1031,9 +1365,9 @@ namespace AutoCSer
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static bool IsOutput(XmlSerializer xmlSerializer, object? value)
+        public static bool IsOutput(XmlSerializer xmlSerializer, object? value)
 #else
-        internal static bool IsOutput(XmlSerializer xmlSerializer, object value)
+        public static bool IsOutput(XmlSerializer xmlSerializer, object value)
 #endif
         {
             return value != null || xmlSerializer.Config.IsOutputNull;
@@ -1046,7 +1380,7 @@ namespace AutoCSer
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool IsOutputNullable<T>(XmlSerializer xmlSerializer, T? value) where T : struct
+        public static bool IsOutputNullable<T>(XmlSerializer xmlSerializer, T? value) where T : struct
         {
             return value.HasValue || xmlSerializer.Config.IsOutputNull;
         }
@@ -1165,96 +1499,6 @@ namespace AutoCSer
                 finally { serializer.Free(); }
             }
             return TextSerialize.WarningEnum.ResizeError;
-        }
-
-        /// <summary>
-        /// 对象转换 XML 字符串
-        /// </summary>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>XML 字符串</returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        public static string SerializeObject(object? value, XmlSerializeConfig? config = null)
-#else
-        public static string SerializeObject(object value, XmlSerializeConfig config = null)
-#endif
-        {
-            if (value != null) return AutoCSer.Extensions.Metadata.GenericType.Get(value.GetType()).XmlSerializeObjectGenericDelegate(value, config).Key;
-            AutoCSer.TextSerialize.WarningEnum warning;
-            return Serialize(ref value, out warning, config);
-        }
-        /// <summary>
-        /// 对象转换 XML 字符串
-        /// </summary>
-        /// <param name="value">数据对象</param>
-        /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>XML 字符串</returns>
-#if NetStandard21
-        public static string SerializeObject(object? value, out AutoCSer.TextSerialize.WarningEnum warning, XmlSerializeConfig? config = null)
-#else
-        public static string SerializeObject(object value, out AutoCSer.TextSerialize.WarningEnum warning, XmlSerializeConfig config = null)
-#endif
-        {
-            if (value != null)
-            {
-                KeyValue<string, AutoCSer.TextSerialize.WarningEnum> xml = AutoCSer.Extensions.Metadata.GenericType.Get(value.GetType()).XmlSerializeObjectGenericDelegate(value, config);
-                warning = xml.Value;
-                return xml.Key;
-            }
-            return Serialize(ref value, out warning, config);
-        }
-        /// <summary>
-        /// 对象转换 XML 字符串
-        /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="objectValue">数据对象</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>XML 字符串 + 警告提示状态</returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        internal static KeyValue<string, AutoCSer.TextSerialize.WarningEnum> Serialize<T>(object objectValue, XmlSerializeConfig? config)
-#else
-        internal static KeyValue<string, AutoCSer.TextSerialize.WarningEnum> Serialize<T>(object objectValue, XmlSerializeConfig config)
-#endif
-        {
-            var value = (T)objectValue;
-            AutoCSer.TextSerialize.WarningEnum warning;
-            return new KeyValue<string, AutoCSer.TextSerialize.WarningEnum>(Serialize(ref value, out warning, config), warning);
-        }
-        /// <summary>
-        /// 对象转换 XML 字符串
-        /// </summary>
-        /// <param name="value">数据对象</param>
-        /// <param name="charStream">XML 输出缓冲区</param>
-        /// <param name="config">配置参数</param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        public static AutoCSer.TextSerialize.WarningEnum SerializeObject(object? value, CharStream charStream, XmlSerializeConfig? config = null)
-#else
-        public static AutoCSer.TextSerialize.WarningEnum SerializeObject(object value, CharStream charStream, XmlSerializeConfig config = null)
-#endif
-        {
-            if (value != null) return AutoCSer.Extensions.Metadata.GenericType.Get(value.GetType()).XmlSerializeStreamObjectDelegate(value, charStream, config);
-            return Serialize(ref value, charStream, config);
-        }
-        /// <summary>
-        /// 对象转换 XML 字符串
-        /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="objectValue">数据对象</param>
-        /// <param name="charStream">XML 输出缓冲区</param>
-        /// <param name="config">配置参数</param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        internal static AutoCSer.TextSerialize.WarningEnum Serialize<T>(object objectValue, CharStream charStream, XmlSerializeConfig? config)
-#else
-        internal static AutoCSer.TextSerialize.WarningEnum Serialize<T>(object objectValue, CharStream charStream, XmlSerializeConfig config)
-#endif
-        {
-            var value = (T)objectValue;
-            return Serialize(ref value, charStream, config);
         }
 
         /// <summary>
@@ -1382,7 +1626,50 @@ namespace AutoCSer
             SerializeDelegates.Add(typeof(SubString), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, SubString>)primitiveSerialize));
             SerializeDelegates.Add(typeof(object), new AutoCSer.TextSerialize.DelegateReference { Delegate = new AutoCSer.TextSerialize.SerializeDelegate((Action<XmlSerializer, object>)primitiveSerialize), PushType = AutoCSer.TextSerialize.PushTypeEnum.DepthCount, IsUnknownMember = true, IsCompleted = true });
             SerializeDelegates.Add(typeof(XmlNode), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, XmlNode>)primitiveSerialize));
-#if !AOT
+#if AOT
+            foreach (MethodInfo method in typeof(XmlSerializer).GetMethods(BindingFlags.Static | BindingFlags.Public))
+            {
+                switch (method.Name.Length)
+                {
+                    case 4:
+                        if (method.Name == nameof(Base)) BaseMethod = method;
+                        break;
+                    case 5:
+                        if (method.Name == nameof(Array)) ArrayMethod = method;
+                        break;
+                    case 6:
+                        if (method.Name == nameof(Object)) ObjectMethod = method;
+                        break;
+                    case 7:
+                        if (method.Name == nameof(EnumInt)) EnumIntMethod = method;
+                        else if (method.Name == nameof(ICustom)) ICustomMethod = method;
+                        break;
+                    case 8:
+                        if (method.Name == nameof(EnumByte)) EnumByteMethod = method;
+                        else if (method.Name == nameof(EnumLong)) EnumLongMethod = method;
+                        else if (method.Name == nameof(EnumUInt)) EnumUIntMethod = method;
+                        else if (method.Name == nameof(Nullable)) NullableMethod = method;
+                        else if (method.Name == nameof(KeyValue)) KeyValueMethod = method;
+                        break;
+                    case 9:
+                        if (method.Name == nameof(EnumULong)) EnumULongMethod = method;
+                        else if (method.Name == nameof(EnumShort)) EnumShortMethod = method;
+                        else if (method.Name == nameof(EnumSByte)) EnumSByteMethod = method;
+                        break;
+                    case 10:
+                        if (method.Name == nameof(Collection)) CollectionMethod = method;
+                        else if (method.Name == nameof(EnumUShort)) EnumUShortMethod = method;
+                        else if (method.Name == nameof(NotSupport)) NotSupportMethod = method;
+                        break;
+                    case 12:
+                        if (method.Name == nameof(KeyValuePair)) KeyValuePairMethod = method;
+                        break;
+                    case 16:
+                        if (method.Name == nameof(NullableHasValue)) NullableHasValueMethod = method;
+                        break;
+                }
+            }
+#else
             foreach (AutoCSer.TextSerialize.SerializeDelegate serializeDelegate in CustomConfig.PrimitiveSerializeDelegates)
             {
                 var type = default(Type);

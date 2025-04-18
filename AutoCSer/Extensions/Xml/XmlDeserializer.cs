@@ -14,6 +14,14 @@ namespace AutoCSer
     public unsafe sealed partial class XmlDeserializer : TextDeserializer<XmlDeserializer>
     {
         /// <summary>
+        /// XML 反序列化方法名称
+        /// </summary>
+        internal const string XmlDeserializeMethodName = "XmlDeserialize";
+        /// <summary>
+        /// 获取 XML 反序列化成员名称
+        /// </summary>
+        internal const string XmlDeserializeMemberNameMethodName = "XmlDeserializeMemberNames";
+        /// <summary>
         /// 默认解析所有成员
         /// </summary>
         internal static readonly XmlSerializeAttribute AllMemberAttribute = XmlSerializer.ConfigurationAttribute ?? new XmlSerializeAttribute { Filter = Metadata.MemberFiltersEnum.Instance, IsBaseType = false };
@@ -1382,6 +1390,17 @@ namespace AutoCSer
             TypeDeserializer<T>.DefaultDeserializer(deserializer, ref value);
         }
         /// <summary>
+        /// 自定义反序列化
+        /// </summary>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void ICustom<T>(AutoCSer.XmlDeserializer deserializer, ref T value)
+             where T : ICustomSerialize<T>
+        {
+            value.Deserialize(deserializer);
+        }
+        /// <summary>
         /// 数组解析
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1389,9 +1408,9 @@ namespace AutoCSer
         /// <param name="array"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void Array<T>(XmlDeserializer deserializer, ref T?[]? array)
+        public static void Array<T>(XmlDeserializer deserializer, ref T?[]? array)
 #else
-        internal static void Array<T>(XmlDeserializer deserializer, ref T[] array)
+        public static void Array<T>(XmlDeserializer deserializer, ref T[] array)
 #endif
         {
             TypeDeserializer<T>.Array(deserializer, ref array);
@@ -1400,13 +1419,12 @@ namespace AutoCSer
         /// 数组解析
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="deserializer">XML 反序列化</param>
         /// <param name="values"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void LeftArray<T>(XmlDeserializer deserializer, ref LeftArray<T?> values)
+        public void XmlDeserialize<T>(ref LeftArray<T?> values)
 #else
-        internal static void LeftArray<T>(XmlDeserializer deserializer, ref LeftArray<T> values)
+        public void XmlDeserialize<T>(ref LeftArray<T> values)
 #endif
         {
 #if NetStandard21
@@ -1414,7 +1432,7 @@ namespace AutoCSer
 #else
             var array = default(T[]);
 #endif
-            int count = TypeDeserializer<T>.ArrayIndex(deserializer, ref array);
+            int count = TypeDeserializer<T>.ArrayIndex(this, ref array);
 #if NetStandard21
             if (count != -1) values = new LeftArray<T?>(count, array.notNull());
 #else
@@ -1429,9 +1447,23 @@ namespace AutoCSer
         /// <param name="values"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void ListArray<T>(XmlDeserializer deserializer, ref ListArray<T?>? values)
+        public static void LeftArray<T>(XmlDeserializer deserializer, ref LeftArray<T?> values)
 #else
-        internal static void ListArray<T>(XmlDeserializer deserializer, ref ListArray<T> values)
+        public static void LeftArray<T>(XmlDeserializer deserializer, ref LeftArray<T> values)
+#endif
+        {
+            deserializer.XmlDeserialize(ref values);
+        }
+        /// <summary>
+        /// 数组解析
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public void XmlDeserialize<T>(ref ListArray<T?>? values)
+#else
+        public void XmlDeserialize<T>(ref ListArray<T> values)
 #endif
         {
 #if NetStandard21
@@ -1439,12 +1471,27 @@ namespace AutoCSer
 #else
             var array = default(T[]);
 #endif
-            int count = TypeDeserializer<T>.ArrayIndex(deserializer, ref array);
+            int count = TypeDeserializer<T>.ArrayIndex(this, ref array);
 #if NetStandard21
             if (count != -1) values = new ListArray<T?>(count, array.notNull());
 #else
             if (count != -1) values = new ListArray<T>(count, array);
 #endif
+        }
+        /// <summary>
+        /// 数组解析
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer">XML 反序列化</param>
+        /// <param name="values"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static void ListArray<T>(XmlDeserializer deserializer, ref ListArray<T?>? values)
+#else
+        public static void ListArray<T>(XmlDeserializer deserializer, ref ListArray<T> values)
+#endif
+        {
+            deserializer.XmlDeserialize(ref values);
         }
         /// <summary>
         /// 集合解析
@@ -1464,25 +1511,51 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
-        /// <param name="deserializer">XML 反序列化</param>
         /// <param name="collection"></param>
 #if NetStandard21
-        internal static void Collection<T, VT>(XmlDeserializer deserializer, ref T? collection) where T : ICollection<VT?>
+        public void XmlDeserialize<T, VT>(ref T? collection) where T : ICollection<VT?>
 #else
-        internal static void Collection<T, VT>(XmlDeserializer deserializer, ref T collection) where T : ICollection<VT>
+        public void XmlDeserialize<T, VT>(ref T collection) where T : ICollection<VT>
 #endif
         {
-            if (deserializer.Constructor(out collection))
+            if (Constructor(out collection))
             {
-                string arrayItemName = deserializer.ArrayItemName;
+                string arrayItemName = ArrayItemName;
                 fixed (char* itemFixed = arrayItemName)
                 {
-                    foreach (var value in TypeDeserializer<VT>.Enumerable(deserializer, new AutoCSer.Memory.Pointer(itemFixed, arrayItemName.Length)))
+                    foreach (var value in TypeDeserializer<VT>.Enumerable(this, new AutoCSer.Memory.Pointer(itemFixed, arrayItemName.Length)))
                     {
                         collection.Add(value);
                     }
                 }
             }
+        }
+        /// <summary>
+        /// 集合反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="deserializer">XML 反序列化</param>
+        /// <param name="collection"></param>
+#if NetStandard21
+        public static void Collection<T, VT>(XmlDeserializer deserializer, ref T? collection) where T : ICollection<VT?>
+#else
+        public static void Collection<T, VT>(XmlDeserializer deserializer, ref T collection) where T : ICollection<VT>
+#endif
+        {
+            deserializer.XmlDeserialize<T, VT>(ref collection);
+        }
+        /// <summary>
+        /// 值类型对象解析
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">目标数据</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlDeserialize<T>(ref T? value) where T : struct
+        {
+            T newValue = value.HasValue ? value.Value : default(T);
+            TypeDeserializer<T>.DefaultDeserializer(this, ref newValue);
+            value = newValue;
         }
         /// <summary>
         /// 值类型对象解析
@@ -1491,11 +1564,9 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void Nullable<T>(XmlDeserializer deserializer, ref T? value) where T : struct
+        public static void Nullable<T>(XmlDeserializer deserializer, ref T? value) where T : struct
         {
-            T newValue = value.HasValue ? value.Value : default(T);
-            TypeDeserializer<T>.DefaultDeserializer(deserializer, ref newValue);
-            value = newValue;
+            deserializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 基类转换
@@ -1534,9 +1605,9 @@ namespace AutoCSer
         /// <param name="value">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void Base<T, BT>(XmlDeserializer deserializer, ref T? value) where T : class, BT
+        public static void Base<T, BT>(XmlDeserializer deserializer, ref T? value) where T : class, BT
 #else
-        internal static void Base<T, BT>(XmlDeserializer deserializer, ref T value) where T : class, BT
+        public static void Base<T, BT>(XmlDeserializer deserializer, ref T value) where T : class, BT
 #endif
         {
             deserializer.baseDeserialize<T, BT>(ref value);
@@ -1547,10 +1618,10 @@ namespace AutoCSer
         /// <typeparam name="KT"></typeparam>
         /// <typeparam name="VT"></typeparam>
         /// <param name="value">目标数据</param>
-        private void keyValuePair<KT, VT>(ref KeyValuePair<KT, VT> value)
+        public void XmlDeserialize<KT, VT>(ref KeyValuePair<KT, VT> value)
         {
-            KeyValue<KT, VT> keyValue = new KeyValue<KT, VT>(value.Key, value.Value);
-            TypeDeserializer<KeyValue<KT, VT>>.DefaultDeserializer(this, ref keyValue);
+            BinarySerializeKeyValue<KT, VT> keyValue = new BinarySerializeKeyValue<KT, VT>(value.Key, value.Value);
+            TypeDeserializer<BinarySerializeKeyValue<KT, VT>>.DefaultDeserializer(this, ref keyValue);
             value = new KeyValuePair<KT, VT>(keyValue.Key, keyValue.Value);
         }
         /// <summary>
@@ -1561,9 +1632,9 @@ namespace AutoCSer
         /// <param name="deserializer">XML 反序列化</param>
         /// <param name="value">目标数据</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void KeyValuePair<KT, VT>(XmlDeserializer deserializer, ref KeyValuePair<KT, VT> value)
+        public static void KeyValuePair<KT, VT>(XmlDeserializer deserializer, ref KeyValuePair<KT, VT> value)
         {
-            deserializer.keyValuePair(ref value);
+            deserializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 自定义反序列化不支持类型
@@ -1573,9 +1644,9 @@ namespace AutoCSer
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void NotSupport<T>(XmlDeserializer deserializer, ref T? value)
+        public static void NotSupport<T>(XmlDeserializer deserializer, ref T? value)
 #else
-        internal static void NotSupport<T>(XmlDeserializer deserializer, ref T value)
+        public static void NotSupport<T>(XmlDeserializer deserializer, ref T value)
 #endif
         {
             if (!XmlSerializer.CustomConfig.NotSupport(deserializer, ref value)) deserializer.State = DeserializeStateEnum.NotSupport;
@@ -1636,7 +1707,7 @@ namespace AutoCSer
         /// 逻辑值解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref bool value)
+        public void XmlDeserialize(ref bool value)
         {
             searchValue();
             if (IsCData != 2)
@@ -1779,7 +1850,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref float value)
+        public void XmlDeserialize(ref float value)
         {
             getValue();
             if (State == DeserializeStateEnum.Success)
@@ -1823,7 +1894,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref double value)
+        public void XmlDeserialize(ref double value)
         {
             getValue();
             if (State == DeserializeStateEnum.Success)
@@ -1867,7 +1938,7 @@ namespace AutoCSer
         /// 字符解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref char value)
+        public void XmlDeserialize(ref char value)
         {
             getValue();
             if (valueSize == 1)
@@ -1956,7 +2027,7 @@ namespace AutoCSer
         /// Guid解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref Guid value)
+        public void XmlDeserialize(ref Guid value)
         {
             getValue();
             if (State == DeserializeStateEnum.Success)
@@ -2009,9 +2080,9 @@ namespace AutoCSer
         /// </summary>
         /// <param name="value">数据</param>
 #if NetStandard21
-        public void PrimitiveDeserialize(ref string? value)
+        public void XmlDeserialize(ref string? value)
 #else
-        public void PrimitiveDeserialize(ref string value)
+        public void XmlDeserialize(ref string value)
 #endif
         {
             space();
@@ -2075,13 +2146,13 @@ namespace AutoCSer
         private static void primitiveDeserialize(XmlDeserializer serializer, ref string value)
 #endif
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 字符串解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref SubString value)
+        public void XmlDeserialize(ref SubString value)
         {
             space();
             if (State != DeserializeStateEnum.Success) return;
@@ -2149,20 +2220,20 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref SubString value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// 对象解析
         /// </summary>
         /// <param name="value">数据</param>
 #if NetStandard21
-        public void PrimitiveDeserialize(ref object? value)
+        public void XmlDeserialize(ref object? value)
 #else
-        public void PrimitiveDeserialize(ref object value)
+        public void XmlDeserialize(ref object value)
 #endif
         {
             XmlNode node = default(XmlNode);
-            PrimitiveDeserialize(ref node);
+            XmlDeserialize(ref node);
             if (State == DeserializeStateEnum.Success) value = node;
             //IgnoreValue();
         }
@@ -2178,13 +2249,13 @@ namespace AutoCSer
         private static void primitiveDeserialize(XmlDeserializer serializer, ref object value)
 #endif
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
         /// <summary>
         /// XML节点解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref XmlNode value)
+        public void XmlDeserialize(ref XmlNode value)
         {
             space();
             if (State != DeserializeStateEnum.Success) return;
@@ -2225,7 +2296,7 @@ namespace AutoCSer
                     attributes = Config.IsAttribute && this.attributes.Length != 0 ? this.attributes.GetArray() : null;
                     if (isTagEnd == 0)
                     {
-                        PrimitiveDeserialize(ref nodes.Array[nodes.Length].Value);
+                        XmlDeserialize(ref nodes.Array[nodes.Length].Value);
                         if (State != DeserializeStateEnum.Success || CheckNameEnd(nameStart, nameSize) == 0) return;
                     }
                     if (attributes != null) nodes.Array[nodes.Length].Value.SetAttribute(text, attributes);
@@ -2270,8 +2341,133 @@ namespace AutoCSer
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref XmlNode value)
         {
-            serializer.PrimitiveDeserialize(ref value);
+            serializer.XmlDeserialize(ref value);
         }
+#if AOT
+        /// <summary>
+        /// 解析委托
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer">XML 反序列化</param>
+        /// <param name="value">目标数据</param>
+        /// <param name="memberIndex"></param>
+        internal delegate void MemberDeserializeDelegate<T>(XmlDeserializer deserializer, ref T value, int memberIndex);
+        /// <summary>
+        /// 数组解析
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlDeserialize<T>(ref T?[]? array)
+        {
+            TypeDeserializer<T>.Array(this, ref array);
+        }
+        /// <summary>
+        /// 键值对解析
+        /// </summary>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="value">目标数据</param>
+        public void XmlDeserialize<KT, VT>(ref KeyValue<KT, VT> value)
+        {
+            BinarySerializeKeyValue<KT, VT> keyValue = new BinarySerializeKeyValue<KT, VT>(value.Key, value.Value);
+            TypeDeserializer<BinarySerializeKeyValue<KT, VT>>.DefaultDeserializer(this, ref keyValue);
+            value = new KeyValue<KT, VT>(keyValue.Key, keyValue.Value);
+        }
+        /// <summary>
+        /// 键值对解析
+        /// </summary>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="deserializer">XML 反序列化</param>
+        /// <param name="value">目标数据</param>
+        public static void KeyValue<KT, VT>(XmlDeserializer deserializer, ref KeyValue<KT, VT> value)
+        {
+            deserializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// XML 反序列化
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlDeserialize<T>(ref T? value)
+        {
+            TypeDeserializer<T>.DefaultDeserializer(this, ref value);
+        }
+        /// <summary>
+        /// 代码生成调用激活 AOT 反射
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void XmlDeserialize<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicParameterlessConstructor | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)] T>()
+        {
+        }
+        /// <summary>
+        /// 不支持类型反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo NotSupportMethod;
+        /// <summary>
+        /// 基类反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo BaseMethod;
+        /// <summary>
+        /// 自定义反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo ICustomMethod;
+        /// <summary>
+        /// 数组反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo LeftArrayMethod;
+        /// <summary>
+        /// 数组反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo ListArrayMethod;
+        /// <summary>
+        /// 数组反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo ArrayMethod;
+        /// <summary>
+        /// 可空数据反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo NullableMethod;
+        /// <summary>
+        /// 集合反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo CollectionMethod;
+        /// <summary>
+        /// 键值对反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo KeyValueMethod;
+        /// <summary>
+        /// 键值对反序列化
+        /// </summary>
+        internal static readonly System.Reflection.MethodInfo KeyValuePairMethod;
+        /// <summary>
+        /// 枚举序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        internal void DeserializeMethodName<T>(ref T value) { }
+        /// <summary>
+        /// 枚举序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        internal void EnumXmlDeserializeMethodName<T>(ref T value) { }
+        ///// <summary>
+        ///// 反序列化模板
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        //internal static void XmlDeserialize<T>() { }
+        /// <summary>
+        /// 反序列化模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        internal static void ReflectionMethodName<T, VT>(JsonDeserializer deserializer, ref VT value) { }
+#endif
 
         /// <summary>
         /// XML 反序列化
@@ -2905,7 +3101,60 @@ namespace AutoCSer
             deserializeDelegates.Add(typeof(string), (DeserializeDelegate<string>)primitiveDeserialize);
             deserializeDelegates.Add(typeof(object), (DeserializeDelegate<object>)primitiveDeserialize);
 #endif
-#if !AOT
+#if AOT
+            foreach (System.Reflection.MethodInfo method in typeof(XmlDeserializer).GetMethods(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public))
+            {
+                switch (method.Name.Length)
+                {
+                    case 4:
+                        if (method.Name == nameof(Base)) BaseMethod = method;
+                        break;
+                    case 5:
+                        if (method.Name == nameof(Array)) ArrayMethod = method;
+                        break;
+                    case 7:
+                        if (method.Name == nameof(EnumInt)) EnumIntMethod = method;
+                        else if (method.Name == nameof(ICustom)) ICustomMethod = method;
+                        break;
+                    case 8:
+                        if (method.Name == nameof(EnumByte)) EnumByteMethod = method;
+                        else if (method.Name == nameof(EnumLong)) EnumLongMethod = method;
+                        else if (method.Name == nameof(EnumUInt)) EnumUIntMethod = method;
+                        else if (method.Name == nameof(Nullable)) NullableMethod = method;
+                        else if (method.Name == nameof(KeyValue)) KeyValueMethod = method;
+                        break;
+                    case 9:
+                        if (method.Name == nameof(EnumULong)) EnumULongMethod = method;
+                        else if (method.Name == nameof(LeftArray)) LeftArrayMethod = method;
+                        else if (method.Name == nameof(EnumShort)) EnumShortMethod = method;
+                        else if (method.Name == nameof(EnumSByte)) EnumSByteMethod = method;
+                        else if (method.Name == nameof(ListArray)) ListArrayMethod = method;
+                        break;
+                    case 10:
+                        if (method.Name == nameof(Collection)) CollectionMethod = method;
+                        else if (method.Name == nameof(EnumUShort)) EnumUShortMethod = method;
+                        else if (method.Name == nameof(NotSupport)) NotSupportMethod = method;
+                        break;
+                    case 12:
+                        if (method.Name == nameof(EnumFlagsInt)) EnumFlagsIntMethod = method;
+                        else if (method.Name == nameof(KeyValuePair)) KeyValuePairMethod = method;
+                        break;
+                    case 13:
+                        if (method.Name == nameof(EnumFlagsUInt)) EnumFlagsUIntMethod = method;
+                        else if (method.Name == nameof(EnumFlagsLong)) EnumFlagsLongMethod = method;
+                        else if (method.Name == nameof(EnumFlagsByte)) EnumFlagsByteMethod = method;
+                        break;
+                    case 14:
+                        if (method.Name == nameof(EnumFlagsULong)) EnumFlagsULongMethod = method;
+                        else if (method.Name == nameof(EnumFlagsSByte)) EnumFlagsSByteMethod = method;
+                        else if (method.Name == nameof(EnumFlagsShort)) EnumFlagsShortMethod = method;
+                        break;
+                    case 15:
+                         if (method.Name == nameof(EnumFlagsUShort)) EnumFlagsUShortMethod = method;
+                        break;
+                }
+            }
+#else
             foreach (Delegate deserializeDelegate in AutoCSer.XmlSerializer.CustomConfig.PrimitiveDeserializeDelegates)
             {
                 var type = AutoCSer.Common.CheckDeserializeType(typeof(XmlDeserializer), deserializeDelegate);

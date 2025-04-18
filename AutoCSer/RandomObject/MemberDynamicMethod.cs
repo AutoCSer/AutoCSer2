@@ -61,7 +61,7 @@ namespace AutoCSer.RandomObject
             if (bastType == typeof(object)) return;
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldarg_1);
-            generator.call(AutoCSer.RandomObject.Metadata.GenericType.Get(bastType).CreateMemberDelegate.Method);
+            generator.call(AutoCSer.RandomObject.Metadata.GenericType.Get(bastType).CreateBaseDelegate.Method);
         }
         /// <summary>
         /// 创建委托

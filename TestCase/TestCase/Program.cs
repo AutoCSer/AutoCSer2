@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase
@@ -28,7 +29,6 @@ namespace AutoCSer.TestCase
         }
         private static async Task test()
         {
-
             AutoCSer.FieldEquals.Comparor.IsBreakpoint = true;
 
             //服务端设置允许的泛型参数类型
@@ -66,7 +66,7 @@ namespace AutoCSer.TestCase
                         Task<bool> commandServerTask = CommandServer.TestCase();
                         Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
                         Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
-                        Task<bool> binarySerializeTask = ThreadPool.TinyBackground.RunTask(BinarySerialize.TestCase);
+                        Task<bool> binarySerializeTask = BinarySerialize.TestCase();
                         Task<bool> jsonTask = ThreadPool.TinyBackground.RunTask(Json.TestCase);
                         Task<bool> xmlTask = ThreadPool.TinyBackground.RunTask(Xml.TestCase);
                         if (!await commandServerTask) { errorType = typeof(CommandServer); break; }

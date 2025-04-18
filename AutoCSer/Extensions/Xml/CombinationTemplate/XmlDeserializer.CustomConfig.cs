@@ -12,7 +12,7 @@ namespace AutoCSer
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
-        public void PrimitiveDeserialize(ref decimal value)
+        public void XmlDeserialize(ref decimal value)
         {
             getValue();
             if (State == AutoCSer.Xml.DeserializeStateEnum.Success)

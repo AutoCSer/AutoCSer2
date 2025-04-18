@@ -19,7 +19,6 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static StructGenericType create<T>() where T : struct
         {
             return new StructGenericType<T>();
@@ -60,6 +59,6 @@ namespace AutoCSer.FieldEquals.Metadata
         /// <summary>
         /// 可空类型比较委托
         /// </summary>
-        internal override Delegate NullableDelegate { get { return (Func<T?, T?, bool>)Comparor.Equals<T>; } }
+        internal override Delegate NullableDelegate { get { return (Func<T?, T?, bool>)Comparor.NullableEquals<T>; } }
     }
 }

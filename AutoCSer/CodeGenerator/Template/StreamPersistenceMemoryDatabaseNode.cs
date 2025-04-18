@@ -1,5 +1,4 @@
-﻿using AutoCSer.CodeGenerator.Metadata;
-using System;
+﻿using System;
 
 #pragma warning disable
 namespace AutoCSer.CodeGenerator.Template
@@ -36,5 +35,6 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion LOOP Methods
         }
         #endregion PART CLASS
+        internal const int MethodIndex = 0;
     }
 }

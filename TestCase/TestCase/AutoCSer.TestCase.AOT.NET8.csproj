@@ -7,6 +7,8 @@
     <RootNamespace>AutoCSer.TestCase</RootNamespace>
     <LangVersion>8.0</LangVersion>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <PublishAot>True</PublishAot>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -51,8 +53,8 @@
     <Compile Include="ReusableDictionary.cs" />
     <Compile Include="SearchTree.cs" />
     <Compile Include="Json.cs" />
-    <Compile Include="{AutoCSer.TestCase}.AOT.AutoCSer.cs" />
-    <Compile Include="{AutoCSer.TestCase}.AutoCSer.cs" />
+    <Compile Include="Xml.cs" />
+    <Compile Include="{AutoCSer.TestCase.AOT}.AOT.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,7 +71,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
   </Target>
   
 </Project>

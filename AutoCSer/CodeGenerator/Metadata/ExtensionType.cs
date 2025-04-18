@@ -219,7 +219,7 @@ namespace AutoCSer.CodeGenerator.Metadata
                 return EnumerableType != null ? enumerableArgumentType : null;
             }
         }
-#if !DotNet45
+#if !DotNet45 && !AOT
         /// <summary>
         /// 客户端视图绑定类型
         /// </summary>

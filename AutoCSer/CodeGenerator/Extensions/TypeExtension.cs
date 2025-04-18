@@ -103,5 +103,22 @@ namespace AutoCSer.CodeGenerator.Extensions
                 return typeNameBuilder.NameStream.ToString();
             }
         }
+        /// <summary>
+        /// 是否包含泛型参数
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        internal static bool isGenericParameter(this Type type)
+        {
+            if (type.IsGenericParameter) return true;
+            if (type.IsGenericType)
+            {
+                foreach(Type genericType in type.GetGenericArguments())
+                {
+                    if (isGenericParameter(genericType)) return true;
+                }
+            }
+            return false;
+        }
     }
 }

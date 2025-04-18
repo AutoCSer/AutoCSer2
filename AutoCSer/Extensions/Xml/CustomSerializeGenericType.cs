@@ -25,7 +25,6 @@ namespace AutoCSer.Xml
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static CustomSerializeGenericType create<T>()
             where T : ICustomSerialize<T>
         {

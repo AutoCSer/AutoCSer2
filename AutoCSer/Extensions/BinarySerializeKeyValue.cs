@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer
@@ -8,6 +9,9 @@ namespace AutoCSer
     /// </summary>
     /// <typeparam name="KT">键类型</typeparam>
     /// <typeparam name="VT">值类型</typeparam>
+#if AOT
+    [AutoCSer.CodeGenerator.XmlSerialize]
+#endif
     [RemoteType]
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
@@ -30,6 +34,24 @@ namespace AutoCSer
         {
             Key = key;
             Value = value;
+        }
+        /// <summary>
+        /// 键值对
+        /// </summary>
+        /// <param name="keyValue">键值对</param>
+        public BinarySerializeKeyValue(KeyValue<KT, VT> keyValue)
+        {
+            Key = keyValue.Key;
+            Value = keyValue.Value;
+        }
+        /// <summary>
+        /// 键值对
+        /// </summary>
+        /// <param name="keyValue">键值对</param>
+        public BinarySerializeKeyValue(KeyValuePair<KT, VT> keyValue)
+        {
+            Key = keyValue.Key;
+            Value = keyValue.Value;
         }
         /// <summary>
         /// 重置键值对

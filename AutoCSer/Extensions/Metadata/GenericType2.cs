@@ -9,6 +9,20 @@ namespace AutoCSer.Extensions.Metadata
     /// </summary>
     internal abstract class GenericType2 : AutoCSer.Metadata.GenericTypeCache2<GenericType2>
     {
+#if AOT
+        /// <summary>
+        /// XML 键值对序列化委托
+        /// </summary>
+        internal abstract Delegate XmlSerializeKeyValuePairDelegate { get; }
+        /// <summary>
+        /// XML 键值对序列化委托
+        /// </summary>
+        internal abstract Delegate XmlSerializeKeyValueDelegate { get; }
+        /// <summary>
+        /// XML 键值对序列化委托
+        /// </summary>
+        internal abstract Delegate XmlDeserializeKeyValueDelegate { get; }
+#endif
         /// <summary>
         /// XML 键值对序列化委托
         /// </summary>
@@ -21,7 +35,6 @@ namespace AutoCSer.Extensions.Metadata
         /// <typeparam name="T2"></typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        [AutoCSer.AOT.Preserve(Conditional = true)]
         private static GenericType2 create<T1, T2>()
         {
             return new GenericType2<T1, T2>();
@@ -76,6 +89,20 @@ namespace AutoCSer.Extensions.Metadata
         /// </summary>
         internal override Type CurrentType2 { get { return typeof(T2); } }
 
+#if AOT
+        /// <summary>
+        /// XML 键值对序列化委托
+        /// </summary>
+        internal override Delegate XmlSerializeKeyValuePairDelegate { get { return (Action<XmlSerializer, KeyValuePair<T1, T2>>)XmlSerializer.KeyValuePair<T1, T2>; } }
+        /// <summary>
+        /// XML 键值对序列化委托
+        /// </summary>
+        internal override Delegate XmlSerializeKeyValueDelegate { get { return (Action<XmlSerializer, KeyValue<T1, T2>>)XmlSerializer.KeyValue<T1, T2>; } }
+        /// <summary>
+        /// XML 键值对序列化委托
+        /// </summary>
+        internal override Delegate XmlDeserializeKeyValueDelegate { get { return (XmlDeserializer.DeserializeDelegate<KeyValue<T1, T2>>)XmlDeserializer.KeyValue<T1, T2>; } }
+#endif
         /// <summary>
         /// XML 键值对序列化委托
         /// </summary>

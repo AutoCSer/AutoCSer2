@@ -200,6 +200,8 @@ Press quit to exit.");
                 await waitProcess(@"Document\ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
                 await waitProcess(@"Document\ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
                 await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
+                await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.AOT.exe");
+                await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\publish\AutoCSer.TestCase.AOT.exe");
 
                 await waitProcess(@"TestCase\TimestampVerify\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerify.exe", @"TestCase\TimestampVerify\Client\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerifyClient.exe");
                 await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ServerRegistry\Service\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryService.exe", @"TestCase\ServerRegistry\Service\Client\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryServiceClient.exe");

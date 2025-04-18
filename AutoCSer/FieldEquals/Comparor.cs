@@ -1,11 +1,13 @@
 ﻿using AutoCSer.Extensions;
-using AutoCSer.FieldEquals.Metadata;
 using AutoCSer.Threading;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+#if !AOT
+using AutoCSer.FieldEquals.Metadata;
+#endif
 
 namespace AutoCSer.FieldEquals
 {
@@ -15,13 +17,26 @@ namespace AutoCSer.FieldEquals
     public static partial class Comparor
     {
         /// <summary>
+        /// 对象对比方法名称
+        /// </summary>
+        internal const string FieldEqualsMethodName = "FieldEquals";
+        /// <summary>
+        /// 对象对比方法名称
+        /// </summary>
+        internal const string MemberMapFieldEqualsMethodName = "MemberMapFieldEquals";
+
+        /// <summary>
         /// 对象对比
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool CallEquals<T>(T left, T right)
+        public static bool CallEquals<
+#if AOT
+            [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)]
+#endif
+        T>(T left, T right)
         {
             return Comparor<T>.EqualsComparor(left, right);
         }
@@ -32,7 +47,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static new bool Equals(object left, object right)
+        public static bool ObjectEquals(object left, object right)
         {
             if (left == null ? right == null : right != null) return true;
             Breakpoint(typeof(object), left != null, right != null);
@@ -45,7 +60,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        internal static bool Equals(Half left, Half right)
+        public static bool Equals(Half left, Half right)
         {
             if (Half.IsNaN(left))
             {
@@ -63,7 +78,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        internal static bool Equals(float left, float right)
+        public static bool Equals(float left, float right)
         {
             if (float.IsNaN(left))
             {
@@ -80,7 +95,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        internal static bool Equals(double left, double right)
+        public static bool Equals(double left, double right)
         {
             if (double.IsNaN(left))
             {
@@ -99,12 +114,60 @@ namespace AutoCSer.FieldEquals
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool EquatableEquals<T>(T left, T right) where T : IEquatable<T>
+        public static bool EquatableEquals<T>(T left, T right) where T : IEquatable<T>
         {
             if (left.Equals(right)) return true;
-            Breakpoint(typeof(T));
+            Breakpoint(typeof(T), left, right);
             return false;
         }
+#if AOT
+        /// <summary>
+        /// 对象比较
+        /// </summary>
+        internal static readonly MethodInfo EquatableEqualsMethod = typeof(Comparor).GetMethod(nameof(EquatableEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 对象比较
+        /// </summary>
+        internal static readonly MethodInfo ReferenceEqualsMethod = typeof(Comparor).GetMethod(nameof(ReferenceEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 数组比较
+        /// </summary>
+        internal static readonly MethodInfo ArrayEqualsMethod = typeof(Comparor).GetMethod(nameof(ArrayEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 对象比较
+        /// </summary>
+        internal static readonly MethodInfo NullableEqualsMethod = typeof(Comparor).GetMethod(nameof(NullableEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 字典比较
+        /// </summary>
+        internal static readonly MethodInfo DictionaryEqualsMethod = typeof(Comparor).GetMethod(nameof(DictionaryEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 集合比较
+        /// </summary>
+        internal static readonly MethodInfo CollectionEqualsMethod = typeof(Comparor).GetMethod(nameof(CollectionEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 键值对比较
+        /// </summary>
+        internal static readonly MethodInfo KeyValueEqualsMethod = typeof(Comparor).GetMethod(nameof(KeyValueEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 键值对比较
+        /// </summary>
+        internal static readonly MethodInfo KeyValuePairEqualsMethod = typeof(Comparor).GetMethod(nameof(KeyValuePairEquals), BindingFlags.Static | BindingFlags.Public).notNull();
+        /// <summary>
+        /// 代码生成模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static bool ReflectionMethodName<T>(params object[] value) { return false; }
+        /// <summary>
+        /// 代码生成模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static bool EqualsMethodName<T>(params object[] value) { return false; }
+#endif
         /// <summary>
         /// 对象比较
         /// </summary>
@@ -113,7 +176,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool ReferenceEquals<T>(T left, T right) where T : IEquatable<T>
+        public static bool ReferenceEquals<T>(T left, T right) where T : IEquatable<T>
         {
             if (object.ReferenceEquals(left, right) || left.Equals(right)) return true;
             Breakpoint(typeof(T));
@@ -126,7 +189,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        internal static bool Equals<T>(T? left, T? right) where T : struct
+        public static bool NullableEquals<T>(T? left, T? right) where T : struct
         {
             if (!left.HasValue)
             {
@@ -143,7 +206,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="leftArray"></param>
         /// <param name="rightArray"></param>
         /// <returns></returns>
-        internal static bool Equals<T>(T[] leftArray, T[] rightArray)
+        public static bool ArrayEquals<T>(T[] leftArray, T[] rightArray)
         {
             if (object.ReferenceEquals(leftArray, rightArray)) return true;
             if (leftArray != null && rightArray != null)
@@ -170,7 +233,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="leftArray"></param>
         /// <param name="rightArray"></param>
         /// <returns></returns>
-        internal static bool Equals<T, VT>(T leftArray, T rightArray) where T : ICollection<VT>
+        public static bool CollectionEquals<T, VT>(T leftArray, T rightArray) where T : ICollection<VT>
         {
             if (object.ReferenceEquals(leftArray, rightArray)) return true;
             if (leftArray != null && rightArray != null)
@@ -206,7 +269,7 @@ namespace AutoCSer.FieldEquals
         /// <param name="leftArray"></param>
         /// <param name="rightArray"></param>
         /// <returns></returns>
-        internal static bool Equals<T, KT, VT>(T leftArray, T rightArray) where T : IDictionary<KT, VT>
+        public static bool DictionaryEquals<T, KT, VT>(T leftArray, T rightArray) where T : IDictionary<KT, VT>
         {
             if (object.ReferenceEquals(leftArray, rightArray)) return true;
             if(leftArray != null && rightArray != null)
@@ -232,6 +295,34 @@ namespace AutoCSer.FieldEquals
                 else Breakpoint(typeof(T), leftArray.Count, rightArray.Count);
             }
             else Breakpoint(typeof(T));
+            return false;
+        }
+        /// <summary>
+        /// 键值对比较
+        /// </summary>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool KeyValueEquals<KT, VT>(KeyValue<KT, VT> left, KeyValue<KT, VT> right)
+        {
+            if (Comparor<KT>.EqualsComparor(left.Key, right.Key) && Comparor<VT>.EqualsComparor(left.Value, right.Value)) return true;
+            Breakpoint(typeof(KeyValue<KT, VT>));
+            return false;
+        }
+        /// <summary>
+        /// 键值对比较
+        /// </summary>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool KeyValuePairEquals<KT, VT>(KeyValuePair<KT, VT> left, KeyValuePair<KT, VT> right)
+        {
+            if (Comparor<KT>.EqualsComparor(left.Key, right.Key) && Comparor<VT>.EqualsComparor(left.Value, right.Value)) return true;
+            Breakpoint(typeof(KeyValue<KT, VT>));
             return false;
         }
         /// <summary>
@@ -344,6 +435,20 @@ namespace AutoCSer.FieldEquals
         {
             return Comparor<T>.MemberMapEquals(left, right, memberMap);
         }
+
+        /// <summary>
+        /// 获取对象对比成员
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <returns></returns>
+        internal static IEnumerable<Member> GetFieldEqualsFields(FieldInfo[] fields)
+        {
+            foreach (FieldInfo field in fields)
+            {
+                MemberInfo member = field.getPropertyMemberInfo() ?? field;
+                if (member.GetCustomAttribute(typeof(IgnoreAttribute), false) == null) yield return new Member(field, member);
+            }
+        }
     }
     /// <summary>
     /// 对象对比
@@ -407,24 +512,85 @@ namespace AutoCSer.FieldEquals
 #endif
                 if (type == typeof(float)) return (Func<float, float, bool>)Comparor.Equals;
                 if (type == typeof(double)) return (Func<double, double, bool>)Comparor.Equals;
+#if AOT
+                if (type.IsValueType) return Comparor.EquatableEqualsMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                return Comparor.ReferenceEqualsMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+#else
                 EquatableGenericType equatableGenericType = EquatableGenericType.Get(type);
                 return (type.IsValueType ? equatableGenericType.EquatableEqualsDelegate : equatableGenericType.ReferenceEqualsDelegate);
+#endif
             }
             if (type.IsArray)
             {
-                if (type.GetArrayRank() == 1) return GenericType.Get(type.GetElementType().notNull()).ArrayDelegate;
+                if (type.GetArrayRank() == 1)
+                {
+#if AOT
+                    return Comparor.ArrayEqualsMethod.MakeGenericMethod(type.GetElementType().notNull()).CreateDelegate(typeof(Func<T, T, bool>));
+#else
+                    return GenericType.Get(type.GetElementType().notNull()).ArrayDelegate;
+#endif
+                }
                 return (Func<T, T, bool>)notSupport;
             }
-            if (type.IsEnum) return EnumGenericType.Get(type).EqualsDelegate;
-            if (type.isValueTypeNullable()) return StructGenericType.Get(type.GetGenericArguments()[0]).NullableDelegate;
+            if (type.IsEnum)
+            {
+#if AOT
+                switch (AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(type)))
+                {
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Int: return Comparor.EnumIntMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UInt: return Comparor.EnumUIntMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Byte: return Comparor.EnumByteMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.ULong: return Comparor.EnumULongMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.UShort: return Comparor.EnumUShortMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Long: return Comparor.EnumLongMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.Short: return Comparor.EnumShortMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                    case AutoCSer.Metadata.UnderlyingTypeEnum.SByte: return Comparor.EnumSByteMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
+                }
+#else
+                return EnumGenericType.Get(type).EqualsDelegate;
+#endif
+            }
+            if (type.isValueTypeNullable())
+            {
+#if AOT
+                return Comparor.NullableEqualsMethod.MakeGenericMethod(type.GetGenericArguments()[0]).CreateDelegate(typeof(Func<T, T, bool>));
+#else
+                return StructGenericType.Get(type.GetGenericArguments()[0]).NullableDelegate;
+#endif
+            }
+#if AOT
+            if (type.IsValueType && type.IsGenericType)
+            {
+                Type genericType = type.GetGenericTypeDefinition();
+                if (genericType == typeof(KeyValuePair<,>)) return Comparor.KeyValuePairEqualsMethod.MakeGenericMethod(type.GetGenericArguments()).CreateDelegate(typeof(Func<T, T, bool>));
+                if (genericType == typeof(KeyValue<,>)) return Comparor.KeyValueEqualsMethod.MakeGenericMethod(type.GetGenericArguments()).CreateDelegate(typeof(Func<T, T, bool>));
+            }
+#endif
+            var collectionType = default(Type);
             foreach (Type interfaceType in type.getGenericInterface())
             {
                 Type genericType = interfaceType.GetGenericTypeDefinition();
-                if (genericType == typeof(IDictionary<,>)) return DictionaryGenericType.Get(type, interfaceType).EqualsDelegate;
-                if (genericType == typeof(ICollection<>)) return CollectionGenericType.Get(type, interfaceType).EqualsDelegate;
+                if (genericType == typeof(IDictionary<,>))
+                {
+#if AOT
+                    Type[] types = interfaceType.GetGenericArguments();
+                    return Comparor.DictionaryEqualsMethod.MakeGenericMethod(type, types[0], types[1]).CreateDelegate(typeof(Func<T, T, bool>));
+#else
+                    return DictionaryGenericType.Get(type, interfaceType).EqualsDelegate;
+#endif
+                }
+                if (collectionType == null && genericType == typeof(ICollection<>)) collectionType = interfaceType;
+            }
+            if (collectionType != null)
+            {
+#if AOT
+                return Comparor.CollectionEqualsMethod.MakeGenericMethod(type, collectionType.GetGenericArguments()[0]).CreateDelegate(typeof(Func<T, T, bool>));
+#else
+                return CollectionGenericType.Get(type, collectionType).EqualsDelegate;
+#endif
             }
             if (type.IsPointer || type.IsInterface) return (Func<T, T, bool>)notSupport;
-            if (type == typeof(object)) return (Func<object, object, bool>)Comparor.Equals;
+            if (type == typeof(object)) return (Func<object, object, bool>)Comparor.ObjectEquals;
             return null;
         }
         static Comparor()
@@ -436,21 +602,38 @@ namespace AutoCSer.FieldEquals
                 MemberMapEqualsComparor = MemberMapEquals;
                 return;
             }
-            AutoCSer.Metadata.GenericType genericType =  new AutoCSer.Metadata.GenericType<T>();
-            MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(genericType, false);
-            foreach (FieldInfo field in typeof(T).GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly))
+            Type type = typeof(T);
+#if AOT
+
+            var method = type.GetMethod(Comparor.FieldEqualsMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type, type });
+            if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(bool))
             {
-                if ((field.getPropertyMemberInfo() ?? field).GetCustomAttribute(typeof(IgnoreAttribute), false) == null) dynamicMethod.Push(field);
+                var memberMapMethod = type.GetMethod(Comparor.MemberMapFieldEqualsMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type, type, typeof(AutoCSer.Metadata.MemberMap<T>) });
+                if (memberMapMethod != null && !memberMapMethod.IsGenericMethod && memberMapMethod.ReturnType == typeof(bool))
+                {
+                    EqualsComparor = (Func<T, T, bool>)method.CreateDelegate(typeof(Func<T, T, bool>));
+                    MemberMapEqualsComparor = (Func<T, T, AutoCSer.Metadata.MemberMap<T>, bool>)memberMapMethod.CreateDelegate(typeof(Func<T, T, AutoCSer.Metadata.MemberMap<T>, bool>));
+                    return;
+                }
+                throw new MissingMethodException(type.fullName(), Comparor.MemberMapFieldEqualsMethodName);
             }
+            throw new MissingMethodException(type.fullName(), Comparor.FieldEqualsMethodName);
+#else
+            FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly);
+            LeftArray<AutoCSer.Metadata.FieldIndex> memberMapFields = AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(type, AutoCSer.Metadata.MemberFiltersEnum.InstanceField);
+            AutoCSer.Metadata.GenericType genericType = new AutoCSer.Metadata.GenericType<T>();
+            MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(genericType, false);
+            foreach (Member member in Comparor.GetFieldEqualsFields(fields)) dynamicMethod.Push(member.Field);
             dynamicMethod.Base();
             EqualsComparor = (Func<T, T, bool>)dynamicMethod.Create(typeof(Func<T, T, bool>));
 
             dynamicMethod = new MemberDynamicMethod(genericType, true);
-            foreach (AutoCSer.Metadata.FieldIndex field in AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(typeof(T), AutoCSer.Metadata.MemberFiltersEnum.InstanceField))
+            foreach (AutoCSer.Metadata.FieldIndex field in memberMapFields)
             {
                 dynamicMethod.Push(field.Member, field.MemberIndex);
             }
             MemberMapEqualsComparor = (Func<T, T, AutoCSer.Metadata.MemberMap<T>, bool>)dynamicMethod.Create(typeof(Func<T, T, AutoCSer.Metadata.MemberMap<T>, bool>));
+#endif
         }
     }
 }
